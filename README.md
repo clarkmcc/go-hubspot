@@ -22,5 +22,5 @@ Authorization is done by passing context values in with each request. In order t
 ```go
 ctx := context.Background()
 authorizer := hubspot.NewAPIKeyAuthorizer("aa-bb-cc-dd")
-client.DoRequest(authorizer.Apply(ctx), ...) // this request is not authorized
+client.DoRequest(authorizer.Apply(ctx), ...) // this request is now authorized
 ```
