@@ -1,6 +1,11 @@
 ![](assets/go-hubspot-client-banner-01.png)
 This is a HubSpot Go client generated using [openapi-generator](https://github.com/OpenAPITools/openapi-generator). It includes packages for every OpenAPI spec listed in HubSpot's API [directory](https://api.hubspot.com/api-catalog-public/v1/apis).
 
+## Installing
+```shell
+go get github.com/clarkmcc/go-hubspot
+```
+
 ## Re-generating Clients
 This package includes a client generator that runs the `openapi-generator` binary (must be located in your PATH) and re-generates the Go clients using the most up-to-date API specs. Any changes to the specs should be committed to this repository through a PR. I'll do my best to keep this up to date with the most recent changes. Assuming that you have `openapi-generator` installed, just run the following to re-generate the clients.
 
