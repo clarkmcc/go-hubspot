@@ -71,9 +71,9 @@ func main() {
 	// The client configuration gets generated with a go module for each generated
 	// client. We'll go through and delete each submodule so that we can take advantage
 	// of the root parent module.
-	fmt.Println("fixing base path in generated clients")
+	fmt.Println("removing useless generated files")
 	err = filepath.Walk("generated", func(path string, info fs.FileInfo, err error) error {
-		if info.Name() != "go.mod" && info.Name() != "go.sum" {
+		if info.Name() != "go.mod" && info.Name() != "go.sum" && info.Name() != "git_push.sh" {
 			return nil
 		}
 		return os.Remove(path)

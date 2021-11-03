@@ -1,4 +1,4 @@
-![](assets/hubspot-go-client-01.png)
+![](assets/go-hubspot-client-banner-01.png)
 This is a HubSpot Go client generated using [openapi-generator](https://github.com/OpenAPITools/openapi-generator). It includes packages for every OpenAPI spec listed in HubSpot's API [directory](https://api.hubspot.com/api-catalog-public/v1/apis).
 
 ## Re-generating Clients
