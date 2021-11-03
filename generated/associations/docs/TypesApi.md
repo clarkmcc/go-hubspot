@@ -1,24 +1,67 @@
-# {{classname}}
+# \TypesApi
 
-All URIs are relative to *https://api.hubapi.com/*
+All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Getcrmv3associationsfromObjectTypetoObjectTypetypesGetAll**](TypesApi.md#Getcrmv3associationsfromObjectTypetoObjectTypetypesGetAll) | **Get** /crm/v3/associations/{fromObjectType}/{toObjectType}/types | List association types
+[**GetCrmV3AssociationsFromObjectTypeToObjectTypeTypesGetAll**](TypesApi.md#GetCrmV3AssociationsFromObjectTypeToObjectTypeTypesGetAll) | **Get** /crm/v3/associations/{fromObjectType}/{toObjectType}/types | List association types
 
-# **Getcrmv3associationsfromObjectTypetoObjectTypetypesGetAll**
-> CollectionResponsePublicAssociationDefiniton Getcrmv3associationsfromObjectTypetoObjectTypetypesGetAll(ctx, fromObjectType, toObjectType)
+
+
+## GetCrmV3AssociationsFromObjectTypeToObjectTypeTypesGetAll
+
+> CollectionResponsePublicAssociationDefiniton GetCrmV3AssociationsFromObjectTypeToObjectTypeTypesGetAll(ctx, fromObjectType, toObjectType).Execute()
+
 List association types
 
-List all the valid association types available between two object types
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    fromObjectType := "fromObjectType_example" // string | 
+    toObjectType := "toObjectType_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.TypesApi.GetCrmV3AssociationsFromObjectTypeToObjectTypeTypesGetAll(context.Background(), fromObjectType, toObjectType).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `TypesApi.GetCrmV3AssociationsFromObjectTypeToObjectTypeTypesGetAll``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetCrmV3AssociationsFromObjectTypeToObjectTypeTypesGetAll`: CollectionResponsePublicAssociationDefiniton
+    fmt.Fprintf(os.Stdout, "Response from `TypesApi.GetCrmV3AssociationsFromObjectTypeToObjectTypeTypesGetAll`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **fromObjectType** | **string**|  | 
-  **toObjectType** | **string**|  | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**fromObjectType** | **string** |  | 
+**toObjectType** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetCrmV3AssociationsFromObjectTypeToObjectTypeTypesGetAllRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
 
 ### Return type
 
@@ -30,8 +73,10 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json, */*
+- **Content-Type**: Not defined
+- **Accept**: application/json, */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 

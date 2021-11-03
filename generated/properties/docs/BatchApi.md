@@ -1,26 +1,66 @@
-# {{classname}}
+# \BatchApi
 
-All URIs are relative to *https://api.hubapi.com/*
+All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Postcrmv3propertiesobjectTypebatcharchiveArchive**](BatchApi.md#Postcrmv3propertiesobjectTypebatcharchiveArchive) | **Post** /crm/v3/properties/{objectType}/batch/archive | Archive a batch of properties
-[**Postcrmv3propertiesobjectTypebatchcreateCreate**](BatchApi.md#Postcrmv3propertiesobjectTypebatchcreateCreate) | **Post** /crm/v3/properties/{objectType}/batch/create | Create a batch of properties
-[**Postcrmv3propertiesobjectTypebatchreadRead**](BatchApi.md#Postcrmv3propertiesobjectTypebatchreadRead) | **Post** /crm/v3/properties/{objectType}/batch/read | Read a batch of properties
+[**PostCrmV3PropertiesObjectTypeBatchArchiveArchive**](BatchApi.md#PostCrmV3PropertiesObjectTypeBatchArchiveArchive) | **Post** /crm/v3/properties/{objectType}/batch/archive | Archive a batch of properties
+[**PostCrmV3PropertiesObjectTypeBatchCreateCreate**](BatchApi.md#PostCrmV3PropertiesObjectTypeBatchCreateCreate) | **Post** /crm/v3/properties/{objectType}/batch/create | Create a batch of properties
+[**PostCrmV3PropertiesObjectTypeBatchReadRead**](BatchApi.md#PostCrmV3PropertiesObjectTypeBatchReadRead) | **Post** /crm/v3/properties/{objectType}/batch/read | Read a batch of properties
 
-# **Postcrmv3propertiesobjectTypebatcharchiveArchive**
-> Postcrmv3propertiesobjectTypebatcharchiveArchive(ctx, body, objectType)
+
+
+## PostCrmV3PropertiesObjectTypeBatchArchiveArchive
+
+> PostCrmV3PropertiesObjectTypeBatchArchiveArchive(ctx, objectType).BatchInputPropertyName(batchInputPropertyName).Execute()
+
 Archive a batch of properties
 
-Archive a provided list of properties. This method will return a 204 No Content response on success regardless of the initial state of the property (e.g. active, already archived, non-existent).
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    objectType := "objectType_example" // string | 
+    batchInputPropertyName := *openapiclient.NewBatchInputPropertyName([]openapiclient.PropertyName{*openapiclient.NewPropertyName("Name_example")}) // BatchInputPropertyName | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.BatchApi.PostCrmV3PropertiesObjectTypeBatchArchiveArchive(context.Background(), objectType).BatchInputPropertyName(batchInputPropertyName).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.PostCrmV3PropertiesObjectTypeBatchArchiveArchive``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**BatchInputPropertyName**](BatchInputPropertyName.md)|  | 
-  **objectType** | **string**|  | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**objectType** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCrmV3PropertiesObjectTypeBatchArchiveArchiveRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **batchInputPropertyName** | [**BatchInputPropertyName**](BatchInputPropertyName.md) |  | 
 
 ### Return type
 
@@ -32,24 +72,67 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: application/json
+- **Accept**: */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **Postcrmv3propertiesobjectTypebatchcreateCreate**
-> BatchResponseProperty Postcrmv3propertiesobjectTypebatchcreateCreate(ctx, body, objectType)
+
+## PostCrmV3PropertiesObjectTypeBatchCreateCreate
+
+> BatchResponseProperty PostCrmV3PropertiesObjectTypeBatchCreateCreate(ctx, objectType).BatchInputPropertyCreate(batchInputPropertyCreate).Execute()
+
 Create a batch of properties
 
-Create a batch of properties using the same rules as when creating an individual property.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    objectType := "objectType_example" // string | 
+    batchInputPropertyCreate := *openapiclient.NewBatchInputPropertyCreate([]openapiclient.PropertyCreate{*openapiclient.NewPropertyCreate("Name_example", "Label_example", "Type_example", "FieldType_example", "GroupName_example")}) // BatchInputPropertyCreate | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.BatchApi.PostCrmV3PropertiesObjectTypeBatchCreateCreate(context.Background(), objectType).BatchInputPropertyCreate(batchInputPropertyCreate).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.PostCrmV3PropertiesObjectTypeBatchCreateCreate``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PostCrmV3PropertiesObjectTypeBatchCreateCreate`: BatchResponseProperty
+    fmt.Fprintf(os.Stdout, "Response from `BatchApi.PostCrmV3PropertiesObjectTypeBatchCreateCreate`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**BatchInputPropertyCreate**](BatchInputPropertyCreate.md)|  | 
-  **objectType** | **string**|  | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**objectType** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCrmV3PropertiesObjectTypeBatchCreateCreateRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **batchInputPropertyCreate** | [**BatchInputPropertyCreate**](BatchInputPropertyCreate.md) |  | 
 
 ### Return type
 
@@ -61,24 +144,67 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json, */*
+- **Content-Type**: application/json
+- **Accept**: application/json, */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **Postcrmv3propertiesobjectTypebatchreadRead**
-> BatchResponseProperty Postcrmv3propertiesobjectTypebatchreadRead(ctx, body, objectType)
+
+## PostCrmV3PropertiesObjectTypeBatchReadRead
+
+> BatchResponseProperty PostCrmV3PropertiesObjectTypeBatchReadRead(ctx, objectType).BatchReadInputPropertyName(batchReadInputPropertyName).Execute()
+
 Read a batch of properties
 
-Read a provided list of properties.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    objectType := "objectType_example" // string | 
+    batchReadInputPropertyName := *openapiclient.NewBatchReadInputPropertyName([]openapiclient.PropertyName{*openapiclient.NewPropertyName("Name_example")}, false) // BatchReadInputPropertyName | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.BatchApi.PostCrmV3PropertiesObjectTypeBatchReadRead(context.Background(), objectType).BatchReadInputPropertyName(batchReadInputPropertyName).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.PostCrmV3PropertiesObjectTypeBatchReadRead``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PostCrmV3PropertiesObjectTypeBatchReadRead`: BatchResponseProperty
+    fmt.Fprintf(os.Stdout, "Response from `BatchApi.PostCrmV3PropertiesObjectTypeBatchReadRead`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**BatchReadInputPropertyName**](BatchReadInputPropertyName.md)|  | 
-  **objectType** | **string**|  | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**objectType** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCrmV3PropertiesObjectTypeBatchReadReadRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **batchReadInputPropertyName** | [**BatchReadInputPropertyName**](BatchReadInputPropertyName.md) |  | 
 
 ### Return type
 
@@ -90,8 +216,10 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json, */*
+- **Content-Type**: application/json
+- **Accept**: application/json, */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 

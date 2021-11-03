@@ -1,24 +1,63 @@
-# {{classname}}
+# \UserAccountsApi
 
-All URIs are relative to *https://api.hubapi.com/*
+All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Deletecrmv3extensionsaccountinguserAccountsaccountIdArchive**](UserAccountsApi.md#Deletecrmv3extensionsaccountinguserAccountsaccountIdArchive) | **Delete** /crm/v3/extensions/accounting/user-accounts/{accountId} | Delete user account
-[**Putcrmv3extensionsaccountinguserAccountsReplace**](UserAccountsApi.md#Putcrmv3extensionsaccountinguserAccountsReplace) | **Put** /crm/v3/extensions/accounting/user-accounts | Create a user account
+[**DeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchive**](UserAccountsApi.md#DeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchive) | **Delete** /crm/v3/extensions/accounting/user-accounts/{accountId} | Delete user account
+[**PutCrmV3ExtensionsAccountingUserAccountsReplace**](UserAccountsApi.md#PutCrmV3ExtensionsAccountingUserAccountsReplace) | **Put** /crm/v3/extensions/accounting/user-accounts | Create a user account
 
-# **Deletecrmv3extensionsaccountinguserAccountsaccountIdArchive**
-> Deletecrmv3extensionsaccountinguserAccountsaccountIdArchive(ctx, accountId)
+
+
+## DeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchive
+
+> DeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchive(ctx, accountId).Execute()
+
 Delete user account
 
-Deletes a user account from HubSpot, meaning that HubSpot will no longer send requests to the external accounting system for this user.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    accountId := "accountId_example" // string | The ID of the user account to delete.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserAccountsApi.DeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchive(context.Background(), accountId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAccountsApi.DeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchive``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **accountId** | **string**| The ID of the user account to delete. | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**accountId** | **string** | The ID of the user account to delete. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchiveRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -30,23 +69,59 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **Putcrmv3extensionsaccountinguserAccountsReplace**
-> Putcrmv3extensionsaccountinguserAccountsReplace(ctx, body)
+
+## PutCrmV3ExtensionsAccountingUserAccountsReplace
+
+> PutCrmV3ExtensionsAccountingUserAccountsReplace(ctx).CreateUserAccountRequestExternal(createUserAccountRequestExternal).Execute()
+
 Create a user account
 
-Creates an account which contains the information about the account in the external accounting system.  This *must* be called after a user connects their HubSpot account to the external accounting system, as there is no other way for HubSpot to obtain the external account details.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    createUserAccountRequestExternal := *openapiclient.NewCreateUserAccountRequestExternal("AccountId_example", "AccountName_example", "CurrencyCode_example") // CreateUserAccountRequestExternal | The external accounting system user account information.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserAccountsApi.PutCrmV3ExtensionsAccountingUserAccountsReplace(context.Background()).CreateUserAccountRequestExternal(createUserAccountRequestExternal).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAccountsApi.PutCrmV3ExtensionsAccountingUserAccountsReplace``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutCrmV3ExtensionsAccountingUserAccountsReplaceRequest struct via the builder pattern
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**CreateUserAccountRequestExternal**](CreateUserAccountRequestExternal.md)| The external accounting system user account information. | 
+ **createUserAccountRequestExternal** | [**CreateUserAccountRequestExternal**](CreateUserAccountRequestExternal.md) | The external accounting system user account information. | 
 
 ### Return type
 
@@ -58,8 +133,10 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: application/json
+- **Accept**: */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 

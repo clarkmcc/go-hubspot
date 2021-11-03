@@ -1,23 +1,62 @@
-# {{classname}}
+# \ExtractApi
 
-All URIs are relative to *https://api.hubapi.com/*
+All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Postcmsv3sourceCodeextractpath**](ExtractApi.md#Postcmsv3sourceCodeextractpath) | **Post** /cms/v3/source-code/extract/{path} | Extracts a zip file
+[**PostCmsV3SourceCodeExtractPath**](ExtractApi.md#PostCmsV3SourceCodeExtractPath) | **Post** /cms/v3/source-code/extract/{path} | Extracts a zip file
 
-# **Postcmsv3sourceCodeextractpath**
-> Postcmsv3sourceCodeextractpath(ctx, path)
+
+
+## PostCmsV3SourceCodeExtractPath
+
+> PostCmsV3SourceCodeExtractPath(ctx, path).Execute()
+
 Extracts a zip file
 
-Extracts a zip file in the file system. The zip file will be extracted in-place and not be deleted automatically.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    path := "path_example" // string | The file system location of the zip file.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ExtractApi.PostCmsV3SourceCodeExtractPath(context.Background(), path).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ExtractApi.PostCmsV3SourceCodeExtractPath``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **path** | **string**| The file system location of the zip file. | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**path** | **string** | The file system location of the zip file. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCmsV3SourceCodeExtractPathRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -29,8 +68,10 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 

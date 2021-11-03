@@ -1,57 +1,71 @@
-# {{classname}}
+# \EventsApi
 
-All URIs are relative to *https://api.hubapi.com/*
+All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Getintegratorstimelinev3eventseventTemplateIdeventIdGetById**](EventsApi.md#Getintegratorstimelinev3eventseventTemplateIdeventIdGetById) | **Get** /crm/v3/timeline/events/{eventTemplateId}/{eventId} | Gets the event
-[**Getintegratorstimelinev3eventseventTemplateIdeventIddetailGetDetailById**](EventsApi.md#Getintegratorstimelinev3eventseventTemplateIdeventIddetailGetDetailById) | **Get** /crm/v3/timeline/events/{eventTemplateId}/{eventId}/detail | Gets the detailTemplate as rendered
-[**Getintegratorstimelinev3eventseventTemplateIdeventIdrenderGetRenderById**](EventsApi.md#Getintegratorstimelinev3eventseventTemplateIdeventIdrenderGetRenderById) | **Get** /crm/v3/timeline/events/{eventTemplateId}/{eventId}/render | Renders the header or detail as HTML
-[**Postintegratorstimelinev3eventsCreate**](EventsApi.md#Postintegratorstimelinev3eventsCreate) | **Post** /crm/v3/timeline/events | Create a single event
-[**Postintegratorstimelinev3eventsbatchcreateCreateBatch**](EventsApi.md#Postintegratorstimelinev3eventsbatchcreateCreateBatch) | **Post** /crm/v3/timeline/events/batch/create | Creates multiple events
+[**GetIntegratorsTimelineV3EventsEventTemplateIdEventIdDetailGetDetailById**](EventsApi.md#GetIntegratorsTimelineV3EventsEventTemplateIdEventIdDetailGetDetailById) | **Get** /crm/v3/timeline/events/{eventTemplateId}/{eventId}/detail | Gets the detailTemplate as rendered
+[**GetIntegratorsTimelineV3EventsEventTemplateIdEventIdGetById**](EventsApi.md#GetIntegratorsTimelineV3EventsEventTemplateIdEventIdGetById) | **Get** /crm/v3/timeline/events/{eventTemplateId}/{eventId} | Gets the event
+[**GetIntegratorsTimelineV3EventsEventTemplateIdEventIdRenderGetRenderById**](EventsApi.md#GetIntegratorsTimelineV3EventsEventTemplateIdEventIdRenderGetRenderById) | **Get** /crm/v3/timeline/events/{eventTemplateId}/{eventId}/render | Renders the header or detail as HTML
+[**PostIntegratorsTimelineV3EventsBatchCreateCreateBatch**](EventsApi.md#PostIntegratorsTimelineV3EventsBatchCreateCreateBatch) | **Post** /crm/v3/timeline/events/batch/create | Creates multiple events
+[**PostIntegratorsTimelineV3EventsCreate**](EventsApi.md#PostIntegratorsTimelineV3EventsCreate) | **Post** /crm/v3/timeline/events | Create a single event
 
-# **Getintegratorstimelinev3eventseventTemplateIdeventIdGetById**
-> TimelineEventResponse Getintegratorstimelinev3eventseventTemplateIdeventIdGetById(ctx, eventTemplateId, eventId)
-Gets the event
 
-This returns the previously created event. It contains all existing info for the event, but not necessarily the CRM object.
 
-### Required Parameters
+## GetIntegratorsTimelineV3EventsEventTemplateIdEventIdDetailGetDetailById
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **eventTemplateId** | **string**| The event template ID. | 
-  **eventId** | **string**| The event ID. | 
+> EventDetail GetIntegratorsTimelineV3EventsEventTemplateIdEventIdDetailGetDetailById(ctx, eventTemplateId, eventId).Execute()
 
-### Return type
-
-[**TimelineEventResponse**](TimelineEventResponse.md)
-
-### Authorization
-
-[oauth2_legacy](../README.md#oauth2_legacy)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json, */*
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **Getintegratorstimelinev3eventseventTemplateIdeventIddetailGetDetailById**
-> EventDetail Getintegratorstimelinev3eventseventTemplateIdeventIddetailGetDetailById(ctx, eventTemplateId, eventId)
 Gets the detailTemplate as rendered
 
-This will take the `detailTemplate` from the event template and return an object rendering the specified event. If the template references `extraData` that isn't found in the event, it will be ignored and we'll render without it.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    eventTemplateId := "eventTemplateId_example" // string | The event template ID.
+    eventId := "eventId_example" // string | The event ID.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.EventsApi.GetIntegratorsTimelineV3EventsEventTemplateIdEventIdDetailGetDetailById(context.Background(), eventTemplateId, eventId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.GetIntegratorsTimelineV3EventsEventTemplateIdEventIdDetailGetDetailById``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetIntegratorsTimelineV3EventsEventTemplateIdEventIdDetailGetDetailById`: EventDetail
+    fmt.Fprintf(os.Stdout, "Response from `EventsApi.GetIntegratorsTimelineV3EventsEventTemplateIdEventIdDetailGetDetailById`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **eventTemplateId** | **string**| The event template ID. | 
-  **eventId** | **string**| The event ID. | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**eventTemplateId** | **string** | The event template ID. | 
+**eventId** | **string** | The event ID. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetIntegratorsTimelineV3EventsEventTemplateIdEventIdDetailGetDetailByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
 
 ### Return type
 
@@ -63,61 +77,68 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json, */*
+- **Content-Type**: Not defined
+- **Accept**: application/json, */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **Getintegratorstimelinev3eventseventTemplateIdeventIdrenderGetRenderById**
-> string Getintegratorstimelinev3eventseventTemplateIdeventIdrenderGetRenderById(ctx, eventTemplateId, eventId, optional)
-Renders the header or detail as HTML
-
-This will take either the `headerTemplate` or `detailTemplate` from the event template and render for the specified event as HTML. If the template references `extraData` that isn't found in the event, it will be ignored and we'll render without it.
-
-### Required Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **eventTemplateId** | **string**| The event template ID. | 
-  **eventId** | **string**| The event ID. | 
- **optional** | ***EventsApiGetintegratorstimelinev3eventseventTemplateIdeventIdrenderGetRenderByIdOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-Optional parameters are passed through a pointer to a EventsApiGetintegratorstimelinev3eventseventTemplateIdeventIdrenderGetRenderByIdOpts struct
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
- **detail** | **optional.Bool**| Set to &#x27;true&#x27;, we want to render the &#x60;detailTemplate&#x60; instead of the &#x60;headerTemplate&#x60;. | 
+## GetIntegratorsTimelineV3EventsEventTemplateIdEventIdGetById
 
-### Return type
+> TimelineEventResponse GetIntegratorsTimelineV3EventsEventTemplateIdEventIdGetById(ctx, eventTemplateId, eventId).Execute()
 
-**string**
+Gets the event
 
-### Authorization
 
-[oauth2_legacy](../README.md#oauth2_legacy)
 
-### HTTP request headers
+### Example
 
- - **Content-Type**: Not defined
- - **Accept**: text/html, */*
+```go
+package main
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
 
-# **Postintegratorstimelinev3eventsCreate**
-> TimelineEventResponse Postintegratorstimelinev3eventsCreate(ctx, body)
-Create a single event
+func main() {
+    eventTemplateId := "eventTemplateId_example" // string | The event template ID.
+    eventId := "eventId_example" // string | The event ID.
 
-Creates an instance of a timeline event based on an event template. Once created, this event is immutable on the object timeline and cannot be modified. If the event template was configured to update object properties via `objectPropertyName`, this call will also attempt to updates those properties, or add them if they don't exist.
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.EventsApi.GetIntegratorsTimelineV3EventsEventTemplateIdEventIdGetById(context.Background(), eventTemplateId, eventId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.GetIntegratorsTimelineV3EventsEventTemplateIdEventIdGetById``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetIntegratorsTimelineV3EventsEventTemplateIdEventIdGetById`: TimelineEventResponse
+    fmt.Fprintf(os.Stdout, "Response from `EventsApi.GetIntegratorsTimelineV3EventsEventTemplateIdEventIdGetById`: %v\n", resp)
+}
+```
 
-### Required Parameters
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**TimelineEvent**](TimelineEvent.md)| The timeline event definition. | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**eventTemplateId** | **string** | The event template ID. | 
+**eventId** | **string** | The event ID. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetIntegratorsTimelineV3EventsEventTemplateIdEventIdGetByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
 
 ### Return type
 
@@ -129,23 +150,136 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json, */*
+- **Content-Type**: Not defined
+- **Accept**: application/json, */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **Postintegratorstimelinev3eventsbatchcreateCreateBatch**
-> BatchResponseTimelineEventResponse Postintegratorstimelinev3eventsbatchcreateCreateBatch(ctx, body)
-Creates multiple events
 
-Creates multiple instances of timeline events based on an event template. Once created, these event are immutable on the object timeline and cannot be modified. If the event template was configured to update object properties via `objectPropertyName`, this call will also attempt to updates those properties, or add them if they don't exist.
+## GetIntegratorsTimelineV3EventsEventTemplateIdEventIdRenderGetRenderById
 
-### Required Parameters
+> string GetIntegratorsTimelineV3EventsEventTemplateIdEventIdRenderGetRenderById(ctx, eventTemplateId, eventId).Detail(detail).Execute()
+
+Renders the header or detail as HTML
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    eventTemplateId := "eventTemplateId_example" // string | The event template ID.
+    eventId := "eventId_example" // string | The event ID.
+    detail := true // bool | Set to 'true', we want to render the `detailTemplate` instead of the `headerTemplate`. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.EventsApi.GetIntegratorsTimelineV3EventsEventTemplateIdEventIdRenderGetRenderById(context.Background(), eventTemplateId, eventId).Detail(detail).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.GetIntegratorsTimelineV3EventsEventTemplateIdEventIdRenderGetRenderById``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetIntegratorsTimelineV3EventsEventTemplateIdEventIdRenderGetRenderById`: string
+    fmt.Fprintf(os.Stdout, "Response from `EventsApi.GetIntegratorsTimelineV3EventsEventTemplateIdEventIdRenderGetRenderById`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**BatchInputTimelineEvent**](BatchInputTimelineEvent.md)| The timeline event definition. | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**eventTemplateId** | **string** | The event template ID. | 
+**eventId** | **string** | The event ID. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetIntegratorsTimelineV3EventsEventTemplateIdEventIdRenderGetRenderByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **detail** | **bool** | Set to &#39;true&#39;, we want to render the &#x60;detailTemplate&#x60; instead of the &#x60;headerTemplate&#x60;. | 
+
+### Return type
+
+**string**
+
+### Authorization
+
+[oauth2_legacy](../README.md#oauth2_legacy)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: text/html, */*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostIntegratorsTimelineV3EventsBatchCreateCreateBatch
+
+> BatchResponseTimelineEventResponse PostIntegratorsTimelineV3EventsBatchCreateCreateBatch(ctx).BatchInputTimelineEvent(batchInputTimelineEvent).Execute()
+
+Creates multiple events
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    batchInputTimelineEvent := *openapiclient.NewBatchInputTimelineEvent([]openapiclient.TimelineEvent{*openapiclient.NewTimelineEvent("EventTemplateId_example", map[string]string{"key": "Inner_example"}, "Id_example")}) // BatchInputTimelineEvent | The timeline event definition.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.EventsApi.PostIntegratorsTimelineV3EventsBatchCreateCreateBatch(context.Background()).BatchInputTimelineEvent(batchInputTimelineEvent).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.PostIntegratorsTimelineV3EventsBatchCreateCreateBatch``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PostIntegratorsTimelineV3EventsBatchCreateCreateBatch`: BatchResponseTimelineEventResponse
+    fmt.Fprintf(os.Stdout, "Response from `EventsApi.PostIntegratorsTimelineV3EventsBatchCreateCreateBatch`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostIntegratorsTimelineV3EventsBatchCreateCreateBatchRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **batchInputTimelineEvent** | [**BatchInputTimelineEvent**](BatchInputTimelineEvent.md) | The timeline event definition. | 
 
 ### Return type
 
@@ -157,8 +291,76 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json, */*
+- **Content-Type**: application/json
+- **Accept**: application/json, */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostIntegratorsTimelineV3EventsCreate
+
+> TimelineEventResponse PostIntegratorsTimelineV3EventsCreate(ctx).TimelineEvent(timelineEvent).Execute()
+
+Create a single event
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    timelineEvent := *openapiclient.NewTimelineEvent("EventTemplateId_example", map[string]string{"key": "Inner_example"}, "Id_example") // TimelineEvent | The timeline event definition.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.EventsApi.PostIntegratorsTimelineV3EventsCreate(context.Background()).TimelineEvent(timelineEvent).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.PostIntegratorsTimelineV3EventsCreate``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PostIntegratorsTimelineV3EventsCreate`: TimelineEventResponse
+    fmt.Fprintf(os.Stdout, "Response from `EventsApi.PostIntegratorsTimelineV3EventsCreate`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostIntegratorsTimelineV3EventsCreateRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **timelineEvent** | [**TimelineEvent**](TimelineEvent.md) | The timeline event definition. | 
+
+### Return type
+
+[**TimelineEventResponse**](TimelineEventResponse.md)
+
+### Authorization
+
+[oauth2_legacy](../README.md#oauth2_legacy)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, */*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 

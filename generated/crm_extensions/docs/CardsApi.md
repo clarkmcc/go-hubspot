@@ -1,28 +1,69 @@
-# {{classname}}
+# \CardsApi
 
-All URIs are relative to *https://api.hubapi.com/*
+All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Deletecrmv3extensionscardsappIdcardIdArchive**](CardsApi.md#Deletecrmv3extensionscardsappIdcardIdArchive) | **Delete** /crm/v3/extensions/cards/{appId}/{cardId} | Delete a card
-[**Getcrmv3extensionscardsappIdGetAll**](CardsApi.md#Getcrmv3extensionscardsappIdGetAll) | **Get** /crm/v3/extensions/cards/{appId} | Get all cards
-[**Getcrmv3extensionscardsappIdcardIdGetById**](CardsApi.md#Getcrmv3extensionscardsappIdcardIdGetById) | **Get** /crm/v3/extensions/cards/{appId}/{cardId} | Get a card.
-[**Patchcrmv3extensionscardsappIdcardIdUpdate**](CardsApi.md#Patchcrmv3extensionscardsappIdcardIdUpdate) | **Patch** /crm/v3/extensions/cards/{appId}/{cardId} | Update a card
-[**Postcrmv3extensionscardsappIdCreate**](CardsApi.md#Postcrmv3extensionscardsappIdCreate) | **Post** /crm/v3/extensions/cards/{appId} | Create a new card
+[**DeleteCrmV3ExtensionsCardsAppIdCardIdArchive**](CardsApi.md#DeleteCrmV3ExtensionsCardsAppIdCardIdArchive) | **Delete** /crm/v3/extensions/cards/{appId}/{cardId} | Delete a card
+[**GetCrmV3ExtensionsCardsAppIdCardIdGetById**](CardsApi.md#GetCrmV3ExtensionsCardsAppIdCardIdGetById) | **Get** /crm/v3/extensions/cards/{appId}/{cardId} | Get a card.
+[**GetCrmV3ExtensionsCardsAppIdGetAll**](CardsApi.md#GetCrmV3ExtensionsCardsAppIdGetAll) | **Get** /crm/v3/extensions/cards/{appId} | Get all cards
+[**PatchCrmV3ExtensionsCardsAppIdCardIdUpdate**](CardsApi.md#PatchCrmV3ExtensionsCardsAppIdCardIdUpdate) | **Patch** /crm/v3/extensions/cards/{appId}/{cardId} | Update a card
+[**PostCrmV3ExtensionsCardsAppIdCreate**](CardsApi.md#PostCrmV3ExtensionsCardsAppIdCreate) | **Post** /crm/v3/extensions/cards/{appId} | Create a new card
 
-# **Deletecrmv3extensionscardsappIdcardIdArchive**
-> Deletecrmv3extensionscardsappIdcardIdArchive(ctx, appId, cardId)
+
+
+## DeleteCrmV3ExtensionsCardsAppIdCardIdArchive
+
+> DeleteCrmV3ExtensionsCardsAppIdCardIdArchive(ctx, appId, cardId).Execute()
+
 Delete a card
 
-Permanently deletes a card definition with the given ID. Once deleted, data fetch requests for this card will no longer be sent to your service. This can't be undone.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    appId := int32(56) // int32 | The ID of the target app.
+    cardId := "cardId_example" // string | The ID of the card to delete.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.CardsApi.DeleteCrmV3ExtensionsCardsAppIdCardIdArchive(context.Background(), appId, cardId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `CardsApi.DeleteCrmV3ExtensionsCardsAppIdCardIdArchive``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **appId** | **int32**| The ID of the target app. | 
-  **cardId** | **string**| The ID of the card to delete. | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**appId** | **int32** | The ID of the target app. | 
+**cardId** | **string** | The ID of the card to delete. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteCrmV3ExtensionsCardsAppIdCardIdArchiveRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
 
 ### Return type
 
@@ -34,23 +75,138 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **Getcrmv3extensionscardsappIdGetAll**
-> CardListResponse Getcrmv3extensionscardsappIdGetAll(ctx, appId)
-Get all cards
 
-Returns a list of cards for a given app.
+## GetCrmV3ExtensionsCardsAppIdCardIdGetById
 
-### Required Parameters
+> CardResponse GetCrmV3ExtensionsCardsAppIdCardIdGetById(ctx, appId, cardId).Execute()
+
+Get a card.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    appId := int32(56) // int32 | The ID of the target app.
+    cardId := "cardId_example" // string | The ID of the target card.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.CardsApi.GetCrmV3ExtensionsCardsAppIdCardIdGetById(context.Background(), appId, cardId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `CardsApi.GetCrmV3ExtensionsCardsAppIdCardIdGetById``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetCrmV3ExtensionsCardsAppIdCardIdGetById`: CardResponse
+    fmt.Fprintf(os.Stdout, "Response from `CardsApi.GetCrmV3ExtensionsCardsAppIdCardIdGetById`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **appId** | **int32**| The ID of the target app. | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**appId** | **int32** | The ID of the target app. | 
+**cardId** | **string** | The ID of the target card. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetCrmV3ExtensionsCardsAppIdCardIdGetByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+[**CardResponse**](CardResponse.md)
+
+### Authorization
+
+[developer_hapikey](../README.md#developer_hapikey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, */*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetCrmV3ExtensionsCardsAppIdGetAll
+
+> CardListResponse GetCrmV3ExtensionsCardsAppIdGetAll(ctx, appId).Execute()
+
+Get all cards
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    appId := int32(56) // int32 | The ID of the target app.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.CardsApi.GetCrmV3ExtensionsCardsAppIdGetAll(context.Background(), appId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `CardsApi.GetCrmV3ExtensionsCardsAppIdGetAll``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetCrmV3ExtensionsCardsAppIdGetAll`: CardListResponse
+    fmt.Fprintf(os.Stdout, "Response from `CardsApi.GetCrmV3ExtensionsCardsAppIdGetAll`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**appId** | **int32** | The ID of the target app. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetCrmV3ExtensionsCardsAppIdGetAllRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -62,54 +218,70 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json, */*
+- **Content-Type**: Not defined
+- **Accept**: application/json, */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **Getcrmv3extensionscardsappIdcardIdGetById**
-> CardResponse Getcrmv3extensionscardsappIdcardIdGetById(ctx, appId, cardId)
-Get a card.
 
-Returns the definition for a card with the given ID.
+## PatchCrmV3ExtensionsCardsAppIdCardIdUpdate
 
-### Required Parameters
+> CardResponse PatchCrmV3ExtensionsCardsAppIdCardIdUpdate(ctx, appId, cardId).CardPatchRequest(cardPatchRequest).Execute()
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **appId** | **int32**| The ID of the target app. | 
-  **cardId** | **string**| The ID of the target card. | 
-
-### Return type
-
-[**CardResponse**](CardResponse.md)
-
-### Authorization
-
-[developer_hapikey](../README.md#developer_hapikey)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json, */*
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **Patchcrmv3extensionscardsappIdcardIdUpdate**
-> CardResponse Patchcrmv3extensionscardsappIdcardIdUpdate(ctx, body, appId, cardId)
 Update a card
 
-Update a card definition with new details.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    appId := int32(56) // int32 | The ID of the target app.
+    cardId := "cardId_example" // string | The ID of the card to update.
+    cardPatchRequest := *openapiclient.NewCardPatchRequest() // CardPatchRequest | Card definition fields to be updated.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.CardsApi.PatchCrmV3ExtensionsCardsAppIdCardIdUpdate(context.Background(), appId, cardId).CardPatchRequest(cardPatchRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `CardsApi.PatchCrmV3ExtensionsCardsAppIdCardIdUpdate``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PatchCrmV3ExtensionsCardsAppIdCardIdUpdate`: CardResponse
+    fmt.Fprintf(os.Stdout, "Response from `CardsApi.PatchCrmV3ExtensionsCardsAppIdCardIdUpdate`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**CardPatchRequest**](CardPatchRequest.md)| Card definition fields to be updated. | 
-  **appId** | **int32**| The ID of the target app. | 
-  **cardId** | **string**| The ID of the card to update. | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**appId** | **int32** | The ID of the target app. | 
+**cardId** | **string** | The ID of the card to update. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPatchCrmV3ExtensionsCardsAppIdCardIdUpdateRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **cardPatchRequest** | [**CardPatchRequest**](CardPatchRequest.md) | Card definition fields to be updated. | 
 
 ### Return type
 
@@ -121,24 +293,67 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json, */*
+- **Content-Type**: application/json
+- **Accept**: application/json, */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **Postcrmv3extensionscardsappIdCreate**
-> CardResponse Postcrmv3extensionscardsappIdCreate(ctx, body, appId)
+
+## PostCrmV3ExtensionsCardsAppIdCreate
+
+> CardResponse PostCrmV3ExtensionsCardsAppIdCreate(ctx, appId).CardCreateRequest(cardCreateRequest).Execute()
+
 Create a new card
 
-Defines a new card that will become active on an account when this app is installed.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    appId := int32(56) // int32 | The ID of the target app.
+    cardCreateRequest := *openapiclient.NewCardCreateRequest("Title_example", *openapiclient.NewCardFetchBody("TargetUrl_example", []openapiclient.CardObjectTypeBody{*openapiclient.NewCardObjectTypeBody("Name_example", []string{"PropertiesToSend_example"})}), *openapiclient.NewCardDisplayBody([]openapiclient.CardDisplayProperty{*openapiclient.NewCardDisplayProperty("Name_example", "Label_example", "DataType_example", []openapiclient.DisplayOption{*openapiclient.NewDisplayOption("Name_example", "Label_example", "Type_example")})}), *openapiclient.NewCardActions([]string{"BaseUrls_example"})) // CardCreateRequest | The new card definition.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.CardsApi.PostCrmV3ExtensionsCardsAppIdCreate(context.Background(), appId).CardCreateRequest(cardCreateRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `CardsApi.PostCrmV3ExtensionsCardsAppIdCreate``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PostCrmV3ExtensionsCardsAppIdCreate`: CardResponse
+    fmt.Fprintf(os.Stdout, "Response from `CardsApi.PostCrmV3ExtensionsCardsAppIdCreate`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**CardCreateRequest**](CardCreateRequest.md)| The new card definition. | 
-  **appId** | **int32**| The ID of the target app. | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**appId** | **int32** | The ID of the target app. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCrmV3ExtensionsCardsAppIdCreateRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **cardCreateRequest** | [**CardCreateRequest**](CardCreateRequest.md) | The new card definition. | 
 
 ### Return type
 
@@ -150,8 +365,10 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json, */*
+- **Content-Type**: application/json
+- **Accept**: application/json, */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 

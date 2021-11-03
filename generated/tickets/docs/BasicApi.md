@@ -1,27 +1,66 @@
-# {{classname}}
+# \BasicApi
 
-All URIs are relative to *https://api.hubapi.com/*
+All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Deletecrmv3objectsticketsticketIdArchive**](BasicApi.md#Deletecrmv3objectsticketsticketIdArchive) | **Delete** /crm/v3/objects/tickets/{ticketId} | Archive
-[**Getcrmv3objectsticketsGetPage**](BasicApi.md#Getcrmv3objectsticketsGetPage) | **Get** /crm/v3/objects/tickets | List
-[**Getcrmv3objectsticketsticketIdGetById**](BasicApi.md#Getcrmv3objectsticketsticketIdGetById) | **Get** /crm/v3/objects/tickets/{ticketId} | Read
-[**Patchcrmv3objectsticketsticketIdUpdate**](BasicApi.md#Patchcrmv3objectsticketsticketIdUpdate) | **Patch** /crm/v3/objects/tickets/{ticketId} | Update
-[**Postcrmv3objectsticketsCreate**](BasicApi.md#Postcrmv3objectsticketsCreate) | **Post** /crm/v3/objects/tickets | Create
+[**DeleteCrmV3ObjectsTicketsTicketIdArchive**](BasicApi.md#DeleteCrmV3ObjectsTicketsTicketIdArchive) | **Delete** /crm/v3/objects/tickets/{ticketId} | Archive
+[**GetCrmV3ObjectsTicketsGetPage**](BasicApi.md#GetCrmV3ObjectsTicketsGetPage) | **Get** /crm/v3/objects/tickets | List
+[**GetCrmV3ObjectsTicketsTicketIdGetById**](BasicApi.md#GetCrmV3ObjectsTicketsTicketIdGetById) | **Get** /crm/v3/objects/tickets/{ticketId} | Read
+[**PatchCrmV3ObjectsTicketsTicketIdUpdate**](BasicApi.md#PatchCrmV3ObjectsTicketsTicketIdUpdate) | **Patch** /crm/v3/objects/tickets/{ticketId} | Update
+[**PostCrmV3ObjectsTicketsCreate**](BasicApi.md#PostCrmV3ObjectsTicketsCreate) | **Post** /crm/v3/objects/tickets | Create
 
-# **Deletecrmv3objectsticketsticketIdArchive**
-> Deletecrmv3objectsticketsticketIdArchive(ctx, ticketId)
+
+
+## DeleteCrmV3ObjectsTicketsTicketIdArchive
+
+> DeleteCrmV3ObjectsTicketsTicketIdArchive(ctx, ticketId).Execute()
+
 Archive
 
-Move an Object identified by `{ticketId}` to the recycling bin.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    ticketId := "ticketId_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.BasicApi.DeleteCrmV3ObjectsTicketsTicketIdArchive(context.Background(), ticketId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.DeleteCrmV3ObjectsTicketsTicketIdArchive``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **ticketId** | **string**|  | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**ticketId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteCrmV3ObjectsTicketsTicketIdArchiveRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -33,33 +72,69 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **Getcrmv3objectsticketsGetPage**
-> CollectionResponseSimplePublicObjectWithAssociationsForwardPaging Getcrmv3objectsticketsGetPage(ctx, optional)
+
+## GetCrmV3ObjectsTicketsGetPage
+
+> CollectionResponseSimplePublicObjectWithAssociationsForwardPaging GetCrmV3ObjectsTicketsGetPage(ctx).Limit(limit).After(after).Properties(properties).Associations(associations).Archived(archived).Execute()
+
 List
 
-Read a page of tickets. Control what is returned via the `properties` query param.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    limit := int32(56) // int32 | The maximum number of results to display per page. (optional) (default to 10)
+    after := "after_example" // string | The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results. (optional)
+    properties := []string{"Inner_example"} // []string | A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored. (optional)
+    associations := []string{"Inner_example"} // []string | A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored. (optional)
+    archived := true // bool | Whether to return only results that have been archived. (optional) (default to false)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.BasicApi.GetCrmV3ObjectsTicketsGetPage(context.Background()).Limit(limit).After(after).Properties(properties).Associations(associations).Archived(archived).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.GetCrmV3ObjectsTicketsGetPage``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetCrmV3ObjectsTicketsGetPage`: CollectionResponseSimplePublicObjectWithAssociationsForwardPaging
+    fmt.Fprintf(os.Stdout, "Response from `BasicApi.GetCrmV3ObjectsTicketsGetPage`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetCrmV3ObjectsTicketsGetPageRequest struct via the builder pattern
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***BasicApiGetcrmv3objectsticketsGetPageOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-Optional parameters are passed through a pointer to a BasicApiGetcrmv3objectsticketsGetPageOpts struct
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **limit** | **optional.Int32**| The maximum number of results to display per page. | [default to 10]
- **after** | **optional.String**| The paging cursor token of the last successfully read resource will be returned as the &#x60;paging.next.after&#x60; JSON property of a paged response containing more results. | 
- **properties** | [**optional.Interface of []string**](string.md)| A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored. | 
- **associations** | [**optional.Interface of []string**](string.md)| A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored. | 
- **archived** | **optional.Bool**| Whether to return only results that have been archived. | [default to false]
+ **limit** | **int32** | The maximum number of results to display per page. | [default to 10]
+ **after** | **string** | The paging cursor token of the last successfully read resource will be returned as the &#x60;paging.next.after&#x60; JSON property of a paged response containing more results. | 
+ **properties** | **[]string** | A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored. | 
+ **associations** | **[]string** | A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored. | 
+ **archived** | **bool** | Whether to return only results that have been archived. | [default to false]
 
 ### Return type
 
@@ -71,34 +146,73 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json, */*
+- **Content-Type**: Not defined
+- **Accept**: application/json, */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **Getcrmv3objectsticketsticketIdGetById**
-> SimplePublicObjectWithAssociations Getcrmv3objectsticketsticketIdGetById(ctx, ticketId, optional)
+
+## GetCrmV3ObjectsTicketsTicketIdGetById
+
+> SimplePublicObjectWithAssociations GetCrmV3ObjectsTicketsTicketIdGetById(ctx, ticketId).Properties(properties).Associations(associations).Archived(archived).IdProperty(idProperty).Execute()
+
 Read
 
-Read an Object identified by `{ticketId}`. `{ticketId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    ticketId := "ticketId_example" // string | 
+    properties := []string{"Inner_example"} // []string | A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored. (optional)
+    associations := []string{"Inner_example"} // []string | A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored. (optional)
+    archived := true // bool | Whether to return only results that have been archived. (optional) (default to false)
+    idProperty := "idProperty_example" // string | The name of a property whose values are unique for this object type (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.BasicApi.GetCrmV3ObjectsTicketsTicketIdGetById(context.Background(), ticketId).Properties(properties).Associations(associations).Archived(archived).IdProperty(idProperty).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.GetCrmV3ObjectsTicketsTicketIdGetById``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetCrmV3ObjectsTicketsTicketIdGetById`: SimplePublicObjectWithAssociations
+    fmt.Fprintf(os.Stdout, "Response from `BasicApi.GetCrmV3ObjectsTicketsTicketIdGetById`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **ticketId** | **string**|  | 
- **optional** | ***BasicApiGetcrmv3objectsticketsticketIdGetByIdOpts** | optional parameters | nil if no parameters
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**ticketId** | **string** |  | 
 
-### Optional Parameters
-Optional parameters are passed through a pointer to a BasicApiGetcrmv3objectsticketsticketIdGetByIdOpts struct
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetCrmV3ObjectsTicketsTicketIdGetByIdRequest struct via the builder pattern
+
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **properties** | [**optional.Interface of []string**](string.md)| A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored. | 
- **associations** | [**optional.Interface of []string**](string.md)| A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored. | 
- **archived** | **optional.Bool**| Whether to return only results that have been archived. | [default to false]
- **idProperty** | **optional.String**| The name of a property whose values are unique for this object type | 
+ **properties** | **[]string** | A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored. | 
+ **associations** | **[]string** | A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored. | 
+ **archived** | **bool** | Whether to return only results that have been archived. | [default to false]
+ **idProperty** | **string** | The name of a property whose values are unique for this object type | 
 
 ### Return type
 
@@ -110,33 +224,69 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json, */*
+- **Content-Type**: Not defined
+- **Accept**: application/json, */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **Patchcrmv3objectsticketsticketIdUpdate**
-> SimplePublicObject Patchcrmv3objectsticketsticketIdUpdate(ctx, body, ticketId, optional)
+
+## PatchCrmV3ObjectsTicketsTicketIdUpdate
+
+> SimplePublicObject PatchCrmV3ObjectsTicketsTicketIdUpdate(ctx, ticketId).SimplePublicObjectInput(simplePublicObjectInput).IdProperty(idProperty).Execute()
+
 Update
 
-Perform a partial update of an Object identified by `{ticketId}`. `{ticketId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param. Provided property values will be overwritten. Read-only and non-existent properties will be ignored. Properties values can be cleared by passing an empty string.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    ticketId := "ticketId_example" // string | 
+    simplePublicObjectInput := *openapiclient.NewSimplePublicObjectInput(map[string]string{"key": "Inner_example"}) // SimplePublicObjectInput | 
+    idProperty := "idProperty_example" // string | The name of a property whose values are unique for this object type (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.BasicApi.PatchCrmV3ObjectsTicketsTicketIdUpdate(context.Background(), ticketId).SimplePublicObjectInput(simplePublicObjectInput).IdProperty(idProperty).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.PatchCrmV3ObjectsTicketsTicketIdUpdate``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PatchCrmV3ObjectsTicketsTicketIdUpdate`: SimplePublicObject
+    fmt.Fprintf(os.Stdout, "Response from `BasicApi.PatchCrmV3ObjectsTicketsTicketIdUpdate`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**SimplePublicObjectInput**](SimplePublicObjectInput.md)|  | 
-  **ticketId** | **string**|  | 
- **optional** | ***BasicApiPatchcrmv3objectsticketsticketIdUpdateOpts** | optional parameters | nil if no parameters
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**ticketId** | **string** |  | 
 
-### Optional Parameters
-Optional parameters are passed through a pointer to a BasicApiPatchcrmv3objectsticketsticketIdUpdateOpts struct
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPatchCrmV3ObjectsTicketsTicketIdUpdateRequest struct via the builder pattern
+
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
-
- **idProperty** | **optional.**| The name of a property whose values are unique for this object type | 
+ **simplePublicObjectInput** | [**SimplePublicObjectInput**](SimplePublicObjectInput.md) |  | 
+ **idProperty** | **string** | The name of a property whose values are unique for this object type | 
 
 ### Return type
 
@@ -148,23 +298,61 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json, */*
+- **Content-Type**: application/json
+- **Accept**: application/json, */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **Postcrmv3objectsticketsCreate**
-> SimplePublicObject Postcrmv3objectsticketsCreate(ctx, body)
+
+## PostCrmV3ObjectsTicketsCreate
+
+> SimplePublicObject PostCrmV3ObjectsTicketsCreate(ctx).SimplePublicObjectInput(simplePublicObjectInput).Execute()
+
 Create
 
-Create a ticket with the given properties and return a copy of the object, including the ID. Documentation and examples for creating standard tickets is provided.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    simplePublicObjectInput := *openapiclient.NewSimplePublicObjectInput(map[string]string{"key": "Inner_example"}) // SimplePublicObjectInput | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.BasicApi.PostCrmV3ObjectsTicketsCreate(context.Background()).SimplePublicObjectInput(simplePublicObjectInput).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.PostCrmV3ObjectsTicketsCreate``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PostCrmV3ObjectsTicketsCreate`: SimplePublicObject
+    fmt.Fprintf(os.Stdout, "Response from `BasicApi.PostCrmV3ObjectsTicketsCreate`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCrmV3ObjectsTicketsCreateRequest struct via the builder pattern
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**SimplePublicObjectInput**](SimplePublicObjectInput.md)|  | 
+ **simplePublicObjectInput** | [**SimplePublicObjectInput**](SimplePublicObjectInput.md) |  | 
 
 ### Return type
 
@@ -176,8 +364,10 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json, */*
+- **Content-Type**: application/json
+- **Accept**: application/json, */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 

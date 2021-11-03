@@ -1,36 +1,72 @@
-# {{classname}}
+# \TokensApi
 
-All URIs are relative to *https://api.hubapi.com/*
+All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Postoauthv1tokenCreateToken**](TokensApi.md#Postoauthv1tokenCreateToken) | **Post** /oauth/v1/token | 
-
-# **Postoauthv1tokenCreateToken**
-> TokenResponseIf Postoauthv1tokenCreateToken(ctx, optional)
+[**PostOauthV1TokenCreateToken**](TokensApi.md#PostOauthV1TokenCreateToken) | **Post** /oauth/v1/token | 
 
 
-### Required Parameters
+
+## PostOauthV1TokenCreateToken
+
+> TokenResponseIF PostOauthV1TokenCreateToken(ctx).GrantType(grantType).Code(code).RedirectUri(redirectUri).ClientId(clientId).ClientSecret(clientSecret).RefreshToken(refreshToken).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    grantType := "grantType_example" // string |  (optional)
+    code := "code_example" // string |  (optional)
+    redirectUri := "redirectUri_example" // string |  (optional)
+    clientId := "clientId_example" // string |  (optional)
+    clientSecret := "clientSecret_example" // string |  (optional)
+    refreshToken := "refreshToken_example" // string |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.TokensApi.PostOauthV1TokenCreateToken(context.Background()).GrantType(grantType).Code(code).RedirectUri(redirectUri).ClientId(clientId).ClientSecret(clientSecret).RefreshToken(refreshToken).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `TokensApi.PostOauthV1TokenCreateToken``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PostOauthV1TokenCreateToken`: TokenResponseIF
+    fmt.Fprintf(os.Stdout, "Response from `TokensApi.PostOauthV1TokenCreateToken`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostOauthV1TokenCreateTokenRequest struct via the builder pattern
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***TokensApiPostoauthv1tokenCreateTokenOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-Optional parameters are passed through a pointer to a TokensApiPostoauthv1tokenCreateTokenOpts struct
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **grantType** | **optional.**|  | 
- **code** | **optional.**|  | 
- **redirectUri** | **optional.**|  | 
- **clientId** | **optional.**|  | 
- **clientSecret** | **optional.**|  | 
- **refreshToken** | **optional.**|  | 
+ **grantType** | **string** |  | 
+ **code** | **string** |  | 
+ **redirectUri** | **string** |  | 
+ **clientId** | **string** |  | 
+ **clientSecret** | **string** |  | 
+ **refreshToken** | **string** |  | 
 
 ### Return type
 
-[**TokenResponseIf**](TokenResponseIF.md)
+[**TokenResponseIF**](TokenResponseIF.md)
 
 ### Authorization
 
@@ -38,8 +74,10 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/x-www-form-urlencoded
- - **Accept**: application/json, */*
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json, */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 

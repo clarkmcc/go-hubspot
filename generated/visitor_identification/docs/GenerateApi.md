@@ -1,23 +1,60 @@
-# {{classname}}
+# \GenerateApi
 
-All URIs are relative to *https://api.hubapi.com/*
+All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**PostvisitorIdentificationv3tokenscreateGenerateToken**](GenerateApi.md#PostvisitorIdentificationv3tokenscreateGenerateToken) | **Post** /conversations/v3/visitor-identification/tokens/create | Generate a token
+[**PostVisitorIdentificationV3TokensCreateGenerateToken**](GenerateApi.md#PostVisitorIdentificationV3TokensCreateGenerateToken) | **Post** /conversations/v3/visitor-identification/tokens/create | Generate a token
 
-# **PostvisitorIdentificationv3tokenscreateGenerateToken**
-> IdentificationTokenResponse PostvisitorIdentificationv3tokenscreateGenerateToken(ctx, body)
+
+
+## PostVisitorIdentificationV3TokensCreateGenerateToken
+
+> IdentificationTokenResponse PostVisitorIdentificationV3TokensCreateGenerateToken(ctx).IdentificationTokenGenerationRequest(identificationTokenGenerationRequest).Execute()
+
 Generate a token
 
-Generates a new visitor identification token. This token will be unique every time this endpoint is called, even if called with the same email address. This token is temporary and will expire after 12 hours
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    identificationTokenGenerationRequest := *openapiclient.NewIdentificationTokenGenerationRequest("Email_example") // IdentificationTokenGenerationRequest | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.GenerateApi.PostVisitorIdentificationV3TokensCreateGenerateToken(context.Background()).IdentificationTokenGenerationRequest(identificationTokenGenerationRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `GenerateApi.PostVisitorIdentificationV3TokensCreateGenerateToken``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PostVisitorIdentificationV3TokensCreateGenerateToken`: IdentificationTokenResponse
+    fmt.Fprintf(os.Stdout, "Response from `GenerateApi.PostVisitorIdentificationV3TokensCreateGenerateToken`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostVisitorIdentificationV3TokensCreateGenerateTokenRequest struct via the builder pattern
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**IdentificationTokenGenerationRequest**](IdentificationTokenGenerationRequest.md)|  | 
+ **identificationTokenGenerationRequest** | [**IdentificationTokenGenerationRequest**](IdentificationTokenGenerationRequest.md) |  | 
 
 ### Return type
 
@@ -29,8 +66,10 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json, */*
+- **Content-Type**: application/json
+- **Accept**: application/json, */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 

@@ -1,31 +1,76 @@
-# {{classname}}
+# \SubscriberStateChangesApi
 
-All URIs are relative to *https://api.hubapi.com/*
+All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Postmarketingv3marketingEventseventsexternalEventIdsubscriberStateemailUpsert**](SubscriberStateChangesApi.md#Postmarketingv3marketingEventseventsexternalEventIdsubscriberStateemailUpsert) | **Post** /marketing/v3/marketing-events/events/{externalEventId}/{subscriberState}/email-upsert | Record
-[**Postmarketingv3marketingEventseventsexternalEventIdsubscriberStateupsert**](SubscriberStateChangesApi.md#Postmarketingv3marketingEventseventsexternalEventIdsubscriberStateupsert) | **Post** /marketing/v3/marketing-events/events/{externalEventId}/{subscriberState}/upsert | Record
+[**PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsert**](SubscriberStateChangesApi.md#PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsert) | **Post** /marketing/v3/marketing-events/events/{externalEventId}/{subscriberState}/email-upsert | Record
+[**PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsert**](SubscriberStateChangesApi.md#PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsert) | **Post** /marketing/v3/marketing-events/events/{externalEventId}/{subscriberState}/upsert | Record
 
-# **Postmarketingv3marketingEventseventsexternalEventIdsubscriberStateemailUpsert**
-> ModelError Postmarketingv3marketingEventseventsexternalEventIdsubscriberStateemailUpsert(ctx, body, externalEventId, subscriberState, externalAccountId)
+
+
+## PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsert
+
+> Error PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsert(ctx, externalEventId, subscriberState).ExternalAccountId(externalAccountId).BatchInputMarketingEventEmailSubscriber(batchInputMarketingEventEmailSubscriber).Execute()
+
 Record
 
-Record a subscription state between multiple HubSpot contacts and a marketing event, using contact email addresses.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    externalEventId := "externalEventId_example" // string | The id of the marketing event
+    subscriberState := "subscriberState_example" // string | The new subscriber state for the HubSpot contacts and the specified marketing event
+    externalAccountId := "externalAccountId_example" // string | The account id associated with the marketing event
+    batchInputMarketingEventEmailSubscriber := *openapiclient.NewBatchInputMarketingEventEmailSubscriber([]openapiclient.MarketingEventEmailSubscriber{*openapiclient.NewMarketingEventEmailSubscriber(int64(123), "Email_example")}) // BatchInputMarketingEventEmailSubscriber | The details of the contacts to subscribe to the event
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.SubscriberStateChangesApi.PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsert(context.Background(), externalEventId, subscriberState).ExternalAccountId(externalAccountId).BatchInputMarketingEventEmailSubscriber(batchInputMarketingEventEmailSubscriber).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SubscriberStateChangesApi.PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsert``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsert`: Error
+    fmt.Fprintf(os.Stdout, "Response from `SubscriberStateChangesApi.PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsert`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**BatchInputMarketingEventEmailSubscriber**](BatchInputMarketingEventEmailSubscriber.md)| The details of the contacts to subscribe to the event | 
-  **externalEventId** | **string**| The id of the marketing event | 
-  **subscriberState** | **string**| The new subscriber state for the HubSpot contacts and the specified marketing event | 
-  **externalAccountId** | **string**| The account id associated with the marketing event | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**externalEventId** | **string** | The id of the marketing event | 
+**subscriberState** | **string** | The new subscriber state for the HubSpot contacts and the specified marketing event | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsertRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **externalAccountId** | **string** | The account id associated with the marketing event | 
+ **batchInputMarketingEventEmailSubscriber** | [**BatchInputMarketingEventEmailSubscriber**](BatchInputMarketingEventEmailSubscriber.md) | The details of the contacts to subscribe to the event | 
 
 ### Return type
 
-[**ModelError**](Error.md)
+[**Error**](Error.md)
 
 ### Authorization
 
@@ -33,30 +78,76 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: application/json
+- **Accept**: */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **Postmarketingv3marketingEventseventsexternalEventIdsubscriberStateupsert**
-> ModelError Postmarketingv3marketingEventseventsexternalEventIdsubscriberStateupsert(ctx, body, externalEventId, subscriberState, externalAccountId)
+
+## PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsert
+
+> Error PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsert(ctx, externalEventId, subscriberState).ExternalAccountId(externalAccountId).BatchInputMarketingEventSubscriber(batchInputMarketingEventSubscriber).Execute()
+
 Record
 
-Record a subscription state between multiple HubSpot contacts and a marketing event, using HubSpot contact ids.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    externalEventId := "externalEventId_example" // string | The id of the marketing event
+    subscriberState := "subscriberState_example" // string | The new subscriber state for the HubSpot contacts and the specified marketing event
+    externalAccountId := "externalAccountId_example" // string | The account id associated with the marketing event
+    batchInputMarketingEventSubscriber := *openapiclient.NewBatchInputMarketingEventSubscriber([]openapiclient.MarketingEventSubscriber{*openapiclient.NewMarketingEventSubscriber(int64(123))}) // BatchInputMarketingEventSubscriber | The details of the contacts to subscribe to the event
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.SubscriberStateChangesApi.PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsert(context.Background(), externalEventId, subscriberState).ExternalAccountId(externalAccountId).BatchInputMarketingEventSubscriber(batchInputMarketingEventSubscriber).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SubscriberStateChangesApi.PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsert``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsert`: Error
+    fmt.Fprintf(os.Stdout, "Response from `SubscriberStateChangesApi.PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsert`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**BatchInputMarketingEventSubscriber**](BatchInputMarketingEventSubscriber.md)| The details of the contacts to subscribe to the event | 
-  **externalEventId** | **string**| The id of the marketing event | 
-  **subscriberState** | **string**| The new subscriber state for the HubSpot contacts and the specified marketing event | 
-  **externalAccountId** | **string**| The account id associated with the marketing event | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**externalEventId** | **string** | The id of the marketing event | 
+**subscriberState** | **string** | The new subscriber state for the HubSpot contacts and the specified marketing event | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsertRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **externalAccountId** | **string** | The account id associated with the marketing event | 
+ **batchInputMarketingEventSubscriber** | [**BatchInputMarketingEventSubscriber**](BatchInputMarketingEventSubscriber.md) | The details of the contacts to subscribe to the event | 
 
 ### Return type
 
-[**ModelError**](Error.md)
+[**Error**](Error.md)
 
 ### Authorization
 
@@ -64,8 +155,10 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: application/json
+- **Accept**: */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 

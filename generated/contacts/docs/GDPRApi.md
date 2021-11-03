@@ -1,23 +1,58 @@
-# {{classname}}
+# \GDPRApi
 
-All URIs are relative to *https://api.hubapi.com/*
+All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Postcrmv3objectscontactsgdprDelete**](GDPRApi.md#Postcrmv3objectscontactsgdprDelete) | **Post** /crm/v3/objects/contacts/gdpr-delete | GDPR DELETE
+[**PostCrmV3ObjectsContactsGdprDelete**](GDPRApi.md#PostCrmV3ObjectsContactsGdprDelete) | **Post** /crm/v3/objects/contacts/gdpr-delete | GDPR DELETE
 
-# **Postcrmv3objectscontactsgdprDelete**
-> Postcrmv3objectscontactsgdprDelete(ctx, body)
+
+
+## PostCrmV3ObjectsContactsGdprDelete
+
+> PostCrmV3ObjectsContactsGdprDelete(ctx).PublicGdprDeleteInput(publicGdprDeleteInput).Execute()
+
 GDPR DELETE
 
-Permanently delete a contact and all associated content to follow GDPR. Use optional property 'idProperty' set to 'email' to identify contact by email address. If email address is not found, the email address will be added to a blocklist and prevent it from being used in the future.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    publicGdprDeleteInput := *openapiclient.NewPublicGdprDeleteInput("ObjectId_example") // PublicGdprDeleteInput | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.GDPRApi.PostCrmV3ObjectsContactsGdprDelete(context.Background()).PublicGdprDeleteInput(publicGdprDeleteInput).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `GDPRApi.PostCrmV3ObjectsContactsGdprDelete``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCrmV3ObjectsContactsGdprDeleteRequest struct via the builder pattern
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**PublicGdprDeleteInput**](PublicGdprDeleteInput.md)|  | 
+ **publicGdprDeleteInput** | [**PublicGdprDeleteInput**](PublicGdprDeleteInput.md) |  | 
 
 ### Return type
 
@@ -29,8 +64,10 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: application/json
+- **Accept**: */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 

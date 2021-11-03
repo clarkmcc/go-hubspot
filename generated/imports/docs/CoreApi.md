@@ -1,34 +1,67 @@
-# {{classname}}
+# \CoreApi
 
-All URIs are relative to *https://api.hubapi.com/*
+All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Getcrmv3importsGetPage**](CoreApi.md#Getcrmv3importsGetPage) | **Get** /crm/v3/imports/ | Get active imports
-[**Getcrmv3importsimportIdGetById**](CoreApi.md#Getcrmv3importsimportIdGetById) | **Get** /crm/v3/imports/{importId} | Get the information on any import
-[**Postcrmv3importsCreate**](CoreApi.md#Postcrmv3importsCreate) | **Post** /crm/v3/imports/ | Start a new import
-[**Postcrmv3importsimportIdcancelCancel**](CoreApi.md#Postcrmv3importsimportIdcancelCancel) | **Post** /crm/v3/imports/{importId}/cancel | Cancel an active import
+[**GetCrmV3ImportsGetPage**](CoreApi.md#GetCrmV3ImportsGetPage) | **Get** /crm/v3/imports/ | Get active imports
+[**GetCrmV3ImportsImportIdGetById**](CoreApi.md#GetCrmV3ImportsImportIdGetById) | **Get** /crm/v3/imports/{importId} | Get the information on any import
+[**PostCrmV3ImportsCreate**](CoreApi.md#PostCrmV3ImportsCreate) | **Post** /crm/v3/imports/ | Start a new import
+[**PostCrmV3ImportsImportIdCancelCancel**](CoreApi.md#PostCrmV3ImportsImportIdCancelCancel) | **Post** /crm/v3/imports/{importId}/cancel | Cancel an active import
 
-# **Getcrmv3importsGetPage**
-> CollectionResponsePublicImportResponse Getcrmv3importsGetPage(ctx, optional)
+
+
+## GetCrmV3ImportsGetPage
+
+> CollectionResponsePublicImportResponse GetCrmV3ImportsGetPage(ctx).After(after).Before(before).Limit(limit).Execute()
+
 Get active imports
 
-Returns a paged list of active imports for this account.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    after := "after_example" // string | The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results. (optional)
+    before := "before_example" // string |  (optional)
+    limit := int32(56) // int32 | The maximum number of results to display per page. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.CoreApi.GetCrmV3ImportsGetPage(context.Background()).After(after).Before(before).Limit(limit).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `CoreApi.GetCrmV3ImportsGetPage``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetCrmV3ImportsGetPage`: CollectionResponsePublicImportResponse
+    fmt.Fprintf(os.Stdout, "Response from `CoreApi.GetCrmV3ImportsGetPage`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetCrmV3ImportsGetPageRequest struct via the builder pattern
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CoreApiGetcrmv3importsGetPageOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-Optional parameters are passed through a pointer to a CoreApiGetcrmv3importsGetPageOpts struct
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **after** | **optional.String**| The paging cursor token of the last successfully read resource will be returned as the &#x60;paging.next.after&#x60; JSON property of a paged response containing more results. | 
- **before** | **optional.String**|  | 
- **limit** | **optional.Int32**| The maximum number of results to display per page. | 
+ **after** | **string** | The paging cursor token of the last successfully read resource will be returned as the &#x60;paging.next.after&#x60; JSON property of a paged response containing more results. | 
+ **before** | **string** |  | 
+ **limit** | **int32** | The maximum number of results to display per page. | 
 
 ### Return type
 
@@ -40,23 +73,65 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json, */*
+- **Content-Type**: Not defined
+- **Accept**: application/json, */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **Getcrmv3importsimportIdGetById**
-> PublicImportResponse Getcrmv3importsimportIdGetById(ctx, importId)
+
+## GetCrmV3ImportsImportIdGetById
+
+> PublicImportResponse GetCrmV3ImportsImportIdGetById(ctx, importId).Execute()
+
 Get the information on any import
 
-A complete summary of an import record, including any updates.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    importId := int64(789) // int64 | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.CoreApi.GetCrmV3ImportsImportIdGetById(context.Background(), importId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `CoreApi.GetCrmV3ImportsImportIdGetById``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetCrmV3ImportsImportIdGetById`: PublicImportResponse
+    fmt.Fprintf(os.Stdout, "Response from `CoreApi.GetCrmV3ImportsImportIdGetById`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **importId** | **int64**|  | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**importId** | **int64** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetCrmV3ImportsImportIdGetByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -68,30 +143,63 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json, */*
+- **Content-Type**: Not defined
+- **Accept**: application/json, */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **Postcrmv3importsCreate**
-> PublicImportResponse Postcrmv3importsCreate(ctx, optional)
+
+## PostCrmV3ImportsCreate
+
+> PublicImportResponse PostCrmV3ImportsCreate(ctx).Files(files).ImportRequest(importRequest).Execute()
+
 Start a new import
 
-Begins importing data from the specified file resources. This uploads the corresponding file and uses the import request object to convert rows in the files to objects.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    files := os.NewFile(1234, "some_file") // *os.File | A list of files containing the data to import (optional)
+    importRequest := "importRequest_example" // string | JSON formatted metadata about the import. This includes a name for the import and the column mappings for each file. See the overview tab for more on the required format. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.CoreApi.PostCrmV3ImportsCreate(context.Background()).Files(files).ImportRequest(importRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `CoreApi.PostCrmV3ImportsCreate``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PostCrmV3ImportsCreate`: PublicImportResponse
+    fmt.Fprintf(os.Stdout, "Response from `CoreApi.PostCrmV3ImportsCreate`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCrmV3ImportsCreateRequest struct via the builder pattern
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CoreApiPostcrmv3importsCreateOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-Optional parameters are passed through a pointer to a CoreApiPostcrmv3importsCreateOpts struct
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **files** | **optional.Interface of *os.File****optional.**|  | 
- **importRequest** | **optional.**|  | 
+ **files** | ***os.File** | A list of files containing the data to import | 
+ **importRequest** | **string** | JSON formatted metadata about the import. This includes a name for the import and the column mappings for each file. See the overview tab for more on the required format. | 
 
 ### Return type
 
@@ -103,23 +211,65 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: multipart/form-data
- - **Accept**: application/json, */*
+- **Content-Type**: multipart/form-data
+- **Accept**: application/json, */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **Postcrmv3importsimportIdcancelCancel**
-> ActionResponse Postcrmv3importsimportIdcancelCancel(ctx, importId)
+
+## PostCrmV3ImportsImportIdCancelCancel
+
+> ActionResponse PostCrmV3ImportsImportIdCancelCancel(ctx, importId).Execute()
+
 Cancel an active import
 
-This allows a developer to cancel an active import.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    importId := int64(789) // int64 | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.CoreApi.PostCrmV3ImportsImportIdCancelCancel(context.Background(), importId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `CoreApi.PostCrmV3ImportsImportIdCancelCancel``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PostCrmV3ImportsImportIdCancelCancel`: ActionResponse
+    fmt.Fprintf(os.Stdout, "Response from `CoreApi.PostCrmV3ImportsImportIdCancelCancel`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **importId** | **int64**|  | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**importId** | **int64** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCrmV3ImportsImportIdCancelCancelRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -131,8 +281,10 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json, */*
+- **Content-Type**: Not defined
+- **Accept**: application/json, */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 

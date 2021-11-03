@@ -1,25 +1,64 @@
-# {{classname}}
+# \SettingsApi
 
-All URIs are relative to *https://api.hubapi.com/*
+All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Deletewebhooksv3appIdsettingsClear**](SettingsApi.md#Deletewebhooksv3appIdsettingsClear) | **Delete** /webhooks/v3/{appId}/settings | Clear webhook settings
-[**Getwebhooksv3appIdsettingsGetAll**](SettingsApi.md#Getwebhooksv3appIdsettingsGetAll) | **Get** /webhooks/v3/{appId}/settings | Get webhook settings
-[**Putwebhooksv3appIdsettingsConfigure**](SettingsApi.md#Putwebhooksv3appIdsettingsConfigure) | **Put** /webhooks/v3/{appId}/settings | Configure webhook settings
+[**DeleteWebhooksV3AppIdSettingsClear**](SettingsApi.md#DeleteWebhooksV3AppIdSettingsClear) | **Delete** /webhooks/v3/{appId}/settings | Clear webhook settings
+[**GetWebhooksV3AppIdSettingsGetAll**](SettingsApi.md#GetWebhooksV3AppIdSettingsGetAll) | **Get** /webhooks/v3/{appId}/settings | Get webhook settings
+[**PutWebhooksV3AppIdSettingsConfigure**](SettingsApi.md#PutWebhooksV3AppIdSettingsConfigure) | **Put** /webhooks/v3/{appId}/settings | Configure webhook settings
 
-# **Deletewebhooksv3appIdsettingsClear**
-> Deletewebhooksv3appIdsettingsClear(ctx, appId)
+
+
+## DeleteWebhooksV3AppIdSettingsClear
+
+> DeleteWebhooksV3AppIdSettingsClear(ctx, appId).Execute()
+
 Clear webhook settings
 
-Resets webhook target URL to empty, and max concurrency limit to `0` for the given app. This will effectively pause all webhook subscriptions until new settings are provided.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    appId := int32(56) // int32 | The ID of the target app.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.SettingsApi.DeleteWebhooksV3AppIdSettingsClear(context.Background(), appId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SettingsApi.DeleteWebhooksV3AppIdSettingsClear``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **appId** | **int32**| The ID of the target app. | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**appId** | **int32** | The ID of the target app. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteWebhooksV3AppIdSettingsClearRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -31,23 +70,65 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **Getwebhooksv3appIdsettingsGetAll**
-> SettingsResponse Getwebhooksv3appIdsettingsGetAll(ctx, appId)
+
+## GetWebhooksV3AppIdSettingsGetAll
+
+> SettingsResponse GetWebhooksV3AppIdSettingsGetAll(ctx, appId).Execute()
+
 Get webhook settings
 
-Returns the current state of webhook settings for the given app. These settings include the app's configured target URL and max concurrency limit.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    appId := int32(56) // int32 | The ID of the target app.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.SettingsApi.GetWebhooksV3AppIdSettingsGetAll(context.Background(), appId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SettingsApi.GetWebhooksV3AppIdSettingsGetAll``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetWebhooksV3AppIdSettingsGetAll`: SettingsResponse
+    fmt.Fprintf(os.Stdout, "Response from `SettingsApi.GetWebhooksV3AppIdSettingsGetAll`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **appId** | **int32**| The ID of the target app. | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**appId** | **int32** | The ID of the target app. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetWebhooksV3AppIdSettingsGetAllRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -59,24 +140,67 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json, */*
+- **Content-Type**: Not defined
+- **Accept**: application/json, */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **Putwebhooksv3appIdsettingsConfigure**
-> SettingsResponse Putwebhooksv3appIdsettingsConfigure(ctx, body, appId)
+
+## PutWebhooksV3AppIdSettingsConfigure
+
+> SettingsResponse PutWebhooksV3AppIdSettingsConfigure(ctx, appId).SettingsChangeRequest(settingsChangeRequest).Execute()
+
 Configure webhook settings
 
-Used to set the webhook target URL and max concurrency limit for the given app.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    appId := int32(56) // int32 | The ID of the target app.
+    settingsChangeRequest := *openapiclient.NewSettingsChangeRequest("TargetUrl_example", *openapiclient.NewThrottlingSettings(int32(123), "Period_example")) // SettingsChangeRequest | Settings state to create new with or replace existing settings with.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.SettingsApi.PutWebhooksV3AppIdSettingsConfigure(context.Background(), appId).SettingsChangeRequest(settingsChangeRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SettingsApi.PutWebhooksV3AppIdSettingsConfigure``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PutWebhooksV3AppIdSettingsConfigure`: SettingsResponse
+    fmt.Fprintf(os.Stdout, "Response from `SettingsApi.PutWebhooksV3AppIdSettingsConfigure`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**SettingsChangeRequest**](SettingsChangeRequest.md)| Settings state to create new with or replace existing settings with. | 
-  **appId** | **int32**| The ID of the target app. | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**appId** | **int32** | The ID of the target app. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutWebhooksV3AppIdSettingsConfigureRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **settingsChangeRequest** | [**SettingsChangeRequest**](SettingsChangeRequest.md) | Settings state to create new with or replace existing settings with. | 
 
 ### Return type
 
@@ -88,8 +212,10 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json, */*
+- **Content-Type**: application/json
+- **Accept**: application/json, */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 

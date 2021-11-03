@@ -1,23 +1,58 @@
-# {{classname}}
+# \BehavioralEventsTrackingApi
 
-All URIs are relative to *https://api.hubapi.com/*
+All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Posteventsv3send**](BehavioralEventsTrackingApi.md#Posteventsv3send) | **Post** /events/v3/send | Sends Custom Behavioral Event
+[**PostEventsV3Send**](BehavioralEventsTrackingApi.md#PostEventsV3Send) | **Post** /events/v3/send | Sends Custom Behavioral Event
 
-# **Posteventsv3send**
-> Posteventsv3send(ctx, body)
+
+
+## PostEventsV3Send
+
+> PostEventsV3Send(ctx).BehavioralEventHttpCompletionRequest(behavioralEventHttpCompletionRequest).Execute()
+
 Sends Custom Behavioral Event
 
-Endpoint to send an instance of a behavioral event
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    behavioralEventHttpCompletionRequest := *openapiclient.NewBehavioralEventHttpCompletionRequest("EventName_example", map[string]string{"key": "Inner_example"}) // BehavioralEventHttpCompletionRequest | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.BehavioralEventsTrackingApi.PostEventsV3Send(context.Background()).BehavioralEventHttpCompletionRequest(behavioralEventHttpCompletionRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `BehavioralEventsTrackingApi.PostEventsV3Send``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostEventsV3SendRequest struct via the builder pattern
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**BehavioralEventHttpCompletionRequest**](BehavioralEventHttpCompletionRequest.md)|  | 
+ **behavioralEventHttpCompletionRequest** | [**BehavioralEventHttpCompletionRequest**](BehavioralEventHttpCompletionRequest.md) |  | 
 
 ### Return type
 
@@ -29,8 +64,10 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: application/json
+- **Accept**: */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 

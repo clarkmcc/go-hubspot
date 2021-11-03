@@ -1,27 +1,68 @@
-# {{classname}}
+# \ContentApi
 
-All URIs are relative to *https://api.hubapi.com/*
+All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Deletecmsv3sourceCodeenvironmentcontentpath**](ContentApi.md#Deletecmsv3sourceCodeenvironmentcontentpath) | **Delete** /cms/v3/source-code/{environment}/content/{path} | Delete a file
-[**Getcmsv3sourceCodeenvironmentcontentpath**](ContentApi.md#Getcmsv3sourceCodeenvironmentcontentpath) | **Get** /cms/v3/source-code/{environment}/content/{path} | Download a file
-[**Postcmsv3sourceCodeenvironmentcontentpath**](ContentApi.md#Postcmsv3sourceCodeenvironmentcontentpath) | **Post** /cms/v3/source-code/{environment}/content/{path} | Create a file
-[**Putcmsv3sourceCodeenvironmentcontentpath**](ContentApi.md#Putcmsv3sourceCodeenvironmentcontentpath) | **Put** /cms/v3/source-code/{environment}/content/{path} | Create or update a file
+[**DeleteCmsV3SourceCodeEnvironmentContentPath**](ContentApi.md#DeleteCmsV3SourceCodeEnvironmentContentPath) | **Delete** /cms/v3/source-code/{environment}/content/{path} | Delete a file
+[**GetCmsV3SourceCodeEnvironmentContentPath**](ContentApi.md#GetCmsV3SourceCodeEnvironmentContentPath) | **Get** /cms/v3/source-code/{environment}/content/{path} | Download a file
+[**PostCmsV3SourceCodeEnvironmentContentPath**](ContentApi.md#PostCmsV3SourceCodeEnvironmentContentPath) | **Post** /cms/v3/source-code/{environment}/content/{path} | Create a file
+[**PutCmsV3SourceCodeEnvironmentContentPath**](ContentApi.md#PutCmsV3SourceCodeEnvironmentContentPath) | **Put** /cms/v3/source-code/{environment}/content/{path} | Create or update a file
 
-# **Deletecmsv3sourceCodeenvironmentcontentpath**
-> Deletecmsv3sourceCodeenvironmentcontentpath(ctx, environment, path)
+
+
+## DeleteCmsV3SourceCodeEnvironmentContentPath
+
+> DeleteCmsV3SourceCodeEnvironmentContentPath(ctx, environment, path).Execute()
+
 Delete a file
 
-Deletes the file at the specified path in the specified environment.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    environment := "environment_example" // string | The environment of the file (\"draft\" or \"published\").
+    path := "path_example" // string | The file system location of the file.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ContentApi.DeleteCmsV3SourceCodeEnvironmentContentPath(context.Background(), environment, path).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ContentApi.DeleteCmsV3SourceCodeEnvironmentContentPath``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **environment** | **string**| The environment of the file (\&quot;draft\&quot; or \&quot;published\&quot;). | 
-  **path** | **string**| The file system location of the file. | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**environment** | **string** | The environment of the file (\&quot;draft\&quot; or \&quot;published\&quot;). | 
+**path** | **string** | The file system location of the file. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteCmsV3SourceCodeEnvironmentContentPathRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
 
 ### Return type
 
@@ -33,28 +74,72 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **Getcmsv3sourceCodeenvironmentcontentpath**
-> ModelError Getcmsv3sourceCodeenvironmentcontentpath(ctx, environment, path)
+
+## GetCmsV3SourceCodeEnvironmentContentPath
+
+> Error GetCmsV3SourceCodeEnvironmentContentPath(ctx, environment, path).Execute()
+
 Download a file
 
-Downloads the byte contents of the file at the specified path in the specified environment.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    environment := "environment_example" // string | The environment of the file (\"draft\" or \"published\").
+    path := "path_example" // string | The file system location of the file.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ContentApi.GetCmsV3SourceCodeEnvironmentContentPath(context.Background(), environment, path).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ContentApi.GetCmsV3SourceCodeEnvironmentContentPath``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetCmsV3SourceCodeEnvironmentContentPath`: Error
+    fmt.Fprintf(os.Stdout, "Response from `ContentApi.GetCmsV3SourceCodeEnvironmentContentPath`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **environment** | **string**| The environment of the file (\&quot;draft\&quot; or \&quot;published\&quot;). | 
-  **path** | **string**| The file system location of the file. | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**environment** | **string** | The environment of the file (\&quot;draft\&quot; or \&quot;published\&quot;). | 
+**path** | **string** | The file system location of the file. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetCmsV3SourceCodeEnvironmentContentPathRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
 
 ### Return type
 
-[**ModelError**](Error.md)
+[**Error**](Error.md)
 
 ### Authorization
 
@@ -62,33 +147,70 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **Postcmsv3sourceCodeenvironmentcontentpath**
-> AssetFileMetadata Postcmsv3sourceCodeenvironmentcontentpath(ctx, environment, path, optional)
+
+## PostCmsV3SourceCodeEnvironmentContentPath
+
+> AssetFileMetadata PostCmsV3SourceCodeEnvironmentContentPath(ctx, environment, path).File(file).Execute()
+
 Create a file
 
-Creates a file at the specified path in the specified environment. Accepts multipart/form-data content type. Throws an error if a file already exists at the specified path.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    environment := "environment_example" // string | The environment of the file (\"draft\" or \"published\").
+    path := "path_example" // string | The file system location of the file.
+    file := os.NewFile(1234, "some_file") // *os.File | The file to upload. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ContentApi.PostCmsV3SourceCodeEnvironmentContentPath(context.Background(), environment, path).File(file).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ContentApi.PostCmsV3SourceCodeEnvironmentContentPath``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PostCmsV3SourceCodeEnvironmentContentPath`: AssetFileMetadata
+    fmt.Fprintf(os.Stdout, "Response from `ContentApi.PostCmsV3SourceCodeEnvironmentContentPath`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **environment** | **string**| The environment of the file (\&quot;draft\&quot; or \&quot;published\&quot;). | 
-  **path** | **string**| The file system location of the file. | 
- **optional** | ***ContentApiPostcmsv3sourceCodeenvironmentcontentpathOpts** | optional parameters | nil if no parameters
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**environment** | **string** | The environment of the file (\&quot;draft\&quot; or \&quot;published\&quot;). | 
+**path** | **string** | The file system location of the file. | 
 
-### Optional Parameters
-Optional parameters are passed through a pointer to a ContentApiPostcmsv3sourceCodeenvironmentcontentpathOpts struct
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCmsV3SourceCodeEnvironmentContentPathRequest struct via the builder pattern
+
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **file** | **optional.Interface of *os.File****optional.**|  | 
+ **file** | ***os.File** | The file to upload. | 
 
 ### Return type
 
@@ -100,33 +222,70 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: multipart/form-data
- - **Accept**: application/json, */*
+- **Content-Type**: multipart/form-data
+- **Accept**: application/json, */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **Putcmsv3sourceCodeenvironmentcontentpath**
-> AssetFileMetadata Putcmsv3sourceCodeenvironmentcontentpath(ctx, environment, path, optional)
+
+## PutCmsV3SourceCodeEnvironmentContentPath
+
+> AssetFileMetadata PutCmsV3SourceCodeEnvironmentContentPath(ctx, environment, path).File(file).Execute()
+
 Create or update a file
 
-Upserts a file at the specified path in the specified environment. Accepts multipart/form-data content type.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    environment := "environment_example" // string | The environment of the file (\"draft\" or \"published\").
+    path := "path_example" // string | The file system location of the file.
+    file := os.NewFile(1234, "some_file") // *os.File | The file to upload. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ContentApi.PutCmsV3SourceCodeEnvironmentContentPath(context.Background(), environment, path).File(file).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ContentApi.PutCmsV3SourceCodeEnvironmentContentPath``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PutCmsV3SourceCodeEnvironmentContentPath`: AssetFileMetadata
+    fmt.Fprintf(os.Stdout, "Response from `ContentApi.PutCmsV3SourceCodeEnvironmentContentPath`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **environment** | **string**| The environment of the file (\&quot;draft\&quot; or \&quot;published\&quot;). | 
-  **path** | **string**| The file system location of the file. | 
- **optional** | ***ContentApiPutcmsv3sourceCodeenvironmentcontentpathOpts** | optional parameters | nil if no parameters
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**environment** | **string** | The environment of the file (\&quot;draft\&quot; or \&quot;published\&quot;). | 
+**path** | **string** | The file system location of the file. | 
 
-### Optional Parameters
-Optional parameters are passed through a pointer to a ContentApiPutcmsv3sourceCodeenvironmentcontentpathOpts struct
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutCmsV3SourceCodeEnvironmentContentPathRequest struct via the builder pattern
+
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **file** | **optional.Interface of *os.File****optional.**|  | 
+ **file** | ***os.File** | The file to upload. | 
 
 ### Return type
 
@@ -138,8 +297,10 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: multipart/form-data
- - **Accept**: application/json, */*
+- **Content-Type**: multipart/form-data
+- **Accept**: application/json, */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 

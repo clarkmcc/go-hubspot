@@ -1,26 +1,65 @@
-# {{classname}}
+# \SettingsApi
 
-All URIs are relative to *https://api.hubapi.com/*
+All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Deletecrmv3extensionscallingappIdsettingsArchive**](SettingsApi.md#Deletecrmv3extensionscallingappIdsettingsArchive) | **Delete** /crm/v3/extensions/calling/{appId}/settings | Delete calling settings
-[**Getcrmv3extensionscallingappIdsettingsGetById**](SettingsApi.md#Getcrmv3extensionscallingappIdsettingsGetById) | **Get** /crm/v3/extensions/calling/{appId}/settings | Get calling settings
-[**Patchcrmv3extensionscallingappIdsettingsUpdate**](SettingsApi.md#Patchcrmv3extensionscallingappIdsettingsUpdate) | **Patch** /crm/v3/extensions/calling/{appId}/settings | Update settings
-[**Postcrmv3extensionscallingappIdsettingsCreate**](SettingsApi.md#Postcrmv3extensionscallingappIdsettingsCreate) | **Post** /crm/v3/extensions/calling/{appId}/settings | Configure a calling extension
+[**DeleteCrmV3ExtensionsCallingAppIdSettingsArchive**](SettingsApi.md#DeleteCrmV3ExtensionsCallingAppIdSettingsArchive) | **Delete** /crm/v3/extensions/calling/{appId}/settings | Delete calling settings
+[**GetCrmV3ExtensionsCallingAppIdSettingsGetById**](SettingsApi.md#GetCrmV3ExtensionsCallingAppIdSettingsGetById) | **Get** /crm/v3/extensions/calling/{appId}/settings | Get calling settings
+[**PatchCrmV3ExtensionsCallingAppIdSettingsUpdate**](SettingsApi.md#PatchCrmV3ExtensionsCallingAppIdSettingsUpdate) | **Patch** /crm/v3/extensions/calling/{appId}/settings | Update settings
+[**PostCrmV3ExtensionsCallingAppIdSettingsCreate**](SettingsApi.md#PostCrmV3ExtensionsCallingAppIdSettingsCreate) | **Post** /crm/v3/extensions/calling/{appId}/settings | Configure a calling extension
 
-# **Deletecrmv3extensionscallingappIdsettingsArchive**
-> Deletecrmv3extensionscallingappIdsettingsArchive(ctx, appId)
+
+
+## DeleteCrmV3ExtensionsCallingAppIdSettingsArchive
+
+> DeleteCrmV3ExtensionsCallingAppIdSettingsArchive(ctx, appId).Execute()
+
 Delete calling settings
 
-Deletes this calling extension. This will remove your service as an option for all connected accounts.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    appId := int32(56) // int32 | The ID of the target app.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.SettingsApi.DeleteCrmV3ExtensionsCallingAppIdSettingsArchive(context.Background(), appId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SettingsApi.DeleteCrmV3ExtensionsCallingAppIdSettingsArchive``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **appId** | **int32**| The ID of the target app. | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**appId** | **int32** | The ID of the target app. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteCrmV3ExtensionsCallingAppIdSettingsArchiveRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -32,23 +71,65 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **Getcrmv3extensionscallingappIdsettingsGetById**
-> SettingsResponse Getcrmv3extensionscallingappIdsettingsGetById(ctx, appId)
+
+## GetCrmV3ExtensionsCallingAppIdSettingsGetById
+
+> SettingsResponse GetCrmV3ExtensionsCallingAppIdSettingsGetById(ctx, appId).Execute()
+
 Get calling settings
 
-Returns the calling extension settings configured for your app.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    appId := int32(56) // int32 | The ID of the target app.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.SettingsApi.GetCrmV3ExtensionsCallingAppIdSettingsGetById(context.Background(), appId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SettingsApi.GetCrmV3ExtensionsCallingAppIdSettingsGetById``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetCrmV3ExtensionsCallingAppIdSettingsGetById`: SettingsResponse
+    fmt.Fprintf(os.Stdout, "Response from `SettingsApi.GetCrmV3ExtensionsCallingAppIdSettingsGetById`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **appId** | **int32**| The ID of the target app. | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**appId** | **int32** | The ID of the target app. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetCrmV3ExtensionsCallingAppIdSettingsGetByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -60,24 +141,67 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json, */*
+- **Content-Type**: Not defined
+- **Accept**: application/json, */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **Patchcrmv3extensionscallingappIdsettingsUpdate**
-> SettingsResponse Patchcrmv3extensionscallingappIdsettingsUpdate(ctx, body, appId)
+
+## PatchCrmV3ExtensionsCallingAppIdSettingsUpdate
+
+> SettingsResponse PatchCrmV3ExtensionsCallingAppIdSettingsUpdate(ctx, appId).SettingsPatchRequest(settingsPatchRequest).Execute()
+
 Update settings
 
-Updates existing calling extension settings.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    appId := int32(56) // int32 | The ID of the target app.
+    settingsPatchRequest := *openapiclient.NewSettingsPatchRequest() // SettingsPatchRequest | Updated details for the settings.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.SettingsApi.PatchCrmV3ExtensionsCallingAppIdSettingsUpdate(context.Background(), appId).SettingsPatchRequest(settingsPatchRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SettingsApi.PatchCrmV3ExtensionsCallingAppIdSettingsUpdate``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PatchCrmV3ExtensionsCallingAppIdSettingsUpdate`: SettingsResponse
+    fmt.Fprintf(os.Stdout, "Response from `SettingsApi.PatchCrmV3ExtensionsCallingAppIdSettingsUpdate`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**SettingsPatchRequest**](SettingsPatchRequest.md)| Updated details for the settings. | 
-  **appId** | **int32**| The ID of the target app. | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**appId** | **int32** | The ID of the target app. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPatchCrmV3ExtensionsCallingAppIdSettingsUpdateRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **settingsPatchRequest** | [**SettingsPatchRequest**](SettingsPatchRequest.md) | Updated details for the settings. | 
 
 ### Return type
 
@@ -89,24 +213,67 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json, */*
+- **Content-Type**: application/json
+- **Accept**: application/json, */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **Postcrmv3extensionscallingappIdsettingsCreate**
-> SettingsResponse Postcrmv3extensionscallingappIdsettingsCreate(ctx, body, appId)
+
+## PostCrmV3ExtensionsCallingAppIdSettingsCreate
+
+> SettingsResponse PostCrmV3ExtensionsCallingAppIdSettingsCreate(ctx, appId).SettingsRequest(settingsRequest).Execute()
+
 Configure a calling extension
 
-Used to set the menu label, target iframe URL, and dimensions for your calling extension.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    appId := int32(56) // int32 | The ID of the target app.
+    settingsRequest := *openapiclient.NewSettingsRequest("Name_example", "Url_example") // SettingsRequest | Settings state to create with.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.SettingsApi.PostCrmV3ExtensionsCallingAppIdSettingsCreate(context.Background(), appId).SettingsRequest(settingsRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SettingsApi.PostCrmV3ExtensionsCallingAppIdSettingsCreate``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PostCrmV3ExtensionsCallingAppIdSettingsCreate`: SettingsResponse
+    fmt.Fprintf(os.Stdout, "Response from `SettingsApi.PostCrmV3ExtensionsCallingAppIdSettingsCreate`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**SettingsRequest**](SettingsRequest.md)| Settings state to create with. | 
-  **appId** | **int32**| The ID of the target app. | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**appId** | **int32** | The ID of the target app. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCrmV3ExtensionsCallingAppIdSettingsCreateRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **settingsRequest** | [**SettingsRequest**](SettingsRequest.md) | Settings state to create with. | 
 
 ### Return type
 
@@ -118,8 +285,10 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json, */*
+- **Content-Type**: application/json
+- **Accept**: application/json, */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 

@@ -1,24 +1,65 @@
-# {{classname}}
+# \SettingsApi
 
-All URIs are relative to *https://api.hubapi.com/*
+All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Getcrmv3extensionsaccountingsettingsappIdGetById**](SettingsApi.md#Getcrmv3extensionsaccountingsettingsappIdGetById) | **Get** /crm/v3/extensions/accounting/settings/{appId} | Get URL settings
-[**Putcrmv3extensionsaccountingsettingsappIdReplace**](SettingsApi.md#Putcrmv3extensionsaccountingsettingsappIdReplace) | **Put** /crm/v3/extensions/accounting/settings/{appId} | Add/Update URL Settings
+[**GetCrmV3ExtensionsAccountingSettingsAppIdGetById**](SettingsApi.md#GetCrmV3ExtensionsAccountingSettingsAppIdGetById) | **Get** /crm/v3/extensions/accounting/settings/{appId} | Get URL settings
+[**PutCrmV3ExtensionsAccountingSettingsAppIdReplace**](SettingsApi.md#PutCrmV3ExtensionsAccountingSettingsAppIdReplace) | **Put** /crm/v3/extensions/accounting/settings/{appId} | Add/Update URL Settings
 
-# **Getcrmv3extensionsaccountingsettingsappIdGetById**
-> AccountingAppSettings Getcrmv3extensionsaccountingsettingsappIdGetById(ctx, appId)
+
+
+## GetCrmV3ExtensionsAccountingSettingsAppIdGetById
+
+> AccountingAppSettings GetCrmV3ExtensionsAccountingSettingsAppIdGetById(ctx, appId).Execute()
+
 Get URL settings
 
-Returns the URL settings for an accounting app with the specified ID.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    appId := int32(56) // int32 | The ID of the accounting app. This is the identifier of the application created in your HubSpot developer portal.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.SettingsApi.GetCrmV3ExtensionsAccountingSettingsAppIdGetById(context.Background(), appId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SettingsApi.GetCrmV3ExtensionsAccountingSettingsAppIdGetById``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetCrmV3ExtensionsAccountingSettingsAppIdGetById`: AccountingAppSettings
+    fmt.Fprintf(os.Stdout, "Response from `SettingsApi.GetCrmV3ExtensionsAccountingSettingsAppIdGetById`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **appId** | **int32**| The ID of the accounting app. This is the identifier of the application created in your HubSpot developer portal. | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**appId** | **int32** | The ID of the accounting app. This is the identifier of the application created in your HubSpot developer portal. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetCrmV3ExtensionsAccountingSettingsAppIdGetByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -30,24 +71,65 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json, */*
+- **Content-Type**: Not defined
+- **Accept**: application/json, */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **Putcrmv3extensionsaccountingsettingsappIdReplace**
-> Putcrmv3extensionsaccountingsettingsappIdReplace(ctx, body, appId)
+
+## PutCrmV3ExtensionsAccountingSettingsAppIdReplace
+
+> PutCrmV3ExtensionsAccountingSettingsAppIdReplace(ctx, appId).AccountingAppSettings(accountingAppSettings).Execute()
+
 Add/Update URL Settings
 
-Add/Update the URL settings for an accounting app with the specified ID.  All URLs must use the `https` protocol.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    appId := int32(56) // int32 | The ID of the accounting app. This is the identifier of the application created in your HubSpot developer portal.
+    accountingAppSettings := *openapiclient.NewAccountingAppSettings(int32(123), *openapiclient.NewAccountingAppUrls("GetInvoiceUrl_example", "SearchCustomerUrl_example", "GetInvoicePdfUrl_example", "CustomerUrlTemplate_example", "ProductUrlTemplate_example", "InvoiceUrlTemplate_example")) // AccountingAppSettings | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.SettingsApi.PutCrmV3ExtensionsAccountingSettingsAppIdReplace(context.Background(), appId).AccountingAppSettings(accountingAppSettings).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SettingsApi.PutCrmV3ExtensionsAccountingSettingsAppIdReplace``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**AccountingAppSettings**](AccountingAppSettings.md)|  | 
-  **appId** | **int32**| The ID of the accounting app. This is the identifier of the application created in your HubSpot developer portal. | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**appId** | **int32** | The ID of the accounting app. This is the identifier of the application created in your HubSpot developer portal. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutCrmV3ExtensionsAccountingSettingsAppIdReplaceRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **accountingAppSettings** | [**AccountingAppSettings**](AccountingAppSettings.md) |  | 
 
 ### Return type
 
@@ -59,8 +141,10 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+- **Content-Type**: application/json
+- **Accept**: */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 

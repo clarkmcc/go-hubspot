@@ -1,26 +1,67 @@
-# {{classname}}
+# \RefreshTokensApi
 
-All URIs are relative to *https://api.hubapi.com/*
+All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Deleteoauthv1refreshTokenstokenArchiveRefreshToken**](RefreshTokensApi.md#Deleteoauthv1refreshTokenstokenArchiveRefreshToken) | **Delete** /oauth/v1/refresh-tokens/{token} | 
-[**Getoauthv1refreshTokenstokenGetRefreshToken**](RefreshTokensApi.md#Getoauthv1refreshTokenstokenGetRefreshToken) | **Get** /oauth/v1/refresh-tokens/{token} | 
-
-# **Deleteoauthv1refreshTokenstokenArchiveRefreshToken**
-> ModelError Deleteoauthv1refreshTokenstokenArchiveRefreshToken(ctx, token)
+[**DeleteOauthV1RefreshTokensTokenArchiveRefreshToken**](RefreshTokensApi.md#DeleteOauthV1RefreshTokensTokenArchiveRefreshToken) | **Delete** /oauth/v1/refresh-tokens/{token} | 
+[**GetOauthV1RefreshTokensTokenGetRefreshToken**](RefreshTokensApi.md#GetOauthV1RefreshTokensTokenGetRefreshToken) | **Get** /oauth/v1/refresh-tokens/{token} | 
 
 
-### Required Parameters
+
+## DeleteOauthV1RefreshTokensTokenArchiveRefreshToken
+
+> Error DeleteOauthV1RefreshTokensTokenArchiveRefreshToken(ctx, token).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    token := "token_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.RefreshTokensApi.DeleteOauthV1RefreshTokensTokenArchiveRefreshToken(context.Background(), token).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RefreshTokensApi.DeleteOauthV1RefreshTokensTokenArchiveRefreshToken``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `DeleteOauthV1RefreshTokensTokenArchiveRefreshToken`: Error
+    fmt.Fprintf(os.Stdout, "Response from `RefreshTokensApi.DeleteOauthV1RefreshTokensTokenArchiveRefreshToken`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **token** | **string**|  | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**token** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteOauthV1RefreshTokensTokenArchiveRefreshTokenRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 ### Return type
 
-[**ModelError**](Error.md)
+[**Error**](Error.md)
 
 ### Authorization
 
@@ -28,21 +69,63 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **Getoauthv1refreshTokenstokenGetRefreshToken**
-> RefreshTokenInfoResponse Getoauthv1refreshTokenstokenGetRefreshToken(ctx, token)
+
+## GetOauthV1RefreshTokensTokenGetRefreshToken
+
+> RefreshTokenInfoResponse GetOauthV1RefreshTokensTokenGetRefreshToken(ctx, token).Execute()
 
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    token := "token_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.RefreshTokensApi.GetOauthV1RefreshTokensTokenGetRefreshToken(context.Background(), token).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RefreshTokensApi.GetOauthV1RefreshTokensTokenGetRefreshToken``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetOauthV1RefreshTokensTokenGetRefreshToken`: RefreshTokenInfoResponse
+    fmt.Fprintf(os.Stdout, "Response from `RefreshTokensApi.GetOauthV1RefreshTokensTokenGetRefreshToken`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **token** | **string**|  | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**token** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetOauthV1RefreshTokensTokenGetRefreshTokenRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -54,8 +137,10 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json, */*
+- **Content-Type**: Not defined
+- **Accept**: application/json, */*
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
