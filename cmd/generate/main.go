@@ -1,11 +1,9 @@
 package main
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"io/fs"
-	"io/ioutil"
 	"net/http"
 	"os"
 	"os/exec"
@@ -40,7 +38,15 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	swagger, err := exec.LookPath("swagger-codegen")
+	err = os.Setenv("GIT_USER_ID", "clarkmcc")
+	if err != nil {
+		panic(err)
+	}
+	err = os.Setenv("GIT_REPO_ID", "go-hubspot")
+	if err != nil {
+		panic(err)
+	}
+	generator, err := exec.LookPath("openapi-generator")
 	if err != nil {
 		panic(err)
 	}
@@ -48,48 +54,29 @@ func main() {
 		for name, feature := range group.Features {
 			name = replacer.Replace(strings.ToLower(name))
 			fmt.Printf("generating group/feature %s/%s\n", strings.ToLower(group.Name), name)
-			_, err := exec.Command(swagger, "generate", "-i", feature.OpenAPI, "--additional-properties", "packageName="+name, "-l", "go", "-o", "./generated/"+name).CombinedOutput()
+			_, err := exec.Command(generator, "generate",
+				"-i", feature.OpenAPI,
+				"-g", "go",
+				"--package-name", name,
+				"--additional-properties=isGoSubmodule=false",
+				"--skip-validate-spec",
+				"-o", "./generated/"+name,
+			).CombinedOutput()
 			if err != nil {
 				panic(err)
 			}
 		}
 	}
 
-	// The client configuration structs have a base path with a trailing slash like
-	// https://api.hubapi.com/ this. When concatenated with paths by the swagger-codegen,
-	// it turns into https://api.hubapi.com//my/endpoint which always returns a 404. We'll
-	// replace the base path with a base path that does not have a trailing slash.
+	// The client configuration gets generated with a go module for each generated
+	// client. We'll go through and delete each submodule so that we can take advantage
+	// of the root parent module.
 	fmt.Println("fixing base path in generated clients")
-	err = filepath.Walk(".", func(path string, info fs.FileInfo, err error) error {
-		if info.Name() != "configuration.go" {
+	err = filepath.Walk("generated", func(path string, info fs.FileInfo, err error) error {
+		if info.Name() != "go.mod" && info.Name() != "go.sum" {
 			return nil
 		}
-		var b []byte
-		{
-			file, err := os.Open(path)
-			if err != nil {
-				return err
-			}
-			defer file.Close()
-			b, err = ioutil.ReadAll(file)
-			if err != nil {
-				return err
-			}
-		}
-		b = bytes.Replace(b, []byte("https://api.hubapi.com/"), []byte("https://api.hubapi.com"), 1)
-		err = os.Remove(path)
-		if err != nil {
-			return err
-		}
-		file, err := os.Create(path)
-		if err != nil {
-			return err
-		}
-		_, err = file.Write(b)
-		if err != nil {
-			return err
-		}
-		return nil
+		return os.Remove(path)
 	})
 	if err != nil {
 		panic(err)

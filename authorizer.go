@@ -21,8 +21,8 @@ type APIKeyAuthorizer struct {
 func (a *APIKeyAuthorizer) Apply(ctx context.Context) context.Context {
 	// We'll use the types from the contacts generated package for now since the authorizer stuff here
 	// is the same across all the generated packages.
-	return context.WithValue(ctx, contacts.ContextAPIKey, contacts.APIKey{
-		Key: a.Key,
+	return context.WithValue(ctx, contacts.ContextAPIKeys, map[string]contacts.APIKey{
+		"hapikey": {Key: a.Key},
 	})
 }
 
