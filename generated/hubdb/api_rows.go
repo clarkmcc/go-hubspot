@@ -15,6 +15,8 @@ import (
 	_context "context"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
+
+	"github.com/clarkmcc/go-hubspot/authorization"
 	_neturl "net/url"
 	"reflect"
 	"strings"
@@ -100,7 +102,7 @@ func (a *RowsApiService) DeleteCmsV3HubdbTablesTableIdOrNameRowsRowIdDraftPurgeD
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -273,7 +275,7 @@ func (a *RowsApiService) GetCmsV3HubdbTablesTableIdOrNameRowsDraftReadDraftTable
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -456,7 +458,7 @@ func (a *RowsApiService) GetCmsV3HubdbTablesTableIdOrNameRowsGetTableRowsExecute
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -586,7 +588,7 @@ func (a *RowsApiService) GetCmsV3HubdbTablesTableIdOrNameRowsRowIdDraftGetDraftT
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -717,7 +719,7 @@ func (a *RowsApiService) GetCmsV3HubdbTablesTableIdOrNameRowsRowIdGetTableRowExe
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -861,7 +863,7 @@ func (a *RowsApiService) PatchCmsV3HubdbTablesTableIdOrNameRowsRowIdDraftUpdateD
 	localVarPostBody = r.hubDbTableRowV3Request
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -999,7 +1001,7 @@ func (a *RowsApiService) PostCmsV3HubdbTablesTableIdOrNameRowsCreateTableRowExec
 	localVarPostBody = r.hubDbTableRowV3Request
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1129,7 +1131,7 @@ func (a *RowsApiService) PostCmsV3HubdbTablesTableIdOrNameRowsRowIdDraftCloneClo
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1273,7 +1275,7 @@ func (a *RowsApiService) PutCmsV3HubdbTablesTableIdOrNameRowsRowIdDraftReplaceDr
 	localVarPostBody = r.hubDbTableRowV3Request
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {

@@ -15,6 +15,8 @@ import (
 	_context "context"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
+
+	"github.com/clarkmcc/go-hubspot/authorization"
 	_neturl "net/url"
 	"strings"
 )
@@ -103,7 +105,7 @@ func (a *PipelineStagesApiService) DeleteCrmV3PipelinesObjectTypePipelineIdStage
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -234,7 +236,7 @@ func (a *PipelineStagesApiService) GetCrmV3PipelinesObjectTypePipelineIdStagesGe
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -378,7 +380,7 @@ func (a *PipelineStagesApiService) GetCrmV3PipelinesObjectTypePipelineIdStagesSt
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -529,7 +531,7 @@ func (a *PipelineStagesApiService) PatchCrmV3PipelinesObjectTypePipelineIdStages
 	localVarPostBody = r.pipelineStagePatchInput
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -667,7 +669,7 @@ func (a *PipelineStagesApiService) PostCrmV3PipelinesObjectTypePipelineIdStagesC
 	localVarPostBody = r.pipelineStageInput
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -809,7 +811,7 @@ func (a *PipelineStagesApiService) PutCrmV3PipelinesObjectTypePipelineIdStagesSt
 	localVarPostBody = r.pipelineStageInput
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {

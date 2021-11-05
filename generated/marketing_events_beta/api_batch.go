@@ -15,6 +15,8 @@ import (
 	_context "context"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
+
+	"github.com/clarkmcc/go-hubspot/authorization"
 	_neturl "net/url"
 )
 
@@ -104,7 +106,7 @@ func (a *BatchApiService) PostMarketingV3MarketingEventsEventsDeleteExecute(r Ap
 	localVarPostBody = r.batchInputMarketingEventExternalUniqueIdentifier
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -238,7 +240,7 @@ func (a *BatchApiService) PostMarketingV3MarketingEventsEventsUpsertExecute(r Ap
 	localVarPostBody = r.batchInputMarketingEventCreateRequestParams
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {

@@ -15,6 +15,8 @@ import (
 	_context "context"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
+
+	"github.com/clarkmcc/go-hubspot/authorization"
 	_neturl "net/url"
 )
 
@@ -99,7 +101,7 @@ func (a *BatchApiService) PostCrmV3ObjectsProductsBatchArchiveArchiveExecute(r A
 	localVarPostBody = r.batchInputSimplePublicObjectId
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -221,7 +223,7 @@ func (a *BatchApiService) PostCrmV3ObjectsProductsBatchCreateCreateExecute(r Api
 	localVarPostBody = r.batchInputSimplePublicObjectInput
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -362,7 +364,7 @@ func (a *BatchApiService) PostCrmV3ObjectsProductsBatchReadReadExecute(r ApiPost
 	localVarPostBody = r.batchReadInputSimplePublicObjectId
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -493,7 +495,7 @@ func (a *BatchApiService) PostCrmV3ObjectsProductsBatchUpdateUpdateExecute(r Api
 	localVarPostBody = r.batchInputSimplePublicObjectBatchInput
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {

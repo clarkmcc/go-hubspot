@@ -15,6 +15,8 @@ import (
 	_context "context"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
+
+	"github.com/clarkmcc/go-hubspot/authorization"
 	_neturl "net/url"
 	"reflect"
 	"strings"
@@ -107,7 +109,7 @@ func (a *AuthorApiService) DeleteCmsV3BlogsAuthorsObjectIdArchiveExecute(r ApiDe
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -329,7 +331,7 @@ func (a *AuthorApiService) GetCmsV3BlogsAuthorsGetPageExecute(r ApiGetCmsV3Blogs
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -465,7 +467,7 @@ func (a *AuthorApiService) GetCmsV3BlogsAuthorsObjectIdGetByIdExecute(r ApiGetCm
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -615,7 +617,7 @@ func (a *AuthorApiService) PatchCmsV3BlogsAuthorsObjectIdUpdateExecute(r ApiPatc
 	localVarPostBody = r.blogAuthor
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -748,7 +750,7 @@ func (a *AuthorApiService) PostCmsV3BlogsAuthorsBatchArchiveArchiveBatchExecute(
 	localVarPostBody = r.batchInputString
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -873,7 +875,7 @@ func (a *AuthorApiService) PostCmsV3BlogsAuthorsBatchCreateCreateBatchExecute(r 
 	localVarPostBody = r.batchInputBlogAuthor
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1017,7 +1019,7 @@ func (a *AuthorApiService) PostCmsV3BlogsAuthorsBatchReadReadBatchExecute(r ApiP
 	localVarPostBody = r.batchInputString
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1161,7 +1163,7 @@ func (a *AuthorApiService) PostCmsV3BlogsAuthorsBatchUpdateUpdateBatchExecute(r 
 	localVarPostBody = r.batchInputJsonNode
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1295,7 +1297,7 @@ func (a *AuthorApiService) PostCmsV3BlogsAuthorsCreateExecute(r ApiPostCmsV3Blog
 	localVarPostBody = r.blogAuthor
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {

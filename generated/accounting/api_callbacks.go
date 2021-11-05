@@ -15,6 +15,8 @@ import (
 	_context "context"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
+
+	"github.com/clarkmcc/go-hubspot/authorization"
 	_neturl "net/url"
 	"strings"
 )
@@ -107,7 +109,7 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackCustomerCreat
 	localVarPostBody = r.resultIdAccountingResponse
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -234,7 +236,7 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackCustomerSearc
 	localVarPostBody = r.customerSearchResponseExternal
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -361,7 +363,7 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackExchangeRateR
 	localVarPostBody = r.exchangeRateResponse
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -488,7 +490,7 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoiceCreate
 	localVarPostBody = r.resultIdAccountingResponse
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -615,7 +617,7 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoicePdfReq
 	localVarPostBody = r.invoicePdfResponse
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -742,7 +744,7 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoiceSearch
 	localVarPostBody = r.invoiceSearchResponse
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -869,7 +871,7 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoicesReque
 	localVarPostBody = r.invoicesResponseExternal
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -996,7 +998,7 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackProductSearch
 	localVarPostBody = r.productSearchResponse
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1123,7 +1125,7 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackTaxSearchRequ
 	localVarPostBody = r.taxSearchResponse
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1250,7 +1252,7 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackTermsRequestI
 	localVarPostBody = r.termsResponse
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {

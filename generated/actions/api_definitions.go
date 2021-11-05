@@ -15,6 +15,8 @@ import (
 	_context "context"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
+
+	"github.com/clarkmcc/go-hubspot/authorization"
 	_neturl "net/url"
 	"strings"
 )
@@ -99,7 +101,7 @@ func (a *DefinitionsApiService) DeleteAutomationV4ActionsAppIdDefinitionIdArchiv
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["developer_hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -230,7 +232,7 @@ func (a *DefinitionsApiService) GetAutomationV4ActionsAppIdDefinitionIdGetByIdEx
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["developer_hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -386,7 +388,7 @@ func (a *DefinitionsApiService) GetAutomationV4ActionsAppIdGetPageExecute(r ApiG
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["developer_hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -528,7 +530,7 @@ func (a *DefinitionsApiService) PatchAutomationV4ActionsAppIdDefinitionIdUpdateE
 	localVarPostBody = r.extensionActionDefinitionPatch
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["developer_hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -666,7 +668,7 @@ func (a *DefinitionsApiService) PostAutomationV4ActionsAppIdCreateExecute(r ApiP
 	localVarPostBody = r.extensionActionDefinitionInput
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["developer_hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {

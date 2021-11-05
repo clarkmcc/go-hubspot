@@ -15,6 +15,8 @@ import (
 	_context "context"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
+
+	"github.com/clarkmcc/go-hubspot/authorization"
 	_neturl "net/url"
 	"strings"
 )
@@ -121,7 +123,7 @@ func (a *RevisionsApiService) GetAutomationV4ActionsAppIdDefinitionIdRevisionsGe
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["developer_hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -255,7 +257,7 @@ func (a *RevisionsApiService) GetAutomationV4ActionsAppIdDefinitionIdRevisionsRe
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
 			if apiKey, ok := auth["developer_hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {

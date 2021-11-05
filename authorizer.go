@@ -2,7 +2,7 @@ package hubspot
 
 import (
 	"context"
-	"github.com/clarkmcc/go-hubspot/generated/contacts"
+	"github.com/clarkmcc/go-hubspot/authorization"
 )
 
 // Authorizer knows how to authorize API requests to the HubSpot API by modifying the request context
@@ -21,7 +21,7 @@ type APIKeyAuthorizer struct {
 func (a *APIKeyAuthorizer) Apply(ctx context.Context) context.Context {
 	// We'll use the types from the contacts generated package for now since the authorizer stuff here
 	// is the same across all the generated packages.
-	return context.WithValue(ctx, contacts.ContextAPIKeys, map[string]contacts.APIKey{
+	return context.WithValue(ctx, authorization.ContextAPIKeys, map[string]authorization.APIKey{
 		"hapikey": {Key: a.Key},
 	})
 }

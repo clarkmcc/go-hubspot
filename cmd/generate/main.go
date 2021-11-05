@@ -1,9 +1,11 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io/fs"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"os/exec"
@@ -50,8 +52,14 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+
+	//i := 0
+	//outer:
 	for _, group := range r.Results {
 		for name, feature := range group.Features {
+			//if i > 0 {
+			//	break outer
+			//}
 			name = replacer.Replace(strings.ToLower(name))
 			fmt.Printf("generating group/feature %s/%s\n", strings.ToLower(group.Name), name)
 			_, err := exec.Command(generator, "generate",
@@ -65,14 +73,62 @@ func main() {
 			if err != nil {
 				panic(err)
 			}
+			//i++
 		}
 	}
 
-	// The client configuration gets generated with a go module for each generated
-	// client. We'll go through and delete each submodule so that we can take advantage
-	// of the root parent module.
-	fmt.Println("removing useless generated files")
+	fmt.Println("updating generated files")
 	err = filepath.Walk("generated", func(path string, info fs.FileInfo, err error) error {
+		if info.IsDir() {
+			return nil
+		}
+		// API files check for the presence of an API key in the request context using type
+		// assertion. Because we generate each module separately, each module has its own
+		// type for storing the API key in the context (contacts.APIKey vs deals.APIKey). In
+		// order to allow us to share the same authorizer across packages, we'll do a find
+		// and replace on all the package-specific API key structs and replace them with our
+		// own global structs.
+		if strings.HasSuffix(info.Name(), ".go") {
+			// Open the file, read it, then close it
+			var b []byte
+			err = func() error {
+				file, err := os.Open(path)
+				if err != nil {
+					return err
+				}
+				defer file.Close()
+				b, err = ioutil.ReadAll(file)
+				if err != nil {
+					return err
+				}
+				return nil
+			}()
+			if err != nil {
+				return err
+			}
+			find := []byte("if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {")
+			replace := []byte("if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {")
+			if bytes.Contains(b, find) {
+				b = bytes.ReplaceAll(b, find, replace)
+				idx := bytes.Index(b, []byte("_neturl \"net/url\""))
+				if idx > 0 {
+					b = bytes.Join([][]byte{b[:idx], []byte("\t\"github.com/clarkmcc/go-hubspot/authorization\""), b[idx:]}, []byte("\n"))
+				}
+				err = os.Remove(path)
+				file, err := os.Create(path)
+				if err != nil {
+					return err
+				}
+				defer file.Close()
+				_, err = file.Write(b)
+				if err != nil {
+					return err
+				}
+			}
+		}
+		// The client configuration gets generated with a go module for each generated
+		// client. We'll go through and delete each submodule so that we can take advantage
+		// of the root parent module.
 		if info.Name() != "go.mod" && info.Name() != "go.sum" && info.Name() != "git_push.sh" {
 			return nil
 		}
