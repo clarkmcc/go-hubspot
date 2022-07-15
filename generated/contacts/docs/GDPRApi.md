@@ -4,13 +4,13 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**PostCrmV3ObjectsContactsGdprDelete**](GDPRApi.md#PostCrmV3ObjectsContactsGdprDelete) | **Post** /crm/v3/objects/contacts/gdpr-delete | GDPR DELETE
+[**PostCrmV3ObjectsContactsGdprDeletePurge**](GDPRApi.md#PostCrmV3ObjectsContactsGdprDeletePurge) | **Post** /crm/v3/objects/contacts/gdpr-delete | GDPR DELETE
 
 
 
-## PostCrmV3ObjectsContactsGdprDelete
+## PostCrmV3ObjectsContactsGdprDeletePurge
 
-> PostCrmV3ObjectsContactsGdprDelete(ctx).PublicGdprDeleteInput(publicGdprDeleteInput).Execute()
+> PostCrmV3ObjectsContactsGdprDeletePurge(ctx).PublicGdprDeleteInput(publicGdprDeleteInput).Execute()
 
 GDPR DELETE
 
@@ -32,10 +32,10 @@ func main() {
     publicGdprDeleteInput := *openapiclient.NewPublicGdprDeleteInput("ObjectId_example") // PublicGdprDeleteInput | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.GDPRApi.PostCrmV3ObjectsContactsGdprDelete(context.Background()).PublicGdprDeleteInput(publicGdprDeleteInput).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.GDPRApi.PostCrmV3ObjectsContactsGdprDeletePurge(context.Background()).PublicGdprDeleteInput(publicGdprDeleteInput).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `GDPRApi.PostCrmV3ObjectsContactsGdprDelete``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `GDPRApi.PostCrmV3ObjectsContactsGdprDeletePurge``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -47,7 +47,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCrmV3ObjectsContactsGdprDeleteRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCrmV3ObjectsContactsGdprDeletePurgeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -60,7 +60,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 

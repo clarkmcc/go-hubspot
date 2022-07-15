@@ -20,7 +20,7 @@ type BatchResponseTimelineEventResponseWithErrors struct {
 	Status      string                  `json:"status"`
 	Results     []TimelineEventResponse `json:"results"`
 	NumErrors   *int32                  `json:"numErrors,omitempty"`
-	Errors      *[]StandardError        `json:"errors,omitempty"`
+	Errors      []StandardError         `json:"errors,omitempty"`
 	RequestedAt *time.Time              `json:"requestedAt,omitempty"`
 	StartedAt   time.Time               `json:"startedAt"`
 	CompletedAt time.Time               `json:"completedAt"`
@@ -84,11 +84,11 @@ func (o *BatchResponseTimelineEventResponseWithErrors) GetResults() []TimelineEv
 
 // GetResultsOk returns a tuple with the Results field value
 // and a boolean to check if the value has been set.
-func (o *BatchResponseTimelineEventResponseWithErrors) GetResultsOk() (*[]TimelineEventResponse, bool) {
+func (o *BatchResponseTimelineEventResponseWithErrors) GetResultsOk() ([]TimelineEventResponse, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Results, true
+	return o.Results, true
 }
 
 // SetResults sets field value
@@ -134,12 +134,12 @@ func (o *BatchResponseTimelineEventResponseWithErrors) GetErrors() []StandardErr
 		var ret []StandardError
 		return ret
 	}
-	return *o.Errors
+	return o.Errors
 }
 
 // GetErrorsOk returns a tuple with the Errors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BatchResponseTimelineEventResponseWithErrors) GetErrorsOk() (*[]StandardError, bool) {
+func (o *BatchResponseTimelineEventResponseWithErrors) GetErrorsOk() ([]StandardError, bool) {
 	if o == nil || o.Errors == nil {
 		return nil, false
 	}
@@ -157,7 +157,7 @@ func (o *BatchResponseTimelineEventResponseWithErrors) HasErrors() bool {
 
 // SetErrors gets a reference to the given []StandardError and assigns it to the Errors field.
 func (o *BatchResponseTimelineEventResponseWithErrors) SetErrors(v []StandardError) {
-	o.Errors = &v
+	o.Errors = v
 }
 
 // GetRequestedAt returns the RequestedAt field value if set, zero value otherwise.

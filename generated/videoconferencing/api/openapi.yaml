@@ -1,8 +1,8 @@
 openapi: 3.0.1
 info:
-  description: These APIs allow you to specify URLs that can be used to interact with
-    a video conferencing application, to allow HubSpot to add video conference links
-    to meeting requests with contacts.
+  description: "These APIs allow you to specify URLs that can be used to interact\
+    \ with a video conferencing application, to allow HubSpot to add video conference\
+    \ links to meeting requests with contacts."
   title: Video Conference Extension
   version: v3
 servers:
@@ -15,7 +15,7 @@ paths:
     delete:
       description: Deletes the settings for a video conference application with the
         specified ID.
-      operationId: delete-/crm/v3/extensions/videoconferencing/settings/{appId}_archive
+      operationId: "delete-/crm/v3/extensions/videoconferencing/settings/{appId}_archive"
       parameters:
       - description: The ID of the video conference application. This is the identifier
           of the application created in your HubSpot developer portal.
@@ -37,15 +37,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security:
-      - hapikey: []
+      security: []
       summary: Delete settings
       tags:
       - Settings
     get:
       description: Return the settings for a video conference application with the
         specified ID.
-      operationId: get-/crm/v3/extensions/videoconferencing/settings/{appId}_getById
+      operationId: "get-/crm/v3/extensions/videoconferencing/settings/{appId}_getById"
       parameters:
       - description: The ID of the video conference application. This is the identifier
           of the application created in your HubSpot developer portal.
@@ -70,15 +69,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security:
-      - hapikey: []
+      security: []
       summary: Get settings
       tags:
       - Settings
     put:
       description: Updates the settings for a video conference application with the
         specified ID.
-      operationId: put-/crm/v3/extensions/videoconferencing/settings/{appId}_replace
+      operationId: "put-/crm/v3/extensions/videoconferencing/settings/{appId}_replace"
       parameters:
       - description: The ID of the video conference application. This is the identifier
           of the application created in your HubSpot developer portal.
@@ -109,8 +107,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security:
-      - hapikey: []
+      security: []
       summary: Update settings
       tags:
       - Settings
@@ -236,11 +233,6 @@ components:
       required:
       - createMeetingUrl
       type: object
-  securitySchemes:
-    hapikey:
-      in: query
-      name: hapikey
-      type: apiKey
 x-hubspot-available-client-libraries:
 - PHP
 - Node

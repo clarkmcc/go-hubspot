@@ -15,7 +15,7 @@ paths:
     get:
       description: Read all existing properties for the specified object type and
         HubSpot account.
-      operationId: get-/crm/v3/properties/{objectType}_getAll
+      operationId: "get-/crm/v3/properties/{objectType}_getAll"
       parameters:
       - explode: false
         in: path
@@ -50,12 +50,11 @@ paths:
       - oauth2:
         - crm.schemas.contacts.read
       - oauth2_legacy:
-        - media_bridge.read
-      - oauth2_legacy:
         - tickets
+      - oauth2_legacy:
+        - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
-      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
       - oauth2:
@@ -63,19 +62,23 @@ paths:
       - oauth2_legacy:
         - crm.schemas.custom.read
       - oauth2:
-        - crm.objects.companies.read
+        - crm.schemas.quotes.read
       - oauth2:
         - crm.objects.deals.write
+      - oauth2:
+        - crm.objects.companies.read
       - oauth2:
         - crm.schemas.companies.read
       - oauth2_legacy:
         - e-commerce
+      - oauth2_legacy:
+        - timeline
       - oauth2:
         - crm.schemas.deals.read
       - oauth2_legacy:
-        - timeline
-      - oauth2_legacy:
         - contacts
+      - oauth2:
+        - crm.schemas.line_items.read
       - oauth2:
         - crm.objects.companies.write
       summary: Read all properties
@@ -84,7 +87,7 @@ paths:
     post:
       description: Create and return a copy of a new property for the specified object
         type.
-      operationId: post-/crm/v3/properties/{objectType}_create
+      operationId: "post-/crm/v3/properties/{objectType}_create"
       parameters:
       - explode: false
         in: path
@@ -115,13 +118,12 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
       - oauth2:
         - crm.schemas.deals.write
-      - oauth2:
-        - crm.schemas.contacts.write
       - oauth2_legacy:
         - e-commerce
+      - oauth2:
+        - crm.schemas.contacts.write
       - oauth2:
         - crm.schemas.companies.write
       - oauth2_legacy:
@@ -131,10 +133,10 @@ paths:
       - Core
   /crm/v3/properties/{objectType}/batch/archive:
     post:
-      description: Archive a provided list of properties. This method will return
-        a 204 No Content response on success regardless of the initial state of the
-        property (e.g. active, already archived, non-existent).
-      operationId: post-/crm/v3/properties/{objectType}/batch/archive_archive
+      description: "Archive a provided list of properties. This method will return\
+        \ a 204 No Content response on success regardless of the initial state of\
+        \ the property (e.g. active, already archived, non-existent)."
+      operationId: "post-/crm/v3/properties/{objectType}/batch/archive_archive"
       parameters:
       - explode: false
         in: path
@@ -162,13 +164,12 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
       - oauth2:
         - crm.schemas.deals.write
-      - oauth2:
-        - crm.schemas.contacts.write
       - oauth2_legacy:
         - e-commerce
+      - oauth2:
+        - crm.schemas.contacts.write
       - oauth2:
         - crm.schemas.companies.write
       - oauth2_legacy:
@@ -180,7 +181,7 @@ paths:
     post:
       description: Create a batch of properties using the same rules as when creating
         an individual property.
-      operationId: post-/crm/v3/properties/{objectType}/batch/create_create
+      operationId: "post-/crm/v3/properties/{objectType}/batch/create_create"
       parameters:
       - explode: false
         in: path
@@ -217,13 +218,12 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
       - oauth2:
         - crm.schemas.deals.write
-      - oauth2:
-        - crm.schemas.contacts.write
       - oauth2_legacy:
         - e-commerce
+      - oauth2:
+        - crm.schemas.contacts.write
       - oauth2:
         - crm.schemas.companies.write
       - oauth2_legacy:
@@ -234,7 +234,7 @@ paths:
   /crm/v3/properties/{objectType}/batch/read:
     post:
       description: Read a provided list of properties.
-      operationId: post-/crm/v3/properties/{objectType}/batch/read_read
+      operationId: "post-/crm/v3/properties/{objectType}/batch/read_read"
       parameters:
       - explode: false
         in: path
@@ -272,12 +272,11 @@ paths:
       - oauth2:
         - crm.schemas.contacts.read
       - oauth2_legacy:
-        - media_bridge.read
-      - oauth2_legacy:
         - tickets
+      - oauth2_legacy:
+        - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
-      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
       - oauth2:
@@ -285,19 +284,23 @@ paths:
       - oauth2_legacy:
         - crm.schemas.custom.read
       - oauth2:
-        - crm.objects.companies.read
+        - crm.schemas.quotes.read
       - oauth2:
         - crm.objects.deals.write
+      - oauth2:
+        - crm.objects.companies.read
       - oauth2:
         - crm.schemas.companies.read
       - oauth2_legacy:
         - e-commerce
+      - oauth2_legacy:
+        - timeline
       - oauth2:
         - crm.schemas.deals.read
       - oauth2_legacy:
-        - timeline
-      - oauth2_legacy:
         - contacts
+      - oauth2:
+        - crm.schemas.line_items.read
       - oauth2:
         - crm.objects.companies.write
       summary: Read a batch of properties
@@ -307,7 +310,7 @@ paths:
     get:
       description: Read all existing property groups for the specified object type
         and HubSpot account.
-      operationId: get-/crm/v3/properties/{objectType}/groups_getAll
+      operationId: "get-/crm/v3/properties/{objectType}/groups_getAll"
       parameters:
       - explode: false
         in: path
@@ -333,12 +336,11 @@ paths:
       - oauth2:
         - crm.schemas.contacts.read
       - oauth2_legacy:
-        - media_bridge.read
-      - oauth2_legacy:
         - tickets
+      - oauth2_legacy:
+        - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
-      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
       - oauth2:
@@ -346,19 +348,23 @@ paths:
       - oauth2_legacy:
         - crm.schemas.custom.read
       - oauth2:
-        - crm.objects.companies.read
+        - crm.schemas.quotes.read
       - oauth2:
         - crm.objects.deals.write
+      - oauth2:
+        - crm.objects.companies.read
       - oauth2:
         - crm.schemas.companies.read
       - oauth2_legacy:
         - e-commerce
+      - oauth2_legacy:
+        - timeline
       - oauth2:
         - crm.schemas.deals.read
       - oauth2_legacy:
-        - timeline
-      - oauth2_legacy:
         - contacts
+      - oauth2:
+        - crm.schemas.line_items.read
       - oauth2:
         - crm.objects.companies.write
       summary: Read all property groups
@@ -366,7 +372,7 @@ paths:
       - Groups
     post:
       description: Create and return a copy of a new property group.
-      operationId: post-/crm/v3/properties/{objectType}/groups_create
+      operationId: "post-/crm/v3/properties/{objectType}/groups_create"
       parameters:
       - explode: false
         in: path
@@ -397,13 +403,12 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
       - oauth2:
         - crm.schemas.deals.write
-      - oauth2:
-        - crm.schemas.contacts.write
       - oauth2_legacy:
         - e-commerce
+      - oauth2:
+        - crm.schemas.contacts.write
       - oauth2:
         - crm.schemas.companies.write
       - oauth2_legacy:
@@ -413,9 +418,9 @@ paths:
       - Groups
   /crm/v3/properties/{objectType}/groups/{groupName}:
     delete:
-      description: Move a property group identified by {groupName} to the recycling
-        bin.
-      operationId: delete-/crm/v3/properties/{objectType}/groups/{groupName}_archive
+      description: "Move a property group identified by {groupName} to the recycling\
+        \ bin."
+      operationId: "delete-/crm/v3/properties/{objectType}/groups/{groupName}_archive"
       parameters:
       - explode: false
         in: path
@@ -444,13 +449,12 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
       - oauth2:
         - crm.schemas.deals.write
-      - oauth2:
-        - crm.schemas.contacts.write
       - oauth2_legacy:
         - e-commerce
+      - oauth2:
+        - crm.schemas.contacts.write
       - oauth2:
         - crm.schemas.companies.write
       - oauth2_legacy:
@@ -459,8 +463,8 @@ paths:
       tags:
       - Groups
     get:
-      description: Read a property group identified by {groupName}.
-      operationId: get-/crm/v3/properties/{objectType}/groups/{groupName}_getByName
+      description: "Read a property group identified by {groupName}."
+      operationId: "get-/crm/v3/properties/{objectType}/groups/{groupName}_getByName"
       parameters:
       - explode: false
         in: path
@@ -493,12 +497,11 @@ paths:
       - oauth2:
         - crm.schemas.contacts.read
       - oauth2_legacy:
-        - media_bridge.read
-      - oauth2_legacy:
         - tickets
+      - oauth2_legacy:
+        - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
-      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
       - oauth2:
@@ -506,28 +509,32 @@ paths:
       - oauth2_legacy:
         - crm.schemas.custom.read
       - oauth2:
-        - crm.objects.companies.read
+        - crm.schemas.quotes.read
       - oauth2:
         - crm.objects.deals.write
+      - oauth2:
+        - crm.objects.companies.read
       - oauth2:
         - crm.schemas.companies.read
       - oauth2_legacy:
         - e-commerce
+      - oauth2_legacy:
+        - timeline
       - oauth2:
         - crm.schemas.deals.read
       - oauth2_legacy:
-        - timeline
-      - oauth2_legacy:
         - contacts
+      - oauth2:
+        - crm.schemas.line_items.read
       - oauth2:
         - crm.objects.companies.write
       summary: Read a property group
       tags:
       - Groups
     patch:
-      description: Perform a partial update of a property group identified by {groupName}.
-        Provided fields will be overwritten.
-      operationId: patch-/crm/v3/properties/{objectType}/groups/{groupName}_update
+      description: "Perform a partial update of a property group identified by {groupName}.\
+        \ Provided fields will be overwritten."
+      operationId: "patch-/crm/v3/properties/{objectType}/groups/{groupName}_update"
       parameters:
       - explode: false
         in: path
@@ -565,13 +572,12 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
       - oauth2:
         - crm.schemas.deals.write
-      - oauth2:
-        - crm.schemas.contacts.write
       - oauth2_legacy:
         - e-commerce
+      - oauth2:
+        - crm.schemas.contacts.write
       - oauth2:
         - crm.schemas.companies.write
       - oauth2_legacy:
@@ -581,8 +587,9 @@ paths:
       - Groups
   /crm/v3/properties/{objectType}/{propertyName}:
     delete:
-      description: Move a property identified by {propertyName} to the recycling bin.
-      operationId: delete-/crm/v3/properties/{objectType}/{propertyName}_archive
+      description: "Move a property identified by {propertyName} to the recycling\
+        \ bin."
+      operationId: "delete-/crm/v3/properties/{objectType}/{propertyName}_archive"
       parameters:
       - explode: false
         in: path
@@ -611,13 +618,12 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
       - oauth2:
         - crm.schemas.deals.write
-      - oauth2:
-        - crm.schemas.contacts.write
       - oauth2_legacy:
         - e-commerce
+      - oauth2:
+        - crm.schemas.contacts.write
       - oauth2:
         - crm.schemas.companies.write
       - oauth2_legacy:
@@ -626,8 +632,8 @@ paths:
       tags:
       - Core
     get:
-      description: Read a property identified by {propertyName}.
-      operationId: get-/crm/v3/properties/{objectType}/{propertyName}_getByName
+      description: "Read a property identified by {propertyName}."
+      operationId: "get-/crm/v3/properties/{objectType}/{propertyName}_getByName"
       parameters:
       - explode: false
         in: path
@@ -669,12 +675,11 @@ paths:
       - oauth2:
         - crm.schemas.contacts.read
       - oauth2_legacy:
-        - media_bridge.read
-      - oauth2_legacy:
         - tickets
+      - oauth2_legacy:
+        - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
-      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
       - oauth2:
@@ -682,28 +687,32 @@ paths:
       - oauth2_legacy:
         - crm.schemas.custom.read
       - oauth2:
-        - crm.objects.companies.read
+        - crm.schemas.quotes.read
       - oauth2:
         - crm.objects.deals.write
+      - oauth2:
+        - crm.objects.companies.read
       - oauth2:
         - crm.schemas.companies.read
       - oauth2_legacy:
         - e-commerce
+      - oauth2_legacy:
+        - timeline
       - oauth2:
         - crm.schemas.deals.read
       - oauth2_legacy:
-        - timeline
-      - oauth2_legacy:
         - contacts
+      - oauth2:
+        - crm.schemas.line_items.read
       - oauth2:
         - crm.objects.companies.write
       summary: Read a property
       tags:
       - Core
     patch:
-      description: Perform a partial update of a property identified by {propertyName}.
-        Provided fields will be overwritten.
-      operationId: patch-/crm/v3/properties/{objectType}/{propertyName}_update
+      description: "Perform a partial update of a property identified by {propertyName}.\
+        \ Provided fields will be overwritten."
+      operationId: "patch-/crm/v3/properties/{objectType}/{propertyName}_update"
       parameters:
       - explode: false
         in: path
@@ -741,13 +750,12 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
       - oauth2:
         - crm.schemas.deals.write
-      - oauth2:
-        - crm.schemas.contacts.write
       - oauth2_legacy:
         - e-commerce
+      - oauth2:
+        - crm.schemas.contacts.write
       - oauth2:
         - crm.schemas.companies.write
       - oauth2_legacy:
@@ -903,7 +911,7 @@ components:
           fieldType: select
           formField: true
         errors:
-        - subCategory: '{}'
+        - subCategory: "{}"
           context:
             key:
             - context
@@ -933,7 +941,7 @@ components:
               - scope2
             message: message
           status: status
-        - subCategory: '{}'
+        - subCategory: "{}"
           context:
             key:
             - context
@@ -1285,8 +1293,8 @@ components:
           description: A human-readable option label that will be shown in HubSpot.
           type: string
         value:
-          description: The internal value of the option, which must be used when setting
-            the property value through the API.
+          description: "The internal value of the option, which must be used when\
+            \ setting the property value through the API."
           type: string
         description:
           description: A description of the option.
@@ -1317,8 +1325,8 @@ components:
           description: A human-readable option label that will be shown in HubSpot.
           type: string
         value:
-          description: The internal value of the option, which must be used when setting
-            the property value through the API.
+          description: "The internal value of the option, which must be used when\
+            \ setting the property value through the API."
           type: string
         description:
           description: A description of the option.
@@ -1385,8 +1393,8 @@ components:
           format: date-time
           type: string
         name:
-          description: The internal property name, which must be used when referencing
-            the property via the API.
+          description: "The internal property name, which must be used when referencing\
+            \ the property via the API."
           type: string
         label:
           description: A human-readable property label that will be shown in HubSpot.
@@ -1405,8 +1413,8 @@ components:
           description: The name of the property group the property belongs to.
           type: string
         options:
-          description: A list of valid options for the property. This field is required
-            for enumerated properties, but will be empty for other property types.
+          description: "A list of valid options for the property. This field is required\
+            \ for enumerated properties, but will be empty for other property types."
           items:
             $ref: '#/components/schemas/Option'
           type: array
@@ -1421,28 +1429,28 @@ components:
             of HubSpot.
           type: string
         referencedObjectType:
-          description: If this property is related to other object(s), they'll be
-            listed here.
+          description: "If this property is related to other object(s), they'll be\
+            \ listed here."
           type: string
         displayOrder:
-          description: Properties are shown in order, starting with the lowest positive
-            integer value.
+          description: "Properties are shown in order, starting with the lowest positive\
+            \ integer value."
           format: int32
           type: integer
         calculated:
-          description: For default properties, true indicates that the property is
-            calculated by a HubSpot process. It has no effect for custom properties.
+          description: "For default properties, true indicates that the property is\
+            \ calculated by a HubSpot process. It has no effect for custom properties."
           type: boolean
         externalOptions:
-          description: For default properties, true indicates that the options are
-            stored externally to the property settings.
+          description: "For default properties, true indicates that the options are\
+            \ stored externally to the property settings."
           type: boolean
         archived:
           description: Whether or not the property is archived.
           type: boolean
         hasUniqueValue:
-          description: Whether or not the property's value must be unique. Once set,
-            this can't be changed.
+          description: "Whether or not the property's value must be unique. Once set,\
+            \ this can't be changed."
           type: boolean
         hidden:
           description: Whether or not the property will be hidden from the HubSpot
@@ -1493,8 +1501,8 @@ components:
         formField: true
       properties:
         name:
-          description: The internal property name, which must be used when referencing
-            the property via the API.
+          description: "The internal property name, which must be used when referencing\
+            \ the property via the API."
           type: string
         label:
           description: A human-readable property label that will be shown in HubSpot.
@@ -1541,12 +1549,12 @@ components:
           format: int32
           type: integer
         hasUniqueValue:
-          description: Whether or not the property's value must be unique. Once set,
-            this can't be changed.
+          description: "Whether or not the property's value must be unique. Once set,\
+            \ this can't be changed."
           type: boolean
         hidden:
-          description: If true, the property won't be visible and can't be used in
-            HubSpot.
+          description: "If true, the property won't be visible and can't be used in\
+            \ HubSpot."
           type: boolean
         formField:
           description: Whether or not the property can be used in a HubSpot form.
@@ -1566,8 +1574,8 @@ components:
         label: My Property Group
       properties:
         name:
-          description: The internal property group name, which must be used when referencing
-            the property group via the API.
+          description: "The internal property group name, which must be used when\
+            \ referencing the property group via the API."
           type: string
         label:
           description: A human-readable label that will be shown in HubSpot.
@@ -1593,8 +1601,8 @@ components:
         label: My Property Group
       properties:
         name:
-          description: The internal property group name, which must be used when referencing
-            the property group via the API.
+          description: "The internal property group name, which must be used when\
+            \ referencing the property group via the API."
           type: string
         label:
           description: A human-readable label that will be shown in HubSpot.
@@ -1714,8 +1722,8 @@ components:
           format: int32
           type: integer
         hidden:
-          description: If true, the property won't be visible and can't be used in
-            HubSpot.
+          description: "If true, the property won't be visible and can't be used in\
+            \ HubSpot."
           type: boolean
         formField:
           description: Whether or not the property can be used in a HubSpot form.
@@ -1723,7 +1731,7 @@ components:
       type: object
     StandardError:
       example:
-        subCategory: '{}'
+        subCategory: "{}"
         context:
           key:
           - context
@@ -1793,35 +1801,33 @@ components:
         authorizationCode:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
-            timeline: Create timeline events
-            e-commerce: e-commerce
-            contacts: Read from and write to my Contacts
-            media_bridge.read: Read media and media events
-            tickets: Read and write tickets
             crm.schemas.custom.read: View custom object definitions
+            tickets: Read and write tickets
+            media_bridge.read: Read media and media events
+            contacts: Read from and write to my Contacts
+            e-commerce: e-commerce
+            timeline: Create timeline events
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
-    hapikey:
-      in: query
-      name: hapikey
-      type: apiKey
     oauth2:
       flows:
         authorizationCode:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
-            crm.objects.companies.read: ' '
+            crm.schemas.companies.read: ' '
             crm.objects.deals.read: ' '
-            crm.objects.companies.write: ' '
-            crm.objects.contacts.write: ' '
+            crm.schemas.line_items.read: Line Items schemas
+            crm.objects.deals.write: ' '
             crm.schemas.deals.read: ' '
             crm.objects.contacts.read: ' '
-            crm.objects.deals.write: ' '
+            crm.schemas.quotes.read: Quotes schemas
+            crm.objects.contacts.write: ' '
             crm.schemas.contacts.read: ' '
-            crm.schemas.companies.read: ' '
+            crm.objects.companies.write: ' '
+            crm.objects.companies.read: ' '
             crm.schemas.contacts.write: ' '
-            crm.schemas.deals.write: ' '
             crm.schemas.companies.write: ' '
+            crm.schemas.deals.write: ' '
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
 x-hubspot-available-client-libraries:

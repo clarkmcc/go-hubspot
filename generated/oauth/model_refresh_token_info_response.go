@@ -149,11 +149,11 @@ func (o *RefreshTokenInfoResponse) GetScopes() []string {
 
 // GetScopesOk returns a tuple with the Scopes field value
 // and a boolean to check if the value has been set.
-func (o *RefreshTokenInfoResponse) GetScopesOk() (*[]string, bool) {
+func (o *RefreshTokenInfoResponse) GetScopesOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Scopes, true
+	return o.Scopes, true
 }
 
 // SetScopes sets field value

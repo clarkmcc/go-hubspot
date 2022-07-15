@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Inputs** | [**[]BlogPost**](BlogPost.md) |  | 
+**Inputs** | [**[]BlogPost**](BlogPost.md) | Blog posts to input. | 
 
 ## Methods
 

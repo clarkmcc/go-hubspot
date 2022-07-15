@@ -13,13 +13,13 @@ Name | Type | Description | Notes
 **Tokens** | **map[string]string** | A collection of token keys and values associated with the template tokens. | 
 **ExtraData** | Pointer to **map[string]interface{}** | Additional event-specific data that can be interpreted by the template&#39;s markdown. | [optional] 
 **TimelineIFrame** | Pointer to [**TimelineEventIFrame**](TimelineEventIFrame.md) |  | [optional] 
-**Id** | **string** | Identifier for the event. This is optional, and we recommend you do not pass this in. We will create one for you if you omit this. You can also use &#x60;{{uuid}}&#x60; anywhere in the ID to generate a unique string, guaranteeing uniqueness. | 
+**Id** | Pointer to **string** | Identifier for the event. This is optional, and we recommend you do not pass this in. We will create one for you if you omit this. You can also use &#x60;{{uuid}}&#x60; anywhere in the ID to generate a unique string, guaranteeing uniqueness. | [optional] 
 
 ## Methods
 
 ### NewTimelineEvent
 
-`func NewTimelineEvent(eventTemplateId string, tokens map[string]string, id string, ) *TimelineEvent`
+`func NewTimelineEvent(eventTemplateId string, tokens map[string]string, ) *TimelineEvent`
 
 NewTimelineEvent instantiates a new TimelineEvent object
 This constructor will assign default values to properties that have it defined,
@@ -268,6 +268,11 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
+### HasId
+
+`func (o *TimelineEvent) HasId() bool`
+
+HasId returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

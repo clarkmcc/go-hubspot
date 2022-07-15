@@ -12,25 +12,18 @@ package actions
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-
-	"github.com/clarkmcc/go-hubspot/authorization"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // CallbacksApiService CallbacksApi service
 type CallbacksApiService service
 
 type ApiPostAutomationV4ActionsCallbacksCallbackIdCompleteCompleteRequest struct {
-	ctx                       _context.Context
+	ctx                       context.Context
 	ApiService                *CallbacksApiService
 	callbackId                string
 	callbackCompletionRequest *CallbackCompletionRequest
@@ -42,7 +35,7 @@ func (r ApiPostAutomationV4ActionsCallbacksCallbackIdCompleteCompleteRequest) Ca
 	return r
 }
 
-func (r ApiPostAutomationV4ActionsCallbacksCallbackIdCompleteCompleteRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiPostAutomationV4ActionsCallbacksCallbackIdCompleteCompleteRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAutomationV4ActionsCallbacksCallbackIdCompleteCompleteExecute(r)
 }
 
@@ -51,11 +44,11 @@ PostAutomationV4ActionsCallbacksCallbackIdCompleteComplete Complete a callback
 
 Completes the given action callback.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param callbackId The ID of the target app.
  @return ApiPostAutomationV4ActionsCallbacksCallbackIdCompleteCompleteRequest
 */
-func (a *CallbacksApiService) PostAutomationV4ActionsCallbacksCallbackIdCompleteComplete(ctx _context.Context, callbackId string) ApiPostAutomationV4ActionsCallbacksCallbackIdCompleteCompleteRequest {
+func (a *CallbacksApiService) PostAutomationV4ActionsCallbacksCallbackIdCompleteComplete(ctx context.Context, callbackId string) ApiPostAutomationV4ActionsCallbacksCallbackIdCompleteCompleteRequest {
 	return ApiPostAutomationV4ActionsCallbacksCallbackIdCompleteCompleteRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -64,26 +57,24 @@ func (a *CallbacksApiService) PostAutomationV4ActionsCallbacksCallbackIdComplete
 }
 
 // Execute executes the request
-func (a *CallbacksApiService) PostAutomationV4ActionsCallbacksCallbackIdCompleteCompleteExecute(r ApiPostAutomationV4ActionsCallbacksCallbackIdCompleteCompleteRequest) (*_nethttp.Response, error) {
+func (a *CallbacksApiService) PostAutomationV4ActionsCallbacksCallbackIdCompleteCompleteExecute(r ApiPostAutomationV4ActionsCallbacksCallbackIdCompleteCompleteRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CallbacksApiService.PostAutomationV4ActionsCallbacksCallbackIdCompleteComplete")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/automation/v4/actions/callbacks/{callbackId}/complete"
-	localVarPath = strings.Replace(localVarPath, "{"+"callbackId"+"}", _neturl.PathEscape(parameterToString(r.callbackId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"callbackId"+"}", url.PathEscape(parameterToString(r.callbackId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.callbackCompletionRequest == nil {
 		return nil, reportError("callbackCompletionRequest is required and must be specified")
 	}
@@ -107,21 +98,7 @@ func (a *CallbacksApiService) PostAutomationV4ActionsCallbacksCallbackIdComplete
 	}
 	// body params
 	localVarPostBody = r.callbackCompletionRequest
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -131,15 +108,15 @@ func (a *CallbacksApiService) PostAutomationV4ActionsCallbacksCallbackIdComplete
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -157,7 +134,7 @@ func (a *CallbacksApiService) PostAutomationV4ActionsCallbacksCallbackIdComplete
 }
 
 type ApiPostAutomationV4ActionsCallbacksCompleteCompleteBatchRequest struct {
-	ctx                                      _context.Context
+	ctx                                      context.Context
 	ApiService                               *CallbacksApiService
 	batchInputCallbackCompletionBatchRequest *BatchInputCallbackCompletionBatchRequest
 }
@@ -168,7 +145,7 @@ func (r ApiPostAutomationV4ActionsCallbacksCompleteCompleteBatchRequest) BatchIn
 	return r
 }
 
-func (r ApiPostAutomationV4ActionsCallbacksCompleteCompleteBatchRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiPostAutomationV4ActionsCallbacksCompleteCompleteBatchRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostAutomationV4ActionsCallbacksCompleteCompleteBatchExecute(r)
 }
 
@@ -177,10 +154,10 @@ PostAutomationV4ActionsCallbacksCompleteCompleteBatch Complete a batch of callba
 
 Completes the given action callbacks.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiPostAutomationV4ActionsCallbacksCompleteCompleteBatchRequest
 */
-func (a *CallbacksApiService) PostAutomationV4ActionsCallbacksCompleteCompleteBatch(ctx _context.Context) ApiPostAutomationV4ActionsCallbacksCompleteCompleteBatchRequest {
+func (a *CallbacksApiService) PostAutomationV4ActionsCallbacksCompleteCompleteBatch(ctx context.Context) ApiPostAutomationV4ActionsCallbacksCompleteCompleteBatchRequest {
 	return ApiPostAutomationV4ActionsCallbacksCompleteCompleteBatchRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -188,25 +165,23 @@ func (a *CallbacksApiService) PostAutomationV4ActionsCallbacksCompleteCompleteBa
 }
 
 // Execute executes the request
-func (a *CallbacksApiService) PostAutomationV4ActionsCallbacksCompleteCompleteBatchExecute(r ApiPostAutomationV4ActionsCallbacksCompleteCompleteBatchRequest) (*_nethttp.Response, error) {
+func (a *CallbacksApiService) PostAutomationV4ActionsCallbacksCompleteCompleteBatchExecute(r ApiPostAutomationV4ActionsCallbacksCompleteCompleteBatchRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CallbacksApiService.PostAutomationV4ActionsCallbacksCompleteCompleteBatch")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/automation/v4/actions/callbacks/complete"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.batchInputCallbackCompletionBatchRequest == nil {
 		return nil, reportError("batchInputCallbackCompletionBatchRequest is required and must be specified")
 	}
@@ -230,21 +205,7 @@ func (a *CallbacksApiService) PostAutomationV4ActionsCallbacksCompleteCompleteBa
 	}
 	// body params
 	localVarPostBody = r.batchInputCallbackCompletionBatchRequest
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -254,15 +215,15 @@ func (a *CallbacksApiService) PostAutomationV4ActionsCallbacksCompleteCompleteBa
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}

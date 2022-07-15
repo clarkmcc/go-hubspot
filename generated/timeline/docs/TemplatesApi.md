@@ -37,8 +37,8 @@ func main() {
     appId := int32(56) // int32 | The ID of the target app.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TemplatesApi.DeleteIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdArchive(context.Background(), eventTemplateId, appId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.TemplatesApi.DeleteIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdArchive(context.Background(), eventTemplateId, appId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TemplatesApi.DeleteIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdArchive``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -108,8 +108,8 @@ func main() {
     appId := int32(56) // int32 | The ID of the target app.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TemplatesApi.GetIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdGetById(context.Background(), eventTemplateId, appId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.TemplatesApi.GetIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdGetById(context.Background(), eventTemplateId, appId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TemplatesApi.GetIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdGetById``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -180,8 +180,8 @@ func main() {
     appId := int32(56) // int32 | The ID of the target app.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TemplatesApi.GetIntegratorsTimelineV3AppIdEventTemplatesGetAll(context.Background(), appId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.TemplatesApi.GetIntegratorsTimelineV3AppIdEventTemplatesGetAll(context.Background(), appId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TemplatesApi.GetIntegratorsTimelineV3AppIdEventTemplatesGetAll``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -251,8 +251,8 @@ func main() {
     timelineEventTemplateCreateRequest := *openapiclient.NewTimelineEventTemplateCreateRequest("Name_example", []openapiclient.TimelineEventTemplateToken{*openapiclient.NewTimelineEventTemplateToken("Label_example", []openapiclient.TimelineEventTemplateTokenOption{*openapiclient.NewTimelineEventTemplateTokenOption("Value_example", "Label_example")}, "Name_example", "Type_example")}, "ObjectType_example") // TimelineEventTemplateCreateRequest | The new event template definition.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TemplatesApi.PostIntegratorsTimelineV3AppIdEventTemplatesCreate(context.Background(), appId).TimelineEventTemplateCreateRequest(timelineEventTemplateCreateRequest).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.TemplatesApi.PostIntegratorsTimelineV3AppIdEventTemplatesCreate(context.Background(), appId).TimelineEventTemplateCreateRequest(timelineEventTemplateCreateRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TemplatesApi.PostIntegratorsTimelineV3AppIdEventTemplatesCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -324,8 +324,8 @@ func main() {
     timelineEventTemplateUpdateRequest := *openapiclient.NewTimelineEventTemplateUpdateRequest("Name_example", []openapiclient.TimelineEventTemplateToken{*openapiclient.NewTimelineEventTemplateToken("Label_example", []openapiclient.TimelineEventTemplateTokenOption{*openapiclient.NewTimelineEventTemplateTokenOption("Value_example", "Label_example")}, "Name_example", "Type_example")}, "Id_example") // TimelineEventTemplateUpdateRequest | The updated event template definition.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TemplatesApi.PutIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdUpdate(context.Background(), eventTemplateId, appId).TimelineEventTemplateUpdateRequest(timelineEventTemplateUpdateRequest).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.TemplatesApi.PutIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdUpdate(context.Background(), eventTemplateId, appId).TimelineEventTemplateUpdateRequest(timelineEventTemplateUpdateRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TemplatesApi.PutIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdUpdate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

@@ -12,22 +12,17 @@ package oauth
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
-)
-
-// Linger please
-var (
-	_ _context.Context
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 )
 
 // TokensApiService TokensApi service
 type TokensApiService service
 
 type ApiPostOauthV1TokenCreateTokenRequest struct {
-	ctx          _context.Context
+	ctx          context.Context
 	ApiService   *TokensApiService
 	grantType    *string
 	code         *string
@@ -41,38 +36,43 @@ func (r ApiPostOauthV1TokenCreateTokenRequest) GrantType(grantType string) ApiPo
 	r.grantType = &grantType
 	return r
 }
+
 func (r ApiPostOauthV1TokenCreateTokenRequest) Code(code string) ApiPostOauthV1TokenCreateTokenRequest {
 	r.code = &code
 	return r
 }
+
 func (r ApiPostOauthV1TokenCreateTokenRequest) RedirectUri(redirectUri string) ApiPostOauthV1TokenCreateTokenRequest {
 	r.redirectUri = &redirectUri
 	return r
 }
+
 func (r ApiPostOauthV1TokenCreateTokenRequest) ClientId(clientId string) ApiPostOauthV1TokenCreateTokenRequest {
 	r.clientId = &clientId
 	return r
 }
+
 func (r ApiPostOauthV1TokenCreateTokenRequest) ClientSecret(clientSecret string) ApiPostOauthV1TokenCreateTokenRequest {
 	r.clientSecret = &clientSecret
 	return r
 }
+
 func (r ApiPostOauthV1TokenCreateTokenRequest) RefreshToken(refreshToken string) ApiPostOauthV1TokenCreateTokenRequest {
 	r.refreshToken = &refreshToken
 	return r
 }
 
-func (r ApiPostOauthV1TokenCreateTokenRequest) Execute() (TokenResponseIF, *_nethttp.Response, error) {
+func (r ApiPostOauthV1TokenCreateTokenRequest) Execute() (*TokenResponseIF, *http.Response, error) {
 	return r.ApiService.PostOauthV1TokenCreateTokenExecute(r)
 }
 
 /*
 PostOauthV1TokenCreateToken Method for PostOauthV1TokenCreateToken
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiPostOauthV1TokenCreateTokenRequest
 */
-func (a *TokensApiService) PostOauthV1TokenCreateToken(ctx _context.Context) ApiPostOauthV1TokenCreateTokenRequest {
+func (a *TokensApiService) PostOauthV1TokenCreateToken(ctx context.Context) ApiPostOauthV1TokenCreateTokenRequest {
 	return ApiPostOauthV1TokenCreateTokenRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -81,26 +81,24 @@ func (a *TokensApiService) PostOauthV1TokenCreateToken(ctx _context.Context) Api
 
 // Execute executes the request
 //  @return TokenResponseIF
-func (a *TokensApiService) PostOauthV1TokenCreateTokenExecute(r ApiPostOauthV1TokenCreateTokenRequest) (TokenResponseIF, *_nethttp.Response, error) {
+func (a *TokensApiService) PostOauthV1TokenCreateTokenExecute(r ApiPostOauthV1TokenCreateTokenRequest) (*TokenResponseIF, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  TokenResponseIF
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TokenResponseIF
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TokensApiService.PostOauthV1TokenCreateToken")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/oauth/v1/token"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/x-www-form-urlencoded"}
@@ -137,7 +135,7 @@ func (a *TokensApiService) PostOauthV1TokenCreateTokenExecute(r ApiPostOauthV1To
 	if r.refreshToken != nil {
 		localVarFormParams.Add("refresh_token", parameterToString(*r.refreshToken, ""))
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -147,15 +145,15 @@ func (a *TokensApiService) PostOauthV1TokenCreateTokenExecute(r ApiPostOauthV1To
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -171,7 +169,7 @@ func (a *TokensApiService) PostOauthV1TokenCreateTokenExecute(r ApiPostOauthV1To
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

@@ -23,7 +23,7 @@ type AssetFileMetadata struct {
 	// Determines whether or not this path points to a folder.
 	Folder bool `json:"folder"`
 	// If the object is a folder, contains the filenames of the files within the folder.
-	Children *[]string `json:"children,omitempty"`
+	Children []string `json:"children,omitempty"`
 	// Timestamp of when the object was last updated.
 	UpdatedAt int32 `json:"updatedAt"`
 	// Timestamp of when the object was first created.
@@ -132,12 +132,12 @@ func (o *AssetFileMetadata) GetChildren() []string {
 		var ret []string
 		return ret
 	}
-	return *o.Children
+	return o.Children
 }
 
 // GetChildrenOk returns a tuple with the Children field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AssetFileMetadata) GetChildrenOk() (*[]string, bool) {
+func (o *AssetFileMetadata) GetChildrenOk() ([]string, bool) {
 	if o == nil || o.Children == nil {
 		return nil, false
 	}
@@ -155,7 +155,7 @@ func (o *AssetFileMetadata) HasChildren() bool {
 
 // SetChildren gets a reference to the given []string and assigns it to the Children field.
 func (o *AssetFileMetadata) SetChildren(v []string) {
-	o.Children = &v
+	o.Children = v
 }
 
 // GetUpdatedAt returns the UpdatedAt field value

@@ -29,7 +29,7 @@ type HubDbTableV3Request struct {
 	// Specifies creation of multi-level dynamic pages using child tables
 	EnableChildTablePages *bool `json:"enableChildTablePages,omitempty"`
 	// List of columns in the table
-	Columns *[]ColumnRequest `json:"columns,omitempty"`
+	Columns []ColumnRequest `json:"columns,omitempty"`
 	// Specifies the key value pairs of the metadata fields with the associated column ids
 	DynamicMetaTags *map[string]int32 `json:"dynamicMetaTags,omitempty"`
 }
@@ -235,12 +235,12 @@ func (o *HubDbTableV3Request) GetColumns() []ColumnRequest {
 		var ret []ColumnRequest
 		return ret
 	}
-	return *o.Columns
+	return o.Columns
 }
 
 // GetColumnsOk returns a tuple with the Columns field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *HubDbTableV3Request) GetColumnsOk() (*[]ColumnRequest, bool) {
+func (o *HubDbTableV3Request) GetColumnsOk() ([]ColumnRequest, bool) {
 	if o == nil || o.Columns == nil {
 		return nil, false
 	}
@@ -258,7 +258,7 @@ func (o *HubDbTableV3Request) HasColumns() bool {
 
 // SetColumns gets a reference to the given []ColumnRequest and assigns it to the Columns field.
 func (o *HubDbTableV3Request) SetColumns(v []ColumnRequest) {
-	o.Columns = &v
+	o.Columns = v
 }
 
 // GetDynamicMetaTags returns the DynamicMetaTags field value if set, zero value otherwise.

@@ -49,11 +49,11 @@ func (o *BatchInputSimplePublicObjectId) GetInputs() []SimplePublicObjectId {
 
 // GetInputsOk returns a tuple with the Inputs field value
 // and a boolean to check if the value has been set.
-func (o *BatchInputSimplePublicObjectId) GetInputsOk() (*[]SimplePublicObjectId, bool) {
+func (o *BatchInputSimplePublicObjectId) GetInputsOk() ([]SimplePublicObjectId, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Inputs, true
+	return o.Inputs, true
 }
 
 // SetInputs sets field value

@@ -56,11 +56,11 @@ func (o *PublicImportMetadata) GetObjectLists() []PublicObjectListRecord {
 
 // GetObjectListsOk returns a tuple with the ObjectLists field value
 // and a boolean to check if the value has been set.
-func (o *PublicImportMetadata) GetObjectListsOk() (*[]PublicObjectListRecord, bool) {
+func (o *PublicImportMetadata) GetObjectListsOk() ([]PublicObjectListRecord, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.ObjectLists, true
+	return o.ObjectLists, true
 }
 
 // SetObjectLists sets field value
@@ -104,11 +104,11 @@ func (o *PublicImportMetadata) GetFileIds() []string {
 
 // GetFileIdsOk returns a tuple with the FileIds field value
 // and a boolean to check if the value has been set.
-func (o *PublicImportMetadata) GetFileIdsOk() (*[]string, bool) {
+func (o *PublicImportMetadata) GetFileIdsOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.FileIds, true
+	return o.FileIds, true
 }
 
 // SetFileIds sets field value

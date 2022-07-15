@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**EventId** | Pointer to [**EventIdView**](EventIdView.md) |  | [optional] 
 **StatusId** | **string** | Identifier used to query the status of the send. | 
 **SendResult** | Pointer to **string** | Result of the send. | [optional] 
 **RequestedAt** | Pointer to **time.Time** | Time when the send was requested. | [optional] 
 **StartedAt** | Pointer to **time.Time** | Time when the send began processing. | [optional] 
 **CompletedAt** | Pointer to **time.Time** | Time when the send was completed. | [optional] 
 **Status** | **string** | Status of the send request. | 
+**EventId** | Pointer to [**EventIdView**](EventIdView.md) |  | [optional] 
 
 ## Methods
 
@@ -30,31 +30,6 @@ will change when the set of required properties is changed
 NewEmailSendStatusViewWithDefaults instantiates a new EmailSendStatusView object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetEventId
-
-`func (o *EmailSendStatusView) GetEventId() EventIdView`
-
-GetEventId returns the EventId field if non-nil, zero value otherwise.
-
-### GetEventIdOk
-
-`func (o *EmailSendStatusView) GetEventIdOk() (*EventIdView, bool)`
-
-GetEventIdOk returns a tuple with the EventId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetEventId
-
-`func (o *EmailSendStatusView) SetEventId(v EventIdView)`
-
-SetEventId sets EventId field to given value.
-
-### HasEventId
-
-`func (o *EmailSendStatusView) HasEventId() bool`
-
-HasEventId returns a boolean if a field has been set.
 
 ### GetStatusId
 
@@ -195,6 +170,31 @@ and a boolean to check if the value has been set.
 
 SetStatus sets Status field to given value.
 
+
+### GetEventId
+
+`func (o *EmailSendStatusView) GetEventId() EventIdView`
+
+GetEventId returns the EventId field if non-nil, zero value otherwise.
+
+### GetEventIdOk
+
+`func (o *EmailSendStatusView) GetEventIdOk() (*EventIdView, bool)`
+
+GetEventIdOk returns a tuple with the EventId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEventId
+
+`func (o *EmailSendStatusView) SetEventId(v EventIdView)`
+
+SetEventId sets EventId field to given value.
+
+### HasEventId
+
+`func (o *EmailSendStatusView) HasEventId() bool`
+
+HasEventId returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

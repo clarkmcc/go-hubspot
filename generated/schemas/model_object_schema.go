@@ -108,11 +108,11 @@ func (o *ObjectSchema) GetRequiredProperties() []string {
 
 // GetRequiredPropertiesOk returns a tuple with the RequiredProperties field value
 // and a boolean to check if the value has been set.
-func (o *ObjectSchema) GetRequiredPropertiesOk() (*[]string, bool) {
+func (o *ObjectSchema) GetRequiredPropertiesOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.RequiredProperties, true
+	return o.RequiredProperties, true
 }
 
 // SetRequiredProperties sets field value
@@ -132,11 +132,11 @@ func (o *ObjectSchema) GetSearchableProperties() []string {
 
 // GetSearchablePropertiesOk returns a tuple with the SearchableProperties field value
 // and a boolean to check if the value has been set.
-func (o *ObjectSchema) GetSearchablePropertiesOk() (*[]string, bool) {
+func (o *ObjectSchema) GetSearchablePropertiesOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.SearchableProperties, true
+	return o.SearchableProperties, true
 }
 
 // SetSearchableProperties sets field value
@@ -188,11 +188,11 @@ func (o *ObjectSchema) GetSecondaryDisplayProperties() []string {
 
 // GetSecondaryDisplayPropertiesOk returns a tuple with the SecondaryDisplayProperties field value
 // and a boolean to check if the value has been set.
-func (o *ObjectSchema) GetSecondaryDisplayPropertiesOk() (*[]string, bool) {
+func (o *ObjectSchema) GetSecondaryDisplayPropertiesOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.SecondaryDisplayProperties, true
+	return o.SecondaryDisplayProperties, true
 }
 
 // SetSecondaryDisplayProperties sets field value
@@ -372,11 +372,11 @@ func (o *ObjectSchema) GetProperties() []Property {
 
 // GetPropertiesOk returns a tuple with the Properties field value
 // and a boolean to check if the value has been set.
-func (o *ObjectSchema) GetPropertiesOk() (*[]Property, bool) {
+func (o *ObjectSchema) GetPropertiesOk() ([]Property, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Properties, true
+	return o.Properties, true
 }
 
 // SetProperties sets field value
@@ -396,11 +396,11 @@ func (o *ObjectSchema) GetAssociations() []AssociationDefinition {
 
 // GetAssociationsOk returns a tuple with the Associations field value
 // and a boolean to check if the value has been set.
-func (o *ObjectSchema) GetAssociationsOk() (*[]AssociationDefinition, bool) {
+func (o *ObjectSchema) GetAssociationsOk() ([]AssociationDefinition, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Associations, true
+	return o.Associations, true
 }
 
 // SetAssociations sets field value

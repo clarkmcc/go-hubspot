@@ -12,44 +12,37 @@ package marketing_events_beta
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-
-	"github.com/clarkmcc/go-hubspot/authorization"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // SettingsApiService SettingsApi service
 type SettingsApiService service
 
-type ApiGetMarketingV3MarketingEventsAppIdSettingsRequest struct {
-	ctx        _context.Context
+type ApiGetMarketingV3MarketingEventsAppIdSettingsGetAllRequest struct {
+	ctx        context.Context
 	ApiService *SettingsApiService
 	appId      int32
 }
 
-func (r ApiGetMarketingV3MarketingEventsAppIdSettingsRequest) Execute() (EventDetailSettings, *_nethttp.Response, error) {
-	return r.ApiService.GetMarketingV3MarketingEventsAppIdSettingsExecute(r)
+func (r ApiGetMarketingV3MarketingEventsAppIdSettingsGetAllRequest) Execute() (*EventDetailSettings, *http.Response, error) {
+	return r.ApiService.GetMarketingV3MarketingEventsAppIdSettingsGetAllExecute(r)
 }
 
 /*
-GetMarketingV3MarketingEventsAppIdSettings Retrieve the application settings
+GetMarketingV3MarketingEventsAppIdSettingsGetAll Retrieve the application settings
 
 Retrieve the current settings for the application.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param appId The id of the application to retrieve the settings for.
- @return ApiGetMarketingV3MarketingEventsAppIdSettingsRequest
+ @return ApiGetMarketingV3MarketingEventsAppIdSettingsGetAllRequest
 */
-func (a *SettingsApiService) GetMarketingV3MarketingEventsAppIdSettings(ctx _context.Context, appId int32) ApiGetMarketingV3MarketingEventsAppIdSettingsRequest {
-	return ApiGetMarketingV3MarketingEventsAppIdSettingsRequest{
+func (a *SettingsApiService) GetMarketingV3MarketingEventsAppIdSettingsGetAll(ctx context.Context, appId int32) ApiGetMarketingV3MarketingEventsAppIdSettingsGetAllRequest {
+	return ApiGetMarketingV3MarketingEventsAppIdSettingsGetAllRequest{
 		ApiService: a,
 		ctx:        ctx,
 		appId:      appId,
@@ -58,27 +51,25 @@ func (a *SettingsApiService) GetMarketingV3MarketingEventsAppIdSettings(ctx _con
 
 // Execute executes the request
 //  @return EventDetailSettings
-func (a *SettingsApiService) GetMarketingV3MarketingEventsAppIdSettingsExecute(r ApiGetMarketingV3MarketingEventsAppIdSettingsRequest) (EventDetailSettings, *_nethttp.Response, error) {
+func (a *SettingsApiService) GetMarketingV3MarketingEventsAppIdSettingsGetAllExecute(r ApiGetMarketingV3MarketingEventsAppIdSettingsGetAllRequest) (*EventDetailSettings, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  EventDetailSettings
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *EventDetailSettings
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsApiService.GetMarketingV3MarketingEventsAppIdSettings")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsApiService.GetMarketingV3MarketingEventsAppIdSettingsGetAll")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/marketing/v3/marketing-events/{appId}/settings"
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", _neturl.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -111,21 +102,7 @@ func (a *SettingsApiService) GetMarketingV3MarketingEventsAppIdSettingsExecute(r
 			}
 		}
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -135,15 +112,15 @@ func (a *SettingsApiService) GetMarketingV3MarketingEventsAppIdSettingsExecute(r
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -159,7 +136,7 @@ func (a *SettingsApiService) GetMarketingV3MarketingEventsAppIdSettingsExecute(r
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -169,34 +146,34 @@ func (a *SettingsApiService) GetMarketingV3MarketingEventsAppIdSettingsExecute(r
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPostMarketingV3MarketingEventsAppIdSettingsRequest struct {
-	ctx                    _context.Context
+type ApiPostMarketingV3MarketingEventsAppIdSettingsCreateRequest struct {
+	ctx                    context.Context
 	ApiService             *SettingsApiService
 	appId                  int32
 	eventDetailSettingsUrl *EventDetailSettingsUrl
 }
 
 // The new application settings
-func (r ApiPostMarketingV3MarketingEventsAppIdSettingsRequest) EventDetailSettingsUrl(eventDetailSettingsUrl EventDetailSettingsUrl) ApiPostMarketingV3MarketingEventsAppIdSettingsRequest {
+func (r ApiPostMarketingV3MarketingEventsAppIdSettingsCreateRequest) EventDetailSettingsUrl(eventDetailSettingsUrl EventDetailSettingsUrl) ApiPostMarketingV3MarketingEventsAppIdSettingsCreateRequest {
 	r.eventDetailSettingsUrl = &eventDetailSettingsUrl
 	return r
 }
 
-func (r ApiPostMarketingV3MarketingEventsAppIdSettingsRequest) Execute() (EventDetailSettings, *_nethttp.Response, error) {
-	return r.ApiService.PostMarketingV3MarketingEventsAppIdSettingsExecute(r)
+func (r ApiPostMarketingV3MarketingEventsAppIdSettingsCreateRequest) Execute() (*EventDetailSettings, *http.Response, error) {
+	return r.ApiService.PostMarketingV3MarketingEventsAppIdSettingsCreateExecute(r)
 }
 
 /*
-PostMarketingV3MarketingEventsAppIdSettings Update the application settings
+PostMarketingV3MarketingEventsAppIdSettingsCreate Update the application settings
 
 Create or update the current settings for the application.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param appId The id of the application to update the settings for.
- @return ApiPostMarketingV3MarketingEventsAppIdSettingsRequest
+ @return ApiPostMarketingV3MarketingEventsAppIdSettingsCreateRequest
 */
-func (a *SettingsApiService) PostMarketingV3MarketingEventsAppIdSettings(ctx _context.Context, appId int32) ApiPostMarketingV3MarketingEventsAppIdSettingsRequest {
-	return ApiPostMarketingV3MarketingEventsAppIdSettingsRequest{
+func (a *SettingsApiService) PostMarketingV3MarketingEventsAppIdSettingsCreate(ctx context.Context, appId int32) ApiPostMarketingV3MarketingEventsAppIdSettingsCreateRequest {
+	return ApiPostMarketingV3MarketingEventsAppIdSettingsCreateRequest{
 		ApiService: a,
 		ctx:        ctx,
 		appId:      appId,
@@ -205,27 +182,25 @@ func (a *SettingsApiService) PostMarketingV3MarketingEventsAppIdSettings(ctx _co
 
 // Execute executes the request
 //  @return EventDetailSettings
-func (a *SettingsApiService) PostMarketingV3MarketingEventsAppIdSettingsExecute(r ApiPostMarketingV3MarketingEventsAppIdSettingsRequest) (EventDetailSettings, *_nethttp.Response, error) {
+func (a *SettingsApiService) PostMarketingV3MarketingEventsAppIdSettingsCreateExecute(r ApiPostMarketingV3MarketingEventsAppIdSettingsCreateRequest) (*EventDetailSettings, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  EventDetailSettings
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *EventDetailSettings
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsApiService.PostMarketingV3MarketingEventsAppIdSettings")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsApiService.PostMarketingV3MarketingEventsAppIdSettingsCreate")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/marketing/v3/marketing-events/{appId}/settings"
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", _neturl.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.eventDetailSettingsUrl == nil {
 		return localVarReturnValue, nil, reportError("eventDetailSettingsUrl is required and must be specified")
 	}
@@ -263,21 +238,7 @@ func (a *SettingsApiService) PostMarketingV3MarketingEventsAppIdSettingsExecute(
 			}
 		}
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -287,15 +248,15 @@ func (a *SettingsApiService) PostMarketingV3MarketingEventsAppIdSettingsExecute(
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -311,7 +272,7 @@ func (a *SettingsApiService) PostMarketingV3MarketingEventsAppIdSettingsExecute(
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

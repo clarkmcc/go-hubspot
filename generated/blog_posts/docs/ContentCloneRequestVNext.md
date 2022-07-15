@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** | The ID of the object to be cloned. | 
-**CloneName** | Pointer to **string** | The name of the cloned object. | [optional] 
+**Id** | **string** | ID of the object to be cloned. | 
+**CloneName** | Pointer to **string** | Name of the cloned object. | [optional] 
 
 ## Methods
 

@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **EmailAddress** | **string** | Contact&#39;s email address. | 
-**SubscriptionId** | **string** | ID of the subscription the contact is being resubscribed to. | 
-**LegalBasis** | Pointer to **string** | Legal basis for resubscribing the contact (required for GDPR enabled portals). | [optional] 
+**SubscriptionId** | **string** | ID of the subscription being updated for the contact. | 
+**LegalBasis** | Pointer to **string** | Legal basis for updating the contact&#39;s status (required for GDPR enabled portals). | [optional] 
 **LegalBasisExplanation** | Pointer to **string** | A more detailed explanation to go with the legal basis (required for GDPR enabled portals). | [optional] 
 
 ## Methods

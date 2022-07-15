@@ -20,7 +20,7 @@ type BatchResponseSimplePublicObjectWithErrors struct {
 	Status      string               `json:"status"`
 	Results     []SimplePublicObject `json:"results"`
 	NumErrors   *int32               `json:"numErrors,omitempty"`
-	Errors      *[]StandardError     `json:"errors,omitempty"`
+	Errors      []StandardError      `json:"errors,omitempty"`
 	RequestedAt *time.Time           `json:"requestedAt,omitempty"`
 	StartedAt   time.Time            `json:"startedAt"`
 	CompletedAt time.Time            `json:"completedAt"`
@@ -84,11 +84,11 @@ func (o *BatchResponseSimplePublicObjectWithErrors) GetResults() []SimplePublicO
 
 // GetResultsOk returns a tuple with the Results field value
 // and a boolean to check if the value has been set.
-func (o *BatchResponseSimplePublicObjectWithErrors) GetResultsOk() (*[]SimplePublicObject, bool) {
+func (o *BatchResponseSimplePublicObjectWithErrors) GetResultsOk() ([]SimplePublicObject, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Results, true
+	return o.Results, true
 }
 
 // SetResults sets field value
@@ -134,12 +134,12 @@ func (o *BatchResponseSimplePublicObjectWithErrors) GetErrors() []StandardError 
 		var ret []StandardError
 		return ret
 	}
-	return *o.Errors
+	return o.Errors
 }
 
 // GetErrorsOk returns a tuple with the Errors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BatchResponseSimplePublicObjectWithErrors) GetErrorsOk() (*[]StandardError, bool) {
+func (o *BatchResponseSimplePublicObjectWithErrors) GetErrorsOk() ([]StandardError, bool) {
 	if o == nil || o.Errors == nil {
 		return nil, false
 	}
@@ -157,7 +157,7 @@ func (o *BatchResponseSimplePublicObjectWithErrors) HasErrors() bool {
 
 // SetErrors gets a reference to the given []StandardError and assigns it to the Errors field.
 func (o *BatchResponseSimplePublicObjectWithErrors) SetErrors(v []StandardError) {
-	o.Errors = &v
+	o.Errors = v
 }
 
 // GetRequestedAt returns the RequestedAt field value if set, zero value otherwise.

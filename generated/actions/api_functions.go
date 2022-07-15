@@ -12,32 +12,25 @@ package actions
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-
-	"github.com/clarkmcc/go-hubspot/authorization"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // FunctionsApiService FunctionsApi service
 type FunctionsApiService service
 
 type ApiDeleteAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeArchiveByFunctionTypeRequest struct {
-	ctx          _context.Context
+	ctx          context.Context
 	ApiService   *FunctionsApiService
 	definitionId string
 	functionType string
 	appId        int32
 }
 
-func (r ApiDeleteAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeArchiveByFunctionTypeRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeleteAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeArchiveByFunctionTypeRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeArchiveByFunctionTypeExecute(r)
 }
 
@@ -46,13 +39,13 @@ DeleteAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeArchiveByFunction
 
 Delete a function for a custom workflow action. This will remove the function itself as well as removing the association between the function and the custom action. This can't be undone.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param definitionId The ID of the custom workflow action.
  @param functionType The type of function. This determines when the function will be called.
  @param appId
  @return ApiDeleteAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeArchiveByFunctionTypeRequest
 */
-func (a *FunctionsApiService) DeleteAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeArchiveByFunctionType(ctx _context.Context, definitionId string, functionType string, appId int32) ApiDeleteAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeArchiveByFunctionTypeRequest {
+func (a *FunctionsApiService) DeleteAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeArchiveByFunctionType(ctx context.Context, definitionId string, functionType string, appId int32) ApiDeleteAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeArchiveByFunctionTypeRequest {
 	return ApiDeleteAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeArchiveByFunctionTypeRequest{
 		ApiService:   a,
 		ctx:          ctx,
@@ -63,28 +56,26 @@ func (a *FunctionsApiService) DeleteAutomationV4ActionsAppIdDefinitionIdFunction
 }
 
 // Execute executes the request
-func (a *FunctionsApiService) DeleteAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeArchiveByFunctionTypeExecute(r ApiDeleteAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeArchiveByFunctionTypeRequest) (*_nethttp.Response, error) {
+func (a *FunctionsApiService) DeleteAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeArchiveByFunctionTypeExecute(r ApiDeleteAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeArchiveByFunctionTypeRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionsApiService.DeleteAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeArchiveByFunctionType")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/automation/v4/actions/{appId}/{definitionId}/functions/{functionType}"
-	localVarPath = strings.Replace(localVarPath, "{"+"definitionId"+"}", _neturl.PathEscape(parameterToString(r.definitionId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"functionType"+"}", _neturl.PathEscape(parameterToString(r.functionType, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", _neturl.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"definitionId"+"}", url.PathEscape(parameterToString(r.definitionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"functionType"+"}", url.PathEscape(parameterToString(r.functionType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -117,7 +108,7 @@ func (a *FunctionsApiService) DeleteAutomationV4ActionsAppIdDefinitionIdFunction
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -127,15 +118,15 @@ func (a *FunctionsApiService) DeleteAutomationV4ActionsAppIdDefinitionIdFunction
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -153,7 +144,7 @@ func (a *FunctionsApiService) DeleteAutomationV4ActionsAppIdDefinitionIdFunction
 }
 
 type ApiDeleteAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdArchiveRequest struct {
-	ctx          _context.Context
+	ctx          context.Context
 	ApiService   *FunctionsApiService
 	definitionId string
 	functionType string
@@ -161,7 +152,7 @@ type ApiDeleteAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionI
 	appId        int32
 }
 
-func (r ApiDeleteAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdArchiveRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeleteAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdArchiveRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdArchiveExecute(r)
 }
 
@@ -170,14 +161,14 @@ DeleteAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdArchive
 
 Delete a function for a custom workflow action. This will remove the function itself as well as removing the association between the function and the custom action. This can't be undone.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param definitionId The ID of the custom workflow action
  @param functionType The type of function. This determines when the function will be called.
  @param functionId The ID qualifier for the function. This is used to specify which input field a function is associated with for `PRE_FETCH_OPTIONS` and `POST_FETCH_OPTIONS` function types.
  @param appId
  @return ApiDeleteAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdArchiveRequest
 */
-func (a *FunctionsApiService) DeleteAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdArchive(ctx _context.Context, definitionId string, functionType string, functionId string, appId int32) ApiDeleteAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdArchiveRequest {
+func (a *FunctionsApiService) DeleteAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdArchive(ctx context.Context, definitionId string, functionType string, functionId string, appId int32) ApiDeleteAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdArchiveRequest {
 	return ApiDeleteAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdArchiveRequest{
 		ApiService:   a,
 		ctx:          ctx,
@@ -189,29 +180,27 @@ func (a *FunctionsApiService) DeleteAutomationV4ActionsAppIdDefinitionIdFunction
 }
 
 // Execute executes the request
-func (a *FunctionsApiService) DeleteAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdArchiveExecute(r ApiDeleteAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdArchiveRequest) (*_nethttp.Response, error) {
+func (a *FunctionsApiService) DeleteAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdArchiveExecute(r ApiDeleteAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdArchiveRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionsApiService.DeleteAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdArchive")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"definitionId"+"}", _neturl.PathEscape(parameterToString(r.definitionId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"functionType"+"}", _neturl.PathEscape(parameterToString(r.functionType, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"functionId"+"}", _neturl.PathEscape(parameterToString(r.functionId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", _neturl.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"definitionId"+"}", url.PathEscape(parameterToString(r.definitionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"functionType"+"}", url.PathEscape(parameterToString(r.functionType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"functionId"+"}", url.PathEscape(parameterToString(r.functionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -244,7 +233,7 @@ func (a *FunctionsApiService) DeleteAutomationV4ActionsAppIdDefinitionIdFunction
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -254,15 +243,15 @@ func (a *FunctionsApiService) DeleteAutomationV4ActionsAppIdDefinitionIdFunction
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -280,7 +269,7 @@ func (a *FunctionsApiService) DeleteAutomationV4ActionsAppIdDefinitionIdFunction
 }
 
 type ApiGetAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdGetByIdRequest struct {
-	ctx          _context.Context
+	ctx          context.Context
 	ApiService   *FunctionsApiService
 	definitionId string
 	functionType string
@@ -288,7 +277,7 @@ type ApiGetAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdGe
 	appId        int32
 }
 
-func (r ApiGetAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdGetByIdRequest) Execute() (ActionFunction, *_nethttp.Response, error) {
+func (r ApiGetAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdGetByIdRequest) Execute() (*ActionFunction, *http.Response, error) {
 	return r.ApiService.GetAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdGetByIdExecute(r)
 }
 
@@ -297,14 +286,14 @@ GetAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdGetById Ge
 
 Returns the given function for a custom workflow action.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param definitionId The ID of the custom workflow action.
  @param functionType The type of function. This determines when the function will be called.
  @param functionId The ID qualifier for the function. This is used to specify which input field a function is associated with for `PRE_FETCH_OPTIONS` and `POST_FETCH_OPTIONS` function types.
  @param appId
  @return ApiGetAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdGetByIdRequest
 */
-func (a *FunctionsApiService) GetAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdGetById(ctx _context.Context, definitionId string, functionType string, functionId string, appId int32) ApiGetAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdGetByIdRequest {
+func (a *FunctionsApiService) GetAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdGetById(ctx context.Context, definitionId string, functionType string, functionId string, appId int32) ApiGetAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdGetByIdRequest {
 	return ApiGetAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdGetByIdRequest{
 		ApiService:   a,
 		ctx:          ctx,
@@ -317,30 +306,28 @@ func (a *FunctionsApiService) GetAutomationV4ActionsAppIdDefinitionIdFunctionsFu
 
 // Execute executes the request
 //  @return ActionFunction
-func (a *FunctionsApiService) GetAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdGetByIdExecute(r ApiGetAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdGetByIdRequest) (ActionFunction, *_nethttp.Response, error) {
+func (a *FunctionsApiService) GetAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdGetByIdExecute(r ApiGetAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdGetByIdRequest) (*ActionFunction, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  ActionFunction
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ActionFunction
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionsApiService.GetAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdGetById")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"definitionId"+"}", _neturl.PathEscape(parameterToString(r.definitionId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"functionType"+"}", _neturl.PathEscape(parameterToString(r.functionType, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"functionId"+"}", _neturl.PathEscape(parameterToString(r.functionId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", _neturl.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"definitionId"+"}", url.PathEscape(parameterToString(r.definitionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"functionType"+"}", url.PathEscape(parameterToString(r.functionType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"functionId"+"}", url.PathEscape(parameterToString(r.functionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -373,7 +360,7 @@ func (a *FunctionsApiService) GetAutomationV4ActionsAppIdDefinitionIdFunctionsFu
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -383,15 +370,15 @@ func (a *FunctionsApiService) GetAutomationV4ActionsAppIdDefinitionIdFunctionsFu
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -407,7 +394,7 @@ func (a *FunctionsApiService) GetAutomationV4ActionsAppIdDefinitionIdFunctionsFu
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -418,14 +405,14 @@ func (a *FunctionsApiService) GetAutomationV4ActionsAppIdDefinitionIdFunctionsFu
 }
 
 type ApiGetAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeGetByFunctionTypeRequest struct {
-	ctx          _context.Context
+	ctx          context.Context
 	ApiService   *FunctionsApiService
 	definitionId string
 	functionType string
 	appId        int32
 }
 
-func (r ApiGetAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeGetByFunctionTypeRequest) Execute() (ActionFunction, *_nethttp.Response, error) {
+func (r ApiGetAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeGetByFunctionTypeRequest) Execute() (*ActionFunction, *http.Response, error) {
 	return r.ApiService.GetAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeGetByFunctionTypeExecute(r)
 }
 
@@ -434,13 +421,13 @@ GetAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeGetByFunctionType Ge
 
 Returns the given function for a custom workflow action.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param definitionId The ID of the custom workflow action.
  @param functionType The type of function. This determines when the function will be called.
  @param appId
  @return ApiGetAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeGetByFunctionTypeRequest
 */
-func (a *FunctionsApiService) GetAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeGetByFunctionType(ctx _context.Context, definitionId string, functionType string, appId int32) ApiGetAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeGetByFunctionTypeRequest {
+func (a *FunctionsApiService) GetAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeGetByFunctionType(ctx context.Context, definitionId string, functionType string, appId int32) ApiGetAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeGetByFunctionTypeRequest {
 	return ApiGetAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeGetByFunctionTypeRequest{
 		ApiService:   a,
 		ctx:          ctx,
@@ -452,29 +439,27 @@ func (a *FunctionsApiService) GetAutomationV4ActionsAppIdDefinitionIdFunctionsFu
 
 // Execute executes the request
 //  @return ActionFunction
-func (a *FunctionsApiService) GetAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeGetByFunctionTypeExecute(r ApiGetAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeGetByFunctionTypeRequest) (ActionFunction, *_nethttp.Response, error) {
+func (a *FunctionsApiService) GetAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeGetByFunctionTypeExecute(r ApiGetAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeGetByFunctionTypeRequest) (*ActionFunction, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  ActionFunction
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ActionFunction
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionsApiService.GetAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeGetByFunctionType")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/automation/v4/actions/{appId}/{definitionId}/functions/{functionType}"
-	localVarPath = strings.Replace(localVarPath, "{"+"definitionId"+"}", _neturl.PathEscape(parameterToString(r.definitionId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"functionType"+"}", _neturl.PathEscape(parameterToString(r.functionType, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", _neturl.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"definitionId"+"}", url.PathEscape(parameterToString(r.definitionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"functionType"+"}", url.PathEscape(parameterToString(r.functionType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -507,7 +492,7 @@ func (a *FunctionsApiService) GetAutomationV4ActionsAppIdDefinitionIdFunctionsFu
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -517,15 +502,15 @@ func (a *FunctionsApiService) GetAutomationV4ActionsAppIdDefinitionIdFunctionsFu
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -541,7 +526,7 @@ func (a *FunctionsApiService) GetAutomationV4ActionsAppIdDefinitionIdFunctionsFu
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -552,13 +537,13 @@ func (a *FunctionsApiService) GetAutomationV4ActionsAppIdDefinitionIdFunctionsFu
 }
 
 type ApiGetAutomationV4ActionsAppIdDefinitionIdFunctionsGetPageRequest struct {
-	ctx          _context.Context
+	ctx          context.Context
 	ApiService   *FunctionsApiService
 	definitionId string
 	appId        int32
 }
 
-func (r ApiGetAutomationV4ActionsAppIdDefinitionIdFunctionsGetPageRequest) Execute() (CollectionResponseActionFunctionIdentifierNoPaging, *_nethttp.Response, error) {
+func (r ApiGetAutomationV4ActionsAppIdDefinitionIdFunctionsGetPageRequest) Execute() (*CollectionResponseActionFunctionIdentifierNoPaging, *http.Response, error) {
 	return r.ApiService.GetAutomationV4ActionsAppIdDefinitionIdFunctionsGetPageExecute(r)
 }
 
@@ -567,12 +552,12 @@ GetAutomationV4ActionsAppIdDefinitionIdFunctionsGetPage Get all custom action fu
 
 Returns a list of all functions that are associated with the given custom workflow action.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param definitionId The ID of the custom workflow action.
  @param appId
  @return ApiGetAutomationV4ActionsAppIdDefinitionIdFunctionsGetPageRequest
 */
-func (a *FunctionsApiService) GetAutomationV4ActionsAppIdDefinitionIdFunctionsGetPage(ctx _context.Context, definitionId string, appId int32) ApiGetAutomationV4ActionsAppIdDefinitionIdFunctionsGetPageRequest {
+func (a *FunctionsApiService) GetAutomationV4ActionsAppIdDefinitionIdFunctionsGetPage(ctx context.Context, definitionId string, appId int32) ApiGetAutomationV4ActionsAppIdDefinitionIdFunctionsGetPageRequest {
 	return ApiGetAutomationV4ActionsAppIdDefinitionIdFunctionsGetPageRequest{
 		ApiService:   a,
 		ctx:          ctx,
@@ -583,28 +568,26 @@ func (a *FunctionsApiService) GetAutomationV4ActionsAppIdDefinitionIdFunctionsGe
 
 // Execute executes the request
 //  @return CollectionResponseActionFunctionIdentifierNoPaging
-func (a *FunctionsApiService) GetAutomationV4ActionsAppIdDefinitionIdFunctionsGetPageExecute(r ApiGetAutomationV4ActionsAppIdDefinitionIdFunctionsGetPageRequest) (CollectionResponseActionFunctionIdentifierNoPaging, *_nethttp.Response, error) {
+func (a *FunctionsApiService) GetAutomationV4ActionsAppIdDefinitionIdFunctionsGetPageExecute(r ApiGetAutomationV4ActionsAppIdDefinitionIdFunctionsGetPageRequest) (*CollectionResponseActionFunctionIdentifierNoPaging, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  CollectionResponseActionFunctionIdentifierNoPaging
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CollectionResponseActionFunctionIdentifierNoPaging
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionsApiService.GetAutomationV4ActionsAppIdDefinitionIdFunctionsGetPage")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/automation/v4/actions/{appId}/{definitionId}/functions"
-	localVarPath = strings.Replace(localVarPath, "{"+"definitionId"+"}", _neturl.PathEscape(parameterToString(r.definitionId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", _neturl.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"definitionId"+"}", url.PathEscape(parameterToString(r.definitionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -637,7 +620,7 @@ func (a *FunctionsApiService) GetAutomationV4ActionsAppIdDefinitionIdFunctionsGe
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -647,15 +630,15 @@ func (a *FunctionsApiService) GetAutomationV4ActionsAppIdDefinitionIdFunctionsGe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -671,7 +654,7 @@ func (a *FunctionsApiService) GetAutomationV4ActionsAppIdDefinitionIdFunctionsGe
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -682,7 +665,7 @@ func (a *FunctionsApiService) GetAutomationV4ActionsAppIdDefinitionIdFunctionsGe
 }
 
 type ApiPutAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeCreateOrReplaceByFunctionTypeRequest struct {
-	ctx          _context.Context
+	ctx          context.Context
 	ApiService   *FunctionsApiService
 	definitionId string
 	functionType string
@@ -696,7 +679,7 @@ func (r ApiPutAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeCreateOrR
 	return r
 }
 
-func (r ApiPutAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeCreateOrReplaceByFunctionTypeRequest) Execute() (ActionFunctionIdentifier, *_nethttp.Response, error) {
+func (r ApiPutAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeCreateOrReplaceByFunctionTypeRequest) Execute() (*ActionFunctionIdentifier, *http.Response, error) {
 	return r.ApiService.PutAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeCreateOrReplaceByFunctionTypeExecute(r)
 }
 
@@ -705,13 +688,13 @@ PutAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeCreateOrReplaceByFun
 
 Creates or replaces a function for a custom workflow action.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param definitionId The ID of the custom workflow action.
  @param functionType The type of function. This determines when the function will be called.
  @param appId
  @return ApiPutAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeCreateOrReplaceByFunctionTypeRequest
 */
-func (a *FunctionsApiService) PutAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeCreateOrReplaceByFunctionType(ctx _context.Context, definitionId string, functionType string, appId int32) ApiPutAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeCreateOrReplaceByFunctionTypeRequest {
+func (a *FunctionsApiService) PutAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeCreateOrReplaceByFunctionType(ctx context.Context, definitionId string, functionType string, appId int32) ApiPutAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeCreateOrReplaceByFunctionTypeRequest {
 	return ApiPutAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeCreateOrReplaceByFunctionTypeRequest{
 		ApiService:   a,
 		ctx:          ctx,
@@ -723,29 +706,27 @@ func (a *FunctionsApiService) PutAutomationV4ActionsAppIdDefinitionIdFunctionsFu
 
 // Execute executes the request
 //  @return ActionFunctionIdentifier
-func (a *FunctionsApiService) PutAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeCreateOrReplaceByFunctionTypeExecute(r ApiPutAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeCreateOrReplaceByFunctionTypeRequest) (ActionFunctionIdentifier, *_nethttp.Response, error) {
+func (a *FunctionsApiService) PutAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeCreateOrReplaceByFunctionTypeExecute(r ApiPutAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeCreateOrReplaceByFunctionTypeRequest) (*ActionFunctionIdentifier, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  ActionFunctionIdentifier
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ActionFunctionIdentifier
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionsApiService.PutAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeCreateOrReplaceByFunctionType")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/automation/v4/actions/{appId}/{definitionId}/functions/{functionType}"
-	localVarPath = strings.Replace(localVarPath, "{"+"definitionId"+"}", _neturl.PathEscape(parameterToString(r.definitionId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"functionType"+"}", _neturl.PathEscape(parameterToString(r.functionType, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", _neturl.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"definitionId"+"}", url.PathEscape(parameterToString(r.definitionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"functionType"+"}", url.PathEscape(parameterToString(r.functionType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.body == nil {
 		return localVarReturnValue, nil, reportError("body is required and must be specified")
 	}
@@ -783,7 +764,7 @@ func (a *FunctionsApiService) PutAutomationV4ActionsAppIdDefinitionIdFunctionsFu
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -793,15 +774,15 @@ func (a *FunctionsApiService) PutAutomationV4ActionsAppIdDefinitionIdFunctionsFu
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -817,7 +798,7 @@ func (a *FunctionsApiService) PutAutomationV4ActionsAppIdDefinitionIdFunctionsFu
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -828,7 +809,7 @@ func (a *FunctionsApiService) PutAutomationV4ActionsAppIdDefinitionIdFunctionsFu
 }
 
 type ApiPutAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdCreateOrReplaceRequest struct {
-	ctx          _context.Context
+	ctx          context.Context
 	ApiService   *FunctionsApiService
 	definitionId string
 	functionType string
@@ -843,7 +824,7 @@ func (r ApiPutAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionI
 	return r
 }
 
-func (r ApiPutAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdCreateOrReplaceRequest) Execute() (ActionFunctionIdentifier, *_nethttp.Response, error) {
+func (r ApiPutAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdCreateOrReplaceRequest) Execute() (*ActionFunctionIdentifier, *http.Response, error) {
 	return r.ApiService.PutAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdCreateOrReplaceExecute(r)
 }
 
@@ -852,14 +833,14 @@ PutAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdCreateOrRe
 
 Creates or replaces a function for a custom workflow action.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param definitionId The ID of the custom workflow action.
  @param functionType The type of function. This determines when the function will be called.
  @param functionId The ID qualifier for the function. This is used to specify which input field a function is associated with for `PRE_FETCH_OPTIONS` and `POST_FETCH_OPTIONS` function types.
  @param appId
  @return ApiPutAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdCreateOrReplaceRequest
 */
-func (a *FunctionsApiService) PutAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdCreateOrReplace(ctx _context.Context, definitionId string, functionType string, functionId string, appId int32) ApiPutAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdCreateOrReplaceRequest {
+func (a *FunctionsApiService) PutAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdCreateOrReplace(ctx context.Context, definitionId string, functionType string, functionId string, appId int32) ApiPutAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdCreateOrReplaceRequest {
 	return ApiPutAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdCreateOrReplaceRequest{
 		ApiService:   a,
 		ctx:          ctx,
@@ -872,30 +853,28 @@ func (a *FunctionsApiService) PutAutomationV4ActionsAppIdDefinitionIdFunctionsFu
 
 // Execute executes the request
 //  @return ActionFunctionIdentifier
-func (a *FunctionsApiService) PutAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdCreateOrReplaceExecute(r ApiPutAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdCreateOrReplaceRequest) (ActionFunctionIdentifier, *_nethttp.Response, error) {
+func (a *FunctionsApiService) PutAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdCreateOrReplaceExecute(r ApiPutAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdCreateOrReplaceRequest) (*ActionFunctionIdentifier, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  ActionFunctionIdentifier
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ActionFunctionIdentifier
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionsApiService.PutAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdCreateOrReplace")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"definitionId"+"}", _neturl.PathEscape(parameterToString(r.definitionId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"functionType"+"}", _neturl.PathEscape(parameterToString(r.functionType, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"functionId"+"}", _neturl.PathEscape(parameterToString(r.functionId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", _neturl.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"definitionId"+"}", url.PathEscape(parameterToString(r.definitionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"functionType"+"}", url.PathEscape(parameterToString(r.functionType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"functionId"+"}", url.PathEscape(parameterToString(r.functionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.body == nil {
 		return localVarReturnValue, nil, reportError("body is required and must be specified")
 	}
@@ -933,7 +912,7 @@ func (a *FunctionsApiService) PutAutomationV4ActionsAppIdDefinitionIdFunctionsFu
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -943,15 +922,15 @@ func (a *FunctionsApiService) PutAutomationV4ActionsAppIdDefinitionIdFunctionsFu
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -967,7 +946,7 @@ func (a *FunctionsApiService) PutAutomationV4ActionsAppIdDefinitionIdFunctionsFu
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

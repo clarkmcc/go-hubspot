@@ -1,7 +1,7 @@
 /*
 Blog Post endpoints
 
-\"Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags\"
+Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags
 
 API version: v3
 */
@@ -14,7 +14,7 @@ import (
 	"encoding/json"
 )
 
-// VersionUser Model definition for a VersionUser. Contains addition information about the user who created a version.
+// VersionUser Model definition for a version user. Contains addition information about the user who created a version.
 type VersionUser struct {
 	// The unique ID of the User.
 	Id string `json:"id"`

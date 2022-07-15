@@ -40,14 +40,13 @@ paths:
       security:
       - oauth2_legacy:
         - automation
-      - hapikey: []
       summary: Complete a batch of callbacks
       tags:
       - Callbacks
   /automation/v4/actions/callbacks/{callbackId}/complete:
     post:
       description: Completes the given action callback.
-      operationId: post-/automation/v4/actions/callbacks/{callbackId}/complete_complete
+      operationId: "post-/automation/v4/actions/callbacks/{callbackId}/complete_complete"
       parameters:
       - description: The ID of the target app.
         explode: false
@@ -77,14 +76,13 @@ paths:
       security:
       - oauth2_legacy:
         - automation
-      - hapikey: []
       summary: Complete a callback
       tags:
       - Callbacks
   /automation/v4/actions/{appId}:
     get:
       description: Returns a list of all custom workflow actions.
-      operationId: get-/automation/v4/actions/{appId}_getPage
+      operationId: "get-/automation/v4/actions/{appId}_getPage"
       parameters:
       - description: Maximum number of results per page.
         explode: true
@@ -189,7 +187,7 @@ paths:
                       actionName: Create new widget
                       actionDescription: This action will create a new widget in our
                         system. So cool!
-                      actionCardContent: Create new widget {{ widgetName }}
+                      actionCardContent: "Create new widget {{ widgetName }}"
                   objectTypes:
                   - CONTACT
                   - COMPANY
@@ -216,7 +214,7 @@ paths:
       - Definitions
     post:
       description: Creates a new custom workflow action.
-      operationId: post-/automation/v4/actions/{appId}_create
+      operationId: "post-/automation/v4/actions/{appId}_create"
       parameters:
       - explode: false
         in: path
@@ -299,7 +297,7 @@ paths:
                     actionName: Create new widget
                     actionDescription: This action will create a new widget in our
                       system. So cool!
-                    actionCardContent: Create new widget {{ widgetName }}
+                    actionCardContent: "Create new widget {{ widgetName }}"
                 objectTypes:
                 - CONTACT
                 - COMPANY
@@ -319,10 +317,10 @@ paths:
       - Definitions
   /automation/v4/actions/{appId}/{definitionId}:
     delete:
-      description: Archives a single custom workflow action with the specified ID.
-        Workflows that currently use this custom action will stop attempting to execute
-        the action, and all future executions will be marked as a failure.
-      operationId: delete-/automation/v4/actions/{appId}/{definitionId}_archive
+      description: "Archives a single custom workflow action with the specified ID.\
+        \ Workflows that currently use this custom action will stop attempting to\
+        \ execute the action, and all future executions will be marked as a failure."
+      operationId: "delete-/automation/v4/actions/{appId}/{definitionId}_archive"
       parameters:
       - description: The ID of the custom workflow action.
         explode: false
@@ -357,7 +355,7 @@ paths:
       - Definitions
     get:
       description: Returns a single custom workflow action with the specified ID.
-      operationId: get-/automation/v4/actions/{appId}/{definitionId}_getById
+      operationId: "get-/automation/v4/actions/{appId}/{definitionId}_getById"
       parameters:
       - description: The ID of the custom workflow action.
         explode: false
@@ -450,7 +448,7 @@ paths:
                     actionName: Create new widget
                     actionDescription: This action will create a new widget in our
                       system. So cool!
-                    actionCardContent: Create new widget {{ widgetName }}
+                    actionCardContent: "Create new widget {{ widgetName }}"
                 objectTypes:
                 - CONTACT
                 - COMPANY
@@ -471,7 +469,7 @@ paths:
     patch:
       description: Updates a custom workflow action with new values for the specified
         fields.
-      operationId: patch-/automation/v4/actions/{appId}/{definitionId}_update
+      operationId: "patch-/automation/v4/actions/{appId}/{definitionId}_update"
       parameters:
       - description: The ID of the custom workflow action.
         explode: false
@@ -564,7 +562,7 @@ paths:
                     actionName: Create new widget
                     actionDescription: This action will create a new widget in our
                       system. So cool!
-                    actionCardContent: Create new widget {{ widgetName }}
+                    actionCardContent: "Create new widget {{ widgetName }}"
                 objectTypes:
                 - CONTACT
                 - COMPANY
@@ -586,7 +584,7 @@ paths:
     get:
       description: Returns a list of all functions that are associated with the given
         custom workflow action.
-      operationId: get-/automation/v4/actions/{appId}/{definitionId}/functions_getPage
+      operationId: "get-/automation/v4/actions/{appId}/{definitionId}/functions_getPage"
       parameters:
       - description: The ID of the custom workflow action.
         explode: false
@@ -635,7 +633,7 @@ paths:
       description: Delete a function for a custom workflow action. This will remove
         the function itself as well as removing the association between the function
         and the custom action. This can't be undone.
-      operationId: delete-/automation/v4/actions/{appId}/{definitionId}/functions/{functionType}_archiveByFunctionType
+      operationId: "delete-/automation/v4/actions/{appId}/{definitionId}/functions/{functionType}_archiveByFunctionType"
       parameters:
       - description: The ID of the custom workflow action.
         explode: false
@@ -683,7 +681,7 @@ paths:
       - Functions
     get:
       description: Returns the given function for a custom workflow action.
-      operationId: get-/automation/v4/actions/{appId}/{definitionId}/functions/{functionType}_getByFunctionType
+      operationId: "get-/automation/v4/actions/{appId}/{definitionId}/functions/{functionType}_getByFunctionType"
       parameters:
       - description: The ID of the custom workflow action.
         explode: false
@@ -720,9 +718,10 @@ paths:
             application/json:
               example:
                 functionType: PRE_ACTION_EXECUTION
-                functionSource: |-
-                  exports.main = (event, callback) => { return callback(transformRequest(event)); };
-                  function transformRequest(request) { return { webhookUrl: request.webhookUrl, body: JSON.stringify(request.body), httpMethod: "POST" } }
+                functionSource: "exports.main = (event, callback) => { return callback(transformRequest(event));\
+                  \ };\nfunction transformRequest(request) { return { webhookUrl:\
+                  \ request.webhookUrl, body: JSON.stringify(request.body), httpMethod:\
+                  \ \"POST\" } }"
               schema:
                 $ref: '#/components/schemas/ActionFunction'
           description: successful operation
@@ -739,7 +738,7 @@ paths:
       - Functions
     put:
       description: Creates or replaces a function for a custom workflow action.
-      operationId: put-/automation/v4/actions/{appId}/{definitionId}/functions/{functionType}_createOrReplaceByFunctionType
+      operationId: "put-/automation/v4/actions/{appId}/{definitionId}/functions/{functionType}_createOrReplaceByFunctionType"
       parameters:
       - description: The ID of the custom workflow action.
         explode: false
@@ -802,7 +801,7 @@ paths:
       description: Delete a function for a custom workflow action. This will remove
         the function itself as well as removing the association between the function
         and the custom action. This can't be undone.
-      operationId: delete-/automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId}_archive
+      operationId: "delete-/automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId}_archive"
       parameters:
       - description: The ID of the custom workflow action
         explode: false
@@ -860,7 +859,7 @@ paths:
       - Functions
     get:
       description: Returns the given function for a custom workflow action.
-      operationId: get-/automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId}_getById
+      operationId: "get-/automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId}_getById"
       parameters:
       - description: The ID of the custom workflow action.
         explode: false
@@ -908,9 +907,10 @@ paths:
               example:
                 functionType: PRE_FETCH_OPTIONS
                 id: widgetSize
-                functionSource: |-
-                  exports.main = (event, callback) => { return callback(transformRequest(event)); };
-                  function transformRequest(request) { return { webhookUrl: request.webhookUrl, body: JSON.stringify(request.body), httpMethod: "POST" } }
+                functionSource: "exports.main = (event, callback) => { return callback(transformRequest(event));\
+                  \ };\nfunction transformRequest(request) { return { webhookUrl:\
+                  \ request.webhookUrl, body: JSON.stringify(request.body), httpMethod:\
+                  \ \"POST\" } }"
               schema:
                 $ref: '#/components/schemas/ActionFunction'
           description: successful operation
@@ -927,7 +927,7 @@ paths:
       - Functions
     put:
       description: Creates or replaces a function for a custom workflow action.
-      operationId: put-/automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId}_createOrReplace
+      operationId: "put-/automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId}_createOrReplace"
       parameters:
       - description: The ID of the custom workflow action.
         explode: false
@@ -999,7 +999,7 @@ paths:
   /automation/v4/actions/{appId}/{definitionId}/revisions:
     get:
       description: Returns a list of revisions for a custom workflow action.
-      operationId: get-/automation/v4/actions/{appId}/{definitionId}/revisions_getPage
+      operationId: "get-/automation/v4/actions/{appId}/{definitionId}/revisions_getPage"
       parameters:
       - description: The ID of the custom workflow action
         explode: false
@@ -1107,7 +1107,7 @@ paths:
                         actionName: Create new widget
                         actionDescription: This action will create a new widget in
                           our system. So cool!
-                        actionCardContent: Create new widget {{ widgetName }}
+                        actionCardContent: "Create new widget {{ widgetName }}"
                     objectTypes:
                     - CONTACT
                     - COMPANY
@@ -1139,7 +1139,7 @@ paths:
   /automation/v4/actions/{appId}/{definitionId}/revisions/{revisionId}:
     get:
       description: Returns the given version of a custom workflow action.
-      operationId: get-/automation/v4/actions/{appId}/{definitionId}/revisions/{revisionId}_getById
+      operationId: "get-/automation/v4/actions/{appId}/{definitionId}/revisions/{revisionId}_getById"
       parameters:
       - description: The ID of the custom workflow action.
         explode: false
@@ -1235,7 +1235,7 @@ paths:
                       actionName: Create new widget
                       actionDescription: This action will create a new widget in our
                         system. So cool!
-                      actionCardContent: Create new widget {{ widgetName }}
+                      actionCardContent: "Create new widget {{ widgetName }}"
                   objectTypes:
                   - CONTACT
                   - COMPANY
@@ -1419,8 +1419,8 @@ components:
             id: id
           actionUrl: actionUrl
           inputFieldDependencies:
-          - ""
-          - ""
+          - null
+          - null
           id: id
           published: true
           objectTypes:
@@ -1596,8 +1596,8 @@ components:
               id: id
             actionUrl: actionUrl
             inputFieldDependencies:
-            - ""
-            - ""
+            - null
+            - null
             id: id
             published: true
             objectTypes:
@@ -1681,8 +1681,8 @@ components:
               id: id
             actionUrl: actionUrl
             inputFieldDependencies:
-            - ""
-            - ""
+            - null
+            - null
             id: id
             published: true
             objectTypes:
@@ -1780,8 +1780,8 @@ components:
             id: id
           actionUrl: actionUrl
           inputFieldDependencies:
-          - ""
-          - ""
+          - null
+          - null
           id: id
           published: true
           objectTypes:
@@ -1861,8 +1861,8 @@ components:
             id: id
           actionUrl: actionUrl
           inputFieldDependencies:
-          - ""
-          - ""
+          - null
+          - null
           id: id
           published: true
           objectTypes:
@@ -2062,8 +2062,8 @@ components:
           id: id
         actionUrl: actionUrl
         inputFieldDependencies:
-        - ""
-        - ""
+        - null
+        - null
         id: id
         published: true
         objectTypes:
@@ -2102,8 +2102,8 @@ components:
           description: Whether this custom action is published to customers.
           type: boolean
         archivedAt:
-          description: The date that this custom action was archived, if the custom
-            action is archived.
+          description: "The date that this custom action was archived, if the custom\
+            \ action is archived."
           format: int64
           type: integer
         inputFields:
@@ -2117,9 +2117,7 @@ components:
           description: A list of dependencies between the input fields. These configure
             when the input fields should be visible.
           items:
-            oneOf:
-            - $ref: '#/components/schemas/SingleFieldDependency'
-            - $ref: '#/components/schemas/ConditionalSingleFieldDependency'
+            $ref: '#/components/schemas/ExtensionActionDefinition_inputFieldDependencies_inner'
           type: array
         labels:
           additionalProperties:
@@ -2205,8 +2203,8 @@ components:
           id: id
         actionUrl: actionUrl
         inputFieldDependencies:
-        - ""
-        - ""
+        - null
+        - null
         published: true
         objectTypes:
         - objectTypes
@@ -2239,8 +2237,8 @@ components:
           description: Whether this custom action is published to customers.
           type: boolean
         archivedAt:
-          description: The date that this custom action was archived, if the custom
-            action is archived.
+          description: "The date that this custom action was archived, if the custom\
+            \ action is archived."
           format: int64
           type: integer
         inputFields:
@@ -2254,9 +2252,7 @@ components:
           description: A list of dependencies between the input fields. These configure
             when the input fields should be visible.
           items:
-            oneOf:
-            - $ref: '#/components/schemas/SingleFieldDependency'
-            - $ref: '#/components/schemas/ConditionalSingleFieldDependency'
+            $ref: '#/components/schemas/ExtensionActionDefinition_inputFieldDependencies_inner'
           type: array
         labels:
           additionalProperties:
@@ -2332,8 +2328,8 @@ components:
           - STATIC_VALUE
         actionUrl: actionUrl
         inputFieldDependencies:
-        - ""
-        - ""
+        - null
+        - null
         published: true
         objectTypes:
         - objectTypes
@@ -2371,9 +2367,7 @@ components:
           description: A list of dependencies between the input fields. These configure
             when the input fields should be visible.
           items:
-            oneOf:
-            - $ref: '#/components/schemas/SingleFieldDependency'
-            - $ref: '#/components/schemas/ConditionalSingleFieldDependency'
+            $ref: '#/components/schemas/ExtensionActionDefinition_inputFieldDependencies_inner'
           type: array
         labels:
           additionalProperties:
@@ -2568,13 +2562,13 @@ components:
         typeDefinition:
           $ref: '#/components/schemas/FieldTypeDefinition'
         supportedValueTypes:
-          description: Controls what kind of input a customer can use to specify the
-            field value. Must contain exactly one of `STATIC_VALUE` or `OBJECT_PROPERTY`.
-            If `STATIC_VALUE`, the customer will be able to choose a value when configuring
-            the custom action; if `OBJECT_PROPERTY`, the customer will be able to
-            choose a property from the enrolled workflow object that the field value
-            will be copied from. In the future we may support more than one input
-            control type here.
+          description: "Controls what kind of input a customer can use to specify\
+            \ the field value. Must contain exactly one of `STATIC_VALUE` or `OBJECT_PROPERTY`.\
+            \ If `STATIC_VALUE`, the customer will be able to choose a value when\
+            \ configuring the custom action; if `OBJECT_PROPERTY`, the customer will\
+            \ be able to choose a property from the enrolled workflow object that\
+            \ the field value will be copied from. In the future we may support more\
+            \ than one input control type here."
           items:
             enum:
             - STATIC_VALUE
@@ -2675,6 +2669,10 @@ components:
       - dependentFieldNames
       title: SINGLE_FIELD
       type: object
+    ExtensionActionDefinition_inputFieldDependencies_inner:
+      oneOf:
+      - $ref: '#/components/schemas/SingleFieldDependency'
+      - $ref: '#/components/schemas/ConditionalSingleFieldDependency'
   securitySchemes:
     oauth2_legacy:
       flows:
@@ -2684,10 +2682,6 @@ components:
             automation: Read from and write to my Workflows
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
-    hapikey:
-      in: query
-      name: hapikey
-      type: apiKey
     developer_hapikey:
       in: query
       name: hapikey

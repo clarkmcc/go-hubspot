@@ -50,11 +50,11 @@ func (o *ObjectRequestOptions) GetProperties() []string {
 
 // GetPropertiesOk returns a tuple with the Properties field value
 // and a boolean to check if the value has been set.
-func (o *ObjectRequestOptions) GetPropertiesOk() (*[]string, bool) {
+func (o *ObjectRequestOptions) GetPropertiesOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Properties, true
+	return o.Properties, true
 }
 
 // SetProperties sets field value

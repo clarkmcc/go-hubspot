@@ -11,8 +11,8 @@ Name | Type | Description | Notes
 **ForeignTableId** | Pointer to **int64** | Foreign table id referenced | [optional] 
 **ForeignColumnId** | Pointer to **int32** | Foreign Column id | [optional] 
 **ForeignIds** | Pointer to [**[]ForeignId**](ForeignId.md) | Foreign Ids | [optional] 
-**ForeignIdsByName** | Pointer to [**map[string]ForeignId**](ForeignId.md) | Foreign ids by name | [optional] 
 **ForeignIdsById** | Pointer to [**map[string]ForeignId**](ForeignId.md) | Foreign ids | [optional] 
+**ForeignIdsByName** | Pointer to [**map[string]ForeignId**](ForeignId.md) | Foreign ids by name | [optional] 
 **Type** | **string** | Type of the column | 
 **OptionCount** | Pointer to **int32** | Number of options available | [optional] 
 **Archived** | Pointer to **bool** | Specifies whether the column is archived | [optional] 
@@ -202,31 +202,6 @@ SetForeignIds sets ForeignIds field to given value.
 
 HasForeignIds returns a boolean if a field has been set.
 
-### GetForeignIdsByName
-
-`func (o *Column) GetForeignIdsByName() map[string]ForeignId`
-
-GetForeignIdsByName returns the ForeignIdsByName field if non-nil, zero value otherwise.
-
-### GetForeignIdsByNameOk
-
-`func (o *Column) GetForeignIdsByNameOk() (*map[string]ForeignId, bool)`
-
-GetForeignIdsByNameOk returns a tuple with the ForeignIdsByName field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetForeignIdsByName
-
-`func (o *Column) SetForeignIdsByName(v map[string]ForeignId)`
-
-SetForeignIdsByName sets ForeignIdsByName field to given value.
-
-### HasForeignIdsByName
-
-`func (o *Column) HasForeignIdsByName() bool`
-
-HasForeignIdsByName returns a boolean if a field has been set.
-
 ### GetForeignIdsById
 
 `func (o *Column) GetForeignIdsById() map[string]ForeignId`
@@ -251,6 +226,31 @@ SetForeignIdsById sets ForeignIdsById field to given value.
 `func (o *Column) HasForeignIdsById() bool`
 
 HasForeignIdsById returns a boolean if a field has been set.
+
+### GetForeignIdsByName
+
+`func (o *Column) GetForeignIdsByName() map[string]ForeignId`
+
+GetForeignIdsByName returns the ForeignIdsByName field if non-nil, zero value otherwise.
+
+### GetForeignIdsByNameOk
+
+`func (o *Column) GetForeignIdsByNameOk() (*map[string]ForeignId, bool)`
+
+GetForeignIdsByNameOk returns a tuple with the ForeignIdsByName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetForeignIdsByName
+
+`func (o *Column) SetForeignIdsByName(v map[string]ForeignId)`
+
+SetForeignIdsByName sets ForeignIdsByName field to given value.
+
+### HasForeignIdsByName
+
+`func (o *Column) HasForeignIdsByName() bool`
+
+HasForeignIdsByName returns a boolean if a field has been set.
 
 ### GetType
 

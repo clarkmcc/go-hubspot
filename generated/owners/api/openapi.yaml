@@ -1,9 +1,12 @@
 openapi: 3.0.1
 info:
-  description: |-
-    HubSpot uses **owners** to assign CRM objects to specific people in your organization. The endpoints described here are used to get a list of the owners that are available for an account. To assign an owner to an object, set the hubspot_owner_id property using the appropriate CRM object update or create a request.
-
-    If teams are available for your HubSpot tier, these endpoints will also indicate which team an owner belongs to. Team membership can be one of PRIMARY (default), SECONDARY, or CHILD.
+  description: "HubSpot uses **owners** to assign CRM objects to specific people in\
+    \ your organization. The endpoints described here are used to get a list of the\
+    \ owners that are available for an account. To assign an owner to an object, set\
+    \ the hubspot_owner_id property using the appropriate CRM object update or create\
+    \ a request.\n\nIf teams are available for your HubSpot tier, these endpoints\
+    \ will also indicate which team(s) an owner can access, as well as which team\
+    \ is the owner's primary team."
   title: CRM Owners
   version: v3
 servers:
@@ -66,7 +69,6 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
       - oauth2_legacy:
         - contacts
       - oauth2:
@@ -76,7 +78,7 @@ paths:
       - Owners
   /crm/v3/owners/{ownerId}:
     get:
-      operationId: get-/crm/v3/owners/{ownerId}_getById
+      operationId: "get-/crm/v3/owners/{ownerId}_getById"
       parameters:
       - explode: false
         in: path
@@ -120,7 +122,6 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
       - oauth2_legacy:
         - contacts
       - oauth2:
@@ -144,28 +145,36 @@ components:
             link: link
             after: after
         results:
-        - firstName: John
+        - id: "6166860"
+          email: jsmith@example.com
+          firstName: John
           lastName: Smith
+          userId: 1296619
           createdAt: 2019-10-30T03:30:17.883Z
+          updatedAt: 2019-12-07T16:50:06.678Z
           archived: false
           teams:
           - id: "178588"
             name: West Coast Sales
-          id: "6166860"
-          userId: 1296619
+            primary: true
+          - id: "178590"
+            name: California Sales
+            primary: false
+        - id: "6166860"
           email: jsmith@example.com
-          updatedAt: 2019-12-07T16:50:06.678Z
-        - firstName: John
+          firstName: John
           lastName: Smith
+          userId: 1296619
           createdAt: 2019-10-30T03:30:17.883Z
+          updatedAt: 2019-12-07T16:50:06.678Z
           archived: false
           teams:
           - id: "178588"
             name: West Coast Sales
-          id: "6166860"
-          userId: 1296619
-          email: jsmith@example.com
-          updatedAt: 2019-12-07T16:50:06.678Z
+            primary: true
+          - id: "178590"
+            name: California Sales
+            primary: false
       properties:
         results:
           items:
@@ -284,17 +293,21 @@ components:
       type: object
     PublicOwner:
       example:
+        id: "6166860"
+        email: jsmith@example.com
         firstName: John
         lastName: Smith
+        userId: 1296619
         createdAt: 2019-10-30T03:30:17.883Z
+        updatedAt: 2019-12-07T16:50:06.678Z
         archived: false
         teams:
         - id: "178588"
           name: West Coast Sales
-        id: "6166860"
-        userId: 1296619
-        email: jsmith@example.com
-        updatedAt: 2019-12-07T16:50:06.678Z
+          primary: true
+        - id: "178590"
+          name: California Sales
+          primary: false
       properties:
         id:
           type: string
@@ -331,15 +344,12 @@ components:
           type: string
         name:
           type: string
-        membership:
-          enum:
-          - PRIMARY
-          - SECONDARY
-          - CHILD
-          type: string
+        primary:
+          type: boolean
       required:
       - id
       - name
+      - primary
       type: object
   securitySchemes:
     oauth2_legacy:
@@ -350,10 +360,6 @@ components:
             contacts: Read from and write to my Contacts
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
-    hapikey:
-      in: query
-      name: hapikey
-      type: apiKey
     oauth2:
       flows:
         authorizationCode:

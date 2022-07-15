@@ -35,8 +35,8 @@ func main() {
     batchInputPropertyName := *openapiclient.NewBatchInputPropertyName([]openapiclient.PropertyName{*openapiclient.NewPropertyName("Name_example")}) // BatchInputPropertyName | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.BatchApi.PostCrmV3PropertiesObjectTypeBatchArchiveArchive(context.Background(), objectType).BatchInputPropertyName(batchInputPropertyName).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.BatchApi.PostCrmV3PropertiesObjectTypeBatchArchiveArchive(context.Background(), objectType).BatchInputPropertyName(batchInputPropertyName).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.PostCrmV3PropertiesObjectTypeBatchArchiveArchive``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -68,7 +68,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -105,8 +105,8 @@ func main() {
     batchInputPropertyCreate := *openapiclient.NewBatchInputPropertyCreate([]openapiclient.PropertyCreate{*openapiclient.NewPropertyCreate("Name_example", "Label_example", "Type_example", "FieldType_example", "GroupName_example")}) // BatchInputPropertyCreate | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.BatchApi.PostCrmV3PropertiesObjectTypeBatchCreateCreate(context.Background(), objectType).BatchInputPropertyCreate(batchInputPropertyCreate).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.BatchApi.PostCrmV3PropertiesObjectTypeBatchCreateCreate(context.Background(), objectType).BatchInputPropertyCreate(batchInputPropertyCreate).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.PostCrmV3PropertiesObjectTypeBatchCreateCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -140,7 +140,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -177,8 +177,8 @@ func main() {
     batchReadInputPropertyName := *openapiclient.NewBatchReadInputPropertyName([]openapiclient.PropertyName{*openapiclient.NewPropertyName("Name_example")}, false) // BatchReadInputPropertyName | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.BatchApi.PostCrmV3PropertiesObjectTypeBatchReadRead(context.Background(), objectType).BatchReadInputPropertyName(batchReadInputPropertyName).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.BatchApi.PostCrmV3PropertiesObjectTypeBatchReadRead(context.Background(), objectType).BatchReadInputPropertyName(batchReadInputPropertyName).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.PostCrmV3PropertiesObjectTypeBatchReadRead``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -212,7 +212,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 

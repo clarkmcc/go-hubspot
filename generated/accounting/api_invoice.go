@@ -12,25 +12,18 @@ package accounting
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-
-	"github.com/clarkmcc/go-hubspot/authorization"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // InvoiceApiService InvoiceApi service
 type InvoiceApiService service
 
 type ApiGetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetByIdRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *InvoiceApiService
 	invoiceId  string
 	accountId  *string
@@ -42,7 +35,7 @@ func (r ApiGetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetByIdRequest) AccountId
 	return r
 }
 
-func (r ApiGetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetByIdRequest) Execute() (InvoiceReadResponse, *_nethttp.Response, error) {
+func (r ApiGetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetByIdRequest) Execute() (*InvoiceReadResponse, *http.Response, error) {
 	return r.ApiService.GetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetByIdExecute(r)
 }
 
@@ -51,11 +44,11 @@ GetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetById Get invoice data
 
 Returns invoice data for an Accounting account from the specified ID
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param invoiceId The ID of the invoice. This is the invoice ID from the external accounting system.
  @return ApiGetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetByIdRequest
 */
-func (a *InvoiceApiService) GetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetById(ctx _context.Context, invoiceId string) ApiGetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetByIdRequest {
+func (a *InvoiceApiService) GetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetById(ctx context.Context, invoiceId string) ApiGetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetByIdRequest {
 	return ApiGetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetByIdRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -65,27 +58,25 @@ func (a *InvoiceApiService) GetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetById(
 
 // Execute executes the request
 //  @return InvoiceReadResponse
-func (a *InvoiceApiService) GetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetByIdExecute(r ApiGetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetByIdRequest) (InvoiceReadResponse, *_nethttp.Response, error) {
+func (a *InvoiceApiService) GetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetByIdExecute(r ApiGetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetByIdRequest) (*InvoiceReadResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  InvoiceReadResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *InvoiceReadResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InvoiceApiService.GetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetById")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/extensions/accounting/invoice/{invoiceId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"invoiceId"+"}", _neturl.PathEscape(parameterToString(r.invoiceId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"invoiceId"+"}", url.PathEscape(parameterToString(r.invoiceId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.accountId == nil {
 		return localVarReturnValue, nil, reportError("accountId is required and must be specified")
 	}
@@ -108,21 +99,7 @@ func (a *InvoiceApiService) GetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetByIdE
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -132,15 +109,15 @@ func (a *InvoiceApiService) GetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetByIdE
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -156,7 +133,7 @@ func (a *InvoiceApiService) GetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetByIdE
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -167,7 +144,7 @@ func (a *InvoiceApiService) GetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetByIdE
 }
 
 type ApiPatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdateRequest struct {
-	ctx                  _context.Context
+	ctx                  context.Context
 	ApiService           *InvoiceApiService
 	invoiceId            string
 	accountId            *string
@@ -186,7 +163,7 @@ func (r ApiPatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdateRequest) InvoiceU
 	return r
 }
 
-func (r ApiPatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdateRequest) Execute() (InvoiceUpdateResponse, *_nethttp.Response, error) {
+func (r ApiPatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdateRequest) Execute() (*InvoiceUpdateResponse, *http.Response, error) {
 	return r.ApiService.PatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdateExecute(r)
 }
 
@@ -195,11 +172,11 @@ PatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdate Update an invoice
 
 Updates an Invoice by the given ID.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param invoiceId The ID of the invoice. This is the invoice ID from the external accounting system.
  @return ApiPatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdateRequest
 */
-func (a *InvoiceApiService) PatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdate(ctx _context.Context, invoiceId string) ApiPatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdateRequest {
+func (a *InvoiceApiService) PatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdate(ctx context.Context, invoiceId string) ApiPatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdateRequest {
 	return ApiPatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdateRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -209,27 +186,25 @@ func (a *InvoiceApiService) PatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdate
 
 // Execute executes the request
 //  @return InvoiceUpdateResponse
-func (a *InvoiceApiService) PatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdateExecute(r ApiPatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdateRequest) (InvoiceUpdateResponse, *_nethttp.Response, error) {
+func (a *InvoiceApiService) PatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdateExecute(r ApiPatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdateRequest) (*InvoiceUpdateResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPatch
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  InvoiceUpdateResponse
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *InvoiceUpdateResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InvoiceApiService.PatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdate")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/extensions/accounting/invoice/{invoiceId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"invoiceId"+"}", _neturl.PathEscape(parameterToString(r.invoiceId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"invoiceId"+"}", url.PathEscape(parameterToString(r.invoiceId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.accountId == nil {
 		return localVarReturnValue, nil, reportError("accountId is required and must be specified")
 	}
@@ -257,21 +232,7 @@ func (a *InvoiceApiService) PatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdate
 	}
 	// body params
 	localVarPostBody = r.invoiceUpdateRequest
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -281,15 +242,15 @@ func (a *InvoiceApiService) PatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdate
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -305,7 +266,7 @@ func (a *InvoiceApiService) PatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdate
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -316,7 +277,7 @@ func (a *InvoiceApiService) PatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdate
 }
 
 type ApiPostCrmV3ExtensionsAccountingInvoiceInvoiceIdPaymentCreatePaymentRequest struct {
-	ctx                         _context.Context
+	ctx                         context.Context
 	ApiService                  *InvoiceApiService
 	invoiceId                   string
 	invoiceCreatePaymentRequest *InvoiceCreatePaymentRequest
@@ -335,7 +296,7 @@ func (r ApiPostCrmV3ExtensionsAccountingInvoiceInvoiceIdPaymentCreatePaymentRequ
 	return r
 }
 
-func (r ApiPostCrmV3ExtensionsAccountingInvoiceInvoiceIdPaymentCreatePaymentRequest) Execute() (InvoiceUpdateResponse, *_nethttp.Response, error) {
+func (r ApiPostCrmV3ExtensionsAccountingInvoiceInvoiceIdPaymentCreatePaymentRequest) Execute() (*InvoiceUpdateResponse, *http.Response, error) {
 	return r.ApiService.PostCrmV3ExtensionsAccountingInvoiceInvoiceIdPaymentCreatePaymentExecute(r)
 }
 
@@ -344,11 +305,11 @@ PostCrmV3ExtensionsAccountingInvoiceInvoiceIdPaymentCreatePayment Records an inv
 
 Records an payment against an invoice.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param invoiceId The ID of the invoice. This is the invoice ID from the external accounting system.
  @return ApiPostCrmV3ExtensionsAccountingInvoiceInvoiceIdPaymentCreatePaymentRequest
 */
-func (a *InvoiceApiService) PostCrmV3ExtensionsAccountingInvoiceInvoiceIdPaymentCreatePayment(ctx _context.Context, invoiceId string) ApiPostCrmV3ExtensionsAccountingInvoiceInvoiceIdPaymentCreatePaymentRequest {
+func (a *InvoiceApiService) PostCrmV3ExtensionsAccountingInvoiceInvoiceIdPaymentCreatePayment(ctx context.Context, invoiceId string) ApiPostCrmV3ExtensionsAccountingInvoiceInvoiceIdPaymentCreatePaymentRequest {
 	return ApiPostCrmV3ExtensionsAccountingInvoiceInvoiceIdPaymentCreatePaymentRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -358,27 +319,25 @@ func (a *InvoiceApiService) PostCrmV3ExtensionsAccountingInvoiceInvoiceIdPayment
 
 // Execute executes the request
 //  @return InvoiceUpdateResponse
-func (a *InvoiceApiService) PostCrmV3ExtensionsAccountingInvoiceInvoiceIdPaymentCreatePaymentExecute(r ApiPostCrmV3ExtensionsAccountingInvoiceInvoiceIdPaymentCreatePaymentRequest) (InvoiceUpdateResponse, *_nethttp.Response, error) {
+func (a *InvoiceApiService) PostCrmV3ExtensionsAccountingInvoiceInvoiceIdPaymentCreatePaymentExecute(r ApiPostCrmV3ExtensionsAccountingInvoiceInvoiceIdPaymentCreatePaymentRequest) (*InvoiceUpdateResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  InvoiceUpdateResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *InvoiceUpdateResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InvoiceApiService.PostCrmV3ExtensionsAccountingInvoiceInvoiceIdPaymentCreatePayment")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/extensions/accounting/invoice/{invoiceId}/payment"
-	localVarPath = strings.Replace(localVarPath, "{"+"invoiceId"+"}", _neturl.PathEscape(parameterToString(r.invoiceId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"invoiceId"+"}", url.PathEscape(parameterToString(r.invoiceId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.invoiceCreatePaymentRequest == nil {
 		return localVarReturnValue, nil, reportError("invoiceCreatePaymentRequest is required and must be specified")
 	}
@@ -405,21 +364,7 @@ func (a *InvoiceApiService) PostCrmV3ExtensionsAccountingInvoiceInvoiceIdPayment
 	}
 	// body params
 	localVarPostBody = r.invoiceCreatePaymentRequest
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -429,15 +374,15 @@ func (a *InvoiceApiService) PostCrmV3ExtensionsAccountingInvoiceInvoiceIdPayment
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -453,7 +398,7 @@ func (a *InvoiceApiService) PostCrmV3ExtensionsAccountingInvoiceInvoiceIdPayment
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

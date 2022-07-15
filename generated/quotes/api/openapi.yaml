@@ -9,6 +9,7 @@ tags:
 - name: Basic
 - name: Batch
 - name: Search
+- name: Public_Object
 paths:
   /crm/v3/objects/quotes:
     get:
@@ -36,9 +37,9 @@ paths:
         schema:
           type: string
         style: form
-      - description: A comma separated list of the properties to be returned in the
-          response. If any of the specified properties are not present on the requested
-          object(s), they will be ignored.
+      - description: "A comma separated list of the properties to be returned in the\
+          \ response. If any of the specified properties are not present on the requested\
+          \ object(s), they will be ignored."
         explode: true
         in: query
         name: properties
@@ -48,9 +49,23 @@ paths:
             type: string
           type: array
         style: form
-      - description: A comma separated list of object types to retrieve associated
-          IDs for. If any of the specified associations do not exist, they will be
-          ignored.
+      - description: "A comma separated list of the properties to be returned along\
+          \ with their history of previous values. If any of the specified properties\
+          \ are not present on the requested object(s), they will be ignored. Usage\
+          \ of this parameter will reduce the maximum number of objects that can be\
+          \ read by a single request."
+        explode: true
+        in: query
+        name: propertiesWithHistory
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: "A comma separated list of object types to retrieve associated\
+          \ IDs for. If any of the specified associations do not exist, they will\
+          \ be ignored."
         explode: true
         in: query
         name: associations
@@ -83,10 +98,111 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
+      - oauth2_legacy:
+        - e-commerce
+      - oauth2:
+        - crm.objects.quotes.read
       summary: List
       tags:
       - Basic
+    post:
+      description: "Create a quote with the given properties and return a copy of\
+        \ the object, including the ID. Documentation and examples for creating standard\
+        \ quotes is provided."
+      operationId: post-/crm/v3/objects/quotes_create
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SimplePublicObjectInput'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimplePublicObject'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - oauth2:
+        - crm.objects.quotes.write
+      - oauth2_legacy:
+        - e-commerce
+      summary: Create
+      tags:
+      - Basic
+  /crm/v3/objects/quotes/batch/archive:
+    post:
+      operationId: post-/crm/v3/objects/quotes/batch/archive_archive
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchInputSimplePublicObjectId'
+        required: true
+      responses:
+        "204":
+          content: {}
+          description: No content
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - oauth2:
+        - crm.objects.quotes.write
+      - oauth2_legacy:
+        - e-commerce
+      summary: Archive a batch of quotes by ID
+      tags:
+      - Batch
+  /crm/v3/objects/quotes/batch/create:
+    post:
+      operationId: post-/crm/v3/objects/quotes/batch/create_create
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchInputSimplePublicObjectInput'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchResponseSimplePublicObject'
+          description: successful operation
+        "207":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchResponseSimplePublicObjectWithErrors'
+          description: multiple statuses
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - oauth2:
+        - crm.objects.quotes.write
+      - oauth2_legacy:
+        - e-commerce
+      summary: Create a batch of quotes
+      tags:
+      - Batch
   /crm/v3/objects/quotes/batch/read:
     post:
       operationId: post-/crm/v3/objects/quotes/batch/read_read
@@ -126,10 +242,81 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
-      summary: Read a batch of quotes by internal ID, or unique property values
+      - oauth2_legacy:
+        - e-commerce
+      - oauth2:
+        - crm.objects.quotes.read
+      summary: "Read a batch of quotes by internal ID, or unique property values"
       tags:
       - Batch
+  /crm/v3/objects/quotes/batch/update:
+    post:
+      operationId: post-/crm/v3/objects/quotes/batch/update_update
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchInputSimplePublicObjectBatchInput'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchResponseSimplePublicObject'
+          description: successful operation
+        "207":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchResponseSimplePublicObjectWithErrors'
+          description: multiple statuses
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - oauth2:
+        - crm.objects.quotes.write
+      - oauth2_legacy:
+        - e-commerce
+      summary: Update a batch of quotes
+      tags:
+      - Batch
+  /crm/v3/objects/quotes/merge:
+    post:
+      operationId: post-/crm/v3/objects/quotes/merge_merge
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicMergeInput'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimplePublicObject'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - oauth2:
+        - crm.objects.quotes.write
+      - oauth2_legacy:
+        - e-commerce
+      summary: Merge two quotes with same type
+      tags:
+      - Public_Object
   /crm/v3/objects/quotes/search:
     post:
       operationId: post-/crm/v3/objects/quotes/search_doSearch
@@ -154,18 +341,18 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
+      - oauth2_legacy:
+        - e-commerce
+      - oauth2:
+        - crm.objects.quotes.read
       tags:
       - Search
       x-hubspot-rate-limit-exemptions:
       - ten-secondly
   /crm/v3/objects/quotes/{quoteId}:
-    get:
-      description: Read an Object identified by `{quoteId}`. `{quoteId}` refers to
-        the internal object ID by default, or optionally any unique property value
-        as specified by the `idProperty` query param.  Control what is returned via
-        the `properties` query param.
-      operationId: get-/crm/v3/objects/quotes/{quoteId}_getById
+    delete:
+      description: "Move an Object identified by `{quoteId}` to the recycling bin."
+      operationId: "delete-/crm/v3/objects/quotes/{quoteId}_archive"
       parameters:
       - explode: false
         in: path
@@ -174,9 +361,41 @@ paths:
         schema:
           type: string
         style: simple
-      - description: A comma separated list of the properties to be returned in the
-          response. If any of the specified properties are not present on the requested
-          object(s), they will be ignored.
+      responses:
+        "204":
+          content: {}
+          description: No content
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - oauth2:
+        - crm.objects.quotes.write
+      - oauth2_legacy:
+        - e-commerce
+      summary: Archive
+      tags:
+      - Basic
+    get:
+      description: "Read an Object identified by `{quoteId}`. `{quoteId}` refers to\
+        \ the internal object ID by default, or optionally any unique property value\
+        \ as specified by the `idProperty` query param.  Control what is returned\
+        \ via the `properties` query param."
+      operationId: "get-/crm/v3/objects/quotes/{quoteId}_getById"
+      parameters:
+      - explode: false
+        in: path
+        name: quoteId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "A comma separated list of the properties to be returned in the\
+          \ response. If any of the specified properties are not present on the requested\
+          \ object(s), they will be ignored."
         explode: true
         in: query
         name: properties
@@ -186,9 +405,21 @@ paths:
             type: string
           type: array
         style: form
-      - description: A comma separated list of object types to retrieve associated
-          IDs for. If any of the specified associations do not exist, they will be
-          ignored.
+      - description: "A comma separated list of the properties to be returned along\
+          \ with their history of previous values. If any of the specified properties\
+          \ are not present on the requested object(s), they will be ignored."
+        explode: true
+        in: query
+        name: propertiesWithHistory
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: "A comma separated list of object types to retrieve associated\
+          \ IDs for. If any of the specified associations do not exist, they will\
+          \ be ignored."
         explode: true
         in: query
         name: associations
@@ -230,13 +461,67 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
+      - oauth2_legacy:
+        - e-commerce
+      - oauth2:
+        - crm.objects.quotes.read
       summary: Read
+      tags:
+      - Basic
+    patch:
+      description: "Perform a partial update of an Object identified by `{quoteId}`.\
+        \ `{quoteId}` refers to the internal object ID by default, or optionally any\
+        \ unique property value as specified by the `idProperty` query param. Provided\
+        \ property values will be overwritten. Read-only and non-existent properties\
+        \ will be ignored. Properties values can be cleared by passing an empty string."
+      operationId: "patch-/crm/v3/objects/quotes/{quoteId}_update"
+      parameters:
+      - explode: false
+        in: path
+        name: quoteId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The name of a property whose values are unique for this object
+          type
+        explode: true
+        in: query
+        name: idProperty
+        required: false
+        schema:
+          type: string
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SimplePublicObjectInput'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimplePublicObject'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - oauth2:
+        - crm.objects.quotes.write
+      - oauth2_legacy:
+        - e-commerce
+      summary: Update
       tags:
       - Basic
   /crm/v3/objects/quotes/{quoteId}/associations/{toObjectType}:
     get:
-      operationId: get-/crm/v3/objects/quotes/{quoteId}/associations/{toObjectType}_getAll
+      operationId: "get-/crm/v3/objects/quotes/{quoteId}/associations/{toObjectType}_getAll"
       parameters:
       - explode: false
         in: path
@@ -286,8 +571,113 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
+      - oauth2_legacy:
+        - e-commerce
+      - oauth2:
+        - crm.objects.quotes.read
       summary: List associations of a quote by type
+      tags:
+      - Associations
+  /crm/v3/objects/quotes/{quoteId}/associations/{toObjectType}/{toObjectId}/{associationType}:
+    delete:
+      operationId: "delete-/crm/v3/objects/quotes/{quoteId}/associations/{toObjectType}/{toObjectId}/{associationType}_archive"
+      parameters:
+      - explode: false
+        in: path
+        name: quoteId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: toObjectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: toObjectId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: associationType
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          content: {}
+          description: No content
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - oauth2:
+        - crm.objects.quotes.write
+      - oauth2_legacy:
+        - e-commerce
+      summary: Remove an association between two quotes
+      tags:
+      - Associations
+    put:
+      operationId: "put-/crm/v3/objects/quotes/{quoteId}/associations/{toObjectType}/{toObjectId}/{associationType}_create"
+      parameters:
+      - explode: false
+        in: path
+        name: quoteId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: toObjectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: toObjectId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: associationType
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimplePublicObjectWithAssociations'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - oauth2:
+        - crm.objects.quotes.write
+      - oauth2_legacy:
+        - e-commerce
+      summary: Associate a quote with another object
       tags:
       - Associations
 components:
@@ -313,6 +703,14 @@ components:
       - type
       type: object
     BatchInputSimplePublicObjectBatchInput:
+      example:
+        inputs:
+        - id: id
+          properties:
+            key: properties
+        - id: id
+          properties:
+            key: properties
       properties:
         inputs:
           items:
@@ -322,6 +720,10 @@ components:
       - inputs
       type: object
     BatchInputSimplePublicObjectId:
+      example:
+        inputs:
+        - id: id
+        - id: id
       properties:
         inputs:
           items:
@@ -331,6 +733,24 @@ components:
       - inputs
       type: object
     BatchInputSimplePublicObjectInput:
+      example:
+        inputs:
+        - properties:
+            property_string: value
+            property_number: "17"
+            property_date: "1572480000000"
+            property_radio: option_1
+            property_dropdown: choice_b
+            property_checkbox: "false"
+            property_multiple_checkboxes: chocolate;strawberry
+        - properties:
+            property_string: value
+            property_number: "17"
+            property_date: "1572480000000"
+            property_radio: option_1
+            property_dropdown: choice_b
+            property_checkbox: "false"
+            property_multiple_checkboxes: chocolate;strawberry
       properties:
         inputs:
           items:
@@ -341,6 +761,9 @@ components:
       type: object
     BatchReadInputSimplePublicObjectId:
       example:
+        propertiesWithHistory:
+        - propertiesWithHistory
+        - propertiesWithHistory
         idProperty: idProperty
         inputs:
         - id: id
@@ -353,6 +776,10 @@ components:
           items:
             type: string
           type: array
+        propertiesWithHistory:
+          items:
+            type: string
+          type: array
         idProperty:
           type: string
         inputs:
@@ -362,6 +789,7 @@ components:
       required:
       - inputs
       - properties
+      - propertiesWithHistory
       type: object
     BatchResponseSimplePublicObject:
       example:
@@ -378,7 +806,7 @@ components:
             hs_quote_amount: "3000.00"
             hs_quote_number: 20200916-092813983
             hs_status: PENDING_APPROVAL
-            hs_terms: discount provided, two year term with customer
+            hs_terms: "discount provided, two year term with customer"
             hs_title: Services Proposal
             hubspot_owner_id: "910901"
           createdAt: 2019-10-30T03:30:17.883Z
@@ -391,7 +819,7 @@ components:
             hs_quote_amount: "3000.00"
             hs_quote_number: 20200916-092813983
             hs_status: PENDING_APPROVAL
-            hs_terms: discount provided, two year term with customer
+            hs_terms: "discount provided, two year term with customer"
             hs_title: Services Proposal
             hubspot_owner_id: "910901"
           createdAt: 2019-10-30T03:30:17.883Z
@@ -513,7 +941,7 @@ components:
             hs_quote_amount: "3000.00"
             hs_quote_number: 20200916-092813983
             hs_status: PENDING_APPROVAL
-            hs_terms: discount provided, two year term with customer
+            hs_terms: "discount provided, two year term with customer"
             hs_title: Services Proposal
             hubspot_owner_id: "910901"
         - properties:
@@ -522,7 +950,7 @@ components:
             hs_quote_amount: "3000.00"
             hs_quote_number: 20200916-092813983
             hs_status: PENDING_APPROVAL
-            hs_terms: discount provided, two year term with customer
+            hs_terms: "discount provided, two year term with customer"
             hs_title: Services Proposal
             hubspot_owner_id: "910901"
       properties:
@@ -550,7 +978,7 @@ components:
             hs_quote_amount: "3000.00"
             hs_quote_number: 20200916-092813983
             hs_status: PENDING_APPROVAL
-            hs_terms: discount provided, two year term with customer
+            hs_terms: "discount provided, two year term with customer"
             hs_title: Services Proposal
             hubspot_owner_id: "910901"
           createdAt: 2019-10-30T03:30:17.883Z
@@ -563,7 +991,7 @@ components:
             hs_quote_amount: "3000.00"
             hs_quote_number: 20200916-092813983
             hs_status: PENDING_APPROVAL
-            hs_terms: discount provided, two year term with customer
+            hs_terms: "discount provided, two year term with customer"
             hs_title: Services Proposal
             hubspot_owner_id: "910901"
           createdAt: 2019-10-30T03:30:17.883Z
@@ -640,6 +1068,8 @@ components:
       type: object
     ErrorCategory:
       properties:
+        name:
+          type: string
         httpStatus:
           enum:
           - CONTINUE
@@ -692,6 +1122,7 @@ components:
           - REQUEST_HEADERS_FIELDS_TOO_LARGE
           - INTERNAL_STALE_SERVICE_DISCOVERY
           - UNAVAILABLE_FOR_LEGAL_REASONS
+          - MIGRATION_IN_PROGRESS
           - INTERNAL_SERVER_ERROR
           - NOT_IMPLEMENTED
           - BAD_GATEWAY
@@ -703,8 +1134,6 @@ components:
           - LOOP_DETECTED
           - NOT_EXTENDED
           - NETWORK_AUTHENTICATION_REQUIRED
-          type: string
-        name:
           type: string
       required:
       - httpStatus
@@ -743,11 +1172,18 @@ components:
     Filter:
       example:
         propertyName: propertyName
+        values:
+        - values
+        - values
         value: value
         operator: EQ
       properties:
         value:
           type: string
+        values:
+          items:
+            type: string
+          type: array
         propertyName:
           type: string
         operator:
@@ -775,9 +1211,15 @@ components:
       example:
         filters:
         - propertyName: propertyName
+          values:
+          - values
+          - values
           value: value
           operator: EQ
         - propertyName: propertyName
+          values:
+          - values
+          - values
           value: value
           operator: EQ
       properties:
@@ -825,6 +1267,19 @@ components:
       required:
       - before
       type: object
+    PublicMergeInput:
+      example:
+        objectIdToMerge: objectIdToMerge
+        primaryObjectId: primaryObjectId
+      properties:
+        primaryObjectId:
+          type: string
+        objectIdToMerge:
+          type: string
+      required:
+      - objectIdToMerge
+      - primaryObjectId
+      type: object
     PublicObjectSearchRequest:
       example:
         query: query
@@ -839,16 +1294,28 @@ components:
         filterGroups:
         - filters:
           - propertyName: propertyName
+            values:
+            - values
+            - values
             value: value
             operator: EQ
           - propertyName: propertyName
+            values:
+            - values
+            - values
             value: value
             operator: EQ
         - filters:
           - propertyName: propertyName
+            values:
+            - values
+            - values
             value: value
             operator: EQ
           - propertyName: propertyName
+            values:
+            - values
+            - values
             value: value
             operator: EQ
       properties:
@@ -888,7 +1355,7 @@ components:
           hs_quote_amount: "3000.00"
           hs_quote_number: 20200916-092813983
           hs_status: PENDING_APPROVAL
-          hs_terms: discount provided, two year term with customer
+          hs_terms: "discount provided, two year term with customer"
           hs_title: Services Proposal
           hubspot_owner_id: "910901"
         createdAt: 2019-10-30T03:30:17.883Z
@@ -900,6 +1367,12 @@ components:
         properties:
           additionalProperties:
             type: string
+          type: object
+        propertiesWithHistory:
+          additionalProperties:
+            items:
+              $ref: '#/components/schemas/ValueWithTimestamp'
+            type: array
           type: object
         createdAt:
           format: date-time
@@ -919,6 +1392,10 @@ components:
       - updatedAt
       type: object
     SimplePublicObjectBatchInput:
+      example:
+        id: id
+        properties:
+          key: properties
       properties:
         properties:
           additionalProperties:
@@ -965,7 +1442,7 @@ components:
           hs_quote_amount: "3000.00"
           hs_quote_number: 20200916-092813983
           hs_status: PENDING_APPROVAL
-          hs_terms: discount provided, two year term with customer
+          hs_terms: "discount provided, two year term with customer"
           hs_title: Services Proposal
           hubspot_owner_id: "910901"
       properties:
@@ -974,6 +1451,12 @@ components:
         properties:
           additionalProperties:
             type: string
+          type: object
+        propertiesWithHistory:
+          additionalProperties:
+            items:
+              $ref: '#/components/schemas/ValueWithTimestamp'
+            type: array
           type: object
         createdAt:
           format: date-time
@@ -1031,11 +1514,45 @@ components:
       - message
       - status
       type: object
+    ValueWithTimestamp:
+      properties:
+        value:
+          type: string
+        timestamp:
+          format: date-time
+          type: string
+        sourceType:
+          type: string
+        sourceId:
+          type: string
+        sourceLabel:
+          type: string
+        updatedByUserId:
+          format: int32
+          type: integer
+      required:
+      - sourceType
+      - timestamp
+      - value
+      type: object
   securitySchemes:
-    hapikey:
-      in: query
-      name: hapikey
-      type: apiKey
+    oauth2_legacy:
+      flows:
+        authorizationCode:
+          authorizationUrl: https://app.hubspot.com/oauth/authorize
+          scopes:
+            e-commerce: e-commerce
+          tokenUrl: https://api.hubapi.com/oauth/v1/token
+      type: oauth2
+    oauth2:
+      flows:
+        authorizationCode:
+          authorizationUrl: https://app.hubspot.com/oauth/authorize
+          scopes:
+            crm.objects.quotes.read: Quotes
+            crm.objects.quotes.write: Quotes
+          tokenUrl: https://api.hubapi.com/oauth/v1/token
+      type: oauth2
 x-hubspot-available-client-libraries:
 - PHP
 - Node

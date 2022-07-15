@@ -48,9 +48,9 @@ paths:
         schema:
           type: boolean
         style: form
-      - description: 'A relative period to return time series data for. This value
-          is ignored if start and/or end are provided. Valid periods: [15m, 30m, 1h,
-          4h, 12h, 1d, 1w]'
+      - description: "A relative period to return time series data for. This value\
+          \ is ignored if start and/or end are provided. Valid periods: [15m, 30m,\
+          \ 1h, 4h, 12h, 1d, 1w]"
         explode: true
         in: query
         name: period
@@ -58,8 +58,8 @@ paths:
         schema:
           type: string
         style: form
-      - description: 'The time series interval to group data by. Valid intervals:
-          [1m, 5m, 15m, 30m, 1h, 4h, 12h, 1d, 1w]'
+      - description: "The time series interval to group data by. Valid intervals:\
+          \ [1m, 5m, 15m, 30m, 1h, 4h, 12h, 1d, 1w]"
         explode: true
         in: query
         name: interval
@@ -100,8 +100,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security:
-      - hapikey: []
+      security: []
       summary: View your website's performance.
       tags:
       - Public_Performance
@@ -144,9 +143,9 @@ paths:
         schema:
           type: boolean
         style: form
-      - description: 'A relative period to return time series data for. This value
-          is ignored if start and/or end are provided. Valid periods: [15m, 30m, 1h,
-          4h, 12h, 1d, 1w]'
+      - description: "A relative period to return time series data for. This value\
+          \ is ignored if start and/or end are provided. Valid periods: [15m, 30m,\
+          \ 1h, 4h, 12h, 1d, 1w]"
         explode: true
         in: query
         name: period
@@ -154,8 +153,8 @@ paths:
         schema:
           type: string
         style: form
-      - description: 'The time series interval to group data by. Valid intervals:
-          [1m, 5m, 15m, 30m, 1h, 4h, 12h, 1d, 1w]'
+      - description: "The time series interval to group data by. Valid intervals:\
+          \ [1m, 5m, 15m, 30m, 1h, 4h, 12h, 1d, 1w]"
         explode: true
         in: query
         name: interval
@@ -196,8 +195,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security:
-      - hapikey: []
+      security: []
       summary: View your website's uptime.
       tags:
       - Public_Performance
@@ -533,8 +531,3 @@ components:
       - interval
       - startInterval
       type: object
-  securitySchemes:
-    hapikey:
-      in: query
-      name: hapikey
-      type: apiKey

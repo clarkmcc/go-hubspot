@@ -84,11 +84,11 @@ func (o *InvoicesResponseExternal) GetInvoices() []AccountingExtensionInvoice {
 
 // GetInvoicesOk returns a tuple with the Invoices field value
 // and a boolean to check if the value has been set.
-func (o *InvoicesResponseExternal) GetInvoicesOk() (*[]AccountingExtensionInvoice, bool) {
+func (o *InvoicesResponseExternal) GetInvoicesOk() ([]AccountingExtensionInvoice, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Invoices, true
+	return o.Invoices, true
 }
 
 // SetInvoices sets field value

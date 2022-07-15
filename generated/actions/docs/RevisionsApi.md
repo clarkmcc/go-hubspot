@@ -36,8 +36,8 @@ func main() {
     after := "after_example" // string | The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.RevisionsApi.GetAutomationV4ActionsAppIdDefinitionIdRevisionsGetPage(context.Background(), definitionId, appId).Limit(limit).After(after).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RevisionsApi.GetAutomationV4ActionsAppIdDefinitionIdRevisionsGetPage(context.Background(), definitionId, appId).Limit(limit).After(after).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RevisionsApi.GetAutomationV4ActionsAppIdDefinitionIdRevisionsGetPage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -112,8 +112,8 @@ func main() {
     appId := int32(56) // int32 | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.RevisionsApi.GetAutomationV4ActionsAppIdDefinitionIdRevisionsRevisionIdGetById(context.Background(), definitionId, revisionId, appId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RevisionsApi.GetAutomationV4ActionsAppIdDefinitionIdRevisionsRevisionIdGetById(context.Background(), definitionId, revisionId, appId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RevisionsApi.GetAutomationV4ActionsAppIdDefinitionIdRevisionsRevisionIdGetById``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

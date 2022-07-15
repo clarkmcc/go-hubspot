@@ -34,8 +34,8 @@ func main() {
     type_ := "type__example" // string | The type of document. Can be one of `SITE_PAGE`, `BLOG_POST`, or `KNOWLEDGE_ARTICLE`. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.PublicApi.GetCmsV3SiteSearchIndexedDataContentIdGetById(context.Background(), contentId).Type_(type_).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.PublicApi.GetCmsV3SiteSearchIndexedDataContentIdGetById(context.Background(), contentId).Type_(type_).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PublicApi.GetCmsV3SiteSearchIndexedDataContentIdGetById``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -69,7 +69,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -83,7 +83,7 @@ Name | Type | Description  | Notes
 
 ## GetCmsV3SiteSearchSearchSearch
 
-> PublicSearchResults GetCmsV3SiteSearchSearchSearch(ctx).Q(q).Limit(limit).Offset(offset).Language(language).MatchPrefix(matchPrefix).Autocomplete(autocomplete).PopularityBoost(popularityBoost).BoostLimit(boostLimit).MinScore(minScore).BoostRecent(boostRecent).TableId(tableId).HubdbQuery(hubdbQuery).Domain(domain).Type_(type_).PathPrefix(pathPrefix).Property(property).Length(length).GroupId(groupId).Execute()
+> PublicSearchResults GetCmsV3SiteSearchSearchSearch(ctx).Q(q).Limit(limit).Offset(offset).Language(language).MatchPrefix(matchPrefix).Autocomplete(autocomplete).PopularityBoost(popularityBoost).BoostLimit(boostLimit).BoostRecent(boostRecent).TableId(tableId).HubdbQuery(hubdbQuery).Domain(domain).Type_(type_).PathPrefix(pathPrefix).Property(property).Length(length).GroupId(groupId).Execute()
 
 Search your site.
 
@@ -110,7 +110,6 @@ func main() {
     autocomplete := true // bool | Specifies whether or not you are showing autocomplete results. Defaults to false. (optional)
     popularityBoost := float32(8.14) // float32 | Specifies how strongly a result is boosted based on its view count. Defaults to 1.0. (optional)
     boostLimit := float32(8.14) // float32 | Specifies the maximum amount a result will be boosted based on its view count. Defaults to 5.0. Read more about elasticsearch boosting [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-boost.html). (optional)
-    minScore := float32(8.14) // float32 | Specifies the minimum search score threshold for returned results. This value is intentionally set low by default in order to return many results. Increase this for higher precision, but less recall. (optional)
     boostRecent := "boostRecent_example" // string | Specifies a relative time window where scores of documents published outside this time window decay. This can only be used for blog posts. For example, boostRecent=10d will boost documents published within the last 10 days. Supported timeunits are ms (milliseconds), s (seconds), m (minutes), h (hours), d (days). (optional)
     tableId := int64(789) // int64 | Specifies a specific HubDB table to search. Only returns results from the specified table. Can be used in tandem with the `hubdbQuery` parameter to further filter results. (optional)
     hubdbQuery := "hubdbQuery_example" // string | Specify a HubDB query to further filter the search results. (optional)
@@ -122,8 +121,8 @@ func main() {
     groupId := []int64{int64(123)} // []int64 | Specifies which blog(s) to be searched by blog ID. Can be used multiple times to search more than one blog. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.PublicApi.GetCmsV3SiteSearchSearchSearch(context.Background()).Q(q).Limit(limit).Offset(offset).Language(language).MatchPrefix(matchPrefix).Autocomplete(autocomplete).PopularityBoost(popularityBoost).BoostLimit(boostLimit).MinScore(minScore).BoostRecent(boostRecent).TableId(tableId).HubdbQuery(hubdbQuery).Domain(domain).Type_(type_).PathPrefix(pathPrefix).Property(property).Length(length).GroupId(groupId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.PublicApi.GetCmsV3SiteSearchSearchSearch(context.Background()).Q(q).Limit(limit).Offset(offset).Language(language).MatchPrefix(matchPrefix).Autocomplete(autocomplete).PopularityBoost(popularityBoost).BoostLimit(boostLimit).BoostRecent(boostRecent).TableId(tableId).HubdbQuery(hubdbQuery).Domain(domain).Type_(type_).PathPrefix(pathPrefix).Property(property).Length(length).GroupId(groupId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PublicApi.GetCmsV3SiteSearchSearchSearch``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -152,7 +151,6 @@ Name | Type | Description  | Notes
  **autocomplete** | **bool** | Specifies whether or not you are showing autocomplete results. Defaults to false. | 
  **popularityBoost** | **float32** | Specifies how strongly a result is boosted based on its view count. Defaults to 1.0. | 
  **boostLimit** | **float32** | Specifies the maximum amount a result will be boosted based on its view count. Defaults to 5.0. Read more about elasticsearch boosting [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-boost.html). | 
- **minScore** | **float32** | Specifies the minimum search score threshold for returned results. This value is intentionally set low by default in order to return many results. Increase this for higher precision, but less recall. | 
  **boostRecent** | **string** | Specifies a relative time window where scores of documents published outside this time window decay. This can only be used for blog posts. For example, boostRecent&#x3D;10d will boost documents published within the last 10 days. Supported timeunits are ms (milliseconds), s (seconds), m (minutes), h (hours), d (days). | 
  **tableId** | **int64** | Specifies a specific HubDB table to search. Only returns results from the specified table. Can be used in tandem with the &#x60;hubdbQuery&#x60; parameter to further filter results. | 
  **hubdbQuery** | **string** | Specify a HubDB query to further filter the search results. | 
@@ -169,7 +167,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 

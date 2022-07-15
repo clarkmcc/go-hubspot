@@ -263,11 +263,11 @@ func (o *PropertyValue) GetSourceVid() []int64 {
 
 // GetSourceVidOk returns a tuple with the SourceVid field value
 // and a boolean to check if the value has been set.
-func (o *PropertyValue) GetSourceVidOk() (*[]int64, bool) {
+func (o *PropertyValue) GetSourceVidOk() ([]int64, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.SourceVid, true
+	return o.SourceVid, true
 }
 
 // SetSourceVid sets field value

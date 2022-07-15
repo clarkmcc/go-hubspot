@@ -1,7 +1,7 @@
 /*
 Blog Post endpoints
 
-\"Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags\"
+Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags
 
 API version: v3
 */
@@ -16,11 +16,12 @@ import (
 
 // LayoutSection struct for LayoutSection
 type LayoutSection struct {
-	X           int32                             `json:"x"`
-	W           int32                             `json:"w"`
-	Name        string                            `json:"name"`
-	Label       string                            `json:"label"`
-	Type        string                            `json:"type"`
+	X     int32  `json:"x"`
+	W     int32  `json:"w"`
+	Name  string `json:"name"`
+	Label string `json:"label"`
+	Type  string `json:"type"`
+	// null
 	Params      map[string]map[string]interface{} `json:"params"`
 	Rows        []map[string]LayoutSection        `json:"rows"`
 	RowMetaData []RowMetaData                     `json:"rowMetaData"`
@@ -193,11 +194,11 @@ func (o *LayoutSection) GetParams() map[string]map[string]interface{} {
 
 // GetParamsOk returns a tuple with the Params field value
 // and a boolean to check if the value has been set.
-func (o *LayoutSection) GetParamsOk() (*map[string]map[string]interface{}, bool) {
+func (o *LayoutSection) GetParamsOk() (map[string]map[string]interface{}, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Params, true
+	return o.Params, true
 }
 
 // SetParams sets field value
@@ -217,11 +218,11 @@ func (o *LayoutSection) GetRows() []map[string]LayoutSection {
 
 // GetRowsOk returns a tuple with the Rows field value
 // and a boolean to check if the value has been set.
-func (o *LayoutSection) GetRowsOk() (*[]map[string]LayoutSection, bool) {
+func (o *LayoutSection) GetRowsOk() ([]map[string]LayoutSection, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Rows, true
+	return o.Rows, true
 }
 
 // SetRows sets field value
@@ -241,11 +242,11 @@ func (o *LayoutSection) GetRowMetaData() []RowMetaData {
 
 // GetRowMetaDataOk returns a tuple with the RowMetaData field value
 // and a boolean to check if the value has been set.
-func (o *LayoutSection) GetRowMetaDataOk() (*[]RowMetaData, bool) {
+func (o *LayoutSection) GetRowMetaDataOk() ([]RowMetaData, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.RowMetaData, true
+	return o.RowMetaData, true
 }
 
 // SetRowMetaData sets field value
@@ -265,11 +266,11 @@ func (o *LayoutSection) GetCells() []LayoutSection {
 
 // GetCellsOk returns a tuple with the Cells field value
 // and a boolean to check if the value has been set.
-func (o *LayoutSection) GetCellsOk() (*[]LayoutSection, bool) {
+func (o *LayoutSection) GetCellsOk() ([]LayoutSection, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Cells, true
+	return o.Cells, true
 }
 
 // SetCells sets field value

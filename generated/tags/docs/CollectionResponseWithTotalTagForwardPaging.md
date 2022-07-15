@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Total** | **int32** |  | 
-**Results** | [**[]Tag**](Tag.md) |  | 
+**Total** | **int32** | Total number of blog tags. | 
+**Results** | [**[]Tag**](Tag.md) | Collection of blog tags. | 
 **Paging** | Pointer to [**ForwardPaging**](ForwardPaging.md) |  | [optional] 
 
 ## Methods

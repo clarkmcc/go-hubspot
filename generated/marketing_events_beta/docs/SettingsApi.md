@@ -4,14 +4,14 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetMarketingV3MarketingEventsAppIdSettings**](SettingsApi.md#GetMarketingV3MarketingEventsAppIdSettings) | **Get** /marketing/v3/marketing-events/{appId}/settings | Retrieve the application settings
-[**PostMarketingV3MarketingEventsAppIdSettings**](SettingsApi.md#PostMarketingV3MarketingEventsAppIdSettings) | **Post** /marketing/v3/marketing-events/{appId}/settings | Update the application settings
+[**GetMarketingV3MarketingEventsAppIdSettingsGetAll**](SettingsApi.md#GetMarketingV3MarketingEventsAppIdSettingsGetAll) | **Get** /marketing/v3/marketing-events/{appId}/settings | Retrieve the application settings
+[**PostMarketingV3MarketingEventsAppIdSettingsCreate**](SettingsApi.md#PostMarketingV3MarketingEventsAppIdSettingsCreate) | **Post** /marketing/v3/marketing-events/{appId}/settings | Update the application settings
 
 
 
-## GetMarketingV3MarketingEventsAppIdSettings
+## GetMarketingV3MarketingEventsAppIdSettingsGetAll
 
-> EventDetailSettings GetMarketingV3MarketingEventsAppIdSettings(ctx, appId).Execute()
+> EventDetailSettings GetMarketingV3MarketingEventsAppIdSettingsGetAll(ctx, appId).Execute()
 
 Retrieve the application settings
 
@@ -33,14 +33,14 @@ func main() {
     appId := int32(56) // int32 | The id of the application to retrieve the settings for.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SettingsApi.GetMarketingV3MarketingEventsAppIdSettings(context.Background(), appId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SettingsApi.GetMarketingV3MarketingEventsAppIdSettingsGetAll(context.Background(), appId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SettingsApi.GetMarketingV3MarketingEventsAppIdSettings``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SettingsApi.GetMarketingV3MarketingEventsAppIdSettingsGetAll``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetMarketingV3MarketingEventsAppIdSettings`: EventDetailSettings
-    fmt.Fprintf(os.Stdout, "Response from `SettingsApi.GetMarketingV3MarketingEventsAppIdSettings`: %v\n", resp)
+    // response from `GetMarketingV3MarketingEventsAppIdSettingsGetAll`: EventDetailSettings
+    fmt.Fprintf(os.Stdout, "Response from `SettingsApi.GetMarketingV3MarketingEventsAppIdSettingsGetAll`: %v\n", resp)
 }
 ```
 
@@ -54,7 +54,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetMarketingV3MarketingEventsAppIdSettingsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetMarketingV3MarketingEventsAppIdSettingsGetAllRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -67,7 +67,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[developer_hapikey](../README.md#developer_hapikey), [hapikey](../README.md#hapikey)
+[developer_hapikey](../README.md#developer_hapikey)
 
 ### HTTP request headers
 
@@ -79,9 +79,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostMarketingV3MarketingEventsAppIdSettings
+## PostMarketingV3MarketingEventsAppIdSettingsCreate
 
-> EventDetailSettings PostMarketingV3MarketingEventsAppIdSettings(ctx, appId).EventDetailSettingsUrl(eventDetailSettingsUrl).Execute()
+> EventDetailSettings PostMarketingV3MarketingEventsAppIdSettingsCreate(ctx, appId).EventDetailSettingsUrl(eventDetailSettingsUrl).Execute()
 
 Update the application settings
 
@@ -104,14 +104,14 @@ func main() {
     eventDetailSettingsUrl := *openapiclient.NewEventDetailSettingsUrl("EventDetailsUrl_example") // EventDetailSettingsUrl | The new application settings
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SettingsApi.PostMarketingV3MarketingEventsAppIdSettings(context.Background(), appId).EventDetailSettingsUrl(eventDetailSettingsUrl).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SettingsApi.PostMarketingV3MarketingEventsAppIdSettingsCreate(context.Background(), appId).EventDetailSettingsUrl(eventDetailSettingsUrl).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SettingsApi.PostMarketingV3MarketingEventsAppIdSettings``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SettingsApi.PostMarketingV3MarketingEventsAppIdSettingsCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostMarketingV3MarketingEventsAppIdSettings`: EventDetailSettings
-    fmt.Fprintf(os.Stdout, "Response from `SettingsApi.PostMarketingV3MarketingEventsAppIdSettings`: %v\n", resp)
+    // response from `PostMarketingV3MarketingEventsAppIdSettingsCreate`: EventDetailSettings
+    fmt.Fprintf(os.Stdout, "Response from `SettingsApi.PostMarketingV3MarketingEventsAppIdSettingsCreate`: %v\n", resp)
 }
 ```
 
@@ -125,7 +125,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostMarketingV3MarketingEventsAppIdSettingsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostMarketingV3MarketingEventsAppIdSettingsCreateRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -139,7 +139,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[developer_hapikey](../README.md#developer_hapikey), [hapikey](../README.md#hapikey)
+[developer_hapikey](../README.md#developer_hapikey)
 
 ### HTTP request headers
 

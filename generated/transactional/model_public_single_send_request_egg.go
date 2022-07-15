@@ -16,25 +16,23 @@ import (
 
 // PublicSingleSendRequestEgg A request to send a single transactional email asynchronously.
 type PublicSingleSendRequestEgg struct {
+	// The content ID for the transactional email, which can be found in email tool UI.
+	EmailId int32                 `json:"emailId"`
 	Message PublicSingleSendEmail `json:"message"`
 	// The contactProperties field is a map of contact property values. Each contact property value contains a name and value property. Each property will get set on the contact record and will be visible in the template under {{ contact.NAME }}. Use these properties when you want to set a contact property while you’re sending the email. For example, when sending a reciept you may want to set a last_paid_date property, as the sending of the receipt will have information about the last payment.
-	ContactProperties map[string]string `json:"contactProperties"`
+	ContactProperties *map[string]string `json:"contactProperties,omitempty"`
 	// The customProperties field is a map of property values. Each property value contains a name and value property. Each property will be visible in the template under {{ custom.NAME }}. Note: Custom properties do not currently support arrays. To provide a listing in an email, one workaround is to build an HTML list (either with tables or ul) and specify it as a custom property.
-	CustomProperties map[string]interface{} `json:"customProperties"`
-	// The content ID for the transactional email, which can be found in email tool UI.
-	EmailId int32 `json:"emailId"`
+	CustomProperties map[string]map[string]interface{} `json:"customProperties,omitempty"`
 }
 
 // NewPublicSingleSendRequestEgg instantiates a new PublicSingleSendRequestEgg object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPublicSingleSendRequestEgg(message PublicSingleSendEmail, contactProperties map[string]string, customProperties map[string]interface{}, emailId int32) *PublicSingleSendRequestEgg {
+func NewPublicSingleSendRequestEgg(emailId int32, message PublicSingleSendEmail) *PublicSingleSendRequestEgg {
 	this := PublicSingleSendRequestEgg{}
-	this.Message = message
-	this.ContactProperties = contactProperties
-	this.CustomProperties = customProperties
 	this.EmailId = emailId
+	this.Message = message
 	return &this
 }
 
@@ -44,78 +42,6 @@ func NewPublicSingleSendRequestEgg(message PublicSingleSendEmail, contactPropert
 func NewPublicSingleSendRequestEggWithDefaults() *PublicSingleSendRequestEgg {
 	this := PublicSingleSendRequestEgg{}
 	return &this
-}
-
-// GetMessage returns the Message field value
-func (o *PublicSingleSendRequestEgg) GetMessage() PublicSingleSendEmail {
-	if o == nil {
-		var ret PublicSingleSendEmail
-		return ret
-	}
-
-	return o.Message
-}
-
-// GetMessageOk returns a tuple with the Message field value
-// and a boolean to check if the value has been set.
-func (o *PublicSingleSendRequestEgg) GetMessageOk() (*PublicSingleSendEmail, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Message, true
-}
-
-// SetMessage sets field value
-func (o *PublicSingleSendRequestEgg) SetMessage(v PublicSingleSendEmail) {
-	o.Message = v
-}
-
-// GetContactProperties returns the ContactProperties field value
-func (o *PublicSingleSendRequestEgg) GetContactProperties() map[string]string {
-	if o == nil {
-		var ret map[string]string
-		return ret
-	}
-
-	return o.ContactProperties
-}
-
-// GetContactPropertiesOk returns a tuple with the ContactProperties field value
-// and a boolean to check if the value has been set.
-func (o *PublicSingleSendRequestEgg) GetContactPropertiesOk() (*map[string]string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.ContactProperties, true
-}
-
-// SetContactProperties sets field value
-func (o *PublicSingleSendRequestEgg) SetContactProperties(v map[string]string) {
-	o.ContactProperties = v
-}
-
-// GetCustomProperties returns the CustomProperties field value
-func (o *PublicSingleSendRequestEgg) GetCustomProperties() map[string]interface{} {
-	if o == nil {
-		var ret map[string]interface{}
-		return ret
-	}
-
-	return o.CustomProperties
-}
-
-// GetCustomPropertiesOk returns a tuple with the CustomProperties field value
-// and a boolean to check if the value has been set.
-func (o *PublicSingleSendRequestEgg) GetCustomPropertiesOk() (*map[string]interface{}, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.CustomProperties, true
-}
-
-// SetCustomProperties sets field value
-func (o *PublicSingleSendRequestEgg) SetCustomProperties(v map[string]interface{}) {
-	o.CustomProperties = v
 }
 
 // GetEmailId returns the EmailId field value
@@ -142,19 +68,107 @@ func (o *PublicSingleSendRequestEgg) SetEmailId(v int32) {
 	o.EmailId = v
 }
 
+// GetMessage returns the Message field value
+func (o *PublicSingleSendRequestEgg) GetMessage() PublicSingleSendEmail {
+	if o == nil {
+		var ret PublicSingleSendEmail
+		return ret
+	}
+
+	return o.Message
+}
+
+// GetMessageOk returns a tuple with the Message field value
+// and a boolean to check if the value has been set.
+func (o *PublicSingleSendRequestEgg) GetMessageOk() (*PublicSingleSendEmail, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Message, true
+}
+
+// SetMessage sets field value
+func (o *PublicSingleSendRequestEgg) SetMessage(v PublicSingleSendEmail) {
+	o.Message = v
+}
+
+// GetContactProperties returns the ContactProperties field value if set, zero value otherwise.
+func (o *PublicSingleSendRequestEgg) GetContactProperties() map[string]string {
+	if o == nil || o.ContactProperties == nil {
+		var ret map[string]string
+		return ret
+	}
+	return *o.ContactProperties
+}
+
+// GetContactPropertiesOk returns a tuple with the ContactProperties field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PublicSingleSendRequestEgg) GetContactPropertiesOk() (*map[string]string, bool) {
+	if o == nil || o.ContactProperties == nil {
+		return nil, false
+	}
+	return o.ContactProperties, true
+}
+
+// HasContactProperties returns a boolean if a field has been set.
+func (o *PublicSingleSendRequestEgg) HasContactProperties() bool {
+	if o != nil && o.ContactProperties != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetContactProperties gets a reference to the given map[string]string and assigns it to the ContactProperties field.
+func (o *PublicSingleSendRequestEgg) SetContactProperties(v map[string]string) {
+	o.ContactProperties = &v
+}
+
+// GetCustomProperties returns the CustomProperties field value if set, zero value otherwise.
+func (o *PublicSingleSendRequestEgg) GetCustomProperties() map[string]map[string]interface{} {
+	if o == nil || o.CustomProperties == nil {
+		var ret map[string]map[string]interface{}
+		return ret
+	}
+	return o.CustomProperties
+}
+
+// GetCustomPropertiesOk returns a tuple with the CustomProperties field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PublicSingleSendRequestEgg) GetCustomPropertiesOk() (map[string]map[string]interface{}, bool) {
+	if o == nil || o.CustomProperties == nil {
+		return nil, false
+	}
+	return o.CustomProperties, true
+}
+
+// HasCustomProperties returns a boolean if a field has been set.
+func (o *PublicSingleSendRequestEgg) HasCustomProperties() bool {
+	if o != nil && o.CustomProperties != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomProperties gets a reference to the given map[string]map[string]interface{} and assigns it to the CustomProperties field.
+func (o *PublicSingleSendRequestEgg) SetCustomProperties(v map[string]map[string]interface{}) {
+	o.CustomProperties = v
+}
+
 func (o PublicSingleSendRequestEgg) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
+		toSerialize["emailId"] = o.EmailId
+	}
+	if true {
 		toSerialize["message"] = o.Message
 	}
-	if true {
+	if o.ContactProperties != nil {
 		toSerialize["contactProperties"] = o.ContactProperties
 	}
-	if true {
+	if o.CustomProperties != nil {
 		toSerialize["customProperties"] = o.CustomProperties
-	}
-	if true {
-		toSerialize["emailId"] = o.EmailId
 	}
 	return json.Marshal(toSerialize)
 }

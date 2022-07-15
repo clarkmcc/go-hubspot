@@ -39,8 +39,8 @@ func main() {
     sort := []string{"Inner_example"} // []string | Selects the sort field and order. Defaults to ascending, prefix with `-` for descending order. `occurredAt` is the only field supported for sorting. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.EventsApi.GetEventsV3EventsGetPage(context.Background()).OccurredAfter(occurredAfter).OccurredBefore(occurredBefore).ObjectType(objectType).ObjectId(objectId).EventType(eventType).After(after).Before(before).Limit(limit).Sort(sort).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.EventsApi.GetEventsV3EventsGetPage(context.Background()).OccurredAfter(occurredAfter).OccurredBefore(occurredBefore).ObjectType(objectType).ObjectId(objectId).EventType(eventType).After(after).Before(before).Limit(limit).Sort(sort).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.GetEventsV3EventsGetPage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -77,7 +77,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 

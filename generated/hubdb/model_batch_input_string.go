@@ -49,11 +49,11 @@ func (o *BatchInputString) GetInputs() []string {
 
 // GetInputsOk returns a tuple with the Inputs field value
 // and a boolean to check if the value has been set.
-func (o *BatchInputString) GetInputsOk() (*[]string, bool) {
+func (o *BatchInputString) GetInputsOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Inputs, true
+	return o.Inputs, true
 }
 
 // SetInputs sets field value

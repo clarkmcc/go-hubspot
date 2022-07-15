@@ -50,11 +50,11 @@ func (o *CardDisplayBody) GetProperties() []CardDisplayProperty {
 
 // GetPropertiesOk returns a tuple with the Properties field value
 // and a boolean to check if the value has been set.
-func (o *CardDisplayBody) GetPropertiesOk() (*[]CardDisplayProperty, bool) {
+func (o *CardDisplayBody) GetPropertiesOk() ([]CardDisplayProperty, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Properties, true
+	return o.Properties, true
 }
 
 // SetProperties sets field value

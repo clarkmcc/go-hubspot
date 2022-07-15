@@ -49,11 +49,11 @@ func (o *BatchInputHubDbTableRowV3Request) GetInputs() []HubDbTableRowV3Request 
 
 // GetInputsOk returns a tuple with the Inputs field value
 // and a boolean to check if the value has been set.
-func (o *BatchInputHubDbTableRowV3Request) GetInputsOk() (*[]HubDbTableRowV3Request, bool) {
+func (o *BatchInputHubDbTableRowV3Request) GetInputsOk() ([]HubDbTableRowV3Request, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Inputs, true
+	return o.Inputs, true
 }
 
 // SetInputs sets field value

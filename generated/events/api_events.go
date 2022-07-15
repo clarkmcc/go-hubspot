@@ -12,26 +12,19 @@ package events
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-
-	"github.com/clarkmcc/go-hubspot/authorization"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"reflect"
 	"time"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // EventsApiService EventsApi service
 type EventsApiService service
 
 type ApiGetEventsV3EventsGetPageRequest struct {
-	ctx            _context.Context
+	ctx            context.Context
 	ApiService     *EventsApiService
 	occurredAfter  *time.Time
 	occurredBefore *time.Time
@@ -79,6 +72,7 @@ func (r ApiGetEventsV3EventsGetPageRequest) After(after string) ApiGetEventsV3Ev
 	r.after = &after
 	return r
 }
+
 func (r ApiGetEventsV3EventsGetPageRequest) Before(before string) ApiGetEventsV3EventsGetPageRequest {
 	r.before = &before
 	return r
@@ -96,17 +90,17 @@ func (r ApiGetEventsV3EventsGetPageRequest) Sort(sort []string) ApiGetEventsV3Ev
 	return r
 }
 
-func (r ApiGetEventsV3EventsGetPageRequest) Execute() (CollectionResponseExternalUnifiedEvent, *_nethttp.Response, error) {
+func (r ApiGetEventsV3EventsGetPageRequest) Execute() (*CollectionResponseExternalUnifiedEvent, *http.Response, error) {
 	return r.ApiService.GetEventsV3EventsGetPageExecute(r)
 }
 
 /*
 GetEventsV3EventsGetPage Returns a collection of events matching a query.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetEventsV3EventsGetPageRequest
 */
-func (a *EventsApiService) GetEventsV3EventsGetPage(ctx _context.Context) ApiGetEventsV3EventsGetPageRequest {
+func (a *EventsApiService) GetEventsV3EventsGetPage(ctx context.Context) ApiGetEventsV3EventsGetPageRequest {
 	return ApiGetEventsV3EventsGetPageRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -115,26 +109,24 @@ func (a *EventsApiService) GetEventsV3EventsGetPage(ctx _context.Context) ApiGet
 
 // Execute executes the request
 //  @return CollectionResponseExternalUnifiedEvent
-func (a *EventsApiService) GetEventsV3EventsGetPageExecute(r ApiGetEventsV3EventsGetPageRequest) (CollectionResponseExternalUnifiedEvent, *_nethttp.Response, error) {
+func (a *EventsApiService) GetEventsV3EventsGetPageExecute(r ApiGetEventsV3EventsGetPageRequest) (*CollectionResponseExternalUnifiedEvent, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  CollectionResponseExternalUnifiedEvent
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CollectionResponseExternalUnifiedEvent
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventsApiService.GetEventsV3EventsGetPage")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/events/v3/events"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.occurredAfter != nil {
 		localVarQueryParams.Add("occurredAfter", parameterToString(*r.occurredAfter, ""))
@@ -188,21 +180,7 @@ func (a *EventsApiService) GetEventsV3EventsGetPageExecute(r ApiGetEventsV3Event
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -212,15 +190,15 @@ func (a *EventsApiService) GetEventsV3EventsGetPageExecute(r ApiGetEventsV3Event
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -236,7 +214,7 @@ func (a *EventsApiService) GetEventsV3EventsGetPageExecute(r ApiGetEventsV3Event
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

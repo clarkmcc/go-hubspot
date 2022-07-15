@@ -30,8 +30,8 @@ func main() {
     token := "token_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AccessTokensApi.GetOauthV1AccessTokensTokenGetAccessToken(context.Background(), token).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AccessTokensApi.GetOauthV1AccessTokensTokenGetAccessToken(context.Background(), token).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AccessTokensApi.GetOauthV1AccessTokensTokenGetAccessToken``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

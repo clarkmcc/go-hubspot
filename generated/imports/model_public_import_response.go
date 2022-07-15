@@ -18,12 +18,12 @@ import (
 // PublicImportResponse A current summary of the import, whether complete or not.
 type PublicImportResponse struct {
 	// The status of the import.
-	State             string                  `json:"state"`
-	ImportRequestJson *map[string]interface{} `json:"importRequestJson,omitempty"`
-	CreatedAt         time.Time               `json:"createdAt"`
-	Metadata          PublicImportMetadata    `json:"metadata"`
-	ImportName        *string                 `json:"importName,omitempty"`
-	UpdatedAt         time.Time               `json:"updatedAt"`
+	State             string                 `json:"state"`
+	ImportRequestJson map[string]interface{} `json:"importRequestJson,omitempty"`
+	CreatedAt         time.Time              `json:"createdAt"`
+	Metadata          PublicImportMetadata   `json:"metadata"`
+	ImportName        *string                `json:"importName,omitempty"`
+	UpdatedAt         time.Time              `json:"updatedAt"`
 	// Whether or not the import is a list of people disqualified from receiving emails.
 	OptOutImport bool   `json:"optOutImport"`
 	Id           string `json:"id"`
@@ -82,12 +82,12 @@ func (o *PublicImportResponse) GetImportRequestJson() map[string]interface{} {
 		var ret map[string]interface{}
 		return ret
 	}
-	return *o.ImportRequestJson
+	return o.ImportRequestJson
 }
 
 // GetImportRequestJsonOk returns a tuple with the ImportRequestJson field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PublicImportResponse) GetImportRequestJsonOk() (*map[string]interface{}, bool) {
+func (o *PublicImportResponse) GetImportRequestJsonOk() (map[string]interface{}, bool) {
 	if o == nil || o.ImportRequestJson == nil {
 		return nil, false
 	}
@@ -105,7 +105,7 @@ func (o *PublicImportResponse) HasImportRequestJson() bool {
 
 // SetImportRequestJson gets a reference to the given map[string]interface{} and assigns it to the ImportRequestJson field.
 func (o *PublicImportResponse) SetImportRequestJson(v map[string]interface{}) {
-	o.ImportRequestJson = &v
+	o.ImportRequestJson = v
 }
 
 // GetCreatedAt returns the CreatedAt field value

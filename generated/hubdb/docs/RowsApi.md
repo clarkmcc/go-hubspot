@@ -41,8 +41,8 @@ func main() {
     rowId := "rowId_example" // string | The ID of the row
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.RowsApi.DeleteCmsV3HubdbTablesTableIdOrNameRowsRowIdDraftPurgeDraftTableRow(context.Background(), tableIdOrName, rowId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RowsApi.DeleteCmsV3HubdbTablesTableIdOrNameRowsRowIdDraftPurgeDraftTableRow(context.Background(), tableIdOrName, rowId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RowsApi.DeleteCmsV3HubdbTablesTableIdOrNameRowsRowIdDraftPurgeDraftTableRow``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -75,7 +75,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -115,8 +115,8 @@ func main() {
     properties := []string{"Inner_example"} // []string | Specify the column names to get results containing only the required columns instead of all column details. If you want to include multiple columns in the result, use this query param as many times.  (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.RowsApi.GetCmsV3HubdbTablesTableIdOrNameRowsDraftReadDraftTableRows(context.Background(), tableIdOrName).Sort(sort).After(after).Limit(limit).Properties(properties).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RowsApi.GetCmsV3HubdbTablesTableIdOrNameRowsDraftReadDraftTableRows(context.Background(), tableIdOrName).Sort(sort).After(after).Limit(limit).Properties(properties).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RowsApi.GetCmsV3HubdbTablesTableIdOrNameRowsDraftReadDraftTableRows``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -153,7 +153,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -193,8 +193,8 @@ func main() {
     properties := []string{"Inner_example"} // []string | Specify the column names to get results containing only the required columns instead of all column details. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.RowsApi.GetCmsV3HubdbTablesTableIdOrNameRowsGetTableRows(context.Background(), tableIdOrName).Sort(sort).After(after).Limit(limit).Properties(properties).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RowsApi.GetCmsV3HubdbTablesTableIdOrNameRowsGetTableRows(context.Background(), tableIdOrName).Sort(sort).After(after).Limit(limit).Properties(properties).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RowsApi.GetCmsV3HubdbTablesTableIdOrNameRowsGetTableRows``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -231,7 +231,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -268,8 +268,8 @@ func main() {
     rowId := "rowId_example" // string | The ID of the row
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.RowsApi.GetCmsV3HubdbTablesTableIdOrNameRowsRowIdDraftGetDraftTableRowById(context.Background(), tableIdOrName, rowId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RowsApi.GetCmsV3HubdbTablesTableIdOrNameRowsRowIdDraftGetDraftTableRowById(context.Background(), tableIdOrName, rowId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RowsApi.GetCmsV3HubdbTablesTableIdOrNameRowsRowIdDraftGetDraftTableRowById``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -304,7 +304,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -341,8 +341,8 @@ func main() {
     rowId := "rowId_example" // string | The ID of the row
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.RowsApi.GetCmsV3HubdbTablesTableIdOrNameRowsRowIdGetTableRow(context.Background(), tableIdOrName, rowId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RowsApi.GetCmsV3HubdbTablesTableIdOrNameRowsRowIdGetTableRow(context.Background(), tableIdOrName, rowId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RowsApi.GetCmsV3HubdbTablesTableIdOrNameRowsRowIdGetTableRow``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -377,7 +377,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -415,8 +415,8 @@ func main() {
     hubDbTableRowV3Request := *openapiclient.NewHubDbTableRowV3Request(map[string]map[string]interface{}{"key": map[string]interface{}(123)}) // HubDbTableRowV3Request | The JSON object of the row with necessary fields that needs to be updated.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.RowsApi.PatchCmsV3HubdbTablesTableIdOrNameRowsRowIdDraftUpdateDraftTableRow(context.Background(), tableIdOrName, rowId).HubDbTableRowV3Request(hubDbTableRowV3Request).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RowsApi.PatchCmsV3HubdbTablesTableIdOrNameRowsRowIdDraftUpdateDraftTableRow(context.Background(), tableIdOrName, rowId).HubDbTableRowV3Request(hubDbTableRowV3Request).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RowsApi.PatchCmsV3HubdbTablesTableIdOrNameRowsRowIdDraftUpdateDraftTableRow``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -452,7 +452,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -489,8 +489,8 @@ func main() {
     hubDbTableRowV3Request := *openapiclient.NewHubDbTableRowV3Request(map[string]map[string]interface{}{"key": map[string]interface{}(123)}) // HubDbTableRowV3Request | The row definition JSON, formatted as described above.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.RowsApi.PostCmsV3HubdbTablesTableIdOrNameRowsCreateTableRow(context.Background(), tableIdOrName).HubDbTableRowV3Request(hubDbTableRowV3Request).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RowsApi.PostCmsV3HubdbTablesTableIdOrNameRowsCreateTableRow(context.Background(), tableIdOrName).HubDbTableRowV3Request(hubDbTableRowV3Request).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RowsApi.PostCmsV3HubdbTablesTableIdOrNameRowsCreateTableRow``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -524,7 +524,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -561,8 +561,8 @@ func main() {
     rowId := "rowId_example" // string | The ID of the row
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.RowsApi.PostCmsV3HubdbTablesTableIdOrNameRowsRowIdDraftCloneCloneDraftTableRow(context.Background(), tableIdOrName, rowId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RowsApi.PostCmsV3HubdbTablesTableIdOrNameRowsRowIdDraftCloneCloneDraftTableRow(context.Background(), tableIdOrName, rowId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RowsApi.PostCmsV3HubdbTablesTableIdOrNameRowsRowIdDraftCloneCloneDraftTableRow``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -597,7 +597,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -635,8 +635,8 @@ func main() {
     hubDbTableRowV3Request := *openapiclient.NewHubDbTableRowV3Request(map[string]map[string]interface{}{"key": map[string]interface{}(123)}) // HubDbTableRowV3Request | The JSON object of the row
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.RowsApi.PutCmsV3HubdbTablesTableIdOrNameRowsRowIdDraftReplaceDraftTableRow(context.Background(), tableIdOrName, rowId).HubDbTableRowV3Request(hubDbTableRowV3Request).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RowsApi.PutCmsV3HubdbTablesTableIdOrNameRowsRowIdDraftReplaceDraftTableRow(context.Background(), tableIdOrName, rowId).HubDbTableRowV3Request(hubDbTableRowV3Request).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RowsApi.PutCmsV3HubdbTablesTableIdOrNameRowsRowIdDraftReplaceDraftTableRow``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -672,7 +672,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 

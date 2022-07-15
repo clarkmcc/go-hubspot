@@ -4,20 +4,18 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteWebhooksV3AppIdSubscriptionsSubscriptionIdArchive**](SubscriptionsApi.md#DeleteWebhooksV3AppIdSubscriptionsSubscriptionIdArchive) | **Delete** /webhooks/v3/{appId}/subscriptions/{subscriptionId} | Delete a subscription
-[**GetWebhooksV3AppIdSubscriptionsGetAll**](SubscriptionsApi.md#GetWebhooksV3AppIdSubscriptionsGetAll) | **Get** /webhooks/v3/{appId}/subscriptions | Get subscription details
-[**GetWebhooksV3AppIdSubscriptionsSubscriptionIdGetById**](SubscriptionsApi.md#GetWebhooksV3AppIdSubscriptionsSubscriptionIdGetById) | **Get** /webhooks/v3/{appId}/subscriptions/{subscriptionId} | Get subscription
-[**PatchWebhooksV3AppIdSubscriptionsSubscriptionIdUpdate**](SubscriptionsApi.md#PatchWebhooksV3AppIdSubscriptionsSubscriptionIdUpdate) | **Patch** /webhooks/v3/{appId}/subscriptions/{subscriptionId} | Update a subscription
-[**PostWebhooksV3AppIdSubscriptionsBatchUpdateUpdateBatch**](SubscriptionsApi.md#PostWebhooksV3AppIdSubscriptionsBatchUpdateUpdateBatch) | **Post** /webhooks/v3/{appId}/subscriptions/batch/update | Batch update subscriptions
-[**PostWebhooksV3AppIdSubscriptionsCreate**](SubscriptionsApi.md#PostWebhooksV3AppIdSubscriptionsCreate) | **Post** /webhooks/v3/{appId}/subscriptions | Subscribe to an event
+[**DeleteWebhooksV3AppIdSubscriptionsSubscriptionIdArchive**](SubscriptionsApi.md#DeleteWebhooksV3AppIdSubscriptionsSubscriptionIdArchive) | **Delete** /webhooks/v3/{appId}/subscriptions/{subscriptionId} | 
+[**GetWebhooksV3AppIdSubscriptionsGetAll**](SubscriptionsApi.md#GetWebhooksV3AppIdSubscriptionsGetAll) | **Get** /webhooks/v3/{appId}/subscriptions | 
+[**GetWebhooksV3AppIdSubscriptionsSubscriptionIdGetById**](SubscriptionsApi.md#GetWebhooksV3AppIdSubscriptionsSubscriptionIdGetById) | **Get** /webhooks/v3/{appId}/subscriptions/{subscriptionId} | 
+[**PatchWebhooksV3AppIdSubscriptionsSubscriptionIdUpdate**](SubscriptionsApi.md#PatchWebhooksV3AppIdSubscriptionsSubscriptionIdUpdate) | **Patch** /webhooks/v3/{appId}/subscriptions/{subscriptionId} | 
+[**PostWebhooksV3AppIdSubscriptionsBatchUpdateUpdateBatch**](SubscriptionsApi.md#PostWebhooksV3AppIdSubscriptionsBatchUpdateUpdateBatch) | **Post** /webhooks/v3/{appId}/subscriptions/batch/update | 
+[**PostWebhooksV3AppIdSubscriptionsCreate**](SubscriptionsApi.md#PostWebhooksV3AppIdSubscriptionsCreate) | **Post** /webhooks/v3/{appId}/subscriptions | 
 
 
 
 ## DeleteWebhooksV3AppIdSubscriptionsSubscriptionIdArchive
 
 > DeleteWebhooksV3AppIdSubscriptionsSubscriptionIdArchive(ctx, subscriptionId, appId).Execute()
-
-Delete a subscription
 
 
 
@@ -34,12 +32,12 @@ import (
 )
 
 func main() {
-    subscriptionId := int32(56) // int32 | The ID of subscription to delete.
-    appId := int32(56) // int32 | The ID of the target app.
+    subscriptionId := int32(56) // int32 | 
+    appId := int32(56) // int32 | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SubscriptionsApi.DeleteWebhooksV3AppIdSubscriptionsSubscriptionIdArchive(context.Background(), subscriptionId, appId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SubscriptionsApi.DeleteWebhooksV3AppIdSubscriptionsSubscriptionIdArchive(context.Background(), subscriptionId, appId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionsApi.DeleteWebhooksV3AppIdSubscriptionsSubscriptionIdArchive``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -53,8 +51,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**subscriptionId** | **int32** | The ID of subscription to delete. | 
-**appId** | **int32** | The ID of the target app. | 
+**subscriptionId** | **int32** |  | 
+**appId** | **int32** |  | 
 
 ### Other Parameters
 
@@ -72,7 +70,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey)
+[developer_hapikey](../README.md#developer_hapikey)
 
 ### HTTP request headers
 
@@ -87,8 +85,6 @@ Name | Type | Description  | Notes
 ## GetWebhooksV3AppIdSubscriptionsGetAll
 
 > SubscriptionListResponse GetWebhooksV3AppIdSubscriptionsGetAll(ctx, appId).Execute()
-
-Get subscription details
 
 
 
@@ -105,11 +101,11 @@ import (
 )
 
 func main() {
-    appId := int32(56) // int32 | The ID of the target app.
+    appId := int32(56) // int32 | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SubscriptionsApi.GetWebhooksV3AppIdSubscriptionsGetAll(context.Background(), appId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SubscriptionsApi.GetWebhooksV3AppIdSubscriptionsGetAll(context.Background(), appId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionsApi.GetWebhooksV3AppIdSubscriptionsGetAll``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -125,7 +121,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**appId** | **int32** | The ID of the target app. | 
+**appId** | **int32** |  | 
 
 ### Other Parameters
 
@@ -142,7 +138,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey)
+[developer_hapikey](../README.md#developer_hapikey)
 
 ### HTTP request headers
 
@@ -156,9 +152,7 @@ Name | Type | Description  | Notes
 
 ## GetWebhooksV3AppIdSubscriptionsSubscriptionIdGetById
 
-> SubscriptionResponse GetWebhooksV3AppIdSubscriptionsSubscriptionIdGetById(ctx, appId, subscriptionId).Execute()
-
-Get subscription
+> SubscriptionResponse GetWebhooksV3AppIdSubscriptionsSubscriptionIdGetById(ctx, subscriptionId, appId).Execute()
 
 
 
@@ -175,12 +169,12 @@ import (
 )
 
 func main() {
-    appId := int32(56) // int32 | The ID of the target app.
-    subscriptionId := int32(56) // int32 | The ID of the target subscription.
+    subscriptionId := int32(56) // int32 | 
+    appId := int32(56) // int32 | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SubscriptionsApi.GetWebhooksV3AppIdSubscriptionsSubscriptionIdGetById(context.Background(), appId, subscriptionId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SubscriptionsApi.GetWebhooksV3AppIdSubscriptionsSubscriptionIdGetById(context.Background(), subscriptionId, appId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionsApi.GetWebhooksV3AppIdSubscriptionsSubscriptionIdGetById``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -196,8 +190,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**appId** | **int32** | The ID of the target app. | 
-**subscriptionId** | **int32** | The ID of the target subscription. | 
+**subscriptionId** | **int32** |  | 
+**appId** | **int32** |  | 
 
 ### Other Parameters
 
@@ -215,7 +209,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey)
+[developer_hapikey](../README.md#developer_hapikey)
 
 ### HTTP request headers
 
@@ -231,8 +225,6 @@ Name | Type | Description  | Notes
 
 > SubscriptionResponse PatchWebhooksV3AppIdSubscriptionsSubscriptionIdUpdate(ctx, subscriptionId, appId).SubscriptionPatchRequest(subscriptionPatchRequest).Execute()
 
-Update a subscription
-
 
 
 ### Example
@@ -248,13 +240,13 @@ import (
 )
 
 func main() {
-    subscriptionId := int32(56) // int32 | The ID of the subscription to update.
-    appId := int32(56) // int32 | The ID of the target app.
-    subscriptionPatchRequest := *openapiclient.NewSubscriptionPatchRequest() // SubscriptionPatchRequest | Updated details for the subscription.
+    subscriptionId := int32(56) // int32 | 
+    appId := int32(56) // int32 | 
+    subscriptionPatchRequest := *openapiclient.NewSubscriptionPatchRequest() // SubscriptionPatchRequest | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SubscriptionsApi.PatchWebhooksV3AppIdSubscriptionsSubscriptionIdUpdate(context.Background(), subscriptionId, appId).SubscriptionPatchRequest(subscriptionPatchRequest).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SubscriptionsApi.PatchWebhooksV3AppIdSubscriptionsSubscriptionIdUpdate(context.Background(), subscriptionId, appId).SubscriptionPatchRequest(subscriptionPatchRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionsApi.PatchWebhooksV3AppIdSubscriptionsSubscriptionIdUpdate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -270,8 +262,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**subscriptionId** | **int32** | The ID of the subscription to update. | 
-**appId** | **int32** | The ID of the target app. | 
+**subscriptionId** | **int32** |  | 
+**appId** | **int32** |  | 
 
 ### Other Parameters
 
@@ -282,7 +274,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **subscriptionPatchRequest** | [**SubscriptionPatchRequest**](SubscriptionPatchRequest.md) | Updated details for the subscription. | 
+ **subscriptionPatchRequest** | [**SubscriptionPatchRequest**](SubscriptionPatchRequest.md) |  | 
 
 ### Return type
 
@@ -290,7 +282,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey)
+[developer_hapikey](../README.md#developer_hapikey)
 
 ### HTTP request headers
 
@@ -306,8 +298,6 @@ Name | Type | Description  | Notes
 
 > BatchResponseSubscriptionResponse PostWebhooksV3AppIdSubscriptionsBatchUpdateUpdateBatch(ctx, appId).BatchInputSubscriptionBatchUpdateRequest(batchInputSubscriptionBatchUpdateRequest).Execute()
 
-Batch update subscriptions
-
 
 
 ### Example
@@ -323,12 +313,12 @@ import (
 )
 
 func main() {
-    appId := int32(56) // int32 | The app ID of the target app.
-    batchInputSubscriptionBatchUpdateRequest := *openapiclient.NewBatchInputSubscriptionBatchUpdateRequest([]openapiclient.SubscriptionBatchUpdateRequest{*openapiclient.NewSubscriptionBatchUpdateRequest(int32(123), false)}) // BatchInputSubscriptionBatchUpdateRequest | Updated details for the specified subscriptions.
+    appId := int32(56) // int32 | 
+    batchInputSubscriptionBatchUpdateRequest := *openapiclient.NewBatchInputSubscriptionBatchUpdateRequest([]openapiclient.SubscriptionBatchUpdateRequest{*openapiclient.NewSubscriptionBatchUpdateRequest(int32(123), false)}) // BatchInputSubscriptionBatchUpdateRequest | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SubscriptionsApi.PostWebhooksV3AppIdSubscriptionsBatchUpdateUpdateBatch(context.Background(), appId).BatchInputSubscriptionBatchUpdateRequest(batchInputSubscriptionBatchUpdateRequest).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SubscriptionsApi.PostWebhooksV3AppIdSubscriptionsBatchUpdateUpdateBatch(context.Background(), appId).BatchInputSubscriptionBatchUpdateRequest(batchInputSubscriptionBatchUpdateRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionsApi.PostWebhooksV3AppIdSubscriptionsBatchUpdateUpdateBatch``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -344,7 +334,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**appId** | **int32** | The app ID of the target app. | 
+**appId** | **int32** |  | 
 
 ### Other Parameters
 
@@ -354,7 +344,7 @@ Other parameters are passed through a pointer to a apiPostWebhooksV3AppIdSubscri
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **batchInputSubscriptionBatchUpdateRequest** | [**BatchInputSubscriptionBatchUpdateRequest**](BatchInputSubscriptionBatchUpdateRequest.md) | Updated details for the specified subscriptions. | 
+ **batchInputSubscriptionBatchUpdateRequest** | [**BatchInputSubscriptionBatchUpdateRequest**](BatchInputSubscriptionBatchUpdateRequest.md) |  | 
 
 ### Return type
 
@@ -362,7 +352,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey)
+[developer_hapikey](../README.md#developer_hapikey)
 
 ### HTTP request headers
 
@@ -377,8 +367,6 @@ Name | Type | Description  | Notes
 ## PostWebhooksV3AppIdSubscriptionsCreate
 
 > SubscriptionResponse PostWebhooksV3AppIdSubscriptionsCreate(ctx, appId).SubscriptionCreateRequest(subscriptionCreateRequest).Execute()
-
-Subscribe to an event
 
 
 
@@ -395,12 +383,12 @@ import (
 )
 
 func main() {
-    appId := int32(56) // int32 | The ID of the target app.
-    subscriptionCreateRequest := *openapiclient.NewSubscriptionCreateRequest("EventType_example") // SubscriptionCreateRequest | Details about the new subscription.
+    appId := int32(56) // int32 | 
+    subscriptionCreateRequest := *openapiclient.NewSubscriptionCreateRequest("EventType_example") // SubscriptionCreateRequest | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SubscriptionsApi.PostWebhooksV3AppIdSubscriptionsCreate(context.Background(), appId).SubscriptionCreateRequest(subscriptionCreateRequest).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SubscriptionsApi.PostWebhooksV3AppIdSubscriptionsCreate(context.Background(), appId).SubscriptionCreateRequest(subscriptionCreateRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionsApi.PostWebhooksV3AppIdSubscriptionsCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -416,7 +404,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**appId** | **int32** | The ID of the target app. | 
+**appId** | **int32** |  | 
 
 ### Other Parameters
 
@@ -426,7 +414,7 @@ Other parameters are passed through a pointer to a apiPostWebhooksV3AppIdSubscri
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **subscriptionCreateRequest** | [**SubscriptionCreateRequest**](SubscriptionCreateRequest.md) | Details about the new subscription. | 
+ **subscriptionCreateRequest** | [**SubscriptionCreateRequest**](SubscriptionCreateRequest.md) |  | 
 
 ### Return type
 
@@ -434,7 +422,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey)
+[developer_hapikey](../README.md#developer_hapikey)
 
 ### HTTP request headers
 

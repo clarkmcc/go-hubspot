@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**R** | **int32** |  | 
-**G** | **int32** |  | 
-**B** | **int32** |  | 
-**A** | **float32** |  | 
+**R** | **int32** | Red. | 
+**G** | **int32** | Green. | 
+**B** | **int32** | Blue. | 
+**A** | **float32** | Alpha. | 
 
 ## Methods
 

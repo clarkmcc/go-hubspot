@@ -84,11 +84,11 @@ func (o *ProductSearchResponse) GetProducts() []Product {
 
 // GetProductsOk returns a tuple with the Products field value
 // and a boolean to check if the value has been set.
-func (o *ProductSearchResponse) GetProductsOk() (*[]Product, bool) {
+func (o *ProductSearchResponse) GetProductsOk() ([]Product, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Products, true
+	return o.Products, true
 }
 
 // SetProducts sets field value

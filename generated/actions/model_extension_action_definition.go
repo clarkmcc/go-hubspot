@@ -31,7 +31,7 @@ type ExtensionActionDefinition struct {
 	InputFields          []InputFieldDefinition `json:"inputFields"`
 	ObjectRequestOptions *ObjectRequestOptions  `json:"objectRequestOptions,omitempty"`
 	// A list of dependencies between the input fields. These configure when the input fields should be visible.
-	InputFieldDependencies *[]OneOfSingleFieldDependencyConditionalSingleFieldDependency `json:"inputFieldDependencies,omitempty"`
+	InputFieldDependencies []ExtensionActionDefinitionInputFieldDependenciesInner `json:"inputFieldDependencies,omitempty"`
 	// The user-facing labels for the custom action.
 	Labels map[string]ActionLabels `json:"labels"`
 	// The object types that this custom action supports.
@@ -123,11 +123,11 @@ func (o *ExtensionActionDefinition) GetFunctions() []ActionFunctionIdentifier {
 
 // GetFunctionsOk returns a tuple with the Functions field value
 // and a boolean to check if the value has been set.
-func (o *ExtensionActionDefinition) GetFunctionsOk() (*[]ActionFunctionIdentifier, bool) {
+func (o *ExtensionActionDefinition) GetFunctionsOk() ([]ActionFunctionIdentifier, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Functions, true
+	return o.Functions, true
 }
 
 // SetFunctions sets field value
@@ -227,11 +227,11 @@ func (o *ExtensionActionDefinition) GetInputFields() []InputFieldDefinition {
 
 // GetInputFieldsOk returns a tuple with the InputFields field value
 // and a boolean to check if the value has been set.
-func (o *ExtensionActionDefinition) GetInputFieldsOk() (*[]InputFieldDefinition, bool) {
+func (o *ExtensionActionDefinition) GetInputFieldsOk() ([]InputFieldDefinition, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.InputFields, true
+	return o.InputFields, true
 }
 
 // SetInputFields sets field value
@@ -272,17 +272,17 @@ func (o *ExtensionActionDefinition) SetObjectRequestOptions(v ObjectRequestOptio
 }
 
 // GetInputFieldDependencies returns the InputFieldDependencies field value if set, zero value otherwise.
-func (o *ExtensionActionDefinition) GetInputFieldDependencies() []OneOfSingleFieldDependencyConditionalSingleFieldDependency {
+func (o *ExtensionActionDefinition) GetInputFieldDependencies() []ExtensionActionDefinitionInputFieldDependenciesInner {
 	if o == nil || o.InputFieldDependencies == nil {
-		var ret []OneOfSingleFieldDependencyConditionalSingleFieldDependency
+		var ret []ExtensionActionDefinitionInputFieldDependenciesInner
 		return ret
 	}
-	return *o.InputFieldDependencies
+	return o.InputFieldDependencies
 }
 
 // GetInputFieldDependenciesOk returns a tuple with the InputFieldDependencies field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ExtensionActionDefinition) GetInputFieldDependenciesOk() (*[]OneOfSingleFieldDependencyConditionalSingleFieldDependency, bool) {
+func (o *ExtensionActionDefinition) GetInputFieldDependenciesOk() ([]ExtensionActionDefinitionInputFieldDependenciesInner, bool) {
 	if o == nil || o.InputFieldDependencies == nil {
 		return nil, false
 	}
@@ -298,9 +298,9 @@ func (o *ExtensionActionDefinition) HasInputFieldDependencies() bool {
 	return false
 }
 
-// SetInputFieldDependencies gets a reference to the given []OneOfSingleFieldDependencyConditionalSingleFieldDependency and assigns it to the InputFieldDependencies field.
-func (o *ExtensionActionDefinition) SetInputFieldDependencies(v []OneOfSingleFieldDependencyConditionalSingleFieldDependency) {
-	o.InputFieldDependencies = &v
+// SetInputFieldDependencies gets a reference to the given []ExtensionActionDefinitionInputFieldDependenciesInner and assigns it to the InputFieldDependencies field.
+func (o *ExtensionActionDefinition) SetInputFieldDependencies(v []ExtensionActionDefinitionInputFieldDependenciesInner) {
+	o.InputFieldDependencies = v
 }
 
 // GetLabels returns the Labels field value
@@ -339,11 +339,11 @@ func (o *ExtensionActionDefinition) GetObjectTypes() []string {
 
 // GetObjectTypesOk returns a tuple with the ObjectTypes field value
 // and a boolean to check if the value has been set.
-func (o *ExtensionActionDefinition) GetObjectTypesOk() (*[]string, bool) {
+func (o *ExtensionActionDefinition) GetObjectTypesOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.ObjectTypes, true
+	return o.ObjectTypes, true
 }
 
 // SetObjectTypes sets field value

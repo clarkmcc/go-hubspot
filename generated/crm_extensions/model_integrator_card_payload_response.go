@@ -24,8 +24,8 @@ type IntegratorCardPayloadResponse struct {
 	CardLabel       *string          `json:"cardLabel,omitempty"`
 	TopLevelActions *TopLevelActions `json:"topLevelActions,omitempty"`
 	// A list of up to five valid card sub categories.
-	Sections        *[]IntegratorObjectResult `json:"sections,omitempty"`
-	ResponseVersion *string                   `json:"responseVersion,omitempty"`
+	Sections        []IntegratorObjectResult `json:"sections,omitempty"`
+	ResponseVersion *string                  `json:"responseVersion,omitempty"`
 }
 
 // NewIntegratorCardPayloadResponse instantiates a new IntegratorCardPayloadResponse object
@@ -172,12 +172,12 @@ func (o *IntegratorCardPayloadResponse) GetSections() []IntegratorObjectResult {
 		var ret []IntegratorObjectResult
 		return ret
 	}
-	return *o.Sections
+	return o.Sections
 }
 
 // GetSectionsOk returns a tuple with the Sections field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IntegratorCardPayloadResponse) GetSectionsOk() (*[]IntegratorObjectResult, bool) {
+func (o *IntegratorCardPayloadResponse) GetSectionsOk() ([]IntegratorObjectResult, bool) {
 	if o == nil || o.Sections == nil {
 		return nil, false
 	}
@@ -195,7 +195,7 @@ func (o *IntegratorCardPayloadResponse) HasSections() bool {
 
 // SetSections gets a reference to the given []IntegratorObjectResult and assigns it to the Sections field.
 func (o *IntegratorCardPayloadResponse) SetSections(v []IntegratorObjectResult) {
-	o.Sections = &v
+	o.Sections = v
 }
 
 // GetResponseVersion returns the ResponseVersion field value if set, zero value otherwise.

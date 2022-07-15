@@ -31,8 +31,8 @@ import (
 func main() {
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefinitionApi.GetCommunicationPreferencesV3DefinitionsGetPage(context.Background()).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.DefinitionApi.GetCommunicationPreferencesV3DefinitionsGetPage(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefinitionApi.GetCommunicationPreferencesV3DefinitionsGetPage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -57,7 +57,7 @@ Other parameters are passed through a pointer to a apiGetCommunicationPreference
 
 ### Authorization
 
-[hapikey](../README.md#hapikey)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 

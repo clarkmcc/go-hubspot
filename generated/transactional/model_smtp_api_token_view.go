@@ -27,7 +27,7 @@ type SmtpApiTokenView struct {
 	EmailCampaignId string `json:"emailCampaignId"`
 	// Timestamp generated when a token is created.
 	CreatedAt time.Time `json:"createdAt"`
-	// Indicates whether a contact should be created for recipients of emails.
+	// Indicates whether a contact should be created for email recipients.
 	CreateContact bool `json:"createContact"`
 	// A name for the campaign tied to the token.
 	CampaignName string `json:"campaignName"`

@@ -79,11 +79,11 @@ func (o *SingleFieldDependency) GetDependentFieldNames() []string {
 
 // GetDependentFieldNamesOk returns a tuple with the DependentFieldNames field value
 // and a boolean to check if the value has been set.
-func (o *SingleFieldDependency) GetDependentFieldNamesOk() (*[]string, bool) {
+func (o *SingleFieldDependency) GetDependentFieldNamesOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.DependentFieldNames, true
+	return o.DependentFieldNames, true
 }
 
 // SetDependentFieldNames sets field value

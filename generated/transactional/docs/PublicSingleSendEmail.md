@@ -5,17 +5,17 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **From** | Pointer to **string** | The From header for the email. | [optional] 
-**To** | Pointer to **string** | The recipient of the email. | [optional] 
+**To** | **string** | The recipient of the email. | 
 **SendId** | Pointer to **string** | ID for a particular send. No more than one email will be sent per sendId. | [optional] 
-**ReplyTo** | **[]string** | List of Reply-To header values for the email. | 
-**Cc** | **[]string** | List of email addresses to send as Cc. | 
-**Bcc** | **[]string** | List of email addresses to send as Bcc. | 
+**ReplyTo** | Pointer to **[]string** | List of Reply-To header values for the email. | [optional] 
+**Cc** | Pointer to **[]string** | List of email addresses to send as Cc. | [optional] 
+**Bcc** | Pointer to **[]string** | List of email addresses to send as Bcc. | [optional] 
 
 ## Methods
 
 ### NewPublicSingleSendEmail
 
-`func NewPublicSingleSendEmail(replyTo []string, cc []string, bcc []string, ) *PublicSingleSendEmail`
+`func NewPublicSingleSendEmail(to string, ) *PublicSingleSendEmail`
 
 NewPublicSingleSendEmail instantiates a new PublicSingleSendEmail object
 This constructor will assign default values to properties that have it defined,
@@ -74,11 +74,6 @@ and a boolean to check if the value has been set.
 
 SetTo sets To field to given value.
 
-### HasTo
-
-`func (o *PublicSingleSendEmail) HasTo() bool`
-
-HasTo returns a boolean if a field has been set.
 
 ### GetSendId
 
@@ -124,6 +119,11 @@ and a boolean to check if the value has been set.
 
 SetReplyTo sets ReplyTo field to given value.
 
+### HasReplyTo
+
+`func (o *PublicSingleSendEmail) HasReplyTo() bool`
+
+HasReplyTo returns a boolean if a field has been set.
 
 ### GetCc
 
@@ -144,6 +144,11 @@ and a boolean to check if the value has been set.
 
 SetCc sets Cc field to given value.
 
+### HasCc
+
+`func (o *PublicSingleSendEmail) HasCc() bool`
+
+HasCc returns a boolean if a field has been set.
 
 ### GetBcc
 
@@ -164,6 +169,11 @@ and a boolean to check if the value has been set.
 
 SetBcc sets Bcc field to given value.
 
+### HasBcc
+
+`func (o *PublicSingleSendEmail) HasBcc() bool`
+
+HasBcc returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

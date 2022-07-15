@@ -36,8 +36,8 @@ func main() {
     batchInputPublicAssociation := *openapiclient.NewBatchInputPublicAssociation([]openapiclient.PublicAssociation{*openapiclient.NewPublicAssociation(*openapiclient.NewPublicObjectId("Id_example"), *openapiclient.NewPublicObjectId("Id_example"), "Type_example")}) // BatchInputPublicAssociation |  (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.BatchApi.PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchive(context.Background(), fromObjectType, toObjectType).BatchInputPublicAssociation(batchInputPublicAssociation).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.BatchApi.PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchive(context.Background(), fromObjectType, toObjectType).BatchInputPublicAssociation(batchInputPublicAssociation).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchive``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -71,7 +71,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -109,8 +109,8 @@ func main() {
     batchInputPublicAssociation := *openapiclient.NewBatchInputPublicAssociation([]openapiclient.PublicAssociation{*openapiclient.NewPublicAssociation(*openapiclient.NewPublicObjectId("Id_example"), *openapiclient.NewPublicObjectId("Id_example"), "Type_example")}) // BatchInputPublicAssociation |  (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.BatchApi.PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreate(context.Background(), fromObjectType, toObjectType).BatchInputPublicAssociation(batchInputPublicAssociation).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.BatchApi.PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreate(context.Background(), fromObjectType, toObjectType).BatchInputPublicAssociation(batchInputPublicAssociation).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -146,7 +146,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -184,8 +184,8 @@ func main() {
     batchInputPublicObjectId := *openapiclient.NewBatchInputPublicObjectId([]openapiclient.PublicObjectId{*openapiclient.NewPublicObjectId("Id_example")}) // BatchInputPublicObjectId |  (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.BatchApi.PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadRead(context.Background(), fromObjectType, toObjectType).BatchInputPublicObjectId(batchInputPublicObjectId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.BatchApi.PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadRead(context.Background(), fromObjectType, toObjectType).BatchInputPublicObjectId(batchInputPublicObjectId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadRead``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -221,7 +221,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 

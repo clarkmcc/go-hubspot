@@ -4,37 +4,25 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **int64** | The unique ID of this URL redirect. | 
-**PortalId** | **int32** |  | 
-**Created** | **int64** |  | 
-**Updated** | **int64** |  | 
-**CreatedById** | **int32** |  | 
-**UpdatedById** | **int32** |  | 
+**Id** | **string** | The unique ID of this URL redirect. | 
 **RoutePrefix** | **string** | The target incoming URL, path, or pattern to match for redirection. | 
 **Destination** | **string** | The destination URL, where the target URL should be redirected if it matches the &#x60;routePrefix&#x60;. | 
 **RedirectStyle** | **int32** | The type of redirect to create. Options include: 301 (permanent), 302 (temporary), or 305 (proxy). Find more details [here](https://knowledge.hubspot.com/cos-general/how-to-redirect-a-hubspot-page). | 
-**ContentGroupId** | **int64** |  | 
 **IsOnlyAfterNotFound** | **bool** | Whether the URL redirect mapping should apply only if a live page on the URL isn&#39;t found. If False, the URL redirect mapping will take precedence over any existing page. | 
-**IsRegex** | **bool** |  | 
 **IsMatchFullUrl** | **bool** | Whether the &#x60;routePrefix&#x60; should match on the entire URL, including the domain. | 
 **IsMatchQueryString** | **bool** | Whether the &#x60;routePrefix&#x60; should match on the entire URL path, including the query string. | 
 **IsPattern** | **bool** | Whether the &#x60;routePrefix&#x60; should match based on pattern. | 
 **IsTrailingSlashOptional** | **bool** | Whether a trailing slash will be ignored. | 
 **IsProtocolAgnostic** | **bool** | Whether the &#x60;routePrefix&#x60; should match both HTTP and HTTPS protocols. | 
-**Name** | **string** |  | 
 **Precedence** | **int32** | Used to prioritize URL redirection. If a given URL matches more than one redirect, the one with the **lower** precedence will be used. | 
-**DeletedAt** | **int64** |  | 
-**Note** | **string** |  | 
-**Label** | **string** |  | 
-**InternallyCreated** | **bool** |  | 
-**CosObjectType** | **string** |  | 
-**CdnPurgeEmbargoTime** | **int64** |  | 
+**Created** | Pointer to **time.Time** |  | [optional] 
+**Updated** | Pointer to **time.Time** |  | [optional] 
 
 ## Methods
 
 ### NewUrlMapping
 
-`func NewUrlMapping(id int64, portalId int32, created int64, updated int64, createdById int32, updatedById int32, routePrefix string, destination string, redirectStyle int32, contentGroupId int64, isOnlyAfterNotFound bool, isRegex bool, isMatchFullUrl bool, isMatchQueryString bool, isPattern bool, isTrailingSlashOptional bool, isProtocolAgnostic bool, name string, precedence int32, deletedAt int64, note string, label string, internallyCreated bool, cosObjectType string, cdnPurgeEmbargoTime int64, ) *UrlMapping`
+`func NewUrlMapping(id string, routePrefix string, destination string, redirectStyle int32, isOnlyAfterNotFound bool, isMatchFullUrl bool, isMatchQueryString bool, isPattern bool, isTrailingSlashOptional bool, isProtocolAgnostic bool, precedence int32, ) *UrlMapping`
 
 NewUrlMapping instantiates a new UrlMapping object
 This constructor will assign default values to properties that have it defined,
@@ -51,122 +39,22 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetId
 
-`func (o *UrlMapping) GetId() int64`
+`func (o *UrlMapping) GetId() string`
 
 GetId returns the Id field if non-nil, zero value otherwise.
 
 ### GetIdOk
 
-`func (o *UrlMapping) GetIdOk() (*int64, bool)`
+`func (o *UrlMapping) GetIdOk() (*string, bool)`
 
 GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetId
 
-`func (o *UrlMapping) SetId(v int64)`
+`func (o *UrlMapping) SetId(v string)`
 
 SetId sets Id field to given value.
-
-
-### GetPortalId
-
-`func (o *UrlMapping) GetPortalId() int32`
-
-GetPortalId returns the PortalId field if non-nil, zero value otherwise.
-
-### GetPortalIdOk
-
-`func (o *UrlMapping) GetPortalIdOk() (*int32, bool)`
-
-GetPortalIdOk returns a tuple with the PortalId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPortalId
-
-`func (o *UrlMapping) SetPortalId(v int32)`
-
-SetPortalId sets PortalId field to given value.
-
-
-### GetCreated
-
-`func (o *UrlMapping) GetCreated() int64`
-
-GetCreated returns the Created field if non-nil, zero value otherwise.
-
-### GetCreatedOk
-
-`func (o *UrlMapping) GetCreatedOk() (*int64, bool)`
-
-GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCreated
-
-`func (o *UrlMapping) SetCreated(v int64)`
-
-SetCreated sets Created field to given value.
-
-
-### GetUpdated
-
-`func (o *UrlMapping) GetUpdated() int64`
-
-GetUpdated returns the Updated field if non-nil, zero value otherwise.
-
-### GetUpdatedOk
-
-`func (o *UrlMapping) GetUpdatedOk() (*int64, bool)`
-
-GetUpdatedOk returns a tuple with the Updated field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetUpdated
-
-`func (o *UrlMapping) SetUpdated(v int64)`
-
-SetUpdated sets Updated field to given value.
-
-
-### GetCreatedById
-
-`func (o *UrlMapping) GetCreatedById() int32`
-
-GetCreatedById returns the CreatedById field if non-nil, zero value otherwise.
-
-### GetCreatedByIdOk
-
-`func (o *UrlMapping) GetCreatedByIdOk() (*int32, bool)`
-
-GetCreatedByIdOk returns a tuple with the CreatedById field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCreatedById
-
-`func (o *UrlMapping) SetCreatedById(v int32)`
-
-SetCreatedById sets CreatedById field to given value.
-
-
-### GetUpdatedById
-
-`func (o *UrlMapping) GetUpdatedById() int32`
-
-GetUpdatedById returns the UpdatedById field if non-nil, zero value otherwise.
-
-### GetUpdatedByIdOk
-
-`func (o *UrlMapping) GetUpdatedByIdOk() (*int32, bool)`
-
-GetUpdatedByIdOk returns a tuple with the UpdatedById field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetUpdatedById
-
-`func (o *UrlMapping) SetUpdatedById(v int32)`
-
-SetUpdatedById sets UpdatedById field to given value.
 
 
 ### GetRoutePrefix
@@ -229,26 +117,6 @@ and a boolean to check if the value has been set.
 SetRedirectStyle sets RedirectStyle field to given value.
 
 
-### GetContentGroupId
-
-`func (o *UrlMapping) GetContentGroupId() int64`
-
-GetContentGroupId returns the ContentGroupId field if non-nil, zero value otherwise.
-
-### GetContentGroupIdOk
-
-`func (o *UrlMapping) GetContentGroupIdOk() (*int64, bool)`
-
-GetContentGroupIdOk returns a tuple with the ContentGroupId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetContentGroupId
-
-`func (o *UrlMapping) SetContentGroupId(v int64)`
-
-SetContentGroupId sets ContentGroupId field to given value.
-
-
 ### GetIsOnlyAfterNotFound
 
 `func (o *UrlMapping) GetIsOnlyAfterNotFound() bool`
@@ -267,26 +135,6 @@ and a boolean to check if the value has been set.
 `func (o *UrlMapping) SetIsOnlyAfterNotFound(v bool)`
 
 SetIsOnlyAfterNotFound sets IsOnlyAfterNotFound field to given value.
-
-
-### GetIsRegex
-
-`func (o *UrlMapping) GetIsRegex() bool`
-
-GetIsRegex returns the IsRegex field if non-nil, zero value otherwise.
-
-### GetIsRegexOk
-
-`func (o *UrlMapping) GetIsRegexOk() (*bool, bool)`
-
-GetIsRegexOk returns a tuple with the IsRegex field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetIsRegex
-
-`func (o *UrlMapping) SetIsRegex(v bool)`
-
-SetIsRegex sets IsRegex field to given value.
 
 
 ### GetIsMatchFullUrl
@@ -389,26 +237,6 @@ and a boolean to check if the value has been set.
 SetIsProtocolAgnostic sets IsProtocolAgnostic field to given value.
 
 
-### GetName
-
-`func (o *UrlMapping) GetName() string`
-
-GetName returns the Name field if non-nil, zero value otherwise.
-
-### GetNameOk
-
-`func (o *UrlMapping) GetNameOk() (*string, bool)`
-
-GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetName
-
-`func (o *UrlMapping) SetName(v string)`
-
-SetName sets Name field to given value.
-
-
 ### GetPrecedence
 
 `func (o *UrlMapping) GetPrecedence() int32`
@@ -429,125 +257,55 @@ and a boolean to check if the value has been set.
 SetPrecedence sets Precedence field to given value.
 
 
-### GetDeletedAt
+### GetCreated
 
-`func (o *UrlMapping) GetDeletedAt() int64`
+`func (o *UrlMapping) GetCreated() time.Time`
 
-GetDeletedAt returns the DeletedAt field if non-nil, zero value otherwise.
+GetCreated returns the Created field if non-nil, zero value otherwise.
 
-### GetDeletedAtOk
+### GetCreatedOk
 
-`func (o *UrlMapping) GetDeletedAtOk() (*int64, bool)`
+`func (o *UrlMapping) GetCreatedOk() (*time.Time, bool)`
 
-GetDeletedAtOk returns a tuple with the DeletedAt field if it's non-nil, zero value otherwise
+GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetDeletedAt
+### SetCreated
 
-`func (o *UrlMapping) SetDeletedAt(v int64)`
+`func (o *UrlMapping) SetCreated(v time.Time)`
 
-SetDeletedAt sets DeletedAt field to given value.
+SetCreated sets Created field to given value.
 
+### HasCreated
 
-### GetNote
+`func (o *UrlMapping) HasCreated() bool`
 
-`func (o *UrlMapping) GetNote() string`
+HasCreated returns a boolean if a field has been set.
 
-GetNote returns the Note field if non-nil, zero value otherwise.
+### GetUpdated
 
-### GetNoteOk
+`func (o *UrlMapping) GetUpdated() time.Time`
 
-`func (o *UrlMapping) GetNoteOk() (*string, bool)`
+GetUpdated returns the Updated field if non-nil, zero value otherwise.
 
-GetNoteOk returns a tuple with the Note field if it's non-nil, zero value otherwise
+### GetUpdatedOk
+
+`func (o *UrlMapping) GetUpdatedOk() (*time.Time, bool)`
+
+GetUpdatedOk returns a tuple with the Updated field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetNote
+### SetUpdated
 
-`func (o *UrlMapping) SetNote(v string)`
+`func (o *UrlMapping) SetUpdated(v time.Time)`
 
-SetNote sets Note field to given value.
+SetUpdated sets Updated field to given value.
 
+### HasUpdated
 
-### GetLabel
+`func (o *UrlMapping) HasUpdated() bool`
 
-`func (o *UrlMapping) GetLabel() string`
-
-GetLabel returns the Label field if non-nil, zero value otherwise.
-
-### GetLabelOk
-
-`func (o *UrlMapping) GetLabelOk() (*string, bool)`
-
-GetLabelOk returns a tuple with the Label field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetLabel
-
-`func (o *UrlMapping) SetLabel(v string)`
-
-SetLabel sets Label field to given value.
-
-
-### GetInternallyCreated
-
-`func (o *UrlMapping) GetInternallyCreated() bool`
-
-GetInternallyCreated returns the InternallyCreated field if non-nil, zero value otherwise.
-
-### GetInternallyCreatedOk
-
-`func (o *UrlMapping) GetInternallyCreatedOk() (*bool, bool)`
-
-GetInternallyCreatedOk returns a tuple with the InternallyCreated field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetInternallyCreated
-
-`func (o *UrlMapping) SetInternallyCreated(v bool)`
-
-SetInternallyCreated sets InternallyCreated field to given value.
-
-
-### GetCosObjectType
-
-`func (o *UrlMapping) GetCosObjectType() string`
-
-GetCosObjectType returns the CosObjectType field if non-nil, zero value otherwise.
-
-### GetCosObjectTypeOk
-
-`func (o *UrlMapping) GetCosObjectTypeOk() (*string, bool)`
-
-GetCosObjectTypeOk returns a tuple with the CosObjectType field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCosObjectType
-
-`func (o *UrlMapping) SetCosObjectType(v string)`
-
-SetCosObjectType sets CosObjectType field to given value.
-
-
-### GetCdnPurgeEmbargoTime
-
-`func (o *UrlMapping) GetCdnPurgeEmbargoTime() int64`
-
-GetCdnPurgeEmbargoTime returns the CdnPurgeEmbargoTime field if non-nil, zero value otherwise.
-
-### GetCdnPurgeEmbargoTimeOk
-
-`func (o *UrlMapping) GetCdnPurgeEmbargoTimeOk() (*int64, bool)`
-
-GetCdnPurgeEmbargoTimeOk returns a tuple with the CdnPurgeEmbargoTime field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCdnPurgeEmbargoTime
-
-`func (o *UrlMapping) SetCdnPurgeEmbargoTime(v int64)`
-
-SetCdnPurgeEmbargoTime sets CdnPurgeEmbargoTime field to given value.
-
+HasUpdated returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

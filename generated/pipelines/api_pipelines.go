@@ -12,45 +12,44 @@ package pipelines
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-
-	"github.com/clarkmcc/go-hubspot/authorization"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // PipelinesApiService PipelinesApi service
 type PipelinesApiService service
 
 type ApiDeleteCrmV3PipelinesObjectTypePipelineIdArchiveRequest struct {
-	ctx        _context.Context
-	ApiService *PipelinesApiService
-	objectType string
-	pipelineId string
+	ctx                            context.Context
+	ApiService                     *PipelinesApiService
+	objectType                     string
+	pipelineId                     string
+	validateReferencesBeforeDelete *bool
 }
 
-func (r ApiDeleteCrmV3PipelinesObjectTypePipelineIdArchiveRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeleteCrmV3PipelinesObjectTypePipelineIdArchiveRequest) ValidateReferencesBeforeDelete(validateReferencesBeforeDelete bool) ApiDeleteCrmV3PipelinesObjectTypePipelineIdArchiveRequest {
+	r.validateReferencesBeforeDelete = &validateReferencesBeforeDelete
+	return r
+}
+
+func (r ApiDeleteCrmV3PipelinesObjectTypePipelineIdArchiveRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteCrmV3PipelinesObjectTypePipelineIdArchiveExecute(r)
 }
 
 /*
-DeleteCrmV3PipelinesObjectTypePipelineIdArchive Archive a pipeline
+DeleteCrmV3PipelinesObjectTypePipelineIdArchive Delete a pipeline
 
-Archive the pipeline identified by `{pipelineId}`.
+Delete the pipeline identified by `{pipelineId}`.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param objectType
  @param pipelineId
  @return ApiDeleteCrmV3PipelinesObjectTypePipelineIdArchiveRequest
 */
-func (a *PipelinesApiService) DeleteCrmV3PipelinesObjectTypePipelineIdArchive(ctx _context.Context, objectType string, pipelineId string) ApiDeleteCrmV3PipelinesObjectTypePipelineIdArchiveRequest {
+func (a *PipelinesApiService) DeleteCrmV3PipelinesObjectTypePipelineIdArchive(ctx context.Context, objectType string, pipelineId string) ApiDeleteCrmV3PipelinesObjectTypePipelineIdArchiveRequest {
 	return ApiDeleteCrmV3PipelinesObjectTypePipelineIdArchiveRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -60,28 +59,29 @@ func (a *PipelinesApiService) DeleteCrmV3PipelinesObjectTypePipelineIdArchive(ct
 }
 
 // Execute executes the request
-func (a *PipelinesApiService) DeleteCrmV3PipelinesObjectTypePipelineIdArchiveExecute(r ApiDeleteCrmV3PipelinesObjectTypePipelineIdArchiveRequest) (*_nethttp.Response, error) {
+func (a *PipelinesApiService) DeleteCrmV3PipelinesObjectTypePipelineIdArchiveExecute(r ApiDeleteCrmV3PipelinesObjectTypePipelineIdArchiveRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PipelinesApiService.DeleteCrmV3PipelinesObjectTypePipelineIdArchive")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/pipelines/{objectType}/{pipelineId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", _neturl.PathEscape(parameterToString(r.objectType, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"pipelineId"+"}", _neturl.PathEscape(parameterToString(r.pipelineId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterToString(r.objectType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"pipelineId"+"}", url.PathEscape(parameterToString(r.pipelineId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
+	if r.validateReferencesBeforeDelete != nil {
+		localVarQueryParams.Add("validateReferencesBeforeDelete", parameterToString(*r.validateReferencesBeforeDelete, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -99,21 +99,7 @@ func (a *PipelinesApiService) DeleteCrmV3PipelinesObjectTypePipelineIdArchiveExe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -123,15 +109,15 @@ func (a *PipelinesApiService) DeleteCrmV3PipelinesObjectTypePipelineIdArchiveExe
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -149,19 +135,12 @@ func (a *PipelinesApiService) DeleteCrmV3PipelinesObjectTypePipelineIdArchiveExe
 }
 
 type ApiGetCrmV3PipelinesObjectTypeGetAllRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *PipelinesApiService
 	objectType string
-	archived   *bool
 }
 
-// Whether to return only results that have been archived.
-func (r ApiGetCrmV3PipelinesObjectTypeGetAllRequest) Archived(archived bool) ApiGetCrmV3PipelinesObjectTypeGetAllRequest {
-	r.archived = &archived
-	return r
-}
-
-func (r ApiGetCrmV3PipelinesObjectTypeGetAllRequest) Execute() (CollectionResponsePipeline, *_nethttp.Response, error) {
+func (r ApiGetCrmV3PipelinesObjectTypeGetAllRequest) Execute() (*CollectionResponsePipelineNoPaging, *http.Response, error) {
 	return r.ApiService.GetCrmV3PipelinesObjectTypeGetAllExecute(r)
 }
 
@@ -170,11 +149,11 @@ GetCrmV3PipelinesObjectTypeGetAll Retrieve all pipelines
 
 Return all pipelines for the object type specified by `{objectType}`.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param objectType
  @return ApiGetCrmV3PipelinesObjectTypeGetAllRequest
 */
-func (a *PipelinesApiService) GetCrmV3PipelinesObjectTypeGetAll(ctx _context.Context, objectType string) ApiGetCrmV3PipelinesObjectTypeGetAllRequest {
+func (a *PipelinesApiService) GetCrmV3PipelinesObjectTypeGetAll(ctx context.Context, objectType string) ApiGetCrmV3PipelinesObjectTypeGetAllRequest {
 	return ApiGetCrmV3PipelinesObjectTypeGetAllRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -183,32 +162,27 @@ func (a *PipelinesApiService) GetCrmV3PipelinesObjectTypeGetAll(ctx _context.Con
 }
 
 // Execute executes the request
-//  @return CollectionResponsePipeline
-func (a *PipelinesApiService) GetCrmV3PipelinesObjectTypeGetAllExecute(r ApiGetCrmV3PipelinesObjectTypeGetAllRequest) (CollectionResponsePipeline, *_nethttp.Response, error) {
+//  @return CollectionResponsePipelineNoPaging
+func (a *PipelinesApiService) GetCrmV3PipelinesObjectTypeGetAllExecute(r ApiGetCrmV3PipelinesObjectTypeGetAllRequest) (*CollectionResponsePipelineNoPaging, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  CollectionResponsePipeline
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CollectionResponsePipelineNoPaging
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PipelinesApiService.GetCrmV3PipelinesObjectTypeGetAll")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/pipelines/{objectType}"
-	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", _neturl.PathEscape(parameterToString(r.objectType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterToString(r.objectType, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
-	if r.archived != nil {
-		localVarQueryParams.Add("archived", parameterToString(*r.archived, ""))
-	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -226,21 +200,7 @@ func (a *PipelinesApiService) GetCrmV3PipelinesObjectTypeGetAllExecute(r ApiGetC
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -250,15 +210,15 @@ func (a *PipelinesApiService) GetCrmV3PipelinesObjectTypeGetAllExecute(r ApiGetC
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -274,7 +234,7 @@ func (a *PipelinesApiService) GetCrmV3PipelinesObjectTypeGetAllExecute(r ApiGetC
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -285,20 +245,13 @@ func (a *PipelinesApiService) GetCrmV3PipelinesObjectTypeGetAllExecute(r ApiGetC
 }
 
 type ApiGetCrmV3PipelinesObjectTypePipelineIdGetByIdRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *PipelinesApiService
 	objectType string
 	pipelineId string
-	archived   *bool
 }
 
-// Whether to return only results that have been archived.
-func (r ApiGetCrmV3PipelinesObjectTypePipelineIdGetByIdRequest) Archived(archived bool) ApiGetCrmV3PipelinesObjectTypePipelineIdGetByIdRequest {
-	r.archived = &archived
-	return r
-}
-
-func (r ApiGetCrmV3PipelinesObjectTypePipelineIdGetByIdRequest) Execute() (Pipeline, *_nethttp.Response, error) {
+func (r ApiGetCrmV3PipelinesObjectTypePipelineIdGetByIdRequest) Execute() (*Pipeline, *http.Response, error) {
 	return r.ApiService.GetCrmV3PipelinesObjectTypePipelineIdGetByIdExecute(r)
 }
 
@@ -307,12 +260,12 @@ GetCrmV3PipelinesObjectTypePipelineIdGetById Return a pipeline by ID
 
 Return a single pipeline object identified by its unique `{pipelineId}`.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param objectType
  @param pipelineId
  @return ApiGetCrmV3PipelinesObjectTypePipelineIdGetByIdRequest
 */
-func (a *PipelinesApiService) GetCrmV3PipelinesObjectTypePipelineIdGetById(ctx _context.Context, objectType string, pipelineId string) ApiGetCrmV3PipelinesObjectTypePipelineIdGetByIdRequest {
+func (a *PipelinesApiService) GetCrmV3PipelinesObjectTypePipelineIdGetById(ctx context.Context, objectType string, pipelineId string) ApiGetCrmV3PipelinesObjectTypePipelineIdGetByIdRequest {
 	return ApiGetCrmV3PipelinesObjectTypePipelineIdGetByIdRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -323,32 +276,27 @@ func (a *PipelinesApiService) GetCrmV3PipelinesObjectTypePipelineIdGetById(ctx _
 
 // Execute executes the request
 //  @return Pipeline
-func (a *PipelinesApiService) GetCrmV3PipelinesObjectTypePipelineIdGetByIdExecute(r ApiGetCrmV3PipelinesObjectTypePipelineIdGetByIdRequest) (Pipeline, *_nethttp.Response, error) {
+func (a *PipelinesApiService) GetCrmV3PipelinesObjectTypePipelineIdGetByIdExecute(r ApiGetCrmV3PipelinesObjectTypePipelineIdGetByIdRequest) (*Pipeline, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  Pipeline
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Pipeline
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PipelinesApiService.GetCrmV3PipelinesObjectTypePipelineIdGetById")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/pipelines/{objectType}/{pipelineId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", _neturl.PathEscape(parameterToString(r.objectType, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"pipelineId"+"}", _neturl.PathEscape(parameterToString(r.pipelineId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterToString(r.objectType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"pipelineId"+"}", url.PathEscape(parameterToString(r.pipelineId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
-	if r.archived != nil {
-		localVarQueryParams.Add("archived", parameterToString(*r.archived, ""))
-	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -366,21 +314,7 @@ func (a *PipelinesApiService) GetCrmV3PipelinesObjectTypePipelineIdGetByIdExecut
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -390,15 +324,15 @@ func (a *PipelinesApiService) GetCrmV3PipelinesObjectTypePipelineIdGetByIdExecut
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -414,7 +348,7 @@ func (a *PipelinesApiService) GetCrmV3PipelinesObjectTypePipelineIdGetByIdExecut
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -425,25 +359,25 @@ func (a *PipelinesApiService) GetCrmV3PipelinesObjectTypePipelineIdGetByIdExecut
 }
 
 type ApiPatchCrmV3PipelinesObjectTypePipelineIdUpdateRequest struct {
-	ctx                _context.Context
-	ApiService         *PipelinesApiService
-	objectType         string
-	pipelineId         string
-	archived           *bool
-	pipelinePatchInput *PipelinePatchInput
+	ctx                            context.Context
+	ApiService                     *PipelinesApiService
+	objectType                     string
+	pipelineId                     string
+	pipelinePatchInput             *PipelinePatchInput
+	validateReferencesBeforeDelete *bool
 }
 
-// Whether to return only results that have been archived.
-func (r ApiPatchCrmV3PipelinesObjectTypePipelineIdUpdateRequest) Archived(archived bool) ApiPatchCrmV3PipelinesObjectTypePipelineIdUpdateRequest {
-	r.archived = &archived
-	return r
-}
 func (r ApiPatchCrmV3PipelinesObjectTypePipelineIdUpdateRequest) PipelinePatchInput(pipelinePatchInput PipelinePatchInput) ApiPatchCrmV3PipelinesObjectTypePipelineIdUpdateRequest {
 	r.pipelinePatchInput = &pipelinePatchInput
 	return r
 }
 
-func (r ApiPatchCrmV3PipelinesObjectTypePipelineIdUpdateRequest) Execute() (Pipeline, *_nethttp.Response, error) {
+func (r ApiPatchCrmV3PipelinesObjectTypePipelineIdUpdateRequest) ValidateReferencesBeforeDelete(validateReferencesBeforeDelete bool) ApiPatchCrmV3PipelinesObjectTypePipelineIdUpdateRequest {
+	r.validateReferencesBeforeDelete = &validateReferencesBeforeDelete
+	return r
+}
+
+func (r ApiPatchCrmV3PipelinesObjectTypePipelineIdUpdateRequest) Execute() (*Pipeline, *http.Response, error) {
 	return r.ApiService.PatchCrmV3PipelinesObjectTypePipelineIdUpdateExecute(r)
 }
 
@@ -452,12 +386,12 @@ PatchCrmV3PipelinesObjectTypePipelineIdUpdate Update a pipeline
 
 Perform a partial update of the pipeline identified by `{pipelineId}`. The updated pipeline will be returned in the response.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param objectType
  @param pipelineId
  @return ApiPatchCrmV3PipelinesObjectTypePipelineIdUpdateRequest
 */
-func (a *PipelinesApiService) PatchCrmV3PipelinesObjectTypePipelineIdUpdate(ctx _context.Context, objectType string, pipelineId string) ApiPatchCrmV3PipelinesObjectTypePipelineIdUpdateRequest {
+func (a *PipelinesApiService) PatchCrmV3PipelinesObjectTypePipelineIdUpdate(ctx context.Context, objectType string, pipelineId string) ApiPatchCrmV3PipelinesObjectTypePipelineIdUpdateRequest {
 	return ApiPatchCrmV3PipelinesObjectTypePipelineIdUpdateRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -468,31 +402,32 @@ func (a *PipelinesApiService) PatchCrmV3PipelinesObjectTypePipelineIdUpdate(ctx 
 
 // Execute executes the request
 //  @return Pipeline
-func (a *PipelinesApiService) PatchCrmV3PipelinesObjectTypePipelineIdUpdateExecute(r ApiPatchCrmV3PipelinesObjectTypePipelineIdUpdateRequest) (Pipeline, *_nethttp.Response, error) {
+func (a *PipelinesApiService) PatchCrmV3PipelinesObjectTypePipelineIdUpdateExecute(r ApiPatchCrmV3PipelinesObjectTypePipelineIdUpdateRequest) (*Pipeline, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPatch
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  Pipeline
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Pipeline
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PipelinesApiService.PatchCrmV3PipelinesObjectTypePipelineIdUpdate")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/pipelines/{objectType}/{pipelineId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", _neturl.PathEscape(parameterToString(r.objectType, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"pipelineId"+"}", _neturl.PathEscape(parameterToString(r.pipelineId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterToString(r.objectType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"pipelineId"+"}", url.PathEscape(parameterToString(r.pipelineId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.pipelinePatchInput == nil {
+		return localVarReturnValue, nil, reportError("pipelinePatchInput is required and must be specified")
+	}
 
-	if r.archived != nil {
-		localVarQueryParams.Add("archived", parameterToString(*r.archived, ""))
+	if r.validateReferencesBeforeDelete != nil {
+		localVarQueryParams.Add("validateReferencesBeforeDelete", parameterToString(*r.validateReferencesBeforeDelete, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -513,21 +448,7 @@ func (a *PipelinesApiService) PatchCrmV3PipelinesObjectTypePipelineIdUpdateExecu
 	}
 	// body params
 	localVarPostBody = r.pipelinePatchInput
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -537,15 +458,15 @@ func (a *PipelinesApiService) PatchCrmV3PipelinesObjectTypePipelineIdUpdateExecu
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -561,7 +482,7 @@ func (a *PipelinesApiService) PatchCrmV3PipelinesObjectTypePipelineIdUpdateExecu
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -572,7 +493,7 @@ func (a *PipelinesApiService) PatchCrmV3PipelinesObjectTypePipelineIdUpdateExecu
 }
 
 type ApiPostCrmV3PipelinesObjectTypeCreateRequest struct {
-	ctx           _context.Context
+	ctx           context.Context
 	ApiService    *PipelinesApiService
 	objectType    string
 	pipelineInput *PipelineInput
@@ -583,7 +504,7 @@ func (r ApiPostCrmV3PipelinesObjectTypeCreateRequest) PipelineInput(pipelineInpu
 	return r
 }
 
-func (r ApiPostCrmV3PipelinesObjectTypeCreateRequest) Execute() (Pipeline, *_nethttp.Response, error) {
+func (r ApiPostCrmV3PipelinesObjectTypeCreateRequest) Execute() (*Pipeline, *http.Response, error) {
 	return r.ApiService.PostCrmV3PipelinesObjectTypeCreateExecute(r)
 }
 
@@ -592,11 +513,11 @@ PostCrmV3PipelinesObjectTypeCreate Create a pipeline
 
 Create a new pipeline with the provided property values. The entire pipeline object, including its unique ID, will be returned in the response.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param objectType
  @return ApiPostCrmV3PipelinesObjectTypeCreateRequest
 */
-func (a *PipelinesApiService) PostCrmV3PipelinesObjectTypeCreate(ctx _context.Context, objectType string) ApiPostCrmV3PipelinesObjectTypeCreateRequest {
+func (a *PipelinesApiService) PostCrmV3PipelinesObjectTypeCreate(ctx context.Context, objectType string) ApiPostCrmV3PipelinesObjectTypeCreateRequest {
 	return ApiPostCrmV3PipelinesObjectTypeCreateRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -606,27 +527,28 @@ func (a *PipelinesApiService) PostCrmV3PipelinesObjectTypeCreate(ctx _context.Co
 
 // Execute executes the request
 //  @return Pipeline
-func (a *PipelinesApiService) PostCrmV3PipelinesObjectTypeCreateExecute(r ApiPostCrmV3PipelinesObjectTypeCreateRequest) (Pipeline, *_nethttp.Response, error) {
+func (a *PipelinesApiService) PostCrmV3PipelinesObjectTypeCreateExecute(r ApiPostCrmV3PipelinesObjectTypeCreateRequest) (*Pipeline, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  Pipeline
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Pipeline
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PipelinesApiService.PostCrmV3PipelinesObjectTypeCreate")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/pipelines/{objectType}"
-	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", _neturl.PathEscape(parameterToString(r.objectType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterToString(r.objectType, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.pipelineInput == nil {
+		return localVarReturnValue, nil, reportError("pipelineInput is required and must be specified")
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -647,21 +569,7 @@ func (a *PipelinesApiService) PostCrmV3PipelinesObjectTypeCreateExecute(r ApiPos
 	}
 	// body params
 	localVarPostBody = r.pipelineInput
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -671,15 +579,15 @@ func (a *PipelinesApiService) PostCrmV3PipelinesObjectTypeCreateExecute(r ApiPos
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -695,7 +603,7 @@ func (a *PipelinesApiService) PostCrmV3PipelinesObjectTypeCreateExecute(r ApiPos
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -706,11 +614,12 @@ func (a *PipelinesApiService) PostCrmV3PipelinesObjectTypeCreateExecute(r ApiPos
 }
 
 type ApiPutCrmV3PipelinesObjectTypePipelineIdReplaceRequest struct {
-	ctx           _context.Context
-	ApiService    *PipelinesApiService
-	objectType    string
-	pipelineId    string
-	pipelineInput *PipelineInput
+	ctx                            context.Context
+	ApiService                     *PipelinesApiService
+	objectType                     string
+	pipelineId                     string
+	pipelineInput                  *PipelineInput
+	validateReferencesBeforeDelete *bool
 }
 
 func (r ApiPutCrmV3PipelinesObjectTypePipelineIdReplaceRequest) PipelineInput(pipelineInput PipelineInput) ApiPutCrmV3PipelinesObjectTypePipelineIdReplaceRequest {
@@ -718,7 +627,12 @@ func (r ApiPutCrmV3PipelinesObjectTypePipelineIdReplaceRequest) PipelineInput(pi
 	return r
 }
 
-func (r ApiPutCrmV3PipelinesObjectTypePipelineIdReplaceRequest) Execute() (Pipeline, *_nethttp.Response, error) {
+func (r ApiPutCrmV3PipelinesObjectTypePipelineIdReplaceRequest) ValidateReferencesBeforeDelete(validateReferencesBeforeDelete bool) ApiPutCrmV3PipelinesObjectTypePipelineIdReplaceRequest {
+	r.validateReferencesBeforeDelete = &validateReferencesBeforeDelete
+	return r
+}
+
+func (r ApiPutCrmV3PipelinesObjectTypePipelineIdReplaceRequest) Execute() (*Pipeline, *http.Response, error) {
 	return r.ApiService.PutCrmV3PipelinesObjectTypePipelineIdReplaceExecute(r)
 }
 
@@ -727,12 +641,12 @@ PutCrmV3PipelinesObjectTypePipelineIdReplace Replace a pipeline
 
 Replace all the properties of an existing pipeline with the values provided. This will overwrite any existing pipeline stages. The updated pipeline will be returned in the response.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param objectType
  @param pipelineId
  @return ApiPutCrmV3PipelinesObjectTypePipelineIdReplaceRequest
 */
-func (a *PipelinesApiService) PutCrmV3PipelinesObjectTypePipelineIdReplace(ctx _context.Context, objectType string, pipelineId string) ApiPutCrmV3PipelinesObjectTypePipelineIdReplaceRequest {
+func (a *PipelinesApiService) PutCrmV3PipelinesObjectTypePipelineIdReplace(ctx context.Context, objectType string, pipelineId string) ApiPutCrmV3PipelinesObjectTypePipelineIdReplaceRequest {
 	return ApiPutCrmV3PipelinesObjectTypePipelineIdReplaceRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -743,29 +657,33 @@ func (a *PipelinesApiService) PutCrmV3PipelinesObjectTypePipelineIdReplace(ctx _
 
 // Execute executes the request
 //  @return Pipeline
-func (a *PipelinesApiService) PutCrmV3PipelinesObjectTypePipelineIdReplaceExecute(r ApiPutCrmV3PipelinesObjectTypePipelineIdReplaceRequest) (Pipeline, *_nethttp.Response, error) {
+func (a *PipelinesApiService) PutCrmV3PipelinesObjectTypePipelineIdReplaceExecute(r ApiPutCrmV3PipelinesObjectTypePipelineIdReplaceRequest) (*Pipeline, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  Pipeline
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Pipeline
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PipelinesApiService.PutCrmV3PipelinesObjectTypePipelineIdReplace")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/pipelines/{objectType}/{pipelineId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", _neturl.PathEscape(parameterToString(r.objectType, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"pipelineId"+"}", _neturl.PathEscape(parameterToString(r.pipelineId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterToString(r.objectType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"pipelineId"+"}", url.PathEscape(parameterToString(r.pipelineId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.pipelineInput == nil {
+		return localVarReturnValue, nil, reportError("pipelineInput is required and must be specified")
+	}
 
+	if r.validateReferencesBeforeDelete != nil {
+		localVarQueryParams.Add("validateReferencesBeforeDelete", parameterToString(*r.validateReferencesBeforeDelete, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -785,21 +703,7 @@ func (a *PipelinesApiService) PutCrmV3PipelinesObjectTypePipelineIdReplaceExecut
 	}
 	// body params
 	localVarPostBody = r.pipelineInput
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -809,15 +713,15 @@ func (a *PipelinesApiService) PutCrmV3PipelinesObjectTypePipelineIdReplaceExecut
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -833,7 +737,7 @@ func (a *PipelinesApiService) PutCrmV3PipelinesObjectTypePipelineIdReplaceExecut
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

@@ -12,50 +12,43 @@ package objects
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-
-	"github.com/clarkmcc/go-hubspot/authorization"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // GDPRApiService GDPRApi service
 type GDPRApiService service
 
-type ApiPostCrmV3ObjectsObjectTypeGdprDeleteRequest struct {
-	ctx                   _context.Context
+type ApiPostCrmV3ObjectsObjectTypeGdprDeletePurgeRequest struct {
+	ctx                   context.Context
 	ApiService            *GDPRApiService
 	objectType            string
 	publicGdprDeleteInput *PublicGdprDeleteInput
 }
 
-func (r ApiPostCrmV3ObjectsObjectTypeGdprDeleteRequest) PublicGdprDeleteInput(publicGdprDeleteInput PublicGdprDeleteInput) ApiPostCrmV3ObjectsObjectTypeGdprDeleteRequest {
+func (r ApiPostCrmV3ObjectsObjectTypeGdprDeletePurgeRequest) PublicGdprDeleteInput(publicGdprDeleteInput PublicGdprDeleteInput) ApiPostCrmV3ObjectsObjectTypeGdprDeletePurgeRequest {
 	r.publicGdprDeleteInput = &publicGdprDeleteInput
 	return r
 }
 
-func (r ApiPostCrmV3ObjectsObjectTypeGdprDeleteRequest) Execute() (*_nethttp.Response, error) {
-	return r.ApiService.PostCrmV3ObjectsObjectTypeGdprDeleteExecute(r)
+func (r ApiPostCrmV3ObjectsObjectTypeGdprDeletePurgeRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostCrmV3ObjectsObjectTypeGdprDeletePurgeExecute(r)
 }
 
 /*
-PostCrmV3ObjectsObjectTypeGdprDelete GDPR DELETE
+PostCrmV3ObjectsObjectTypeGdprDeletePurge GDPR DELETE
 
 Permanently delete a contact and all associated content to follow GDPR. Use optional property 'idProperty' set to 'email' to identify contact by email address. If email address is not found, the email address will be added to a blocklist and prevent it from being used in the future.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param objectType
- @return ApiPostCrmV3ObjectsObjectTypeGdprDeleteRequest
+ @return ApiPostCrmV3ObjectsObjectTypeGdprDeletePurgeRequest
 */
-func (a *GDPRApiService) PostCrmV3ObjectsObjectTypeGdprDelete(ctx _context.Context, objectType string) ApiPostCrmV3ObjectsObjectTypeGdprDeleteRequest {
-	return ApiPostCrmV3ObjectsObjectTypeGdprDeleteRequest{
+func (a *GDPRApiService) PostCrmV3ObjectsObjectTypeGdprDeletePurge(ctx context.Context, objectType string) ApiPostCrmV3ObjectsObjectTypeGdprDeletePurgeRequest {
+	return ApiPostCrmV3ObjectsObjectTypeGdprDeletePurgeRequest{
 		ApiService: a,
 		ctx:        ctx,
 		objectType: objectType,
@@ -63,26 +56,24 @@ func (a *GDPRApiService) PostCrmV3ObjectsObjectTypeGdprDelete(ctx _context.Conte
 }
 
 // Execute executes the request
-func (a *GDPRApiService) PostCrmV3ObjectsObjectTypeGdprDeleteExecute(r ApiPostCrmV3ObjectsObjectTypeGdprDeleteRequest) (*_nethttp.Response, error) {
+func (a *GDPRApiService) PostCrmV3ObjectsObjectTypeGdprDeletePurgeExecute(r ApiPostCrmV3ObjectsObjectTypeGdprDeletePurgeRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GDPRApiService.PostCrmV3ObjectsObjectTypeGdprDelete")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GDPRApiService.PostCrmV3ObjectsObjectTypeGdprDeletePurge")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/objects/{objectType}/gdpr-delete"
-	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", _neturl.PathEscape(parameterToString(r.objectType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterToString(r.objectType, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.publicGdprDeleteInput == nil {
 		return nil, reportError("publicGdprDeleteInput is required and must be specified")
 	}
@@ -106,21 +97,7 @@ func (a *GDPRApiService) PostCrmV3ObjectsObjectTypeGdprDeleteExecute(r ApiPostCr
 	}
 	// body params
 	localVarPostBody = r.publicGdprDeleteInput
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -130,15 +107,15 @@ func (a *GDPRApiService) PostCrmV3ObjectsObjectTypeGdprDeleteExecute(r ApiPostCr
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}

@@ -188,11 +188,11 @@ func (o *IFrameActionBody) GetPropertyNamesIncluded() []string {
 
 // GetPropertyNamesIncludedOk returns a tuple with the PropertyNamesIncluded field value
 // and a boolean to check if the value has been set.
-func (o *IFrameActionBody) GetPropertyNamesIncludedOk() (*[]string, bool) {
+func (o *IFrameActionBody) GetPropertyNamesIncludedOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.PropertyNamesIncluded, true
+	return o.PropertyNamesIncluded, true
 }
 
 // SetPropertyNamesIncluded sets field value

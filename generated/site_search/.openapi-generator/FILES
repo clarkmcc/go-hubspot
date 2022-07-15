@@ -9,9 +9,9 @@ docs/ContentSearchResult.md
 docs/Error.md
 docs/ErrorDetail.md
 docs/IndexedData.md
+docs/IndexedField.md
 docs/PublicApi.md
 docs/PublicSearchResults.md
-docs/SearchHitField.md
 git_push.sh
 go.mod
 go.sum
@@ -19,7 +19,7 @@ model_content_search_result.go
 model_error.go
 model_error_detail.go
 model_indexed_data.go
+model_indexed_field.go
 model_public_search_results.go
-model_search_hit_field.go
 response.go
 utils.go

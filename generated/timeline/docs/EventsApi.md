@@ -37,8 +37,8 @@ func main() {
     eventId := "eventId_example" // string | The event ID.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.EventsApi.GetIntegratorsTimelineV3EventsEventTemplateIdEventIdDetailGetDetailById(context.Background(), eventTemplateId, eventId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.EventsApi.GetIntegratorsTimelineV3EventsEventTemplateIdEventIdDetailGetDetailById(context.Background(), eventTemplateId, eventId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.GetIntegratorsTimelineV3EventsEventTemplateIdEventIdDetailGetDetailById``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -110,8 +110,8 @@ func main() {
     eventId := "eventId_example" // string | The event ID.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.EventsApi.GetIntegratorsTimelineV3EventsEventTemplateIdEventIdGetById(context.Background(), eventTemplateId, eventId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.EventsApi.GetIntegratorsTimelineV3EventsEventTemplateIdEventIdGetById(context.Background(), eventTemplateId, eventId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.GetIntegratorsTimelineV3EventsEventTemplateIdEventIdGetById``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -184,8 +184,8 @@ func main() {
     detail := true // bool | Set to 'true', we want to render the `detailTemplate` instead of the `headerTemplate`. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.EventsApi.GetIntegratorsTimelineV3EventsEventTemplateIdEventIdRenderGetRenderById(context.Background(), eventTemplateId, eventId).Detail(detail).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.EventsApi.GetIntegratorsTimelineV3EventsEventTemplateIdEventIdRenderGetRenderById(context.Background(), eventTemplateId, eventId).Detail(detail).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.GetIntegratorsTimelineV3EventsEventTemplateIdEventIdRenderGetRenderById``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -254,11 +254,11 @@ import (
 )
 
 func main() {
-    batchInputTimelineEvent := *openapiclient.NewBatchInputTimelineEvent([]openapiclient.TimelineEvent{*openapiclient.NewTimelineEvent("EventTemplateId_example", map[string]string{"key": "Inner_example"}, "Id_example")}) // BatchInputTimelineEvent | The timeline event definition.
+    batchInputTimelineEvent := *openapiclient.NewBatchInputTimelineEvent([]openapiclient.TimelineEvent{*openapiclient.NewTimelineEvent("EventTemplateId_example", map[string]string{"key": "Inner_example"})}) // BatchInputTimelineEvent | The timeline event definition.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.EventsApi.PostIntegratorsTimelineV3EventsBatchCreateCreateBatch(context.Background()).BatchInputTimelineEvent(batchInputTimelineEvent).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.EventsApi.PostIntegratorsTimelineV3EventsBatchCreateCreateBatch(context.Background()).BatchInputTimelineEvent(batchInputTimelineEvent).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.PostIntegratorsTimelineV3EventsBatchCreateCreateBatch``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -320,11 +320,11 @@ import (
 )
 
 func main() {
-    timelineEvent := *openapiclient.NewTimelineEvent("EventTemplateId_example", map[string]string{"key": "Inner_example"}, "Id_example") // TimelineEvent | The timeline event definition.
+    timelineEvent := *openapiclient.NewTimelineEvent("EventTemplateId_example", map[string]string{"key": "Inner_example"}) // TimelineEvent | The timeline event definition.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.EventsApi.PostIntegratorsTimelineV3EventsCreate(context.Background()).TimelineEvent(timelineEvent).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.EventsApi.PostIntegratorsTimelineV3EventsCreate(context.Background()).TimelineEvent(timelineEvent).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.PostIntegratorsTimelineV3EventsCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

@@ -34,7 +34,7 @@ type MarketingEventPublicReadResponse struct {
 	// Indicates if the marketing event has been cancelled.
 	EventCancelled *bool `json:"eventCancelled,omitempty"`
 	// A list of PropertyValues. These can be whatever kind of property names and values you want. However, they must already exist on the HubSpot account's definition of the MarketingEvent Object. If they don't they will be filtered out and not set. In order to do this you'll need to create a new PropertyGroup on the HubSpot account's MarketingEvent object for your specific app and create the Custom Property you want to track on that HubSpot account. Do not create any new default properties on the MarketingEvent object as that will apply to all HubSpot accounts.
-	CustomProperties *[]PropertyValue `json:"customProperties,omitempty"`
+	CustomProperties []PropertyValue `json:"customProperties,omitempty"`
 	// The id of the marketing event in the external event application.
 	ExternalEventId string `json:"externalEventId"`
 	// The number of HubSpot contacts that registered for this marketing event.
@@ -323,12 +323,12 @@ func (o *MarketingEventPublicReadResponse) GetCustomProperties() []PropertyValue
 		var ret []PropertyValue
 		return ret
 	}
-	return *o.CustomProperties
+	return o.CustomProperties
 }
 
 // GetCustomPropertiesOk returns a tuple with the CustomProperties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MarketingEventPublicReadResponse) GetCustomPropertiesOk() (*[]PropertyValue, bool) {
+func (o *MarketingEventPublicReadResponse) GetCustomPropertiesOk() ([]PropertyValue, bool) {
 	if o == nil || o.CustomProperties == nil {
 		return nil, false
 	}
@@ -346,7 +346,7 @@ func (o *MarketingEventPublicReadResponse) HasCustomProperties() bool {
 
 // SetCustomProperties gets a reference to the given []PropertyValue and assigns it to the CustomProperties field.
 func (o *MarketingEventPublicReadResponse) SetCustomProperties(v []PropertyValue) {
-	o.CustomProperties = &v
+	o.CustomProperties = v
 }
 
 // GetExternalEventId returns the ExternalEventId field value

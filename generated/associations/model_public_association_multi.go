@@ -76,11 +76,11 @@ func (o *PublicAssociationMulti) GetTo() []AssociatedId {
 
 // GetToOk returns a tuple with the To field value
 // and a boolean to check if the value has been set.
-func (o *PublicAssociationMulti) GetToOk() (*[]AssociatedId, bool) {
+func (o *PublicAssociationMulti) GetToOk() ([]AssociatedId, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.To, true
+	return o.To, true
 }
 
 // SetTo sets field value

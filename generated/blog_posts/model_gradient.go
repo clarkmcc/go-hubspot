@@ -1,7 +1,7 @@
 /*
 Blog Post endpoints
 
-\"Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags\"
+Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags
 
 API version: v3
 */
@@ -101,11 +101,11 @@ func (o *Gradient) GetColors() []ColorStop {
 
 // GetColorsOk returns a tuple with the Colors field value
 // and a boolean to check if the value has been set.
-func (o *Gradient) GetColorsOk() (*[]ColorStop, bool) {
+func (o *Gradient) GetColorsOk() ([]ColorStop, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Colors, true
+	return o.Colors, true
 }
 
 // SetColors sets field value

@@ -77,11 +77,11 @@ func (o *SyncProductsRequest) GetProducts() []UpdatedProduct {
 
 // GetProductsOk returns a tuple with the Products field value
 // and a boolean to check if the value has been set.
-func (o *SyncProductsRequest) GetProductsOk() (*[]UpdatedProduct, bool) {
+func (o *SyncProductsRequest) GetProductsOk() ([]UpdatedProduct, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Products, true
+	return o.Products, true
 }
 
 // SetProducts sets field value

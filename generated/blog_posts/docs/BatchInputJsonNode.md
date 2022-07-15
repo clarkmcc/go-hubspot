@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Inputs** | **[]map[string]interface{}** |  | 
+**Inputs** | **[]map[string]interface{}** | JSON nodes to input. | 
 
 ## Methods
 

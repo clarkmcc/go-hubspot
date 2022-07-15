@@ -22,7 +22,7 @@ go get golang.org/x/net/context
 Put the package under your project folder and add the following in import:
 
 ```golang
-import sw "./webhooks"
+import webhooks "github.com/GIT_USER_ID/GIT_REPO_ID"
 ```
 
 To use a proxy, set the environment variable `HTTP_PROXY`:
@@ -40,7 +40,7 @@ Default configuration comes with `Servers` field that contains server objects as
 For using other server than the one defined on index 0 set context value `sw.ContextServerIndex` of type `int`.
 
 ```golang
-ctx := context.WithValue(context.Background(), sw.ContextServerIndex, 1)
+ctx := context.WithValue(context.Background(), webhooks.ContextServerIndex, 1)
 ```
 
 ### Templated Server URL
@@ -48,7 +48,7 @@ ctx := context.WithValue(context.Background(), sw.ContextServerIndex, 1)
 Templated server URL is formatted using default variables from configuration or from context value `sw.ContextServerVariables` of type `map[string]string`.
 
 ```golang
-ctx := context.WithValue(context.Background(), sw.ContextServerVariables, map[string]string{
+ctx := context.WithValue(context.Background(), webhooks.ContextServerVariables, map[string]string{
 	"basePath": "v2",
 })
 ```
@@ -62,10 +62,10 @@ An operation is uniquely identified by `"{classname}Service.{nickname}"` string.
 Similar rules for overriding default operation server index and variables applies by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
 
 ```
-ctx := context.WithValue(context.Background(), sw.ContextOperationServerIndices, map[string]int{
+ctx := context.WithValue(context.Background(), webhooks.ContextOperationServerIndices, map[string]int{
 	"{classname}Service.{nickname}": 2,
 })
-ctx = context.WithValue(context.Background(), sw.ContextOperationServerVariables, map[string]map[string]string{
+ctx = context.WithValue(context.Background(), webhooks.ContextOperationServerVariables, map[string]map[string]string{
 	"{classname}Service.{nickname}": {
 		"port": "8443",
 	},
@@ -78,15 +78,15 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*SettingsApi* | [**DeleteWebhooksV3AppIdSettingsClear**](docs/SettingsApi.md#deletewebhooksv3appidsettingsclear) | **Delete** /webhooks/v3/{appId}/settings | Clear webhook settings
-*SettingsApi* | [**GetWebhooksV3AppIdSettingsGetAll**](docs/SettingsApi.md#getwebhooksv3appidsettingsgetall) | **Get** /webhooks/v3/{appId}/settings | Get webhook settings
-*SettingsApi* | [**PutWebhooksV3AppIdSettingsConfigure**](docs/SettingsApi.md#putwebhooksv3appidsettingsconfigure) | **Put** /webhooks/v3/{appId}/settings | Configure webhook settings
-*SubscriptionsApi* | [**DeleteWebhooksV3AppIdSubscriptionsSubscriptionIdArchive**](docs/SubscriptionsApi.md#deletewebhooksv3appidsubscriptionssubscriptionidarchive) | **Delete** /webhooks/v3/{appId}/subscriptions/{subscriptionId} | Delete a subscription
-*SubscriptionsApi* | [**GetWebhooksV3AppIdSubscriptionsGetAll**](docs/SubscriptionsApi.md#getwebhooksv3appidsubscriptionsgetall) | **Get** /webhooks/v3/{appId}/subscriptions | Get subscription details
-*SubscriptionsApi* | [**GetWebhooksV3AppIdSubscriptionsSubscriptionIdGetById**](docs/SubscriptionsApi.md#getwebhooksv3appidsubscriptionssubscriptionidgetbyid) | **Get** /webhooks/v3/{appId}/subscriptions/{subscriptionId} | Get subscription
-*SubscriptionsApi* | [**PatchWebhooksV3AppIdSubscriptionsSubscriptionIdUpdate**](docs/SubscriptionsApi.md#patchwebhooksv3appidsubscriptionssubscriptionidupdate) | **Patch** /webhooks/v3/{appId}/subscriptions/{subscriptionId} | Update a subscription
-*SubscriptionsApi* | [**PostWebhooksV3AppIdSubscriptionsBatchUpdateUpdateBatch**](docs/SubscriptionsApi.md#postwebhooksv3appidsubscriptionsbatchupdateupdatebatch) | **Post** /webhooks/v3/{appId}/subscriptions/batch/update | Batch update subscriptions
-*SubscriptionsApi* | [**PostWebhooksV3AppIdSubscriptionsCreate**](docs/SubscriptionsApi.md#postwebhooksv3appidsubscriptionscreate) | **Post** /webhooks/v3/{appId}/subscriptions | Subscribe to an event
+*SettingsApi* | [**DeleteWebhooksV3AppIdSettingsClear**](docs/SettingsApi.md#deletewebhooksv3appidsettingsclear) | **Delete** /webhooks/v3/{appId}/settings | 
+*SettingsApi* | [**GetWebhooksV3AppIdSettingsGetAll**](docs/SettingsApi.md#getwebhooksv3appidsettingsgetall) | **Get** /webhooks/v3/{appId}/settings | 
+*SettingsApi* | [**PutWebhooksV3AppIdSettingsConfigure**](docs/SettingsApi.md#putwebhooksv3appidsettingsconfigure) | **Put** /webhooks/v3/{appId}/settings | 
+*SubscriptionsApi* | [**DeleteWebhooksV3AppIdSubscriptionsSubscriptionIdArchive**](docs/SubscriptionsApi.md#deletewebhooksv3appidsubscriptionssubscriptionidarchive) | **Delete** /webhooks/v3/{appId}/subscriptions/{subscriptionId} | 
+*SubscriptionsApi* | [**GetWebhooksV3AppIdSubscriptionsGetAll**](docs/SubscriptionsApi.md#getwebhooksv3appidsubscriptionsgetall) | **Get** /webhooks/v3/{appId}/subscriptions | 
+*SubscriptionsApi* | [**GetWebhooksV3AppIdSubscriptionsSubscriptionIdGetById**](docs/SubscriptionsApi.md#getwebhooksv3appidsubscriptionssubscriptionidgetbyid) | **Get** /webhooks/v3/{appId}/subscriptions/{subscriptionId} | 
+*SubscriptionsApi* | [**PatchWebhooksV3AppIdSubscriptionsSubscriptionIdUpdate**](docs/SubscriptionsApi.md#patchwebhooksv3appidsubscriptionssubscriptionidupdate) | **Patch** /webhooks/v3/{appId}/subscriptions/{subscriptionId} | 
+*SubscriptionsApi* | [**PostWebhooksV3AppIdSubscriptionsBatchUpdateUpdateBatch**](docs/SubscriptionsApi.md#postwebhooksv3appidsubscriptionsbatchupdateupdatebatch) | **Post** /webhooks/v3/{appId}/subscriptions/batch/update | 
+*SubscriptionsApi* | [**PostWebhooksV3AppIdSubscriptionsCreate**](docs/SubscriptionsApi.md#postwebhooksv3appidsubscriptionscreate) | **Post** /webhooks/v3/{appId}/subscriptions | 
 
 
 ## Documentation For Models
@@ -112,7 +112,7 @@ Class | Method | HTTP request | Description
 
 
 
-### hapikey
+### developer_hapikey
 
 - **Type**: API key
 - **API key parameter name**: hapikey

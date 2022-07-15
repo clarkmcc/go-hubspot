@@ -1,9 +1,9 @@
 openapi: 3.0.1
 info:
-  description: This feature allows an app to create and configure custom events that
-    can show up in the timelines of certain CRM objects like contacts, companies,
-    tickets, or deals. You'll find multiple use cases for this API in the sections
-    below.
+  description: "This feature allows an app to create and configure custom events that\
+    \ can show up in the timelines of certain CRM objects like contacts, companies,\
+    \ tickets, or deals. You'll find multiple use cases for this API in the sections\
+    \ below."
   title: Timeline events
   version: v3
 servers:
@@ -19,11 +19,11 @@ tags:
 paths:
   /crm/v3/timeline/events:
     post:
-      description: Creates an instance of a timeline event based on an event template.
-        Once created, this event is immutable on the object timeline and cannot be
-        modified. If the event template was configured to update object properties
-        via `objectPropertyName`, this call will also attempt to updates those properties,
-        or add them if they don't exist.
+      description: "Creates an instance of a timeline event based on an event template.\
+        \ Once created, this event is immutable on the object timeline and cannot\
+        \ be modified. If the event template was configured to update object properties\
+        \ via `objectPropertyName`, this call will also attempt to updates those properties,\
+        \ or add them if they don't exist."
       operationId: post-/integrators/timeline/v3/events_create
       requestBody:
         content:
@@ -71,18 +71,18 @@ paths:
       security:
       - oauth2_legacy:
         - contacts
-        - tickets
         - timeline
+        - tickets
       summary: Create a single event
       tags:
       - Events
   /crm/v3/timeline/events/batch/create:
     post:
-      description: Creates multiple instances of timeline events based on an event
-        template. Once created, these event are immutable on the object timeline and
-        cannot be modified. If the event template was configured to update object
-        properties via `objectPropertyName`, this call will also attempt to updates
-        those properties, or add them if they don't exist.
+      description: "Creates multiple instances of timeline events based on an event\
+        \ template. Once created, these event are immutable on the object timeline\
+        \ and cannot be modified. If the event template was configured to update object\
+        \ properties via `objectPropertyName`, this call will also attempt to updates\
+        \ those properties, or add them if they don't exist."
       operationId: post-/integrators/timeline/v3/events/batch/create_createBatch
       requestBody:
         content:
@@ -113,16 +113,16 @@ paths:
       security:
       - oauth2_legacy:
         - contacts
-        - tickets
         - timeline
+        - tickets
       summary: Creates multiple events
       tags:
       - Events
   /crm/v3/timeline/events/{eventTemplateId}/{eventId}:
     get:
-      description: This returns the previously created event. It contains all existing
-        info for the event, but not necessarily the CRM object.
-      operationId: get-/integrators/timeline/v3/events/{eventTemplateId}/{eventId}_getById
+      description: "This returns the previously created event. It contains all existing\
+        \ info for the event, but not necessarily the CRM object."
+      operationId: "get-/integrators/timeline/v3/events/{eventTemplateId}/{eventId}_getById"
       parameters:
       - description: The event template ID.
         explode: false
@@ -156,18 +156,18 @@ paths:
       security:
       - oauth2_legacy:
         - contacts
-        - tickets
         - timeline
+        - tickets
       summary: Gets the event
       tags:
       - Events
   /crm/v3/timeline/events/{eventTemplateId}/{eventId}/detail:
     get:
-      description: This will take the `detailTemplate` from the event template and
-        return an object rendering the specified event. If the template references
-        `extraData` that isn't found in the event, it will be ignored and we'll render
-        without it.
-      operationId: get-/integrators/timeline/v3/events/{eventTemplateId}/{eventId}/detail_getDetailById
+      description: "This will take the `detailTemplate` from the event template and\
+        \ return an object rendering the specified event. If the template references\
+        \ `extraData` that isn't found in the event, it will be ignored and we'll\
+        \ render without it."
+      operationId: "get-/integrators/timeline/v3/events/{eventTemplateId}/{eventId}/detail_getDetailById"
       parameters:
       - description: The event template ID.
         explode: false
@@ -201,18 +201,18 @@ paths:
       security:
       - oauth2_legacy:
         - contacts
-        - tickets
         - timeline
+        - tickets
       summary: Gets the detailTemplate as rendered
       tags:
       - Events
   /crm/v3/timeline/events/{eventTemplateId}/{eventId}/render:
     get:
-      description: This will take either the `headerTemplate` or `detailTemplate`
-        from the event template and render for the specified event as HTML. If the
-        template references `extraData` that isn't found in the event, it will be
-        ignored and we'll render without it.
-      operationId: get-/integrators/timeline/v3/events/{eventTemplateId}/{eventId}/render_getRenderById
+      description: "This will take either the `headerTemplate` or `detailTemplate`\
+        \ from the event template and render for the specified event as HTML. If the\
+        \ template references `extraData` that isn't found in the event, it will be\
+        \ ignored and we'll render without it."
+      operationId: "get-/integrators/timeline/v3/events/{eventTemplateId}/{eventId}/render_getRenderById"
       parameters:
       - description: The event template ID.
         explode: false
@@ -230,8 +230,8 @@ paths:
         schema:
           type: string
         style: simple
-      - description: Set to 'true', we want to render the `detailTemplate` instead
-          of the `headerTemplate`.
+      - description: "Set to 'true', we want to render the `detailTemplate` instead\
+          \ of the `headerTemplate`."
         explode: true
         in: query
         name: detail
@@ -255,15 +255,15 @@ paths:
       security:
       - oauth2_legacy:
         - contacts
-        - tickets
         - timeline
+        - tickets
       summary: Renders the header or detail as HTML
       tags:
       - Events
   /crm/v3/timeline/{appId}/event-templates:
     get:
       description: Use this to list all event templates owned by your app.
-      operationId: get-/integrators/timeline/v3/{appId}/event-templates_getAll
+      operationId: "get-/integrators/timeline/v3/{appId}/event-templates_getAll"
       parameters:
       - description: The ID of the target app.
         explode: false
@@ -291,10 +291,8 @@ paths:
                   updatedAt: 2020-02-12T20:58:26Z
                   name: deal test
                   headerTemplate: deal
-                  detailTemplate: |-
-                    Deal occurred at {{#formatDate timestamp}}{{/formatDate}}
-
-                    test
+                  detailTemplate: "Deal occurred at {{#formatDate timestamp}}{{/formatDate}}\n\
+                    \ntest"
                   tokens:
                   - name: test
                     type: string
@@ -308,16 +306,10 @@ paths:
                   createdAt: 2020-02-12T20:58:26Z
                   updatedAt: 2020-02-12T20:58:26Z
                   name: PetSpot Registration
-                  headerTemplate: Registered for [{{petName}}](https://my.petspot.com/pets/{{petName}})
-                  detailTemplate: |-
-                    Registration occurred at {{#formatDate timestamp}}{{/formatDate}}
-
-                    #### Questions
-                    {{#each extraData.questions}}
-                      **{{question}}**: {{answer}}
-                    {{/each}}
-
-                    EDIT
+                  headerTemplate: "Registered for [{{petName}}](https://my.petspot.com/pets/{{petName}})"
+                  detailTemplate: "Registration occurred at {{#formatDate timestamp}}{{/formatDate}}\n\
+                    \n#### Questions\n{{#each extraData.questions}}\n  **{{question}}**:\
+                    \ {{answer}}\n{{/each}}\n\nEDIT"
                   tokens:
                   - name: petAge
                     type: number
@@ -362,15 +354,17 @@ paths:
       tags:
       - Templates
     post:
-      description: |-
-        Event templates define the general structure for a custom timeline event. This includes formatted copy for its heading and details, as well as any custom property definitions. The event could be something like viewing a video, registering for a webinar, or filling out a survey. A single app can define multiple event templates.
-
-        Event templates will be created for contacts by default, but they can be created for companies, tickets, and deals as well.
-
-        Each event template contains its own set of tokens and `Markdown` templates. These tokens can be associated with any CRM object properties via the `objectPropertyName` field to fully build out CRM objects.
-
-        You must create an event template before you can create events.
-      operationId: post-/integrators/timeline/v3/{appId}/event-templates_create
+      description: "Event templates define the general structure for a custom timeline\
+        \ event. This includes formatted copy for its heading and details, as well\
+        \ as any custom property definitions. The event could be something like viewing\
+        \ a video, registering for a webinar, or filling out a survey. A single app\
+        \ can define multiple event templates.\n\nEvent templates will be created\
+        \ for contacts by default, but they can be created for companies, tickets,\
+        \ and deals as well.\n\nEach event template contains its own set of tokens\
+        \ and `Markdown` templates. These tokens can be associated with any CRM object\
+        \ properties via the `objectPropertyName` field to fully build out CRM objects.\n\
+        \nYou must create an event template before you can create events."
+      operationId: "post-/integrators/timeline/v3/{appId}/event-templates_create"
       parameters:
       - description: The ID of the target app.
         explode: false
@@ -398,14 +392,10 @@ paths:
                 createdAt: 2020-02-12T20:58:26Z
                 updatedAt: 2020-02-12T20:58:26Z
                 name: PetSpot Registration
-                headerTemplate: Registered for [{{petName}}](https://my.petspot.com/pets/{{petName}})
-                detailTemplate: |-
-                  Registration occurred at {{#formatDate timestamp}}{{/formatDate}}
-
-                  #### Questions
-                  {{#each extraData.questions}}
-                    **{{question}}**: {{answer}}
-                  {{/each}}
+                headerTemplate: "Registered for [{{petName}}](https://my.petspot.com/pets/{{petName}})"
+                detailTemplate: "Registration occurred at {{#formatDate timestamp}}{{/formatDate}}\n\
+                  \n#### Questions\n{{#each extraData.questions}}\n  **{{question}}**:\
+                  \ {{answer}}\n{{/each}}"
                 tokens:
                 - name: petName
                   type: string
@@ -449,11 +439,11 @@ paths:
       - Templates
   /crm/v3/timeline/{appId}/event-templates/{eventTemplateId}:
     delete:
-      description: |-
-        This will delete the event template. All associated events will be removed from search results and the timeline UI.
-
-        This action can't be undone, so it's highly recommended that you stop using any associated events before deleting a template.
-      operationId: delete-/integrators/timeline/v3/{appId}/event-templates/{eventTemplateId}_archive
+      description: "This will delete the event template. All associated events will\
+        \ be removed from search results and the timeline UI.\n\nThis action can't\
+        \ be undone, so it's highly recommended that you stop using any associated\
+        \ events before deleting a template."
+      operationId: "delete-/integrators/timeline/v3/{appId}/event-templates/{eventTemplateId}_archive"
       parameters:
       - description: The event template ID.
         explode: false
@@ -489,7 +479,7 @@ paths:
       - Templates
     get:
       description: View the current state of a specific template and its tokens.
-      operationId: get-/integrators/timeline/v3/{appId}/event-templates/{eventTemplateId}_getById
+      operationId: "get-/integrators/timeline/v3/{appId}/event-templates/{eventTemplateId}_getById"
       parameters:
       - description: The event template ID.
         explode: false
@@ -518,16 +508,10 @@ paths:
                 createdAt: 2020-02-12T20:58:26Z
                 updatedAt: 2020-02-12T20:58:26Z
                 name: PetSpot Registration
-                headerTemplate: Registered for [{{petName}}](https://my.petspot.com/pets/{{petName}})
-                detailTemplate: |-
-                  Registration occurred at {{#formatDate timestamp}}{{/formatDate}}
-
-                  #### Questions
-                  {{#each extraData.questions}}
-                    **{{question}}**: {{answer}}
-                  {{/each}}
-
-                  EDIT
+                headerTemplate: "Registered for [{{petName}}](https://my.petspot.com/pets/{{petName}})"
+                detailTemplate: "Registration occurred at {{#formatDate timestamp}}{{/formatDate}}\n\
+                  \n#### Questions\n{{#each extraData.questions}}\n  **{{question}}**:\
+                  \ {{answer}}\n{{/each}}\n\nEDIT"
                 tokens:
                 - name: petAge
                   type: number
@@ -572,11 +556,12 @@ paths:
       tags:
       - Templates
     put:
-      description: |-
-        Updates an existing template and its tokens. This is primarily used to update the headerTemplate/detailTemplate, and those changes will take effect for existing events.
-
-        You can also update or replace all the tokens in the template here instead of doing individual API calls on the `/tokens` endpoint.
-      operationId: put-/integrators/timeline/v3/{appId}/event-templates/{eventTemplateId}_update
+      description: "Updates an existing template and its tokens. This is primarily\
+        \ used to update the headerTemplate/detailTemplate, and those changes will\
+        \ take effect for existing events.\n\nYou can also update or replace all the\
+        \ tokens in the template here instead of doing individual API calls on the\
+        \ `/tokens` endpoint."
+      operationId: "put-/integrators/timeline/v3/{appId}/event-templates/{eventTemplateId}_update"
       parameters:
       - description: The event template ID.
         explode: false
@@ -612,16 +597,10 @@ paths:
                 createdAt: 2020-02-12T20:58:26Z
                 updatedAt: 2020-02-12T20:58:26Z
                 name: PetSpot Registration
-                headerTemplate: Registered for [{{petName}}](https://my.petspot.com/pets/{{petName}})
-                detailTemplate: |-
-                  Registration occurred at {{#formatDate timestamp}}{{/formatDate}}
-
-                  #### Questions
-                  {{#each extraData.questions}}
-                    **{{question}}**: {{answer}}
-                  {{/each}}
-
-                  EDIT
+                headerTemplate: "Registered for [{{petName}}](https://my.petspot.com/pets/{{petName}})"
+                detailTemplate: "Registration occurred at {{#formatDate timestamp}}{{/formatDate}}\n\
+                  \n#### Questions\n{{#each extraData.questions}}\n  **{{question}}**:\
+                  \ {{answer}}\n{{/each}}\n\nEDIT"
                 tokens:
                 - name: petAge
                   type: number
@@ -668,15 +647,14 @@ paths:
       - Templates
   /crm/v3/timeline/{appId}/event-templates/{eventTemplateId}/tokens:
     post:
-      description: |-
-        Once you've defined an event template, it's likely that you'll want to define tokens for it as well. You can do this on the event template itself or update individual tokens here.
-
-        Event type tokens allow you to attach custom data to events displayed in a timeline or used for list segmentation.
-
-        You can also use `objectPropertyName` to associate any CRM object properties. This will allow you to fully build out CRM objects.
-
-        Token names should be unique across the template.
-      operationId: post-/integrators/timeline/v3/{appId}/event-templates/{eventTemplateId}/tokens_create
+      description: "Once you've defined an event template, it's likely that you'll\
+        \ want to define tokens for it as well. You can do this on the event template\
+        \ itself or update individual tokens here.\n\nEvent type tokens allow you\
+        \ to attach custom data to events displayed in a timeline or used for list\
+        \ segmentation.\n\nYou can also use `objectPropertyName` to associate any\
+        \ CRM object properties. This will allow you to fully build out CRM objects.\n\
+        \nToken names should be unique across the template."
+      operationId: "post-/integrators/timeline/v3/{appId}/event-templates/{eventTemplateId}/tokens_create"
       parameters:
       - description: The event template ID.
         explode: false
@@ -733,13 +711,14 @@ paths:
       - Tokens
   /crm/v3/timeline/{appId}/event-templates/{eventTemplateId}/tokens/{tokenName}:
     delete:
-      description: |-
-        This will remove the token from an existing template. Existing events and CRM objects will still retain the token and its mapped object properties, but new ones will not.
-
-        The timeline will still display this property for older CRM objects if it's still referenced in the template `Markdown`. New events will not.
-
-        Any lists or reports referencing deleted tokens will no longer return new contacts, but old ones will still exist in the lists.
-      operationId: delete-/integrators/timeline/v3/{appId}/event-templates/{eventTemplateId}/tokens/{tokenName}_archive
+      description: "This will remove the token from an existing template. Existing\
+        \ events and CRM objects will still retain the token and its mapped object\
+        \ properties, but new ones will not.\n\nThe timeline will still display this\
+        \ property for older CRM objects if it's still referenced in the template\
+        \ `Markdown`. New events will not.\n\nAny lists or reports referencing deleted\
+        \ tokens will no longer return new contacts, but old ones will still exist\
+        \ in the lists."
+      operationId: "delete-/integrators/timeline/v3/{appId}/event-templates/{eventTemplateId}/tokens/{tokenName}_archive"
       parameters:
       - description: The event template ID.
         explode: false
@@ -784,7 +763,7 @@ paths:
     put:
       description: This will update the existing token on an event template. Name
         and type can't be changed on existing tokens.
-      operationId: put-/integrators/timeline/v3/{appId}/event-templates/{eventTemplateId}/tokens/{tokenName}_update
+      operationId: "put-/integrators/timeline/v3/{appId}/event-templates/{eventTemplateId}/tokens/{tokenName}_update"
       parameters:
       - description: The event template ID.
         explode: false
@@ -1214,6 +1193,7 @@ components:
           - REQUEST_HEADERS_FIELDS_TOO_LARGE
           - INTERNAL_STALE_SERVICE_DISCOVERY
           - UNAVAILABLE_FOR_LEGAL_REASONS
+          - MIGRATION_IN_PROGRESS
           - INTERNAL_SERVER_ERROR
           - NOT_IMPLEMENTED
           - BAD_GATEWAY
@@ -1265,9 +1245,9 @@ components:
     EventDetail:
       description: The details Markdown rendered as HTML.
       example:
-        details: '<p>Registration occurred at Jan 30, 2020, 1:13:25 PM</p><h4>Questions</h4><p><strong>Who&#x27;s
-          a good kitty?</strong>: Purr...</p><p><strong>Will you stop playing with
-          that?</strong>: Meow!</p><p>EDIT</p>'
+        details: "<p>Registration occurred at Jan 30, 2020, 1:13:25 PM</p><h4>Questions</h4><p><strong>Who&#x27;s\
+          \ a good kitty?</strong>: Purr...</p><p><strong>Will you stop playing with\
+          \ that?</strong>: Meow!</p><p>EDIT</p>"
       properties:
         details:
           description: The details Markdown rendered as HTML.
@@ -1336,26 +1316,26 @@ components:
           description: The event template ID.
           type: string
         email:
-          description: The email address used for contact-specific events. This can
-            be used to identify existing contacts, create new ones, or change the
-            email for an existing contact (if paired with the `objectId`).
+          description: "The email address used for contact-specific events. This can\
+            \ be used to identify existing contacts, create new ones, or change the\
+            \ email for an existing contact (if paired with the `objectId`)."
           type: string
         objectId:
           description: The CRM object identifier. This is required for every event
             other than contacts (where utk or email can be used).
           type: string
         utk:
-          description: Use the `utk` parameter to associate an event with a contact
-            by `usertoken`. This is recommended if you don't know a user's email,
-            but have an identifying user token in your cookie.
+          description: "Use the `utk` parameter to associate an event with a contact\
+            \ by `usertoken`. This is recommended if you don't know a user's email,\
+            \ but have an identifying user token in your cookie."
           type: string
         domain:
           description: The event domain (often paired with utk).
           type: string
         timestamp:
-          description: The time the event occurred. If not passed in, the curren time
-            will be assumed. This is used to determine where an event is shown on
-            a CRM object's timeline.
+          description: "The time the event occurred. If not passed in, the curren\
+            \ time will be assumed. This is used to determine where an event is shown\
+            \ on a CRM object's timeline."
           format: date-time
           type: string
         tokens:
@@ -1372,14 +1352,13 @@ components:
         timelineIFrame:
           $ref: '#/components/schemas/TimelineEventIFrame'
         id:
-          description: Identifier for the event. This is optional, and we recommend
-            you do not pass this in. We will create one for you if you omit this.
-            You can also use `{{uuid}}` anywhere in the ID to generate a unique string,
-            guaranteeing uniqueness.
+          description: "Identifier for the event. This is optional, and we recommend\
+            \ you do not pass this in. We will create one for you if you omit this.\
+            \ You can also use `{{uuid}}` anywhere in the ID to generate a unique\
+            \ string, guaranteeing uniqueness."
           type: string
       required:
       - eventTemplateId
-      - id
       - tokens
       type: object
     TimelineEventIFrame:
@@ -1441,36 +1420,36 @@ components:
           height: 400
       properties:
         id:
-          description: Identifier for the event. This should be unique to the app
-            and event template. If you use the same ID for different CRM objects,
-            the last to be processed will win and the first will not have a record.
-            You can also use `{{uuid}}` anywhere in the ID to generate a unique string,
-            guaranteeing uniqueness.
+          description: "Identifier for the event. This should be unique to the app\
+            \ and event template. If you use the same ID for different CRM objects,\
+            \ the last to be processed will win and the first will not have a record.\
+            \ You can also use `{{uuid}}` anywhere in the ID to generate a unique\
+            \ string, guaranteeing uniqueness."
           type: string
         eventTemplateId:
           description: The event template ID.
           type: string
         email:
-          description: The email address used for contact-specific events. This can
-            be used to identify existing contacts, create new ones, or change the
-            email for an existing contact (if paired with the `objectId`).
+          description: "The email address used for contact-specific events. This can\
+            \ be used to identify existing contacts, create new ones, or change the\
+            \ email for an existing contact (if paired with the `objectId`)."
           type: string
         objectId:
           description: The CRM object identifier. This is required for every event
             other than contacts (where utk or email can be used).
           type: string
         utk:
-          description: Use the `utk` parameter to associate an event with a contact
-            by `usertoken`. This is recommended if you don't know a user's email,
-            but have an identifying user token in your cookie.
+          description: "Use the `utk` parameter to associate an event with a contact\
+            \ by `usertoken`. This is recommended if you don't know a user's email,\
+            \ but have an identifying user token in your cookie."
           type: string
         domain:
           description: The event domain (often paired with utk).
           type: string
         timestamp:
-          description: The time the event occurred. If not passed in, the curren time
-            will be assumed. This is used to determine where an event is shown on
-            a CRM object's timeline.
+          description: "The time the event occurred. If not passed in, the curren\
+            \ time will be assumed. This is used to determine where an event is shown\
+            \ on a CRM object's timeline."
           format: date-time
           type: string
         tokens:
@@ -1553,19 +1532,19 @@ components:
           description: The template ID.
           type: string
         objectType:
-          description: The type of CRM object this template is for. [Contacts, companies,
-            tickets, and deals] are supported.
+          description: "The type of CRM object this template is for. [Contacts, companies,\
+            \ tickets, and deals] are supported."
           type: string
         createdAt:
-          description: The date and time that the Event Template was created, as an
-            ISO 8601 timestamp. Will be null if the template was created before Feb
-            18th, 2020.
+          description: "The date and time that the Event Template was created, as\
+            \ an ISO 8601 timestamp. Will be null if the template was created before\
+            \ Feb 18th, 2020."
           format: date-time
           type: string
         updatedAt:
-          description: The date and time that the Event Template was last updated,
-            as an ISO 8601 timestamp. Will be null if the template was created before
-            Feb 18th, 2020.
+          description: "The date and time that the Event Template was last updated,\
+            \ as an ISO 8601 timestamp. Will be null if the template was created before\
+            \ Feb 18th, 2020."
           format: date-time
           type: string
       required:
@@ -1579,14 +1558,10 @@ components:
       example:
         name: PetSpot Registration
         objectType: contacts
-        headerTemplate: Registered for [{{petName}}](https://my.petspot.com/pets/{{petName}})
-        detailTemplate: |-
-          Registration occurred at {{#formatDate timestamp}}{{/formatDate}}
-
-          #### Questions
-          {{#each extraData.questions}}
-            **{{question}}**: {{answer}}
-          {{/each}}
+        headerTemplate: "Registered for [{{petName}}](https://my.petspot.com/pets/{{petName}})"
+        detailTemplate: "Registration occurred at {{#formatDate timestamp}}{{/formatDate}}\n\
+          \n#### Questions\n{{#each extraData.questions}}\n  **{{question}}**: {{answer}}\n\
+          {{/each}}"
         tokens:
         - name: petName
           label: Pet Name
@@ -1625,8 +1600,8 @@ components:
             $ref: '#/components/schemas/TimelineEventTemplateToken'
           type: array
         objectType:
-          description: The type of CRM object this template is for. [Contacts, companies,
-            tickets, and deals] are supported.
+          description: "The type of CRM object this template is for. [Contacts, companies,\
+            \ tickets, and deals] are supported."
           type: string
       required:
       - name
@@ -1652,24 +1627,24 @@ components:
           description: Used for list segmentation and reporting.
           type: string
         objectPropertyName:
-          description: The name of the CRM object property. This will populate the
-            CRM object property associated with the event. With enough of these, you
-            can fully build CRM objects via the Timeline API.
+          description: "The name of the CRM object property. This will populate the\
+            \ CRM object property associated with the event. With enough of these,\
+            \ you can fully build CRM objects via the Timeline API."
           type: string
         options:
-          description: If type is `enumeration`, we should have a list of options
-            to choose from.
+          description: "If type is `enumeration`, we should have a list of options\
+            \ to choose from."
           items:
             $ref: '#/components/schemas/TimelineEventTemplateTokenOption'
           type: array
         name:
-          description: The name of the token referenced in the templates. This must
-            be unique for the specific template. It may only contain alphanumeric
-            characters, periods, dashes, or underscores (. - _).
+          description: "The name of the token referenced in the templates. This must\
+            \ be unique for the specific template. It may only contain alphanumeric\
+            \ characters, periods, dashes, or underscores (. - _)."
           type: string
         type:
-          description: The data type of the token. You can currently choose from [string,
-            number, date, enumeration].
+          description: "The data type of the token. You can currently choose from\
+            \ [string, number, date, enumeration]."
           enum:
           - date
           - enumeration
@@ -1677,15 +1652,15 @@ components:
           - string
           type: string
         createdAt:
-          description: The date and time that the Event Template Token was created,
-            as an ISO 8601 timestamp. Will be null if the template was created before
-            Feb 18th, 2020.
+          description: "The date and time that the Event Template Token was created,\
+            \ as an ISO 8601 timestamp. Will be null if the template was created before\
+            \ Feb 18th, 2020."
           format: date-time
           type: string
         updatedAt:
-          description: The date and time that the Event Template Token was last updated,
-            as an ISO 8601 timestamp. Will be null if the template was created before
-            Feb 18th, 2020.
+          description: "The date and time that the Event Template Token was last updated,\
+            \ as an ISO 8601 timestamp. Will be null if the template was created before\
+            \ Feb 18th, 2020."
           format: date-time
           type: string
       required:
@@ -1720,13 +1695,13 @@ components:
           description: Used for list segmentation and reporting.
           type: string
         objectPropertyName:
-          description: The name of the CRM object property. This will populate the
-            CRM object property associated with the event. With enough of these, you
-            can fully build CRM objects via the Timeline API.
+          description: "The name of the CRM object property. This will populate the\
+            \ CRM object property associated with the event. With enough of these,\
+            \ you can fully build CRM objects via the Timeline API."
           type: string
         options:
-          description: If type is `enumeration`, we should have a list of options
-            to choose from.
+          description: "If type is `enumeration`, we should have a list of options\
+            \ to choose from."
           items:
             $ref: '#/components/schemas/TimelineEventTemplateTokenOption'
           type: array
@@ -1739,16 +1714,10 @@ components:
       example:
         id: "1001298"
         name: PetSpot Registration
-        headerTemplate: Registered for [{{petName}}](https://my.petspot.com/pets/{{petName}})
-        detailTemplate: |-
-          Registration occurred at {{#formatDate timestamp}}{{/formatDate}}
-
-          #### Questions
-          {{#each extraData.questions}}
-            **{{question}}**: {{answer}}
-          {{/each}}
-
-          EDIT
+        headerTemplate: "Registered for [{{petName}}](https://my.petspot.com/pets/{{petName}})"
+        detailTemplate: "Registration occurred at {{#formatDate timestamp}}{{/formatDate}}\n\
+          \n#### Questions\n{{#each extraData.questions}}\n  **{{question}}**: {{answer}}\n\
+          {{/each}}\n\nEDIT"
         tokens:
         - name: petName
           label: Pet Name
@@ -1804,8 +1773,8 @@ components:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
             contacts: Read from and write to my Contacts
-            tickets: Read and write tickets
             timeline: Create timeline events
+            tickets: Read and write tickets
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
     developer_hapikey:

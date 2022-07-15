@@ -4,13 +4,13 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetMarketingV3MarketingEventsEventsSearch**](SearchApi.md#GetMarketingV3MarketingEventsEventsSearch) | **Get** /marketing/v3/marketing-events/events/search | Search for marketing events
+[**GetMarketingV3MarketingEventsEventsSearchDoSearch**](SearchApi.md#GetMarketingV3MarketingEventsEventsSearchDoSearch) | **Get** /marketing/v3/marketing-events/events/search | Search for marketing events
 
 
 
-## GetMarketingV3MarketingEventsEventsSearch
+## GetMarketingV3MarketingEventsEventsSearchDoSearch
 
-> CollectionResponseMarketingEventExternalUniqueIdentifierNoPaging GetMarketingV3MarketingEventsEventsSearch(ctx).Q(q).Execute()
+> CollectionResponseMarketingEventExternalUniqueIdentifierNoPaging GetMarketingV3MarketingEventsEventsSearchDoSearch(ctx).Q(q).Execute()
 
 Search for marketing events
 
@@ -32,14 +32,14 @@ func main() {
     q := "q_example" // string | The partial event id to search for
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SearchApi.GetMarketingV3MarketingEventsEventsSearch(context.Background()).Q(q).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SearchApi.GetMarketingV3MarketingEventsEventsSearchDoSearch(context.Background()).Q(q).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SearchApi.GetMarketingV3MarketingEventsEventsSearch``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SearchApi.GetMarketingV3MarketingEventsEventsSearchDoSearch``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetMarketingV3MarketingEventsEventsSearch`: CollectionResponseMarketingEventExternalUniqueIdentifierNoPaging
-    fmt.Fprintf(os.Stdout, "Response from `SearchApi.GetMarketingV3MarketingEventsEventsSearch`: %v\n", resp)
+    // response from `GetMarketingV3MarketingEventsEventsSearchDoSearch`: CollectionResponseMarketingEventExternalUniqueIdentifierNoPaging
+    fmt.Fprintf(os.Stdout, "Response from `SearchApi.GetMarketingV3MarketingEventsEventsSearchDoSearch`: %v\n", resp)
 }
 ```
 
@@ -49,7 +49,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetMarketingV3MarketingEventsEventsSearchRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetMarketingV3MarketingEventsEventsSearchDoSearchRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -62,7 +62,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 

@@ -1,7 +1,7 @@
 /*
 Blog Post endpoints
 
-\"Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags\"
+Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags
 
 API version: v3
 */
@@ -15,26 +15,25 @@ import (
 	"time"
 )
 
-// VersionBlogPost Model definition for a Version Blog Post. Contains metadata describing the version of the Blog Post. It can be used to view edit history of a post.
+// VersionBlogPost Model definition of a version of a blog post.
 type VersionBlogPost struct {
 	Object BlogPost    `json:"object"`
 	User   VersionUser `json:"user"`
 	// The id of the version.
-	Id string `json:"id"`
-	// The timestamp (ISO8601 format) when this version was updated.
-	Updated time.Time `json:"updated"`
+	Id        string    `json:"id"`
+	UpdatedAt time.Time `json:"updatedAt"`
 }
 
 // NewVersionBlogPost instantiates a new VersionBlogPost object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewVersionBlogPost(object BlogPost, user VersionUser, id string, updated time.Time) *VersionBlogPost {
+func NewVersionBlogPost(object BlogPost, user VersionUser, id string, updatedAt time.Time) *VersionBlogPost {
 	this := VersionBlogPost{}
 	this.Object = object
 	this.User = user
 	this.Id = id
-	this.Updated = updated
+	this.UpdatedAt = updatedAt
 	return &this
 }
 
@@ -118,28 +117,28 @@ func (o *VersionBlogPost) SetId(v string) {
 	o.Id = v
 }
 
-// GetUpdated returns the Updated field value
-func (o *VersionBlogPost) GetUpdated() time.Time {
+// GetUpdatedAt returns the UpdatedAt field value
+func (o *VersionBlogPost) GetUpdatedAt() time.Time {
 	if o == nil {
 		var ret time.Time
 		return ret
 	}
 
-	return o.Updated
+	return o.UpdatedAt
 }
 
-// GetUpdatedOk returns a tuple with the Updated field value
+// GetUpdatedAtOk returns a tuple with the UpdatedAt field value
 // and a boolean to check if the value has been set.
-func (o *VersionBlogPost) GetUpdatedOk() (*time.Time, bool) {
+func (o *VersionBlogPost) GetUpdatedAtOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Updated, true
+	return &o.UpdatedAt, true
 }
 
-// SetUpdated sets field value
-func (o *VersionBlogPost) SetUpdated(v time.Time) {
-	o.Updated = v
+// SetUpdatedAt sets field value
+func (o *VersionBlogPost) SetUpdatedAt(v time.Time) {
+	o.UpdatedAt = v
 }
 
 func (o VersionBlogPost) MarshalJSON() ([]byte, error) {
@@ -154,7 +153,7 @@ func (o VersionBlogPost) MarshalJSON() ([]byte, error) {
 		toSerialize["id"] = o.Id
 	}
 	if true {
-		toSerialize["updated"] = o.Updated
+		toSerialize["updatedAt"] = o.UpdatedAt
 	}
 	return json.Marshal(toSerialize)
 }

@@ -16,7 +16,7 @@ import (
 
 // SmtpApiTokenRequestEgg A request object to create a SMTP API token
 type SmtpApiTokenRequestEgg struct {
-	// Indicates whether a contact should be created for recipients of emails.
+	// Indicates whether a contact should be created for email recipients.
 	CreateContact bool `json:"createContact"`
 	// A name for the campaign tied to the SMTP API token.
 	CampaignName string `json:"campaignName"`

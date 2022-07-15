@@ -77,11 +77,11 @@ func (o *PublicSubscriptionStatusesResponse) GetSubscriptionStatuses() []PublicS
 
 // GetSubscriptionStatusesOk returns a tuple with the SubscriptionStatuses field value
 // and a boolean to check if the value has been set.
-func (o *PublicSubscriptionStatusesResponse) GetSubscriptionStatusesOk() (*[]PublicSubscriptionStatus, bool) {
+func (o *PublicSubscriptionStatusesResponse) GetSubscriptionStatusesOk() ([]PublicSubscriptionStatus, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.SubscriptionStatuses, true
+	return o.SubscriptionStatuses, true
 }
 
 // SetSubscriptionStatuses sets field value

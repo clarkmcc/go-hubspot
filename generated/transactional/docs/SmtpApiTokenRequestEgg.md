@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreateContact** | **bool** | Indicates whether a contact should be created for recipients of emails. | 
+**CreateContact** | **bool** | Indicates whether a contact should be created for email recipients. | 
 **CampaignName** | **string** | A name for the campaign tied to the SMTP API token. | 
 
 ## Methods

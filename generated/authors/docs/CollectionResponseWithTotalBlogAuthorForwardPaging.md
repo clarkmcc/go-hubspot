@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Total** | **int32** |  | 
-**Results** | [**[]BlogAuthor**](BlogAuthor.md) |  | 
+**Total** | **int32** | Total number of blog authors. | 
+**Results** | [**[]BlogAuthor**](BlogAuthor.md) | Collection of blog authors. | 
 **Paging** | Pointer to [**ForwardPaging**](ForwardPaging.md) |  | [optional] 
 
 ## Methods

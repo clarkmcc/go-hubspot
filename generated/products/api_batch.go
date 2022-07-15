@@ -12,24 +12,17 @@ package products
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-
-	"github.com/clarkmcc/go-hubspot/authorization"
-	_neturl "net/url"
-)
-
-// Linger please
-var (
-	_ _context.Context
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 )
 
 // BatchApiService BatchApi service
 type BatchApiService service
 
 type ApiPostCrmV3ObjectsProductsBatchArchiveArchiveRequest struct {
-	ctx                            _context.Context
+	ctx                            context.Context
 	ApiService                     *BatchApiService
 	batchInputSimplePublicObjectId *BatchInputSimplePublicObjectId
 }
@@ -39,17 +32,17 @@ func (r ApiPostCrmV3ObjectsProductsBatchArchiveArchiveRequest) BatchInputSimpleP
 	return r
 }
 
-func (r ApiPostCrmV3ObjectsProductsBatchArchiveArchiveRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiPostCrmV3ObjectsProductsBatchArchiveArchiveRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostCrmV3ObjectsProductsBatchArchiveArchiveExecute(r)
 }
 
 /*
 PostCrmV3ObjectsProductsBatchArchiveArchive Archive a batch of products by ID
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiPostCrmV3ObjectsProductsBatchArchiveArchiveRequest
 */
-func (a *BatchApiService) PostCrmV3ObjectsProductsBatchArchiveArchive(ctx _context.Context) ApiPostCrmV3ObjectsProductsBatchArchiveArchiveRequest {
+func (a *BatchApiService) PostCrmV3ObjectsProductsBatchArchiveArchive(ctx context.Context) ApiPostCrmV3ObjectsProductsBatchArchiveArchiveRequest {
 	return ApiPostCrmV3ObjectsProductsBatchArchiveArchiveRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -57,25 +50,23 @@ func (a *BatchApiService) PostCrmV3ObjectsProductsBatchArchiveArchive(ctx _conte
 }
 
 // Execute executes the request
-func (a *BatchApiService) PostCrmV3ObjectsProductsBatchArchiveArchiveExecute(r ApiPostCrmV3ObjectsProductsBatchArchiveArchiveRequest) (*_nethttp.Response, error) {
+func (a *BatchApiService) PostCrmV3ObjectsProductsBatchArchiveArchiveExecute(r ApiPostCrmV3ObjectsProductsBatchArchiveArchiveRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchApiService.PostCrmV3ObjectsProductsBatchArchiveArchive")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/objects/products/batch/archive"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.batchInputSimplePublicObjectId == nil {
 		return nil, reportError("batchInputSimplePublicObjectId is required and must be specified")
 	}
@@ -99,21 +90,7 @@ func (a *BatchApiService) PostCrmV3ObjectsProductsBatchArchiveArchiveExecute(r A
 	}
 	// body params
 	localVarPostBody = r.batchInputSimplePublicObjectId
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -123,15 +100,15 @@ func (a *BatchApiService) PostCrmV3ObjectsProductsBatchArchiveArchiveExecute(r A
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -149,7 +126,7 @@ func (a *BatchApiService) PostCrmV3ObjectsProductsBatchArchiveArchiveExecute(r A
 }
 
 type ApiPostCrmV3ObjectsProductsBatchCreateCreateRequest struct {
-	ctx                               _context.Context
+	ctx                               context.Context
 	ApiService                        *BatchApiService
 	batchInputSimplePublicObjectInput *BatchInputSimplePublicObjectInput
 }
@@ -159,17 +136,17 @@ func (r ApiPostCrmV3ObjectsProductsBatchCreateCreateRequest) BatchInputSimplePub
 	return r
 }
 
-func (r ApiPostCrmV3ObjectsProductsBatchCreateCreateRequest) Execute() (BatchResponseSimplePublicObject, *_nethttp.Response, error) {
+func (r ApiPostCrmV3ObjectsProductsBatchCreateCreateRequest) Execute() (*BatchResponseSimplePublicObject, *http.Response, error) {
 	return r.ApiService.PostCrmV3ObjectsProductsBatchCreateCreateExecute(r)
 }
 
 /*
 PostCrmV3ObjectsProductsBatchCreateCreate Create a batch of products
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiPostCrmV3ObjectsProductsBatchCreateCreateRequest
 */
-func (a *BatchApiService) PostCrmV3ObjectsProductsBatchCreateCreate(ctx _context.Context) ApiPostCrmV3ObjectsProductsBatchCreateCreateRequest {
+func (a *BatchApiService) PostCrmV3ObjectsProductsBatchCreateCreate(ctx context.Context) ApiPostCrmV3ObjectsProductsBatchCreateCreateRequest {
 	return ApiPostCrmV3ObjectsProductsBatchCreateCreateRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -178,26 +155,24 @@ func (a *BatchApiService) PostCrmV3ObjectsProductsBatchCreateCreate(ctx _context
 
 // Execute executes the request
 //  @return BatchResponseSimplePublicObject
-func (a *BatchApiService) PostCrmV3ObjectsProductsBatchCreateCreateExecute(r ApiPostCrmV3ObjectsProductsBatchCreateCreateRequest) (BatchResponseSimplePublicObject, *_nethttp.Response, error) {
+func (a *BatchApiService) PostCrmV3ObjectsProductsBatchCreateCreateExecute(r ApiPostCrmV3ObjectsProductsBatchCreateCreateRequest) (*BatchResponseSimplePublicObject, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  BatchResponseSimplePublicObject
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *BatchResponseSimplePublicObject
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchApiService.PostCrmV3ObjectsProductsBatchCreateCreate")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/objects/products/batch/create"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.batchInputSimplePublicObjectInput == nil {
 		return localVarReturnValue, nil, reportError("batchInputSimplePublicObjectInput is required and must be specified")
 	}
@@ -221,21 +196,7 @@ func (a *BatchApiService) PostCrmV3ObjectsProductsBatchCreateCreateExecute(r Api
 	}
 	// body params
 	localVarPostBody = r.batchInputSimplePublicObjectInput
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -245,15 +206,15 @@ func (a *BatchApiService) PostCrmV3ObjectsProductsBatchCreateCreateExecute(r Api
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -269,7 +230,7 @@ func (a *BatchApiService) PostCrmV3ObjectsProductsBatchCreateCreateExecute(r Api
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -280,7 +241,7 @@ func (a *BatchApiService) PostCrmV3ObjectsProductsBatchCreateCreateExecute(r Api
 }
 
 type ApiPostCrmV3ObjectsProductsBatchReadReadRequest struct {
-	ctx                                _context.Context
+	ctx                                context.Context
 	ApiService                         *BatchApiService
 	batchReadInputSimplePublicObjectId *BatchReadInputSimplePublicObjectId
 	archived                           *bool
@@ -297,17 +258,17 @@ func (r ApiPostCrmV3ObjectsProductsBatchReadReadRequest) Archived(archived bool)
 	return r
 }
 
-func (r ApiPostCrmV3ObjectsProductsBatchReadReadRequest) Execute() (BatchResponseSimplePublicObject, *_nethttp.Response, error) {
+func (r ApiPostCrmV3ObjectsProductsBatchReadReadRequest) Execute() (*BatchResponseSimplePublicObject, *http.Response, error) {
 	return r.ApiService.PostCrmV3ObjectsProductsBatchReadReadExecute(r)
 }
 
 /*
 PostCrmV3ObjectsProductsBatchReadRead Read a batch of products by internal ID, or unique property values
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiPostCrmV3ObjectsProductsBatchReadReadRequest
 */
-func (a *BatchApiService) PostCrmV3ObjectsProductsBatchReadRead(ctx _context.Context) ApiPostCrmV3ObjectsProductsBatchReadReadRequest {
+func (a *BatchApiService) PostCrmV3ObjectsProductsBatchReadRead(ctx context.Context) ApiPostCrmV3ObjectsProductsBatchReadReadRequest {
 	return ApiPostCrmV3ObjectsProductsBatchReadReadRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -316,26 +277,24 @@ func (a *BatchApiService) PostCrmV3ObjectsProductsBatchReadRead(ctx _context.Con
 
 // Execute executes the request
 //  @return BatchResponseSimplePublicObject
-func (a *BatchApiService) PostCrmV3ObjectsProductsBatchReadReadExecute(r ApiPostCrmV3ObjectsProductsBatchReadReadRequest) (BatchResponseSimplePublicObject, *_nethttp.Response, error) {
+func (a *BatchApiService) PostCrmV3ObjectsProductsBatchReadReadExecute(r ApiPostCrmV3ObjectsProductsBatchReadReadRequest) (*BatchResponseSimplePublicObject, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  BatchResponseSimplePublicObject
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *BatchResponseSimplePublicObject
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchApiService.PostCrmV3ObjectsProductsBatchReadRead")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/objects/products/batch/read"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.batchReadInputSimplePublicObjectId == nil {
 		return localVarReturnValue, nil, reportError("batchReadInputSimplePublicObjectId is required and must be specified")
 	}
@@ -362,21 +321,7 @@ func (a *BatchApiService) PostCrmV3ObjectsProductsBatchReadReadExecute(r ApiPost
 	}
 	// body params
 	localVarPostBody = r.batchReadInputSimplePublicObjectId
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -386,15 +331,15 @@ func (a *BatchApiService) PostCrmV3ObjectsProductsBatchReadReadExecute(r ApiPost
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -410,7 +355,7 @@ func (a *BatchApiService) PostCrmV3ObjectsProductsBatchReadReadExecute(r ApiPost
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -421,7 +366,7 @@ func (a *BatchApiService) PostCrmV3ObjectsProductsBatchReadReadExecute(r ApiPost
 }
 
 type ApiPostCrmV3ObjectsProductsBatchUpdateUpdateRequest struct {
-	ctx                                    _context.Context
+	ctx                                    context.Context
 	ApiService                             *BatchApiService
 	batchInputSimplePublicObjectBatchInput *BatchInputSimplePublicObjectBatchInput
 }
@@ -431,17 +376,17 @@ func (r ApiPostCrmV3ObjectsProductsBatchUpdateUpdateRequest) BatchInputSimplePub
 	return r
 }
 
-func (r ApiPostCrmV3ObjectsProductsBatchUpdateUpdateRequest) Execute() (BatchResponseSimplePublicObject, *_nethttp.Response, error) {
+func (r ApiPostCrmV3ObjectsProductsBatchUpdateUpdateRequest) Execute() (*BatchResponseSimplePublicObject, *http.Response, error) {
 	return r.ApiService.PostCrmV3ObjectsProductsBatchUpdateUpdateExecute(r)
 }
 
 /*
 PostCrmV3ObjectsProductsBatchUpdateUpdate Update a batch of products
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiPostCrmV3ObjectsProductsBatchUpdateUpdateRequest
 */
-func (a *BatchApiService) PostCrmV3ObjectsProductsBatchUpdateUpdate(ctx _context.Context) ApiPostCrmV3ObjectsProductsBatchUpdateUpdateRequest {
+func (a *BatchApiService) PostCrmV3ObjectsProductsBatchUpdateUpdate(ctx context.Context) ApiPostCrmV3ObjectsProductsBatchUpdateUpdateRequest {
 	return ApiPostCrmV3ObjectsProductsBatchUpdateUpdateRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -450,26 +395,24 @@ func (a *BatchApiService) PostCrmV3ObjectsProductsBatchUpdateUpdate(ctx _context
 
 // Execute executes the request
 //  @return BatchResponseSimplePublicObject
-func (a *BatchApiService) PostCrmV3ObjectsProductsBatchUpdateUpdateExecute(r ApiPostCrmV3ObjectsProductsBatchUpdateUpdateRequest) (BatchResponseSimplePublicObject, *_nethttp.Response, error) {
+func (a *BatchApiService) PostCrmV3ObjectsProductsBatchUpdateUpdateExecute(r ApiPostCrmV3ObjectsProductsBatchUpdateUpdateRequest) (*BatchResponseSimplePublicObject, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  BatchResponseSimplePublicObject
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *BatchResponseSimplePublicObject
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchApiService.PostCrmV3ObjectsProductsBatchUpdateUpdate")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/objects/products/batch/update"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.batchInputSimplePublicObjectBatchInput == nil {
 		return localVarReturnValue, nil, reportError("batchInputSimplePublicObjectBatchInput is required and must be specified")
 	}
@@ -493,21 +436,7 @@ func (a *BatchApiService) PostCrmV3ObjectsProductsBatchUpdateUpdateExecute(r Api
 	}
 	// body params
 	localVarPostBody = r.batchInputSimplePublicObjectBatchInput
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -517,15 +446,15 @@ func (a *BatchApiService) PostCrmV3ObjectsProductsBatchUpdateUpdateExecute(r Api
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -541,7 +470,7 @@ func (a *BatchApiService) PostCrmV3ObjectsProductsBatchUpdateUpdateExecute(r Api
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

@@ -31,8 +31,8 @@ import (
 func main() {
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SampleResponseApi.GetCrmV3ExtensionsCardsSampleResponseGetCardsSampleResponse(context.Background()).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SampleResponseApi.GetCrmV3ExtensionsCardsSampleResponseGetCardsSampleResponse(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SampleResponseApi.GetCrmV3ExtensionsCardsSampleResponseGetCardsSampleResponse``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

@@ -148,11 +148,11 @@ func (o *TimelineEventTemplateCreateRequest) GetTokens() []TimelineEventTemplate
 
 // GetTokensOk returns a tuple with the Tokens field value
 // and a boolean to check if the value has been set.
-func (o *TimelineEventTemplateCreateRequest) GetTokensOk() (*[]TimelineEventTemplateToken, bool) {
+func (o *TimelineEventTemplateCreateRequest) GetTokensOk() ([]TimelineEventTemplateToken, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Tokens, true
+	return o.Tokens, true
 }
 
 // SetTokens sets field value

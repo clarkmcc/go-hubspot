@@ -12,24 +12,17 @@ package visitor_identification
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-
-	"github.com/clarkmcc/go-hubspot/authorization"
-	_neturl "net/url"
-)
-
-// Linger please
-var (
-	_ _context.Context
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 )
 
 // GenerateApiService GenerateApi service
 type GenerateApiService service
 
 type ApiPostVisitorIdentificationV3TokensCreateGenerateTokenRequest struct {
-	ctx                                  _context.Context
+	ctx                                  context.Context
 	ApiService                           *GenerateApiService
 	identificationTokenGenerationRequest *IdentificationTokenGenerationRequest
 }
@@ -39,7 +32,7 @@ func (r ApiPostVisitorIdentificationV3TokensCreateGenerateTokenRequest) Identifi
 	return r
 }
 
-func (r ApiPostVisitorIdentificationV3TokensCreateGenerateTokenRequest) Execute() (IdentificationTokenResponse, *_nethttp.Response, error) {
+func (r ApiPostVisitorIdentificationV3TokensCreateGenerateTokenRequest) Execute() (*IdentificationTokenResponse, *http.Response, error) {
 	return r.ApiService.PostVisitorIdentificationV3TokensCreateGenerateTokenExecute(r)
 }
 
@@ -48,10 +41,10 @@ PostVisitorIdentificationV3TokensCreateGenerateToken Generate a token
 
 Generates a new visitor identification token. This token will be unique every time this endpoint is called, even if called with the same email address. This token is temporary and will expire after 12 hours
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiPostVisitorIdentificationV3TokensCreateGenerateTokenRequest
 */
-func (a *GenerateApiService) PostVisitorIdentificationV3TokensCreateGenerateToken(ctx _context.Context) ApiPostVisitorIdentificationV3TokensCreateGenerateTokenRequest {
+func (a *GenerateApiService) PostVisitorIdentificationV3TokensCreateGenerateToken(ctx context.Context) ApiPostVisitorIdentificationV3TokensCreateGenerateTokenRequest {
 	return ApiPostVisitorIdentificationV3TokensCreateGenerateTokenRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -60,26 +53,24 @@ func (a *GenerateApiService) PostVisitorIdentificationV3TokensCreateGenerateToke
 
 // Execute executes the request
 //  @return IdentificationTokenResponse
-func (a *GenerateApiService) PostVisitorIdentificationV3TokensCreateGenerateTokenExecute(r ApiPostVisitorIdentificationV3TokensCreateGenerateTokenRequest) (IdentificationTokenResponse, *_nethttp.Response, error) {
+func (a *GenerateApiService) PostVisitorIdentificationV3TokensCreateGenerateTokenExecute(r ApiPostVisitorIdentificationV3TokensCreateGenerateTokenRequest) (*IdentificationTokenResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  IdentificationTokenResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *IdentificationTokenResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GenerateApiService.PostVisitorIdentificationV3TokensCreateGenerateToken")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/conversations/v3/visitor-identification/tokens/create"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.identificationTokenGenerationRequest == nil {
 		return localVarReturnValue, nil, reportError("identificationTokenGenerationRequest is required and must be specified")
 	}
@@ -103,21 +94,7 @@ func (a *GenerateApiService) PostVisitorIdentificationV3TokensCreateGenerateToke
 	}
 	// body params
 	localVarPostBody = r.identificationTokenGenerationRequest
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -127,15 +104,15 @@ func (a *GenerateApiService) PostVisitorIdentificationV3TokensCreateGenerateToke
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -151,7 +128,7 @@ func (a *GenerateApiService) PostVisitorIdentificationV3TokensCreateGenerateToke
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

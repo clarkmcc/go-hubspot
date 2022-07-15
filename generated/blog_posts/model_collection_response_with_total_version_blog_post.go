@@ -1,7 +1,7 @@
 /*
 Blog Post endpoints
 
-\"Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags\"
+Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags
 
 API version: v3
 */
@@ -14,9 +14,11 @@ import (
 	"encoding/json"
 )
 
-// CollectionResponseWithTotalVersionBlogPost struct for CollectionResponseWithTotalVersionBlogPost
+// CollectionResponseWithTotalVersionBlogPost Response object for collections of blog post versions with pagination information.
 type CollectionResponseWithTotalVersionBlogPost struct {
-	Total   int32             `json:"total"`
+	// Total number of blog post versions.
+	Total int32 `json:"total"`
+	// Collection of blog post versions.
 	Results []VersionBlogPost `json:"results"`
 	Paging  *Paging           `json:"paging,omitempty"`
 }
@@ -76,11 +78,11 @@ func (o *CollectionResponseWithTotalVersionBlogPost) GetResults() []VersionBlogP
 
 // GetResultsOk returns a tuple with the Results field value
 // and a boolean to check if the value has been set.
-func (o *CollectionResponseWithTotalVersionBlogPost) GetResultsOk() (*[]VersionBlogPost, bool) {
+func (o *CollectionResponseWithTotalVersionBlogPost) GetResultsOk() ([]VersionBlogPost, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Results, true
+	return o.Results, true
 }
 
 // SetResults sets field value

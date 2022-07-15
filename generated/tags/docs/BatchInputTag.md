@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Inputs** | [**[]Tag**](Tag.md) |  | 
+**Inputs** | [**[]Tag**](Tag.md) | Blog tags to input. | 
 
 ## Methods
 

@@ -19,7 +19,7 @@ import (
 type BatchResponsePublicAssociationMulti struct {
 	Results     []PublicAssociationMulti `json:"results"`
 	NumErrors   *int32                   `json:"numErrors,omitempty"`
-	Errors      *[]StandardError         `json:"errors,omitempty"`
+	Errors      []StandardError          `json:"errors,omitempty"`
 	Status      string                   `json:"status"`
 	RequestedAt *time.Time               `json:"requestedAt,omitempty"`
 	StartedAt   time.Time                `json:"startedAt"`
@@ -59,11 +59,11 @@ func (o *BatchResponsePublicAssociationMulti) GetResults() []PublicAssociationMu
 
 // GetResultsOk returns a tuple with the Results field value
 // and a boolean to check if the value has been set.
-func (o *BatchResponsePublicAssociationMulti) GetResultsOk() (*[]PublicAssociationMulti, bool) {
+func (o *BatchResponsePublicAssociationMulti) GetResultsOk() ([]PublicAssociationMulti, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Results, true
+	return o.Results, true
 }
 
 // SetResults sets field value
@@ -109,12 +109,12 @@ func (o *BatchResponsePublicAssociationMulti) GetErrors() []StandardError {
 		var ret []StandardError
 		return ret
 	}
-	return *o.Errors
+	return o.Errors
 }
 
 // GetErrorsOk returns a tuple with the Errors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BatchResponsePublicAssociationMulti) GetErrorsOk() (*[]StandardError, bool) {
+func (o *BatchResponsePublicAssociationMulti) GetErrorsOk() ([]StandardError, bool) {
 	if o == nil || o.Errors == nil {
 		return nil, false
 	}
@@ -132,7 +132,7 @@ func (o *BatchResponsePublicAssociationMulti) HasErrors() bool {
 
 // SetErrors gets a reference to the given []StandardError and assigns it to the Errors field.
 func (o *BatchResponsePublicAssociationMulti) SetErrors(v []StandardError) {
-	o.Errors = &v
+	o.Errors = v
 }
 
 // GetStatus returns the Status field value

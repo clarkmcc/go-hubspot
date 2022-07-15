@@ -1,7 +1,7 @@
 /*
 Blog Post endpoints
 
-\"Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags\"
+Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags
 
 API version: v3
 */
@@ -14,7 +14,7 @@ import (
 	"encoding/json"
 )
 
-// Paging struct for Paging
+// Paging Model definition for paging.
 type Paging struct {
 	Next *NextPage     `json:"next,omitempty"`
 	Prev *PreviousPage `json:"prev,omitempty"`

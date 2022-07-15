@@ -12,24 +12,17 @@ package contacts
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-
-	"github.com/clarkmcc/go-hubspot/authorization"
-	_neturl "net/url"
-)
-
-// Linger please
-var (
-	_ _context.Context
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 )
 
 // SearchApiService SearchApi service
 type SearchApiService service
 
 type ApiPostCrmV3ObjectsContactsSearchDoSearchRequest struct {
-	ctx                       _context.Context
+	ctx                       context.Context
 	ApiService                *SearchApiService
 	publicObjectSearchRequest *PublicObjectSearchRequest
 }
@@ -39,17 +32,17 @@ func (r ApiPostCrmV3ObjectsContactsSearchDoSearchRequest) PublicObjectSearchRequ
 	return r
 }
 
-func (r ApiPostCrmV3ObjectsContactsSearchDoSearchRequest) Execute() (CollectionResponseWithTotalSimplePublicObjectForwardPaging, *_nethttp.Response, error) {
+func (r ApiPostCrmV3ObjectsContactsSearchDoSearchRequest) Execute() (*CollectionResponseWithTotalSimplePublicObjectForwardPaging, *http.Response, error) {
 	return r.ApiService.PostCrmV3ObjectsContactsSearchDoSearchExecute(r)
 }
 
 /*
 PostCrmV3ObjectsContactsSearchDoSearch Method for PostCrmV3ObjectsContactsSearchDoSearch
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiPostCrmV3ObjectsContactsSearchDoSearchRequest
 */
-func (a *SearchApiService) PostCrmV3ObjectsContactsSearchDoSearch(ctx _context.Context) ApiPostCrmV3ObjectsContactsSearchDoSearchRequest {
+func (a *SearchApiService) PostCrmV3ObjectsContactsSearchDoSearch(ctx context.Context) ApiPostCrmV3ObjectsContactsSearchDoSearchRequest {
 	return ApiPostCrmV3ObjectsContactsSearchDoSearchRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -58,26 +51,24 @@ func (a *SearchApiService) PostCrmV3ObjectsContactsSearchDoSearch(ctx _context.C
 
 // Execute executes the request
 //  @return CollectionResponseWithTotalSimplePublicObjectForwardPaging
-func (a *SearchApiService) PostCrmV3ObjectsContactsSearchDoSearchExecute(r ApiPostCrmV3ObjectsContactsSearchDoSearchRequest) (CollectionResponseWithTotalSimplePublicObjectForwardPaging, *_nethttp.Response, error) {
+func (a *SearchApiService) PostCrmV3ObjectsContactsSearchDoSearchExecute(r ApiPostCrmV3ObjectsContactsSearchDoSearchRequest) (*CollectionResponseWithTotalSimplePublicObjectForwardPaging, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  CollectionResponseWithTotalSimplePublicObjectForwardPaging
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CollectionResponseWithTotalSimplePublicObjectForwardPaging
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SearchApiService.PostCrmV3ObjectsContactsSearchDoSearch")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/objects/contacts/search"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.publicObjectSearchRequest == nil {
 		return localVarReturnValue, nil, reportError("publicObjectSearchRequest is required and must be specified")
 	}
@@ -101,21 +92,7 @@ func (a *SearchApiService) PostCrmV3ObjectsContactsSearchDoSearchExecute(r ApiPo
 	}
 	// body params
 	localVarPostBody = r.publicObjectSearchRequest
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -125,15 +102,15 @@ func (a *SearchApiService) PostCrmV3ObjectsContactsSearchDoSearchExecute(r ApiPo
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -149,7 +126,7 @@ func (a *SearchApiService) PostCrmV3ObjectsContactsSearchDoSearchExecute(r ApiPo
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

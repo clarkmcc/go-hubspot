@@ -12,26 +12,21 @@ package crm_extensions
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
-)
-
-// Linger please
-var (
-	_ _context.Context
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 )
 
 // SampleResponseApiService SampleResponseApi service
 type SampleResponseApiService service
 
 type ApiGetCrmV3ExtensionsCardsSampleResponseGetCardsSampleResponseRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *SampleResponseApiService
 }
 
-func (r ApiGetCrmV3ExtensionsCardsSampleResponseGetCardsSampleResponseRequest) Execute() (IntegratorCardPayloadResponse, *_nethttp.Response, error) {
+func (r ApiGetCrmV3ExtensionsCardsSampleResponseGetCardsSampleResponseRequest) Execute() (*IntegratorCardPayloadResponse, *http.Response, error) {
 	return r.ApiService.GetCrmV3ExtensionsCardsSampleResponseGetCardsSampleResponseExecute(r)
 }
 
@@ -40,10 +35,10 @@ GetCrmV3ExtensionsCardsSampleResponseGetCardsSampleResponse Get sample card deta
 
 Returns an example card detail response. This is the payload with displayed details for a card that will be shown to a user. An app should send this in response to the data fetch request.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetCrmV3ExtensionsCardsSampleResponseGetCardsSampleResponseRequest
 */
-func (a *SampleResponseApiService) GetCrmV3ExtensionsCardsSampleResponseGetCardsSampleResponse(ctx _context.Context) ApiGetCrmV3ExtensionsCardsSampleResponseGetCardsSampleResponseRequest {
+func (a *SampleResponseApiService) GetCrmV3ExtensionsCardsSampleResponseGetCardsSampleResponse(ctx context.Context) ApiGetCrmV3ExtensionsCardsSampleResponseGetCardsSampleResponseRequest {
 	return ApiGetCrmV3ExtensionsCardsSampleResponseGetCardsSampleResponseRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -52,26 +47,24 @@ func (a *SampleResponseApiService) GetCrmV3ExtensionsCardsSampleResponseGetCards
 
 // Execute executes the request
 //  @return IntegratorCardPayloadResponse
-func (a *SampleResponseApiService) GetCrmV3ExtensionsCardsSampleResponseGetCardsSampleResponseExecute(r ApiGetCrmV3ExtensionsCardsSampleResponseGetCardsSampleResponseRequest) (IntegratorCardPayloadResponse, *_nethttp.Response, error) {
+func (a *SampleResponseApiService) GetCrmV3ExtensionsCardsSampleResponseGetCardsSampleResponseExecute(r ApiGetCrmV3ExtensionsCardsSampleResponseGetCardsSampleResponseRequest) (*IntegratorCardPayloadResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  IntegratorCardPayloadResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *IntegratorCardPayloadResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SampleResponseApiService.GetCrmV3ExtensionsCardsSampleResponseGetCardsSampleResponse")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/extensions/cards/sample-response"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -90,7 +83,7 @@ func (a *SampleResponseApiService) GetCrmV3ExtensionsCardsSampleResponseGetCards
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -100,15 +93,15 @@ func (a *SampleResponseApiService) GetCrmV3ExtensionsCardsSampleResponseGetCards
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -124,7 +117,7 @@ func (a *SampleResponseApiService) GetCrmV3ExtensionsCardsSampleResponseGetCards
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

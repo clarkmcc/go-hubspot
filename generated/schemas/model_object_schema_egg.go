@@ -93,11 +93,11 @@ func (o *ObjectSchemaEgg) GetRequiredProperties() []string {
 
 // GetRequiredPropertiesOk returns a tuple with the RequiredProperties field value
 // and a boolean to check if the value has been set.
-func (o *ObjectSchemaEgg) GetRequiredPropertiesOk() (*[]string, bool) {
+func (o *ObjectSchemaEgg) GetRequiredPropertiesOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.RequiredProperties, true
+	return o.RequiredProperties, true
 }
 
 // SetRequiredProperties sets field value
@@ -117,11 +117,11 @@ func (o *ObjectSchemaEgg) GetSearchableProperties() []string {
 
 // GetSearchablePropertiesOk returns a tuple with the SearchableProperties field value
 // and a boolean to check if the value has been set.
-func (o *ObjectSchemaEgg) GetSearchablePropertiesOk() (*[]string, bool) {
+func (o *ObjectSchemaEgg) GetSearchablePropertiesOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.SearchableProperties, true
+	return o.SearchableProperties, true
 }
 
 // SetSearchableProperties sets field value
@@ -173,11 +173,11 @@ func (o *ObjectSchemaEgg) GetSecondaryDisplayProperties() []string {
 
 // GetSecondaryDisplayPropertiesOk returns a tuple with the SecondaryDisplayProperties field value
 // and a boolean to check if the value has been set.
-func (o *ObjectSchemaEgg) GetSecondaryDisplayPropertiesOk() (*[]string, bool) {
+func (o *ObjectSchemaEgg) GetSecondaryDisplayPropertiesOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.SecondaryDisplayProperties, true
+	return o.SecondaryDisplayProperties, true
 }
 
 // SetSecondaryDisplayProperties sets field value
@@ -197,11 +197,11 @@ func (o *ObjectSchemaEgg) GetProperties() []ObjectTypePropertyCreate {
 
 // GetPropertiesOk returns a tuple with the Properties field value
 // and a boolean to check if the value has been set.
-func (o *ObjectSchemaEgg) GetPropertiesOk() (*[]ObjectTypePropertyCreate, bool) {
+func (o *ObjectSchemaEgg) GetPropertiesOk() ([]ObjectTypePropertyCreate, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Properties, true
+	return o.Properties, true
 }
 
 // SetProperties sets field value
@@ -221,11 +221,11 @@ func (o *ObjectSchemaEgg) GetAssociatedObjects() []string {
 
 // GetAssociatedObjectsOk returns a tuple with the AssociatedObjects field value
 // and a boolean to check if the value has been set.
-func (o *ObjectSchemaEgg) GetAssociatedObjectsOk() (*[]string, bool) {
+func (o *ObjectSchemaEgg) GetAssociatedObjectsOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.AssociatedObjects, true
+	return o.AssociatedObjects, true
 }
 
 // SetAssociatedObjects sets field value

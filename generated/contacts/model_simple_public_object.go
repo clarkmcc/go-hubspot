@@ -17,12 +17,13 @@ import (
 
 // SimplePublicObject struct for SimplePublicObject
 type SimplePublicObject struct {
-	Id         string            `json:"id"`
-	Properties map[string]string `json:"properties"`
-	CreatedAt  time.Time         `json:"createdAt"`
-	UpdatedAt  time.Time         `json:"updatedAt"`
-	Archived   *bool             `json:"archived,omitempty"`
-	ArchivedAt *time.Time        `json:"archivedAt,omitempty"`
+	Id                    string                           `json:"id"`
+	Properties            map[string]string                `json:"properties"`
+	PropertiesWithHistory *map[string][]ValueWithTimestamp `json:"propertiesWithHistory,omitempty"`
+	CreatedAt             time.Time                        `json:"createdAt"`
+	UpdatedAt             time.Time                        `json:"updatedAt"`
+	Archived              *bool                            `json:"archived,omitempty"`
+	ArchivedAt            *time.Time                       `json:"archivedAt,omitempty"`
 }
 
 // NewSimplePublicObject instantiates a new SimplePublicObject object
@@ -92,6 +93,38 @@ func (o *SimplePublicObject) GetPropertiesOk() (*map[string]string, bool) {
 // SetProperties sets field value
 func (o *SimplePublicObject) SetProperties(v map[string]string) {
 	o.Properties = v
+}
+
+// GetPropertiesWithHistory returns the PropertiesWithHistory field value if set, zero value otherwise.
+func (o *SimplePublicObject) GetPropertiesWithHistory() map[string][]ValueWithTimestamp {
+	if o == nil || o.PropertiesWithHistory == nil {
+		var ret map[string][]ValueWithTimestamp
+		return ret
+	}
+	return *o.PropertiesWithHistory
+}
+
+// GetPropertiesWithHistoryOk returns a tuple with the PropertiesWithHistory field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SimplePublicObject) GetPropertiesWithHistoryOk() (*map[string][]ValueWithTimestamp, bool) {
+	if o == nil || o.PropertiesWithHistory == nil {
+		return nil, false
+	}
+	return o.PropertiesWithHistory, true
+}
+
+// HasPropertiesWithHistory returns a boolean if a field has been set.
+func (o *SimplePublicObject) HasPropertiesWithHistory() bool {
+	if o != nil && o.PropertiesWithHistory != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPropertiesWithHistory gets a reference to the given map[string][]ValueWithTimestamp and assigns it to the PropertiesWithHistory field.
+func (o *SimplePublicObject) SetPropertiesWithHistory(v map[string][]ValueWithTimestamp) {
+	o.PropertiesWithHistory = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value
@@ -213,6 +246,9 @@ func (o SimplePublicObject) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["properties"] = o.Properties
+	}
+	if o.PropertiesWithHistory != nil {
+		toSerialize["propertiesWithHistory"] = o.PropertiesWithHistory
 	}
 	if true {
 		toSerialize["createdAt"] = o.CreatedAt

@@ -12,24 +12,17 @@ package performance
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-
-	"github.com/clarkmcc/go-hubspot/authorization"
-	_neturl "net/url"
-)
-
-// Linger please
-var (
-	_ _context.Context
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 )
 
 // PublicPerformanceApiService PublicPerformanceApi service
 type PublicPerformanceApiService service
 
 type ApiGetCmsV3PerformanceGetPageRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *PublicPerformanceApiService
 	domain     *string
 	path       *string
@@ -89,7 +82,7 @@ func (r ApiGetCmsV3PerformanceGetPageRequest) End(end int64) ApiGetCmsV3Performa
 	return r
 }
 
-func (r ApiGetCmsV3PerformanceGetPageRequest) Execute() (PublicPerformanceResponse, *_nethttp.Response, error) {
+func (r ApiGetCmsV3PerformanceGetPageRequest) Execute() (*PublicPerformanceResponse, *http.Response, error) {
 	return r.ApiService.GetCmsV3PerformanceGetPageExecute(r)
 }
 
@@ -98,10 +91,10 @@ GetCmsV3PerformanceGetPage View your website's performance.
 
 Returns time series data website performance data for the given domain and/or path.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetCmsV3PerformanceGetPageRequest
 */
-func (a *PublicPerformanceApiService) GetCmsV3PerformanceGetPage(ctx _context.Context) ApiGetCmsV3PerformanceGetPageRequest {
+func (a *PublicPerformanceApiService) GetCmsV3PerformanceGetPage(ctx context.Context) ApiGetCmsV3PerformanceGetPageRequest {
 	return ApiGetCmsV3PerformanceGetPageRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -110,26 +103,24 @@ func (a *PublicPerformanceApiService) GetCmsV3PerformanceGetPage(ctx _context.Co
 
 // Execute executes the request
 //  @return PublicPerformanceResponse
-func (a *PublicPerformanceApiService) GetCmsV3PerformanceGetPageExecute(r ApiGetCmsV3PerformanceGetPageRequest) (PublicPerformanceResponse, *_nethttp.Response, error) {
+func (a *PublicPerformanceApiService) GetCmsV3PerformanceGetPageExecute(r ApiGetCmsV3PerformanceGetPageRequest) (*PublicPerformanceResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  PublicPerformanceResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PublicPerformanceResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicPerformanceApiService.GetCmsV3PerformanceGetPage")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/cms/v3/performance/"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.domain != nil {
 		localVarQueryParams.Add("domain", parameterToString(*r.domain, ""))
@@ -172,21 +163,7 @@ func (a *PublicPerformanceApiService) GetCmsV3PerformanceGetPageExecute(r ApiGet
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -196,15 +173,15 @@ func (a *PublicPerformanceApiService) GetCmsV3PerformanceGetPageExecute(r ApiGet
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -220,7 +197,7 @@ func (a *PublicPerformanceApiService) GetCmsV3PerformanceGetPageExecute(r ApiGet
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -231,7 +208,7 @@ func (a *PublicPerformanceApiService) GetCmsV3PerformanceGetPageExecute(r ApiGet
 }
 
 type ApiGetCmsV3PerformanceUptimeGetUptimeRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *PublicPerformanceApiService
 	domain     *string
 	path       *string
@@ -248,6 +225,7 @@ func (r ApiGetCmsV3PerformanceUptimeGetUptimeRequest) Domain(domain string) ApiG
 	r.domain = &domain
 	return r
 }
+
 func (r ApiGetCmsV3PerformanceUptimeGetUptimeRequest) Path(path string) ApiGetCmsV3PerformanceUptimeGetUptimeRequest {
 	r.path = &path
 	return r
@@ -289,7 +267,7 @@ func (r ApiGetCmsV3PerformanceUptimeGetUptimeRequest) End(end int64) ApiGetCmsV3
 	return r
 }
 
-func (r ApiGetCmsV3PerformanceUptimeGetUptimeRequest) Execute() (PublicPerformanceResponse, *_nethttp.Response, error) {
+func (r ApiGetCmsV3PerformanceUptimeGetUptimeRequest) Execute() (*PublicPerformanceResponse, *http.Response, error) {
 	return r.ApiService.GetCmsV3PerformanceUptimeGetUptimeExecute(r)
 }
 
@@ -298,10 +276,10 @@ GetCmsV3PerformanceUptimeGetUptime View your website's uptime.
 
 Returns uptime time series website performance data for the given domain.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetCmsV3PerformanceUptimeGetUptimeRequest
 */
-func (a *PublicPerformanceApiService) GetCmsV3PerformanceUptimeGetUptime(ctx _context.Context) ApiGetCmsV3PerformanceUptimeGetUptimeRequest {
+func (a *PublicPerformanceApiService) GetCmsV3PerformanceUptimeGetUptime(ctx context.Context) ApiGetCmsV3PerformanceUptimeGetUptimeRequest {
 	return ApiGetCmsV3PerformanceUptimeGetUptimeRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -310,26 +288,24 @@ func (a *PublicPerformanceApiService) GetCmsV3PerformanceUptimeGetUptime(ctx _co
 
 // Execute executes the request
 //  @return PublicPerformanceResponse
-func (a *PublicPerformanceApiService) GetCmsV3PerformanceUptimeGetUptimeExecute(r ApiGetCmsV3PerformanceUptimeGetUptimeRequest) (PublicPerformanceResponse, *_nethttp.Response, error) {
+func (a *PublicPerformanceApiService) GetCmsV3PerformanceUptimeGetUptimeExecute(r ApiGetCmsV3PerformanceUptimeGetUptimeRequest) (*PublicPerformanceResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  PublicPerformanceResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PublicPerformanceResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicPerformanceApiService.GetCmsV3PerformanceUptimeGetUptime")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/cms/v3/performance/uptime"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.domain != nil {
 		localVarQueryParams.Add("domain", parameterToString(*r.domain, ""))
@@ -372,21 +348,7 @@ func (a *PublicPerformanceApiService) GetCmsV3PerformanceUptimeGetUptimeExecute(
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -396,15 +358,15 @@ func (a *PublicPerformanceApiService) GetCmsV3PerformanceUptimeGetUptimeExecute(
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -420,7 +382,7 @@ func (a *PublicPerformanceApiService) GetCmsV3PerformanceUptimeGetUptimeExecute(
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

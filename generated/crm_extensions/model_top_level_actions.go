@@ -16,16 +16,16 @@ import (
 
 // TopLevelActions struct for TopLevelActions
 type TopLevelActions struct {
-	Settings  *IFrameActionBody                           `json:"settings,omitempty"`
-	Primary   OneOfActionHookActionBodyIFrameActionBody   `json:"primary,omitempty"`
-	Secondary []OneOfActionHookActionBodyIFrameActionBody `json:"secondary"`
+	Settings  *IFrameActionBody                    `json:"settings,omitempty"`
+	Primary   *IntegratorObjectResultActionsInner  `json:"primary,omitempty"`
+	Secondary []IntegratorObjectResultActionsInner `json:"secondary"`
 }
 
 // NewTopLevelActions instantiates a new TopLevelActions object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTopLevelActions(secondary []OneOfActionHookActionBodyIFrameActionBody) *TopLevelActions {
+func NewTopLevelActions(secondary []IntegratorObjectResultActionsInner) *TopLevelActions {
 	this := TopLevelActions{}
 	this.Secondary = secondary
 	return &this
@@ -71,23 +71,22 @@ func (o *TopLevelActions) SetSettings(v IFrameActionBody) {
 	o.Settings = &v
 }
 
-// GetPrimary returns the Primary field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *TopLevelActions) GetPrimary() OneOfActionHookActionBodyIFrameActionBody {
-	if o == nil {
-		var ret OneOfActionHookActionBodyIFrameActionBody
+// GetPrimary returns the Primary field value if set, zero value otherwise.
+func (o *TopLevelActions) GetPrimary() IntegratorObjectResultActionsInner {
+	if o == nil || o.Primary == nil {
+		var ret IntegratorObjectResultActionsInner
 		return ret
 	}
-	return o.Primary
+	return *o.Primary
 }
 
 // GetPrimaryOk returns a tuple with the Primary field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *TopLevelActions) GetPrimaryOk() (*OneOfActionHookActionBodyIFrameActionBody, bool) {
+func (o *TopLevelActions) GetPrimaryOk() (*IntegratorObjectResultActionsInner, bool) {
 	if o == nil || o.Primary == nil {
 		return nil, false
 	}
-	return &o.Primary, true
+	return o.Primary, true
 }
 
 // HasPrimary returns a boolean if a field has been set.
@@ -99,15 +98,15 @@ func (o *TopLevelActions) HasPrimary() bool {
 	return false
 }
 
-// SetPrimary gets a reference to the given OneOfActionHookActionBodyIFrameActionBody and assigns it to the Primary field.
-func (o *TopLevelActions) SetPrimary(v OneOfActionHookActionBodyIFrameActionBody) {
-	o.Primary = v
+// SetPrimary gets a reference to the given IntegratorObjectResultActionsInner and assigns it to the Primary field.
+func (o *TopLevelActions) SetPrimary(v IntegratorObjectResultActionsInner) {
+	o.Primary = &v
 }
 
 // GetSecondary returns the Secondary field value
-func (o *TopLevelActions) GetSecondary() []OneOfActionHookActionBodyIFrameActionBody {
+func (o *TopLevelActions) GetSecondary() []IntegratorObjectResultActionsInner {
 	if o == nil {
-		var ret []OneOfActionHookActionBodyIFrameActionBody
+		var ret []IntegratorObjectResultActionsInner
 		return ret
 	}
 
@@ -116,15 +115,15 @@ func (o *TopLevelActions) GetSecondary() []OneOfActionHookActionBodyIFrameAction
 
 // GetSecondaryOk returns a tuple with the Secondary field value
 // and a boolean to check if the value has been set.
-func (o *TopLevelActions) GetSecondaryOk() (*[]OneOfActionHookActionBodyIFrameActionBody, bool) {
+func (o *TopLevelActions) GetSecondaryOk() ([]IntegratorObjectResultActionsInner, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Secondary, true
+	return o.Secondary, true
 }
 
 // SetSecondary sets field value
-func (o *TopLevelActions) SetSecondary(v []OneOfActionHookActionBodyIFrameActionBody) {
+func (o *TopLevelActions) SetSecondary(v []IntegratorObjectResultActionsInner) {
 	o.Secondary = v
 }
 

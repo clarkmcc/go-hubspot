@@ -26,7 +26,7 @@ go get golang.org/x/net/context
 Put the package under your project folder and add the following in import:
 
 ```golang
-import sw "./pipelines"
+import pipelines "github.com/GIT_USER_ID/GIT_REPO_ID"
 ```
 
 To use a proxy, set the environment variable `HTTP_PROXY`:
@@ -44,7 +44,7 @@ Default configuration comes with `Servers` field that contains server objects as
 For using other server than the one defined on index 0 set context value `sw.ContextServerIndex` of type `int`.
 
 ```golang
-ctx := context.WithValue(context.Background(), sw.ContextServerIndex, 1)
+ctx := context.WithValue(context.Background(), pipelines.ContextServerIndex, 1)
 ```
 
 ### Templated Server URL
@@ -52,7 +52,7 @@ ctx := context.WithValue(context.Background(), sw.ContextServerIndex, 1)
 Templated server URL is formatted using default variables from configuration or from context value `sw.ContextServerVariables` of type `map[string]string`.
 
 ```golang
-ctx := context.WithValue(context.Background(), sw.ContextServerVariables, map[string]string{
+ctx := context.WithValue(context.Background(), pipelines.ContextServerVariables, map[string]string{
 	"basePath": "v2",
 })
 ```
@@ -66,10 +66,10 @@ An operation is uniquely identified by `"{classname}Service.{nickname}"` string.
 Similar rules for overriding default operation server index and variables applies by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
 
 ```
-ctx := context.WithValue(context.Background(), sw.ContextOperationServerIndices, map[string]int{
+ctx := context.WithValue(context.Background(), pipelines.ContextOperationServerIndices, map[string]int{
 	"{classname}Service.{nickname}": 2,
 })
-ctx = context.WithValue(context.Background(), sw.ContextOperationServerVariables, map[string]map[string]string{
+ctx = context.WithValue(context.Background(), pipelines.ContextOperationServerVariables, map[string]map[string]string{
 	"{classname}Service.{nickname}": {
 		"port": "8443",
 	},
@@ -82,13 +82,15 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*PipelineStagesApi* | [**DeleteCrmV3PipelinesObjectTypePipelineIdStagesStageIdArchive**](docs/PipelineStagesApi.md#deletecrmv3pipelinesobjecttypepipelineidstagesstageidarchive) | **Delete** /crm/v3/pipelines/{objectType}/{pipelineId}/stages/{stageId} | Archive a pipeline stage
+*PipelineAuditsApi* | [**GetCrmV3PipelinesObjectTypePipelineIdAuditGetAudit**](docs/PipelineAuditsApi.md#getcrmv3pipelinesobjecttypepipelineidauditgetaudit) | **Get** /crm/v3/pipelines/{objectType}/{pipelineId}/audit | Return an audit of all changes to the pipeline
+*PipelineStageAuditsApi* | [**GetCrmV3PipelinesObjectTypePipelineIdStagesStageIdAuditGetAudit**](docs/PipelineStageAuditsApi.md#getcrmv3pipelinesobjecttypepipelineidstagesstageidauditgetaudit) | **Get** /crm/v3/pipelines/{objectType}/{pipelineId}/stages/{stageId}/audit | Return an audit of all changes to the pipeline stage
+*PipelineStagesApi* | [**DeleteCrmV3PipelinesObjectTypePipelineIdStagesStageIdArchive**](docs/PipelineStagesApi.md#deletecrmv3pipelinesobjecttypepipelineidstagesstageidarchive) | **Delete** /crm/v3/pipelines/{objectType}/{pipelineId}/stages/{stageId} | Delete a pipeline stage
 *PipelineStagesApi* | [**GetCrmV3PipelinesObjectTypePipelineIdStagesGetAll**](docs/PipelineStagesApi.md#getcrmv3pipelinesobjecttypepipelineidstagesgetall) | **Get** /crm/v3/pipelines/{objectType}/{pipelineId}/stages | Return all stages of a pipeline
 *PipelineStagesApi* | [**GetCrmV3PipelinesObjectTypePipelineIdStagesStageIdGetById**](docs/PipelineStagesApi.md#getcrmv3pipelinesobjecttypepipelineidstagesstageidgetbyid) | **Get** /crm/v3/pipelines/{objectType}/{pipelineId}/stages/{stageId} | Return a pipeline stage by ID
 *PipelineStagesApi* | [**PatchCrmV3PipelinesObjectTypePipelineIdStagesStageIdUpdate**](docs/PipelineStagesApi.md#patchcrmv3pipelinesobjecttypepipelineidstagesstageidupdate) | **Patch** /crm/v3/pipelines/{objectType}/{pipelineId}/stages/{stageId} | Update a pipeline stage
 *PipelineStagesApi* | [**PostCrmV3PipelinesObjectTypePipelineIdStagesCreate**](docs/PipelineStagesApi.md#postcrmv3pipelinesobjecttypepipelineidstagescreate) | **Post** /crm/v3/pipelines/{objectType}/{pipelineId}/stages | Create a pipeline stage
 *PipelineStagesApi* | [**PutCrmV3PipelinesObjectTypePipelineIdStagesStageIdReplace**](docs/PipelineStagesApi.md#putcrmv3pipelinesobjecttypepipelineidstagesstageidreplace) | **Put** /crm/v3/pipelines/{objectType}/{pipelineId}/stages/{stageId} | Replace a pipeline stage
-*PipelinesApi* | [**DeleteCrmV3PipelinesObjectTypePipelineIdArchive**](docs/PipelinesApi.md#deletecrmv3pipelinesobjecttypepipelineidarchive) | **Delete** /crm/v3/pipelines/{objectType}/{pipelineId} | Archive a pipeline
+*PipelinesApi* | [**DeleteCrmV3PipelinesObjectTypePipelineIdArchive**](docs/PipelinesApi.md#deletecrmv3pipelinesobjecttypepipelineidarchive) | **Delete** /crm/v3/pipelines/{objectType}/{pipelineId} | Delete a pipeline
 *PipelinesApi* | [**GetCrmV3PipelinesObjectTypeGetAll**](docs/PipelinesApi.md#getcrmv3pipelinesobjecttypegetall) | **Get** /crm/v3/pipelines/{objectType} | Retrieve all pipelines
 *PipelinesApi* | [**GetCrmV3PipelinesObjectTypePipelineIdGetById**](docs/PipelinesApi.md#getcrmv3pipelinesobjecttypepipelineidgetbyid) | **Get** /crm/v3/pipelines/{objectType}/{pipelineId} | Return a pipeline by ID
 *PipelinesApi* | [**PatchCrmV3PipelinesObjectTypePipelineIdUpdate**](docs/PipelinesApi.md#patchcrmv3pipelinesobjecttypepipelineidupdate) | **Patch** /crm/v3/pipelines/{objectType}/{pipelineId} | Update a pipeline
@@ -98,31 +100,64 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [CollectionResponsePipeline](docs/CollectionResponsePipeline.md)
- - [CollectionResponsePipelineStage](docs/CollectionResponsePipelineStage.md)
+ - [CollectionResponsePipelineNoPaging](docs/CollectionResponsePipelineNoPaging.md)
+ - [CollectionResponsePipelineStageNoPaging](docs/CollectionResponsePipelineStageNoPaging.md)
+ - [CollectionResponsePublicAuditInfoNoPaging](docs/CollectionResponsePublicAuditInfoNoPaging.md)
  - [Error](docs/Error.md)
  - [ErrorDetail](docs/ErrorDetail.md)
- - [NextPage](docs/NextPage.md)
- - [Paging](docs/Paging.md)
  - [Pipeline](docs/Pipeline.md)
  - [PipelineInput](docs/PipelineInput.md)
  - [PipelinePatchInput](docs/PipelinePatchInput.md)
  - [PipelineStage](docs/PipelineStage.md)
  - [PipelineStageInput](docs/PipelineStageInput.md)
  - [PipelineStagePatchInput](docs/PipelineStagePatchInput.md)
+ - [PublicAuditInfo](docs/PublicAuditInfo.md)
 
 
 ## Documentation For Authorization
 
 
 
-### hapikey
+### oauth2
 
-- **Type**: API key
-- **API key parameter name**: hapikey
-- **Location**: URL query string
 
-Note, each API key must be added to a map of `map[string]APIKey` where the key is: hapikey and passed in as the auth context for each request.
+- **Type**: OAuth
+- **Flow**: accessCode
+- **Authorization URL**: https://app.hubspot.com/oauth/authorize
+- **Scopes**: 
+ - **crm.schemas.contacts.read**:  
+ - **crm.objects.companies.write**:  
+ - **crm.objects.companies.read**:  
+ - **crm.schemas.companies.read**:  
+ - **crm.objects.deals.read**:  
+ - **crm.schemas.line_items.read**: Line Items schemas
+ - **crm.objects.deals.write**:  
+ - **crm.schemas.deals.read**:  
+ - **crm.objects.contacts.read**:  
+ - **crm.schemas.quotes.read**: Quotes schemas
+ - **crm.objects.contacts.write**:  
+ - **crm.schemas.contacts.write**:  
+ - **crm.schemas.companies.write**:  
+ - **crm.schemas.deals.write**:  
+
+Example
+
+```golang
+auth := context.WithValue(context.Background(), sw.ContextAccessToken, "ACCESSTOKENSTRING")
+r, err := client.Service.Operation(auth, args)
+```
+
+Or via OAuth2 module to automatically refresh tokens and perform user authentication.
+
+```golang
+import "golang.org/x/oauth2"
+
+/* Perform OAuth2 round trip request and obtain a token */
+
+tokenSource := oauth2cfg.TokenSource(createContext(httpClient), &token)
+auth := context.WithValue(oauth2.NoContext, sw.ContextOAuth2, tokenSource)
+r, err := client.Service.Operation(auth, args)
+```
 
 
 ### oauth2_legacy
@@ -132,7 +167,11 @@ Note, each API key must be added to a map of `map[string]APIKey` where the key i
 - **Flow**: accessCode
 - **Authorization URL**: https://app.hubspot.com/oauth/authorize
 - **Scopes**: 
+ - **media_bridge.read**: Read media and media events
  - **contacts**: Read from and write to my Contacts
+ - **e-commerce**: e-commerce
+ - **timeline**: Create timeline events
+ - **crm.schemas.custom.read**: View custom object definitions
  - **tickets**: Read and write tickets
 
 Example

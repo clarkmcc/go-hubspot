@@ -25,7 +25,7 @@ type ObjectTypePropertyCreate struct {
 	// A description of the property that will be shown as help text in HubSpot.
 	Description *string `json:"description,omitempty"`
 	// A list of available options for the property. This field is only required for enumerated properties.
-	Options *[]OptionInput `json:"options,omitempty"`
+	Options []OptionInput `json:"options,omitempty"`
 	// The order that this property should be displayed in the HubSpot UI relative to other properties for this object type. Properties are displayed in order starting with the lowest positive integer value. A value of -1 will cause the property to be displayed **after** any positive values.
 	DisplayOrder *int32 `json:"displayOrder,omitempty"`
 	// Whether or not the property's value must be unique. Once set, this can't be changed.
@@ -176,12 +176,12 @@ func (o *ObjectTypePropertyCreate) GetOptions() []OptionInput {
 		var ret []OptionInput
 		return ret
 	}
-	return *o.Options
+	return o.Options
 }
 
 // GetOptionsOk returns a tuple with the Options field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ObjectTypePropertyCreate) GetOptionsOk() (*[]OptionInput, bool) {
+func (o *ObjectTypePropertyCreate) GetOptionsOk() ([]OptionInput, bool) {
 	if o == nil || o.Options == nil {
 		return nil, false
 	}
@@ -199,7 +199,7 @@ func (o *ObjectTypePropertyCreate) HasOptions() bool {
 
 // SetOptions gets a reference to the given []OptionInput and assigns it to the Options field.
 func (o *ObjectTypePropertyCreate) SetOptions(v []OptionInput) {
-	o.Options = &v
+	o.Options = v
 }
 
 // GetDisplayOrder returns the DisplayOrder field value if set, zero value otherwise.

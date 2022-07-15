@@ -12,30 +12,23 @@ package transactional
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-
-	"github.com/clarkmcc/go-hubspot/authorization"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // PublicSmtpTokensApiService PublicSmtpTokensApi service
 type PublicSmtpTokensApiService service
 
 type ApiDeleteMarketingV3TransactionalSmtpTokensTokenIdArchiveTokenRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *PublicSmtpTokensApiService
 	tokenId    string
 }
 
-func (r ApiDeleteMarketingV3TransactionalSmtpTokensTokenIdArchiveTokenRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeleteMarketingV3TransactionalSmtpTokensTokenIdArchiveTokenRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteMarketingV3TransactionalSmtpTokensTokenIdArchiveTokenExecute(r)
 }
 
@@ -44,11 +37,11 @@ DeleteMarketingV3TransactionalSmtpTokensTokenIdArchiveToken Delete a single toke
 
 Delete a single token by ID.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param tokenId Identifier generated when a token is created.
  @return ApiDeleteMarketingV3TransactionalSmtpTokensTokenIdArchiveTokenRequest
 */
-func (a *PublicSmtpTokensApiService) DeleteMarketingV3TransactionalSmtpTokensTokenIdArchiveToken(ctx _context.Context, tokenId string) ApiDeleteMarketingV3TransactionalSmtpTokensTokenIdArchiveTokenRequest {
+func (a *PublicSmtpTokensApiService) DeleteMarketingV3TransactionalSmtpTokensTokenIdArchiveToken(ctx context.Context, tokenId string) ApiDeleteMarketingV3TransactionalSmtpTokensTokenIdArchiveTokenRequest {
 	return ApiDeleteMarketingV3TransactionalSmtpTokensTokenIdArchiveTokenRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -57,26 +50,24 @@ func (a *PublicSmtpTokensApiService) DeleteMarketingV3TransactionalSmtpTokensTok
 }
 
 // Execute executes the request
-func (a *PublicSmtpTokensApiService) DeleteMarketingV3TransactionalSmtpTokensTokenIdArchiveTokenExecute(r ApiDeleteMarketingV3TransactionalSmtpTokensTokenIdArchiveTokenRequest) (*_nethttp.Response, error) {
+func (a *PublicSmtpTokensApiService) DeleteMarketingV3TransactionalSmtpTokensTokenIdArchiveTokenExecute(r ApiDeleteMarketingV3TransactionalSmtpTokensTokenIdArchiveTokenRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicSmtpTokensApiService.DeleteMarketingV3TransactionalSmtpTokensTokenIdArchiveToken")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/marketing/v3/transactional/smtp-tokens/{tokenId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"tokenId"+"}", _neturl.PathEscape(parameterToString(r.tokenId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tokenId"+"}", url.PathEscape(parameterToString(r.tokenId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -95,21 +86,7 @@ func (a *PublicSmtpTokensApiService) DeleteMarketingV3TransactionalSmtpTokensTok
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -119,15 +96,15 @@ func (a *PublicSmtpTokensApiService) DeleteMarketingV3TransactionalSmtpTokensTok
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -145,7 +122,7 @@ func (a *PublicSmtpTokensApiService) DeleteMarketingV3TransactionalSmtpTokensTok
 }
 
 type ApiGetMarketingV3TransactionalSmtpTokensGetTokensPageRequest struct {
-	ctx             _context.Context
+	ctx             context.Context
 	ApiService      *PublicSmtpTokensApiService
 	campaignName    *string
 	emailCampaignId *string
@@ -177,7 +154,7 @@ func (r ApiGetMarketingV3TransactionalSmtpTokensGetTokensPageRequest) Limit(limi
 	return r
 }
 
-func (r ApiGetMarketingV3TransactionalSmtpTokensGetTokensPageRequest) Execute() (CollectionResponseSmtpApiTokenView, *_nethttp.Response, error) {
+func (r ApiGetMarketingV3TransactionalSmtpTokensGetTokensPageRequest) Execute() (*CollectionResponseSmtpApiTokenViewForwardPaging, *http.Response, error) {
 	return r.ApiService.GetMarketingV3TransactionalSmtpTokensGetTokensPageExecute(r)
 }
 
@@ -186,10 +163,10 @@ GetMarketingV3TransactionalSmtpTokensGetTokensPage Query SMTP API tokens by camp
 
 Query multiple SMTP API tokens by campaign name or a single token by emailCampaignId.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetMarketingV3TransactionalSmtpTokensGetTokensPageRequest
 */
-func (a *PublicSmtpTokensApiService) GetMarketingV3TransactionalSmtpTokensGetTokensPage(ctx _context.Context) ApiGetMarketingV3TransactionalSmtpTokensGetTokensPageRequest {
+func (a *PublicSmtpTokensApiService) GetMarketingV3TransactionalSmtpTokensGetTokensPage(ctx context.Context) ApiGetMarketingV3TransactionalSmtpTokensGetTokensPageRequest {
 	return ApiGetMarketingV3TransactionalSmtpTokensGetTokensPageRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -197,27 +174,25 @@ func (a *PublicSmtpTokensApiService) GetMarketingV3TransactionalSmtpTokensGetTok
 }
 
 // Execute executes the request
-//  @return CollectionResponseSmtpApiTokenView
-func (a *PublicSmtpTokensApiService) GetMarketingV3TransactionalSmtpTokensGetTokensPageExecute(r ApiGetMarketingV3TransactionalSmtpTokensGetTokensPageRequest) (CollectionResponseSmtpApiTokenView, *_nethttp.Response, error) {
+//  @return CollectionResponseSmtpApiTokenViewForwardPaging
+func (a *PublicSmtpTokensApiService) GetMarketingV3TransactionalSmtpTokensGetTokensPageExecute(r ApiGetMarketingV3TransactionalSmtpTokensGetTokensPageRequest) (*CollectionResponseSmtpApiTokenViewForwardPaging, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  CollectionResponseSmtpApiTokenView
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CollectionResponseSmtpApiTokenViewForwardPaging
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicSmtpTokensApiService.GetMarketingV3TransactionalSmtpTokensGetTokensPage")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/marketing/v3/transactional/smtp-tokens"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.campaignName != nil {
 		localVarQueryParams.Add("campaignName", parameterToString(*r.campaignName, ""))
@@ -248,21 +223,7 @@ func (a *PublicSmtpTokensApiService) GetMarketingV3TransactionalSmtpTokensGetTok
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -272,15 +233,15 @@ func (a *PublicSmtpTokensApiService) GetMarketingV3TransactionalSmtpTokensGetTok
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -296,7 +257,7 @@ func (a *PublicSmtpTokensApiService) GetMarketingV3TransactionalSmtpTokensGetTok
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -307,12 +268,12 @@ func (a *PublicSmtpTokensApiService) GetMarketingV3TransactionalSmtpTokensGetTok
 }
 
 type ApiGetMarketingV3TransactionalSmtpTokensTokenIdGetTokenByIdRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *PublicSmtpTokensApiService
 	tokenId    string
 }
 
-func (r ApiGetMarketingV3TransactionalSmtpTokensTokenIdGetTokenByIdRequest) Execute() (SmtpApiTokenView, *_nethttp.Response, error) {
+func (r ApiGetMarketingV3TransactionalSmtpTokensTokenIdGetTokenByIdRequest) Execute() (*SmtpApiTokenView, *http.Response, error) {
 	return r.ApiService.GetMarketingV3TransactionalSmtpTokensTokenIdGetTokenByIdExecute(r)
 }
 
@@ -321,11 +282,11 @@ GetMarketingV3TransactionalSmtpTokensTokenIdGetTokenById Query a single token by
 
 Query a single token by ID.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param tokenId Identifier generated when a token is created.
  @return ApiGetMarketingV3TransactionalSmtpTokensTokenIdGetTokenByIdRequest
 */
-func (a *PublicSmtpTokensApiService) GetMarketingV3TransactionalSmtpTokensTokenIdGetTokenById(ctx _context.Context, tokenId string) ApiGetMarketingV3TransactionalSmtpTokensTokenIdGetTokenByIdRequest {
+func (a *PublicSmtpTokensApiService) GetMarketingV3TransactionalSmtpTokensTokenIdGetTokenById(ctx context.Context, tokenId string) ApiGetMarketingV3TransactionalSmtpTokensTokenIdGetTokenByIdRequest {
 	return ApiGetMarketingV3TransactionalSmtpTokensTokenIdGetTokenByIdRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -335,27 +296,25 @@ func (a *PublicSmtpTokensApiService) GetMarketingV3TransactionalSmtpTokensTokenI
 
 // Execute executes the request
 //  @return SmtpApiTokenView
-func (a *PublicSmtpTokensApiService) GetMarketingV3TransactionalSmtpTokensTokenIdGetTokenByIdExecute(r ApiGetMarketingV3TransactionalSmtpTokensTokenIdGetTokenByIdRequest) (SmtpApiTokenView, *_nethttp.Response, error) {
+func (a *PublicSmtpTokensApiService) GetMarketingV3TransactionalSmtpTokensTokenIdGetTokenByIdExecute(r ApiGetMarketingV3TransactionalSmtpTokensTokenIdGetTokenByIdRequest) (*SmtpApiTokenView, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  SmtpApiTokenView
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SmtpApiTokenView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicSmtpTokensApiService.GetMarketingV3TransactionalSmtpTokensTokenIdGetTokenById")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/marketing/v3/transactional/smtp-tokens/{tokenId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"tokenId"+"}", _neturl.PathEscape(parameterToString(r.tokenId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tokenId"+"}", url.PathEscape(parameterToString(r.tokenId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -374,21 +333,7 @@ func (a *PublicSmtpTokensApiService) GetMarketingV3TransactionalSmtpTokensTokenI
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -398,15 +343,15 @@ func (a *PublicSmtpTokensApiService) GetMarketingV3TransactionalSmtpTokensTokenI
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -422,7 +367,7 @@ func (a *PublicSmtpTokensApiService) GetMarketingV3TransactionalSmtpTokensTokenI
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -433,18 +378,18 @@ func (a *PublicSmtpTokensApiService) GetMarketingV3TransactionalSmtpTokensTokenI
 }
 
 type ApiPostMarketingV3TransactionalSmtpTokensCreateTokenRequest struct {
-	ctx                    _context.Context
+	ctx                    context.Context
 	ApiService             *PublicSmtpTokensApiService
 	smtpApiTokenRequestEgg *SmtpApiTokenRequestEgg
 }
 
-// A request object that includes the campaign name tied to the token and whether contacts should be created for recipients of emails.
+// A request object that includes the campaign name tied to the token and whether contacts should be created for email recipients.
 func (r ApiPostMarketingV3TransactionalSmtpTokensCreateTokenRequest) SmtpApiTokenRequestEgg(smtpApiTokenRequestEgg SmtpApiTokenRequestEgg) ApiPostMarketingV3TransactionalSmtpTokensCreateTokenRequest {
 	r.smtpApiTokenRequestEgg = &smtpApiTokenRequestEgg
 	return r
 }
 
-func (r ApiPostMarketingV3TransactionalSmtpTokensCreateTokenRequest) Execute() (SmtpApiTokenView, *_nethttp.Response, error) {
+func (r ApiPostMarketingV3TransactionalSmtpTokensCreateTokenRequest) Execute() (*SmtpApiTokenView, *http.Response, error) {
 	return r.ApiService.PostMarketingV3TransactionalSmtpTokensCreateTokenExecute(r)
 }
 
@@ -453,10 +398,10 @@ PostMarketingV3TransactionalSmtpTokensCreateToken Create a SMTP API token.
 
 Create a SMTP API token.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiPostMarketingV3TransactionalSmtpTokensCreateTokenRequest
 */
-func (a *PublicSmtpTokensApiService) PostMarketingV3TransactionalSmtpTokensCreateToken(ctx _context.Context) ApiPostMarketingV3TransactionalSmtpTokensCreateTokenRequest {
+func (a *PublicSmtpTokensApiService) PostMarketingV3TransactionalSmtpTokensCreateToken(ctx context.Context) ApiPostMarketingV3TransactionalSmtpTokensCreateTokenRequest {
 	return ApiPostMarketingV3TransactionalSmtpTokensCreateTokenRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -465,26 +410,27 @@ func (a *PublicSmtpTokensApiService) PostMarketingV3TransactionalSmtpTokensCreat
 
 // Execute executes the request
 //  @return SmtpApiTokenView
-func (a *PublicSmtpTokensApiService) PostMarketingV3TransactionalSmtpTokensCreateTokenExecute(r ApiPostMarketingV3TransactionalSmtpTokensCreateTokenRequest) (SmtpApiTokenView, *_nethttp.Response, error) {
+func (a *PublicSmtpTokensApiService) PostMarketingV3TransactionalSmtpTokensCreateTokenExecute(r ApiPostMarketingV3TransactionalSmtpTokensCreateTokenRequest) (*SmtpApiTokenView, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  SmtpApiTokenView
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SmtpApiTokenView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicSmtpTokensApiService.PostMarketingV3TransactionalSmtpTokensCreateToken")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/marketing/v3/transactional/smtp-tokens"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.smtpApiTokenRequestEgg == nil {
+		return localVarReturnValue, nil, reportError("smtpApiTokenRequestEgg is required and must be specified")
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -505,21 +451,7 @@ func (a *PublicSmtpTokensApiService) PostMarketingV3TransactionalSmtpTokensCreat
 	}
 	// body params
 	localVarPostBody = r.smtpApiTokenRequestEgg
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -529,15 +461,15 @@ func (a *PublicSmtpTokensApiService) PostMarketingV3TransactionalSmtpTokensCreat
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -553,7 +485,7 @@ func (a *PublicSmtpTokensApiService) PostMarketingV3TransactionalSmtpTokensCreat
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -564,12 +496,12 @@ func (a *PublicSmtpTokensApiService) PostMarketingV3TransactionalSmtpTokensCreat
 }
 
 type ApiPostMarketingV3TransactionalSmtpTokensTokenIdPasswordResetResetPasswordRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *PublicSmtpTokensApiService
 	tokenId    string
 }
 
-func (r ApiPostMarketingV3TransactionalSmtpTokensTokenIdPasswordResetResetPasswordRequest) Execute() (SmtpApiTokenView, *_nethttp.Response, error) {
+func (r ApiPostMarketingV3TransactionalSmtpTokensTokenIdPasswordResetResetPasswordRequest) Execute() (*SmtpApiTokenView, *http.Response, error) {
 	return r.ApiService.PostMarketingV3TransactionalSmtpTokensTokenIdPasswordResetResetPasswordExecute(r)
 }
 
@@ -578,11 +510,11 @@ PostMarketingV3TransactionalSmtpTokensTokenIdPasswordResetResetPassword Reset th
 
 Allows the creation of a replacement password for a given token. Once the password is successfully reset, the old password for the token will be invalid.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param tokenId Identifier generated when a token is created.
  @return ApiPostMarketingV3TransactionalSmtpTokensTokenIdPasswordResetResetPasswordRequest
 */
-func (a *PublicSmtpTokensApiService) PostMarketingV3TransactionalSmtpTokensTokenIdPasswordResetResetPassword(ctx _context.Context, tokenId string) ApiPostMarketingV3TransactionalSmtpTokensTokenIdPasswordResetResetPasswordRequest {
+func (a *PublicSmtpTokensApiService) PostMarketingV3TransactionalSmtpTokensTokenIdPasswordResetResetPassword(ctx context.Context, tokenId string) ApiPostMarketingV3TransactionalSmtpTokensTokenIdPasswordResetResetPasswordRequest {
 	return ApiPostMarketingV3TransactionalSmtpTokensTokenIdPasswordResetResetPasswordRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -592,27 +524,25 @@ func (a *PublicSmtpTokensApiService) PostMarketingV3TransactionalSmtpTokensToken
 
 // Execute executes the request
 //  @return SmtpApiTokenView
-func (a *PublicSmtpTokensApiService) PostMarketingV3TransactionalSmtpTokensTokenIdPasswordResetResetPasswordExecute(r ApiPostMarketingV3TransactionalSmtpTokensTokenIdPasswordResetResetPasswordRequest) (SmtpApiTokenView, *_nethttp.Response, error) {
+func (a *PublicSmtpTokensApiService) PostMarketingV3TransactionalSmtpTokensTokenIdPasswordResetResetPasswordExecute(r ApiPostMarketingV3TransactionalSmtpTokensTokenIdPasswordResetResetPasswordRequest) (*SmtpApiTokenView, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  SmtpApiTokenView
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SmtpApiTokenView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicSmtpTokensApiService.PostMarketingV3TransactionalSmtpTokensTokenIdPasswordResetResetPassword")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/marketing/v3/transactional/smtp-tokens/{tokenId}/password-reset"
-	localVarPath = strings.Replace(localVarPath, "{"+"tokenId"+"}", _neturl.PathEscape(parameterToString(r.tokenId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tokenId"+"}", url.PathEscape(parameterToString(r.tokenId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -631,21 +561,7 @@ func (a *PublicSmtpTokensApiService) PostMarketingV3TransactionalSmtpTokensToken
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -655,15 +571,15 @@ func (a *PublicSmtpTokensApiService) PostMarketingV3TransactionalSmtpTokensToken
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -679,7 +595,7 @@ func (a *PublicSmtpTokensApiService) PostMarketingV3TransactionalSmtpTokensToken
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

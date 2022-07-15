@@ -12,27 +12,21 @@ package url_redirects
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // UrlMapping struct for UrlMapping
 type UrlMapping struct {
 	// The unique ID of this URL redirect.
-	Id          int64 `json:"id"`
-	PortalId    int32 `json:"portalId"`
-	Created     int64 `json:"created"`
-	Updated     int64 `json:"updated"`
-	CreatedById int32 `json:"createdById"`
-	UpdatedById int32 `json:"updatedById"`
+	Id string `json:"id"`
 	// The target incoming URL, path, or pattern to match for redirection.
 	RoutePrefix string `json:"routePrefix"`
 	// The destination URL, where the target URL should be redirected if it matches the `routePrefix`.
 	Destination string `json:"destination"`
 	// The type of redirect to create. Options include: 301 (permanent), 302 (temporary), or 305 (proxy). Find more details [here](https://knowledge.hubspot.com/cos-general/how-to-redirect-a-hubspot-page).
-	RedirectStyle  int32 `json:"redirectStyle"`
-	ContentGroupId int64 `json:"contentGroupId"`
+	RedirectStyle int32 `json:"redirectStyle"`
 	// Whether the URL redirect mapping should apply only if a live page on the URL isn't found. If False, the URL redirect mapping will take precedence over any existing page.
 	IsOnlyAfterNotFound bool `json:"isOnlyAfterNotFound"`
-	IsRegex             bool `json:"isRegex"`
 	// Whether the `routePrefix` should match on the entire URL, including the domain.
 	IsMatchFullUrl bool `json:"isMatchFullUrl"`
 	// Whether the `routePrefix` should match on the entire URL path, including the query string.
@@ -42,49 +36,30 @@ type UrlMapping struct {
 	// Whether a trailing slash will be ignored.
 	IsTrailingSlashOptional bool `json:"isTrailingSlashOptional"`
 	// Whether the `routePrefix` should match both HTTP and HTTPS protocols.
-	IsProtocolAgnostic bool   `json:"isProtocolAgnostic"`
-	Name               string `json:"name"`
+	IsProtocolAgnostic bool `json:"isProtocolAgnostic"`
 	// Used to prioritize URL redirection. If a given URL matches more than one redirect, the one with the **lower** precedence will be used.
-	Precedence          int32  `json:"precedence"`
-	DeletedAt           int64  `json:"deletedAt"`
-	Note                string `json:"note"`
-	Label               string `json:"label"`
-	InternallyCreated   bool   `json:"internallyCreated"`
-	CosObjectType       string `json:"cosObjectType"`
-	CdnPurgeEmbargoTime int64  `json:"cdnPurgeEmbargoTime"`
+	Precedence int32      `json:"precedence"`
+	Created    *time.Time `json:"created,omitempty"`
+	Updated    *time.Time `json:"updated,omitempty"`
 }
 
 // NewUrlMapping instantiates a new UrlMapping object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUrlMapping(id int64, portalId int32, created int64, updated int64, createdById int32, updatedById int32, routePrefix string, destination string, redirectStyle int32, contentGroupId int64, isOnlyAfterNotFound bool, isRegex bool, isMatchFullUrl bool, isMatchQueryString bool, isPattern bool, isTrailingSlashOptional bool, isProtocolAgnostic bool, name string, precedence int32, deletedAt int64, note string, label string, internallyCreated bool, cosObjectType string, cdnPurgeEmbargoTime int64) *UrlMapping {
+func NewUrlMapping(id string, routePrefix string, destination string, redirectStyle int32, isOnlyAfterNotFound bool, isMatchFullUrl bool, isMatchQueryString bool, isPattern bool, isTrailingSlashOptional bool, isProtocolAgnostic bool, precedence int32) *UrlMapping {
 	this := UrlMapping{}
 	this.Id = id
-	this.PortalId = portalId
-	this.Created = created
-	this.Updated = updated
-	this.CreatedById = createdById
-	this.UpdatedById = updatedById
 	this.RoutePrefix = routePrefix
 	this.Destination = destination
 	this.RedirectStyle = redirectStyle
-	this.ContentGroupId = contentGroupId
 	this.IsOnlyAfterNotFound = isOnlyAfterNotFound
-	this.IsRegex = isRegex
 	this.IsMatchFullUrl = isMatchFullUrl
 	this.IsMatchQueryString = isMatchQueryString
 	this.IsPattern = isPattern
 	this.IsTrailingSlashOptional = isTrailingSlashOptional
 	this.IsProtocolAgnostic = isProtocolAgnostic
-	this.Name = name
 	this.Precedence = precedence
-	this.DeletedAt = deletedAt
-	this.Note = note
-	this.Label = label
-	this.InternallyCreated = internallyCreated
-	this.CosObjectType = cosObjectType
-	this.CdnPurgeEmbargoTime = cdnPurgeEmbargoTime
 	return &this
 }
 
@@ -97,9 +72,9 @@ func NewUrlMappingWithDefaults() *UrlMapping {
 }
 
 // GetId returns the Id field value
-func (o *UrlMapping) GetId() int64 {
+func (o *UrlMapping) GetId() string {
 	if o == nil {
-		var ret int64
+		var ret string
 		return ret
 	}
 
@@ -108,7 +83,7 @@ func (o *UrlMapping) GetId() int64 {
 
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
-func (o *UrlMapping) GetIdOk() (*int64, bool) {
+func (o *UrlMapping) GetIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -116,128 +91,8 @@ func (o *UrlMapping) GetIdOk() (*int64, bool) {
 }
 
 // SetId sets field value
-func (o *UrlMapping) SetId(v int64) {
+func (o *UrlMapping) SetId(v string) {
 	o.Id = v
-}
-
-// GetPortalId returns the PortalId field value
-func (o *UrlMapping) GetPortalId() int32 {
-	if o == nil {
-		var ret int32
-		return ret
-	}
-
-	return o.PortalId
-}
-
-// GetPortalIdOk returns a tuple with the PortalId field value
-// and a boolean to check if the value has been set.
-func (o *UrlMapping) GetPortalIdOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.PortalId, true
-}
-
-// SetPortalId sets field value
-func (o *UrlMapping) SetPortalId(v int32) {
-	o.PortalId = v
-}
-
-// GetCreated returns the Created field value
-func (o *UrlMapping) GetCreated() int64 {
-	if o == nil {
-		var ret int64
-		return ret
-	}
-
-	return o.Created
-}
-
-// GetCreatedOk returns a tuple with the Created field value
-// and a boolean to check if the value has been set.
-func (o *UrlMapping) GetCreatedOk() (*int64, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Created, true
-}
-
-// SetCreated sets field value
-func (o *UrlMapping) SetCreated(v int64) {
-	o.Created = v
-}
-
-// GetUpdated returns the Updated field value
-func (o *UrlMapping) GetUpdated() int64 {
-	if o == nil {
-		var ret int64
-		return ret
-	}
-
-	return o.Updated
-}
-
-// GetUpdatedOk returns a tuple with the Updated field value
-// and a boolean to check if the value has been set.
-func (o *UrlMapping) GetUpdatedOk() (*int64, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Updated, true
-}
-
-// SetUpdated sets field value
-func (o *UrlMapping) SetUpdated(v int64) {
-	o.Updated = v
-}
-
-// GetCreatedById returns the CreatedById field value
-func (o *UrlMapping) GetCreatedById() int32 {
-	if o == nil {
-		var ret int32
-		return ret
-	}
-
-	return o.CreatedById
-}
-
-// GetCreatedByIdOk returns a tuple with the CreatedById field value
-// and a boolean to check if the value has been set.
-func (o *UrlMapping) GetCreatedByIdOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.CreatedById, true
-}
-
-// SetCreatedById sets field value
-func (o *UrlMapping) SetCreatedById(v int32) {
-	o.CreatedById = v
-}
-
-// GetUpdatedById returns the UpdatedById field value
-func (o *UrlMapping) GetUpdatedById() int32 {
-	if o == nil {
-		var ret int32
-		return ret
-	}
-
-	return o.UpdatedById
-}
-
-// GetUpdatedByIdOk returns a tuple with the UpdatedById field value
-// and a boolean to check if the value has been set.
-func (o *UrlMapping) GetUpdatedByIdOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.UpdatedById, true
-}
-
-// SetUpdatedById sets field value
-func (o *UrlMapping) SetUpdatedById(v int32) {
-	o.UpdatedById = v
 }
 
 // GetRoutePrefix returns the RoutePrefix field value
@@ -312,30 +167,6 @@ func (o *UrlMapping) SetRedirectStyle(v int32) {
 	o.RedirectStyle = v
 }
 
-// GetContentGroupId returns the ContentGroupId field value
-func (o *UrlMapping) GetContentGroupId() int64 {
-	if o == nil {
-		var ret int64
-		return ret
-	}
-
-	return o.ContentGroupId
-}
-
-// GetContentGroupIdOk returns a tuple with the ContentGroupId field value
-// and a boolean to check if the value has been set.
-func (o *UrlMapping) GetContentGroupIdOk() (*int64, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.ContentGroupId, true
-}
-
-// SetContentGroupId sets field value
-func (o *UrlMapping) SetContentGroupId(v int64) {
-	o.ContentGroupId = v
-}
-
 // GetIsOnlyAfterNotFound returns the IsOnlyAfterNotFound field value
 func (o *UrlMapping) GetIsOnlyAfterNotFound() bool {
 	if o == nil {
@@ -358,30 +189,6 @@ func (o *UrlMapping) GetIsOnlyAfterNotFoundOk() (*bool, bool) {
 // SetIsOnlyAfterNotFound sets field value
 func (o *UrlMapping) SetIsOnlyAfterNotFound(v bool) {
 	o.IsOnlyAfterNotFound = v
-}
-
-// GetIsRegex returns the IsRegex field value
-func (o *UrlMapping) GetIsRegex() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.IsRegex
-}
-
-// GetIsRegexOk returns a tuple with the IsRegex field value
-// and a boolean to check if the value has been set.
-func (o *UrlMapping) GetIsRegexOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.IsRegex, true
-}
-
-// SetIsRegex sets field value
-func (o *UrlMapping) SetIsRegex(v bool) {
-	o.IsRegex = v
 }
 
 // GetIsMatchFullUrl returns the IsMatchFullUrl field value
@@ -504,30 +311,6 @@ func (o *UrlMapping) SetIsProtocolAgnostic(v bool) {
 	o.IsProtocolAgnostic = v
 }
 
-// GetName returns the Name field value
-func (o *UrlMapping) GetName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value
-// and a boolean to check if the value has been set.
-func (o *UrlMapping) GetNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Name, true
-}
-
-// SetName sets field value
-func (o *UrlMapping) SetName(v string) {
-	o.Name = v
-}
-
 // GetPrecedence returns the Precedence field value
 func (o *UrlMapping) GetPrecedence() int32 {
 	if o == nil {
@@ -552,169 +335,74 @@ func (o *UrlMapping) SetPrecedence(v int32) {
 	o.Precedence = v
 }
 
-// GetDeletedAt returns the DeletedAt field value
-func (o *UrlMapping) GetDeletedAt() int64 {
-	if o == nil {
-		var ret int64
+// GetCreated returns the Created field value if set, zero value otherwise.
+func (o *UrlMapping) GetCreated() time.Time {
+	if o == nil || o.Created == nil {
+		var ret time.Time
 		return ret
 	}
-
-	return o.DeletedAt
+	return *o.Created
 }
 
-// GetDeletedAtOk returns a tuple with the DeletedAt field value
+// GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UrlMapping) GetDeletedAtOk() (*int64, bool) {
-	if o == nil {
+func (o *UrlMapping) GetCreatedOk() (*time.Time, bool) {
+	if o == nil || o.Created == nil {
 		return nil, false
 	}
-	return &o.DeletedAt, true
+	return o.Created, true
 }
 
-// SetDeletedAt sets field value
-func (o *UrlMapping) SetDeletedAt(v int64) {
-	o.DeletedAt = v
+// HasCreated returns a boolean if a field has been set.
+func (o *UrlMapping) HasCreated() bool {
+	if o != nil && o.Created != nil {
+		return true
+	}
+
+	return false
 }
 
-// GetNote returns the Note field value
-func (o *UrlMapping) GetNote() string {
-	if o == nil {
-		var ret string
+// SetCreated gets a reference to the given time.Time and assigns it to the Created field.
+func (o *UrlMapping) SetCreated(v time.Time) {
+	o.Created = &v
+}
+
+// GetUpdated returns the Updated field value if set, zero value otherwise.
+func (o *UrlMapping) GetUpdated() time.Time {
+	if o == nil || o.Updated == nil {
+		var ret time.Time
 		return ret
 	}
-
-	return o.Note
+	return *o.Updated
 }
 
-// GetNoteOk returns a tuple with the Note field value
+// GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UrlMapping) GetNoteOk() (*string, bool) {
-	if o == nil {
+func (o *UrlMapping) GetUpdatedOk() (*time.Time, bool) {
+	if o == nil || o.Updated == nil {
 		return nil, false
 	}
-	return &o.Note, true
+	return o.Updated, true
 }
 
-// SetNote sets field value
-func (o *UrlMapping) SetNote(v string) {
-	o.Note = v
-}
-
-// GetLabel returns the Label field value
-func (o *UrlMapping) GetLabel() string {
-	if o == nil {
-		var ret string
-		return ret
+// HasUpdated returns a boolean if a field has been set.
+func (o *UrlMapping) HasUpdated() bool {
+	if o != nil && o.Updated != nil {
+		return true
 	}
 
-	return o.Label
+	return false
 }
 
-// GetLabelOk returns a tuple with the Label field value
-// and a boolean to check if the value has been set.
-func (o *UrlMapping) GetLabelOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Label, true
-}
-
-// SetLabel sets field value
-func (o *UrlMapping) SetLabel(v string) {
-	o.Label = v
-}
-
-// GetInternallyCreated returns the InternallyCreated field value
-func (o *UrlMapping) GetInternallyCreated() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.InternallyCreated
-}
-
-// GetInternallyCreatedOk returns a tuple with the InternallyCreated field value
-// and a boolean to check if the value has been set.
-func (o *UrlMapping) GetInternallyCreatedOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.InternallyCreated, true
-}
-
-// SetInternallyCreated sets field value
-func (o *UrlMapping) SetInternallyCreated(v bool) {
-	o.InternallyCreated = v
-}
-
-// GetCosObjectType returns the CosObjectType field value
-func (o *UrlMapping) GetCosObjectType() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.CosObjectType
-}
-
-// GetCosObjectTypeOk returns a tuple with the CosObjectType field value
-// and a boolean to check if the value has been set.
-func (o *UrlMapping) GetCosObjectTypeOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.CosObjectType, true
-}
-
-// SetCosObjectType sets field value
-func (o *UrlMapping) SetCosObjectType(v string) {
-	o.CosObjectType = v
-}
-
-// GetCdnPurgeEmbargoTime returns the CdnPurgeEmbargoTime field value
-func (o *UrlMapping) GetCdnPurgeEmbargoTime() int64 {
-	if o == nil {
-		var ret int64
-		return ret
-	}
-
-	return o.CdnPurgeEmbargoTime
-}
-
-// GetCdnPurgeEmbargoTimeOk returns a tuple with the CdnPurgeEmbargoTime field value
-// and a boolean to check if the value has been set.
-func (o *UrlMapping) GetCdnPurgeEmbargoTimeOk() (*int64, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.CdnPurgeEmbargoTime, true
-}
-
-// SetCdnPurgeEmbargoTime sets field value
-func (o *UrlMapping) SetCdnPurgeEmbargoTime(v int64) {
-	o.CdnPurgeEmbargoTime = v
+// SetUpdated gets a reference to the given time.Time and assigns it to the Updated field.
+func (o *UrlMapping) SetUpdated(v time.Time) {
+	o.Updated = &v
 }
 
 func (o UrlMapping) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
 		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["portalId"] = o.PortalId
-	}
-	if true {
-		toSerialize["created"] = o.Created
-	}
-	if true {
-		toSerialize["updated"] = o.Updated
-	}
-	if true {
-		toSerialize["createdById"] = o.CreatedById
-	}
-	if true {
-		toSerialize["updatedById"] = o.UpdatedById
 	}
 	if true {
 		toSerialize["routePrefix"] = o.RoutePrefix
@@ -726,13 +414,7 @@ func (o UrlMapping) MarshalJSON() ([]byte, error) {
 		toSerialize["redirectStyle"] = o.RedirectStyle
 	}
 	if true {
-		toSerialize["contentGroupId"] = o.ContentGroupId
-	}
-	if true {
 		toSerialize["isOnlyAfterNotFound"] = o.IsOnlyAfterNotFound
-	}
-	if true {
-		toSerialize["isRegex"] = o.IsRegex
 	}
 	if true {
 		toSerialize["isMatchFullUrl"] = o.IsMatchFullUrl
@@ -750,28 +432,13 @@ func (o UrlMapping) MarshalJSON() ([]byte, error) {
 		toSerialize["isProtocolAgnostic"] = o.IsProtocolAgnostic
 	}
 	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
 		toSerialize["precedence"] = o.Precedence
 	}
-	if true {
-		toSerialize["deletedAt"] = o.DeletedAt
+	if o.Created != nil {
+		toSerialize["created"] = o.Created
 	}
-	if true {
-		toSerialize["note"] = o.Note
-	}
-	if true {
-		toSerialize["label"] = o.Label
-	}
-	if true {
-		toSerialize["internallyCreated"] = o.InternallyCreated
-	}
-	if true {
-		toSerialize["cosObjectType"] = o.CosObjectType
-	}
-	if true {
-		toSerialize["cdnPurgeEmbargoTime"] = o.CdnPurgeEmbargoTime
+	if o.Updated != nil {
+		toSerialize["updated"] = o.Updated
 	}
 	return json.Marshal(toSerialize)
 }

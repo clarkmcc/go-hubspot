@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Total** | **int32** |  | 
-**Results** | [**[]VersionBlogPost**](VersionBlogPost.md) |  | 
+**Total** | **int32** | Total number of blog post versions. | 
+**Results** | [**[]VersionBlogPost**](VersionBlogPost.md) | Collection of blog post versions. | 
 **Paging** | Pointer to [**Paging**](Paging.md) |  | [optional] 
 
 ## Methods

@@ -21,14 +21,14 @@ type ExtensionActionDefinitionPatch struct {
 	// Whether this custom action is published to customers.
 	Published *bool `json:"published,omitempty"`
 	// The list of input fields to display in this custom action.
-	InputFields          *[]InputFieldDefinition `json:"inputFields,omitempty"`
-	ObjectRequestOptions *ObjectRequestOptions   `json:"objectRequestOptions,omitempty"`
+	InputFields          []InputFieldDefinition `json:"inputFields,omitempty"`
+	ObjectRequestOptions *ObjectRequestOptions  `json:"objectRequestOptions,omitempty"`
 	// A list of dependencies between the input fields. These configure when the input fields should be visible.
-	InputFieldDependencies *[]OneOfSingleFieldDependencyConditionalSingleFieldDependency `json:"inputFieldDependencies,omitempty"`
+	InputFieldDependencies []ExtensionActionDefinitionInputFieldDependenciesInner `json:"inputFieldDependencies,omitempty"`
 	// The user-facing labels for the custom action.
 	Labels *map[string]ActionLabels `json:"labels,omitempty"`
 	// The object types that this custom action supports.
-	ObjectTypes *[]string `json:"objectTypes,omitempty"`
+	ObjectTypes []string `json:"objectTypes,omitempty"`
 }
 
 // NewExtensionActionDefinitionPatch instantiates a new ExtensionActionDefinitionPatch object
@@ -118,12 +118,12 @@ func (o *ExtensionActionDefinitionPatch) GetInputFields() []InputFieldDefinition
 		var ret []InputFieldDefinition
 		return ret
 	}
-	return *o.InputFields
+	return o.InputFields
 }
 
 // GetInputFieldsOk returns a tuple with the InputFields field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ExtensionActionDefinitionPatch) GetInputFieldsOk() (*[]InputFieldDefinition, bool) {
+func (o *ExtensionActionDefinitionPatch) GetInputFieldsOk() ([]InputFieldDefinition, bool) {
 	if o == nil || o.InputFields == nil {
 		return nil, false
 	}
@@ -141,7 +141,7 @@ func (o *ExtensionActionDefinitionPatch) HasInputFields() bool {
 
 // SetInputFields gets a reference to the given []InputFieldDefinition and assigns it to the InputFields field.
 func (o *ExtensionActionDefinitionPatch) SetInputFields(v []InputFieldDefinition) {
-	o.InputFields = &v
+	o.InputFields = v
 }
 
 // GetObjectRequestOptions returns the ObjectRequestOptions field value if set, zero value otherwise.
@@ -177,17 +177,17 @@ func (o *ExtensionActionDefinitionPatch) SetObjectRequestOptions(v ObjectRequest
 }
 
 // GetInputFieldDependencies returns the InputFieldDependencies field value if set, zero value otherwise.
-func (o *ExtensionActionDefinitionPatch) GetInputFieldDependencies() []OneOfSingleFieldDependencyConditionalSingleFieldDependency {
+func (o *ExtensionActionDefinitionPatch) GetInputFieldDependencies() []ExtensionActionDefinitionInputFieldDependenciesInner {
 	if o == nil || o.InputFieldDependencies == nil {
-		var ret []OneOfSingleFieldDependencyConditionalSingleFieldDependency
+		var ret []ExtensionActionDefinitionInputFieldDependenciesInner
 		return ret
 	}
-	return *o.InputFieldDependencies
+	return o.InputFieldDependencies
 }
 
 // GetInputFieldDependenciesOk returns a tuple with the InputFieldDependencies field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ExtensionActionDefinitionPatch) GetInputFieldDependenciesOk() (*[]OneOfSingleFieldDependencyConditionalSingleFieldDependency, bool) {
+func (o *ExtensionActionDefinitionPatch) GetInputFieldDependenciesOk() ([]ExtensionActionDefinitionInputFieldDependenciesInner, bool) {
 	if o == nil || o.InputFieldDependencies == nil {
 		return nil, false
 	}
@@ -203,9 +203,9 @@ func (o *ExtensionActionDefinitionPatch) HasInputFieldDependencies() bool {
 	return false
 }
 
-// SetInputFieldDependencies gets a reference to the given []OneOfSingleFieldDependencyConditionalSingleFieldDependency and assigns it to the InputFieldDependencies field.
-func (o *ExtensionActionDefinitionPatch) SetInputFieldDependencies(v []OneOfSingleFieldDependencyConditionalSingleFieldDependency) {
-	o.InputFieldDependencies = &v
+// SetInputFieldDependencies gets a reference to the given []ExtensionActionDefinitionInputFieldDependenciesInner and assigns it to the InputFieldDependencies field.
+func (o *ExtensionActionDefinitionPatch) SetInputFieldDependencies(v []ExtensionActionDefinitionInputFieldDependenciesInner) {
+	o.InputFieldDependencies = v
 }
 
 // GetLabels returns the Labels field value if set, zero value otherwise.
@@ -246,12 +246,12 @@ func (o *ExtensionActionDefinitionPatch) GetObjectTypes() []string {
 		var ret []string
 		return ret
 	}
-	return *o.ObjectTypes
+	return o.ObjectTypes
 }
 
 // GetObjectTypesOk returns a tuple with the ObjectTypes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ExtensionActionDefinitionPatch) GetObjectTypesOk() (*[]string, bool) {
+func (o *ExtensionActionDefinitionPatch) GetObjectTypesOk() ([]string, bool) {
 	if o == nil || o.ObjectTypes == nil {
 		return nil, false
 	}
@@ -269,7 +269,7 @@ func (o *ExtensionActionDefinitionPatch) HasObjectTypes() bool {
 
 // SetObjectTypes gets a reference to the given []string and assigns it to the ObjectTypes field.
 func (o *ExtensionActionDefinitionPatch) SetObjectTypes(v []string) {
-	o.ObjectTypes = &v
+	o.ObjectTypes = v
 }
 
 func (o ExtensionActionDefinitionPatch) MarshalJSON() ([]byte, error) {

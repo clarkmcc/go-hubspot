@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** |  | 
 **Properties** | **map[string]string** |  | 
+**PropertiesWithHistory** | Pointer to [**map[string][]ValueWithTimestamp**](array.md) |  | [optional] 
 **CreatedAt** | **time.Time** |  | 
 **UpdatedAt** | **time.Time** |  | 
 **Archived** | Pointer to **bool** |  | [optional] 
@@ -69,6 +70,31 @@ and a boolean to check if the value has been set.
 
 SetProperties sets Properties field to given value.
 
+
+### GetPropertiesWithHistory
+
+`func (o *SimplePublicObject) GetPropertiesWithHistory() map[string][]ValueWithTimestamp`
+
+GetPropertiesWithHistory returns the PropertiesWithHistory field if non-nil, zero value otherwise.
+
+### GetPropertiesWithHistoryOk
+
+`func (o *SimplePublicObject) GetPropertiesWithHistoryOk() (*map[string][]ValueWithTimestamp, bool)`
+
+GetPropertiesWithHistoryOk returns a tuple with the PropertiesWithHistory field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPropertiesWithHistory
+
+`func (o *SimplePublicObject) SetPropertiesWithHistory(v map[string][]ValueWithTimestamp)`
+
+SetPropertiesWithHistory sets PropertiesWithHistory field to given value.
+
+### HasPropertiesWithHistory
+
+`func (o *SimplePublicObject) HasPropertiesWithHistory() bool`
+
+HasPropertiesWithHistory returns a boolean if a field has been set.
 
 ### GetCreatedAt
 

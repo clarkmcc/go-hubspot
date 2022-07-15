@@ -24,8 +24,10 @@ type HubDbTableV3 struct {
 	// Label of the table
 	Label string `json:"label"`
 	// List of columns in the table
-	Columns   *[]Column `json:"columns,omitempty"`
-	Published *bool     `json:"published,omitempty"`
+	Columns   []Column `json:"columns,omitempty"`
+	Published *bool    `json:"published,omitempty"`
+	// Number of columns including deleted
+	ColumnCount *int32 `json:"columnCount,omitempty"`
 	// Number of rows in the table
 	RowCount  *int32      `json:"rowCount,omitempty"`
 	CreatedBy *SimpleUser `json:"createdBy,omitempty"`
@@ -44,8 +46,6 @@ type HubDbTableV3 struct {
 	UseForPages *bool `json:"useForPages,omitempty"`
 	// Specifies creation of multi-level dynamic pages using child tables
 	EnableChildTablePages *bool `json:"enableChildTablePages,omitempty"`
-	// Number of columns including deleted
-	ColumnCount *int32 `json:"columnCount,omitempty"`
 	// Specifies whether child tables can be created
 	AllowChildTables *bool `json:"allowChildTables,omitempty"`
 	// Timestamp at which the table is updated recently
@@ -157,12 +157,12 @@ func (o *HubDbTableV3) GetColumns() []Column {
 		var ret []Column
 		return ret
 	}
-	return *o.Columns
+	return o.Columns
 }
 
 // GetColumnsOk returns a tuple with the Columns field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *HubDbTableV3) GetColumnsOk() (*[]Column, bool) {
+func (o *HubDbTableV3) GetColumnsOk() ([]Column, bool) {
 	if o == nil || o.Columns == nil {
 		return nil, false
 	}
@@ -180,7 +180,7 @@ func (o *HubDbTableV3) HasColumns() bool {
 
 // SetColumns gets a reference to the given []Column and assigns it to the Columns field.
 func (o *HubDbTableV3) SetColumns(v []Column) {
-	o.Columns = &v
+	o.Columns = v
 }
 
 // GetPublished returns the Published field value if set, zero value otherwise.
@@ -213,6 +213,38 @@ func (o *HubDbTableV3) HasPublished() bool {
 // SetPublished gets a reference to the given bool and assigns it to the Published field.
 func (o *HubDbTableV3) SetPublished(v bool) {
 	o.Published = &v
+}
+
+// GetColumnCount returns the ColumnCount field value if set, zero value otherwise.
+func (o *HubDbTableV3) GetColumnCount() int32 {
+	if o == nil || o.ColumnCount == nil {
+		var ret int32
+		return ret
+	}
+	return *o.ColumnCount
+}
+
+// GetColumnCountOk returns a tuple with the ColumnCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *HubDbTableV3) GetColumnCountOk() (*int32, bool) {
+	if o == nil || o.ColumnCount == nil {
+		return nil, false
+	}
+	return o.ColumnCount, true
+}
+
+// HasColumnCount returns a boolean if a field has been set.
+func (o *HubDbTableV3) HasColumnCount() bool {
+	if o != nil && o.ColumnCount != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetColumnCount gets a reference to the given int32 and assigns it to the ColumnCount field.
+func (o *HubDbTableV3) SetColumnCount(v int32) {
+	o.ColumnCount = &v
 }
 
 // GetRowCount returns the RowCount field value if set, zero value otherwise.
@@ -535,38 +567,6 @@ func (o *HubDbTableV3) SetEnableChildTablePages(v bool) {
 	o.EnableChildTablePages = &v
 }
 
-// GetColumnCount returns the ColumnCount field value if set, zero value otherwise.
-func (o *HubDbTableV3) GetColumnCount() int32 {
-	if o == nil || o.ColumnCount == nil {
-		var ret int32
-		return ret
-	}
-	return *o.ColumnCount
-}
-
-// GetColumnCountOk returns a tuple with the ColumnCount field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *HubDbTableV3) GetColumnCountOk() (*int32, bool) {
-	if o == nil || o.ColumnCount == nil {
-		return nil, false
-	}
-	return o.ColumnCount, true
-}
-
-// HasColumnCount returns a boolean if a field has been set.
-func (o *HubDbTableV3) HasColumnCount() bool {
-	if o != nil && o.ColumnCount != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetColumnCount gets a reference to the given int32 and assigns it to the ColumnCount field.
-func (o *HubDbTableV3) SetColumnCount(v int32) {
-	o.ColumnCount = &v
-}
-
 // GetAllowChildTables returns the AllowChildTables field value if set, zero value otherwise.
 func (o *HubDbTableV3) GetAllowChildTables() bool {
 	if o == nil || o.AllowChildTables == nil {
@@ -648,6 +648,9 @@ func (o HubDbTableV3) MarshalJSON() ([]byte, error) {
 	if o.Published != nil {
 		toSerialize["published"] = o.Published
 	}
+	if o.ColumnCount != nil {
+		toSerialize["columnCount"] = o.ColumnCount
+	}
 	if o.RowCount != nil {
 		toSerialize["rowCount"] = o.RowCount
 	}
@@ -677,9 +680,6 @@ func (o HubDbTableV3) MarshalJSON() ([]byte, error) {
 	}
 	if o.EnableChildTablePages != nil {
 		toSerialize["enableChildTablePages"] = o.EnableChildTablePages
-	}
-	if o.ColumnCount != nil {
-		toSerialize["columnCount"] = o.ColumnCount
 	}
 	if o.AllowChildTables != nil {
 		toSerialize["allowChildTables"] = o.AllowChildTables

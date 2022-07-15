@@ -35,8 +35,8 @@ func main() {
     accountId := "accountId_example" // string | The ID of the account that the invoice belongs to. This is the account ID from the external accounting system.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.InvoiceApi.GetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetById(context.Background(), invoiceId).AccountId(accountId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.InvoiceApi.GetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetById(context.Background(), invoiceId).AccountId(accountId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `InvoiceApi.GetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetById``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -70,7 +70,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -108,8 +108,8 @@ func main() {
     invoiceUpdateRequest := *openapiclient.NewInvoiceUpdateRequest() // InvoiceUpdateRequest | The invoice data to update
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.InvoiceApi.PatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdate(context.Background(), invoiceId).AccountId(accountId).InvoiceUpdateRequest(invoiceUpdateRequest).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.InvoiceApi.PatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdate(context.Background(), invoiceId).AccountId(accountId).InvoiceUpdateRequest(invoiceUpdateRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `InvoiceApi.PatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -144,7 +144,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -183,8 +183,8 @@ func main() {
     accountId := "accountId_example" // string | The ID of the account that the invoice belongs to. This is the account ID from the external accounting system. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.InvoiceApi.PostCrmV3ExtensionsAccountingInvoiceInvoiceIdPaymentCreatePayment(context.Background(), invoiceId).InvoiceCreatePaymentRequest(invoiceCreatePaymentRequest).AccountId(accountId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.InvoiceApi.PostCrmV3ExtensionsAccountingInvoiceInvoiceIdPaymentCreatePayment(context.Background(), invoiceId).InvoiceCreatePaymentRequest(invoiceCreatePaymentRequest).AccountId(accountId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `InvoiceApi.PostCrmV3ExtensionsAccountingInvoiceInvoiceIdPaymentCreatePayment``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -219,7 +219,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 

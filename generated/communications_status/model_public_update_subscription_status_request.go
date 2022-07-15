@@ -18,9 +18,9 @@ import (
 type PublicUpdateSubscriptionStatusRequest struct {
 	// Contact's email address.
 	EmailAddress string `json:"emailAddress"`
-	// ID of the subscription the contact is being resubscribed to.
+	// ID of the subscription being updated for the contact.
 	SubscriptionId string `json:"subscriptionId"`
-	// Legal basis for resubscribing the contact (required for GDPR enabled portals).
+	// Legal basis for updating the contact's status (required for GDPR enabled portals).
 	LegalBasis *string `json:"legalBasis,omitempty"`
 	// A more detailed explanation to go with the legal basis (required for GDPR enabled portals).
 	LegalBasisExplanation *string `json:"legalBasisExplanation,omitempty"`

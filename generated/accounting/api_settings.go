@@ -12,30 +12,23 @@ package accounting
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-
-	"github.com/clarkmcc/go-hubspot/authorization"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // SettingsApiService SettingsApi service
 type SettingsApiService service
 
 type ApiGetCrmV3ExtensionsAccountingSettingsAppIdGetByIdRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *SettingsApiService
 	appId      int32
 }
 
-func (r ApiGetCrmV3ExtensionsAccountingSettingsAppIdGetByIdRequest) Execute() (AccountingAppSettings, *_nethttp.Response, error) {
+func (r ApiGetCrmV3ExtensionsAccountingSettingsAppIdGetByIdRequest) Execute() (*AccountingAppSettings, *http.Response, error) {
 	return r.ApiService.GetCrmV3ExtensionsAccountingSettingsAppIdGetByIdExecute(r)
 }
 
@@ -44,11 +37,11 @@ GetCrmV3ExtensionsAccountingSettingsAppIdGetById Get URL settings
 
 Returns the URL settings for an accounting app with the specified ID.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param appId The ID of the accounting app. This is the identifier of the application created in your HubSpot developer portal.
  @return ApiGetCrmV3ExtensionsAccountingSettingsAppIdGetByIdRequest
 */
-func (a *SettingsApiService) GetCrmV3ExtensionsAccountingSettingsAppIdGetById(ctx _context.Context, appId int32) ApiGetCrmV3ExtensionsAccountingSettingsAppIdGetByIdRequest {
+func (a *SettingsApiService) GetCrmV3ExtensionsAccountingSettingsAppIdGetById(ctx context.Context, appId int32) ApiGetCrmV3ExtensionsAccountingSettingsAppIdGetByIdRequest {
 	return ApiGetCrmV3ExtensionsAccountingSettingsAppIdGetByIdRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -58,27 +51,25 @@ func (a *SettingsApiService) GetCrmV3ExtensionsAccountingSettingsAppIdGetById(ct
 
 // Execute executes the request
 //  @return AccountingAppSettings
-func (a *SettingsApiService) GetCrmV3ExtensionsAccountingSettingsAppIdGetByIdExecute(r ApiGetCrmV3ExtensionsAccountingSettingsAppIdGetByIdRequest) (AccountingAppSettings, *_nethttp.Response, error) {
+func (a *SettingsApiService) GetCrmV3ExtensionsAccountingSettingsAppIdGetByIdExecute(r ApiGetCrmV3ExtensionsAccountingSettingsAppIdGetByIdRequest) (*AccountingAppSettings, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  AccountingAppSettings
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AccountingAppSettings
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsApiService.GetCrmV3ExtensionsAccountingSettingsAppIdGetById")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/extensions/accounting/settings/{appId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", _neturl.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -97,21 +88,7 @@ func (a *SettingsApiService) GetCrmV3ExtensionsAccountingSettingsAppIdGetByIdExe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -121,15 +98,15 @@ func (a *SettingsApiService) GetCrmV3ExtensionsAccountingSettingsAppIdGetByIdExe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -145,7 +122,7 @@ func (a *SettingsApiService) GetCrmV3ExtensionsAccountingSettingsAppIdGetByIdExe
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -156,7 +133,7 @@ func (a *SettingsApiService) GetCrmV3ExtensionsAccountingSettingsAppIdGetByIdExe
 }
 
 type ApiPutCrmV3ExtensionsAccountingSettingsAppIdReplaceRequest struct {
-	ctx                   _context.Context
+	ctx                   context.Context
 	ApiService            *SettingsApiService
 	appId                 int32
 	accountingAppSettings *AccountingAppSettings
@@ -167,7 +144,7 @@ func (r ApiPutCrmV3ExtensionsAccountingSettingsAppIdReplaceRequest) AccountingAp
 	return r
 }
 
-func (r ApiPutCrmV3ExtensionsAccountingSettingsAppIdReplaceRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiPutCrmV3ExtensionsAccountingSettingsAppIdReplaceRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PutCrmV3ExtensionsAccountingSettingsAppIdReplaceExecute(r)
 }
 
@@ -176,11 +153,11 @@ PutCrmV3ExtensionsAccountingSettingsAppIdReplace Add/Update URL Settings
 
 Add/Update the URL settings for an accounting app with the specified ID.  All URLs must use the `https` protocol.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param appId The ID of the accounting app. This is the identifier of the application created in your HubSpot developer portal.
  @return ApiPutCrmV3ExtensionsAccountingSettingsAppIdReplaceRequest
 */
-func (a *SettingsApiService) PutCrmV3ExtensionsAccountingSettingsAppIdReplace(ctx _context.Context, appId int32) ApiPutCrmV3ExtensionsAccountingSettingsAppIdReplaceRequest {
+func (a *SettingsApiService) PutCrmV3ExtensionsAccountingSettingsAppIdReplace(ctx context.Context, appId int32) ApiPutCrmV3ExtensionsAccountingSettingsAppIdReplaceRequest {
 	return ApiPutCrmV3ExtensionsAccountingSettingsAppIdReplaceRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -189,26 +166,24 @@ func (a *SettingsApiService) PutCrmV3ExtensionsAccountingSettingsAppIdReplace(ct
 }
 
 // Execute executes the request
-func (a *SettingsApiService) PutCrmV3ExtensionsAccountingSettingsAppIdReplaceExecute(r ApiPutCrmV3ExtensionsAccountingSettingsAppIdReplaceRequest) (*_nethttp.Response, error) {
+func (a *SettingsApiService) PutCrmV3ExtensionsAccountingSettingsAppIdReplaceExecute(r ApiPutCrmV3ExtensionsAccountingSettingsAppIdReplaceRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsApiService.PutCrmV3ExtensionsAccountingSettingsAppIdReplace")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/extensions/accounting/settings/{appId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", _neturl.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.accountingAppSettings == nil {
 		return nil, reportError("accountingAppSettings is required and must be specified")
 	}
@@ -232,21 +207,7 @@ func (a *SettingsApiService) PutCrmV3ExtensionsAccountingSettingsAppIdReplaceExe
 	}
 	// body params
 	localVarPostBody = r.accountingAppSettings
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -256,15 +217,15 @@ func (a *SettingsApiService) PutCrmV3ExtensionsAccountingSettingsAppIdReplaceExe
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}

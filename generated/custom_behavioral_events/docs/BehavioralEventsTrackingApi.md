@@ -32,8 +32,8 @@ func main() {
     behavioralEventHttpCompletionRequest := *openapiclient.NewBehavioralEventHttpCompletionRequest("EventName_example", map[string]string{"key": "Inner_example"}) // BehavioralEventHttpCompletionRequest | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.BehavioralEventsTrackingApi.PostEventsV3Send(context.Background()).BehavioralEventHttpCompletionRequest(behavioralEventHttpCompletionRequest).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.BehavioralEventsTrackingApi.PostEventsV3Send(context.Background()).BehavioralEventHttpCompletionRequest(behavioralEventHttpCompletionRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `BehavioralEventsTrackingApi.PostEventsV3Send``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -60,7 +60,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 

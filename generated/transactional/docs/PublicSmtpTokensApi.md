@@ -36,8 +36,8 @@ func main() {
     tokenId := "tokenId_example" // string | Identifier generated when a token is created.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.PublicSmtpTokensApi.DeleteMarketingV3TransactionalSmtpTokensTokenIdArchiveToken(context.Background(), tokenId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.PublicSmtpTokensApi.DeleteMarketingV3TransactionalSmtpTokensTokenIdArchiveToken(context.Background(), tokenId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PublicSmtpTokensApi.DeleteMarketingV3TransactionalSmtpTokensTokenIdArchiveToken``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -68,7 +68,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -82,7 +82,7 @@ Name | Type | Description  | Notes
 
 ## GetMarketingV3TransactionalSmtpTokensGetTokensPage
 
-> CollectionResponseSmtpApiTokenView GetMarketingV3TransactionalSmtpTokensGetTokensPage(ctx).CampaignName(campaignName).EmailCampaignId(emailCampaignId).After(after).Limit(limit).Execute()
+> CollectionResponseSmtpApiTokenViewForwardPaging GetMarketingV3TransactionalSmtpTokensGetTokensPage(ctx).CampaignName(campaignName).EmailCampaignId(emailCampaignId).After(after).Limit(limit).Execute()
 
 Query SMTP API tokens by campaign name or an emailCampaignId.
 
@@ -107,13 +107,13 @@ func main() {
     limit := int32(56) // int32 | Maximum number of tokens to return. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.PublicSmtpTokensApi.GetMarketingV3TransactionalSmtpTokensGetTokensPage(context.Background()).CampaignName(campaignName).EmailCampaignId(emailCampaignId).After(after).Limit(limit).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.PublicSmtpTokensApi.GetMarketingV3TransactionalSmtpTokensGetTokensPage(context.Background()).CampaignName(campaignName).EmailCampaignId(emailCampaignId).After(after).Limit(limit).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PublicSmtpTokensApi.GetMarketingV3TransactionalSmtpTokensGetTokensPage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetMarketingV3TransactionalSmtpTokensGetTokensPage`: CollectionResponseSmtpApiTokenView
+    // response from `GetMarketingV3TransactionalSmtpTokensGetTokensPage`: CollectionResponseSmtpApiTokenViewForwardPaging
     fmt.Fprintf(os.Stdout, "Response from `PublicSmtpTokensApi.GetMarketingV3TransactionalSmtpTokensGetTokensPage`: %v\n", resp)
 }
 ```
@@ -136,11 +136,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CollectionResponseSmtpApiTokenView**](CollectionResponseSmtpApiTokenView.md)
+[**CollectionResponseSmtpApiTokenViewForwardPaging**](CollectionResponseSmtpApiTokenViewForwardPaging.md)
 
 ### Authorization
 
-[hapikey](../README.md#hapikey)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -176,8 +176,8 @@ func main() {
     tokenId := "tokenId_example" // string | Identifier generated when a token is created.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.PublicSmtpTokensApi.GetMarketingV3TransactionalSmtpTokensTokenIdGetTokenById(context.Background(), tokenId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.PublicSmtpTokensApi.GetMarketingV3TransactionalSmtpTokensTokenIdGetTokenById(context.Background(), tokenId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PublicSmtpTokensApi.GetMarketingV3TransactionalSmtpTokensTokenIdGetTokenById``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -210,7 +210,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -243,11 +243,11 @@ import (
 )
 
 func main() {
-    smtpApiTokenRequestEgg := *openapiclient.NewSmtpApiTokenRequestEgg(false, "CampaignName_example") // SmtpApiTokenRequestEgg | A request object that includes the campaign name tied to the token and whether contacts should be created for recipients of emails. (optional)
+    smtpApiTokenRequestEgg := *openapiclient.NewSmtpApiTokenRequestEgg(false, "CampaignName_example") // SmtpApiTokenRequestEgg | A request object that includes the campaign name tied to the token and whether contacts should be created for email recipients.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.PublicSmtpTokensApi.PostMarketingV3TransactionalSmtpTokensCreateToken(context.Background()).SmtpApiTokenRequestEgg(smtpApiTokenRequestEgg).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.PublicSmtpTokensApi.PostMarketingV3TransactionalSmtpTokensCreateToken(context.Background()).SmtpApiTokenRequestEgg(smtpApiTokenRequestEgg).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PublicSmtpTokensApi.PostMarketingV3TransactionalSmtpTokensCreateToken``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -268,7 +268,7 @@ Other parameters are passed through a pointer to a apiPostMarketingV3Transaction
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **smtpApiTokenRequestEgg** | [**SmtpApiTokenRequestEgg**](SmtpApiTokenRequestEgg.md) | A request object that includes the campaign name tied to the token and whether contacts should be created for recipients of emails. | 
+ **smtpApiTokenRequestEgg** | [**SmtpApiTokenRequestEgg**](SmtpApiTokenRequestEgg.md) | A request object that includes the campaign name tied to the token and whether contacts should be created for email recipients. | 
 
 ### Return type
 
@@ -276,7 +276,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -312,8 +312,8 @@ func main() {
     tokenId := "tokenId_example" // string | Identifier generated when a token is created.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.PublicSmtpTokensApi.PostMarketingV3TransactionalSmtpTokensTokenIdPasswordResetResetPassword(context.Background(), tokenId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.PublicSmtpTokensApi.PostMarketingV3TransactionalSmtpTokensTokenIdPasswordResetResetPassword(context.Background(), tokenId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PublicSmtpTokensApi.PostMarketingV3TransactionalSmtpTokensTokenIdPasswordResetResetPassword``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -346,7 +346,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 

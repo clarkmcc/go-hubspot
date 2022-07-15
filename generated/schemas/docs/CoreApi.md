@@ -39,8 +39,8 @@ func main() {
     archived := true // bool | Whether to return only results that have been archived. (optional) (default to false)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CoreApi.DeleteCrmObjectSchemasV3SchemasObjectTypeArchive(context.Background(), objectType).Archived(archived).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CoreApi.DeleteCrmObjectSchemasV3SchemasObjectTypeArchive(context.Background(), objectType).Archived(archived).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CoreApi.DeleteCrmObjectSchemasV3SchemasObjectTypeArchive``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -72,7 +72,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey)
+No authorization required
 
 ### HTTP request headers
 
@@ -109,8 +109,8 @@ func main() {
     associationIdentifier := "associationIdentifier_example" // string | Unique ID of the association to remove.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CoreApi.DeleteCrmObjectSchemasV3SchemasObjectTypeAssociationsAssociationIdentifierArchiveAssociation(context.Background(), objectType, associationIdentifier).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CoreApi.DeleteCrmObjectSchemasV3SchemasObjectTypeAssociationsAssociationIdentifierArchiveAssociation(context.Background(), objectType, associationIdentifier).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CoreApi.DeleteCrmObjectSchemasV3SchemasObjectTypeAssociationsAssociationIdentifierArchiveAssociation``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -143,7 +143,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey)
+No authorization required
 
 ### HTTP request headers
 
@@ -179,8 +179,8 @@ func main() {
     archived := true // bool | Whether to return only results that have been archived. (optional) (default to false)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CoreApi.GetCrmObjectSchemasV3SchemasGetAll(context.Background()).Archived(archived).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CoreApi.GetCrmObjectSchemasV3SchemasGetAll(context.Background()).Archived(archived).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CoreApi.GetCrmObjectSchemasV3SchemasGetAll``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -209,7 +209,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -245,8 +245,8 @@ func main() {
     objectType := "objectType_example" // string | Fully qualified name or object type ID of your schema.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CoreApi.GetCrmObjectSchemasV3SchemasObjectTypeGetById(context.Background(), objectType).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CoreApi.GetCrmObjectSchemasV3SchemasObjectTypeGetById(context.Background(), objectType).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CoreApi.GetCrmObjectSchemasV3SchemasObjectTypeGetById``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -279,7 +279,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -316,8 +316,8 @@ func main() {
     objectTypeDefinitionPatch := *openapiclient.NewObjectTypeDefinitionPatch() // ObjectTypeDefinitionPatch | Attributes to update in your schema.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CoreApi.PatchCrmObjectSchemasV3SchemasObjectTypeUpdate(context.Background(), objectType).ObjectTypeDefinitionPatch(objectTypeDefinitionPatch).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CoreApi.PatchCrmObjectSchemasV3SchemasObjectTypeUpdate(context.Background(), objectType).ObjectTypeDefinitionPatch(objectTypeDefinitionPatch).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CoreApi.PatchCrmObjectSchemasV3SchemasObjectTypeUpdate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -351,7 +351,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey)
+No authorization required
 
 ### HTTP request headers
 
@@ -387,8 +387,8 @@ func main() {
     objectSchemaEgg := *openapiclient.NewObjectSchemaEgg(*openapiclient.NewObjectTypeDefinitionLabels(), []string{"RequiredProperties_example"}, []string{"SearchableProperties_example"}, []string{"SecondaryDisplayProperties_example"}, []openapiclient.ObjectTypePropertyCreate{*openapiclient.NewObjectTypePropertyCreate("Name_example", "Label_example", "Type_example", "FieldType_example")}, []string{"AssociatedObjects_example"}, "Name_example") // ObjectSchemaEgg | Object schema definition, including properties and associations.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CoreApi.PostCrmObjectSchemasV3SchemasCreate(context.Background()).ObjectSchemaEgg(objectSchemaEgg).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CoreApi.PostCrmObjectSchemasV3SchemasCreate(context.Background()).ObjectSchemaEgg(objectSchemaEgg).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CoreApi.PostCrmObjectSchemasV3SchemasCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -417,7 +417,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey)
+No authorization required
 
 ### HTTP request headers
 
@@ -454,8 +454,8 @@ func main() {
     associationDefinitionEgg := *openapiclient.NewAssociationDefinitionEgg("FromObjectTypeId_example", "ToObjectTypeId_example") // AssociationDefinitionEgg | Attributes that define the association.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CoreApi.PostCrmObjectSchemasV3SchemasObjectTypeAssociationsCreateAssociation(context.Background(), objectType).AssociationDefinitionEgg(associationDefinitionEgg).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CoreApi.PostCrmObjectSchemasV3SchemasObjectTypeAssociationsCreateAssociation(context.Background(), objectType).AssociationDefinitionEgg(associationDefinitionEgg).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CoreApi.PostCrmObjectSchemasV3SchemasObjectTypeAssociationsCreateAssociation``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -489,7 +489,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey)
+No authorization required
 
 ### HTTP request headers
 

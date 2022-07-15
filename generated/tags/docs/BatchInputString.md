@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Inputs** | **[]string** |  | 
+**Inputs** | **[]string** | Strings to input. | 
 
 ## Methods
 

@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Stages** | [**[]PipelineStageInput**](PipelineStageInput.md) | Pipeline stage inputs used to create the new or replacement pipeline. | 
 **Label** | **string** | A unique label used to organize pipelines in HubSpot&#39;s UI | 
 **DisplayOrder** | **int32** | The order for displaying this pipeline. If two pipelines have a matching &#x60;displayOrder&#x60;, they will be sorted alphabetically by label. | 
+**Stages** | [**[]PipelineStageInput**](PipelineStageInput.md) | Pipeline stage inputs used to create the new or replacement pipeline. | 
 
 ## Methods
 
 ### NewPipelineInput
 
-`func NewPipelineInput(stages []PipelineStageInput, label string, displayOrder int32, ) *PipelineInput`
+`func NewPipelineInput(label string, displayOrder int32, stages []PipelineStageInput, ) *PipelineInput`
 
 NewPipelineInput instantiates a new PipelineInput object
 This constructor will assign default values to properties that have it defined,
@@ -26,26 +26,6 @@ will change when the set of required properties is changed
 NewPipelineInputWithDefaults instantiates a new PipelineInput object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetStages
-
-`func (o *PipelineInput) GetStages() []PipelineStageInput`
-
-GetStages returns the Stages field if non-nil, zero value otherwise.
-
-### GetStagesOk
-
-`func (o *PipelineInput) GetStagesOk() (*[]PipelineStageInput, bool)`
-
-GetStagesOk returns a tuple with the Stages field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetStages
-
-`func (o *PipelineInput) SetStages(v []PipelineStageInput)`
-
-SetStages sets Stages field to given value.
-
 
 ### GetLabel
 
@@ -85,6 +65,26 @@ and a boolean to check if the value has been set.
 `func (o *PipelineInput) SetDisplayOrder(v int32)`
 
 SetDisplayOrder sets DisplayOrder field to given value.
+
+
+### GetStages
+
+`func (o *PipelineInput) GetStages() []PipelineStageInput`
+
+GetStages returns the Stages field if non-nil, zero value otherwise.
+
+### GetStagesOk
+
+`func (o *PipelineInput) GetStagesOk() (*[]PipelineStageInput, bool)`
+
+GetStagesOk returns a tuple with the Stages field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStages
+
+`func (o *PipelineInput) SetStages(v []PipelineStageInput)`
+
+SetStages sets Stages field to given value.
 
 
 

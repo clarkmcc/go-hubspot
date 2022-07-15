@@ -49,11 +49,11 @@ func (o *BatchInputSubscriptionBatchUpdateRequest) GetInputs() []SubscriptionBat
 
 // GetInputsOk returns a tuple with the Inputs field value
 // and a boolean to check if the value has been set.
-func (o *BatchInputSubscriptionBatchUpdateRequest) GetInputsOk() (*[]SubscriptionBatchUpdateRequest, bool) {
+func (o *BatchInputSubscriptionBatchUpdateRequest) GetInputsOk() ([]SubscriptionBatchUpdateRequest, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Inputs, true
+	return o.Inputs, true
 }
 
 // SetInputs sets field value

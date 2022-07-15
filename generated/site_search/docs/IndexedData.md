@@ -6,13 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | The ID of the document in HubSpot. | 
 **Type** | **string** | The type of document. Can be &#x60;SITE_PAGE&#x60;, &#x60;LANDING_PAGE&#x60;, &#x60;BLOG_POST&#x60;, &#x60;LISTING_PAGE&#x60;, or &#x60;KNOWLEDGE_ARTICLE&#x60;. | 
-**Fields** | [**map[string]SearchHitField**](SearchHitField.md) | The indexed fields in HubSpot. | 
+**Fields** | [**map[string]IndexedField**](IndexedField.md) | The indexed fields in HubSpot. | 
 
 ## Methods
 
 ### NewIndexedData
 
-`func NewIndexedData(id string, type_ string, fields map[string]SearchHitField, ) *IndexedData`
+`func NewIndexedData(id string, type_ string, fields map[string]IndexedField, ) *IndexedData`
 
 NewIndexedData instantiates a new IndexedData object
 This constructor will assign default values to properties that have it defined,
@@ -69,20 +69,20 @@ SetType sets Type field to given value.
 
 ### GetFields
 
-`func (o *IndexedData) GetFields() map[string]SearchHitField`
+`func (o *IndexedData) GetFields() map[string]IndexedField`
 
 GetFields returns the Fields field if non-nil, zero value otherwise.
 
 ### GetFieldsOk
 
-`func (o *IndexedData) GetFieldsOk() (*map[string]SearchHitField, bool)`
+`func (o *IndexedData) GetFieldsOk() (*map[string]IndexedField, bool)`
 
 GetFieldsOk returns a tuple with the Fields field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFields
 
-`func (o *IndexedData) SetFields(v map[string]SearchHitField)`
+`func (o *IndexedData) SetFields(v map[string]IndexedField)`
 
 SetFields sets Fields field to given value.
 

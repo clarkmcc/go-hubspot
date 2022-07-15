@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Properties** | **[]string** |  | 
+**PropertiesWithHistory** | **[]string** |  | 
 **IdProperty** | Pointer to **string** |  | [optional] 
 **Inputs** | [**[]SimplePublicObjectId**](SimplePublicObjectId.md) |  | 
 
@@ -12,7 +13,7 @@ Name | Type | Description | Notes
 
 ### NewBatchReadInputSimplePublicObjectId
 
-`func NewBatchReadInputSimplePublicObjectId(properties []string, inputs []SimplePublicObjectId, ) *BatchReadInputSimplePublicObjectId`
+`func NewBatchReadInputSimplePublicObjectId(properties []string, propertiesWithHistory []string, inputs []SimplePublicObjectId, ) *BatchReadInputSimplePublicObjectId`
 
 NewBatchReadInputSimplePublicObjectId instantiates a new BatchReadInputSimplePublicObjectId object
 This constructor will assign default values to properties that have it defined,
@@ -45,6 +46,26 @@ and a boolean to check if the value has been set.
 `func (o *BatchReadInputSimplePublicObjectId) SetProperties(v []string)`
 
 SetProperties sets Properties field to given value.
+
+
+### GetPropertiesWithHistory
+
+`func (o *BatchReadInputSimplePublicObjectId) GetPropertiesWithHistory() []string`
+
+GetPropertiesWithHistory returns the PropertiesWithHistory field if non-nil, zero value otherwise.
+
+### GetPropertiesWithHistoryOk
+
+`func (o *BatchReadInputSimplePublicObjectId) GetPropertiesWithHistoryOk() (*[]string, bool)`
+
+GetPropertiesWithHistoryOk returns a tuple with the PropertiesWithHistory field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPropertiesWithHistory
+
+`func (o *BatchReadInputSimplePublicObjectId) SetPropertiesWithHistory(v []string)`
+
+SetPropertiesWithHistory sets PropertiesWithHistory field to given value.
 
 
 ### GetIdProperty

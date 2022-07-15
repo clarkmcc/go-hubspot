@@ -6,13 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** |  | 
 **Name** | **string** |  | 
-**Membership** | Pointer to **string** |  | [optional] 
+**Primary** | **bool** |  | 
 
 ## Methods
 
 ### NewPublicTeam
 
-`func NewPublicTeam(id string, name string, ) *PublicTeam`
+`func NewPublicTeam(id string, name string, primary bool, ) *PublicTeam`
 
 NewPublicTeam instantiates a new PublicTeam object
 This constructor will assign default values to properties that have it defined,
@@ -67,30 +67,25 @@ and a boolean to check if the value has been set.
 SetName sets Name field to given value.
 
 
-### GetMembership
+### GetPrimary
 
-`func (o *PublicTeam) GetMembership() string`
+`func (o *PublicTeam) GetPrimary() bool`
 
-GetMembership returns the Membership field if non-nil, zero value otherwise.
+GetPrimary returns the Primary field if non-nil, zero value otherwise.
 
-### GetMembershipOk
+### GetPrimaryOk
 
-`func (o *PublicTeam) GetMembershipOk() (*string, bool)`
+`func (o *PublicTeam) GetPrimaryOk() (*bool, bool)`
 
-GetMembershipOk returns a tuple with the Membership field if it's non-nil, zero value otherwise
+GetPrimaryOk returns a tuple with the Primary field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetMembership
+### SetPrimary
 
-`func (o *PublicTeam) SetMembership(v string)`
+`func (o *PublicTeam) SetPrimary(v bool)`
 
-SetMembership sets Membership field to given value.
+SetPrimary sets Primary field to given value.
 
-### HasMembership
-
-`func (o *PublicTeam) HasMembership() bool`
-
-HasMembership returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

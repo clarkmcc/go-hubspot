@@ -12,44 +12,39 @@ package source_code
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-
-	"github.com/clarkmcc/go-hubspot/authorization"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // ExtractApiService ExtractApi service
 type ExtractApiService service
 
-type ApiPostCmsV3SourceCodeExtractPathRequest struct {
-	ctx        _context.Context
+type ApiPostCmsV3SourceCodeExtractPathExtractByPathRequest struct {
+	ctx        context.Context
 	ApiService *ExtractApiService
 	path       string
 }
 
-func (r ApiPostCmsV3SourceCodeExtractPathRequest) Execute() (*_nethttp.Response, error) {
-	return r.ApiService.PostCmsV3SourceCodeExtractPathExecute(r)
+func (r ApiPostCmsV3SourceCodeExtractPathExtractByPathRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostCmsV3SourceCodeExtractPathExtractByPathExecute(r)
 }
 
 /*
-PostCmsV3SourceCodeExtractPath Extracts a zip file
+PostCmsV3SourceCodeExtractPathExtractByPath Extracts a zip file
 
 Extracts a zip file in the file system. The zip file will be extracted in-place and not be deleted automatically.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param path The file system location of the zip file.
- @return ApiPostCmsV3SourceCodeExtractPathRequest
+ @return ApiPostCmsV3SourceCodeExtractPathExtractByPathRequest
+
+Deprecated
 */
-func (a *ExtractApiService) PostCmsV3SourceCodeExtractPath(ctx _context.Context, path string) ApiPostCmsV3SourceCodeExtractPathRequest {
-	return ApiPostCmsV3SourceCodeExtractPathRequest{
+func (a *ExtractApiService) PostCmsV3SourceCodeExtractPathExtractByPath(ctx context.Context, path string) ApiPostCmsV3SourceCodeExtractPathExtractByPathRequest {
+	return ApiPostCmsV3SourceCodeExtractPathExtractByPathRequest{
 		ApiService: a,
 		ctx:        ctx,
 		path:       path,
@@ -57,26 +52,25 @@ func (a *ExtractApiService) PostCmsV3SourceCodeExtractPath(ctx _context.Context,
 }
 
 // Execute executes the request
-func (a *ExtractApiService) PostCmsV3SourceCodeExtractPathExecute(r ApiPostCmsV3SourceCodeExtractPathRequest) (*_nethttp.Response, error) {
+// Deprecated
+func (a *ExtractApiService) PostCmsV3SourceCodeExtractPathExtractByPathExecute(r ApiPostCmsV3SourceCodeExtractPathExtractByPathRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExtractApiService.PostCmsV3SourceCodeExtractPath")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExtractApiService.PostCmsV3SourceCodeExtractPathExtractByPath")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/cms/v3/source-code/extract/{path}"
-	localVarPath = strings.Replace(localVarPath, "{"+"path"+"}", _neturl.PathEscape(parameterToString(r.path, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"path"+"}", url.PathEscape(parameterToString(r.path, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -95,21 +89,7 @@ func (a *ExtractApiService) PostCmsV3SourceCodeExtractPathExecute(r ApiPostCmsV3
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -119,15 +99,15 @@ func (a *ExtractApiService) PostCmsV3SourceCodeExtractPathExecute(r ApiPostCmsV3
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}

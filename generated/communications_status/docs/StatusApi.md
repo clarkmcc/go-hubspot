@@ -34,8 +34,8 @@ func main() {
     emailAddress := "emailAddress_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.StatusApi.GetCommunicationPreferencesV3StatusEmailEmailAddressGetEmailStatus(context.Background(), emailAddress).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.StatusApi.GetCommunicationPreferencesV3StatusEmailEmailAddressGetEmailStatus(context.Background(), emailAddress).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `StatusApi.GetCommunicationPreferencesV3StatusEmailEmailAddressGetEmailStatus``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -68,7 +68,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -104,8 +104,8 @@ func main() {
     publicUpdateSubscriptionStatusRequest := *openapiclient.NewPublicUpdateSubscriptionStatusRequest("EmailAddress_example", "SubscriptionId_example") // PublicUpdateSubscriptionStatusRequest | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.StatusApi.PostCommunicationPreferencesV3SubscribeSubscribe(context.Background()).PublicUpdateSubscriptionStatusRequest(publicUpdateSubscriptionStatusRequest).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.StatusApi.PostCommunicationPreferencesV3SubscribeSubscribe(context.Background()).PublicUpdateSubscriptionStatusRequest(publicUpdateSubscriptionStatusRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `StatusApi.PostCommunicationPreferencesV3SubscribeSubscribe``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -134,7 +134,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -170,8 +170,8 @@ func main() {
     publicUpdateSubscriptionStatusRequest := *openapiclient.NewPublicUpdateSubscriptionStatusRequest("EmailAddress_example", "SubscriptionId_example") // PublicUpdateSubscriptionStatusRequest | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.StatusApi.PostCommunicationPreferencesV3UnsubscribeUnsubscribe(context.Background()).PublicUpdateSubscriptionStatusRequest(publicUpdateSubscriptionStatusRequest).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.StatusApi.PostCommunicationPreferencesV3UnsubscribeUnsubscribe(context.Background()).PublicUpdateSubscriptionStatusRequest(publicUpdateSubscriptionStatusRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `StatusApi.PostCommunicationPreferencesV3UnsubscribeUnsubscribe``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -200,7 +200,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 

@@ -1,7 +1,7 @@
 /*
 CRM Owners
 
-HubSpot uses **owners** to assign CRM objects to specific people in your organization. The endpoints described here are used to get a list of the owners that are available for an account. To assign an owner to an object, set the hubspot_owner_id property using the appropriate CRM object update or create a request.  If teams are available for your HubSpot tier, these endpoints will also indicate which team an owner belongs to. Team membership can be one of PRIMARY (default), SECONDARY, or CHILD.
+HubSpot uses **owners** to assign CRM objects to specific people in your organization. The endpoints described here are used to get a list of the owners that are available for an account. To assign an owner to an object, set the hubspot_owner_id property using the appropriate CRM object update or create a request.  If teams are available for your HubSpot tier, these endpoints will also indicate which team(s) an owner can access, as well as which team is the owner's primary team.
 
 API version: v3
 */
@@ -12,25 +12,18 @@ package owners
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-
-	"github.com/clarkmcc/go-hubspot/authorization"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // OwnersApiService OwnersApi service
 type OwnersApiService service
 
 type ApiGetCrmV3OwnersGetPageRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *OwnersApiService
 	email      *string
 	after      *string
@@ -62,17 +55,17 @@ func (r ApiGetCrmV3OwnersGetPageRequest) Archived(archived bool) ApiGetCrmV3Owne
 	return r
 }
 
-func (r ApiGetCrmV3OwnersGetPageRequest) Execute() (CollectionResponsePublicOwnerForwardPaging, *_nethttp.Response, error) {
+func (r ApiGetCrmV3OwnersGetPageRequest) Execute() (*CollectionResponsePublicOwnerForwardPaging, *http.Response, error) {
 	return r.ApiService.GetCrmV3OwnersGetPageExecute(r)
 }
 
 /*
 GetCrmV3OwnersGetPage Get a page of owners
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetCrmV3OwnersGetPageRequest
 */
-func (a *OwnersApiService) GetCrmV3OwnersGetPage(ctx _context.Context) ApiGetCrmV3OwnersGetPageRequest {
+func (a *OwnersApiService) GetCrmV3OwnersGetPage(ctx context.Context) ApiGetCrmV3OwnersGetPageRequest {
 	return ApiGetCrmV3OwnersGetPageRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -81,26 +74,24 @@ func (a *OwnersApiService) GetCrmV3OwnersGetPage(ctx _context.Context) ApiGetCrm
 
 // Execute executes the request
 //  @return CollectionResponsePublicOwnerForwardPaging
-func (a *OwnersApiService) GetCrmV3OwnersGetPageExecute(r ApiGetCrmV3OwnersGetPageRequest) (CollectionResponsePublicOwnerForwardPaging, *_nethttp.Response, error) {
+func (a *OwnersApiService) GetCrmV3OwnersGetPageExecute(r ApiGetCrmV3OwnersGetPageRequest) (*CollectionResponsePublicOwnerForwardPaging, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  CollectionResponsePublicOwnerForwardPaging
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CollectionResponsePublicOwnerForwardPaging
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OwnersApiService.GetCrmV3OwnersGetPage")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/owners/"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.email != nil {
 		localVarQueryParams.Add("email", parameterToString(*r.email, ""))
@@ -131,21 +122,7 @@ func (a *OwnersApiService) GetCrmV3OwnersGetPageExecute(r ApiGetCrmV3OwnersGetPa
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -155,15 +132,15 @@ func (a *OwnersApiService) GetCrmV3OwnersGetPageExecute(r ApiGetCrmV3OwnersGetPa
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -179,7 +156,7 @@ func (a *OwnersApiService) GetCrmV3OwnersGetPageExecute(r ApiGetCrmV3OwnersGetPa
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -190,7 +167,7 @@ func (a *OwnersApiService) GetCrmV3OwnersGetPageExecute(r ApiGetCrmV3OwnersGetPa
 }
 
 type ApiGetCrmV3OwnersOwnerIdGetByIdRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *OwnersApiService
 	ownerId    int32
 	idProperty *string
@@ -208,18 +185,18 @@ func (r ApiGetCrmV3OwnersOwnerIdGetByIdRequest) Archived(archived bool) ApiGetCr
 	return r
 }
 
-func (r ApiGetCrmV3OwnersOwnerIdGetByIdRequest) Execute() (PublicOwner, *_nethttp.Response, error) {
+func (r ApiGetCrmV3OwnersOwnerIdGetByIdRequest) Execute() (*PublicOwner, *http.Response, error) {
 	return r.ApiService.GetCrmV3OwnersOwnerIdGetByIdExecute(r)
 }
 
 /*
 GetCrmV3OwnersOwnerIdGetById Read an owner by given `id` or `userId`
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param ownerId
  @return ApiGetCrmV3OwnersOwnerIdGetByIdRequest
 */
-func (a *OwnersApiService) GetCrmV3OwnersOwnerIdGetById(ctx _context.Context, ownerId int32) ApiGetCrmV3OwnersOwnerIdGetByIdRequest {
+func (a *OwnersApiService) GetCrmV3OwnersOwnerIdGetById(ctx context.Context, ownerId int32) ApiGetCrmV3OwnersOwnerIdGetByIdRequest {
 	return ApiGetCrmV3OwnersOwnerIdGetByIdRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -229,27 +206,25 @@ func (a *OwnersApiService) GetCrmV3OwnersOwnerIdGetById(ctx _context.Context, ow
 
 // Execute executes the request
 //  @return PublicOwner
-func (a *OwnersApiService) GetCrmV3OwnersOwnerIdGetByIdExecute(r ApiGetCrmV3OwnersOwnerIdGetByIdRequest) (PublicOwner, *_nethttp.Response, error) {
+func (a *OwnersApiService) GetCrmV3OwnersOwnerIdGetByIdExecute(r ApiGetCrmV3OwnersOwnerIdGetByIdRequest) (*PublicOwner, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  PublicOwner
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PublicOwner
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OwnersApiService.GetCrmV3OwnersOwnerIdGetById")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/owners/{ownerId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"ownerId"+"}", _neturl.PathEscape(parameterToString(r.ownerId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"ownerId"+"}", url.PathEscape(parameterToString(r.ownerId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.idProperty != nil {
 		localVarQueryParams.Add("idProperty", parameterToString(*r.idProperty, ""))
@@ -274,21 +249,7 @@ func (a *OwnersApiService) GetCrmV3OwnersOwnerIdGetByIdExecute(r ApiGetCrmV3Owne
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -298,15 +259,15 @@ func (a *OwnersApiService) GetCrmV3OwnersOwnerIdGetByIdExecute(r ApiGetCrmV3Owne
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -322,7 +283,7 @@ func (a *OwnersApiService) GetCrmV3OwnersOwnerIdGetByIdExecute(r ApiGetCrmV3Owne
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

@@ -76,11 +76,11 @@ func (o *CollectionResponseWithTotalHubDbTableV3ForwardPaging) GetResults() []Hu
 
 // GetResultsOk returns a tuple with the Results field value
 // and a boolean to check if the value has been set.
-func (o *CollectionResponseWithTotalHubDbTableV3ForwardPaging) GetResultsOk() (*[]HubDbTableV3, bool) {
+func (o *CollectionResponseWithTotalHubDbTableV3ForwardPaging) GetResultsOk() ([]HubDbTableV3, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Results, true
+	return o.Results, true
 }
 
 // SetResults sets field value

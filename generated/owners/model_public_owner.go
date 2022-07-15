@@ -1,7 +1,7 @@
 /*
 CRM Owners
 
-HubSpot uses **owners** to assign CRM objects to specific people in your organization. The endpoints described here are used to get a list of the owners that are available for an account. To assign an owner to an object, set the hubspot_owner_id property using the appropriate CRM object update or create a request.  If teams are available for your HubSpot tier, these endpoints will also indicate which team an owner belongs to. Team membership can be one of PRIMARY (default), SECONDARY, or CHILD.
+HubSpot uses **owners** to assign CRM objects to specific people in your organization. The endpoints described here are used to get a list of the owners that are available for an account. To assign an owner to an object, set the hubspot_owner_id property using the appropriate CRM object update or create a request.  If teams are available for your HubSpot tier, these endpoints will also indicate which team(s) an owner can access, as well as which team is the owner's primary team.
 
 API version: v3
 */
@@ -17,15 +17,15 @@ import (
 
 // PublicOwner struct for PublicOwner
 type PublicOwner struct {
-	Id        string        `json:"id"`
-	Email     *string       `json:"email,omitempty"`
-	FirstName *string       `json:"firstName,omitempty"`
-	LastName  *string       `json:"lastName,omitempty"`
-	UserId    *int32        `json:"userId,omitempty"`
-	CreatedAt time.Time     `json:"createdAt"`
-	UpdatedAt time.Time     `json:"updatedAt"`
-	Archived  bool          `json:"archived"`
-	Teams     *[]PublicTeam `json:"teams,omitempty"`
+	Id        string       `json:"id"`
+	Email     *string      `json:"email,omitempty"`
+	FirstName *string      `json:"firstName,omitempty"`
+	LastName  *string      `json:"lastName,omitempty"`
+	UserId    *int32       `json:"userId,omitempty"`
+	CreatedAt time.Time    `json:"createdAt"`
+	UpdatedAt time.Time    `json:"updatedAt"`
+	Archived  bool         `json:"archived"`
+	Teams     []PublicTeam `json:"teams,omitempty"`
 }
 
 // NewPublicOwner instantiates a new PublicOwner object
@@ -279,12 +279,12 @@ func (o *PublicOwner) GetTeams() []PublicTeam {
 		var ret []PublicTeam
 		return ret
 	}
-	return *o.Teams
+	return o.Teams
 }
 
 // GetTeamsOk returns a tuple with the Teams field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PublicOwner) GetTeamsOk() (*[]PublicTeam, bool) {
+func (o *PublicOwner) GetTeamsOk() ([]PublicTeam, bool) {
 	if o == nil || o.Teams == nil {
 		return nil, false
 	}
@@ -302,7 +302,7 @@ func (o *PublicOwner) HasTeams() bool {
 
 // SetTeams gets a reference to the given []PublicTeam and assigns it to the Teams field.
 func (o *PublicOwner) SetTeams(v []PublicTeam) {
-	o.Teams = &v
+	o.Teams = v
 }
 
 func (o PublicOwner) MarshalJSON() ([]byte, error) {

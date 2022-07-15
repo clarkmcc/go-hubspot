@@ -16,18 +16,18 @@ import (
 
 // ErrorCategory struct for ErrorCategory
 type ErrorCategory struct {
-	HttpStatus string `json:"httpStatus"`
 	Name       string `json:"name"`
+	HttpStatus string `json:"httpStatus"`
 }
 
 // NewErrorCategory instantiates a new ErrorCategory object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewErrorCategory(httpStatus string, name string) *ErrorCategory {
+func NewErrorCategory(name string, httpStatus string) *ErrorCategory {
 	this := ErrorCategory{}
-	this.HttpStatus = httpStatus
 	this.Name = name
+	this.HttpStatus = httpStatus
 	return &this
 }
 
@@ -37,30 +37,6 @@ func NewErrorCategory(httpStatus string, name string) *ErrorCategory {
 func NewErrorCategoryWithDefaults() *ErrorCategory {
 	this := ErrorCategory{}
 	return &this
-}
-
-// GetHttpStatus returns the HttpStatus field value
-func (o *ErrorCategory) GetHttpStatus() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.HttpStatus
-}
-
-// GetHttpStatusOk returns a tuple with the HttpStatus field value
-// and a boolean to check if the value has been set.
-func (o *ErrorCategory) GetHttpStatusOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.HttpStatus, true
-}
-
-// SetHttpStatus sets field value
-func (o *ErrorCategory) SetHttpStatus(v string) {
-	o.HttpStatus = v
 }
 
 // GetName returns the Name field value
@@ -87,13 +63,37 @@ func (o *ErrorCategory) SetName(v string) {
 	o.Name = v
 }
 
+// GetHttpStatus returns the HttpStatus field value
+func (o *ErrorCategory) GetHttpStatus() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.HttpStatus
+}
+
+// GetHttpStatusOk returns a tuple with the HttpStatus field value
+// and a boolean to check if the value has been set.
+func (o *ErrorCategory) GetHttpStatusOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.HttpStatus, true
+}
+
+// SetHttpStatus sets field value
+func (o *ErrorCategory) SetHttpStatus(v string) {
+	o.HttpStatus = v
+}
+
 func (o ErrorCategory) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["httpStatus"] = o.HttpStatus
+		toSerialize["name"] = o.Name
 	}
 	if true {
-		toSerialize["name"] = o.Name
+		toSerialize["httpStatus"] = o.HttpStatus
 	}
 	return json.Marshal(toSerialize)
 }

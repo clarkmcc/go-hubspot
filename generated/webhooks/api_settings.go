@@ -12,43 +12,34 @@ package webhooks
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-
-	"github.com/clarkmcc/go-hubspot/authorization"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // SettingsApiService SettingsApi service
 type SettingsApiService service
 
 type ApiDeleteWebhooksV3AppIdSettingsClearRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *SettingsApiService
 	appId      int32
 }
 
-func (r ApiDeleteWebhooksV3AppIdSettingsClearRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeleteWebhooksV3AppIdSettingsClearRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteWebhooksV3AppIdSettingsClearExecute(r)
 }
 
 /*
-DeleteWebhooksV3AppIdSettingsClear Clear webhook settings
+DeleteWebhooksV3AppIdSettingsClear Method for DeleteWebhooksV3AppIdSettingsClear
 
-Resets webhook target URL to empty, and max concurrency limit to `0` for the given app. This will effectively pause all webhook subscriptions until new settings are provided.
-
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId The ID of the target app.
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param appId
  @return ApiDeleteWebhooksV3AppIdSettingsClearRequest
 */
-func (a *SettingsApiService) DeleteWebhooksV3AppIdSettingsClear(ctx _context.Context, appId int32) ApiDeleteWebhooksV3AppIdSettingsClearRequest {
+func (a *SettingsApiService) DeleteWebhooksV3AppIdSettingsClear(ctx context.Context, appId int32) ApiDeleteWebhooksV3AppIdSettingsClearRequest {
 	return ApiDeleteWebhooksV3AppIdSettingsClearRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -57,26 +48,24 @@ func (a *SettingsApiService) DeleteWebhooksV3AppIdSettingsClear(ctx _context.Con
 }
 
 // Execute executes the request
-func (a *SettingsApiService) DeleteWebhooksV3AppIdSettingsClearExecute(r ApiDeleteWebhooksV3AppIdSettingsClearRequest) (*_nethttp.Response, error) {
+func (a *SettingsApiService) DeleteWebhooksV3AppIdSettingsClearExecute(r ApiDeleteWebhooksV3AppIdSettingsClearRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsApiService.DeleteWebhooksV3AppIdSettingsClear")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/webhooks/v3/{appId}/settings"
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", _neturl.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -98,7 +87,7 @@ func (a *SettingsApiService) DeleteWebhooksV3AppIdSettingsClearExecute(r ApiDele
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
+			if apiKey, ok := auth["developer_hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -109,7 +98,7 @@ func (a *SettingsApiService) DeleteWebhooksV3AppIdSettingsClearExecute(r ApiDele
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -119,15 +108,15 @@ func (a *SettingsApiService) DeleteWebhooksV3AppIdSettingsClearExecute(r ApiDele
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -145,25 +134,23 @@ func (a *SettingsApiService) DeleteWebhooksV3AppIdSettingsClearExecute(r ApiDele
 }
 
 type ApiGetWebhooksV3AppIdSettingsGetAllRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *SettingsApiService
 	appId      int32
 }
 
-func (r ApiGetWebhooksV3AppIdSettingsGetAllRequest) Execute() (SettingsResponse, *_nethttp.Response, error) {
+func (r ApiGetWebhooksV3AppIdSettingsGetAllRequest) Execute() (*SettingsResponse, *http.Response, error) {
 	return r.ApiService.GetWebhooksV3AppIdSettingsGetAllExecute(r)
 }
 
 /*
-GetWebhooksV3AppIdSettingsGetAll Get webhook settings
+GetWebhooksV3AppIdSettingsGetAll Method for GetWebhooksV3AppIdSettingsGetAll
 
-Returns the current state of webhook settings for the given app. These settings include the app's configured target URL and max concurrency limit.
-
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId The ID of the target app.
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param appId
  @return ApiGetWebhooksV3AppIdSettingsGetAllRequest
 */
-func (a *SettingsApiService) GetWebhooksV3AppIdSettingsGetAll(ctx _context.Context, appId int32) ApiGetWebhooksV3AppIdSettingsGetAllRequest {
+func (a *SettingsApiService) GetWebhooksV3AppIdSettingsGetAll(ctx context.Context, appId int32) ApiGetWebhooksV3AppIdSettingsGetAllRequest {
 	return ApiGetWebhooksV3AppIdSettingsGetAllRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -173,27 +160,25 @@ func (a *SettingsApiService) GetWebhooksV3AppIdSettingsGetAll(ctx _context.Conte
 
 // Execute executes the request
 //  @return SettingsResponse
-func (a *SettingsApiService) GetWebhooksV3AppIdSettingsGetAllExecute(r ApiGetWebhooksV3AppIdSettingsGetAllRequest) (SettingsResponse, *_nethttp.Response, error) {
+func (a *SettingsApiService) GetWebhooksV3AppIdSettingsGetAllExecute(r ApiGetWebhooksV3AppIdSettingsGetAllRequest) (*SettingsResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  SettingsResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SettingsResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsApiService.GetWebhooksV3AppIdSettingsGetAll")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/webhooks/v3/{appId}/settings"
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", _neturl.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -215,7 +200,7 @@ func (a *SettingsApiService) GetWebhooksV3AppIdSettingsGetAllExecute(r ApiGetWeb
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
+			if apiKey, ok := auth["developer_hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -226,7 +211,7 @@ func (a *SettingsApiService) GetWebhooksV3AppIdSettingsGetAllExecute(r ApiGetWeb
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -236,15 +221,15 @@ func (a *SettingsApiService) GetWebhooksV3AppIdSettingsGetAllExecute(r ApiGetWeb
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -260,7 +245,7 @@ func (a *SettingsApiService) GetWebhooksV3AppIdSettingsGetAllExecute(r ApiGetWeb
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -271,32 +256,29 @@ func (a *SettingsApiService) GetWebhooksV3AppIdSettingsGetAllExecute(r ApiGetWeb
 }
 
 type ApiPutWebhooksV3AppIdSettingsConfigureRequest struct {
-	ctx                   _context.Context
+	ctx                   context.Context
 	ApiService            *SettingsApiService
 	appId                 int32
 	settingsChangeRequest *SettingsChangeRequest
 }
 
-// Settings state to create new with or replace existing settings with.
 func (r ApiPutWebhooksV3AppIdSettingsConfigureRequest) SettingsChangeRequest(settingsChangeRequest SettingsChangeRequest) ApiPutWebhooksV3AppIdSettingsConfigureRequest {
 	r.settingsChangeRequest = &settingsChangeRequest
 	return r
 }
 
-func (r ApiPutWebhooksV3AppIdSettingsConfigureRequest) Execute() (SettingsResponse, *_nethttp.Response, error) {
+func (r ApiPutWebhooksV3AppIdSettingsConfigureRequest) Execute() (*SettingsResponse, *http.Response, error) {
 	return r.ApiService.PutWebhooksV3AppIdSettingsConfigureExecute(r)
 }
 
 /*
-PutWebhooksV3AppIdSettingsConfigure Configure webhook settings
+PutWebhooksV3AppIdSettingsConfigure Method for PutWebhooksV3AppIdSettingsConfigure
 
-Used to set the webhook target URL and max concurrency limit for the given app.
-
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId The ID of the target app.
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param appId
  @return ApiPutWebhooksV3AppIdSettingsConfigureRequest
 */
-func (a *SettingsApiService) PutWebhooksV3AppIdSettingsConfigure(ctx _context.Context, appId int32) ApiPutWebhooksV3AppIdSettingsConfigureRequest {
+func (a *SettingsApiService) PutWebhooksV3AppIdSettingsConfigure(ctx context.Context, appId int32) ApiPutWebhooksV3AppIdSettingsConfigureRequest {
 	return ApiPutWebhooksV3AppIdSettingsConfigureRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -306,27 +288,25 @@ func (a *SettingsApiService) PutWebhooksV3AppIdSettingsConfigure(ctx _context.Co
 
 // Execute executes the request
 //  @return SettingsResponse
-func (a *SettingsApiService) PutWebhooksV3AppIdSettingsConfigureExecute(r ApiPutWebhooksV3AppIdSettingsConfigureRequest) (SettingsResponse, *_nethttp.Response, error) {
+func (a *SettingsApiService) PutWebhooksV3AppIdSettingsConfigureExecute(r ApiPutWebhooksV3AppIdSettingsConfigureRequest) (*SettingsResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  SettingsResponse
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SettingsResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsApiService.PutWebhooksV3AppIdSettingsConfigure")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/webhooks/v3/{appId}/settings"
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", _neturl.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.settingsChangeRequest == nil {
 		return localVarReturnValue, nil, reportError("settingsChangeRequest is required and must be specified")
 	}
@@ -353,7 +333,7 @@ func (a *SettingsApiService) PutWebhooksV3AppIdSettingsConfigureExecute(r ApiPut
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
+			if apiKey, ok := auth["developer_hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -364,7 +344,7 @@ func (a *SettingsApiService) PutWebhooksV3AppIdSettingsConfigureExecute(r ApiPut
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -374,15 +354,15 @@ func (a *SettingsApiService) PutWebhooksV3AppIdSettingsConfigureExecute(r ApiPut
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -398,7 +378,7 @@ func (a *SettingsApiService) PutWebhooksV3AppIdSettingsConfigureExecute(r ApiPut
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

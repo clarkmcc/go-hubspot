@@ -1,21 +1,21 @@
 openapi: 3.0.1
 info:
-  description: |-
-    CRM objects such as companies, contacts, deals, line items, products, tickets, and quotes are standard objects in HubSpot’s CRM. These core building blocks support custom properties, store critical information, and play a central role in the HubSpot application.
-
-    ## Supported Object Types
-
-    This API provides access to collections of CRM objects, which return a map of property names to values. Each object type has its own set of default properties, which can be found by exploring the [CRM Object Properties API](https://developers.hubspot.com/docs/methods/crm-properties/crm-properties-overview).
-
-    |Object Type |Properties returned by default |
-    |--|--|
-    | `companies` | `name`, `domain` |
-    | `contacts` | `firstname`, `lastname`, `email` |
-    | `deals` | `dealname`, `amount`, `closedate`, `pipeline`, `dealstage` |
-    | `products` | `name`, `description`, `price` |
-    | `tickets` | `content`, `hs_pipeline`, `hs_pipeline_stage`, `hs_ticket_category`, `hs_ticket_priority`, `subject` |
-
-    Find a list of all properties for an object type using the [CRM Object Properties](https://developers.hubspot.com/docs/methods/crm-properties/get-properties) API. e.g. `GET https://api.hubapi.com/properties/v2/companies/properties`. Change the properties returned in the response using the `properties` array in the request body.
+  description: "CRM objects such as companies, contacts, deals, line items, products,\
+    \ tickets, and quotes are standard objects in HubSpot’s CRM. These core building\
+    \ blocks support custom properties, store critical information, and play a central\
+    \ role in the HubSpot application.\n\n## Supported Object Types\n\nThis API provides\
+    \ access to collections of CRM objects, which return a map of property names to\
+    \ values. Each object type has its own set of default properties, which can be\
+    \ found by exploring the [CRM Object Properties API](https://developers.hubspot.com/docs/methods/crm-properties/crm-properties-overview).\n\
+    \n|Object Type |Properties returned by default |\n|--|--|\n| `companies` | `name`,\
+    \ `domain` |\n| `contacts` | `firstname`, `lastname`, `email` |\n| `deals` | `dealname`,\
+    \ `amount`, `closedate`, `pipeline`, `dealstage` |\n| `products` | `name`, `description`,\
+    \ `price` |\n| `tickets` | `content`, `hs_pipeline`, `hs_pipeline_stage`, `hs_ticket_category`,\
+    \ `hs_ticket_priority`, `subject` |\n\nFind a list of all properties for an object\
+    \ type using the [CRM Object Properties](https://developers.hubspot.com/docs/methods/crm-properties/get-properties)\
+    \ API. e.g. `GET https://api.hubapi.com/properties/v2/companies/properties`. Change\
+    \ the properties returned in the response using the `properties` array in the\
+    \ request body."
   title: CRM Objects
   version: v3
 servers:
@@ -26,12 +26,13 @@ tags:
 - name: Batch
 - name: GDPR
 - name: Search
+- name: Public_Object
 paths:
   /crm/v3/objects/{objectType}:
     get:
       description: Read a page of objects. Control what is returned via the `properties`
         query param.
-      operationId: get-/crm/v3/objects/{objectType}_getPage
+      operationId: "get-/crm/v3/objects/{objectType}_getPage"
       parameters:
       - explode: false
         in: path
@@ -60,9 +61,9 @@ paths:
         schema:
           type: string
         style: form
-      - description: A comma separated list of the properties to be returned in the
-          response. If any of the specified properties are not present on the requested
-          object(s), they will be ignored.
+      - description: "A comma separated list of the properties to be returned in the\
+          \ response. If any of the specified properties are not present on the requested\
+          \ object(s), they will be ignored."
         explode: true
         in: query
         name: properties
@@ -72,9 +73,23 @@ paths:
             type: string
           type: array
         style: form
-      - description: A comma separated list of object types to retrieve associated
-          IDs for. If any of the specified associations do not exist, they will be
-          ignored.
+      - description: "A comma separated list of the properties to be returned along\
+          \ with their history of previous values. If any of the specified properties\
+          \ are not present on the requested object(s), they will be ignored. Usage\
+          \ of this parameter will reduce the maximum number of objects that can be\
+          \ read by a single request."
+        explode: true
+        in: query
+        name: propertiesWithHistory
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: "A comma separated list of object types to retrieve associated\
+          \ IDs for. If any of the specified associations do not exist, they will\
+          \ be ignored."
         explode: true
         in: query
         name: associations
@@ -107,25 +122,32 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - oauth2_legacy:
-        - media_bridge.read
+      - oauth2:
+        - crm.objects.quotes.write
       - oauth2_legacy:
         - tickets
+      - oauth2_legacy:
+        - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
-      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
       - oauth2:
         - crm.objects.deals.read
       - oauth2_legacy:
         - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
       - oauth2:
         - crm.objects.deals.write
       - oauth2:
         - crm.objects.companies.read
       - oauth2_legacy:
         - e-commerce
+      - oauth2:
+        - crm.objects.quotes.read
       - oauth2_legacy:
         - contacts
       - oauth2_legacy:
@@ -136,10 +158,10 @@ paths:
       tags:
       - Basic
     post:
-      description: Create a CRM object with the given properties and return a copy
-        of the object, including the ID. Documentation and examples for creating standard
-        objects is provided.
-      operationId: post-/crm/v3/objects/{objectType}_create
+      description: "Create a CRM object with the given properties and return a copy\
+        \ of the object, including the ID. Documentation and examples for creating\
+        \ standard objects is provided."
+      operationId: "post-/crm/v3/objects/{objectType}_create"
       parameters:
       - explode: false
         in: path
@@ -168,25 +190,32 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - oauth2_legacy:
-        - media_bridge.read
+      - oauth2:
+        - crm.objects.quotes.write
       - oauth2_legacy:
         - tickets
+      - oauth2_legacy:
+        - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
-      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
       - oauth2:
         - crm.objects.deals.read
       - oauth2_legacy:
         - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
       - oauth2:
         - crm.objects.deals.write
       - oauth2:
         - crm.objects.companies.read
       - oauth2_legacy:
         - e-commerce
+      - oauth2:
+        - crm.objects.quotes.read
       - oauth2_legacy:
         - contacts
       - oauth2_legacy:
@@ -198,7 +227,7 @@ paths:
       - Basic
   /crm/v3/objects/{objectType}/batch/archive:
     post:
-      operationId: post-/crm/v3/objects/{objectType}/batch/archive_archive
+      operationId: "post-/crm/v3/objects/{objectType}/batch/archive_archive"
       parameters:
       - explode: false
         in: path
@@ -224,25 +253,32 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - oauth2_legacy:
-        - media_bridge.read
+      - oauth2:
+        - crm.objects.quotes.write
       - oauth2_legacy:
         - tickets
+      - oauth2_legacy:
+        - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
-      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
       - oauth2:
         - crm.objects.deals.read
       - oauth2_legacy:
         - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
       - oauth2:
         - crm.objects.deals.write
       - oauth2:
         - crm.objects.companies.read
       - oauth2_legacy:
         - e-commerce
+      - oauth2:
+        - crm.objects.quotes.read
       - oauth2_legacy:
         - contacts
       - oauth2_legacy:
@@ -254,7 +290,7 @@ paths:
       - Batch
   /crm/v3/objects/{objectType}/batch/create:
     post:
-      operationId: post-/crm/v3/objects/{objectType}/batch/create_create
+      operationId: "post-/crm/v3/objects/{objectType}/batch/create_create"
       parameters:
       - explode: false
         in: path
@@ -289,25 +325,32 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - oauth2_legacy:
-        - media_bridge.read
+      - oauth2:
+        - crm.objects.quotes.write
       - oauth2_legacy:
         - tickets
+      - oauth2_legacy:
+        - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
-      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
       - oauth2:
         - crm.objects.deals.read
       - oauth2_legacy:
         - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
       - oauth2:
         - crm.objects.deals.write
       - oauth2:
         - crm.objects.companies.read
       - oauth2_legacy:
         - e-commerce
+      - oauth2:
+        - crm.objects.quotes.read
       - oauth2_legacy:
         - contacts
       - oauth2_legacy:
@@ -319,7 +362,7 @@ paths:
       - Batch
   /crm/v3/objects/{objectType}/batch/read:
     post:
-      operationId: post-/crm/v3/objects/{objectType}/batch/read_read
+      operationId: "post-/crm/v3/objects/{objectType}/batch/read_read"
       parameters:
       - explode: false
         in: path
@@ -363,37 +406,44 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - oauth2_legacy:
-        - media_bridge.read
+      - oauth2:
+        - crm.objects.quotes.write
       - oauth2_legacy:
         - tickets
+      - oauth2_legacy:
+        - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
-      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
       - oauth2:
         - crm.objects.deals.read
       - oauth2_legacy:
         - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
       - oauth2:
         - crm.objects.deals.write
       - oauth2:
         - crm.objects.companies.read
       - oauth2_legacy:
         - e-commerce
+      - oauth2:
+        - crm.objects.quotes.read
       - oauth2_legacy:
         - contacts
       - oauth2_legacy:
         - crm.objects.custom.write
       - oauth2:
         - crm.objects.companies.write
-      summary: Read a batch of objects by internal ID, or unique property values
+      summary: "Read a batch of objects by internal ID, or unique property values"
       tags:
       - Batch
   /crm/v3/objects/{objectType}/batch/update:
     post:
-      operationId: post-/crm/v3/objects/{objectType}/batch/update_update
+      operationId: "post-/crm/v3/objects/{objectType}/batch/update_update"
       parameters:
       - explode: false
         in: path
@@ -428,25 +478,32 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - oauth2_legacy:
-        - media_bridge.read
+      - oauth2:
+        - crm.objects.quotes.write
       - oauth2_legacy:
         - tickets
+      - oauth2_legacy:
+        - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
-      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
       - oauth2:
         - crm.objects.deals.read
       - oauth2_legacy:
         - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
       - oauth2:
         - crm.objects.deals.write
       - oauth2:
         - crm.objects.companies.read
       - oauth2_legacy:
         - e-commerce
+      - oauth2:
+        - crm.objects.quotes.read
       - oauth2_legacy:
         - contacts
       - oauth2_legacy:
@@ -458,11 +515,11 @@ paths:
       - Batch
   /crm/v3/objects/{objectType}/gdpr-delete:
     post:
-      description: Permanently delete a contact and all associated content to follow
-        GDPR. Use optional property 'idProperty' set to 'email' to identify contact
-        by email address. If email address is not found, the email address will be
-        added to a blocklist and prevent it from being used in the future.
-      operationId: post-/crm/v3/objects/{objectType}/gdpr-delete
+      description: "Permanently delete a contact and all associated content to follow\
+        \ GDPR. Use optional property 'idProperty' set to 'email' to identify contact\
+        \ by email address. If email address is not found, the email address will\
+        \ be added to a blocklist and prevent it from being used in the future."
+      operationId: "post-/crm/v3/objects/{objectType}/gdpr-delete_purge"
       parameters:
       - explode: false
         in: path
@@ -488,25 +545,32 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - oauth2_legacy:
-        - media_bridge.read
+      - oauth2:
+        - crm.objects.quotes.write
       - oauth2_legacy:
         - tickets
+      - oauth2_legacy:
+        - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
-      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
       - oauth2:
         - crm.objects.deals.read
       - oauth2_legacy:
         - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
       - oauth2:
         - crm.objects.deals.write
       - oauth2:
         - crm.objects.companies.read
       - oauth2_legacy:
         - e-commerce
+      - oauth2:
+        - crm.objects.quotes.read
       - oauth2_legacy:
         - contacts
       - oauth2_legacy:
@@ -516,9 +580,75 @@ paths:
       summary: GDPR DELETE
       tags:
       - GDPR
+  /crm/v3/objects/{objectType}/merge:
+    post:
+      operationId: "post-/crm/v3/objects/{objectType}/merge_merge"
+      parameters:
+      - explode: false
+        in: path
+        name: objectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicMergeInput'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimplePublicObject'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - oauth2:
+        - crm.objects.quotes.write
+      - oauth2_legacy:
+        - tickets
+      - oauth2_legacy:
+        - media_bridge.read
+      - oauth2:
+        - crm.objects.contacts.read
+      - oauth2:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.deals.read
+      - oauth2_legacy:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
+      - oauth2:
+        - crm.objects.deals.write
+      - oauth2:
+        - crm.objects.companies.read
+      - oauth2_legacy:
+        - e-commerce
+      - oauth2:
+        - crm.objects.quotes.read
+      - oauth2_legacy:
+        - contacts
+      - oauth2_legacy:
+        - crm.objects.custom.write
+      - oauth2:
+        - crm.objects.companies.write
+      summary: Merge two objects with same type
+      tags:
+      - Public_Object
   /crm/v3/objects/{objectType}/search:
     post:
-      operationId: post-/crm/v3/objects/{objectType}/search_doSearch
+      operationId: "post-/crm/v3/objects/{objectType}/search_doSearch"
       parameters:
       - explode: false
         in: path
@@ -547,25 +677,32 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - oauth2_legacy:
-        - media_bridge.read
+      - oauth2:
+        - crm.objects.quotes.write
       - oauth2_legacy:
         - tickets
+      - oauth2_legacy:
+        - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
-      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
       - oauth2:
         - crm.objects.deals.read
       - oauth2_legacy:
         - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
       - oauth2:
         - crm.objects.deals.write
       - oauth2:
         - crm.objects.companies.read
       - oauth2_legacy:
         - e-commerce
+      - oauth2:
+        - crm.objects.quotes.read
       - oauth2_legacy:
         - contacts
       - oauth2_legacy:
@@ -578,8 +715,8 @@ paths:
       - ten-secondly
   /crm/v3/objects/{objectType}/{objectId}:
     delete:
-      description: Move an Object identified by `{objectId}` to the recycling bin.
-      operationId: delete-/crm/v3/objects/{objectType}/{objectId}_archive
+      description: "Move an Object identified by `{objectId}` to the recycling bin."
+      operationId: "delete-/crm/v3/objects/{objectType}/{objectId}_archive"
       parameters:
       - explode: false
         in: path
@@ -606,25 +743,32 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - oauth2_legacy:
-        - media_bridge.read
+      - oauth2:
+        - crm.objects.quotes.write
       - oauth2_legacy:
         - tickets
+      - oauth2_legacy:
+        - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
-      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
       - oauth2:
         - crm.objects.deals.read
       - oauth2_legacy:
         - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
       - oauth2:
         - crm.objects.deals.write
       - oauth2:
         - crm.objects.companies.read
       - oauth2_legacy:
         - e-commerce
+      - oauth2:
+        - crm.objects.quotes.read
       - oauth2_legacy:
         - contacts
       - oauth2_legacy:
@@ -635,11 +779,11 @@ paths:
       tags:
       - Basic
     get:
-      description: Read an Object identified by `{objectId}`. `{objectId}` refers
-        to the internal object ID by default, or optionally any unique property value
-        as specified by the `idProperty` query param.  Control what is returned via
-        the `properties` query param.
-      operationId: get-/crm/v3/objects/{objectType}/{objectId}_getById
+      description: "Read an Object identified by `{objectId}`. `{objectId}` refers\
+        \ to the internal object ID by default, or optionally any unique property\
+        \ value as specified by the `idProperty` query param.  Control what is returned\
+        \ via the `properties` query param."
+      operationId: "get-/crm/v3/objects/{objectType}/{objectId}_getById"
       parameters:
       - explode: false
         in: path
@@ -655,9 +799,9 @@ paths:
         schema:
           type: string
         style: simple
-      - description: A comma separated list of the properties to be returned in the
-          response. If any of the specified properties are not present on the requested
-          object(s), they will be ignored.
+      - description: "A comma separated list of the properties to be returned in the\
+          \ response. If any of the specified properties are not present on the requested\
+          \ object(s), they will be ignored."
         explode: true
         in: query
         name: properties
@@ -667,9 +811,21 @@ paths:
             type: string
           type: array
         style: form
-      - description: A comma separated list of object types to retrieve associated
-          IDs for. If any of the specified associations do not exist, they will be
-          ignored.
+      - description: "A comma separated list of the properties to be returned along\
+          \ with their history of previous values. If any of the specified properties\
+          \ are not present on the requested object(s), they will be ignored."
+        explode: true
+        in: query
+        name: propertiesWithHistory
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: "A comma separated list of object types to retrieve associated\
+          \ IDs for. If any of the specified associations do not exist, they will\
+          \ be ignored."
         explode: true
         in: query
         name: associations
@@ -711,25 +867,32 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - oauth2_legacy:
-        - media_bridge.read
+      - oauth2:
+        - crm.objects.quotes.write
       - oauth2_legacy:
         - tickets
+      - oauth2_legacy:
+        - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
-      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
       - oauth2:
         - crm.objects.deals.read
       - oauth2_legacy:
         - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
       - oauth2:
         - crm.objects.deals.write
       - oauth2:
         - crm.objects.companies.read
       - oauth2_legacy:
         - e-commerce
+      - oauth2:
+        - crm.objects.quotes.read
       - oauth2_legacy:
         - contacts
       - oauth2_legacy:
@@ -740,12 +903,13 @@ paths:
       tags:
       - Basic
     patch:
-      description: Perform a partial update of an Object identified by `{objectId}`.
-        `{objectId}` refers to the internal object ID by default, or optionally any
-        unique property value as specified by the `idProperty` query param. Provided
-        property values will be overwritten. Read-only and non-existent properties
-        will be ignored. Properties values can be cleared by passing an empty string.
-      operationId: patch-/crm/v3/objects/{objectType}/{objectId}_update
+      description: "Perform a partial update of an Object identified by `{objectId}`.\
+        \ `{objectId}` refers to the internal object ID by default, or optionally\
+        \ any unique property value as specified by the `idProperty` query param.\
+        \ Provided property values will be overwritten. Read-only and non-existent\
+        \ properties will be ignored. Properties values can be cleared by passing\
+        \ an empty string."
+      operationId: "patch-/crm/v3/objects/{objectType}/{objectId}_update"
       parameters:
       - explode: false
         in: path
@@ -790,25 +954,32 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - oauth2_legacy:
-        - media_bridge.read
+      - oauth2:
+        - crm.objects.quotes.write
       - oauth2_legacy:
         - tickets
+      - oauth2_legacy:
+        - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
-      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
       - oauth2:
         - crm.objects.deals.read
       - oauth2_legacy:
         - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
       - oauth2:
         - crm.objects.deals.write
       - oauth2:
         - crm.objects.companies.read
       - oauth2_legacy:
         - e-commerce
+      - oauth2:
+        - crm.objects.quotes.read
       - oauth2_legacy:
         - contacts
       - oauth2_legacy:
@@ -820,7 +991,7 @@ paths:
       - Basic
   /crm/v3/objects/{objectType}/{objectId}/associations/{toObjectType}:
     get:
-      operationId: get-/crm/v3/objects/{objectType}/{objectId}/associations/{toObjectType}_getAll
+      operationId: "get-/crm/v3/objects/{objectType}/{objectId}/associations/{toObjectType}_getAll"
       parameters:
       - explode: false
         in: path
@@ -877,25 +1048,32 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - oauth2_legacy:
-        - media_bridge.read
+      - oauth2:
+        - crm.objects.quotes.write
       - oauth2_legacy:
         - tickets
+      - oauth2_legacy:
+        - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
-      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
       - oauth2:
         - crm.objects.deals.read
       - oauth2_legacy:
         - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
       - oauth2:
         - crm.objects.deals.write
       - oauth2:
         - crm.objects.companies.read
       - oauth2_legacy:
         - e-commerce
+      - oauth2:
+        - crm.objects.quotes.read
       - oauth2_legacy:
         - contacts
       - oauth2_legacy:
@@ -907,7 +1085,7 @@ paths:
       - Associations
   /crm/v3/objects/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}/{associationType}:
     delete:
-      operationId: delete-/crm/v3/objects/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}/{associationType}_archive
+      operationId: "delete-/crm/v3/objects/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}/{associationType}_archive"
       parameters:
       - explode: false
         in: path
@@ -955,25 +1133,32 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - oauth2_legacy:
-        - media_bridge.read
+      - oauth2:
+        - crm.objects.quotes.write
       - oauth2_legacy:
         - tickets
+      - oauth2_legacy:
+        - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
-      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
       - oauth2:
         - crm.objects.deals.read
       - oauth2_legacy:
         - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
       - oauth2:
         - crm.objects.deals.write
       - oauth2:
         - crm.objects.companies.read
       - oauth2_legacy:
         - e-commerce
+      - oauth2:
+        - crm.objects.quotes.read
       - oauth2_legacy:
         - contacts
       - oauth2_legacy:
@@ -984,7 +1169,7 @@ paths:
       tags:
       - Associations
     put:
-      operationId: put-/crm/v3/objects/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}/{associationType}_create
+      operationId: "put-/crm/v3/objects/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}/{associationType}_create"
       parameters:
       - explode: false
         in: path
@@ -1035,25 +1220,32 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - oauth2_legacy:
-        - media_bridge.read
+      - oauth2:
+        - crm.objects.quotes.write
       - oauth2_legacy:
         - tickets
+      - oauth2_legacy:
+        - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
-      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
       - oauth2:
         - crm.objects.deals.read
       - oauth2_legacy:
         - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
       - oauth2:
         - crm.objects.deals.write
       - oauth2:
         - crm.objects.companies.read
       - oauth2_legacy:
         - e-commerce
+      - oauth2:
+        - crm.objects.quotes.read
       - oauth2_legacy:
         - contacts
       - oauth2_legacy:
@@ -1144,6 +1336,9 @@ components:
       type: object
     BatchReadInputSimplePublicObjectId:
       example:
+        propertiesWithHistory:
+        - propertiesWithHistory
+        - propertiesWithHistory
         idProperty: idProperty
         inputs:
         - id: id
@@ -1156,6 +1351,10 @@ components:
           items:
             type: string
           type: array
+        propertiesWithHistory:
+          items:
+            type: string
+          type: array
         idProperty:
           type: string
         inputs:
@@ -1165,6 +1364,7 @@ components:
       required:
       - inputs
       - properties
+      - propertiesWithHistory
       type: object
     BatchResponseSimplePublicObject:
       example:
@@ -1338,6 +1538,20 @@ components:
           createdAt: 2000-01-23T04:56:07.000+00:00
           archived: true
           archivedAt: 2000-01-23T04:56:07.000+00:00
+          propertiesWithHistory:
+            key:
+            - sourceId: sourceId
+              sourceType: sourceType
+              sourceLabel: sourceLabel
+              updatedByUserId: 0
+              value: value
+              timestamp: 2000-01-23T04:56:07.000+00:00
+            - sourceId: sourceId
+              sourceType: sourceType
+              sourceLabel: sourceLabel
+              updatedByUserId: 0
+              value: value
+              timestamp: 2000-01-23T04:56:07.000+00:00
           id: id
           properties:
             key: properties
@@ -1359,6 +1573,20 @@ components:
           createdAt: 2000-01-23T04:56:07.000+00:00
           archived: true
           archivedAt: 2000-01-23T04:56:07.000+00:00
+          propertiesWithHistory:
+            key:
+            - sourceId: sourceId
+              sourceType: sourceType
+              sourceLabel: sourceLabel
+              updatedByUserId: 0
+              value: value
+              timestamp: 2000-01-23T04:56:07.000+00:00
+            - sourceId: sourceId
+              sourceType: sourceType
+              sourceLabel: sourceLabel
+              updatedByUserId: 0
+              value: value
+              timestamp: 2000-01-23T04:56:07.000+00:00
           id: id
           properties:
             key: properties
@@ -1476,6 +1704,8 @@ components:
       type: object
     ErrorCategory:
       properties:
+        name:
+          type: string
         httpStatus:
           enum:
           - CONTINUE
@@ -1528,6 +1758,7 @@ components:
           - REQUEST_HEADERS_FIELDS_TOO_LARGE
           - INTERNAL_STALE_SERVICE_DISCOVERY
           - UNAVAILABLE_FOR_LEGAL_REASONS
+          - MIGRATION_IN_PROGRESS
           - INTERNAL_SERVER_ERROR
           - NOT_IMPLEMENTED
           - BAD_GATEWAY
@@ -1539,8 +1770,6 @@ components:
           - LOOP_DETECTED
           - NOT_EXTENDED
           - NETWORK_AUTHENTICATION_REQUIRED
-          type: string
-        name:
           type: string
       required:
       - httpStatus
@@ -1579,11 +1808,18 @@ components:
     Filter:
       example:
         propertyName: propertyName
+        values:
+        - values
+        - values
         value: value
         operator: EQ
       properties:
         value:
           type: string
+        values:
+          items:
+            type: string
+          type: array
         propertyName:
           type: string
         operator:
@@ -1611,9 +1847,15 @@ components:
       example:
         filters:
         - propertyName: propertyName
+          values:
+          - values
+          - values
           value: value
           operator: EQ
         - propertyName: propertyName
+          values:
+          - values
+          - values
           value: value
           operator: EQ
       properties:
@@ -1683,6 +1925,19 @@ components:
       required:
       - objectId
       type: object
+    PublicMergeInput:
+      example:
+        objectIdToMerge: objectIdToMerge
+        primaryObjectId: primaryObjectId
+      properties:
+        primaryObjectId:
+          type: string
+        objectIdToMerge:
+          type: string
+      required:
+      - objectIdToMerge
+      - primaryObjectId
+      type: object
     PublicObjectSearchRequest:
       example:
         query: query
@@ -1697,16 +1952,28 @@ components:
         filterGroups:
         - filters:
           - propertyName: propertyName
+            values:
+            - values
+            - values
             value: value
             operator: EQ
           - propertyName: propertyName
+            values:
+            - values
+            - values
             value: value
             operator: EQ
         - filters:
           - propertyName: propertyName
+            values:
+            - values
+            - values
             value: value
             operator: EQ
           - propertyName: propertyName
+            values:
+            - values
+            - values
             value: value
             operator: EQ
       properties:
@@ -1757,6 +2024,12 @@ components:
         properties:
           additionalProperties:
             type: string
+          type: object
+        propertiesWithHistory:
+          additionalProperties:
+            items:
+              $ref: '#/components/schemas/ValueWithTimestamp'
+            type: array
           type: object
         createdAt:
           format: date-time
@@ -1837,6 +2110,20 @@ components:
         createdAt: 2000-01-23T04:56:07.000+00:00
         archived: true
         archivedAt: 2000-01-23T04:56:07.000+00:00
+        propertiesWithHistory:
+          key:
+          - sourceId: sourceId
+            sourceType: sourceType
+            sourceLabel: sourceLabel
+            updatedByUserId: 0
+            value: value
+            timestamp: 2000-01-23T04:56:07.000+00:00
+          - sourceId: sourceId
+            sourceType: sourceType
+            sourceLabel: sourceLabel
+            updatedByUserId: 0
+            value: value
+            timestamp: 2000-01-23T04:56:07.000+00:00
         id: id
         properties:
           key: properties
@@ -1847,6 +2134,12 @@ components:
         properties:
           additionalProperties:
             type: string
+          type: object
+        propertiesWithHistory:
+          additionalProperties:
+            items:
+              $ref: '#/components/schemas/ValueWithTimestamp'
+            type: array
           type: object
         createdAt:
           format: date-time
@@ -1904,35 +2197,63 @@ components:
       - message
       - status
       type: object
+    ValueWithTimestamp:
+      example:
+        sourceId: sourceId
+        sourceType: sourceType
+        sourceLabel: sourceLabel
+        updatedByUserId: 0
+        value: value
+        timestamp: 2000-01-23T04:56:07.000+00:00
+      properties:
+        value:
+          type: string
+        timestamp:
+          format: date-time
+          type: string
+        sourceType:
+          type: string
+        sourceId:
+          type: string
+        sourceLabel:
+          type: string
+        updatedByUserId:
+          format: int32
+          type: integer
+      required:
+      - sourceType
+      - timestamp
+      - value
+      type: object
   securitySchemes:
     oauth2_legacy:
       flows:
         authorizationCode:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
-            e-commerce: e-commerce
-            crm.objects.custom.write: Change custom object records
             contacts: Read from and write to my Contacts
-            media_bridge.read: Read media and media events
-            tickets: Read and write tickets
+            crm.objects.custom.write: Change custom object records
+            e-commerce: e-commerce
             crm.objects.custom.read: View custom object records
+            tickets: Read and write tickets
+            media_bridge.read: Read media and media events
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
-    hapikey:
-      in: query
-      name: hapikey
-      type: apiKey
     oauth2:
       flows:
         authorizationCode:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
+            crm.objects.line_items.write: Line Items
+            crm.objects.quotes.read: Quotes
             crm.objects.deals.write: ' '
+            crm.objects.line_items.read: Line Items
             crm.objects.deals.read: ' '
+            crm.objects.quotes.write: Quotes
             crm.objects.contacts.read: ' '
-            crm.objects.companies.read: ' '
-            crm.objects.companies.write: ' '
             crm.objects.contacts.write: ' '
+            crm.objects.companies.write: ' '
+            crm.objects.companies.read: ' '
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
 x-hubspot-available-client-libraries:

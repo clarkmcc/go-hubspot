@@ -131,11 +131,11 @@ func (o *CardDisplayProperty) GetOptions() []DisplayOption {
 
 // GetOptionsOk returns a tuple with the Options field value
 // and a boolean to check if the value has been set.
-func (o *CardDisplayProperty) GetOptionsOk() (*[]DisplayOption, bool) {
+func (o *CardDisplayProperty) GetOptionsOk() ([]DisplayOption, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Options, true
+	return o.Options, true
 }
 
 // SetOptions sets field value

@@ -4,13 +4,13 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**PostCmsV3SourceCodeEnvironmentValidatePath**](ValidationApi.md#PostCmsV3SourceCodeEnvironmentValidatePath) | **Post** /cms/v3/source-code/{environment}/validate/{path} | Validate the contents of a file
+[**PostCmsV3SourceCodeEnvironmentValidatePathDoValidate**](ValidationApi.md#PostCmsV3SourceCodeEnvironmentValidatePathDoValidate) | **Post** /cms/v3/source-code/{environment}/validate/{path} | Validate the contents of a file
 
 
 
-## PostCmsV3SourceCodeEnvironmentValidatePath
+## PostCmsV3SourceCodeEnvironmentValidatePathDoValidate
 
-> Error PostCmsV3SourceCodeEnvironmentValidatePath(ctx, path).File(file).Execute()
+> Error PostCmsV3SourceCodeEnvironmentValidatePathDoValidate(ctx, path).File(file).Execute()
 
 Validate the contents of a file
 
@@ -33,14 +33,14 @@ func main() {
     file := os.NewFile(1234, "some_file") // *os.File | The file to validate. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ValidationApi.PostCmsV3SourceCodeEnvironmentValidatePath(context.Background(), path).File(file).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ValidationApi.PostCmsV3SourceCodeEnvironmentValidatePathDoValidate(context.Background(), path).File(file).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ValidationApi.PostCmsV3SourceCodeEnvironmentValidatePath``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ValidationApi.PostCmsV3SourceCodeEnvironmentValidatePathDoValidate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostCmsV3SourceCodeEnvironmentValidatePath`: Error
-    fmt.Fprintf(os.Stdout, "Response from `ValidationApi.PostCmsV3SourceCodeEnvironmentValidatePath`: %v\n", resp)
+    // response from `PostCmsV3SourceCodeEnvironmentValidatePathDoValidate`: Error
+    fmt.Fprintf(os.Stdout, "Response from `ValidationApi.PostCmsV3SourceCodeEnvironmentValidatePathDoValidate`: %v\n", resp)
 }
 ```
 
@@ -54,7 +54,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCmsV3SourceCodeEnvironmentValidatePathRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCmsV3SourceCodeEnvironmentValidatePathDoValidateRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -68,7 +68,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 

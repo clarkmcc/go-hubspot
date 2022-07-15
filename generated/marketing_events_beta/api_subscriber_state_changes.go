@@ -12,25 +12,18 @@ package marketing_events_beta
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-
-	"github.com/clarkmcc/go-hubspot/authorization"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // SubscriberStateChangesApiService SubscriberStateChangesApi service
 type SubscriberStateChangesApiService service
 
-type ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsertRequest struct {
-	ctx                                     _context.Context
+type ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsertDoEmailUpsertByIdRequest struct {
+	ctx                                     context.Context
 	ApiService                              *SubscriberStateChangesApiService
 	externalEventId                         string
 	subscriberState                         string
@@ -39,33 +32,33 @@ type ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailU
 }
 
 // The account id associated with the marketing event
-func (r ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsertRequest) ExternalAccountId(externalAccountId string) ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsertRequest {
+func (r ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsertDoEmailUpsertByIdRequest) ExternalAccountId(externalAccountId string) ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsertDoEmailUpsertByIdRequest {
 	r.externalAccountId = &externalAccountId
 	return r
 }
 
 // The details of the contacts to subscribe to the event
-func (r ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsertRequest) BatchInputMarketingEventEmailSubscriber(batchInputMarketingEventEmailSubscriber BatchInputMarketingEventEmailSubscriber) ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsertRequest {
+func (r ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsertDoEmailUpsertByIdRequest) BatchInputMarketingEventEmailSubscriber(batchInputMarketingEventEmailSubscriber BatchInputMarketingEventEmailSubscriber) ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsertDoEmailUpsertByIdRequest {
 	r.batchInputMarketingEventEmailSubscriber = &batchInputMarketingEventEmailSubscriber
 	return r
 }
 
-func (r ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsertRequest) Execute() (Error, *_nethttp.Response, error) {
-	return r.ApiService.PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsertExecute(r)
+func (r ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsertDoEmailUpsertByIdRequest) Execute() (*Error, *http.Response, error) {
+	return r.ApiService.PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsertDoEmailUpsertByIdExecute(r)
 }
 
 /*
-PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsert Record
+PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsertDoEmailUpsertById Record
 
 Record a subscription state between multiple HubSpot contacts and a marketing event, using contact email addresses.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param externalEventId The id of the marketing event
  @param subscriberState The new subscriber state for the HubSpot contacts and the specified marketing event
- @return ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsertRequest
+ @return ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsertDoEmailUpsertByIdRequest
 */
-func (a *SubscriberStateChangesApiService) PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsert(ctx _context.Context, externalEventId string, subscriberState string) ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsertRequest {
-	return ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsertRequest{
+func (a *SubscriberStateChangesApiService) PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsertDoEmailUpsertById(ctx context.Context, externalEventId string, subscriberState string) ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsertDoEmailUpsertByIdRequest {
+	return ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsertDoEmailUpsertByIdRequest{
 		ApiService:      a,
 		ctx:             ctx,
 		externalEventId: externalEventId,
@@ -75,28 +68,26 @@ func (a *SubscriberStateChangesApiService) PostMarketingV3MarketingEventsEventsE
 
 // Execute executes the request
 //  @return Error
-func (a *SubscriberStateChangesApiService) PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsertExecute(r ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsertRequest) (Error, *_nethttp.Response, error) {
+func (a *SubscriberStateChangesApiService) PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsertDoEmailUpsertByIdExecute(r ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsertDoEmailUpsertByIdRequest) (*Error, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  Error
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Error
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SubscriberStateChangesApiService.PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsert")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SubscriberStateChangesApiService.PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsertDoEmailUpsertById")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/marketing/v3/marketing-events/events/{externalEventId}/{subscriberState}/email-upsert"
-	localVarPath = strings.Replace(localVarPath, "{"+"externalEventId"+"}", _neturl.PathEscape(parameterToString(r.externalEventId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"subscriberState"+"}", _neturl.PathEscape(parameterToString(r.subscriberState, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"externalEventId"+"}", url.PathEscape(parameterToString(r.externalEventId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"subscriberState"+"}", url.PathEscape(parameterToString(r.subscriberState, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.externalAccountId == nil {
 		return localVarReturnValue, nil, reportError("externalAccountId is required and must be specified")
 	}
@@ -124,21 +115,7 @@ func (a *SubscriberStateChangesApiService) PostMarketingV3MarketingEventsEventsE
 	}
 	// body params
 	localVarPostBody = r.batchInputMarketingEventEmailSubscriber
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -148,15 +125,15 @@ func (a *SubscriberStateChangesApiService) PostMarketingV3MarketingEventsEventsE
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -172,7 +149,7 @@ func (a *SubscriberStateChangesApiService) PostMarketingV3MarketingEventsEventsE
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -182,8 +159,8 @@ func (a *SubscriberStateChangesApiService) PostMarketingV3MarketingEventsEventsE
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsertRequest struct {
-	ctx                                _context.Context
+type ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsertDoUpsertByIdRequest struct {
+	ctx                                context.Context
 	ApiService                         *SubscriberStateChangesApiService
 	externalEventId                    string
 	subscriberState                    string
@@ -192,33 +169,33 @@ type ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsert
 }
 
 // The account id associated with the marketing event
-func (r ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsertRequest) ExternalAccountId(externalAccountId string) ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsertRequest {
+func (r ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsertDoUpsertByIdRequest) ExternalAccountId(externalAccountId string) ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsertDoUpsertByIdRequest {
 	r.externalAccountId = &externalAccountId
 	return r
 }
 
 // The details of the contacts to subscribe to the event
-func (r ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsertRequest) BatchInputMarketingEventSubscriber(batchInputMarketingEventSubscriber BatchInputMarketingEventSubscriber) ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsertRequest {
+func (r ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsertDoUpsertByIdRequest) BatchInputMarketingEventSubscriber(batchInputMarketingEventSubscriber BatchInputMarketingEventSubscriber) ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsertDoUpsertByIdRequest {
 	r.batchInputMarketingEventSubscriber = &batchInputMarketingEventSubscriber
 	return r
 }
 
-func (r ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsertRequest) Execute() (Error, *_nethttp.Response, error) {
-	return r.ApiService.PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsertExecute(r)
+func (r ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsertDoUpsertByIdRequest) Execute() (*Error, *http.Response, error) {
+	return r.ApiService.PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsertDoUpsertByIdExecute(r)
 }
 
 /*
-PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsert Record
+PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsertDoUpsertById Record
 
 Record a subscription state between multiple HubSpot contacts and a marketing event, using HubSpot contact ids.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param externalEventId The id of the marketing event
  @param subscriberState The new subscriber state for the HubSpot contacts and the specified marketing event
- @return ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsertRequest
+ @return ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsertDoUpsertByIdRequest
 */
-func (a *SubscriberStateChangesApiService) PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsert(ctx _context.Context, externalEventId string, subscriberState string) ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsertRequest {
-	return ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsertRequest{
+func (a *SubscriberStateChangesApiService) PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsertDoUpsertById(ctx context.Context, externalEventId string, subscriberState string) ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsertDoUpsertByIdRequest {
+	return ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsertDoUpsertByIdRequest{
 		ApiService:      a,
 		ctx:             ctx,
 		externalEventId: externalEventId,
@@ -228,28 +205,26 @@ func (a *SubscriberStateChangesApiService) PostMarketingV3MarketingEventsEventsE
 
 // Execute executes the request
 //  @return Error
-func (a *SubscriberStateChangesApiService) PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsertExecute(r ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsertRequest) (Error, *_nethttp.Response, error) {
+func (a *SubscriberStateChangesApiService) PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsertDoUpsertByIdExecute(r ApiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsertDoUpsertByIdRequest) (*Error, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  Error
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Error
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SubscriberStateChangesApiService.PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsert")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SubscriberStateChangesApiService.PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsertDoUpsertById")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/marketing/v3/marketing-events/events/{externalEventId}/{subscriberState}/upsert"
-	localVarPath = strings.Replace(localVarPath, "{"+"externalEventId"+"}", _neturl.PathEscape(parameterToString(r.externalEventId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"subscriberState"+"}", _neturl.PathEscape(parameterToString(r.subscriberState, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"externalEventId"+"}", url.PathEscape(parameterToString(r.externalEventId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"subscriberState"+"}", url.PathEscape(parameterToString(r.subscriberState, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.externalAccountId == nil {
 		return localVarReturnValue, nil, reportError("externalAccountId is required and must be specified")
 	}
@@ -277,21 +252,7 @@ func (a *SubscriberStateChangesApiService) PostMarketingV3MarketingEventsEventsE
 	}
 	// body params
 	localVarPostBody = r.batchInputMarketingEventSubscriber
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -301,15 +262,15 @@ func (a *SubscriberStateChangesApiService) PostMarketingV3MarketingEventsEventsE
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -325,7 +286,7 @@ func (a *SubscriberStateChangesApiService) PostMarketingV3MarketingEventsEventsE
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

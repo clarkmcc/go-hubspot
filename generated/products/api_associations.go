@@ -12,25 +12,18 @@ package products
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-
-	"github.com/clarkmcc/go-hubspot/authorization"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // AssociationsApiService AssociationsApi service
 type AssociationsApiService service
 
 type ApiDeleteCrmV3ObjectsProductsProductIdAssociationsToObjectTypeToObjectIdAssociationTypeArchiveRequest struct {
-	ctx             _context.Context
+	ctx             context.Context
 	ApiService      *AssociationsApiService
 	productId       string
 	toObjectType    string
@@ -38,21 +31,21 @@ type ApiDeleteCrmV3ObjectsProductsProductIdAssociationsToObjectTypeToObjectIdAss
 	associationType string
 }
 
-func (r ApiDeleteCrmV3ObjectsProductsProductIdAssociationsToObjectTypeToObjectIdAssociationTypeArchiveRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeleteCrmV3ObjectsProductsProductIdAssociationsToObjectTypeToObjectIdAssociationTypeArchiveRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteCrmV3ObjectsProductsProductIdAssociationsToObjectTypeToObjectIdAssociationTypeArchiveExecute(r)
 }
 
 /*
 DeleteCrmV3ObjectsProductsProductIdAssociationsToObjectTypeToObjectIdAssociationTypeArchive Remove an association between two products
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param productId
  @param toObjectType
  @param toObjectId
  @param associationType
  @return ApiDeleteCrmV3ObjectsProductsProductIdAssociationsToObjectTypeToObjectIdAssociationTypeArchiveRequest
 */
-func (a *AssociationsApiService) DeleteCrmV3ObjectsProductsProductIdAssociationsToObjectTypeToObjectIdAssociationTypeArchive(ctx _context.Context, productId string, toObjectType string, toObjectId string, associationType string) ApiDeleteCrmV3ObjectsProductsProductIdAssociationsToObjectTypeToObjectIdAssociationTypeArchiveRequest {
+func (a *AssociationsApiService) DeleteCrmV3ObjectsProductsProductIdAssociationsToObjectTypeToObjectIdAssociationTypeArchive(ctx context.Context, productId string, toObjectType string, toObjectId string, associationType string) ApiDeleteCrmV3ObjectsProductsProductIdAssociationsToObjectTypeToObjectIdAssociationTypeArchiveRequest {
 	return ApiDeleteCrmV3ObjectsProductsProductIdAssociationsToObjectTypeToObjectIdAssociationTypeArchiveRequest{
 		ApiService:      a,
 		ctx:             ctx,
@@ -64,29 +57,27 @@ func (a *AssociationsApiService) DeleteCrmV3ObjectsProductsProductIdAssociations
 }
 
 // Execute executes the request
-func (a *AssociationsApiService) DeleteCrmV3ObjectsProductsProductIdAssociationsToObjectTypeToObjectIdAssociationTypeArchiveExecute(r ApiDeleteCrmV3ObjectsProductsProductIdAssociationsToObjectTypeToObjectIdAssociationTypeArchiveRequest) (*_nethttp.Response, error) {
+func (a *AssociationsApiService) DeleteCrmV3ObjectsProductsProductIdAssociationsToObjectTypeToObjectIdAssociationTypeArchiveExecute(r ApiDeleteCrmV3ObjectsProductsProductIdAssociationsToObjectTypeToObjectIdAssociationTypeArchiveRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AssociationsApiService.DeleteCrmV3ObjectsProductsProductIdAssociationsToObjectTypeToObjectIdAssociationTypeArchive")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/objects/products/{productId}/associations/{toObjectType}/{toObjectId}/{associationType}"
-	localVarPath = strings.Replace(localVarPath, "{"+"productId"+"}", _neturl.PathEscape(parameterToString(r.productId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"toObjectType"+"}", _neturl.PathEscape(parameterToString(r.toObjectType, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"toObjectId"+"}", _neturl.PathEscape(parameterToString(r.toObjectId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"associationType"+"}", _neturl.PathEscape(parameterToString(r.associationType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"productId"+"}", url.PathEscape(parameterToString(r.productId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"toObjectType"+"}", url.PathEscape(parameterToString(r.toObjectType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"toObjectId"+"}", url.PathEscape(parameterToString(r.toObjectId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"associationType"+"}", url.PathEscape(parameterToString(r.associationType, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -105,21 +96,7 @@ func (a *AssociationsApiService) DeleteCrmV3ObjectsProductsProductIdAssociations
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -129,15 +106,15 @@ func (a *AssociationsApiService) DeleteCrmV3ObjectsProductsProductIdAssociations
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -155,7 +132,7 @@ func (a *AssociationsApiService) DeleteCrmV3ObjectsProductsProductIdAssociations
 }
 
 type ApiGetCrmV3ObjectsProductsProductIdAssociationsToObjectTypeGetAllRequest struct {
-	ctx          _context.Context
+	ctx          context.Context
 	ApiService   *AssociationsApiService
 	productId    string
 	toObjectType string
@@ -175,19 +152,19 @@ func (r ApiGetCrmV3ObjectsProductsProductIdAssociationsToObjectTypeGetAllRequest
 	return r
 }
 
-func (r ApiGetCrmV3ObjectsProductsProductIdAssociationsToObjectTypeGetAllRequest) Execute() (CollectionResponseAssociatedIdForwardPaging, *_nethttp.Response, error) {
+func (r ApiGetCrmV3ObjectsProductsProductIdAssociationsToObjectTypeGetAllRequest) Execute() (*CollectionResponseAssociatedIdForwardPaging, *http.Response, error) {
 	return r.ApiService.GetCrmV3ObjectsProductsProductIdAssociationsToObjectTypeGetAllExecute(r)
 }
 
 /*
 GetCrmV3ObjectsProductsProductIdAssociationsToObjectTypeGetAll List associations of a product by type
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param productId
  @param toObjectType
  @return ApiGetCrmV3ObjectsProductsProductIdAssociationsToObjectTypeGetAllRequest
 */
-func (a *AssociationsApiService) GetCrmV3ObjectsProductsProductIdAssociationsToObjectTypeGetAll(ctx _context.Context, productId string, toObjectType string) ApiGetCrmV3ObjectsProductsProductIdAssociationsToObjectTypeGetAllRequest {
+func (a *AssociationsApiService) GetCrmV3ObjectsProductsProductIdAssociationsToObjectTypeGetAll(ctx context.Context, productId string, toObjectType string) ApiGetCrmV3ObjectsProductsProductIdAssociationsToObjectTypeGetAllRequest {
 	return ApiGetCrmV3ObjectsProductsProductIdAssociationsToObjectTypeGetAllRequest{
 		ApiService:   a,
 		ctx:          ctx,
@@ -198,28 +175,26 @@ func (a *AssociationsApiService) GetCrmV3ObjectsProductsProductIdAssociationsToO
 
 // Execute executes the request
 //  @return CollectionResponseAssociatedIdForwardPaging
-func (a *AssociationsApiService) GetCrmV3ObjectsProductsProductIdAssociationsToObjectTypeGetAllExecute(r ApiGetCrmV3ObjectsProductsProductIdAssociationsToObjectTypeGetAllRequest) (CollectionResponseAssociatedIdForwardPaging, *_nethttp.Response, error) {
+func (a *AssociationsApiService) GetCrmV3ObjectsProductsProductIdAssociationsToObjectTypeGetAllExecute(r ApiGetCrmV3ObjectsProductsProductIdAssociationsToObjectTypeGetAllRequest) (*CollectionResponseAssociatedIdForwardPaging, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  CollectionResponseAssociatedIdForwardPaging
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CollectionResponseAssociatedIdForwardPaging
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AssociationsApiService.GetCrmV3ObjectsProductsProductIdAssociationsToObjectTypeGetAll")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/objects/products/{productId}/associations/{toObjectType}"
-	localVarPath = strings.Replace(localVarPath, "{"+"productId"+"}", _neturl.PathEscape(parameterToString(r.productId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"toObjectType"+"}", _neturl.PathEscape(parameterToString(r.toObjectType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"productId"+"}", url.PathEscape(parameterToString(r.productId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"toObjectType"+"}", url.PathEscape(parameterToString(r.toObjectType, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.after != nil {
 		localVarQueryParams.Add("after", parameterToString(*r.after, ""))
@@ -244,21 +219,7 @@ func (a *AssociationsApiService) GetCrmV3ObjectsProductsProductIdAssociationsToO
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -268,15 +229,15 @@ func (a *AssociationsApiService) GetCrmV3ObjectsProductsProductIdAssociationsToO
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -292,7 +253,7 @@ func (a *AssociationsApiService) GetCrmV3ObjectsProductsProductIdAssociationsToO
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -303,7 +264,7 @@ func (a *AssociationsApiService) GetCrmV3ObjectsProductsProductIdAssociationsToO
 }
 
 type ApiPutCrmV3ObjectsProductsProductIdAssociationsToObjectTypeToObjectIdAssociationTypeCreateRequest struct {
-	ctx             _context.Context
+	ctx             context.Context
 	ApiService      *AssociationsApiService
 	productId       string
 	toObjectType    string
@@ -311,21 +272,21 @@ type ApiPutCrmV3ObjectsProductsProductIdAssociationsToObjectTypeToObjectIdAssoci
 	associationType string
 }
 
-func (r ApiPutCrmV3ObjectsProductsProductIdAssociationsToObjectTypeToObjectIdAssociationTypeCreateRequest) Execute() (SimplePublicObjectWithAssociations, *_nethttp.Response, error) {
+func (r ApiPutCrmV3ObjectsProductsProductIdAssociationsToObjectTypeToObjectIdAssociationTypeCreateRequest) Execute() (*SimplePublicObjectWithAssociations, *http.Response, error) {
 	return r.ApiService.PutCrmV3ObjectsProductsProductIdAssociationsToObjectTypeToObjectIdAssociationTypeCreateExecute(r)
 }
 
 /*
 PutCrmV3ObjectsProductsProductIdAssociationsToObjectTypeToObjectIdAssociationTypeCreate Associate a product with another object
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param productId
  @param toObjectType
  @param toObjectId
  @param associationType
  @return ApiPutCrmV3ObjectsProductsProductIdAssociationsToObjectTypeToObjectIdAssociationTypeCreateRequest
 */
-func (a *AssociationsApiService) PutCrmV3ObjectsProductsProductIdAssociationsToObjectTypeToObjectIdAssociationTypeCreate(ctx _context.Context, productId string, toObjectType string, toObjectId string, associationType string) ApiPutCrmV3ObjectsProductsProductIdAssociationsToObjectTypeToObjectIdAssociationTypeCreateRequest {
+func (a *AssociationsApiService) PutCrmV3ObjectsProductsProductIdAssociationsToObjectTypeToObjectIdAssociationTypeCreate(ctx context.Context, productId string, toObjectType string, toObjectId string, associationType string) ApiPutCrmV3ObjectsProductsProductIdAssociationsToObjectTypeToObjectIdAssociationTypeCreateRequest {
 	return ApiPutCrmV3ObjectsProductsProductIdAssociationsToObjectTypeToObjectIdAssociationTypeCreateRequest{
 		ApiService:      a,
 		ctx:             ctx,
@@ -338,30 +299,28 @@ func (a *AssociationsApiService) PutCrmV3ObjectsProductsProductIdAssociationsToO
 
 // Execute executes the request
 //  @return SimplePublicObjectWithAssociations
-func (a *AssociationsApiService) PutCrmV3ObjectsProductsProductIdAssociationsToObjectTypeToObjectIdAssociationTypeCreateExecute(r ApiPutCrmV3ObjectsProductsProductIdAssociationsToObjectTypeToObjectIdAssociationTypeCreateRequest) (SimplePublicObjectWithAssociations, *_nethttp.Response, error) {
+func (a *AssociationsApiService) PutCrmV3ObjectsProductsProductIdAssociationsToObjectTypeToObjectIdAssociationTypeCreateExecute(r ApiPutCrmV3ObjectsProductsProductIdAssociationsToObjectTypeToObjectIdAssociationTypeCreateRequest) (*SimplePublicObjectWithAssociations, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  SimplePublicObjectWithAssociations
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SimplePublicObjectWithAssociations
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AssociationsApiService.PutCrmV3ObjectsProductsProductIdAssociationsToObjectTypeToObjectIdAssociationTypeCreate")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/objects/products/{productId}/associations/{toObjectType}/{toObjectId}/{associationType}"
-	localVarPath = strings.Replace(localVarPath, "{"+"productId"+"}", _neturl.PathEscape(parameterToString(r.productId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"toObjectType"+"}", _neturl.PathEscape(parameterToString(r.toObjectType, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"toObjectId"+"}", _neturl.PathEscape(parameterToString(r.toObjectId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"associationType"+"}", _neturl.PathEscape(parameterToString(r.associationType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"productId"+"}", url.PathEscape(parameterToString(r.productId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"toObjectType"+"}", url.PathEscape(parameterToString(r.toObjectType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"toObjectId"+"}", url.PathEscape(parameterToString(r.toObjectId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"associationType"+"}", url.PathEscape(parameterToString(r.associationType, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -380,21 +339,7 @@ func (a *AssociationsApiService) PutCrmV3ObjectsProductsProductIdAssociationsToO
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -404,15 +349,15 @@ func (a *AssociationsApiService) PutCrmV3ObjectsProductsProductIdAssociationsToO
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -428,7 +373,7 @@ func (a *AssociationsApiService) PutCrmV3ObjectsProductsProductIdAssociationsToO
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

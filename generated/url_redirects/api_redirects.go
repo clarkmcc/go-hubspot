@@ -12,32 +12,25 @@ package url_redirects
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-
-	"github.com/clarkmcc/go-hubspot/authorization"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"reflect"
 	"strings"
 	"time"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // RedirectsApiService RedirectsApi service
 type RedirectsApiService service
 
 type ApiDeleteCmsV3UrlRedirectsUrlRedirectIdArchiveRequest struct {
-	ctx           _context.Context
+	ctx           context.Context
 	ApiService    *RedirectsApiService
 	urlRedirectId string
 }
 
-func (r ApiDeleteCmsV3UrlRedirectsUrlRedirectIdArchiveRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeleteCmsV3UrlRedirectsUrlRedirectIdArchiveRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteCmsV3UrlRedirectsUrlRedirectIdArchiveExecute(r)
 }
 
@@ -46,11 +39,11 @@ DeleteCmsV3UrlRedirectsUrlRedirectIdArchive Delete a redirect
 
 Delete one existing redirect, so it is no longer mapped.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param urlRedirectId The ID of the target redirect.
  @return ApiDeleteCmsV3UrlRedirectsUrlRedirectIdArchiveRequest
 */
-func (a *RedirectsApiService) DeleteCmsV3UrlRedirectsUrlRedirectIdArchive(ctx _context.Context, urlRedirectId string) ApiDeleteCmsV3UrlRedirectsUrlRedirectIdArchiveRequest {
+func (a *RedirectsApiService) DeleteCmsV3UrlRedirectsUrlRedirectIdArchive(ctx context.Context, urlRedirectId string) ApiDeleteCmsV3UrlRedirectsUrlRedirectIdArchiveRequest {
 	return ApiDeleteCmsV3UrlRedirectsUrlRedirectIdArchiveRequest{
 		ApiService:    a,
 		ctx:           ctx,
@@ -59,26 +52,24 @@ func (a *RedirectsApiService) DeleteCmsV3UrlRedirectsUrlRedirectIdArchive(ctx _c
 }
 
 // Execute executes the request
-func (a *RedirectsApiService) DeleteCmsV3UrlRedirectsUrlRedirectIdArchiveExecute(r ApiDeleteCmsV3UrlRedirectsUrlRedirectIdArchiveRequest) (*_nethttp.Response, error) {
+func (a *RedirectsApiService) DeleteCmsV3UrlRedirectsUrlRedirectIdArchiveExecute(r ApiDeleteCmsV3UrlRedirectsUrlRedirectIdArchiveRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RedirectsApiService.DeleteCmsV3UrlRedirectsUrlRedirectIdArchive")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/cms/v3/url-redirects/{urlRedirectId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"urlRedirectId"+"}", _neturl.PathEscape(parameterToString(r.urlRedirectId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"urlRedirectId"+"}", url.PathEscape(parameterToString(r.urlRedirectId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -97,21 +88,7 @@ func (a *RedirectsApiService) DeleteCmsV3UrlRedirectsUrlRedirectIdArchiveExecute
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -121,15 +98,15 @@ func (a *RedirectsApiService) DeleteCmsV3UrlRedirectsUrlRedirectIdArchiveExecute
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -147,7 +124,7 @@ func (a *RedirectsApiService) DeleteCmsV3UrlRedirectsUrlRedirectIdArchiveExecute
 }
 
 type ApiGetCmsV3UrlRedirectsGetPageRequest struct {
-	ctx           _context.Context
+	ctx           context.Context
 	ApiService    *RedirectsApiService
 	createdAt     *time.Time
 	createdAfter  *time.Time
@@ -156,9 +133,7 @@ type ApiGetCmsV3UrlRedirectsGetPageRequest struct {
 	updatedAfter  *time.Time
 	updatedBefore *time.Time
 	sort          *[]string
-	properties    *[]string
 	after         *string
-	before        *string
 	limit         *int32
 	archived      *bool
 }
@@ -198,22 +173,15 @@ func (r ApiGetCmsV3UrlRedirectsGetPageRequest) UpdatedBefore(updatedBefore time.
 	r.updatedBefore = &updatedBefore
 	return r
 }
+
 func (r ApiGetCmsV3UrlRedirectsGetPageRequest) Sort(sort []string) ApiGetCmsV3UrlRedirectsGetPageRequest {
 	r.sort = &sort
-	return r
-}
-func (r ApiGetCmsV3UrlRedirectsGetPageRequest) Properties(properties []string) ApiGetCmsV3UrlRedirectsGetPageRequest {
-	r.properties = &properties
 	return r
 }
 
 // The paging cursor token of the last successfully read resource will be returned as the &#x60;paging.next.after&#x60; JSON property of a paged response containing more results.
 func (r ApiGetCmsV3UrlRedirectsGetPageRequest) After(after string) ApiGetCmsV3UrlRedirectsGetPageRequest {
 	r.after = &after
-	return r
-}
-func (r ApiGetCmsV3UrlRedirectsGetPageRequest) Before(before string) ApiGetCmsV3UrlRedirectsGetPageRequest {
-	r.before = &before
 	return r
 }
 
@@ -229,7 +197,7 @@ func (r ApiGetCmsV3UrlRedirectsGetPageRequest) Archived(archived bool) ApiGetCms
 	return r
 }
 
-func (r ApiGetCmsV3UrlRedirectsGetPageRequest) Execute() (CollectionResponseWithTotalUrlMapping, *_nethttp.Response, error) {
+func (r ApiGetCmsV3UrlRedirectsGetPageRequest) Execute() (*CollectionResponseWithTotalUrlMappingForwardPaging, *http.Response, error) {
 	return r.ApiService.GetCmsV3UrlRedirectsGetPageExecute(r)
 }
 
@@ -238,10 +206,10 @@ GetCmsV3UrlRedirectsGetPage Get current redirects
 
 Returns all existing URL redirects. Results can be limited and filtered by creation or updated date.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetCmsV3UrlRedirectsGetPageRequest
 */
-func (a *RedirectsApiService) GetCmsV3UrlRedirectsGetPage(ctx _context.Context) ApiGetCmsV3UrlRedirectsGetPageRequest {
+func (a *RedirectsApiService) GetCmsV3UrlRedirectsGetPage(ctx context.Context) ApiGetCmsV3UrlRedirectsGetPageRequest {
 	return ApiGetCmsV3UrlRedirectsGetPageRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -249,27 +217,25 @@ func (a *RedirectsApiService) GetCmsV3UrlRedirectsGetPage(ctx _context.Context) 
 }
 
 // Execute executes the request
-//  @return CollectionResponseWithTotalUrlMapping
-func (a *RedirectsApiService) GetCmsV3UrlRedirectsGetPageExecute(r ApiGetCmsV3UrlRedirectsGetPageRequest) (CollectionResponseWithTotalUrlMapping, *_nethttp.Response, error) {
+//  @return CollectionResponseWithTotalUrlMappingForwardPaging
+func (a *RedirectsApiService) GetCmsV3UrlRedirectsGetPageExecute(r ApiGetCmsV3UrlRedirectsGetPageRequest) (*CollectionResponseWithTotalUrlMappingForwardPaging, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  CollectionResponseWithTotalUrlMapping
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CollectionResponseWithTotalUrlMappingForwardPaging
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RedirectsApiService.GetCmsV3UrlRedirectsGetPage")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/cms/v3/url-redirects/"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.createdAt != nil {
 		localVarQueryParams.Add("createdAt", parameterToString(*r.createdAt, ""))
@@ -300,22 +266,8 @@ func (a *RedirectsApiService) GetCmsV3UrlRedirectsGetPageExecute(r ApiGetCmsV3Ur
 			localVarQueryParams.Add("sort", parameterToString(t, "multi"))
 		}
 	}
-	if r.properties != nil {
-		t := *r.properties
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("properties", parameterToString(s.Index(i), "multi"))
-			}
-		} else {
-			localVarQueryParams.Add("properties", parameterToString(t, "multi"))
-		}
-	}
 	if r.after != nil {
 		localVarQueryParams.Add("after", parameterToString(*r.after, ""))
-	}
-	if r.before != nil {
-		localVarQueryParams.Add("before", parameterToString(*r.before, ""))
 	}
 	if r.limit != nil {
 		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
@@ -340,21 +292,7 @@ func (a *RedirectsApiService) GetCmsV3UrlRedirectsGetPageExecute(r ApiGetCmsV3Ur
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -364,15 +302,15 @@ func (a *RedirectsApiService) GetCmsV3UrlRedirectsGetPageExecute(r ApiGetCmsV3Ur
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -388,7 +326,7 @@ func (a *RedirectsApiService) GetCmsV3UrlRedirectsGetPageExecute(r ApiGetCmsV3Ur
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -399,12 +337,12 @@ func (a *RedirectsApiService) GetCmsV3UrlRedirectsGetPageExecute(r ApiGetCmsV3Ur
 }
 
 type ApiGetCmsV3UrlRedirectsUrlRedirectIdGetByIdRequest struct {
-	ctx           _context.Context
+	ctx           context.Context
 	ApiService    *RedirectsApiService
 	urlRedirectId string
 }
 
-func (r ApiGetCmsV3UrlRedirectsUrlRedirectIdGetByIdRequest) Execute() (UrlMapping, *_nethttp.Response, error) {
+func (r ApiGetCmsV3UrlRedirectsUrlRedirectIdGetByIdRequest) Execute() (*UrlMapping, *http.Response, error) {
 	return r.ApiService.GetCmsV3UrlRedirectsUrlRedirectIdGetByIdExecute(r)
 }
 
@@ -413,11 +351,11 @@ GetCmsV3UrlRedirectsUrlRedirectIdGetById Get details for a redirect
 
 Returns the details for a single existing URL redirect by ID.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param urlRedirectId The ID of the target redirect.
  @return ApiGetCmsV3UrlRedirectsUrlRedirectIdGetByIdRequest
 */
-func (a *RedirectsApiService) GetCmsV3UrlRedirectsUrlRedirectIdGetById(ctx _context.Context, urlRedirectId string) ApiGetCmsV3UrlRedirectsUrlRedirectIdGetByIdRequest {
+func (a *RedirectsApiService) GetCmsV3UrlRedirectsUrlRedirectIdGetById(ctx context.Context, urlRedirectId string) ApiGetCmsV3UrlRedirectsUrlRedirectIdGetByIdRequest {
 	return ApiGetCmsV3UrlRedirectsUrlRedirectIdGetByIdRequest{
 		ApiService:    a,
 		ctx:           ctx,
@@ -427,27 +365,25 @@ func (a *RedirectsApiService) GetCmsV3UrlRedirectsUrlRedirectIdGetById(ctx _cont
 
 // Execute executes the request
 //  @return UrlMapping
-func (a *RedirectsApiService) GetCmsV3UrlRedirectsUrlRedirectIdGetByIdExecute(r ApiGetCmsV3UrlRedirectsUrlRedirectIdGetByIdRequest) (UrlMapping, *_nethttp.Response, error) {
+func (a *RedirectsApiService) GetCmsV3UrlRedirectsUrlRedirectIdGetByIdExecute(r ApiGetCmsV3UrlRedirectsUrlRedirectIdGetByIdRequest) (*UrlMapping, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  UrlMapping
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *UrlMapping
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RedirectsApiService.GetCmsV3UrlRedirectsUrlRedirectIdGetById")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/cms/v3/url-redirects/{urlRedirectId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"urlRedirectId"+"}", _neturl.PathEscape(parameterToString(r.urlRedirectId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"urlRedirectId"+"}", url.PathEscape(parameterToString(r.urlRedirectId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -466,21 +402,7 @@ func (a *RedirectsApiService) GetCmsV3UrlRedirectsUrlRedirectIdGetByIdExecute(r 
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -490,15 +412,15 @@ func (a *RedirectsApiService) GetCmsV3UrlRedirectsUrlRedirectIdGetByIdExecute(r 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -514,7 +436,7 @@ func (a *RedirectsApiService) GetCmsV3UrlRedirectsUrlRedirectIdGetByIdExecute(r 
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -525,7 +447,7 @@ func (a *RedirectsApiService) GetCmsV3UrlRedirectsUrlRedirectIdGetByIdExecute(r 
 }
 
 type ApiPatchCmsV3UrlRedirectsUrlRedirectIdUpdateRequest struct {
-	ctx           _context.Context
+	ctx           context.Context
 	ApiService    *RedirectsApiService
 	urlRedirectId string
 	urlMapping    *UrlMapping
@@ -536,7 +458,7 @@ func (r ApiPatchCmsV3UrlRedirectsUrlRedirectIdUpdateRequest) UrlMapping(urlMappi
 	return r
 }
 
-func (r ApiPatchCmsV3UrlRedirectsUrlRedirectIdUpdateRequest) Execute() (UrlMapping, *_nethttp.Response, error) {
+func (r ApiPatchCmsV3UrlRedirectsUrlRedirectIdUpdateRequest) Execute() (*UrlMapping, *http.Response, error) {
 	return r.ApiService.PatchCmsV3UrlRedirectsUrlRedirectIdUpdateExecute(r)
 }
 
@@ -545,11 +467,11 @@ PatchCmsV3UrlRedirectsUrlRedirectIdUpdate Update a redirect
 
 Updates the settings for an existing URL redirect.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param urlRedirectId
  @return ApiPatchCmsV3UrlRedirectsUrlRedirectIdUpdateRequest
 */
-func (a *RedirectsApiService) PatchCmsV3UrlRedirectsUrlRedirectIdUpdate(ctx _context.Context, urlRedirectId string) ApiPatchCmsV3UrlRedirectsUrlRedirectIdUpdateRequest {
+func (a *RedirectsApiService) PatchCmsV3UrlRedirectsUrlRedirectIdUpdate(ctx context.Context, urlRedirectId string) ApiPatchCmsV3UrlRedirectsUrlRedirectIdUpdateRequest {
 	return ApiPatchCmsV3UrlRedirectsUrlRedirectIdUpdateRequest{
 		ApiService:    a,
 		ctx:           ctx,
@@ -559,27 +481,28 @@ func (a *RedirectsApiService) PatchCmsV3UrlRedirectsUrlRedirectIdUpdate(ctx _con
 
 // Execute executes the request
 //  @return UrlMapping
-func (a *RedirectsApiService) PatchCmsV3UrlRedirectsUrlRedirectIdUpdateExecute(r ApiPatchCmsV3UrlRedirectsUrlRedirectIdUpdateRequest) (UrlMapping, *_nethttp.Response, error) {
+func (a *RedirectsApiService) PatchCmsV3UrlRedirectsUrlRedirectIdUpdateExecute(r ApiPatchCmsV3UrlRedirectsUrlRedirectIdUpdateRequest) (*UrlMapping, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPatch
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  UrlMapping
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *UrlMapping
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RedirectsApiService.PatchCmsV3UrlRedirectsUrlRedirectIdUpdate")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/cms/v3/url-redirects/{urlRedirectId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"urlRedirectId"+"}", _neturl.PathEscape(parameterToString(r.urlRedirectId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"urlRedirectId"+"}", url.PathEscape(parameterToString(r.urlRedirectId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.urlMapping == nil {
+		return localVarReturnValue, nil, reportError("urlMapping is required and must be specified")
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -600,21 +523,7 @@ func (a *RedirectsApiService) PatchCmsV3UrlRedirectsUrlRedirectIdUpdateExecute(r
 	}
 	// body params
 	localVarPostBody = r.urlMapping
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -624,15 +533,15 @@ func (a *RedirectsApiService) PatchCmsV3UrlRedirectsUrlRedirectIdUpdateExecute(r
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -648,7 +557,7 @@ func (a *RedirectsApiService) PatchCmsV3UrlRedirectsUrlRedirectIdUpdateExecute(r
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -659,7 +568,7 @@ func (a *RedirectsApiService) PatchCmsV3UrlRedirectsUrlRedirectIdUpdateExecute(r
 }
 
 type ApiPostCmsV3UrlRedirectsCreateRequest struct {
-	ctx                         _context.Context
+	ctx                         context.Context
 	ApiService                  *RedirectsApiService
 	urlMappingCreateRequestBody *UrlMappingCreateRequestBody
 }
@@ -669,7 +578,7 @@ func (r ApiPostCmsV3UrlRedirectsCreateRequest) UrlMappingCreateRequestBody(urlMa
 	return r
 }
 
-func (r ApiPostCmsV3UrlRedirectsCreateRequest) Execute() (UrlMapping, *_nethttp.Response, error) {
+func (r ApiPostCmsV3UrlRedirectsCreateRequest) Execute() (*UrlMapping, *http.Response, error) {
 	return r.ApiService.PostCmsV3UrlRedirectsCreateExecute(r)
 }
 
@@ -678,10 +587,10 @@ PostCmsV3UrlRedirectsCreate Create a redirect
 
 Creates and configures a new URL redirect.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiPostCmsV3UrlRedirectsCreateRequest
 */
-func (a *RedirectsApiService) PostCmsV3UrlRedirectsCreate(ctx _context.Context) ApiPostCmsV3UrlRedirectsCreateRequest {
+func (a *RedirectsApiService) PostCmsV3UrlRedirectsCreate(ctx context.Context) ApiPostCmsV3UrlRedirectsCreateRequest {
 	return ApiPostCmsV3UrlRedirectsCreateRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -690,26 +599,27 @@ func (a *RedirectsApiService) PostCmsV3UrlRedirectsCreate(ctx _context.Context) 
 
 // Execute executes the request
 //  @return UrlMapping
-func (a *RedirectsApiService) PostCmsV3UrlRedirectsCreateExecute(r ApiPostCmsV3UrlRedirectsCreateRequest) (UrlMapping, *_nethttp.Response, error) {
+func (a *RedirectsApiService) PostCmsV3UrlRedirectsCreateExecute(r ApiPostCmsV3UrlRedirectsCreateRequest) (*UrlMapping, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  UrlMapping
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *UrlMapping
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RedirectsApiService.PostCmsV3UrlRedirectsCreate")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/cms/v3/url-redirects/"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.urlMappingCreateRequestBody == nil {
+		return localVarReturnValue, nil, reportError("urlMappingCreateRequestBody is required and must be specified")
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -730,21 +640,7 @@ func (a *RedirectsApiService) PostCmsV3UrlRedirectsCreateExecute(r ApiPostCmsV3U
 	}
 	// body params
 	localVarPostBody = r.urlMappingCreateRequestBody
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -754,15 +650,15 @@ func (a *RedirectsApiService) PostCmsV3UrlRedirectsCreateExecute(r ApiPostCmsV3U
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -778,7 +674,7 @@ func (a *RedirectsApiService) PostCmsV3UrlRedirectsCreateExecute(r ApiPostCmsV3U
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

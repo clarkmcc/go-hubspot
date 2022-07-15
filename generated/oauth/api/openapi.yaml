@@ -11,7 +11,7 @@ tags:
 paths:
   /oauth/v1/access-tokens/{token}:
     get:
-      operationId: get-/oauth/v1/access-tokens/{token}_getAccessToken
+      operationId: "get-/oauth/v1/access-tokens/{token}_getAccessToken"
       parameters:
       - explode: false
         in: path
@@ -38,7 +38,7 @@ paths:
       - Access_Tokens
   /oauth/v1/refresh-tokens/{token}:
     delete:
-      operationId: delete-/oauth/v1/refresh-tokens/{token}_archiveRefreshToken
+      operationId: "delete-/oauth/v1/refresh-tokens/{token}_archiveRefreshToken"
       parameters:
       - explode: false
         in: path
@@ -58,7 +58,7 @@ paths:
       tags:
       - Refresh_Tokens
     get:
-      operationId: get-/oauth/v1/refresh-tokens/{token}_getRefreshToken
+      operationId: "get-/oauth/v1/refresh-tokens/{token}_getRefreshToken"
       parameters:
       - explode: false
         in: path
@@ -90,22 +90,7 @@ paths:
         content:
           application/x-www-form-urlencoded:
             schema:
-              properties:
-                grant_type:
-                  enum:
-                  - authorization_code
-                  - refresh_token
-                  type: string
-                code:
-                  type: string
-                redirect_uri:
-                  type: string
-                client_id:
-                  type: string
-                client_secret:
-                  type: string
-                refresh_token:
-                  type: string
+              $ref: '#/components/schemas/post__oauth_v1_token_createToken_request'
       responses:
         "200":
           content:
@@ -355,6 +340,23 @@ components:
       - refresh_token
       - token_type
       type: object
+    post__oauth_v1_token_createToken_request:
+      properties:
+        grant_type:
+          enum:
+          - authorization_code
+          - refresh_token
+          type: string
+        code:
+          type: string
+        redirect_uri:
+          type: string
+        client_id:
+          type: string
+        client_secret:
+          type: string
+        refresh_token:
+          type: string
 x-hubspot-available-client-libraries:
 - PHP
 - Node

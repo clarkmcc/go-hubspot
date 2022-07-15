@@ -12,25 +12,18 @@ package associations
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-
-	"github.com/clarkmcc/go-hubspot/authorization"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // BatchApiService BatchApi service
 type BatchApiService service
 
 type ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchiveRequest struct {
-	ctx                         _context.Context
+	ctx                         context.Context
 	ApiService                  *BatchApiService
 	fromObjectType              string
 	toObjectType                string
@@ -42,7 +35,7 @@ func (r ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchiveReq
 	return r
 }
 
-func (r ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchiveRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchiveRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchiveExecute(r)
 }
 
@@ -51,12 +44,12 @@ PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchive Archive a bat
 
 Remove the associations between all pairs of objects identified in the request body.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param fromObjectType
  @param toObjectType
  @return ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchiveRequest
 */
-func (a *BatchApiService) PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchive(ctx _context.Context, fromObjectType string, toObjectType string) ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchiveRequest {
+func (a *BatchApiService) PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchive(ctx context.Context, fromObjectType string, toObjectType string) ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchiveRequest {
 	return ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchiveRequest{
 		ApiService:     a,
 		ctx:            ctx,
@@ -66,27 +59,25 @@ func (a *BatchApiService) PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchAr
 }
 
 // Execute executes the request
-func (a *BatchApiService) PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchiveExecute(r ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchiveRequest) (*_nethttp.Response, error) {
+func (a *BatchApiService) PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchiveExecute(r ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchiveRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchApiService.PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchive")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/associations/{fromObjectType}/{toObjectType}/batch/archive"
-	localVarPath = strings.Replace(localVarPath, "{"+"fromObjectType"+"}", _neturl.PathEscape(parameterToString(r.fromObjectType, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"toObjectType"+"}", _neturl.PathEscape(parameterToString(r.toObjectType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"fromObjectType"+"}", url.PathEscape(parameterToString(r.fromObjectType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"toObjectType"+"}", url.PathEscape(parameterToString(r.toObjectType, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -107,21 +98,7 @@ func (a *BatchApiService) PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchAr
 	}
 	// body params
 	localVarPostBody = r.batchInputPublicAssociation
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -131,15 +108,15 @@ func (a *BatchApiService) PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchAr
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -157,7 +134,7 @@ func (a *BatchApiService) PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchAr
 }
 
 type ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreateRequest struct {
-	ctx                         _context.Context
+	ctx                         context.Context
 	ApiService                  *BatchApiService
 	fromObjectType              string
 	toObjectType                string
@@ -169,7 +146,7 @@ func (r ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreateReque
 	return r
 }
 
-func (r ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreateRequest) Execute() (BatchResponsePublicAssociation, *_nethttp.Response, error) {
+func (r ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreateRequest) Execute() (*BatchResponsePublicAssociation, *http.Response, error) {
 	return r.ApiService.PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreateExecute(r)
 }
 
@@ -178,12 +155,12 @@ PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreate Create a batch 
 
 Associate all pairs of objects identified in the request body.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param fromObjectType
  @param toObjectType
  @return ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreateRequest
 */
-func (a *BatchApiService) PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreate(ctx _context.Context, fromObjectType string, toObjectType string) ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreateRequest {
+func (a *BatchApiService) PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreate(ctx context.Context, fromObjectType string, toObjectType string) ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreateRequest {
 	return ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreateRequest{
 		ApiService:     a,
 		ctx:            ctx,
@@ -194,28 +171,26 @@ func (a *BatchApiService) PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCr
 
 // Execute executes the request
 //  @return BatchResponsePublicAssociation
-func (a *BatchApiService) PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreateExecute(r ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreateRequest) (BatchResponsePublicAssociation, *_nethttp.Response, error) {
+func (a *BatchApiService) PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreateExecute(r ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreateRequest) (*BatchResponsePublicAssociation, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  BatchResponsePublicAssociation
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *BatchResponsePublicAssociation
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchApiService.PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreate")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/associations/{fromObjectType}/{toObjectType}/batch/create"
-	localVarPath = strings.Replace(localVarPath, "{"+"fromObjectType"+"}", _neturl.PathEscape(parameterToString(r.fromObjectType, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"toObjectType"+"}", _neturl.PathEscape(parameterToString(r.toObjectType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"fromObjectType"+"}", url.PathEscape(parameterToString(r.fromObjectType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"toObjectType"+"}", url.PathEscape(parameterToString(r.toObjectType, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -236,21 +211,7 @@ func (a *BatchApiService) PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCr
 	}
 	// body params
 	localVarPostBody = r.batchInputPublicAssociation
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -260,15 +221,15 @@ func (a *BatchApiService) PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCr
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -284,7 +245,7 @@ func (a *BatchApiService) PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCr
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -295,7 +256,7 @@ func (a *BatchApiService) PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCr
 }
 
 type ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadReadRequest struct {
-	ctx                      _context.Context
+	ctx                      context.Context
 	ApiService               *BatchApiService
 	fromObjectType           string
 	toObjectType             string
@@ -307,7 +268,7 @@ func (r ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadReadRequest) 
 	return r
 }
 
-func (r ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadReadRequest) Execute() (BatchResponsePublicAssociationMulti, *_nethttp.Response, error) {
+func (r ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadReadRequest) Execute() (*BatchResponsePublicAssociationMulti, *http.Response, error) {
 	return r.ApiService.PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadReadExecute(r)
 }
 
@@ -316,12 +277,12 @@ PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadRead Read a batch of ass
 
 Get the IDs of all `{toObjectType}` objects associated with those specified in the request body.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param fromObjectType
  @param toObjectType
  @return ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadReadRequest
 */
-func (a *BatchApiService) PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadRead(ctx _context.Context, fromObjectType string, toObjectType string) ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadReadRequest {
+func (a *BatchApiService) PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadRead(ctx context.Context, fromObjectType string, toObjectType string) ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadReadRequest {
 	return ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadReadRequest{
 		ApiService:     a,
 		ctx:            ctx,
@@ -332,28 +293,26 @@ func (a *BatchApiService) PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchRe
 
 // Execute executes the request
 //  @return BatchResponsePublicAssociationMulti
-func (a *BatchApiService) PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadReadExecute(r ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadReadRequest) (BatchResponsePublicAssociationMulti, *_nethttp.Response, error) {
+func (a *BatchApiService) PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadReadExecute(r ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadReadRequest) (*BatchResponsePublicAssociationMulti, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  BatchResponsePublicAssociationMulti
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *BatchResponsePublicAssociationMulti
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchApiService.PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadRead")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/associations/{fromObjectType}/{toObjectType}/batch/read"
-	localVarPath = strings.Replace(localVarPath, "{"+"fromObjectType"+"}", _neturl.PathEscape(parameterToString(r.fromObjectType, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"toObjectType"+"}", _neturl.PathEscape(parameterToString(r.toObjectType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"fromObjectType"+"}", url.PathEscape(parameterToString(r.fromObjectType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"toObjectType"+"}", url.PathEscape(parameterToString(r.toObjectType, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -374,21 +333,7 @@ func (a *BatchApiService) PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchRe
 	}
 	// body params
 	localVarPostBody = r.batchInputPublicObjectId
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -398,15 +343,15 @@ func (a *BatchApiService) PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchRe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -422,7 +367,7 @@ func (a *BatchApiService) PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchRe
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

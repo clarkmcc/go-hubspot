@@ -34,7 +34,7 @@ type MarketingEventUpdateRequestParams struct {
 	// Indicates if the marketing event has been cancelled. Defaults to `false`
 	EventCancelled *bool `json:"eventCancelled,omitempty"`
 	// A list of PropertyValues. These can be whatever kind of property names and values you want. However, they must already exist on the HubSpot account's definition of the MarketingEvent Object. If they don't they will be filtered out and not set. In order to do this you'll need to create a new PropertyGroup on the HubSpot account's MarketingEvent object for your specific app and create the Custom Property you want to track on that HubSpot account. Do not create any new default properties on the MarketingEvent object as that will apply to all HubSpot accounts.
-	CustomProperties *[]PropertyValue `json:"customProperties,omitempty"`
+	CustomProperties []PropertyValue `json:"customProperties,omitempty"`
 }
 
 // NewMarketingEventUpdateRequestParams instantiates a new MarketingEventUpdateRequestParams object
@@ -316,12 +316,12 @@ func (o *MarketingEventUpdateRequestParams) GetCustomProperties() []PropertyValu
 		var ret []PropertyValue
 		return ret
 	}
-	return *o.CustomProperties
+	return o.CustomProperties
 }
 
 // GetCustomPropertiesOk returns a tuple with the CustomProperties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MarketingEventUpdateRequestParams) GetCustomPropertiesOk() (*[]PropertyValue, bool) {
+func (o *MarketingEventUpdateRequestParams) GetCustomPropertiesOk() ([]PropertyValue, bool) {
 	if o == nil || o.CustomProperties == nil {
 		return nil, false
 	}
@@ -339,7 +339,7 @@ func (o *MarketingEventUpdateRequestParams) HasCustomProperties() bool {
 
 // SetCustomProperties gets a reference to the given []PropertyValue and assigns it to the CustomProperties field.
 func (o *MarketingEventUpdateRequestParams) SetCustomProperties(v []PropertyValue) {
-	o.CustomProperties = &v
+	o.CustomProperties = v
 }
 
 func (o MarketingEventUpdateRequestParams) MarshalJSON() ([]byte, error) {

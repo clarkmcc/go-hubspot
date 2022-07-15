@@ -1,7 +1,7 @@
 /*
 Blog Post endpoints
 
-\"Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags\"
+Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags
 
 API version: v3
 */
@@ -14,7 +14,7 @@ import (
 	"encoding/json"
 )
 
-// ForwardPaging struct for ForwardPaging
+// ForwardPaging Model definition for forward paging.
 type ForwardPaging struct {
 	Next *NextPage `json:"next,omitempty"`
 }

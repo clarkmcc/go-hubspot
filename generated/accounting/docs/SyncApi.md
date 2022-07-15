@@ -35,8 +35,8 @@ func main() {
     syncContactsRequest := *openapiclient.NewSyncContactsRequest("acct-app-123", []openapiclient.UpdatedContact{*openapiclient.NewUpdatedContact("UPDATE", time.Now(), "johndoe@company.com", "acct-app-123")}) // SyncContactsRequest | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SyncApi.PostCrmV3ExtensionsAccountingSyncAppIdContactsCreateContact(context.Background(), appId).SyncContactsRequest(syncContactsRequest).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SyncApi.PostCrmV3ExtensionsAccountingSyncAppIdContactsCreateContact(context.Background(), appId).SyncContactsRequest(syncContactsRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SyncApi.PostCrmV3ExtensionsAccountingSyncAppIdContactsCreateContact``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -70,7 +70,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -108,8 +108,8 @@ func main() {
     syncProductsRequest := *openapiclient.NewSyncProductsRequest("AccountId_example", []openapiclient.UpdatedProduct{*openapiclient.NewUpdatedProduct("SyncAction_example", time.Now(), float32(123), "Id_example", map[string]string{"key": "Inner_example"})}) // SyncProductsRequest | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SyncApi.PostCrmV3ExtensionsAccountingSyncAppIdProductsCreateProduct(context.Background(), appId).SyncProductsRequest(syncProductsRequest).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SyncApi.PostCrmV3ExtensionsAccountingSyncAppIdProductsCreateProduct(context.Background(), appId).SyncProductsRequest(syncProductsRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SyncApi.PostCrmV3ExtensionsAccountingSyncAppIdProductsCreateProduct``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -143,7 +143,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 

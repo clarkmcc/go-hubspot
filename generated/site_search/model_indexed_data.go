@@ -21,14 +21,14 @@ type IndexedData struct {
 	// The type of document. Can be `SITE_PAGE`, `LANDING_PAGE`, `BLOG_POST`, `LISTING_PAGE`, or `KNOWLEDGE_ARTICLE`.
 	Type string `json:"type"`
 	// The indexed fields in HubSpot.
-	Fields map[string]SearchHitField `json:"fields"`
+	Fields map[string]IndexedField `json:"fields"`
 }
 
 // NewIndexedData instantiates a new IndexedData object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIndexedData(id string, type_ string, fields map[string]SearchHitField) *IndexedData {
+func NewIndexedData(id string, type_ string, fields map[string]IndexedField) *IndexedData {
 	this := IndexedData{}
 	this.Id = id
 	this.Type = type_
@@ -93,9 +93,9 @@ func (o *IndexedData) SetType(v string) {
 }
 
 // GetFields returns the Fields field value
-func (o *IndexedData) GetFields() map[string]SearchHitField {
+func (o *IndexedData) GetFields() map[string]IndexedField {
 	if o == nil {
-		var ret map[string]SearchHitField
+		var ret map[string]IndexedField
 		return ret
 	}
 
@@ -104,7 +104,7 @@ func (o *IndexedData) GetFields() map[string]SearchHitField {
 
 // GetFieldsOk returns a tuple with the Fields field value
 // and a boolean to check if the value has been set.
-func (o *IndexedData) GetFieldsOk() (*map[string]SearchHitField, bool) {
+func (o *IndexedData) GetFieldsOk() (*map[string]IndexedField, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -112,7 +112,7 @@ func (o *IndexedData) GetFieldsOk() (*map[string]SearchHitField, bool) {
 }
 
 // SetFields sets field value
-func (o *IndexedData) SetFields(v map[string]SearchHitField) {
+func (o *IndexedData) SetFields(v map[string]IndexedField) {
 	o.Fields = v
 }
 

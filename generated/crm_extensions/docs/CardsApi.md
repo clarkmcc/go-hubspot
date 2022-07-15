@@ -37,8 +37,8 @@ func main() {
     cardId := "cardId_example" // string | The ID of the card to delete.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CardsApi.DeleteCrmV3ExtensionsCardsAppIdCardIdArchive(context.Background(), appId, cardId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CardsApi.DeleteCrmV3ExtensionsCardsAppIdCardIdArchive(context.Background(), appId, cardId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CardsApi.DeleteCrmV3ExtensionsCardsAppIdCardIdArchive``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -108,8 +108,8 @@ func main() {
     cardId := "cardId_example" // string | The ID of the target card.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CardsApi.GetCrmV3ExtensionsCardsAppIdCardIdGetById(context.Background(), appId, cardId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CardsApi.GetCrmV3ExtensionsCardsAppIdCardIdGetById(context.Background(), appId, cardId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CardsApi.GetCrmV3ExtensionsCardsAppIdCardIdGetById``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -180,8 +180,8 @@ func main() {
     appId := int32(56) // int32 | The ID of the target app.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CardsApi.GetCrmV3ExtensionsCardsAppIdGetAll(context.Background(), appId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CardsApi.GetCrmV3ExtensionsCardsAppIdGetAll(context.Background(), appId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CardsApi.GetCrmV3ExtensionsCardsAppIdGetAll``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -252,8 +252,8 @@ func main() {
     cardPatchRequest := *openapiclient.NewCardPatchRequest() // CardPatchRequest | Card definition fields to be updated.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CardsApi.PatchCrmV3ExtensionsCardsAppIdCardIdUpdate(context.Background(), appId, cardId).CardPatchRequest(cardPatchRequest).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CardsApi.PatchCrmV3ExtensionsCardsAppIdCardIdUpdate(context.Background(), appId, cardId).CardPatchRequest(cardPatchRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CardsApi.PatchCrmV3ExtensionsCardsAppIdCardIdUpdate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -326,8 +326,8 @@ func main() {
     cardCreateRequest := *openapiclient.NewCardCreateRequest("Title_example", *openapiclient.NewCardFetchBody("TargetUrl_example", []openapiclient.CardObjectTypeBody{*openapiclient.NewCardObjectTypeBody("Name_example", []string{"PropertiesToSend_example"})}), *openapiclient.NewCardDisplayBody([]openapiclient.CardDisplayProperty{*openapiclient.NewCardDisplayProperty("Name_example", "Label_example", "DataType_example", []openapiclient.DisplayOption{*openapiclient.NewDisplayOption("Name_example", "Label_example", "Type_example")})}), *openapiclient.NewCardActions([]string{"BaseUrls_example"})) // CardCreateRequest | The new card definition.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CardsApi.PostCrmV3ExtensionsCardsAppIdCreate(context.Background(), appId).CardCreateRequest(cardCreateRequest).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CardsApi.PostCrmV3ExtensionsCardsAppIdCreate(context.Background(), appId).CardCreateRequest(cardCreateRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CardsApi.PostCrmV3ExtensionsCardsAppIdCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

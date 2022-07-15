@@ -12,48 +12,41 @@ package marketing_events_beta
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-
-	"github.com/clarkmcc/go-hubspot/authorization"
-	_neturl "net/url"
-)
-
-// Linger please
-var (
-	_ _context.Context
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 )
 
 // BatchApiService BatchApi service
 type BatchApiService service
 
-type ApiPostMarketingV3MarketingEventsEventsDeleteRequest struct {
-	ctx                                              _context.Context
+type ApiPostMarketingV3MarketingEventsEventsDeleteArchiveRequest struct {
+	ctx                                              context.Context
 	ApiService                                       *BatchApiService
 	batchInputMarketingEventExternalUniqueIdentifier *BatchInputMarketingEventExternalUniqueIdentifier
 }
 
 // The details of the marketing events to delete
-func (r ApiPostMarketingV3MarketingEventsEventsDeleteRequest) BatchInputMarketingEventExternalUniqueIdentifier(batchInputMarketingEventExternalUniqueIdentifier BatchInputMarketingEventExternalUniqueIdentifier) ApiPostMarketingV3MarketingEventsEventsDeleteRequest {
+func (r ApiPostMarketingV3MarketingEventsEventsDeleteArchiveRequest) BatchInputMarketingEventExternalUniqueIdentifier(batchInputMarketingEventExternalUniqueIdentifier BatchInputMarketingEventExternalUniqueIdentifier) ApiPostMarketingV3MarketingEventsEventsDeleteArchiveRequest {
 	r.batchInputMarketingEventExternalUniqueIdentifier = &batchInputMarketingEventExternalUniqueIdentifier
 	return r
 }
 
-func (r ApiPostMarketingV3MarketingEventsEventsDeleteRequest) Execute() (Error, *_nethttp.Response, error) {
-	return r.ApiService.PostMarketingV3MarketingEventsEventsDeleteExecute(r)
+func (r ApiPostMarketingV3MarketingEventsEventsDeleteArchiveRequest) Execute() (*Error, *http.Response, error) {
+	return r.ApiService.PostMarketingV3MarketingEventsEventsDeleteArchiveExecute(r)
 }
 
 /*
-PostMarketingV3MarketingEventsEventsDelete Delete multiple marketing events
+PostMarketingV3MarketingEventsEventsDeleteArchive Delete multiple marketing events
 
 Bulk delete a number of marketing events in HubSpot
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostMarketingV3MarketingEventsEventsDeleteRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiPostMarketingV3MarketingEventsEventsDeleteArchiveRequest
 */
-func (a *BatchApiService) PostMarketingV3MarketingEventsEventsDelete(ctx _context.Context) ApiPostMarketingV3MarketingEventsEventsDeleteRequest {
-	return ApiPostMarketingV3MarketingEventsEventsDeleteRequest{
+func (a *BatchApiService) PostMarketingV3MarketingEventsEventsDeleteArchive(ctx context.Context) ApiPostMarketingV3MarketingEventsEventsDeleteArchiveRequest {
+	return ApiPostMarketingV3MarketingEventsEventsDeleteArchiveRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -61,26 +54,24 @@ func (a *BatchApiService) PostMarketingV3MarketingEventsEventsDelete(ctx _contex
 
 // Execute executes the request
 //  @return Error
-func (a *BatchApiService) PostMarketingV3MarketingEventsEventsDeleteExecute(r ApiPostMarketingV3MarketingEventsEventsDeleteRequest) (Error, *_nethttp.Response, error) {
+func (a *BatchApiService) PostMarketingV3MarketingEventsEventsDeleteArchiveExecute(r ApiPostMarketingV3MarketingEventsEventsDeleteArchiveRequest) (*Error, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  Error
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Error
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchApiService.PostMarketingV3MarketingEventsEventsDelete")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchApiService.PostMarketingV3MarketingEventsEventsDeleteArchive")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/marketing/v3/marketing-events/events/delete"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.batchInputMarketingEventExternalUniqueIdentifier == nil {
 		return localVarReturnValue, nil, reportError("batchInputMarketingEventExternalUniqueIdentifier is required and must be specified")
 	}
@@ -104,21 +95,7 @@ func (a *BatchApiService) PostMarketingV3MarketingEventsEventsDeleteExecute(r Ap
 	}
 	// body params
 	localVarPostBody = r.batchInputMarketingEventExternalUniqueIdentifier
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -128,15 +105,15 @@ func (a *BatchApiService) PostMarketingV3MarketingEventsEventsDeleteExecute(r Ap
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -152,7 +129,7 @@ func (a *BatchApiService) PostMarketingV3MarketingEventsEventsDeleteExecute(r Ap
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -162,32 +139,32 @@ func (a *BatchApiService) PostMarketingV3MarketingEventsEventsDeleteExecute(r Ap
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPostMarketingV3MarketingEventsEventsUpsertRequest struct {
-	ctx                                         _context.Context
+type ApiPostMarketingV3MarketingEventsEventsUpsertDoUpsertRequest struct {
+	ctx                                         context.Context
 	ApiService                                  *BatchApiService
 	batchInputMarketingEventCreateRequestParams *BatchInputMarketingEventCreateRequestParams
 }
 
 // The details of the marketing events to upsert
-func (r ApiPostMarketingV3MarketingEventsEventsUpsertRequest) BatchInputMarketingEventCreateRequestParams(batchInputMarketingEventCreateRequestParams BatchInputMarketingEventCreateRequestParams) ApiPostMarketingV3MarketingEventsEventsUpsertRequest {
+func (r ApiPostMarketingV3MarketingEventsEventsUpsertDoUpsertRequest) BatchInputMarketingEventCreateRequestParams(batchInputMarketingEventCreateRequestParams BatchInputMarketingEventCreateRequestParams) ApiPostMarketingV3MarketingEventsEventsUpsertDoUpsertRequest {
 	r.batchInputMarketingEventCreateRequestParams = &batchInputMarketingEventCreateRequestParams
 	return r
 }
 
-func (r ApiPostMarketingV3MarketingEventsEventsUpsertRequest) Execute() (BatchResponseMarketingEventPublicDefaultResponse, *_nethttp.Response, error) {
-	return r.ApiService.PostMarketingV3MarketingEventsEventsUpsertExecute(r)
+func (r ApiPostMarketingV3MarketingEventsEventsUpsertDoUpsertRequest) Execute() (*BatchResponseMarketingEventPublicDefaultResponse, *http.Response, error) {
+	return r.ApiService.PostMarketingV3MarketingEventsEventsUpsertDoUpsertExecute(r)
 }
 
 /*
-PostMarketingV3MarketingEventsEventsUpsert Create or update multiple marketing events
+PostMarketingV3MarketingEventsEventsUpsertDoUpsert Create or update multiple marketing events
 
 Upset multiple Marketing Event. If there is an existing Marketing event with the specified id, it will be updated; otherwise a new event will be created.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostMarketingV3MarketingEventsEventsUpsertRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiPostMarketingV3MarketingEventsEventsUpsertDoUpsertRequest
 */
-func (a *BatchApiService) PostMarketingV3MarketingEventsEventsUpsert(ctx _context.Context) ApiPostMarketingV3MarketingEventsEventsUpsertRequest {
-	return ApiPostMarketingV3MarketingEventsEventsUpsertRequest{
+func (a *BatchApiService) PostMarketingV3MarketingEventsEventsUpsertDoUpsert(ctx context.Context) ApiPostMarketingV3MarketingEventsEventsUpsertDoUpsertRequest {
+	return ApiPostMarketingV3MarketingEventsEventsUpsertDoUpsertRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -195,26 +172,24 @@ func (a *BatchApiService) PostMarketingV3MarketingEventsEventsUpsert(ctx _contex
 
 // Execute executes the request
 //  @return BatchResponseMarketingEventPublicDefaultResponse
-func (a *BatchApiService) PostMarketingV3MarketingEventsEventsUpsertExecute(r ApiPostMarketingV3MarketingEventsEventsUpsertRequest) (BatchResponseMarketingEventPublicDefaultResponse, *_nethttp.Response, error) {
+func (a *BatchApiService) PostMarketingV3MarketingEventsEventsUpsertDoUpsertExecute(r ApiPostMarketingV3MarketingEventsEventsUpsertDoUpsertRequest) (*BatchResponseMarketingEventPublicDefaultResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  BatchResponseMarketingEventPublicDefaultResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *BatchResponseMarketingEventPublicDefaultResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchApiService.PostMarketingV3MarketingEventsEventsUpsert")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchApiService.PostMarketingV3MarketingEventsEventsUpsertDoUpsert")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/marketing/v3/marketing-events/events/upsert"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.batchInputMarketingEventCreateRequestParams == nil {
 		return localVarReturnValue, nil, reportError("batchInputMarketingEventCreateRequestParams is required and must be specified")
 	}
@@ -238,21 +213,7 @@ func (a *BatchApiService) PostMarketingV3MarketingEventsEventsUpsertExecute(r Ap
 	}
 	// body params
 	localVarPostBody = r.batchInputMarketingEventCreateRequestParams
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -262,15 +223,15 @@ func (a *BatchApiService) PostMarketingV3MarketingEventsEventsUpsertExecute(r Ap
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -286,7 +247,7 @@ func (a *BatchApiService) PostMarketingV3MarketingEventsEventsUpsertExecute(r Ap
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

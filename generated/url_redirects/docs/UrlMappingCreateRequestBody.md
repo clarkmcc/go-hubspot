@@ -4,9 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**RoutePrefix** | **string** |  | 
-**Destination** | **string** |  | 
-**RedirectStyle** | **int32** |  | 
 **Precedence** | Pointer to **int32** |  | [optional] 
 **IsOnlyAfterNotFound** | Pointer to **bool** |  | [optional] 
 **IsMatchFullUrl** | Pointer to **bool** |  | [optional] 
@@ -14,6 +11,9 @@ Name | Type | Description | Notes
 **IsPattern** | Pointer to **bool** |  | [optional] 
 **IsTrailingSlashOptional** | Pointer to **bool** |  | [optional] 
 **IsProtocolAgnostic** | Pointer to **bool** |  | [optional] 
+**RoutePrefix** | **string** |  | 
+**Destination** | **string** |  | 
+**RedirectStyle** | **int32** |  | 
 
 ## Methods
 
@@ -33,66 +33,6 @@ will change when the set of required properties is changed
 NewUrlMappingCreateRequestBodyWithDefaults instantiates a new UrlMappingCreateRequestBody object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetRoutePrefix
-
-`func (o *UrlMappingCreateRequestBody) GetRoutePrefix() string`
-
-GetRoutePrefix returns the RoutePrefix field if non-nil, zero value otherwise.
-
-### GetRoutePrefixOk
-
-`func (o *UrlMappingCreateRequestBody) GetRoutePrefixOk() (*string, bool)`
-
-GetRoutePrefixOk returns a tuple with the RoutePrefix field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRoutePrefix
-
-`func (o *UrlMappingCreateRequestBody) SetRoutePrefix(v string)`
-
-SetRoutePrefix sets RoutePrefix field to given value.
-
-
-### GetDestination
-
-`func (o *UrlMappingCreateRequestBody) GetDestination() string`
-
-GetDestination returns the Destination field if non-nil, zero value otherwise.
-
-### GetDestinationOk
-
-`func (o *UrlMappingCreateRequestBody) GetDestinationOk() (*string, bool)`
-
-GetDestinationOk returns a tuple with the Destination field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDestination
-
-`func (o *UrlMappingCreateRequestBody) SetDestination(v string)`
-
-SetDestination sets Destination field to given value.
-
-
-### GetRedirectStyle
-
-`func (o *UrlMappingCreateRequestBody) GetRedirectStyle() int32`
-
-GetRedirectStyle returns the RedirectStyle field if non-nil, zero value otherwise.
-
-### GetRedirectStyleOk
-
-`func (o *UrlMappingCreateRequestBody) GetRedirectStyleOk() (*int32, bool)`
-
-GetRedirectStyleOk returns a tuple with the RedirectStyle field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRedirectStyle
-
-`func (o *UrlMappingCreateRequestBody) SetRedirectStyle(v int32)`
-
-SetRedirectStyle sets RedirectStyle field to given value.
-
 
 ### GetPrecedence
 
@@ -268,6 +208,66 @@ SetIsProtocolAgnostic sets IsProtocolAgnostic field to given value.
 `func (o *UrlMappingCreateRequestBody) HasIsProtocolAgnostic() bool`
 
 HasIsProtocolAgnostic returns a boolean if a field has been set.
+
+### GetRoutePrefix
+
+`func (o *UrlMappingCreateRequestBody) GetRoutePrefix() string`
+
+GetRoutePrefix returns the RoutePrefix field if non-nil, zero value otherwise.
+
+### GetRoutePrefixOk
+
+`func (o *UrlMappingCreateRequestBody) GetRoutePrefixOk() (*string, bool)`
+
+GetRoutePrefixOk returns a tuple with the RoutePrefix field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRoutePrefix
+
+`func (o *UrlMappingCreateRequestBody) SetRoutePrefix(v string)`
+
+SetRoutePrefix sets RoutePrefix field to given value.
+
+
+### GetDestination
+
+`func (o *UrlMappingCreateRequestBody) GetDestination() string`
+
+GetDestination returns the Destination field if non-nil, zero value otherwise.
+
+### GetDestinationOk
+
+`func (o *UrlMappingCreateRequestBody) GetDestinationOk() (*string, bool)`
+
+GetDestinationOk returns a tuple with the Destination field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDestination
+
+`func (o *UrlMappingCreateRequestBody) SetDestination(v string)`
+
+SetDestination sets Destination field to given value.
+
+
+### GetRedirectStyle
+
+`func (o *UrlMappingCreateRequestBody) GetRedirectStyle() int32`
+
+GetRedirectStyle returns the RedirectStyle field if non-nil, zero value otherwise.
+
+### GetRedirectStyleOk
+
+`func (o *UrlMappingCreateRequestBody) GetRedirectStyleOk() (*int32, bool)`
+
+GetRedirectStyleOk returns a tuple with the RedirectStyle field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRedirectStyle
+
+`func (o *UrlMappingCreateRequestBody) SetRedirectStyle(v int32)`
+
+SetRedirectStyle sets RedirectStyle field to given value.
+
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

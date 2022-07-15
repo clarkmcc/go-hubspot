@@ -77,11 +77,11 @@ func (o *SyncContactsRequest) GetContacts() []UpdatedContact {
 
 // GetContactsOk returns a tuple with the Contacts field value
 // and a boolean to check if the value has been set.
-func (o *SyncContactsRequest) GetContactsOk() (*[]UpdatedContact, bool) {
+func (o *SyncContactsRequest) GetContactsOk() ([]UpdatedContact, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Contacts, true
+	return o.Contacts, true
 }
 
 // SetContacts sets field value

@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
-  description: Associations define the relationships between objects in HubSpot. These
-    endpoints allow you to create, read, and remove associations.
+  description: "Associations define the relationships between objects in HubSpot.\
+    \ These endpoints allow you to create, read, and remove associations."
   title: Associations
   version: v3
 servers:
@@ -14,7 +14,7 @@ paths:
     post:
       description: Remove the associations between all pairs of objects identified
         in the request body.
-      operationId: post-/crm/v3/associations/{fromObjectType}/{toObjectType}/batch/archive_archive
+      operationId: "post-/crm/v3/associations/{fromObjectType}/{toObjectType}/batch/archive_archive"
       parameters:
       - explode: false
         in: path
@@ -47,25 +47,32 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - oauth2_legacy:
-        - media_bridge.read
+      - oauth2:
+        - crm.objects.quotes.write
       - oauth2_legacy:
         - tickets
+      - oauth2_legacy:
+        - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
-      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
       - oauth2:
         - crm.objects.deals.read
       - oauth2_legacy:
         - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
       - oauth2:
         - crm.objects.deals.write
       - oauth2:
         - crm.objects.companies.read
       - oauth2_legacy:
         - e-commerce
+      - oauth2:
+        - crm.objects.quotes.read
       - oauth2_legacy:
         - contacts
       - oauth2_legacy:
@@ -78,7 +85,7 @@ paths:
   /crm/v3/associations/{fromObjectType}/{toObjectType}/batch/create:
     post:
       description: Associate all pairs of objects identified in the request body.
-      operationId: post-/crm/v3/associations/{fromObjectType}/{toObjectType}/batch/create_create
+      operationId: "post-/crm/v3/associations/{fromObjectType}/{toObjectType}/batch/create_create"
       parameters:
       - explode: false
         in: path
@@ -120,25 +127,32 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - oauth2_legacy:
-        - media_bridge.read
+      - oauth2:
+        - crm.objects.quotes.write
       - oauth2_legacy:
         - tickets
+      - oauth2_legacy:
+        - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
-      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
       - oauth2:
         - crm.objects.deals.read
       - oauth2_legacy:
         - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
       - oauth2:
         - crm.objects.deals.write
       - oauth2:
         - crm.objects.companies.read
       - oauth2_legacy:
         - e-commerce
+      - oauth2:
+        - crm.objects.quotes.read
       - oauth2_legacy:
         - contacts
       - oauth2_legacy:
@@ -150,9 +164,9 @@ paths:
       - Batch
   /crm/v3/associations/{fromObjectType}/{toObjectType}/batch/read:
     post:
-      description: Get the IDs of all `{toObjectType}` objects associated with those
-        specified in the request body.
-      operationId: post-/crm/v3/associations/{fromObjectType}/{toObjectType}/batch/read_read
+      description: "Get the IDs of all `{toObjectType}` objects associated with those\
+        \ specified in the request body."
+      operationId: "post-/crm/v3/associations/{fromObjectType}/{toObjectType}/batch/read_read"
       parameters:
       - explode: false
         in: path
@@ -194,25 +208,32 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - oauth2_legacy:
-        - media_bridge.read
+      - oauth2:
+        - crm.objects.quotes.write
       - oauth2_legacy:
         - tickets
+      - oauth2_legacy:
+        - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
-      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
       - oauth2:
         - crm.objects.deals.read
       - oauth2_legacy:
         - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
       - oauth2:
         - crm.objects.deals.write
       - oauth2:
         - crm.objects.companies.read
       - oauth2_legacy:
         - e-commerce
+      - oauth2:
+        - crm.objects.quotes.read
       - oauth2_legacy:
         - contacts
       - oauth2_legacy:
@@ -226,7 +247,7 @@ paths:
     get:
       description: List all the valid association types available between two object
         types
-      operationId: get-/crm/v3/associations/{fromObjectType}/{toObjectType}/types_getAll
+      operationId: "get-/crm/v3/associations/{fromObjectType}/{toObjectType}/types_getAll"
       parameters:
       - explode: false
         in: path
@@ -256,25 +277,32 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - oauth2_legacy:
-        - media_bridge.read
+      - oauth2:
+        - crm.objects.quotes.write
       - oauth2_legacy:
         - tickets
+      - oauth2_legacy:
+        - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
-      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
       - oauth2:
         - crm.objects.deals.read
       - oauth2_legacy:
         - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
       - oauth2:
         - crm.objects.deals.write
       - oauth2:
         - crm.objects.companies.read
       - oauth2_legacy:
         - e-commerce
+      - oauth2:
+        - crm.objects.quotes.read
       - oauth2_legacy:
         - contacts
       - oauth2_legacy:
@@ -358,7 +386,7 @@ components:
             id: "12726"
           type: contact_to_company
         errors:
-        - subCategory: '{}'
+        - subCategory: "{}"
           context:
             key:
             - context
@@ -388,7 +416,7 @@ components:
               - scope2
             message: message
           status: status
-        - subCategory: '{}'
+        - subCategory: "{}"
           context:
             key:
             - context
@@ -475,7 +503,7 @@ components:
           - id: "61352"
             type: contact_to_company
         errors:
-        - subCategory: '{}'
+        - subCategory: "{}"
           context:
             key:
             - context
@@ -505,7 +533,7 @@ components:
               - scope2
             message: message
           status: status
-        - subCategory: '{}'
+        - subCategory: "{}"
           context:
             key:
             - context
@@ -847,7 +875,7 @@ components:
       type: object
     StandardError:
       example:
-        subCategory: '{}'
+        subCategory: "{}"
         context:
           key:
           - context
@@ -917,29 +945,29 @@ components:
         authorizationCode:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
-            e-commerce: e-commerce
-            crm.objects.custom.write: Change custom object records
             contacts: Read from and write to my Contacts
-            media_bridge.read: Read media and media events
-            tickets: Read and write tickets
+            crm.objects.custom.write: Change custom object records
+            e-commerce: e-commerce
             crm.objects.custom.read: View custom object records
+            tickets: Read and write tickets
+            media_bridge.read: Read media and media events
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
-    hapikey:
-      in: query
-      name: hapikey
-      type: apiKey
     oauth2:
       flows:
         authorizationCode:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
+            crm.objects.line_items.write: Line Items
+            crm.objects.quotes.read: Quotes
             crm.objects.deals.write: ' '
+            crm.objects.line_items.read: Line Items
             crm.objects.deals.read: ' '
+            crm.objects.quotes.write: Quotes
             crm.objects.contacts.read: ' '
-            crm.objects.companies.read: ' '
-            crm.objects.companies.write: ' '
             crm.objects.contacts.write: ' '
+            crm.objects.companies.write: ' '
+            crm.objects.companies.read: ' '
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
 x-hubspot-available-client-libraries:

@@ -49,11 +49,11 @@ func (o *FilterGroup) GetFilters() []Filter {
 
 // GetFiltersOk returns a tuple with the Filters field value
 // and a boolean to check if the value has been set.
-func (o *FilterGroup) GetFiltersOk() (*[]Filter, bool) {
+func (o *FilterGroup) GetFiltersOk() ([]Filter, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Filters, true
+	return o.Filters, true
 }
 
 // SetFilters sets field value

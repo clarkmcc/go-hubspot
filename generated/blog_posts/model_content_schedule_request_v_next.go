@@ -1,7 +1,7 @@
 /*
 Blog Post endpoints
 
-\"Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags\"
+Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags
 
 API version: v3
 */
@@ -15,7 +15,7 @@ import (
 	"time"
 )
 
-// ContentScheduleRequestVNext struct for ContentScheduleRequestVNext
+// ContentScheduleRequestVNext Request body object for scheduling the publish of content
 type ContentScheduleRequestVNext struct {
 	// The ID of the object to be scheduled.
 	Id string `json:"id"`

@@ -50,11 +50,11 @@ func (o *SubscriptionDefinitionsResponse) GetSubscriptionDefinitions() []Subscri
 
 // GetSubscriptionDefinitionsOk returns a tuple with the SubscriptionDefinitions field value
 // and a boolean to check if the value has been set.
-func (o *SubscriptionDefinitionsResponse) GetSubscriptionDefinitionsOk() (*[]SubscriptionDefinition, bool) {
+func (o *SubscriptionDefinitionsResponse) GetSubscriptionDefinitionsOk() ([]SubscriptionDefinition, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.SubscriptionDefinitions, true
+	return o.SubscriptionDefinitions, true
 }
 
 // SetSubscriptionDefinitions sets field value
