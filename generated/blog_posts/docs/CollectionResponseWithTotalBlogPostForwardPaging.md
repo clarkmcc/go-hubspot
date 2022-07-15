@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Total** | **int32** |  | 
-**Results** | [**[]BlogPost**](BlogPost.md) |  | 
+**Total** | **int32** | Total number of blog posts. | 
+**Results** | [**[]BlogPost**](BlogPost.md) | Collection of blog posts. | 
 **Paging** | Pointer to [**ForwardPaging**](ForwardPaging.md) |  | [optional] 
 
 ## Methods

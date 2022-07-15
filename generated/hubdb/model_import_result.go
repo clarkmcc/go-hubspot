@@ -59,11 +59,11 @@ func (o *ImportResult) GetErrors() []Error {
 
 // GetErrorsOk returns a tuple with the Errors field value
 // and a boolean to check if the value has been set.
-func (o *ImportResult) GetErrorsOk() (*[]Error, bool) {
+func (o *ImportResult) GetErrorsOk() ([]Error, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Errors, true
+	return o.Errors, true
 }
 
 // SetErrors sets field value

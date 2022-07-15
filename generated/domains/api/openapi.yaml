@@ -176,15 +176,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security:
-      - hapikey: []
+      security: []
       summary: Get current domains
       tags:
       - Domains
   /cms/v3/domains/{domainId}:
     get:
       description: Returns a single domains with the id specified.
-      operationId: get-/cms/v3/domains/{domainId}_getById
+      operationId: "get-/cms/v3/domains/{domainId}_getById"
       parameters:
       - description: The unique ID of the domain.
         explode: false
@@ -236,8 +235,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security:
-      - hapikey: []
+      security: []
       summary: Get a single domain
       tags:
       - Domains
@@ -1006,11 +1004,6 @@ components:
         next:
           $ref: '#/components/schemas/NextPage'
       type: object
-  securitySchemes:
-    hapikey:
-      in: query
-      name: hapikey
-      type: apiKey
 x-hubspot-available-client-libraries:
 - PHP
 - Node

@@ -1,7 +1,7 @@
 /*
 Blog Post endpoints
 
-\"Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags\"
+Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags
 
 API version: v3
 */
@@ -14,8 +14,9 @@ import (
 	"encoding/json"
 )
 
-// BatchInputTag struct for BatchInputTag
+// BatchInputTag Wrapper for providing an array of blog tags as inputs.
 type BatchInputTag struct {
+	// Blog tags to input.
 	Inputs []Tag `json:"inputs"`
 }
 
@@ -49,11 +50,11 @@ func (o *BatchInputTag) GetInputs() []Tag {
 
 // GetInputsOk returns a tuple with the Inputs field value
 // and a boolean to check if the value has been set.
-func (o *BatchInputTag) GetInputsOk() (*[]Tag, bool) {
+func (o *BatchInputTag) GetInputsOk() ([]Tag, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Inputs, true
+	return o.Inputs, true
 }
 
 // SetInputs sets field value

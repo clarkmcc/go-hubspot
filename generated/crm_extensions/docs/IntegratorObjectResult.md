@@ -8,13 +8,13 @@ Name | Type | Description | Notes
 **Title** | **string** |  | 
 **LinkUrl** | Pointer to **string** |  | [optional] 
 **Tokens** | [**[]ObjectToken**](ObjectToken.md) |  | 
-**Actions** | [**[]OneOfActionHookActionBodyIFrameActionBody**](OneOfActionHookActionBodyIFrameActionBody.md) |  | 
+**Actions** | [**[]IntegratorObjectResultActionsInner**](IntegratorObjectResultActionsInner.md) |  | 
 
 ## Methods
 
 ### NewIntegratorObjectResult
 
-`func NewIntegratorObjectResult(id string, title string, tokens []ObjectToken, actions []OneOfActionHookActionBodyIFrameActionBody, ) *IntegratorObjectResult`
+`func NewIntegratorObjectResult(id string, title string, tokens []ObjectToken, actions []IntegratorObjectResultActionsInner, ) *IntegratorObjectResult`
 
 NewIntegratorObjectResult instantiates a new IntegratorObjectResult object
 This constructor will assign default values to properties that have it defined,
@@ -116,20 +116,20 @@ SetTokens sets Tokens field to given value.
 
 ### GetActions
 
-`func (o *IntegratorObjectResult) GetActions() []OneOfActionHookActionBodyIFrameActionBody`
+`func (o *IntegratorObjectResult) GetActions() []IntegratorObjectResultActionsInner`
 
 GetActions returns the Actions field if non-nil, zero value otherwise.
 
 ### GetActionsOk
 
-`func (o *IntegratorObjectResult) GetActionsOk() (*[]OneOfActionHookActionBodyIFrameActionBody, bool)`
+`func (o *IntegratorObjectResult) GetActionsOk() (*[]IntegratorObjectResultActionsInner, bool)`
 
 GetActionsOk returns a tuple with the Actions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetActions
 
-`func (o *IntegratorObjectResult) SetActions(v []OneOfActionHookActionBodyIFrameActionBody)`
+`func (o *IntegratorObjectResult) SetActions(v []IntegratorObjectResultActionsInner)`
 
 SetActions sets Actions field to given value.
 

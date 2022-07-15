@@ -4,18 +4,18 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteMarketingV3MarketingEventsEventsExternalEventId**](BasicApi.md#DeleteMarketingV3MarketingEventsEventsExternalEventId) | **Delete** /marketing/v3/marketing-events/events/{externalEventId} | Delete a marketing event
-[**GetMarketingV3MarketingEventsEventsExternalEventId**](BasicApi.md#GetMarketingV3MarketingEventsEventsExternalEventId) | **Get** /marketing/v3/marketing-events/events/{externalEventId} | Get a marketing event
-[**PatchMarketingV3MarketingEventsEventsExternalEventId**](BasicApi.md#PatchMarketingV3MarketingEventsEventsExternalEventId) | **Patch** /marketing/v3/marketing-events/events/{externalEventId} | Update a marketing event
-[**PostMarketingV3MarketingEventsEvents**](BasicApi.md#PostMarketingV3MarketingEventsEvents) | **Post** /marketing/v3/marketing-events/events | Create a marketing event
-[**PostMarketingV3MarketingEventsEventsExternalEventIdCancel**](BasicApi.md#PostMarketingV3MarketingEventsEventsExternalEventIdCancel) | **Post** /marketing/v3/marketing-events/events/{externalEventId}/cancel | Mark a marketing event as cancelled
-[**PutMarketingV3MarketingEventsEventsExternalEventId**](BasicApi.md#PutMarketingV3MarketingEventsEventsExternalEventId) | **Put** /marketing/v3/marketing-events/events/{externalEventId} | Create or update a marketing event
+[**DeleteMarketingV3MarketingEventsEventsExternalEventIdArchive**](BasicApi.md#DeleteMarketingV3MarketingEventsEventsExternalEventIdArchive) | **Delete** /marketing/v3/marketing-events/events/{externalEventId} | Delete a marketing event
+[**GetMarketingV3MarketingEventsEventsExternalEventIdGetById**](BasicApi.md#GetMarketingV3MarketingEventsEventsExternalEventIdGetById) | **Get** /marketing/v3/marketing-events/events/{externalEventId} | Get a marketing event
+[**PatchMarketingV3MarketingEventsEventsExternalEventIdUpdate**](BasicApi.md#PatchMarketingV3MarketingEventsEventsExternalEventIdUpdate) | **Patch** /marketing/v3/marketing-events/events/{externalEventId} | Update a marketing event
+[**PostMarketingV3MarketingEventsEventsCreate**](BasicApi.md#PostMarketingV3MarketingEventsEventsCreate) | **Post** /marketing/v3/marketing-events/events | Create a marketing event
+[**PostMarketingV3MarketingEventsEventsExternalEventIdCancelDoCancel**](BasicApi.md#PostMarketingV3MarketingEventsEventsExternalEventIdCancelDoCancel) | **Post** /marketing/v3/marketing-events/events/{externalEventId}/cancel | Mark a marketing event as cancelled
+[**PutMarketingV3MarketingEventsEventsExternalEventIdReplace**](BasicApi.md#PutMarketingV3MarketingEventsEventsExternalEventIdReplace) | **Put** /marketing/v3/marketing-events/events/{externalEventId} | Create or update a marketing event
 
 
 
-## DeleteMarketingV3MarketingEventsEventsExternalEventId
+## DeleteMarketingV3MarketingEventsEventsExternalEventIdArchive
 
-> DeleteMarketingV3MarketingEventsEventsExternalEventId(ctx, externalEventId).ExternalAccountId(externalAccountId).Execute()
+> DeleteMarketingV3MarketingEventsEventsExternalEventIdArchive(ctx, externalEventId).ExternalAccountId(externalAccountId).Execute()
 
 Delete a marketing event
 
@@ -38,10 +38,10 @@ func main() {
     externalAccountId := "externalAccountId_example" // string | The account id associated with the marketing event
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.BasicApi.DeleteMarketingV3MarketingEventsEventsExternalEventId(context.Background(), externalEventId).ExternalAccountId(externalAccountId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.BasicApi.DeleteMarketingV3MarketingEventsEventsExternalEventIdArchive(context.Background(), externalEventId).ExternalAccountId(externalAccountId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.DeleteMarketingV3MarketingEventsEventsExternalEventId``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.DeleteMarketingV3MarketingEventsEventsExternalEventIdArchive``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -57,7 +57,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteMarketingV3MarketingEventsEventsExternalEventIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteMarketingV3MarketingEventsEventsExternalEventIdArchiveRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -71,7 +71,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -83,9 +83,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetMarketingV3MarketingEventsEventsExternalEventId
+## GetMarketingV3MarketingEventsEventsExternalEventIdGetById
 
-> MarketingEventPublicReadResponse GetMarketingV3MarketingEventsEventsExternalEventId(ctx, externalEventId).ExternalAccountId(externalAccountId).Execute()
+> MarketingEventPublicReadResponse GetMarketingV3MarketingEventsEventsExternalEventIdGetById(ctx, externalEventId).ExternalAccountId(externalAccountId).Execute()
 
 Get a marketing event
 
@@ -108,14 +108,14 @@ func main() {
     externalAccountId := "externalAccountId_example" // string | The account id associated with the marketing event
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.BasicApi.GetMarketingV3MarketingEventsEventsExternalEventId(context.Background(), externalEventId).ExternalAccountId(externalAccountId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.BasicApi.GetMarketingV3MarketingEventsEventsExternalEventIdGetById(context.Background(), externalEventId).ExternalAccountId(externalAccountId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.GetMarketingV3MarketingEventsEventsExternalEventId``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.GetMarketingV3MarketingEventsEventsExternalEventIdGetById``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetMarketingV3MarketingEventsEventsExternalEventId`: MarketingEventPublicReadResponse
-    fmt.Fprintf(os.Stdout, "Response from `BasicApi.GetMarketingV3MarketingEventsEventsExternalEventId`: %v\n", resp)
+    // response from `GetMarketingV3MarketingEventsEventsExternalEventIdGetById`: MarketingEventPublicReadResponse
+    fmt.Fprintf(os.Stdout, "Response from `BasicApi.GetMarketingV3MarketingEventsEventsExternalEventIdGetById`: %v\n", resp)
 }
 ```
 
@@ -129,7 +129,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetMarketingV3MarketingEventsEventsExternalEventIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetMarketingV3MarketingEventsEventsExternalEventIdGetByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -143,7 +143,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -155,9 +155,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PatchMarketingV3MarketingEventsEventsExternalEventId
+## PatchMarketingV3MarketingEventsEventsExternalEventIdUpdate
 
-> MarketingEventPublicDefaultResponse PatchMarketingV3MarketingEventsEventsExternalEventId(ctx, externalEventId).ExternalAccountId(externalAccountId).MarketingEventUpdateRequestParams(marketingEventUpdateRequestParams).Execute()
+> MarketingEventPublicDefaultResponse PatchMarketingV3MarketingEventsEventsExternalEventIdUpdate(ctx, externalEventId).ExternalAccountId(externalAccountId).MarketingEventUpdateRequestParams(marketingEventUpdateRequestParams).Execute()
 
 Update a marketing event
 
@@ -181,14 +181,14 @@ func main() {
     marketingEventUpdateRequestParams := *openapiclient.NewMarketingEventUpdateRequestParams() // MarketingEventUpdateRequestParams | The details of the marketing event to update
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.BasicApi.PatchMarketingV3MarketingEventsEventsExternalEventId(context.Background(), externalEventId).ExternalAccountId(externalAccountId).MarketingEventUpdateRequestParams(marketingEventUpdateRequestParams).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.BasicApi.PatchMarketingV3MarketingEventsEventsExternalEventIdUpdate(context.Background(), externalEventId).ExternalAccountId(externalAccountId).MarketingEventUpdateRequestParams(marketingEventUpdateRequestParams).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.PatchMarketingV3MarketingEventsEventsExternalEventId``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.PatchMarketingV3MarketingEventsEventsExternalEventIdUpdate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PatchMarketingV3MarketingEventsEventsExternalEventId`: MarketingEventPublicDefaultResponse
-    fmt.Fprintf(os.Stdout, "Response from `BasicApi.PatchMarketingV3MarketingEventsEventsExternalEventId`: %v\n", resp)
+    // response from `PatchMarketingV3MarketingEventsEventsExternalEventIdUpdate`: MarketingEventPublicDefaultResponse
+    fmt.Fprintf(os.Stdout, "Response from `BasicApi.PatchMarketingV3MarketingEventsEventsExternalEventIdUpdate`: %v\n", resp)
 }
 ```
 
@@ -202,7 +202,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPatchMarketingV3MarketingEventsEventsExternalEventIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPatchMarketingV3MarketingEventsEventsExternalEventIdUpdateRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -217,7 +217,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -229,9 +229,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostMarketingV3MarketingEventsEvents
+## PostMarketingV3MarketingEventsEventsCreate
 
-> MarketingEventDefaultResponse PostMarketingV3MarketingEventsEvents(ctx).MarketingEventCreateRequestParams(marketingEventCreateRequestParams).Execute()
+> MarketingEventDefaultResponse PostMarketingV3MarketingEventsEventsCreate(ctx).MarketingEventCreateRequestParams(marketingEventCreateRequestParams).Execute()
 
 Create a marketing event
 
@@ -253,14 +253,14 @@ func main() {
     marketingEventCreateRequestParams := *openapiclient.NewMarketingEventCreateRequestParams("EventName_example", "EventOrganizer_example", "ExternalAccountId_example", "ExternalEventId_example") // MarketingEventCreateRequestParams | The details of the marketing event to create
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.BasicApi.PostMarketingV3MarketingEventsEvents(context.Background()).MarketingEventCreateRequestParams(marketingEventCreateRequestParams).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.BasicApi.PostMarketingV3MarketingEventsEventsCreate(context.Background()).MarketingEventCreateRequestParams(marketingEventCreateRequestParams).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.PostMarketingV3MarketingEventsEvents``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.PostMarketingV3MarketingEventsEventsCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostMarketingV3MarketingEventsEvents`: MarketingEventDefaultResponse
-    fmt.Fprintf(os.Stdout, "Response from `BasicApi.PostMarketingV3MarketingEventsEvents`: %v\n", resp)
+    // response from `PostMarketingV3MarketingEventsEventsCreate`: MarketingEventDefaultResponse
+    fmt.Fprintf(os.Stdout, "Response from `BasicApi.PostMarketingV3MarketingEventsEventsCreate`: %v\n", resp)
 }
 ```
 
@@ -270,7 +270,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostMarketingV3MarketingEventsEventsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostMarketingV3MarketingEventsEventsCreateRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -283,7 +283,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -295,9 +295,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostMarketingV3MarketingEventsEventsExternalEventIdCancel
+## PostMarketingV3MarketingEventsEventsExternalEventIdCancelDoCancel
 
-> MarketingEventDefaultResponse PostMarketingV3MarketingEventsEventsExternalEventIdCancel(ctx, externalEventId).ExternalAccountId(externalAccountId).Execute()
+> MarketingEventDefaultResponse PostMarketingV3MarketingEventsEventsExternalEventIdCancelDoCancel(ctx, externalEventId).ExternalAccountId(externalAccountId).Execute()
 
 Mark a marketing event as cancelled
 
@@ -320,14 +320,14 @@ func main() {
     externalAccountId := "externalAccountId_example" // string | The account id associated with the marketing event
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.BasicApi.PostMarketingV3MarketingEventsEventsExternalEventIdCancel(context.Background(), externalEventId).ExternalAccountId(externalAccountId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.BasicApi.PostMarketingV3MarketingEventsEventsExternalEventIdCancelDoCancel(context.Background(), externalEventId).ExternalAccountId(externalAccountId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.PostMarketingV3MarketingEventsEventsExternalEventIdCancel``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.PostMarketingV3MarketingEventsEventsExternalEventIdCancelDoCancel``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostMarketingV3MarketingEventsEventsExternalEventIdCancel`: MarketingEventDefaultResponse
-    fmt.Fprintf(os.Stdout, "Response from `BasicApi.PostMarketingV3MarketingEventsEventsExternalEventIdCancel`: %v\n", resp)
+    // response from `PostMarketingV3MarketingEventsEventsExternalEventIdCancelDoCancel`: MarketingEventDefaultResponse
+    fmt.Fprintf(os.Stdout, "Response from `BasicApi.PostMarketingV3MarketingEventsEventsExternalEventIdCancelDoCancel`: %v\n", resp)
 }
 ```
 
@@ -341,7 +341,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostMarketingV3MarketingEventsEventsExternalEventIdCancelRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostMarketingV3MarketingEventsEventsExternalEventIdCancelDoCancelRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -355,7 +355,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -367,9 +367,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PutMarketingV3MarketingEventsEventsExternalEventId
+## PutMarketingV3MarketingEventsEventsExternalEventIdReplace
 
-> MarketingEventPublicDefaultResponse PutMarketingV3MarketingEventsEventsExternalEventId(ctx, externalEventId).MarketingEventCreateRequestParams(marketingEventCreateRequestParams).Execute()
+> MarketingEventPublicDefaultResponse PutMarketingV3MarketingEventsEventsExternalEventIdReplace(ctx, externalEventId).MarketingEventCreateRequestParams(marketingEventCreateRequestParams).Execute()
 
 Create or update a marketing event
 
@@ -392,14 +392,14 @@ func main() {
     marketingEventCreateRequestParams := *openapiclient.NewMarketingEventCreateRequestParams("EventName_example", "EventOrganizer_example", "ExternalAccountId_example", "ExternalEventId_example") // MarketingEventCreateRequestParams | The details of the marketing event to upsert
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.BasicApi.PutMarketingV3MarketingEventsEventsExternalEventId(context.Background(), externalEventId).MarketingEventCreateRequestParams(marketingEventCreateRequestParams).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.BasicApi.PutMarketingV3MarketingEventsEventsExternalEventIdReplace(context.Background(), externalEventId).MarketingEventCreateRequestParams(marketingEventCreateRequestParams).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.PutMarketingV3MarketingEventsEventsExternalEventId``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.PutMarketingV3MarketingEventsEventsExternalEventIdReplace``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PutMarketingV3MarketingEventsEventsExternalEventId`: MarketingEventPublicDefaultResponse
-    fmt.Fprintf(os.Stdout, "Response from `BasicApi.PutMarketingV3MarketingEventsEventsExternalEventId`: %v\n", resp)
+    // response from `PutMarketingV3MarketingEventsEventsExternalEventIdReplace`: MarketingEventPublicDefaultResponse
+    fmt.Fprintf(os.Stdout, "Response from `BasicApi.PutMarketingV3MarketingEventsEventsExternalEventIdReplace`: %v\n", resp)
 }
 ```
 
@@ -413,7 +413,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPutMarketingV3MarketingEventsEventsExternalEventIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutMarketingV3MarketingEventsEventsExternalEventIdReplaceRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -427,7 +427,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 

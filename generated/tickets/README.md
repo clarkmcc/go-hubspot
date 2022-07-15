@@ -22,7 +22,7 @@ go get golang.org/x/net/context
 Put the package under your project folder and add the following in import:
 
 ```golang
-import sw "./tickets"
+import tickets "github.com/GIT_USER_ID/GIT_REPO_ID"
 ```
 
 To use a proxy, set the environment variable `HTTP_PROXY`:
@@ -40,7 +40,7 @@ Default configuration comes with `Servers` field that contains server objects as
 For using other server than the one defined on index 0 set context value `sw.ContextServerIndex` of type `int`.
 
 ```golang
-ctx := context.WithValue(context.Background(), sw.ContextServerIndex, 1)
+ctx := context.WithValue(context.Background(), tickets.ContextServerIndex, 1)
 ```
 
 ### Templated Server URL
@@ -48,7 +48,7 @@ ctx := context.WithValue(context.Background(), sw.ContextServerIndex, 1)
 Templated server URL is formatted using default variables from configuration or from context value `sw.ContextServerVariables` of type `map[string]string`.
 
 ```golang
-ctx := context.WithValue(context.Background(), sw.ContextServerVariables, map[string]string{
+ctx := context.WithValue(context.Background(), tickets.ContextServerVariables, map[string]string{
 	"basePath": "v2",
 })
 ```
@@ -62,10 +62,10 @@ An operation is uniquely identified by `"{classname}Service.{nickname}"` string.
 Similar rules for overriding default operation server index and variables applies by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
 
 ```
-ctx := context.WithValue(context.Background(), sw.ContextOperationServerIndices, map[string]int{
+ctx := context.WithValue(context.Background(), tickets.ContextOperationServerIndices, map[string]int{
 	"{classname}Service.{nickname}": 2,
 })
-ctx = context.WithValue(context.Background(), sw.ContextOperationServerVariables, map[string]map[string]string{
+ctx = context.WithValue(context.Background(), tickets.ContextOperationServerVariables, map[string]map[string]string{
 	"{classname}Service.{nickname}": {
 		"port": "8443",
 	},
@@ -90,6 +90,7 @@ Class | Method | HTTP request | Description
 *BatchApi* | [**PostCrmV3ObjectsTicketsBatchCreateCreate**](docs/BatchApi.md#postcrmv3objectsticketsbatchcreatecreate) | **Post** /crm/v3/objects/tickets/batch/create | Create a batch of tickets
 *BatchApi* | [**PostCrmV3ObjectsTicketsBatchReadRead**](docs/BatchApi.md#postcrmv3objectsticketsbatchreadread) | **Post** /crm/v3/objects/tickets/batch/read | Read a batch of tickets by internal ID, or unique property values
 *BatchApi* | [**PostCrmV3ObjectsTicketsBatchUpdateUpdate**](docs/BatchApi.md#postcrmv3objectsticketsbatchupdateupdate) | **Post** /crm/v3/objects/tickets/batch/update | Update a batch of tickets
+*PublicObjectApi* | [**PostCrmV3ObjectsTicketsMergeMerge**](docs/PublicObjectApi.md#postcrmv3objectsticketsmergemerge) | **Post** /crm/v3/objects/tickets/merge | Merge two tickets with same type
 *SearchApi* | [**PostCrmV3ObjectsTicketsSearchDoSearch**](docs/SearchApi.md#postcrmv3objectsticketssearchdosearch) | **Post** /crm/v3/objects/tickets/search | 
 
 
@@ -115,6 +116,7 @@ Class | Method | HTTP request | Description
  - [NextPage](docs/NextPage.md)
  - [Paging](docs/Paging.md)
  - [PreviousPage](docs/PreviousPage.md)
+ - [PublicMergeInput](docs/PublicMergeInput.md)
  - [PublicObjectSearchRequest](docs/PublicObjectSearchRequest.md)
  - [SimplePublicObject](docs/SimplePublicObject.md)
  - [SimplePublicObjectBatchInput](docs/SimplePublicObjectBatchInput.md)
@@ -122,19 +124,11 @@ Class | Method | HTTP request | Description
  - [SimplePublicObjectInput](docs/SimplePublicObjectInput.md)
  - [SimplePublicObjectWithAssociations](docs/SimplePublicObjectWithAssociations.md)
  - [StandardError](docs/StandardError.md)
+ - [ValueWithTimestamp](docs/ValueWithTimestamp.md)
 
 
 ## Documentation For Authorization
 
-
-
-### hapikey
-
-- **Type**: API key
-- **API key parameter name**: hapikey
-- **Location**: URL query string
-
-Note, each API key must be added to a map of `map[string]APIKey` where the key is: hapikey and passed in as the auth context for each request.
 
 
 ### oauth2_legacy

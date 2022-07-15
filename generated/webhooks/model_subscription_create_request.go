@@ -31,8 +31,6 @@ type SubscriptionCreateRequest struct {
 func NewSubscriptionCreateRequest(eventType string) *SubscriptionCreateRequest {
 	this := SubscriptionCreateRequest{}
 	this.EventType = eventType
-	var active bool = false
-	this.Active = &active
 	return &this
 }
 
@@ -41,8 +39,6 @@ func NewSubscriptionCreateRequest(eventType string) *SubscriptionCreateRequest {
 // but it doesn't guarantee that properties required by API are set
 func NewSubscriptionCreateRequestWithDefaults() *SubscriptionCreateRequest {
 	this := SubscriptionCreateRequest{}
-	var active bool = false
-	this.Active = &active
 	return &this
 }
 

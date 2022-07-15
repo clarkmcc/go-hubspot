@@ -50,11 +50,11 @@ func (o *CollectionResponsePublicImportErrorForwardPaging) GetResults() []Public
 
 // GetResultsOk returns a tuple with the Results field value
 // and a boolean to check if the value has been set.
-func (o *CollectionResponsePublicImportErrorForwardPaging) GetResultsOk() (*[]PublicImportError, bool) {
+func (o *CollectionResponsePublicImportErrorForwardPaging) GetResultsOk() ([]PublicImportError, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Results, true
+	return o.Results, true
 }
 
 // SetResults sets field value

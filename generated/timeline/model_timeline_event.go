@@ -32,21 +32,20 @@ type TimelineEvent struct {
 	// A collection of token keys and values associated with the template tokens.
 	Tokens map[string]string `json:"tokens"`
 	// Additional event-specific data that can be interpreted by the template's markdown.
-	ExtraData      *map[string]interface{} `json:"extraData,omitempty"`
-	TimelineIFrame *TimelineEventIFrame    `json:"timelineIFrame,omitempty"`
+	ExtraData      map[string]interface{} `json:"extraData,omitempty"`
+	TimelineIFrame *TimelineEventIFrame   `json:"timelineIFrame,omitempty"`
 	// Identifier for the event. This is optional, and we recommend you do not pass this in. We will create one for you if you omit this. You can also use `{{uuid}}` anywhere in the ID to generate a unique string, guaranteeing uniqueness.
-	Id string `json:"id"`
+	Id *string `json:"id,omitempty"`
 }
 
 // NewTimelineEvent instantiates a new TimelineEvent object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTimelineEvent(eventTemplateId string, tokens map[string]string, id string) *TimelineEvent {
+func NewTimelineEvent(eventTemplateId string, tokens map[string]string) *TimelineEvent {
 	this := TimelineEvent{}
 	this.EventTemplateId = eventTemplateId
 	this.Tokens = tokens
-	this.Id = id
 	return &this
 }
 
@@ -272,12 +271,12 @@ func (o *TimelineEvent) GetExtraData() map[string]interface{} {
 		var ret map[string]interface{}
 		return ret
 	}
-	return *o.ExtraData
+	return o.ExtraData
 }
 
 // GetExtraDataOk returns a tuple with the ExtraData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TimelineEvent) GetExtraDataOk() (*map[string]interface{}, bool) {
+func (o *TimelineEvent) GetExtraDataOk() (map[string]interface{}, bool) {
 	if o == nil || o.ExtraData == nil {
 		return nil, false
 	}
@@ -295,7 +294,7 @@ func (o *TimelineEvent) HasExtraData() bool {
 
 // SetExtraData gets a reference to the given map[string]interface{} and assigns it to the ExtraData field.
 func (o *TimelineEvent) SetExtraData(v map[string]interface{}) {
-	o.ExtraData = &v
+	o.ExtraData = v
 }
 
 // GetTimelineIFrame returns the TimelineIFrame field value if set, zero value otherwise.
@@ -330,28 +329,36 @@ func (o *TimelineEvent) SetTimelineIFrame(v TimelineEventIFrame) {
 	o.TimelineIFrame = &v
 }
 
-// GetId returns the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
 func (o *TimelineEvent) GetId() string {
-	if o == nil {
+	if o == nil || o.Id == nil {
 		var ret string
 		return ret
 	}
-
-	return o.Id
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TimelineEvent) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || o.Id == nil {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.Id, true
 }
 
-// SetId sets field value
+// HasId returns a boolean if a field has been set.
+func (o *TimelineEvent) HasId() bool {
+	if o != nil && o.Id != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
 func (o *TimelineEvent) SetId(v string) {
-	o.Id = v
+	o.Id = &v
 }
 
 func (o TimelineEvent) MarshalJSON() ([]byte, error) {
@@ -383,7 +390,7 @@ func (o TimelineEvent) MarshalJSON() ([]byte, error) {
 	if o.TimelineIFrame != nil {
 		toSerialize["timelineIFrame"] = o.TimelineIFrame
 	}
-	if true {
+	if o.Id != nil {
 		toSerialize["id"] = o.Id
 	}
 	return json.Marshal(toSerialize)

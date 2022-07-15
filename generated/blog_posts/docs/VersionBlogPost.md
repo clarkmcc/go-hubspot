@@ -7,13 +7,13 @@ Name | Type | Description | Notes
 **Object** | [**BlogPost**](BlogPost.md) |  | 
 **User** | [**VersionUser**](VersionUser.md) |  | 
 **Id** | **string** | The id of the version. | 
-**Updated** | **time.Time** | The timestamp (ISO8601 format) when this version was updated. | 
+**UpdatedAt** | **time.Time** |  | 
 
 ## Methods
 
 ### NewVersionBlogPost
 
-`func NewVersionBlogPost(object BlogPost, user VersionUser, id string, updated time.Time, ) *VersionBlogPost`
+`func NewVersionBlogPost(object BlogPost, user VersionUser, id string, updatedAt time.Time, ) *VersionBlogPost`
 
 NewVersionBlogPost instantiates a new VersionBlogPost object
 This constructor will assign default values to properties that have it defined,
@@ -88,24 +88,24 @@ and a boolean to check if the value has been set.
 SetId sets Id field to given value.
 
 
-### GetUpdated
+### GetUpdatedAt
 
-`func (o *VersionBlogPost) GetUpdated() time.Time`
+`func (o *VersionBlogPost) GetUpdatedAt() time.Time`
 
-GetUpdated returns the Updated field if non-nil, zero value otherwise.
+GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
 
-### GetUpdatedOk
+### GetUpdatedAtOk
 
-`func (o *VersionBlogPost) GetUpdatedOk() (*time.Time, bool)`
+`func (o *VersionBlogPost) GetUpdatedAtOk() (*time.Time, bool)`
 
-GetUpdatedOk returns a tuple with the Updated field if it's non-nil, zero value otherwise
+GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetUpdated
+### SetUpdatedAt
 
-`func (o *VersionBlogPost) SetUpdated(v time.Time)`
+`func (o *VersionBlogPost) SetUpdatedAt(v time.Time)`
 
-SetUpdated sets Updated field to given value.
+SetUpdatedAt sets UpdatedAt field to given value.
 
 
 

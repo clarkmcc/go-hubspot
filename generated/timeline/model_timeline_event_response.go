@@ -34,8 +34,8 @@ type TimelineEventResponse struct {
 	// A collection of token keys and values associated with the template tokens.
 	Tokens map[string]string `json:"tokens"`
 	// Additional event-specific data that can be interpreted by the template's markdown.
-	ExtraData      *map[string]interface{} `json:"extraData,omitempty"`
-	TimelineIFrame *TimelineEventIFrame    `json:"timelineIFrame,omitempty"`
+	ExtraData      map[string]interface{} `json:"extraData,omitempty"`
+	TimelineIFrame *TimelineEventIFrame   `json:"timelineIFrame,omitempty"`
 	// The ObjectType associated with the EventTemplate.
 	ObjectType string     `json:"objectType"`
 	CreatedAt  *time.Time `json:"createdAt,omitempty"`
@@ -300,12 +300,12 @@ func (o *TimelineEventResponse) GetExtraData() map[string]interface{} {
 		var ret map[string]interface{}
 		return ret
 	}
-	return *o.ExtraData
+	return o.ExtraData
 }
 
 // GetExtraDataOk returns a tuple with the ExtraData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TimelineEventResponse) GetExtraDataOk() (*map[string]interface{}, bool) {
+func (o *TimelineEventResponse) GetExtraDataOk() (map[string]interface{}, bool) {
 	if o == nil || o.ExtraData == nil {
 		return nil, false
 	}
@@ -323,7 +323,7 @@ func (o *TimelineEventResponse) HasExtraData() bool {
 
 // SetExtraData gets a reference to the given map[string]interface{} and assigns it to the ExtraData field.
 func (o *TimelineEventResponse) SetExtraData(v map[string]interface{}) {
-	o.ExtraData = &v
+	o.ExtraData = v
 }
 
 // GetTimelineIFrame returns the TimelineIFrame field value if set, zero value otherwise.

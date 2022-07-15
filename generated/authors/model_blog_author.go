@@ -1,7 +1,7 @@
 /*
 Blog Post endpoints
 
-\"Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags\"
+Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags
 
 API version: v3
 */
@@ -18,9 +18,18 @@ import (
 // BlogAuthor Model definition for a Blog Author.
 type BlogAuthor struct {
 	// The unique ID of the Blog Author.
-	Id string `json:"id"`
+	Id       string `json:"id"`
+	FullName string `json:"fullName"`
 	// Email address of the Blog Author.
 	Email string `json:"email"`
+	Slug  string `json:"slug"`
+	// The explicitly defined ISO 639 language code of the blog author.
+	Language string `json:"language"`
+	// ID of the primary blog author this object was translated from.
+	TranslatedFromId int64  `json:"translatedFromId"`
+	Name             string `json:"name"`
+	// The full name of the Blog Author to be displayed.
+	DisplayName string `json:"displayName"`
 	// A short biography of the blog author.
 	Bio string `json:"bio"`
 	// URL to the website of the Blog Author.
@@ -32,35 +41,36 @@ type BlogAuthor struct {
 	// URL to the blog author's LinkedIn page.
 	Linkedin string `json:"linkedin"`
 	// URL to the blog author's avatar, if supplying a custom one.
-	Avatar string `json:"avatar"`
-	// The full name of the Blog Author to be displayed.
-	DisplayName string `json:"displayName"`
+	Avatar  string    `json:"avatar"`
+	Created time.Time `json:"created"`
+	Updated time.Time `json:"updated"`
 	// The timestamp (ISO8601 format) when this Blog Author was deleted.
 	DeletedAt time.Time `json:"deletedAt"`
-	// The timestamp (ISO8601 format) when this Blog Author was created.
-	CreatedAt time.Time `json:"createdAt"`
-	// The timestamp (ISO8601 format) when this Blog Author was last updated.
-	UpdatedAt time.Time `json:"updatedAt"`
 }
 
 // NewBlogAuthor instantiates a new BlogAuthor object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBlogAuthor(id string, email string, bio string, website string, twitter string, facebook string, linkedin string, avatar string, displayName string, deletedAt time.Time, createdAt time.Time, updatedAt time.Time) *BlogAuthor {
+func NewBlogAuthor(id string, fullName string, email string, slug string, language string, translatedFromId int64, name string, displayName string, bio string, website string, twitter string, facebook string, linkedin string, avatar string, created time.Time, updated time.Time, deletedAt time.Time) *BlogAuthor {
 	this := BlogAuthor{}
 	this.Id = id
+	this.FullName = fullName
 	this.Email = email
+	this.Slug = slug
+	this.Language = language
+	this.TranslatedFromId = translatedFromId
+	this.Name = name
+	this.DisplayName = displayName
 	this.Bio = bio
 	this.Website = website
 	this.Twitter = twitter
 	this.Facebook = facebook
 	this.Linkedin = linkedin
 	this.Avatar = avatar
-	this.DisplayName = displayName
+	this.Created = created
+	this.Updated = updated
 	this.DeletedAt = deletedAt
-	this.CreatedAt = createdAt
-	this.UpdatedAt = updatedAt
 	return &this
 }
 
@@ -96,6 +106,30 @@ func (o *BlogAuthor) SetId(v string) {
 	o.Id = v
 }
 
+// GetFullName returns the FullName field value
+func (o *BlogAuthor) GetFullName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.FullName
+}
+
+// GetFullNameOk returns a tuple with the FullName field value
+// and a boolean to check if the value has been set.
+func (o *BlogAuthor) GetFullNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.FullName, true
+}
+
+// SetFullName sets field value
+func (o *BlogAuthor) SetFullName(v string) {
+	o.FullName = v
+}
+
 // GetEmail returns the Email field value
 func (o *BlogAuthor) GetEmail() string {
 	if o == nil {
@@ -118,6 +152,126 @@ func (o *BlogAuthor) GetEmailOk() (*string, bool) {
 // SetEmail sets field value
 func (o *BlogAuthor) SetEmail(v string) {
 	o.Email = v
+}
+
+// GetSlug returns the Slug field value
+func (o *BlogAuthor) GetSlug() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Slug
+}
+
+// GetSlugOk returns a tuple with the Slug field value
+// and a boolean to check if the value has been set.
+func (o *BlogAuthor) GetSlugOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Slug, true
+}
+
+// SetSlug sets field value
+func (o *BlogAuthor) SetSlug(v string) {
+	o.Slug = v
+}
+
+// GetLanguage returns the Language field value
+func (o *BlogAuthor) GetLanguage() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Language
+}
+
+// GetLanguageOk returns a tuple with the Language field value
+// and a boolean to check if the value has been set.
+func (o *BlogAuthor) GetLanguageOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Language, true
+}
+
+// SetLanguage sets field value
+func (o *BlogAuthor) SetLanguage(v string) {
+	o.Language = v
+}
+
+// GetTranslatedFromId returns the TranslatedFromId field value
+func (o *BlogAuthor) GetTranslatedFromId() int64 {
+	if o == nil {
+		var ret int64
+		return ret
+	}
+
+	return o.TranslatedFromId
+}
+
+// GetTranslatedFromIdOk returns a tuple with the TranslatedFromId field value
+// and a boolean to check if the value has been set.
+func (o *BlogAuthor) GetTranslatedFromIdOk() (*int64, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.TranslatedFromId, true
+}
+
+// SetTranslatedFromId sets field value
+func (o *BlogAuthor) SetTranslatedFromId(v int64) {
+	o.TranslatedFromId = v
+}
+
+// GetName returns the Name field value
+func (o *BlogAuthor) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *BlogAuthor) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *BlogAuthor) SetName(v string) {
+	o.Name = v
+}
+
+// GetDisplayName returns the DisplayName field value
+func (o *BlogAuthor) GetDisplayName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.DisplayName
+}
+
+// GetDisplayNameOk returns a tuple with the DisplayName field value
+// and a boolean to check if the value has been set.
+func (o *BlogAuthor) GetDisplayNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.DisplayName, true
+}
+
+// SetDisplayName sets field value
+func (o *BlogAuthor) SetDisplayName(v string) {
+	o.DisplayName = v
 }
 
 // GetBio returns the Bio field value
@@ -264,28 +418,52 @@ func (o *BlogAuthor) SetAvatar(v string) {
 	o.Avatar = v
 }
 
-// GetDisplayName returns the DisplayName field value
-func (o *BlogAuthor) GetDisplayName() string {
+// GetCreated returns the Created field value
+func (o *BlogAuthor) GetCreated() time.Time {
 	if o == nil {
-		var ret string
+		var ret time.Time
 		return ret
 	}
 
-	return o.DisplayName
+	return o.Created
 }
 
-// GetDisplayNameOk returns a tuple with the DisplayName field value
+// GetCreatedOk returns a tuple with the Created field value
 // and a boolean to check if the value has been set.
-func (o *BlogAuthor) GetDisplayNameOk() (*string, bool) {
+func (o *BlogAuthor) GetCreatedOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.DisplayName, true
+	return &o.Created, true
 }
 
-// SetDisplayName sets field value
-func (o *BlogAuthor) SetDisplayName(v string) {
-	o.DisplayName = v
+// SetCreated sets field value
+func (o *BlogAuthor) SetCreated(v time.Time) {
+	o.Created = v
+}
+
+// GetUpdated returns the Updated field value
+func (o *BlogAuthor) GetUpdated() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.Updated
+}
+
+// GetUpdatedOk returns a tuple with the Updated field value
+// and a boolean to check if the value has been set.
+func (o *BlogAuthor) GetUpdatedOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Updated, true
+}
+
+// SetUpdated sets field value
+func (o *BlogAuthor) SetUpdated(v time.Time) {
+	o.Updated = v
 }
 
 // GetDeletedAt returns the DeletedAt field value
@@ -312,61 +490,31 @@ func (o *BlogAuthor) SetDeletedAt(v time.Time) {
 	o.DeletedAt = v
 }
 
-// GetCreatedAt returns the CreatedAt field value
-func (o *BlogAuthor) GetCreatedAt() time.Time {
-	if o == nil {
-		var ret time.Time
-		return ret
-	}
-
-	return o.CreatedAt
-}
-
-// GetCreatedAtOk returns a tuple with the CreatedAt field value
-// and a boolean to check if the value has been set.
-func (o *BlogAuthor) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.CreatedAt, true
-}
-
-// SetCreatedAt sets field value
-func (o *BlogAuthor) SetCreatedAt(v time.Time) {
-	o.CreatedAt = v
-}
-
-// GetUpdatedAt returns the UpdatedAt field value
-func (o *BlogAuthor) GetUpdatedAt() time.Time {
-	if o == nil {
-		var ret time.Time
-		return ret
-	}
-
-	return o.UpdatedAt
-}
-
-// GetUpdatedAtOk returns a tuple with the UpdatedAt field value
-// and a boolean to check if the value has been set.
-func (o *BlogAuthor) GetUpdatedAtOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.UpdatedAt, true
-}
-
-// SetUpdatedAt sets field value
-func (o *BlogAuthor) SetUpdatedAt(v time.Time) {
-	o.UpdatedAt = v
-}
-
 func (o BlogAuthor) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
 		toSerialize["id"] = o.Id
 	}
 	if true {
+		toSerialize["fullName"] = o.FullName
+	}
+	if true {
 		toSerialize["email"] = o.Email
+	}
+	if true {
+		toSerialize["slug"] = o.Slug
+	}
+	if true {
+		toSerialize["language"] = o.Language
+	}
+	if true {
+		toSerialize["translatedFromId"] = o.TranslatedFromId
+	}
+	if true {
+		toSerialize["name"] = o.Name
+	}
+	if true {
+		toSerialize["displayName"] = o.DisplayName
 	}
 	if true {
 		toSerialize["bio"] = o.Bio
@@ -387,16 +535,13 @@ func (o BlogAuthor) MarshalJSON() ([]byte, error) {
 		toSerialize["avatar"] = o.Avatar
 	}
 	if true {
-		toSerialize["displayName"] = o.DisplayName
+		toSerialize["created"] = o.Created
+	}
+	if true {
+		toSerialize["updated"] = o.Updated
 	}
 	if true {
 		toSerialize["deletedAt"] = o.DeletedAt
-	}
-	if true {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
-	if true {
-		toSerialize["updatedAt"] = o.UpdatedAt
 	}
 	return json.Marshal(toSerialize)
 }

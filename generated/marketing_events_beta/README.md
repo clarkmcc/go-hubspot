@@ -26,7 +26,7 @@ go get golang.org/x/net/context
 Put the package under your project folder and add the following in import:
 
 ```golang
-import sw "./marketing_events_beta"
+import marketing_events_beta "github.com/GIT_USER_ID/GIT_REPO_ID"
 ```
 
 To use a proxy, set the environment variable `HTTP_PROXY`:
@@ -44,7 +44,7 @@ Default configuration comes with `Servers` field that contains server objects as
 For using other server than the one defined on index 0 set context value `sw.ContextServerIndex` of type `int`.
 
 ```golang
-ctx := context.WithValue(context.Background(), sw.ContextServerIndex, 1)
+ctx := context.WithValue(context.Background(), marketing_events_beta.ContextServerIndex, 1)
 ```
 
 ### Templated Server URL
@@ -52,7 +52,7 @@ ctx := context.WithValue(context.Background(), sw.ContextServerIndex, 1)
 Templated server URL is formatted using default variables from configuration or from context value `sw.ContextServerVariables` of type `map[string]string`.
 
 ```golang
-ctx := context.WithValue(context.Background(), sw.ContextServerVariables, map[string]string{
+ctx := context.WithValue(context.Background(), marketing_events_beta.ContextServerVariables, map[string]string{
 	"basePath": "v2",
 })
 ```
@@ -66,10 +66,10 @@ An operation is uniquely identified by `"{classname}Service.{nickname}"` string.
 Similar rules for overriding default operation server index and variables applies by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
 
 ```
-ctx := context.WithValue(context.Background(), sw.ContextOperationServerIndices, map[string]int{
+ctx := context.WithValue(context.Background(), marketing_events_beta.ContextOperationServerIndices, map[string]int{
 	"{classname}Service.{nickname}": 2,
 })
-ctx = context.WithValue(context.Background(), sw.ContextOperationServerVariables, map[string]map[string]string{
+ctx = context.WithValue(context.Background(), marketing_events_beta.ContextOperationServerVariables, map[string]map[string]string{
 	"{classname}Service.{nickname}": {
 		"port": "8443",
 	},
@@ -82,19 +82,19 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*BasicApi* | [**DeleteMarketingV3MarketingEventsEventsExternalEventId**](docs/BasicApi.md#deletemarketingv3marketingeventseventsexternaleventid) | **Delete** /marketing/v3/marketing-events/events/{externalEventId} | Delete a marketing event
-*BasicApi* | [**GetMarketingV3MarketingEventsEventsExternalEventId**](docs/BasicApi.md#getmarketingv3marketingeventseventsexternaleventid) | **Get** /marketing/v3/marketing-events/events/{externalEventId} | Get a marketing event
-*BasicApi* | [**PatchMarketingV3MarketingEventsEventsExternalEventId**](docs/BasicApi.md#patchmarketingv3marketingeventseventsexternaleventid) | **Patch** /marketing/v3/marketing-events/events/{externalEventId} | Update a marketing event
-*BasicApi* | [**PostMarketingV3MarketingEventsEvents**](docs/BasicApi.md#postmarketingv3marketingeventsevents) | **Post** /marketing/v3/marketing-events/events | Create a marketing event
-*BasicApi* | [**PostMarketingV3MarketingEventsEventsExternalEventIdCancel**](docs/BasicApi.md#postmarketingv3marketingeventseventsexternaleventidcancel) | **Post** /marketing/v3/marketing-events/events/{externalEventId}/cancel | Mark a marketing event as cancelled
-*BasicApi* | [**PutMarketingV3MarketingEventsEventsExternalEventId**](docs/BasicApi.md#putmarketingv3marketingeventseventsexternaleventid) | **Put** /marketing/v3/marketing-events/events/{externalEventId} | Create or update a marketing event
-*BatchApi* | [**PostMarketingV3MarketingEventsEventsDelete**](docs/BatchApi.md#postmarketingv3marketingeventseventsdelete) | **Post** /marketing/v3/marketing-events/events/delete | Delete multiple marketing events
-*BatchApi* | [**PostMarketingV3MarketingEventsEventsUpsert**](docs/BatchApi.md#postmarketingv3marketingeventseventsupsert) | **Post** /marketing/v3/marketing-events/events/upsert | Create or update multiple marketing events
-*SearchApi* | [**GetMarketingV3MarketingEventsEventsSearch**](docs/SearchApi.md#getmarketingv3marketingeventseventssearch) | **Get** /marketing/v3/marketing-events/events/search | Search for marketing events
-*SettingsApi* | [**GetMarketingV3MarketingEventsAppIdSettings**](docs/SettingsApi.md#getmarketingv3marketingeventsappidsettings) | **Get** /marketing/v3/marketing-events/{appId}/settings | Retrieve the application settings
-*SettingsApi* | [**PostMarketingV3MarketingEventsAppIdSettings**](docs/SettingsApi.md#postmarketingv3marketingeventsappidsettings) | **Post** /marketing/v3/marketing-events/{appId}/settings | Update the application settings
-*SubscriberStateChangesApi* | [**PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsert**](docs/SubscriberStateChangesApi.md#postmarketingv3marketingeventseventsexternaleventidsubscriberstateemailupsert) | **Post** /marketing/v3/marketing-events/events/{externalEventId}/{subscriberState}/email-upsert | Record
-*SubscriberStateChangesApi* | [**PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsert**](docs/SubscriberStateChangesApi.md#postmarketingv3marketingeventseventsexternaleventidsubscriberstateupsert) | **Post** /marketing/v3/marketing-events/events/{externalEventId}/{subscriberState}/upsert | Record
+*BasicApi* | [**DeleteMarketingV3MarketingEventsEventsExternalEventIdArchive**](docs/BasicApi.md#deletemarketingv3marketingeventseventsexternaleventidarchive) | **Delete** /marketing/v3/marketing-events/events/{externalEventId} | Delete a marketing event
+*BasicApi* | [**GetMarketingV3MarketingEventsEventsExternalEventIdGetById**](docs/BasicApi.md#getmarketingv3marketingeventseventsexternaleventidgetbyid) | **Get** /marketing/v3/marketing-events/events/{externalEventId} | Get a marketing event
+*BasicApi* | [**PatchMarketingV3MarketingEventsEventsExternalEventIdUpdate**](docs/BasicApi.md#patchmarketingv3marketingeventseventsexternaleventidupdate) | **Patch** /marketing/v3/marketing-events/events/{externalEventId} | Update a marketing event
+*BasicApi* | [**PostMarketingV3MarketingEventsEventsCreate**](docs/BasicApi.md#postmarketingv3marketingeventseventscreate) | **Post** /marketing/v3/marketing-events/events | Create a marketing event
+*BasicApi* | [**PostMarketingV3MarketingEventsEventsExternalEventIdCancelDoCancel**](docs/BasicApi.md#postmarketingv3marketingeventseventsexternaleventidcanceldocancel) | **Post** /marketing/v3/marketing-events/events/{externalEventId}/cancel | Mark a marketing event as cancelled
+*BasicApi* | [**PutMarketingV3MarketingEventsEventsExternalEventIdReplace**](docs/BasicApi.md#putmarketingv3marketingeventseventsexternaleventidreplace) | **Put** /marketing/v3/marketing-events/events/{externalEventId} | Create or update a marketing event
+*BatchApi* | [**PostMarketingV3MarketingEventsEventsDeleteArchive**](docs/BatchApi.md#postmarketingv3marketingeventseventsdeletearchive) | **Post** /marketing/v3/marketing-events/events/delete | Delete multiple marketing events
+*BatchApi* | [**PostMarketingV3MarketingEventsEventsUpsertDoUpsert**](docs/BatchApi.md#postmarketingv3marketingeventseventsupsertdoupsert) | **Post** /marketing/v3/marketing-events/events/upsert | Create or update multiple marketing events
+*SearchApi* | [**GetMarketingV3MarketingEventsEventsSearchDoSearch**](docs/SearchApi.md#getmarketingv3marketingeventseventssearchdosearch) | **Get** /marketing/v3/marketing-events/events/search | Search for marketing events
+*SettingsApi* | [**GetMarketingV3MarketingEventsAppIdSettingsGetAll**](docs/SettingsApi.md#getmarketingv3marketingeventsappidsettingsgetall) | **Get** /marketing/v3/marketing-events/{appId}/settings | Retrieve the application settings
+*SettingsApi* | [**PostMarketingV3MarketingEventsAppIdSettingsCreate**](docs/SettingsApi.md#postmarketingv3marketingeventsappidsettingscreate) | **Post** /marketing/v3/marketing-events/{appId}/settings | Update the application settings
+*SubscriberStateChangesApi* | [**PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsertDoEmailUpsertById**](docs/SubscriberStateChangesApi.md#postmarketingv3marketingeventseventsexternaleventidsubscriberstateemailupsertdoemailupsertbyid) | **Post** /marketing/v3/marketing-events/events/{externalEventId}/{subscriberState}/email-upsert | Record
+*SubscriberStateChangesApi* | [**PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsertDoUpsertById**](docs/SubscriberStateChangesApi.md#postmarketingv3marketingeventseventsexternaleventidsubscriberstateupsertdoupsertbyid) | **Post** /marketing/v3/marketing-events/events/{externalEventId}/{subscriberState}/upsert | Record
 
 
 ## Documentation For Models
@@ -127,15 +127,6 @@ Class | Method | HTTP request | Description
 
 
 ### developer_hapikey
-
-- **Type**: API key
-- **API key parameter name**: hapikey
-- **Location**: URL query string
-
-Note, each API key must be added to a map of `map[string]APIKey` where the key is: hapikey and passed in as the auth context for each request.
-
-
-### hapikey
 
 - **Type**: API key
 - **API key parameter name**: hapikey

@@ -32,8 +32,8 @@ func main() {
     identificationTokenGenerationRequest := *openapiclient.NewIdentificationTokenGenerationRequest("Email_example") // IdentificationTokenGenerationRequest | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.GenerateApi.PostVisitorIdentificationV3TokensCreateGenerateToken(context.Background()).IdentificationTokenGenerationRequest(identificationTokenGenerationRequest).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.GenerateApi.PostVisitorIdentificationV3TokensCreateGenerateToken(context.Background()).IdentificationTokenGenerationRequest(identificationTokenGenerationRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `GenerateApi.PostVisitorIdentificationV3TokensCreateGenerateToken``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -62,7 +62,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 

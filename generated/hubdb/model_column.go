@@ -29,11 +29,11 @@ type Column struct {
 	// Foreign Column id
 	ForeignColumnId *int32 `json:"foreignColumnId,omitempty"`
 	// Foreign Ids
-	ForeignIds *[]ForeignId `json:"foreignIds,omitempty"`
-	// Foreign ids by name
-	ForeignIdsByName *map[string]ForeignId `json:"foreignIdsByName,omitempty"`
+	ForeignIds []ForeignId `json:"foreignIds,omitempty"`
 	// Foreign ids
 	ForeignIdsById *map[string]ForeignId `json:"foreignIdsById,omitempty"`
+	// Foreign ids by name
+	ForeignIdsByName *map[string]ForeignId `json:"foreignIdsByName,omitempty"`
 	// Type of the column
 	Type string `json:"type"`
 	// Number of options available
@@ -41,7 +41,7 @@ type Column struct {
 	// Specifies whether the column is archived
 	Archived *bool `json:"archived,omitempty"`
 	// Options to choose for select and multi-select columns
-	Options *[]Option `json:"options,omitempty"`
+	Options []Option `json:"options,omitempty"`
 }
 
 // NewColumn instantiates a new Column object
@@ -246,12 +246,12 @@ func (o *Column) GetForeignIds() []ForeignId {
 		var ret []ForeignId
 		return ret
 	}
-	return *o.ForeignIds
+	return o.ForeignIds
 }
 
 // GetForeignIdsOk returns a tuple with the ForeignIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Column) GetForeignIdsOk() (*[]ForeignId, bool) {
+func (o *Column) GetForeignIdsOk() ([]ForeignId, bool) {
 	if o == nil || o.ForeignIds == nil {
 		return nil, false
 	}
@@ -269,39 +269,7 @@ func (o *Column) HasForeignIds() bool {
 
 // SetForeignIds gets a reference to the given []ForeignId and assigns it to the ForeignIds field.
 func (o *Column) SetForeignIds(v []ForeignId) {
-	o.ForeignIds = &v
-}
-
-// GetForeignIdsByName returns the ForeignIdsByName field value if set, zero value otherwise.
-func (o *Column) GetForeignIdsByName() map[string]ForeignId {
-	if o == nil || o.ForeignIdsByName == nil {
-		var ret map[string]ForeignId
-		return ret
-	}
-	return *o.ForeignIdsByName
-}
-
-// GetForeignIdsByNameOk returns a tuple with the ForeignIdsByName field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Column) GetForeignIdsByNameOk() (*map[string]ForeignId, bool) {
-	if o == nil || o.ForeignIdsByName == nil {
-		return nil, false
-	}
-	return o.ForeignIdsByName, true
-}
-
-// HasForeignIdsByName returns a boolean if a field has been set.
-func (o *Column) HasForeignIdsByName() bool {
-	if o != nil && o.ForeignIdsByName != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetForeignIdsByName gets a reference to the given map[string]ForeignId and assigns it to the ForeignIdsByName field.
-func (o *Column) SetForeignIdsByName(v map[string]ForeignId) {
-	o.ForeignIdsByName = &v
+	o.ForeignIds = v
 }
 
 // GetForeignIdsById returns the ForeignIdsById field value if set, zero value otherwise.
@@ -334,6 +302,38 @@ func (o *Column) HasForeignIdsById() bool {
 // SetForeignIdsById gets a reference to the given map[string]ForeignId and assigns it to the ForeignIdsById field.
 func (o *Column) SetForeignIdsById(v map[string]ForeignId) {
 	o.ForeignIdsById = &v
+}
+
+// GetForeignIdsByName returns the ForeignIdsByName field value if set, zero value otherwise.
+func (o *Column) GetForeignIdsByName() map[string]ForeignId {
+	if o == nil || o.ForeignIdsByName == nil {
+		var ret map[string]ForeignId
+		return ret
+	}
+	return *o.ForeignIdsByName
+}
+
+// GetForeignIdsByNameOk returns a tuple with the ForeignIdsByName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Column) GetForeignIdsByNameOk() (*map[string]ForeignId, bool) {
+	if o == nil || o.ForeignIdsByName == nil {
+		return nil, false
+	}
+	return o.ForeignIdsByName, true
+}
+
+// HasForeignIdsByName returns a boolean if a field has been set.
+func (o *Column) HasForeignIdsByName() bool {
+	if o != nil && o.ForeignIdsByName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetForeignIdsByName gets a reference to the given map[string]ForeignId and assigns it to the ForeignIdsByName field.
+func (o *Column) SetForeignIdsByName(v map[string]ForeignId) {
+	o.ForeignIdsByName = &v
 }
 
 // GetType returns the Type field value
@@ -430,12 +430,12 @@ func (o *Column) GetOptions() []Option {
 		var ret []Option
 		return ret
 	}
-	return *o.Options
+	return o.Options
 }
 
 // GetOptionsOk returns a tuple with the Options field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Column) GetOptionsOk() (*[]Option, bool) {
+func (o *Column) GetOptionsOk() ([]Option, bool) {
 	if o == nil || o.Options == nil {
 		return nil, false
 	}
@@ -453,7 +453,7 @@ func (o *Column) HasOptions() bool {
 
 // SetOptions gets a reference to the given []Option and assigns it to the Options field.
 func (o *Column) SetOptions(v []Option) {
-	o.Options = &v
+	o.Options = v
 }
 
 func (o Column) MarshalJSON() ([]byte, error) {
@@ -479,11 +479,11 @@ func (o Column) MarshalJSON() ([]byte, error) {
 	if o.ForeignIds != nil {
 		toSerialize["foreignIds"] = o.ForeignIds
 	}
-	if o.ForeignIdsByName != nil {
-		toSerialize["foreignIdsByName"] = o.ForeignIdsByName
-	}
 	if o.ForeignIdsById != nil {
 		toSerialize["foreignIdsById"] = o.ForeignIdsById
+	}
+	if o.ForeignIdsByName != nil {
+		toSerialize["foreignIdsByName"] = o.ForeignIdsByName
 	}
 	if true {
 		toSerialize["type"] = o.Type

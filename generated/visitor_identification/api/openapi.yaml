@@ -13,9 +13,9 @@ tags:
 paths:
   /conversations/v3/visitor-identification/tokens/create:
     post:
-      description: Generates a new visitor identification token. This token will be
-        unique every time this endpoint is called, even if called with the same email
-        address. This token is temporary and will expire after 12 hours
+      description: "Generates a new visitor identification token. This token will\
+        \ be unique every time this endpoint is called, even if called with the same\
+        \ email address. This token is temporary and will expire after 12 hours"
       operationId: post-/visitor-identification/v3/tokens/create_generateToken
       requestBody:
         content:
@@ -37,7 +37,6 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
       - oauth2_legacy:
         - conversations.visitor_identification.tokens.create
       summary: Generate a token
@@ -182,10 +181,6 @@ components:
               chat widget
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
-    hapikey:
-      in: query
-      name: hapikey
-      type: apiKey
 x-hubspot-available-client-libraries:
 - PHP
 - Node

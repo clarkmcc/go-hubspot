@@ -35,8 +35,8 @@ func main() {
     appId := int32(56) // int32 | The ID of the target app.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SettingsApi.DeleteCrmV3ExtensionsCallingAppIdSettingsArchive(context.Background(), appId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SettingsApi.DeleteCrmV3ExtensionsCallingAppIdSettingsArchive(context.Background(), appId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SettingsApi.DeleteCrmV3ExtensionsCallingAppIdSettingsArchive``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -103,8 +103,8 @@ func main() {
     appId := int32(56) // int32 | The ID of the target app.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SettingsApi.GetCrmV3ExtensionsCallingAppIdSettingsGetById(context.Background(), appId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SettingsApi.GetCrmV3ExtensionsCallingAppIdSettingsGetById(context.Background(), appId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SettingsApi.GetCrmV3ExtensionsCallingAppIdSettingsGetById``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -174,8 +174,8 @@ func main() {
     settingsPatchRequest := *openapiclient.NewSettingsPatchRequest() // SettingsPatchRequest | Updated details for the settings.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SettingsApi.PatchCrmV3ExtensionsCallingAppIdSettingsUpdate(context.Background(), appId).SettingsPatchRequest(settingsPatchRequest).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SettingsApi.PatchCrmV3ExtensionsCallingAppIdSettingsUpdate(context.Background(), appId).SettingsPatchRequest(settingsPatchRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SettingsApi.PatchCrmV3ExtensionsCallingAppIdSettingsUpdate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -246,8 +246,8 @@ func main() {
     settingsRequest := *openapiclient.NewSettingsRequest("Name_example", "Url_example") // SettingsRequest | Settings state to create with.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SettingsApi.PostCrmV3ExtensionsCallingAppIdSettingsCreate(context.Background(), appId).SettingsRequest(settingsRequest).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SettingsApi.PostCrmV3ExtensionsCallingAppIdSettingsCreate(context.Background(), appId).SettingsRequest(settingsRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SettingsApi.PostCrmV3ExtensionsCallingAppIdSettingsCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

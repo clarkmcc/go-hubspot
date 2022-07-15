@@ -111,11 +111,11 @@ func (o *TimelineEventTemplateTokenUpdateRequest) GetOptions() []TimelineEventTe
 
 // GetOptionsOk returns a tuple with the Options field value
 // and a boolean to check if the value has been set.
-func (o *TimelineEventTemplateTokenUpdateRequest) GetOptionsOk() (*[]TimelineEventTemplateTokenOption, bool) {
+func (o *TimelineEventTemplateTokenUpdateRequest) GetOptionsOk() ([]TimelineEventTemplateTokenOption, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Options, true
+	return o.Options, true
 }
 
 // SetOptions sets field value

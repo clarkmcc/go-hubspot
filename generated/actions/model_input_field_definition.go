@@ -18,7 +18,7 @@ import (
 type InputFieldDefinition struct {
 	TypeDefinition FieldTypeDefinition `json:"typeDefinition"`
 	// Controls what kind of input a customer can use to specify the field value. Must contain exactly one of `STATIC_VALUE` or `OBJECT_PROPERTY`. If `STATIC_VALUE`, the customer will be able to choose a value when configuring the custom action; if `OBJECT_PROPERTY`, the customer will be able to choose a property from the enrolled workflow object that the field value will be copied from. In the future we may support more than one input control type here.
-	SupportedValueTypes *[]string `json:"supportedValueTypes,omitempty"`
+	SupportedValueTypes []string `json:"supportedValueTypes,omitempty"`
 	// Whether the field is required for the custom action to be valid
 	IsRequired bool `json:"isRequired"`
 }
@@ -72,12 +72,12 @@ func (o *InputFieldDefinition) GetSupportedValueTypes() []string {
 		var ret []string
 		return ret
 	}
-	return *o.SupportedValueTypes
+	return o.SupportedValueTypes
 }
 
 // GetSupportedValueTypesOk returns a tuple with the SupportedValueTypes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InputFieldDefinition) GetSupportedValueTypesOk() (*[]string, bool) {
+func (o *InputFieldDefinition) GetSupportedValueTypesOk() ([]string, bool) {
 	if o == nil || o.SupportedValueTypes == nil {
 		return nil, false
 	}
@@ -95,7 +95,7 @@ func (o *InputFieldDefinition) HasSupportedValueTypes() bool {
 
 // SetSupportedValueTypes gets a reference to the given []string and assigns it to the SupportedValueTypes field.
 func (o *InputFieldDefinition) SetSupportedValueTypes(v []string) {
-	o.SupportedValueTypes = &v
+	o.SupportedValueTypes = v
 }
 
 // GetIsRequired returns the IsRequired field value

@@ -50,11 +50,11 @@ func (o *CollectionResponsePropertyGroup) GetResults() []PropertyGroup {
 
 // GetResultsOk returns a tuple with the Results field value
 // and a boolean to check if the value has been set.
-func (o *CollectionResponsePropertyGroup) GetResultsOk() (*[]PropertyGroup, bool) {
+func (o *CollectionResponsePropertyGroup) GetResultsOk() ([]PropertyGroup, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Results, true
+	return o.Results, true
 }
 
 // SetResults sets field value

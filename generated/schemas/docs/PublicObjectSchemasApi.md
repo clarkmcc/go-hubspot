@@ -30,8 +30,8 @@ func main() {
     objectType := "objectType_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.PublicObjectSchemasApi.DeleteCrmObjectSchemasV3SchemasObjectTypePurgePurge(context.Background(), objectType).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.PublicObjectSchemasApi.DeleteCrmObjectSchemasV3SchemasObjectTypePurgePurge(context.Background(), objectType).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PublicObjectSchemasApi.DeleteCrmObjectSchemasV3SchemasObjectTypePurgePurge``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -62,7 +62,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey)
+No authorization required
 
 ### HTTP request headers
 

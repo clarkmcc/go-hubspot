@@ -4,17 +4,15 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteWebhooksV3AppIdSettingsClear**](SettingsApi.md#DeleteWebhooksV3AppIdSettingsClear) | **Delete** /webhooks/v3/{appId}/settings | Clear webhook settings
-[**GetWebhooksV3AppIdSettingsGetAll**](SettingsApi.md#GetWebhooksV3AppIdSettingsGetAll) | **Get** /webhooks/v3/{appId}/settings | Get webhook settings
-[**PutWebhooksV3AppIdSettingsConfigure**](SettingsApi.md#PutWebhooksV3AppIdSettingsConfigure) | **Put** /webhooks/v3/{appId}/settings | Configure webhook settings
+[**DeleteWebhooksV3AppIdSettingsClear**](SettingsApi.md#DeleteWebhooksV3AppIdSettingsClear) | **Delete** /webhooks/v3/{appId}/settings | 
+[**GetWebhooksV3AppIdSettingsGetAll**](SettingsApi.md#GetWebhooksV3AppIdSettingsGetAll) | **Get** /webhooks/v3/{appId}/settings | 
+[**PutWebhooksV3AppIdSettingsConfigure**](SettingsApi.md#PutWebhooksV3AppIdSettingsConfigure) | **Put** /webhooks/v3/{appId}/settings | 
 
 
 
 ## DeleteWebhooksV3AppIdSettingsClear
 
 > DeleteWebhooksV3AppIdSettingsClear(ctx, appId).Execute()
-
-Clear webhook settings
 
 
 
@@ -31,11 +29,11 @@ import (
 )
 
 func main() {
-    appId := int32(56) // int32 | The ID of the target app.
+    appId := int32(56) // int32 | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SettingsApi.DeleteWebhooksV3AppIdSettingsClear(context.Background(), appId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SettingsApi.DeleteWebhooksV3AppIdSettingsClear(context.Background(), appId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SettingsApi.DeleteWebhooksV3AppIdSettingsClear``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -49,7 +47,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**appId** | **int32** | The ID of the target app. | 
+**appId** | **int32** |  | 
 
 ### Other Parameters
 
@@ -66,7 +64,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey)
+[developer_hapikey](../README.md#developer_hapikey)
 
 ### HTTP request headers
 
@@ -81,8 +79,6 @@ Name | Type | Description  | Notes
 ## GetWebhooksV3AppIdSettingsGetAll
 
 > SettingsResponse GetWebhooksV3AppIdSettingsGetAll(ctx, appId).Execute()
-
-Get webhook settings
 
 
 
@@ -99,11 +95,11 @@ import (
 )
 
 func main() {
-    appId := int32(56) // int32 | The ID of the target app.
+    appId := int32(56) // int32 | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SettingsApi.GetWebhooksV3AppIdSettingsGetAll(context.Background(), appId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SettingsApi.GetWebhooksV3AppIdSettingsGetAll(context.Background(), appId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SettingsApi.GetWebhooksV3AppIdSettingsGetAll``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -119,7 +115,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**appId** | **int32** | The ID of the target app. | 
+**appId** | **int32** |  | 
 
 ### Other Parameters
 
@@ -136,7 +132,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey)
+[developer_hapikey](../README.md#developer_hapikey)
 
 ### HTTP request headers
 
@@ -151,8 +147,6 @@ Name | Type | Description  | Notes
 ## PutWebhooksV3AppIdSettingsConfigure
 
 > SettingsResponse PutWebhooksV3AppIdSettingsConfigure(ctx, appId).SettingsChangeRequest(settingsChangeRequest).Execute()
-
-Configure webhook settings
 
 
 
@@ -169,12 +163,12 @@ import (
 )
 
 func main() {
-    appId := int32(56) // int32 | The ID of the target app.
-    settingsChangeRequest := *openapiclient.NewSettingsChangeRequest("TargetUrl_example", *openapiclient.NewThrottlingSettings(int32(123), "Period_example")) // SettingsChangeRequest | Settings state to create new with or replace existing settings with.
+    appId := int32(56) // int32 | 
+    settingsChangeRequest := *openapiclient.NewSettingsChangeRequest("TargetUrl_example", *openapiclient.NewThrottlingSettings(int32(123), "Period_example")) // SettingsChangeRequest | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SettingsApi.PutWebhooksV3AppIdSettingsConfigure(context.Background(), appId).SettingsChangeRequest(settingsChangeRequest).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SettingsApi.PutWebhooksV3AppIdSettingsConfigure(context.Background(), appId).SettingsChangeRequest(settingsChangeRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SettingsApi.PutWebhooksV3AppIdSettingsConfigure``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -190,7 +184,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**appId** | **int32** | The ID of the target app. | 
+**appId** | **int32** |  | 
 
 ### Other Parameters
 
@@ -200,7 +194,7 @@ Other parameters are passed through a pointer to a apiPutWebhooksV3AppIdSettings
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **settingsChangeRequest** | [**SettingsChangeRequest**](SettingsChangeRequest.md) | Settings state to create new with or replace existing settings with. | 
+ **settingsChangeRequest** | [**SettingsChangeRequest**](SettingsChangeRequest.md) |  | 
 
 ### Return type
 
@@ -208,7 +202,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey)
+[developer_hapikey](../README.md#developer_hapikey)
 
 ### HTTP request headers
 

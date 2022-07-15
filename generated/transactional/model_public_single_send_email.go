@@ -19,26 +19,24 @@ type PublicSingleSendEmail struct {
 	// The From header for the email.
 	From *string `json:"from,omitempty"`
 	// The recipient of the email.
-	To *string `json:"to,omitempty"`
+	To string `json:"to"`
 	// ID for a particular send. No more than one email will be sent per sendId.
 	SendId *string `json:"sendId,omitempty"`
 	// List of Reply-To header values for the email.
-	ReplyTo []string `json:"replyTo"`
+	ReplyTo []string `json:"replyTo,omitempty"`
 	// List of email addresses to send as Cc.
-	Cc []string `json:"cc"`
+	Cc []string `json:"cc,omitempty"`
 	// List of email addresses to send as Bcc.
-	Bcc []string `json:"bcc"`
+	Bcc []string `json:"bcc,omitempty"`
 }
 
 // NewPublicSingleSendEmail instantiates a new PublicSingleSendEmail object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPublicSingleSendEmail(replyTo []string, cc []string, bcc []string) *PublicSingleSendEmail {
+func NewPublicSingleSendEmail(to string) *PublicSingleSendEmail {
 	this := PublicSingleSendEmail{}
-	this.ReplyTo = replyTo
-	this.Cc = cc
-	this.Bcc = bcc
+	this.To = to
 	return &this
 }
 
@@ -82,36 +80,28 @@ func (o *PublicSingleSendEmail) SetFrom(v string) {
 	o.From = &v
 }
 
-// GetTo returns the To field value if set, zero value otherwise.
+// GetTo returns the To field value
 func (o *PublicSingleSendEmail) GetTo() string {
-	if o == nil || o.To == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.To
+
+	return o.To
 }
 
-// GetToOk returns a tuple with the To field value if set, nil otherwise
+// GetToOk returns a tuple with the To field value
 // and a boolean to check if the value has been set.
 func (o *PublicSingleSendEmail) GetToOk() (*string, bool) {
-	if o == nil || o.To == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.To, true
+	return &o.To, true
 }
 
-// HasTo returns a boolean if a field has been set.
-func (o *PublicSingleSendEmail) HasTo() bool {
-	if o != nil && o.To != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTo gets a reference to the given string and assigns it to the To field.
+// SetTo sets field value
 func (o *PublicSingleSendEmail) SetTo(v string) {
-	o.To = &v
+	o.To = v
 }
 
 // GetSendId returns the SendId field value if set, zero value otherwise.
@@ -146,74 +136,98 @@ func (o *PublicSingleSendEmail) SetSendId(v string) {
 	o.SendId = &v
 }
 
-// GetReplyTo returns the ReplyTo field value
+// GetReplyTo returns the ReplyTo field value if set, zero value otherwise.
 func (o *PublicSingleSendEmail) GetReplyTo() []string {
-	if o == nil {
+	if o == nil || o.ReplyTo == nil {
 		var ret []string
 		return ret
 	}
-
 	return o.ReplyTo
 }
 
-// GetReplyToOk returns a tuple with the ReplyTo field value
+// GetReplyToOk returns a tuple with the ReplyTo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PublicSingleSendEmail) GetReplyToOk() (*[]string, bool) {
-	if o == nil {
+func (o *PublicSingleSendEmail) GetReplyToOk() ([]string, bool) {
+	if o == nil || o.ReplyTo == nil {
 		return nil, false
 	}
-	return &o.ReplyTo, true
+	return o.ReplyTo, true
 }
 
-// SetReplyTo sets field value
+// HasReplyTo returns a boolean if a field has been set.
+func (o *PublicSingleSendEmail) HasReplyTo() bool {
+	if o != nil && o.ReplyTo != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetReplyTo gets a reference to the given []string and assigns it to the ReplyTo field.
 func (o *PublicSingleSendEmail) SetReplyTo(v []string) {
 	o.ReplyTo = v
 }
 
-// GetCc returns the Cc field value
+// GetCc returns the Cc field value if set, zero value otherwise.
 func (o *PublicSingleSendEmail) GetCc() []string {
-	if o == nil {
+	if o == nil || o.Cc == nil {
 		var ret []string
 		return ret
 	}
-
 	return o.Cc
 }
 
-// GetCcOk returns a tuple with the Cc field value
+// GetCcOk returns a tuple with the Cc field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PublicSingleSendEmail) GetCcOk() (*[]string, bool) {
-	if o == nil {
+func (o *PublicSingleSendEmail) GetCcOk() ([]string, bool) {
+	if o == nil || o.Cc == nil {
 		return nil, false
 	}
-	return &o.Cc, true
+	return o.Cc, true
 }
 
-// SetCc sets field value
+// HasCc returns a boolean if a field has been set.
+func (o *PublicSingleSendEmail) HasCc() bool {
+	if o != nil && o.Cc != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCc gets a reference to the given []string and assigns it to the Cc field.
 func (o *PublicSingleSendEmail) SetCc(v []string) {
 	o.Cc = v
 }
 
-// GetBcc returns the Bcc field value
+// GetBcc returns the Bcc field value if set, zero value otherwise.
 func (o *PublicSingleSendEmail) GetBcc() []string {
-	if o == nil {
+	if o == nil || o.Bcc == nil {
 		var ret []string
 		return ret
 	}
-
 	return o.Bcc
 }
 
-// GetBccOk returns a tuple with the Bcc field value
+// GetBccOk returns a tuple with the Bcc field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PublicSingleSendEmail) GetBccOk() (*[]string, bool) {
-	if o == nil {
+func (o *PublicSingleSendEmail) GetBccOk() ([]string, bool) {
+	if o == nil || o.Bcc == nil {
 		return nil, false
 	}
-	return &o.Bcc, true
+	return o.Bcc, true
 }
 
-// SetBcc sets field value
+// HasBcc returns a boolean if a field has been set.
+func (o *PublicSingleSendEmail) HasBcc() bool {
+	if o != nil && o.Bcc != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetBcc gets a reference to the given []string and assigns it to the Bcc field.
 func (o *PublicSingleSendEmail) SetBcc(v []string) {
 	o.Bcc = v
 }
@@ -223,19 +237,19 @@ func (o PublicSingleSendEmail) MarshalJSON() ([]byte, error) {
 	if o.From != nil {
 		toSerialize["from"] = o.From
 	}
-	if o.To != nil {
+	if true {
 		toSerialize["to"] = o.To
 	}
 	if o.SendId != nil {
 		toSerialize["sendId"] = o.SendId
 	}
-	if true {
+	if o.ReplyTo != nil {
 		toSerialize["replyTo"] = o.ReplyTo
 	}
-	if true {
+	if o.Cc != nil {
 		toSerialize["cc"] = o.Cc
 	}
-	if true {
+	if o.Bcc != nil {
 		toSerialize["bcc"] = o.Bcc
 	}
 	return json.Marshal(toSerialize)

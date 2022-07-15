@@ -29,7 +29,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
+      - oauth2_legacy:
+        - analytics.behavioral_events.send
       summary: Sends Custom Behavioral Event
       tags:
       - Behavioral_Events_Tracking
@@ -68,8 +69,8 @@ components:
             name - property value
           type: object
         occurredAt:
-          description: The time when this event occurred (if any). If this isn't set,
-            the current time will be used
+          description: "The time when this event occurred (if any). If this isn't\
+            \ set, the current time will be used"
           format: date-time
           type: string
         objectId:
@@ -166,7 +167,11 @@ components:
       - message
       type: object
   securitySchemes:
-    hapikey:
-      in: query
-      name: hapikey
-      type: apiKey
+    oauth2_legacy:
+      flows:
+        authorizationCode:
+          authorizationUrl: https://app.hubspot.com/oauth/authorize
+          scopes:
+            analytics.behavioral_events.send: Send Behavioral Event Completions
+          tokenUrl: https://api.hubapi.com/oauth/v1/token
+      type: oauth2

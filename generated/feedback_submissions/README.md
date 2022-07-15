@@ -22,7 +22,7 @@ go get golang.org/x/net/context
 Put the package under your project folder and add the following in import:
 
 ```golang
-import sw "./feedback_submissions"
+import feedback_submissions "github.com/GIT_USER_ID/GIT_REPO_ID"
 ```
 
 To use a proxy, set the environment variable `HTTP_PROXY`:
@@ -40,7 +40,7 @@ Default configuration comes with `Servers` field that contains server objects as
 For using other server than the one defined on index 0 set context value `sw.ContextServerIndex` of type `int`.
 
 ```golang
-ctx := context.WithValue(context.Background(), sw.ContextServerIndex, 1)
+ctx := context.WithValue(context.Background(), feedback_submissions.ContextServerIndex, 1)
 ```
 
 ### Templated Server URL
@@ -48,7 +48,7 @@ ctx := context.WithValue(context.Background(), sw.ContextServerIndex, 1)
 Templated server URL is formatted using default variables from configuration or from context value `sw.ContextServerVariables` of type `map[string]string`.
 
 ```golang
-ctx := context.WithValue(context.Background(), sw.ContextServerVariables, map[string]string{
+ctx := context.WithValue(context.Background(), feedback_submissions.ContextServerVariables, map[string]string{
 	"basePath": "v2",
 })
 ```
@@ -62,10 +62,10 @@ An operation is uniquely identified by `"{classname}Service.{nickname}"` string.
 Similar rules for overriding default operation server index and variables applies by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
 
 ```
-ctx := context.WithValue(context.Background(), sw.ContextOperationServerIndices, map[string]int{
+ctx := context.WithValue(context.Background(), feedback_submissions.ContextOperationServerIndices, map[string]int{
 	"{classname}Service.{nickname}": 2,
 })
-ctx = context.WithValue(context.Background(), sw.ContextOperationServerVariables, map[string]map[string]string{
+ctx = context.WithValue(context.Background(), feedback_submissions.ContextOperationServerVariables, map[string]map[string]string{
 	"{classname}Service.{nickname}": {
 		"port": "8443",
 	},
@@ -78,10 +78,19 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*AssociationsApi* | [**GetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdAssociationsToObjectTypeGetAll**](docs/AssociationsApi.md#getcrmv3objectsfeedbacksubmissionsfeedbacksubmissionidassociationstoobjecttypegetall) | **Get** /crm/v3/objects/feedback_submissions/{feedbackSubmissionId}/associations/{toObjectType} | List associations of a feedback submission by type
+*AssociationsApi* | [**DeleteCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdAssociationsToObjectTypeToObjectIdAssociationTypeArchive**](docs/AssociationsApi.md#deletecrmv3objectsfeedbacksubmissionsfeedbacksubmissionidassociationstoobjecttypetoobjectidassociationtypearchive) | **Delete** /crm/v3/objects/feedback_submissions/{feedbackSubmissionId}/associations/{toObjectType}/{toObjectId}/{associationType} | Remove an association between two feedback submissions
+*AssociationsApi* | [**GetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdAssociationsToObjectTypeGetPage**](docs/AssociationsApi.md#getcrmv3objectsfeedbacksubmissionsfeedbacksubmissionidassociationstoobjecttypegetpage) | **Get** /crm/v3/objects/feedback_submissions/{feedbackSubmissionId}/associations/{toObjectType} | List associations of a feedback submission by type
+*AssociationsApi* | [**PutCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdAssociationsToObjectTypeToObjectIdAssociationTypeCreate**](docs/AssociationsApi.md#putcrmv3objectsfeedbacksubmissionsfeedbacksubmissionidassociationstoobjecttypetoobjectidassociationtypecreate) | **Put** /crm/v3/objects/feedback_submissions/{feedbackSubmissionId}/associations/{toObjectType}/{toObjectId}/{associationType} | Associate a feedback submission with another object
+*BasicApi* | [**DeleteCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdArchive**](docs/BasicApi.md#deletecrmv3objectsfeedbacksubmissionsfeedbacksubmissionidarchive) | **Delete** /crm/v3/objects/feedback_submissions/{feedbackSubmissionId} | Archive
 *BasicApi* | [**GetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdGetById**](docs/BasicApi.md#getcrmv3objectsfeedbacksubmissionsfeedbacksubmissionidgetbyid) | **Get** /crm/v3/objects/feedback_submissions/{feedbackSubmissionId} | Read
 *BasicApi* | [**GetCrmV3ObjectsFeedbackSubmissionsGetPage**](docs/BasicApi.md#getcrmv3objectsfeedbacksubmissionsgetpage) | **Get** /crm/v3/objects/feedback_submissions | List
-*BatchApi* | [**PostCrmV3ObjectsFeedbackSubmissionsBatchReadReadBatch**](docs/BatchApi.md#postcrmv3objectsfeedbacksubmissionsbatchreadreadbatch) | **Post** /crm/v3/objects/feedback_submissions/batch/read | Read a batch of feedback submissions by internal ID, or unique property values
+*BasicApi* | [**PatchCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdUpdate**](docs/BasicApi.md#patchcrmv3objectsfeedbacksubmissionsfeedbacksubmissionidupdate) | **Patch** /crm/v3/objects/feedback_submissions/{feedbackSubmissionId} | Update
+*BasicApi* | [**PostCrmV3ObjectsFeedbackSubmissionsCreate**](docs/BasicApi.md#postcrmv3objectsfeedbacksubmissionscreate) | **Post** /crm/v3/objects/feedback_submissions | Create
+*BatchApi* | [**PostCrmV3ObjectsFeedbackSubmissionsBatchArchiveArchive**](docs/BatchApi.md#postcrmv3objectsfeedbacksubmissionsbatcharchivearchive) | **Post** /crm/v3/objects/feedback_submissions/batch/archive | Archive a batch of feedback submissions by ID
+*BatchApi* | [**PostCrmV3ObjectsFeedbackSubmissionsBatchCreateCreate**](docs/BatchApi.md#postcrmv3objectsfeedbacksubmissionsbatchcreatecreate) | **Post** /crm/v3/objects/feedback_submissions/batch/create | Create a batch of feedback submissions
+*BatchApi* | [**PostCrmV3ObjectsFeedbackSubmissionsBatchReadRead**](docs/BatchApi.md#postcrmv3objectsfeedbacksubmissionsbatchreadread) | **Post** /crm/v3/objects/feedback_submissions/batch/read | Read a batch of feedback submissions by internal ID, or unique property values
+*BatchApi* | [**PostCrmV3ObjectsFeedbackSubmissionsBatchUpdateUpdate**](docs/BatchApi.md#postcrmv3objectsfeedbacksubmissionsbatchupdateupdate) | **Post** /crm/v3/objects/feedback_submissions/batch/update | Update a batch of feedback submissions
+*PublicObjectApi* | [**PostCrmV3ObjectsFeedbackSubmissionsMergeMerge**](docs/PublicObjectApi.md#postcrmv3objectsfeedbacksubmissionsmergemerge) | **Post** /crm/v3/objects/feedback_submissions/merge | Merge two feedback submissions with same type
 *SearchApi* | [**PostCrmV3ObjectsFeedbackSubmissionsSearchDoSearch**](docs/SearchApi.md#postcrmv3objectsfeedbacksubmissionssearchdosearch) | **Post** /crm/v3/objects/feedback_submissions/search | 
 
 
@@ -107,6 +116,7 @@ Class | Method | HTTP request | Description
  - [NextPage](docs/NextPage.md)
  - [Paging](docs/Paging.md)
  - [PreviousPage](docs/PreviousPage.md)
+ - [PublicMergeInput](docs/PublicMergeInput.md)
  - [PublicObjectSearchRequest](docs/PublicObjectSearchRequest.md)
  - [SimplePublicObject](docs/SimplePublicObject.md)
  - [SimplePublicObjectBatchInput](docs/SimplePublicObjectBatchInput.md)
@@ -114,19 +124,12 @@ Class | Method | HTTP request | Description
  - [SimplePublicObjectInput](docs/SimplePublicObjectInput.md)
  - [SimplePublicObjectWithAssociations](docs/SimplePublicObjectWithAssociations.md)
  - [StandardError](docs/StandardError.md)
+ - [ValueWithTimestamp](docs/ValueWithTimestamp.md)
 
 
 ## Documentation For Authorization
 
-
-
-### hapikey
-
-- **Type**: API key
-- **API key parameter name**: hapikey
-- **Location**: URL query string
-
-Note, each API key must be added to a map of `map[string]APIKey` where the key is: hapikey and passed in as the auth context for each request.
+ Endpoints do not require authorization.
 
 
 ## Documentation for Utility Methods

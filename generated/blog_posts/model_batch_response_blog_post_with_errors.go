@@ -1,7 +1,7 @@
 /*
 Blog Post endpoints
 
-\"Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags\"
+Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags
 
 API version: v3
 */
@@ -15,16 +15,24 @@ import (
 	"time"
 )
 
-// BatchResponseBlogPostWithErrors struct for BatchResponseBlogPostWithErrors
+// BatchResponseBlogPostWithErrors Response object for batch operations on blog posts with errors.
 type BatchResponseBlogPostWithErrors struct {
-	Status      string             `json:"status"`
-	Results     []BlogPost         `json:"results"`
-	NumErrors   *int32             `json:"numErrors,omitempty"`
-	Errors      *[]StandardError   `json:"errors,omitempty"`
-	RequestedAt *time.Time         `json:"requestedAt,omitempty"`
-	StartedAt   time.Time          `json:"startedAt"`
-	CompletedAt time.Time          `json:"completedAt"`
-	Links       *map[string]string `json:"links,omitempty"`
+	// Status of batch operation.
+	Status string `json:"status"`
+	// Results of batch operation.
+	Results []BlogPost `json:"results"`
+	// Number of errors.
+	NumErrors *int32 `json:"numErrors,omitempty"`
+	// Errors in batch operation.
+	Errors []StandardError `json:"errors,omitempty"`
+	// Time of batch operation request.
+	RequestedAt *time.Time `json:"requestedAt,omitempty"`
+	// Time of batch operation start.
+	StartedAt time.Time `json:"startedAt"`
+	// Time of batch operation completion.
+	CompletedAt time.Time `json:"completedAt"`
+	// Links associated with batch operation.
+	Links *map[string]string `json:"links,omitempty"`
 }
 
 // NewBatchResponseBlogPostWithErrors instantiates a new BatchResponseBlogPostWithErrors object
@@ -84,11 +92,11 @@ func (o *BatchResponseBlogPostWithErrors) GetResults() []BlogPost {
 
 // GetResultsOk returns a tuple with the Results field value
 // and a boolean to check if the value has been set.
-func (o *BatchResponseBlogPostWithErrors) GetResultsOk() (*[]BlogPost, bool) {
+func (o *BatchResponseBlogPostWithErrors) GetResultsOk() ([]BlogPost, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Results, true
+	return o.Results, true
 }
 
 // SetResults sets field value
@@ -134,12 +142,12 @@ func (o *BatchResponseBlogPostWithErrors) GetErrors() []StandardError {
 		var ret []StandardError
 		return ret
 	}
-	return *o.Errors
+	return o.Errors
 }
 
 // GetErrorsOk returns a tuple with the Errors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BatchResponseBlogPostWithErrors) GetErrorsOk() (*[]StandardError, bool) {
+func (o *BatchResponseBlogPostWithErrors) GetErrorsOk() ([]StandardError, bool) {
 	if o == nil || o.Errors == nil {
 		return nil, false
 	}
@@ -157,7 +165,7 @@ func (o *BatchResponseBlogPostWithErrors) HasErrors() bool {
 
 // SetErrors gets a reference to the given []StandardError and assigns it to the Errors field.
 func (o *BatchResponseBlogPostWithErrors) SetErrors(v []StandardError) {
-	o.Errors = &v
+	o.Errors = v
 }
 
 // GetRequestedAt returns the RequestedAt field value if set, zero value otherwise.

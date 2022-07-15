@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**HttpStatus** | **string** |  | 
 **Name** | **string** |  | 
+**HttpStatus** | **string** |  | 
 
 ## Methods
 
 ### NewErrorCategory
 
-`func NewErrorCategory(httpStatus string, name string, ) *ErrorCategory`
+`func NewErrorCategory(name string, httpStatus string, ) *ErrorCategory`
 
 NewErrorCategory instantiates a new ErrorCategory object
 This constructor will assign default values to properties that have it defined,
@@ -25,26 +25,6 @@ will change when the set of required properties is changed
 NewErrorCategoryWithDefaults instantiates a new ErrorCategory object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetHttpStatus
-
-`func (o *ErrorCategory) GetHttpStatus() string`
-
-GetHttpStatus returns the HttpStatus field if non-nil, zero value otherwise.
-
-### GetHttpStatusOk
-
-`func (o *ErrorCategory) GetHttpStatusOk() (*string, bool)`
-
-GetHttpStatusOk returns a tuple with the HttpStatus field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetHttpStatus
-
-`func (o *ErrorCategory) SetHttpStatus(v string)`
-
-SetHttpStatus sets HttpStatus field to given value.
-
 
 ### GetName
 
@@ -64,6 +44,26 @@ and a boolean to check if the value has been set.
 `func (o *ErrorCategory) SetName(v string)`
 
 SetName sets Name field to given value.
+
+
+### GetHttpStatus
+
+`func (o *ErrorCategory) GetHttpStatus() string`
+
+GetHttpStatus returns the HttpStatus field if non-nil, zero value otherwise.
+
+### GetHttpStatusOk
+
+`func (o *ErrorCategory) GetHttpStatusOk() (*string, bool)`
+
+GetHttpStatusOk returns a tuple with the HttpStatus field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHttpStatus
+
+`func (o *ErrorCategory) SetHttpStatus(v string)`
+
+SetHttpStatus sets HttpStatus field to given value.
 
 
 

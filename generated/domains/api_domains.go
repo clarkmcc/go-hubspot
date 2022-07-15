@@ -12,26 +12,19 @@ package domains
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-
-	"github.com/clarkmcc/go-hubspot/authorization"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"reflect"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // DomainsApiService DomainsApi service
 type DomainsApiService service
 
 type ApiGetCmsV3DomainsDomainIdGetByIdRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *DomainsApiService
 	domainId   string
 	archived   *bool
@@ -43,7 +36,7 @@ func (r ApiGetCmsV3DomainsDomainIdGetByIdRequest) Archived(archived bool) ApiGet
 	return r
 }
 
-func (r ApiGetCmsV3DomainsDomainIdGetByIdRequest) Execute() (Domain, *_nethttp.Response, error) {
+func (r ApiGetCmsV3DomainsDomainIdGetByIdRequest) Execute() (*Domain, *http.Response, error) {
 	return r.ApiService.GetCmsV3DomainsDomainIdGetByIdExecute(r)
 }
 
@@ -52,11 +45,11 @@ GetCmsV3DomainsDomainIdGetById Get a single domain
 
 Returns a single domains with the id specified.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param domainId The unique ID of the domain.
  @return ApiGetCmsV3DomainsDomainIdGetByIdRequest
 */
-func (a *DomainsApiService) GetCmsV3DomainsDomainIdGetById(ctx _context.Context, domainId string) ApiGetCmsV3DomainsDomainIdGetByIdRequest {
+func (a *DomainsApiService) GetCmsV3DomainsDomainIdGetById(ctx context.Context, domainId string) ApiGetCmsV3DomainsDomainIdGetByIdRequest {
 	return ApiGetCmsV3DomainsDomainIdGetByIdRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -66,27 +59,25 @@ func (a *DomainsApiService) GetCmsV3DomainsDomainIdGetById(ctx _context.Context,
 
 // Execute executes the request
 //  @return Domain
-func (a *DomainsApiService) GetCmsV3DomainsDomainIdGetByIdExecute(r ApiGetCmsV3DomainsDomainIdGetByIdRequest) (Domain, *_nethttp.Response, error) {
+func (a *DomainsApiService) GetCmsV3DomainsDomainIdGetByIdExecute(r ApiGetCmsV3DomainsDomainIdGetByIdRequest) (*Domain, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  Domain
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Domain
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DomainsApiService.GetCmsV3DomainsDomainIdGetById")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/cms/v3/domains/{domainId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"domainId"+"}", _neturl.PathEscape(parameterToString(r.domainId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"domainId"+"}", url.PathEscape(parameterToString(r.domainId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.archived != nil {
 		localVarQueryParams.Add("archived", parameterToString(*r.archived, ""))
@@ -108,21 +99,7 @@ func (a *DomainsApiService) GetCmsV3DomainsDomainIdGetByIdExecute(r ApiGetCmsV3D
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -132,15 +109,15 @@ func (a *DomainsApiService) GetCmsV3DomainsDomainIdGetByIdExecute(r ApiGetCmsV3D
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -156,7 +133,7 @@ func (a *DomainsApiService) GetCmsV3DomainsDomainIdGetByIdExecute(r ApiGetCmsV3D
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -167,7 +144,7 @@ func (a *DomainsApiService) GetCmsV3DomainsDomainIdGetByIdExecute(r ApiGetCmsV3D
 }
 
 type ApiGetCmsV3DomainsGetPageRequest struct {
-	ctx           _context.Context
+	ctx           context.Context
 	ApiService    *DomainsApiService
 	createdAt     *int64
 	createdAfter  *int64
@@ -218,10 +195,12 @@ func (r ApiGetCmsV3DomainsGetPageRequest) UpdatedBefore(updatedBefore int64) Api
 	r.updatedBefore = &updatedBefore
 	return r
 }
+
 func (r ApiGetCmsV3DomainsGetPageRequest) Sort(sort []string) ApiGetCmsV3DomainsGetPageRequest {
 	r.sort = &sort
 	return r
 }
+
 func (r ApiGetCmsV3DomainsGetPageRequest) Properties(properties []string) ApiGetCmsV3DomainsGetPageRequest {
 	r.properties = &properties
 	return r
@@ -232,6 +211,7 @@ func (r ApiGetCmsV3DomainsGetPageRequest) After(after string) ApiGetCmsV3Domains
 	r.after = &after
 	return r
 }
+
 func (r ApiGetCmsV3DomainsGetPageRequest) Before(before string) ApiGetCmsV3DomainsGetPageRequest {
 	r.before = &before
 	return r
@@ -249,7 +229,7 @@ func (r ApiGetCmsV3DomainsGetPageRequest) Archived(archived bool) ApiGetCmsV3Dom
 	return r
 }
 
-func (r ApiGetCmsV3DomainsGetPageRequest) Execute() (CollectionResponseWithTotalDomain, *_nethttp.Response, error) {
+func (r ApiGetCmsV3DomainsGetPageRequest) Execute() (*CollectionResponseWithTotalDomain, *http.Response, error) {
 	return r.ApiService.GetCmsV3DomainsGetPageExecute(r)
 }
 
@@ -258,10 +238,10 @@ GetCmsV3DomainsGetPage Get current domains
 
 Returns all existing domains that have been created. Results can be limited and filtered by creation or updated date.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetCmsV3DomainsGetPageRequest
 */
-func (a *DomainsApiService) GetCmsV3DomainsGetPage(ctx _context.Context) ApiGetCmsV3DomainsGetPageRequest {
+func (a *DomainsApiService) GetCmsV3DomainsGetPage(ctx context.Context) ApiGetCmsV3DomainsGetPageRequest {
 	return ApiGetCmsV3DomainsGetPageRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -270,26 +250,24 @@ func (a *DomainsApiService) GetCmsV3DomainsGetPage(ctx _context.Context) ApiGetC
 
 // Execute executes the request
 //  @return CollectionResponseWithTotalDomain
-func (a *DomainsApiService) GetCmsV3DomainsGetPageExecute(r ApiGetCmsV3DomainsGetPageRequest) (CollectionResponseWithTotalDomain, *_nethttp.Response, error) {
+func (a *DomainsApiService) GetCmsV3DomainsGetPageExecute(r ApiGetCmsV3DomainsGetPageRequest) (*CollectionResponseWithTotalDomain, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  CollectionResponseWithTotalDomain
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CollectionResponseWithTotalDomain
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DomainsApiService.GetCmsV3DomainsGetPage")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/cms/v3/domains/"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.createdAt != nil {
 		localVarQueryParams.Add("createdAt", parameterToString(*r.createdAt, ""))
@@ -360,21 +338,7 @@ func (a *DomainsApiService) GetCmsV3DomainsGetPageExecute(r ApiGetCmsV3DomainsGe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -384,15 +348,15 @@ func (a *DomainsApiService) GetCmsV3DomainsGetPageExecute(r ApiGetCmsV3DomainsGe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -408,7 +372,7 @@ func (a *DomainsApiService) GetCmsV3DomainsGetPageExecute(r ApiGetCmsV3DomainsGe
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

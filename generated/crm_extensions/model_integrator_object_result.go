@@ -16,18 +16,18 @@ import (
 
 // IntegratorObjectResult struct for IntegratorObjectResult
 type IntegratorObjectResult struct {
-	Id      string                                      `json:"id"`
-	Title   string                                      `json:"title"`
-	LinkUrl *string                                     `json:"linkUrl,omitempty"`
-	Tokens  []ObjectToken                               `json:"tokens"`
-	Actions []OneOfActionHookActionBodyIFrameActionBody `json:"actions"`
+	Id      string                               `json:"id"`
+	Title   string                               `json:"title"`
+	LinkUrl *string                              `json:"linkUrl,omitempty"`
+	Tokens  []ObjectToken                        `json:"tokens"`
+	Actions []IntegratorObjectResultActionsInner `json:"actions"`
 }
 
 // NewIntegratorObjectResult instantiates a new IntegratorObjectResult object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIntegratorObjectResult(id string, title string, tokens []ObjectToken, actions []OneOfActionHookActionBodyIFrameActionBody) *IntegratorObjectResult {
+func NewIntegratorObjectResult(id string, title string, tokens []ObjectToken, actions []IntegratorObjectResultActionsInner) *IntegratorObjectResult {
 	this := IntegratorObjectResult{}
 	this.Id = id
 	this.Title = title
@@ -136,11 +136,11 @@ func (o *IntegratorObjectResult) GetTokens() []ObjectToken {
 
 // GetTokensOk returns a tuple with the Tokens field value
 // and a boolean to check if the value has been set.
-func (o *IntegratorObjectResult) GetTokensOk() (*[]ObjectToken, bool) {
+func (o *IntegratorObjectResult) GetTokensOk() ([]ObjectToken, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Tokens, true
+	return o.Tokens, true
 }
 
 // SetTokens sets field value
@@ -149,9 +149,9 @@ func (o *IntegratorObjectResult) SetTokens(v []ObjectToken) {
 }
 
 // GetActions returns the Actions field value
-func (o *IntegratorObjectResult) GetActions() []OneOfActionHookActionBodyIFrameActionBody {
+func (o *IntegratorObjectResult) GetActions() []IntegratorObjectResultActionsInner {
 	if o == nil {
-		var ret []OneOfActionHookActionBodyIFrameActionBody
+		var ret []IntegratorObjectResultActionsInner
 		return ret
 	}
 
@@ -160,15 +160,15 @@ func (o *IntegratorObjectResult) GetActions() []OneOfActionHookActionBodyIFrameA
 
 // GetActionsOk returns a tuple with the Actions field value
 // and a boolean to check if the value has been set.
-func (o *IntegratorObjectResult) GetActionsOk() (*[]OneOfActionHookActionBodyIFrameActionBody, bool) {
+func (o *IntegratorObjectResult) GetActionsOk() ([]IntegratorObjectResultActionsInner, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Actions, true
+	return o.Actions, true
 }
 
 // SetActions sets field value
-func (o *IntegratorObjectResult) SetActions(v []OneOfActionHookActionBodyIFrameActionBody) {
+func (o *IntegratorObjectResult) SetActions(v []IntegratorObjectResultActionsInner) {
 	o.Actions = v
 }
 

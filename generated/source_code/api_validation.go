@@ -12,52 +12,45 @@ package source_code
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-
-	"github.com/clarkmcc/go-hubspot/authorization"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"os"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // ValidationApiService ValidationApi service
 type ValidationApiService service
 
-type ApiPostCmsV3SourceCodeEnvironmentValidatePathRequest struct {
-	ctx        _context.Context
+type ApiPostCmsV3SourceCodeEnvironmentValidatePathDoValidateRequest struct {
+	ctx        context.Context
 	ApiService *ValidationApiService
 	path       string
 	file       **os.File
 }
 
 // The file to validate.
-func (r ApiPostCmsV3SourceCodeEnvironmentValidatePathRequest) File(file *os.File) ApiPostCmsV3SourceCodeEnvironmentValidatePathRequest {
+func (r ApiPostCmsV3SourceCodeEnvironmentValidatePathDoValidateRequest) File(file *os.File) ApiPostCmsV3SourceCodeEnvironmentValidatePathDoValidateRequest {
 	r.file = &file
 	return r
 }
 
-func (r ApiPostCmsV3SourceCodeEnvironmentValidatePathRequest) Execute() (Error, *_nethttp.Response, error) {
-	return r.ApiService.PostCmsV3SourceCodeEnvironmentValidatePathExecute(r)
+func (r ApiPostCmsV3SourceCodeEnvironmentValidatePathDoValidateRequest) Execute() (*Error, *http.Response, error) {
+	return r.ApiService.PostCmsV3SourceCodeEnvironmentValidatePathDoValidateExecute(r)
 }
 
 /*
-PostCmsV3SourceCodeEnvironmentValidatePath Validate the contents of a file
+PostCmsV3SourceCodeEnvironmentValidatePathDoValidate Validate the contents of a file
 
 Validates the file contents passed to the endpoint given a specified path and environment. Accepts multipart/form-data content type.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param path The file system location of the file.
- @return ApiPostCmsV3SourceCodeEnvironmentValidatePathRequest
+ @return ApiPostCmsV3SourceCodeEnvironmentValidatePathDoValidateRequest
 */
-func (a *ValidationApiService) PostCmsV3SourceCodeEnvironmentValidatePath(ctx _context.Context, path string) ApiPostCmsV3SourceCodeEnvironmentValidatePathRequest {
-	return ApiPostCmsV3SourceCodeEnvironmentValidatePathRequest{
+func (a *ValidationApiService) PostCmsV3SourceCodeEnvironmentValidatePathDoValidate(ctx context.Context, path string) ApiPostCmsV3SourceCodeEnvironmentValidatePathDoValidateRequest {
+	return ApiPostCmsV3SourceCodeEnvironmentValidatePathDoValidateRequest{
 		ApiService: a,
 		ctx:        ctx,
 		path:       path,
@@ -66,27 +59,25 @@ func (a *ValidationApiService) PostCmsV3SourceCodeEnvironmentValidatePath(ctx _c
 
 // Execute executes the request
 //  @return Error
-func (a *ValidationApiService) PostCmsV3SourceCodeEnvironmentValidatePathExecute(r ApiPostCmsV3SourceCodeEnvironmentValidatePathRequest) (Error, *_nethttp.Response, error) {
+func (a *ValidationApiService) PostCmsV3SourceCodeEnvironmentValidatePathDoValidateExecute(r ApiPostCmsV3SourceCodeEnvironmentValidatePathDoValidateRequest) (*Error, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  Error
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Error
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ValidationApiService.PostCmsV3SourceCodeEnvironmentValidatePath")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ValidationApiService.PostCmsV3SourceCodeEnvironmentValidatePathDoValidate")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/cms/v3/source-code/{environment}/validate/{path}"
-	localVarPath = strings.Replace(localVarPath, "{"+"path"+"}", _neturl.PathEscape(parameterToString(r.path, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"path"+"}", url.PathEscape(parameterToString(r.path, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"multipart/form-data"}
@@ -105,32 +96,24 @@ func (a *ValidationApiService) PostCmsV3SourceCodeEnvironmentValidatePathExecute
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	localVarFormFileName = "file"
-	var localVarFile *os.File
+	var fileLocalVarFormFileName string
+	var fileLocalVarFileName string
+	var fileLocalVarFileBytes []byte
+
+	fileLocalVarFormFileName = "file"
+
+	var fileLocalVarFile *os.File
 	if r.file != nil {
-		localVarFile = *r.file
+		fileLocalVarFile = *r.file
 	}
-	if localVarFile != nil {
-		fbs, _ := _ioutil.ReadAll(localVarFile)
-		localVarFileBytes = fbs
-		localVarFileName = localVarFile.Name()
-		localVarFile.Close()
+	if fileLocalVarFile != nil {
+		fbs, _ := ioutil.ReadAll(fileLocalVarFile)
+		fileLocalVarFileBytes = fbs
+		fileLocalVarFileName = fileLocalVarFile.Name()
+		fileLocalVarFile.Close()
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	formFiles = append(formFiles, formFile{fileBytes: fileLocalVarFileBytes, fileName: fileLocalVarFileName, formFileName: fileLocalVarFormFileName})
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -140,15 +123,15 @@ func (a *ValidationApiService) PostCmsV3SourceCodeEnvironmentValidatePathExecute
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -164,7 +147,7 @@ func (a *ValidationApiService) PostCmsV3SourceCodeEnvironmentValidatePathExecute
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

@@ -50,11 +50,11 @@ func (o *BatchInputMarketingEventSubscriber) GetInputs() []MarketingEventSubscri
 
 // GetInputsOk returns a tuple with the Inputs field value
 // and a boolean to check if the value has been set.
-func (o *BatchInputMarketingEventSubscriber) GetInputsOk() (*[]MarketingEventSubscriber, bool) {
+func (o *BatchInputMarketingEventSubscriber) GetInputsOk() ([]MarketingEventSubscriber, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Inputs, true
+	return o.Inputs, true
 }
 
 // SetInputs sets field value

@@ -32,8 +32,8 @@ func main() {
     limit := int32(56) // int32 | The maximum number of results to display per page. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.PublicImportsApi.GetCrmV3ImportsImportIdErrorsGetErrors(context.Background(), importId).After(after).Limit(limit).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.PublicImportsApi.GetCrmV3ImportsImportIdErrorsGetErrors(context.Background(), importId).After(after).Limit(limit).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PublicImportsApi.GetCrmV3ImportsImportIdErrorsGetErrors``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -68,7 +68,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey)
+No authorization required
 
 ### HTTP request headers
 

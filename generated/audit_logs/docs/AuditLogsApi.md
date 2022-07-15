@@ -39,8 +39,8 @@ func main() {
     objectType := []string{"Inner_example"} // []string | Comma separated list of object types to filter by (BLOG, LANDING_PAGE, DOMAIN, HUBDB_TABLE etc.) (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AuditLogsApi.GetCmsV3AuditLogsGetPage(context.Background()).ObjectId(objectId).UserId(userId).After(after).Before(before).Sort(sort).EventType(eventType).Limit(limit).ObjectType(objectType).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AuditLogsApi.GetCmsV3AuditLogsGetPage(context.Background()).ObjectId(objectId).UserId(userId).After(after).Before(before).Sort(sort).EventType(eventType).Limit(limit).ObjectType(objectType).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AuditLogsApi.GetCmsV3AuditLogsGetPage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -76,7 +76,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 

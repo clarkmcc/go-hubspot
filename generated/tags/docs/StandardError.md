@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Status** | **string** |  | 
-**Id** | Pointer to **string** |  | [optional] 
-**Category** | **map[string]interface{}** |  | 
-**SubCategory** | Pointer to **map[string]interface{}** |  | [optional] 
-**Message** | **string** |  | 
-**Errors** | [**[]ErrorDetail**](ErrorDetail.md) |  | 
-**Context** | **map[string][]string** |  | 
-**Links** | **map[string]string** |  | 
+**Status** | **string** | Error status. | 
+**Id** | Pointer to **string** | Error ID. | [optional] 
+**Category** | **map[string]interface{}** | Model definition for an error category. | 
+**SubCategory** | Pointer to **map[string]interface{}** | Error subcategory. | [optional] 
+**Message** | **string** | Error message. | 
+**Errors** | [**[]ErrorDetail**](ErrorDetail.md) | List of error details. | 
+**Context** | **map[string][]string** | Error context. | 
+**Links** | **map[string]string** | Error links. | 
 
 ## Methods
 

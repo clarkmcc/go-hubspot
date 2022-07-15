@@ -12,24 +12,17 @@ package custom_behavioral_events
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-
-	"github.com/clarkmcc/go-hubspot/authorization"
-	_neturl "net/url"
-)
-
-// Linger please
-var (
-	_ _context.Context
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 )
 
 // BehavioralEventsTrackingApiService BehavioralEventsTrackingApi service
 type BehavioralEventsTrackingApiService service
 
 type ApiPostEventsV3SendRequest struct {
-	ctx                                  _context.Context
+	ctx                                  context.Context
 	ApiService                           *BehavioralEventsTrackingApiService
 	behavioralEventHttpCompletionRequest *BehavioralEventHttpCompletionRequest
 }
@@ -39,7 +32,7 @@ func (r ApiPostEventsV3SendRequest) BehavioralEventHttpCompletionRequest(behavio
 	return r
 }
 
-func (r ApiPostEventsV3SendRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiPostEventsV3SendRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostEventsV3SendExecute(r)
 }
 
@@ -48,10 +41,10 @@ PostEventsV3Send Sends Custom Behavioral Event
 
 Endpoint to send an instance of a behavioral event
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiPostEventsV3SendRequest
 */
-func (a *BehavioralEventsTrackingApiService) PostEventsV3Send(ctx _context.Context) ApiPostEventsV3SendRequest {
+func (a *BehavioralEventsTrackingApiService) PostEventsV3Send(ctx context.Context) ApiPostEventsV3SendRequest {
 	return ApiPostEventsV3SendRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -59,25 +52,23 @@ func (a *BehavioralEventsTrackingApiService) PostEventsV3Send(ctx _context.Conte
 }
 
 // Execute executes the request
-func (a *BehavioralEventsTrackingApiService) PostEventsV3SendExecute(r ApiPostEventsV3SendRequest) (*_nethttp.Response, error) {
+func (a *BehavioralEventsTrackingApiService) PostEventsV3SendExecute(r ApiPostEventsV3SendRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BehavioralEventsTrackingApiService.PostEventsV3Send")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/events/v3/send"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.behavioralEventHttpCompletionRequest == nil {
 		return nil, reportError("behavioralEventHttpCompletionRequest is required and must be specified")
 	}
@@ -101,21 +92,7 @@ func (a *BehavioralEventsTrackingApiService) PostEventsV3SendExecute(r ApiPostEv
 	}
 	// body params
 	localVarPostBody = r.behavioralEventHttpCompletionRequest
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -125,15 +102,15 @@ func (a *BehavioralEventsTrackingApiService) PostEventsV3SendExecute(r ApiPostEv
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}

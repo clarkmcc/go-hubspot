@@ -4,14 +4,14 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**PostMarketingV3MarketingEventsEventsDelete**](BatchApi.md#PostMarketingV3MarketingEventsEventsDelete) | **Post** /marketing/v3/marketing-events/events/delete | Delete multiple marketing events
-[**PostMarketingV3MarketingEventsEventsUpsert**](BatchApi.md#PostMarketingV3MarketingEventsEventsUpsert) | **Post** /marketing/v3/marketing-events/events/upsert | Create or update multiple marketing events
+[**PostMarketingV3MarketingEventsEventsDeleteArchive**](BatchApi.md#PostMarketingV3MarketingEventsEventsDeleteArchive) | **Post** /marketing/v3/marketing-events/events/delete | Delete multiple marketing events
+[**PostMarketingV3MarketingEventsEventsUpsertDoUpsert**](BatchApi.md#PostMarketingV3MarketingEventsEventsUpsertDoUpsert) | **Post** /marketing/v3/marketing-events/events/upsert | Create or update multiple marketing events
 
 
 
-## PostMarketingV3MarketingEventsEventsDelete
+## PostMarketingV3MarketingEventsEventsDeleteArchive
 
-> Error PostMarketingV3MarketingEventsEventsDelete(ctx).BatchInputMarketingEventExternalUniqueIdentifier(batchInputMarketingEventExternalUniqueIdentifier).Execute()
+> Error PostMarketingV3MarketingEventsEventsDeleteArchive(ctx).BatchInputMarketingEventExternalUniqueIdentifier(batchInputMarketingEventExternalUniqueIdentifier).Execute()
 
 Delete multiple marketing events
 
@@ -33,14 +33,14 @@ func main() {
     batchInputMarketingEventExternalUniqueIdentifier := *openapiclient.NewBatchInputMarketingEventExternalUniqueIdentifier([]openapiclient.MarketingEventExternalUniqueIdentifier{*openapiclient.NewMarketingEventExternalUniqueIdentifier(int32(123), "ExternalAccountId_example", "ExternalEventId_example")}) // BatchInputMarketingEventExternalUniqueIdentifier | The details of the marketing events to delete
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.BatchApi.PostMarketingV3MarketingEventsEventsDelete(context.Background()).BatchInputMarketingEventExternalUniqueIdentifier(batchInputMarketingEventExternalUniqueIdentifier).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.BatchApi.PostMarketingV3MarketingEventsEventsDeleteArchive(context.Background()).BatchInputMarketingEventExternalUniqueIdentifier(batchInputMarketingEventExternalUniqueIdentifier).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.PostMarketingV3MarketingEventsEventsDelete``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.PostMarketingV3MarketingEventsEventsDeleteArchive``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostMarketingV3MarketingEventsEventsDelete`: Error
-    fmt.Fprintf(os.Stdout, "Response from `BatchApi.PostMarketingV3MarketingEventsEventsDelete`: %v\n", resp)
+    // response from `PostMarketingV3MarketingEventsEventsDeleteArchive`: Error
+    fmt.Fprintf(os.Stdout, "Response from `BatchApi.PostMarketingV3MarketingEventsEventsDeleteArchive`: %v\n", resp)
 }
 ```
 
@@ -50,7 +50,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostMarketingV3MarketingEventsEventsDeleteRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostMarketingV3MarketingEventsEventsDeleteArchiveRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -63,7 +63,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -75,9 +75,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostMarketingV3MarketingEventsEventsUpsert
+## PostMarketingV3MarketingEventsEventsUpsertDoUpsert
 
-> BatchResponseMarketingEventPublicDefaultResponse PostMarketingV3MarketingEventsEventsUpsert(ctx).BatchInputMarketingEventCreateRequestParams(batchInputMarketingEventCreateRequestParams).Execute()
+> BatchResponseMarketingEventPublicDefaultResponse PostMarketingV3MarketingEventsEventsUpsertDoUpsert(ctx).BatchInputMarketingEventCreateRequestParams(batchInputMarketingEventCreateRequestParams).Execute()
 
 Create or update multiple marketing events
 
@@ -99,14 +99,14 @@ func main() {
     batchInputMarketingEventCreateRequestParams := *openapiclient.NewBatchInputMarketingEventCreateRequestParams([]openapiclient.MarketingEventCreateRequestParams{*openapiclient.NewMarketingEventCreateRequestParams("EventName_example", "EventOrganizer_example", "ExternalAccountId_example", "ExternalEventId_example")}) // BatchInputMarketingEventCreateRequestParams | The details of the marketing events to upsert
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.BatchApi.PostMarketingV3MarketingEventsEventsUpsert(context.Background()).BatchInputMarketingEventCreateRequestParams(batchInputMarketingEventCreateRequestParams).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.BatchApi.PostMarketingV3MarketingEventsEventsUpsertDoUpsert(context.Background()).BatchInputMarketingEventCreateRequestParams(batchInputMarketingEventCreateRequestParams).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.PostMarketingV3MarketingEventsEventsUpsert``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.PostMarketingV3MarketingEventsEventsUpsertDoUpsert``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostMarketingV3MarketingEventsEventsUpsert`: BatchResponseMarketingEventPublicDefaultResponse
-    fmt.Fprintf(os.Stdout, "Response from `BatchApi.PostMarketingV3MarketingEventsEventsUpsert`: %v\n", resp)
+    // response from `PostMarketingV3MarketingEventsEventsUpsertDoUpsert`: BatchResponseMarketingEventPublicDefaultResponse
+    fmt.Fprintf(os.Stdout, "Response from `BatchApi.PostMarketingV3MarketingEventsEventsUpsertDoUpsert`: %v\n", resp)
 }
 ```
 
@@ -116,7 +116,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostMarketingV3MarketingEventsEventsUpsertRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostMarketingV3MarketingEventsEventsUpsertDoUpsertRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -129,7 +129,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 

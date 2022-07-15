@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Password** | Pointer to **string** | Password used to log into the HubSpot SMTP server. | [optional] 
 **EmailCampaignId** | **string** | Identifier assigned to the campaign provided in the token creation request. | 
 **CreatedAt** | **time.Time** | Timestamp generated when a token is created. | 
-**CreateContact** | **bool** | Indicates whether a contact should be created for recipients of emails. | 
+**CreateContact** | **bool** | Indicates whether a contact should be created for email recipients. | 
 **CampaignName** | **string** | A name for the campaign tied to the token. | 
 
 ## Methods

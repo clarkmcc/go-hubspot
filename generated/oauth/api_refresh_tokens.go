@@ -12,39 +12,34 @@ package oauth
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // RefreshTokensApiService RefreshTokensApi service
 type RefreshTokensApiService service
 
 type ApiDeleteOauthV1RefreshTokensTokenArchiveRefreshTokenRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *RefreshTokensApiService
 	token      string
 }
 
-func (r ApiDeleteOauthV1RefreshTokensTokenArchiveRefreshTokenRequest) Execute() (Error, *_nethttp.Response, error) {
+func (r ApiDeleteOauthV1RefreshTokensTokenArchiveRefreshTokenRequest) Execute() (*Error, *http.Response, error) {
 	return r.ApiService.DeleteOauthV1RefreshTokensTokenArchiveRefreshTokenExecute(r)
 }
 
 /*
 DeleteOauthV1RefreshTokensTokenArchiveRefreshToken Method for DeleteOauthV1RefreshTokensTokenArchiveRefreshToken
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param token
  @return ApiDeleteOauthV1RefreshTokensTokenArchiveRefreshTokenRequest
 */
-func (a *RefreshTokensApiService) DeleteOauthV1RefreshTokensTokenArchiveRefreshToken(ctx _context.Context, token string) ApiDeleteOauthV1RefreshTokensTokenArchiveRefreshTokenRequest {
+func (a *RefreshTokensApiService) DeleteOauthV1RefreshTokensTokenArchiveRefreshToken(ctx context.Context, token string) ApiDeleteOauthV1RefreshTokensTokenArchiveRefreshTokenRequest {
 	return ApiDeleteOauthV1RefreshTokensTokenArchiveRefreshTokenRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -54,27 +49,25 @@ func (a *RefreshTokensApiService) DeleteOauthV1RefreshTokensTokenArchiveRefreshT
 
 // Execute executes the request
 //  @return Error
-func (a *RefreshTokensApiService) DeleteOauthV1RefreshTokensTokenArchiveRefreshTokenExecute(r ApiDeleteOauthV1RefreshTokensTokenArchiveRefreshTokenRequest) (Error, *_nethttp.Response, error) {
+func (a *RefreshTokensApiService) DeleteOauthV1RefreshTokensTokenArchiveRefreshTokenExecute(r ApiDeleteOauthV1RefreshTokensTokenArchiveRefreshTokenRequest) (*Error, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  Error
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Error
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RefreshTokensApiService.DeleteOauthV1RefreshTokensTokenArchiveRefreshToken")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/oauth/v1/refresh-tokens/{token}"
-	localVarPath = strings.Replace(localVarPath, "{"+"token"+"}", _neturl.PathEscape(parameterToString(r.token, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"token"+"}", url.PathEscape(parameterToString(r.token, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -93,7 +86,7 @@ func (a *RefreshTokensApiService) DeleteOauthV1RefreshTokensTokenArchiveRefreshT
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -103,15 +96,15 @@ func (a *RefreshTokensApiService) DeleteOauthV1RefreshTokensTokenArchiveRefreshT
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -127,7 +120,7 @@ func (a *RefreshTokensApiService) DeleteOauthV1RefreshTokensTokenArchiveRefreshT
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -138,23 +131,23 @@ func (a *RefreshTokensApiService) DeleteOauthV1RefreshTokensTokenArchiveRefreshT
 }
 
 type ApiGetOauthV1RefreshTokensTokenGetRefreshTokenRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *RefreshTokensApiService
 	token      string
 }
 
-func (r ApiGetOauthV1RefreshTokensTokenGetRefreshTokenRequest) Execute() (RefreshTokenInfoResponse, *_nethttp.Response, error) {
+func (r ApiGetOauthV1RefreshTokensTokenGetRefreshTokenRequest) Execute() (*RefreshTokenInfoResponse, *http.Response, error) {
 	return r.ApiService.GetOauthV1RefreshTokensTokenGetRefreshTokenExecute(r)
 }
 
 /*
 GetOauthV1RefreshTokensTokenGetRefreshToken Method for GetOauthV1RefreshTokensTokenGetRefreshToken
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param token
  @return ApiGetOauthV1RefreshTokensTokenGetRefreshTokenRequest
 */
-func (a *RefreshTokensApiService) GetOauthV1RefreshTokensTokenGetRefreshToken(ctx _context.Context, token string) ApiGetOauthV1RefreshTokensTokenGetRefreshTokenRequest {
+func (a *RefreshTokensApiService) GetOauthV1RefreshTokensTokenGetRefreshToken(ctx context.Context, token string) ApiGetOauthV1RefreshTokensTokenGetRefreshTokenRequest {
 	return ApiGetOauthV1RefreshTokensTokenGetRefreshTokenRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -164,27 +157,25 @@ func (a *RefreshTokensApiService) GetOauthV1RefreshTokensTokenGetRefreshToken(ct
 
 // Execute executes the request
 //  @return RefreshTokenInfoResponse
-func (a *RefreshTokensApiService) GetOauthV1RefreshTokensTokenGetRefreshTokenExecute(r ApiGetOauthV1RefreshTokensTokenGetRefreshTokenRequest) (RefreshTokenInfoResponse, *_nethttp.Response, error) {
+func (a *RefreshTokensApiService) GetOauthV1RefreshTokensTokenGetRefreshTokenExecute(r ApiGetOauthV1RefreshTokensTokenGetRefreshTokenRequest) (*RefreshTokenInfoResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  RefreshTokenInfoResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *RefreshTokenInfoResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RefreshTokensApiService.GetOauthV1RefreshTokensTokenGetRefreshToken")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/oauth/v1/refresh-tokens/{token}"
-	localVarPath = strings.Replace(localVarPath, "{"+"token"+"}", _neturl.PathEscape(parameterToString(r.token, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"token"+"}", url.PathEscape(parameterToString(r.token, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -203,7 +194,7 @@ func (a *RefreshTokensApiService) GetOauthV1RefreshTokensTokenGetRefreshTokenExe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -213,15 +204,15 @@ func (a *RefreshTokensApiService) GetOauthV1RefreshTokensTokenGetRefreshTokenExe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -237,7 +228,7 @@ func (a *RefreshTokensApiService) GetOauthV1RefreshTokensTokenGetRefreshTokenExe
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

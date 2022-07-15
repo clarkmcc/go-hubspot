@@ -39,8 +39,8 @@ paths:
         schema:
           type: string
         style: form
-      - description: The id of the selected object. If not present, then the `objectProperty`
-          parameter is required.
+      - description: "The id of the selected object. If not present, then the `objectProperty`\
+          \ parameter is required."
         explode: true
         in: query
         name: objectId
@@ -75,7 +75,7 @@ paths:
         schema:
           type: string
         style: form
-      - description: The maximum number of events to return, defaults to 20.
+      - description: "The maximum number of events to return, defaults to 20."
         explode: true
         in: query
         name: limit
@@ -84,9 +84,9 @@ paths:
           format: int32
           type: integer
         style: form
-      - description: Selects the sort field and order. Defaults to ascending, prefix
-          with `-` for descending order. `occurredAt` is the only field supported
-          for sorting.
+      - description: "Selects the sort field and order. Defaults to ascending, prefix\
+          \ with `-` for descending order. `occurredAt` is the only field supported\
+          \ for sorting."
         explode: true
         in: query
         name: sort
@@ -110,7 +110,6 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
       - oauth2_legacy:
         - business-intelligence
       summary: Returns a collection of events matching a query.
@@ -270,9 +269,9 @@ components:
           description: The objectId of the object which did the event.
           type: string
         eventType:
-          description: The format of the `eventType` string is `ae{appId}_{eventTypeLabel}`,
-            `pe{portalId}_{eventTypeLabel}`, or just `e_{eventTypeLabel}` for HubSpot
-            events.
+          description: "The format of the `eventType` string is `ae{appId}_{eventTypeLabel}`,\
+            \ `pe{portalId}_{eventTypeLabel}`, or just `e_{eventTypeLabel}` for HubSpot\
+            \ events."
           type: string
         occurredAt:
           description: An ISO 8601 timestamp when the event occurred.
@@ -323,10 +322,6 @@ components:
             business-intelligence: Read from Business Intelligence API
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
-    hapikey:
-      in: query
-      name: hapikey
-      type: apiKey
 x-hubspot-available-client-libraries:
 - PHP
 - Node

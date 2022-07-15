@@ -4,14 +4,14 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsert**](SubscriberStateChangesApi.md#PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsert) | **Post** /marketing/v3/marketing-events/events/{externalEventId}/{subscriberState}/email-upsert | Record
-[**PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsert**](SubscriberStateChangesApi.md#PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsert) | **Post** /marketing/v3/marketing-events/events/{externalEventId}/{subscriberState}/upsert | Record
+[**PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsertDoEmailUpsertById**](SubscriberStateChangesApi.md#PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsertDoEmailUpsertById) | **Post** /marketing/v3/marketing-events/events/{externalEventId}/{subscriberState}/email-upsert | Record
+[**PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsertDoUpsertById**](SubscriberStateChangesApi.md#PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsertDoUpsertById) | **Post** /marketing/v3/marketing-events/events/{externalEventId}/{subscriberState}/upsert | Record
 
 
 
-## PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsert
+## PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsertDoEmailUpsertById
 
-> Error PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsert(ctx, externalEventId, subscriberState).ExternalAccountId(externalAccountId).BatchInputMarketingEventEmailSubscriber(batchInputMarketingEventEmailSubscriber).Execute()
+> Error PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsertDoEmailUpsertById(ctx, externalEventId, subscriberState).ExternalAccountId(externalAccountId).BatchInputMarketingEventEmailSubscriber(batchInputMarketingEventEmailSubscriber).Execute()
 
 Record
 
@@ -36,14 +36,14 @@ func main() {
     batchInputMarketingEventEmailSubscriber := *openapiclient.NewBatchInputMarketingEventEmailSubscriber([]openapiclient.MarketingEventEmailSubscriber{*openapiclient.NewMarketingEventEmailSubscriber(int64(123), "Email_example")}) // BatchInputMarketingEventEmailSubscriber | The details of the contacts to subscribe to the event
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SubscriberStateChangesApi.PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsert(context.Background(), externalEventId, subscriberState).ExternalAccountId(externalAccountId).BatchInputMarketingEventEmailSubscriber(batchInputMarketingEventEmailSubscriber).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SubscriberStateChangesApi.PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsertDoEmailUpsertById(context.Background(), externalEventId, subscriberState).ExternalAccountId(externalAccountId).BatchInputMarketingEventEmailSubscriber(batchInputMarketingEventEmailSubscriber).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SubscriberStateChangesApi.PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsert``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SubscriberStateChangesApi.PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsertDoEmailUpsertById``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsert`: Error
-    fmt.Fprintf(os.Stdout, "Response from `SubscriberStateChangesApi.PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsert`: %v\n", resp)
+    // response from `PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsertDoEmailUpsertById`: Error
+    fmt.Fprintf(os.Stdout, "Response from `SubscriberStateChangesApi.PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsertDoEmailUpsertById`: %v\n", resp)
 }
 ```
 
@@ -58,7 +58,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsertRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsertDoEmailUpsertByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -74,7 +74,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -86,9 +86,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsert
+## PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsertDoUpsertById
 
-> Error PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsert(ctx, externalEventId, subscriberState).ExternalAccountId(externalAccountId).BatchInputMarketingEventSubscriber(batchInputMarketingEventSubscriber).Execute()
+> Error PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsertDoUpsertById(ctx, externalEventId, subscriberState).ExternalAccountId(externalAccountId).BatchInputMarketingEventSubscriber(batchInputMarketingEventSubscriber).Execute()
 
 Record
 
@@ -113,14 +113,14 @@ func main() {
     batchInputMarketingEventSubscriber := *openapiclient.NewBatchInputMarketingEventSubscriber([]openapiclient.MarketingEventSubscriber{*openapiclient.NewMarketingEventSubscriber(int64(123))}) // BatchInputMarketingEventSubscriber | The details of the contacts to subscribe to the event
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SubscriberStateChangesApi.PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsert(context.Background(), externalEventId, subscriberState).ExternalAccountId(externalAccountId).BatchInputMarketingEventSubscriber(batchInputMarketingEventSubscriber).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SubscriberStateChangesApi.PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsertDoUpsertById(context.Background(), externalEventId, subscriberState).ExternalAccountId(externalAccountId).BatchInputMarketingEventSubscriber(batchInputMarketingEventSubscriber).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SubscriberStateChangesApi.PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsert``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SubscriberStateChangesApi.PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsertDoUpsertById``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsert`: Error
-    fmt.Fprintf(os.Stdout, "Response from `SubscriberStateChangesApi.PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsert`: %v\n", resp)
+    // response from `PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsertDoUpsertById`: Error
+    fmt.Fprintf(os.Stdout, "Response from `SubscriberStateChangesApi.PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsertDoUpsertById`: %v\n", resp)
 }
 ```
 
@@ -135,7 +135,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsertRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsertDoUpsertByIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -151,7 +151,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 

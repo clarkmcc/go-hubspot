@@ -16,8 +16,9 @@ import (
 
 // Filter struct for Filter
 type Filter struct {
-	Value        *string `json:"value,omitempty"`
-	PropertyName string  `json:"propertyName"`
+	Value        *string  `json:"value,omitempty"`
+	Values       []string `json:"values,omitempty"`
+	PropertyName string   `json:"propertyName"`
 	// null
 	Operator string `json:"operator"`
 }
@@ -73,6 +74,38 @@ func (o *Filter) SetValue(v string) {
 	o.Value = &v
 }
 
+// GetValues returns the Values field value if set, zero value otherwise.
+func (o *Filter) GetValues() []string {
+	if o == nil || o.Values == nil {
+		var ret []string
+		return ret
+	}
+	return o.Values
+}
+
+// GetValuesOk returns a tuple with the Values field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Filter) GetValuesOk() ([]string, bool) {
+	if o == nil || o.Values == nil {
+		return nil, false
+	}
+	return o.Values, true
+}
+
+// HasValues returns a boolean if a field has been set.
+func (o *Filter) HasValues() bool {
+	if o != nil && o.Values != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetValues gets a reference to the given []string and assigns it to the Values field.
+func (o *Filter) SetValues(v []string) {
+	o.Values = v
+}
+
 // GetPropertyName returns the PropertyName field value
 func (o *Filter) GetPropertyName() string {
 	if o == nil {
@@ -125,6 +158,9 @@ func (o Filter) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Value != nil {
 		toSerialize["value"] = o.Value
+	}
+	if o.Values != nil {
+		toSerialize["values"] = o.Values
 	}
 	if true {
 		toSerialize["propertyName"] = o.PropertyName

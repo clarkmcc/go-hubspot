@@ -1,9 +1,9 @@
 openapi: 3.0.1
 info:
-  description: Provides a way for apps to subscribe to certain change events in HubSpot.
-    Once configured, apps will receive event payloads containing details about the
-    changes at a specified target URL. There can only be one target URL for receiving
-    event notifications per app.
+  description: "Provides a way for apps to subscribe to certain change events in HubSpot.\
+    \ Once configured, apps will receive event payloads containing details about the\
+    \ changes at a specified target URL. There can only be one target URL for receiving\
+    \ event notifications per app."
   title: Webhooks API
   version: v3
 servers:
@@ -16,13 +16,9 @@ tags:
 paths:
   /webhooks/v3/{appId}/settings:
     delete:
-      description: Resets webhook target URL to empty, and max concurrency limit to
-        `0` for the given app. This will effectively pause all webhook subscriptions
-        until new settings are provided.
-      operationId: delete-/webhooks/v3/{appId}/settings_clear
+      operationId: "delete-/webhooks/v3/{appId}/settings_clear"
       parameters:
-      - description: The ID of the target app.
-        explode: false
+      - explode: false
         in: path
         name: appId
         required: true
@@ -41,18 +37,13 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
-      summary: Clear webhook settings
+      - developer_hapikey: []
       tags:
       - Settings
     get:
-      description: Returns the current state of webhook settings for the given app.
-        These settings include the app's configured target URL and max concurrency
-        limit.
-      operationId: get-/webhooks/v3/{appId}/settings_getAll
+      operationId: "get-/webhooks/v3/{appId}/settings_getAll"
       parameters:
-      - description: The ID of the target app.
-        explode: false
+      - explode: false
         in: path
         name: appId
         required: true
@@ -64,13 +55,6 @@ paths:
         "200":
           content:
             application/json:
-              example:
-                createdAt: 2020-01-24T16:27:59Z
-                throttling:
-                  period: SECONDLY
-                  maxConcurrentRequests: 10
-                targetUrl: https://www.example.com/hubspot/target
-                updatedAt: 2020-01-24T16:32:43Z
               schema:
                 $ref: '#/components/schemas/SettingsResponse'
           description: successful operation
@@ -81,17 +65,13 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
-      summary: Get webhook settings
+      - developer_hapikey: []
       tags:
       - Settings
     put:
-      description: Used to set the webhook target URL and max concurrency limit for
-        the given app.
-      operationId: put-/webhooks/v3/{appId}/settings_configure
+      operationId: "put-/webhooks/v3/{appId}/settings_configure"
       parameters:
-      - description: The ID of the target app.
-        explode: false
+      - explode: false
         in: path
         name: appId
         required: true
@@ -104,20 +84,11 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/SettingsChangeRequest'
-        description: Settings state to create new with or replace existing settings
-          with.
         required: true
       responses:
         "200":
           content:
             application/json:
-              example:
-                createdAt: 2020-01-24T16:27:59Z
-                throttling:
-                  period: SECONDLY
-                  maxConcurrentRequests: 10
-                targetUrl: https://www.example.com/hubspot/target
-                updatedAt: 2020-01-24T16:32:43Z
               schema:
                 $ref: '#/components/schemas/SettingsResponse'
           description: successful operation
@@ -128,18 +99,14 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
-      summary: Configure webhook settings
+      - developer_hapikey: []
       tags:
       - Settings
   /webhooks/v3/{appId}/subscriptions:
     get:
-      description: Returns full details for all existing subscriptions for the given
-        app.
-      operationId: get-/webhooks/v3/{appId}/subscriptions_getAll
+      operationId: "get-/webhooks/v3/{appId}/subscriptions_getAll"
       parameters:
-      - description: The ID of the target app.
-        explode: false
+      - explode: false
         in: path
         name: appId
         required: true
@@ -151,19 +118,6 @@ paths:
         "200":
           content:
             application/json:
-              example:
-                results:
-                - id: "12"
-                  createdAt: 2019-10-30T03:30:17.883Z
-                  updatedAt: 2019-11-30T03:30:17.883Z
-                  eventType: contact.propertyChange
-                  propertyName: email
-                  active: true
-                - id: "13"
-                  createdAt: 2019-10-30T03:30:17.883Z
-                  updatedAt: 2019-11-30T03:30:17.883Z
-                  eventType: deal.creation
-                  active: true
               schema:
                 $ref: '#/components/schemas/SubscriptionListResponse'
           description: successful operation
@@ -174,17 +128,13 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
-      summary: Get subscription details
+      - developer_hapikey: []
       tags:
       - Subscriptions
     post:
-      description: Creates a new webhook subscription for the given app. Each subscription
-        in an app must be unique.
-      operationId: post-/webhooks/v3/{appId}/subscriptions_create
+      operationId: "post-/webhooks/v3/{appId}/subscriptions_create"
       parameters:
-      - description: The ID of the target app.
-        explode: false
+      - explode: false
         in: path
         name: appId
         required: true
@@ -197,19 +147,11 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/SubscriptionCreateRequest'
-        description: Details about the new subscription.
         required: true
       responses:
         "201":
           content:
             application/json:
-              example:
-                createdAt: 2019-10-30T03:30:17.883Z
-                propertyName: email
-                active: true
-                id: "12"
-                eventType: contact.propertyChange
-                updatedAt: 2019-11-30T03:30:17.883Z
               schema:
                 $ref: '#/components/schemas/SubscriptionResponse'
           description: successful operation
@@ -220,17 +162,14 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
-      summary: Subscribe to an event
+      - developer_hapikey: []
       tags:
       - Subscriptions
   /webhooks/v3/{appId}/subscriptions/batch/update:
     post:
-      description: Activates or deactivates target app subscriptions.
-      operationId: post-/webhooks/v3/{appId}/subscriptions/batch/update_updateBatch
+      operationId: "post-/webhooks/v3/{appId}/subscriptions/batch/update_updateBatch"
       parameters:
-      - description: The app ID of the target app.
-        explode: false
+      - explode: false
         in: path
         name: appId
         required: true
@@ -243,55 +182,17 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/BatchInputSubscriptionBatchUpdateRequest'
-        description: Updated details for the specified subscriptions.
         required: true
       responses:
         "200":
           content:
             application/json:
-              example:
-                completedAt: 2020-04-17T02:19:26.283Z
-                startedAt: 2020-04-17T02:19:26.256Z
-                results:
-                - id: "1234"
-                  createdAt: 2019-06-06T16:56:16.652Z
-                  updatedAt: 2019-08-06T16:56:16.652Z
-                  eventType: contact.propertyChange
-                  propertyName: firstname
-                  active: true
-                - id: "4567"
-                  createdAt: 2019-06-06T16:56:16.652Z
-                  updatedAt: 2019-08-06T16:56:16.652Z
-                  eventType: contact.create
-                  active: false
-                status: COMPLETE
               schema:
                 $ref: '#/components/schemas/BatchResponseSubscriptionResponse'
           description: successful operation
         "207":
           content:
             application/json:
-              example:
-                completedAt: 2020-04-17T02:19:26.283Z
-                numErrors: 1
-                startedAt: 2020-04-17T02:19:26.256Z
-                results:
-                - id: "1234"
-                  createdAt: 2019-06-06T16:56:16.652Z
-                  updatedAt: 2019-08-06T16:56:16.652Z
-                  eventType: contact.propertyChange
-                  propertyName: firstname
-                  active: true
-                errors:
-                - status: error
-                  category: SUBSCRIPTION_ID_NOT_FOUND
-                  subCategory: SubscriptionErrors.SUBSCRIPTION_IDS_NOT_FOUND
-                  message: Failed to find subscriptions by id `4567`. Try again using
-                    a different subscriptionId.
-                  context:
-                    subscriptionIds:
-                    - "4567"
-                status: COMPLETE
               schema:
                 $ref: '#/components/schemas/BatchResponseSubscriptionResponseWithErrors'
           description: multiple statuses
@@ -302,17 +203,14 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
-      summary: Batch update subscriptions
+      - developer_hapikey: []
       tags:
       - Subscriptions
   /webhooks/v3/{appId}/subscriptions/{subscriptionId}:
     delete:
-      description: Permanently deletes a subscription. This cannot be undone.
-      operationId: delete-/webhooks/v3/{appId}/subscriptions/{subscriptionId}_archive
+      operationId: "delete-/webhooks/v3/{appId}/subscriptions/{subscriptionId}_archive"
       parameters:
-      - description: The ID of subscription to delete.
-        explode: false
+      - explode: false
         in: path
         name: subscriptionId
         required: true
@@ -320,8 +218,7 @@ paths:
           format: int32
           type: integer
         style: simple
-      - description: The ID of the target app.
-        explode: false
+      - explode: false
         in: path
         name: appId
         required: true
@@ -340,27 +237,23 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
-      summary: Delete a subscription
+      - developer_hapikey: []
       tags:
       - Subscriptions
     get:
-      description: Returns details about a subscription.
-      operationId: get-/webhooks/v3/{appId}/subscriptions/{subscriptionId}_getById
+      operationId: "get-/webhooks/v3/{appId}/subscriptions/{subscriptionId}_getById"
       parameters:
-      - description: The ID of the target app.
-        explode: false
+      - explode: false
         in: path
-        name: appId
+        name: subscriptionId
         required: true
         schema:
           format: int32
           type: integer
         style: simple
-      - description: The ID of the target subscription.
-        explode: false
+      - explode: false
         in: path
-        name: subscriptionId
+        name: appId
         required: true
         schema:
           format: int32
@@ -370,13 +263,6 @@ paths:
         "200":
           content:
             application/json:
-              example:
-                createdAt: 2019-10-30T03:30:17.883Z
-                propertyName: email
-                active: true
-                id: "12"
-                eventType: contact.propertyChange
-                updatedAt: 2019-11-30T03:30:17.883Z
               schema:
                 $ref: '#/components/schemas/SubscriptionResponse'
           description: successful operation
@@ -387,16 +273,13 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
-      summary: Get subscription
+      - developer_hapikey: []
       tags:
       - Subscriptions
     patch:
-      description: Updates the details for an existing subscription.
-      operationId: patch-/webhooks/v3/{appId}/subscriptions/{subscriptionId}_update
+      operationId: "patch-/webhooks/v3/{appId}/subscriptions/{subscriptionId}_update"
       parameters:
-      - description: The ID of the subscription to update.
-        explode: false
+      - explode: false
         in: path
         name: subscriptionId
         required: true
@@ -404,8 +287,7 @@ paths:
           format: int32
           type: integer
         style: simple
-      - description: The ID of the target app.
-        explode: false
+      - explode: false
         in: path
         name: appId
         required: true
@@ -418,19 +300,11 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/SubscriptionPatchRequest'
-        description: Updated details for the subscription.
         required: true
       responses:
         "200":
           content:
             application/json:
-              example:
-                createdAt: 2019-10-30T03:30:17.883Z
-                propertyName: email
-                active: true
-                id: "12"
-                eventType: contact.propertyChange
-                updatedAt: 2019-11-30T03:30:17.883Z
               schema:
                 $ref: '#/components/schemas/SubscriptionResponse'
           description: successful operation
@@ -441,8 +315,7 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
-      summary: Update a subscription
+      - developer_hapikey: []
       tags:
       - Subscriptions
 components:
@@ -669,6 +542,7 @@ components:
           - REQUEST_HEADERS_FIELDS_TOO_LARGE
           - INTERNAL_STALE_SERVICE_DISCOVERY
           - UNAVAILABLE_FOR_LEGAL_REASONS
+          - MIGRATION_IN_PROGRESS
           - INTERNAL_SERVER_ERROR
           - NOT_IMPLEMENTED
           - BAD_GATEWAY
@@ -720,15 +594,15 @@ components:
     SettingsChangeRequest:
       description: New or updated webhook settings for an app.
       example:
-        throttling:
-          period: SECONDLY
-          maxConcurrentRequests: 10
         targetUrl: https://www.example.com/hubspot/target
+        throttling:
+          maxConcurrentRequests: 10
+          period: SECONDLY
       properties:
         targetUrl:
-          description: A publicly available URL for Hubspot to call where event payloads
-            will be delivered. See [link-so-some-doc](#) for details about the format
-            of these event payloads.
+          description: "A publicly available URL for Hubspot to call where event payloads\
+            \ will be delivered. See [link-so-some-doc](#) for details about the format\
+            \ of these event payloads."
           type: string
         throttling:
           $ref: '#/components/schemas/ThrottlingSettings'
@@ -739,28 +613,28 @@ components:
     SettingsResponse:
       description: Webhook settings for an app.
       example:
-        createdAt: 2020-01-24T16:27:59Z
-        throttling:
-          period: SECONDLY
-          maxConcurrentRequests: 10
         targetUrl: https://www.example.com/hubspot/target
+        throttling:
+          maxConcurrentRequests: 10
+          period: SECONDLY
+        createdAt: 2020-01-24T16:27:59Z
         updatedAt: 2020-01-24T16:32:43Z
       properties:
         targetUrl:
-          description: A publicly available URL for Hubspot to call where event payloads
-            will be delivered. See [link-so-some-doc](#) for details about the format
-            of these event payloads.
+          description: "A publicly available URL for Hubspot to call where event payloads\
+            \ will be delivered. See [link-so-some-doc](#) for details about the format\
+            \ of these event payloads."
           type: string
         throttling:
           $ref: '#/components/schemas/ThrottlingSettings'
         createdAt:
-          description: When this subscription was created. Formatted as milliseconds
-            from the [Unix epoch](#).
+          description: "When this subscription was created. Formatted as milliseconds\
+            \ from the [Unix epoch](#)."
           format: date-time
           type: string
         updatedAt:
-          description: When this subscription was last updated. Formatted as milliseconds
-            from the [Unix epoch](#).
+          description: "When this subscription was last updated. Formatted as milliseconds\
+            \ from the [Unix epoch](#)."
           format: date-time
           type: string
       required:
@@ -820,17 +694,20 @@ components:
     SubscriptionCreateRequest:
       description: New webhook settings for an app.
       example:
-        propertyName: email
         active: true
         eventType: contact.propertyChange
+        propertyName: email
       properties:
         eventType:
-          description: Type of event to listen for. Can be one of `create`, `delete`,
-            `deletedForPrivacy`, or `propertyChange`.
+          description: "Type of event to listen for. Can be one of `create`, `delete`,\
+            \ `deletedForPrivacy`, or `propertyChange`."
           enum:
           - contact.propertyChange
           - company.propertyChange
           - deal.propertyChange
+          - ticket.propertyChange
+          - product.propertyChange
+          - line_item.propertyChange
           - contact.creation
           - contact.deletion
           - contact.privacyDeletion
@@ -838,14 +715,23 @@ components:
           - company.deletion
           - deal.creation
           - deal.deletion
+          - ticket.creation
+          - ticket.deletion
+          - product.creation
+          - product.deletion
+          - line_item.creation
+          - line_item.deletion
+          - conversation.creation
+          - conversation.deletion
+          - conversation.newMessage
+          - conversation.privacyDeletion
+          - conversation.propertyChange
           type: string
         propertyName:
           description: The internal name of the property to monitor for changes. Only
             applies when `eventType` is `propertyChange`.
-          example: firstname
           type: string
         active:
-          default: false
           description: Determines if the subscription is active or paused. Defaults
             to false.
           type: boolean
@@ -897,12 +783,15 @@ components:
         updatedAt: 2000-01-23T04:56:07.000+00:00
       properties:
         eventType:
-          description: Type of event to listen for. Can be one of `create`, `delete`,
-            `deletedForPrivacy`, or `propertyChange`.
+          description: "Type of event to listen for. Can be one of `create`, `delete`,\
+            \ `deletedForPrivacy`, or `propertyChange`."
           enum:
           - contact.propertyChange
           - company.propertyChange
           - deal.propertyChange
+          - ticket.propertyChange
+          - product.propertyChange
+          - line_item.propertyChange
           - contact.creation
           - contact.deletion
           - contact.privacyDeletion
@@ -910,6 +799,17 @@ components:
           - company.deletion
           - deal.creation
           - deal.deletion
+          - ticket.creation
+          - ticket.deletion
+          - product.creation
+          - product.deletion
+          - line_item.creation
+          - line_item.deletion
+          - conversation.creation
+          - conversation.deletion
+          - conversation.newMessage
+          - conversation.privacyDeletion
+          - conversation.propertyChange
           type: string
         propertyName:
           description: The internal name of the property being monitored for changes.
@@ -922,13 +822,13 @@ components:
           description: The unique ID of the subscription.
           type: string
         createdAt:
-          description: When this subscription was created. Formatted as milliseconds
-            from the [Unix epoch](#).
+          description: "When this subscription was created. Formatted as milliseconds\
+            \ from the [Unix epoch](#)."
           format: date-time
           type: string
         updatedAt:
-          description: When this subscription was last updated. Formatted as milliseconds
-            from the [Unix epoch](#).
+          description: "When this subscription was last updated. Formatted as milliseconds\
+            \ from the [Unix epoch](#)."
           format: date-time
           type: string
       required:
@@ -957,7 +857,7 @@ components:
       - period
       type: object
   securitySchemes:
-    hapikey:
+    developer_hapikey:
       in: query
       name: hapikey
       type: apiKey

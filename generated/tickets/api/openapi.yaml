@@ -9,6 +9,7 @@ tags:
 - name: Basic
 - name: Batch
 - name: Search
+- name: Public_Object
 paths:
   /crm/v3/objects/tickets:
     get:
@@ -36,9 +37,9 @@ paths:
         schema:
           type: string
         style: form
-      - description: A comma separated list of the properties to be returned in the
-          response. If any of the specified properties are not present on the requested
-          object(s), they will be ignored.
+      - description: "A comma separated list of the properties to be returned in the\
+          \ response. If any of the specified properties are not present on the requested\
+          \ object(s), they will be ignored."
         explode: true
         in: query
         name: properties
@@ -48,9 +49,23 @@ paths:
             type: string
           type: array
         style: form
-      - description: A comma separated list of object types to retrieve associated
-          IDs for. If any of the specified associations do not exist, they will be
-          ignored.
+      - description: "A comma separated list of the properties to be returned along\
+          \ with their history of previous values. If any of the specified properties\
+          \ are not present on the requested object(s), they will be ignored. Usage\
+          \ of this parameter will reduce the maximum number of objects that can be\
+          \ read by a single request."
+        explode: true
+        in: query
+        name: propertiesWithHistory
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: "A comma separated list of object types to retrieve associated\
+          \ IDs for. If any of the specified associations do not exist, they will\
+          \ be ignored."
         explode: true
         in: query
         name: associations
@@ -85,14 +100,13 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
       summary: List
       tags:
       - Basic
     post:
-      description: Create a ticket with the given properties and return a copy of
-        the object, including the ID. Documentation and examples for creating standard
-        tickets is provided.
+      description: "Create a ticket with the given properties and return a copy of\
+        \ the object, including the ID. Documentation and examples for creating standard\
+        \ tickets is provided."
       operationId: post-/crm/v3/objects/tickets_create
       parameters: []
       requestBody:
@@ -117,7 +131,6 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
       summary: Create
       tags:
       - Basic
@@ -144,7 +157,6 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
       summary: Archive a batch of tickets by ID
       tags:
       - Batch
@@ -180,7 +192,6 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
       summary: Create a batch of tickets
       tags:
       - Batch
@@ -225,8 +236,7 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
-      summary: Read a batch of tickets by internal ID, or unique property values
+      summary: "Read a batch of tickets by internal ID, or unique property values"
       tags:
       - Batch
   /crm/v3/objects/tickets/batch/update:
@@ -261,10 +271,38 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
       summary: Update a batch of tickets
       tags:
       - Batch
+  /crm/v3/objects/tickets/merge:
+    post:
+      operationId: post-/crm/v3/objects/tickets/merge_merge
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicMergeInput'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimplePublicObject'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - oauth2_legacy:
+        - tickets
+      summary: Merge two tickets with same type
+      tags:
+      - Public_Object
   /crm/v3/objects/tickets/search:
     post:
       operationId: post-/crm/v3/objects/tickets/search_doSearch
@@ -291,15 +329,14 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
       tags:
       - Search
       x-hubspot-rate-limit-exemptions:
       - ten-secondly
   /crm/v3/objects/tickets/{ticketId}:
     delete:
-      description: Move an Object identified by `{ticketId}` to the recycling bin.
-      operationId: delete-/crm/v3/objects/tickets/{ticketId}_archive
+      description: "Move an Object identified by `{ticketId}` to the recycling bin."
+      operationId: "delete-/crm/v3/objects/tickets/{ticketId}_archive"
       parameters:
       - explode: false
         in: path
@@ -321,16 +358,15 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
       summary: Archive
       tags:
       - Basic
     get:
-      description: Read an Object identified by `{ticketId}`. `{ticketId}` refers
-        to the internal object ID by default, or optionally any unique property value
-        as specified by the `idProperty` query param.  Control what is returned via
-        the `properties` query param.
-      operationId: get-/crm/v3/objects/tickets/{ticketId}_getById
+      description: "Read an Object identified by `{ticketId}`. `{ticketId}` refers\
+        \ to the internal object ID by default, or optionally any unique property\
+        \ value as specified by the `idProperty` query param.  Control what is returned\
+        \ via the `properties` query param."
+      operationId: "get-/crm/v3/objects/tickets/{ticketId}_getById"
       parameters:
       - explode: false
         in: path
@@ -339,9 +375,9 @@ paths:
         schema:
           type: string
         style: simple
-      - description: A comma separated list of the properties to be returned in the
-          response. If any of the specified properties are not present on the requested
-          object(s), they will be ignored.
+      - description: "A comma separated list of the properties to be returned in the\
+          \ response. If any of the specified properties are not present on the requested\
+          \ object(s), they will be ignored."
         explode: true
         in: query
         name: properties
@@ -351,9 +387,21 @@ paths:
             type: string
           type: array
         style: form
-      - description: A comma separated list of object types to retrieve associated
-          IDs for. If any of the specified associations do not exist, they will be
-          ignored.
+      - description: "A comma separated list of the properties to be returned along\
+          \ with their history of previous values. If any of the specified properties\
+          \ are not present on the requested object(s), they will be ignored."
+        explode: true
+        in: query
+        name: propertiesWithHistory
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: "A comma separated list of object types to retrieve associated\
+          \ IDs for. If any of the specified associations do not exist, they will\
+          \ be ignored."
         explode: true
         in: query
         name: associations
@@ -397,17 +445,17 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
       summary: Read
       tags:
       - Basic
     patch:
-      description: Perform a partial update of an Object identified by `{ticketId}`.
-        `{ticketId}` refers to the internal object ID by default, or optionally any
-        unique property value as specified by the `idProperty` query param. Provided
-        property values will be overwritten. Read-only and non-existent properties
-        will be ignored. Properties values can be cleared by passing an empty string.
-      operationId: patch-/crm/v3/objects/tickets/{ticketId}_update
+      description: "Perform a partial update of an Object identified by `{ticketId}`.\
+        \ `{ticketId}` refers to the internal object ID by default, or optionally\
+        \ any unique property value as specified by the `idProperty` query param.\
+        \ Provided property values will be overwritten. Read-only and non-existent\
+        \ properties will be ignored. Properties values can be cleared by passing\
+        \ an empty string."
+      operationId: "patch-/crm/v3/objects/tickets/{ticketId}_update"
       parameters:
       - explode: false
         in: path
@@ -447,13 +495,12 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
       summary: Update
       tags:
       - Basic
   /crm/v3/objects/tickets/{ticketId}/associations/{toObjectType}:
     get:
-      operationId: get-/crm/v3/objects/tickets/{ticketId}/associations/{toObjectType}_getAll
+      operationId: "get-/crm/v3/objects/tickets/{ticketId}/associations/{toObjectType}_getAll"
       parameters:
       - explode: false
         in: path
@@ -505,13 +552,12 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
       summary: List associations of a ticket by type
       tags:
       - Associations
   /crm/v3/objects/tickets/{ticketId}/associations/{toObjectType}/{toObjectId}/{associationType}:
     delete:
-      operationId: delete-/crm/v3/objects/tickets/{ticketId}/associations/{toObjectType}/{toObjectId}/{associationType}_archive
+      operationId: "delete-/crm/v3/objects/tickets/{ticketId}/associations/{toObjectType}/{toObjectId}/{associationType}_archive"
       parameters:
       - explode: false
         in: path
@@ -554,12 +600,11 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
       summary: Remove an association between two tickets
       tags:
       - Associations
     put:
-      operationId: put-/crm/v3/objects/tickets/{ticketId}/associations/{toObjectType}/{toObjectId}/{associationType}_create
+      operationId: "put-/crm/v3/objects/tickets/{ticketId}/associations/{toObjectType}/{toObjectId}/{associationType}_create"
       parameters:
       - explode: false
         in: path
@@ -605,7 +650,6 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
       summary: Associate a ticket with another object
       tags:
       - Associations
@@ -694,6 +738,9 @@ components:
       type: object
     BatchReadInputSimplePublicObjectId:
       example:
+        propertiesWithHistory:
+        - propertiesWithHistory
+        - propertiesWithHistory
         idProperty: idProperty
         inputs:
         - id: id
@@ -706,6 +753,10 @@ components:
           items:
             type: string
           type: array
+        propertiesWithHistory:
+          items:
+            type: string
+          type: array
         idProperty:
           type: string
         inputs:
@@ -715,6 +766,7 @@ components:
       required:
       - inputs
       - properties
+      - propertiesWithHistory
       type: object
     BatchResponseSimplePublicObject:
       example:
@@ -987,6 +1039,8 @@ components:
       type: object
     ErrorCategory:
       properties:
+        name:
+          type: string
         httpStatus:
           enum:
           - CONTINUE
@@ -1039,6 +1093,7 @@ components:
           - REQUEST_HEADERS_FIELDS_TOO_LARGE
           - INTERNAL_STALE_SERVICE_DISCOVERY
           - UNAVAILABLE_FOR_LEGAL_REASONS
+          - MIGRATION_IN_PROGRESS
           - INTERNAL_SERVER_ERROR
           - NOT_IMPLEMENTED
           - BAD_GATEWAY
@@ -1050,8 +1105,6 @@ components:
           - LOOP_DETECTED
           - NOT_EXTENDED
           - NETWORK_AUTHENTICATION_REQUIRED
-          type: string
-        name:
           type: string
       required:
       - httpStatus
@@ -1090,11 +1143,18 @@ components:
     Filter:
       example:
         propertyName: propertyName
+        values:
+        - values
+        - values
         value: value
         operator: EQ
       properties:
         value:
           type: string
+        values:
+          items:
+            type: string
+          type: array
         propertyName:
           type: string
         operator:
@@ -1122,9 +1182,15 @@ components:
       example:
         filters:
         - propertyName: propertyName
+          values:
+          - values
+          - values
           value: value
           operator: EQ
         - propertyName: propertyName
+          values:
+          - values
+          - values
           value: value
           operator: EQ
       properties:
@@ -1172,6 +1238,19 @@ components:
       required:
       - before
       type: object
+    PublicMergeInput:
+      example:
+        objectIdToMerge: objectIdToMerge
+        primaryObjectId: primaryObjectId
+      properties:
+        primaryObjectId:
+          type: string
+        objectIdToMerge:
+          type: string
+      required:
+      - objectIdToMerge
+      - primaryObjectId
+      type: object
     PublicObjectSearchRequest:
       example:
         query: query
@@ -1186,16 +1265,28 @@ components:
         filterGroups:
         - filters:
           - propertyName: propertyName
+            values:
+            - values
+            - values
             value: value
             operator: EQ
           - propertyName: propertyName
+            values:
+            - values
+            - values
             value: value
             operator: EQ
         - filters:
           - propertyName: propertyName
+            values:
+            - values
+            - values
             value: value
             operator: EQ
           - propertyName: propertyName
+            values:
+            - values
+            - values
             value: value
             operator: EQ
       properties:
@@ -1246,6 +1337,12 @@ components:
         properties:
           additionalProperties:
             type: string
+          type: object
+        propertiesWithHistory:
+          additionalProperties:
+            items:
+              $ref: '#/components/schemas/ValueWithTimestamp'
+            type: array
           type: object
         createdAt:
           format: date-time
@@ -1326,6 +1423,12 @@ components:
           additionalProperties:
             type: string
           type: object
+        propertiesWithHistory:
+          additionalProperties:
+            items:
+              $ref: '#/components/schemas/ValueWithTimestamp'
+            type: array
+          type: object
         createdAt:
           format: date-time
           type: string
@@ -1382,6 +1485,27 @@ components:
       - message
       - status
       type: object
+    ValueWithTimestamp:
+      properties:
+        value:
+          type: string
+        timestamp:
+          format: date-time
+          type: string
+        sourceType:
+          type: string
+        sourceId:
+          type: string
+        sourceLabel:
+          type: string
+        updatedByUserId:
+          format: int32
+          type: integer
+      required:
+      - sourceType
+      - timestamp
+      - value
+      type: object
   securitySchemes:
     oauth2_legacy:
       flows:
@@ -1391,10 +1515,6 @@ components:
             tickets: Read and write tickets
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
-    hapikey:
-      in: query
-      name: hapikey
-      type: apiKey
 x-hubspot-available-client-libraries:
 - PHP
 - Node

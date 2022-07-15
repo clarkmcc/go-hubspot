@@ -338,11 +338,11 @@ func (o *Property) GetOptions() []Option {
 
 // GetOptionsOk returns a tuple with the Options field value
 // and a boolean to check if the value has been set.
-func (o *Property) GetOptionsOk() (*[]Option, bool) {
+func (o *Property) GetOptionsOk() ([]Option, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Options, true
+	return o.Options, true
 }
 
 // SetOptions sets field value

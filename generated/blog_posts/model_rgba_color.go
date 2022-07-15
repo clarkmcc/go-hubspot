@@ -1,7 +1,7 @@
 /*
 Blog Post endpoints
 
-\"Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags\"
+Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags
 
 API version: v3
 */
@@ -14,11 +14,15 @@ import (
 	"encoding/json"
 )
 
-// RGBAColor struct for RGBAColor
+// RGBAColor A color defined by RGB values.
 type RGBAColor struct {
-	R int32   `json:"r"`
-	G int32   `json:"g"`
-	B int32   `json:"b"`
+	// Red.
+	R int32 `json:"r"`
+	// Green.
+	G int32 `json:"g"`
+	// Blue.
+	B int32 `json:"b"`
+	// Alpha.
 	A float32 `json:"a"`
 }
 

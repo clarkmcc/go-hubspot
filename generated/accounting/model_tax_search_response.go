@@ -84,11 +84,11 @@ func (o *TaxSearchResponse) GetTaxes() []Tax {
 
 // GetTaxesOk returns a tuple with the Taxes field value
 // and a boolean to check if the value has been set.
-func (o *TaxSearchResponse) GetTaxesOk() (*[]Tax, bool) {
+func (o *TaxSearchResponse) GetTaxesOk() ([]Tax, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Taxes, true
+	return o.Taxes, true
 }
 
 // SetTaxes sets field value

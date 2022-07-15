@@ -35,8 +35,8 @@ func main() {
     associationType := "associationType_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AssociationsApi.DeleteCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeToObjectIdAssociationTypeArchive(context.Background(), ticketId, toObjectType, toObjectId, associationType).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AssociationsApi.DeleteCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeToObjectIdAssociationTypeArchive(context.Background(), ticketId, toObjectType, toObjectId, associationType).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AssociationsApi.DeleteCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeToObjectIdAssociationTypeArchive``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -73,7 +73,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -110,8 +110,8 @@ func main() {
     limit := int32(56) // int32 | The maximum number of results to display per page. (optional) (default to 500)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AssociationsApi.GetCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeGetAll(context.Background(), ticketId, toObjectType).After(after).Limit(limit).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AssociationsApi.GetCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeGetAll(context.Background(), ticketId, toObjectType).After(after).Limit(limit).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AssociationsApi.GetCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeGetAll``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -148,7 +148,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -185,8 +185,8 @@ func main() {
     associationType := "associationType_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AssociationsApi.PutCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeToObjectIdAssociationTypeCreate(context.Background(), ticketId, toObjectType, toObjectId, associationType).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AssociationsApi.PutCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeToObjectIdAssociationTypeCreate(context.Background(), ticketId, toObjectType, toObjectId, associationType).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AssociationsApi.PutCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeToObjectIdAssociationTypeCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -225,7 +225,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 

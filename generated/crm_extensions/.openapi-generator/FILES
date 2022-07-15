@@ -25,6 +25,7 @@ docs/ErrorDetail.md
 docs/IFrameActionBody.md
 docs/IntegratorCardPayloadResponse.md
 docs/IntegratorObjectResult.md
+docs/IntegratorObjectResultActionsInner.md
 docs/ObjectToken.md
 docs/SampleResponseApi.md
 docs/TopLevelActions.md
@@ -49,6 +50,7 @@ model_error_detail.go
 model_i_frame_action_body.go
 model_integrator_card_payload_response.go
 model_integrator_object_result.go
+model_integrator_object_result_actions_inner.go
 model_object_token.go
 model_top_level_actions.go
 response.go

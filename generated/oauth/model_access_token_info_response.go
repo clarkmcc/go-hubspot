@@ -157,11 +157,11 @@ func (o *AccessTokenInfoResponse) GetScopes() []string {
 
 // GetScopesOk returns a tuple with the Scopes field value
 // and a boolean to check if the value has been set.
-func (o *AccessTokenInfoResponse) GetScopesOk() (*[]string, bool) {
+func (o *AccessTokenInfoResponse) GetScopesOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Scopes, true
+	return o.Scopes, true
 }
 
 // SetScopes sets field value
@@ -181,11 +181,11 @@ func (o *AccessTokenInfoResponse) GetScopeToScopeGroupPks() []int32 {
 
 // GetScopeToScopeGroupPksOk returns a tuple with the ScopeToScopeGroupPks field value
 // and a boolean to check if the value has been set.
-func (o *AccessTokenInfoResponse) GetScopeToScopeGroupPksOk() (*[]int32, bool) {
+func (o *AccessTokenInfoResponse) GetScopeToScopeGroupPksOk() ([]int32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.ScopeToScopeGroupPks, true
+	return o.ScopeToScopeGroupPks, true
 }
 
 // SetScopeToScopeGroupPks sets field value
@@ -205,11 +205,11 @@ func (o *AccessTokenInfoResponse) GetTrialScopes() []string {
 
 // GetTrialScopesOk returns a tuple with the TrialScopes field value
 // and a boolean to check if the value has been set.
-func (o *AccessTokenInfoResponse) GetTrialScopesOk() (*[]string, bool) {
+func (o *AccessTokenInfoResponse) GetTrialScopesOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.TrialScopes, true
+	return o.TrialScopes, true
 }
 
 // SetTrialScopes sets field value
@@ -229,11 +229,11 @@ func (o *AccessTokenInfoResponse) GetTrialScopeToScopeGroupPks() []int32 {
 
 // GetTrialScopeToScopeGroupPksOk returns a tuple with the TrialScopeToScopeGroupPks field value
 // and a boolean to check if the value has been set.
-func (o *AccessTokenInfoResponse) GetTrialScopeToScopeGroupPksOk() (*[]int32, bool) {
+func (o *AccessTokenInfoResponse) GetTrialScopeToScopeGroupPksOk() ([]int32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.TrialScopeToScopeGroupPks, true
+	return o.TrialScopeToScopeGroupPks, true
 }
 
 // SetTrialScopeToScopeGroupPks sets field value

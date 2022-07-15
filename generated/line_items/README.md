@@ -22,7 +22,7 @@ go get golang.org/x/net/context
 Put the package under your project folder and add the following in import:
 
 ```golang
-import sw "./line_items"
+import line_items "github.com/GIT_USER_ID/GIT_REPO_ID"
 ```
 
 To use a proxy, set the environment variable `HTTP_PROXY`:
@@ -40,7 +40,7 @@ Default configuration comes with `Servers` field that contains server objects as
 For using other server than the one defined on index 0 set context value `sw.ContextServerIndex` of type `int`.
 
 ```golang
-ctx := context.WithValue(context.Background(), sw.ContextServerIndex, 1)
+ctx := context.WithValue(context.Background(), line_items.ContextServerIndex, 1)
 ```
 
 ### Templated Server URL
@@ -48,7 +48,7 @@ ctx := context.WithValue(context.Background(), sw.ContextServerIndex, 1)
 Templated server URL is formatted using default variables from configuration or from context value `sw.ContextServerVariables` of type `map[string]string`.
 
 ```golang
-ctx := context.WithValue(context.Background(), sw.ContextServerVariables, map[string]string{
+ctx := context.WithValue(context.Background(), line_items.ContextServerVariables, map[string]string{
 	"basePath": "v2",
 })
 ```
@@ -62,10 +62,10 @@ An operation is uniquely identified by `"{classname}Service.{nickname}"` string.
 Similar rules for overriding default operation server index and variables applies by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
 
 ```
-ctx := context.WithValue(context.Background(), sw.ContextOperationServerIndices, map[string]int{
+ctx := context.WithValue(context.Background(), line_items.ContextOperationServerIndices, map[string]int{
 	"{classname}Service.{nickname}": 2,
 })
-ctx = context.WithValue(context.Background(), sw.ContextOperationServerVariables, map[string]map[string]string{
+ctx = context.WithValue(context.Background(), line_items.ContextOperationServerVariables, map[string]map[string]string{
 	"{classname}Service.{nickname}": {
 		"port": "8443",
 	},
@@ -90,6 +90,7 @@ Class | Method | HTTP request | Description
 *BatchApi* | [**PostCrmV3ObjectsLineItemsBatchCreateCreate**](docs/BatchApi.md#postcrmv3objectslineitemsbatchcreatecreate) | **Post** /crm/v3/objects/line_items/batch/create | Create a batch of line items
 *BatchApi* | [**PostCrmV3ObjectsLineItemsBatchReadRead**](docs/BatchApi.md#postcrmv3objectslineitemsbatchreadread) | **Post** /crm/v3/objects/line_items/batch/read | Read a batch of line items by internal ID, or unique property values
 *BatchApi* | [**PostCrmV3ObjectsLineItemsBatchUpdateUpdate**](docs/BatchApi.md#postcrmv3objectslineitemsbatchupdateupdate) | **Post** /crm/v3/objects/line_items/batch/update | Update a batch of line items
+*PublicObjectApi* | [**PostCrmV3ObjectsLineItemsMergeMerge**](docs/PublicObjectApi.md#postcrmv3objectslineitemsmergemerge) | **Post** /crm/v3/objects/line_items/merge | Merge two line items with same type
 *SearchApi* | [**PostCrmV3ObjectsLineItemsSearchDoSearch**](docs/SearchApi.md#postcrmv3objectslineitemssearchdosearch) | **Post** /crm/v3/objects/line_items/search | 
 
 
@@ -115,6 +116,7 @@ Class | Method | HTTP request | Description
  - [NextPage](docs/NextPage.md)
  - [Paging](docs/Paging.md)
  - [PreviousPage](docs/PreviousPage.md)
+ - [PublicMergeInput](docs/PublicMergeInput.md)
  - [PublicObjectSearchRequest](docs/PublicObjectSearchRequest.md)
  - [SimplePublicObject](docs/SimplePublicObject.md)
  - [SimplePublicObjectBatchInput](docs/SimplePublicObjectBatchInput.md)
@@ -122,19 +124,41 @@ Class | Method | HTTP request | Description
  - [SimplePublicObjectInput](docs/SimplePublicObjectInput.md)
  - [SimplePublicObjectWithAssociations](docs/SimplePublicObjectWithAssociations.md)
  - [StandardError](docs/StandardError.md)
+ - [ValueWithTimestamp](docs/ValueWithTimestamp.md)
 
 
 ## Documentation For Authorization
 
 
 
-### hapikey
+### oauth2
 
-- **Type**: API key
-- **API key parameter name**: hapikey
-- **Location**: URL query string
 
-Note, each API key must be added to a map of `map[string]APIKey` where the key is: hapikey and passed in as the auth context for each request.
+- **Type**: OAuth
+- **Flow**: accessCode
+- **Authorization URL**: https://app.hubspot.com/oauth/authorize
+- **Scopes**: 
+ - **crm.objects.line_items.read**: Line Items
+ - **crm.objects.line_items.write**: Line Items
+
+Example
+
+```golang
+auth := context.WithValue(context.Background(), sw.ContextAccessToken, "ACCESSTOKENSTRING")
+r, err := client.Service.Operation(auth, args)
+```
+
+Or via OAuth2 module to automatically refresh tokens and perform user authentication.
+
+```golang
+import "golang.org/x/oauth2"
+
+/* Perform OAuth2 round trip request and obtain a token */
+
+tokenSource := oauth2cfg.TokenSource(createContext(httpClient), &token)
+auth := context.WithValue(oauth2.NoContext, sw.ContextOAuth2, tokenSource)
+r, err := client.Service.Operation(auth, args)
+```
 
 
 ### oauth2_legacy

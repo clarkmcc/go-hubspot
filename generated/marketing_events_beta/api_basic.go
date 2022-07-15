@@ -12,51 +12,44 @@ package marketing_events_beta
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-
-	"github.com/clarkmcc/go-hubspot/authorization"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // BasicApiService BasicApi service
 type BasicApiService service
 
-type ApiDeleteMarketingV3MarketingEventsEventsExternalEventIdRequest struct {
-	ctx               _context.Context
+type ApiDeleteMarketingV3MarketingEventsEventsExternalEventIdArchiveRequest struct {
+	ctx               context.Context
 	ApiService        *BasicApiService
 	externalEventId   string
 	externalAccountId *string
 }
 
 // The account id associated with the marketing event
-func (r ApiDeleteMarketingV3MarketingEventsEventsExternalEventIdRequest) ExternalAccountId(externalAccountId string) ApiDeleteMarketingV3MarketingEventsEventsExternalEventIdRequest {
+func (r ApiDeleteMarketingV3MarketingEventsEventsExternalEventIdArchiveRequest) ExternalAccountId(externalAccountId string) ApiDeleteMarketingV3MarketingEventsEventsExternalEventIdArchiveRequest {
 	r.externalAccountId = &externalAccountId
 	return r
 }
 
-func (r ApiDeleteMarketingV3MarketingEventsEventsExternalEventIdRequest) Execute() (*_nethttp.Response, error) {
-	return r.ApiService.DeleteMarketingV3MarketingEventsEventsExternalEventIdExecute(r)
+func (r ApiDeleteMarketingV3MarketingEventsEventsExternalEventIdArchiveRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteMarketingV3MarketingEventsEventsExternalEventIdArchiveExecute(r)
 }
 
 /*
-DeleteMarketingV3MarketingEventsEventsExternalEventId Delete a marketing event
+DeleteMarketingV3MarketingEventsEventsExternalEventIdArchive Delete a marketing event
 
 Deletes an existing Marketing Event with the specified id, if one exists.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param externalEventId The id of the marketing event to delete
- @return ApiDeleteMarketingV3MarketingEventsEventsExternalEventIdRequest
+ @return ApiDeleteMarketingV3MarketingEventsEventsExternalEventIdArchiveRequest
 */
-func (a *BasicApiService) DeleteMarketingV3MarketingEventsEventsExternalEventId(ctx _context.Context, externalEventId string) ApiDeleteMarketingV3MarketingEventsEventsExternalEventIdRequest {
-	return ApiDeleteMarketingV3MarketingEventsEventsExternalEventIdRequest{
+func (a *BasicApiService) DeleteMarketingV3MarketingEventsEventsExternalEventIdArchive(ctx context.Context, externalEventId string) ApiDeleteMarketingV3MarketingEventsEventsExternalEventIdArchiveRequest {
+	return ApiDeleteMarketingV3MarketingEventsEventsExternalEventIdArchiveRequest{
 		ApiService:      a,
 		ctx:             ctx,
 		externalEventId: externalEventId,
@@ -64,26 +57,24 @@ func (a *BasicApiService) DeleteMarketingV3MarketingEventsEventsExternalEventId(
 }
 
 // Execute executes the request
-func (a *BasicApiService) DeleteMarketingV3MarketingEventsEventsExternalEventIdExecute(r ApiDeleteMarketingV3MarketingEventsEventsExternalEventIdRequest) (*_nethttp.Response, error) {
+func (a *BasicApiService) DeleteMarketingV3MarketingEventsEventsExternalEventIdArchiveExecute(r ApiDeleteMarketingV3MarketingEventsEventsExternalEventIdArchiveRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.DeleteMarketingV3MarketingEventsEventsExternalEventId")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.DeleteMarketingV3MarketingEventsEventsExternalEventIdArchive")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/marketing/v3/marketing-events/events/{externalEventId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"externalEventId"+"}", _neturl.PathEscape(parameterToString(r.externalEventId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"externalEventId"+"}", url.PathEscape(parameterToString(r.externalEventId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.externalAccountId == nil {
 		return nil, reportError("externalAccountId is required and must be specified")
 	}
@@ -106,21 +97,7 @@ func (a *BasicApiService) DeleteMarketingV3MarketingEventsEventsExternalEventIdE
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -130,15 +107,15 @@ func (a *BasicApiService) DeleteMarketingV3MarketingEventsEventsExternalEventIdE
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -155,34 +132,34 @@ func (a *BasicApiService) DeleteMarketingV3MarketingEventsEventsExternalEventIdE
 	return localVarHTTPResponse, nil
 }
 
-type ApiGetMarketingV3MarketingEventsEventsExternalEventIdRequest struct {
-	ctx               _context.Context
+type ApiGetMarketingV3MarketingEventsEventsExternalEventIdGetByIdRequest struct {
+	ctx               context.Context
 	ApiService        *BasicApiService
 	externalEventId   string
 	externalAccountId *string
 }
 
 // The account id associated with the marketing event
-func (r ApiGetMarketingV3MarketingEventsEventsExternalEventIdRequest) ExternalAccountId(externalAccountId string) ApiGetMarketingV3MarketingEventsEventsExternalEventIdRequest {
+func (r ApiGetMarketingV3MarketingEventsEventsExternalEventIdGetByIdRequest) ExternalAccountId(externalAccountId string) ApiGetMarketingV3MarketingEventsEventsExternalEventIdGetByIdRequest {
 	r.externalAccountId = &externalAccountId
 	return r
 }
 
-func (r ApiGetMarketingV3MarketingEventsEventsExternalEventIdRequest) Execute() (MarketingEventPublicReadResponse, *_nethttp.Response, error) {
-	return r.ApiService.GetMarketingV3MarketingEventsEventsExternalEventIdExecute(r)
+func (r ApiGetMarketingV3MarketingEventsEventsExternalEventIdGetByIdRequest) Execute() (*MarketingEventPublicReadResponse, *http.Response, error) {
+	return r.ApiService.GetMarketingV3MarketingEventsEventsExternalEventIdGetByIdExecute(r)
 }
 
 /*
-GetMarketingV3MarketingEventsEventsExternalEventId Get a marketing event
+GetMarketingV3MarketingEventsEventsExternalEventIdGetById Get a marketing event
 
 Returns the details of the Marketing Event with the specified id, if one exists.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param externalEventId The id of the marketing event to return
- @return ApiGetMarketingV3MarketingEventsEventsExternalEventIdRequest
+ @return ApiGetMarketingV3MarketingEventsEventsExternalEventIdGetByIdRequest
 */
-func (a *BasicApiService) GetMarketingV3MarketingEventsEventsExternalEventId(ctx _context.Context, externalEventId string) ApiGetMarketingV3MarketingEventsEventsExternalEventIdRequest {
-	return ApiGetMarketingV3MarketingEventsEventsExternalEventIdRequest{
+func (a *BasicApiService) GetMarketingV3MarketingEventsEventsExternalEventIdGetById(ctx context.Context, externalEventId string) ApiGetMarketingV3MarketingEventsEventsExternalEventIdGetByIdRequest {
+	return ApiGetMarketingV3MarketingEventsEventsExternalEventIdGetByIdRequest{
 		ApiService:      a,
 		ctx:             ctx,
 		externalEventId: externalEventId,
@@ -191,27 +168,25 @@ func (a *BasicApiService) GetMarketingV3MarketingEventsEventsExternalEventId(ctx
 
 // Execute executes the request
 //  @return MarketingEventPublicReadResponse
-func (a *BasicApiService) GetMarketingV3MarketingEventsEventsExternalEventIdExecute(r ApiGetMarketingV3MarketingEventsEventsExternalEventIdRequest) (MarketingEventPublicReadResponse, *_nethttp.Response, error) {
+func (a *BasicApiService) GetMarketingV3MarketingEventsEventsExternalEventIdGetByIdExecute(r ApiGetMarketingV3MarketingEventsEventsExternalEventIdGetByIdRequest) (*MarketingEventPublicReadResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  MarketingEventPublicReadResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingEventPublicReadResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.GetMarketingV3MarketingEventsEventsExternalEventId")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.GetMarketingV3MarketingEventsEventsExternalEventIdGetById")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/marketing/v3/marketing-events/events/{externalEventId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"externalEventId"+"}", _neturl.PathEscape(parameterToString(r.externalEventId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"externalEventId"+"}", url.PathEscape(parameterToString(r.externalEventId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.externalAccountId == nil {
 		return localVarReturnValue, nil, reportError("externalAccountId is required and must be specified")
 	}
@@ -234,21 +209,7 @@ func (a *BasicApiService) GetMarketingV3MarketingEventsEventsExternalEventIdExec
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -258,15 +219,15 @@ func (a *BasicApiService) GetMarketingV3MarketingEventsEventsExternalEventIdExec
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -282,7 +243,7 @@ func (a *BasicApiService) GetMarketingV3MarketingEventsEventsExternalEventIdExec
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -292,8 +253,8 @@ func (a *BasicApiService) GetMarketingV3MarketingEventsEventsExternalEventIdExec
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPatchMarketingV3MarketingEventsEventsExternalEventIdRequest struct {
-	ctx                               _context.Context
+type ApiPatchMarketingV3MarketingEventsEventsExternalEventIdUpdateRequest struct {
+	ctx                               context.Context
 	ApiService                        *BasicApiService
 	externalEventId                   string
 	externalAccountId                 *string
@@ -301,32 +262,32 @@ type ApiPatchMarketingV3MarketingEventsEventsExternalEventIdRequest struct {
 }
 
 // The account id associated with the marketing event
-func (r ApiPatchMarketingV3MarketingEventsEventsExternalEventIdRequest) ExternalAccountId(externalAccountId string) ApiPatchMarketingV3MarketingEventsEventsExternalEventIdRequest {
+func (r ApiPatchMarketingV3MarketingEventsEventsExternalEventIdUpdateRequest) ExternalAccountId(externalAccountId string) ApiPatchMarketingV3MarketingEventsEventsExternalEventIdUpdateRequest {
 	r.externalAccountId = &externalAccountId
 	return r
 }
 
 // The details of the marketing event to update
-func (r ApiPatchMarketingV3MarketingEventsEventsExternalEventIdRequest) MarketingEventUpdateRequestParams(marketingEventUpdateRequestParams MarketingEventUpdateRequestParams) ApiPatchMarketingV3MarketingEventsEventsExternalEventIdRequest {
+func (r ApiPatchMarketingV3MarketingEventsEventsExternalEventIdUpdateRequest) MarketingEventUpdateRequestParams(marketingEventUpdateRequestParams MarketingEventUpdateRequestParams) ApiPatchMarketingV3MarketingEventsEventsExternalEventIdUpdateRequest {
 	r.marketingEventUpdateRequestParams = &marketingEventUpdateRequestParams
 	return r
 }
 
-func (r ApiPatchMarketingV3MarketingEventsEventsExternalEventIdRequest) Execute() (MarketingEventPublicDefaultResponse, *_nethttp.Response, error) {
-	return r.ApiService.PatchMarketingV3MarketingEventsEventsExternalEventIdExecute(r)
+func (r ApiPatchMarketingV3MarketingEventsEventsExternalEventIdUpdateRequest) Execute() (*MarketingEventPublicDefaultResponse, *http.Response, error) {
+	return r.ApiService.PatchMarketingV3MarketingEventsEventsExternalEventIdUpdateExecute(r)
 }
 
 /*
-PatchMarketingV3MarketingEventsEventsExternalEventId Update a marketing event
+PatchMarketingV3MarketingEventsEventsExternalEventIdUpdate Update a marketing event
 
 Updates an existing Marketing Event with the specified id, if one exists.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param externalEventId The id of the marketing event to update
- @return ApiPatchMarketingV3MarketingEventsEventsExternalEventIdRequest
+ @return ApiPatchMarketingV3MarketingEventsEventsExternalEventIdUpdateRequest
 */
-func (a *BasicApiService) PatchMarketingV3MarketingEventsEventsExternalEventId(ctx _context.Context, externalEventId string) ApiPatchMarketingV3MarketingEventsEventsExternalEventIdRequest {
-	return ApiPatchMarketingV3MarketingEventsEventsExternalEventIdRequest{
+func (a *BasicApiService) PatchMarketingV3MarketingEventsEventsExternalEventIdUpdate(ctx context.Context, externalEventId string) ApiPatchMarketingV3MarketingEventsEventsExternalEventIdUpdateRequest {
+	return ApiPatchMarketingV3MarketingEventsEventsExternalEventIdUpdateRequest{
 		ApiService:      a,
 		ctx:             ctx,
 		externalEventId: externalEventId,
@@ -335,27 +296,25 @@ func (a *BasicApiService) PatchMarketingV3MarketingEventsEventsExternalEventId(c
 
 // Execute executes the request
 //  @return MarketingEventPublicDefaultResponse
-func (a *BasicApiService) PatchMarketingV3MarketingEventsEventsExternalEventIdExecute(r ApiPatchMarketingV3MarketingEventsEventsExternalEventIdRequest) (MarketingEventPublicDefaultResponse, *_nethttp.Response, error) {
+func (a *BasicApiService) PatchMarketingV3MarketingEventsEventsExternalEventIdUpdateExecute(r ApiPatchMarketingV3MarketingEventsEventsExternalEventIdUpdateRequest) (*MarketingEventPublicDefaultResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPatch
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  MarketingEventPublicDefaultResponse
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingEventPublicDefaultResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.PatchMarketingV3MarketingEventsEventsExternalEventId")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.PatchMarketingV3MarketingEventsEventsExternalEventIdUpdate")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/marketing/v3/marketing-events/events/{externalEventId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"externalEventId"+"}", _neturl.PathEscape(parameterToString(r.externalEventId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"externalEventId"+"}", url.PathEscape(parameterToString(r.externalEventId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.externalAccountId == nil {
 		return localVarReturnValue, nil, reportError("externalAccountId is required and must be specified")
 	}
@@ -383,21 +342,7 @@ func (a *BasicApiService) PatchMarketingV3MarketingEventsEventsExternalEventIdEx
 	}
 	// body params
 	localVarPostBody = r.marketingEventUpdateRequestParams
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -407,15 +352,15 @@ func (a *BasicApiService) PatchMarketingV3MarketingEventsEventsExternalEventIdEx
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -431,7 +376,7 @@ func (a *BasicApiService) PatchMarketingV3MarketingEventsEventsExternalEventIdEx
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -441,32 +386,32 @@ func (a *BasicApiService) PatchMarketingV3MarketingEventsEventsExternalEventIdEx
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPostMarketingV3MarketingEventsEventsRequest struct {
-	ctx                               _context.Context
+type ApiPostMarketingV3MarketingEventsEventsCreateRequest struct {
+	ctx                               context.Context
 	ApiService                        *BasicApiService
 	marketingEventCreateRequestParams *MarketingEventCreateRequestParams
 }
 
 // The details of the marketing event to create
-func (r ApiPostMarketingV3MarketingEventsEventsRequest) MarketingEventCreateRequestParams(marketingEventCreateRequestParams MarketingEventCreateRequestParams) ApiPostMarketingV3MarketingEventsEventsRequest {
+func (r ApiPostMarketingV3MarketingEventsEventsCreateRequest) MarketingEventCreateRequestParams(marketingEventCreateRequestParams MarketingEventCreateRequestParams) ApiPostMarketingV3MarketingEventsEventsCreateRequest {
 	r.marketingEventCreateRequestParams = &marketingEventCreateRequestParams
 	return r
 }
 
-func (r ApiPostMarketingV3MarketingEventsEventsRequest) Execute() (MarketingEventDefaultResponse, *_nethttp.Response, error) {
-	return r.ApiService.PostMarketingV3MarketingEventsEventsExecute(r)
+func (r ApiPostMarketingV3MarketingEventsEventsCreateRequest) Execute() (*MarketingEventDefaultResponse, *http.Response, error) {
+	return r.ApiService.PostMarketingV3MarketingEventsEventsCreateExecute(r)
 }
 
 /*
-PostMarketingV3MarketingEventsEvents Create a marketing event
+PostMarketingV3MarketingEventsEventsCreate Create a marketing event
 
 Creates a new marketing event in HubSpot
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostMarketingV3MarketingEventsEventsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiPostMarketingV3MarketingEventsEventsCreateRequest
 */
-func (a *BasicApiService) PostMarketingV3MarketingEventsEvents(ctx _context.Context) ApiPostMarketingV3MarketingEventsEventsRequest {
-	return ApiPostMarketingV3MarketingEventsEventsRequest{
+func (a *BasicApiService) PostMarketingV3MarketingEventsEventsCreate(ctx context.Context) ApiPostMarketingV3MarketingEventsEventsCreateRequest {
+	return ApiPostMarketingV3MarketingEventsEventsCreateRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -474,26 +419,24 @@ func (a *BasicApiService) PostMarketingV3MarketingEventsEvents(ctx _context.Cont
 
 // Execute executes the request
 //  @return MarketingEventDefaultResponse
-func (a *BasicApiService) PostMarketingV3MarketingEventsEventsExecute(r ApiPostMarketingV3MarketingEventsEventsRequest) (MarketingEventDefaultResponse, *_nethttp.Response, error) {
+func (a *BasicApiService) PostMarketingV3MarketingEventsEventsCreateExecute(r ApiPostMarketingV3MarketingEventsEventsCreateRequest) (*MarketingEventDefaultResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  MarketingEventDefaultResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingEventDefaultResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.PostMarketingV3MarketingEventsEvents")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.PostMarketingV3MarketingEventsEventsCreate")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/marketing/v3/marketing-events/events"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.marketingEventCreateRequestParams == nil {
 		return localVarReturnValue, nil, reportError("marketingEventCreateRequestParams is required and must be specified")
 	}
@@ -517,21 +460,7 @@ func (a *BasicApiService) PostMarketingV3MarketingEventsEventsExecute(r ApiPostM
 	}
 	// body params
 	localVarPostBody = r.marketingEventCreateRequestParams
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -541,15 +470,15 @@ func (a *BasicApiService) PostMarketingV3MarketingEventsEventsExecute(r ApiPostM
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -565,7 +494,7 @@ func (a *BasicApiService) PostMarketingV3MarketingEventsEventsExecute(r ApiPostM
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -575,34 +504,34 @@ func (a *BasicApiService) PostMarketingV3MarketingEventsEventsExecute(r ApiPostM
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPostMarketingV3MarketingEventsEventsExternalEventIdCancelRequest struct {
-	ctx               _context.Context
+type ApiPostMarketingV3MarketingEventsEventsExternalEventIdCancelDoCancelRequest struct {
+	ctx               context.Context
 	ApiService        *BasicApiService
 	externalEventId   string
 	externalAccountId *string
 }
 
 // The account id associated with the marketing event
-func (r ApiPostMarketingV3MarketingEventsEventsExternalEventIdCancelRequest) ExternalAccountId(externalAccountId string) ApiPostMarketingV3MarketingEventsEventsExternalEventIdCancelRequest {
+func (r ApiPostMarketingV3MarketingEventsEventsExternalEventIdCancelDoCancelRequest) ExternalAccountId(externalAccountId string) ApiPostMarketingV3MarketingEventsEventsExternalEventIdCancelDoCancelRequest {
 	r.externalAccountId = &externalAccountId
 	return r
 }
 
-func (r ApiPostMarketingV3MarketingEventsEventsExternalEventIdCancelRequest) Execute() (MarketingEventDefaultResponse, *_nethttp.Response, error) {
-	return r.ApiService.PostMarketingV3MarketingEventsEventsExternalEventIdCancelExecute(r)
+func (r ApiPostMarketingV3MarketingEventsEventsExternalEventIdCancelDoCancelRequest) Execute() (*MarketingEventDefaultResponse, *http.Response, error) {
+	return r.ApiService.PostMarketingV3MarketingEventsEventsExternalEventIdCancelDoCancelExecute(r)
 }
 
 /*
-PostMarketingV3MarketingEventsEventsExternalEventIdCancel Mark a marketing event as cancelled
+PostMarketingV3MarketingEventsEventsExternalEventIdCancelDoCancel Mark a marketing event as cancelled
 
 Mark a marketing event as cancelled.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param externalEventId The id of the marketing event to mark as cancelled
- @return ApiPostMarketingV3MarketingEventsEventsExternalEventIdCancelRequest
+ @return ApiPostMarketingV3MarketingEventsEventsExternalEventIdCancelDoCancelRequest
 */
-func (a *BasicApiService) PostMarketingV3MarketingEventsEventsExternalEventIdCancel(ctx _context.Context, externalEventId string) ApiPostMarketingV3MarketingEventsEventsExternalEventIdCancelRequest {
-	return ApiPostMarketingV3MarketingEventsEventsExternalEventIdCancelRequest{
+func (a *BasicApiService) PostMarketingV3MarketingEventsEventsExternalEventIdCancelDoCancel(ctx context.Context, externalEventId string) ApiPostMarketingV3MarketingEventsEventsExternalEventIdCancelDoCancelRequest {
+	return ApiPostMarketingV3MarketingEventsEventsExternalEventIdCancelDoCancelRequest{
 		ApiService:      a,
 		ctx:             ctx,
 		externalEventId: externalEventId,
@@ -611,27 +540,25 @@ func (a *BasicApiService) PostMarketingV3MarketingEventsEventsExternalEventIdCan
 
 // Execute executes the request
 //  @return MarketingEventDefaultResponse
-func (a *BasicApiService) PostMarketingV3MarketingEventsEventsExternalEventIdCancelExecute(r ApiPostMarketingV3MarketingEventsEventsExternalEventIdCancelRequest) (MarketingEventDefaultResponse, *_nethttp.Response, error) {
+func (a *BasicApiService) PostMarketingV3MarketingEventsEventsExternalEventIdCancelDoCancelExecute(r ApiPostMarketingV3MarketingEventsEventsExternalEventIdCancelDoCancelRequest) (*MarketingEventDefaultResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  MarketingEventDefaultResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingEventDefaultResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.PostMarketingV3MarketingEventsEventsExternalEventIdCancel")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.PostMarketingV3MarketingEventsEventsExternalEventIdCancelDoCancel")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/marketing/v3/marketing-events/events/{externalEventId}/cancel"
-	localVarPath = strings.Replace(localVarPath, "{"+"externalEventId"+"}", _neturl.PathEscape(parameterToString(r.externalEventId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"externalEventId"+"}", url.PathEscape(parameterToString(r.externalEventId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.externalAccountId == nil {
 		return localVarReturnValue, nil, reportError("externalAccountId is required and must be specified")
 	}
@@ -654,21 +581,7 @@ func (a *BasicApiService) PostMarketingV3MarketingEventsEventsExternalEventIdCan
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -678,15 +591,15 @@ func (a *BasicApiService) PostMarketingV3MarketingEventsEventsExternalEventIdCan
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -702,7 +615,7 @@ func (a *BasicApiService) PostMarketingV3MarketingEventsEventsExternalEventIdCan
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -712,34 +625,34 @@ func (a *BasicApiService) PostMarketingV3MarketingEventsEventsExternalEventIdCan
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPutMarketingV3MarketingEventsEventsExternalEventIdRequest struct {
-	ctx                               _context.Context
+type ApiPutMarketingV3MarketingEventsEventsExternalEventIdReplaceRequest struct {
+	ctx                               context.Context
 	ApiService                        *BasicApiService
 	externalEventId                   string
 	marketingEventCreateRequestParams *MarketingEventCreateRequestParams
 }
 
 // The details of the marketing event to upsert
-func (r ApiPutMarketingV3MarketingEventsEventsExternalEventIdRequest) MarketingEventCreateRequestParams(marketingEventCreateRequestParams MarketingEventCreateRequestParams) ApiPutMarketingV3MarketingEventsEventsExternalEventIdRequest {
+func (r ApiPutMarketingV3MarketingEventsEventsExternalEventIdReplaceRequest) MarketingEventCreateRequestParams(marketingEventCreateRequestParams MarketingEventCreateRequestParams) ApiPutMarketingV3MarketingEventsEventsExternalEventIdReplaceRequest {
 	r.marketingEventCreateRequestParams = &marketingEventCreateRequestParams
 	return r
 }
 
-func (r ApiPutMarketingV3MarketingEventsEventsExternalEventIdRequest) Execute() (MarketingEventPublicDefaultResponse, *_nethttp.Response, error) {
-	return r.ApiService.PutMarketingV3MarketingEventsEventsExternalEventIdExecute(r)
+func (r ApiPutMarketingV3MarketingEventsEventsExternalEventIdReplaceRequest) Execute() (*MarketingEventPublicDefaultResponse, *http.Response, error) {
+	return r.ApiService.PutMarketingV3MarketingEventsEventsExternalEventIdReplaceExecute(r)
 }
 
 /*
-PutMarketingV3MarketingEventsEventsExternalEventId Create or update a marketing event
+PutMarketingV3MarketingEventsEventsExternalEventIdReplace Create or update a marketing event
 
 Upsets a Marketing Event. If there is an existing Marketing event with the specified id, it will be updated; otherwise a new event will be created.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param externalEventId The id of the marketing event to upsert
- @return ApiPutMarketingV3MarketingEventsEventsExternalEventIdRequest
+ @return ApiPutMarketingV3MarketingEventsEventsExternalEventIdReplaceRequest
 */
-func (a *BasicApiService) PutMarketingV3MarketingEventsEventsExternalEventId(ctx _context.Context, externalEventId string) ApiPutMarketingV3MarketingEventsEventsExternalEventIdRequest {
-	return ApiPutMarketingV3MarketingEventsEventsExternalEventIdRequest{
+func (a *BasicApiService) PutMarketingV3MarketingEventsEventsExternalEventIdReplace(ctx context.Context, externalEventId string) ApiPutMarketingV3MarketingEventsEventsExternalEventIdReplaceRequest {
+	return ApiPutMarketingV3MarketingEventsEventsExternalEventIdReplaceRequest{
 		ApiService:      a,
 		ctx:             ctx,
 		externalEventId: externalEventId,
@@ -748,27 +661,25 @@ func (a *BasicApiService) PutMarketingV3MarketingEventsEventsExternalEventId(ctx
 
 // Execute executes the request
 //  @return MarketingEventPublicDefaultResponse
-func (a *BasicApiService) PutMarketingV3MarketingEventsEventsExternalEventIdExecute(r ApiPutMarketingV3MarketingEventsEventsExternalEventIdRequest) (MarketingEventPublicDefaultResponse, *_nethttp.Response, error) {
+func (a *BasicApiService) PutMarketingV3MarketingEventsEventsExternalEventIdReplaceExecute(r ApiPutMarketingV3MarketingEventsEventsExternalEventIdReplaceRequest) (*MarketingEventPublicDefaultResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  MarketingEventPublicDefaultResponse
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingEventPublicDefaultResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.PutMarketingV3MarketingEventsEventsExternalEventId")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.PutMarketingV3MarketingEventsEventsExternalEventIdReplace")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/marketing/v3/marketing-events/events/{externalEventId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"externalEventId"+"}", _neturl.PathEscape(parameterToString(r.externalEventId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"externalEventId"+"}", url.PathEscape(parameterToString(r.externalEventId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.marketingEventCreateRequestParams == nil {
 		return localVarReturnValue, nil, reportError("marketingEventCreateRequestParams is required and must be specified")
 	}
@@ -792,21 +703,7 @@ func (a *BasicApiService) PutMarketingV3MarketingEventsEventsExternalEventIdExec
 	}
 	// body params
 	localVarPostBody = r.marketingEventCreateRequestParams
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -816,15 +713,15 @@ func (a *BasicApiService) PutMarketingV3MarketingEventsEventsExternalEventIdExec
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -840,7 +737,7 @@ func (a *BasicApiService) PutMarketingV3MarketingEventsEventsExternalEventIdExec
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

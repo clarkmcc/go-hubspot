@@ -33,8 +33,8 @@ func main() {
     accountId := "accountId_example" // string | The ID of the user account to delete.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UserAccountsApi.DeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchive(context.Background(), accountId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserAccountsApi.DeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchive(context.Background(), accountId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserAccountsApi.DeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchive``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -65,7 +65,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -101,8 +101,8 @@ func main() {
     createUserAccountRequestExternal := *openapiclient.NewCreateUserAccountRequestExternal("AccountId_example", "AccountName_example", "CurrencyCode_example") // CreateUserAccountRequestExternal | The external accounting system user account information.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UserAccountsApi.PutCrmV3ExtensionsAccountingUserAccountsReplace(context.Background()).CreateUserAccountRequestExternal(createUserAccountRequestExternal).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserAccountsApi.PutCrmV3ExtensionsAccountingUserAccountsReplace(context.Background()).CreateUserAccountRequestExternal(createUserAccountRequestExternal).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserAccountsApi.PutCrmV3ExtensionsAccountingUserAccountsReplace``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -129,7 +129,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 

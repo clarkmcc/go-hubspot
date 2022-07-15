@@ -77,11 +77,11 @@ func (o *CardObjectTypeBody) GetPropertiesToSend() []string {
 
 // GetPropertiesToSendOk returns a tuple with the PropertiesToSend field value
 // and a boolean to check if the value has been set.
-func (o *CardObjectTypeBody) GetPropertiesToSendOk() (*[]string, bool) {
+func (o *CardObjectTypeBody) GetPropertiesToSendOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.PropertiesToSend, true
+	return o.PropertiesToSend, true
 }
 
 // SetPropertiesToSend sets field value

@@ -1,7 +1,7 @@
 /*
 Blog Post endpoints
 
-\"Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags\"
+Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags
 
 API version: v3
 */
@@ -14,8 +14,9 @@ import (
 	"encoding/json"
 )
 
-// BatchInputJsonNode struct for BatchInputJsonNode
+// BatchInputJsonNode Wrapper for providing an array of JSON nodes as inputs.
 type BatchInputJsonNode struct {
+	// JSON nodes to input.
 	Inputs []map[string]interface{} `json:"inputs"`
 }
 
@@ -49,11 +50,11 @@ func (o *BatchInputJsonNode) GetInputs() []map[string]interface{} {
 
 // GetInputsOk returns a tuple with the Inputs field value
 // and a boolean to check if the value has been set.
-func (o *BatchInputJsonNode) GetInputsOk() (*[]map[string]interface{}, bool) {
+func (o *BatchInputJsonNode) GetInputsOk() ([]map[string]interface{}, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Inputs, true
+	return o.Inputs, true
 }
 
 // SetInputs sets field value

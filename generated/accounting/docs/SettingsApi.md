@@ -33,8 +33,8 @@ func main() {
     appId := int32(56) // int32 | The ID of the accounting app. This is the identifier of the application created in your HubSpot developer portal.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SettingsApi.GetCrmV3ExtensionsAccountingSettingsAppIdGetById(context.Background(), appId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SettingsApi.GetCrmV3ExtensionsAccountingSettingsAppIdGetById(context.Background(), appId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SettingsApi.GetCrmV3ExtensionsAccountingSettingsAppIdGetById``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -67,7 +67,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey)
+No authorization required
 
 ### HTTP request headers
 
@@ -104,8 +104,8 @@ func main() {
     accountingAppSettings := *openapiclient.NewAccountingAppSettings(int32(123), *openapiclient.NewAccountingAppUrls("GetInvoiceUrl_example", "SearchCustomerUrl_example", "GetInvoicePdfUrl_example", "CustomerUrlTemplate_example", "ProductUrlTemplate_example", "InvoiceUrlTemplate_example")) // AccountingAppSettings | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SettingsApi.PutCrmV3ExtensionsAccountingSettingsAppIdReplace(context.Background(), appId).AccountingAppSettings(accountingAppSettings).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SettingsApi.PutCrmV3ExtensionsAccountingSettingsAppIdReplace(context.Background(), appId).AccountingAppSettings(accountingAppSettings).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SettingsApi.PutCrmV3ExtensionsAccountingSettingsAppIdReplace``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -137,7 +137,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey)
+No authorization required
 
 ### HTTP request headers
 

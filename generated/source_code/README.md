@@ -22,7 +22,7 @@ go get golang.org/x/net/context
 Put the package under your project folder and add the following in import:
 
 ```golang
-import sw "./source_code"
+import source_code "github.com/GIT_USER_ID/GIT_REPO_ID"
 ```
 
 To use a proxy, set the environment variable `HTTP_PROXY`:
@@ -40,7 +40,7 @@ Default configuration comes with `Servers` field that contains server objects as
 For using other server than the one defined on index 0 set context value `sw.ContextServerIndex` of type `int`.
 
 ```golang
-ctx := context.WithValue(context.Background(), sw.ContextServerIndex, 1)
+ctx := context.WithValue(context.Background(), source_code.ContextServerIndex, 1)
 ```
 
 ### Templated Server URL
@@ -48,7 +48,7 @@ ctx := context.WithValue(context.Background(), sw.ContextServerIndex, 1)
 Templated server URL is formatted using default variables from configuration or from context value `sw.ContextServerVariables` of type `map[string]string`.
 
 ```golang
-ctx := context.WithValue(context.Background(), sw.ContextServerVariables, map[string]string{
+ctx := context.WithValue(context.Background(), source_code.ContextServerVariables, map[string]string{
 	"basePath": "v2",
 })
 ```
@@ -62,10 +62,10 @@ An operation is uniquely identified by `"{classname}Service.{nickname}"` string.
 Similar rules for overriding default operation server index and variables applies by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
 
 ```
-ctx := context.WithValue(context.Background(), sw.ContextOperationServerIndices, map[string]int{
+ctx := context.WithValue(context.Background(), source_code.ContextOperationServerIndices, map[string]int{
 	"{classname}Service.{nickname}": 2,
 })
-ctx = context.WithValue(context.Background(), sw.ContextOperationServerVariables, map[string]map[string]string{
+ctx = context.WithValue(context.Background(), source_code.ContextOperationServerVariables, map[string]map[string]string{
 	"{classname}Service.{nickname}": {
 		"port": "8443",
 	},
@@ -78,33 +78,29 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*ContentApi* | [**DeleteCmsV3SourceCodeEnvironmentContentPath**](docs/ContentApi.md#deletecmsv3sourcecodeenvironmentcontentpath) | **Delete** /cms/v3/source-code/{environment}/content/{path} | Delete a file
-*ContentApi* | [**GetCmsV3SourceCodeEnvironmentContentPath**](docs/ContentApi.md#getcmsv3sourcecodeenvironmentcontentpath) | **Get** /cms/v3/source-code/{environment}/content/{path} | Download a file
-*ContentApi* | [**PostCmsV3SourceCodeEnvironmentContentPath**](docs/ContentApi.md#postcmsv3sourcecodeenvironmentcontentpath) | **Post** /cms/v3/source-code/{environment}/content/{path} | Create a file
-*ContentApi* | [**PutCmsV3SourceCodeEnvironmentContentPath**](docs/ContentApi.md#putcmsv3sourcecodeenvironmentcontentpath) | **Put** /cms/v3/source-code/{environment}/content/{path} | Create or update a file
-*ExtractApi* | [**PostCmsV3SourceCodeExtractPath**](docs/ExtractApi.md#postcmsv3sourcecodeextractpath) | **Post** /cms/v3/source-code/extract/{path} | Extracts a zip file
-*MetadataApi* | [**GetCmsV3SourceCodeEnvironmentMetadataPath**](docs/MetadataApi.md#getcmsv3sourcecodeenvironmentmetadatapath) | **Get** /cms/v3/source-code/{environment}/metadata/{path} | Get the metadata for a file
-*ValidationApi* | [**PostCmsV3SourceCodeEnvironmentValidatePath**](docs/ValidationApi.md#postcmsv3sourcecodeenvironmentvalidatepath) | **Post** /cms/v3/source-code/{environment}/validate/{path} | Validate the contents of a file
+*ContentApi* | [**DeleteCmsV3SourceCodeEnvironmentContentPathArchive**](docs/ContentApi.md#deletecmsv3sourcecodeenvironmentcontentpatharchive) | **Delete** /cms/v3/source-code/{environment}/content/{path} | Delete a file
+*ContentApi* | [**GetCmsV3SourceCodeEnvironmentContentPathGet**](docs/ContentApi.md#getcmsv3sourcecodeenvironmentcontentpathget) | **Get** /cms/v3/source-code/{environment}/content/{path} | Download a file
+*ContentApi* | [**PostCmsV3SourceCodeEnvironmentContentPathCreate**](docs/ContentApi.md#postcmsv3sourcecodeenvironmentcontentpathcreate) | **Post** /cms/v3/source-code/{environment}/content/{path} | Create a file
+*ContentApi* | [**PutCmsV3SourceCodeEnvironmentContentPathReplace**](docs/ContentApi.md#putcmsv3sourcecodeenvironmentcontentpathreplace) | **Put** /cms/v3/source-code/{environment}/content/{path} | Create or update a file
+*ExtractApi* | [**PostCmsV3SourceCodeExtractPathExtractByPath**](docs/ExtractApi.md#postcmsv3sourcecodeextractpathextractbypath) | **Post** /cms/v3/source-code/extract/{path} | Extracts a zip file
+*MetadataApi* | [**GetCmsV3SourceCodeEnvironmentMetadataPathGet**](docs/MetadataApi.md#getcmsv3sourcecodeenvironmentmetadatapathget) | **Get** /cms/v3/source-code/{environment}/metadata/{path} | Get the metadata for a file
+*SourceCodeExtractApi* | [**GetCmsV3SourceCodeExtractAsyncTasksTaskIdStatusGetAsyncStatus**](docs/SourceCodeExtractApi.md#getcmsv3sourcecodeextractasynctaskstaskidstatusgetasyncstatus) | **Get** /cms/v3/source-code/extract/async/tasks/{taskId}/status | 
+*SourceCodeExtractApi* | [**PostCmsV3SourceCodeExtractAsyncDoAsync**](docs/SourceCodeExtractApi.md#postcmsv3sourcecodeextractasyncdoasync) | **Post** /cms/v3/source-code/extract/async | 
+*ValidationApi* | [**PostCmsV3SourceCodeEnvironmentValidatePathDoValidate**](docs/ValidationApi.md#postcmsv3sourcecodeenvironmentvalidatepathdovalidate) | **Post** /cms/v3/source-code/{environment}/validate/{path} | Validate the contents of a file
 
 
 ## Documentation For Models
 
+ - [ActionResponse](docs/ActionResponse.md)
  - [AssetFileMetadata](docs/AssetFileMetadata.md)
  - [Error](docs/Error.md)
  - [ErrorDetail](docs/ErrorDetail.md)
+ - [FileExtractRequest](docs/FileExtractRequest.md)
+ - [TaskLocator](docs/TaskLocator.md)
 
 
 ## Documentation For Authorization
 
-
-
-### hapikey
-
-- **Type**: API key
-- **API key parameter name**: hapikey
-- **Location**: URL query string
-
-Note, each API key must be added to a map of `map[string]APIKey` where the key is: hapikey and passed in as the auth context for each request.
 
 
 ### oauth2_legacy

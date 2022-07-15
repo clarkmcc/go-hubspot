@@ -255,11 +255,11 @@ func (o *HubDbTableRowV3) GetValues() map[string]map[string]interface{} {
 
 // GetValuesOk returns a tuple with the Values field value
 // and a boolean to check if the value has been set.
-func (o *HubDbTableRowV3) GetValuesOk() (*map[string]map[string]interface{}, bool) {
+func (o *HubDbTableRowV3) GetValuesOk() (map[string]map[string]interface{}, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Values, true
+	return o.Values, true
 }
 
 // SetValues sets field value

@@ -12,25 +12,18 @@ package accounting
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-
-	"github.com/clarkmcc/go-hubspot/authorization"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // SyncApiService SyncApi service
 type SyncApiService service
 
 type ApiPostCrmV3ExtensionsAccountingSyncAppIdContactsCreateContactRequest struct {
-	ctx                 _context.Context
+	ctx                 context.Context
 	ApiService          *SyncApiService
 	appId               int32
 	syncContactsRequest *SyncContactsRequest
@@ -41,7 +34,7 @@ func (r ApiPostCrmV3ExtensionsAccountingSyncAppIdContactsCreateContactRequest) S
 	return r
 }
 
-func (r ApiPostCrmV3ExtensionsAccountingSyncAppIdContactsCreateContactRequest) Execute() (ActionResponse, *_nethttp.Response, error) {
+func (r ApiPostCrmV3ExtensionsAccountingSyncAppIdContactsCreateContactRequest) Execute() (*ActionResponse, *http.Response, error) {
 	return r.ApiService.PostCrmV3ExtensionsAccountingSyncAppIdContactsCreateContactExecute(r)
 }
 
@@ -50,11 +43,11 @@ PostCrmV3ExtensionsAccountingSyncAppIdContactsCreateContact Import contacts
 
 Imports contacts' properties from an external accounting system to HubSpot. Import details, including property mappings, must be configured previously in HubSpot infrastructure.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param appId The ID of the accounting app. This is the identifier of the application created in your HubSpot developer portal.
  @return ApiPostCrmV3ExtensionsAccountingSyncAppIdContactsCreateContactRequest
 */
-func (a *SyncApiService) PostCrmV3ExtensionsAccountingSyncAppIdContactsCreateContact(ctx _context.Context, appId int32) ApiPostCrmV3ExtensionsAccountingSyncAppIdContactsCreateContactRequest {
+func (a *SyncApiService) PostCrmV3ExtensionsAccountingSyncAppIdContactsCreateContact(ctx context.Context, appId int32) ApiPostCrmV3ExtensionsAccountingSyncAppIdContactsCreateContactRequest {
 	return ApiPostCrmV3ExtensionsAccountingSyncAppIdContactsCreateContactRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -64,27 +57,25 @@ func (a *SyncApiService) PostCrmV3ExtensionsAccountingSyncAppIdContactsCreateCon
 
 // Execute executes the request
 //  @return ActionResponse
-func (a *SyncApiService) PostCrmV3ExtensionsAccountingSyncAppIdContactsCreateContactExecute(r ApiPostCrmV3ExtensionsAccountingSyncAppIdContactsCreateContactRequest) (ActionResponse, *_nethttp.Response, error) {
+func (a *SyncApiService) PostCrmV3ExtensionsAccountingSyncAppIdContactsCreateContactExecute(r ApiPostCrmV3ExtensionsAccountingSyncAppIdContactsCreateContactRequest) (*ActionResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  ActionResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ActionResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SyncApiService.PostCrmV3ExtensionsAccountingSyncAppIdContactsCreateContact")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/extensions/accounting/sync/{appId}/contacts"
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", _neturl.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.syncContactsRequest == nil {
 		return localVarReturnValue, nil, reportError("syncContactsRequest is required and must be specified")
 	}
@@ -108,21 +99,7 @@ func (a *SyncApiService) PostCrmV3ExtensionsAccountingSyncAppIdContactsCreateCon
 	}
 	// body params
 	localVarPostBody = r.syncContactsRequest
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -132,15 +109,15 @@ func (a *SyncApiService) PostCrmV3ExtensionsAccountingSyncAppIdContactsCreateCon
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -156,7 +133,7 @@ func (a *SyncApiService) PostCrmV3ExtensionsAccountingSyncAppIdContactsCreateCon
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -167,7 +144,7 @@ func (a *SyncApiService) PostCrmV3ExtensionsAccountingSyncAppIdContactsCreateCon
 }
 
 type ApiPostCrmV3ExtensionsAccountingSyncAppIdProductsCreateProductRequest struct {
-	ctx                 _context.Context
+	ctx                 context.Context
 	ApiService          *SyncApiService
 	appId               int32
 	syncProductsRequest *SyncProductsRequest
@@ -178,7 +155,7 @@ func (r ApiPostCrmV3ExtensionsAccountingSyncAppIdProductsCreateProductRequest) S
 	return r
 }
 
-func (r ApiPostCrmV3ExtensionsAccountingSyncAppIdProductsCreateProductRequest) Execute() (ActionResponse, *_nethttp.Response, error) {
+func (r ApiPostCrmV3ExtensionsAccountingSyncAppIdProductsCreateProductRequest) Execute() (*ActionResponse, *http.Response, error) {
 	return r.ApiService.PostCrmV3ExtensionsAccountingSyncAppIdProductsCreateProductExecute(r)
 }
 
@@ -187,11 +164,11 @@ PostCrmV3ExtensionsAccountingSyncAppIdProductsCreateProduct Import products
 
 Imports products' properties from an external accounting system to HubSpot. Import details, including property mappings, must be configured previously in HubSpot infrastructure.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param appId The ID of the accounting app. This is the identifier of the application created in your HubSpot developer portal.
  @return ApiPostCrmV3ExtensionsAccountingSyncAppIdProductsCreateProductRequest
 */
-func (a *SyncApiService) PostCrmV3ExtensionsAccountingSyncAppIdProductsCreateProduct(ctx _context.Context, appId int32) ApiPostCrmV3ExtensionsAccountingSyncAppIdProductsCreateProductRequest {
+func (a *SyncApiService) PostCrmV3ExtensionsAccountingSyncAppIdProductsCreateProduct(ctx context.Context, appId int32) ApiPostCrmV3ExtensionsAccountingSyncAppIdProductsCreateProductRequest {
 	return ApiPostCrmV3ExtensionsAccountingSyncAppIdProductsCreateProductRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -201,27 +178,25 @@ func (a *SyncApiService) PostCrmV3ExtensionsAccountingSyncAppIdProductsCreatePro
 
 // Execute executes the request
 //  @return ActionResponse
-func (a *SyncApiService) PostCrmV3ExtensionsAccountingSyncAppIdProductsCreateProductExecute(r ApiPostCrmV3ExtensionsAccountingSyncAppIdProductsCreateProductRequest) (ActionResponse, *_nethttp.Response, error) {
+func (a *SyncApiService) PostCrmV3ExtensionsAccountingSyncAppIdProductsCreateProductExecute(r ApiPostCrmV3ExtensionsAccountingSyncAppIdProductsCreateProductRequest) (*ActionResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  ActionResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ActionResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SyncApiService.PostCrmV3ExtensionsAccountingSyncAppIdProductsCreateProduct")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/extensions/accounting/sync/{appId}/products"
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", _neturl.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.syncProductsRequest == nil {
 		return localVarReturnValue, nil, reportError("syncProductsRequest is required and must be specified")
 	}
@@ -245,21 +220,7 @@ func (a *SyncApiService) PostCrmV3ExtensionsAccountingSyncAppIdProductsCreatePro
 	}
 	// body params
 	localVarPostBody = r.syncProductsRequest
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -269,15 +230,15 @@ func (a *SyncApiService) PostCrmV3ExtensionsAccountingSyncAppIdProductsCreatePro
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -293,7 +254,7 @@ func (a *SyncApiService) PostCrmV3ExtensionsAccountingSyncAppIdProductsCreatePro
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

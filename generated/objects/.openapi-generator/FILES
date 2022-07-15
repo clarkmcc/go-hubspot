@@ -6,6 +6,7 @@ api_associations.go
 api_basic.go
 api_batch.go
 api_gdpr.go
+api_public_object.go
 api_search.go
 client.go
 configuration.go
@@ -34,6 +35,8 @@ docs/NextPage.md
 docs/Paging.md
 docs/PreviousPage.md
 docs/PublicGdprDeleteInput.md
+docs/PublicMergeInput.md
+docs/PublicObjectApi.md
 docs/PublicObjectSearchRequest.md
 docs/SearchApi.md
 docs/SimplePublicObject.md
@@ -42,6 +45,7 @@ docs/SimplePublicObjectId.md
 docs/SimplePublicObjectInput.md
 docs/SimplePublicObjectWithAssociations.md
 docs/StandardError.md
+docs/ValueWithTimestamp.md
 git_push.sh
 go.mod
 go.sum
@@ -66,6 +70,7 @@ model_next_page.go
 model_paging.go
 model_previous_page.go
 model_public_gdpr_delete_input.go
+model_public_merge_input.go
 model_public_object_search_request.go
 model_simple_public_object.go
 model_simple_public_object_batch_input.go
@@ -73,5 +78,6 @@ model_simple_public_object_id.go
 model_simple_public_object_input.go
 model_simple_public_object_with_associations.go
 model_standard_error.go
+model_value_with_timestamp.go
 response.go
 utils.go

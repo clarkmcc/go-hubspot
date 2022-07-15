@@ -12,31 +12,24 @@ package properties
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-
-	"github.com/clarkmcc/go-hubspot/authorization"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // GroupsApiService GroupsApi service
 type GroupsApiService service
 
 type ApiDeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchiveRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *GroupsApiService
 	objectType string
 	groupName  string
 }
 
-func (r ApiDeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchiveRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchiveRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchiveExecute(r)
 }
 
@@ -45,12 +38,12 @@ DeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchive Archive a property group
 
 Move a property group identified by {groupName} to the recycling bin.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param objectType
  @param groupName
  @return ApiDeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchiveRequest
 */
-func (a *GroupsApiService) DeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchive(ctx _context.Context, objectType string, groupName string) ApiDeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchiveRequest {
+func (a *GroupsApiService) DeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchive(ctx context.Context, objectType string, groupName string) ApiDeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchiveRequest {
 	return ApiDeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchiveRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -60,27 +53,25 @@ func (a *GroupsApiService) DeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchive
 }
 
 // Execute executes the request
-func (a *GroupsApiService) DeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchiveExecute(r ApiDeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchiveRequest) (*_nethttp.Response, error) {
+func (a *GroupsApiService) DeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchiveExecute(r ApiDeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchiveRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsApiService.DeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchive")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/properties/{objectType}/groups/{groupName}"
-	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", _neturl.PathEscape(parameterToString(r.objectType, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"groupName"+"}", _neturl.PathEscape(parameterToString(r.groupName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterToString(r.objectType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"groupName"+"}", url.PathEscape(parameterToString(r.groupName, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -99,21 +90,7 @@ func (a *GroupsApiService) DeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchive
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -123,15 +100,15 @@ func (a *GroupsApiService) DeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchive
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -149,12 +126,12 @@ func (a *GroupsApiService) DeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchive
 }
 
 type ApiGetCrmV3PropertiesObjectTypeGroupsGetAllRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *GroupsApiService
 	objectType string
 }
 
-func (r ApiGetCrmV3PropertiesObjectTypeGroupsGetAllRequest) Execute() (CollectionResponsePropertyGroup, *_nethttp.Response, error) {
+func (r ApiGetCrmV3PropertiesObjectTypeGroupsGetAllRequest) Execute() (*CollectionResponsePropertyGroup, *http.Response, error) {
 	return r.ApiService.GetCrmV3PropertiesObjectTypeGroupsGetAllExecute(r)
 }
 
@@ -163,11 +140,11 @@ GetCrmV3PropertiesObjectTypeGroupsGetAll Read all property groups
 
 Read all existing property groups for the specified object type and HubSpot account.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param objectType
  @return ApiGetCrmV3PropertiesObjectTypeGroupsGetAllRequest
 */
-func (a *GroupsApiService) GetCrmV3PropertiesObjectTypeGroupsGetAll(ctx _context.Context, objectType string) ApiGetCrmV3PropertiesObjectTypeGroupsGetAllRequest {
+func (a *GroupsApiService) GetCrmV3PropertiesObjectTypeGroupsGetAll(ctx context.Context, objectType string) ApiGetCrmV3PropertiesObjectTypeGroupsGetAllRequest {
 	return ApiGetCrmV3PropertiesObjectTypeGroupsGetAllRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -177,27 +154,25 @@ func (a *GroupsApiService) GetCrmV3PropertiesObjectTypeGroupsGetAll(ctx _context
 
 // Execute executes the request
 //  @return CollectionResponsePropertyGroup
-func (a *GroupsApiService) GetCrmV3PropertiesObjectTypeGroupsGetAllExecute(r ApiGetCrmV3PropertiesObjectTypeGroupsGetAllRequest) (CollectionResponsePropertyGroup, *_nethttp.Response, error) {
+func (a *GroupsApiService) GetCrmV3PropertiesObjectTypeGroupsGetAllExecute(r ApiGetCrmV3PropertiesObjectTypeGroupsGetAllRequest) (*CollectionResponsePropertyGroup, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  CollectionResponsePropertyGroup
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CollectionResponsePropertyGroup
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsApiService.GetCrmV3PropertiesObjectTypeGroupsGetAll")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/properties/{objectType}/groups"
-	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", _neturl.PathEscape(parameterToString(r.objectType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterToString(r.objectType, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -216,21 +191,7 @@ func (a *GroupsApiService) GetCrmV3PropertiesObjectTypeGroupsGetAllExecute(r Api
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -240,15 +201,15 @@ func (a *GroupsApiService) GetCrmV3PropertiesObjectTypeGroupsGetAllExecute(r Api
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -264,7 +225,7 @@ func (a *GroupsApiService) GetCrmV3PropertiesObjectTypeGroupsGetAllExecute(r Api
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -275,13 +236,13 @@ func (a *GroupsApiService) GetCrmV3PropertiesObjectTypeGroupsGetAllExecute(r Api
 }
 
 type ApiGetCrmV3PropertiesObjectTypeGroupsGroupNameGetByNameRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *GroupsApiService
 	objectType string
 	groupName  string
 }
 
-func (r ApiGetCrmV3PropertiesObjectTypeGroupsGroupNameGetByNameRequest) Execute() (PropertyGroup, *_nethttp.Response, error) {
+func (r ApiGetCrmV3PropertiesObjectTypeGroupsGroupNameGetByNameRequest) Execute() (*PropertyGroup, *http.Response, error) {
 	return r.ApiService.GetCrmV3PropertiesObjectTypeGroupsGroupNameGetByNameExecute(r)
 }
 
@@ -290,12 +251,12 @@ GetCrmV3PropertiesObjectTypeGroupsGroupNameGetByName Read a property group
 
 Read a property group identified by {groupName}.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param objectType
  @param groupName
  @return ApiGetCrmV3PropertiesObjectTypeGroupsGroupNameGetByNameRequest
 */
-func (a *GroupsApiService) GetCrmV3PropertiesObjectTypeGroupsGroupNameGetByName(ctx _context.Context, objectType string, groupName string) ApiGetCrmV3PropertiesObjectTypeGroupsGroupNameGetByNameRequest {
+func (a *GroupsApiService) GetCrmV3PropertiesObjectTypeGroupsGroupNameGetByName(ctx context.Context, objectType string, groupName string) ApiGetCrmV3PropertiesObjectTypeGroupsGroupNameGetByNameRequest {
 	return ApiGetCrmV3PropertiesObjectTypeGroupsGroupNameGetByNameRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -306,28 +267,26 @@ func (a *GroupsApiService) GetCrmV3PropertiesObjectTypeGroupsGroupNameGetByName(
 
 // Execute executes the request
 //  @return PropertyGroup
-func (a *GroupsApiService) GetCrmV3PropertiesObjectTypeGroupsGroupNameGetByNameExecute(r ApiGetCrmV3PropertiesObjectTypeGroupsGroupNameGetByNameRequest) (PropertyGroup, *_nethttp.Response, error) {
+func (a *GroupsApiService) GetCrmV3PropertiesObjectTypeGroupsGroupNameGetByNameExecute(r ApiGetCrmV3PropertiesObjectTypeGroupsGroupNameGetByNameRequest) (*PropertyGroup, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  PropertyGroup
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PropertyGroup
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsApiService.GetCrmV3PropertiesObjectTypeGroupsGroupNameGetByName")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/properties/{objectType}/groups/{groupName}"
-	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", _neturl.PathEscape(parameterToString(r.objectType, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"groupName"+"}", _neturl.PathEscape(parameterToString(r.groupName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterToString(r.objectType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"groupName"+"}", url.PathEscape(parameterToString(r.groupName, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -346,21 +305,7 @@ func (a *GroupsApiService) GetCrmV3PropertiesObjectTypeGroupsGroupNameGetByNameE
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -370,15 +315,15 @@ func (a *GroupsApiService) GetCrmV3PropertiesObjectTypeGroupsGroupNameGetByNameE
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -394,7 +339,7 @@ func (a *GroupsApiService) GetCrmV3PropertiesObjectTypeGroupsGroupNameGetByNameE
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -405,7 +350,7 @@ func (a *GroupsApiService) GetCrmV3PropertiesObjectTypeGroupsGroupNameGetByNameE
 }
 
 type ApiPatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdateRequest struct {
-	ctx                 _context.Context
+	ctx                 context.Context
 	ApiService          *GroupsApiService
 	objectType          string
 	groupName           string
@@ -417,7 +362,7 @@ func (r ApiPatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdateRequest) PropertyG
 	return r
 }
 
-func (r ApiPatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdateRequest) Execute() (PropertyGroup, *_nethttp.Response, error) {
+func (r ApiPatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdateRequest) Execute() (*PropertyGroup, *http.Response, error) {
 	return r.ApiService.PatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdateExecute(r)
 }
 
@@ -426,12 +371,12 @@ PatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdate Update a property group
 
 Perform a partial update of a property group identified by {groupName}. Provided fields will be overwritten.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param objectType
  @param groupName
  @return ApiPatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdateRequest
 */
-func (a *GroupsApiService) PatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdate(ctx _context.Context, objectType string, groupName string) ApiPatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdateRequest {
+func (a *GroupsApiService) PatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdate(ctx context.Context, objectType string, groupName string) ApiPatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdateRequest {
 	return ApiPatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdateRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -442,28 +387,26 @@ func (a *GroupsApiService) PatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdate(c
 
 // Execute executes the request
 //  @return PropertyGroup
-func (a *GroupsApiService) PatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdateExecute(r ApiPatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdateRequest) (PropertyGroup, *_nethttp.Response, error) {
+func (a *GroupsApiService) PatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdateExecute(r ApiPatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdateRequest) (*PropertyGroup, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPatch
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  PropertyGroup
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PropertyGroup
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsApiService.PatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdate")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/properties/{objectType}/groups/{groupName}"
-	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", _neturl.PathEscape(parameterToString(r.objectType, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"groupName"+"}", _neturl.PathEscape(parameterToString(r.groupName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterToString(r.objectType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"groupName"+"}", url.PathEscape(parameterToString(r.groupName, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.propertyGroupUpdate == nil {
 		return localVarReturnValue, nil, reportError("propertyGroupUpdate is required and must be specified")
 	}
@@ -487,21 +430,7 @@ func (a *GroupsApiService) PatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdateEx
 	}
 	// body params
 	localVarPostBody = r.propertyGroupUpdate
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -511,15 +440,15 @@ func (a *GroupsApiService) PatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdateEx
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -535,7 +464,7 @@ func (a *GroupsApiService) PatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdateEx
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -546,7 +475,7 @@ func (a *GroupsApiService) PatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdateEx
 }
 
 type ApiPostCrmV3PropertiesObjectTypeGroupsCreateRequest struct {
-	ctx                 _context.Context
+	ctx                 context.Context
 	ApiService          *GroupsApiService
 	objectType          string
 	propertyGroupCreate *PropertyGroupCreate
@@ -557,7 +486,7 @@ func (r ApiPostCrmV3PropertiesObjectTypeGroupsCreateRequest) PropertyGroupCreate
 	return r
 }
 
-func (r ApiPostCrmV3PropertiesObjectTypeGroupsCreateRequest) Execute() (PropertyGroup, *_nethttp.Response, error) {
+func (r ApiPostCrmV3PropertiesObjectTypeGroupsCreateRequest) Execute() (*PropertyGroup, *http.Response, error) {
 	return r.ApiService.PostCrmV3PropertiesObjectTypeGroupsCreateExecute(r)
 }
 
@@ -566,11 +495,11 @@ PostCrmV3PropertiesObjectTypeGroupsCreate Create a property group
 
 Create and return a copy of a new property group.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param objectType
  @return ApiPostCrmV3PropertiesObjectTypeGroupsCreateRequest
 */
-func (a *GroupsApiService) PostCrmV3PropertiesObjectTypeGroupsCreate(ctx _context.Context, objectType string) ApiPostCrmV3PropertiesObjectTypeGroupsCreateRequest {
+func (a *GroupsApiService) PostCrmV3PropertiesObjectTypeGroupsCreate(ctx context.Context, objectType string) ApiPostCrmV3PropertiesObjectTypeGroupsCreateRequest {
 	return ApiPostCrmV3PropertiesObjectTypeGroupsCreateRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -580,27 +509,25 @@ func (a *GroupsApiService) PostCrmV3PropertiesObjectTypeGroupsCreate(ctx _contex
 
 // Execute executes the request
 //  @return PropertyGroup
-func (a *GroupsApiService) PostCrmV3PropertiesObjectTypeGroupsCreateExecute(r ApiPostCrmV3PropertiesObjectTypeGroupsCreateRequest) (PropertyGroup, *_nethttp.Response, error) {
+func (a *GroupsApiService) PostCrmV3PropertiesObjectTypeGroupsCreateExecute(r ApiPostCrmV3PropertiesObjectTypeGroupsCreateRequest) (*PropertyGroup, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  PropertyGroup
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PropertyGroup
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsApiService.PostCrmV3PropertiesObjectTypeGroupsCreate")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/properties/{objectType}/groups"
-	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", _neturl.PathEscape(parameterToString(r.objectType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterToString(r.objectType, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.propertyGroupCreate == nil {
 		return localVarReturnValue, nil, reportError("propertyGroupCreate is required and must be specified")
 	}
@@ -624,21 +551,7 @@ func (a *GroupsApiService) PostCrmV3PropertiesObjectTypeGroupsCreateExecute(r Ap
 	}
 	// body params
 	localVarPostBody = r.propertyGroupCreate
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -648,15 +561,15 @@ func (a *GroupsApiService) PostCrmV3PropertiesObjectTypeGroupsCreateExecute(r Ap
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -672,7 +585,7 @@ func (a *GroupsApiService) PostCrmV3PropertiesObjectTypeGroupsCreateExecute(r Ap
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

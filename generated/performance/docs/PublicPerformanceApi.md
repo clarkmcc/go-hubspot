@@ -40,8 +40,8 @@ func main() {
     end := int64(789) // int64 | A timestamp in milliseconds that indicates the end of the time period. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.PublicPerformanceApi.GetCmsV3PerformanceGetPage(context.Background()).Domain(domain).Path(path).Pad(pad).Sum(sum).Period(period).Interval(interval).Start(start).End(end).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.PublicPerformanceApi.GetCmsV3PerformanceGetPage(context.Background()).Domain(domain).Path(path).Pad(pad).Sum(sum).Period(period).Interval(interval).Start(start).End(end).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PublicPerformanceApi.GetCmsV3PerformanceGetPage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -77,7 +77,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey)
+No authorization required
 
 ### HTTP request headers
 
@@ -120,8 +120,8 @@ func main() {
     end := int64(789) // int64 | A timestamp in milliseconds that indicates the end of the time period. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.PublicPerformanceApi.GetCmsV3PerformanceUptimeGetUptime(context.Background()).Domain(domain).Path(path).Pad(pad).Sum(sum).Period(period).Interval(interval).Start(start).End(end).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.PublicPerformanceApi.GetCmsV3PerformanceUptimeGetUptime(context.Background()).Domain(domain).Path(path).Pad(pad).Sum(sum).Period(period).Interval(interval).Start(start).End(end).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PublicPerformanceApi.GetCmsV3PerformanceUptimeGetUptime``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -157,7 +157,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey)
+No authorization required
 
 ### HTTP request headers
 

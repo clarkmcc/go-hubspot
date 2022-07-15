@@ -34,8 +34,8 @@ func main() {
     batchInputSimplePublicObjectId := *openapiclient.NewBatchInputSimplePublicObjectId([]openapiclient.SimplePublicObjectId{*openapiclient.NewSimplePublicObjectId("Id_example")}) // BatchInputSimplePublicObjectId | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.BatchApi.PostCrmV3ObjectsObjectTypeBatchArchiveArchive(context.Background(), objectType).BatchInputSimplePublicObjectId(batchInputSimplePublicObjectId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.BatchApi.PostCrmV3ObjectsObjectTypeBatchArchiveArchive(context.Background(), objectType).BatchInputSimplePublicObjectId(batchInputSimplePublicObjectId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.PostCrmV3ObjectsObjectTypeBatchArchiveArchive``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -67,7 +67,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -102,8 +102,8 @@ func main() {
     batchInputSimplePublicObjectInput := *openapiclient.NewBatchInputSimplePublicObjectInput([]openapiclient.SimplePublicObjectInput{*openapiclient.NewSimplePublicObjectInput(map[string]string{"key": "Inner_example"})}) // BatchInputSimplePublicObjectInput | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.BatchApi.PostCrmV3ObjectsObjectTypeBatchCreateCreate(context.Background(), objectType).BatchInputSimplePublicObjectInput(batchInputSimplePublicObjectInput).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.BatchApi.PostCrmV3ObjectsObjectTypeBatchCreateCreate(context.Background(), objectType).BatchInputSimplePublicObjectInput(batchInputSimplePublicObjectInput).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.PostCrmV3ObjectsObjectTypeBatchCreateCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -137,7 +137,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -169,12 +169,12 @@ import (
 
 func main() {
     objectType := "objectType_example" // string | 
-    batchReadInputSimplePublicObjectId := *openapiclient.NewBatchReadInputSimplePublicObjectId([]string{"Properties_example"}, []openapiclient.SimplePublicObjectId{*openapiclient.NewSimplePublicObjectId("Id_example")}) // BatchReadInputSimplePublicObjectId | 
+    batchReadInputSimplePublicObjectId := *openapiclient.NewBatchReadInputSimplePublicObjectId([]string{"Properties_example"}, []string{"PropertiesWithHistory_example"}, []openapiclient.SimplePublicObjectId{*openapiclient.NewSimplePublicObjectId("Id_example")}) // BatchReadInputSimplePublicObjectId | 
     archived := true // bool | Whether to return only results that have been archived. (optional) (default to false)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.BatchApi.PostCrmV3ObjectsObjectTypeBatchReadRead(context.Background(), objectType).BatchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId).Archived(archived).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.BatchApi.PostCrmV3ObjectsObjectTypeBatchReadRead(context.Background(), objectType).BatchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId).Archived(archived).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.PostCrmV3ObjectsObjectTypeBatchReadRead``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -209,7 +209,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -244,8 +244,8 @@ func main() {
     batchInputSimplePublicObjectBatchInput := *openapiclient.NewBatchInputSimplePublicObjectBatchInput([]openapiclient.SimplePublicObjectBatchInput{*openapiclient.NewSimplePublicObjectBatchInput(map[string]string{"key": "Inner_example"}, "Id_example")}) // BatchInputSimplePublicObjectBatchInput | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.BatchApi.PostCrmV3ObjectsObjectTypeBatchUpdateUpdate(context.Background(), objectType).BatchInputSimplePublicObjectBatchInput(batchInputSimplePublicObjectBatchInput).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.BatchApi.PostCrmV3ObjectsObjectTypeBatchUpdateUpdate(context.Background(), objectType).BatchInputSimplePublicObjectBatchInput(batchInputSimplePublicObjectBatchInput).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.PostCrmV3ObjectsObjectTypeBatchUpdateUpdate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -279,7 +279,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 

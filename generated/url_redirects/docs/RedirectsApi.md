@@ -36,8 +36,8 @@ func main() {
     urlRedirectId := "urlRedirectId_example" // string | The ID of the target redirect.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.RedirectsApi.DeleteCmsV3UrlRedirectsUrlRedirectIdArchive(context.Background(), urlRedirectId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RedirectsApi.DeleteCmsV3UrlRedirectsUrlRedirectIdArchive(context.Background(), urlRedirectId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RedirectsApi.DeleteCmsV3UrlRedirectsUrlRedirectIdArchive``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -68,7 +68,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -82,7 +82,7 @@ Name | Type | Description  | Notes
 
 ## GetCmsV3UrlRedirectsGetPage
 
-> CollectionResponseWithTotalUrlMapping GetCmsV3UrlRedirectsGetPage(ctx).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Sort(sort).Properties(properties).After(after).Before(before).Limit(limit).Archived(archived).Execute()
+> CollectionResponseWithTotalUrlMappingForwardPaging GetCmsV3UrlRedirectsGetPage(ctx).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Sort(sort).After(after).Limit(limit).Archived(archived).Execute()
 
 Get current redirects
 
@@ -109,20 +109,18 @@ func main() {
     updatedAfter := time.Now() // time.Time | Only return redirects last updated after this date. (optional)
     updatedBefore := time.Now() // time.Time | Only return redirects last updated before this date. (optional)
     sort := []string{"Inner_example"} // []string |  (optional)
-    properties := []string{"Inner_example"} // []string |  (optional)
     after := "after_example" // string | The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results. (optional)
-    before := "before_example" // string |  (optional)
     limit := int32(56) // int32 | Maximum number of result per page (optional)
     archived := true // bool | Whether to return only results that have been archived. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.RedirectsApi.GetCmsV3UrlRedirectsGetPage(context.Background()).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Sort(sort).Properties(properties).After(after).Before(before).Limit(limit).Archived(archived).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RedirectsApi.GetCmsV3UrlRedirectsGetPage(context.Background()).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Sort(sort).After(after).Limit(limit).Archived(archived).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RedirectsApi.GetCmsV3UrlRedirectsGetPage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetCmsV3UrlRedirectsGetPage`: CollectionResponseWithTotalUrlMapping
+    // response from `GetCmsV3UrlRedirectsGetPage`: CollectionResponseWithTotalUrlMappingForwardPaging
     fmt.Fprintf(os.Stdout, "Response from `RedirectsApi.GetCmsV3UrlRedirectsGetPage`: %v\n", resp)
 }
 ```
@@ -145,19 +143,17 @@ Name | Type | Description  | Notes
  **updatedAfter** | **time.Time** | Only return redirects last updated after this date. | 
  **updatedBefore** | **time.Time** | Only return redirects last updated before this date. | 
  **sort** | **[]string** |  | 
- **properties** | **[]string** |  | 
  **after** | **string** | The paging cursor token of the last successfully read resource will be returned as the &#x60;paging.next.after&#x60; JSON property of a paged response containing more results. | 
- **before** | **string** |  | 
  **limit** | **int32** | Maximum number of result per page | 
  **archived** | **bool** | Whether to return only results that have been archived. | 
 
 ### Return type
 
-[**CollectionResponseWithTotalUrlMapping**](CollectionResponseWithTotalUrlMapping.md)
+[**CollectionResponseWithTotalUrlMappingForwardPaging**](CollectionResponseWithTotalUrlMappingForwardPaging.md)
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -193,8 +189,8 @@ func main() {
     urlRedirectId := "urlRedirectId_example" // string | The ID of the target redirect.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.RedirectsApi.GetCmsV3UrlRedirectsUrlRedirectIdGetById(context.Background(), urlRedirectId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RedirectsApi.GetCmsV3UrlRedirectsUrlRedirectIdGetById(context.Background(), urlRedirectId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RedirectsApi.GetCmsV3UrlRedirectsUrlRedirectIdGetById``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -227,7 +223,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -261,11 +257,11 @@ import (
 
 func main() {
     urlRedirectId := "urlRedirectId_example" // string | 
-    urlMapping := *openapiclient.NewUrlMapping(int64(123), int32(123), int64(123), int64(123), int32(123), int32(123), "RoutePrefix_example", "Destination_example", int32(123), int64(123), false, false, false, false, false, false, false, "Name_example", int32(123), int64(123), "Note_example", "Label_example", false, "CosObjectType_example", int64(123)) // UrlMapping |  (optional)
+    urlMapping := *openapiclient.NewUrlMapping("Id_example", "RoutePrefix_example", "Destination_example", int32(123), false, false, false, false, false, false, int32(123)) // UrlMapping | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.RedirectsApi.PatchCmsV3UrlRedirectsUrlRedirectIdUpdate(context.Background(), urlRedirectId).UrlMapping(urlMapping).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RedirectsApi.PatchCmsV3UrlRedirectsUrlRedirectIdUpdate(context.Background(), urlRedirectId).UrlMapping(urlMapping).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RedirectsApi.PatchCmsV3UrlRedirectsUrlRedirectIdUpdate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -299,7 +295,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -332,11 +328,11 @@ import (
 )
 
 func main() {
-    urlMappingCreateRequestBody := *openapiclient.NewUrlMappingCreateRequestBody("RoutePrefix_example", "Destination_example", int32(123)) // UrlMappingCreateRequestBody |  (optional)
+    urlMappingCreateRequestBody := *openapiclient.NewUrlMappingCreateRequestBody("RoutePrefix_example", "Destination_example", int32(123)) // UrlMappingCreateRequestBody | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.RedirectsApi.PostCmsV3UrlRedirectsCreate(context.Background()).UrlMappingCreateRequestBody(urlMappingCreateRequestBody).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RedirectsApi.PostCmsV3UrlRedirectsCreate(context.Background()).UrlMappingCreateRequestBody(urlMappingCreateRequestBody).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RedirectsApi.PostCmsV3UrlRedirectsCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -365,7 +361,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 

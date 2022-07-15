@@ -31,8 +31,8 @@ func main() {
     token := "token_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.RefreshTokensApi.DeleteOauthV1RefreshTokensTokenArchiveRefreshToken(context.Background(), token).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RefreshTokensApi.DeleteOauthV1RefreshTokensTokenArchiveRefreshToken(context.Background(), token).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RefreshTokensApi.DeleteOauthV1RefreshTokensTokenArchiveRefreshToken``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -99,8 +99,8 @@ func main() {
     token := "token_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.RefreshTokensApi.GetOauthV1RefreshTokensTokenGetRefreshToken(context.Background(), token).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RefreshTokensApi.GetOauthV1RefreshTokensTokenGetRefreshToken(context.Background(), token).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RefreshTokensApi.GetOauthV1RefreshTokensTokenGetRefreshToken``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

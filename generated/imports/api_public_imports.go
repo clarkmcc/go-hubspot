@@ -12,25 +12,18 @@ package imports
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-
-	"github.com/clarkmcc/go-hubspot/authorization"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // PublicImportsApiService PublicImportsApi service
 type PublicImportsApiService service
 
 type ApiGetCrmV3ImportsImportIdErrorsGetErrorsRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *PublicImportsApiService
 	importId   int64
 	after      *string
@@ -49,18 +42,18 @@ func (r ApiGetCrmV3ImportsImportIdErrorsGetErrorsRequest) Limit(limit int32) Api
 	return r
 }
 
-func (r ApiGetCrmV3ImportsImportIdErrorsGetErrorsRequest) Execute() (CollectionResponsePublicImportErrorForwardPaging, *_nethttp.Response, error) {
+func (r ApiGetCrmV3ImportsImportIdErrorsGetErrorsRequest) Execute() (*CollectionResponsePublicImportErrorForwardPaging, *http.Response, error) {
 	return r.ApiService.GetCrmV3ImportsImportIdErrorsGetErrorsExecute(r)
 }
 
 /*
 GetCrmV3ImportsImportIdErrorsGetErrors Method for GetCrmV3ImportsImportIdErrorsGetErrors
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param importId
  @return ApiGetCrmV3ImportsImportIdErrorsGetErrorsRequest
 */
-func (a *PublicImportsApiService) GetCrmV3ImportsImportIdErrorsGetErrors(ctx _context.Context, importId int64) ApiGetCrmV3ImportsImportIdErrorsGetErrorsRequest {
+func (a *PublicImportsApiService) GetCrmV3ImportsImportIdErrorsGetErrors(ctx context.Context, importId int64) ApiGetCrmV3ImportsImportIdErrorsGetErrorsRequest {
 	return ApiGetCrmV3ImportsImportIdErrorsGetErrorsRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -70,27 +63,25 @@ func (a *PublicImportsApiService) GetCrmV3ImportsImportIdErrorsGetErrors(ctx _co
 
 // Execute executes the request
 //  @return CollectionResponsePublicImportErrorForwardPaging
-func (a *PublicImportsApiService) GetCrmV3ImportsImportIdErrorsGetErrorsExecute(r ApiGetCrmV3ImportsImportIdErrorsGetErrorsRequest) (CollectionResponsePublicImportErrorForwardPaging, *_nethttp.Response, error) {
+func (a *PublicImportsApiService) GetCrmV3ImportsImportIdErrorsGetErrorsExecute(r ApiGetCrmV3ImportsImportIdErrorsGetErrorsRequest) (*CollectionResponsePublicImportErrorForwardPaging, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  CollectionResponsePublicImportErrorForwardPaging
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CollectionResponsePublicImportErrorForwardPaging
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicImportsApiService.GetCrmV3ImportsImportIdErrorsGetErrors")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/imports/{importId}/errors"
-	localVarPath = strings.Replace(localVarPath, "{"+"importId"+"}", _neturl.PathEscape(parameterToString(r.importId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"importId"+"}", url.PathEscape(parameterToString(r.importId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.after != nil {
 		localVarQueryParams.Add("after", parameterToString(*r.after, ""))
@@ -115,21 +106,7 @@ func (a *PublicImportsApiService) GetCrmV3ImportsImportIdErrorsGetErrorsExecute(
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -139,15 +116,15 @@ func (a *PublicImportsApiService) GetCrmV3ImportsImportIdErrorsGetErrorsExecute(
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -163,7 +140,7 @@ func (a *PublicImportsApiService) GetCrmV3ImportsImportIdErrorsGetErrorsExecute(
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

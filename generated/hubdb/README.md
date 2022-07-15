@@ -24,7 +24,7 @@ go get golang.org/x/net/context
 Put the package under your project folder and add the following in import:
 
 ```golang
-import sw "./hubdb"
+import hubdb "github.com/GIT_USER_ID/GIT_REPO_ID"
 ```
 
 To use a proxy, set the environment variable `HTTP_PROXY`:
@@ -42,7 +42,7 @@ Default configuration comes with `Servers` field that contains server objects as
 For using other server than the one defined on index 0 set context value `sw.ContextServerIndex` of type `int`.
 
 ```golang
-ctx := context.WithValue(context.Background(), sw.ContextServerIndex, 1)
+ctx := context.WithValue(context.Background(), hubdb.ContextServerIndex, 1)
 ```
 
 ### Templated Server URL
@@ -50,7 +50,7 @@ ctx := context.WithValue(context.Background(), sw.ContextServerIndex, 1)
 Templated server URL is formatted using default variables from configuration or from context value `sw.ContextServerVariables` of type `map[string]string`.
 
 ```golang
-ctx := context.WithValue(context.Background(), sw.ContextServerVariables, map[string]string{
+ctx := context.WithValue(context.Background(), hubdb.ContextServerVariables, map[string]string{
 	"basePath": "v2",
 })
 ```
@@ -64,10 +64,10 @@ An operation is uniquely identified by `"{classname}Service.{nickname}"` string.
 Similar rules for overriding default operation server index and variables applies by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
 
 ```
-ctx := context.WithValue(context.Background(), sw.ContextOperationServerIndices, map[string]int{
+ctx := context.WithValue(context.Background(), hubdb.ContextOperationServerIndices, map[string]int{
 	"{classname}Service.{nickname}": 2,
 })
-ctx = context.WithValue(context.Background(), sw.ContextOperationServerVariables, map[string]map[string]string{
+ctx = context.WithValue(context.Background(), hubdb.ContextOperationServerVariables, map[string]map[string]string{
 	"{classname}Service.{nickname}": {
 		"port": "8443",
 	},
@@ -117,6 +117,7 @@ Class | Method | HTTP request | Description
  - [BatchInputHubDbTableRowV3Request](docs/BatchInputHubDbTableRowV3Request.md)
  - [BatchInputJsonNode](docs/BatchInputJsonNode.md)
  - [BatchInputString](docs/BatchInputString.md)
+ - [BatchResponseHubDbTableRowV3](docs/BatchResponseHubDbTableRowV3.md)
  - [BatchResponseHubDbTableRowV3WithErrors](docs/BatchResponseHubDbTableRowV3WithErrors.md)
  - [CollectionResponseWithTotalHubDbTableRowV3ForwardPaging](docs/CollectionResponseWithTotalHubDbTableRowV3ForwardPaging.md)
  - [CollectionResponseWithTotalHubDbTableV3ForwardPaging](docs/CollectionResponseWithTotalHubDbTableV3ForwardPaging.md)
@@ -140,15 +141,6 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Authorization
 
-
-
-### hapikey
-
-- **Type**: API key
-- **API key parameter name**: hapikey
-- **Location**: URL query string
-
-Note, each API key must be added to a map of `map[string]APIKey` where the key is: hapikey and passed in as the auth context for each request.
 
 
 ### oauth2_legacy

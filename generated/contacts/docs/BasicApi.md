@@ -36,8 +36,8 @@ func main() {
     contactId := "contactId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.BasicApi.DeleteCrmV3ObjectsContactsContactIdArchive(context.Background(), contactId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.BasicApi.DeleteCrmV3ObjectsContactsContactIdArchive(context.Background(), contactId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.DeleteCrmV3ObjectsContactsContactIdArchive``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -68,7 +68,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -82,7 +82,7 @@ Name | Type | Description  | Notes
 
 ## GetCrmV3ObjectsContactsContactIdGetById
 
-> SimplePublicObjectWithAssociations GetCrmV3ObjectsContactsContactIdGetById(ctx, contactId).Properties(properties).Associations(associations).Archived(archived).IdProperty(idProperty).Execute()
+> SimplePublicObjectWithAssociations GetCrmV3ObjectsContactsContactIdGetById(ctx, contactId).Properties(properties).PropertiesWithHistory(propertiesWithHistory).Associations(associations).Archived(archived).Execute()
 
 Read
 
@@ -103,13 +103,13 @@ import (
 func main() {
     contactId := "contactId_example" // string | 
     properties := []string{"Inner_example"} // []string | A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored. (optional)
+    propertiesWithHistory := []string{"Inner_example"} // []string | A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored. (optional)
     associations := []string{"Inner_example"} // []string | A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored. (optional)
     archived := true // bool | Whether to return only results that have been archived. (optional) (default to false)
-    idProperty := "idProperty_example" // string | The name of a property whose values are unique for this object type (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.BasicApi.GetCrmV3ObjectsContactsContactIdGetById(context.Background(), contactId).Properties(properties).Associations(associations).Archived(archived).IdProperty(idProperty).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.BasicApi.GetCrmV3ObjectsContactsContactIdGetById(context.Background(), contactId).Properties(properties).PropertiesWithHistory(propertiesWithHistory).Associations(associations).Archived(archived).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.GetCrmV3ObjectsContactsContactIdGetById``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -136,9 +136,9 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **properties** | **[]string** | A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored. | 
+ **propertiesWithHistory** | **[]string** | A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored. | 
  **associations** | **[]string** | A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored. | 
  **archived** | **bool** | Whether to return only results that have been archived. | [default to false]
- **idProperty** | **string** | The name of a property whose values are unique for this object type | 
 
 ### Return type
 
@@ -146,7 +146,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -160,7 +160,7 @@ Name | Type | Description  | Notes
 
 ## GetCrmV3ObjectsContactsGetPage
 
-> CollectionResponseSimplePublicObjectWithAssociationsForwardPaging GetCrmV3ObjectsContactsGetPage(ctx).Limit(limit).After(after).Properties(properties).Associations(associations).Archived(archived).Execute()
+> CollectionResponseSimplePublicObjectWithAssociationsForwardPaging GetCrmV3ObjectsContactsGetPage(ctx).Limit(limit).After(after).Properties(properties).PropertiesWithHistory(propertiesWithHistory).Associations(associations).Archived(archived).Execute()
 
 List
 
@@ -182,12 +182,13 @@ func main() {
     limit := int32(56) // int32 | The maximum number of results to display per page. (optional) (default to 10)
     after := "after_example" // string | The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results. (optional)
     properties := []string{"Inner_example"} // []string | A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored. (optional)
+    propertiesWithHistory := []string{"Inner_example"} // []string | A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored. Usage of this parameter will reduce the maximum number of objects that can be read by a single request. (optional)
     associations := []string{"Inner_example"} // []string | A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored. (optional)
     archived := true // bool | Whether to return only results that have been archived. (optional) (default to false)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.BasicApi.GetCrmV3ObjectsContactsGetPage(context.Background()).Limit(limit).After(after).Properties(properties).Associations(associations).Archived(archived).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.BasicApi.GetCrmV3ObjectsContactsGetPage(context.Background()).Limit(limit).After(after).Properties(properties).PropertiesWithHistory(propertiesWithHistory).Associations(associations).Archived(archived).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.GetCrmV3ObjectsContactsGetPage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -211,6 +212,7 @@ Name | Type | Description  | Notes
  **limit** | **int32** | The maximum number of results to display per page. | [default to 10]
  **after** | **string** | The paging cursor token of the last successfully read resource will be returned as the &#x60;paging.next.after&#x60; JSON property of a paged response containing more results. | 
  **properties** | **[]string** | A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored. | 
+ **propertiesWithHistory** | **[]string** | A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored. Usage of this parameter will reduce the maximum number of objects that can be read by a single request. | 
  **associations** | **[]string** | A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored. | 
  **archived** | **bool** | Whether to return only results that have been archived. | [default to false]
 
@@ -220,7 +222,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -234,7 +236,7 @@ Name | Type | Description  | Notes
 
 ## PatchCrmV3ObjectsContactsContactIdUpdate
 
-> SimplePublicObject PatchCrmV3ObjectsContactsContactIdUpdate(ctx, contactId).SimplePublicObjectInput(simplePublicObjectInput).IdProperty(idProperty).Execute()
+> SimplePublicObject PatchCrmV3ObjectsContactsContactIdUpdate(ctx, contactId).SimplePublicObjectInput(simplePublicObjectInput).Execute()
 
 Update
 
@@ -255,11 +257,10 @@ import (
 func main() {
     contactId := "contactId_example" // string | 
     simplePublicObjectInput := *openapiclient.NewSimplePublicObjectInput(map[string]string{"key": "Inner_example"}) // SimplePublicObjectInput | 
-    idProperty := "idProperty_example" // string | The name of a property whose values are unique for this object type (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.BasicApi.PatchCrmV3ObjectsContactsContactIdUpdate(context.Background(), contactId).SimplePublicObjectInput(simplePublicObjectInput).IdProperty(idProperty).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.BasicApi.PatchCrmV3ObjectsContactsContactIdUpdate(context.Background(), contactId).SimplePublicObjectInput(simplePublicObjectInput).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.PatchCrmV3ObjectsContactsContactIdUpdate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -286,7 +287,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **simplePublicObjectInput** | [**SimplePublicObjectInput**](SimplePublicObjectInput.md) |  | 
- **idProperty** | **string** | The name of a property whose values are unique for this object type | 
 
 ### Return type
 
@@ -294,7 +294,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -330,8 +330,8 @@ func main() {
     simplePublicObjectInput := *openapiclient.NewSimplePublicObjectInput(map[string]string{"key": "Inner_example"}) // SimplePublicObjectInput | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.BasicApi.PostCrmV3ObjectsContactsCreate(context.Background()).SimplePublicObjectInput(simplePublicObjectInput).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.BasicApi.PostCrmV3ObjectsContactsCreate(context.Background()).SimplePublicObjectInput(simplePublicObjectInput).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.PostCrmV3ObjectsContactsCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -360,7 +360,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 

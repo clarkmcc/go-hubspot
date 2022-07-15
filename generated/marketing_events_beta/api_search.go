@@ -12,48 +12,41 @@ package marketing_events_beta
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-
-	"github.com/clarkmcc/go-hubspot/authorization"
-	_neturl "net/url"
-)
-
-// Linger please
-var (
-	_ _context.Context
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 )
 
 // SearchApiService SearchApi service
 type SearchApiService service
 
-type ApiGetMarketingV3MarketingEventsEventsSearchRequest struct {
-	ctx        _context.Context
+type ApiGetMarketingV3MarketingEventsEventsSearchDoSearchRequest struct {
+	ctx        context.Context
 	ApiService *SearchApiService
 	q          *string
 }
 
 // The partial event id to search for
-func (r ApiGetMarketingV3MarketingEventsEventsSearchRequest) Q(q string) ApiGetMarketingV3MarketingEventsEventsSearchRequest {
+func (r ApiGetMarketingV3MarketingEventsEventsSearchDoSearchRequest) Q(q string) ApiGetMarketingV3MarketingEventsEventsSearchDoSearchRequest {
 	r.q = &q
 	return r
 }
 
-func (r ApiGetMarketingV3MarketingEventsEventsSearchRequest) Execute() (CollectionResponseMarketingEventExternalUniqueIdentifierNoPaging, *_nethttp.Response, error) {
-	return r.ApiService.GetMarketingV3MarketingEventsEventsSearchExecute(r)
+func (r ApiGetMarketingV3MarketingEventsEventsSearchDoSearchRequest) Execute() (*CollectionResponseMarketingEventExternalUniqueIdentifierNoPaging, *http.Response, error) {
+	return r.ApiService.GetMarketingV3MarketingEventsEventsSearchDoSearchExecute(r)
 }
 
 /*
-GetMarketingV3MarketingEventsEventsSearch Search for marketing events
+GetMarketingV3MarketingEventsEventsSearchDoSearch Search for marketing events
 
 Search for marketing events that have an event id that starts with the query string
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetMarketingV3MarketingEventsEventsSearchRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetMarketingV3MarketingEventsEventsSearchDoSearchRequest
 */
-func (a *SearchApiService) GetMarketingV3MarketingEventsEventsSearch(ctx _context.Context) ApiGetMarketingV3MarketingEventsEventsSearchRequest {
-	return ApiGetMarketingV3MarketingEventsEventsSearchRequest{
+func (a *SearchApiService) GetMarketingV3MarketingEventsEventsSearchDoSearch(ctx context.Context) ApiGetMarketingV3MarketingEventsEventsSearchDoSearchRequest {
+	return ApiGetMarketingV3MarketingEventsEventsSearchDoSearchRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -61,26 +54,24 @@ func (a *SearchApiService) GetMarketingV3MarketingEventsEventsSearch(ctx _contex
 
 // Execute executes the request
 //  @return CollectionResponseMarketingEventExternalUniqueIdentifierNoPaging
-func (a *SearchApiService) GetMarketingV3MarketingEventsEventsSearchExecute(r ApiGetMarketingV3MarketingEventsEventsSearchRequest) (CollectionResponseMarketingEventExternalUniqueIdentifierNoPaging, *_nethttp.Response, error) {
+func (a *SearchApiService) GetMarketingV3MarketingEventsEventsSearchDoSearchExecute(r ApiGetMarketingV3MarketingEventsEventsSearchDoSearchRequest) (*CollectionResponseMarketingEventExternalUniqueIdentifierNoPaging, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  CollectionResponseMarketingEventExternalUniqueIdentifierNoPaging
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CollectionResponseMarketingEventExternalUniqueIdentifierNoPaging
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SearchApiService.GetMarketingV3MarketingEventsEventsSearch")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SearchApiService.GetMarketingV3MarketingEventsEventsSearchDoSearch")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/marketing/v3/marketing-events/events/search"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.q == nil {
 		return localVarReturnValue, nil, reportError("q is required and must be specified")
 	}
@@ -103,21 +94,7 @@ func (a *SearchApiService) GetMarketingV3MarketingEventsEventsSearchExecute(r Ap
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -127,15 +104,15 @@ func (a *SearchApiService) GetMarketingV3MarketingEventsEventsSearchExecute(r Ap
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -151,7 +128,7 @@ func (a *SearchApiService) GetMarketingV3MarketingEventsEventsSearchExecute(r Ap
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

@@ -6,15 +6,17 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | The unique ID of the Blog Tag. | 
 **Name** | **string** | The name of the tag. | 
+**Language** | **string** | The explicitly defined ISO 639 language code of the tag. | 
+**TranslatedFromId** | **int64** | ID of the primary tag this object was translated from. | 
+**Created** | **time.Time** |  | 
+**Updated** | **time.Time** |  | 
 **DeletedAt** | **time.Time** | The timestamp (ISO8601 format) when this Blog Tag was deleted. | 
-**CreatedAt** | **time.Time** | The timestamp (ISO8601 format) when this Blog Tag was created. | 
-**UpdatedAt** | **time.Time** | The timestamp (ISO8601 format) when this Blog Tag was last updated. | 
 
 ## Methods
 
 ### NewTag
 
-`func NewTag(id string, name string, deletedAt time.Time, createdAt time.Time, updatedAt time.Time, ) *Tag`
+`func NewTag(id string, name string, language string, translatedFromId int64, created time.Time, updated time.Time, deletedAt time.Time, ) *Tag`
 
 NewTag instantiates a new Tag object
 This constructor will assign default values to properties that have it defined,
@@ -69,6 +71,86 @@ and a boolean to check if the value has been set.
 SetName sets Name field to given value.
 
 
+### GetLanguage
+
+`func (o *Tag) GetLanguage() string`
+
+GetLanguage returns the Language field if non-nil, zero value otherwise.
+
+### GetLanguageOk
+
+`func (o *Tag) GetLanguageOk() (*string, bool)`
+
+GetLanguageOk returns a tuple with the Language field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLanguage
+
+`func (o *Tag) SetLanguage(v string)`
+
+SetLanguage sets Language field to given value.
+
+
+### GetTranslatedFromId
+
+`func (o *Tag) GetTranslatedFromId() int64`
+
+GetTranslatedFromId returns the TranslatedFromId field if non-nil, zero value otherwise.
+
+### GetTranslatedFromIdOk
+
+`func (o *Tag) GetTranslatedFromIdOk() (*int64, bool)`
+
+GetTranslatedFromIdOk returns a tuple with the TranslatedFromId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTranslatedFromId
+
+`func (o *Tag) SetTranslatedFromId(v int64)`
+
+SetTranslatedFromId sets TranslatedFromId field to given value.
+
+
+### GetCreated
+
+`func (o *Tag) GetCreated() time.Time`
+
+GetCreated returns the Created field if non-nil, zero value otherwise.
+
+### GetCreatedOk
+
+`func (o *Tag) GetCreatedOk() (*time.Time, bool)`
+
+GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreated
+
+`func (o *Tag) SetCreated(v time.Time)`
+
+SetCreated sets Created field to given value.
+
+
+### GetUpdated
+
+`func (o *Tag) GetUpdated() time.Time`
+
+GetUpdated returns the Updated field if non-nil, zero value otherwise.
+
+### GetUpdatedOk
+
+`func (o *Tag) GetUpdatedOk() (*time.Time, bool)`
+
+GetUpdatedOk returns a tuple with the Updated field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUpdated
+
+`func (o *Tag) SetUpdated(v time.Time)`
+
+SetUpdated sets Updated field to given value.
+
+
 ### GetDeletedAt
 
 `func (o *Tag) GetDeletedAt() time.Time`
@@ -87,46 +169,6 @@ and a boolean to check if the value has been set.
 `func (o *Tag) SetDeletedAt(v time.Time)`
 
 SetDeletedAt sets DeletedAt field to given value.
-
-
-### GetCreatedAt
-
-`func (o *Tag) GetCreatedAt() time.Time`
-
-GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
-
-### GetCreatedAtOk
-
-`func (o *Tag) GetCreatedAtOk() (*time.Time, bool)`
-
-GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCreatedAt
-
-`func (o *Tag) SetCreatedAt(v time.Time)`
-
-SetCreatedAt sets CreatedAt field to given value.
-
-
-### GetUpdatedAt
-
-`func (o *Tag) GetUpdatedAt() time.Time`
-
-GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
-
-### GetUpdatedAtOk
-
-`func (o *Tag) GetUpdatedAtOk() (*time.Time, bool)`
-
-GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetUpdatedAt
-
-`func (o *Tag) SetUpdatedAt(v time.Time)`
-
-SetUpdatedAt sets UpdatedAt field to given value.
 
 
 

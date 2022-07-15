@@ -45,8 +45,8 @@ func main() {
     tableIdOrName := "tableIdOrName_example" // string | The ID or name of the table to archive.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TablesApi.DeleteCmsV3HubdbTablesTableIdOrNameArchiveTable(context.Background(), tableIdOrName).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.TablesApi.DeleteCmsV3HubdbTablesTableIdOrNameArchiveTable(context.Background(), tableIdOrName).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TablesApi.DeleteCmsV3HubdbTablesTableIdOrNameArchiveTable``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -77,7 +77,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -123,8 +123,8 @@ func main() {
     archived := true // bool | Specifies whether to return archived tables. Defaults to `false`. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TablesApi.GetCmsV3HubdbTablesDraftGetAllDraftTables(context.Background()).Sort(sort).After(after).Limit(limit).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Archived(archived).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.TablesApi.GetCmsV3HubdbTablesDraftGetAllDraftTables(context.Background()).Sort(sort).After(after).Limit(limit).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Archived(archived).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TablesApi.GetCmsV3HubdbTablesDraftGetAllDraftTables``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -162,7 +162,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -208,8 +208,8 @@ func main() {
     archived := true // bool | Specifies whether to return archived tables. Defaults to `false`. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TablesApi.GetCmsV3HubdbTablesGetAllTables(context.Background()).Sort(sort).After(after).Limit(limit).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Archived(archived).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.TablesApi.GetCmsV3HubdbTablesGetAllTables(context.Background()).Sort(sort).After(after).Limit(limit).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Archived(archived).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TablesApi.GetCmsV3HubdbTablesGetAllTables``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -247,7 +247,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -284,8 +284,8 @@ func main() {
     format := "format_example" // string | The file format to export. Possible values include `CSV`, `XLSX`, and `XLS`. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TablesApi.GetCmsV3HubdbTablesTableIdOrNameDraftExportExportDraftTable(context.Background(), tableIdOrName).Format(format).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.TablesApi.GetCmsV3HubdbTablesTableIdOrNameDraftExportExportDraftTable(context.Background(), tableIdOrName).Format(format).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TablesApi.GetCmsV3HubdbTablesTableIdOrNameDraftExportExportDraftTable``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -319,7 +319,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -357,8 +357,8 @@ func main() {
     includeForeignIds := true // bool | Set this to `true` to populate foreign ID values in the result. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TablesApi.GetCmsV3HubdbTablesTableIdOrNameDraftGetDraftTableDetailsById(context.Background(), tableIdOrName).Archived(archived).IncludeForeignIds(includeForeignIds).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.TablesApi.GetCmsV3HubdbTablesTableIdOrNameDraftGetDraftTableDetailsById(context.Background(), tableIdOrName).Archived(archived).IncludeForeignIds(includeForeignIds).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TablesApi.GetCmsV3HubdbTablesTableIdOrNameDraftGetDraftTableDetailsById``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -393,7 +393,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -430,8 +430,8 @@ func main() {
     format := "format_example" // string | The file format to export. Possible values include `CSV`, `XLSX`, and `XLS`. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TablesApi.GetCmsV3HubdbTablesTableIdOrNameExportExportTable(context.Background(), tableIdOrName).Format(format).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.TablesApi.GetCmsV3HubdbTablesTableIdOrNameExportExportTable(context.Background(), tableIdOrName).Format(format).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TablesApi.GetCmsV3HubdbTablesTableIdOrNameExportExportTable``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -465,7 +465,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -503,8 +503,8 @@ func main() {
     includeForeignIds := true // bool | Set this to `true` to populate foreign ID values in the result. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TablesApi.GetCmsV3HubdbTablesTableIdOrNameGetTableDetails(context.Background(), tableIdOrName).Archived(archived).IncludeForeignIds(includeForeignIds).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.TablesApi.GetCmsV3HubdbTablesTableIdOrNameGetTableDetails(context.Background(), tableIdOrName).Archived(archived).IncludeForeignIds(includeForeignIds).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TablesApi.GetCmsV3HubdbTablesTableIdOrNameGetTableDetails``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -539,7 +539,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -578,8 +578,8 @@ func main() {
     includeForeignIds := true // bool | Set this to `true` to populate foreign ID values in the result. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TablesApi.PatchCmsV3HubdbTablesTableIdOrNameDraftUpdateDraftTable(context.Background(), tableIdOrName).HubDbTableV3Request(hubDbTableV3Request).Archived(archived).IncludeForeignIds(includeForeignIds).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.TablesApi.PatchCmsV3HubdbTablesTableIdOrNameDraftUpdateDraftTable(context.Background(), tableIdOrName).HubDbTableV3Request(hubDbTableV3Request).Archived(archived).IncludeForeignIds(includeForeignIds).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TablesApi.PatchCmsV3HubdbTablesTableIdOrNameDraftUpdateDraftTable``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -615,7 +615,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -651,8 +651,8 @@ func main() {
     hubDbTableV3Request := *openapiclient.NewHubDbTableV3Request("Name_example", "Label_example") // HubDbTableV3Request | The JSON schema for the table being created.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TablesApi.PostCmsV3HubdbTablesCreateTable(context.Background()).HubDbTableV3Request(hubDbTableV3Request).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.TablesApi.PostCmsV3HubdbTablesCreateTable(context.Background()).HubDbTableV3Request(hubDbTableV3Request).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TablesApi.PostCmsV3HubdbTablesCreateTable``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -681,7 +681,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -718,8 +718,8 @@ func main() {
     hubDbTableCloneRequest := *openapiclient.NewHubDbTableCloneRequest(false) // HubDbTableCloneRequest | JSON object with the properties newName and newLabel. You can set copyRows to false to clone the table with copying rows and default is true.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TablesApi.PostCmsV3HubdbTablesTableIdOrNameDraftCloneCloneDraftTable(context.Background(), tableIdOrName).HubDbTableCloneRequest(hubDbTableCloneRequest).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.TablesApi.PostCmsV3HubdbTablesTableIdOrNameDraftCloneCloneDraftTable(context.Background(), tableIdOrName).HubDbTableCloneRequest(hubDbTableCloneRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TablesApi.PostCmsV3HubdbTablesTableIdOrNameDraftCloneCloneDraftTable``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -753,7 +753,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -791,8 +791,8 @@ func main() {
     file := os.NewFile(1234, "some_file") // *os.File | The source CSV file to be imported. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TablesApi.PostCmsV3HubdbTablesTableIdOrNameDraftImportImportDraftTable(context.Background(), tableIdOrName).Config(config).File(file).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.TablesApi.PostCmsV3HubdbTablesTableIdOrNameDraftImportImportDraftTable(context.Background(), tableIdOrName).Config(config).File(file).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TablesApi.PostCmsV3HubdbTablesTableIdOrNameDraftImportImportDraftTable``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -827,7 +827,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -864,8 +864,8 @@ func main() {
     includeForeignIds := true // bool | Set this to `true` to populate foreign ID values in the response. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TablesApi.PostCmsV3HubdbTablesTableIdOrNameDraftPublishPublishDraftTable(context.Background(), tableIdOrName).IncludeForeignIds(includeForeignIds).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.TablesApi.PostCmsV3HubdbTablesTableIdOrNameDraftPublishPublishDraftTable(context.Background(), tableIdOrName).IncludeForeignIds(includeForeignIds).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TablesApi.PostCmsV3HubdbTablesTableIdOrNameDraftPublishPublishDraftTable``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -899,7 +899,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -936,8 +936,8 @@ func main() {
     includeForeignIds := true // bool | Set this to `true` to populate foreign ID values in the response. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TablesApi.PostCmsV3HubdbTablesTableIdOrNameDraftResetResetDraftTable(context.Background(), tableIdOrName).IncludeForeignIds(includeForeignIds).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.TablesApi.PostCmsV3HubdbTablesTableIdOrNameDraftResetResetDraftTable(context.Background(), tableIdOrName).IncludeForeignIds(includeForeignIds).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TablesApi.PostCmsV3HubdbTablesTableIdOrNameDraftResetResetDraftTable``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -971,7 +971,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -1008,8 +1008,8 @@ func main() {
     includeForeignIds := true // bool | Set this to `true` to populate foreign ID values in the response. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TablesApi.PostCmsV3HubdbTablesTableIdOrNameUnpublishUnpublishTable(context.Background(), tableIdOrName).IncludeForeignIds(includeForeignIds).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.TablesApi.PostCmsV3HubdbTablesTableIdOrNameUnpublishUnpublishTable(context.Background(), tableIdOrName).IncludeForeignIds(includeForeignIds).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TablesApi.PostCmsV3HubdbTablesTableIdOrNameUnpublishUnpublishTable``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1043,7 +1043,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 

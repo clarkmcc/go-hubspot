@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Status** | **string** |  | 
-**Results** | [**[]BlogAuthor**](BlogAuthor.md) |  | 
-**NumErrors** | Pointer to **int32** |  | [optional] 
-**Errors** | Pointer to [**[]StandardError**](StandardError.md) |  | [optional] 
-**RequestedAt** | Pointer to **time.Time** |  | [optional] 
-**StartedAt** | **time.Time** |  | 
-**CompletedAt** | **time.Time** |  | 
-**Links** | Pointer to **map[string]string** |  | [optional] 
+**Status** | **string** | Status of batch operation. | 
+**Results** | [**[]BlogAuthor**](BlogAuthor.md) | Results of batch operation. | 
+**NumErrors** | Pointer to **int32** | Number of errors. | [optional] 
+**Errors** | Pointer to [**[]StandardError**](StandardError.md) | Errors in batch operation. | [optional] 
+**RequestedAt** | Pointer to **time.Time** | Time of batch operation request. | [optional] 
+**StartedAt** | **time.Time** | Time of batch operation start. | 
+**CompletedAt** | **time.Time** | Time of batch operation completion. | 
+**Links** | Pointer to **map[string]string** | Links associated with batch operation. | [optional] 
 
 ## Methods
 

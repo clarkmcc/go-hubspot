@@ -12,30 +12,23 @@ package accounting
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-
-	"github.com/clarkmcc/go-hubspot/authorization"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // UserAccountsApiService UserAccountsApi service
 type UserAccountsApiService service
 
 type ApiDeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchiveRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *UserAccountsApiService
 	accountId  string
 }
 
-func (r ApiDeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchiveRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchiveRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchiveExecute(r)
 }
 
@@ -44,11 +37,11 @@ DeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchive Delete user account
 
 Deletes a user account from HubSpot, meaning that HubSpot will no longer send requests to the external accounting system for this user.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param accountId The ID of the user account to delete.
  @return ApiDeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchiveRequest
 */
-func (a *UserAccountsApiService) DeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchive(ctx _context.Context, accountId string) ApiDeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchiveRequest {
+func (a *UserAccountsApiService) DeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchive(ctx context.Context, accountId string) ApiDeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchiveRequest {
 	return ApiDeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchiveRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -57,26 +50,24 @@ func (a *UserAccountsApiService) DeleteCrmV3ExtensionsAccountingUserAccountsAcco
 }
 
 // Execute executes the request
-func (a *UserAccountsApiService) DeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchiveExecute(r ApiDeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchiveRequest) (*_nethttp.Response, error) {
+func (a *UserAccountsApiService) DeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchiveExecute(r ApiDeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchiveRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAccountsApiService.DeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchive")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/extensions/accounting/user-accounts/{accountId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", _neturl.PathEscape(parameterToString(r.accountId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterToString(r.accountId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -95,21 +86,7 @@ func (a *UserAccountsApiService) DeleteCrmV3ExtensionsAccountingUserAccountsAcco
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -119,15 +96,15 @@ func (a *UserAccountsApiService) DeleteCrmV3ExtensionsAccountingUserAccountsAcco
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -145,7 +122,7 @@ func (a *UserAccountsApiService) DeleteCrmV3ExtensionsAccountingUserAccountsAcco
 }
 
 type ApiPutCrmV3ExtensionsAccountingUserAccountsReplaceRequest struct {
-	ctx                              _context.Context
+	ctx                              context.Context
 	ApiService                       *UserAccountsApiService
 	createUserAccountRequestExternal *CreateUserAccountRequestExternal
 }
@@ -156,7 +133,7 @@ func (r ApiPutCrmV3ExtensionsAccountingUserAccountsReplaceRequest) CreateUserAcc
 	return r
 }
 
-func (r ApiPutCrmV3ExtensionsAccountingUserAccountsReplaceRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiPutCrmV3ExtensionsAccountingUserAccountsReplaceRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PutCrmV3ExtensionsAccountingUserAccountsReplaceExecute(r)
 }
 
@@ -165,10 +142,10 @@ PutCrmV3ExtensionsAccountingUserAccountsReplace Create a user account
 
 Creates an account which contains the information about the account in the external accounting system.  This *must* be called after a user connects their HubSpot account to the external accounting system, as there is no other way for HubSpot to obtain the external account details.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiPutCrmV3ExtensionsAccountingUserAccountsReplaceRequest
 */
-func (a *UserAccountsApiService) PutCrmV3ExtensionsAccountingUserAccountsReplace(ctx _context.Context) ApiPutCrmV3ExtensionsAccountingUserAccountsReplaceRequest {
+func (a *UserAccountsApiService) PutCrmV3ExtensionsAccountingUserAccountsReplace(ctx context.Context) ApiPutCrmV3ExtensionsAccountingUserAccountsReplaceRequest {
 	return ApiPutCrmV3ExtensionsAccountingUserAccountsReplaceRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -176,25 +153,23 @@ func (a *UserAccountsApiService) PutCrmV3ExtensionsAccountingUserAccountsReplace
 }
 
 // Execute executes the request
-func (a *UserAccountsApiService) PutCrmV3ExtensionsAccountingUserAccountsReplaceExecute(r ApiPutCrmV3ExtensionsAccountingUserAccountsReplaceRequest) (*_nethttp.Response, error) {
+func (a *UserAccountsApiService) PutCrmV3ExtensionsAccountingUserAccountsReplaceExecute(r ApiPutCrmV3ExtensionsAccountingUserAccountsReplaceRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAccountsApiService.PutCrmV3ExtensionsAccountingUserAccountsReplace")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/extensions/accounting/user-accounts"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.createUserAccountRequestExternal == nil {
 		return nil, reportError("createUserAccountRequestExternal is required and must be specified")
 	}
@@ -218,21 +193,7 @@ func (a *UserAccountsApiService) PutCrmV3ExtensionsAccountingUserAccountsReplace
 	}
 	// body params
 	localVarPostBody = r.createUserAccountRequestExternal
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -242,15 +203,15 @@ func (a *UserAccountsApiService) PutCrmV3ExtensionsAccountingUserAccountsReplace
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}

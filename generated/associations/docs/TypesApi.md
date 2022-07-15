@@ -33,8 +33,8 @@ func main() {
     toObjectType := "toObjectType_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TypesApi.GetCrmV3AssociationsFromObjectTypeToObjectTypeTypesGetAll(context.Background(), fromObjectType, toObjectType).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.TypesApi.GetCrmV3AssociationsFromObjectTypeToObjectTypeTypesGetAll(context.Background(), fromObjectType, toObjectType).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TypesApi.GetCrmV3AssociationsFromObjectTypeToObjectTypeTypesGetAll``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -69,7 +69,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 

@@ -1,7 +1,7 @@
 /*
 Blog Post endpoints
 
-\"Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags\"
+Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags
 
 API version: v3
 */
@@ -14,11 +14,11 @@ import (
 	"encoding/json"
 )
 
-// ContentCloneRequestVNext struct for ContentCloneRequestVNext
+// ContentCloneRequestVNext Request body object for cloning content.
 type ContentCloneRequestVNext struct {
-	// The ID of the object to be cloned.
+	// ID of the object to be cloned.
 	Id string `json:"id"`
-	// The name of the cloned object.
+	// Name of the cloned object.
 	CloneName *string `json:"cloneName,omitempty"`
 }
 

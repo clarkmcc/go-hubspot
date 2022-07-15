@@ -12,26 +12,19 @@ package site_search
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-
-	"github.com/clarkmcc/go-hubspot/authorization"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"reflect"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // PublicApiService PublicApi service
 type PublicApiService service
 
 type ApiGetCmsV3SiteSearchIndexedDataContentIdGetByIdRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *PublicApiService
 	contentId  string
 	type_      *string
@@ -43,7 +36,7 @@ func (r ApiGetCmsV3SiteSearchIndexedDataContentIdGetByIdRequest) Type_(type_ str
 	return r
 }
 
-func (r ApiGetCmsV3SiteSearchIndexedDataContentIdGetByIdRequest) Execute() (IndexedData, *_nethttp.Response, error) {
+func (r ApiGetCmsV3SiteSearchIndexedDataContentIdGetByIdRequest) Execute() (*IndexedData, *http.Response, error) {
 	return r.ApiService.GetCmsV3SiteSearchIndexedDataContentIdGetByIdExecute(r)
 }
 
@@ -52,11 +45,11 @@ GetCmsV3SiteSearchIndexedDataContentIdGetById Get indexed properties.
 
 For a given account and document ID (page ID, blog post ID, HubDB row ID, etc.), return all indexed data for that document. This is useful when debugging why a particular document is not returned from a custom search.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param contentId ID of the target document when searching for indexed properties.
  @return ApiGetCmsV3SiteSearchIndexedDataContentIdGetByIdRequest
 */
-func (a *PublicApiService) GetCmsV3SiteSearchIndexedDataContentIdGetById(ctx _context.Context, contentId string) ApiGetCmsV3SiteSearchIndexedDataContentIdGetByIdRequest {
+func (a *PublicApiService) GetCmsV3SiteSearchIndexedDataContentIdGetById(ctx context.Context, contentId string) ApiGetCmsV3SiteSearchIndexedDataContentIdGetByIdRequest {
 	return ApiGetCmsV3SiteSearchIndexedDataContentIdGetByIdRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -66,27 +59,25 @@ func (a *PublicApiService) GetCmsV3SiteSearchIndexedDataContentIdGetById(ctx _co
 
 // Execute executes the request
 //  @return IndexedData
-func (a *PublicApiService) GetCmsV3SiteSearchIndexedDataContentIdGetByIdExecute(r ApiGetCmsV3SiteSearchIndexedDataContentIdGetByIdRequest) (IndexedData, *_nethttp.Response, error) {
+func (a *PublicApiService) GetCmsV3SiteSearchIndexedDataContentIdGetByIdExecute(r ApiGetCmsV3SiteSearchIndexedDataContentIdGetByIdRequest) (*IndexedData, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  IndexedData
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *IndexedData
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicApiService.GetCmsV3SiteSearchIndexedDataContentIdGetById")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/cms/v3/site-search/indexed-data/{contentId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"contentId"+"}", _neturl.PathEscape(parameterToString(r.contentId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"contentId"+"}", url.PathEscape(parameterToString(r.contentId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.type_ != nil {
 		localVarQueryParams.Add("type", parameterToString(*r.type_, ""))
@@ -108,21 +99,7 @@ func (a *PublicApiService) GetCmsV3SiteSearchIndexedDataContentIdGetByIdExecute(
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -132,15 +109,15 @@ func (a *PublicApiService) GetCmsV3SiteSearchIndexedDataContentIdGetByIdExecute(
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -156,7 +133,7 @@ func (a *PublicApiService) GetCmsV3SiteSearchIndexedDataContentIdGetByIdExecute(
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -167,7 +144,7 @@ func (a *PublicApiService) GetCmsV3SiteSearchIndexedDataContentIdGetByIdExecute(
 }
 
 type ApiGetCmsV3SiteSearchSearchSearchRequest struct {
-	ctx             _context.Context
+	ctx             context.Context
 	ApiService      *PublicApiService
 	q               *string
 	limit           *int32
@@ -177,7 +154,6 @@ type ApiGetCmsV3SiteSearchSearchSearchRequest struct {
 	autocomplete    *bool
 	popularityBoost *float32
 	boostLimit      *float32
-	minScore        *float32
 	boostRecent     *string
 	tableId         *int64
 	hubdbQuery      *string
@@ -237,12 +213,6 @@ func (r ApiGetCmsV3SiteSearchSearchSearchRequest) BoostLimit(boostLimit float32)
 	return r
 }
 
-// Specifies the minimum search score threshold for returned results. This value is intentionally set low by default in order to return many results. Increase this for higher precision, but less recall.
-func (r ApiGetCmsV3SiteSearchSearchSearchRequest) MinScore(minScore float32) ApiGetCmsV3SiteSearchSearchSearchRequest {
-	r.minScore = &minScore
-	return r
-}
-
 // Specifies a relative time window where scores of documents published outside this time window decay. This can only be used for blog posts. For example, boostRecent&#x3D;10d will boost documents published within the last 10 days. Supported timeunits are ms (milliseconds), s (seconds), m (minutes), h (hours), d (days).
 func (r ApiGetCmsV3SiteSearchSearchSearchRequest) BoostRecent(boostRecent string) ApiGetCmsV3SiteSearchSearchSearchRequest {
 	r.boostRecent = &boostRecent
@@ -297,7 +267,7 @@ func (r ApiGetCmsV3SiteSearchSearchSearchRequest) GroupId(groupId []int64) ApiGe
 	return r
 }
 
-func (r ApiGetCmsV3SiteSearchSearchSearchRequest) Execute() (PublicSearchResults, *_nethttp.Response, error) {
+func (r ApiGetCmsV3SiteSearchSearchSearchRequest) Execute() (*PublicSearchResults, *http.Response, error) {
 	return r.ApiService.GetCmsV3SiteSearchSearchSearchExecute(r)
 }
 
@@ -306,10 +276,10 @@ GetCmsV3SiteSearchSearchSearch Search your site.
 
 Returns any website content matching the given search criteria for a given HubSpot account. Searches can be filtered by content type, domain, or URL path.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetCmsV3SiteSearchSearchSearchRequest
 */
-func (a *PublicApiService) GetCmsV3SiteSearchSearchSearch(ctx _context.Context) ApiGetCmsV3SiteSearchSearchSearchRequest {
+func (a *PublicApiService) GetCmsV3SiteSearchSearchSearch(ctx context.Context) ApiGetCmsV3SiteSearchSearchSearchRequest {
 	return ApiGetCmsV3SiteSearchSearchSearchRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -318,26 +288,24 @@ func (a *PublicApiService) GetCmsV3SiteSearchSearchSearch(ctx _context.Context) 
 
 // Execute executes the request
 //  @return PublicSearchResults
-func (a *PublicApiService) GetCmsV3SiteSearchSearchSearchExecute(r ApiGetCmsV3SiteSearchSearchSearchRequest) (PublicSearchResults, *_nethttp.Response, error) {
+func (a *PublicApiService) GetCmsV3SiteSearchSearchSearchExecute(r ApiGetCmsV3SiteSearchSearchSearchRequest) (*PublicSearchResults, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  PublicSearchResults
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PublicSearchResults
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicApiService.GetCmsV3SiteSearchSearchSearch")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/cms/v3/site-search/search"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.q != nil {
 		localVarQueryParams.Add("q", parameterToString(*r.q, ""))
@@ -362,9 +330,6 @@ func (a *PublicApiService) GetCmsV3SiteSearchSearchSearchExecute(r ApiGetCmsV3Si
 	}
 	if r.boostLimit != nil {
 		localVarQueryParams.Add("boostLimit", parameterToString(*r.boostLimit, ""))
-	}
-	if r.minScore != nil {
-		localVarQueryParams.Add("minScore", parameterToString(*r.minScore, ""))
 	}
 	if r.boostRecent != nil {
 		localVarQueryParams.Add("boostRecent", parameterToString(*r.boostRecent, ""))
@@ -450,21 +415,7 @@ func (a *PublicApiService) GetCmsV3SiteSearchSearchSearchExecute(r ApiGetCmsV3Si
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -474,15 +425,15 @@ func (a *PublicApiService) GetCmsV3SiteSearchSearchSearchExecute(r ApiGetCmsV3Si
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -498,7 +449,7 @@ func (a *PublicApiService) GetCmsV3SiteSearchSearchSearchExecute(r ApiGetCmsV3Si
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

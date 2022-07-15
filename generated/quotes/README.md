@@ -22,7 +22,7 @@ go get golang.org/x/net/context
 Put the package under your project folder and add the following in import:
 
 ```golang
-import sw "./quotes"
+import quotes "github.com/GIT_USER_ID/GIT_REPO_ID"
 ```
 
 To use a proxy, set the environment variable `HTTP_PROXY`:
@@ -40,7 +40,7 @@ Default configuration comes with `Servers` field that contains server objects as
 For using other server than the one defined on index 0 set context value `sw.ContextServerIndex` of type `int`.
 
 ```golang
-ctx := context.WithValue(context.Background(), sw.ContextServerIndex, 1)
+ctx := context.WithValue(context.Background(), quotes.ContextServerIndex, 1)
 ```
 
 ### Templated Server URL
@@ -48,7 +48,7 @@ ctx := context.WithValue(context.Background(), sw.ContextServerIndex, 1)
 Templated server URL is formatted using default variables from configuration or from context value `sw.ContextServerVariables` of type `map[string]string`.
 
 ```golang
-ctx := context.WithValue(context.Background(), sw.ContextServerVariables, map[string]string{
+ctx := context.WithValue(context.Background(), quotes.ContextServerVariables, map[string]string{
 	"basePath": "v2",
 })
 ```
@@ -62,10 +62,10 @@ An operation is uniquely identified by `"{classname}Service.{nickname}"` string.
 Similar rules for overriding default operation server index and variables applies by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
 
 ```
-ctx := context.WithValue(context.Background(), sw.ContextOperationServerIndices, map[string]int{
+ctx := context.WithValue(context.Background(), quotes.ContextOperationServerIndices, map[string]int{
 	"{classname}Service.{nickname}": 2,
 })
-ctx = context.WithValue(context.Background(), sw.ContextOperationServerVariables, map[string]map[string]string{
+ctx = context.WithValue(context.Background(), quotes.ContextOperationServerVariables, map[string]map[string]string{
 	"{classname}Service.{nickname}": {
 		"port": "8443",
 	},
@@ -78,10 +78,19 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*AssociationsApi* | [**DeleteCrmV3ObjectsQuotesQuoteIdAssociationsToObjectTypeToObjectIdAssociationTypeArchive**](docs/AssociationsApi.md#deletecrmv3objectsquotesquoteidassociationstoobjecttypetoobjectidassociationtypearchive) | **Delete** /crm/v3/objects/quotes/{quoteId}/associations/{toObjectType}/{toObjectId}/{associationType} | Remove an association between two quotes
 *AssociationsApi* | [**GetCrmV3ObjectsQuotesQuoteIdAssociationsToObjectTypeGetAll**](docs/AssociationsApi.md#getcrmv3objectsquotesquoteidassociationstoobjecttypegetall) | **Get** /crm/v3/objects/quotes/{quoteId}/associations/{toObjectType} | List associations of a quote by type
+*AssociationsApi* | [**PutCrmV3ObjectsQuotesQuoteIdAssociationsToObjectTypeToObjectIdAssociationTypeCreate**](docs/AssociationsApi.md#putcrmv3objectsquotesquoteidassociationstoobjecttypetoobjectidassociationtypecreate) | **Put** /crm/v3/objects/quotes/{quoteId}/associations/{toObjectType}/{toObjectId}/{associationType} | Associate a quote with another object
+*BasicApi* | [**DeleteCrmV3ObjectsQuotesQuoteIdArchive**](docs/BasicApi.md#deletecrmv3objectsquotesquoteidarchive) | **Delete** /crm/v3/objects/quotes/{quoteId} | Archive
 *BasicApi* | [**GetCrmV3ObjectsQuotesGetPage**](docs/BasicApi.md#getcrmv3objectsquotesgetpage) | **Get** /crm/v3/objects/quotes | List
 *BasicApi* | [**GetCrmV3ObjectsQuotesQuoteIdGetById**](docs/BasicApi.md#getcrmv3objectsquotesquoteidgetbyid) | **Get** /crm/v3/objects/quotes/{quoteId} | Read
+*BasicApi* | [**PatchCrmV3ObjectsQuotesQuoteIdUpdate**](docs/BasicApi.md#patchcrmv3objectsquotesquoteidupdate) | **Patch** /crm/v3/objects/quotes/{quoteId} | Update
+*BasicApi* | [**PostCrmV3ObjectsQuotesCreate**](docs/BasicApi.md#postcrmv3objectsquotescreate) | **Post** /crm/v3/objects/quotes | Create
+*BatchApi* | [**PostCrmV3ObjectsQuotesBatchArchiveArchive**](docs/BatchApi.md#postcrmv3objectsquotesbatcharchivearchive) | **Post** /crm/v3/objects/quotes/batch/archive | Archive a batch of quotes by ID
+*BatchApi* | [**PostCrmV3ObjectsQuotesBatchCreateCreate**](docs/BatchApi.md#postcrmv3objectsquotesbatchcreatecreate) | **Post** /crm/v3/objects/quotes/batch/create | Create a batch of quotes
 *BatchApi* | [**PostCrmV3ObjectsQuotesBatchReadRead**](docs/BatchApi.md#postcrmv3objectsquotesbatchreadread) | **Post** /crm/v3/objects/quotes/batch/read | Read a batch of quotes by internal ID, or unique property values
+*BatchApi* | [**PostCrmV3ObjectsQuotesBatchUpdateUpdate**](docs/BatchApi.md#postcrmv3objectsquotesbatchupdateupdate) | **Post** /crm/v3/objects/quotes/batch/update | Update a batch of quotes
+*PublicObjectApi* | [**PostCrmV3ObjectsQuotesMergeMerge**](docs/PublicObjectApi.md#postcrmv3objectsquotesmergemerge) | **Post** /crm/v3/objects/quotes/merge | Merge two quotes with same type
 *SearchApi* | [**PostCrmV3ObjectsQuotesSearchDoSearch**](docs/SearchApi.md#postcrmv3objectsquotessearchdosearch) | **Post** /crm/v3/objects/quotes/search | 
 
 
@@ -107,6 +116,7 @@ Class | Method | HTTP request | Description
  - [NextPage](docs/NextPage.md)
  - [Paging](docs/Paging.md)
  - [PreviousPage](docs/PreviousPage.md)
+ - [PublicMergeInput](docs/PublicMergeInput.md)
  - [PublicObjectSearchRequest](docs/PublicObjectSearchRequest.md)
  - [SimplePublicObject](docs/SimplePublicObject.md)
  - [SimplePublicObjectBatchInput](docs/SimplePublicObjectBatchInput.md)
@@ -114,19 +124,70 @@ Class | Method | HTTP request | Description
  - [SimplePublicObjectInput](docs/SimplePublicObjectInput.md)
  - [SimplePublicObjectWithAssociations](docs/SimplePublicObjectWithAssociations.md)
  - [StandardError](docs/StandardError.md)
+ - [ValueWithTimestamp](docs/ValueWithTimestamp.md)
 
 
 ## Documentation For Authorization
 
 
 
-### hapikey
+### oauth2
 
-- **Type**: API key
-- **API key parameter name**: hapikey
-- **Location**: URL query string
 
-Note, each API key must be added to a map of `map[string]APIKey` where the key is: hapikey and passed in as the auth context for each request.
+- **Type**: OAuth
+- **Flow**: accessCode
+- **Authorization URL**: https://app.hubspot.com/oauth/authorize
+- **Scopes**: 
+ - **crm.objects.quotes.read**: Quotes
+ - **crm.objects.quotes.write**: Quotes
+
+Example
+
+```golang
+auth := context.WithValue(context.Background(), sw.ContextAccessToken, "ACCESSTOKENSTRING")
+r, err := client.Service.Operation(auth, args)
+```
+
+Or via OAuth2 module to automatically refresh tokens and perform user authentication.
+
+```golang
+import "golang.org/x/oauth2"
+
+/* Perform OAuth2 round trip request and obtain a token */
+
+tokenSource := oauth2cfg.TokenSource(createContext(httpClient), &token)
+auth := context.WithValue(oauth2.NoContext, sw.ContextOAuth2, tokenSource)
+r, err := client.Service.Operation(auth, args)
+```
+
+
+### oauth2_legacy
+
+
+- **Type**: OAuth
+- **Flow**: accessCode
+- **Authorization URL**: https://app.hubspot.com/oauth/authorize
+- **Scopes**: 
+ - **e-commerce**: e-commerce
+
+Example
+
+```golang
+auth := context.WithValue(context.Background(), sw.ContextAccessToken, "ACCESSTOKENSTRING")
+r, err := client.Service.Operation(auth, args)
+```
+
+Or via OAuth2 module to automatically refresh tokens and perform user authentication.
+
+```golang
+import "golang.org/x/oauth2"
+
+/* Perform OAuth2 round trip request and obtain a token */
+
+tokenSource := oauth2cfg.TokenSource(createContext(httpClient), &token)
+auth := context.WithValue(oauth2.NoContext, sw.ContextOAuth2, tokenSource)
+r, err := client.Service.Operation(auth, args)
+```
 
 
 ## Documentation for Utility Methods

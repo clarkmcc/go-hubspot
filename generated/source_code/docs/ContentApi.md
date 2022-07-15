@@ -4,16 +4,16 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteCmsV3SourceCodeEnvironmentContentPath**](ContentApi.md#DeleteCmsV3SourceCodeEnvironmentContentPath) | **Delete** /cms/v3/source-code/{environment}/content/{path} | Delete a file
-[**GetCmsV3SourceCodeEnvironmentContentPath**](ContentApi.md#GetCmsV3SourceCodeEnvironmentContentPath) | **Get** /cms/v3/source-code/{environment}/content/{path} | Download a file
-[**PostCmsV3SourceCodeEnvironmentContentPath**](ContentApi.md#PostCmsV3SourceCodeEnvironmentContentPath) | **Post** /cms/v3/source-code/{environment}/content/{path} | Create a file
-[**PutCmsV3SourceCodeEnvironmentContentPath**](ContentApi.md#PutCmsV3SourceCodeEnvironmentContentPath) | **Put** /cms/v3/source-code/{environment}/content/{path} | Create or update a file
+[**DeleteCmsV3SourceCodeEnvironmentContentPathArchive**](ContentApi.md#DeleteCmsV3SourceCodeEnvironmentContentPathArchive) | **Delete** /cms/v3/source-code/{environment}/content/{path} | Delete a file
+[**GetCmsV3SourceCodeEnvironmentContentPathGet**](ContentApi.md#GetCmsV3SourceCodeEnvironmentContentPathGet) | **Get** /cms/v3/source-code/{environment}/content/{path} | Download a file
+[**PostCmsV3SourceCodeEnvironmentContentPathCreate**](ContentApi.md#PostCmsV3SourceCodeEnvironmentContentPathCreate) | **Post** /cms/v3/source-code/{environment}/content/{path} | Create a file
+[**PutCmsV3SourceCodeEnvironmentContentPathReplace**](ContentApi.md#PutCmsV3SourceCodeEnvironmentContentPathReplace) | **Put** /cms/v3/source-code/{environment}/content/{path} | Create or update a file
 
 
 
-## DeleteCmsV3SourceCodeEnvironmentContentPath
+## DeleteCmsV3SourceCodeEnvironmentContentPathArchive
 
-> DeleteCmsV3SourceCodeEnvironmentContentPath(ctx, environment, path).Execute()
+> DeleteCmsV3SourceCodeEnvironmentContentPathArchive(ctx, environment, path).Execute()
 
 Delete a file
 
@@ -36,10 +36,10 @@ func main() {
     path := "path_example" // string | The file system location of the file.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ContentApi.DeleteCmsV3SourceCodeEnvironmentContentPath(context.Background(), environment, path).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ContentApi.DeleteCmsV3SourceCodeEnvironmentContentPathArchive(context.Background(), environment, path).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ContentApi.DeleteCmsV3SourceCodeEnvironmentContentPath``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ContentApi.DeleteCmsV3SourceCodeEnvironmentContentPathArchive``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -56,7 +56,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteCmsV3SourceCodeEnvironmentContentPathRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteCmsV3SourceCodeEnvironmentContentPathArchiveRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -70,7 +70,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -82,9 +82,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetCmsV3SourceCodeEnvironmentContentPath
+## GetCmsV3SourceCodeEnvironmentContentPathGet
 
-> Error GetCmsV3SourceCodeEnvironmentContentPath(ctx, environment, path).Execute()
+> Error GetCmsV3SourceCodeEnvironmentContentPathGet(ctx, environment, path).Execute()
 
 Download a file
 
@@ -107,14 +107,14 @@ func main() {
     path := "path_example" // string | The file system location of the file.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ContentApi.GetCmsV3SourceCodeEnvironmentContentPath(context.Background(), environment, path).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ContentApi.GetCmsV3SourceCodeEnvironmentContentPathGet(context.Background(), environment, path).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ContentApi.GetCmsV3SourceCodeEnvironmentContentPath``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ContentApi.GetCmsV3SourceCodeEnvironmentContentPathGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetCmsV3SourceCodeEnvironmentContentPath`: Error
-    fmt.Fprintf(os.Stdout, "Response from `ContentApi.GetCmsV3SourceCodeEnvironmentContentPath`: %v\n", resp)
+    // response from `GetCmsV3SourceCodeEnvironmentContentPathGet`: Error
+    fmt.Fprintf(os.Stdout, "Response from `ContentApi.GetCmsV3SourceCodeEnvironmentContentPathGet`: %v\n", resp)
 }
 ```
 
@@ -129,7 +129,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetCmsV3SourceCodeEnvironmentContentPathRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCmsV3SourceCodeEnvironmentContentPathGetRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -143,7 +143,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -155,9 +155,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostCmsV3SourceCodeEnvironmentContentPath
+## PostCmsV3SourceCodeEnvironmentContentPathCreate
 
-> AssetFileMetadata PostCmsV3SourceCodeEnvironmentContentPath(ctx, environment, path).File(file).Execute()
+> AssetFileMetadata PostCmsV3SourceCodeEnvironmentContentPathCreate(ctx, environment, path).File(file).Execute()
 
 Create a file
 
@@ -181,14 +181,14 @@ func main() {
     file := os.NewFile(1234, "some_file") // *os.File | The file to upload. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ContentApi.PostCmsV3SourceCodeEnvironmentContentPath(context.Background(), environment, path).File(file).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ContentApi.PostCmsV3SourceCodeEnvironmentContentPathCreate(context.Background(), environment, path).File(file).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ContentApi.PostCmsV3SourceCodeEnvironmentContentPath``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ContentApi.PostCmsV3SourceCodeEnvironmentContentPathCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostCmsV3SourceCodeEnvironmentContentPath`: AssetFileMetadata
-    fmt.Fprintf(os.Stdout, "Response from `ContentApi.PostCmsV3SourceCodeEnvironmentContentPath`: %v\n", resp)
+    // response from `PostCmsV3SourceCodeEnvironmentContentPathCreate`: AssetFileMetadata
+    fmt.Fprintf(os.Stdout, "Response from `ContentApi.PostCmsV3SourceCodeEnvironmentContentPathCreate`: %v\n", resp)
 }
 ```
 
@@ -203,7 +203,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCmsV3SourceCodeEnvironmentContentPathRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCmsV3SourceCodeEnvironmentContentPathCreateRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -218,7 +218,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -230,9 +230,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PutCmsV3SourceCodeEnvironmentContentPath
+## PutCmsV3SourceCodeEnvironmentContentPathReplace
 
-> AssetFileMetadata PutCmsV3SourceCodeEnvironmentContentPath(ctx, environment, path).File(file).Execute()
+> AssetFileMetadata PutCmsV3SourceCodeEnvironmentContentPathReplace(ctx, environment, path).File(file).Execute()
 
 Create or update a file
 
@@ -256,14 +256,14 @@ func main() {
     file := os.NewFile(1234, "some_file") // *os.File | The file to upload. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ContentApi.PutCmsV3SourceCodeEnvironmentContentPath(context.Background(), environment, path).File(file).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ContentApi.PutCmsV3SourceCodeEnvironmentContentPathReplace(context.Background(), environment, path).File(file).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ContentApi.PutCmsV3SourceCodeEnvironmentContentPath``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ContentApi.PutCmsV3SourceCodeEnvironmentContentPathReplace``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PutCmsV3SourceCodeEnvironmentContentPath`: AssetFileMetadata
-    fmt.Fprintf(os.Stdout, "Response from `ContentApi.PutCmsV3SourceCodeEnvironmentContentPath`: %v\n", resp)
+    // response from `PutCmsV3SourceCodeEnvironmentContentPathReplace`: AssetFileMetadata
+    fmt.Fprintf(os.Stdout, "Response from `ContentApi.PutCmsV3SourceCodeEnvironmentContentPathReplace`: %v\n", resp)
 }
 ```
 
@@ -278,7 +278,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPutCmsV3SourceCodeEnvironmentContentPathRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutCmsV3SourceCodeEnvironmentContentPathReplaceRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -293,7 +293,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 

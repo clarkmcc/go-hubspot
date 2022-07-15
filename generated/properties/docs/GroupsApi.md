@@ -37,8 +37,8 @@ func main() {
     groupName := "groupName_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.GroupsApi.DeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchive(context.Background(), objectType, groupName).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.GroupsApi.DeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchive(context.Background(), objectType, groupName).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `GroupsApi.DeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchive``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -71,7 +71,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -107,8 +107,8 @@ func main() {
     objectType := "objectType_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.GroupsApi.GetCrmV3PropertiesObjectTypeGroupsGetAll(context.Background(), objectType).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.GroupsApi.GetCrmV3PropertiesObjectTypeGroupsGetAll(context.Background(), objectType).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `GroupsApi.GetCrmV3PropertiesObjectTypeGroupsGetAll``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -141,7 +141,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -178,8 +178,8 @@ func main() {
     groupName := "groupName_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.GroupsApi.GetCrmV3PropertiesObjectTypeGroupsGroupNameGetByName(context.Background(), objectType, groupName).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.GroupsApi.GetCrmV3PropertiesObjectTypeGroupsGroupNameGetByName(context.Background(), objectType, groupName).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `GroupsApi.GetCrmV3PropertiesObjectTypeGroupsGroupNameGetByName``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -214,7 +214,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -252,8 +252,8 @@ func main() {
     propertyGroupUpdate := *openapiclient.NewPropertyGroupUpdate() // PropertyGroupUpdate | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.GroupsApi.PatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdate(context.Background(), objectType, groupName).PropertyGroupUpdate(propertyGroupUpdate).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.GroupsApi.PatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdate(context.Background(), objectType, groupName).PropertyGroupUpdate(propertyGroupUpdate).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `GroupsApi.PatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -289,7 +289,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -326,8 +326,8 @@ func main() {
     propertyGroupCreate := *openapiclient.NewPropertyGroupCreate("Name_example", "Label_example") // PropertyGroupCreate | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.GroupsApi.PostCrmV3PropertiesObjectTypeGroupsCreate(context.Background(), objectType).PropertyGroupCreate(propertyGroupCreate).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.GroupsApi.PostCrmV3PropertiesObjectTypeGroupsCreate(context.Background(), objectType).PropertyGroupCreate(propertyGroupCreate).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `GroupsApi.PostCrmV3PropertiesObjectTypeGroupsCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -361,7 +361,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 

@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Value** | Pointer to **string** |  | [optional] 
+**Values** | Pointer to **[]string** |  | [optional] 
 **PropertyName** | **string** |  | 
 **Operator** | **string** | null | 
 
@@ -51,6 +52,31 @@ SetValue sets Value field to given value.
 `func (o *Filter) HasValue() bool`
 
 HasValue returns a boolean if a field has been set.
+
+### GetValues
+
+`func (o *Filter) GetValues() []string`
+
+GetValues returns the Values field if non-nil, zero value otherwise.
+
+### GetValuesOk
+
+`func (o *Filter) GetValuesOk() (*[]string, bool)`
+
+GetValuesOk returns a tuple with the Values field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetValues
+
+`func (o *Filter) SetValues(v []string)`
+
+SetValues sets Values field to given value.
+
+### HasValues
+
+`func (o *Filter) HasValues() bool`
+
+HasValues returns a boolean if a field has been set.
 
 ### GetPropertyName
 

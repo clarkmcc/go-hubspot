@@ -26,6 +26,10 @@ type ColumnRequest struct {
 	Type string `json:"type"`
 	// Options to choose for select and multi-select columns
 	Options []Option `json:"options"`
+	// The id of another table to which the column refers/points to.
+	ForeignTableId *int64 `json:"foreignTableId,omitempty"`
+	// The id of the column from another table to which the column refers/points to.
+	ForeignColumnId *int32 `json:"foreignColumnId,omitempty"`
 }
 
 // NewColumnRequest instantiates a new ColumnRequest object
@@ -158,16 +162,80 @@ func (o *ColumnRequest) GetOptions() []Option {
 
 // GetOptionsOk returns a tuple with the Options field value
 // and a boolean to check if the value has been set.
-func (o *ColumnRequest) GetOptionsOk() (*[]Option, bool) {
+func (o *ColumnRequest) GetOptionsOk() ([]Option, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Options, true
+	return o.Options, true
 }
 
 // SetOptions sets field value
 func (o *ColumnRequest) SetOptions(v []Option) {
 	o.Options = v
+}
+
+// GetForeignTableId returns the ForeignTableId field value if set, zero value otherwise.
+func (o *ColumnRequest) GetForeignTableId() int64 {
+	if o == nil || o.ForeignTableId == nil {
+		var ret int64
+		return ret
+	}
+	return *o.ForeignTableId
+}
+
+// GetForeignTableIdOk returns a tuple with the ForeignTableId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ColumnRequest) GetForeignTableIdOk() (*int64, bool) {
+	if o == nil || o.ForeignTableId == nil {
+		return nil, false
+	}
+	return o.ForeignTableId, true
+}
+
+// HasForeignTableId returns a boolean if a field has been set.
+func (o *ColumnRequest) HasForeignTableId() bool {
+	if o != nil && o.ForeignTableId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetForeignTableId gets a reference to the given int64 and assigns it to the ForeignTableId field.
+func (o *ColumnRequest) SetForeignTableId(v int64) {
+	o.ForeignTableId = &v
+}
+
+// GetForeignColumnId returns the ForeignColumnId field value if set, zero value otherwise.
+func (o *ColumnRequest) GetForeignColumnId() int32 {
+	if o == nil || o.ForeignColumnId == nil {
+		var ret int32
+		return ret
+	}
+	return *o.ForeignColumnId
+}
+
+// GetForeignColumnIdOk returns a tuple with the ForeignColumnId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ColumnRequest) GetForeignColumnIdOk() (*int32, bool) {
+	if o == nil || o.ForeignColumnId == nil {
+		return nil, false
+	}
+	return o.ForeignColumnId, true
+}
+
+// HasForeignColumnId returns a boolean if a field has been set.
+func (o *ColumnRequest) HasForeignColumnId() bool {
+	if o != nil && o.ForeignColumnId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetForeignColumnId gets a reference to the given int32 and assigns it to the ForeignColumnId field.
+func (o *ColumnRequest) SetForeignColumnId(v int32) {
+	o.ForeignColumnId = &v
 }
 
 func (o ColumnRequest) MarshalJSON() ([]byte, error) {
@@ -186,6 +254,12 @@ func (o ColumnRequest) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["options"] = o.Options
+	}
+	if o.ForeignTableId != nil {
+		toSerialize["foreignTableId"] = o.ForeignTableId
+	}
+	if o.ForeignColumnId != nil {
+		toSerialize["foreignColumnId"] = o.ForeignColumnId
 	}
 	return json.Marshal(toSerialize)
 }

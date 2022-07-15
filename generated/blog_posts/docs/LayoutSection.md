@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Name** | **string** |  | 
 **Label** | **string** |  | 
 **Type** | **string** |  | 
-**Params** | **map[string]map[string]interface{}** |  | 
+**Params** | **map[string]map[string]interface{}** | null | 
 **Rows** | [**[]map[string]LayoutSection**](map[string]LayoutSection.md) |  | 
 **RowMetaData** | [**[]RowMetaData**](RowMetaData.md) |  | 
 **Cells** | [**[]LayoutSection**](LayoutSection.md) |  | 

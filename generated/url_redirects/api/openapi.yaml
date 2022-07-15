@@ -77,28 +77,12 @@ paths:
             type: string
           type: array
         style: form
-      - explode: true
-        in: query
-        name: properties
-        required: false
-        schema:
-          items:
-            type: string
-          type: array
-        style: form
       - description: The paging cursor token of the last successfully read resource
           will be returned as the `paging.next.after` JSON property of a paged response
           containing more results.
         explode: true
         in: query
         name: after
-        required: false
-        schema:
-          type: string
-        style: form
-      - explode: true
-        in: query
-        name: before
         required: false
         schema:
           type: string
@@ -131,7 +115,7 @@ paths:
                   createdAt: 2017-07-24T17:24:09.141Z
                   updatedAt: 2017-07-24T17:24:09.141Z
                   routePrefix: http://test.hs-sites.com/(?P<page_slug>.*)
-                  destination: http://www.example.online/{page_slug}
+                  destination: "http://www.example.online/{page_slug}"
                   redirectStyle: 301
                   isOnlyAfterNotFound: true
                   isMatchFullUrl: true
@@ -144,7 +128,7 @@ paths:
                   createdAt: 2017-07-25T15:42:06.410Z
                   updatedAt: 2017-07-25T15:42:06.410Z
                   routePrefix: /mytest/(?P<page_slug>.*)
-                  destination: /newtest/{page_slug}
+                  destination: "/newtest/{page_slug}"
                   redirectStyle: 301
                   isOnlyAfterNotFound: true
                   isMatchFullUrl: true
@@ -156,9 +140,9 @@ paths:
                 paging:
                   next:
                     after: Mg%3D%3D
-                    link: https://api.hubspot.com/cms/v3/url-redirects?hapikey&after=Mg%3D%3D
+                    link: https://api.hubspot.com/cms/v3/url-redirects?after=Mg%3D%3D
               schema:
-                $ref: '#/components/schemas/CollectionResponseWithTotalUrlMapping'
+                $ref: '#/components/schemas/CollectionResponseWithTotalUrlMappingForwardPaging'
           description: successful operation
         default:
           content:
@@ -167,7 +151,6 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
       - oauth2_legacy:
         - content
       summary: Get current redirects
@@ -181,7 +164,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/UrlMappingCreateRequestBody'
-        required: false
+        required: true
       responses:
         "201":
           content:
@@ -196,7 +179,6 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
       - oauth2_legacy:
         - content
       summary: Create a redirect
@@ -204,8 +186,8 @@ paths:
       - Redirects
   /cms/v3/url-redirects/{urlRedirectId}:
     delete:
-      description: Delete one existing redirect, so it is no longer mapped.
-      operationId: delete-/cms/v3/url-redirects/{urlRedirectId}_archive
+      description: "Delete one existing redirect, so it is no longer mapped."
+      operationId: "delete-/cms/v3/url-redirects/{urlRedirectId}_archive"
       parameters:
       - description: The ID of the target redirect.
         explode: false
@@ -226,7 +208,6 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
       - oauth2_legacy:
         - content
       summary: Delete a redirect
@@ -234,7 +215,7 @@ paths:
       - Redirects
     get:
       description: Returns the details for a single existing URL redirect by ID.
-      operationId: get-/cms/v3/url-redirects/{urlRedirectId}_getById
+      operationId: "get-/cms/v3/url-redirects/{urlRedirectId}_getById"
       parameters:
       - description: The ID of the target redirect.
         explode: false
@@ -253,7 +234,7 @@ paths:
                 createdAt: 2017-07-24T17:24:09.141Z
                 updatedAt: 2017-07-24T17:24:09.141Z
                 routePrefix: http://test.hs-sites.com/(?P<page_slug>.*)
-                destination: http://www.example.online/{page_slug}
+                destination: "http://www.example.online/{page_slug}"
                 isOnlyAfterNotFound: true
                 isMatchFullUrl: true
                 isMatchQueryString: false
@@ -270,7 +251,6 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
       - oauth2_legacy:
         - content
       summary: Get details for a redirect
@@ -278,7 +258,7 @@ paths:
       - Redirects
     patch:
       description: Updates the settings for an existing URL redirect.
-      operationId: patch-/cms/v3/url-redirects/{urlRedirectId}_update
+      operationId: "patch-/cms/v3/url-redirects/{urlRedirectId}_update"
       parameters:
       - explode: false
         in: path
@@ -292,7 +272,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/UrlMapping'
-        required: false
+        required: true
       responses:
         "200":
           content:
@@ -307,7 +287,6 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
       - oauth2_legacy:
         - content
       summary: Update a redirect
@@ -322,7 +301,7 @@ components:
             $ref: '#/components/schemas/Error'
       description: An error occurred.
   schemas:
-    CollectionResponseWithTotalUrlMapping:
+    CollectionResponseWithTotalUrlMappingForwardPaging:
       example:
         total: 0
         paging:
@@ -330,68 +309,42 @@ components:
             link: link
             after: after
         results:
-        - note: note
-          redirectStyle: 9
+        - isTrailingSlashOptional: true
+          redirectStyle: 6
           isMatchQueryString: true
+          created: 2000-01-23T04:56:07.000+00:00
           isMatchFullUrl: true
           destination: destination
-          isPattern: true
-          precedence: 2
-          internallyCreated: true
-          portalId: 1
-          cosObjectType: CONTENT
-          isProtocolAgnostic: true
-          id: 6
-          createdById: 2
-          isTrailingSlashOptional: true
-          isRegex: true
-          cdnPurgeEmbargoTime: 7
-          created: 5
-          contentGroupId: 3
-          label: label
-          updatedById: 7
           isOnlyAfterNotFound: true
-          deletedAt: 4
+          isPattern: true
+          precedence: 1
           routePrefix: routePrefix
-          name: name
-          updated: 5
-        - note: note
-          redirectStyle: 9
+          isProtocolAgnostic: true
+          id: id
+          updated: 2000-01-23T04:56:07.000+00:00
+        - isTrailingSlashOptional: true
+          redirectStyle: 6
           isMatchQueryString: true
+          created: 2000-01-23T04:56:07.000+00:00
           isMatchFullUrl: true
           destination: destination
-          isPattern: true
-          precedence: 2
-          internallyCreated: true
-          portalId: 1
-          cosObjectType: CONTENT
-          isProtocolAgnostic: true
-          id: 6
-          createdById: 2
-          isTrailingSlashOptional: true
-          isRegex: true
-          cdnPurgeEmbargoTime: 7
-          created: 5
-          contentGroupId: 3
-          label: label
-          updatedById: 7
           isOnlyAfterNotFound: true
-          deletedAt: 4
+          isPattern: true
+          precedence: 1
           routePrefix: routePrefix
-          name: name
-          updated: 5
+          isProtocolAgnostic: true
+          id: id
+          updated: 2000-01-23T04:56:07.000+00:00
       properties:
         total:
-          description: The number of available results.
           format: int32
           type: integer
         results:
-          description: Matched URLs.
           items:
             $ref: '#/components/schemas/UrlMapping'
           type: array
         paging:
-          $ref: '#/components/schemas/Paging'
+          $ref: '#/components/schemas/ForwardPaging'
       required:
       - results
       - total
@@ -481,6 +434,15 @@ components:
       required:
       - message
       type: object
+    ForwardPaging:
+      example:
+        next:
+          link: link
+          after: after
+      properties:
+        next:
+          $ref: '#/components/schemas/NextPage'
+      type: object
     NextPage:
       example:
         link: link
@@ -493,91 +455,49 @@ components:
       required:
       - after
       type: object
-    Paging:
-      example:
-        next:
-          link: link
-          after: after
-      properties:
-        next:
-          $ref: '#/components/schemas/NextPage'
-      type: object
     UrlMapping:
       example:
-        note: note
-        redirectStyle: 9
+        isTrailingSlashOptional: true
+        redirectStyle: 6
         isMatchQueryString: true
+        created: 2000-01-23T04:56:07.000+00:00
         isMatchFullUrl: true
         destination: destination
-        isPattern: true
-        precedence: 2
-        internallyCreated: true
-        portalId: 1
-        cosObjectType: CONTENT
-        isProtocolAgnostic: true
-        id: 6
-        createdById: 2
-        isTrailingSlashOptional: true
-        isRegex: true
-        cdnPurgeEmbargoTime: 7
-        created: 5
-        contentGroupId: 3
-        label: label
-        updatedById: 7
         isOnlyAfterNotFound: true
-        deletedAt: 4
+        isPattern: true
+        precedence: 1
         routePrefix: routePrefix
-        name: name
-        updated: 5
+        isProtocolAgnostic: true
+        id: id
+        updated: 2000-01-23T04:56:07.000+00:00
       properties:
         id:
           description: The unique ID of this URL redirect.
-          format: int64
-          type: integer
-        portalId:
-          format: int32
-          type: integer
-        created:
-          format: int64
-          type: integer
-        updated:
-          format: int64
-          type: integer
-        createdById:
-          format: int32
-          type: integer
-        updatedById:
-          format: int32
-          type: integer
+          type: string
         routePrefix:
-          description: The target incoming URL, path, or pattern to match for redirection.
+          description: "The target incoming URL, path, or pattern to match for redirection."
           type: string
         destination:
-          description: The destination URL, where the target URL should be redirected
-            if it matches the `routePrefix`.
+          description: "The destination URL, where the target URL should be redirected\
+            \ if it matches the `routePrefix`."
           type: string
         redirectStyle:
-          description: 'The type of redirect to create. Options include: 301 (permanent),
-            302 (temporary), or 305 (proxy). Find more details [here](https://knowledge.hubspot.com/cos-general/how-to-redirect-a-hubspot-page).'
+          description: "The type of redirect to create. Options include: 301 (permanent),\
+            \ 302 (temporary), or 305 (proxy). Find more details [here](https://knowledge.hubspot.com/cos-general/how-to-redirect-a-hubspot-page)."
           format: int32
           type: integer
-        contentGroupId:
-          format: int64
-          type: integer
         isOnlyAfterNotFound:
-          description: Whether the URL redirect mapping should apply only if a live
-            page on the URL isn't found. If False, the URL redirect mapping will take
-            precedence over any existing page.
-          type: boolean
-        isRegex:
+          description: "Whether the URL redirect mapping should apply only if a live\
+            \ page on the URL isn't found. If False, the URL redirect mapping will\
+            \ take precedence over any existing page."
           type: boolean
         isMatchFullUrl:
-          description: Whether the `routePrefix` should match on the entire URL, including
-            the domain.
+          description: "Whether the `routePrefix` should match on the entire URL,\
+            \ including the domain."
           type: boolean
         isMatchQueryString:
-          description: Whether the `routePrefix` should match on the entire URL path,
-            including the query string.
+          description: "Whether the `routePrefix` should match on the entire URL path,\
+            \ including the query string."
           type: boolean
         isPattern:
           description: Whether the `routePrefix` should match based on pattern.
@@ -589,118 +509,44 @@ components:
           description: Whether the `routePrefix` should match both HTTP and HTTPS
             protocols.
           type: boolean
-        name:
-          type: string
         precedence:
-          description: Used to prioritize URL redirection. If a given URL matches
-            more than one redirect, the one with the **lower** precedence will be
-            used.
+          description: "Used to prioritize URL redirection. If a given URL matches\
+            \ more than one redirect, the one with the **lower** precedence will be\
+            \ used."
           format: int32
           type: integer
-        deletedAt:
-          format: int64
-          type: integer
-        note:
+        created:
+          format: date-time
           type: string
-        label:
+        updated:
+          format: date-time
           type: string
-        internallyCreated:
-          type: boolean
-        cosObjectType:
-          enum:
-          - CONTENT
-          - EXTENSION_RESOURCE
-          - LAYOUT
-          - CUSTOM_WIDGET
-          - WIDGET
-          - FORM
-          - PLACEMENT
-          - IMAGE
-          - DOMAIN_SETTINGS
-          - SITE_SETTINGS
-          - EMAIL_ADDRESS
-          - WORKFLOW
-          - HUBDB_TABLE
-          - REDIRECT_URL
-          - DESIGN_FOLDER
-          - SITE_MAP
-          - DOMAIN
-          - BLOG
-          - FILE
-          - FOLDER
-          - SITE_MENU
-          - THEME
-          - CONTENT_GROUP
-          - FOLLOW_ME
-          - KNOWLEDGE_BASE
-          - LIST_MEMBERSHIP
-          - CONTACT_MEMBERSHIP
-          - PASSWORD_PROTECTED
-          - UNRESTRICTED_ACCESS
-          - MARKETPLACE_LISTING
-          - LAYOUT_SECTION
-          - THEME_SETTINGS
-          - VIDEO_PLAYER
-          - URL_MAPPING
-          - KNOWLEDGE_CATEGORY
-          - KNOWLEDGE_HOMEPAGE_CATEGORY
-          - RAW_ASSET
-          - GLOBAL_CONTENT
-          - HUBDB_TABLE_ROW
-          - BLOG_AUTHOR
-          - SERVERLESS_FUNCTION
-          - KNOWLEDGE_CATEGORY_TRANSLATION
-          type: string
-        cdnPurgeEmbargoTime:
-          format: int64
-          type: integer
       required:
-      - cdnPurgeEmbargoTime
-      - contentGroupId
-      - cosObjectType
-      - created
-      - createdById
-      - deletedAt
       - destination
       - id
-      - internallyCreated
       - isMatchFullUrl
       - isMatchQueryString
       - isOnlyAfterNotFound
       - isPattern
       - isProtocolAgnostic
-      - isRegex
       - isTrailingSlashOptional
-      - label
-      - name
-      - note
-      - portalId
       - precedence
       - redirectStyle
       - routePrefix
-      - updated
-      - updatedById
       type: object
     UrlMappingCreateRequestBody:
       example:
         isTrailingSlashOptional: true
-        redirectStyle: 0
         isMatchQueryString: true
+        redirectStyle: 6
         routePrefix: routePrefix
         isMatchFullUrl: true
-        destination: destination
         isProtocolAgnostic: true
+        destination: destination
         isOnlyAfterNotFound: true
         isPattern: true
-        precedence: 6
+        precedence: 0
       properties:
-        routePrefix:
-          type: string
-        destination:
-          type: string
-        redirectStyle:
-          format: int32
-          type: integer
         precedence:
           format: int32
           type: integer
@@ -716,6 +562,13 @@ components:
           type: boolean
         isProtocolAgnostic:
           type: boolean
+        routePrefix:
+          type: string
+        destination:
+          type: string
+        redirectStyle:
+          format: int32
+          type: integer
       required:
       - destination
       - redirectStyle
@@ -730,10 +583,6 @@ components:
             content: Read from and write to my Content
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
-    hapikey:
-      in: query
-      name: hapikey
-      type: apiKey
 x-hubspot-available-client-libraries:
 - PHP
 - Node

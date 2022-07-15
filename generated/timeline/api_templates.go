@@ -12,31 +12,24 @@ package timeline
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-
-	"github.com/clarkmcc/go-hubspot/authorization"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // TemplatesApiService TemplatesApi service
 type TemplatesApiService service
 
 type ApiDeleteIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdArchiveRequest struct {
-	ctx             _context.Context
+	ctx             context.Context
 	ApiService      *TemplatesApiService
 	eventTemplateId string
 	appId           int32
 }
 
-func (r ApiDeleteIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdArchiveRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeleteIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdArchiveRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdArchiveExecute(r)
 }
 
@@ -47,12 +40,12 @@ This will delete the event template. All associated events will be removed from 
 
 This action can't be undone, so it's highly recommended that you stop using any associated events before deleting a template.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param eventTemplateId The event template ID.
  @param appId The ID of the target app.
  @return ApiDeleteIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdArchiveRequest
 */
-func (a *TemplatesApiService) DeleteIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdArchive(ctx _context.Context, eventTemplateId string, appId int32) ApiDeleteIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdArchiveRequest {
+func (a *TemplatesApiService) DeleteIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdArchive(ctx context.Context, eventTemplateId string, appId int32) ApiDeleteIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdArchiveRequest {
 	return ApiDeleteIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdArchiveRequest{
 		ApiService:      a,
 		ctx:             ctx,
@@ -62,27 +55,25 @@ func (a *TemplatesApiService) DeleteIntegratorsTimelineV3AppIdEventTemplatesEven
 }
 
 // Execute executes the request
-func (a *TemplatesApiService) DeleteIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdArchiveExecute(r ApiDeleteIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdArchiveRequest) (*_nethttp.Response, error) {
+func (a *TemplatesApiService) DeleteIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdArchiveExecute(r ApiDeleteIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdArchiveRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplatesApiService.DeleteIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdArchive")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/timeline/{appId}/event-templates/{eventTemplateId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"eventTemplateId"+"}", _neturl.PathEscape(parameterToString(r.eventTemplateId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", _neturl.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"eventTemplateId"+"}", url.PathEscape(parameterToString(r.eventTemplateId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -115,7 +106,7 @@ func (a *TemplatesApiService) DeleteIntegratorsTimelineV3AppIdEventTemplatesEven
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -125,15 +116,15 @@ func (a *TemplatesApiService) DeleteIntegratorsTimelineV3AppIdEventTemplatesEven
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -151,13 +142,13 @@ func (a *TemplatesApiService) DeleteIntegratorsTimelineV3AppIdEventTemplatesEven
 }
 
 type ApiGetIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdGetByIdRequest struct {
-	ctx             _context.Context
+	ctx             context.Context
 	ApiService      *TemplatesApiService
 	eventTemplateId string
 	appId           int32
 }
 
-func (r ApiGetIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdGetByIdRequest) Execute() (TimelineEventTemplate, *_nethttp.Response, error) {
+func (r ApiGetIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdGetByIdRequest) Execute() (*TimelineEventTemplate, *http.Response, error) {
 	return r.ApiService.GetIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdGetByIdExecute(r)
 }
 
@@ -166,12 +157,12 @@ GetIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdGetById Gets a specifi
 
 View the current state of a specific template and its tokens.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param eventTemplateId The event template ID.
  @param appId The ID of the target app.
  @return ApiGetIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdGetByIdRequest
 */
-func (a *TemplatesApiService) GetIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdGetById(ctx _context.Context, eventTemplateId string, appId int32) ApiGetIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdGetByIdRequest {
+func (a *TemplatesApiService) GetIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdGetById(ctx context.Context, eventTemplateId string, appId int32) ApiGetIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdGetByIdRequest {
 	return ApiGetIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdGetByIdRequest{
 		ApiService:      a,
 		ctx:             ctx,
@@ -182,28 +173,26 @@ func (a *TemplatesApiService) GetIntegratorsTimelineV3AppIdEventTemplatesEventTe
 
 // Execute executes the request
 //  @return TimelineEventTemplate
-func (a *TemplatesApiService) GetIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdGetByIdExecute(r ApiGetIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdGetByIdRequest) (TimelineEventTemplate, *_nethttp.Response, error) {
+func (a *TemplatesApiService) GetIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdGetByIdExecute(r ApiGetIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdGetByIdRequest) (*TimelineEventTemplate, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  TimelineEventTemplate
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TimelineEventTemplate
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplatesApiService.GetIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdGetById")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/timeline/{appId}/event-templates/{eventTemplateId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"eventTemplateId"+"}", _neturl.PathEscape(parameterToString(r.eventTemplateId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", _neturl.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"eventTemplateId"+"}", url.PathEscape(parameterToString(r.eventTemplateId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -236,7 +225,7 @@ func (a *TemplatesApiService) GetIntegratorsTimelineV3AppIdEventTemplatesEventTe
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -246,15 +235,15 @@ func (a *TemplatesApiService) GetIntegratorsTimelineV3AppIdEventTemplatesEventTe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -270,7 +259,7 @@ func (a *TemplatesApiService) GetIntegratorsTimelineV3AppIdEventTemplatesEventTe
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -281,12 +270,12 @@ func (a *TemplatesApiService) GetIntegratorsTimelineV3AppIdEventTemplatesEventTe
 }
 
 type ApiGetIntegratorsTimelineV3AppIdEventTemplatesGetAllRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *TemplatesApiService
 	appId      int32
 }
 
-func (r ApiGetIntegratorsTimelineV3AppIdEventTemplatesGetAllRequest) Execute() (CollectionResponseTimelineEventTemplateNoPaging, *_nethttp.Response, error) {
+func (r ApiGetIntegratorsTimelineV3AppIdEventTemplatesGetAllRequest) Execute() (*CollectionResponseTimelineEventTemplateNoPaging, *http.Response, error) {
 	return r.ApiService.GetIntegratorsTimelineV3AppIdEventTemplatesGetAllExecute(r)
 }
 
@@ -295,11 +284,11 @@ GetIntegratorsTimelineV3AppIdEventTemplatesGetAll List all event templates for y
 
 Use this to list all event templates owned by your app.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param appId The ID of the target app.
  @return ApiGetIntegratorsTimelineV3AppIdEventTemplatesGetAllRequest
 */
-func (a *TemplatesApiService) GetIntegratorsTimelineV3AppIdEventTemplatesGetAll(ctx _context.Context, appId int32) ApiGetIntegratorsTimelineV3AppIdEventTemplatesGetAllRequest {
+func (a *TemplatesApiService) GetIntegratorsTimelineV3AppIdEventTemplatesGetAll(ctx context.Context, appId int32) ApiGetIntegratorsTimelineV3AppIdEventTemplatesGetAllRequest {
 	return ApiGetIntegratorsTimelineV3AppIdEventTemplatesGetAllRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -309,27 +298,25 @@ func (a *TemplatesApiService) GetIntegratorsTimelineV3AppIdEventTemplatesGetAll(
 
 // Execute executes the request
 //  @return CollectionResponseTimelineEventTemplateNoPaging
-func (a *TemplatesApiService) GetIntegratorsTimelineV3AppIdEventTemplatesGetAllExecute(r ApiGetIntegratorsTimelineV3AppIdEventTemplatesGetAllRequest) (CollectionResponseTimelineEventTemplateNoPaging, *_nethttp.Response, error) {
+func (a *TemplatesApiService) GetIntegratorsTimelineV3AppIdEventTemplatesGetAllExecute(r ApiGetIntegratorsTimelineV3AppIdEventTemplatesGetAllRequest) (*CollectionResponseTimelineEventTemplateNoPaging, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  CollectionResponseTimelineEventTemplateNoPaging
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CollectionResponseTimelineEventTemplateNoPaging
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplatesApiService.GetIntegratorsTimelineV3AppIdEventTemplatesGetAll")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/timeline/{appId}/event-templates"
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", _neturl.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -362,7 +349,7 @@ func (a *TemplatesApiService) GetIntegratorsTimelineV3AppIdEventTemplatesGetAllE
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -372,15 +359,15 @@ func (a *TemplatesApiService) GetIntegratorsTimelineV3AppIdEventTemplatesGetAllE
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -396,7 +383,7 @@ func (a *TemplatesApiService) GetIntegratorsTimelineV3AppIdEventTemplatesGetAllE
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -407,7 +394,7 @@ func (a *TemplatesApiService) GetIntegratorsTimelineV3AppIdEventTemplatesGetAllE
 }
 
 type ApiPostIntegratorsTimelineV3AppIdEventTemplatesCreateRequest struct {
-	ctx                                _context.Context
+	ctx                                context.Context
 	ApiService                         *TemplatesApiService
 	appId                              int32
 	timelineEventTemplateCreateRequest *TimelineEventTemplateCreateRequest
@@ -419,7 +406,7 @@ func (r ApiPostIntegratorsTimelineV3AppIdEventTemplatesCreateRequest) TimelineEv
 	return r
 }
 
-func (r ApiPostIntegratorsTimelineV3AppIdEventTemplatesCreateRequest) Execute() (TimelineEventTemplate, *_nethttp.Response, error) {
+func (r ApiPostIntegratorsTimelineV3AppIdEventTemplatesCreateRequest) Execute() (*TimelineEventTemplate, *http.Response, error) {
 	return r.ApiService.PostIntegratorsTimelineV3AppIdEventTemplatesCreateExecute(r)
 }
 
@@ -434,11 +421,11 @@ Each event template contains its own set of tokens and `Markdown` templates. The
 
 You must create an event template before you can create events.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param appId The ID of the target app.
  @return ApiPostIntegratorsTimelineV3AppIdEventTemplatesCreateRequest
 */
-func (a *TemplatesApiService) PostIntegratorsTimelineV3AppIdEventTemplatesCreate(ctx _context.Context, appId int32) ApiPostIntegratorsTimelineV3AppIdEventTemplatesCreateRequest {
+func (a *TemplatesApiService) PostIntegratorsTimelineV3AppIdEventTemplatesCreate(ctx context.Context, appId int32) ApiPostIntegratorsTimelineV3AppIdEventTemplatesCreateRequest {
 	return ApiPostIntegratorsTimelineV3AppIdEventTemplatesCreateRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -448,27 +435,25 @@ func (a *TemplatesApiService) PostIntegratorsTimelineV3AppIdEventTemplatesCreate
 
 // Execute executes the request
 //  @return TimelineEventTemplate
-func (a *TemplatesApiService) PostIntegratorsTimelineV3AppIdEventTemplatesCreateExecute(r ApiPostIntegratorsTimelineV3AppIdEventTemplatesCreateRequest) (TimelineEventTemplate, *_nethttp.Response, error) {
+func (a *TemplatesApiService) PostIntegratorsTimelineV3AppIdEventTemplatesCreateExecute(r ApiPostIntegratorsTimelineV3AppIdEventTemplatesCreateRequest) (*TimelineEventTemplate, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  TimelineEventTemplate
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TimelineEventTemplate
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplatesApiService.PostIntegratorsTimelineV3AppIdEventTemplatesCreate")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/timeline/{appId}/event-templates"
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", _neturl.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.timelineEventTemplateCreateRequest == nil {
 		return localVarReturnValue, nil, reportError("timelineEventTemplateCreateRequest is required and must be specified")
 	}
@@ -506,7 +491,7 @@ func (a *TemplatesApiService) PostIntegratorsTimelineV3AppIdEventTemplatesCreate
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -516,15 +501,15 @@ func (a *TemplatesApiService) PostIntegratorsTimelineV3AppIdEventTemplatesCreate
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -540,7 +525,7 @@ func (a *TemplatesApiService) PostIntegratorsTimelineV3AppIdEventTemplatesCreate
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -551,7 +536,7 @@ func (a *TemplatesApiService) PostIntegratorsTimelineV3AppIdEventTemplatesCreate
 }
 
 type ApiPutIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdUpdateRequest struct {
-	ctx                                _context.Context
+	ctx                                context.Context
 	ApiService                         *TemplatesApiService
 	eventTemplateId                    string
 	appId                              int32
@@ -564,7 +549,7 @@ func (r ApiPutIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdUpdateReque
 	return r
 }
 
-func (r ApiPutIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdUpdateRequest) Execute() (TimelineEventTemplate, *_nethttp.Response, error) {
+func (r ApiPutIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdUpdateRequest) Execute() (*TimelineEventTemplate, *http.Response, error) {
 	return r.ApiService.PutIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdUpdateExecute(r)
 }
 
@@ -575,12 +560,12 @@ Updates an existing template and its tokens. This is primarily used to update th
 
 You can also update or replace all the tokens in the template here instead of doing individual API calls on the `/tokens` endpoint.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param eventTemplateId The event template ID.
  @param appId The ID of the target app.
  @return ApiPutIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdUpdateRequest
 */
-func (a *TemplatesApiService) PutIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdUpdate(ctx _context.Context, eventTemplateId string, appId int32) ApiPutIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdUpdateRequest {
+func (a *TemplatesApiService) PutIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdUpdate(ctx context.Context, eventTemplateId string, appId int32) ApiPutIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdUpdateRequest {
 	return ApiPutIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdUpdateRequest{
 		ApiService:      a,
 		ctx:             ctx,
@@ -591,28 +576,26 @@ func (a *TemplatesApiService) PutIntegratorsTimelineV3AppIdEventTemplatesEventTe
 
 // Execute executes the request
 //  @return TimelineEventTemplate
-func (a *TemplatesApiService) PutIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdUpdateExecute(r ApiPutIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdUpdateRequest) (TimelineEventTemplate, *_nethttp.Response, error) {
+func (a *TemplatesApiService) PutIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdUpdateExecute(r ApiPutIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdUpdateRequest) (*TimelineEventTemplate, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  TimelineEventTemplate
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TimelineEventTemplate
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplatesApiService.PutIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdUpdate")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/timeline/{appId}/event-templates/{eventTemplateId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"eventTemplateId"+"}", _neturl.PathEscape(parameterToString(r.eventTemplateId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", _neturl.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"eventTemplateId"+"}", url.PathEscape(parameterToString(r.eventTemplateId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.timelineEventTemplateUpdateRequest == nil {
 		return localVarReturnValue, nil, reportError("timelineEventTemplateUpdateRequest is required and must be specified")
 	}
@@ -650,7 +633,7 @@ func (a *TemplatesApiService) PutIntegratorsTimelineV3AppIdEventTemplatesEventTe
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -660,15 +643,15 @@ func (a *TemplatesApiService) PutIntegratorsTimelineV3AppIdEventTemplatesEventTe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -684,7 +667,7 @@ func (a *TemplatesApiService) PutIntegratorsTimelineV3AppIdEventTemplatesEventTe
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

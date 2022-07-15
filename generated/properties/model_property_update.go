@@ -27,7 +27,7 @@ type PropertyUpdate struct {
 	// A description of the property that will be shown as help text in HubSpot.
 	Description *string `json:"description,omitempty"`
 	// A list of valid options for the property.
-	Options *[]OptionInput `json:"options,omitempty"`
+	Options []OptionInput `json:"options,omitempty"`
 	// Properties are displayed in order starting with the lowest positive integer value. Values of -1 will cause the Property to be displayed after any positive values.
 	DisplayOrder *int32 `json:"displayOrder,omitempty"`
 	// If true, the property won't be visible and can't be used in HubSpot.
@@ -219,12 +219,12 @@ func (o *PropertyUpdate) GetOptions() []OptionInput {
 		var ret []OptionInput
 		return ret
 	}
-	return *o.Options
+	return o.Options
 }
 
 // GetOptionsOk returns a tuple with the Options field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PropertyUpdate) GetOptionsOk() (*[]OptionInput, bool) {
+func (o *PropertyUpdate) GetOptionsOk() ([]OptionInput, bool) {
 	if o == nil || o.Options == nil {
 		return nil, false
 	}
@@ -242,7 +242,7 @@ func (o *PropertyUpdate) HasOptions() bool {
 
 // SetOptions gets a reference to the given []OptionInput and assigns it to the Options field.
 func (o *PropertyUpdate) SetOptions(v []OptionInput) {
-	o.Options = &v
+	o.Options = v
 }
 
 // GetDisplayOrder returns the DisplayOrder field value if set, zero value otherwise.

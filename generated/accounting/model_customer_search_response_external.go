@@ -77,11 +77,11 @@ func (o *CustomerSearchResponseExternal) GetCustomers() []AccountingExtensionCus
 
 // GetCustomersOk returns a tuple with the Customers field value
 // and a boolean to check if the value has been set.
-func (o *CustomerSearchResponseExternal) GetCustomersOk() (*[]AccountingExtensionCustomer, bool) {
+func (o *CustomerSearchResponseExternal) GetCustomersOk() ([]AccountingExtensionCustomer, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Customers, true
+	return o.Customers, true
 }
 
 // SetCustomers sets field value

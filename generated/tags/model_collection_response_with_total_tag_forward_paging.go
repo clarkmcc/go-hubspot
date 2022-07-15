@@ -1,7 +1,7 @@
 /*
 Blog Post endpoints
 
-\"Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags\"
+Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags
 
 API version: v3
 */
@@ -14,9 +14,11 @@ import (
 	"encoding/json"
 )
 
-// CollectionResponseWithTotalTagForwardPaging struct for CollectionResponseWithTotalTagForwardPaging
+// CollectionResponseWithTotalTagForwardPaging Response object for collections of blog tags with pagination information.
 type CollectionResponseWithTotalTagForwardPaging struct {
-	Total   int32          `json:"total"`
+	// Total number of blog tags.
+	Total int32 `json:"total"`
+	// Collection of blog tags.
 	Results []Tag          `json:"results"`
 	Paging  *ForwardPaging `json:"paging,omitempty"`
 }
@@ -76,11 +78,11 @@ func (o *CollectionResponseWithTotalTagForwardPaging) GetResults() []Tag {
 
 // GetResultsOk returns a tuple with the Results field value
 // and a boolean to check if the value has been set.
-func (o *CollectionResponseWithTotalTagForwardPaging) GetResultsOk() (*[]Tag, bool) {
+func (o *CollectionResponseWithTotalTagForwardPaging) GetResultsOk() ([]Tag, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Results, true
+	return o.Results, true
 }
 
 // SetResults sets field value

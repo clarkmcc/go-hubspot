@@ -4,7 +4,7 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteCrmV3PipelinesObjectTypePipelineIdArchive**](PipelinesApi.md#DeleteCrmV3PipelinesObjectTypePipelineIdArchive) | **Delete** /crm/v3/pipelines/{objectType}/{pipelineId} | Archive a pipeline
+[**DeleteCrmV3PipelinesObjectTypePipelineIdArchive**](PipelinesApi.md#DeleteCrmV3PipelinesObjectTypePipelineIdArchive) | **Delete** /crm/v3/pipelines/{objectType}/{pipelineId} | Delete a pipeline
 [**GetCrmV3PipelinesObjectTypeGetAll**](PipelinesApi.md#GetCrmV3PipelinesObjectTypeGetAll) | **Get** /crm/v3/pipelines/{objectType} | Retrieve all pipelines
 [**GetCrmV3PipelinesObjectTypePipelineIdGetById**](PipelinesApi.md#GetCrmV3PipelinesObjectTypePipelineIdGetById) | **Get** /crm/v3/pipelines/{objectType}/{pipelineId} | Return a pipeline by ID
 [**PatchCrmV3PipelinesObjectTypePipelineIdUpdate**](PipelinesApi.md#PatchCrmV3PipelinesObjectTypePipelineIdUpdate) | **Patch** /crm/v3/pipelines/{objectType}/{pipelineId} | Update a pipeline
@@ -15,9 +15,9 @@ Method | HTTP request | Description
 
 ## DeleteCrmV3PipelinesObjectTypePipelineIdArchive
 
-> DeleteCrmV3PipelinesObjectTypePipelineIdArchive(ctx, objectType, pipelineId).Execute()
+> DeleteCrmV3PipelinesObjectTypePipelineIdArchive(ctx, objectType, pipelineId).ValidateReferencesBeforeDelete(validateReferencesBeforeDelete).Execute()
 
-Archive a pipeline
+Delete a pipeline
 
 
 
@@ -36,10 +36,11 @@ import (
 func main() {
     objectType := "objectType_example" // string | 
     pipelineId := "pipelineId_example" // string | 
+    validateReferencesBeforeDelete := true // bool |  (optional) (default to false)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.PipelinesApi.DeleteCrmV3PipelinesObjectTypePipelineIdArchive(context.Background(), objectType, pipelineId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.PipelinesApi.DeleteCrmV3PipelinesObjectTypePipelineIdArchive(context.Background(), objectType, pipelineId).ValidateReferencesBeforeDelete(validateReferencesBeforeDelete).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PipelinesApi.DeleteCrmV3PipelinesObjectTypePipelineIdArchive``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -65,6 +66,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **validateReferencesBeforeDelete** | **bool** |  | [default to false]
 
 ### Return type
 
@@ -72,7 +74,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -86,7 +88,7 @@ Name | Type | Description  | Notes
 
 ## GetCrmV3PipelinesObjectTypeGetAll
 
-> CollectionResponsePipeline GetCrmV3PipelinesObjectTypeGetAll(ctx, objectType).Archived(archived).Execute()
+> CollectionResponsePipelineNoPaging GetCrmV3PipelinesObjectTypeGetAll(ctx, objectType).Execute()
 
 Retrieve all pipelines
 
@@ -106,16 +108,15 @@ import (
 
 func main() {
     objectType := "objectType_example" // string | 
-    archived := true // bool | Whether to return only results that have been archived. (optional) (default to false)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.PipelinesApi.GetCrmV3PipelinesObjectTypeGetAll(context.Background(), objectType).Archived(archived).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.PipelinesApi.GetCrmV3PipelinesObjectTypeGetAll(context.Background(), objectType).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PipelinesApi.GetCrmV3PipelinesObjectTypeGetAll``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetCrmV3PipelinesObjectTypeGetAll`: CollectionResponsePipeline
+    // response from `GetCrmV3PipelinesObjectTypeGetAll`: CollectionResponsePipelineNoPaging
     fmt.Fprintf(os.Stdout, "Response from `PipelinesApi.GetCrmV3PipelinesObjectTypeGetAll`: %v\n", resp)
 }
 ```
@@ -136,15 +137,14 @@ Other parameters are passed through a pointer to a apiGetCrmV3PipelinesObjectTyp
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **archived** | **bool** | Whether to return only results that have been archived. | [default to false]
 
 ### Return type
 
-[**CollectionResponsePipeline**](CollectionResponsePipeline.md)
+[**CollectionResponsePipelineNoPaging**](CollectionResponsePipelineNoPaging.md)
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -158,7 +158,7 @@ Name | Type | Description  | Notes
 
 ## GetCrmV3PipelinesObjectTypePipelineIdGetById
 
-> Pipeline GetCrmV3PipelinesObjectTypePipelineIdGetById(ctx, objectType, pipelineId).Archived(archived).Execute()
+> Pipeline GetCrmV3PipelinesObjectTypePipelineIdGetById(ctx, objectType, pipelineId).Execute()
 
 Return a pipeline by ID
 
@@ -179,11 +179,10 @@ import (
 func main() {
     objectType := "objectType_example" // string | 
     pipelineId := "pipelineId_example" // string | 
-    archived := true // bool | Whether to return only results that have been archived. (optional) (default to false)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.PipelinesApi.GetCrmV3PipelinesObjectTypePipelineIdGetById(context.Background(), objectType, pipelineId).Archived(archived).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.PipelinesApi.GetCrmV3PipelinesObjectTypePipelineIdGetById(context.Background(), objectType, pipelineId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PipelinesApi.GetCrmV3PipelinesObjectTypePipelineIdGetById``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -211,7 +210,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **archived** | **bool** | Whether to return only results that have been archived. | [default to false]
 
 ### Return type
 
@@ -219,7 +217,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -233,7 +231,7 @@ Name | Type | Description  | Notes
 
 ## PatchCrmV3PipelinesObjectTypePipelineIdUpdate
 
-> Pipeline PatchCrmV3PipelinesObjectTypePipelineIdUpdate(ctx, objectType, pipelineId).Archived(archived).PipelinePatchInput(pipelinePatchInput).Execute()
+> Pipeline PatchCrmV3PipelinesObjectTypePipelineIdUpdate(ctx, objectType, pipelineId).PipelinePatchInput(pipelinePatchInput).ValidateReferencesBeforeDelete(validateReferencesBeforeDelete).Execute()
 
 Update a pipeline
 
@@ -254,12 +252,12 @@ import (
 func main() {
     objectType := "objectType_example" // string | 
     pipelineId := "pipelineId_example" // string | 
-    archived := true // bool | Whether to return only results that have been archived. (optional) (default to false)
-    pipelinePatchInput := *openapiclient.NewPipelinePatchInput() // PipelinePatchInput |  (optional)
+    pipelinePatchInput := *openapiclient.NewPipelinePatchInput() // PipelinePatchInput | 
+    validateReferencesBeforeDelete := true // bool |  (optional) (default to false)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.PipelinesApi.PatchCrmV3PipelinesObjectTypePipelineIdUpdate(context.Background(), objectType, pipelineId).Archived(archived).PipelinePatchInput(pipelinePatchInput).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.PipelinesApi.PatchCrmV3PipelinesObjectTypePipelineIdUpdate(context.Background(), objectType, pipelineId).PipelinePatchInput(pipelinePatchInput).ValidateReferencesBeforeDelete(validateReferencesBeforeDelete).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PipelinesApi.PatchCrmV3PipelinesObjectTypePipelineIdUpdate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -287,8 +285,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **archived** | **bool** | Whether to return only results that have been archived. | [default to false]
  **pipelinePatchInput** | [**PipelinePatchInput**](PipelinePatchInput.md) |  | 
+ **validateReferencesBeforeDelete** | **bool** |  | [default to false]
 
 ### Return type
 
@@ -296,7 +294,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -330,11 +328,11 @@ import (
 
 func main() {
     objectType := "objectType_example" // string | 
-    pipelineInput := *openapiclient.NewPipelineInput([]openapiclient.PipelineStageInput{*openapiclient.NewPipelineStageInput("Label_example", int32(123), map[string]string{"key": "Inner_example"})}, "Label_example", int32(123)) // PipelineInput |  (optional)
+    pipelineInput := *openapiclient.NewPipelineInput("Label_example", int32(123), []openapiclient.PipelineStageInput{*openapiclient.NewPipelineStageInput("Label_example", int32(123), map[string]string{"key": "Inner_example"})}) // PipelineInput | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.PipelinesApi.PostCrmV3PipelinesObjectTypeCreate(context.Background(), objectType).PipelineInput(pipelineInput).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.PipelinesApi.PostCrmV3PipelinesObjectTypeCreate(context.Background(), objectType).PipelineInput(pipelineInput).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PipelinesApi.PostCrmV3PipelinesObjectTypeCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -368,7 +366,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -382,7 +380,7 @@ Name | Type | Description  | Notes
 
 ## PutCrmV3PipelinesObjectTypePipelineIdReplace
 
-> Pipeline PutCrmV3PipelinesObjectTypePipelineIdReplace(ctx, objectType, pipelineId).PipelineInput(pipelineInput).Execute()
+> Pipeline PutCrmV3PipelinesObjectTypePipelineIdReplace(ctx, objectType, pipelineId).PipelineInput(pipelineInput).ValidateReferencesBeforeDelete(validateReferencesBeforeDelete).Execute()
 
 Replace a pipeline
 
@@ -403,11 +401,12 @@ import (
 func main() {
     objectType := "objectType_example" // string | 
     pipelineId := "pipelineId_example" // string | 
-    pipelineInput := *openapiclient.NewPipelineInput([]openapiclient.PipelineStageInput{*openapiclient.NewPipelineStageInput("Label_example", int32(123), map[string]string{"key": "Inner_example"})}, "Label_example", int32(123)) // PipelineInput |  (optional)
+    pipelineInput := *openapiclient.NewPipelineInput("Label_example", int32(123), []openapiclient.PipelineStageInput{*openapiclient.NewPipelineStageInput("Label_example", int32(123), map[string]string{"key": "Inner_example"})}) // PipelineInput | 
+    validateReferencesBeforeDelete := true // bool |  (optional) (default to false)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.PipelinesApi.PutCrmV3PipelinesObjectTypePipelineIdReplace(context.Background(), objectType, pipelineId).PipelineInput(pipelineInput).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.PipelinesApi.PutCrmV3PipelinesObjectTypePipelineIdReplace(context.Background(), objectType, pipelineId).PipelineInput(pipelineInput).ValidateReferencesBeforeDelete(validateReferencesBeforeDelete).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PipelinesApi.PutCrmV3PipelinesObjectTypePipelineIdReplace``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -436,6 +435,7 @@ Name | Type | Description  | Notes
 
 
  **pipelineInput** | [**PipelineInput**](PipelineInput.md) |  | 
+ **validateReferencesBeforeDelete** | **bool** |  | [default to false]
 
 ### Return type
 
@@ -443,7 +443,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 

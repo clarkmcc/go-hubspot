@@ -37,8 +37,8 @@ func main() {
     appId := int32(56) // int32 | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefinitionsApi.DeleteAutomationV4ActionsAppIdDefinitionIdArchive(context.Background(), definitionId, appId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.DefinitionsApi.DeleteAutomationV4ActionsAppIdDefinitionIdArchive(context.Background(), definitionId, appId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefinitionsApi.DeleteAutomationV4ActionsAppIdDefinitionIdArchive``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -109,8 +109,8 @@ func main() {
     archived := true // bool | Whether to include archived custom actions. (optional) (default to false)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefinitionsApi.GetAutomationV4ActionsAppIdDefinitionIdGetById(context.Background(), definitionId, appId).Archived(archived).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.DefinitionsApi.GetAutomationV4ActionsAppIdDefinitionIdGetById(context.Background(), definitionId, appId).Archived(archived).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefinitionsApi.GetAutomationV4ActionsAppIdDefinitionIdGetById``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -185,8 +185,8 @@ func main() {
     archived := true // bool | Whether to include archived custom actions. (optional) (default to false)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefinitionsApi.GetAutomationV4ActionsAppIdGetPage(context.Background(), appId).Limit(limit).After(after).Archived(archived).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.DefinitionsApi.GetAutomationV4ActionsAppIdGetPage(context.Background(), appId).Limit(limit).After(after).Archived(archived).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefinitionsApi.GetAutomationV4ActionsAppIdGetPage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -260,8 +260,8 @@ func main() {
     extensionActionDefinitionPatch := *openapiclient.NewExtensionActionDefinitionPatch() // ExtensionActionDefinitionPatch | The custom workflow action fields to be updated.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefinitionsApi.PatchAutomationV4ActionsAppIdDefinitionIdUpdate(context.Background(), definitionId, appId).ExtensionActionDefinitionPatch(extensionActionDefinitionPatch).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.DefinitionsApi.PatchAutomationV4ActionsAppIdDefinitionIdUpdate(context.Background(), definitionId, appId).ExtensionActionDefinitionPatch(extensionActionDefinitionPatch).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefinitionsApi.PatchAutomationV4ActionsAppIdDefinitionIdUpdate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -334,8 +334,8 @@ func main() {
     extensionActionDefinitionInput := *openapiclient.NewExtensionActionDefinitionInput([]openapiclient.ActionFunction{*openapiclient.NewActionFunction("FunctionSource_example", "FunctionType_example")}, "ActionUrl_example", false, []openapiclient.InputFieldDefinition{*openapiclient.NewInputFieldDefinition(*openapiclient.NewFieldTypeDefinition("Name_example", "Type_example", []openapiclient.Option{*openapiclient.NewOption("Label_example", "Value_example", int32(123), float32(123), false, "Description_example", false)}), false)}, map[string]ActionLabels{"key": *openapiclient.NewActionLabels("ActionName_example")}, []string{"ObjectTypes_example"}) // ExtensionActionDefinitionInput | The custom workflow action to create.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefinitionsApi.PostAutomationV4ActionsAppIdCreate(context.Background(), appId).ExtensionActionDefinitionInput(extensionActionDefinitionInput).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.DefinitionsApi.PostAutomationV4ActionsAppIdCreate(context.Background(), appId).ExtensionActionDefinitionInput(extensionActionDefinitionInput).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefinitionsApi.PostAutomationV4ActionsAppIdCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

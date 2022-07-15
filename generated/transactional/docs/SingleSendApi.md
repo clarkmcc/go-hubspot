@@ -29,11 +29,11 @@ import (
 )
 
 func main() {
-    publicSingleSendRequestEgg := *openapiclient.NewPublicSingleSendRequestEgg(*openapiclient.NewPublicSingleSendEmail([]string{"ReplyTo_example"}, []string{"Cc_example"}, []string{"Bcc_example"}), map[string]string{"key": "Inner_example"}, map[string]interface{}(123), int32(123)) // PublicSingleSendRequestEgg | A request object describing the email to send. (optional)
+    publicSingleSendRequestEgg := *openapiclient.NewPublicSingleSendRequestEgg(int32(123), *openapiclient.NewPublicSingleSendEmail("To_example")) // PublicSingleSendRequestEgg | A request object describing the email to send.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SingleSendApi.PostMarketingV3TransactionalSingleEmailSendSendEmail(context.Background()).PublicSingleSendRequestEgg(publicSingleSendRequestEgg).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SingleSendApi.PostMarketingV3TransactionalSingleEmailSendSendEmail(context.Background()).PublicSingleSendRequestEgg(publicSingleSendRequestEgg).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SingleSendApi.PostMarketingV3TransactionalSingleEmailSendSendEmail``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -62,7 +62,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 

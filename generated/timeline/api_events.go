@@ -12,29 +12,24 @@ package timeline
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // EventsApiService EventsApi service
 type EventsApiService service
 
 type ApiGetIntegratorsTimelineV3EventsEventTemplateIdEventIdDetailGetDetailByIdRequest struct {
-	ctx             _context.Context
+	ctx             context.Context
 	ApiService      *EventsApiService
 	eventTemplateId string
 	eventId         string
 }
 
-func (r ApiGetIntegratorsTimelineV3EventsEventTemplateIdEventIdDetailGetDetailByIdRequest) Execute() (EventDetail, *_nethttp.Response, error) {
+func (r ApiGetIntegratorsTimelineV3EventsEventTemplateIdEventIdDetailGetDetailByIdRequest) Execute() (*EventDetail, *http.Response, error) {
 	return r.ApiService.GetIntegratorsTimelineV3EventsEventTemplateIdEventIdDetailGetDetailByIdExecute(r)
 }
 
@@ -43,12 +38,12 @@ GetIntegratorsTimelineV3EventsEventTemplateIdEventIdDetailGetDetailById Gets the
 
 This will take the `detailTemplate` from the event template and return an object rendering the specified event. If the template references `extraData` that isn't found in the event, it will be ignored and we'll render without it.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param eventTemplateId The event template ID.
  @param eventId The event ID.
  @return ApiGetIntegratorsTimelineV3EventsEventTemplateIdEventIdDetailGetDetailByIdRequest
 */
-func (a *EventsApiService) GetIntegratorsTimelineV3EventsEventTemplateIdEventIdDetailGetDetailById(ctx _context.Context, eventTemplateId string, eventId string) ApiGetIntegratorsTimelineV3EventsEventTemplateIdEventIdDetailGetDetailByIdRequest {
+func (a *EventsApiService) GetIntegratorsTimelineV3EventsEventTemplateIdEventIdDetailGetDetailById(ctx context.Context, eventTemplateId string, eventId string) ApiGetIntegratorsTimelineV3EventsEventTemplateIdEventIdDetailGetDetailByIdRequest {
 	return ApiGetIntegratorsTimelineV3EventsEventTemplateIdEventIdDetailGetDetailByIdRequest{
 		ApiService:      a,
 		ctx:             ctx,
@@ -59,28 +54,26 @@ func (a *EventsApiService) GetIntegratorsTimelineV3EventsEventTemplateIdEventIdD
 
 // Execute executes the request
 //  @return EventDetail
-func (a *EventsApiService) GetIntegratorsTimelineV3EventsEventTemplateIdEventIdDetailGetDetailByIdExecute(r ApiGetIntegratorsTimelineV3EventsEventTemplateIdEventIdDetailGetDetailByIdRequest) (EventDetail, *_nethttp.Response, error) {
+func (a *EventsApiService) GetIntegratorsTimelineV3EventsEventTemplateIdEventIdDetailGetDetailByIdExecute(r ApiGetIntegratorsTimelineV3EventsEventTemplateIdEventIdDetailGetDetailByIdRequest) (*EventDetail, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  EventDetail
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *EventDetail
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventsApiService.GetIntegratorsTimelineV3EventsEventTemplateIdEventIdDetailGetDetailById")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/timeline/events/{eventTemplateId}/{eventId}/detail"
-	localVarPath = strings.Replace(localVarPath, "{"+"eventTemplateId"+"}", _neturl.PathEscape(parameterToString(r.eventTemplateId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"eventId"+"}", _neturl.PathEscape(parameterToString(r.eventId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"eventTemplateId"+"}", url.PathEscape(parameterToString(r.eventTemplateId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"eventId"+"}", url.PathEscape(parameterToString(r.eventId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -99,7 +92,7 @@ func (a *EventsApiService) GetIntegratorsTimelineV3EventsEventTemplateIdEventIdD
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -109,15 +102,15 @@ func (a *EventsApiService) GetIntegratorsTimelineV3EventsEventTemplateIdEventIdD
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -133,7 +126,7 @@ func (a *EventsApiService) GetIntegratorsTimelineV3EventsEventTemplateIdEventIdD
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -144,13 +137,13 @@ func (a *EventsApiService) GetIntegratorsTimelineV3EventsEventTemplateIdEventIdD
 }
 
 type ApiGetIntegratorsTimelineV3EventsEventTemplateIdEventIdGetByIdRequest struct {
-	ctx             _context.Context
+	ctx             context.Context
 	ApiService      *EventsApiService
 	eventTemplateId string
 	eventId         string
 }
 
-func (r ApiGetIntegratorsTimelineV3EventsEventTemplateIdEventIdGetByIdRequest) Execute() (TimelineEventResponse, *_nethttp.Response, error) {
+func (r ApiGetIntegratorsTimelineV3EventsEventTemplateIdEventIdGetByIdRequest) Execute() (*TimelineEventResponse, *http.Response, error) {
 	return r.ApiService.GetIntegratorsTimelineV3EventsEventTemplateIdEventIdGetByIdExecute(r)
 }
 
@@ -159,12 +152,12 @@ GetIntegratorsTimelineV3EventsEventTemplateIdEventIdGetById Gets the event
 
 This returns the previously created event. It contains all existing info for the event, but not necessarily the CRM object.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param eventTemplateId The event template ID.
  @param eventId The event ID.
  @return ApiGetIntegratorsTimelineV3EventsEventTemplateIdEventIdGetByIdRequest
 */
-func (a *EventsApiService) GetIntegratorsTimelineV3EventsEventTemplateIdEventIdGetById(ctx _context.Context, eventTemplateId string, eventId string) ApiGetIntegratorsTimelineV3EventsEventTemplateIdEventIdGetByIdRequest {
+func (a *EventsApiService) GetIntegratorsTimelineV3EventsEventTemplateIdEventIdGetById(ctx context.Context, eventTemplateId string, eventId string) ApiGetIntegratorsTimelineV3EventsEventTemplateIdEventIdGetByIdRequest {
 	return ApiGetIntegratorsTimelineV3EventsEventTemplateIdEventIdGetByIdRequest{
 		ApiService:      a,
 		ctx:             ctx,
@@ -175,28 +168,26 @@ func (a *EventsApiService) GetIntegratorsTimelineV3EventsEventTemplateIdEventIdG
 
 // Execute executes the request
 //  @return TimelineEventResponse
-func (a *EventsApiService) GetIntegratorsTimelineV3EventsEventTemplateIdEventIdGetByIdExecute(r ApiGetIntegratorsTimelineV3EventsEventTemplateIdEventIdGetByIdRequest) (TimelineEventResponse, *_nethttp.Response, error) {
+func (a *EventsApiService) GetIntegratorsTimelineV3EventsEventTemplateIdEventIdGetByIdExecute(r ApiGetIntegratorsTimelineV3EventsEventTemplateIdEventIdGetByIdRequest) (*TimelineEventResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  TimelineEventResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TimelineEventResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventsApiService.GetIntegratorsTimelineV3EventsEventTemplateIdEventIdGetById")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/timeline/events/{eventTemplateId}/{eventId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"eventTemplateId"+"}", _neturl.PathEscape(parameterToString(r.eventTemplateId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"eventId"+"}", _neturl.PathEscape(parameterToString(r.eventId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"eventTemplateId"+"}", url.PathEscape(parameterToString(r.eventTemplateId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"eventId"+"}", url.PathEscape(parameterToString(r.eventId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -215,7 +206,7 @@ func (a *EventsApiService) GetIntegratorsTimelineV3EventsEventTemplateIdEventIdG
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -225,15 +216,15 @@ func (a *EventsApiService) GetIntegratorsTimelineV3EventsEventTemplateIdEventIdG
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -249,7 +240,7 @@ func (a *EventsApiService) GetIntegratorsTimelineV3EventsEventTemplateIdEventIdG
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -260,7 +251,7 @@ func (a *EventsApiService) GetIntegratorsTimelineV3EventsEventTemplateIdEventIdG
 }
 
 type ApiGetIntegratorsTimelineV3EventsEventTemplateIdEventIdRenderGetRenderByIdRequest struct {
-	ctx             _context.Context
+	ctx             context.Context
 	ApiService      *EventsApiService
 	eventTemplateId string
 	eventId         string
@@ -273,7 +264,7 @@ func (r ApiGetIntegratorsTimelineV3EventsEventTemplateIdEventIdRenderGetRenderBy
 	return r
 }
 
-func (r ApiGetIntegratorsTimelineV3EventsEventTemplateIdEventIdRenderGetRenderByIdRequest) Execute() (string, *_nethttp.Response, error) {
+func (r ApiGetIntegratorsTimelineV3EventsEventTemplateIdEventIdRenderGetRenderByIdRequest) Execute() (string, *http.Response, error) {
 	return r.ApiService.GetIntegratorsTimelineV3EventsEventTemplateIdEventIdRenderGetRenderByIdExecute(r)
 }
 
@@ -282,12 +273,12 @@ GetIntegratorsTimelineV3EventsEventTemplateIdEventIdRenderGetRenderById Renders 
 
 This will take either the `headerTemplate` or `detailTemplate` from the event template and render for the specified event as HTML. If the template references `extraData` that isn't found in the event, it will be ignored and we'll render without it.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param eventTemplateId The event template ID.
  @param eventId The event ID.
  @return ApiGetIntegratorsTimelineV3EventsEventTemplateIdEventIdRenderGetRenderByIdRequest
 */
-func (a *EventsApiService) GetIntegratorsTimelineV3EventsEventTemplateIdEventIdRenderGetRenderById(ctx _context.Context, eventTemplateId string, eventId string) ApiGetIntegratorsTimelineV3EventsEventTemplateIdEventIdRenderGetRenderByIdRequest {
+func (a *EventsApiService) GetIntegratorsTimelineV3EventsEventTemplateIdEventIdRenderGetRenderById(ctx context.Context, eventTemplateId string, eventId string) ApiGetIntegratorsTimelineV3EventsEventTemplateIdEventIdRenderGetRenderByIdRequest {
 	return ApiGetIntegratorsTimelineV3EventsEventTemplateIdEventIdRenderGetRenderByIdRequest{
 		ApiService:      a,
 		ctx:             ctx,
@@ -298,28 +289,26 @@ func (a *EventsApiService) GetIntegratorsTimelineV3EventsEventTemplateIdEventIdR
 
 // Execute executes the request
 //  @return string
-func (a *EventsApiService) GetIntegratorsTimelineV3EventsEventTemplateIdEventIdRenderGetRenderByIdExecute(r ApiGetIntegratorsTimelineV3EventsEventTemplateIdEventIdRenderGetRenderByIdRequest) (string, *_nethttp.Response, error) {
+func (a *EventsApiService) GetIntegratorsTimelineV3EventsEventTemplateIdEventIdRenderGetRenderByIdExecute(r ApiGetIntegratorsTimelineV3EventsEventTemplateIdEventIdRenderGetRenderByIdRequest) (string, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  string
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue string
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventsApiService.GetIntegratorsTimelineV3EventsEventTemplateIdEventIdRenderGetRenderById")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/timeline/events/{eventTemplateId}/{eventId}/render"
-	localVarPath = strings.Replace(localVarPath, "{"+"eventTemplateId"+"}", _neturl.PathEscape(parameterToString(r.eventTemplateId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"eventId"+"}", _neturl.PathEscape(parameterToString(r.eventId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"eventTemplateId"+"}", url.PathEscape(parameterToString(r.eventTemplateId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"eventId"+"}", url.PathEscape(parameterToString(r.eventId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.detail != nil {
 		localVarQueryParams.Add("detail", parameterToString(*r.detail, ""))
@@ -341,7 +330,7 @@ func (a *EventsApiService) GetIntegratorsTimelineV3EventsEventTemplateIdEventIdR
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -351,15 +340,15 @@ func (a *EventsApiService) GetIntegratorsTimelineV3EventsEventTemplateIdEventIdR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -375,7 +364,7 @@ func (a *EventsApiService) GetIntegratorsTimelineV3EventsEventTemplateIdEventIdR
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -386,7 +375,7 @@ func (a *EventsApiService) GetIntegratorsTimelineV3EventsEventTemplateIdEventIdR
 }
 
 type ApiPostIntegratorsTimelineV3EventsBatchCreateCreateBatchRequest struct {
-	ctx                     _context.Context
+	ctx                     context.Context
 	ApiService              *EventsApiService
 	batchInputTimelineEvent *BatchInputTimelineEvent
 }
@@ -397,7 +386,7 @@ func (r ApiPostIntegratorsTimelineV3EventsBatchCreateCreateBatchRequest) BatchIn
 	return r
 }
 
-func (r ApiPostIntegratorsTimelineV3EventsBatchCreateCreateBatchRequest) Execute() (BatchResponseTimelineEventResponse, *_nethttp.Response, error) {
+func (r ApiPostIntegratorsTimelineV3EventsBatchCreateCreateBatchRequest) Execute() (*BatchResponseTimelineEventResponse, *http.Response, error) {
 	return r.ApiService.PostIntegratorsTimelineV3EventsBatchCreateCreateBatchExecute(r)
 }
 
@@ -406,10 +395,10 @@ PostIntegratorsTimelineV3EventsBatchCreateCreateBatch Creates multiple events
 
 Creates multiple instances of timeline events based on an event template. Once created, these event are immutable on the object timeline and cannot be modified. If the event template was configured to update object properties via `objectPropertyName`, this call will also attempt to updates those properties, or add them if they don't exist.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiPostIntegratorsTimelineV3EventsBatchCreateCreateBatchRequest
 */
-func (a *EventsApiService) PostIntegratorsTimelineV3EventsBatchCreateCreateBatch(ctx _context.Context) ApiPostIntegratorsTimelineV3EventsBatchCreateCreateBatchRequest {
+func (a *EventsApiService) PostIntegratorsTimelineV3EventsBatchCreateCreateBatch(ctx context.Context) ApiPostIntegratorsTimelineV3EventsBatchCreateCreateBatchRequest {
 	return ApiPostIntegratorsTimelineV3EventsBatchCreateCreateBatchRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -418,26 +407,24 @@ func (a *EventsApiService) PostIntegratorsTimelineV3EventsBatchCreateCreateBatch
 
 // Execute executes the request
 //  @return BatchResponseTimelineEventResponse
-func (a *EventsApiService) PostIntegratorsTimelineV3EventsBatchCreateCreateBatchExecute(r ApiPostIntegratorsTimelineV3EventsBatchCreateCreateBatchRequest) (BatchResponseTimelineEventResponse, *_nethttp.Response, error) {
+func (a *EventsApiService) PostIntegratorsTimelineV3EventsBatchCreateCreateBatchExecute(r ApiPostIntegratorsTimelineV3EventsBatchCreateCreateBatchRequest) (*BatchResponseTimelineEventResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  BatchResponseTimelineEventResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *BatchResponseTimelineEventResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventsApiService.PostIntegratorsTimelineV3EventsBatchCreateCreateBatch")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/timeline/events/batch/create"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.batchInputTimelineEvent == nil {
 		return localVarReturnValue, nil, reportError("batchInputTimelineEvent is required and must be specified")
 	}
@@ -461,7 +448,7 @@ func (a *EventsApiService) PostIntegratorsTimelineV3EventsBatchCreateCreateBatch
 	}
 	// body params
 	localVarPostBody = r.batchInputTimelineEvent
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -471,15 +458,15 @@ func (a *EventsApiService) PostIntegratorsTimelineV3EventsBatchCreateCreateBatch
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -495,7 +482,7 @@ func (a *EventsApiService) PostIntegratorsTimelineV3EventsBatchCreateCreateBatch
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -506,7 +493,7 @@ func (a *EventsApiService) PostIntegratorsTimelineV3EventsBatchCreateCreateBatch
 }
 
 type ApiPostIntegratorsTimelineV3EventsCreateRequest struct {
-	ctx           _context.Context
+	ctx           context.Context
 	ApiService    *EventsApiService
 	timelineEvent *TimelineEvent
 }
@@ -517,7 +504,7 @@ func (r ApiPostIntegratorsTimelineV3EventsCreateRequest) TimelineEvent(timelineE
 	return r
 }
 
-func (r ApiPostIntegratorsTimelineV3EventsCreateRequest) Execute() (TimelineEventResponse, *_nethttp.Response, error) {
+func (r ApiPostIntegratorsTimelineV3EventsCreateRequest) Execute() (*TimelineEventResponse, *http.Response, error) {
 	return r.ApiService.PostIntegratorsTimelineV3EventsCreateExecute(r)
 }
 
@@ -526,10 +513,10 @@ PostIntegratorsTimelineV3EventsCreate Create a single event
 
 Creates an instance of a timeline event based on an event template. Once created, this event is immutable on the object timeline and cannot be modified. If the event template was configured to update object properties via `objectPropertyName`, this call will also attempt to updates those properties, or add them if they don't exist.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiPostIntegratorsTimelineV3EventsCreateRequest
 */
-func (a *EventsApiService) PostIntegratorsTimelineV3EventsCreate(ctx _context.Context) ApiPostIntegratorsTimelineV3EventsCreateRequest {
+func (a *EventsApiService) PostIntegratorsTimelineV3EventsCreate(ctx context.Context) ApiPostIntegratorsTimelineV3EventsCreateRequest {
 	return ApiPostIntegratorsTimelineV3EventsCreateRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -538,26 +525,24 @@ func (a *EventsApiService) PostIntegratorsTimelineV3EventsCreate(ctx _context.Co
 
 // Execute executes the request
 //  @return TimelineEventResponse
-func (a *EventsApiService) PostIntegratorsTimelineV3EventsCreateExecute(r ApiPostIntegratorsTimelineV3EventsCreateRequest) (TimelineEventResponse, *_nethttp.Response, error) {
+func (a *EventsApiService) PostIntegratorsTimelineV3EventsCreateExecute(r ApiPostIntegratorsTimelineV3EventsCreateRequest) (*TimelineEventResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  TimelineEventResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TimelineEventResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventsApiService.PostIntegratorsTimelineV3EventsCreate")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/timeline/events"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.timelineEvent == nil {
 		return localVarReturnValue, nil, reportError("timelineEvent is required and must be specified")
 	}
@@ -581,7 +566,7 @@ func (a *EventsApiService) PostIntegratorsTimelineV3EventsCreateExecute(r ApiPos
 	}
 	// body params
 	localVarPostBody = r.timelineEvent
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -591,15 +576,15 @@ func (a *EventsApiService) PostIntegratorsTimelineV3EventsCreateExecute(r ApiPos
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -615,7 +600,7 @@ func (a *EventsApiService) PostIntegratorsTimelineV3EventsCreateExecute(r ApiPos
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

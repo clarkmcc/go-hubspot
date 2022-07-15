@@ -18,14 +18,14 @@ import (
 type ObjectTypeDefinitionPatch struct {
 	Labels *ObjectTypeDefinitionLabels `json:"labels,omitempty"`
 	// The names of properties that should be **required** when creating an object of this type.
-	RequiredProperties *[]string `json:"requiredProperties,omitempty"`
+	RequiredProperties []string `json:"requiredProperties,omitempty"`
 	// Names of properties that will be indexed for this object type in by HubSpot's product search.
-	SearchableProperties *[]string `json:"searchableProperties,omitempty"`
+	SearchableProperties []string `json:"searchableProperties,omitempty"`
 	// The name of the primary property for this object. This will be displayed as primary on the HubSpot record page for this object type.
 	PrimaryDisplayProperty *string `json:"primaryDisplayProperty,omitempty"`
 	// The names of secondary properties for this object. These will be displayed as secondary on the HubSpot record page for this object type.
-	SecondaryDisplayProperties *[]string `json:"secondaryDisplayProperties,omitempty"`
-	Restorable                 *bool     `json:"restorable,omitempty"`
+	SecondaryDisplayProperties []string `json:"secondaryDisplayProperties,omitempty"`
+	Restorable                 *bool    `json:"restorable,omitempty"`
 }
 
 // NewObjectTypeDefinitionPatch instantiates a new ObjectTypeDefinitionPatch object
@@ -83,12 +83,12 @@ func (o *ObjectTypeDefinitionPatch) GetRequiredProperties() []string {
 		var ret []string
 		return ret
 	}
-	return *o.RequiredProperties
+	return o.RequiredProperties
 }
 
 // GetRequiredPropertiesOk returns a tuple with the RequiredProperties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ObjectTypeDefinitionPatch) GetRequiredPropertiesOk() (*[]string, bool) {
+func (o *ObjectTypeDefinitionPatch) GetRequiredPropertiesOk() ([]string, bool) {
 	if o == nil || o.RequiredProperties == nil {
 		return nil, false
 	}
@@ -106,7 +106,7 @@ func (o *ObjectTypeDefinitionPatch) HasRequiredProperties() bool {
 
 // SetRequiredProperties gets a reference to the given []string and assigns it to the RequiredProperties field.
 func (o *ObjectTypeDefinitionPatch) SetRequiredProperties(v []string) {
-	o.RequiredProperties = &v
+	o.RequiredProperties = v
 }
 
 // GetSearchableProperties returns the SearchableProperties field value if set, zero value otherwise.
@@ -115,12 +115,12 @@ func (o *ObjectTypeDefinitionPatch) GetSearchableProperties() []string {
 		var ret []string
 		return ret
 	}
-	return *o.SearchableProperties
+	return o.SearchableProperties
 }
 
 // GetSearchablePropertiesOk returns a tuple with the SearchableProperties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ObjectTypeDefinitionPatch) GetSearchablePropertiesOk() (*[]string, bool) {
+func (o *ObjectTypeDefinitionPatch) GetSearchablePropertiesOk() ([]string, bool) {
 	if o == nil || o.SearchableProperties == nil {
 		return nil, false
 	}
@@ -138,7 +138,7 @@ func (o *ObjectTypeDefinitionPatch) HasSearchableProperties() bool {
 
 // SetSearchableProperties gets a reference to the given []string and assigns it to the SearchableProperties field.
 func (o *ObjectTypeDefinitionPatch) SetSearchableProperties(v []string) {
-	o.SearchableProperties = &v
+	o.SearchableProperties = v
 }
 
 // GetPrimaryDisplayProperty returns the PrimaryDisplayProperty field value if set, zero value otherwise.
@@ -179,12 +179,12 @@ func (o *ObjectTypeDefinitionPatch) GetSecondaryDisplayProperties() []string {
 		var ret []string
 		return ret
 	}
-	return *o.SecondaryDisplayProperties
+	return o.SecondaryDisplayProperties
 }
 
 // GetSecondaryDisplayPropertiesOk returns a tuple with the SecondaryDisplayProperties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ObjectTypeDefinitionPatch) GetSecondaryDisplayPropertiesOk() (*[]string, bool) {
+func (o *ObjectTypeDefinitionPatch) GetSecondaryDisplayPropertiesOk() ([]string, bool) {
 	if o == nil || o.SecondaryDisplayProperties == nil {
 		return nil, false
 	}
@@ -202,7 +202,7 @@ func (o *ObjectTypeDefinitionPatch) HasSecondaryDisplayProperties() bool {
 
 // SetSecondaryDisplayProperties gets a reference to the given []string and assigns it to the SecondaryDisplayProperties field.
 func (o *ObjectTypeDefinitionPatch) SetSecondaryDisplayProperties(v []string) {
-	o.SecondaryDisplayProperties = &v
+	o.SecondaryDisplayProperties = v
 }
 
 // GetRestorable returns the Restorable field value if set, zero value otherwise.

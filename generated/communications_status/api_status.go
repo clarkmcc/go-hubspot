@@ -12,30 +12,23 @@ package communications_status
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-
-	"github.com/clarkmcc/go-hubspot/authorization"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // StatusApiService StatusApi service
 type StatusApiService service
 
 type ApiGetCommunicationPreferencesV3StatusEmailEmailAddressGetEmailStatusRequest struct {
-	ctx          _context.Context
+	ctx          context.Context
 	ApiService   *StatusApiService
 	emailAddress string
 }
 
-func (r ApiGetCommunicationPreferencesV3StatusEmailEmailAddressGetEmailStatusRequest) Execute() (PublicSubscriptionStatusesResponse, *_nethttp.Response, error) {
+func (r ApiGetCommunicationPreferencesV3StatusEmailEmailAddressGetEmailStatusRequest) Execute() (*PublicSubscriptionStatusesResponse, *http.Response, error) {
 	return r.ApiService.GetCommunicationPreferencesV3StatusEmailEmailAddressGetEmailStatusExecute(r)
 }
 
@@ -44,11 +37,11 @@ GetCommunicationPreferencesV3StatusEmailEmailAddressGetEmailStatus Get subscript
 
 Returns a list of subscriptions and their status for a given contact.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param emailAddress
  @return ApiGetCommunicationPreferencesV3StatusEmailEmailAddressGetEmailStatusRequest
 */
-func (a *StatusApiService) GetCommunicationPreferencesV3StatusEmailEmailAddressGetEmailStatus(ctx _context.Context, emailAddress string) ApiGetCommunicationPreferencesV3StatusEmailEmailAddressGetEmailStatusRequest {
+func (a *StatusApiService) GetCommunicationPreferencesV3StatusEmailEmailAddressGetEmailStatus(ctx context.Context, emailAddress string) ApiGetCommunicationPreferencesV3StatusEmailEmailAddressGetEmailStatusRequest {
 	return ApiGetCommunicationPreferencesV3StatusEmailEmailAddressGetEmailStatusRequest{
 		ApiService:   a,
 		ctx:          ctx,
@@ -58,27 +51,25 @@ func (a *StatusApiService) GetCommunicationPreferencesV3StatusEmailEmailAddressG
 
 // Execute executes the request
 //  @return PublicSubscriptionStatusesResponse
-func (a *StatusApiService) GetCommunicationPreferencesV3StatusEmailEmailAddressGetEmailStatusExecute(r ApiGetCommunicationPreferencesV3StatusEmailEmailAddressGetEmailStatusRequest) (PublicSubscriptionStatusesResponse, *_nethttp.Response, error) {
+func (a *StatusApiService) GetCommunicationPreferencesV3StatusEmailEmailAddressGetEmailStatusExecute(r ApiGetCommunicationPreferencesV3StatusEmailEmailAddressGetEmailStatusRequest) (*PublicSubscriptionStatusesResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  PublicSubscriptionStatusesResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PublicSubscriptionStatusesResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StatusApiService.GetCommunicationPreferencesV3StatusEmailEmailAddressGetEmailStatus")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/communication-preferences/v3/status/email/{emailAddress}"
-	localVarPath = strings.Replace(localVarPath, "{"+"emailAddress"+"}", _neturl.PathEscape(parameterToString(r.emailAddress, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"emailAddress"+"}", url.PathEscape(parameterToString(r.emailAddress, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -97,21 +88,7 @@ func (a *StatusApiService) GetCommunicationPreferencesV3StatusEmailEmailAddressG
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -121,15 +98,15 @@ func (a *StatusApiService) GetCommunicationPreferencesV3StatusEmailEmailAddressG
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -145,7 +122,7 @@ func (a *StatusApiService) GetCommunicationPreferencesV3StatusEmailEmailAddressG
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -156,7 +133,7 @@ func (a *StatusApiService) GetCommunicationPreferencesV3StatusEmailEmailAddressG
 }
 
 type ApiPostCommunicationPreferencesV3SubscribeSubscribeRequest struct {
-	ctx                                   _context.Context
+	ctx                                   context.Context
 	ApiService                            *StatusApiService
 	publicUpdateSubscriptionStatusRequest *PublicUpdateSubscriptionStatusRequest
 }
@@ -166,7 +143,7 @@ func (r ApiPostCommunicationPreferencesV3SubscribeSubscribeRequest) PublicUpdate
 	return r
 }
 
-func (r ApiPostCommunicationPreferencesV3SubscribeSubscribeRequest) Execute() (PublicSubscriptionStatus, *_nethttp.Response, error) {
+func (r ApiPostCommunicationPreferencesV3SubscribeSubscribeRequest) Execute() (*PublicSubscriptionStatus, *http.Response, error) {
 	return r.ApiService.PostCommunicationPreferencesV3SubscribeSubscribeExecute(r)
 }
 
@@ -175,10 +152,10 @@ PostCommunicationPreferencesV3SubscribeSubscribe Subscribe a contact
 
 Subscribes a contact to the given subscription type. This API is not valid to use for subscribing a contact at a brand or portal level and will return an error.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiPostCommunicationPreferencesV3SubscribeSubscribeRequest
 */
-func (a *StatusApiService) PostCommunicationPreferencesV3SubscribeSubscribe(ctx _context.Context) ApiPostCommunicationPreferencesV3SubscribeSubscribeRequest {
+func (a *StatusApiService) PostCommunicationPreferencesV3SubscribeSubscribe(ctx context.Context) ApiPostCommunicationPreferencesV3SubscribeSubscribeRequest {
 	return ApiPostCommunicationPreferencesV3SubscribeSubscribeRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -187,26 +164,24 @@ func (a *StatusApiService) PostCommunicationPreferencesV3SubscribeSubscribe(ctx 
 
 // Execute executes the request
 //  @return PublicSubscriptionStatus
-func (a *StatusApiService) PostCommunicationPreferencesV3SubscribeSubscribeExecute(r ApiPostCommunicationPreferencesV3SubscribeSubscribeRequest) (PublicSubscriptionStatus, *_nethttp.Response, error) {
+func (a *StatusApiService) PostCommunicationPreferencesV3SubscribeSubscribeExecute(r ApiPostCommunicationPreferencesV3SubscribeSubscribeRequest) (*PublicSubscriptionStatus, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  PublicSubscriptionStatus
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PublicSubscriptionStatus
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StatusApiService.PostCommunicationPreferencesV3SubscribeSubscribe")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/communication-preferences/v3/subscribe"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.publicUpdateSubscriptionStatusRequest == nil {
 		return localVarReturnValue, nil, reportError("publicUpdateSubscriptionStatusRequest is required and must be specified")
 	}
@@ -230,21 +205,7 @@ func (a *StatusApiService) PostCommunicationPreferencesV3SubscribeSubscribeExecu
 	}
 	// body params
 	localVarPostBody = r.publicUpdateSubscriptionStatusRequest
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -254,15 +215,15 @@ func (a *StatusApiService) PostCommunicationPreferencesV3SubscribeSubscribeExecu
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -278,7 +239,7 @@ func (a *StatusApiService) PostCommunicationPreferencesV3SubscribeSubscribeExecu
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -289,7 +250,7 @@ func (a *StatusApiService) PostCommunicationPreferencesV3SubscribeSubscribeExecu
 }
 
 type ApiPostCommunicationPreferencesV3UnsubscribeUnsubscribeRequest struct {
-	ctx                                   _context.Context
+	ctx                                   context.Context
 	ApiService                            *StatusApiService
 	publicUpdateSubscriptionStatusRequest *PublicUpdateSubscriptionStatusRequest
 }
@@ -299,7 +260,7 @@ func (r ApiPostCommunicationPreferencesV3UnsubscribeUnsubscribeRequest) PublicUp
 	return r
 }
 
-func (r ApiPostCommunicationPreferencesV3UnsubscribeUnsubscribeRequest) Execute() (PublicSubscriptionStatus, *_nethttp.Response, error) {
+func (r ApiPostCommunicationPreferencesV3UnsubscribeUnsubscribeRequest) Execute() (*PublicSubscriptionStatus, *http.Response, error) {
 	return r.ApiService.PostCommunicationPreferencesV3UnsubscribeUnsubscribeExecute(r)
 }
 
@@ -308,10 +269,10 @@ PostCommunicationPreferencesV3UnsubscribeUnsubscribe Unsubscribe a contact
 
 Unsubscribes a contact from the given subscription type. This API is not valid to use for unsubscribing a contact at a brand or portal level and will return an error.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiPostCommunicationPreferencesV3UnsubscribeUnsubscribeRequest
 */
-func (a *StatusApiService) PostCommunicationPreferencesV3UnsubscribeUnsubscribe(ctx _context.Context) ApiPostCommunicationPreferencesV3UnsubscribeUnsubscribeRequest {
+func (a *StatusApiService) PostCommunicationPreferencesV3UnsubscribeUnsubscribe(ctx context.Context) ApiPostCommunicationPreferencesV3UnsubscribeUnsubscribeRequest {
 	return ApiPostCommunicationPreferencesV3UnsubscribeUnsubscribeRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -320,26 +281,24 @@ func (a *StatusApiService) PostCommunicationPreferencesV3UnsubscribeUnsubscribe(
 
 // Execute executes the request
 //  @return PublicSubscriptionStatus
-func (a *StatusApiService) PostCommunicationPreferencesV3UnsubscribeUnsubscribeExecute(r ApiPostCommunicationPreferencesV3UnsubscribeUnsubscribeRequest) (PublicSubscriptionStatus, *_nethttp.Response, error) {
+func (a *StatusApiService) PostCommunicationPreferencesV3UnsubscribeUnsubscribeExecute(r ApiPostCommunicationPreferencesV3UnsubscribeUnsubscribeRequest) (*PublicSubscriptionStatus, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  PublicSubscriptionStatus
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PublicSubscriptionStatus
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StatusApiService.PostCommunicationPreferencesV3UnsubscribeUnsubscribe")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/communication-preferences/v3/unsubscribe"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.publicUpdateSubscriptionStatusRequest == nil {
 		return localVarReturnValue, nil, reportError("publicUpdateSubscriptionStatusRequest is required and must be specified")
 	}
@@ -363,21 +322,7 @@ func (a *StatusApiService) PostCommunicationPreferencesV3UnsubscribeUnsubscribeE
 	}
 	// body params
 	localVarPostBody = r.publicUpdateSubscriptionStatusRequest
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -387,15 +332,15 @@ func (a *StatusApiService) PostCommunicationPreferencesV3UnsubscribeUnsubscribeE
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -411,7 +356,7 @@ func (a *StatusApiService) PostCommunicationPreferencesV3UnsubscribeUnsubscribeE
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

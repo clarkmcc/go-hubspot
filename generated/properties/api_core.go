@@ -12,31 +12,24 @@ package properties
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-
-	"github.com/clarkmcc/go-hubspot/authorization"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // CoreApiService CoreApi service
 type CoreApiService service
 
 type ApiDeleteCrmV3PropertiesObjectTypePropertyNameArchiveRequest struct {
-	ctx          _context.Context
+	ctx          context.Context
 	ApiService   *CoreApiService
 	objectType   string
 	propertyName string
 }
 
-func (r ApiDeleteCrmV3PropertiesObjectTypePropertyNameArchiveRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeleteCrmV3PropertiesObjectTypePropertyNameArchiveRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteCrmV3PropertiesObjectTypePropertyNameArchiveExecute(r)
 }
 
@@ -45,12 +38,12 @@ DeleteCrmV3PropertiesObjectTypePropertyNameArchive Archive a property
 
 Move a property identified by {propertyName} to the recycling bin.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param objectType
  @param propertyName
  @return ApiDeleteCrmV3PropertiesObjectTypePropertyNameArchiveRequest
 */
-func (a *CoreApiService) DeleteCrmV3PropertiesObjectTypePropertyNameArchive(ctx _context.Context, objectType string, propertyName string) ApiDeleteCrmV3PropertiesObjectTypePropertyNameArchiveRequest {
+func (a *CoreApiService) DeleteCrmV3PropertiesObjectTypePropertyNameArchive(ctx context.Context, objectType string, propertyName string) ApiDeleteCrmV3PropertiesObjectTypePropertyNameArchiveRequest {
 	return ApiDeleteCrmV3PropertiesObjectTypePropertyNameArchiveRequest{
 		ApiService:   a,
 		ctx:          ctx,
@@ -60,27 +53,25 @@ func (a *CoreApiService) DeleteCrmV3PropertiesObjectTypePropertyNameArchive(ctx 
 }
 
 // Execute executes the request
-func (a *CoreApiService) DeleteCrmV3PropertiesObjectTypePropertyNameArchiveExecute(r ApiDeleteCrmV3PropertiesObjectTypePropertyNameArchiveRequest) (*_nethttp.Response, error) {
+func (a *CoreApiService) DeleteCrmV3PropertiesObjectTypePropertyNameArchiveExecute(r ApiDeleteCrmV3PropertiesObjectTypePropertyNameArchiveRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CoreApiService.DeleteCrmV3PropertiesObjectTypePropertyNameArchive")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/properties/{objectType}/{propertyName}"
-	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", _neturl.PathEscape(parameterToString(r.objectType, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"propertyName"+"}", _neturl.PathEscape(parameterToString(r.propertyName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterToString(r.objectType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"propertyName"+"}", url.PathEscape(parameterToString(r.propertyName, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -99,21 +90,7 @@ func (a *CoreApiService) DeleteCrmV3PropertiesObjectTypePropertyNameArchiveExecu
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -123,15 +100,15 @@ func (a *CoreApiService) DeleteCrmV3PropertiesObjectTypePropertyNameArchiveExecu
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -149,7 +126,7 @@ func (a *CoreApiService) DeleteCrmV3PropertiesObjectTypePropertyNameArchiveExecu
 }
 
 type ApiGetCrmV3PropertiesObjectTypeGetAllRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *CoreApiService
 	objectType string
 	archived   *bool
@@ -161,7 +138,7 @@ func (r ApiGetCrmV3PropertiesObjectTypeGetAllRequest) Archived(archived bool) Ap
 	return r
 }
 
-func (r ApiGetCrmV3PropertiesObjectTypeGetAllRequest) Execute() (CollectionResponseProperty, *_nethttp.Response, error) {
+func (r ApiGetCrmV3PropertiesObjectTypeGetAllRequest) Execute() (*CollectionResponseProperty, *http.Response, error) {
 	return r.ApiService.GetCrmV3PropertiesObjectTypeGetAllExecute(r)
 }
 
@@ -170,11 +147,11 @@ GetCrmV3PropertiesObjectTypeGetAll Read all properties
 
 Read all existing properties for the specified object type and HubSpot account.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param objectType
  @return ApiGetCrmV3PropertiesObjectTypeGetAllRequest
 */
-func (a *CoreApiService) GetCrmV3PropertiesObjectTypeGetAll(ctx _context.Context, objectType string) ApiGetCrmV3PropertiesObjectTypeGetAllRequest {
+func (a *CoreApiService) GetCrmV3PropertiesObjectTypeGetAll(ctx context.Context, objectType string) ApiGetCrmV3PropertiesObjectTypeGetAllRequest {
 	return ApiGetCrmV3PropertiesObjectTypeGetAllRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -184,27 +161,25 @@ func (a *CoreApiService) GetCrmV3PropertiesObjectTypeGetAll(ctx _context.Context
 
 // Execute executes the request
 //  @return CollectionResponseProperty
-func (a *CoreApiService) GetCrmV3PropertiesObjectTypeGetAllExecute(r ApiGetCrmV3PropertiesObjectTypeGetAllRequest) (CollectionResponseProperty, *_nethttp.Response, error) {
+func (a *CoreApiService) GetCrmV3PropertiesObjectTypeGetAllExecute(r ApiGetCrmV3PropertiesObjectTypeGetAllRequest) (*CollectionResponseProperty, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  CollectionResponseProperty
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CollectionResponseProperty
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CoreApiService.GetCrmV3PropertiesObjectTypeGetAll")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/properties/{objectType}"
-	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", _neturl.PathEscape(parameterToString(r.objectType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterToString(r.objectType, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.archived != nil {
 		localVarQueryParams.Add("archived", parameterToString(*r.archived, ""))
@@ -226,21 +201,7 @@ func (a *CoreApiService) GetCrmV3PropertiesObjectTypeGetAllExecute(r ApiGetCrmV3
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -250,15 +211,15 @@ func (a *CoreApiService) GetCrmV3PropertiesObjectTypeGetAllExecute(r ApiGetCrmV3
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -274,7 +235,7 @@ func (a *CoreApiService) GetCrmV3PropertiesObjectTypeGetAllExecute(r ApiGetCrmV3
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -285,7 +246,7 @@ func (a *CoreApiService) GetCrmV3PropertiesObjectTypeGetAllExecute(r ApiGetCrmV3
 }
 
 type ApiGetCrmV3PropertiesObjectTypePropertyNameGetByNameRequest struct {
-	ctx          _context.Context
+	ctx          context.Context
 	ApiService   *CoreApiService
 	objectType   string
 	propertyName string
@@ -298,7 +259,7 @@ func (r ApiGetCrmV3PropertiesObjectTypePropertyNameGetByNameRequest) Archived(ar
 	return r
 }
 
-func (r ApiGetCrmV3PropertiesObjectTypePropertyNameGetByNameRequest) Execute() (Property, *_nethttp.Response, error) {
+func (r ApiGetCrmV3PropertiesObjectTypePropertyNameGetByNameRequest) Execute() (*Property, *http.Response, error) {
 	return r.ApiService.GetCrmV3PropertiesObjectTypePropertyNameGetByNameExecute(r)
 }
 
@@ -307,12 +268,12 @@ GetCrmV3PropertiesObjectTypePropertyNameGetByName Read a property
 
 Read a property identified by {propertyName}.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param objectType
  @param propertyName
  @return ApiGetCrmV3PropertiesObjectTypePropertyNameGetByNameRequest
 */
-func (a *CoreApiService) GetCrmV3PropertiesObjectTypePropertyNameGetByName(ctx _context.Context, objectType string, propertyName string) ApiGetCrmV3PropertiesObjectTypePropertyNameGetByNameRequest {
+func (a *CoreApiService) GetCrmV3PropertiesObjectTypePropertyNameGetByName(ctx context.Context, objectType string, propertyName string) ApiGetCrmV3PropertiesObjectTypePropertyNameGetByNameRequest {
 	return ApiGetCrmV3PropertiesObjectTypePropertyNameGetByNameRequest{
 		ApiService:   a,
 		ctx:          ctx,
@@ -323,28 +284,26 @@ func (a *CoreApiService) GetCrmV3PropertiesObjectTypePropertyNameGetByName(ctx _
 
 // Execute executes the request
 //  @return Property
-func (a *CoreApiService) GetCrmV3PropertiesObjectTypePropertyNameGetByNameExecute(r ApiGetCrmV3PropertiesObjectTypePropertyNameGetByNameRequest) (Property, *_nethttp.Response, error) {
+func (a *CoreApiService) GetCrmV3PropertiesObjectTypePropertyNameGetByNameExecute(r ApiGetCrmV3PropertiesObjectTypePropertyNameGetByNameRequest) (*Property, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  Property
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Property
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CoreApiService.GetCrmV3PropertiesObjectTypePropertyNameGetByName")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/properties/{objectType}/{propertyName}"
-	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", _neturl.PathEscape(parameterToString(r.objectType, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"propertyName"+"}", _neturl.PathEscape(parameterToString(r.propertyName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterToString(r.objectType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"propertyName"+"}", url.PathEscape(parameterToString(r.propertyName, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.archived != nil {
 		localVarQueryParams.Add("archived", parameterToString(*r.archived, ""))
@@ -366,21 +325,7 @@ func (a *CoreApiService) GetCrmV3PropertiesObjectTypePropertyNameGetByNameExecut
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -390,15 +335,15 @@ func (a *CoreApiService) GetCrmV3PropertiesObjectTypePropertyNameGetByNameExecut
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -414,7 +359,7 @@ func (a *CoreApiService) GetCrmV3PropertiesObjectTypePropertyNameGetByNameExecut
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -425,7 +370,7 @@ func (a *CoreApiService) GetCrmV3PropertiesObjectTypePropertyNameGetByNameExecut
 }
 
 type ApiPatchCrmV3PropertiesObjectTypePropertyNameUpdateRequest struct {
-	ctx            _context.Context
+	ctx            context.Context
 	ApiService     *CoreApiService
 	objectType     string
 	propertyName   string
@@ -437,7 +382,7 @@ func (r ApiPatchCrmV3PropertiesObjectTypePropertyNameUpdateRequest) PropertyUpda
 	return r
 }
 
-func (r ApiPatchCrmV3PropertiesObjectTypePropertyNameUpdateRequest) Execute() (Property, *_nethttp.Response, error) {
+func (r ApiPatchCrmV3PropertiesObjectTypePropertyNameUpdateRequest) Execute() (*Property, *http.Response, error) {
 	return r.ApiService.PatchCrmV3PropertiesObjectTypePropertyNameUpdateExecute(r)
 }
 
@@ -446,12 +391,12 @@ PatchCrmV3PropertiesObjectTypePropertyNameUpdate Update a property
 
 Perform a partial update of a property identified by {propertyName}. Provided fields will be overwritten.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param objectType
  @param propertyName
  @return ApiPatchCrmV3PropertiesObjectTypePropertyNameUpdateRequest
 */
-func (a *CoreApiService) PatchCrmV3PropertiesObjectTypePropertyNameUpdate(ctx _context.Context, objectType string, propertyName string) ApiPatchCrmV3PropertiesObjectTypePropertyNameUpdateRequest {
+func (a *CoreApiService) PatchCrmV3PropertiesObjectTypePropertyNameUpdate(ctx context.Context, objectType string, propertyName string) ApiPatchCrmV3PropertiesObjectTypePropertyNameUpdateRequest {
 	return ApiPatchCrmV3PropertiesObjectTypePropertyNameUpdateRequest{
 		ApiService:   a,
 		ctx:          ctx,
@@ -462,28 +407,26 @@ func (a *CoreApiService) PatchCrmV3PropertiesObjectTypePropertyNameUpdate(ctx _c
 
 // Execute executes the request
 //  @return Property
-func (a *CoreApiService) PatchCrmV3PropertiesObjectTypePropertyNameUpdateExecute(r ApiPatchCrmV3PropertiesObjectTypePropertyNameUpdateRequest) (Property, *_nethttp.Response, error) {
+func (a *CoreApiService) PatchCrmV3PropertiesObjectTypePropertyNameUpdateExecute(r ApiPatchCrmV3PropertiesObjectTypePropertyNameUpdateRequest) (*Property, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPatch
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  Property
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Property
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CoreApiService.PatchCrmV3PropertiesObjectTypePropertyNameUpdate")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/properties/{objectType}/{propertyName}"
-	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", _neturl.PathEscape(parameterToString(r.objectType, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"propertyName"+"}", _neturl.PathEscape(parameterToString(r.propertyName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterToString(r.objectType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"propertyName"+"}", url.PathEscape(parameterToString(r.propertyName, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.propertyUpdate == nil {
 		return localVarReturnValue, nil, reportError("propertyUpdate is required and must be specified")
 	}
@@ -507,21 +450,7 @@ func (a *CoreApiService) PatchCrmV3PropertiesObjectTypePropertyNameUpdateExecute
 	}
 	// body params
 	localVarPostBody = r.propertyUpdate
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -531,15 +460,15 @@ func (a *CoreApiService) PatchCrmV3PropertiesObjectTypePropertyNameUpdateExecute
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -555,7 +484,7 @@ func (a *CoreApiService) PatchCrmV3PropertiesObjectTypePropertyNameUpdateExecute
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -566,7 +495,7 @@ func (a *CoreApiService) PatchCrmV3PropertiesObjectTypePropertyNameUpdateExecute
 }
 
 type ApiPostCrmV3PropertiesObjectTypeCreateRequest struct {
-	ctx            _context.Context
+	ctx            context.Context
 	ApiService     *CoreApiService
 	objectType     string
 	propertyCreate *PropertyCreate
@@ -577,7 +506,7 @@ func (r ApiPostCrmV3PropertiesObjectTypeCreateRequest) PropertyCreate(propertyCr
 	return r
 }
 
-func (r ApiPostCrmV3PropertiesObjectTypeCreateRequest) Execute() (Property, *_nethttp.Response, error) {
+func (r ApiPostCrmV3PropertiesObjectTypeCreateRequest) Execute() (*Property, *http.Response, error) {
 	return r.ApiService.PostCrmV3PropertiesObjectTypeCreateExecute(r)
 }
 
@@ -586,11 +515,11 @@ PostCrmV3PropertiesObjectTypeCreate Create a property
 
 Create and return a copy of a new property for the specified object type.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param objectType
  @return ApiPostCrmV3PropertiesObjectTypeCreateRequest
 */
-func (a *CoreApiService) PostCrmV3PropertiesObjectTypeCreate(ctx _context.Context, objectType string) ApiPostCrmV3PropertiesObjectTypeCreateRequest {
+func (a *CoreApiService) PostCrmV3PropertiesObjectTypeCreate(ctx context.Context, objectType string) ApiPostCrmV3PropertiesObjectTypeCreateRequest {
 	return ApiPostCrmV3PropertiesObjectTypeCreateRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -600,27 +529,25 @@ func (a *CoreApiService) PostCrmV3PropertiesObjectTypeCreate(ctx _context.Contex
 
 // Execute executes the request
 //  @return Property
-func (a *CoreApiService) PostCrmV3PropertiesObjectTypeCreateExecute(r ApiPostCrmV3PropertiesObjectTypeCreateRequest) (Property, *_nethttp.Response, error) {
+func (a *CoreApiService) PostCrmV3PropertiesObjectTypeCreateExecute(r ApiPostCrmV3PropertiesObjectTypeCreateRequest) (*Property, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  Property
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Property
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CoreApiService.PostCrmV3PropertiesObjectTypeCreate")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/properties/{objectType}"
-	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", _neturl.PathEscape(parameterToString(r.objectType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterToString(r.objectType, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.propertyCreate == nil {
 		return localVarReturnValue, nil, reportError("propertyCreate is required and must be specified")
 	}
@@ -644,21 +571,7 @@ func (a *CoreApiService) PostCrmV3PropertiesObjectTypeCreateExecute(r ApiPostCrm
 	}
 	// body params
 	localVarPostBody = r.propertyCreate
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -668,15 +581,15 @@ func (a *CoreApiService) PostCrmV3PropertiesObjectTypeCreateExecute(r ApiPostCrm
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -692,7 +605,7 @@ func (a *CoreApiService) PostCrmV3PropertiesObjectTypeCreateExecute(r ApiPostCrm
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

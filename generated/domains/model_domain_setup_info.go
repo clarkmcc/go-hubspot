@@ -75,11 +75,11 @@ func (o *DomainSetupInfo) GetWhoIsEmailAddresses() []string {
 
 // GetWhoIsEmailAddressesOk returns a tuple with the WhoIsEmailAddresses field value
 // and a boolean to check if the value has been set.
-func (o *DomainSetupInfo) GetWhoIsEmailAddressesOk() (*[]string, bool) {
+func (o *DomainSetupInfo) GetWhoIsEmailAddressesOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.WhoIsEmailAddresses, true
+	return o.WhoIsEmailAddresses, true
 }
 
 // SetWhoIsEmailAddresses sets field value

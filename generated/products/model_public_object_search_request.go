@@ -58,11 +58,11 @@ func (o *PublicObjectSearchRequest) GetFilterGroups() []FilterGroup {
 
 // GetFilterGroupsOk returns a tuple with the FilterGroups field value
 // and a boolean to check if the value has been set.
-func (o *PublicObjectSearchRequest) GetFilterGroupsOk() (*[]FilterGroup, bool) {
+func (o *PublicObjectSearchRequest) GetFilterGroupsOk() ([]FilterGroup, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.FilterGroups, true
+	return o.FilterGroups, true
 }
 
 // SetFilterGroups sets field value
@@ -82,11 +82,11 @@ func (o *PublicObjectSearchRequest) GetSorts() []string {
 
 // GetSortsOk returns a tuple with the Sorts field value
 // and a boolean to check if the value has been set.
-func (o *PublicObjectSearchRequest) GetSortsOk() (*[]string, bool) {
+func (o *PublicObjectSearchRequest) GetSortsOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Sorts, true
+	return o.Sorts, true
 }
 
 // SetSorts sets field value
@@ -138,11 +138,11 @@ func (o *PublicObjectSearchRequest) GetProperties() []string {
 
 // GetPropertiesOk returns a tuple with the Properties field value
 // and a boolean to check if the value has been set.
-func (o *PublicObjectSearchRequest) GetPropertiesOk() (*[]string, bool) {
+func (o *PublicObjectSearchRequest) GetPropertiesOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Properties, true
+	return o.Properties, true
 }
 
 // SetProperties sets field value

@@ -84,11 +84,11 @@ func (o *CardFetchBodyPatch) GetObjectTypes() []CardObjectTypeBody {
 
 // GetObjectTypesOk returns a tuple with the ObjectTypes field value
 // and a boolean to check if the value has been set.
-func (o *CardFetchBodyPatch) GetObjectTypesOk() (*[]CardObjectTypeBody, bool) {
+func (o *CardFetchBodyPatch) GetObjectTypesOk() ([]CardObjectTypeBody, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.ObjectTypes, true
+	return o.ObjectTypes, true
 }
 
 // SetObjectTypes sets field value

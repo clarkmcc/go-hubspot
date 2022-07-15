@@ -12,25 +12,18 @@ package accounting
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-
-	"github.com/clarkmcc/go-hubspot/authorization"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // CallbacksApiService CallbacksApi service
 type CallbacksApiService service
 
 type ApiPostCrmV3ExtensionsAccountingCallbackCustomerCreateRequestIdCreateCustomerRequest struct {
-	ctx                        _context.Context
+	ctx                        context.Context
 	ApiService                 *CallbacksApiService
 	requestId                  string
 	resultIdAccountingResponse *ResultIdAccountingResponse
@@ -42,7 +35,7 @@ func (r ApiPostCrmV3ExtensionsAccountingCallbackCustomerCreateRequestIdCreateCus
 	return r
 }
 
-func (r ApiPostCrmV3ExtensionsAccountingCallbackCustomerCreateRequestIdCreateCustomerRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiPostCrmV3ExtensionsAccountingCallbackCustomerCreateRequestIdCreateCustomerRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostCrmV3ExtensionsAccountingCallbackCustomerCreateRequestIdCreateCustomerExecute(r)
 }
 
@@ -51,11 +44,11 @@ PostCrmV3ExtensionsAccountingCallbackCustomerCreateRequestIdCreateCustomer Endpo
 
 Call this endpoint with the response to a customer creation request.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param requestId The ID of the request that this response is for
  @return ApiPostCrmV3ExtensionsAccountingCallbackCustomerCreateRequestIdCreateCustomerRequest
 */
-func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackCustomerCreateRequestIdCreateCustomer(ctx _context.Context, requestId string) ApiPostCrmV3ExtensionsAccountingCallbackCustomerCreateRequestIdCreateCustomerRequest {
+func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackCustomerCreateRequestIdCreateCustomer(ctx context.Context, requestId string) ApiPostCrmV3ExtensionsAccountingCallbackCustomerCreateRequestIdCreateCustomerRequest {
 	return ApiPostCrmV3ExtensionsAccountingCallbackCustomerCreateRequestIdCreateCustomerRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -64,26 +57,24 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackCustomerCreat
 }
 
 // Execute executes the request
-func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackCustomerCreateRequestIdCreateCustomerExecute(r ApiPostCrmV3ExtensionsAccountingCallbackCustomerCreateRequestIdCreateCustomerRequest) (*_nethttp.Response, error) {
+func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackCustomerCreateRequestIdCreateCustomerExecute(r ApiPostCrmV3ExtensionsAccountingCallbackCustomerCreateRequestIdCreateCustomerRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CallbacksApiService.PostCrmV3ExtensionsAccountingCallbackCustomerCreateRequestIdCreateCustomer")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/extensions/accounting/callback/customer-create/{requestId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"requestId"+"}", _neturl.PathEscape(parameterToString(r.requestId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"requestId"+"}", url.PathEscape(parameterToString(r.requestId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.resultIdAccountingResponse == nil {
 		return nil, reportError("resultIdAccountingResponse is required and must be specified")
 	}
@@ -107,21 +98,7 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackCustomerCreat
 	}
 	// body params
 	localVarPostBody = r.resultIdAccountingResponse
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -131,15 +108,15 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackCustomerCreat
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -157,7 +134,7 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackCustomerCreat
 }
 
 type ApiPostCrmV3ExtensionsAccountingCallbackCustomerSearchRequestIdDoCustomerSearchRequest struct {
-	ctx                            _context.Context
+	ctx                            context.Context
 	ApiService                     *CallbacksApiService
 	requestId                      string
 	customerSearchResponseExternal *CustomerSearchResponseExternal
@@ -169,7 +146,7 @@ func (r ApiPostCrmV3ExtensionsAccountingCallbackCustomerSearchRequestIdDoCustome
 	return r
 }
 
-func (r ApiPostCrmV3ExtensionsAccountingCallbackCustomerSearchRequestIdDoCustomerSearchRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiPostCrmV3ExtensionsAccountingCallbackCustomerSearchRequestIdDoCustomerSearchRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostCrmV3ExtensionsAccountingCallbackCustomerSearchRequestIdDoCustomerSearchExecute(r)
 }
 
@@ -178,11 +155,11 @@ PostCrmV3ExtensionsAccountingCallbackCustomerSearchRequestIdDoCustomerSearch End
 
 Call this endpoint with the response to a customer search request.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param requestId The ID of the request that this response is for
  @return ApiPostCrmV3ExtensionsAccountingCallbackCustomerSearchRequestIdDoCustomerSearchRequest
 */
-func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackCustomerSearchRequestIdDoCustomerSearch(ctx _context.Context, requestId string) ApiPostCrmV3ExtensionsAccountingCallbackCustomerSearchRequestIdDoCustomerSearchRequest {
+func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackCustomerSearchRequestIdDoCustomerSearch(ctx context.Context, requestId string) ApiPostCrmV3ExtensionsAccountingCallbackCustomerSearchRequestIdDoCustomerSearchRequest {
 	return ApiPostCrmV3ExtensionsAccountingCallbackCustomerSearchRequestIdDoCustomerSearchRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -191,26 +168,24 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackCustomerSearc
 }
 
 // Execute executes the request
-func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackCustomerSearchRequestIdDoCustomerSearchExecute(r ApiPostCrmV3ExtensionsAccountingCallbackCustomerSearchRequestIdDoCustomerSearchRequest) (*_nethttp.Response, error) {
+func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackCustomerSearchRequestIdDoCustomerSearchExecute(r ApiPostCrmV3ExtensionsAccountingCallbackCustomerSearchRequestIdDoCustomerSearchRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CallbacksApiService.PostCrmV3ExtensionsAccountingCallbackCustomerSearchRequestIdDoCustomerSearch")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/extensions/accounting/callback/customer-search/{requestId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"requestId"+"}", _neturl.PathEscape(parameterToString(r.requestId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"requestId"+"}", url.PathEscape(parameterToString(r.requestId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.customerSearchResponseExternal == nil {
 		return nil, reportError("customerSearchResponseExternal is required and must be specified")
 	}
@@ -234,21 +209,7 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackCustomerSearc
 	}
 	// body params
 	localVarPostBody = r.customerSearchResponseExternal
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -258,15 +219,15 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackCustomerSearc
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -284,7 +245,7 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackCustomerSearc
 }
 
 type ApiPostCrmV3ExtensionsAccountingCallbackExchangeRateRequestIdCreateExchangeRateRequest struct {
-	ctx                  _context.Context
+	ctx                  context.Context
 	ApiService           *CallbacksApiService
 	requestId            string
 	exchangeRateResponse *ExchangeRateResponse
@@ -296,7 +257,7 @@ func (r ApiPostCrmV3ExtensionsAccountingCallbackExchangeRateRequestIdCreateExcha
 	return r
 }
 
-func (r ApiPostCrmV3ExtensionsAccountingCallbackExchangeRateRequestIdCreateExchangeRateRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiPostCrmV3ExtensionsAccountingCallbackExchangeRateRequestIdCreateExchangeRateRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostCrmV3ExtensionsAccountingCallbackExchangeRateRequestIdCreateExchangeRateExecute(r)
 }
 
@@ -305,11 +266,11 @@ PostCrmV3ExtensionsAccountingCallbackExchangeRateRequestIdCreateExchangeRate End
 
 Call this endpoint with the response to an exchange rate request.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param requestId The ID of the request that this response is for
  @return ApiPostCrmV3ExtensionsAccountingCallbackExchangeRateRequestIdCreateExchangeRateRequest
 */
-func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackExchangeRateRequestIdCreateExchangeRate(ctx _context.Context, requestId string) ApiPostCrmV3ExtensionsAccountingCallbackExchangeRateRequestIdCreateExchangeRateRequest {
+func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackExchangeRateRequestIdCreateExchangeRate(ctx context.Context, requestId string) ApiPostCrmV3ExtensionsAccountingCallbackExchangeRateRequestIdCreateExchangeRateRequest {
 	return ApiPostCrmV3ExtensionsAccountingCallbackExchangeRateRequestIdCreateExchangeRateRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -318,26 +279,24 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackExchangeRateR
 }
 
 // Execute executes the request
-func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackExchangeRateRequestIdCreateExchangeRateExecute(r ApiPostCrmV3ExtensionsAccountingCallbackExchangeRateRequestIdCreateExchangeRateRequest) (*_nethttp.Response, error) {
+func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackExchangeRateRequestIdCreateExchangeRateExecute(r ApiPostCrmV3ExtensionsAccountingCallbackExchangeRateRequestIdCreateExchangeRateRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CallbacksApiService.PostCrmV3ExtensionsAccountingCallbackExchangeRateRequestIdCreateExchangeRate")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/extensions/accounting/callback/exchange-rate/{requestId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"requestId"+"}", _neturl.PathEscape(parameterToString(r.requestId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"requestId"+"}", url.PathEscape(parameterToString(r.requestId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.exchangeRateResponse == nil {
 		return nil, reportError("exchangeRateResponse is required and must be specified")
 	}
@@ -361,21 +320,7 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackExchangeRateR
 	}
 	// body params
 	localVarPostBody = r.exchangeRateResponse
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -385,15 +330,15 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackExchangeRateR
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -411,7 +356,7 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackExchangeRateR
 }
 
 type ApiPostCrmV3ExtensionsAccountingCallbackInvoiceCreateRequestIdCreateInvoiceRequest struct {
-	ctx                        _context.Context
+	ctx                        context.Context
 	ApiService                 *CallbacksApiService
 	requestId                  string
 	resultIdAccountingResponse *ResultIdAccountingResponse
@@ -423,7 +368,7 @@ func (r ApiPostCrmV3ExtensionsAccountingCallbackInvoiceCreateRequestIdCreateInvo
 	return r
 }
 
-func (r ApiPostCrmV3ExtensionsAccountingCallbackInvoiceCreateRequestIdCreateInvoiceRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiPostCrmV3ExtensionsAccountingCallbackInvoiceCreateRequestIdCreateInvoiceRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostCrmV3ExtensionsAccountingCallbackInvoiceCreateRequestIdCreateInvoiceExecute(r)
 }
 
@@ -432,11 +377,11 @@ PostCrmV3ExtensionsAccountingCallbackInvoiceCreateRequestIdCreateInvoice Endpoin
 
 Call this endpoint with the response to a invoice creation request.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param requestId The ID of the request that this response is for
  @return ApiPostCrmV3ExtensionsAccountingCallbackInvoiceCreateRequestIdCreateInvoiceRequest
 */
-func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoiceCreateRequestIdCreateInvoice(ctx _context.Context, requestId string) ApiPostCrmV3ExtensionsAccountingCallbackInvoiceCreateRequestIdCreateInvoiceRequest {
+func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoiceCreateRequestIdCreateInvoice(ctx context.Context, requestId string) ApiPostCrmV3ExtensionsAccountingCallbackInvoiceCreateRequestIdCreateInvoiceRequest {
 	return ApiPostCrmV3ExtensionsAccountingCallbackInvoiceCreateRequestIdCreateInvoiceRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -445,26 +390,24 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoiceCreate
 }
 
 // Execute executes the request
-func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoiceCreateRequestIdCreateInvoiceExecute(r ApiPostCrmV3ExtensionsAccountingCallbackInvoiceCreateRequestIdCreateInvoiceRequest) (*_nethttp.Response, error) {
+func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoiceCreateRequestIdCreateInvoiceExecute(r ApiPostCrmV3ExtensionsAccountingCallbackInvoiceCreateRequestIdCreateInvoiceRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CallbacksApiService.PostCrmV3ExtensionsAccountingCallbackInvoiceCreateRequestIdCreateInvoice")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/extensions/accounting/callback/invoice-create/{requestId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"requestId"+"}", _neturl.PathEscape(parameterToString(r.requestId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"requestId"+"}", url.PathEscape(parameterToString(r.requestId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.resultIdAccountingResponse == nil {
 		return nil, reportError("resultIdAccountingResponse is required and must be specified")
 	}
@@ -488,21 +431,7 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoiceCreate
 	}
 	// body params
 	localVarPostBody = r.resultIdAccountingResponse
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -512,15 +441,15 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoiceCreate
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -538,7 +467,7 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoiceCreate
 }
 
 type ApiPostCrmV3ExtensionsAccountingCallbackInvoicePdfRequestIdInvoicePdfRequest struct {
-	ctx                _context.Context
+	ctx                context.Context
 	ApiService         *CallbacksApiService
 	requestId          string
 	invoicePdfResponse *InvoicePdfResponse
@@ -550,7 +479,7 @@ func (r ApiPostCrmV3ExtensionsAccountingCallbackInvoicePdfRequestIdInvoicePdfReq
 	return r
 }
 
-func (r ApiPostCrmV3ExtensionsAccountingCallbackInvoicePdfRequestIdInvoicePdfRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiPostCrmV3ExtensionsAccountingCallbackInvoicePdfRequestIdInvoicePdfRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostCrmV3ExtensionsAccountingCallbackInvoicePdfRequestIdInvoicePdfExecute(r)
 }
 
@@ -559,11 +488,11 @@ PostCrmV3ExtensionsAccountingCallbackInvoicePdfRequestIdInvoicePdf Endpoint for 
 
 Call this endpoint with the PDF content of a requested invoice.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param requestId The ID of the request that this response is for
  @return ApiPostCrmV3ExtensionsAccountingCallbackInvoicePdfRequestIdInvoicePdfRequest
 */
-func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoicePdfRequestIdInvoicePdf(ctx _context.Context, requestId string) ApiPostCrmV3ExtensionsAccountingCallbackInvoicePdfRequestIdInvoicePdfRequest {
+func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoicePdfRequestIdInvoicePdf(ctx context.Context, requestId string) ApiPostCrmV3ExtensionsAccountingCallbackInvoicePdfRequestIdInvoicePdfRequest {
 	return ApiPostCrmV3ExtensionsAccountingCallbackInvoicePdfRequestIdInvoicePdfRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -572,26 +501,24 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoicePdfReq
 }
 
 // Execute executes the request
-func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoicePdfRequestIdInvoicePdfExecute(r ApiPostCrmV3ExtensionsAccountingCallbackInvoicePdfRequestIdInvoicePdfRequest) (*_nethttp.Response, error) {
+func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoicePdfRequestIdInvoicePdfExecute(r ApiPostCrmV3ExtensionsAccountingCallbackInvoicePdfRequestIdInvoicePdfRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CallbacksApiService.PostCrmV3ExtensionsAccountingCallbackInvoicePdfRequestIdInvoicePdf")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/extensions/accounting/callback/invoice-pdf/{requestId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"requestId"+"}", _neturl.PathEscape(parameterToString(r.requestId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"requestId"+"}", url.PathEscape(parameterToString(r.requestId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.invoicePdfResponse == nil {
 		return nil, reportError("invoicePdfResponse is required and must be specified")
 	}
@@ -615,21 +542,7 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoicePdfReq
 	}
 	// body params
 	localVarPostBody = r.invoicePdfResponse
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -639,15 +552,15 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoicePdfReq
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -665,7 +578,7 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoicePdfReq
 }
 
 type ApiPostCrmV3ExtensionsAccountingCallbackInvoiceSearchRequestIdDoInvoiceSearchRequest struct {
-	ctx                   _context.Context
+	ctx                   context.Context
 	ApiService            *CallbacksApiService
 	requestId             string
 	invoiceSearchResponse *InvoiceSearchResponse
@@ -677,7 +590,7 @@ func (r ApiPostCrmV3ExtensionsAccountingCallbackInvoiceSearchRequestIdDoInvoiceS
 	return r
 }
 
-func (r ApiPostCrmV3ExtensionsAccountingCallbackInvoiceSearchRequestIdDoInvoiceSearchRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiPostCrmV3ExtensionsAccountingCallbackInvoiceSearchRequestIdDoInvoiceSearchRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostCrmV3ExtensionsAccountingCallbackInvoiceSearchRequestIdDoInvoiceSearchExecute(r)
 }
 
@@ -686,11 +599,11 @@ PostCrmV3ExtensionsAccountingCallbackInvoiceSearchRequestIdDoInvoiceSearch Endpo
 
 Call this endpoint with the response to a invoice search request.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param requestId The ID of the request that this response is for
  @return ApiPostCrmV3ExtensionsAccountingCallbackInvoiceSearchRequestIdDoInvoiceSearchRequest
 */
-func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoiceSearchRequestIdDoInvoiceSearch(ctx _context.Context, requestId string) ApiPostCrmV3ExtensionsAccountingCallbackInvoiceSearchRequestIdDoInvoiceSearchRequest {
+func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoiceSearchRequestIdDoInvoiceSearch(ctx context.Context, requestId string) ApiPostCrmV3ExtensionsAccountingCallbackInvoiceSearchRequestIdDoInvoiceSearchRequest {
 	return ApiPostCrmV3ExtensionsAccountingCallbackInvoiceSearchRequestIdDoInvoiceSearchRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -699,26 +612,24 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoiceSearch
 }
 
 // Execute executes the request
-func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoiceSearchRequestIdDoInvoiceSearchExecute(r ApiPostCrmV3ExtensionsAccountingCallbackInvoiceSearchRequestIdDoInvoiceSearchRequest) (*_nethttp.Response, error) {
+func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoiceSearchRequestIdDoInvoiceSearchExecute(r ApiPostCrmV3ExtensionsAccountingCallbackInvoiceSearchRequestIdDoInvoiceSearchRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CallbacksApiService.PostCrmV3ExtensionsAccountingCallbackInvoiceSearchRequestIdDoInvoiceSearch")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/extensions/accounting/callback/invoice-search/{requestId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"requestId"+"}", _neturl.PathEscape(parameterToString(r.requestId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"requestId"+"}", url.PathEscape(parameterToString(r.requestId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.invoiceSearchResponse == nil {
 		return nil, reportError("invoiceSearchResponse is required and must be specified")
 	}
@@ -742,21 +653,7 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoiceSearch
 	}
 	// body params
 	localVarPostBody = r.invoiceSearchResponse
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -766,15 +663,15 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoiceSearch
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -792,7 +689,7 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoiceSearch
 }
 
 type ApiPostCrmV3ExtensionsAccountingCallbackInvoicesRequestIdGetByIdRequest struct {
-	ctx                      _context.Context
+	ctx                      context.Context
 	ApiService               *CallbacksApiService
 	requestId                string
 	invoicesResponseExternal *InvoicesResponseExternal
@@ -804,7 +701,7 @@ func (r ApiPostCrmV3ExtensionsAccountingCallbackInvoicesRequestIdGetByIdRequest)
 	return r
 }
 
-func (r ApiPostCrmV3ExtensionsAccountingCallbackInvoicesRequestIdGetByIdRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiPostCrmV3ExtensionsAccountingCallbackInvoicesRequestIdGetByIdRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostCrmV3ExtensionsAccountingCallbackInvoicesRequestIdGetByIdExecute(r)
 }
 
@@ -813,11 +710,11 @@ PostCrmV3ExtensionsAccountingCallbackInvoicesRequestIdGetById Endpoint for invoi
 
 Call this endpoint with the response to a invoice get-by-id request.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param requestId The ID of the request that this response is for
  @return ApiPostCrmV3ExtensionsAccountingCallbackInvoicesRequestIdGetByIdRequest
 */
-func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoicesRequestIdGetById(ctx _context.Context, requestId string) ApiPostCrmV3ExtensionsAccountingCallbackInvoicesRequestIdGetByIdRequest {
+func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoicesRequestIdGetById(ctx context.Context, requestId string) ApiPostCrmV3ExtensionsAccountingCallbackInvoicesRequestIdGetByIdRequest {
 	return ApiPostCrmV3ExtensionsAccountingCallbackInvoicesRequestIdGetByIdRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -826,26 +723,24 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoicesReque
 }
 
 // Execute executes the request
-func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoicesRequestIdGetByIdExecute(r ApiPostCrmV3ExtensionsAccountingCallbackInvoicesRequestIdGetByIdRequest) (*_nethttp.Response, error) {
+func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoicesRequestIdGetByIdExecute(r ApiPostCrmV3ExtensionsAccountingCallbackInvoicesRequestIdGetByIdRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CallbacksApiService.PostCrmV3ExtensionsAccountingCallbackInvoicesRequestIdGetById")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/extensions/accounting/callback/invoices/{requestId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"requestId"+"}", _neturl.PathEscape(parameterToString(r.requestId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"requestId"+"}", url.PathEscape(parameterToString(r.requestId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.invoicesResponseExternal == nil {
 		return nil, reportError("invoicesResponseExternal is required and must be specified")
 	}
@@ -869,21 +764,7 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoicesReque
 	}
 	// body params
 	localVarPostBody = r.invoicesResponseExternal
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -893,15 +774,15 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoicesReque
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -919,7 +800,7 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoicesReque
 }
 
 type ApiPostCrmV3ExtensionsAccountingCallbackProductSearchRequestIdDoProductSearchRequest struct {
-	ctx                   _context.Context
+	ctx                   context.Context
 	ApiService            *CallbacksApiService
 	requestId             string
 	productSearchResponse *ProductSearchResponse
@@ -931,7 +812,7 @@ func (r ApiPostCrmV3ExtensionsAccountingCallbackProductSearchRequestIdDoProductS
 	return r
 }
 
-func (r ApiPostCrmV3ExtensionsAccountingCallbackProductSearchRequestIdDoProductSearchRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiPostCrmV3ExtensionsAccountingCallbackProductSearchRequestIdDoProductSearchRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostCrmV3ExtensionsAccountingCallbackProductSearchRequestIdDoProductSearchExecute(r)
 }
 
@@ -940,11 +821,11 @@ PostCrmV3ExtensionsAccountingCallbackProductSearchRequestIdDoProductSearch Endpo
 
 Call this endpoint with the response to a product search request.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param requestId The ID of the request that this response is for
  @return ApiPostCrmV3ExtensionsAccountingCallbackProductSearchRequestIdDoProductSearchRequest
 */
-func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackProductSearchRequestIdDoProductSearch(ctx _context.Context, requestId string) ApiPostCrmV3ExtensionsAccountingCallbackProductSearchRequestIdDoProductSearchRequest {
+func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackProductSearchRequestIdDoProductSearch(ctx context.Context, requestId string) ApiPostCrmV3ExtensionsAccountingCallbackProductSearchRequestIdDoProductSearchRequest {
 	return ApiPostCrmV3ExtensionsAccountingCallbackProductSearchRequestIdDoProductSearchRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -953,26 +834,24 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackProductSearch
 }
 
 // Execute executes the request
-func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackProductSearchRequestIdDoProductSearchExecute(r ApiPostCrmV3ExtensionsAccountingCallbackProductSearchRequestIdDoProductSearchRequest) (*_nethttp.Response, error) {
+func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackProductSearchRequestIdDoProductSearchExecute(r ApiPostCrmV3ExtensionsAccountingCallbackProductSearchRequestIdDoProductSearchRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CallbacksApiService.PostCrmV3ExtensionsAccountingCallbackProductSearchRequestIdDoProductSearch")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/extensions/accounting/callback/product-search/{requestId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"requestId"+"}", _neturl.PathEscape(parameterToString(r.requestId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"requestId"+"}", url.PathEscape(parameterToString(r.requestId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.productSearchResponse == nil {
 		return nil, reportError("productSearchResponse is required and must be specified")
 	}
@@ -996,21 +875,7 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackProductSearch
 	}
 	// body params
 	localVarPostBody = r.productSearchResponse
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -1020,15 +885,15 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackProductSearch
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1046,7 +911,7 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackProductSearch
 }
 
 type ApiPostCrmV3ExtensionsAccountingCallbackTaxSearchRequestIdDoTaxSearchRequest struct {
-	ctx               _context.Context
+	ctx               context.Context
 	ApiService        *CallbacksApiService
 	requestId         string
 	taxSearchResponse *TaxSearchResponse
@@ -1058,7 +923,7 @@ func (r ApiPostCrmV3ExtensionsAccountingCallbackTaxSearchRequestIdDoTaxSearchReq
 	return r
 }
 
-func (r ApiPostCrmV3ExtensionsAccountingCallbackTaxSearchRequestIdDoTaxSearchRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiPostCrmV3ExtensionsAccountingCallbackTaxSearchRequestIdDoTaxSearchRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostCrmV3ExtensionsAccountingCallbackTaxSearchRequestIdDoTaxSearchExecute(r)
 }
 
@@ -1067,11 +932,11 @@ PostCrmV3ExtensionsAccountingCallbackTaxSearchRequestIdDoTaxSearch Endpoint for 
 
 Call this endpoint with the response to a taxes search request.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param requestId The ID of the request that this response is for
  @return ApiPostCrmV3ExtensionsAccountingCallbackTaxSearchRequestIdDoTaxSearchRequest
 */
-func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackTaxSearchRequestIdDoTaxSearch(ctx _context.Context, requestId string) ApiPostCrmV3ExtensionsAccountingCallbackTaxSearchRequestIdDoTaxSearchRequest {
+func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackTaxSearchRequestIdDoTaxSearch(ctx context.Context, requestId string) ApiPostCrmV3ExtensionsAccountingCallbackTaxSearchRequestIdDoTaxSearchRequest {
 	return ApiPostCrmV3ExtensionsAccountingCallbackTaxSearchRequestIdDoTaxSearchRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -1080,26 +945,24 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackTaxSearchRequ
 }
 
 // Execute executes the request
-func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackTaxSearchRequestIdDoTaxSearchExecute(r ApiPostCrmV3ExtensionsAccountingCallbackTaxSearchRequestIdDoTaxSearchRequest) (*_nethttp.Response, error) {
+func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackTaxSearchRequestIdDoTaxSearchExecute(r ApiPostCrmV3ExtensionsAccountingCallbackTaxSearchRequestIdDoTaxSearchRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CallbacksApiService.PostCrmV3ExtensionsAccountingCallbackTaxSearchRequestIdDoTaxSearch")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/extensions/accounting/callback/tax-search/{requestId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"requestId"+"}", _neturl.PathEscape(parameterToString(r.requestId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"requestId"+"}", url.PathEscape(parameterToString(r.requestId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.taxSearchResponse == nil {
 		return nil, reportError("taxSearchResponse is required and must be specified")
 	}
@@ -1123,21 +986,7 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackTaxSearchRequ
 	}
 	// body params
 	localVarPostBody = r.taxSearchResponse
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -1147,15 +996,15 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackTaxSearchRequ
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1173,7 +1022,7 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackTaxSearchRequ
 }
 
 type ApiPostCrmV3ExtensionsAccountingCallbackTermsRequestIdCreateTermRequest struct {
-	ctx           _context.Context
+	ctx           context.Context
 	ApiService    *CallbacksApiService
 	requestId     string
 	termsResponse *TermsResponse
@@ -1185,7 +1034,7 @@ func (r ApiPostCrmV3ExtensionsAccountingCallbackTermsRequestIdCreateTermRequest)
 	return r
 }
 
-func (r ApiPostCrmV3ExtensionsAccountingCallbackTermsRequestIdCreateTermRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiPostCrmV3ExtensionsAccountingCallbackTermsRequestIdCreateTermRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostCrmV3ExtensionsAccountingCallbackTermsRequestIdCreateTermExecute(r)
 }
 
@@ -1194,11 +1043,11 @@ PostCrmV3ExtensionsAccountingCallbackTermsRequestIdCreateTerm Endpoint for terms
 
 Call this endpoint with the response to a terms search request.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param requestId The ID of the request that this response is for
  @return ApiPostCrmV3ExtensionsAccountingCallbackTermsRequestIdCreateTermRequest
 */
-func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackTermsRequestIdCreateTerm(ctx _context.Context, requestId string) ApiPostCrmV3ExtensionsAccountingCallbackTermsRequestIdCreateTermRequest {
+func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackTermsRequestIdCreateTerm(ctx context.Context, requestId string) ApiPostCrmV3ExtensionsAccountingCallbackTermsRequestIdCreateTermRequest {
 	return ApiPostCrmV3ExtensionsAccountingCallbackTermsRequestIdCreateTermRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -1207,26 +1056,24 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackTermsRequestI
 }
 
 // Execute executes the request
-func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackTermsRequestIdCreateTermExecute(r ApiPostCrmV3ExtensionsAccountingCallbackTermsRequestIdCreateTermRequest) (*_nethttp.Response, error) {
+func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackTermsRequestIdCreateTermExecute(r ApiPostCrmV3ExtensionsAccountingCallbackTermsRequestIdCreateTermRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CallbacksApiService.PostCrmV3ExtensionsAccountingCallbackTermsRequestIdCreateTerm")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/extensions/accounting/callback/terms/{requestId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"requestId"+"}", _neturl.PathEscape(parameterToString(r.requestId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"requestId"+"}", url.PathEscape(parameterToString(r.requestId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.termsResponse == nil {
 		return nil, reportError("termsResponse is required and must be specified")
 	}
@@ -1250,21 +1097,7 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackTermsRequestI
 	}
 	// body params
 	localVarPostBody = r.termsResponse
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -1274,15 +1107,15 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackTermsRequestI
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}

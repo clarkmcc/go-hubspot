@@ -16,9 +16,6 @@ import (
 
 // UrlMappingCreateRequestBody struct for UrlMappingCreateRequestBody
 type UrlMappingCreateRequestBody struct {
-	RoutePrefix             string `json:"routePrefix"`
-	Destination             string `json:"destination"`
-	RedirectStyle           int32  `json:"redirectStyle"`
 	Precedence              *int32 `json:"precedence,omitempty"`
 	IsOnlyAfterNotFound     *bool  `json:"isOnlyAfterNotFound,omitempty"`
 	IsMatchFullUrl          *bool  `json:"isMatchFullUrl,omitempty"`
@@ -26,6 +23,9 @@ type UrlMappingCreateRequestBody struct {
 	IsPattern               *bool  `json:"isPattern,omitempty"`
 	IsTrailingSlashOptional *bool  `json:"isTrailingSlashOptional,omitempty"`
 	IsProtocolAgnostic      *bool  `json:"isProtocolAgnostic,omitempty"`
+	RoutePrefix             string `json:"routePrefix"`
+	Destination             string `json:"destination"`
+	RedirectStyle           int32  `json:"redirectStyle"`
 }
 
 // NewUrlMappingCreateRequestBody instantiates a new UrlMappingCreateRequestBody object
@@ -46,78 +46,6 @@ func NewUrlMappingCreateRequestBody(routePrefix string, destination string, redi
 func NewUrlMappingCreateRequestBodyWithDefaults() *UrlMappingCreateRequestBody {
 	this := UrlMappingCreateRequestBody{}
 	return &this
-}
-
-// GetRoutePrefix returns the RoutePrefix field value
-func (o *UrlMappingCreateRequestBody) GetRoutePrefix() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.RoutePrefix
-}
-
-// GetRoutePrefixOk returns a tuple with the RoutePrefix field value
-// and a boolean to check if the value has been set.
-func (o *UrlMappingCreateRequestBody) GetRoutePrefixOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.RoutePrefix, true
-}
-
-// SetRoutePrefix sets field value
-func (o *UrlMappingCreateRequestBody) SetRoutePrefix(v string) {
-	o.RoutePrefix = v
-}
-
-// GetDestination returns the Destination field value
-func (o *UrlMappingCreateRequestBody) GetDestination() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Destination
-}
-
-// GetDestinationOk returns a tuple with the Destination field value
-// and a boolean to check if the value has been set.
-func (o *UrlMappingCreateRequestBody) GetDestinationOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Destination, true
-}
-
-// SetDestination sets field value
-func (o *UrlMappingCreateRequestBody) SetDestination(v string) {
-	o.Destination = v
-}
-
-// GetRedirectStyle returns the RedirectStyle field value
-func (o *UrlMappingCreateRequestBody) GetRedirectStyle() int32 {
-	if o == nil {
-		var ret int32
-		return ret
-	}
-
-	return o.RedirectStyle
-}
-
-// GetRedirectStyleOk returns a tuple with the RedirectStyle field value
-// and a boolean to check if the value has been set.
-func (o *UrlMappingCreateRequestBody) GetRedirectStyleOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.RedirectStyle, true
-}
-
-// SetRedirectStyle sets field value
-func (o *UrlMappingCreateRequestBody) SetRedirectStyle(v int32) {
-	o.RedirectStyle = v
 }
 
 // GetPrecedence returns the Precedence field value if set, zero value otherwise.
@@ -344,17 +272,80 @@ func (o *UrlMappingCreateRequestBody) SetIsProtocolAgnostic(v bool) {
 	o.IsProtocolAgnostic = &v
 }
 
+// GetRoutePrefix returns the RoutePrefix field value
+func (o *UrlMappingCreateRequestBody) GetRoutePrefix() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.RoutePrefix
+}
+
+// GetRoutePrefixOk returns a tuple with the RoutePrefix field value
+// and a boolean to check if the value has been set.
+func (o *UrlMappingCreateRequestBody) GetRoutePrefixOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.RoutePrefix, true
+}
+
+// SetRoutePrefix sets field value
+func (o *UrlMappingCreateRequestBody) SetRoutePrefix(v string) {
+	o.RoutePrefix = v
+}
+
+// GetDestination returns the Destination field value
+func (o *UrlMappingCreateRequestBody) GetDestination() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Destination
+}
+
+// GetDestinationOk returns a tuple with the Destination field value
+// and a boolean to check if the value has been set.
+func (o *UrlMappingCreateRequestBody) GetDestinationOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Destination, true
+}
+
+// SetDestination sets field value
+func (o *UrlMappingCreateRequestBody) SetDestination(v string) {
+	o.Destination = v
+}
+
+// GetRedirectStyle returns the RedirectStyle field value
+func (o *UrlMappingCreateRequestBody) GetRedirectStyle() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.RedirectStyle
+}
+
+// GetRedirectStyleOk returns a tuple with the RedirectStyle field value
+// and a boolean to check if the value has been set.
+func (o *UrlMappingCreateRequestBody) GetRedirectStyleOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.RedirectStyle, true
+}
+
+// SetRedirectStyle sets field value
+func (o *UrlMappingCreateRequestBody) SetRedirectStyle(v int32) {
+	o.RedirectStyle = v
+}
+
 func (o UrlMappingCreateRequestBody) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["routePrefix"] = o.RoutePrefix
-	}
-	if true {
-		toSerialize["destination"] = o.Destination
-	}
-	if true {
-		toSerialize["redirectStyle"] = o.RedirectStyle
-	}
 	if o.Precedence != nil {
 		toSerialize["precedence"] = o.Precedence
 	}
@@ -375,6 +366,15 @@ func (o UrlMappingCreateRequestBody) MarshalJSON() ([]byte, error) {
 	}
 	if o.IsProtocolAgnostic != nil {
 		toSerialize["isProtocolAgnostic"] = o.IsProtocolAgnostic
+	}
+	if true {
+		toSerialize["routePrefix"] = o.RoutePrefix
+	}
+	if true {
+		toSerialize["destination"] = o.Destination
+	}
+	if true {
+		toSerialize["redirectStyle"] = o.RedirectStyle
 	}
 	return json.Marshal(toSerialize)
 }

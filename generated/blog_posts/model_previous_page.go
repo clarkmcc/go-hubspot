@@ -1,7 +1,7 @@
 /*
 Blog Post endpoints
 
-\"Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags\"
+Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags
 
 API version: v3
 */
@@ -14,7 +14,7 @@ import (
 	"encoding/json"
 )
 
-// PreviousPage struct for PreviousPage
+// PreviousPage Model definition for a previous page
 type PreviousPage struct {
 	Before string  `json:"before"`
 	Link   *string `json:"link,omitempty"`

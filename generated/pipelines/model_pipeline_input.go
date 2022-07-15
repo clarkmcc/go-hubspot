@@ -16,23 +16,23 @@ import (
 
 // PipelineInput An input used to create or replace a pipeline's definition.
 type PipelineInput struct {
-	// Pipeline stage inputs used to create the new or replacement pipeline.
-	Stages []PipelineStageInput `json:"stages"`
 	// A unique label used to organize pipelines in HubSpot's UI
 	Label string `json:"label"`
 	// The order for displaying this pipeline. If two pipelines have a matching `displayOrder`, they will be sorted alphabetically by label.
 	DisplayOrder int32 `json:"displayOrder"`
+	// Pipeline stage inputs used to create the new or replacement pipeline.
+	Stages []PipelineStageInput `json:"stages"`
 }
 
 // NewPipelineInput instantiates a new PipelineInput object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPipelineInput(stages []PipelineStageInput, label string, displayOrder int32) *PipelineInput {
+func NewPipelineInput(label string, displayOrder int32, stages []PipelineStageInput) *PipelineInput {
 	this := PipelineInput{}
-	this.Stages = stages
 	this.Label = label
 	this.DisplayOrder = displayOrder
+	this.Stages = stages
 	return &this
 }
 
@@ -42,30 +42,6 @@ func NewPipelineInput(stages []PipelineStageInput, label string, displayOrder in
 func NewPipelineInputWithDefaults() *PipelineInput {
 	this := PipelineInput{}
 	return &this
-}
-
-// GetStages returns the Stages field value
-func (o *PipelineInput) GetStages() []PipelineStageInput {
-	if o == nil {
-		var ret []PipelineStageInput
-		return ret
-	}
-
-	return o.Stages
-}
-
-// GetStagesOk returns a tuple with the Stages field value
-// and a boolean to check if the value has been set.
-func (o *PipelineInput) GetStagesOk() (*[]PipelineStageInput, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Stages, true
-}
-
-// SetStages sets field value
-func (o *PipelineInput) SetStages(v []PipelineStageInput) {
-	o.Stages = v
 }
 
 // GetLabel returns the Label field value
@@ -116,16 +92,40 @@ func (o *PipelineInput) SetDisplayOrder(v int32) {
 	o.DisplayOrder = v
 }
 
+// GetStages returns the Stages field value
+func (o *PipelineInput) GetStages() []PipelineStageInput {
+	if o == nil {
+		var ret []PipelineStageInput
+		return ret
+	}
+
+	return o.Stages
+}
+
+// GetStagesOk returns a tuple with the Stages field value
+// and a boolean to check if the value has been set.
+func (o *PipelineInput) GetStagesOk() ([]PipelineStageInput, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Stages, true
+}
+
+// SetStages sets field value
+func (o *PipelineInput) SetStages(v []PipelineStageInput) {
+	o.Stages = v
+}
+
 func (o PipelineInput) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["stages"] = o.Stages
-	}
 	if true {
 		toSerialize["label"] = o.Label
 	}
 	if true {
 		toSerialize["displayOrder"] = o.DisplayOrder
+	}
+	if true {
+		toSerialize["stages"] = o.Stages
 	}
 	return json.Marshal(toSerialize)
 }

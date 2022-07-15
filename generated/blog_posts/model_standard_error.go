@@ -1,7 +1,7 @@
 /*
 Blog Post endpoints
 
-\"Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags\"
+Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags
 
 API version: v3
 */
@@ -14,16 +14,24 @@ import (
 	"encoding/json"
 )
 
-// StandardError struct for StandardError
+// StandardError Model definition for a standard error.
 type StandardError struct {
-	Status      string                  `json:"status"`
-	Id          *string                 `json:"id,omitempty"`
-	Category    map[string]interface{}  `json:"category"`
-	SubCategory *map[string]interface{} `json:"subCategory,omitempty"`
-	Message     string                  `json:"message"`
-	Errors      []ErrorDetail           `json:"errors"`
-	Context     map[string][]string     `json:"context"`
-	Links       map[string]string       `json:"links"`
+	// Error status.
+	Status string `json:"status"`
+	// Error ID.
+	Id *string `json:"id,omitempty"`
+	// Model definition for an error category.
+	Category map[string]interface{} `json:"category"`
+	// Error subcategory.
+	SubCategory map[string]interface{} `json:"subCategory,omitempty"`
+	// Error message.
+	Message string `json:"message"`
+	// List of error details.
+	Errors []ErrorDetail `json:"errors"`
+	// Error context.
+	Context map[string][]string `json:"context"`
+	// Error links.
+	Links map[string]string `json:"links"`
 }
 
 // NewStandardError instantiates a new StandardError object
@@ -117,11 +125,11 @@ func (o *StandardError) GetCategory() map[string]interface{} {
 
 // GetCategoryOk returns a tuple with the Category field value
 // and a boolean to check if the value has been set.
-func (o *StandardError) GetCategoryOk() (*map[string]interface{}, bool) {
+func (o *StandardError) GetCategoryOk() (map[string]interface{}, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Category, true
+	return o.Category, true
 }
 
 // SetCategory sets field value
@@ -135,12 +143,12 @@ func (o *StandardError) GetSubCategory() map[string]interface{} {
 		var ret map[string]interface{}
 		return ret
 	}
-	return *o.SubCategory
+	return o.SubCategory
 }
 
 // GetSubCategoryOk returns a tuple with the SubCategory field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *StandardError) GetSubCategoryOk() (*map[string]interface{}, bool) {
+func (o *StandardError) GetSubCategoryOk() (map[string]interface{}, bool) {
 	if o == nil || o.SubCategory == nil {
 		return nil, false
 	}
@@ -158,7 +166,7 @@ func (o *StandardError) HasSubCategory() bool {
 
 // SetSubCategory gets a reference to the given map[string]interface{} and assigns it to the SubCategory field.
 func (o *StandardError) SetSubCategory(v map[string]interface{}) {
-	o.SubCategory = &v
+	o.SubCategory = v
 }
 
 // GetMessage returns the Message field value
@@ -197,11 +205,11 @@ func (o *StandardError) GetErrors() []ErrorDetail {
 
 // GetErrorsOk returns a tuple with the Errors field value
 // and a boolean to check if the value has been set.
-func (o *StandardError) GetErrorsOk() (*[]ErrorDetail, bool) {
+func (o *StandardError) GetErrorsOk() ([]ErrorDetail, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Errors, true
+	return o.Errors, true
 }
 
 // SetErrors sets field value

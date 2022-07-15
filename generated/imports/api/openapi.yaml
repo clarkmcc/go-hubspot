@@ -52,8 +52,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security:
-      - hapikey: []
+      security: []
       summary: Get active imports
       tags:
       - Core
@@ -66,16 +65,7 @@ paths:
         content:
           multipart/form-data:
             schema:
-              properties:
-                files:
-                  description: A list of files containing the data to import
-                  format: binary
-                  type: string
-                importRequest:
-                  description: JSON formatted metadata about the import. This includes
-                    a name for the import and the column mappings for each file. See
-                    the overview tab for more on the required format.
-                  type: string
+              $ref: '#/components/schemas/post__crm_v3_imports__create_request'
       responses:
         "200":
           content:
@@ -90,7 +80,6 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
       - oauth2_legacy:
         - crm.import
       summary: Start a new import
@@ -98,8 +87,8 @@ paths:
       - Core
   /crm/v3/imports/{importId}:
     get:
-      description: A complete summary of an import record, including any updates.
-      operationId: get-/crm/v3/imports/{importId}_getById
+      description: "A complete summary of an import record, including any updates."
+      operationId: "get-/crm/v3/imports/{importId}_getById"
       parameters:
       - explode: false
         in: path
@@ -122,15 +111,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security:
-      - hapikey: []
+      security: []
       summary: Get the information on any import
       tags:
       - Core
   /crm/v3/imports/{importId}/cancel:
     post:
       description: This allows a developer to cancel an active import.
-      operationId: post-/crm/v3/imports/{importId}/cancel_cancel
+      operationId: "post-/crm/v3/imports/{importId}/cancel_cancel"
       parameters:
       - explode: false
         in: path
@@ -154,7 +142,6 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
       - oauth2_legacy:
         - crm.import
       summary: Cancel an active import
@@ -162,7 +149,7 @@ paths:
       - Core
   /crm/v3/imports/{importId}/errors:
     get:
-      operationId: get-/crm/v3/imports/{importId}/errors_getErrors
+      operationId: "get-/crm/v3/imports/{importId}/errors_getErrors"
       parameters:
       - description: The paging cursor token of the last successfully read resource
           will be returned as the `paging.next.after` JSON property of a paged response
@@ -204,8 +191,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security:
-      - hapikey: []
+      security: []
       tags:
       - Public_Imports
 components:
@@ -698,7 +684,7 @@ components:
       - objectLists
       type: object
     PublicImportResponse:
-      description: A current summary of the import, whether complete or not.
+      description: "A current summary of the import, whether complete or not."
       example:
         createdAt: 2020-01-14T22:45:00.153Z
         metadata:
@@ -770,6 +756,17 @@ components:
       - listId
       - objectType
       type: object
+    post__crm_v3_imports__create_request:
+      properties:
+        files:
+          description: A list of files containing the data to import
+          format: binary
+          type: string
+        importRequest:
+          description: JSON formatted metadata about the import. This includes a name
+            for the import and the column mappings for each file. See the overview
+            tab for more on the required format.
+          type: string
   securitySchemes:
     oauth2_legacy:
       flows:
@@ -779,10 +776,6 @@ components:
             crm.import: Create or modify all your CRM data through bulk imports
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
-    hapikey:
-      in: query
-      name: hapikey
-      type: apiKey
 x-hubspot-available-client-libraries:
 - PHP
 - Node

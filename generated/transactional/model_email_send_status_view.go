@@ -17,7 +17,6 @@ import (
 
 // EmailSendStatusView Describes the status of an email send request.
 type EmailSendStatusView struct {
-	EventId *EventIdView `json:"eventId,omitempty"`
 	// Identifier used to query the status of the send.
 	StatusId string `json:"statusId"`
 	// Result of the send.
@@ -29,7 +28,8 @@ type EmailSendStatusView struct {
 	// Time when the send was completed.
 	CompletedAt *time.Time `json:"completedAt,omitempty"`
 	// Status of the send request.
-	Status string `json:"status"`
+	Status  string       `json:"status"`
+	EventId *EventIdView `json:"eventId,omitempty"`
 }
 
 // NewEmailSendStatusView instantiates a new EmailSendStatusView object
@@ -49,38 +49,6 @@ func NewEmailSendStatusView(statusId string, status string) *EmailSendStatusView
 func NewEmailSendStatusViewWithDefaults() *EmailSendStatusView {
 	this := EmailSendStatusView{}
 	return &this
-}
-
-// GetEventId returns the EventId field value if set, zero value otherwise.
-func (o *EmailSendStatusView) GetEventId() EventIdView {
-	if o == nil || o.EventId == nil {
-		var ret EventIdView
-		return ret
-	}
-	return *o.EventId
-}
-
-// GetEventIdOk returns a tuple with the EventId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *EmailSendStatusView) GetEventIdOk() (*EventIdView, bool) {
-	if o == nil || o.EventId == nil {
-		return nil, false
-	}
-	return o.EventId, true
-}
-
-// HasEventId returns a boolean if a field has been set.
-func (o *EmailSendStatusView) HasEventId() bool {
-	if o != nil && o.EventId != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetEventId gets a reference to the given EventIdView and assigns it to the EventId field.
-func (o *EmailSendStatusView) SetEventId(v EventIdView) {
-	o.EventId = &v
 }
 
 // GetStatusId returns the StatusId field value
@@ -259,11 +227,40 @@ func (o *EmailSendStatusView) SetStatus(v string) {
 	o.Status = v
 }
 
+// GetEventId returns the EventId field value if set, zero value otherwise.
+func (o *EmailSendStatusView) GetEventId() EventIdView {
+	if o == nil || o.EventId == nil {
+		var ret EventIdView
+		return ret
+	}
+	return *o.EventId
+}
+
+// GetEventIdOk returns a tuple with the EventId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EmailSendStatusView) GetEventIdOk() (*EventIdView, bool) {
+	if o == nil || o.EventId == nil {
+		return nil, false
+	}
+	return o.EventId, true
+}
+
+// HasEventId returns a boolean if a field has been set.
+func (o *EmailSendStatusView) HasEventId() bool {
+	if o != nil && o.EventId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetEventId gets a reference to the given EventIdView and assigns it to the EventId field.
+func (o *EmailSendStatusView) SetEventId(v EventIdView) {
+	o.EventId = &v
+}
+
 func (o EmailSendStatusView) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.EventId != nil {
-		toSerialize["eventId"] = o.EventId
-	}
 	if true {
 		toSerialize["statusId"] = o.StatusId
 	}
@@ -281,6 +278,9 @@ func (o EmailSendStatusView) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["status"] = o.Status
+	}
+	if o.EventId != nil {
+		toSerialize["eventId"] = o.EventId
 	}
 	return json.Marshal(toSerialize)
 }

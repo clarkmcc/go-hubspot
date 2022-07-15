@@ -12,25 +12,18 @@ package actions
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-
-	"github.com/clarkmcc/go-hubspot/authorization"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // RevisionsApiService RevisionsApi service
 type RevisionsApiService service
 
 type ApiGetAutomationV4ActionsAppIdDefinitionIdRevisionsGetPageRequest struct {
-	ctx          _context.Context
+	ctx          context.Context
 	ApiService   *RevisionsApiService
 	definitionId string
 	appId        int32
@@ -50,7 +43,7 @@ func (r ApiGetAutomationV4ActionsAppIdDefinitionIdRevisionsGetPageRequest) After
 	return r
 }
 
-func (r ApiGetAutomationV4ActionsAppIdDefinitionIdRevisionsGetPageRequest) Execute() (CollectionResponseActionRevisionForwardPaging, *_nethttp.Response, error) {
+func (r ApiGetAutomationV4ActionsAppIdDefinitionIdRevisionsGetPageRequest) Execute() (*CollectionResponseActionRevisionForwardPaging, *http.Response, error) {
 	return r.ApiService.GetAutomationV4ActionsAppIdDefinitionIdRevisionsGetPageExecute(r)
 }
 
@@ -59,12 +52,12 @@ GetAutomationV4ActionsAppIdDefinitionIdRevisionsGetPage Get all revisions for a 
 
 Returns a list of revisions for a custom workflow action.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param definitionId The ID of the custom workflow action
  @param appId
  @return ApiGetAutomationV4ActionsAppIdDefinitionIdRevisionsGetPageRequest
 */
-func (a *RevisionsApiService) GetAutomationV4ActionsAppIdDefinitionIdRevisionsGetPage(ctx _context.Context, definitionId string, appId int32) ApiGetAutomationV4ActionsAppIdDefinitionIdRevisionsGetPageRequest {
+func (a *RevisionsApiService) GetAutomationV4ActionsAppIdDefinitionIdRevisionsGetPage(ctx context.Context, definitionId string, appId int32) ApiGetAutomationV4ActionsAppIdDefinitionIdRevisionsGetPageRequest {
 	return ApiGetAutomationV4ActionsAppIdDefinitionIdRevisionsGetPageRequest{
 		ApiService:   a,
 		ctx:          ctx,
@@ -75,28 +68,26 @@ func (a *RevisionsApiService) GetAutomationV4ActionsAppIdDefinitionIdRevisionsGe
 
 // Execute executes the request
 //  @return CollectionResponseActionRevisionForwardPaging
-func (a *RevisionsApiService) GetAutomationV4ActionsAppIdDefinitionIdRevisionsGetPageExecute(r ApiGetAutomationV4ActionsAppIdDefinitionIdRevisionsGetPageRequest) (CollectionResponseActionRevisionForwardPaging, *_nethttp.Response, error) {
+func (a *RevisionsApiService) GetAutomationV4ActionsAppIdDefinitionIdRevisionsGetPageExecute(r ApiGetAutomationV4ActionsAppIdDefinitionIdRevisionsGetPageRequest) (*CollectionResponseActionRevisionForwardPaging, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  CollectionResponseActionRevisionForwardPaging
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CollectionResponseActionRevisionForwardPaging
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RevisionsApiService.GetAutomationV4ActionsAppIdDefinitionIdRevisionsGetPage")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/automation/v4/actions/{appId}/{definitionId}/revisions"
-	localVarPath = strings.Replace(localVarPath, "{"+"definitionId"+"}", _neturl.PathEscape(parameterToString(r.definitionId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", _neturl.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"definitionId"+"}", url.PathEscape(parameterToString(r.definitionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.limit != nil {
 		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
@@ -135,7 +126,7 @@ func (a *RevisionsApiService) GetAutomationV4ActionsAppIdDefinitionIdRevisionsGe
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -145,15 +136,15 @@ func (a *RevisionsApiService) GetAutomationV4ActionsAppIdDefinitionIdRevisionsGe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -169,7 +160,7 @@ func (a *RevisionsApiService) GetAutomationV4ActionsAppIdDefinitionIdRevisionsGe
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -180,14 +171,14 @@ func (a *RevisionsApiService) GetAutomationV4ActionsAppIdDefinitionIdRevisionsGe
 }
 
 type ApiGetAutomationV4ActionsAppIdDefinitionIdRevisionsRevisionIdGetByIdRequest struct {
-	ctx          _context.Context
+	ctx          context.Context
 	ApiService   *RevisionsApiService
 	definitionId string
 	revisionId   string
 	appId        int32
 }
 
-func (r ApiGetAutomationV4ActionsAppIdDefinitionIdRevisionsRevisionIdGetByIdRequest) Execute() (ActionRevision, *_nethttp.Response, error) {
+func (r ApiGetAutomationV4ActionsAppIdDefinitionIdRevisionsRevisionIdGetByIdRequest) Execute() (*ActionRevision, *http.Response, error) {
 	return r.ApiService.GetAutomationV4ActionsAppIdDefinitionIdRevisionsRevisionIdGetByIdExecute(r)
 }
 
@@ -196,13 +187,13 @@ GetAutomationV4ActionsAppIdDefinitionIdRevisionsRevisionIdGetById Get a revision
 
 Returns the given version of a custom workflow action.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param definitionId The ID of the custom workflow action.
  @param revisionId The version of the custom workflow action.
  @param appId
  @return ApiGetAutomationV4ActionsAppIdDefinitionIdRevisionsRevisionIdGetByIdRequest
 */
-func (a *RevisionsApiService) GetAutomationV4ActionsAppIdDefinitionIdRevisionsRevisionIdGetById(ctx _context.Context, definitionId string, revisionId string, appId int32) ApiGetAutomationV4ActionsAppIdDefinitionIdRevisionsRevisionIdGetByIdRequest {
+func (a *RevisionsApiService) GetAutomationV4ActionsAppIdDefinitionIdRevisionsRevisionIdGetById(ctx context.Context, definitionId string, revisionId string, appId int32) ApiGetAutomationV4ActionsAppIdDefinitionIdRevisionsRevisionIdGetByIdRequest {
 	return ApiGetAutomationV4ActionsAppIdDefinitionIdRevisionsRevisionIdGetByIdRequest{
 		ApiService:   a,
 		ctx:          ctx,
@@ -214,29 +205,27 @@ func (a *RevisionsApiService) GetAutomationV4ActionsAppIdDefinitionIdRevisionsRe
 
 // Execute executes the request
 //  @return ActionRevision
-func (a *RevisionsApiService) GetAutomationV4ActionsAppIdDefinitionIdRevisionsRevisionIdGetByIdExecute(r ApiGetAutomationV4ActionsAppIdDefinitionIdRevisionsRevisionIdGetByIdRequest) (ActionRevision, *_nethttp.Response, error) {
+func (a *RevisionsApiService) GetAutomationV4ActionsAppIdDefinitionIdRevisionsRevisionIdGetByIdExecute(r ApiGetAutomationV4ActionsAppIdDefinitionIdRevisionsRevisionIdGetByIdRequest) (*ActionRevision, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  ActionRevision
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ActionRevision
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RevisionsApiService.GetAutomationV4ActionsAppIdDefinitionIdRevisionsRevisionIdGetById")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/automation/v4/actions/{appId}/{definitionId}/revisions/{revisionId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"definitionId"+"}", _neturl.PathEscape(parameterToString(r.definitionId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"revisionId"+"}", _neturl.PathEscape(parameterToString(r.revisionId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", _neturl.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"definitionId"+"}", url.PathEscape(parameterToString(r.definitionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"revisionId"+"}", url.PathEscape(parameterToString(r.revisionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -269,7 +258,7 @@ func (a *RevisionsApiService) GetAutomationV4ActionsAppIdDefinitionIdRevisionsRe
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -279,15 +268,15 @@ func (a *RevisionsApiService) GetAutomationV4ActionsAppIdDefinitionIdRevisionsRe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -303,7 +292,7 @@ func (a *RevisionsApiService) GetAutomationV4ActionsAppIdDefinitionIdRevisionsRe
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

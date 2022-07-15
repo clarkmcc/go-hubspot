@@ -12,45 +12,36 @@ package webhooks
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-
-	"github.com/clarkmcc/go-hubspot/authorization"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // SubscriptionsApiService SubscriptionsApi service
 type SubscriptionsApiService service
 
 type ApiDeleteWebhooksV3AppIdSubscriptionsSubscriptionIdArchiveRequest struct {
-	ctx            _context.Context
+	ctx            context.Context
 	ApiService     *SubscriptionsApiService
 	subscriptionId int32
 	appId          int32
 }
 
-func (r ApiDeleteWebhooksV3AppIdSubscriptionsSubscriptionIdArchiveRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeleteWebhooksV3AppIdSubscriptionsSubscriptionIdArchiveRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteWebhooksV3AppIdSubscriptionsSubscriptionIdArchiveExecute(r)
 }
 
 /*
-DeleteWebhooksV3AppIdSubscriptionsSubscriptionIdArchive Delete a subscription
+DeleteWebhooksV3AppIdSubscriptionsSubscriptionIdArchive Method for DeleteWebhooksV3AppIdSubscriptionsSubscriptionIdArchive
 
-Permanently deletes a subscription. This cannot be undone.
-
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param subscriptionId The ID of subscription to delete.
- @param appId The ID of the target app.
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param subscriptionId
+ @param appId
  @return ApiDeleteWebhooksV3AppIdSubscriptionsSubscriptionIdArchiveRequest
 */
-func (a *SubscriptionsApiService) DeleteWebhooksV3AppIdSubscriptionsSubscriptionIdArchive(ctx _context.Context, subscriptionId int32, appId int32) ApiDeleteWebhooksV3AppIdSubscriptionsSubscriptionIdArchiveRequest {
+func (a *SubscriptionsApiService) DeleteWebhooksV3AppIdSubscriptionsSubscriptionIdArchive(ctx context.Context, subscriptionId int32, appId int32) ApiDeleteWebhooksV3AppIdSubscriptionsSubscriptionIdArchiveRequest {
 	return ApiDeleteWebhooksV3AppIdSubscriptionsSubscriptionIdArchiveRequest{
 		ApiService:     a,
 		ctx:            ctx,
@@ -60,27 +51,25 @@ func (a *SubscriptionsApiService) DeleteWebhooksV3AppIdSubscriptionsSubscription
 }
 
 // Execute executes the request
-func (a *SubscriptionsApiService) DeleteWebhooksV3AppIdSubscriptionsSubscriptionIdArchiveExecute(r ApiDeleteWebhooksV3AppIdSubscriptionsSubscriptionIdArchiveRequest) (*_nethttp.Response, error) {
+func (a *SubscriptionsApiService) DeleteWebhooksV3AppIdSubscriptionsSubscriptionIdArchiveExecute(r ApiDeleteWebhooksV3AppIdSubscriptionsSubscriptionIdArchiveRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SubscriptionsApiService.DeleteWebhooksV3AppIdSubscriptionsSubscriptionIdArchive")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/webhooks/v3/{appId}/subscriptions/{subscriptionId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"subscriptionId"+"}", _neturl.PathEscape(parameterToString(r.subscriptionId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", _neturl.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"subscriptionId"+"}", url.PathEscape(parameterToString(r.subscriptionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -102,7 +91,7 @@ func (a *SubscriptionsApiService) DeleteWebhooksV3AppIdSubscriptionsSubscription
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
+			if apiKey, ok := auth["developer_hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -113,7 +102,7 @@ func (a *SubscriptionsApiService) DeleteWebhooksV3AppIdSubscriptionsSubscription
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -123,15 +112,15 @@ func (a *SubscriptionsApiService) DeleteWebhooksV3AppIdSubscriptionsSubscription
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -149,25 +138,23 @@ func (a *SubscriptionsApiService) DeleteWebhooksV3AppIdSubscriptionsSubscription
 }
 
 type ApiGetWebhooksV3AppIdSubscriptionsGetAllRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *SubscriptionsApiService
 	appId      int32
 }
 
-func (r ApiGetWebhooksV3AppIdSubscriptionsGetAllRequest) Execute() (SubscriptionListResponse, *_nethttp.Response, error) {
+func (r ApiGetWebhooksV3AppIdSubscriptionsGetAllRequest) Execute() (*SubscriptionListResponse, *http.Response, error) {
 	return r.ApiService.GetWebhooksV3AppIdSubscriptionsGetAllExecute(r)
 }
 
 /*
-GetWebhooksV3AppIdSubscriptionsGetAll Get subscription details
+GetWebhooksV3AppIdSubscriptionsGetAll Method for GetWebhooksV3AppIdSubscriptionsGetAll
 
-Returns full details for all existing subscriptions for the given app.
-
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId The ID of the target app.
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param appId
  @return ApiGetWebhooksV3AppIdSubscriptionsGetAllRequest
 */
-func (a *SubscriptionsApiService) GetWebhooksV3AppIdSubscriptionsGetAll(ctx _context.Context, appId int32) ApiGetWebhooksV3AppIdSubscriptionsGetAllRequest {
+func (a *SubscriptionsApiService) GetWebhooksV3AppIdSubscriptionsGetAll(ctx context.Context, appId int32) ApiGetWebhooksV3AppIdSubscriptionsGetAllRequest {
 	return ApiGetWebhooksV3AppIdSubscriptionsGetAllRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -177,27 +164,25 @@ func (a *SubscriptionsApiService) GetWebhooksV3AppIdSubscriptionsGetAll(ctx _con
 
 // Execute executes the request
 //  @return SubscriptionListResponse
-func (a *SubscriptionsApiService) GetWebhooksV3AppIdSubscriptionsGetAllExecute(r ApiGetWebhooksV3AppIdSubscriptionsGetAllRequest) (SubscriptionListResponse, *_nethttp.Response, error) {
+func (a *SubscriptionsApiService) GetWebhooksV3AppIdSubscriptionsGetAllExecute(r ApiGetWebhooksV3AppIdSubscriptionsGetAllRequest) (*SubscriptionListResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  SubscriptionListResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SubscriptionListResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SubscriptionsApiService.GetWebhooksV3AppIdSubscriptionsGetAll")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/webhooks/v3/{appId}/subscriptions"
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", _neturl.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -219,7 +204,7 @@ func (a *SubscriptionsApiService) GetWebhooksV3AppIdSubscriptionsGetAllExecute(r
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
+			if apiKey, ok := auth["developer_hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -230,7 +215,7 @@ func (a *SubscriptionsApiService) GetWebhooksV3AppIdSubscriptionsGetAllExecute(r
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -240,15 +225,15 @@ func (a *SubscriptionsApiService) GetWebhooksV3AppIdSubscriptionsGetAllExecute(r
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -264,7 +249,7 @@ func (a *SubscriptionsApiService) GetWebhooksV3AppIdSubscriptionsGetAllExecute(r
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -275,59 +260,55 @@ func (a *SubscriptionsApiService) GetWebhooksV3AppIdSubscriptionsGetAllExecute(r
 }
 
 type ApiGetWebhooksV3AppIdSubscriptionsSubscriptionIdGetByIdRequest struct {
-	ctx            _context.Context
+	ctx            context.Context
 	ApiService     *SubscriptionsApiService
-	appId          int32
 	subscriptionId int32
+	appId          int32
 }
 
-func (r ApiGetWebhooksV3AppIdSubscriptionsSubscriptionIdGetByIdRequest) Execute() (SubscriptionResponse, *_nethttp.Response, error) {
+func (r ApiGetWebhooksV3AppIdSubscriptionsSubscriptionIdGetByIdRequest) Execute() (*SubscriptionResponse, *http.Response, error) {
 	return r.ApiService.GetWebhooksV3AppIdSubscriptionsSubscriptionIdGetByIdExecute(r)
 }
 
 /*
-GetWebhooksV3AppIdSubscriptionsSubscriptionIdGetById Get subscription
+GetWebhooksV3AppIdSubscriptionsSubscriptionIdGetById Method for GetWebhooksV3AppIdSubscriptionsSubscriptionIdGetById
 
-Returns details about a subscription.
-
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId The ID of the target app.
- @param subscriptionId The ID of the target subscription.
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param subscriptionId
+ @param appId
  @return ApiGetWebhooksV3AppIdSubscriptionsSubscriptionIdGetByIdRequest
 */
-func (a *SubscriptionsApiService) GetWebhooksV3AppIdSubscriptionsSubscriptionIdGetById(ctx _context.Context, appId int32, subscriptionId int32) ApiGetWebhooksV3AppIdSubscriptionsSubscriptionIdGetByIdRequest {
+func (a *SubscriptionsApiService) GetWebhooksV3AppIdSubscriptionsSubscriptionIdGetById(ctx context.Context, subscriptionId int32, appId int32) ApiGetWebhooksV3AppIdSubscriptionsSubscriptionIdGetByIdRequest {
 	return ApiGetWebhooksV3AppIdSubscriptionsSubscriptionIdGetByIdRequest{
 		ApiService:     a,
 		ctx:            ctx,
-		appId:          appId,
 		subscriptionId: subscriptionId,
+		appId:          appId,
 	}
 }
 
 // Execute executes the request
 //  @return SubscriptionResponse
-func (a *SubscriptionsApiService) GetWebhooksV3AppIdSubscriptionsSubscriptionIdGetByIdExecute(r ApiGetWebhooksV3AppIdSubscriptionsSubscriptionIdGetByIdRequest) (SubscriptionResponse, *_nethttp.Response, error) {
+func (a *SubscriptionsApiService) GetWebhooksV3AppIdSubscriptionsSubscriptionIdGetByIdExecute(r ApiGetWebhooksV3AppIdSubscriptionsSubscriptionIdGetByIdRequest) (*SubscriptionResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  SubscriptionResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SubscriptionResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SubscriptionsApiService.GetWebhooksV3AppIdSubscriptionsSubscriptionIdGetById")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/webhooks/v3/{appId}/subscriptions/{subscriptionId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", _neturl.PathEscape(parameterToString(r.appId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"subscriptionId"+"}", _neturl.PathEscape(parameterToString(r.subscriptionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"subscriptionId"+"}", url.PathEscape(parameterToString(r.subscriptionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -349,7 +330,7 @@ func (a *SubscriptionsApiService) GetWebhooksV3AppIdSubscriptionsSubscriptionIdG
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
+			if apiKey, ok := auth["developer_hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -360,7 +341,7 @@ func (a *SubscriptionsApiService) GetWebhooksV3AppIdSubscriptionsSubscriptionIdG
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -370,15 +351,15 @@ func (a *SubscriptionsApiService) GetWebhooksV3AppIdSubscriptionsSubscriptionIdG
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -394,7 +375,7 @@ func (a *SubscriptionsApiService) GetWebhooksV3AppIdSubscriptionsSubscriptionIdG
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -405,34 +386,31 @@ func (a *SubscriptionsApiService) GetWebhooksV3AppIdSubscriptionsSubscriptionIdG
 }
 
 type ApiPatchWebhooksV3AppIdSubscriptionsSubscriptionIdUpdateRequest struct {
-	ctx                      _context.Context
+	ctx                      context.Context
 	ApiService               *SubscriptionsApiService
 	subscriptionId           int32
 	appId                    int32
 	subscriptionPatchRequest *SubscriptionPatchRequest
 }
 
-// Updated details for the subscription.
 func (r ApiPatchWebhooksV3AppIdSubscriptionsSubscriptionIdUpdateRequest) SubscriptionPatchRequest(subscriptionPatchRequest SubscriptionPatchRequest) ApiPatchWebhooksV3AppIdSubscriptionsSubscriptionIdUpdateRequest {
 	r.subscriptionPatchRequest = &subscriptionPatchRequest
 	return r
 }
 
-func (r ApiPatchWebhooksV3AppIdSubscriptionsSubscriptionIdUpdateRequest) Execute() (SubscriptionResponse, *_nethttp.Response, error) {
+func (r ApiPatchWebhooksV3AppIdSubscriptionsSubscriptionIdUpdateRequest) Execute() (*SubscriptionResponse, *http.Response, error) {
 	return r.ApiService.PatchWebhooksV3AppIdSubscriptionsSubscriptionIdUpdateExecute(r)
 }
 
 /*
-PatchWebhooksV3AppIdSubscriptionsSubscriptionIdUpdate Update a subscription
+PatchWebhooksV3AppIdSubscriptionsSubscriptionIdUpdate Method for PatchWebhooksV3AppIdSubscriptionsSubscriptionIdUpdate
 
-Updates the details for an existing subscription.
-
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param subscriptionId The ID of the subscription to update.
- @param appId The ID of the target app.
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param subscriptionId
+ @param appId
  @return ApiPatchWebhooksV3AppIdSubscriptionsSubscriptionIdUpdateRequest
 */
-func (a *SubscriptionsApiService) PatchWebhooksV3AppIdSubscriptionsSubscriptionIdUpdate(ctx _context.Context, subscriptionId int32, appId int32) ApiPatchWebhooksV3AppIdSubscriptionsSubscriptionIdUpdateRequest {
+func (a *SubscriptionsApiService) PatchWebhooksV3AppIdSubscriptionsSubscriptionIdUpdate(ctx context.Context, subscriptionId int32, appId int32) ApiPatchWebhooksV3AppIdSubscriptionsSubscriptionIdUpdateRequest {
 	return ApiPatchWebhooksV3AppIdSubscriptionsSubscriptionIdUpdateRequest{
 		ApiService:     a,
 		ctx:            ctx,
@@ -443,28 +421,26 @@ func (a *SubscriptionsApiService) PatchWebhooksV3AppIdSubscriptionsSubscriptionI
 
 // Execute executes the request
 //  @return SubscriptionResponse
-func (a *SubscriptionsApiService) PatchWebhooksV3AppIdSubscriptionsSubscriptionIdUpdateExecute(r ApiPatchWebhooksV3AppIdSubscriptionsSubscriptionIdUpdateRequest) (SubscriptionResponse, *_nethttp.Response, error) {
+func (a *SubscriptionsApiService) PatchWebhooksV3AppIdSubscriptionsSubscriptionIdUpdateExecute(r ApiPatchWebhooksV3AppIdSubscriptionsSubscriptionIdUpdateRequest) (*SubscriptionResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPatch
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  SubscriptionResponse
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SubscriptionResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SubscriptionsApiService.PatchWebhooksV3AppIdSubscriptionsSubscriptionIdUpdate")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/webhooks/v3/{appId}/subscriptions/{subscriptionId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"subscriptionId"+"}", _neturl.PathEscape(parameterToString(r.subscriptionId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", _neturl.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"subscriptionId"+"}", url.PathEscape(parameterToString(r.subscriptionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.subscriptionPatchRequest == nil {
 		return localVarReturnValue, nil, reportError("subscriptionPatchRequest is required and must be specified")
 	}
@@ -491,7 +467,7 @@ func (a *SubscriptionsApiService) PatchWebhooksV3AppIdSubscriptionsSubscriptionI
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
+			if apiKey, ok := auth["developer_hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -502,7 +478,7 @@ func (a *SubscriptionsApiService) PatchWebhooksV3AppIdSubscriptionsSubscriptionI
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -512,15 +488,15 @@ func (a *SubscriptionsApiService) PatchWebhooksV3AppIdSubscriptionsSubscriptionI
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -536,7 +512,7 @@ func (a *SubscriptionsApiService) PatchWebhooksV3AppIdSubscriptionsSubscriptionI
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -547,32 +523,29 @@ func (a *SubscriptionsApiService) PatchWebhooksV3AppIdSubscriptionsSubscriptionI
 }
 
 type ApiPostWebhooksV3AppIdSubscriptionsBatchUpdateUpdateBatchRequest struct {
-	ctx                                      _context.Context
+	ctx                                      context.Context
 	ApiService                               *SubscriptionsApiService
 	appId                                    int32
 	batchInputSubscriptionBatchUpdateRequest *BatchInputSubscriptionBatchUpdateRequest
 }
 
-// Updated details for the specified subscriptions.
 func (r ApiPostWebhooksV3AppIdSubscriptionsBatchUpdateUpdateBatchRequest) BatchInputSubscriptionBatchUpdateRequest(batchInputSubscriptionBatchUpdateRequest BatchInputSubscriptionBatchUpdateRequest) ApiPostWebhooksV3AppIdSubscriptionsBatchUpdateUpdateBatchRequest {
 	r.batchInputSubscriptionBatchUpdateRequest = &batchInputSubscriptionBatchUpdateRequest
 	return r
 }
 
-func (r ApiPostWebhooksV3AppIdSubscriptionsBatchUpdateUpdateBatchRequest) Execute() (BatchResponseSubscriptionResponse, *_nethttp.Response, error) {
+func (r ApiPostWebhooksV3AppIdSubscriptionsBatchUpdateUpdateBatchRequest) Execute() (*BatchResponseSubscriptionResponse, *http.Response, error) {
 	return r.ApiService.PostWebhooksV3AppIdSubscriptionsBatchUpdateUpdateBatchExecute(r)
 }
 
 /*
-PostWebhooksV3AppIdSubscriptionsBatchUpdateUpdateBatch Batch update subscriptions
+PostWebhooksV3AppIdSubscriptionsBatchUpdateUpdateBatch Method for PostWebhooksV3AppIdSubscriptionsBatchUpdateUpdateBatch
 
-Activates or deactivates target app subscriptions.
-
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId The app ID of the target app.
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param appId
  @return ApiPostWebhooksV3AppIdSubscriptionsBatchUpdateUpdateBatchRequest
 */
-func (a *SubscriptionsApiService) PostWebhooksV3AppIdSubscriptionsBatchUpdateUpdateBatch(ctx _context.Context, appId int32) ApiPostWebhooksV3AppIdSubscriptionsBatchUpdateUpdateBatchRequest {
+func (a *SubscriptionsApiService) PostWebhooksV3AppIdSubscriptionsBatchUpdateUpdateBatch(ctx context.Context, appId int32) ApiPostWebhooksV3AppIdSubscriptionsBatchUpdateUpdateBatchRequest {
 	return ApiPostWebhooksV3AppIdSubscriptionsBatchUpdateUpdateBatchRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -582,27 +555,25 @@ func (a *SubscriptionsApiService) PostWebhooksV3AppIdSubscriptionsBatchUpdateUpd
 
 // Execute executes the request
 //  @return BatchResponseSubscriptionResponse
-func (a *SubscriptionsApiService) PostWebhooksV3AppIdSubscriptionsBatchUpdateUpdateBatchExecute(r ApiPostWebhooksV3AppIdSubscriptionsBatchUpdateUpdateBatchRequest) (BatchResponseSubscriptionResponse, *_nethttp.Response, error) {
+func (a *SubscriptionsApiService) PostWebhooksV3AppIdSubscriptionsBatchUpdateUpdateBatchExecute(r ApiPostWebhooksV3AppIdSubscriptionsBatchUpdateUpdateBatchRequest) (*BatchResponseSubscriptionResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  BatchResponseSubscriptionResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *BatchResponseSubscriptionResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SubscriptionsApiService.PostWebhooksV3AppIdSubscriptionsBatchUpdateUpdateBatch")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/webhooks/v3/{appId}/subscriptions/batch/update"
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", _neturl.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.batchInputSubscriptionBatchUpdateRequest == nil {
 		return localVarReturnValue, nil, reportError("batchInputSubscriptionBatchUpdateRequest is required and must be specified")
 	}
@@ -629,7 +600,7 @@ func (a *SubscriptionsApiService) PostWebhooksV3AppIdSubscriptionsBatchUpdateUpd
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
+			if apiKey, ok := auth["developer_hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -640,7 +611,7 @@ func (a *SubscriptionsApiService) PostWebhooksV3AppIdSubscriptionsBatchUpdateUpd
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -650,15 +621,15 @@ func (a *SubscriptionsApiService) PostWebhooksV3AppIdSubscriptionsBatchUpdateUpd
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -674,7 +645,7 @@ func (a *SubscriptionsApiService) PostWebhooksV3AppIdSubscriptionsBatchUpdateUpd
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -685,32 +656,29 @@ func (a *SubscriptionsApiService) PostWebhooksV3AppIdSubscriptionsBatchUpdateUpd
 }
 
 type ApiPostWebhooksV3AppIdSubscriptionsCreateRequest struct {
-	ctx                       _context.Context
+	ctx                       context.Context
 	ApiService                *SubscriptionsApiService
 	appId                     int32
 	subscriptionCreateRequest *SubscriptionCreateRequest
 }
 
-// Details about the new subscription.
 func (r ApiPostWebhooksV3AppIdSubscriptionsCreateRequest) SubscriptionCreateRequest(subscriptionCreateRequest SubscriptionCreateRequest) ApiPostWebhooksV3AppIdSubscriptionsCreateRequest {
 	r.subscriptionCreateRequest = &subscriptionCreateRequest
 	return r
 }
 
-func (r ApiPostWebhooksV3AppIdSubscriptionsCreateRequest) Execute() (SubscriptionResponse, *_nethttp.Response, error) {
+func (r ApiPostWebhooksV3AppIdSubscriptionsCreateRequest) Execute() (*SubscriptionResponse, *http.Response, error) {
 	return r.ApiService.PostWebhooksV3AppIdSubscriptionsCreateExecute(r)
 }
 
 /*
-PostWebhooksV3AppIdSubscriptionsCreate Subscribe to an event
+PostWebhooksV3AppIdSubscriptionsCreate Method for PostWebhooksV3AppIdSubscriptionsCreate
 
-Creates a new webhook subscription for the given app. Each subscription in an app must be unique.
-
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId The ID of the target app.
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param appId
  @return ApiPostWebhooksV3AppIdSubscriptionsCreateRequest
 */
-func (a *SubscriptionsApiService) PostWebhooksV3AppIdSubscriptionsCreate(ctx _context.Context, appId int32) ApiPostWebhooksV3AppIdSubscriptionsCreateRequest {
+func (a *SubscriptionsApiService) PostWebhooksV3AppIdSubscriptionsCreate(ctx context.Context, appId int32) ApiPostWebhooksV3AppIdSubscriptionsCreateRequest {
 	return ApiPostWebhooksV3AppIdSubscriptionsCreateRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -720,27 +688,25 @@ func (a *SubscriptionsApiService) PostWebhooksV3AppIdSubscriptionsCreate(ctx _co
 
 // Execute executes the request
 //  @return SubscriptionResponse
-func (a *SubscriptionsApiService) PostWebhooksV3AppIdSubscriptionsCreateExecute(r ApiPostWebhooksV3AppIdSubscriptionsCreateRequest) (SubscriptionResponse, *_nethttp.Response, error) {
+func (a *SubscriptionsApiService) PostWebhooksV3AppIdSubscriptionsCreateExecute(r ApiPostWebhooksV3AppIdSubscriptionsCreateRequest) (*SubscriptionResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  SubscriptionResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SubscriptionResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SubscriptionsApiService.PostWebhooksV3AppIdSubscriptionsCreate")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/webhooks/v3/{appId}/subscriptions"
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", _neturl.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.subscriptionCreateRequest == nil {
 		return localVarReturnValue, nil, reportError("subscriptionCreateRequest is required and must be specified")
 	}
@@ -767,7 +733,7 @@ func (a *SubscriptionsApiService) PostWebhooksV3AppIdSubscriptionsCreateExecute(
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
+			if apiKey, ok := auth["developer_hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -778,7 +744,7 @@ func (a *SubscriptionsApiService) PostWebhooksV3AppIdSubscriptionsCreateExecute(
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -788,15 +754,15 @@ func (a *SubscriptionsApiService) PostWebhooksV3AppIdSubscriptionsCreateExecute(
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -812,7 +778,7 @@ func (a *SubscriptionsApiService) PostWebhooksV3AppIdSubscriptionsCreateExecute(
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

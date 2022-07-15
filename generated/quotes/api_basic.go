@@ -12,32 +12,125 @@ package quotes
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-
-	"github.com/clarkmcc/go-hubspot/authorization"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"reflect"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // BasicApiService BasicApi service
 type BasicApiService service
 
+type ApiDeleteCrmV3ObjectsQuotesQuoteIdArchiveRequest struct {
+	ctx        context.Context
+	ApiService *BasicApiService
+	quoteId    string
+}
+
+func (r ApiDeleteCrmV3ObjectsQuotesQuoteIdArchiveRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteCrmV3ObjectsQuotesQuoteIdArchiveExecute(r)
+}
+
+/*
+DeleteCrmV3ObjectsQuotesQuoteIdArchive Archive
+
+Move an Object identified by `{quoteId}` to the recycling bin.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param quoteId
+ @return ApiDeleteCrmV3ObjectsQuotesQuoteIdArchiveRequest
+*/
+func (a *BasicApiService) DeleteCrmV3ObjectsQuotesQuoteIdArchive(ctx context.Context, quoteId string) ApiDeleteCrmV3ObjectsQuotesQuoteIdArchiveRequest {
+	return ApiDeleteCrmV3ObjectsQuotesQuoteIdArchiveRequest{
+		ApiService: a,
+		ctx:        ctx,
+		quoteId:    quoteId,
+	}
+}
+
+// Execute executes the request
+func (a *BasicApiService) DeleteCrmV3ObjectsQuotesQuoteIdArchiveExecute(r ApiDeleteCrmV3ObjectsQuotesQuoteIdArchiveRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.DeleteCrmV3ObjectsQuotesQuoteIdArchive")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/crm/v3/objects/quotes/{quoteId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"quoteId"+"}", url.PathEscape(parameterToString(r.quoteId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"*/*"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.model = v
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type ApiGetCrmV3ObjectsQuotesGetPageRequest struct {
-	ctx          _context.Context
-	ApiService   *BasicApiService
-	limit        *int32
-	after        *string
-	properties   *[]string
-	associations *[]string
-	archived     *bool
+	ctx                   context.Context
+	ApiService            *BasicApiService
+	limit                 *int32
+	after                 *string
+	properties            *[]string
+	propertiesWithHistory *[]string
+	associations          *[]string
+	archived              *bool
 }
 
 // The maximum number of results to display per page.
@@ -58,6 +151,12 @@ func (r ApiGetCrmV3ObjectsQuotesGetPageRequest) Properties(properties []string) 
 	return r
 }
 
+// A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored. Usage of this parameter will reduce the maximum number of objects that can be read by a single request.
+func (r ApiGetCrmV3ObjectsQuotesGetPageRequest) PropertiesWithHistory(propertiesWithHistory []string) ApiGetCrmV3ObjectsQuotesGetPageRequest {
+	r.propertiesWithHistory = &propertiesWithHistory
+	return r
+}
+
 // A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
 func (r ApiGetCrmV3ObjectsQuotesGetPageRequest) Associations(associations []string) ApiGetCrmV3ObjectsQuotesGetPageRequest {
 	r.associations = &associations
@@ -70,7 +169,7 @@ func (r ApiGetCrmV3ObjectsQuotesGetPageRequest) Archived(archived bool) ApiGetCr
 	return r
 }
 
-func (r ApiGetCrmV3ObjectsQuotesGetPageRequest) Execute() (CollectionResponseSimplePublicObjectWithAssociationsForwardPaging, *_nethttp.Response, error) {
+func (r ApiGetCrmV3ObjectsQuotesGetPageRequest) Execute() (*CollectionResponseSimplePublicObjectWithAssociationsForwardPaging, *http.Response, error) {
 	return r.ApiService.GetCrmV3ObjectsQuotesGetPageExecute(r)
 }
 
@@ -79,10 +178,10 @@ GetCrmV3ObjectsQuotesGetPage List
 
 Read a page of quotes. Control what is returned via the `properties` query param.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetCrmV3ObjectsQuotesGetPageRequest
 */
-func (a *BasicApiService) GetCrmV3ObjectsQuotesGetPage(ctx _context.Context) ApiGetCrmV3ObjectsQuotesGetPageRequest {
+func (a *BasicApiService) GetCrmV3ObjectsQuotesGetPage(ctx context.Context) ApiGetCrmV3ObjectsQuotesGetPageRequest {
 	return ApiGetCrmV3ObjectsQuotesGetPageRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -91,26 +190,24 @@ func (a *BasicApiService) GetCrmV3ObjectsQuotesGetPage(ctx _context.Context) Api
 
 // Execute executes the request
 //  @return CollectionResponseSimplePublicObjectWithAssociationsForwardPaging
-func (a *BasicApiService) GetCrmV3ObjectsQuotesGetPageExecute(r ApiGetCrmV3ObjectsQuotesGetPageRequest) (CollectionResponseSimplePublicObjectWithAssociationsForwardPaging, *_nethttp.Response, error) {
+func (a *BasicApiService) GetCrmV3ObjectsQuotesGetPageExecute(r ApiGetCrmV3ObjectsQuotesGetPageRequest) (*CollectionResponseSimplePublicObjectWithAssociationsForwardPaging, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  CollectionResponseSimplePublicObjectWithAssociationsForwardPaging
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CollectionResponseSimplePublicObjectWithAssociationsForwardPaging
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.GetCrmV3ObjectsQuotesGetPage")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/objects/quotes"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.limit != nil {
 		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
@@ -127,6 +224,17 @@ func (a *BasicApiService) GetCrmV3ObjectsQuotesGetPageExecute(r ApiGetCrmV3Objec
 			}
 		} else {
 			localVarQueryParams.Add("properties", parameterToString(t, "multi"))
+		}
+	}
+	if r.propertiesWithHistory != nil {
+		t := *r.propertiesWithHistory
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				localVarQueryParams.Add("propertiesWithHistory", parameterToString(s.Index(i), "multi"))
+			}
+		} else {
+			localVarQueryParams.Add("propertiesWithHistory", parameterToString(t, "multi"))
 		}
 	}
 	if r.associations != nil {
@@ -160,21 +268,7 @@ func (a *BasicApiService) GetCrmV3ObjectsQuotesGetPageExecute(r ApiGetCrmV3Objec
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -184,15 +278,15 @@ func (a *BasicApiService) GetCrmV3ObjectsQuotesGetPageExecute(r ApiGetCrmV3Objec
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -208,7 +302,7 @@ func (a *BasicApiService) GetCrmV3ObjectsQuotesGetPageExecute(r ApiGetCrmV3Objec
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -219,18 +313,25 @@ func (a *BasicApiService) GetCrmV3ObjectsQuotesGetPageExecute(r ApiGetCrmV3Objec
 }
 
 type ApiGetCrmV3ObjectsQuotesQuoteIdGetByIdRequest struct {
-	ctx          _context.Context
-	ApiService   *BasicApiService
-	quoteId      string
-	properties   *[]string
-	associations *[]string
-	archived     *bool
-	idProperty   *string
+	ctx                   context.Context
+	ApiService            *BasicApiService
+	quoteId               string
+	properties            *[]string
+	propertiesWithHistory *[]string
+	associations          *[]string
+	archived              *bool
+	idProperty            *string
 }
 
 // A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
 func (r ApiGetCrmV3ObjectsQuotesQuoteIdGetByIdRequest) Properties(properties []string) ApiGetCrmV3ObjectsQuotesQuoteIdGetByIdRequest {
 	r.properties = &properties
+	return r
+}
+
+// A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored.
+func (r ApiGetCrmV3ObjectsQuotesQuoteIdGetByIdRequest) PropertiesWithHistory(propertiesWithHistory []string) ApiGetCrmV3ObjectsQuotesQuoteIdGetByIdRequest {
+	r.propertiesWithHistory = &propertiesWithHistory
 	return r
 }
 
@@ -252,7 +353,7 @@ func (r ApiGetCrmV3ObjectsQuotesQuoteIdGetByIdRequest) IdProperty(idProperty str
 	return r
 }
 
-func (r ApiGetCrmV3ObjectsQuotesQuoteIdGetByIdRequest) Execute() (SimplePublicObjectWithAssociations, *_nethttp.Response, error) {
+func (r ApiGetCrmV3ObjectsQuotesQuoteIdGetByIdRequest) Execute() (*SimplePublicObjectWithAssociations, *http.Response, error) {
 	return r.ApiService.GetCrmV3ObjectsQuotesQuoteIdGetByIdExecute(r)
 }
 
@@ -261,11 +362,11 @@ GetCrmV3ObjectsQuotesQuoteIdGetById Read
 
 Read an Object identified by `{quoteId}`. `{quoteId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param quoteId
  @return ApiGetCrmV3ObjectsQuotesQuoteIdGetByIdRequest
 */
-func (a *BasicApiService) GetCrmV3ObjectsQuotesQuoteIdGetById(ctx _context.Context, quoteId string) ApiGetCrmV3ObjectsQuotesQuoteIdGetByIdRequest {
+func (a *BasicApiService) GetCrmV3ObjectsQuotesQuoteIdGetById(ctx context.Context, quoteId string) ApiGetCrmV3ObjectsQuotesQuoteIdGetByIdRequest {
 	return ApiGetCrmV3ObjectsQuotesQuoteIdGetByIdRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -275,27 +376,25 @@ func (a *BasicApiService) GetCrmV3ObjectsQuotesQuoteIdGetById(ctx _context.Conte
 
 // Execute executes the request
 //  @return SimplePublicObjectWithAssociations
-func (a *BasicApiService) GetCrmV3ObjectsQuotesQuoteIdGetByIdExecute(r ApiGetCrmV3ObjectsQuotesQuoteIdGetByIdRequest) (SimplePublicObjectWithAssociations, *_nethttp.Response, error) {
+func (a *BasicApiService) GetCrmV3ObjectsQuotesQuoteIdGetByIdExecute(r ApiGetCrmV3ObjectsQuotesQuoteIdGetByIdRequest) (*SimplePublicObjectWithAssociations, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  SimplePublicObjectWithAssociations
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SimplePublicObjectWithAssociations
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.GetCrmV3ObjectsQuotesQuoteIdGetById")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/objects/quotes/{quoteId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"quoteId"+"}", _neturl.PathEscape(parameterToString(r.quoteId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"quoteId"+"}", url.PathEscape(parameterToString(r.quoteId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.properties != nil {
 		t := *r.properties
@@ -306,6 +405,17 @@ func (a *BasicApiService) GetCrmV3ObjectsQuotesQuoteIdGetByIdExecute(r ApiGetCrm
 			}
 		} else {
 			localVarQueryParams.Add("properties", parameterToString(t, "multi"))
+		}
+	}
+	if r.propertiesWithHistory != nil {
+		t := *r.propertiesWithHistory
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				localVarQueryParams.Add("propertiesWithHistory", parameterToString(s.Index(i), "multi"))
+			}
+		} else {
+			localVarQueryParams.Add("propertiesWithHistory", parameterToString(t, "multi"))
 		}
 	}
 	if r.associations != nil {
@@ -342,21 +452,7 @@ func (a *BasicApiService) GetCrmV3ObjectsQuotesQuoteIdGetByIdExecute(r ApiGetCrm
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -366,15 +462,15 @@ func (a *BasicApiService) GetCrmV3ObjectsQuotesQuoteIdGetByIdExecute(r ApiGetCrm
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -390,7 +486,255 @@ func (a *BasicApiService) GetCrmV3ObjectsQuotesQuoteIdGetByIdExecute(r ApiGetCrm
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiPatchCrmV3ObjectsQuotesQuoteIdUpdateRequest struct {
+	ctx                     context.Context
+	ApiService              *BasicApiService
+	quoteId                 string
+	simplePublicObjectInput *SimplePublicObjectInput
+	idProperty              *string
+}
+
+func (r ApiPatchCrmV3ObjectsQuotesQuoteIdUpdateRequest) SimplePublicObjectInput(simplePublicObjectInput SimplePublicObjectInput) ApiPatchCrmV3ObjectsQuotesQuoteIdUpdateRequest {
+	r.simplePublicObjectInput = &simplePublicObjectInput
+	return r
+}
+
+// The name of a property whose values are unique for this object type
+func (r ApiPatchCrmV3ObjectsQuotesQuoteIdUpdateRequest) IdProperty(idProperty string) ApiPatchCrmV3ObjectsQuotesQuoteIdUpdateRequest {
+	r.idProperty = &idProperty
+	return r
+}
+
+func (r ApiPatchCrmV3ObjectsQuotesQuoteIdUpdateRequest) Execute() (*SimplePublicObject, *http.Response, error) {
+	return r.ApiService.PatchCrmV3ObjectsQuotesQuoteIdUpdateExecute(r)
+}
+
+/*
+PatchCrmV3ObjectsQuotesQuoteIdUpdate Update
+
+Perform a partial update of an Object identified by `{quoteId}`. `{quoteId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param. Provided property values will be overwritten. Read-only and non-existent properties will be ignored. Properties values can be cleared by passing an empty string.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param quoteId
+ @return ApiPatchCrmV3ObjectsQuotesQuoteIdUpdateRequest
+*/
+func (a *BasicApiService) PatchCrmV3ObjectsQuotesQuoteIdUpdate(ctx context.Context, quoteId string) ApiPatchCrmV3ObjectsQuotesQuoteIdUpdateRequest {
+	return ApiPatchCrmV3ObjectsQuotesQuoteIdUpdateRequest{
+		ApiService: a,
+		ctx:        ctx,
+		quoteId:    quoteId,
+	}
+}
+
+// Execute executes the request
+//  @return SimplePublicObject
+func (a *BasicApiService) PatchCrmV3ObjectsQuotesQuoteIdUpdateExecute(r ApiPatchCrmV3ObjectsQuotesQuoteIdUpdateRequest) (*SimplePublicObject, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SimplePublicObject
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.PatchCrmV3ObjectsQuotesQuoteIdUpdate")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/crm/v3/objects/quotes/{quoteId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"quoteId"+"}", url.PathEscape(parameterToString(r.quoteId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.simplePublicObjectInput == nil {
+		return localVarReturnValue, nil, reportError("simplePublicObjectInput is required and must be specified")
+	}
+
+	if r.idProperty != nil {
+		localVarQueryParams.Add("idProperty", parameterToString(*r.idProperty, ""))
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "*/*"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.simplePublicObjectInput
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiPostCrmV3ObjectsQuotesCreateRequest struct {
+	ctx                     context.Context
+	ApiService              *BasicApiService
+	simplePublicObjectInput *SimplePublicObjectInput
+}
+
+func (r ApiPostCrmV3ObjectsQuotesCreateRequest) SimplePublicObjectInput(simplePublicObjectInput SimplePublicObjectInput) ApiPostCrmV3ObjectsQuotesCreateRequest {
+	r.simplePublicObjectInput = &simplePublicObjectInput
+	return r
+}
+
+func (r ApiPostCrmV3ObjectsQuotesCreateRequest) Execute() (*SimplePublicObject, *http.Response, error) {
+	return r.ApiService.PostCrmV3ObjectsQuotesCreateExecute(r)
+}
+
+/*
+PostCrmV3ObjectsQuotesCreate Create
+
+Create a quote with the given properties and return a copy of the object, including the ID. Documentation and examples for creating standard quotes is provided.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiPostCrmV3ObjectsQuotesCreateRequest
+*/
+func (a *BasicApiService) PostCrmV3ObjectsQuotesCreate(ctx context.Context) ApiPostCrmV3ObjectsQuotesCreateRequest {
+	return ApiPostCrmV3ObjectsQuotesCreateRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//  @return SimplePublicObject
+func (a *BasicApiService) PostCrmV3ObjectsQuotesCreateExecute(r ApiPostCrmV3ObjectsQuotesCreateRequest) (*SimplePublicObject, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SimplePublicObject
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.PostCrmV3ObjectsQuotesCreate")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/crm/v3/objects/quotes"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.simplePublicObjectInput == nil {
+		return localVarReturnValue, nil, reportError("simplePublicObjectInput is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "*/*"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.simplePublicObjectInput
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

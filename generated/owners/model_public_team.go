@@ -1,7 +1,7 @@
 /*
 CRM Owners
 
-HubSpot uses **owners** to assign CRM objects to specific people in your organization. The endpoints described here are used to get a list of the owners that are available for an account. To assign an owner to an object, set the hubspot_owner_id property using the appropriate CRM object update or create a request.  If teams are available for your HubSpot tier, these endpoints will also indicate which team an owner belongs to. Team membership can be one of PRIMARY (default), SECONDARY, or CHILD.
+HubSpot uses **owners** to assign CRM objects to specific people in your organization. The endpoints described here are used to get a list of the owners that are available for an account. To assign an owner to an object, set the hubspot_owner_id property using the appropriate CRM object update or create a request.  If teams are available for your HubSpot tier, these endpoints will also indicate which team(s) an owner can access, as well as which team is the owner's primary team.
 
 API version: v3
 */
@@ -16,19 +16,20 @@ import (
 
 // PublicTeam struct for PublicTeam
 type PublicTeam struct {
-	Id         string  `json:"id"`
-	Name       string  `json:"name"`
-	Membership *string `json:"membership,omitempty"`
+	Id      string `json:"id"`
+	Name    string `json:"name"`
+	Primary bool   `json:"primary"`
 }
 
 // NewPublicTeam instantiates a new PublicTeam object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPublicTeam(id string, name string) *PublicTeam {
+func NewPublicTeam(id string, name string, primary bool) *PublicTeam {
 	this := PublicTeam{}
 	this.Id = id
 	this.Name = name
+	this.Primary = primary
 	return &this
 }
 
@@ -88,36 +89,28 @@ func (o *PublicTeam) SetName(v string) {
 	o.Name = v
 }
 
-// GetMembership returns the Membership field value if set, zero value otherwise.
-func (o *PublicTeam) GetMembership() string {
-	if o == nil || o.Membership == nil {
-		var ret string
+// GetPrimary returns the Primary field value
+func (o *PublicTeam) GetPrimary() bool {
+	if o == nil {
+		var ret bool
 		return ret
 	}
-	return *o.Membership
+
+	return o.Primary
 }
 
-// GetMembershipOk returns a tuple with the Membership field value if set, nil otherwise
+// GetPrimaryOk returns a tuple with the Primary field value
 // and a boolean to check if the value has been set.
-func (o *PublicTeam) GetMembershipOk() (*string, bool) {
-	if o == nil || o.Membership == nil {
+func (o *PublicTeam) GetPrimaryOk() (*bool, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Membership, true
+	return &o.Primary, true
 }
 
-// HasMembership returns a boolean if a field has been set.
-func (o *PublicTeam) HasMembership() bool {
-	if o != nil && o.Membership != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetMembership gets a reference to the given string and assigns it to the Membership field.
-func (o *PublicTeam) SetMembership(v string) {
-	o.Membership = &v
+// SetPrimary sets field value
+func (o *PublicTeam) SetPrimary(v bool) {
+	o.Primary = v
 }
 
 func (o PublicTeam) MarshalJSON() ([]byte, error) {
@@ -128,8 +121,8 @@ func (o PublicTeam) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["name"] = o.Name
 	}
-	if o.Membership != nil {
-		toSerialize["membership"] = o.Membership
+	if true {
+		toSerialize["primary"] = o.Primary
 	}
 	return json.Marshal(toSerialize)
 }

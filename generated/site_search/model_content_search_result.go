@@ -41,7 +41,7 @@ type ContentSearchResult struct {
 	// Name of the author.
 	AuthorFullName *string `json:"authorFullName,omitempty"`
 	// If a blog post, the tags associated with it.
-	Tags *[]string `json:"tags,omitempty"`
+	Tags []string `json:"tags,omitempty"`
 	// If a dynamic page, the ID of the HubDB table.
 	TableId *int64 `json:"tableId,omitempty"`
 	// If a dynamic page, the row ID in the HubDB table.
@@ -424,12 +424,12 @@ func (o *ContentSearchResult) GetTags() []string {
 		var ret []string
 		return ret
 	}
-	return *o.Tags
+	return o.Tags
 }
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ContentSearchResult) GetTagsOk() (*[]string, bool) {
+func (o *ContentSearchResult) GetTagsOk() ([]string, bool) {
 	if o == nil || o.Tags == nil {
 		return nil, false
 	}
@@ -447,7 +447,7 @@ func (o *ContentSearchResult) HasTags() bool {
 
 // SetTags gets a reference to the given []string and assigns it to the Tags field.
 func (o *ContentSearchResult) SetTags(v []string) {
-	o.Tags = &v
+	o.Tags = v
 }
 
 // GetTableId returns the TableId field value if set, zero value otherwise.

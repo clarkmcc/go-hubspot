@@ -1,7 +1,7 @@
 /*
 CRM Owners
 
-HubSpot uses **owners** to assign CRM objects to specific people in your organization. The endpoints described here are used to get a list of the owners that are available for an account. To assign an owner to an object, set the hubspot_owner_id property using the appropriate CRM object update or create a request.  If teams are available for your HubSpot tier, these endpoints will also indicate which team an owner belongs to. Team membership can be one of PRIMARY (default), SECONDARY, or CHILD.
+HubSpot uses **owners** to assign CRM objects to specific people in your organization. The endpoints described here are used to get a list of the owners that are available for an account. To assign an owner to an object, set the hubspot_owner_id property using the appropriate CRM object update or create a request.  If teams are available for your HubSpot tier, these endpoints will also indicate which team(s) an owner can access, as well as which team is the owner's primary team.
 
 API version: v3
 */
@@ -25,7 +25,7 @@ type Error struct {
 	// A specific category that contains more specific detail about the error
 	SubCategory *string `json:"subCategory,omitempty"`
 	// further information about the error
-	Errors *[]ErrorDetail `json:"errors,omitempty"`
+	Errors []ErrorDetail `json:"errors,omitempty"`
 	// Context about the error condition
 	Context *map[string][]string `json:"context,omitempty"`
 	// A map of link names to associated URIs containing documentation about the error or recommended remediation steps
@@ -162,12 +162,12 @@ func (o *Error) GetErrors() []ErrorDetail {
 		var ret []ErrorDetail
 		return ret
 	}
-	return *o.Errors
+	return o.Errors
 }
 
 // GetErrorsOk returns a tuple with the Errors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Error) GetErrorsOk() (*[]ErrorDetail, bool) {
+func (o *Error) GetErrorsOk() ([]ErrorDetail, bool) {
 	if o == nil || o.Errors == nil {
 		return nil, false
 	}
@@ -185,7 +185,7 @@ func (o *Error) HasErrors() bool {
 
 // SetErrors gets a reference to the given []ErrorDetail and assigns it to the Errors field.
 func (o *Error) SetErrors(v []ErrorDetail) {
-	o.Errors = &v
+	o.Errors = v
 }
 
 // GetContext returns the Context field value if set, zero value otherwise.

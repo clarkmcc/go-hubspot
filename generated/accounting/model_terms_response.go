@@ -84,11 +84,11 @@ func (o *TermsResponse) GetTerms() []AccountingExtensionTerm {
 
 // GetTermsOk returns a tuple with the Terms field value
 // and a boolean to check if the value has been set.
-func (o *TermsResponse) GetTermsOk() (*[]AccountingExtensionTerm, bool) {
+func (o *TermsResponse) GetTermsOk() ([]AccountingExtensionTerm, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Terms, true
+	return o.Terms, true
 }
 
 // SetTerms sets field value

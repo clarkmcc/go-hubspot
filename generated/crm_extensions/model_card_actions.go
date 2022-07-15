@@ -50,11 +50,11 @@ func (o *CardActions) GetBaseUrls() []string {
 
 // GetBaseUrlsOk returns a tuple with the BaseUrls field value
 // and a boolean to check if the value has been set.
-func (o *CardActions) GetBaseUrlsOk() (*[]string, bool) {
+func (o *CardActions) GetBaseUrlsOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.BaseUrls, true
+	return o.BaseUrls, true
 }
 
 // SetBaseUrls sets field value

@@ -935,11 +935,11 @@ func (o *Domain) GetTeamIds() []int64 {
 
 // GetTeamIdsOk returns a tuple with the TeamIds field value
 // and a boolean to check if the value has been set.
-func (o *Domain) GetTeamIdsOk() (*[]int64, bool) {
+func (o *Domain) GetTeamIdsOk() ([]int64, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.TeamIds, true
+	return o.TeamIds, true
 }
 
 // SetTeamIds sets field value
@@ -1103,11 +1103,11 @@ func (o *Domain) GetApexIpAddresses() []string {
 
 // GetApexIpAddressesOk returns a tuple with the ApexIpAddresses field value
 // and a boolean to check if the value has been set.
-func (o *Domain) GetApexIpAddressesOk() (*[]string, bool) {
+func (o *Domain) GetApexIpAddressesOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.ApexIpAddresses, true
+	return o.ApexIpAddresses, true
 }
 
 // SetApexIpAddresses sets field value

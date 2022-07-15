@@ -103,11 +103,11 @@ func (o *ObjectTypeDefinition) GetRequiredProperties() []string {
 
 // GetRequiredPropertiesOk returns a tuple with the RequiredProperties field value
 // and a boolean to check if the value has been set.
-func (o *ObjectTypeDefinition) GetRequiredPropertiesOk() (*[]string, bool) {
+func (o *ObjectTypeDefinition) GetRequiredPropertiesOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.RequiredProperties, true
+	return o.RequiredProperties, true
 }
 
 // SetRequiredProperties sets field value
@@ -127,11 +127,11 @@ func (o *ObjectTypeDefinition) GetSearchableProperties() []string {
 
 // GetSearchablePropertiesOk returns a tuple with the SearchableProperties field value
 // and a boolean to check if the value has been set.
-func (o *ObjectTypeDefinition) GetSearchablePropertiesOk() (*[]string, bool) {
+func (o *ObjectTypeDefinition) GetSearchablePropertiesOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.SearchableProperties, true
+	return o.SearchableProperties, true
 }
 
 // SetSearchableProperties sets field value
@@ -183,11 +183,11 @@ func (o *ObjectTypeDefinition) GetSecondaryDisplayProperties() []string {
 
 // GetSecondaryDisplayPropertiesOk returns a tuple with the SecondaryDisplayProperties field value
 // and a boolean to check if the value has been set.
-func (o *ObjectTypeDefinition) GetSecondaryDisplayPropertiesOk() (*[]string, bool) {
+func (o *ObjectTypeDefinition) GetSecondaryDisplayPropertiesOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.SecondaryDisplayProperties, true
+	return o.SecondaryDisplayProperties, true
 }
 
 // SetSecondaryDisplayProperties sets field value

@@ -4,13 +4,13 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**PostCmsV3SourceCodeExtractPath**](ExtractApi.md#PostCmsV3SourceCodeExtractPath) | **Post** /cms/v3/source-code/extract/{path} | Extracts a zip file
+[**PostCmsV3SourceCodeExtractPathExtractByPath**](ExtractApi.md#PostCmsV3SourceCodeExtractPathExtractByPath) | **Post** /cms/v3/source-code/extract/{path} | Extracts a zip file
 
 
 
-## PostCmsV3SourceCodeExtractPath
+## PostCmsV3SourceCodeExtractPathExtractByPath
 
-> PostCmsV3SourceCodeExtractPath(ctx, path).Execute()
+> PostCmsV3SourceCodeExtractPathExtractByPath(ctx, path).Execute()
 
 Extracts a zip file
 
@@ -32,10 +32,10 @@ func main() {
     path := "path_example" // string | The file system location of the zip file.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ExtractApi.PostCmsV3SourceCodeExtractPath(context.Background(), path).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ExtractApi.PostCmsV3SourceCodeExtractPathExtractByPath(context.Background(), path).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ExtractApi.PostCmsV3SourceCodeExtractPath``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ExtractApi.PostCmsV3SourceCodeExtractPathExtractByPath``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -51,7 +51,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCmsV3SourceCodeExtractPathRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCmsV3SourceCodeExtractPathExtractByPathRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -64,7 +64,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 

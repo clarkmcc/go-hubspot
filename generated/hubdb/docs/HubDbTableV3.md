@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **Label** | **string** | Label of the table | 
 **Columns** | Pointer to [**[]Column**](Column.md) | List of columns in the table | [optional] 
 **Published** | Pointer to **bool** |  | [optional] 
+**ColumnCount** | Pointer to **int32** | Number of columns including deleted | [optional] 
 **RowCount** | Pointer to **int32** | Number of rows in the table | [optional] 
 **CreatedBy** | Pointer to [**SimpleUser**](SimpleUser.md) |  | [optional] 
 **UpdatedBy** | Pointer to [**SimpleUser**](SimpleUser.md) |  | [optional] 
@@ -19,7 +20,6 @@ Name | Type | Description | Notes
 **AllowPublicApiAccess** | Pointer to **bool** | Specifies whether the table can be read by public without authorization | [optional] 
 **UseForPages** | Pointer to **bool** | Specifies whether the table can be used for creation of dynamic pages | [optional] 
 **EnableChildTablePages** | Pointer to **bool** | Specifies creation of multi-level dynamic pages using child tables | [optional] 
-**ColumnCount** | Pointer to **int32** | Number of columns including deleted | [optional] 
 **AllowChildTables** | Pointer to **bool** | Specifies whether child tables can be created | [optional] 
 **UpdatedAt** | Pointer to **time.Time** | Timestamp at which the table is updated recently | [optional] 
 
@@ -156,6 +156,31 @@ SetPublished sets Published field to given value.
 `func (o *HubDbTableV3) HasPublished() bool`
 
 HasPublished returns a boolean if a field has been set.
+
+### GetColumnCount
+
+`func (o *HubDbTableV3) GetColumnCount() int32`
+
+GetColumnCount returns the ColumnCount field if non-nil, zero value otherwise.
+
+### GetColumnCountOk
+
+`func (o *HubDbTableV3) GetColumnCountOk() (*int32, bool)`
+
+GetColumnCountOk returns a tuple with the ColumnCount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetColumnCount
+
+`func (o *HubDbTableV3) SetColumnCount(v int32)`
+
+SetColumnCount sets ColumnCount field to given value.
+
+### HasColumnCount
+
+`func (o *HubDbTableV3) HasColumnCount() bool`
+
+HasColumnCount returns a boolean if a field has been set.
 
 ### GetRowCount
 
@@ -406,31 +431,6 @@ SetEnableChildTablePages sets EnableChildTablePages field to given value.
 `func (o *HubDbTableV3) HasEnableChildTablePages() bool`
 
 HasEnableChildTablePages returns a boolean if a field has been set.
-
-### GetColumnCount
-
-`func (o *HubDbTableV3) GetColumnCount() int32`
-
-GetColumnCount returns the ColumnCount field if non-nil, zero value otherwise.
-
-### GetColumnCountOk
-
-`func (o *HubDbTableV3) GetColumnCountOk() (*int32, bool)`
-
-GetColumnCountOk returns a tuple with the ColumnCount field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetColumnCount
-
-`func (o *HubDbTableV3) SetColumnCount(v int32)`
-
-SetColumnCount sets ColumnCount field to given value.
-
-### HasColumnCount
-
-`func (o *HubDbTableV3) HasColumnCount() bool`
-
-HasColumnCount returns a boolean if a field has been set.
 
 ### GetAllowChildTables
 

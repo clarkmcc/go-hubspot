@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 ## PostCmsV3HubdbTablesTableIdOrNameRowsBatchReadBatchReadTableRows
 
-> map[string]interface{} PostCmsV3HubdbTablesTableIdOrNameRowsBatchReadBatchReadTableRows(ctx, tableIdOrName).BatchInputString(batchInputString).Execute()
+> BatchResponseHubDbTableRowV3 PostCmsV3HubdbTablesTableIdOrNameRowsBatchReadBatchReadTableRows(ctx, tableIdOrName).BatchInputString(batchInputString).Execute()
 
 Get a set of rows
 
@@ -39,13 +39,13 @@ func main() {
     batchInputString := *openapiclient.NewBatchInputString([]string{"Inputs_example"}) // BatchInputString | The JSON array of row ids
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.RowsBatchApi.PostCmsV3HubdbTablesTableIdOrNameRowsBatchReadBatchReadTableRows(context.Background(), tableIdOrName).BatchInputString(batchInputString).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RowsBatchApi.PostCmsV3HubdbTablesTableIdOrNameRowsBatchReadBatchReadTableRows(context.Background(), tableIdOrName).BatchInputString(batchInputString).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RowsBatchApi.PostCmsV3HubdbTablesTableIdOrNameRowsBatchReadBatchReadTableRows``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostCmsV3HubdbTablesTableIdOrNameRowsBatchReadBatchReadTableRows`: map[string]interface{}
+    // response from `PostCmsV3HubdbTablesTableIdOrNameRowsBatchReadBatchReadTableRows`: BatchResponseHubDbTableRowV3
     fmt.Fprintf(os.Stdout, "Response from `RowsBatchApi.PostCmsV3HubdbTablesTableIdOrNameRowsBatchReadBatchReadTableRows`: %v\n", resp)
 }
 ```
@@ -70,11 +70,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**map[string]interface{}**
+[**BatchResponseHubDbTableRowV3**](BatchResponseHubDbTableRowV3.md)
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -88,7 +88,7 @@ Name | Type | Description  | Notes
 
 ## PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCloneBatchCloneDraftTableRows
 
-> map[string]interface{} PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCloneBatchCloneDraftTableRows(ctx, tableIdOrName).BatchInputString(batchInputString).Execute()
+> BatchResponseHubDbTableRowV3 PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCloneBatchCloneDraftTableRows(ctx, tableIdOrName).BatchInputString(batchInputString).Execute()
 
 Clone rows in batch
 
@@ -111,13 +111,13 @@ func main() {
     batchInputString := *openapiclient.NewBatchInputString([]string{"Inputs_example"}) // BatchInputString | The JSON array of row ids
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.RowsBatchApi.PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCloneBatchCloneDraftTableRows(context.Background(), tableIdOrName).BatchInputString(batchInputString).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RowsBatchApi.PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCloneBatchCloneDraftTableRows(context.Background(), tableIdOrName).BatchInputString(batchInputString).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RowsBatchApi.PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCloneBatchCloneDraftTableRows``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCloneBatchCloneDraftTableRows`: map[string]interface{}
+    // response from `PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCloneBatchCloneDraftTableRows`: BatchResponseHubDbTableRowV3
     fmt.Fprintf(os.Stdout, "Response from `RowsBatchApi.PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCloneBatchCloneDraftTableRows`: %v\n", resp)
 }
 ```
@@ -142,11 +142,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**map[string]interface{}**
+[**BatchResponseHubDbTableRowV3**](BatchResponseHubDbTableRowV3.md)
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -160,7 +160,7 @@ Name | Type | Description  | Notes
 
 ## PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCreateBatchCreateDraftTableRows
 
-> map[string]interface{} PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCreateBatchCreateDraftTableRows(ctx, tableIdOrName).BatchInputHubDbTableRowV3Request(batchInputHubDbTableRowV3Request).Execute()
+> BatchResponseHubDbTableRowV3 PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCreateBatchCreateDraftTableRows(ctx, tableIdOrName).BatchInputHubDbTableRowV3Request(batchInputHubDbTableRowV3Request).Execute()
 
 Create rows in batch
 
@@ -183,13 +183,13 @@ func main() {
     batchInputHubDbTableRowV3Request := *openapiclient.NewBatchInputHubDbTableRowV3Request([]openapiclient.HubDbTableRowV3Request{*openapiclient.NewHubDbTableRowV3Request(map[string]map[string]interface{}{"key": map[string]interface{}(123)})}) // BatchInputHubDbTableRowV3Request | JSON array of row objects
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.RowsBatchApi.PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCreateBatchCreateDraftTableRows(context.Background(), tableIdOrName).BatchInputHubDbTableRowV3Request(batchInputHubDbTableRowV3Request).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RowsBatchApi.PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCreateBatchCreateDraftTableRows(context.Background(), tableIdOrName).BatchInputHubDbTableRowV3Request(batchInputHubDbTableRowV3Request).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RowsBatchApi.PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCreateBatchCreateDraftTableRows``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCreateBatchCreateDraftTableRows`: map[string]interface{}
+    // response from `PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCreateBatchCreateDraftTableRows`: BatchResponseHubDbTableRowV3
     fmt.Fprintf(os.Stdout, "Response from `RowsBatchApi.PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCreateBatchCreateDraftTableRows`: %v\n", resp)
 }
 ```
@@ -214,11 +214,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**map[string]interface{}**
+[**BatchResponseHubDbTableRowV3**](BatchResponseHubDbTableRowV3.md)
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -255,8 +255,8 @@ func main() {
     batchInputString := *openapiclient.NewBatchInputString([]string{"Inputs_example"}) // BatchInputString | JSON array of row ids.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.RowsBatchApi.PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchPurgeBatchPurgeDraftTableRows(context.Background(), tableIdOrName).BatchInputString(batchInputString).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RowsBatchApi.PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchPurgeBatchPurgeDraftTableRows(context.Background(), tableIdOrName).BatchInputString(batchInputString).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RowsBatchApi.PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchPurgeBatchPurgeDraftTableRows``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -288,7 +288,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -302,7 +302,7 @@ Name | Type | Description  | Notes
 
 ## PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReadBatchReadDraftTableRows
 
-> map[string]interface{} PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReadBatchReadDraftTableRows(ctx, tableIdOrName).BatchInputString(batchInputString).Execute()
+> BatchResponseHubDbTableRowV3 PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReadBatchReadDraftTableRows(ctx, tableIdOrName).BatchInputString(batchInputString).Execute()
 
 Get a set of rows from draft table
 
@@ -325,13 +325,13 @@ func main() {
     batchInputString := *openapiclient.NewBatchInputString([]string{"Inputs_example"}) // BatchInputString | JSON array of row ids.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.RowsBatchApi.PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReadBatchReadDraftTableRows(context.Background(), tableIdOrName).BatchInputString(batchInputString).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RowsBatchApi.PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReadBatchReadDraftTableRows(context.Background(), tableIdOrName).BatchInputString(batchInputString).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RowsBatchApi.PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReadBatchReadDraftTableRows``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReadBatchReadDraftTableRows`: map[string]interface{}
+    // response from `PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReadBatchReadDraftTableRows`: BatchResponseHubDbTableRowV3
     fmt.Fprintf(os.Stdout, "Response from `RowsBatchApi.PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReadBatchReadDraftTableRows`: %v\n", resp)
 }
 ```
@@ -356,11 +356,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**map[string]interface{}**
+[**BatchResponseHubDbTableRowV3**](BatchResponseHubDbTableRowV3.md)
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -374,7 +374,7 @@ Name | Type | Description  | Notes
 
 ## PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReplaceBatchReplaceDraftTableRows
 
-> map[string]interface{} PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReplaceBatchReplaceDraftTableRows(ctx, tableIdOrName).BatchInputHubDbTableRowV3Request(batchInputHubDbTableRowV3Request).Execute()
+> BatchResponseHubDbTableRowV3 PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReplaceBatchReplaceDraftTableRows(ctx, tableIdOrName).BatchInputHubDbTableRowV3Request(batchInputHubDbTableRowV3Request).Execute()
 
 Replace rows in batch in draft table
 
@@ -397,13 +397,13 @@ func main() {
     batchInputHubDbTableRowV3Request := *openapiclient.NewBatchInputHubDbTableRowV3Request([]openapiclient.HubDbTableRowV3Request{*openapiclient.NewHubDbTableRowV3Request(map[string]map[string]interface{}{"key": map[string]interface{}(123)})}) // BatchInputHubDbTableRowV3Request | JSON array of row objects.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.RowsBatchApi.PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReplaceBatchReplaceDraftTableRows(context.Background(), tableIdOrName).BatchInputHubDbTableRowV3Request(batchInputHubDbTableRowV3Request).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RowsBatchApi.PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReplaceBatchReplaceDraftTableRows(context.Background(), tableIdOrName).BatchInputHubDbTableRowV3Request(batchInputHubDbTableRowV3Request).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RowsBatchApi.PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReplaceBatchReplaceDraftTableRows``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReplaceBatchReplaceDraftTableRows`: map[string]interface{}
+    // response from `PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReplaceBatchReplaceDraftTableRows`: BatchResponseHubDbTableRowV3
     fmt.Fprintf(os.Stdout, "Response from `RowsBatchApi.PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReplaceBatchReplaceDraftTableRows`: %v\n", resp)
 }
 ```
@@ -428,11 +428,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**map[string]interface{}**
+[**BatchResponseHubDbTableRowV3**](BatchResponseHubDbTableRowV3.md)
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -446,7 +446,7 @@ Name | Type | Description  | Notes
 
 ## PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchUpdateBatchUpdateDraftTableRows
 
-> map[string]interface{} PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchUpdateBatchUpdateDraftTableRows(ctx, tableIdOrName).BatchInputJsonNode(batchInputJsonNode).Execute()
+> BatchResponseHubDbTableRowV3 PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchUpdateBatchUpdateDraftTableRows(ctx, tableIdOrName).BatchInputJsonNode(batchInputJsonNode).Execute()
 
 Update rows in batch in draft table
 
@@ -469,13 +469,13 @@ func main() {
     batchInputJsonNode := *openapiclient.NewBatchInputJsonNode([]map[string]interface{}{map[string]interface{}(123)}) // BatchInputJsonNode | JSON array of row objects.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.RowsBatchApi.PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchUpdateBatchUpdateDraftTableRows(context.Background(), tableIdOrName).BatchInputJsonNode(batchInputJsonNode).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RowsBatchApi.PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchUpdateBatchUpdateDraftTableRows(context.Background(), tableIdOrName).BatchInputJsonNode(batchInputJsonNode).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RowsBatchApi.PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchUpdateBatchUpdateDraftTableRows``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchUpdateBatchUpdateDraftTableRows`: map[string]interface{}
+    // response from `PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchUpdateBatchUpdateDraftTableRows`: BatchResponseHubDbTableRowV3
     fmt.Fprintf(os.Stdout, "Response from `RowsBatchApi.PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchUpdateBatchUpdateDraftTableRows`: %v\n", resp)
 }
 ```
@@ -500,11 +500,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**map[string]interface{}**
+[**BatchResponseHubDbTableRowV3**](BatchResponseHubDbTableRowV3.md)
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 

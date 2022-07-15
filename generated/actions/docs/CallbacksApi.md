@@ -34,8 +34,8 @@ func main() {
     callbackCompletionRequest := *openapiclient.NewCallbackCompletionRequest(map[string]string{"key": "Inner_example"}) // CallbackCompletionRequest | The result of the completed action.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CallbacksApi.PostAutomationV4ActionsCallbacksCallbackIdCompleteComplete(context.Background(), callbackId).CallbackCompletionRequest(callbackCompletionRequest).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CallbacksApi.PostAutomationV4ActionsCallbacksCallbackIdCompleteComplete(context.Background(), callbackId).CallbackCompletionRequest(callbackCompletionRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CallbacksApi.PostAutomationV4ActionsCallbacksCallbackIdCompleteComplete``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -67,7 +67,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -103,8 +103,8 @@ func main() {
     batchInputCallbackCompletionBatchRequest := *openapiclient.NewBatchInputCallbackCompletionBatchRequest([]openapiclient.CallbackCompletionBatchRequest{*openapiclient.NewCallbackCompletionBatchRequest("CallbackId_example", map[string]string{"key": "Inner_example"})}) // BatchInputCallbackCompletionBatchRequest | The result of the completed action.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CallbacksApi.PostAutomationV4ActionsCallbacksCompleteCompleteBatch(context.Background()).BatchInputCallbackCompletionBatchRequest(batchInputCallbackCompletionBatchRequest).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CallbacksApi.PostAutomationV4ActionsCallbacksCompleteCompleteBatch(context.Background()).BatchInputCallbackCompletionBatchRequest(batchInputCallbackCompletionBatchRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CallbacksApi.PostAutomationV4ActionsCallbacksCompleteCompleteBatch``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -131,7 +131,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 

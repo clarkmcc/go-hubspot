@@ -1,9 +1,9 @@
 openapi: 3.0.1
 info:
-  description: Allows an app to extend the CRM UI by surfacing custom cards in the
-    sidebar of record pages. These cards are defined up-front as part of app configuration,
-    then populated by external data fetch requests when the record page is accessed
-    by a user.
+  description: "Allows an app to extend the CRM UI by surfacing custom cards in the\
+    \ sidebar of record pages. These cards are defined up-front as part of app configuration,\
+    \ then populated by external data fetch requests when the record page is accessed\
+    \ by a user."
   title: CRM cards
   version: v3
 servers:
@@ -54,7 +54,7 @@ paths:
                     height: 480
                 sections:
                 - id: "123"
-                  title: 'API-22: APIs working too fast'
+                  title: "API-22: APIs working too fast"
                   linkUrl: http://example.com/1
                   tokens:
                   - name: created
@@ -103,7 +103,7 @@ paths:
   /crm/v3/extensions/cards/{appId}:
     get:
       description: Returns a list of cards for a given app.
-      operationId: get-/crm/v3/extensions/cards/{appId}_getAll
+      operationId: "get-/crm/v3/extensions/cards/{appId}_getAll"
       parameters:
       - description: The ID of the target app.
         explode: false
@@ -156,7 +156,7 @@ paths:
     post:
       description: Defines a new card that will become active on an account when this
         app is installed.
-      operationId: post-/crm/v3/extensions/cards/{appId}_create
+      operationId: "post-/crm/v3/extensions/cards/{appId}_create"
       parameters:
       - description: The ID of the target app.
         explode: false
@@ -213,10 +213,10 @@ paths:
       - Cards
   /crm/v3/extensions/cards/{appId}/{cardId}:
     delete:
-      description: Permanently deletes a card definition with the given ID. Once deleted,
-        data fetch requests for this card will no longer be sent to your service.
-        This can't be undone.
-      operationId: delete-/crm/v3/extensions/cards/{appId}/{cardId}_archive
+      description: "Permanently deletes a card definition with the given ID. Once\
+        \ deleted, data fetch requests for this card will no longer be sent to your\
+        \ service. This can't be undone."
+      operationId: "delete-/crm/v3/extensions/cards/{appId}/{cardId}_archive"
       parameters:
       - description: The ID of the target app.
         explode: false
@@ -252,7 +252,7 @@ paths:
       - Cards
     get:
       description: Returns the definition for a card with the given ID.
-      operationId: get-/crm/v3/extensions/cards/{appId}/{cardId}_getById
+      operationId: "get-/crm/v3/extensions/cards/{appId}/{cardId}_getById"
       parameters:
       - description: The ID of the target app.
         explode: false
@@ -310,7 +310,7 @@ paths:
       - Cards
     patch:
       description: Update a card definition with new details.
-      operationId: patch-/crm/v3/extensions/cards/{appId}/{cardId}_update
+      operationId: "patch-/crm/v3/extensions/cards/{appId}/{cardId}_update"
       parameters:
       - description: The ID of the target app.
         explode: false
@@ -438,10 +438,10 @@ components:
         - https://www.example.com/hubspot
       properties:
         baseUrls:
-          description: A list of URL prefixes that will be accepted for card action
-            URLs. If your data fetch response includes an action URL that doesn't
-            begin with one of these values, it will result in an error and the card
-            will not be displayed.
+          description: "A list of URL prefixes that will be accepted for card action\
+            \ URLs. If your data fetch response includes an action URL that doesn't\
+            \ begin with one of these values, it will result in an error and the card\
+            \ will not be displayed."
           items:
             type: string
           type: array
@@ -510,9 +510,9 @@ components:
           label: label
       properties:
         properties:
-          description: 'Card display properties. These will will be rendered as "label
-            : value" pairs in the card UI. See the [example card](#) in the overview
-            docs for more details.'
+          description: "Card display properties. These will will be rendered as \"\
+            label : value\" pairs in the card UI. See the [example card](#) in the\
+            \ overview docs for more details."
           items:
             $ref: '#/components/schemas/CardDisplayProperty'
           type: array
@@ -985,8 +985,8 @@ components:
       title: IFRAME
       type: object
     IntegratorCardPayloadResponse:
-      description: The card details payload, sent to HubSpot by an app in response
-        to a data fetch request when a user visits a CRM record page.
+      description: "The card details payload, sent to HubSpot by an app in response\
+        \ to a data fetch request when a user visits a CRM record page."
       example:
         responseVersion: v1
         cardLabel: cardLabel
@@ -994,8 +994,8 @@ components:
         totalCount: 0
         topLevelActions:
           secondary:
-          - ""
-          - ""
+          - null
+          - null
           settings:
             propertyNamesIncluded:
             - propertyNamesIncluded
@@ -1005,7 +1005,7 @@ components:
             type: IFRAME
             url: url
             height: 1
-          primary: ""
+          primary: null
         sections:
         - linkUrl: linkUrl
           tokens:
@@ -1020,8 +1020,8 @@ components:
           id: id
           title: title
           actions:
-          - ""
-          - ""
+          - null
+          - null
         - linkUrl: linkUrl
           tokens:
           - dataType: BOOLEAN
@@ -1035,8 +1035,8 @@ components:
           id: id
           title: title
           actions:
-          - ""
-          - ""
+          - null
+          - null
       properties:
         totalCount:
           description: The total number of card properties that will be sent in this
@@ -1044,14 +1044,15 @@ components:
           format: int32
           type: integer
         allItemsLinkUrl:
-          description: URL to a page the integrator has built that displays all details
-            for this card. This URL will be displayed to users under a `See more [x]`
-            link if there are more than five items in your response, where `[x]` is
-            the value of `itemLabel`.
+          description: "URL to a page the integrator has built that displays all details\
+            \ for this card. This URL will be displayed to users under a `See more\
+            \ [x]` link if there are more than five items in your response, where\
+            \ `[x]` is the value of `itemLabel`."
           type: string
         cardLabel:
-          description: The label to be used for the `allItemsLinkUrl` link (e.g. 'See
-            more tickets'). If not provided, this falls back to the card's title.
+          description: "The label to be used for the `allItemsLinkUrl` link (e.g.\
+            \ 'See more tickets'). If not provided, this falls back to the card's\
+            \ title."
           type: string
         topLevelActions:
           $ref: '#/components/schemas/TopLevelActions'
@@ -1083,8 +1084,8 @@ components:
         id: id
         title: title
         actions:
-        - ""
-        - ""
+        - null
+        - null
       properties:
         id:
           type: string
@@ -1098,9 +1099,7 @@ components:
           type: array
         actions:
           items:
-            oneOf:
-            - $ref: '#/components/schemas/ActionHookActionBody'
-            - $ref: '#/components/schemas/IFrameActionBody'
+            $ref: '#/components/schemas/IntegratorObjectResult_actions_inner'
           type: array
       required:
       - actions
@@ -1139,8 +1138,8 @@ components:
     TopLevelActions:
       example:
         secondary:
-        - ""
-        - ""
+        - null
+        - null
         settings:
           propertyNamesIncluded:
           - propertyNamesIncluded
@@ -1150,23 +1149,23 @@ components:
           type: IFRAME
           url: url
           height: 1
-        primary: ""
+        primary: null
       properties:
         settings:
           $ref: '#/components/schemas/IFrameActionBody'
         primary:
-          oneOf:
-          - $ref: '#/components/schemas/ActionHookActionBody'
-          - $ref: '#/components/schemas/IFrameActionBody'
+          $ref: '#/components/schemas/IntegratorObjectResult_actions_inner'
         secondary:
           items:
-            oneOf:
-            - $ref: '#/components/schemas/ActionHookActionBody'
-            - $ref: '#/components/schemas/IFrameActionBody'
+            $ref: '#/components/schemas/IntegratorObjectResult_actions_inner'
           type: array
       required:
       - secondary
       type: object
+    IntegratorObjectResult_actions_inner:
+      oneOf:
+      - $ref: '#/components/schemas/ActionHookActionBody'
+      - $ref: '#/components/schemas/IFrameActionBody'
   securitySchemes:
     developer_hapikey:
       in: query

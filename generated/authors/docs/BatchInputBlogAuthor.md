@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Inputs** | [**[]BlogAuthor**](BlogAuthor.md) |  | 
+**Inputs** | [**[]BlogAuthor**](BlogAuthor.md) | Blog authors to input. | 
 
 ## Methods
 

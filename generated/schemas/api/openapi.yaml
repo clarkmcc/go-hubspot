@@ -1,9 +1,9 @@
 openapi: 3.0.1
 info:
-  description: The CRM uses schemas to define how custom objects should store and
-    represent information in the HubSpot CRM. Schemas define details about an object's
-    type, properties, and associations. The schema can be uniquely identified by its
-    **object type ID**.
+  description: "The CRM uses schemas to define how custom objects should store and\
+    \ represent information in the HubSpot CRM. Schemas define details about an object's\
+    \ type, properties, and associations. The schema can be uniquely identified by\
+    \ its **object type ID**."
   title: Schemas
   version: v3
 servers:
@@ -40,7 +40,6 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
       - oauth2_legacy:
         - crm.objects.custom.read
       - oauth2_legacy:
@@ -49,16 +48,16 @@ paths:
       tags:
       - Core
     post:
-      description: Define a new object schema, along with custom properties and associations.
-        The entire object schema, including its object type ID, properties, and associations
-        will be returned in the response.
+      description: "Define a new object schema, along with custom properties and associations.\
+        \ The entire object schema, including its object type ID, properties, and\
+        \ associations will be returned in the response."
       operationId: post-/crm-object-schemas/v3/schemas_create
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/ObjectSchemaEgg'
-        description: Object schema definition, including properties and associations.
+        description: "Object schema definition, including properties and associations."
         required: true
       responses:
         "201":
@@ -73,8 +72,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security:
-      - hapikey: []
+      security: []
       summary: Create a new schema
       tags:
       - Core
@@ -82,7 +80,7 @@ paths:
     delete:
       description: Deletes a schema. Any existing records of this schema must be deleted
         **first**. Otherwise this call will fail.
-      operationId: delete-/crm-object-schemas/v3/schemas/{objectType}_archive
+      operationId: "delete-/crm-object-schemas/v3/schemas/{objectType}_archive"
       parameters:
       - description: Fully qualified name or object type ID of your schema.
         explode: false
@@ -111,14 +109,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security:
-      - hapikey: []
+      security: []
       summary: Delete a schema
       tags:
       - Core
     get:
       description: Returns an existing object schema.
-      operationId: get-/crm-object-schemas/v3/schemas/{objectType}_getById
+      operationId: "get-/crm-object-schemas/v3/schemas/{objectType}_getById"
       parameters:
       - description: Fully qualified name or object type ID of your schema.
         explode: false
@@ -142,7 +139,6 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
       - oauth2_legacy:
         - crm.objects.custom.read
       - oauth2_legacy:
@@ -152,7 +148,7 @@ paths:
       - Core
     patch:
       description: Update the details for an existing object schema.
-      operationId: patch-/crm-object-schemas/v3/schemas/{objectType}_update
+      operationId: "patch-/crm-object-schemas/v3/schemas/{objectType}_update"
       parameters:
       - description: Fully qualified name or object type ID of your schema.
         explode: false
@@ -182,8 +178,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security:
-      - hapikey: []
+      security: []
       summary: Update a schema
       tags:
       - Core
@@ -191,7 +186,7 @@ paths:
     post:
       description: Defines a new association between the primary schema's object type
         and other object types.
-      operationId: post-/crm-object-schemas/v3/schemas/{objectType}/associations_createAssociation
+      operationId: "post-/crm-object-schemas/v3/schemas/{objectType}/associations_createAssociation"
       parameters:
       - description: Fully qualified name or object type ID of your schema.
         explode: false
@@ -221,15 +216,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security:
-      - hapikey: []
+      security: []
       summary: Create an association
       tags:
       - Core
   /crm/v3/schemas/{objectType}/associations/{associationIdentifier}:
     delete:
       description: Removes an existing association from a schema.
-      operationId: delete-/crm-object-schemas/v3/schemas/{objectType}/associations/{associationIdentifier}_archiveAssociation
+      operationId: "delete-/crm-object-schemas/v3/schemas/{objectType}/associations/{associationIdentifier}_archiveAssociation"
       parameters:
       - description: Fully qualified name or object type ID of your schema.
         explode: false
@@ -257,15 +251,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security:
-      - hapikey: []
+      security: []
       summary: Remove an association
       tags:
       - Core
   /crm/v3/schemas/{objectType}/purge:
     delete:
       deprecated: true
-      operationId: delete-/crm-object-schemas/v3/schemas/{objectType}/purge_purge
+      operationId: "delete-/crm-object-schemas/v3/schemas/{objectType}/purge_purge"
       parameters:
       - explode: false
         in: path
@@ -284,8 +277,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security:
-      - hapikey: []
+      security: []
       tags:
       - Public_Object_Schemas
 components:
@@ -511,7 +503,7 @@ components:
       - message
       type: object
     ObjectSchema:
-      description: Defines an object schema, including its properties and associations.
+      description: "Defines an object schema, including its properties and associations."
       example:
         id: "123456"
         createdAt: 2020-02-20T18:07:11.390Z
@@ -573,12 +565,12 @@ components:
         archived:
           type: boolean
         id:
-          description: A unique ID for this schema's object type. Will be defined
-            as {meta-type}-{unique ID}.
+          description: "A unique ID for this schema's object type. Will be defined\
+            \ as {meta-type}-{unique ID}."
           type: string
         fullyQualifiedName:
-          description: An assigned unique ID for the object, including portal ID and
-            object name.
+          description: "An assigned unique ID for the object, including portal ID\
+            \ and object name."
           type: string
         createdAt:
           description: When the object schema was created.
@@ -617,7 +609,7 @@ components:
       - secondaryDisplayProperties
       type: object
     ObjectSchemaEgg:
-      description: Defines a new object type, its properties, and associations.
+      description: "Defines a new object type, its properties, and associations."
       example:
         name: my_object
         labels:
@@ -725,8 +717,8 @@ components:
         archived:
           type: boolean
         id:
-          description: A unique ID for this object type. Will be defined as {meta-type}-{unique
-            ID}.
+          description: "A unique ID for this object type. Will be defined as {meta-type}-{unique\
+            \ ID}."
           type: string
         fullyQualifiedName:
           type: string
@@ -828,8 +820,8 @@ components:
           displayOrder: 2
       properties:
         name:
-          description: The internal property name, which must be used when referencing
-            the property from the API.
+          description: "The internal property name, which must be used when referencing\
+            \ the property from the API."
           type: string
         label:
           description: A human-readable property label that will be shown in HubSpot.
@@ -855,8 +847,8 @@ components:
           format: int32
           type: integer
         hasUniqueValue:
-          description: Whether or not the property's value must be unique. Once set,
-            this can't be changed.
+          description: "Whether or not the property's value must be unique. Once set,\
+            \ this can't be changed."
           type: boolean
         hidden:
           type: boolean
@@ -892,8 +884,8 @@ components:
           description: A human-readable option label that will be shown in HubSpot.
           type: string
         value:
-          description: The internal value of the option, which must be used when setting
-            the property value through the API.
+          description: "The internal value of the option, which must be used when\
+            \ setting the property value through the API."
           type: string
         description:
           description: A description of the option.
@@ -925,8 +917,8 @@ components:
           description: A human-readable option label that will be shown in HubSpot.
           type: string
         value:
-          description: The internal value of the option, which must be used when setting
-            the property value through the API.
+          description: "The internal value of the option, which must be used when\
+            \ setting the property value through the API."
           type: string
         description:
           description: A description of the option.
@@ -985,8 +977,8 @@ components:
           format: date-time
           type: string
         name:
-          description: The internal property name, which must be used when referencing
-            the property via the API.
+          description: "The internal property name, which must be used when referencing\
+            \ the property via the API."
           type: string
         label:
           description: A human-readable property label that will be shown in HubSpot.
@@ -1005,8 +997,8 @@ components:
           description: The name of the property group the property belongs to.
           type: string
         options:
-          description: A list of valid options for the property. This field is required
-            for enumerated properties, but will be empty for other property types.
+          description: "A list of valid options for the property. This field is required\
+            \ for enumerated properties, but will be empty for other property types."
           items:
             $ref: '#/components/schemas/Option'
           type: array
@@ -1020,8 +1012,8 @@ components:
             of HubSpot.
           type: string
         referencedObjectType:
-          description: If this property is related to other object(s), they'll be
-            listed here.
+          description: "If this property is related to other object(s), they'll be\
+            \ listed here."
           type: string
         displayOrder:
           description: The order that this property should be displayed in the HubSpot
@@ -1031,19 +1023,19 @@ components:
           format: int32
           type: integer
         calculated:
-          description: For default properties, true indicates that the property is
-            calculated by a HubSpot process. It has no effect for custom properties.
+          description: "For default properties, true indicates that the property is\
+            \ calculated by a HubSpot process. It has no effect for custom properties."
           type: boolean
         externalOptions:
-          description: For default properties, true indicates that the options are
-            stored externally to the property settings.
+          description: "For default properties, true indicates that the options are\
+            \ stored externally to the property settings."
           type: boolean
         archived:
           description: Whether or not the property is archived.
           type: boolean
         hasUniqueValue:
-          description: Whether or not the property's value must be unique. Once set,
-            this can't be changed.
+          description: "Whether or not the property's value must be unique. Once set,\
+            \ this can't be changed."
           type: boolean
         hidden:
           type: boolean
@@ -1090,14 +1082,10 @@ components:
         authorizationCode:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
-            crm.objects.custom.read: View custom object records
             crm.schemas.custom.read: View custom object definitions
+            crm.objects.custom.read: View custom object records
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
-    hapikey:
-      in: query
-      name: hapikey
-      type: apiKey
 x-hubspot-available-client-libraries:
 - PHP
 - Node

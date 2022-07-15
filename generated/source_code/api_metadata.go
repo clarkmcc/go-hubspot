@@ -12,46 +12,39 @@ package source_code
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-
-	"github.com/clarkmcc/go-hubspot/authorization"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // MetadataApiService MetadataApi service
 type MetadataApiService service
 
-type ApiGetCmsV3SourceCodeEnvironmentMetadataPathRequest struct {
-	ctx         _context.Context
+type ApiGetCmsV3SourceCodeEnvironmentMetadataPathGetRequest struct {
+	ctx         context.Context
 	ApiService  *MetadataApiService
 	environment string
 	path        string
 }
 
-func (r ApiGetCmsV3SourceCodeEnvironmentMetadataPathRequest) Execute() (AssetFileMetadata, *_nethttp.Response, error) {
-	return r.ApiService.GetCmsV3SourceCodeEnvironmentMetadataPathExecute(r)
+func (r ApiGetCmsV3SourceCodeEnvironmentMetadataPathGetRequest) Execute() (*AssetFileMetadata, *http.Response, error) {
+	return r.ApiService.GetCmsV3SourceCodeEnvironmentMetadataPathGetExecute(r)
 }
 
 /*
-GetCmsV3SourceCodeEnvironmentMetadataPath Get the metadata for a file
+GetCmsV3SourceCodeEnvironmentMetadataPathGet Get the metadata for a file
 
 Gets the metadata object for the file at the specified path in the specified environment.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param environment The environment of the file (\"draft\" or \"published\").
  @param path The file system location of the file.
- @return ApiGetCmsV3SourceCodeEnvironmentMetadataPathRequest
+ @return ApiGetCmsV3SourceCodeEnvironmentMetadataPathGetRequest
 */
-func (a *MetadataApiService) GetCmsV3SourceCodeEnvironmentMetadataPath(ctx _context.Context, environment string, path string) ApiGetCmsV3SourceCodeEnvironmentMetadataPathRequest {
-	return ApiGetCmsV3SourceCodeEnvironmentMetadataPathRequest{
+func (a *MetadataApiService) GetCmsV3SourceCodeEnvironmentMetadataPathGet(ctx context.Context, environment string, path string) ApiGetCmsV3SourceCodeEnvironmentMetadataPathGetRequest {
+	return ApiGetCmsV3SourceCodeEnvironmentMetadataPathGetRequest{
 		ApiService:  a,
 		ctx:         ctx,
 		environment: environment,
@@ -61,28 +54,26 @@ func (a *MetadataApiService) GetCmsV3SourceCodeEnvironmentMetadataPath(ctx _cont
 
 // Execute executes the request
 //  @return AssetFileMetadata
-func (a *MetadataApiService) GetCmsV3SourceCodeEnvironmentMetadataPathExecute(r ApiGetCmsV3SourceCodeEnvironmentMetadataPathRequest) (AssetFileMetadata, *_nethttp.Response, error) {
+func (a *MetadataApiService) GetCmsV3SourceCodeEnvironmentMetadataPathGetExecute(r ApiGetCmsV3SourceCodeEnvironmentMetadataPathGetRequest) (*AssetFileMetadata, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  AssetFileMetadata
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AssetFileMetadata
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MetadataApiService.GetCmsV3SourceCodeEnvironmentMetadataPath")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MetadataApiService.GetCmsV3SourceCodeEnvironmentMetadataPathGet")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/cms/v3/source-code/{environment}/metadata/{path}"
-	localVarPath = strings.Replace(localVarPath, "{"+"environment"+"}", _neturl.PathEscape(parameterToString(r.environment, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"path"+"}", _neturl.PathEscape(parameterToString(r.path, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"environment"+"}", url.PathEscape(parameterToString(r.environment, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"path"+"}", url.PathEscape(parameterToString(r.path, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -101,21 +92,7 @@ func (a *MetadataApiService) GetCmsV3SourceCodeEnvironmentMetadataPathExecute(r 
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
-			if apiKey, ok := auth["hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -125,15 +102,15 @@ func (a *MetadataApiService) GetCmsV3SourceCodeEnvironmentMetadataPathExecute(r 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -149,7 +126,7 @@ func (a *MetadataApiService) GetCmsV3SourceCodeEnvironmentMetadataPathExecute(r 
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

@@ -12,31 +12,24 @@ package crm_extensions
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-
-	"github.com/clarkmcc/go-hubspot/authorization"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // CardsApiService CardsApi service
 type CardsApiService service
 
 type ApiDeleteCrmV3ExtensionsCardsAppIdCardIdArchiveRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *CardsApiService
 	appId      int32
 	cardId     string
 }
 
-func (r ApiDeleteCrmV3ExtensionsCardsAppIdCardIdArchiveRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeleteCrmV3ExtensionsCardsAppIdCardIdArchiveRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteCrmV3ExtensionsCardsAppIdCardIdArchiveExecute(r)
 }
 
@@ -45,12 +38,12 @@ DeleteCrmV3ExtensionsCardsAppIdCardIdArchive Delete a card
 
 Permanently deletes a card definition with the given ID. Once deleted, data fetch requests for this card will no longer be sent to your service. This can't be undone.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param appId The ID of the target app.
  @param cardId The ID of the card to delete.
  @return ApiDeleteCrmV3ExtensionsCardsAppIdCardIdArchiveRequest
 */
-func (a *CardsApiService) DeleteCrmV3ExtensionsCardsAppIdCardIdArchive(ctx _context.Context, appId int32, cardId string) ApiDeleteCrmV3ExtensionsCardsAppIdCardIdArchiveRequest {
+func (a *CardsApiService) DeleteCrmV3ExtensionsCardsAppIdCardIdArchive(ctx context.Context, appId int32, cardId string) ApiDeleteCrmV3ExtensionsCardsAppIdCardIdArchiveRequest {
 	return ApiDeleteCrmV3ExtensionsCardsAppIdCardIdArchiveRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -60,27 +53,25 @@ func (a *CardsApiService) DeleteCrmV3ExtensionsCardsAppIdCardIdArchive(ctx _cont
 }
 
 // Execute executes the request
-func (a *CardsApiService) DeleteCrmV3ExtensionsCardsAppIdCardIdArchiveExecute(r ApiDeleteCrmV3ExtensionsCardsAppIdCardIdArchiveRequest) (*_nethttp.Response, error) {
+func (a *CardsApiService) DeleteCrmV3ExtensionsCardsAppIdCardIdArchiveExecute(r ApiDeleteCrmV3ExtensionsCardsAppIdCardIdArchiveRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CardsApiService.DeleteCrmV3ExtensionsCardsAppIdCardIdArchive")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/extensions/cards/{appId}/{cardId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", _neturl.PathEscape(parameterToString(r.appId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"cardId"+"}", _neturl.PathEscape(parameterToString(r.cardId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"cardId"+"}", url.PathEscape(parameterToString(r.cardId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -113,7 +104,7 @@ func (a *CardsApiService) DeleteCrmV3ExtensionsCardsAppIdCardIdArchiveExecute(r 
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -123,15 +114,15 @@ func (a *CardsApiService) DeleteCrmV3ExtensionsCardsAppIdCardIdArchiveExecute(r 
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -149,13 +140,13 @@ func (a *CardsApiService) DeleteCrmV3ExtensionsCardsAppIdCardIdArchiveExecute(r 
 }
 
 type ApiGetCrmV3ExtensionsCardsAppIdCardIdGetByIdRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *CardsApiService
 	appId      int32
 	cardId     string
 }
 
-func (r ApiGetCrmV3ExtensionsCardsAppIdCardIdGetByIdRequest) Execute() (CardResponse, *_nethttp.Response, error) {
+func (r ApiGetCrmV3ExtensionsCardsAppIdCardIdGetByIdRequest) Execute() (*CardResponse, *http.Response, error) {
 	return r.ApiService.GetCrmV3ExtensionsCardsAppIdCardIdGetByIdExecute(r)
 }
 
@@ -164,12 +155,12 @@ GetCrmV3ExtensionsCardsAppIdCardIdGetById Get a card.
 
 Returns the definition for a card with the given ID.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param appId The ID of the target app.
  @param cardId The ID of the target card.
  @return ApiGetCrmV3ExtensionsCardsAppIdCardIdGetByIdRequest
 */
-func (a *CardsApiService) GetCrmV3ExtensionsCardsAppIdCardIdGetById(ctx _context.Context, appId int32, cardId string) ApiGetCrmV3ExtensionsCardsAppIdCardIdGetByIdRequest {
+func (a *CardsApiService) GetCrmV3ExtensionsCardsAppIdCardIdGetById(ctx context.Context, appId int32, cardId string) ApiGetCrmV3ExtensionsCardsAppIdCardIdGetByIdRequest {
 	return ApiGetCrmV3ExtensionsCardsAppIdCardIdGetByIdRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -180,28 +171,26 @@ func (a *CardsApiService) GetCrmV3ExtensionsCardsAppIdCardIdGetById(ctx _context
 
 // Execute executes the request
 //  @return CardResponse
-func (a *CardsApiService) GetCrmV3ExtensionsCardsAppIdCardIdGetByIdExecute(r ApiGetCrmV3ExtensionsCardsAppIdCardIdGetByIdRequest) (CardResponse, *_nethttp.Response, error) {
+func (a *CardsApiService) GetCrmV3ExtensionsCardsAppIdCardIdGetByIdExecute(r ApiGetCrmV3ExtensionsCardsAppIdCardIdGetByIdRequest) (*CardResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  CardResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CardResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CardsApiService.GetCrmV3ExtensionsCardsAppIdCardIdGetById")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/extensions/cards/{appId}/{cardId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", _neturl.PathEscape(parameterToString(r.appId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"cardId"+"}", _neturl.PathEscape(parameterToString(r.cardId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"cardId"+"}", url.PathEscape(parameterToString(r.cardId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -234,7 +223,7 @@ func (a *CardsApiService) GetCrmV3ExtensionsCardsAppIdCardIdGetByIdExecute(r Api
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -244,15 +233,15 @@ func (a *CardsApiService) GetCrmV3ExtensionsCardsAppIdCardIdGetByIdExecute(r Api
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -268,7 +257,7 @@ func (a *CardsApiService) GetCrmV3ExtensionsCardsAppIdCardIdGetByIdExecute(r Api
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -279,12 +268,12 @@ func (a *CardsApiService) GetCrmV3ExtensionsCardsAppIdCardIdGetByIdExecute(r Api
 }
 
 type ApiGetCrmV3ExtensionsCardsAppIdGetAllRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *CardsApiService
 	appId      int32
 }
 
-func (r ApiGetCrmV3ExtensionsCardsAppIdGetAllRequest) Execute() (CardListResponse, *_nethttp.Response, error) {
+func (r ApiGetCrmV3ExtensionsCardsAppIdGetAllRequest) Execute() (*CardListResponse, *http.Response, error) {
 	return r.ApiService.GetCrmV3ExtensionsCardsAppIdGetAllExecute(r)
 }
 
@@ -293,11 +282,11 @@ GetCrmV3ExtensionsCardsAppIdGetAll Get all cards
 
 Returns a list of cards for a given app.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param appId The ID of the target app.
  @return ApiGetCrmV3ExtensionsCardsAppIdGetAllRequest
 */
-func (a *CardsApiService) GetCrmV3ExtensionsCardsAppIdGetAll(ctx _context.Context, appId int32) ApiGetCrmV3ExtensionsCardsAppIdGetAllRequest {
+func (a *CardsApiService) GetCrmV3ExtensionsCardsAppIdGetAll(ctx context.Context, appId int32) ApiGetCrmV3ExtensionsCardsAppIdGetAllRequest {
 	return ApiGetCrmV3ExtensionsCardsAppIdGetAllRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -307,27 +296,25 @@ func (a *CardsApiService) GetCrmV3ExtensionsCardsAppIdGetAll(ctx _context.Contex
 
 // Execute executes the request
 //  @return CardListResponse
-func (a *CardsApiService) GetCrmV3ExtensionsCardsAppIdGetAllExecute(r ApiGetCrmV3ExtensionsCardsAppIdGetAllRequest) (CardListResponse, *_nethttp.Response, error) {
+func (a *CardsApiService) GetCrmV3ExtensionsCardsAppIdGetAllExecute(r ApiGetCrmV3ExtensionsCardsAppIdGetAllRequest) (*CardListResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  CardListResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CardListResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CardsApiService.GetCrmV3ExtensionsCardsAppIdGetAll")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/extensions/cards/{appId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", _neturl.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -360,7 +347,7 @@ func (a *CardsApiService) GetCrmV3ExtensionsCardsAppIdGetAllExecute(r ApiGetCrmV
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -370,15 +357,15 @@ func (a *CardsApiService) GetCrmV3ExtensionsCardsAppIdGetAllExecute(r ApiGetCrmV
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -394,7 +381,7 @@ func (a *CardsApiService) GetCrmV3ExtensionsCardsAppIdGetAllExecute(r ApiGetCrmV
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -405,7 +392,7 @@ func (a *CardsApiService) GetCrmV3ExtensionsCardsAppIdGetAllExecute(r ApiGetCrmV
 }
 
 type ApiPatchCrmV3ExtensionsCardsAppIdCardIdUpdateRequest struct {
-	ctx              _context.Context
+	ctx              context.Context
 	ApiService       *CardsApiService
 	appId            int32
 	cardId           string
@@ -418,7 +405,7 @@ func (r ApiPatchCrmV3ExtensionsCardsAppIdCardIdUpdateRequest) CardPatchRequest(c
 	return r
 }
 
-func (r ApiPatchCrmV3ExtensionsCardsAppIdCardIdUpdateRequest) Execute() (CardResponse, *_nethttp.Response, error) {
+func (r ApiPatchCrmV3ExtensionsCardsAppIdCardIdUpdateRequest) Execute() (*CardResponse, *http.Response, error) {
 	return r.ApiService.PatchCrmV3ExtensionsCardsAppIdCardIdUpdateExecute(r)
 }
 
@@ -427,12 +414,12 @@ PatchCrmV3ExtensionsCardsAppIdCardIdUpdate Update a card
 
 Update a card definition with new details.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param appId The ID of the target app.
  @param cardId The ID of the card to update.
  @return ApiPatchCrmV3ExtensionsCardsAppIdCardIdUpdateRequest
 */
-func (a *CardsApiService) PatchCrmV3ExtensionsCardsAppIdCardIdUpdate(ctx _context.Context, appId int32, cardId string) ApiPatchCrmV3ExtensionsCardsAppIdCardIdUpdateRequest {
+func (a *CardsApiService) PatchCrmV3ExtensionsCardsAppIdCardIdUpdate(ctx context.Context, appId int32, cardId string) ApiPatchCrmV3ExtensionsCardsAppIdCardIdUpdateRequest {
 	return ApiPatchCrmV3ExtensionsCardsAppIdCardIdUpdateRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -443,28 +430,26 @@ func (a *CardsApiService) PatchCrmV3ExtensionsCardsAppIdCardIdUpdate(ctx _contex
 
 // Execute executes the request
 //  @return CardResponse
-func (a *CardsApiService) PatchCrmV3ExtensionsCardsAppIdCardIdUpdateExecute(r ApiPatchCrmV3ExtensionsCardsAppIdCardIdUpdateRequest) (CardResponse, *_nethttp.Response, error) {
+func (a *CardsApiService) PatchCrmV3ExtensionsCardsAppIdCardIdUpdateExecute(r ApiPatchCrmV3ExtensionsCardsAppIdCardIdUpdateRequest) (*CardResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPatch
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  CardResponse
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CardResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CardsApiService.PatchCrmV3ExtensionsCardsAppIdCardIdUpdate")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/extensions/cards/{appId}/{cardId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", _neturl.PathEscape(parameterToString(r.appId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"cardId"+"}", _neturl.PathEscape(parameterToString(r.cardId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"cardId"+"}", url.PathEscape(parameterToString(r.cardId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.cardPatchRequest == nil {
 		return localVarReturnValue, nil, reportError("cardPatchRequest is required and must be specified")
 	}
@@ -502,7 +487,7 @@ func (a *CardsApiService) PatchCrmV3ExtensionsCardsAppIdCardIdUpdateExecute(r Ap
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -512,15 +497,15 @@ func (a *CardsApiService) PatchCrmV3ExtensionsCardsAppIdCardIdUpdateExecute(r Ap
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -536,7 +521,7 @@ func (a *CardsApiService) PatchCrmV3ExtensionsCardsAppIdCardIdUpdateExecute(r Ap
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -547,7 +532,7 @@ func (a *CardsApiService) PatchCrmV3ExtensionsCardsAppIdCardIdUpdateExecute(r Ap
 }
 
 type ApiPostCrmV3ExtensionsCardsAppIdCreateRequest struct {
-	ctx               _context.Context
+	ctx               context.Context
 	ApiService        *CardsApiService
 	appId             int32
 	cardCreateRequest *CardCreateRequest
@@ -559,7 +544,7 @@ func (r ApiPostCrmV3ExtensionsCardsAppIdCreateRequest) CardCreateRequest(cardCre
 	return r
 }
 
-func (r ApiPostCrmV3ExtensionsCardsAppIdCreateRequest) Execute() (CardResponse, *_nethttp.Response, error) {
+func (r ApiPostCrmV3ExtensionsCardsAppIdCreateRequest) Execute() (*CardResponse, *http.Response, error) {
 	return r.ApiService.PostCrmV3ExtensionsCardsAppIdCreateExecute(r)
 }
 
@@ -568,11 +553,11 @@ PostCrmV3ExtensionsCardsAppIdCreate Create a new card
 
 Defines a new card that will become active on an account when this app is installed.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param appId The ID of the target app.
  @return ApiPostCrmV3ExtensionsCardsAppIdCreateRequest
 */
-func (a *CardsApiService) PostCrmV3ExtensionsCardsAppIdCreate(ctx _context.Context, appId int32) ApiPostCrmV3ExtensionsCardsAppIdCreateRequest {
+func (a *CardsApiService) PostCrmV3ExtensionsCardsAppIdCreate(ctx context.Context, appId int32) ApiPostCrmV3ExtensionsCardsAppIdCreateRequest {
 	return ApiPostCrmV3ExtensionsCardsAppIdCreateRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -582,27 +567,25 @@ func (a *CardsApiService) PostCrmV3ExtensionsCardsAppIdCreate(ctx _context.Conte
 
 // Execute executes the request
 //  @return CardResponse
-func (a *CardsApiService) PostCrmV3ExtensionsCardsAppIdCreateExecute(r ApiPostCrmV3ExtensionsCardsAppIdCreateRequest) (CardResponse, *_nethttp.Response, error) {
+func (a *CardsApiService) PostCrmV3ExtensionsCardsAppIdCreateExecute(r ApiPostCrmV3ExtensionsCardsAppIdCreateRequest) (*CardResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  CardResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CardResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CardsApiService.PostCrmV3ExtensionsCardsAppIdCreate")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/extensions/cards/{appId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", _neturl.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.cardCreateRequest == nil {
 		return localVarReturnValue, nil, reportError("cardCreateRequest is required and must be specified")
 	}
@@ -640,7 +623,7 @@ func (a *CardsApiService) PostCrmV3ExtensionsCardsAppIdCreateExecute(r ApiPostCr
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -650,15 +633,15 @@ func (a *CardsApiService) PostCrmV3ExtensionsCardsAppIdCreateExecute(r ApiPostCr
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -674,7 +657,7 @@ func (a *CardsApiService) PostCrmV3ExtensionsCardsAppIdCreateExecute(r ApiPostCr
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
