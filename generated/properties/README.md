@@ -123,6 +123,15 @@ Class | Method | HTTP request | Description
 
 
 
+### hapikey
+
+- **Type**: API key
+- **API key parameter name**: hapikey
+- **Location**: URL query string
+
+Note, each API key must be added to a map of `map[string]APIKey` where the key is: hapikey and passed in as the auth context for each request.
+
+
 ### oauth2
 
 
@@ -130,20 +139,20 @@ Class | Method | HTTP request | Description
 - **Flow**: accessCode
 - **Authorization URL**: https://app.hubspot.com/oauth/authorize
 - **Scopes**: 
- - **crm.schemas.companies.read**:  
- - **crm.objects.deals.read**:  
- - **crm.schemas.line_items.read**: Line Items schemas
- - **crm.objects.deals.write**:  
- - **crm.schemas.deals.read**:  
- - **crm.objects.contacts.read**:  
- - **crm.schemas.quotes.read**: Quotes schemas
- - **crm.objects.contacts.write**:  
- - **crm.schemas.contacts.read**:  
- - **crm.objects.companies.write**:  
  - **crm.objects.companies.read**:  
+ - **crm.objects.companies.write**:  
+ - **crm.schemas.contacts.read**:  
+ - **crm.objects.contacts.write**:  
+ - **crm.schemas.quotes.read**: Quotes schemas
+ - **crm.objects.contacts.read**:  
+ - **crm.schemas.deals.read**:  
+ - **crm.objects.deals.write**:  
+ - **crm.schemas.line_items.read**: Line Items schemas
+ - **crm.objects.deals.read**:  
+ - **crm.schemas.companies.read**:  
  - **crm.schemas.contacts.write**:  
- - **crm.schemas.companies.write**:  
  - **crm.schemas.deals.write**:  
+ - **crm.schemas.companies.write**:  
 
 Example
 
@@ -172,11 +181,11 @@ r, err := client.Service.Operation(auth, args)
 - **Flow**: accessCode
 - **Authorization URL**: https://app.hubspot.com/oauth/authorize
 - **Scopes**: 
- - **crm.schemas.custom.read**: View custom object definitions
- - **tickets**: Read and write tickets
- - **media_bridge.read**: Read media and media events
- - **contacts**: Read from and write to my Contacts
  - **e-commerce**: e-commerce
+ - **contacts**: Read from and write to my Contacts
+ - **media_bridge.read**: Read media and media events
+ - **tickets**: Read and write tickets
+ - **crm.schemas.custom.read**: View custom object definitions
  - **timeline**: Create timeline events
 
 Example

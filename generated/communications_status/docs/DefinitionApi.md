@@ -57,7 +57,7 @@ Other parameters are passed through a pointer to a apiGetCommunicationPreference
 
 ### Authorization
 
-[oauth2_legacy](../README.md#oauth2_legacy)
+[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 

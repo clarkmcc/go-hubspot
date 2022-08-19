@@ -37,7 +37,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security: []
+      security:
+      - hapikey: []
       summary: Delete settings
       tags:
       - Settings
@@ -69,7 +70,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security: []
+      security:
+      - hapikey: []
       summary: Get settings
       tags:
       - Settings
@@ -107,7 +109,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security: []
+      security:
+      - hapikey: []
       summary: Update settings
       tags:
       - Settings
@@ -120,6 +123,36 @@ components:
             $ref: '#/components/schemas/Error'
       description: An error occurred.
   schemas:
+    ErrorDetail:
+      properties:
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          type: string
+        in:
+          description: The name of the field or parameter in which the error was found.
+          type: string
+        code:
+          description: The status code associated with the error detail
+          type: string
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
+          type: string
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: Context about the error condition
+          example:
+            missingScopes:
+            - scope1
+            - scope2
+          type: object
+      required:
+      - message
+      type: object
     Error:
       example:
         message: Invalid input (details will vary based on the error)
@@ -175,36 +208,6 @@ components:
       - correlationId
       - message
       type: object
-    ErrorDetail:
-      properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          type: string
-        in:
-          description: The name of the field or parameter in which the error was found.
-          type: string
-        code:
-          description: The status code associated with the error detail
-          type: string
-        subCategory:
-          description: A specific category that contains more specific detail about
-            the error
-          type: string
-        context:
-          additionalProperties:
-            items:
-              type: string
-            type: array
-          description: Context about the error condition
-          example:
-            missingScopes:
-            - scope1
-            - scope2
-          type: object
-      required:
-      - message
-      type: object
     ExternalSettings:
       description: The URLs of the various actions provided by the video conferencing
         application. All URLs must use the `https` protocol.
@@ -233,6 +236,11 @@ components:
       required:
       - createMeetingUrl
       type: object
+  securitySchemes:
+    hapikey:
+      in: query
+      name: hapikey
+      type: apiKey
 x-hubspot-available-client-libraries:
 - PHP
 - Node

@@ -110,6 +110,7 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
+      - hapikey: []
       - oauth2_legacy:
         - business-intelligence
       summary: Returns a collection of events matching a query.
@@ -124,6 +125,36 @@ components:
             $ref: '#/components/schemas/Error'
       description: An error occurred.
   schemas:
+    ErrorDetail:
+      properties:
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          type: string
+        in:
+          description: The name of the field or parameter in which the error was found.
+          type: string
+        code:
+          description: The status code associated with the error detail
+          type: string
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
+          type: string
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: Context about the error condition
+          example:
+            missingScopes:
+            - scope1
+            - scope2
+          type: object
+      required:
+      - message
+      type: object
     CollectionResponseExternalUnifiedEvent:
       example:
         paging:
@@ -154,6 +185,67 @@ components:
           $ref: '#/components/schemas/Paging'
       required:
       - results
+      type: object
+    ExternalUnifiedEvent:
+      description: "Used to represent any event. With this format, the `objectType`\
+        \ and `eventType` values are stringified CRM types. Example object:\n<br/>\n\
+        ```\n {\n      \"objectType\": \"CONTACT\",\n      \"objectId\": 208451632,\n\
+        \      \"eventType\": \"e_visited_page\",\n      \"occurredAt\": 1567377501421,\n\
+        \      \"id\": \"leviathan-be3335d3-46f1-3985-988e-ff38e6e7b9d8\",\n     \
+        \ \"properties\": {\n          \"hs_url\": \"https://some-website.com/\",\n\
+        \          \"hs_title\": \"Home\",\n          \"hs_referrer\": \"https://some-other-website.com/blog/why-we-love-big-data-and-you-should-too\"\
+        ,\n          \"hs_userAgent\": \"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36\
+        \ (KHTML, like Gecko) Chrome/46.0.2490.80 Safari/537.36\",\n          \"hs_city\"\
+        : \"lund\",\n          \"hs_region\": \"m\",\n          \"hs_country\": \"\
+        se\",\n          \"hs_session_id\" : \"leviathan-be3335d3-46f1-3985-988e-ff38e6e7b9d8\"\
+        ,\n          \"hs_session_source\" : \"DIRECT\"\n      }\n  }      \n```"
+      example:
+        occurredAt: 2000-01-23T04:56:07.000+00:00
+        eventType: eventType
+        id: id
+        objectId: objectId
+        properties:
+          key: properties
+        objectType: objectType
+      properties:
+        objectType:
+          description: The objectType for the object which did the event.
+          type: string
+        objectId:
+          description: The objectId of the object which did the event.
+          type: string
+        eventType:
+          description: "The format of the `eventType` string is `ae{appId}_{eventTypeLabel}`,\
+            \ `pe{portalId}_{eventTypeLabel}`, or just `e_{eventTypeLabel}` for HubSpot\
+            \ events."
+          type: string
+        occurredAt:
+          description: An ISO 8601 timestamp when the event occurred.
+          format: date-time
+          type: string
+        id:
+          description: A unique identifier for the event.
+          type: string
+        properties:
+          additionalProperties:
+            type: string
+          type: object
+      required:
+      - eventType
+      - id
+      - objectId
+      - objectType
+      - occurredAt
+      - properties
+      type: object
+    Paging:
+      example:
+        next:
+          link: link
+          after: after
+      properties:
+        next:
+          $ref: '#/components/schemas/NextPage'
       type: object
     Error:
       example:
@@ -210,88 +302,6 @@ components:
       - correlationId
       - message
       type: object
-    ErrorDetail:
-      properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          type: string
-        in:
-          description: The name of the field or parameter in which the error was found.
-          type: string
-        code:
-          description: The status code associated with the error detail
-          type: string
-        subCategory:
-          description: A specific category that contains more specific detail about
-            the error
-          type: string
-        context:
-          additionalProperties:
-            items:
-              type: string
-            type: array
-          description: Context about the error condition
-          example:
-            missingScopes:
-            - scope1
-            - scope2
-          type: object
-      required:
-      - message
-      type: object
-    ExternalUnifiedEvent:
-      description: "Used to represent any event. With this format, the `objectType`\
-        \ and `eventType` values are stringified CRM types. Example object:\n<br/>\n\
-        ```\n {\n      \"objectType\": \"CONTACT\",\n      \"objectId\": 208451632,\n\
-        \      \"eventType\": \"e_visited_page\",\n      \"occurredAt\": 1567377501421,\n\
-        \      \"id\": \"leviathan-be3335d3-46f1-3985-988e-ff38e6e7b9d8\",\n     \
-        \ \"properties\": {\n          \"hs_url\": \"https://some-website.com/\",\n\
-        \          \"hs_title\": \"Home\",\n          \"hs_referrer\": \"https://some-other-website.com/blog/why-we-love-big-data-and-you-should-too\"\
-        ,\n          \"hs_userAgent\": \"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36\
-        \ (KHTML, like Gecko) Chrome/46.0.2490.80 Safari/537.36\",\n          \"hs_city\"\
-        : \"lund\",\n          \"hs_region\": \"m\",\n          \"hs_country\": \"\
-        se\",\n          \"hs_session_id\" : \"leviathan-be3335d3-46f1-3985-988e-ff38e6e7b9d8\"\
-        ,\n          \"hs_session_source\" : \"DIRECT\"\n      }\n  }      \n```"
-      example:
-        occurredAt: 2000-01-23T04:56:07.000+00:00
-        eventType: eventType
-        id: id
-        objectId: objectId
-        properties:
-          key: properties
-        objectType: objectType
-      properties:
-        objectType:
-          description: The objectType for the object which did the event.
-          type: string
-        objectId:
-          description: The objectId of the object which did the event.
-          type: string
-        eventType:
-          description: "The format of the `eventType` string is `ae{appId}_{eventTypeLabel}`,\
-            \ `pe{portalId}_{eventTypeLabel}`, or just `e_{eventTypeLabel}` for HubSpot\
-            \ events."
-          type: string
-        occurredAt:
-          description: An ISO 8601 timestamp when the event occurred.
-          format: date-time
-          type: string
-        id:
-          description: A unique identifier for the event.
-          type: string
-        properties:
-          additionalProperties:
-            type: string
-          type: object
-      required:
-      - eventType
-      - id
-      - objectId
-      - objectType
-      - occurredAt
-      - properties
-      type: object
     NextPage:
       example:
         link: link
@@ -304,15 +314,6 @@ components:
       required:
       - after
       type: object
-    Paging:
-      example:
-        next:
-          link: link
-          after: after
-      properties:
-        next:
-          $ref: '#/components/schemas/NextPage'
-      type: object
   securitySchemes:
     oauth2_legacy:
       flows:
@@ -322,6 +323,10 @@ components:
             business-intelligence: Read from Business Intelligence API
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
+    hapikey:
+      in: query
+      name: hapikey
+      type: apiKey
 x-hubspot-available-client-libraries:
 - PHP
 - Node

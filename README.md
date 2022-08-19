@@ -20,9 +20,9 @@ client := contacts.NewAPIClient(contacts.NewConfiguration())
 ```
 
 ## Authorization
-Authorization is done by passing context values in with each request. In order to facilitate this, I've created a simple `Authorizer` interface and an API key implementation (more implementations to come).
+Authorization is done by passing context values in with each request. In order to facilitate this, I've created a simple `Authorizer` interface and a private app token implementation (more implementations to come). An API key implementation is also available but the HubSpot API has [deprecated API tokens](https://developers.hubspot.com/changelog/upcoming-api-key-sunset#:~:text=When%20is%20this%20change%20happening,API%20keys%20to%20be%20created).
 ```go
-ctx := context.Background()
-authorizer := hubspot.NewAPIKeyAuthorizer("aa-bb-cc-dd")
-client.DoRequest(authorizer.Apply(ctx), ...) // this request is now authorized
+authorizer := hubspot.NewTokenAuthorizer("<PRIVATE APP TOKEN>")
+ctx := hubspot.WithAuthorizer(context.Background(), authorizer)
+// Pass this context to your hubspot API requests
 ```

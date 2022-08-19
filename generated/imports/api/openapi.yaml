@@ -52,7 +52,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security: []
+      security:
+      - hapikey: []
       summary: Get active imports
       tags:
       - Core
@@ -80,6 +81,7 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
+      - hapikey: []
       - oauth2_legacy:
         - crm.import
       summary: Start a new import
@@ -111,7 +113,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security: []
+      security:
+      - hapikey: []
       summary: Get the information on any import
       tags:
       - Core
@@ -142,6 +145,7 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
+      - hapikey: []
       - oauth2_legacy:
         - crm.import
       summary: Cancel an active import
@@ -191,7 +195,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security: []
+      security:
+      - hapikey: []
       tags:
       - Public_Imports
 components:
@@ -203,81 +208,6 @@ components:
             $ref: '#/components/schemas/Error'
       description: An error occurred.
   schemas:
-    ActionResponse:
-      example:
-        completedAt: 2000-01-23T04:56:07.000+00:00
-        requestedAt: 2000-01-23T04:56:07.000+00:00
-        startedAt: 2000-01-23T04:56:07.000+00:00
-        links:
-          key: links
-        status: PENDING
-      properties:
-        status:
-          enum:
-          - PENDING
-          - PROCESSING
-          - CANCELED
-          - COMPLETE
-          type: string
-        requestedAt:
-          format: date-time
-          type: string
-        startedAt:
-          format: date-time
-          type: string
-        completedAt:
-          format: date-time
-          type: string
-        links:
-          additionalProperties:
-            type: string
-          type: object
-      required:
-      - completedAt
-      - startedAt
-      - status
-      type: object
-    CollectionResponsePublicImportErrorForwardPaging:
-      example:
-        paging:
-          next:
-            link: link
-            after: after
-        results:
-        - createdAt: 5
-          extraContext: extraContext
-          objectTypeId: objectTypeId
-          errorType: INCORRECT_NUMBER_OF_COLUMNS
-          knownColumnNumber: 0
-          id: id
-          sourceData:
-            lineNumber: 1
-            pageName: pageName
-            fileId: 6
-          objectType: CONTACT
-          invalidValue: invalidValue
-        - createdAt: 5
-          extraContext: extraContext
-          objectTypeId: objectTypeId
-          errorType: INCORRECT_NUMBER_OF_COLUMNS
-          knownColumnNumber: 0
-          id: id
-          sourceData:
-            lineNumber: 1
-            pageName: pageName
-            fileId: 6
-          objectType: CONTACT
-          invalidValue: invalidValue
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/PublicImportError'
-          type: array
-        paging:
-          $ref: '#/components/schemas/ForwardPaging'
-      required:
-      - results
-      type: object
     CollectionResponsePublicImportResponse:
       example:
         paging:
@@ -329,6 +259,36 @@ components:
           $ref: '#/components/schemas/Paging'
       required:
       - results
+      type: object
+    Paging:
+      example:
+        next:
+          link: link
+          after: after
+        prev:
+          before: before
+          link: link
+      properties:
+        next:
+          $ref: '#/components/schemas/NextPage'
+        prev:
+          $ref: '#/components/schemas/PreviousPage'
+      type: object
+    PublicObjectListRecord:
+      description: A summary detailing which list contains the imported objects.
+      example:
+        listId: "3"
+        objectType: contacts
+      properties:
+        listId:
+          description: The ID of the list containing the imported objects.
+          type: string
+        objectType:
+          description: The type of object contained in the list.
+          type: string
+      required:
+      - listId
+      - objectType
       type: object
     Error:
       example:
@@ -385,6 +345,58 @@ components:
       - correlationId
       - message
       type: object
+    ImportRowCore:
+      example:
+        lineNumber: 1
+        pageName: pageName
+        fileId: 6
+      properties:
+        fileId:
+          format: int32
+          type: integer
+        pageName:
+          type: string
+        lineNumber:
+          format: int32
+          type: integer
+      required:
+      - fileId
+      - lineNumber
+      type: object
+    ActionResponse:
+      example:
+        completedAt: 2000-01-23T04:56:07.000+00:00
+        requestedAt: 2000-01-23T04:56:07.000+00:00
+        startedAt: 2000-01-23T04:56:07.000+00:00
+        links:
+          key: links
+        status: PENDING
+      properties:
+        status:
+          enum:
+          - PENDING
+          - PROCESSING
+          - CANCELED
+          - COMPLETE
+          type: string
+        requestedAt:
+          format: date-time
+          type: string
+        startedAt:
+          format: date-time
+          type: string
+        completedAt:
+          format: date-time
+          type: string
+        links:
+          additionalProperties:
+            type: string
+          type: object
+      required:
+      - completedAt
+      - startedAt
+      - status
+      type: object
     ErrorDetail:
       properties:
         message:
@@ -423,62 +435,6 @@ components:
       properties:
         next:
           $ref: '#/components/schemas/NextPage'
-      type: object
-    ImportRowCore:
-      example:
-        lineNumber: 1
-        pageName: pageName
-        fileId: 6
-      properties:
-        fileId:
-          format: int32
-          type: integer
-        pageName:
-          type: string
-        lineNumber:
-          format: int32
-          type: integer
-      required:
-      - fileId
-      - lineNumber
-      type: object
-    NextPage:
-      example:
-        link: link
-        after: after
-      properties:
-        after:
-          type: string
-        link:
-          type: string
-      required:
-      - after
-      type: object
-    Paging:
-      example:
-        next:
-          link: link
-          after: after
-        prev:
-          before: before
-          link: link
-      properties:
-        next:
-          $ref: '#/components/schemas/NextPage'
-        prev:
-          $ref: '#/components/schemas/PreviousPage'
-      type: object
-    PreviousPage:
-      example:
-        before: before
-        link: link
-      properties:
-        before:
-          type: string
-        link:
-          type: string
-      required:
-      - before
       type: object
     PublicImportError:
       example:
@@ -646,6 +602,18 @@ components:
       - knownColumnNumber
       - sourceData
       type: object
+    PreviousPage:
+      example:
+        before: before
+        link: link
+      properties:
+        before:
+          type: string
+        link:
+          type: string
+      required:
+      - before
+      type: object
     PublicImportMetadata:
       description: An object detailing a summary of the import record outputs
       example:
@@ -682,6 +650,47 @@ components:
       - counters
       - fileIds
       - objectLists
+      type: object
+    CollectionResponsePublicImportErrorForwardPaging:
+      example:
+        paging:
+          next:
+            link: link
+            after: after
+        results:
+        - createdAt: 5
+          extraContext: extraContext
+          objectTypeId: objectTypeId
+          errorType: INCORRECT_NUMBER_OF_COLUMNS
+          knownColumnNumber: 0
+          id: id
+          sourceData:
+            lineNumber: 1
+            pageName: pageName
+            fileId: 6
+          objectType: CONTACT
+          invalidValue: invalidValue
+        - createdAt: 5
+          extraContext: extraContext
+          objectTypeId: objectTypeId
+          errorType: INCORRECT_NUMBER_OF_COLUMNS
+          knownColumnNumber: 0
+          id: id
+          sourceData:
+            lineNumber: 1
+            pageName: pageName
+            fileId: 6
+          objectType: CONTACT
+          invalidValue: invalidValue
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/PublicImportError'
+          type: array
+        paging:
+          $ref: '#/components/schemas/ForwardPaging'
+      required:
+      - results
       type: object
     PublicImportResponse:
       description: "A current summary of the import, whether complete or not."
@@ -740,21 +749,17 @@ components:
       - state
       - updatedAt
       type: object
-    PublicObjectListRecord:
-      description: A summary detailing which list contains the imported objects.
+    NextPage:
       example:
-        listId: "3"
-        objectType: contacts
+        link: link
+        after: after
       properties:
-        listId:
-          description: The ID of the list containing the imported objects.
+        after:
           type: string
-        objectType:
-          description: The type of object contained in the list.
+        link:
           type: string
       required:
-      - listId
-      - objectType
+      - after
       type: object
     post__crm_v3_imports__create_request:
       properties:
@@ -776,6 +781,10 @@ components:
             crm.import: Create or modify all your CRM data through bulk imports
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
+    hapikey:
+      in: query
+      name: hapikey
+      type: apiKey
 x-hubspot-available-client-libraries:
 - PHP
 - Node

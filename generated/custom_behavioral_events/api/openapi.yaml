@@ -29,6 +29,7 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
+      - hapikey: []
       - oauth2_legacy:
         - analytics.behavioral_events.send
       summary: Sends Custom Behavioral Event
@@ -43,6 +44,36 @@ components:
             $ref: '#/components/schemas/Error'
       description: An error occurred.
   schemas:
+    ErrorDetail:
+      properties:
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          type: string
+        in:
+          description: The name of the field or parameter in which the error was found.
+          type: string
+        code:
+          description: The status code associated with the error detail
+          type: string
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
+          type: string
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: Context about the error condition
+          example:
+            missingScopes:
+            - scope1
+            - scope2
+          type: object
+      required:
+      - message
+      type: object
     BehavioralEventHttpCompletionRequest:
       example:
         occurredAt: 2000-01-23T04:56:07.000+00:00
@@ -136,36 +167,6 @@ components:
       - correlationId
       - message
       type: object
-    ErrorDetail:
-      properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          type: string
-        in:
-          description: The name of the field or parameter in which the error was found.
-          type: string
-        code:
-          description: The status code associated with the error detail
-          type: string
-        subCategory:
-          description: A specific category that contains more specific detail about
-            the error
-          type: string
-        context:
-          additionalProperties:
-            items:
-              type: string
-            type: array
-          description: Context about the error condition
-          example:
-            missingScopes:
-            - scope1
-            - scope2
-          type: object
-      required:
-      - message
-      type: object
   securitySchemes:
     oauth2_legacy:
       flows:
@@ -175,3 +176,7 @@ components:
             analytics.behavioral_events.send: Send Behavioral Event Completions
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
+    hapikey:
+      in: query
+      name: hapikey
+      type: apiKey

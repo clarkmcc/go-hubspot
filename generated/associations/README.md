@@ -108,6 +108,15 @@ Class | Method | HTTP request | Description
 
 
 
+### hapikey
+
+- **Type**: API key
+- **API key parameter name**: hapikey
+- **Location**: URL query string
+
+Note, each API key must be added to a map of `map[string]APIKey` where the key is: hapikey and passed in as the auth context for each request.
+
+
 ### oauth2
 
 
@@ -115,16 +124,16 @@ Class | Method | HTTP request | Description
 - **Flow**: accessCode
 - **Authorization URL**: https://app.hubspot.com/oauth/authorize
 - **Scopes**: 
- - **crm.objects.line_items.write**: Line Items
- - **crm.objects.quotes.read**: Quotes
- - **crm.objects.deals.write**:  
- - **crm.objects.line_items.read**: Line Items
  - **crm.objects.deals.read**:  
- - **crm.objects.quotes.write**: Quotes
- - **crm.objects.contacts.read**:  
- - **crm.objects.contacts.write**:  
- - **crm.objects.companies.write**:  
+ - **crm.objects.line_items.read**: Line Items
+ - **crm.objects.deals.write**:  
+ - **crm.objects.quotes.read**: Quotes
+ - **crm.objects.line_items.write**: Line Items
  - **crm.objects.companies.read**:  
+ - **crm.objects.companies.write**:  
+ - **crm.objects.contacts.write**:  
+ - **crm.objects.contacts.read**:  
+ - **crm.objects.quotes.write**: Quotes
 
 Example
 
@@ -153,9 +162,9 @@ r, err := client.Service.Operation(auth, args)
 - **Flow**: accessCode
 - **Authorization URL**: https://app.hubspot.com/oauth/authorize
 - **Scopes**: 
- - **contacts**: Read from and write to my Contacts
- - **crm.objects.custom.write**: Change custom object records
  - **e-commerce**: e-commerce
+ - **crm.objects.custom.write**: Change custom object records
+ - **contacts**: Read from and write to my Contacts
  - **crm.objects.custom.read**: View custom object records
  - **tickets**: Read and write tickets
  - **media_bridge.read**: Read media and media events

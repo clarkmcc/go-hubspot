@@ -37,6 +37,7 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
+      - hapikey: []
       - oauth2_legacy:
         - conversations.visitor_identification.tokens.create
       summary: Generate a token
@@ -51,6 +52,36 @@ components:
             $ref: '#/components/schemas/Error'
       description: An error occurred.
   schemas:
+    ErrorDetail:
+      properties:
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          type: string
+        in:
+          description: The name of the field or parameter in which the error was found.
+          type: string
+        code:
+          description: The status code associated with the error detail
+          type: string
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
+          type: string
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: Context about the error condition
+          example:
+            missingScopes:
+            - scope1
+            - scope2
+          type: object
+      required:
+      - message
+      type: object
     Error:
       example:
         message: Invalid input (details will vary based on the error)
@@ -106,35 +137,16 @@ components:
       - correlationId
       - message
       type: object
-    ErrorDetail:
+    IdentificationTokenResponse:
+      description: The identification token to be passed to the Conversations JS API
+        to identify the visitor
+      example:
+        token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
       properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
+        token:
           type: string
-        in:
-          description: The name of the field or parameter in which the error was found.
-          type: string
-        code:
-          description: The status code associated with the error detail
-          type: string
-        subCategory:
-          description: A specific category that contains more specific detail about
-            the error
-          type: string
-        context:
-          additionalProperties:
-            items:
-              type: string
-            type: array
-          description: Context about the error condition
-          example:
-            missingScopes:
-            - scope1
-            - scope2
-          type: object
       required:
-      - message
+      - token
       type: object
     IdentificationTokenGenerationRequest:
       description: Information used to generate a token
@@ -159,17 +171,6 @@ components:
       required:
       - email
       type: object
-    IdentificationTokenResponse:
-      description: The identification token to be passed to the Conversations JS API
-        to identify the visitor
-      example:
-        token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
-      properties:
-        token:
-          type: string
-      required:
-      - token
-      type: object
   securitySchemes:
     oauth2_legacy:
       flows:
@@ -181,6 +182,10 @@ components:
               chat widget
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
+    hapikey:
+      in: query
+      name: hapikey
+      type: apiKey
 x-hubspot-available-client-libraries:
 - PHP
 - Node

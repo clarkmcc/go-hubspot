@@ -67,7 +67,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[developer_hapikey](../README.md#developer_hapikey)
+[developer_hapikey](../README.md#developer_hapikey), [hapikey](../README.md#hapikey)
 
 ### HTTP request headers
 
@@ -139,7 +139,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[developer_hapikey](../README.md#developer_hapikey)
+[developer_hapikey](../README.md#developer_hapikey), [hapikey](../README.md#hapikey)
 
 ### HTTP request headers
 

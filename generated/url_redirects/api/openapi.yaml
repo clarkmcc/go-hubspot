@@ -151,6 +151,7 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
+      - hapikey: []
       - oauth2_legacy:
         - content
       summary: Get current redirects
@@ -179,6 +180,7 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
+      - hapikey: []
       - oauth2_legacy:
         - content
       summary: Create a redirect
@@ -208,6 +210,7 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
+      - hapikey: []
       - oauth2_legacy:
         - content
       summary: Delete a redirect
@@ -251,6 +254,7 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
+      - hapikey: []
       - oauth2_legacy:
         - content
       summary: Get details for a redirect
@@ -287,6 +291,7 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
+      - hapikey: []
       - oauth2_legacy:
         - content
       summary: Update a redirect
@@ -301,109 +306,6 @@ components:
             $ref: '#/components/schemas/Error'
       description: An error occurred.
   schemas:
-    CollectionResponseWithTotalUrlMappingForwardPaging:
-      example:
-        total: 0
-        paging:
-          next:
-            link: link
-            after: after
-        results:
-        - isTrailingSlashOptional: true
-          redirectStyle: 6
-          isMatchQueryString: true
-          created: 2000-01-23T04:56:07.000+00:00
-          isMatchFullUrl: true
-          destination: destination
-          isOnlyAfterNotFound: true
-          isPattern: true
-          precedence: 1
-          routePrefix: routePrefix
-          isProtocolAgnostic: true
-          id: id
-          updated: 2000-01-23T04:56:07.000+00:00
-        - isTrailingSlashOptional: true
-          redirectStyle: 6
-          isMatchQueryString: true
-          created: 2000-01-23T04:56:07.000+00:00
-          isMatchFullUrl: true
-          destination: destination
-          isOnlyAfterNotFound: true
-          isPattern: true
-          precedence: 1
-          routePrefix: routePrefix
-          isProtocolAgnostic: true
-          id: id
-          updated: 2000-01-23T04:56:07.000+00:00
-      properties:
-        total:
-          format: int32
-          type: integer
-        results:
-          items:
-            $ref: '#/components/schemas/UrlMapping'
-          type: array
-        paging:
-          $ref: '#/components/schemas/ForwardPaging'
-      required:
-      - results
-      - total
-      type: object
-    Error:
-      example:
-        message: Invalid input (details will vary based on the error)
-        correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
-        category: VALIDATION_ERROR
-        links:
-          knowledge-base: https://www.hubspot.com/products/service/knowledge-base
-      properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          example: An error occurred
-          type: string
-        correlationId:
-          description: A unique identifier for the request. Include this value with
-            any error reports or support tickets
-          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
-          format: uuid
-          type: string
-        category:
-          description: The error category
-          type: string
-        subCategory:
-          description: A specific category that contains more specific detail about
-            the error
-          type: string
-        errors:
-          description: further information about the error
-          items:
-            $ref: '#/components/schemas/ErrorDetail'
-          type: array
-        context:
-          additionalProperties:
-            items:
-              type: string
-            type: array
-          description: Context about the error condition
-          example:
-            invalidPropertyName:
-            - propertyValue
-            missingScopes:
-            - scope1
-            - scope2
-          type: object
-        links:
-          additionalProperties:
-            type: string
-          description: A map of link names to associated URIs containing documentation
-            about the error or recommended remediation steps
-          type: object
-      required:
-      - category
-      - correlationId
-      - message
-      type: object
     ErrorDetail:
       properties:
         message:
@@ -433,27 +335,6 @@ components:
           type: object
       required:
       - message
-      type: object
-    ForwardPaging:
-      example:
-        next:
-          link: link
-          after: after
-      properties:
-        next:
-          $ref: '#/components/schemas/NextPage'
-      type: object
-    NextPage:
-      example:
-        link: link
-        after: after
-      properties:
-        after:
-          type: string
-        link:
-          type: string
-      required:
-      - after
       type: object
     UrlMapping:
       example:
@@ -534,6 +415,15 @@ components:
       - redirectStyle
       - routePrefix
       type: object
+    ForwardPaging:
+      example:
+        next:
+          link: link
+          after: after
+      properties:
+        next:
+          $ref: '#/components/schemas/NextPage'
+      type: object
     UrlMappingCreateRequestBody:
       example:
         isTrailingSlashOptional: true
@@ -574,6 +464,121 @@ components:
       - redirectStyle
       - routePrefix
       type: object
+    Error:
+      example:
+        message: Invalid input (details will vary based on the error)
+        correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
+        category: VALIDATION_ERROR
+        links:
+          knowledge-base: https://www.hubspot.com/products/service/knowledge-base
+      properties:
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          example: An error occurred
+          type: string
+        correlationId:
+          description: A unique identifier for the request. Include this value with
+            any error reports or support tickets
+          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
+          format: uuid
+          type: string
+        category:
+          description: The error category
+          type: string
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
+          type: string
+        errors:
+          description: further information about the error
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: Context about the error condition
+          example:
+            invalidPropertyName:
+            - propertyValue
+            missingScopes:
+            - scope1
+            - scope2
+          type: object
+        links:
+          additionalProperties:
+            type: string
+          description: A map of link names to associated URIs containing documentation
+            about the error or recommended remediation steps
+          type: object
+      required:
+      - category
+      - correlationId
+      - message
+      type: object
+    NextPage:
+      example:
+        link: link
+        after: after
+      properties:
+        after:
+          type: string
+        link:
+          type: string
+      required:
+      - after
+      type: object
+    CollectionResponseWithTotalUrlMappingForwardPaging:
+      example:
+        total: 0
+        paging:
+          next:
+            link: link
+            after: after
+        results:
+        - isTrailingSlashOptional: true
+          redirectStyle: 6
+          isMatchQueryString: true
+          created: 2000-01-23T04:56:07.000+00:00
+          isMatchFullUrl: true
+          destination: destination
+          isOnlyAfterNotFound: true
+          isPattern: true
+          precedence: 1
+          routePrefix: routePrefix
+          isProtocolAgnostic: true
+          id: id
+          updated: 2000-01-23T04:56:07.000+00:00
+        - isTrailingSlashOptional: true
+          redirectStyle: 6
+          isMatchQueryString: true
+          created: 2000-01-23T04:56:07.000+00:00
+          isMatchFullUrl: true
+          destination: destination
+          isOnlyAfterNotFound: true
+          isPattern: true
+          precedence: 1
+          routePrefix: routePrefix
+          isProtocolAgnostic: true
+          id: id
+          updated: 2000-01-23T04:56:07.000+00:00
+      properties:
+        total:
+          format: int32
+          type: integer
+        results:
+          items:
+            $ref: '#/components/schemas/UrlMapping'
+          type: array
+        paging:
+          $ref: '#/components/schemas/ForwardPaging'
+      required:
+      - results
+      - total
+      type: object
   securitySchemes:
     oauth2_legacy:
       flows:
@@ -583,6 +588,10 @@ components:
             content: Read from and write to my Content
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
+    hapikey:
+      in: query
+      name: hapikey
+      type: apiKey
 x-hubspot-available-client-libraries:
 - PHP
 - Node

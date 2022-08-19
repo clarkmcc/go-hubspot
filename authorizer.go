@@ -2,28 +2,50 @@ package hubspot
 
 import (
 	"context"
-	"github.com/clarkmcc/go-hubspot/authorization"
+	"fmt"
+	"net/url"
 )
+
+var ContextKey = "hubspot.authorizer"
+
+// WithAuthorizer appends the given authorizer to the context
+func WithAuthorizer(ctx context.Context, authorizer Authorizer) context.Context {
+	return context.WithValue(ctx, ContextKey, authorizer)
+}
+
+// AuthorizationRequest represents a request that could be authorized but is not yet authorized.
+// It only contains the fields that an authorizer may need to modify.
+type AuthorizationRequest struct {
+	QueryParams url.Values
+	FormParams  url.Values
+	Headers     map[string]string
+}
 
 // Authorizer knows how to authorize API requests to the HubSpot API by modifying the request context
 type Authorizer interface {
-	Apply(ctx context.Context) context.Context
+	Apply(request AuthorizationRequest)
 }
 
-// Does APIKeyAuthorizer implement Authorizer?
-var _ Authorizer = &APIKeyAuthorizer{}
+var _ Authorizer = &TokenAuthorizer{}
 
-// APIKeyAuthorizer is an Authorizer that knows how to apply API keys to requests
+type TokenAuthorizer struct {
+	Token string
+}
+
+func (a *TokenAuthorizer) Apply(request AuthorizationRequest) {
+	request.Headers["Authorization"] = fmt.Sprintf("Bearer %v", a.Token)
+}
+
+func NewTokenAuthorizer(token string) *TokenAuthorizer {
+	return &TokenAuthorizer{Token: token}
+}
+
 type APIKeyAuthorizer struct {
 	Key string
 }
 
-func (a *APIKeyAuthorizer) Apply(ctx context.Context) context.Context {
-	// We'll use the types from the contacts generated package for now since the authorizer stuff here
-	// is the same across all the generated packages.
-	return context.WithValue(ctx, authorization.ContextAPIKeys, map[string]authorization.APIKey{
-		"hapikey": {Key: a.Key},
-	})
+func (a *APIKeyAuthorizer) Apply(request AuthorizationRequest) {
+	request.QueryParams.Set("hapikey", a.Key)
 }
 
 func NewAPIKeyAuthorizer(key string) *APIKeyAuthorizer {
@@ -32,9 +54,7 @@ func NewAPIKeyAuthorizer(key string) *APIKeyAuthorizer {
 
 var _ Authorizer = &noopAuthorizer{}
 
-// noopAuthorizer is a default authorizer that does not modify the request context
+// noopAuthorizer is a default authorizer that does not modify the request
 type noopAuthorizer struct{}
 
-func (n noopAuthorizer) Apply(ctx context.Context) context.Context {
-	return ctx
-}
+func (n noopAuthorizer) Apply(request AuthorizationRequest) {}

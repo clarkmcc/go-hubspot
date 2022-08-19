@@ -40,6 +40,7 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
+      - hapikey: []
       - oauth2_legacy:
         - crm.objects.custom.read
       - oauth2_legacy:
@@ -72,7 +73,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security: []
+      security:
+      - hapikey: []
       summary: Create a new schema
       tags:
       - Core
@@ -109,7 +111,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security: []
+      security:
+      - hapikey: []
       summary: Delete a schema
       tags:
       - Core
@@ -139,6 +142,7 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
+      - hapikey: []
       - oauth2_legacy:
         - crm.objects.custom.read
       - oauth2_legacy:
@@ -178,7 +182,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security: []
+      security:
+      - hapikey: []
       summary: Update a schema
       tags:
       - Core
@@ -216,7 +221,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security: []
+      security:
+      - hapikey: []
       summary: Create an association
       tags:
       - Core
@@ -251,7 +257,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security: []
+      security:
+      - hapikey: []
       summary: Remove an association
       tags:
       - Core
@@ -277,7 +284,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security: []
+      security:
+      - hapikey: []
       tags:
       - Public_Object_Schemas
 components:
@@ -289,58 +297,41 @@ components:
             $ref: '#/components/schemas/Error'
       description: An error occurred.
   schemas:
-    AssociationDefinition:
-      description: Defines an association between two object types.
+    ObjectTypeDefinitionPatch:
+      description: Defines attributes to update on an object type.
       example:
-        id: "105"
-        fromObjectTypeId: 2-123456
-        toObjectTypeId: 0-1
-        name: my_object_to_contact
+        primaryDisplayProperty: my_object_property
+        requiredProperties:
+        - my_object_property
+        searchableProperties:
+        - my_object_property
       properties:
-        fromObjectTypeId:
-          description: ID of the primary object type to link from.
+        labels:
+          $ref: '#/components/schemas/ObjectTypeDefinitionLabels'
+        requiredProperties:
+          description: The names of properties that should be **required** when creating
+            an object of this type.
+          items:
+            type: string
+          type: array
+        searchableProperties:
+          description: Names of properties that will be indexed for this object type
+            in by HubSpot's product search.
+          items:
+            type: string
+          type: array
+        primaryDisplayProperty:
+          description: The name of the primary property for this object. This will
+            be displayed as primary on the HubSpot record page for this object type.
           type: string
-        toObjectTypeId:
-          description: ID of the target object type ID to link to.
-          type: string
-        name:
-          description: A unique name for this association.
-          type: string
-        id:
-          description: A unique ID for this association.
-          type: string
-        createdAt:
-          description: When the association was defined.
-          format: date-time
-          type: string
-        updatedAt:
-          description: When the association was last updated.
-          format: date-time
-          type: string
-      required:
-      - fromObjectTypeId
-      - id
-      - toObjectTypeId
-      type: object
-    AssociationDefinitionEgg:
-      description: Defines an association between two object types.
-      example:
-        fromObjectTypeId: 2-123456
-        toObjectTypeId: contact
-        name: my_object_to_contact
-      properties:
-        fromObjectTypeId:
-          description: ID of the primary object type to link from.
-          type: string
-        toObjectTypeId:
-          description: ID of the target object type ID to link to.
-          type: string
-        name:
-          description: A unique name for this association.
-          type: string
-      required:
-      - fromObjectTypeId
-      - toObjectTypeId
+        secondaryDisplayProperties:
+          description: The names of secondary properties for this object. These will
+            be displayed as secondary on the HubSpot record page for this object type.
+          items:
+            type: string
+          type: array
+        restorable:
+          type: boolean
       type: object
     CollectionResponseObjectSchemaNoPaging:
       example:
@@ -416,6 +407,118 @@ components:
           type: array
       required:
       - results
+      type: object
+    ObjectTypeDefinition:
+      description: Defines an object type.
+      example:
+        id: "123456"
+        createdAt: 2020-02-20T18:07:11.390Z
+        updatedAt: 2020-02-21T14:13:28.818002Z
+        labels:
+          singular: My object
+          plural: My objects
+        requiredProperties:
+        - my_object_property
+        searchableProperties:
+        - my_object_property
+        primaryDisplayProperty: my_object_property
+        portalId: 12345678
+        metaType: PORTAL_SPECIFIC
+        name: my_object
+      properties:
+        labels:
+          $ref: '#/components/schemas/ObjectTypeDefinitionLabels'
+        requiredProperties:
+          description: The names of properties that should be **required** when creating
+            an object of this type.
+          items:
+            type: string
+          type: array
+        searchableProperties:
+          description: Names of properties that will be indexed for this object type
+            in by HubSpot's product search.
+          items:
+            type: string
+          type: array
+        primaryDisplayProperty:
+          description: The name of the primary property for this object. This will
+            be displayed as primary on the HubSpot record page for this object type.
+          type: string
+        secondaryDisplayProperties:
+          description: The names of secondary properties for this object. These will
+            be displayed as secondary on the HubSpot record page for this object type.
+          items:
+            type: string
+          type: array
+        archived:
+          type: boolean
+        id:
+          description: "A unique ID for this object type. Will be defined as {meta-type}-{unique\
+            \ ID}."
+          type: string
+        fullyQualifiedName:
+          type: string
+        createdAt:
+          description: When the object type was created.
+          format: date-time
+          type: string
+        updatedAt:
+          description: When the object type was last updated.
+          format: date-time
+          type: string
+        objectTypeId:
+          type: string
+        name:
+          description: A unique name for this object. For internal use only.
+          type: string
+        portalId:
+          description: The ID of the account that this object type is specific to.
+          format: int32
+          type: integer
+      required:
+      - archived
+      - fullyQualifiedName
+      - id
+      - labels
+      - name
+      - objectTypeId
+      - requiredProperties
+      - searchableProperties
+      - secondaryDisplayProperties
+      type: object
+    OptionInput:
+      description: Defines a enumeration property option
+      example:
+        label: Option A
+        description: Choice number one
+        value: A
+        displayOrder: 1
+        hidden: false
+      properties:
+        label:
+          description: A human-readable option label that will be shown in HubSpot.
+          type: string
+        value:
+          description: "The internal value of the option, which must be used when\
+            \ setting the property value through the API."
+          type: string
+        description:
+          description: A description of the option.
+          type: string
+        displayOrder:
+          description: Options are shown in order starting with the lowest positive
+            integer value. Values of -1 will cause the option to be displayed after
+            any positive values.
+          format: int32
+          type: integer
+        hidden:
+          description: Hidden options won't be shown in HubSpot.
+          type: boolean
+      required:
+      - displayOrder
+      - hidden
+      - label
+      - value
       type: object
     Error:
       example:
@@ -501,6 +604,145 @@ components:
           type: object
       required:
       - message
+      type: object
+    ObjectTypePropertyCreate:
+      description: Defines a property to create.
+      example:
+        label: My object property
+        type: enumeration
+        fieldType: select
+        groupName: my_object_information
+        displayOrder: 2
+        hasUniqueValue: false
+        options:
+        - label: Option A
+          description: Choice number one
+          value: A
+          displayOrder: 1
+        - label: Option B
+          description: Choice number two
+          value: B
+          displayOrder: 2
+      properties:
+        name:
+          description: "The internal property name, which must be used when referencing\
+            \ the property from the API."
+          type: string
+        label:
+          description: A human-readable property label that will be shown in HubSpot.
+          type: string
+        groupName:
+          description: The name of the group this property belongs to.
+          type: string
+        description:
+          description: A description of the property that will be shown as help text
+            in HubSpot.
+          type: string
+        options:
+          description: A list of available options for the property. This field is
+            only required for enumerated properties.
+          items:
+            $ref: '#/components/schemas/OptionInput'
+          type: array
+        displayOrder:
+          description: The order that this property should be displayed in the HubSpot
+            UI relative to other properties for this object type. Properties are displayed
+            in order starting with the lowest positive integer value. A value of -1
+            will cause the property to be displayed **after** any positive values.
+          format: int32
+          type: integer
+        hasUniqueValue:
+          description: "Whether or not the property's value must be unique. Once set,\
+            \ this can't be changed."
+          type: boolean
+        hidden:
+          type: boolean
+        type:
+          description: The data type of the property.
+          enum:
+          - string
+          - number
+          - date
+          - datetime
+          - enumeration
+          - bool
+          type: string
+        fieldType:
+          description: Controls how the property appears in HubSpot.
+          type: string
+      required:
+      - fieldType
+      - label
+      - name
+      - type
+      type: object
+    PropertyModificationMetadata:
+      properties:
+        archivable:
+          type: boolean
+        readOnlyDefinition:
+          type: boolean
+        readOnlyOptions:
+          type: boolean
+        readOnlyValue:
+          type: boolean
+      required:
+      - archivable
+      - readOnlyDefinition
+      - readOnlyValue
+      type: object
+    AssociationDefinitionEgg:
+      description: Defines an association between two object types.
+      example:
+        fromObjectTypeId: 2-123456
+        toObjectTypeId: contact
+        name: my_object_to_contact
+      properties:
+        fromObjectTypeId:
+          description: ID of the primary object type to link from.
+          type: string
+        toObjectTypeId:
+          description: ID of the target object type ID to link to.
+          type: string
+        name:
+          description: A unique name for this association.
+          type: string
+      required:
+      - fromObjectTypeId
+      - toObjectTypeId
+      type: object
+    AssociationDefinition:
+      description: Defines an association between two object types.
+      example:
+        id: "105"
+        fromObjectTypeId: 2-123456
+        toObjectTypeId: 0-1
+        name: my_object_to_contact
+      properties:
+        fromObjectTypeId:
+          description: ID of the primary object type to link from.
+          type: string
+        toObjectTypeId:
+          description: ID of the target object type ID to link to.
+          type: string
+        name:
+          description: A unique name for this association.
+          type: string
+        id:
+          description: A unique ID for this association.
+          type: string
+        createdAt:
+          description: When the association was defined.
+          format: date-time
+          type: string
+        updatedAt:
+          description: When the association was last updated.
+          format: date-time
+          type: string
+      required:
+      - fromObjectTypeId
+      - id
+      - toObjectTypeId
       type: object
     ObjectSchema:
       description: "Defines an object schema, including its properties and associations."
@@ -672,84 +914,6 @@ components:
       - searchableProperties
       - secondaryDisplayProperties
       type: object
-    ObjectTypeDefinition:
-      description: Defines an object type.
-      example:
-        id: "123456"
-        createdAt: 2020-02-20T18:07:11.390Z
-        updatedAt: 2020-02-21T14:13:28.818002Z
-        labels:
-          singular: My object
-          plural: My objects
-        requiredProperties:
-        - my_object_property
-        searchableProperties:
-        - my_object_property
-        primaryDisplayProperty: my_object_property
-        portalId: 12345678
-        metaType: PORTAL_SPECIFIC
-        name: my_object
-      properties:
-        labels:
-          $ref: '#/components/schemas/ObjectTypeDefinitionLabels'
-        requiredProperties:
-          description: The names of properties that should be **required** when creating
-            an object of this type.
-          items:
-            type: string
-          type: array
-        searchableProperties:
-          description: Names of properties that will be indexed for this object type
-            in by HubSpot's product search.
-          items:
-            type: string
-          type: array
-        primaryDisplayProperty:
-          description: The name of the primary property for this object. This will
-            be displayed as primary on the HubSpot record page for this object type.
-          type: string
-        secondaryDisplayProperties:
-          description: The names of secondary properties for this object. These will
-            be displayed as secondary on the HubSpot record page for this object type.
-          items:
-            type: string
-          type: array
-        archived:
-          type: boolean
-        id:
-          description: "A unique ID for this object type. Will be defined as {meta-type}-{unique\
-            \ ID}."
-          type: string
-        fullyQualifiedName:
-          type: string
-        createdAt:
-          description: When the object type was created.
-          format: date-time
-          type: string
-        updatedAt:
-          description: When the object type was last updated.
-          format: date-time
-          type: string
-        objectTypeId:
-          type: string
-        name:
-          description: A unique name for this object. For internal use only.
-          type: string
-        portalId:
-          description: The ID of the account that this object type is specific to.
-          format: int32
-          type: integer
-      required:
-      - archived
-      - fullyQualifiedName
-      - id
-      - labels
-      - name
-      - objectTypeId
-      - requiredProperties
-      - searchableProperties
-      - secondaryDisplayProperties
-      type: object
     ObjectTypeDefinitionLabels:
       description: Singular and plural labels for the object. Used in CRM display.
       example:
@@ -763,113 +927,6 @@ components:
           description: The word for multiple objects. (There’s no way to change this
             later.)
           type: string
-      type: object
-    ObjectTypeDefinitionPatch:
-      description: Defines attributes to update on an object type.
-      example:
-        primaryDisplayProperty: my_object_property
-        requiredProperties:
-        - my_object_property
-        searchableProperties:
-        - my_object_property
-      properties:
-        labels:
-          $ref: '#/components/schemas/ObjectTypeDefinitionLabels'
-        requiredProperties:
-          description: The names of properties that should be **required** when creating
-            an object of this type.
-          items:
-            type: string
-          type: array
-        searchableProperties:
-          description: Names of properties that will be indexed for this object type
-            in by HubSpot's product search.
-          items:
-            type: string
-          type: array
-        primaryDisplayProperty:
-          description: The name of the primary property for this object. This will
-            be displayed as primary on the HubSpot record page for this object type.
-          type: string
-        secondaryDisplayProperties:
-          description: The names of secondary properties for this object. These will
-            be displayed as secondary on the HubSpot record page for this object type.
-          items:
-            type: string
-          type: array
-        restorable:
-          type: boolean
-      type: object
-    ObjectTypePropertyCreate:
-      description: Defines a property to create.
-      example:
-        label: My object property
-        type: enumeration
-        fieldType: select
-        groupName: my_object_information
-        displayOrder: 2
-        hasUniqueValue: false
-        options:
-        - label: Option A
-          description: Choice number one
-          value: A
-          displayOrder: 1
-        - label: Option B
-          description: Choice number two
-          value: B
-          displayOrder: 2
-      properties:
-        name:
-          description: "The internal property name, which must be used when referencing\
-            \ the property from the API."
-          type: string
-        label:
-          description: A human-readable property label that will be shown in HubSpot.
-          type: string
-        groupName:
-          description: The name of the group this property belongs to.
-          type: string
-        description:
-          description: A description of the property that will be shown as help text
-            in HubSpot.
-          type: string
-        options:
-          description: A list of available options for the property. This field is
-            only required for enumerated properties.
-          items:
-            $ref: '#/components/schemas/OptionInput'
-          type: array
-        displayOrder:
-          description: The order that this property should be displayed in the HubSpot
-            UI relative to other properties for this object type. Properties are displayed
-            in order starting with the lowest positive integer value. A value of -1
-            will cause the property to be displayed **after** any positive values.
-          format: int32
-          type: integer
-        hasUniqueValue:
-          description: "Whether or not the property's value must be unique. Once set,\
-            \ this can't be changed."
-          type: boolean
-        hidden:
-          type: boolean
-        type:
-          description: The data type of the property.
-          enum:
-          - string
-          - number
-          - date
-          - datetime
-          - enumeration
-          - bool
-          type: string
-        fieldType:
-          description: Controls how the property appears in HubSpot.
-          type: string
-      required:
-      - fieldType
-      - label
-      - name
-      - type
       type: object
     Option:
       description: The options available when a property is an enumeration
@@ -900,40 +957,6 @@ components:
           description: Hidden options will not be displayed in HubSpot.
           type: boolean
       required:
-      - hidden
-      - label
-      - value
-      type: object
-    OptionInput:
-      description: Defines a enumeration property option
-      example:
-        label: Option A
-        description: Choice number one
-        value: A
-        displayOrder: 1
-        hidden: false
-      properties:
-        label:
-          description: A human-readable option label that will be shown in HubSpot.
-          type: string
-        value:
-          description: "The internal value of the option, which must be used when\
-            \ setting the property value through the API."
-          type: string
-        description:
-          description: A description of the option.
-          type: string
-        displayOrder:
-          description: Options are shown in order starting with the lowest positive
-            integer value. Values of -1 will cause the option to be displayed after
-            any positive values.
-          format: int32
-          type: integer
-        hidden:
-          description: Hidden options won't be shown in HubSpot.
-          type: boolean
-      required:
-      - displayOrder
       - hidden
       - label
       - value
@@ -1061,31 +1084,20 @@ components:
       - options
       - type
       type: object
-    PropertyModificationMetadata:
-      properties:
-        archivable:
-          type: boolean
-        readOnlyDefinition:
-          type: boolean
-        readOnlyOptions:
-          type: boolean
-        readOnlyValue:
-          type: boolean
-      required:
-      - archivable
-      - readOnlyDefinition
-      - readOnlyValue
-      type: object
   securitySchemes:
     oauth2_legacy:
       flows:
         authorizationCode:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
-            crm.schemas.custom.read: View custom object definitions
             crm.objects.custom.read: View custom object records
+            crm.schemas.custom.read: View custom object definitions
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
+    hapikey:
+      in: query
+      name: hapikey
+      type: apiKey
 x-hubspot-available-client-libraries:
 - PHP
 - Node

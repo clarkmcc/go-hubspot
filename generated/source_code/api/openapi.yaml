@@ -40,6 +40,7 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
+      - hapikey: []
       - oauth2_legacy:
         - content
       tags:
@@ -70,6 +71,7 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
+      - hapikey: []
       - oauth2_legacy:
         - content
       tags:
@@ -101,6 +103,7 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
+      - hapikey: []
       - oauth2_legacy:
         - content
       summary: Extracts a zip file
@@ -139,6 +142,7 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
+      - hapikey: []
       - oauth2_legacy:
         - content
       summary: Delete a file
@@ -176,6 +180,7 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
+      - hapikey: []
       - oauth2_legacy:
         - content
       summary: Download a file
@@ -234,6 +239,7 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
+      - hapikey: []
       - oauth2_legacy:
         - content
       summary: Create a file
@@ -290,6 +296,7 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
+      - hapikey: []
       - oauth2_legacy:
         - content
       summary: Create or update a file
@@ -342,6 +349,7 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
+      - hapikey: []
       - oauth2_legacy:
         - content
       summary: Get the metadata for a file
@@ -377,6 +385,7 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
+      - hapikey: []
       - oauth2_legacy:
         - content
       summary: Validate the contents of a file
@@ -393,39 +402,35 @@ components:
             $ref: '#/components/schemas/Error'
       description: An error occurred.
   schemas:
-    ActionResponse:
-      example:
-        completedAt: 2000-01-23T04:56:07.000+00:00
-        requestedAt: 2000-01-23T04:56:07.000+00:00
-        startedAt: 2000-01-23T04:56:07.000+00:00
-        links:
-          key: links
-        status: PENDING
+    ErrorDetail:
       properties:
-        status:
-          enum:
-          - PENDING
-          - PROCESSING
-          - CANCELED
-          - COMPLETE
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
           type: string
-        requestedAt:
-          format: date-time
+        in:
+          description: The name of the field or parameter in which the error was found.
           type: string
-        startedAt:
-          format: date-time
+        code:
+          description: The status code associated with the error detail
           type: string
-        completedAt:
-          format: date-time
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
           type: string
-        links:
+        context:
           additionalProperties:
-            type: string
+            items:
+              type: string
+            type: array
+          description: Context about the error condition
+          example:
+            missingScopes:
+            - scope1
+            - scope2
           type: object
       required:
-      - completedAt
-      - startedAt
-      - status
+      - message
       type: object
     AssetFileMetadata:
       description: The object metadata of a file.
@@ -473,6 +478,15 @@ components:
       - id
       - name
       - updatedAt
+      type: object
+    FileExtractRequest:
+      example:
+        path: path
+      properties:
+        path:
+          type: string
+      required:
+      - path
       type: object
     Error:
       example:
@@ -529,44 +543,39 @@ components:
       - correlationId
       - message
       type: object
-    ErrorDetail:
+    ActionResponse:
+      example:
+        completedAt: 2000-01-23T04:56:07.000+00:00
+        requestedAt: 2000-01-23T04:56:07.000+00:00
+        startedAt: 2000-01-23T04:56:07.000+00:00
+        links:
+          key: links
+        status: PENDING
       properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
+        status:
+          enum:
+          - PENDING
+          - PROCESSING
+          - CANCELED
+          - COMPLETE
           type: string
-        in:
-          description: The name of the field or parameter in which the error was found.
+        requestedAt:
+          format: date-time
           type: string
-        code:
-          description: The status code associated with the error detail
+        startedAt:
+          format: date-time
           type: string
-        subCategory:
-          description: A specific category that contains more specific detail about
-            the error
+        completedAt:
+          format: date-time
           type: string
-        context:
+        links:
           additionalProperties:
-            items:
-              type: string
-            type: array
-          description: Context about the error condition
-          example:
-            missingScopes:
-            - scope1
-            - scope2
+            type: string
           type: object
       required:
-      - message
-      type: object
-    FileExtractRequest:
-      example:
-        path: path
-      properties:
-        path:
-          type: string
-      required:
-      - path
+      - completedAt
+      - startedAt
+      - status
       type: object
     TaskLocator:
       example:
@@ -604,3 +613,7 @@ components:
             content: Read from and write to my Content
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
+    hapikey:
+      in: query
+      name: hapikey
+      type: apiKey

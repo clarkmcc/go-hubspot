@@ -459,6 +459,7 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
+      - hapikey: []
       - oauth2_legacy:
         - content
       summary: Get indexed properties.
@@ -1456,6 +1457,7 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
+      - hapikey: []
       - oauth2_legacy:
         - content
       summary: Search your site.
@@ -1470,6 +1472,36 @@ components:
             $ref: '#/components/schemas/Error'
       description: An error occurred.
   schemas:
+    ErrorDetail:
+      properties:
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          type: string
+        in:
+          description: The name of the field or parameter in which the error was found.
+          type: string
+        code:
+          description: The status code associated with the error detail
+          type: string
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
+          type: string
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: Context about the error condition
+          example:
+            missingScopes:
+            - scope1
+            - scope2
+          type: object
+      required:
+      - message
+      type: object
     ContentSearchResult:
       description: An individual search result.
       example:
@@ -2318,155 +2350,6 @@ components:
       - type
       - url
       type: object
-    Error:
-      example:
-        message: Invalid input (details will vary based on the error)
-        correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
-        category: VALIDATION_ERROR
-        links:
-          knowledge-base: https://www.hubspot.com/products/service/knowledge-base
-      properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          example: An error occurred
-          type: string
-        correlationId:
-          description: A unique identifier for the request. Include this value with
-            any error reports or support tickets
-          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
-          format: uuid
-          type: string
-        category:
-          description: The error category
-          type: string
-        subCategory:
-          description: A specific category that contains more specific detail about
-            the error
-          type: string
-        errors:
-          description: further information about the error
-          items:
-            $ref: '#/components/schemas/ErrorDetail'
-          type: array
-        context:
-          additionalProperties:
-            items:
-              type: string
-            type: array
-          description: Context about the error condition
-          example:
-            invalidPropertyName:
-            - propertyValue
-            missingScopes:
-            - scope1
-            - scope2
-          type: object
-        links:
-          additionalProperties:
-            type: string
-          description: A map of link names to associated URIs containing documentation
-            about the error or recommended remediation steps
-          type: object
-      required:
-      - category
-      - correlationId
-      - message
-      type: object
-    ErrorDetail:
-      properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          type: string
-        in:
-          description: The name of the field or parameter in which the error was found.
-          type: string
-        code:
-          description: The status code associated with the error detail
-          type: string
-        subCategory:
-          description: A specific category that contains more specific detail about
-            the error
-          type: string
-        context:
-          additionalProperties:
-            items:
-              type: string
-            type: array
-          description: Context about the error condition
-          example:
-            missingScopes:
-            - scope1
-            - scope2
-          type: object
-      required:
-      - message
-      type: object
-    IndexedData:
-      description: The indexed data in HubSpot
-      example:
-        id: id
-        type: LANDING_PAGE
-        fields:
-          key:
-            values:
-            - "{}"
-            - "{}"
-            name: name
-            value: "{}"
-            metadataField: true
-      properties:
-        id:
-          description: The ID of the document in HubSpot.
-          type: string
-        type:
-          description: "The type of document. Can be `SITE_PAGE`, `LANDING_PAGE`,\
-            \ `BLOG_POST`, `LISTING_PAGE`, or `KNOWLEDGE_ARTICLE`."
-          enum:
-          - LANDING_PAGE
-          - BLOG_POST
-          - SITE_PAGE
-          - KNOWLEDGE_ARTICLE
-          - LISTING_PAGE
-          type: string
-        fields:
-          additionalProperties:
-            $ref: '#/components/schemas/IndexedField'
-          description: The indexed fields in HubSpot.
-          type: object
-      required:
-      - fields
-      - id
-      - type
-      type: object
-    IndexedField:
-      example:
-        values:
-        - "{}"
-        - "{}"
-        name: name
-        value: "{}"
-        metadataField: true
-      properties:
-        name:
-          type: string
-        value:
-          properties: {}
-          type: object
-        values:
-          items:
-            properties: {}
-            type: object
-          type: array
-        metadataField:
-          type: boolean
-      required:
-      - metadataField
-      - name
-      - value
-      - values
-      type: object
     PublicSearchResults:
       example:
         total: 0
@@ -2539,6 +2422,125 @@ components:
       - results
       - total
       type: object
+    IndexedData:
+      description: The indexed data in HubSpot
+      example:
+        id: id
+        type: LANDING_PAGE
+        fields:
+          key:
+            values:
+            - "{}"
+            - "{}"
+            name: name
+            value: "{}"
+            metadataField: true
+      properties:
+        id:
+          description: The ID of the document in HubSpot.
+          type: string
+        type:
+          description: "The type of document. Can be `SITE_PAGE`, `LANDING_PAGE`,\
+            \ `BLOG_POST`, `LISTING_PAGE`, or `KNOWLEDGE_ARTICLE`."
+          enum:
+          - LANDING_PAGE
+          - BLOG_POST
+          - SITE_PAGE
+          - KNOWLEDGE_ARTICLE
+          - LISTING_PAGE
+          type: string
+        fields:
+          additionalProperties:
+            $ref: '#/components/schemas/IndexedField'
+          description: The indexed fields in HubSpot.
+          type: object
+      required:
+      - fields
+      - id
+      - type
+      type: object
+    IndexedField:
+      example:
+        values:
+        - "{}"
+        - "{}"
+        name: name
+        value: "{}"
+        metadataField: true
+      properties:
+        name:
+          type: string
+        value:
+          properties: {}
+          type: object
+        values:
+          items:
+            properties: {}
+            type: object
+          type: array
+        metadataField:
+          type: boolean
+      required:
+      - metadataField
+      - name
+      - value
+      - values
+      type: object
+    Error:
+      example:
+        message: Invalid input (details will vary based on the error)
+        correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
+        category: VALIDATION_ERROR
+        links:
+          knowledge-base: https://www.hubspot.com/products/service/knowledge-base
+      properties:
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          example: An error occurred
+          type: string
+        correlationId:
+          description: A unique identifier for the request. Include this value with
+            any error reports or support tickets
+          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
+          format: uuid
+          type: string
+        category:
+          description: The error category
+          type: string
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
+          type: string
+        errors:
+          description: further information about the error
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: Context about the error condition
+          example:
+            invalidPropertyName:
+            - propertyValue
+            missingScopes:
+            - scope1
+            - scope2
+          type: object
+        links:
+          additionalProperties:
+            type: string
+          description: A map of link names to associated URIs containing documentation
+            about the error or recommended remediation steps
+          type: object
+      required:
+      - category
+      - correlationId
+      - message
+      type: object
   securitySchemes:
     oauth2_legacy:
       flows:
@@ -2548,3 +2550,7 @@ components:
             content: Read from and write to my Content
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
+    hapikey:
+      in: query
+      name: hapikey
+      type: apiKey

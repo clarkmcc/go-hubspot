@@ -113,8 +113,8 @@ Class | Method | HTTP request | Description
  - [ErrorDetail](docs/ErrorDetail.md)
  - [ExtensionActionDefinition](docs/ExtensionActionDefinition.md)
  - [ExtensionActionDefinitionInput](docs/ExtensionActionDefinitionInput.md)
- - [ExtensionActionDefinitionInputFieldDependenciesInner](docs/ExtensionActionDefinitionInputFieldDependenciesInner.md)
  - [ExtensionActionDefinitionPatch](docs/ExtensionActionDefinitionPatch.md)
+ - [ExtensionActionDefinitionPatchInputFieldDependenciesInner](docs/ExtensionActionDefinitionPatchInputFieldDependenciesInner.md)
  - [FieldTypeDefinition](docs/FieldTypeDefinition.md)
  - [ForwardPaging](docs/ForwardPaging.md)
  - [InputFieldDefinition](docs/InputFieldDefinition.md)
@@ -129,6 +129,15 @@ Class | Method | HTTP request | Description
 
 
 ### developer_hapikey
+
+- **Type**: API key
+- **API key parameter name**: hapikey
+- **Location**: URL query string
+
+Note, each API key must be added to a map of `map[string]APIKey` where the key is: hapikey and passed in as the auth context for each request.
+
+
+### hapikey
 
 - **Type**: API key
 - **API key parameter name**: hapikey

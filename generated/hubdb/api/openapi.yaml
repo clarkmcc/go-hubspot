@@ -140,6 +140,7 @@ paths:
       security:
       - oauth2_legacy:
         - hubdb
+      - hapikey: []
       summary: Get all published tables
       tags:
       - Tables
@@ -170,6 +171,7 @@ paths:
       security:
       - oauth2_legacy:
         - hubdb
+      - hapikey: []
       summary: Create a new table
       tags:
       - Tables
@@ -288,6 +290,7 @@ paths:
       security:
       - oauth2_legacy:
         - hubdb
+      - hapikey: []
       summary: Return all draft tables
       tags:
       - Tables
@@ -318,6 +321,7 @@ paths:
       security:
       - oauth2_legacy:
         - hubdb
+      - hapikey: []
       summary: Archive a table
       tags:
       - Tables
@@ -369,6 +373,7 @@ paths:
       security:
       - oauth2_legacy:
         - hubdb
+      - hapikey: []
       summary: Get details for a published table
       tags:
       - Tables
@@ -419,6 +424,7 @@ paths:
       security:
       - oauth2_legacy:
         - hubdb
+      - hapikey: []
       summary: Get details for a draft table
       tags:
       - Tables
@@ -481,6 +487,7 @@ paths:
       security:
       - oauth2_legacy:
         - hubdb
+      - hapikey: []
       summary: Update an existing table
       tags:
       - Tables
@@ -524,6 +531,7 @@ paths:
       security:
       - oauth2_legacy:
         - hubdb
+      - hapikey: []
       summary: Clone a table
       tags:
       - Tables
@@ -570,6 +578,7 @@ paths:
       security:
       - oauth2_legacy:
         - hubdb
+      - hapikey: []
       summary: Export a draft table
       tags:
       - Tables
@@ -614,6 +623,7 @@ paths:
       security:
       - oauth2_legacy:
         - hubdb
+      - hapikey: []
       summary: Import data into draft table
       tags:
       - Tables
@@ -656,6 +666,7 @@ paths:
       security:
       - oauth2_legacy:
         - hubdb
+      - hapikey: []
       summary: Publish a table from draft
       tags:
       - Tables
@@ -698,6 +709,7 @@ paths:
       security:
       - oauth2_legacy:
         - hubdb
+      - hapikey: []
       summary: Reset a draft table
       tags:
       - Tables
@@ -744,6 +756,7 @@ paths:
       security:
       - oauth2_legacy:
         - hubdb
+      - hapikey: []
       summary: Export a published version of a table
       tags:
       - Tables
@@ -825,6 +838,7 @@ paths:
       security:
       - oauth2_legacy:
         - hubdb
+      - hapikey: []
       summary: Get rows for a table
       tags:
       - Rows
@@ -865,6 +879,7 @@ paths:
       security:
       - oauth2_legacy:
         - hubdb
+      - hapikey: []
       summary: Add a new row to a table
       tags:
       - Rows
@@ -912,6 +927,7 @@ paths:
       security:
       - oauth2_legacy:
         - hubdb
+      - hapikey: []
       summary: Get a set of rows
       tags:
       - Rows Batch
@@ -991,6 +1007,7 @@ paths:
       security:
       - oauth2_legacy:
         - hubdb
+      - hapikey: []
       summary: Get rows from draft table
       tags:
       - Rows
@@ -1031,6 +1048,7 @@ paths:
       security:
       - oauth2_legacy:
         - hubdb
+      - hapikey: []
       summary: Clone rows in batch
       tags:
       - Rows Batch
@@ -1078,6 +1096,7 @@ paths:
       security:
       - oauth2_legacy:
         - hubdb
+      - hapikey: []
       summary: Create rows in batch
       tags:
       - Rows Batch
@@ -1115,6 +1134,7 @@ paths:
       security:
       - oauth2_legacy:
         - hubdb
+      - hapikey: []
       summary: Permanently deletes rows
       tags:
       - Rows Batch
@@ -1161,6 +1181,7 @@ paths:
       security:
       - oauth2_legacy:
         - hubdb
+      - hapikey: []
       summary: Get a set of rows from draft table
       tags:
       - Rows Batch
@@ -1208,6 +1229,7 @@ paths:
       security:
       - oauth2_legacy:
         - hubdb
+      - hapikey: []
       summary: Replace rows in batch in draft table
       tags:
       - Rows Batch
@@ -1255,6 +1277,7 @@ paths:
       security:
       - oauth2_legacy:
         - hubdb
+      - hapikey: []
       summary: Update rows in batch in draft table
       tags:
       - Rows Batch
@@ -1298,6 +1321,7 @@ paths:
       security:
       - oauth2_legacy:
         - hubdb
+      - hapikey: []
       summary: Get a table row
       tags:
       - Rows
@@ -1336,6 +1360,7 @@ paths:
       security:
       - oauth2_legacy:
         - hubdb
+      - hapikey: []
       summary: Permanently deletes a row
       tags:
       - Rows
@@ -1376,6 +1401,7 @@ paths:
       security:
       - oauth2_legacy:
         - hubdb
+      - hapikey: []
       summary: Get a row from the draft table
       tags:
       - Rows
@@ -1427,6 +1453,7 @@ paths:
       security:
       - oauth2_legacy:
         - hubdb
+      - hapikey: []
       summary: Updates an existing row
       tags:
       - Rows
@@ -1477,6 +1504,7 @@ paths:
       security:
       - oauth2_legacy:
         - hubdb
+      - hapikey: []
       summary: Replaces an existing row
       tags:
       - Rows
@@ -1518,6 +1546,7 @@ paths:
       security:
       - oauth2_legacy:
         - hubdb
+      - hapikey: []
       summary: Clone a row
       tags:
       - Rows
@@ -1559,6 +1588,7 @@ paths:
       security:
       - oauth2_legacy:
         - hubdb
+      - hapikey: []
       summary: Unpublish a table
       tags:
       - Tables
@@ -1571,46 +1601,53 @@ components:
             $ref: '#/components/schemas/Error'
       description: An error occurred.
   schemas:
-    BatchInputHubDbTableRowV3Request:
+    BatchInputString:
       example:
         inputs:
-        - values:
-            text_column: sample text value
-            number_column: 76
-            multiselect:
-            - id: "1"
-              name: Option 1
-              type: option
-              order: 0
-            - id: "2"
-              name: Option 2
-              type: option
-              order: 1
-          path: test_path
-          name: test_title
-          childTableId: "1902373"
-        - values:
-            text_column: sample text value
-            number_column: 76
-            multiselect:
-            - id: "1"
-              name: Option 1
-              type: option
-              order: 0
-            - id: "2"
-              name: Option 2
-              type: option
-              order: 1
-          path: test_path
-          name: test_title
-          childTableId: "1902373"
+        - inputs
+        - inputs
       properties:
         inputs:
           items:
-            $ref: '#/components/schemas/HubDbTableRowV3Request'
+            type: string
           type: array
       required:
       - inputs
+      type: object
+    StandardError:
+      properties:
+        status:
+          type: string
+        id:
+          type: string
+        category:
+          type: object
+        subCategory:
+          properties: {}
+          type: object
+        message:
+          type: string
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          type: object
+        links:
+          additionalProperties:
+            type: string
+          type: object
+      required:
+      - category
+      - context
+      - errors
+      - links
+      - message
+      - status
       type: object
     BatchInputJsonNode:
       example:
@@ -1626,186 +1663,39 @@ components:
       required:
       - inputs
       type: object
-    BatchInputString:
+    HubDbTableCloneRequest:
       example:
-        inputs:
-        - inputs
-        - inputs
+        newName: test_table_new
+        newLabel: Test Table New
+        copyRows: "true"
       properties:
-        inputs:
-          items:
-            type: string
-          type: array
+        newName:
+          description: The new name for the cloned table
+          type: string
+        newLabel:
+          description: The new label for the cloned table
+          type: string
+        copyRows:
+          description: Specifies whether to copy the rows during clone
+          type: boolean
       required:
-      - inputs
+      - copyRows
       type: object
-    BatchResponseHubDbTableRowV3:
-      example:
-        completedAt: 2000-01-23T04:56:07.000+00:00
-        requestedAt: 2000-01-23T04:56:07.000+00:00
-        startedAt: 2000-01-23T04:56:07.000+00:00
-        links:
-          key: links
-        results:
-        - id: "4099275931"
-          createdAt: 2020-03-30T20:39:52.328Z
-          updatedAt: 2020-03-30T20:39:52.328Z
-          values:
-            text_column: sample text value
-            number_column: 76
-            multiselect:
-            - id: "1"
-              name: Option 1
-              type: option
-              order: 0
-            - id: "2"
-              name: Option 2
-              type: option
-              order: 1
-          path: test_path
-          name: test_title
-          childTableId: "1902373"
-        - id: "4099275931"
-          createdAt: 2020-03-30T20:39:52.328Z
-          updatedAt: 2020-03-30T20:39:52.328Z
-          values:
-            text_column: sample text value
-            number_column: 76
-            multiselect:
-            - id: "1"
-              name: Option 1
-              type: option
-              order: 0
-            - id: "2"
-              name: Option 2
-              type: option
-              order: 1
-          path: test_path
-          name: test_title
-          childTableId: "1902373"
-        status: PENDING
+    SimpleUser:
       properties:
-        status:
-          enum:
-          - PENDING
-          - PROCESSING
-          - CANCELED
-          - COMPLETE
+        id:
           type: string
-        results:
-          items:
-            $ref: '#/components/schemas/HubDbTableRowV3'
-          type: array
-        requestedAt:
-          format: date-time
+        email:
           type: string
-        startedAt:
-          format: date-time
+        firstName:
           type: string
-        completedAt:
-          format: date-time
+        lastName:
           type: string
-        links:
-          additionalProperties:
-            type: string
-          type: object
-      type: object
-    BatchResponseHubDbTableRowV3WithErrors:
-      properties:
-        status:
-          enum:
-          - PENDING
-          - PROCESSING
-          - CANCELED
-          - COMPLETE
-          type: string
-        results:
-          items:
-            $ref: '#/components/schemas/HubDbTableRowV3'
-          type: array
-        numErrors:
-          format: int32
-          type: integer
-        errors:
-          items:
-            $ref: '#/components/schemas/StandardError'
-          type: array
-        requestedAt:
-          format: date-time
-          type: string
-        startedAt:
-          format: date-time
-          type: string
-        completedAt:
-          format: date-time
-          type: string
-        links:
-          additionalProperties:
-            type: string
-          type: object
       required:
-      - completedAt
-      - results
-      - startedAt
-      - status
-      type: object
-    CollectionResponseWithTotalHubDbTableRowV3ForwardPaging:
-      example:
-        total: 0
-        paging:
-          next:
-            link: link
-            after: after
-        results:
-        - id: "4099275931"
-          createdAt: 2020-03-30T20:39:52.328Z
-          updatedAt: 2020-03-30T20:39:52.328Z
-          values:
-            text_column: sample text value
-            number_column: 76
-            multiselect:
-            - id: "1"
-              name: Option 1
-              type: option
-              order: 0
-            - id: "2"
-              name: Option 2
-              type: option
-              order: 1
-          path: test_path
-          name: test_title
-          childTableId: "1902373"
-        - id: "4099275931"
-          createdAt: 2020-03-30T20:39:52.328Z
-          updatedAt: 2020-03-30T20:39:52.328Z
-          values:
-            text_column: sample text value
-            number_column: 76
-            multiselect:
-            - id: "1"
-              name: Option 1
-              type: option
-              order: 0
-            - id: "2"
-              name: Option 2
-              type: option
-              order: 1
-          path: test_path
-          name: test_title
-          childTableId: "1902373"
-      properties:
-        total:
-          format: int32
-          type: integer
-        results:
-          items:
-            $ref: '#/components/schemas/HubDbTableRowV3'
-          type: array
-        paging:
-          $ref: '#/components/schemas/ForwardPaging'
-      required:
-      - results
-      - total
+      - email
+      - firstName
+      - id
+      - lastName
       type: object
     CollectionResponseWithTotalHubDbTableV3ForwardPaging:
       example:
@@ -1866,6 +1756,144 @@ components:
         results:
           items:
             $ref: '#/components/schemas/HubDbTableV3'
+          type: array
+        paging:
+          $ref: '#/components/schemas/ForwardPaging'
+      required:
+      - results
+      - total
+      type: object
+    BatchInputHubDbTableRowV3Request:
+      example:
+        inputs:
+        - values:
+            text_column: sample text value
+            number_column: 76
+            multiselect:
+            - id: "1"
+              name: Option 1
+              type: option
+              order: 0
+            - id: "2"
+              name: Option 2
+              type: option
+              order: 1
+          path: test_path
+          name: test_title
+          childTableId: "1902373"
+        - values:
+            text_column: sample text value
+            number_column: 76
+            multiselect:
+            - id: "1"
+              name: Option 1
+              type: option
+              order: 0
+            - id: "2"
+              name: Option 2
+              type: option
+              order: 1
+          path: test_path
+          name: test_title
+          childTableId: "1902373"
+      properties:
+        inputs:
+          items:
+            $ref: '#/components/schemas/HubDbTableRowV3Request'
+          type: array
+      required:
+      - inputs
+      type: object
+    ErrorDetail:
+      properties:
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          type: string
+        in:
+          description: The name of the field or parameter in which the error was found.
+          type: string
+        code:
+          description: The status code associated with the error detail
+          type: string
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
+          type: string
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: Context about the error condition
+          example:
+            missingScopes:
+            - scope1
+            - scope2
+          type: object
+      required:
+      - message
+      type: object
+    ForwardPaging:
+      example:
+        next:
+          link: link
+          after: after
+      properties:
+        next:
+          $ref: '#/components/schemas/NextPage'
+      type: object
+    CollectionResponseWithTotalHubDbTableRowV3ForwardPaging:
+      example:
+        total: 0
+        paging:
+          next:
+            link: link
+            after: after
+        results:
+        - id: "4099275931"
+          createdAt: 2020-03-30T20:39:52.328Z
+          updatedAt: 2020-03-30T20:39:52.328Z
+          values:
+            text_column: sample text value
+            number_column: 76
+            multiselect:
+            - id: "1"
+              name: Option 1
+              type: option
+              order: 0
+            - id: "2"
+              name: Option 2
+              type: option
+              order: 1
+          path: test_path
+          name: test_title
+          childTableId: "1902373"
+        - id: "4099275931"
+          createdAt: 2020-03-30T20:39:52.328Z
+          updatedAt: 2020-03-30T20:39:52.328Z
+          values:
+            text_column: sample text value
+            number_column: 76
+            multiselect:
+            - id: "1"
+              name: Option 1
+              type: option
+              order: 0
+            - id: "2"
+              name: Option 2
+              type: option
+              order: 1
+          path: test_path
+          name: test_title
+          childTableId: "1902373"
+      properties:
+        total:
+          format: int32
+          type: integer
+        results:
+          items:
+            $ref: '#/components/schemas/HubDbTableRowV3'
           type: array
         paging:
           $ref: '#/components/schemas/ForwardPaging'
@@ -1953,282 +1981,6 @@ components:
       - label
       - name
       - type
-      type: object
-    ColumnRequest:
-      example:
-        name: text_column
-        label: Text Column
-        archived: false
-        type: TEXT
-        id: 1
-      properties:
-        id:
-          description: Column Id
-          format: int32
-          type: integer
-        name:
-          description: Name of the column
-          type: string
-        label:
-          description: Label of the column
-          type: string
-        type:
-          description: Type of the column
-          enum:
-          - "NULL"
-          - TEXT
-          - NUMBER
-          - URL
-          - IMAGE
-          - SELECT
-          - MULTISELECT
-          - BOOLEAN
-          - LOCATION
-          - DATE
-          - DATETIME
-          - CURRENCY
-          - RICHTEXT
-          - FOREIGN_ID
-          - VIDEO
-          - CTA
-          type: string
-        options:
-          description: Options to choose for select and multi-select columns
-          items:
-            $ref: '#/components/schemas/Option'
-          type: array
-        foreignTableId:
-          description: The id of another table to which the column refers/points to.
-          format: int64
-          type: integer
-        foreignColumnId:
-          description: The id of the column from another table to which the column
-            refers/points to.
-          format: int32
-          type: integer
-      required:
-      - id
-      - label
-      - name
-      - options
-      - type
-      type: object
-    Error:
-      example:
-        message: Invalid input (details will vary based on the error)
-        correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
-        category: VALIDATION_ERROR
-        links:
-          knowledge-base: https://www.hubspot.com/products/service/knowledge-base
-      properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          example: An error occurred
-          type: string
-        correlationId:
-          description: A unique identifier for the request. Include this value with
-            any error reports or support tickets
-          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
-          format: uuid
-          type: string
-        category:
-          description: The error category
-          type: string
-        subCategory:
-          description: A specific category that contains more specific detail about
-            the error
-          type: string
-        errors:
-          description: further information about the error
-          items:
-            $ref: '#/components/schemas/ErrorDetail'
-          type: array
-        context:
-          additionalProperties:
-            items:
-              type: string
-            type: array
-          description: Context about the error condition
-          example:
-            invalidPropertyName:
-            - propertyValue
-            missingScopes:
-            - scope1
-            - scope2
-          type: object
-        links:
-          additionalProperties:
-            type: string
-          description: A map of link names to associated URIs containing documentation
-            about the error or recommended remediation steps
-          type: object
-      required:
-      - category
-      - correlationId
-      - message
-      type: object
-    ErrorCategory:
-      type: object
-    ErrorDetail:
-      properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          type: string
-        in:
-          description: The name of the field or parameter in which the error was found.
-          type: string
-        code:
-          description: The status code associated with the error detail
-          type: string
-        subCategory:
-          description: A specific category that contains more specific detail about
-            the error
-          type: string
-        context:
-          additionalProperties:
-            items:
-              type: string
-            type: array
-          description: Context about the error condition
-          example:
-            missingScopes:
-            - scope1
-            - scope2
-          type: object
-      required:
-      - message
-      type: object
-    ForeignId:
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-      required:
-      - id
-      - name
-      - type
-      type: object
-    ForwardPaging:
-      example:
-        next:
-          link: link
-          after: after
-      properties:
-        next:
-          $ref: '#/components/schemas/NextPage'
-      type: object
-    HubDbTableCloneRequest:
-      example:
-        newName: test_table_new
-        newLabel: Test Table New
-        copyRows: "true"
-      properties:
-        newName:
-          description: The new name for the cloned table
-          type: string
-        newLabel:
-          description: The new label for the cloned table
-          type: string
-        copyRows:
-          description: Specifies whether to copy the rows during clone
-          type: boolean
-      required:
-      - copyRows
-      type: object
-    HubDbTableRowV3:
-      example:
-        id: "4099275931"
-        createdAt: 2020-03-30T20:39:52.328Z
-        updatedAt: 2020-03-30T20:39:52.328Z
-        values:
-          text_column: sample text value
-          number_column: 76
-          multiselect:
-          - id: "1"
-            name: Option 1
-            type: option
-            order: 0
-          - id: "2"
-            name: Option 2
-            type: option
-            order: 1
-        path: test_path
-        name: test_title
-        childTableId: "1902373"
-      properties:
-        id:
-          description: The id of the table row
-          type: string
-        path:
-          description: "Specifies the value for `hs_path` column, which will be used\
-            \ as slug in the dynamic pages"
-          type: string
-        name:
-          description: "Specifies the value for `hs_name` column, which will be used\
-            \ as title in the dynamic pages"
-          type: string
-        createdAt:
-          description: Timestamp at which the row is created
-          format: date-time
-          type: string
-        updatedAt:
-          description: Timestamp at which the row is updated last time
-          format: date-time
-          type: string
-        childTableId:
-          description: Specifies the value for the column child table id
-          type: string
-        values:
-          additionalProperties:
-            properties: {}
-            type: object
-          description: List of key value pairs with the column name and column value
-          type: object
-      required:
-      - values
-      type: object
-    HubDbTableRowV3Request:
-      example:
-        values:
-          text_column: sample text value
-          number_column: 76
-          multiselect:
-          - id: "1"
-            name: Option 1
-            type: option
-            order: 0
-          - id: "2"
-            name: Option 2
-            type: option
-            order: 1
-        path: test_path
-        name: test_title
-        childTableId: "1902373"
-      properties:
-        path:
-          description: "Specifies the value for `hs_path` column, which will be used\
-            \ as slug in the dynamic pages"
-          type: string
-        name:
-          description: "Specifies the value for `hs_name` column, which will be used\
-            \ as title in the dynamic pages"
-          type: string
-        childTableId:
-          description: Specifies the value for the column child table id
-          format: int32
-          type: integer
-        values:
-          additionalProperties:
-            $ref: '#/components/schemas/Variant'
-          description: List of key value pairs with the column name and column value
-          type: object
-      required:
-      - values
       type: object
     HubDbTableV3:
       description: Model for HubDB table
@@ -2324,6 +2076,130 @@ components:
       - label
       - name
       type: object
+    BatchResponseHubDbTableRowV3:
+      example:
+        completedAt: 2000-01-23T04:56:07.000+00:00
+        requestedAt: 2000-01-23T04:56:07.000+00:00
+        startedAt: 2000-01-23T04:56:07.000+00:00
+        links:
+          key: links
+        results:
+        - id: "4099275931"
+          createdAt: 2020-03-30T20:39:52.328Z
+          updatedAt: 2020-03-30T20:39:52.328Z
+          values:
+            text_column: sample text value
+            number_column: 76
+            multiselect:
+            - id: "1"
+              name: Option 1
+              type: option
+              order: 0
+            - id: "2"
+              name: Option 2
+              type: option
+              order: 1
+          path: test_path
+          name: test_title
+          childTableId: "1902373"
+        - id: "4099275931"
+          createdAt: 2020-03-30T20:39:52.328Z
+          updatedAt: 2020-03-30T20:39:52.328Z
+          values:
+            text_column: sample text value
+            number_column: 76
+            multiselect:
+            - id: "1"
+              name: Option 1
+              type: option
+              order: 0
+            - id: "2"
+              name: Option 2
+              type: option
+              order: 1
+          path: test_path
+          name: test_title
+          childTableId: "1902373"
+        status: PENDING
+      properties:
+        status:
+          enum:
+          - PENDING
+          - PROCESSING
+          - CANCELED
+          - COMPLETE
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/HubDbTableRowV3'
+          type: array
+        requestedAt:
+          format: date-time
+          type: string
+        startedAt:
+          format: date-time
+          type: string
+        completedAt:
+          format: date-time
+          type: string
+        links:
+          additionalProperties:
+            type: string
+          type: object
+      type: object
+    ForeignId:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+      required:
+      - id
+      - name
+      - type
+      type: object
+    ImportResult:
+      description: The result of import operation
+      example:
+        rowLimitExceeded: true
+        duplicateRows: 6
+        rowsImported: 0
+        errors:
+        - message: Invalid input (details will vary based on the error)
+          correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
+          category: VALIDATION_ERROR
+          links:
+            knowledge-base: https://www.hubspot.com/products/service/knowledge-base
+        - message: Invalid input (details will vary based on the error)
+          correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
+          category: VALIDATION_ERROR
+          links:
+            knowledge-base: https://www.hubspot.com/products/service/knowledge-base
+      properties:
+        errors:
+          description: List of errors during import
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        rowsImported:
+          description: Specifies number of rows imported
+          format: int32
+          type: integer
+        duplicateRows:
+          description: Specifies number of duplicate rows
+          format: int32
+          type: integer
+        rowLimitExceeded:
+          description: Specifies whether row limit exceeded during import
+          type: boolean
+      required:
+      - duplicateRows
+      - errors
+      - rowLimitExceeded
+      - rowsImported
+      type: object
     HubDbTableV3Request:
       example:
         label: Test Table
@@ -2375,57 +2251,252 @@ components:
       - label
       - name
       type: object
-    ImportResult:
-      description: The result of import operation
+    Error:
       example:
-        rowLimitExceeded: true
-        duplicateRows: 6
-        rowsImported: 0
-        errors:
-        - message: Invalid input (details will vary based on the error)
-          correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
-          category: VALIDATION_ERROR
-          links:
-            knowledge-base: https://www.hubspot.com/products/service/knowledge-base
-        - message: Invalid input (details will vary based on the error)
-          correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
-          category: VALIDATION_ERROR
-          links:
-            knowledge-base: https://www.hubspot.com/products/service/knowledge-base
+        message: Invalid input (details will vary based on the error)
+        correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
+        category: VALIDATION_ERROR
+        links:
+          knowledge-base: https://www.hubspot.com/products/service/knowledge-base
       properties:
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          example: An error occurred
+          type: string
+        correlationId:
+          description: A unique identifier for the request. Include this value with
+            any error reports or support tickets
+          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
+          format: uuid
+          type: string
+        category:
+          description: The error category
+          type: string
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
+          type: string
         errors:
-          description: List of errors during import
+          description: further information about the error
           items:
-            $ref: '#/components/schemas/Error'
+            $ref: '#/components/schemas/ErrorDetail'
           type: array
-        rowsImported:
-          description: Specifies number of rows imported
-          format: int32
-          type: integer
-        duplicateRows:
-          description: Specifies number of duplicate rows
-          format: int32
-          type: integer
-        rowLimitExceeded:
-          description: Specifies whether row limit exceeded during import
-          type: boolean
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: Context about the error condition
+          example:
+            invalidPropertyName:
+            - propertyValue
+            missingScopes:
+            - scope1
+            - scope2
+          type: object
+        links:
+          additionalProperties:
+            type: string
+          description: A map of link names to associated URIs containing documentation
+            about the error or recommended remediation steps
+          type: object
       required:
-      - duplicateRows
-      - errors
-      - rowLimitExceeded
-      - rowsImported
+      - category
+      - correlationId
+      - message
       type: object
-    NextPage:
-      example:
-        link: link
-        after: after
+    BatchResponseHubDbTableRowV3WithErrors:
       properties:
-        after:
+        status:
+          enum:
+          - PENDING
+          - PROCESSING
+          - CANCELED
+          - COMPLETE
           type: string
-        link:
+        results:
+          items:
+            $ref: '#/components/schemas/HubDbTableRowV3'
+          type: array
+        numErrors:
+          format: int32
+          type: integer
+        errors:
+          items:
+            $ref: '#/components/schemas/StandardError'
+          type: array
+        requestedAt:
+          format: date-time
           type: string
+        startedAt:
+          format: date-time
+          type: string
+        completedAt:
+          format: date-time
+          type: string
+        links:
+          additionalProperties:
+            type: string
+          type: object
       required:
-      - after
+      - completedAt
+      - results
+      - startedAt
+      - status
+      type: object
+    ColumnRequest:
+      example:
+        name: text_column
+        label: Text Column
+        archived: false
+        type: TEXT
+        id: 1
+      properties:
+        id:
+          description: Column Id
+          format: int32
+          type: integer
+        name:
+          description: Name of the column
+          type: string
+        label:
+          description: Label of the column
+          type: string
+        type:
+          description: Type of the column
+          enum:
+          - "NULL"
+          - TEXT
+          - NUMBER
+          - URL
+          - IMAGE
+          - SELECT
+          - MULTISELECT
+          - BOOLEAN
+          - LOCATION
+          - DATE
+          - DATETIME
+          - CURRENCY
+          - RICHTEXT
+          - FOREIGN_ID
+          - VIDEO
+          - CTA
+          type: string
+        options:
+          description: Options to choose for select and multi-select columns
+          items:
+            $ref: '#/components/schemas/Option'
+          type: array
+        foreignTableId:
+          description: The id of another table to which the column refers/points to.
+          format: int64
+          type: integer
+        foreignColumnId:
+          description: The id of the column from another table to which the column
+            refers/points to.
+          format: int32
+          type: integer
+      required:
+      - id
+      - label
+      - name
+      - options
+      - type
+      type: object
+    Variant:
+      type: object
+    ErrorCategory:
+      type: object
+    HubDbTableRowV3:
+      example:
+        id: "4099275931"
+        createdAt: 2020-03-30T20:39:52.328Z
+        updatedAt: 2020-03-30T20:39:52.328Z
+        values:
+          text_column: sample text value
+          number_column: 76
+          multiselect:
+          - id: "1"
+            name: Option 1
+            type: option
+            order: 0
+          - id: "2"
+            name: Option 2
+            type: option
+            order: 1
+        path: test_path
+        name: test_title
+        childTableId: "1902373"
+      properties:
+        id:
+          description: The id of the table row
+          type: string
+        path:
+          description: "Specifies the value for `hs_path` column, which will be used\
+            \ as slug in the dynamic pages"
+          type: string
+        name:
+          description: "Specifies the value for `hs_name` column, which will be used\
+            \ as title in the dynamic pages"
+          type: string
+        createdAt:
+          description: Timestamp at which the row is created
+          format: date-time
+          type: string
+        updatedAt:
+          description: Timestamp at which the row is updated last time
+          format: date-time
+          type: string
+        childTableId:
+          description: Specifies the value for the column child table id
+          type: string
+        values:
+          additionalProperties:
+            properties: {}
+            type: object
+          description: List of key value pairs with the column name and column value
+          type: object
+      required:
+      - values
+      type: object
+    HubDbTableRowV3Request:
+      example:
+        values:
+          text_column: sample text value
+          number_column: 76
+          multiselect:
+          - id: "1"
+            name: Option 1
+            type: option
+            order: 0
+          - id: "2"
+            name: Option 2
+            type: option
+            order: 1
+        path: test_path
+        name: test_title
+        childTableId: "1902373"
+      properties:
+        path:
+          description: "Specifies the value for `hs_path` column, which will be used\
+            \ as slug in the dynamic pages"
+          type: string
+        name:
+          description: "Specifies the value for `hs_name` column, which will be used\
+            \ as title in the dynamic pages"
+          type: string
+        childTableId:
+          description: Specifies the value for the column child table id
+          format: int32
+          type: integer
+        values:
+          additionalProperties:
+            $ref: '#/components/schemas/Variant'
+          description: List of key value pairs with the column name and column value
+          type: object
+      required:
+      - values
       type: object
     Option:
       properties:
@@ -2444,58 +2515,17 @@ components:
       - order
       - type
       type: object
-    SimpleUser:
+    NextPage:
+      example:
+        link: link
+        after: after
       properties:
-        id:
+        after:
           type: string
-        email:
-          type: string
-        firstName:
-          type: string
-        lastName:
+        link:
           type: string
       required:
-      - email
-      - firstName
-      - id
-      - lastName
-      type: object
-    StandardError:
-      properties:
-        status:
-          type: string
-        id:
-          type: string
-        category:
-          type: object
-        subCategory:
-          properties: {}
-          type: object
-        message:
-          type: string
-        errors:
-          items:
-            $ref: '#/components/schemas/ErrorDetail'
-          type: array
-        context:
-          additionalProperties:
-            items:
-              type: string
-            type: array
-          type: object
-        links:
-          additionalProperties:
-            type: string
-          type: object
-      required:
-      - category
-      - context
-      - errors
-      - links
-      - message
-      - status
-      type: object
-    Variant:
+      - after
       type: object
     post__cms_v3_hubdb_tables__tableIdOrName__draft_import_importDraftTable_request:
       properties:
@@ -2515,6 +2545,10 @@ components:
             hubdb: Read from and write to my HubDB
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
+    hapikey:
+      in: query
+      name: hapikey
+      type: apiKey
 x-hubspot-available-client-libraries:
 - PHP
 - Node

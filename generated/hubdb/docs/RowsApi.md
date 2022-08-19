@@ -75,7 +75,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2_legacy](../README.md#oauth2_legacy)
+[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -153,7 +153,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2_legacy](../README.md#oauth2_legacy)
+[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -231,7 +231,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2_legacy](../README.md#oauth2_legacy)
+[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -304,7 +304,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2_legacy](../README.md#oauth2_legacy)
+[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -377,7 +377,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2_legacy](../README.md#oauth2_legacy)
+[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -452,7 +452,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2_legacy](../README.md#oauth2_legacy)
+[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -524,7 +524,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2_legacy](../README.md#oauth2_legacy)
+[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -597,7 +597,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2_legacy](../README.md#oauth2_legacy)
+[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -672,7 +672,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2_legacy](../README.md#oauth2_legacy)
+[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
