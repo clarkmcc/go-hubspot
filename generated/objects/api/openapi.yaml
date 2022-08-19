@@ -130,12 +130,13 @@ paths:
         - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
+      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
       - oauth2:
-        - crm.objects.line_items.read
-      - oauth2:
         - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.line_items.read
       - oauth2_legacy:
         - crm.objects.custom.read
       - oauth2:
@@ -198,12 +199,13 @@ paths:
         - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
+      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
       - oauth2:
-        - crm.objects.line_items.read
-      - oauth2:
         - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.line_items.read
       - oauth2_legacy:
         - crm.objects.custom.read
       - oauth2:
@@ -261,12 +263,13 @@ paths:
         - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
+      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
       - oauth2:
-        - crm.objects.line_items.read
-      - oauth2:
         - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.line_items.read
       - oauth2_legacy:
         - crm.objects.custom.read
       - oauth2:
@@ -333,12 +336,13 @@ paths:
         - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
+      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
       - oauth2:
-        - crm.objects.line_items.read
-      - oauth2:
         - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.line_items.read
       - oauth2_legacy:
         - crm.objects.custom.read
       - oauth2:
@@ -414,12 +418,13 @@ paths:
         - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
+      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
       - oauth2:
-        - crm.objects.line_items.read
-      - oauth2:
         - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.line_items.read
       - oauth2_legacy:
         - crm.objects.custom.read
       - oauth2:
@@ -486,12 +491,13 @@ paths:
         - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
+      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
       - oauth2:
-        - crm.objects.line_items.read
-      - oauth2:
         - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.line_items.read
       - oauth2_legacy:
         - crm.objects.custom.read
       - oauth2:
@@ -553,12 +559,13 @@ paths:
         - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
+      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
       - oauth2:
-        - crm.objects.line_items.read
-      - oauth2:
         - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.line_items.read
       - oauth2_legacy:
         - crm.objects.custom.read
       - oauth2:
@@ -619,12 +626,13 @@ paths:
         - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
+      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
       - oauth2:
-        - crm.objects.line_items.read
-      - oauth2:
         - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.line_items.read
       - oauth2_legacy:
         - crm.objects.custom.read
       - oauth2:
@@ -685,12 +693,13 @@ paths:
         - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
+      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
       - oauth2:
-        - crm.objects.line_items.read
-      - oauth2:
         - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.line_items.read
       - oauth2_legacy:
         - crm.objects.custom.read
       - oauth2:
@@ -751,12 +760,13 @@ paths:
         - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
+      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
       - oauth2:
-        - crm.objects.line_items.read
-      - oauth2:
         - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.line_items.read
       - oauth2_legacy:
         - crm.objects.custom.read
       - oauth2:
@@ -875,12 +885,13 @@ paths:
         - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
+      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
       - oauth2:
-        - crm.objects.line_items.read
-      - oauth2:
         - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.line_items.read
       - oauth2_legacy:
         - crm.objects.custom.read
       - oauth2:
@@ -962,12 +973,13 @@ paths:
         - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
+      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
       - oauth2:
-        - crm.objects.line_items.read
-      - oauth2:
         - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.line_items.read
       - oauth2_legacy:
         - crm.objects.custom.read
       - oauth2:
@@ -1056,12 +1068,13 @@ paths:
         - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
+      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
       - oauth2:
-        - crm.objects.line_items.read
-      - oauth2:
         - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.line_items.read
       - oauth2_legacy:
         - crm.objects.custom.read
       - oauth2:
@@ -1141,12 +1154,13 @@ paths:
         - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
+      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
       - oauth2:
-        - crm.objects.line_items.read
-      - oauth2:
         - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.line_items.read
       - oauth2_legacy:
         - crm.objects.custom.read
       - oauth2:
@@ -1228,12 +1242,13 @@ paths:
         - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
+      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
       - oauth2:
-        - crm.objects.line_items.read
-      - oauth2:
         - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.line_items.read
       - oauth2_legacy:
         - crm.objects.custom.read
       - oauth2:
@@ -1264,107 +1279,64 @@ components:
             $ref: '#/components/schemas/Error'
       description: An error occurred.
   schemas:
-    AssociatedId:
-      example:
-        id: id
-        type: type
+    StandardError:
       properties:
+        status:
+          type: string
         id:
           type: string
-        type:
+        category:
+          $ref: '#/components/schemas/ErrorCategory'
+        subCategory:
+          properties: {}
+          type: object
+        message:
           type: string
-      required:
-      - id
-      - type
-      type: object
-    BatchInputSimplePublicObjectBatchInput:
-      example:
-        inputs:
-        - id: id
-          properties:
-            key: properties
-        - id: id
-          properties:
-            key: properties
-      properties:
-        inputs:
+        errors:
           items:
-            $ref: '#/components/schemas/SimplePublicObjectBatchInput'
+            $ref: '#/components/schemas/ErrorDetail'
           type: array
-      required:
-      - inputs
-      type: object
-    BatchInputSimplePublicObjectId:
-      example:
-        inputs:
-        - id: id
-        - id: id
-      properties:
-        inputs:
-          items:
-            $ref: '#/components/schemas/SimplePublicObjectId'
-          type: array
-      required:
-      - inputs
-      type: object
-    BatchInputSimplePublicObjectInput:
-      example:
-        inputs:
-        - properties:
-            property_string: value
-            property_number: "17"
-            property_date: "1572480000000"
-            property_radio: option_1
-            property_dropdown: choice_b
-            property_checkbox: "false"
-            property_multiple_checkboxes: chocolate;strawberry
-        - properties:
-            property_string: value
-            property_number: "17"
-            property_date: "1572480000000"
-            property_radio: option_1
-            property_dropdown: choice_b
-            property_checkbox: "false"
-            property_multiple_checkboxes: chocolate;strawberry
-      properties:
-        inputs:
-          items:
-            $ref: '#/components/schemas/SimplePublicObjectInput'
-          type: array
-      required:
-      - inputs
-      type: object
-    BatchReadInputSimplePublicObjectId:
-      example:
-        propertiesWithHistory:
-        - propertiesWithHistory
-        - propertiesWithHistory
-        idProperty: idProperty
-        inputs:
-        - id: id
-        - id: id
-        properties:
-        - properties
-        - properties
-      properties:
-        properties:
-          items:
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          type: object
+        links:
+          additionalProperties:
             type: string
-          type: array
-        propertiesWithHistory:
-          items:
-            type: string
-          type: array
-        idProperty:
-          type: string
-        inputs:
-          items:
-            $ref: '#/components/schemas/SimplePublicObjectId'
-          type: array
+          type: object
       required:
-      - inputs
-      - properties
-      - propertiesWithHistory
+      - category
+      - context
+      - errors
+      - links
+      - message
+      - status
+      type: object
+    CollectionResponseAssociatedId:
+      example:
+        paging:
+          next:
+            after: NTI1Cg%3D%3D
+            link: ?after=NTI1Cg%3D%3D
+          prev:
+            before: before
+            link: link
+        results:
+        - id: id
+          type: type
+        - id: id
+          type: type
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/AssociatedId'
+          type: array
+        paging:
+          $ref: '#/components/schemas/Paging'
+      required:
+      - results
       type: object
     BatchResponseSimplePublicObject:
       example:
@@ -1430,6 +1402,402 @@ components:
       - startedAt
       - status
       type: object
+    FilterGroup:
+      example:
+        filters:
+        - propertyName: propertyName
+          values:
+          - values
+          - values
+          value: value
+          operator: EQ
+        - propertyName: propertyName
+          values:
+          - values
+          - values
+          value: value
+          operator: EQ
+      properties:
+        filters:
+          items:
+            $ref: '#/components/schemas/Filter'
+          type: array
+      required:
+      - filters
+      type: object
+    ErrorDetail:
+      properties:
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          type: string
+        in:
+          description: The name of the field or parameter in which the error was found.
+          type: string
+        code:
+          description: The status code associated with the error detail
+          type: string
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
+          type: string
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: Context about the error condition
+          example:
+            missingScopes:
+            - scope1
+            - scope2
+          type: object
+      required:
+      - message
+      type: object
+    ForwardPaging:
+      example:
+        next:
+          after: NTI1Cg%3D%3D
+          link: ?after=NTI1Cg%3D%3D
+      properties:
+        next:
+          $ref: '#/components/schemas/NextPage'
+      type: object
+    SimplePublicObjectId:
+      example:
+        id: id
+      properties:
+        id:
+          type: string
+      required:
+      - id
+      type: object
+    BatchReadInputSimplePublicObjectId:
+      example:
+        propertiesWithHistory:
+        - propertiesWithHistory
+        - propertiesWithHistory
+        idProperty: idProperty
+        inputs:
+        - id: id
+        - id: id
+        properties:
+        - properties
+        - properties
+      properties:
+        properties:
+          items:
+            type: string
+          type: array
+        propertiesWithHistory:
+          items:
+            type: string
+          type: array
+        idProperty:
+          type: string
+        inputs:
+          items:
+            $ref: '#/components/schemas/SimplePublicObjectId'
+          type: array
+      required:
+      - inputs
+      - properties
+      - propertiesWithHistory
+      type: object
+    BatchInputSimplePublicObjectId:
+      example:
+        inputs:
+        - id: id
+        - id: id
+      properties:
+        inputs:
+          items:
+            $ref: '#/components/schemas/SimplePublicObjectId'
+          type: array
+      required:
+      - inputs
+      type: object
+    ValueWithTimestamp:
+      example:
+        sourceId: sourceId
+        sourceType: sourceType
+        sourceLabel: sourceLabel
+        updatedByUserId: 0
+        value: value
+        timestamp: 2000-01-23T04:56:07.000+00:00
+      properties:
+        value:
+          type: string
+        timestamp:
+          format: date-time
+          type: string
+        sourceType:
+          type: string
+        sourceId:
+          type: string
+        sourceLabel:
+          type: string
+        updatedByUserId:
+          format: int32
+          type: integer
+      required:
+      - sourceType
+      - timestamp
+      - value
+      type: object
+    CollectionResponseWithTotalSimplePublicObjectForwardPaging:
+      example:
+        total: 0
+        paging:
+          next:
+            after: NTI1Cg%3D%3D
+            link: ?after=NTI1Cg%3D%3D
+        results:
+        - id: "512"
+          properties:
+            property_string: value
+            property_number: "17"
+            property_date: "1572480000000"
+            property_radio: option_1
+            property_dropdown: choice_b
+            property_checkbox: "false"
+            property_multiple_checkboxes: chocolate;strawberry
+          createdAt: 2019-10-30T03:30:17.883Z
+          updatedAt: 2019-12-07T16:50:06.678Z
+          archived: false
+        - id: "512"
+          properties:
+            property_string: value
+            property_number: "17"
+            property_date: "1572480000000"
+            property_radio: option_1
+            property_dropdown: choice_b
+            property_checkbox: "false"
+            property_multiple_checkboxes: chocolate;strawberry
+          createdAt: 2019-10-30T03:30:17.883Z
+          updatedAt: 2019-12-07T16:50:06.678Z
+          archived: false
+      properties:
+        total:
+          format: int32
+          type: integer
+        results:
+          items:
+            $ref: '#/components/schemas/SimplePublicObject'
+          type: array
+        paging:
+          $ref: '#/components/schemas/ForwardPaging'
+      required:
+      - results
+      - total
+      type: object
+    SimplePublicObject:
+      example:
+        id: "512"
+        properties:
+          property_string: value
+          property_number: "17"
+          property_date: "1572480000000"
+          property_radio: option_1
+          property_dropdown: choice_b
+          property_checkbox: "false"
+          property_multiple_checkboxes: chocolate;strawberry
+        createdAt: 2019-10-30T03:30:17.883Z
+        updatedAt: 2019-12-07T16:50:06.678Z
+        archived: false
+      properties:
+        id:
+          type: string
+        properties:
+          additionalProperties:
+            type: string
+          type: object
+        propertiesWithHistory:
+          additionalProperties:
+            items:
+              $ref: '#/components/schemas/ValueWithTimestamp'
+            type: array
+          type: object
+        createdAt:
+          format: date-time
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+        archived:
+          type: boolean
+        archivedAt:
+          format: date-time
+          type: string
+      required:
+      - createdAt
+      - id
+      - properties
+      - updatedAt
+      type: object
+    BatchInputSimplePublicObjectInput:
+      example:
+        inputs:
+        - properties:
+            property_string: value
+            property_number: "17"
+            property_date: "1572480000000"
+            property_radio: option_1
+            property_dropdown: choice_b
+            property_checkbox: "false"
+            property_multiple_checkboxes: chocolate;strawberry
+        - properties:
+            property_string: value
+            property_number: "17"
+            property_date: "1572480000000"
+            property_radio: option_1
+            property_dropdown: choice_b
+            property_checkbox: "false"
+            property_multiple_checkboxes: chocolate;strawberry
+      properties:
+        inputs:
+          items:
+            $ref: '#/components/schemas/SimplePublicObjectInput'
+          type: array
+      required:
+      - inputs
+      type: object
+    Paging:
+      example:
+        next:
+          after: NTI1Cg%3D%3D
+          link: ?after=NTI1Cg%3D%3D
+        prev:
+          before: before
+          link: link
+      properties:
+        next:
+          $ref: '#/components/schemas/NextPage'
+        prev:
+          $ref: '#/components/schemas/PreviousPage'
+      type: object
+    PublicObjectSearchRequest:
+      example:
+        query: query
+        limit: 0
+        after: 6
+        sorts:
+        - sorts
+        - sorts
+        properties:
+        - properties
+        - properties
+        filterGroups:
+        - filters:
+          - propertyName: propertyName
+            values:
+            - values
+            - values
+            value: value
+            operator: EQ
+          - propertyName: propertyName
+            values:
+            - values
+            - values
+            value: value
+            operator: EQ
+        - filters:
+          - propertyName: propertyName
+            values:
+            - values
+            - values
+            value: value
+            operator: EQ
+          - propertyName: propertyName
+            values:
+            - values
+            - values
+            value: value
+            operator: EQ
+      properties:
+        filterGroups:
+          items:
+            $ref: '#/components/schemas/FilterGroup'
+          type: array
+        sorts:
+          items:
+            type: string
+          type: array
+        query:
+          type: string
+        properties:
+          items:
+            type: string
+          type: array
+        limit:
+          format: int32
+          type: integer
+        after:
+          format: int32
+          type: integer
+      required:
+      - after
+      - filterGroups
+      - limit
+      - properties
+      - sorts
+      type: object
+    Error:
+      example:
+        message: Invalid input (details will vary based on the error)
+        correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
+        category: VALIDATION_ERROR
+        links:
+          knowledge-base: https://www.hubspot.com/products/service/knowledge-base
+      properties:
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          example: An error occurred
+          type: string
+        correlationId:
+          description: A unique identifier for the request. Include this value with
+            any error reports or support tickets
+          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
+          format: uuid
+          type: string
+        category:
+          description: The error category
+          type: string
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
+          type: string
+        errors:
+          description: further information about the error
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: Context about the error condition
+          example:
+            invalidPropertyName:
+            - propertyValue
+            missingScopes:
+            - scope1
+            - scope2
+          type: object
+        links:
+          additionalProperties:
+            type: string
+          description: A map of link names to associated URIs containing documentation
+            about the error or recommended remediation steps
+          type: object
+      required:
+      - category
+      - correlationId
+      - message
+      type: object
     BatchResponseSimplePublicObjectWithErrors:
       properties:
         status:
@@ -1469,50 +1837,35 @@ components:
       - startedAt
       - status
       type: object
-    CollectionResponseAssociatedId:
+    PublicGdprDeleteInput:
       example:
-        paging:
-          next:
-            after: NTI1Cg%3D%3D
-            link: ?after=NTI1Cg%3D%3D
-          prev:
-            before: before
-            link: link
-        results:
-        - id: id
-          type: type
-        - id: id
-          type: type
+        idProperty: idProperty
+        objectId: objectId
       properties:
-        results:
-          items:
-            $ref: '#/components/schemas/AssociatedId'
-          type: array
-        paging:
-          $ref: '#/components/schemas/Paging'
+        objectId:
+          type: string
+        idProperty:
+          type: string
       required:
-      - results
+      - objectId
       type: object
-    CollectionResponseAssociatedIdForwardPaging:
+    SimplePublicObjectInput:
       example:
-        paging:
-          next:
-            after: NTI1Cg%3D%3D
-            link: ?after=NTI1Cg%3D%3D
-        results:
-        - id: id
-          type: type
-        - id: id
-          type: type
+        properties:
+          property_string: value
+          property_number: "17"
+          property_date: "1572480000000"
+          property_radio: option_1
+          property_dropdown: choice_b
+          property_checkbox: "false"
+          property_multiple_checkboxes: chocolate;strawberry
       properties:
-        results:
-          items:
-            $ref: '#/components/schemas/AssociatedId'
-          type: array
-        paging:
-          $ref: '#/components/schemas/ForwardPaging'
+        properties:
+          additionalProperties:
+            type: string
+          type: object
       required:
-      - results
+      - properties
       type: object
     CollectionResponseSimplePublicObjectWithAssociationsForwardPaging:
       example:
@@ -1601,106 +1954,18 @@ components:
       required:
       - results
       type: object
-    CollectionResponseWithTotalSimplePublicObjectForwardPaging:
+    PublicMergeInput:
       example:
-        total: 0
-        paging:
-          next:
-            after: NTI1Cg%3D%3D
-            link: ?after=NTI1Cg%3D%3D
-        results:
-        - id: "512"
-          properties:
-            property_string: value
-            property_number: "17"
-            property_date: "1572480000000"
-            property_radio: option_1
-            property_dropdown: choice_b
-            property_checkbox: "false"
-            property_multiple_checkboxes: chocolate;strawberry
-          createdAt: 2019-10-30T03:30:17.883Z
-          updatedAt: 2019-12-07T16:50:06.678Z
-          archived: false
-        - id: "512"
-          properties:
-            property_string: value
-            property_number: "17"
-            property_date: "1572480000000"
-            property_radio: option_1
-            property_dropdown: choice_b
-            property_checkbox: "false"
-            property_multiple_checkboxes: chocolate;strawberry
-          createdAt: 2019-10-30T03:30:17.883Z
-          updatedAt: 2019-12-07T16:50:06.678Z
-          archived: false
+        objectIdToMerge: objectIdToMerge
+        primaryObjectId: primaryObjectId
       properties:
-        total:
-          format: int32
-          type: integer
-        results:
-          items:
-            $ref: '#/components/schemas/SimplePublicObject'
-          type: array
-        paging:
-          $ref: '#/components/schemas/ForwardPaging'
+        primaryObjectId:
+          type: string
+        objectIdToMerge:
+          type: string
       required:
-      - results
-      - total
-      type: object
-    Error:
-      example:
-        message: Invalid input (details will vary based on the error)
-        correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
-        category: VALIDATION_ERROR
-        links:
-          knowledge-base: https://www.hubspot.com/products/service/knowledge-base
-      properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          example: An error occurred
-          type: string
-        correlationId:
-          description: A unique identifier for the request. Include this value with
-            any error reports or support tickets
-          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
-          format: uuid
-          type: string
-        category:
-          description: The error category
-          type: string
-        subCategory:
-          description: A specific category that contains more specific detail about
-            the error
-          type: string
-        errors:
-          description: further information about the error
-          items:
-            $ref: '#/components/schemas/ErrorDetail'
-          type: array
-        context:
-          additionalProperties:
-            items:
-              type: string
-            type: array
-          description: Context about the error condition
-          example:
-            invalidPropertyName:
-            - propertyValue
-            missingScopes:
-            - scope1
-            - scope2
-          type: object
-        links:
-          additionalProperties:
-            type: string
-          description: A map of link names to associated URIs containing documentation
-            about the error or recommended remediation steps
-          type: object
-      required:
-      - category
-      - correlationId
-      - message
+      - objectIdToMerge
+      - primaryObjectId
       type: object
     ErrorCategory:
       properties:
@@ -1775,322 +2040,6 @@ components:
       - httpStatus
       - name
       type: object
-    ErrorDetail:
-      properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          type: string
-        in:
-          description: The name of the field or parameter in which the error was found.
-          type: string
-        code:
-          description: The status code associated with the error detail
-          type: string
-        subCategory:
-          description: A specific category that contains more specific detail about
-            the error
-          type: string
-        context:
-          additionalProperties:
-            items:
-              type: string
-            type: array
-          description: Context about the error condition
-          example:
-            missingScopes:
-            - scope1
-            - scope2
-          type: object
-      required:
-      - message
-      type: object
-    Filter:
-      example:
-        propertyName: propertyName
-        values:
-        - values
-        - values
-        value: value
-        operator: EQ
-      properties:
-        value:
-          type: string
-        values:
-          items:
-            type: string
-          type: array
-        propertyName:
-          type: string
-        operator:
-          description: "null"
-          enum:
-          - EQ
-          - NEQ
-          - LT
-          - LTE
-          - GT
-          - GTE
-          - BETWEEN
-          - IN
-          - NOT_IN
-          - HAS_PROPERTY
-          - NOT_HAS_PROPERTY
-          - CONTAINS_TOKEN
-          - NOT_CONTAINS_TOKEN
-          type: string
-      required:
-      - operator
-      - propertyName
-      type: object
-    FilterGroup:
-      example:
-        filters:
-        - propertyName: propertyName
-          values:
-          - values
-          - values
-          value: value
-          operator: EQ
-        - propertyName: propertyName
-          values:
-          - values
-          - values
-          value: value
-          operator: EQ
-      properties:
-        filters:
-          items:
-            $ref: '#/components/schemas/Filter'
-          type: array
-      required:
-      - filters
-      type: object
-    ForwardPaging:
-      example:
-        next:
-          after: NTI1Cg%3D%3D
-          link: ?after=NTI1Cg%3D%3D
-      properties:
-        next:
-          $ref: '#/components/schemas/NextPage'
-      type: object
-    NextPage:
-      example:
-        after: NTI1Cg%3D%3D
-        link: ?after=NTI1Cg%3D%3D
-      properties:
-        after:
-          type: string
-        link:
-          type: string
-      required:
-      - after
-      type: object
-    Paging:
-      example:
-        next:
-          after: NTI1Cg%3D%3D
-          link: ?after=NTI1Cg%3D%3D
-        prev:
-          before: before
-          link: link
-      properties:
-        next:
-          $ref: '#/components/schemas/NextPage'
-        prev:
-          $ref: '#/components/schemas/PreviousPage'
-      type: object
-    PreviousPage:
-      example:
-        before: before
-        link: link
-      properties:
-        before:
-          type: string
-        link:
-          type: string
-      required:
-      - before
-      type: object
-    PublicGdprDeleteInput:
-      example:
-        idProperty: idProperty
-        objectId: objectId
-      properties:
-        objectId:
-          type: string
-        idProperty:
-          type: string
-      required:
-      - objectId
-      type: object
-    PublicMergeInput:
-      example:
-        objectIdToMerge: objectIdToMerge
-        primaryObjectId: primaryObjectId
-      properties:
-        primaryObjectId:
-          type: string
-        objectIdToMerge:
-          type: string
-      required:
-      - objectIdToMerge
-      - primaryObjectId
-      type: object
-    PublicObjectSearchRequest:
-      example:
-        query: query
-        limit: 0
-        after: 6
-        sorts:
-        - sorts
-        - sorts
-        properties:
-        - properties
-        - properties
-        filterGroups:
-        - filters:
-          - propertyName: propertyName
-            values:
-            - values
-            - values
-            value: value
-            operator: EQ
-          - propertyName: propertyName
-            values:
-            - values
-            - values
-            value: value
-            operator: EQ
-        - filters:
-          - propertyName: propertyName
-            values:
-            - values
-            - values
-            value: value
-            operator: EQ
-          - propertyName: propertyName
-            values:
-            - values
-            - values
-            value: value
-            operator: EQ
-      properties:
-        filterGroups:
-          items:
-            $ref: '#/components/schemas/FilterGroup'
-          type: array
-        sorts:
-          items:
-            type: string
-          type: array
-        query:
-          type: string
-        properties:
-          items:
-            type: string
-          type: array
-        limit:
-          format: int32
-          type: integer
-        after:
-          format: int32
-          type: integer
-      required:
-      - after
-      - filterGroups
-      - limit
-      - properties
-      - sorts
-      type: object
-    SimplePublicObject:
-      example:
-        id: "512"
-        properties:
-          property_string: value
-          property_number: "17"
-          property_date: "1572480000000"
-          property_radio: option_1
-          property_dropdown: choice_b
-          property_checkbox: "false"
-          property_multiple_checkboxes: chocolate;strawberry
-        createdAt: 2019-10-30T03:30:17.883Z
-        updatedAt: 2019-12-07T16:50:06.678Z
-        archived: false
-      properties:
-        id:
-          type: string
-        properties:
-          additionalProperties:
-            type: string
-          type: object
-        propertiesWithHistory:
-          additionalProperties:
-            items:
-              $ref: '#/components/schemas/ValueWithTimestamp'
-            type: array
-          type: object
-        createdAt:
-          format: date-time
-          type: string
-        updatedAt:
-          format: date-time
-          type: string
-        archived:
-          type: boolean
-        archivedAt:
-          format: date-time
-          type: string
-      required:
-      - createdAt
-      - id
-      - properties
-      - updatedAt
-      type: object
-    SimplePublicObjectBatchInput:
-      example:
-        id: id
-        properties:
-          key: properties
-      properties:
-        properties:
-          additionalProperties:
-            type: string
-          type: object
-        id:
-          type: string
-      required:
-      - id
-      - properties
-      type: object
-    SimplePublicObjectId:
-      example:
-        id: id
-      properties:
-        id:
-          type: string
-      required:
-      - id
-      type: object
-    SimplePublicObjectInput:
-      example:
-        properties:
-          property_string: value
-          property_number: "17"
-          property_date: "1572480000000"
-          property_radio: option_1
-          property_dropdown: choice_b
-          property_checkbox: "false"
-          property_multiple_checkboxes: chocolate;strawberry
-      properties:
-        properties:
-          additionalProperties:
-            type: string
-          type: object
-      required:
-      - properties
-      type: object
     SimplePublicObjectWithAssociations:
       example:
         associations:
@@ -2162,68 +2111,134 @@ components:
       - properties
       - updatedAt
       type: object
-    StandardError:
-      properties:
-        status:
-          type: string
-        id:
-          type: string
-        category:
-          $ref: '#/components/schemas/ErrorCategory'
-        subCategory:
-          properties: {}
-          type: object
-        message:
-          type: string
-        errors:
-          items:
-            $ref: '#/components/schemas/ErrorDetail'
-          type: array
-        context:
-          additionalProperties:
-            items:
-              type: string
-            type: array
-          type: object
-        links:
-          additionalProperties:
-            type: string
-          type: object
-      required:
-      - category
-      - context
-      - errors
-      - links
-      - message
-      - status
-      type: object
-    ValueWithTimestamp:
+    Filter:
       example:
-        sourceId: sourceId
-        sourceType: sourceType
-        sourceLabel: sourceLabel
-        updatedByUserId: 0
+        propertyName: propertyName
+        values:
+        - values
+        - values
         value: value
-        timestamp: 2000-01-23T04:56:07.000+00:00
+        operator: EQ
       properties:
         value:
           type: string
-        timestamp:
-          format: date-time
+        values:
+          items:
+            type: string
+          type: array
+        propertyName:
           type: string
-        sourceType:
+        operator:
+          description: "null"
+          enum:
+          - EQ
+          - NEQ
+          - LT
+          - LTE
+          - GT
+          - GTE
+          - BETWEEN
+          - IN
+          - NOT_IN
+          - HAS_PROPERTY
+          - NOT_HAS_PROPERTY
+          - CONTAINS_TOKEN
+          - NOT_CONTAINS_TOKEN
           type: string
-        sourceId:
-          type: string
-        sourceLabel:
-          type: string
-        updatedByUserId:
-          format: int32
-          type: integer
       required:
-      - sourceType
-      - timestamp
-      - value
+      - operator
+      - propertyName
+      type: object
+    BatchInputSimplePublicObjectBatchInput:
+      example:
+        inputs:
+        - id: id
+          properties:
+            key: properties
+        - id: id
+          properties:
+            key: properties
+      properties:
+        inputs:
+          items:
+            $ref: '#/components/schemas/SimplePublicObjectBatchInput'
+          type: array
+      required:
+      - inputs
+      type: object
+    PreviousPage:
+      example:
+        before: before
+        link: link
+      properties:
+        before:
+          type: string
+        link:
+          type: string
+      required:
+      - before
+      type: object
+    CollectionResponseAssociatedIdForwardPaging:
+      example:
+        paging:
+          next:
+            after: NTI1Cg%3D%3D
+            link: ?after=NTI1Cg%3D%3D
+        results:
+        - id: id
+          type: type
+        - id: id
+          type: type
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/AssociatedId'
+          type: array
+        paging:
+          $ref: '#/components/schemas/ForwardPaging'
+      required:
+      - results
+      type: object
+    SimplePublicObjectBatchInput:
+      example:
+        id: id
+        properties:
+          key: properties
+      properties:
+        properties:
+          additionalProperties:
+            type: string
+          type: object
+        id:
+          type: string
+      required:
+      - id
+      - properties
+      type: object
+    AssociatedId:
+      example:
+        id: id
+        type: type
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+      required:
+      - id
+      - type
+      type: object
+    NextPage:
+      example:
+        after: NTI1Cg%3D%3D
+        link: ?after=NTI1Cg%3D%3D
+      properties:
+        after:
+          type: string
+        link:
+          type: string
+      required:
+      - after
       type: object
   securitySchemes:
     oauth2_legacy:
@@ -2231,29 +2246,33 @@ components:
         authorizationCode:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
-            contacts: Read from and write to my Contacts
-            crm.objects.custom.write: Change custom object records
             e-commerce: e-commerce
+            crm.objects.custom.write: Change custom object records
+            contacts: Read from and write to my Contacts
             crm.objects.custom.read: View custom object records
             tickets: Read and write tickets
             media_bridge.read: Read media and media events
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
+    hapikey:
+      in: query
+      name: hapikey
+      type: apiKey
     oauth2:
       flows:
         authorizationCode:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
-            crm.objects.line_items.write: Line Items
-            crm.objects.quotes.read: Quotes
-            crm.objects.deals.write: ' '
-            crm.objects.line_items.read: Line Items
             crm.objects.deals.read: ' '
-            crm.objects.quotes.write: Quotes
-            crm.objects.contacts.read: ' '
-            crm.objects.contacts.write: ' '
-            crm.objects.companies.write: ' '
+            crm.objects.line_items.read: Line Items
+            crm.objects.deals.write: ' '
+            crm.objects.quotes.read: Quotes
+            crm.objects.line_items.write: Line Items
             crm.objects.companies.read: ' '
+            crm.objects.companies.write: ' '
+            crm.objects.contacts.write: ' '
+            crm.objects.contacts.read: ' '
+            crm.objects.quotes.write: Quotes
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
 x-hubspot-available-client-libraries:

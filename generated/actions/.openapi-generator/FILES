@@ -25,8 +25,8 @@ docs/Error.md
 docs/ErrorDetail.md
 docs/ExtensionActionDefinition.md
 docs/ExtensionActionDefinitionInput.md
-docs/ExtensionActionDefinitionInputFieldDependenciesInner.md
 docs/ExtensionActionDefinitionPatch.md
+docs/ExtensionActionDefinitionPatchInputFieldDependenciesInner.md
 docs/FieldTypeDefinition.md
 docs/ForwardPaging.md
 docs/FunctionsApi.md
@@ -54,8 +54,8 @@ model_error.go
 model_error_detail.go
 model_extension_action_definition.go
 model_extension_action_definition_input.go
-model_extension_action_definition_input_field_dependencies_inner.go
 model_extension_action_definition_patch.go
+model_extension_action_definition_patch_input_field_dependencies_inner.go
 model_field_type_definition.go
 model_forward_paging.go
 model_input_field_definition.go

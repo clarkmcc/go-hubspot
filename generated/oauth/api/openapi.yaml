@@ -116,6 +116,91 @@ components:
             $ref: '#/components/schemas/Error'
       description: An error occurred.
   schemas:
+    ErrorDetail:
+      properties:
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          type: string
+        in:
+          description: The name of the field or parameter in which the error was found.
+          type: string
+        code:
+          description: The status code associated with the error detail
+          type: string
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
+          type: string
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: Context about the error condition
+          example:
+            missingScopes:
+            - scope1
+            - scope2
+          type: object
+      required:
+      - message
+      type: object
+    Error:
+      example:
+        message: Invalid input (details will vary based on the error)
+        correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
+        category: VALIDATION_ERROR
+        links:
+          knowledge-base: https://www.hubspot.com/products/service/knowledge-base
+      properties:
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          example: An error occurred
+          type: string
+        correlationId:
+          description: A unique identifier for the request. Include this value with
+            any error reports or support tickets
+          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
+          format: uuid
+          type: string
+        category:
+          description: The error category
+          type: string
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
+          type: string
+        errors:
+          description: further information about the error
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: Context about the error condition
+          example:
+            invalidPropertyName:
+            - propertyValue
+            missingScopes:
+            - scope1
+            - scope2
+          type: object
+        links:
+          additionalProperties:
+            type: string
+          description: A map of link names to associated URIs containing documentation
+            about the error or recommended remediation steps
+          type: object
+      required:
+      - category
+      - correlationId
+      - message
+      type: object
     AccessTokenInfoResponse:
       example:
         hub_id: 1
@@ -189,90 +274,30 @@ components:
       - trial_scopes
       - user_id
       type: object
-    Error:
+    TokenResponseIF:
       example:
-        message: Invalid input (details will vary based on the error)
-        correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
-        category: VALIDATION_ERROR
-        links:
-          knowledge-base: https://www.hubspot.com/products/service/knowledge-base
+        access_token: access_token
+        refresh_token: refresh_token
+        id_token: id_token
+        token_type: token_type
+        expires_in: 0
       properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          example: An error occurred
+        refresh_token:
           type: string
-        correlationId:
-          description: A unique identifier for the request. Include this value with
-            any error reports or support tickets
-          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
-          format: uuid
+        expires_in:
+          format: int32
+          type: integer
+        access_token:
           type: string
-        category:
-          description: The error category
+        id_token:
           type: string
-        subCategory:
-          description: A specific category that contains more specific detail about
-            the error
+        token_type:
           type: string
-        errors:
-          description: further information about the error
-          items:
-            $ref: '#/components/schemas/ErrorDetail'
-          type: array
-        context:
-          additionalProperties:
-            items:
-              type: string
-            type: array
-          description: Context about the error condition
-          example:
-            invalidPropertyName:
-            - propertyValue
-            missingScopes:
-            - scope1
-            - scope2
-          type: object
-        links:
-          additionalProperties:
-            type: string
-          description: A map of link names to associated URIs containing documentation
-            about the error or recommended remediation steps
-          type: object
       required:
-      - category
-      - correlationId
-      - message
-      type: object
-    ErrorDetail:
-      properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          type: string
-        in:
-          description: The name of the field or parameter in which the error was found.
-          type: string
-        code:
-          description: The status code associated with the error detail
-          type: string
-        subCategory:
-          description: A specific category that contains more specific detail about
-            the error
-          type: string
-        context:
-          additionalProperties:
-            items:
-              type: string
-            type: array
-          description: Context about the error condition
-          example:
-            missingScopes:
-            - scope1
-            - scope2
-          type: object
-      required:
-      - message
+      - access_token
+      - expires_in
+      - refresh_token
+      - token_type
       type: object
     RefreshTokenInfoResponse:
       example:
@@ -314,31 +339,6 @@ components:
       - token
       - token_type
       - user_id
-      type: object
-    TokenResponseIF:
-      example:
-        access_token: access_token
-        refresh_token: refresh_token
-        id_token: id_token
-        token_type: token_type
-        expires_in: 0
-      properties:
-        refresh_token:
-          type: string
-        expires_in:
-          format: int32
-          type: integer
-        access_token:
-          type: string
-        id_token:
-          type: string
-        token_type:
-          type: string
-      required:
-      - access_token
-      - expires_in
-      - refresh_token
-      - token_type
       type: object
     post__oauth_v1_token_createToken_request:
       properties:

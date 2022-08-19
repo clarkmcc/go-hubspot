@@ -99,6 +99,15 @@ Class | Method | HTTP request | Description
 
 
 
+### hapikey
+
+- **Type**: API key
+- **API key parameter name**: hapikey
+- **Location**: URL query string
+
+Note, each API key must be added to a map of `map[string]APIKey` where the key is: hapikey and passed in as the auth context for each request.
+
+
 ### oauth2_legacy
 
 
@@ -106,8 +115,8 @@ Class | Method | HTTP request | Description
 - **Flow**: accessCode
 - **Authorization URL**: https://app.hubspot.com/oauth/authorize
 - **Scopes**: 
- - **communication_preferences.read_write**: Update contact subscription preferences
  - **communication_preferences.read**: Read contact subscription preferences
+ - **communication_preferences.read_write**: Update contact subscription preferences
  - **communication_preferences.write**: Update contact subscription preferences
 
 Example

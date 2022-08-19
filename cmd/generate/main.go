@@ -106,14 +106,18 @@ func main() {
 			if err != nil {
 				return err
 			}
-			find := []byte("if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {")
-			replace := []byte("if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {")
+			find := []byte("if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {\n\t\t\tif apiKey, ok := auth[\"hapikey\"]; ok {\n\t\t\t\tvar key string\n\t\t\t\tif apiKey.Prefix != \"\" {\n\t\t\t\t\tkey = apiKey.Prefix + \" \" + apiKey.Key\n\t\t\t\t} else {\n\t\t\t\t\tkey = apiKey.Key\n\t\t\t\t}\n\t\t\t\tlocalVarQueryParams.Add(\"hapikey\", key)\n\t\t\t}\n\t\t}")
+			replace := []byte("if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {\n\t\t\tauth.Apply(hubspot.AuthorizationRequest{\n\t\t\t\tQueryParams: localVarQueryParams,\n\t\t\t\tFormParams:  localVarFormParams,\n\t\t\t\tHeaders:     localVarHeaderParams,\n\t\t\t})\n\t\t}")
 			if bytes.Contains(b, find) {
+				// Replace generated API key auth with custom API key auth
 				b = bytes.ReplaceAll(b, find, replace)
-				idx := bytes.Index(b, []byte("_neturl \"net/url\""))
-				if idx > 0 {
-					b = bytes.Join([][]byte{b[:idx], []byte("\t\"github.com/clarkmcc/go-hubspot/authorization\""), b[idx:]}, []byte("\n"))
+
+				// Add imports for authorization package
+				idx := bytes.Index(b, []byte("\"net/url\""))
+				if idx >= 0 {
+					b = bytes.Join([][]byte{b[:idx], []byte("\t\"github.com/clarkmcc/go-hubspot\""), b[idx:]}, []byte("\n"))
 				}
+
 				err = os.Remove(path)
 				file, err := os.Create(path)
 				if err != nil {

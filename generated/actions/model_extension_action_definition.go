@@ -31,7 +31,7 @@ type ExtensionActionDefinition struct {
 	InputFields          []InputFieldDefinition `json:"inputFields"`
 	ObjectRequestOptions *ObjectRequestOptions  `json:"objectRequestOptions,omitempty"`
 	// A list of dependencies between the input fields. These configure when the input fields should be visible.
-	InputFieldDependencies []ExtensionActionDefinitionInputFieldDependenciesInner `json:"inputFieldDependencies,omitempty"`
+	InputFieldDependencies []ExtensionActionDefinitionPatchInputFieldDependenciesInner `json:"inputFieldDependencies,omitempty"`
 	// The user-facing labels for the custom action.
 	Labels map[string]ActionLabels `json:"labels"`
 	// The object types that this custom action supports.
@@ -272,9 +272,9 @@ func (o *ExtensionActionDefinition) SetObjectRequestOptions(v ObjectRequestOptio
 }
 
 // GetInputFieldDependencies returns the InputFieldDependencies field value if set, zero value otherwise.
-func (o *ExtensionActionDefinition) GetInputFieldDependencies() []ExtensionActionDefinitionInputFieldDependenciesInner {
+func (o *ExtensionActionDefinition) GetInputFieldDependencies() []ExtensionActionDefinitionPatchInputFieldDependenciesInner {
 	if o == nil || o.InputFieldDependencies == nil {
-		var ret []ExtensionActionDefinitionInputFieldDependenciesInner
+		var ret []ExtensionActionDefinitionPatchInputFieldDependenciesInner
 		return ret
 	}
 	return o.InputFieldDependencies
@@ -282,7 +282,7 @@ func (o *ExtensionActionDefinition) GetInputFieldDependencies() []ExtensionActio
 
 // GetInputFieldDependenciesOk returns a tuple with the InputFieldDependencies field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ExtensionActionDefinition) GetInputFieldDependenciesOk() ([]ExtensionActionDefinitionInputFieldDependenciesInner, bool) {
+func (o *ExtensionActionDefinition) GetInputFieldDependenciesOk() ([]ExtensionActionDefinitionPatchInputFieldDependenciesInner, bool) {
 	if o == nil || o.InputFieldDependencies == nil {
 		return nil, false
 	}
@@ -298,8 +298,8 @@ func (o *ExtensionActionDefinition) HasInputFieldDependencies() bool {
 	return false
 }
 
-// SetInputFieldDependencies gets a reference to the given []ExtensionActionDefinitionInputFieldDependenciesInner and assigns it to the InputFieldDependencies field.
-func (o *ExtensionActionDefinition) SetInputFieldDependencies(v []ExtensionActionDefinitionInputFieldDependenciesInner) {
+// SetInputFieldDependencies gets a reference to the given []ExtensionActionDefinitionPatchInputFieldDependenciesInner and assigns it to the InputFieldDependencies field.
+func (o *ExtensionActionDefinition) SetInputFieldDependencies(v []ExtensionActionDefinitionPatchInputFieldDependenciesInner) {
 	o.InputFieldDependencies = v
 }
 

@@ -37,6 +37,7 @@ paths:
       security:
       - oauth2_legacy:
         - transactional-email
+      - hapikey: []
       summary: Send a single transactional email asynchronously.
       tags:
       - Single_Send
@@ -354,6 +355,134 @@ components:
       - status
       - statusId
       type: object
+    ErrorDetail:
+      properties:
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          type: string
+        in:
+          description: The name of the field or parameter in which the error was found.
+          type: string
+        code:
+          description: The status code associated with the error detail
+          type: string
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
+          type: string
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: Context about the error condition
+          example:
+            missingScopes:
+            - scope1
+            - scope2
+          type: object
+      required:
+      - message
+      type: object
+    SmtpApiTokenRequestEgg:
+      description: A request object to create a SMTP API token
+      example:
+        createContact: true
+        campaignName: campaignName
+      properties:
+        createContact:
+          description: Indicates whether a contact should be created for email recipients.
+          type: boolean
+        campaignName:
+          description: A name for the campaign tied to the SMTP API token.
+          type: string
+      required:
+      - campaignName
+      - createContact
+      type: object
+    ForwardPaging:
+      example:
+        next:
+          link: link
+          after: after
+      properties:
+        next:
+          $ref: '#/components/schemas/NextPage'
+      type: object
+    PublicSingleSendRequestEgg:
+      description: A request to send a single transactional email asynchronously.
+      example:
+        customProperties:
+          key: "{}"
+        emailId: 0
+        message:
+          cc:
+          - cc
+          - cc
+          sendId: sendId
+          bcc:
+          - bcc
+          - bcc
+          replyTo:
+          - replyTo
+          - replyTo
+          from: from
+          to: to
+        contactProperties:
+          key: contactProperties
+      properties:
+        emailId:
+          description: "The content ID for the transactional email, which can be found\
+            \ in email tool UI."
+          format: int32
+          type: integer
+        message:
+          $ref: '#/components/schemas/PublicSingleSendEmail'
+        contactProperties:
+          additionalProperties:
+            type: string
+          description: "The contactProperties field is a map of contact property values.\
+            \ Each contact property value contains a name and value property. Each\
+            \ property will get set on the contact record and will be visible in the\
+            \ template under {{ contact.NAME }}. Use these properties when you want\
+            \ to set a contact property while you’re sending the email. For example,\
+            \ when sending a reciept you may want to set a last_paid_date property,\
+            \ as the sending of the receipt will have information about the last payment."
+          type: object
+        customProperties:
+          additionalProperties:
+            properties: {}
+            type: object
+          description: "The customProperties field is a map of property values. Each\
+            \ property value contains a name and value property. Each property will\
+            \ be visible in the template under {{ custom.NAME }}.\nNote: Custom properties\
+            \ do not currently support arrays. To provide a listing in an email, one\
+            \ workaround is to build an HTML list (either with tables or ul) and specify\
+            \ it as a custom property."
+          type: object
+      required:
+      - emailId
+      - message
+      type: object
+    EventIdView:
+      description: The ID of a send event.
+      example:
+        created: 2000-01-23T04:56:07.000+00:00
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        created:
+          description: Time of event creation.
+          format: date-time
+          type: string
+        id:
+          description: Identifier of event.
+          format: uuid
+          type: string
+      required:
+      - created
+      - id
+      type: object
     Error:
       example:
         message: Invalid input (details will vary based on the error)
@@ -409,62 +538,48 @@ components:
       - correlationId
       - message
       type: object
-    ErrorDetail:
-      properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          type: string
-        in:
-          description: The name of the field or parameter in which the error was found.
-          type: string
-        code:
-          description: The status code associated with the error detail
-          type: string
-        subCategory:
-          description: A specific category that contains more specific detail about
-            the error
-          type: string
-        context:
-          additionalProperties:
-            items:
-              type: string
-            type: array
-          description: Context about the error condition
-          example:
-            missingScopes:
-            - scope1
-            - scope2
-          type: object
-      required:
-      - message
-      type: object
-    EventIdView:
-      description: The ID of a send event.
+    SmtpApiTokenView:
+      description: A SMTP API token provides both an ID and password that can be used
+        to send email through the HubSpot SMTP API.
       example:
-        created: 2000-01-23T04:56:07.000+00:00
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        password: password
+        createdBy: createdBy
+        createContact: true
+        id: id
+        emailCampaignId: emailCampaignId
+        campaignName: campaignName
       properties:
-        created:
-          description: Time of event creation.
+        id:
+          description: User name to log into the HubSpot SMTP server.
+          type: string
+        createdBy:
+          description: Email address of the user that sent the token creation request.
+          type: string
+        password:
+          description: Password used to log into the HubSpot SMTP server.
+          type: string
+        emailCampaignId:
+          description: Identifier assigned to the campaign provided in the token creation
+            request.
+          type: string
+        createdAt:
+          description: Timestamp generated when a token is created.
           format: date-time
           type: string
-        id:
-          description: Identifier of event.
-          format: uuid
+        createContact:
+          description: Indicates whether a contact should be created for email recipients.
+          type: boolean
+        campaignName:
+          description: A name for the campaign tied to the token.
           type: string
       required:
-      - created
+      - campaignName
+      - createContact
+      - createdAt
+      - createdBy
+      - emailCampaignId
       - id
-      type: object
-    ForwardPaging:
-      example:
-        next:
-          link: link
-          after: after
-      properties:
-        next:
-          $ref: '#/components/schemas/NextPage'
       type: object
     NextPage:
       example:
@@ -522,120 +637,6 @@ components:
       required:
       - to
       type: object
-    PublicSingleSendRequestEgg:
-      description: A request to send a single transactional email asynchronously.
-      example:
-        customProperties:
-          key: "{}"
-        emailId: 0
-        message:
-          cc:
-          - cc
-          - cc
-          sendId: sendId
-          bcc:
-          - bcc
-          - bcc
-          replyTo:
-          - replyTo
-          - replyTo
-          from: from
-          to: to
-        contactProperties:
-          key: contactProperties
-      properties:
-        emailId:
-          description: "The content ID for the transactional email, which can be found\
-            \ in email tool UI."
-          format: int32
-          type: integer
-        message:
-          $ref: '#/components/schemas/PublicSingleSendEmail'
-        contactProperties:
-          additionalProperties:
-            type: string
-          description: "The contactProperties field is a map of contact property values.\
-            \ Each contact property value contains a name and value property. Each\
-            \ property will get set on the contact record and will be visible in the\
-            \ template under {{ contact.NAME }}. Use these properties when you want\
-            \ to set a contact property while you’re sending the email. For example,\
-            \ when sending a reciept you may want to set a last_paid_date property,\
-            \ as the sending of the receipt will have information about the last payment."
-          type: object
-        customProperties:
-          additionalProperties:
-            properties: {}
-            type: object
-          description: "The customProperties field is a map of property values. Each\
-            \ property value contains a name and value property. Each property will\
-            \ be visible in the template under {{ custom.NAME }}.\nNote: Custom properties\
-            \ do not currently support arrays. To provide a listing in an email, one\
-            \ workaround is to build an HTML list (either with tables or ul) and specify\
-            \ it as a custom property."
-          type: object
-      required:
-      - emailId
-      - message
-      type: object
-    SmtpApiTokenRequestEgg:
-      description: A request object to create a SMTP API token
-      example:
-        createContact: true
-        campaignName: campaignName
-      properties:
-        createContact:
-          description: Indicates whether a contact should be created for email recipients.
-          type: boolean
-        campaignName:
-          description: A name for the campaign tied to the SMTP API token.
-          type: string
-      required:
-      - campaignName
-      - createContact
-      type: object
-    SmtpApiTokenView:
-      description: A SMTP API token provides both an ID and password that can be used
-        to send email through the HubSpot SMTP API.
-      example:
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        password: password
-        createdBy: createdBy
-        createContact: true
-        id: id
-        emailCampaignId: emailCampaignId
-        campaignName: campaignName
-      properties:
-        id:
-          description: User name to log into the HubSpot SMTP server.
-          type: string
-        createdBy:
-          description: Email address of the user that sent the token creation request.
-          type: string
-        password:
-          description: Password used to log into the HubSpot SMTP server.
-          type: string
-        emailCampaignId:
-          description: Identifier assigned to the campaign provided in the token creation
-            request.
-          type: string
-        createdAt:
-          description: Timestamp generated when a token is created.
-          format: date-time
-          type: string
-        createContact:
-          description: Indicates whether a contact should be created for email recipients.
-          type: boolean
-        campaignName:
-          description: A name for the campaign tied to the token.
-          type: string
-      required:
-      - campaignName
-      - createContact
-      - createdAt
-      - createdBy
-      - emailCampaignId
-      - id
-      type: object
   securitySchemes:
     oauth2_legacy:
       flows:
@@ -645,5 +646,9 @@ components:
             transactional-email: Transactional Emails
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
+    hapikey:
+      in: query
+      name: hapikey
+      type: apiKey
 x-hubspot-available-client-libraries:
 - Node

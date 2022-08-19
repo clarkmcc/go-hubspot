@@ -15,6 +15,8 @@ import (
 	"context"
 	"io/ioutil"
 	"net/http"
+
+	"github.com/clarkmcc/go-hubspot"
 	"net/url"
 	"strings"
 )
@@ -98,6 +100,16 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackCustomerCreat
 	}
 	// body params
 	localVarPostBody = r.resultIdAccountingResponse
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -209,6 +221,16 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackCustomerSearc
 	}
 	// body params
 	localVarPostBody = r.customerSearchResponseExternal
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -320,6 +342,16 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackExchangeRateR
 	}
 	// body params
 	localVarPostBody = r.exchangeRateResponse
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -431,6 +463,16 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoiceCreate
 	}
 	// body params
 	localVarPostBody = r.resultIdAccountingResponse
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -542,6 +584,16 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoicePdfReq
 	}
 	// body params
 	localVarPostBody = r.invoicePdfResponse
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -653,6 +705,16 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoiceSearch
 	}
 	// body params
 	localVarPostBody = r.invoiceSearchResponse
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -764,6 +826,16 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoicesReque
 	}
 	// body params
 	localVarPostBody = r.invoicesResponseExternal
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -875,6 +947,16 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackProductSearch
 	}
 	// body params
 	localVarPostBody = r.productSearchResponse
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -986,6 +1068,16 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackTaxSearchRequ
 	}
 	// body params
 	localVarPostBody = r.taxSearchResponse
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -1097,6 +1189,16 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackTermsRequestI
 	}
 	// body params
 	localVarPostBody = r.termsResponse
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err

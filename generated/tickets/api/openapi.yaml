@@ -100,6 +100,7 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
+      - hapikey: []
       summary: List
       tags:
       - Basic
@@ -131,6 +132,7 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
+      - hapikey: []
       summary: Create
       tags:
       - Basic
@@ -157,6 +159,7 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
+      - hapikey: []
       summary: Archive a batch of tickets by ID
       tags:
       - Batch
@@ -192,6 +195,7 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
+      - hapikey: []
       summary: Create a batch of tickets
       tags:
       - Batch
@@ -236,6 +240,7 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
+      - hapikey: []
       summary: "Read a batch of tickets by internal ID, or unique property values"
       tags:
       - Batch
@@ -271,6 +276,7 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
+      - hapikey: []
       summary: Update a batch of tickets
       tags:
       - Batch
@@ -300,6 +306,7 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
+      - hapikey: []
       summary: Merge two tickets with same type
       tags:
       - Public_Object
@@ -329,6 +336,7 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
+      - hapikey: []
       tags:
       - Search
       x-hubspot-rate-limit-exemptions:
@@ -358,6 +366,7 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
+      - hapikey: []
       summary: Archive
       tags:
       - Basic
@@ -445,6 +454,7 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
+      - hapikey: []
       summary: Read
       tags:
       - Basic
@@ -495,6 +505,7 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
+      - hapikey: []
       summary: Update
       tags:
       - Basic
@@ -552,6 +563,7 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
+      - hapikey: []
       summary: List associations of a ticket by type
       tags:
       - Associations
@@ -600,6 +612,7 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
+      - hapikey: []
       summary: Remove an association between two tickets
       tags:
       - Associations
@@ -650,6 +663,7 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
+      - hapikey: []
       summary: Associate a ticket with another object
       tags:
       - Associations
@@ -662,111 +676,51 @@ components:
             $ref: '#/components/schemas/Error'
       description: An error occurred.
   schemas:
-    AssociatedId:
-      example:
-        id: id
-        type: type
+    StandardError:
       properties:
+        status:
+          type: string
         id:
           type: string
-        type:
+        category:
+          $ref: '#/components/schemas/ErrorCategory'
+        subCategory:
+          properties: {}
+          type: object
+        message:
           type: string
-      required:
-      - id
-      - type
-      type: object
-    BatchInputSimplePublicObjectBatchInput:
-      example:
-        inputs:
-        - id: "1"
-          properties:
-            hs_pipeline: support_pipeline
-            hs_pipeline_stage: open
-            hs_ticket_priority: HIGH
-            hubspot_owner_id: "910901"
-            subject: troubleshoot report
-        - id: "1"
-          properties:
-            hs_pipeline: support_pipeline
-            hs_pipeline_stage: open
-            hs_ticket_priority: HIGH
-            hubspot_owner_id: "910901"
-            subject: troubleshoot report
-      properties:
-        inputs:
+        errors:
           items:
-            $ref: '#/components/schemas/SimplePublicObjectBatchInput'
+            $ref: '#/components/schemas/ErrorDetail'
           type: array
-      required:
-      - inputs
-      type: object
-    BatchInputSimplePublicObjectId:
-      example:
-        inputs:
-        - id: id
-        - id: id
-      properties:
-        inputs:
-          items:
-            $ref: '#/components/schemas/SimplePublicObjectId'
-          type: array
-      required:
-      - inputs
-      type: object
-    BatchInputSimplePublicObjectInput:
-      example:
-        inputs:
-        - properties:
-            hs_pipeline: support_pipeline
-            hs_pipeline_stage: open
-            hs_ticket_priority: HIGH
-            hubspot_owner_id: "910901"
-            subject: troubleshoot report
-        - properties:
-            hs_pipeline: support_pipeline
-            hs_pipeline_stage: open
-            hs_ticket_priority: HIGH
-            hubspot_owner_id: "910901"
-            subject: troubleshoot report
-      properties:
-        inputs:
-          items:
-            $ref: '#/components/schemas/SimplePublicObjectInput'
-          type: array
-      required:
-      - inputs
-      type: object
-    BatchReadInputSimplePublicObjectId:
-      example:
-        propertiesWithHistory:
-        - propertiesWithHistory
-        - propertiesWithHistory
-        idProperty: idProperty
-        inputs:
-        - id: id
-        - id: id
-        properties:
-        - properties
-        - properties
-      properties:
-        properties:
-          items:
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          type: object
+        links:
+          additionalProperties:
             type: string
-          type: array
-        propertiesWithHistory:
-          items:
-            type: string
-          type: array
-        idProperty:
-          type: string
-        inputs:
-          items:
-            $ref: '#/components/schemas/SimplePublicObjectId'
-          type: array
+          type: object
       required:
-      - inputs
-      - properties
-      - propertiesWithHistory
+      - category
+      - context
+      - errors
+      - links
+      - message
+      - status
+      type: object
+    CollectionResponseAssociatedId:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/AssociatedId'
+          type: array
+        paging:
+          $ref: '#/components/schemas/Paging'
+      required:
+      - results
       type: object
     BatchResponseSimplePublicObject:
       example:
@@ -832,109 +786,142 @@ components:
       - startedAt
       - status
       type: object
-    BatchResponseSimplePublicObjectWithErrors:
+    FilterGroup:
+      example:
+        filters:
+        - propertyName: propertyName
+          values:
+          - values
+          - values
+          value: value
+          operator: EQ
+        - propertyName: propertyName
+          values:
+          - values
+          - values
+          value: value
+          operator: EQ
       properties:
-        status:
-          enum:
-          - PENDING
-          - PROCESSING
-          - CANCELED
-          - COMPLETE
-          type: string
-        results:
+        filters:
           items:
-            $ref: '#/components/schemas/SimplePublicObject'
+            $ref: '#/components/schemas/Filter'
           type: array
-        numErrors:
-          format: int32
-          type: integer
-        errors:
-          items:
-            $ref: '#/components/schemas/StandardError'
-          type: array
-        requestedAt:
-          format: date-time
+      required:
+      - filters
+      type: object
+    ErrorDetail:
+      properties:
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
           type: string
-        startedAt:
-          format: date-time
+        in:
+          description: The name of the field or parameter in which the error was found.
           type: string
-        completedAt:
-          format: date-time
+        code:
+          description: The status code associated with the error detail
           type: string
-        links:
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
+          type: string
+        context:
           additionalProperties:
-            type: string
+            items:
+              type: string
+            type: array
+          description: Context about the error condition
+          example:
+            missingScopes:
+            - scope1
+            - scope2
           type: object
       required:
-      - completedAt
-      - results
-      - startedAt
-      - status
+      - message
       type: object
-    CollectionResponseAssociatedId:
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/AssociatedId'
-          type: array
-        paging:
-          $ref: '#/components/schemas/Paging'
-      required:
-      - results
-      type: object
-    CollectionResponseAssociatedIdForwardPaging:
+    ForwardPaging:
       example:
-        paging:
-          next:
-            after: NTI1Cg%3D%3D
-            link: ?after=NTI1Cg%3D%3D
-        results:
-        - id: id
-          type: type
-        - id: id
-          type: type
+        next:
+          after: NTI1Cg%3D%3D
+          link: ?after=NTI1Cg%3D%3D
       properties:
-        results:
-          items:
-            $ref: '#/components/schemas/AssociatedId'
-          type: array
-        paging:
-          $ref: '#/components/schemas/ForwardPaging'
-      required:
-      - results
+        next:
+          $ref: '#/components/schemas/NextPage'
       type: object
-    CollectionResponseSimplePublicObjectWithAssociationsForwardPaging:
+    SimplePublicObjectId:
       example:
-        paging:
-          next:
-            after: NTI1Cg%3D%3D
-            link: ?after=NTI1Cg%3D%3D
-        results:
-        - properties:
-            createdate: 2019-10-30T03:30:17.883Z
-            hs_lastmodifieddate: 2019-12-07T16:50:06.678Z
-            hs_pipeline: support_pipeline
-            hs_pipeline_stage: open
-            hs_ticket_priority: HIGH
-            hubspot_owner_id: "910901"
-            subject: troubleshoot report
-        - properties:
-            createdate: 2019-10-30T03:30:17.883Z
-            hs_lastmodifieddate: 2019-12-07T16:50:06.678Z
-            hs_pipeline: support_pipeline
-            hs_pipeline_stage: open
-            hs_ticket_priority: HIGH
-            hubspot_owner_id: "910901"
-            subject: troubleshoot report
+        id: id
       properties:
-        results:
-          items:
-            $ref: '#/components/schemas/SimplePublicObjectWithAssociations'
-          type: array
-        paging:
-          $ref: '#/components/schemas/ForwardPaging'
+        id:
+          type: string
       required:
-      - results
+      - id
+      type: object
+    BatchReadInputSimplePublicObjectId:
+      example:
+        propertiesWithHistory:
+        - propertiesWithHistory
+        - propertiesWithHistory
+        idProperty: idProperty
+        inputs:
+        - id: id
+        - id: id
+        properties:
+        - properties
+        - properties
+      properties:
+        properties:
+          items:
+            type: string
+          type: array
+        propertiesWithHistory:
+          items:
+            type: string
+          type: array
+        idProperty:
+          type: string
+        inputs:
+          items:
+            $ref: '#/components/schemas/SimplePublicObjectId'
+          type: array
+      required:
+      - inputs
+      - properties
+      - propertiesWithHistory
+      type: object
+    BatchInputSimplePublicObjectId:
+      example:
+        inputs:
+        - id: id
+        - id: id
+      properties:
+        inputs:
+          items:
+            $ref: '#/components/schemas/SimplePublicObjectId'
+          type: array
+      required:
+      - inputs
+      type: object
+    ValueWithTimestamp:
+      properties:
+        value:
+          type: string
+        timestamp:
+          format: date-time
+          type: string
+        sourceType:
+          type: string
+        sourceId:
+          type: string
+        sourceLabel:
+          type: string
+        updatedByUserId:
+          format: int32
+          type: integer
+      required:
+      - sourceType
+      - timestamp
+      - value
       type: object
     CollectionResponseWithTotalSimplePublicObjectForwardPaging:
       example:
@@ -981,6 +968,146 @@ components:
       required:
       - results
       - total
+      type: object
+    SimplePublicObject:
+      example:
+        id: "512"
+        properties:
+          createdate: 2019-10-30T03:30:17.883Z
+          hs_lastmodifieddate: 2019-12-07T16:50:06.678Z
+          hs_pipeline: support_pipeline
+          hs_pipeline_stage: open
+          hs_ticket_priority: HIGH
+          hubspot_owner_id: "910901"
+          subject: troubleshoot report
+        createdAt: 2019-10-30T03:30:17.883Z
+        updatedAt: 2019-12-07T16:50:06.678Z
+        archived: false
+      properties:
+        id:
+          type: string
+        properties:
+          additionalProperties:
+            type: string
+          type: object
+        propertiesWithHistory:
+          additionalProperties:
+            items:
+              $ref: '#/components/schemas/ValueWithTimestamp'
+            type: array
+          type: object
+        createdAt:
+          format: date-time
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+        archived:
+          type: boolean
+        archivedAt:
+          format: date-time
+          type: string
+      required:
+      - createdAt
+      - id
+      - properties
+      - updatedAt
+      type: object
+    BatchInputSimplePublicObjectInput:
+      example:
+        inputs:
+        - properties:
+            hs_pipeline: support_pipeline
+            hs_pipeline_stage: open
+            hs_ticket_priority: HIGH
+            hubspot_owner_id: "910901"
+            subject: troubleshoot report
+        - properties:
+            hs_pipeline: support_pipeline
+            hs_pipeline_stage: open
+            hs_ticket_priority: HIGH
+            hubspot_owner_id: "910901"
+            subject: troubleshoot report
+      properties:
+        inputs:
+          items:
+            $ref: '#/components/schemas/SimplePublicObjectInput'
+          type: array
+      required:
+      - inputs
+      type: object
+    Paging:
+      properties:
+        next:
+          $ref: '#/components/schemas/NextPage'
+        prev:
+          $ref: '#/components/schemas/PreviousPage'
+      type: object
+    PublicObjectSearchRequest:
+      example:
+        query: query
+        limit: 0
+        after: 6
+        sorts:
+        - sorts
+        - sorts
+        properties:
+        - properties
+        - properties
+        filterGroups:
+        - filters:
+          - propertyName: propertyName
+            values:
+            - values
+            - values
+            value: value
+            operator: EQ
+          - propertyName: propertyName
+            values:
+            - values
+            - values
+            value: value
+            operator: EQ
+        - filters:
+          - propertyName: propertyName
+            values:
+            - values
+            - values
+            value: value
+            operator: EQ
+          - propertyName: propertyName
+            values:
+            - values
+            - values
+            value: value
+            operator: EQ
+      properties:
+        filterGroups:
+          items:
+            $ref: '#/components/schemas/FilterGroup'
+          type: array
+        sorts:
+          items:
+            type: string
+          type: array
+        query:
+          type: string
+        properties:
+          items:
+            type: string
+          type: array
+        limit:
+          format: int32
+          type: integer
+        after:
+          format: int32
+          type: integer
+      required:
+      - after
+      - filterGroups
+      - limit
+      - properties
+      - sorts
       type: object
     Error:
       example:
@@ -1036,6 +1163,107 @@ components:
       - category
       - correlationId
       - message
+      type: object
+    BatchResponseSimplePublicObjectWithErrors:
+      properties:
+        status:
+          enum:
+          - PENDING
+          - PROCESSING
+          - CANCELED
+          - COMPLETE
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/SimplePublicObject'
+          type: array
+        numErrors:
+          format: int32
+          type: integer
+        errors:
+          items:
+            $ref: '#/components/schemas/StandardError'
+          type: array
+        requestedAt:
+          format: date-time
+          type: string
+        startedAt:
+          format: date-time
+          type: string
+        completedAt:
+          format: date-time
+          type: string
+        links:
+          additionalProperties:
+            type: string
+          type: object
+      required:
+      - completedAt
+      - results
+      - startedAt
+      - status
+      type: object
+    SimplePublicObjectInput:
+      example:
+        properties:
+          hs_pipeline: support_pipeline
+          hs_pipeline_stage: open
+          hs_ticket_priority: HIGH
+          hubspot_owner_id: "910901"
+          subject: troubleshoot report
+      properties:
+        properties:
+          additionalProperties:
+            type: string
+          type: object
+      required:
+      - properties
+      type: object
+    CollectionResponseSimplePublicObjectWithAssociationsForwardPaging:
+      example:
+        paging:
+          next:
+            after: NTI1Cg%3D%3D
+            link: ?after=NTI1Cg%3D%3D
+        results:
+        - properties:
+            createdate: 2019-10-30T03:30:17.883Z
+            hs_lastmodifieddate: 2019-12-07T16:50:06.678Z
+            hs_pipeline: support_pipeline
+            hs_pipeline_stage: open
+            hs_ticket_priority: HIGH
+            hubspot_owner_id: "910901"
+            subject: troubleshoot report
+        - properties:
+            createdate: 2019-10-30T03:30:17.883Z
+            hs_lastmodifieddate: 2019-12-07T16:50:06.678Z
+            hs_pipeline: support_pipeline
+            hs_pipeline_stage: open
+            hs_ticket_priority: HIGH
+            hubspot_owner_id: "910901"
+            subject: troubleshoot report
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/SimplePublicObjectWithAssociations'
+          type: array
+        paging:
+          $ref: '#/components/schemas/ForwardPaging'
+      required:
+      - results
+      type: object
+    PublicMergeInput:
+      example:
+        objectIdToMerge: objectIdToMerge
+        primaryObjectId: primaryObjectId
+      properties:
+        primaryObjectId:
+          type: string
+        objectIdToMerge:
+          type: string
+      required:
+      - objectIdToMerge
+      - primaryObjectId
       type: object
     ErrorCategory:
       properties:
@@ -1110,302 +1338,6 @@ components:
       - httpStatus
       - name
       type: object
-    ErrorDetail:
-      properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          type: string
-        in:
-          description: The name of the field or parameter in which the error was found.
-          type: string
-        code:
-          description: The status code associated with the error detail
-          type: string
-        subCategory:
-          description: A specific category that contains more specific detail about
-            the error
-          type: string
-        context:
-          additionalProperties:
-            items:
-              type: string
-            type: array
-          description: Context about the error condition
-          example:
-            missingScopes:
-            - scope1
-            - scope2
-          type: object
-      required:
-      - message
-      type: object
-    Filter:
-      example:
-        propertyName: propertyName
-        values:
-        - values
-        - values
-        value: value
-        operator: EQ
-      properties:
-        value:
-          type: string
-        values:
-          items:
-            type: string
-          type: array
-        propertyName:
-          type: string
-        operator:
-          description: "null"
-          enum:
-          - EQ
-          - NEQ
-          - LT
-          - LTE
-          - GT
-          - GTE
-          - BETWEEN
-          - IN
-          - NOT_IN
-          - HAS_PROPERTY
-          - NOT_HAS_PROPERTY
-          - CONTAINS_TOKEN
-          - NOT_CONTAINS_TOKEN
-          type: string
-      required:
-      - operator
-      - propertyName
-      type: object
-    FilterGroup:
-      example:
-        filters:
-        - propertyName: propertyName
-          values:
-          - values
-          - values
-          value: value
-          operator: EQ
-        - propertyName: propertyName
-          values:
-          - values
-          - values
-          value: value
-          operator: EQ
-      properties:
-        filters:
-          items:
-            $ref: '#/components/schemas/Filter'
-          type: array
-      required:
-      - filters
-      type: object
-    ForwardPaging:
-      example:
-        next:
-          after: NTI1Cg%3D%3D
-          link: ?after=NTI1Cg%3D%3D
-      properties:
-        next:
-          $ref: '#/components/schemas/NextPage'
-      type: object
-    NextPage:
-      example:
-        after: NTI1Cg%3D%3D
-        link: ?after=NTI1Cg%3D%3D
-      properties:
-        after:
-          type: string
-        link:
-          type: string
-      required:
-      - after
-      type: object
-    Paging:
-      properties:
-        next:
-          $ref: '#/components/schemas/NextPage'
-        prev:
-          $ref: '#/components/schemas/PreviousPage'
-      type: object
-    PreviousPage:
-      properties:
-        before:
-          type: string
-        link:
-          type: string
-      required:
-      - before
-      type: object
-    PublicMergeInput:
-      example:
-        objectIdToMerge: objectIdToMerge
-        primaryObjectId: primaryObjectId
-      properties:
-        primaryObjectId:
-          type: string
-        objectIdToMerge:
-          type: string
-      required:
-      - objectIdToMerge
-      - primaryObjectId
-      type: object
-    PublicObjectSearchRequest:
-      example:
-        query: query
-        limit: 0
-        after: 6
-        sorts:
-        - sorts
-        - sorts
-        properties:
-        - properties
-        - properties
-        filterGroups:
-        - filters:
-          - propertyName: propertyName
-            values:
-            - values
-            - values
-            value: value
-            operator: EQ
-          - propertyName: propertyName
-            values:
-            - values
-            - values
-            value: value
-            operator: EQ
-        - filters:
-          - propertyName: propertyName
-            values:
-            - values
-            - values
-            value: value
-            operator: EQ
-          - propertyName: propertyName
-            values:
-            - values
-            - values
-            value: value
-            operator: EQ
-      properties:
-        filterGroups:
-          items:
-            $ref: '#/components/schemas/FilterGroup'
-          type: array
-        sorts:
-          items:
-            type: string
-          type: array
-        query:
-          type: string
-        properties:
-          items:
-            type: string
-          type: array
-        limit:
-          format: int32
-          type: integer
-        after:
-          format: int32
-          type: integer
-      required:
-      - after
-      - filterGroups
-      - limit
-      - properties
-      - sorts
-      type: object
-    SimplePublicObject:
-      example:
-        id: "512"
-        properties:
-          createdate: 2019-10-30T03:30:17.883Z
-          hs_lastmodifieddate: 2019-12-07T16:50:06.678Z
-          hs_pipeline: support_pipeline
-          hs_pipeline_stage: open
-          hs_ticket_priority: HIGH
-          hubspot_owner_id: "910901"
-          subject: troubleshoot report
-        createdAt: 2019-10-30T03:30:17.883Z
-        updatedAt: 2019-12-07T16:50:06.678Z
-        archived: false
-      properties:
-        id:
-          type: string
-        properties:
-          additionalProperties:
-            type: string
-          type: object
-        propertiesWithHistory:
-          additionalProperties:
-            items:
-              $ref: '#/components/schemas/ValueWithTimestamp'
-            type: array
-          type: object
-        createdAt:
-          format: date-time
-          type: string
-        updatedAt:
-          format: date-time
-          type: string
-        archived:
-          type: boolean
-        archivedAt:
-          format: date-time
-          type: string
-      required:
-      - createdAt
-      - id
-      - properties
-      - updatedAt
-      type: object
-    SimplePublicObjectBatchInput:
-      example:
-        id: "1"
-        properties:
-          hs_pipeline: support_pipeline
-          hs_pipeline_stage: open
-          hs_ticket_priority: HIGH
-          hubspot_owner_id: "910901"
-          subject: troubleshoot report
-      properties:
-        properties:
-          additionalProperties:
-            type: string
-          type: object
-        id:
-          type: string
-      required:
-      - id
-      - properties
-      type: object
-    SimplePublicObjectId:
-      example:
-        id: id
-      properties:
-        id:
-          type: string
-      required:
-      - id
-      type: object
-    SimplePublicObjectInput:
-      example:
-        properties:
-          hs_pipeline: support_pipeline
-          hs_pipeline_stage: open
-          hs_ticket_priority: HIGH
-          hubspot_owner_id: "910901"
-          subject: troubleshoot report
-      properties:
-        properties:
-          additionalProperties:
-            type: string
-          type: object
-      required:
-      - properties
-      type: object
     SimplePublicObjectWithAssociations:
       example:
         properties:
@@ -1450,61 +1382,143 @@ components:
       - properties
       - updatedAt
       type: object
-    StandardError:
-      properties:
-        status:
-          type: string
-        id:
-          type: string
-        category:
-          $ref: '#/components/schemas/ErrorCategory'
-        subCategory:
-          properties: {}
-          type: object
-        message:
-          type: string
-        errors:
-          items:
-            $ref: '#/components/schemas/ErrorDetail'
-          type: array
-        context:
-          additionalProperties:
-            items:
-              type: string
-            type: array
-          type: object
-        links:
-          additionalProperties:
-            type: string
-          type: object
-      required:
-      - category
-      - context
-      - errors
-      - links
-      - message
-      - status
-      type: object
-    ValueWithTimestamp:
+    Filter:
+      example:
+        propertyName: propertyName
+        values:
+        - values
+        - values
+        value: value
+        operator: EQ
       properties:
         value:
           type: string
-        timestamp:
-          format: date-time
+        values:
+          items:
+            type: string
+          type: array
+        propertyName:
           type: string
-        sourceType:
+        operator:
+          description: "null"
+          enum:
+          - EQ
+          - NEQ
+          - LT
+          - LTE
+          - GT
+          - GTE
+          - BETWEEN
+          - IN
+          - NOT_IN
+          - HAS_PROPERTY
+          - NOT_HAS_PROPERTY
+          - CONTAINS_TOKEN
+          - NOT_CONTAINS_TOKEN
           type: string
-        sourceId:
-          type: string
-        sourceLabel:
-          type: string
-        updatedByUserId:
-          format: int32
-          type: integer
       required:
-      - sourceType
-      - timestamp
-      - value
+      - operator
+      - propertyName
+      type: object
+    BatchInputSimplePublicObjectBatchInput:
+      example:
+        inputs:
+        - id: "1"
+          properties:
+            hs_pipeline: support_pipeline
+            hs_pipeline_stage: open
+            hs_ticket_priority: HIGH
+            hubspot_owner_id: "910901"
+            subject: troubleshoot report
+        - id: "1"
+          properties:
+            hs_pipeline: support_pipeline
+            hs_pipeline_stage: open
+            hs_ticket_priority: HIGH
+            hubspot_owner_id: "910901"
+            subject: troubleshoot report
+      properties:
+        inputs:
+          items:
+            $ref: '#/components/schemas/SimplePublicObjectBatchInput'
+          type: array
+      required:
+      - inputs
+      type: object
+    PreviousPage:
+      properties:
+        before:
+          type: string
+        link:
+          type: string
+      required:
+      - before
+      type: object
+    CollectionResponseAssociatedIdForwardPaging:
+      example:
+        paging:
+          next:
+            after: NTI1Cg%3D%3D
+            link: ?after=NTI1Cg%3D%3D
+        results:
+        - id: id
+          type: type
+        - id: id
+          type: type
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/AssociatedId'
+          type: array
+        paging:
+          $ref: '#/components/schemas/ForwardPaging'
+      required:
+      - results
+      type: object
+    SimplePublicObjectBatchInput:
+      example:
+        id: "1"
+        properties:
+          hs_pipeline: support_pipeline
+          hs_pipeline_stage: open
+          hs_ticket_priority: HIGH
+          hubspot_owner_id: "910901"
+          subject: troubleshoot report
+      properties:
+        properties:
+          additionalProperties:
+            type: string
+          type: object
+        id:
+          type: string
+      required:
+      - id
+      - properties
+      type: object
+    AssociatedId:
+      example:
+        id: id
+        type: type
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+      required:
+      - id
+      - type
+      type: object
+    NextPage:
+      example:
+        after: NTI1Cg%3D%3D
+        link: ?after=NTI1Cg%3D%3D
+      properties:
+        after:
+          type: string
+        link:
+          type: string
+      required:
+      - after
       type: object
   securitySchemes:
     oauth2_legacy:
@@ -1515,6 +1529,10 @@ components:
             tickets: Read and write tickets
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
+    hapikey:
+      in: query
+      name: hapikey
+      type: apiKey
 x-hubspot-available-client-libraries:
 - PHP
 - Node

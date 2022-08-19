@@ -15,6 +15,8 @@ import (
 	"context"
 	"io/ioutil"
 	"net/http"
+
+	"github.com/clarkmcc/go-hubspot"
 	"net/url"
 	"reflect"
 	"strings"
@@ -97,6 +99,16 @@ func (a *BlogPostsApiService) DeleteCmsV3BlogsPostsObjectIdArchiveExecute(r ApiD
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -304,6 +316,16 @@ func (a *BlogPostsApiService) GetCmsV3BlogsPostsGetPageExecute(r ApiGetCmsV3Blog
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -413,6 +435,16 @@ func (a *BlogPostsApiService) GetCmsV3BlogsPostsObjectIdDraftGetDraftByIdExecute
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -533,6 +565,16 @@ func (a *BlogPostsApiService) GetCmsV3BlogsPostsObjectIdGetByIdExecute(r ApiGetC
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -673,6 +715,16 @@ func (a *BlogPostsApiService) GetCmsV3BlogsPostsObjectIdRevisionsGetPreviousVers
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -786,6 +838,16 @@ func (a *BlogPostsApiService) GetCmsV3BlogsPostsObjectIdRevisionsRevisionIdGetPr
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -911,6 +973,16 @@ func (a *BlogPostsApiService) PatchCmsV3BlogsPostsObjectIdDraftUpdateDraftExecut
 	}
 	// body params
 	localVarPostBody = r.blogPost
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1045,6 +1117,16 @@ func (a *BlogPostsApiService) PatchCmsV3BlogsPostsObjectIdUpdateExecute(r ApiPat
 	}
 	// body params
 	localVarPostBody = r.blogPost
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1162,6 +1244,16 @@ func (a *BlogPostsApiService) PostCmsV3BlogsPostsBatchArchiveArchiveBatchExecute
 	}
 	// body params
 	localVarPostBody = r.batchInputString
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -1271,6 +1363,16 @@ func (a *BlogPostsApiService) PostCmsV3BlogsPostsBatchCreateCreateBatchExecute(r
 	}
 	// body params
 	localVarPostBody = r.batchInputBlogPost
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1399,6 +1501,16 @@ func (a *BlogPostsApiService) PostCmsV3BlogsPostsBatchReadReadBatchExecute(r Api
 	}
 	// body params
 	localVarPostBody = r.batchInputString
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1527,6 +1639,16 @@ func (a *BlogPostsApiService) PostCmsV3BlogsPostsBatchUpdateUpdateBatchExecute(r
 	}
 	// body params
 	localVarPostBody = r.batchInputJsonNode
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1645,6 +1767,16 @@ func (a *BlogPostsApiService) PostCmsV3BlogsPostsCloneCloneExecute(r ApiPostCmsV
 	}
 	// body params
 	localVarPostBody = r.contentCloneRequestVNext
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1763,6 +1895,16 @@ func (a *BlogPostsApiService) PostCmsV3BlogsPostsCreateExecute(r ApiPostCmsV3Blo
 	}
 	// body params
 	localVarPostBody = r.blogPost
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1881,6 +2023,16 @@ func (a *BlogPostsApiService) PostCmsV3BlogsPostsMultiLanguageAttachToLangGroupA
 	}
 	// body params
 	localVarPostBody = r.attachToLangPrimaryRequestVNext
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1999,6 +2151,16 @@ func (a *BlogPostsApiService) PostCmsV3BlogsPostsMultiLanguageCreateLanguageVari
 	}
 	// body params
 	localVarPostBody = r.blogPostLanguageCloneRequestVNext
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2117,6 +2279,16 @@ func (a *BlogPostsApiService) PostCmsV3BlogsPostsMultiLanguageDetachFromLangGrou
 	}
 	// body params
 	localVarPostBody = r.detachFromLangGroupRequestVNext
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2235,6 +2407,16 @@ func (a *BlogPostsApiService) PostCmsV3BlogsPostsMultiLanguageUpdateLanguagesUpd
 	}
 	// body params
 	localVarPostBody = r.updateLanguagesRequestVNext
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2343,6 +2525,16 @@ func (a *BlogPostsApiService) PostCmsV3BlogsPostsObjectIdDraftPushLivePushLiveEx
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -2441,6 +2633,16 @@ func (a *BlogPostsApiService) PostCmsV3BlogsPostsObjectIdDraftResetResetDraftExe
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -2546,6 +2748,16 @@ func (a *BlogPostsApiService) PostCmsV3BlogsPostsObjectIdRevisionsRevisionIdRest
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -2660,6 +2872,16 @@ func (a *BlogPostsApiService) PostCmsV3BlogsPostsObjectIdRevisionsRevisionIdRest
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -2777,6 +2999,16 @@ func (a *BlogPostsApiService) PostCmsV3BlogsPostsScheduleScheduleExecute(r ApiPo
 	}
 	// body params
 	localVarPostBody = r.contentScheduleRequestVNext
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -2884,6 +3116,16 @@ func (a *BlogPostsApiService) PutCmsV3BlogsPostsMultiLanguageSetNewLangPrimarySe
 	}
 	// body params
 	localVarPostBody = r.setNewLanguagePrimaryRequestVNext
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err

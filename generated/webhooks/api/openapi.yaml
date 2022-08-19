@@ -327,20 +327,59 @@ components:
             $ref: '#/components/schemas/Error'
       description: An error occurred.
   schemas:
-    BatchInputSubscriptionBatchUpdateRequest:
-      example:
-        inputs:
-        - active: true
-          id: 0
-        - active: true
-          id: 0
+    ThrottlingSettings:
+      description: Configuration details for webhook throttling.
       properties:
-        inputs:
-          items:
-            $ref: '#/components/schemas/SubscriptionBatchUpdateRequest'
-          type: array
+        maxConcurrentRequests:
+          description: The maximum number of HTTP requests HubSpot will attempt to
+            make to your app in a given time frame determined by `period`.
+          format: int32
+          type: integer
+        period:
+          description: Time scale for this setting. Can be either `SECONDLY` (per
+            second) or `ROLLING_MINUTE` (per minute).
+          enum:
+          - SECONDLY
+          - ROLLING_MINUTE
+          type: string
       required:
-      - inputs
+      - maxConcurrentRequests
+      - period
+      type: object
+    StandardError:
+      properties:
+        status:
+          type: string
+        id:
+          type: string
+        category:
+          $ref: '#/components/schemas/ErrorCategory'
+        subCategory:
+          properties: {}
+          type: object
+        message:
+          type: string
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          type: object
+        links:
+          additionalProperties:
+            type: string
+          type: object
+      required:
+      - category
+      - context
+      - errors
+      - links
+      - message
+      - status
       type: object
     BatchResponseSubscriptionResponse:
       example:
@@ -394,44 +433,30 @@ components:
       - startedAt
       - status
       type: object
-    BatchResponseSubscriptionResponseWithErrors:
-      properties:
-        status:
-          enum:
-          - PENDING
-          - PROCESSING
-          - CANCELED
-          - COMPLETE
-          type: string
+    SubscriptionListResponse:
+      description: List of event subscriptions for your app
+      example:
         results:
+        - createdAt: 2000-01-23T04:56:07.000+00:00
+          propertyName: propertyName
+          active: true
+          eventType: contact.propertyChange
+          id: id
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        - createdAt: 2000-01-23T04:56:07.000+00:00
+          propertyName: propertyName
+          active: true
+          eventType: contact.propertyChange
+          id: id
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        results:
+          description: List of event subscriptions for your app
           items:
             $ref: '#/components/schemas/SubscriptionResponse'
           type: array
-        numErrors:
-          format: int32
-          type: integer
-        errors:
-          items:
-            $ref: '#/components/schemas/StandardError'
-          type: array
-        requestedAt:
-          format: date-time
-          type: string
-        startedAt:
-          format: date-time
-          type: string
-        completedAt:
-          format: date-time
-          type: string
-        links:
-          additionalProperties:
-            type: string
-          type: object
       required:
-      - completedAt
       - results
-      - startedAt
-      - status
       type: object
     Error:
       example:
@@ -487,6 +512,135 @@ components:
       - category
       - correlationId
       - message
+      type: object
+    SettingsChangeRequest:
+      description: New or updated webhook settings for an app.
+      example:
+        targetUrl: https://www.example.com/hubspot/target
+        throttling:
+          maxConcurrentRequests: 10
+          period: SECONDLY
+      properties:
+        targetUrl:
+          description: "A publicly available URL for Hubspot to call where event payloads\
+            \ will be delivered. See [link-so-some-doc](#) for details about the format\
+            \ of these event payloads."
+          type: string
+        throttling:
+          $ref: '#/components/schemas/ThrottlingSettings'
+      required:
+      - targetUrl
+      - throttling
+      type: object
+    SubscriptionPatchRequest:
+      description: Updated details for the subscription.
+      example:
+        active: true
+      properties:
+        active:
+          description: Determines if the subscription is active or paused.
+          type: boolean
+      type: object
+    BatchResponseSubscriptionResponseWithErrors:
+      properties:
+        status:
+          enum:
+          - PENDING
+          - PROCESSING
+          - CANCELED
+          - COMPLETE
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/SubscriptionResponse'
+          type: array
+        numErrors:
+          format: int32
+          type: integer
+        errors:
+          items:
+            $ref: '#/components/schemas/StandardError'
+          type: array
+        requestedAt:
+          format: date-time
+          type: string
+        startedAt:
+          format: date-time
+          type: string
+        completedAt:
+          format: date-time
+          type: string
+        links:
+          additionalProperties:
+            type: string
+          type: object
+      required:
+      - completedAt
+      - results
+      - startedAt
+      - status
+      type: object
+    ErrorDetail:
+      properties:
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          type: string
+        in:
+          description: The name of the field or parameter in which the error was found.
+          type: string
+        code:
+          description: The status code associated with the error detail
+          type: string
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
+          type: string
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: Context about the error condition
+          example:
+            missingScopes:
+            - scope1
+            - scope2
+          type: object
+      required:
+      - message
+      type: object
+    SettingsResponse:
+      description: Webhook settings for an app.
+      example:
+        targetUrl: https://www.example.com/hubspot/target
+        throttling:
+          maxConcurrentRequests: 10
+          period: SECONDLY
+        createdAt: 2020-01-24T16:27:59Z
+        updatedAt: 2020-01-24T16:32:43Z
+      properties:
+        targetUrl:
+          description: "A publicly available URL for Hubspot to call where event payloads\
+            \ will be delivered. See [link-so-some-doc](#) for details about the format\
+            \ of these event payloads."
+          type: string
+        throttling:
+          $ref: '#/components/schemas/ThrottlingSettings'
+        createdAt:
+          description: "When this subscription was created. Formatted as milliseconds\
+            \ from the [Unix epoch](#)."
+          format: date-time
+          type: string
+        updatedAt:
+          description: "When this subscription was last updated. Formatted as milliseconds\
+            \ from the [Unix epoch](#)."
+          format: date-time
+          type: string
+      required:
+      - createdAt
+      - targetUrl
+      - throttling
       type: object
     ErrorCategory:
       properties:
@@ -561,121 +715,20 @@ components:
       - httpStatus
       - name
       type: object
-    ErrorDetail:
-      properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          type: string
-        in:
-          description: The name of the field or parameter in which the error was found.
-          type: string
-        code:
-          description: The status code associated with the error detail
-          type: string
-        subCategory:
-          description: A specific category that contains more specific detail about
-            the error
-          type: string
-        context:
-          additionalProperties:
-            items:
-              type: string
-            type: array
-          description: Context about the error condition
-          example:
-            missingScopes:
-            - scope1
-            - scope2
-          type: object
-      required:
-      - message
-      type: object
-    SettingsChangeRequest:
-      description: New or updated webhook settings for an app.
+    BatchInputSubscriptionBatchUpdateRequest:
       example:
-        targetUrl: https://www.example.com/hubspot/target
-        throttling:
-          maxConcurrentRequests: 10
-          period: SECONDLY
+        inputs:
+        - active: true
+          id: 0
+        - active: true
+          id: 0
       properties:
-        targetUrl:
-          description: "A publicly available URL for Hubspot to call where event payloads\
-            \ will be delivered. See [link-so-some-doc](#) for details about the format\
-            \ of these event payloads."
-          type: string
-        throttling:
-          $ref: '#/components/schemas/ThrottlingSettings'
-      required:
-      - targetUrl
-      - throttling
-      type: object
-    SettingsResponse:
-      description: Webhook settings for an app.
-      example:
-        targetUrl: https://www.example.com/hubspot/target
-        throttling:
-          maxConcurrentRequests: 10
-          period: SECONDLY
-        createdAt: 2020-01-24T16:27:59Z
-        updatedAt: 2020-01-24T16:32:43Z
-      properties:
-        targetUrl:
-          description: "A publicly available URL for Hubspot to call where event payloads\
-            \ will be delivered. See [link-so-some-doc](#) for details about the format\
-            \ of these event payloads."
-          type: string
-        throttling:
-          $ref: '#/components/schemas/ThrottlingSettings'
-        createdAt:
-          description: "When this subscription was created. Formatted as milliseconds\
-            \ from the [Unix epoch](#)."
-          format: date-time
-          type: string
-        updatedAt:
-          description: "When this subscription was last updated. Formatted as milliseconds\
-            \ from the [Unix epoch](#)."
-          format: date-time
-          type: string
-      required:
-      - createdAt
-      - targetUrl
-      - throttling
-      type: object
-    StandardError:
-      properties:
-        status:
-          type: string
-        id:
-          type: string
-        category:
-          $ref: '#/components/schemas/ErrorCategory'
-        subCategory:
-          properties: {}
-          type: object
-        message:
-          type: string
-        errors:
+        inputs:
           items:
-            $ref: '#/components/schemas/ErrorDetail'
+            $ref: '#/components/schemas/SubscriptionBatchUpdateRequest'
           type: array
-        context:
-          additionalProperties:
-            items:
-              type: string
-            type: array
-          type: object
-        links:
-          additionalProperties:
-            type: string
-          type: object
       required:
-      - category
-      - context
-      - errors
-      - links
-      - message
-      - status
+      - inputs
       type: object
     SubscriptionBatchUpdateRequest:
       example:
@@ -690,87 +743,6 @@ components:
       required:
       - active
       - id
-      type: object
-    SubscriptionCreateRequest:
-      description: New webhook settings for an app.
-      example:
-        active: true
-        eventType: contact.propertyChange
-        propertyName: email
-      properties:
-        eventType:
-          description: "Type of event to listen for. Can be one of `create`, `delete`,\
-            \ `deletedForPrivacy`, or `propertyChange`."
-          enum:
-          - contact.propertyChange
-          - company.propertyChange
-          - deal.propertyChange
-          - ticket.propertyChange
-          - product.propertyChange
-          - line_item.propertyChange
-          - contact.creation
-          - contact.deletion
-          - contact.privacyDeletion
-          - company.creation
-          - company.deletion
-          - deal.creation
-          - deal.deletion
-          - ticket.creation
-          - ticket.deletion
-          - product.creation
-          - product.deletion
-          - line_item.creation
-          - line_item.deletion
-          - conversation.creation
-          - conversation.deletion
-          - conversation.newMessage
-          - conversation.privacyDeletion
-          - conversation.propertyChange
-          type: string
-        propertyName:
-          description: The internal name of the property to monitor for changes. Only
-            applies when `eventType` is `propertyChange`.
-          type: string
-        active:
-          description: Determines if the subscription is active or paused. Defaults
-            to false.
-          type: boolean
-      required:
-      - eventType
-      type: object
-    SubscriptionListResponse:
-      description: List of event subscriptions for your app
-      example:
-        results:
-        - createdAt: 2000-01-23T04:56:07.000+00:00
-          propertyName: propertyName
-          active: true
-          eventType: contact.propertyChange
-          id: id
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        - createdAt: 2000-01-23T04:56:07.000+00:00
-          propertyName: propertyName
-          active: true
-          eventType: contact.propertyChange
-          id: id
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-      properties:
-        results:
-          description: List of event subscriptions for your app
-          items:
-            $ref: '#/components/schemas/SubscriptionResponse'
-          type: array
-      required:
-      - results
-      type: object
-    SubscriptionPatchRequest:
-      description: Updated details for the subscription.
-      example:
-        active: true
-      properties:
-        active:
-          description: Determines if the subscription is active or paused.
-          type: boolean
       type: object
     SubscriptionResponse:
       description: Complete details for an event subscription.
@@ -837,24 +809,52 @@ components:
       - eventType
       - id
       type: object
-    ThrottlingSettings:
-      description: Configuration details for webhook throttling.
+    SubscriptionCreateRequest:
+      description: New webhook settings for an app.
+      example:
+        active: true
+        eventType: contact.propertyChange
+        propertyName: email
       properties:
-        maxConcurrentRequests:
-          description: The maximum number of HTTP requests HubSpot will attempt to
-            make to your app in a given time frame determined by `period`.
-          format: int32
-          type: integer
-        period:
-          description: Time scale for this setting. Can be either `SECONDLY` (per
-            second) or `ROLLING_MINUTE` (per minute).
+        eventType:
+          description: "Type of event to listen for. Can be one of `create`, `delete`,\
+            \ `deletedForPrivacy`, or `propertyChange`."
           enum:
-          - SECONDLY
-          - ROLLING_MINUTE
+          - contact.propertyChange
+          - company.propertyChange
+          - deal.propertyChange
+          - ticket.propertyChange
+          - product.propertyChange
+          - line_item.propertyChange
+          - contact.creation
+          - contact.deletion
+          - contact.privacyDeletion
+          - company.creation
+          - company.deletion
+          - deal.creation
+          - deal.deletion
+          - ticket.creation
+          - ticket.deletion
+          - product.creation
+          - product.deletion
+          - line_item.creation
+          - line_item.deletion
+          - conversation.creation
+          - conversation.deletion
+          - conversation.newMessage
+          - conversation.privacyDeletion
+          - conversation.propertyChange
           type: string
+        propertyName:
+          description: The internal name of the property to monitor for changes. Only
+            applies when `eventType` is `propertyChange`.
+          type: string
+        active:
+          description: Determines if the subscription is active or paused. Defaults
+            to false.
+          type: boolean
       required:
-      - maxConcurrentRequests
-      - period
+      - eventType
       type: object
   securitySchemes:
     developer_hapikey:

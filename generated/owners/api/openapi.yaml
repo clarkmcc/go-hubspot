@@ -69,6 +69,7 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
+      - hapikey: []
       - oauth2_legacy:
         - contacts
       - oauth2:
@@ -122,6 +123,7 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
+      - hapikey: []
       - oauth2_legacy:
         - contacts
       - oauth2:
@@ -138,108 +140,6 @@ components:
             $ref: '#/components/schemas/Error'
       description: An error occurred.
   schemas:
-    CollectionResponsePublicOwnerForwardPaging:
-      example:
-        paging:
-          next:
-            link: link
-            after: after
-        results:
-        - id: "6166860"
-          email: jsmith@example.com
-          firstName: John
-          lastName: Smith
-          userId: 1296619
-          createdAt: 2019-10-30T03:30:17.883Z
-          updatedAt: 2019-12-07T16:50:06.678Z
-          archived: false
-          teams:
-          - id: "178588"
-            name: West Coast Sales
-            primary: true
-          - id: "178590"
-            name: California Sales
-            primary: false
-        - id: "6166860"
-          email: jsmith@example.com
-          firstName: John
-          lastName: Smith
-          userId: 1296619
-          createdAt: 2019-10-30T03:30:17.883Z
-          updatedAt: 2019-12-07T16:50:06.678Z
-          archived: false
-          teams:
-          - id: "178588"
-            name: West Coast Sales
-            primary: true
-          - id: "178590"
-            name: California Sales
-            primary: false
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/PublicOwner'
-          type: array
-        paging:
-          $ref: '#/components/schemas/ForwardPaging'
-      required:
-      - results
-      type: object
-    Error:
-      example:
-        message: Invalid input (details will vary based on the error)
-        correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
-        category: VALIDATION_ERROR
-        links:
-          knowledge-base: https://www.hubspot.com/products/service/knowledge-base
-      properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          example: An error occurred
-          type: string
-        correlationId:
-          description: A unique identifier for the request. Include this value with
-            any error reports or support tickets
-          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
-          format: uuid
-          type: string
-        category:
-          description: The error category
-          type: string
-        subCategory:
-          description: A specific category that contains more specific detail about
-            the error
-          type: string
-        errors:
-          description: further information about the error
-          items:
-            $ref: '#/components/schemas/ErrorDetail'
-          type: array
-        context:
-          additionalProperties:
-            items:
-              type: string
-            type: array
-          description: Context about the error condition
-          example:
-            invalidPropertyName:
-            - propertyValue
-            missingScopes:
-            - scope1
-            - scope2
-          type: object
-        links:
-          additionalProperties:
-            type: string
-          description: A map of link names to associated URIs containing documentation
-            about the error or recommended remediation steps
-          type: object
-      required:
-      - category
-      - correlationId
-      - message
-      type: object
     ErrorDetail:
       properties:
         message:
@@ -278,18 +178,6 @@ components:
       properties:
         next:
           $ref: '#/components/schemas/NextPage'
-      type: object
-    NextPage:
-      example:
-        link: link
-        after: after
-      properties:
-        after:
-          type: string
-        link:
-          type: string
-      required:
-      - after
       type: object
     PublicOwner:
       example:
@@ -351,6 +239,120 @@ components:
       - name
       - primary
       type: object
+    Error:
+      example:
+        message: Invalid input (details will vary based on the error)
+        correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
+        category: VALIDATION_ERROR
+        links:
+          knowledge-base: https://www.hubspot.com/products/service/knowledge-base
+      properties:
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          example: An error occurred
+          type: string
+        correlationId:
+          description: A unique identifier for the request. Include this value with
+            any error reports or support tickets
+          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
+          format: uuid
+          type: string
+        category:
+          description: The error category
+          type: string
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
+          type: string
+        errors:
+          description: further information about the error
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: Context about the error condition
+          example:
+            invalidPropertyName:
+            - propertyValue
+            missingScopes:
+            - scope1
+            - scope2
+          type: object
+        links:
+          additionalProperties:
+            type: string
+          description: A map of link names to associated URIs containing documentation
+            about the error or recommended remediation steps
+          type: object
+      required:
+      - category
+      - correlationId
+      - message
+      type: object
+    CollectionResponsePublicOwnerForwardPaging:
+      example:
+        paging:
+          next:
+            link: link
+            after: after
+        results:
+        - id: "6166860"
+          email: jsmith@example.com
+          firstName: John
+          lastName: Smith
+          userId: 1296619
+          createdAt: 2019-10-30T03:30:17.883Z
+          updatedAt: 2019-12-07T16:50:06.678Z
+          archived: false
+          teams:
+          - id: "178588"
+            name: West Coast Sales
+            primary: true
+          - id: "178590"
+            name: California Sales
+            primary: false
+        - id: "6166860"
+          email: jsmith@example.com
+          firstName: John
+          lastName: Smith
+          userId: 1296619
+          createdAt: 2019-10-30T03:30:17.883Z
+          updatedAt: 2019-12-07T16:50:06.678Z
+          archived: false
+          teams:
+          - id: "178588"
+            name: West Coast Sales
+            primary: true
+          - id: "178590"
+            name: California Sales
+            primary: false
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/PublicOwner'
+          type: array
+        paging:
+          $ref: '#/components/schemas/ForwardPaging'
+      required:
+      - results
+      type: object
+    NextPage:
+      example:
+        link: link
+        after: after
+      properties:
+        after:
+          type: string
+        link:
+          type: string
+      required:
+      - after
+      type: object
   securitySchemes:
     oauth2_legacy:
       flows:
@@ -360,6 +362,10 @@ components:
             contacts: Read from and write to my Contacts
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
+    hapikey:
+      in: query
+      name: hapikey
+      type: apiKey
     oauth2:
       flows:
         authorizationCode:

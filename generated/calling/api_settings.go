@@ -88,7 +88,7 @@ func (a *SettingsApiService) DeleteCrmV3ExtensionsCallingAppIdSettingsArchiveExe
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["developer_hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -203,7 +203,7 @@ func (a *SettingsApiService) GetCrmV3ExtensionsCallingAppIdSettingsGetByIdExecut
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["developer_hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -339,7 +339,7 @@ func (a *SettingsApiService) PatchCrmV3ExtensionsCallingAppIdSettingsUpdateExecu
 	localVarPostBody = r.settingsPatchRequest
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["developer_hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -475,7 +475,7 @@ func (a *SettingsApiService) PostCrmV3ExtensionsCallingAppIdSettingsCreateExecut
 	localVarPostBody = r.settingsRequest
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["developer_hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {

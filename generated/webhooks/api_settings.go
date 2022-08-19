@@ -86,7 +86,7 @@ func (a *SettingsApiService) DeleteWebhooksV3AppIdSettingsClearExecute(r ApiDele
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["developer_hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -199,7 +199,7 @@ func (a *SettingsApiService) GetWebhooksV3AppIdSettingsGetAllExecute(r ApiGetWeb
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["developer_hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -332,7 +332,7 @@ func (a *SettingsApiService) PutWebhooksV3AppIdSettingsConfigureExecute(r ApiPut
 	localVarPostBody = r.settingsChangeRequest
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(authorization.ContextAPIKeys).(map[string]authorization.APIKey); ok {
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["developer_hapikey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {

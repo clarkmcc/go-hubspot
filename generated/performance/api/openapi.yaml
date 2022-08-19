@@ -100,7 +100,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security: []
+      security:
+      - hapikey: []
       summary: View your website's performance.
       tags:
       - Public_Performance
@@ -195,7 +196,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security: []
+      security:
+      - hapikey: []
       summary: View your website's uptime.
       tags:
       - Public_Performance
@@ -208,6 +210,36 @@ components:
             $ref: '#/components/schemas/Error'
       description: An error occurred.
   schemas:
+    ErrorDetail:
+      properties:
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          type: string
+        in:
+          description: The name of the field or parameter in which the error was found.
+          type: string
+        code:
+          description: The status code associated with the error detail
+          type: string
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
+          type: string
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: Context about the error condition
+          example:
+            missingScopes:
+            - scope1
+            - scope2
+          type: object
+      required:
+      - message
+      type: object
     Error:
       example:
         message: Invalid input (details will vary based on the error)
@@ -263,35 +295,105 @@ components:
       - correlationId
       - message
       type: object
-    ErrorDetail:
+    PublicPerformanceResponse:
+      example:
+        path: path
+        period: ONE_MINUTE
+        data:
+        - startDatetime: startDatetime
+          responseTimeMs: 9
+          "95th": 4
+          totalRequests: 1
+          cacheHitRate: 5.637376656633329
+          "99th": 5
+          totalRequestTime: 2
+          "100X": 3
+          "500": 6
+          "403": 1
+          "50th": 1
+          "404": 1
+          cacheHits: 5
+          "504": 7
+          "20X": 2
+          "30X": 4
+          "40X": 7
+          endTimestamp: 6
+          "50X": 1
+          startTimestamp: 0
+          endDatetime: endDatetime
+          avgOriginResponseTime: 7
+        - startDatetime: startDatetime
+          responseTimeMs: 9
+          "95th": 4
+          totalRequests: 1
+          cacheHitRate: 5.637376656633329
+          "99th": 5
+          totalRequestTime: 2
+          "100X": 3
+          "500": 6
+          "403": 1
+          "50th": 1
+          "404": 1
+          cacheHits: 5
+          "504": 7
+          "20X": 2
+          "30X": 4
+          "40X": 7
+          endTimestamp: 6
+          "50X": 1
+          startTimestamp: 0
+          endDatetime: endDatetime
+          avgOriginResponseTime: 7
+        startInterval: 9
+        domain: domain
+        interval: ONE_MINUTE
+        endInterval: 9
       properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
+        data:
+          items:
+            $ref: '#/components/schemas/PerformanceView'
+          type: array
+        domain:
           type: string
-        in:
-          description: The name of the field or parameter in which the error was found.
+        path:
           type: string
-        code:
-          description: The status code associated with the error detail
+        startInterval:
+          format: int64
+          type: integer
+        endInterval:
+          format: int64
+          type: integer
+        interval:
+          enum:
+          - ONE_MINUTE
+          - FIVE_MINUTES
+          - TEN_MINUTES
+          - FIFTEEN_MINUTES
+          - THIRTY_MINUTES
+          - ONE_HOUR
+          - FOUR_HOURS
+          - TWELVE_HOURS
+          - ONE_DAY
+          - ONE_WEEK
           type: string
-        subCategory:
-          description: A specific category that contains more specific detail about
-            the error
+        period:
+          enum:
+          - ONE_MINUTE
+          - FIVE_MINUTES
+          - TEN_MINUTES
+          - FIFTEEN_MINUTES
+          - THIRTY_MINUTES
+          - ONE_HOUR
+          - FOUR_HOURS
+          - TWELVE_HOURS
+          - ONE_DAY
+          - ONE_WEEK
           type: string
-        context:
-          additionalProperties:
-            items:
-              type: string
-            type: array
-          description: Context about the error condition
-          example:
-            missingScopes:
-            - scope1
-            - scope2
-          type: object
       required:
-      - message
+      - data
+      - endInterval
+      - interval
+      - startInterval
       type: object
     PerformanceView:
       description: An individual time series performance data point.
@@ -431,103 +533,8 @@ components:
       - totalRequestTime
       - totalRequests
       type: object
-    PublicPerformanceResponse:
-      example:
-        path: path
-        period: ONE_MINUTE
-        data:
-        - startDatetime: startDatetime
-          responseTimeMs: 9
-          "95th": 4
-          totalRequests: 1
-          cacheHitRate: 5.637376656633329
-          "99th": 5
-          totalRequestTime: 2
-          "100X": 3
-          "500": 6
-          "403": 1
-          "50th": 1
-          "404": 1
-          cacheHits: 5
-          "504": 7
-          "20X": 2
-          "30X": 4
-          "40X": 7
-          endTimestamp: 6
-          "50X": 1
-          startTimestamp: 0
-          endDatetime: endDatetime
-          avgOriginResponseTime: 7
-        - startDatetime: startDatetime
-          responseTimeMs: 9
-          "95th": 4
-          totalRequests: 1
-          cacheHitRate: 5.637376656633329
-          "99th": 5
-          totalRequestTime: 2
-          "100X": 3
-          "500": 6
-          "403": 1
-          "50th": 1
-          "404": 1
-          cacheHits: 5
-          "504": 7
-          "20X": 2
-          "30X": 4
-          "40X": 7
-          endTimestamp: 6
-          "50X": 1
-          startTimestamp: 0
-          endDatetime: endDatetime
-          avgOriginResponseTime: 7
-        startInterval: 9
-        domain: domain
-        interval: ONE_MINUTE
-        endInterval: 9
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/PerformanceView'
-          type: array
-        domain:
-          type: string
-        path:
-          type: string
-        startInterval:
-          format: int64
-          type: integer
-        endInterval:
-          format: int64
-          type: integer
-        interval:
-          enum:
-          - ONE_MINUTE
-          - FIVE_MINUTES
-          - TEN_MINUTES
-          - FIFTEEN_MINUTES
-          - THIRTY_MINUTES
-          - ONE_HOUR
-          - FOUR_HOURS
-          - TWELVE_HOURS
-          - ONE_DAY
-          - ONE_WEEK
-          type: string
-        period:
-          enum:
-          - ONE_MINUTE
-          - FIVE_MINUTES
-          - TEN_MINUTES
-          - FIFTEEN_MINUTES
-          - THIRTY_MINUTES
-          - ONE_HOUR
-          - FOUR_HOURS
-          - TWELVE_HOURS
-          - ONE_DAY
-          - ONE_WEEK
-          type: string
-      required:
-      - data
-      - endInterval
-      - interval
-      - startInterval
-      type: object
+  securitySchemes:
+    hapikey:
+      in: query
+      name: hapikey
+      type: apiKey

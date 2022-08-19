@@ -50,11 +50,12 @@ paths:
       - oauth2:
         - crm.schemas.contacts.read
       - oauth2_legacy:
-        - tickets
-      - oauth2_legacy:
         - media_bridge.read
+      - oauth2_legacy:
+        - tickets
       - oauth2:
         - crm.objects.contacts.read
+      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
       - oauth2:
@@ -64,9 +65,9 @@ paths:
       - oauth2:
         - crm.schemas.quotes.read
       - oauth2:
-        - crm.objects.deals.write
-      - oauth2:
         - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.deals.write
       - oauth2:
         - crm.schemas.companies.read
       - oauth2_legacy:
@@ -78,9 +79,9 @@ paths:
       - oauth2_legacy:
         - contacts
       - oauth2:
-        - crm.schemas.line_items.read
-      - oauth2:
         - crm.objects.companies.write
+      - oauth2:
+        - crm.schemas.line_items.read
       summary: Read all properties
       tags:
       - Core
@@ -118,6 +119,7 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
+      - hapikey: []
       - oauth2:
         - crm.schemas.deals.write
       - oauth2_legacy:
@@ -164,6 +166,7 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
+      - hapikey: []
       - oauth2:
         - crm.schemas.deals.write
       - oauth2_legacy:
@@ -218,6 +221,7 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
+      - hapikey: []
       - oauth2:
         - crm.schemas.deals.write
       - oauth2_legacy:
@@ -272,11 +276,12 @@ paths:
       - oauth2:
         - crm.schemas.contacts.read
       - oauth2_legacy:
-        - tickets
-      - oauth2_legacy:
         - media_bridge.read
+      - oauth2_legacy:
+        - tickets
       - oauth2:
         - crm.objects.contacts.read
+      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
       - oauth2:
@@ -286,9 +291,9 @@ paths:
       - oauth2:
         - crm.schemas.quotes.read
       - oauth2:
-        - crm.objects.deals.write
-      - oauth2:
         - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.deals.write
       - oauth2:
         - crm.schemas.companies.read
       - oauth2_legacy:
@@ -300,9 +305,9 @@ paths:
       - oauth2_legacy:
         - contacts
       - oauth2:
-        - crm.schemas.line_items.read
-      - oauth2:
         - crm.objects.companies.write
+      - oauth2:
+        - crm.schemas.line_items.read
       summary: Read a batch of properties
       tags:
       - Batch
@@ -336,11 +341,12 @@ paths:
       - oauth2:
         - crm.schemas.contacts.read
       - oauth2_legacy:
-        - tickets
-      - oauth2_legacy:
         - media_bridge.read
+      - oauth2_legacy:
+        - tickets
       - oauth2:
         - crm.objects.contacts.read
+      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
       - oauth2:
@@ -350,9 +356,9 @@ paths:
       - oauth2:
         - crm.schemas.quotes.read
       - oauth2:
-        - crm.objects.deals.write
-      - oauth2:
         - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.deals.write
       - oauth2:
         - crm.schemas.companies.read
       - oauth2_legacy:
@@ -364,9 +370,9 @@ paths:
       - oauth2_legacy:
         - contacts
       - oauth2:
-        - crm.schemas.line_items.read
-      - oauth2:
         - crm.objects.companies.write
+      - oauth2:
+        - crm.schemas.line_items.read
       summary: Read all property groups
       tags:
       - Groups
@@ -403,6 +409,7 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
+      - hapikey: []
       - oauth2:
         - crm.schemas.deals.write
       - oauth2_legacy:
@@ -449,6 +456,7 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
+      - hapikey: []
       - oauth2:
         - crm.schemas.deals.write
       - oauth2_legacy:
@@ -497,11 +505,12 @@ paths:
       - oauth2:
         - crm.schemas.contacts.read
       - oauth2_legacy:
-        - tickets
-      - oauth2_legacy:
         - media_bridge.read
+      - oauth2_legacy:
+        - tickets
       - oauth2:
         - crm.objects.contacts.read
+      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
       - oauth2:
@@ -511,9 +520,9 @@ paths:
       - oauth2:
         - crm.schemas.quotes.read
       - oauth2:
-        - crm.objects.deals.write
-      - oauth2:
         - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.deals.write
       - oauth2:
         - crm.schemas.companies.read
       - oauth2_legacy:
@@ -525,9 +534,9 @@ paths:
       - oauth2_legacy:
         - contacts
       - oauth2:
-        - crm.schemas.line_items.read
-      - oauth2:
         - crm.objects.companies.write
+      - oauth2:
+        - crm.schemas.line_items.read
       summary: Read a property group
       tags:
       - Groups
@@ -572,6 +581,7 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
+      - hapikey: []
       - oauth2:
         - crm.schemas.deals.write
       - oauth2_legacy:
@@ -618,6 +628,7 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
+      - hapikey: []
       - oauth2:
         - crm.schemas.deals.write
       - oauth2_legacy:
@@ -675,11 +686,12 @@ paths:
       - oauth2:
         - crm.schemas.contacts.read
       - oauth2_legacy:
-        - tickets
-      - oauth2_legacy:
         - media_bridge.read
+      - oauth2_legacy:
+        - tickets
       - oauth2:
         - crm.objects.contacts.read
+      - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
       - oauth2:
@@ -689,9 +701,9 @@ paths:
       - oauth2:
         - crm.schemas.quotes.read
       - oauth2:
-        - crm.objects.deals.write
-      - oauth2:
         - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.deals.write
       - oauth2:
         - crm.schemas.companies.read
       - oauth2_legacy:
@@ -703,9 +715,9 @@ paths:
       - oauth2_legacy:
         - contacts
       - oauth2:
-        - crm.schemas.line_items.read
-      - oauth2:
         - crm.objects.companies.write
+      - oauth2:
+        - crm.schemas.line_items.read
       summary: Read a property
       tags:
       - Core
@@ -750,6 +762,7 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
+      - hapikey: []
       - oauth2:
         - crm.schemas.deals.write
       - oauth2_legacy:
@@ -772,84 +785,81 @@ components:
             $ref: '#/components/schemas/Error'
       description: An error occurred.
   schemas:
-    BatchInputPropertyCreate:
+    PropertyName:
       example:
-        inputs:
-        - groupName: contactinformation
-          hidden: false
-          displayOrder: 2
-          options:
-          - label: Option A
-            description: Choice number one
-            value: A
-            displayOrder: 1
-            hidden: false
-          - label: Option B
-            description: Choice number two
-            value: B
-            displayOrder: 2
-            hidden: false
-          label: My Contact Property
-          hasUniqueValue: false
-          type: enumeration
-          fieldType: select
-          formField: true
-        - groupName: contactinformation
-          hidden: false
-          displayOrder: 2
-          options:
-          - label: Option A
-            description: Choice number one
-            value: A
-            displayOrder: 1
-            hidden: false
-          - label: Option B
-            description: Choice number two
-            value: B
-            displayOrder: 2
-            hidden: false
-          label: My Contact Property
-          hasUniqueValue: false
-          type: enumeration
-          fieldType: select
-          formField: true
+        name: my_custom_property
       properties:
-        inputs:
-          items:
-            $ref: '#/components/schemas/PropertyCreate'
-          type: array
+        name:
+          description: The name of the property to read or modify.
+          type: string
       required:
-      - inputs
+      - name
       type: object
-    BatchInputPropertyName:
+    StandardError:
       example:
-        inputs:
-        - name: my_custom_property
-        - name: my_custom_property
+        subCategory: "{}"
+        context:
+          key:
+          - context
+          - context
+        links:
+          key: links
+        id: id
+        category:
+          httpStatus: CONTINUE
+          name: name
+        message: message
+        errors:
+        - subCategory: subCategory
+          code: code
+          in: in
+          context:
+            missingScopes:
+            - scope1
+            - scope2
+          message: message
+        - subCategory: subCategory
+          code: code
+          in: in
+          context:
+            missingScopes:
+            - scope1
+            - scope2
+          message: message
+        status: status
       properties:
-        inputs:
+        status:
+          type: string
+        id:
+          type: string
+        category:
+          $ref: '#/components/schemas/ErrorCategory'
+        subCategory:
+          properties: {}
+          type: object
+        message:
+          type: string
+        errors:
           items:
-            $ref: '#/components/schemas/PropertyName'
+            $ref: '#/components/schemas/ErrorDetail'
           type: array
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          type: object
+        links:
+          additionalProperties:
+            type: string
+          type: object
       required:
-      - inputs
-      type: object
-    BatchReadInputPropertyName:
-      example:
-        archived: true
-        inputs:
-        - name: my_custom_property
-        - name: my_custom_property
-      properties:
-        inputs:
-          items:
-            $ref: '#/components/schemas/PropertyName'
-          type: array
-        archived:
-          type: boolean
-      required:
-      - archived
-      - inputs
+      - category
+      - context
+      - errors
+      - links
+      - message
+      - status
       type: object
     BatchResponseProperty:
       example:
@@ -1077,28 +1087,162 @@ components:
       required:
       - results
       type: object
-    CollectionResponsePropertyGroup:
+    PropertyGroup:
+      description: An ID for a group of properties
       example:
-        paging:
-          next:
-            link: link
-            after: after
-        results:
-        - name: mypropertygroup
-          displayOrder: -1
-          label: My Property Group
-        - name: mypropertygroup
-          displayOrder: -1
-          label: My Property Group
+        name: mypropertygroup
+        displayOrder: -1
+        label: My Property Group
       properties:
-        results:
-          items:
-            $ref: '#/components/schemas/PropertyGroup'
-          type: array
-        paging:
-          $ref: '#/components/schemas/Paging'
+        name:
+          description: "The internal property group name, which must be used when\
+            \ referencing the property group via the API."
+          type: string
+        label:
+          description: A human-readable label that will be shown in HubSpot.
+          type: string
+        displayOrder:
+          description: Property groups are displayed in order starting with the lowest
+            positive integer value. Values of -1 will cause the property group to
+            be displayed after any positive values.
+          format: int32
+          type: integer
+        archived:
+          type: boolean
       required:
-      - results
+      - archived
+      - displayOrder
+      - label
+      - name
+      type: object
+    PropertyCreate:
+      example:
+        groupName: contactinformation
+        hidden: false
+        displayOrder: 2
+        options:
+        - label: Option A
+          description: Choice number one
+          value: A
+          displayOrder: 1
+          hidden: false
+        - label: Option B
+          description: Choice number two
+          value: B
+          displayOrder: 2
+          hidden: false
+        label: My Contact Property
+        hasUniqueValue: false
+        type: enumeration
+        fieldType: select
+        formField: true
+      properties:
+        name:
+          description: "The internal property name, which must be used when referencing\
+            \ the property via the API."
+          type: string
+        label:
+          description: A human-readable property label that will be shown in HubSpot.
+          type: string
+        type:
+          description: The data type of the property.
+          enum:
+          - string
+          - number
+          - date
+          - datetime
+          - enumeration
+          type: string
+        fieldType:
+          description: Controls how the property appears in HubSpot.
+          enum:
+          - textarea
+          - text
+          - date
+          - file
+          - number
+          - select
+          - radio
+          - checkbox
+          - booleancheckbox
+          type: string
+        groupName:
+          description: The name of the property group the property belongs to.
+          type: string
+        description:
+          description: A description of the property that will be shown as help text
+            in HubSpot.
+          type: string
+        options:
+          description: A list of valid options for the property. This field is required
+            for enumerated properties.
+          items:
+            $ref: '#/components/schemas/OptionInput'
+          type: array
+        displayOrder:
+          description: Properties are displayed in order starting with the lowest
+            positive integer value. Values of -1 will cause the property to be displayed
+            after any positive values.
+          format: int32
+          type: integer
+        hasUniqueValue:
+          description: "Whether or not the property's value must be unique. Once set,\
+            \ this can't be changed."
+          type: boolean
+        hidden:
+          description: "If true, the property won't be visible and can't be used in\
+            \ HubSpot."
+          type: boolean
+        formField:
+          description: Whether or not the property can be used in a HubSpot form.
+          type: boolean
+      required:
+      - fieldType
+      - groupName
+      - label
+      - name
+      - type
+      type: object
+    OptionInput:
+      example:
+        hidden: false
+        displayOrder: 1
+        description: Choice number one
+        label: Option A
+        value: A
+      properties:
+        label:
+          description: A human-readable option label that will be shown in HubSpot.
+          type: string
+        value:
+          description: "The internal value of the option, which must be used when\
+            \ setting the property value through the API."
+          type: string
+        description:
+          description: A description of the option.
+          type: string
+        displayOrder:
+          description: Options are shown in order starting with the lowest positive
+            integer value. Values of -1 will cause the option to be displayed after
+            any positive values.
+          format: int32
+          type: integer
+        hidden:
+          description: Hidden options won't be shown in HubSpot.
+          type: boolean
+      required:
+      - hidden
+      - label
+      - value
+      type: object
+    Paging:
+      example:
+        next:
+          link: link
+          after: after
+      properties:
+        next:
+          $ref: '#/components/schemas/NextPage'
       type: object
     Error:
       example:
@@ -1154,6 +1298,221 @@ components:
       - category
       - correlationId
       - message
+      type: object
+    BatchInputPropertyCreate:
+      example:
+        inputs:
+        - groupName: contactinformation
+          hidden: false
+          displayOrder: 2
+          options:
+          - label: Option A
+            description: Choice number one
+            value: A
+            displayOrder: 1
+            hidden: false
+          - label: Option B
+            description: Choice number two
+            value: B
+            displayOrder: 2
+            hidden: false
+          label: My Contact Property
+          hasUniqueValue: false
+          type: enumeration
+          fieldType: select
+          formField: true
+        - groupName: contactinformation
+          hidden: false
+          displayOrder: 2
+          options:
+          - label: Option A
+            description: Choice number one
+            value: A
+            displayOrder: 1
+            hidden: false
+          - label: Option B
+            description: Choice number two
+            value: B
+            displayOrder: 2
+            hidden: false
+          label: My Contact Property
+          hasUniqueValue: false
+          type: enumeration
+          fieldType: select
+          formField: true
+      properties:
+        inputs:
+          items:
+            $ref: '#/components/schemas/PropertyCreate'
+          type: array
+      required:
+      - inputs
+      type: object
+    ErrorDetail:
+      example:
+        subCategory: subCategory
+        code: code
+        in: in
+        context:
+          missingScopes:
+          - scope1
+          - scope2
+        message: message
+      properties:
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          type: string
+        in:
+          description: The name of the field or parameter in which the error was found.
+          type: string
+        code:
+          description: The status code associated with the error detail
+          type: string
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
+          type: string
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: Context about the error condition
+          example:
+            missingScopes:
+            - scope1
+            - scope2
+          type: object
+      required:
+      - message
+      type: object
+    PropertyUpdate:
+      example:
+        groupName: contactinformation
+        hidden: false
+        displayOrder: 2
+        options:
+        - label: Option A
+          description: Choice number one
+          value: A
+          displayOrder: 1
+          hidden: false
+        - label: Option B
+          description: Choice number two
+          value: B
+          displayOrder: 2
+          hidden: false
+        label: My Contact Property
+        type: enumeration
+        fieldType: select
+        formField: true
+      properties:
+        label:
+          description: A human-readable property label that will be shown in HubSpot.
+          type: string
+        type:
+          description: The data type of the property.
+          enum:
+          - string
+          - number
+          - date
+          - datetime
+          - enumeration
+          type: string
+        fieldType:
+          description: Controls how the property appears in HubSpot.
+          enum:
+          - textarea
+          - text
+          - date
+          - file
+          - number
+          - select
+          - radio
+          - checkbox
+          - booleancheckbox
+          type: string
+        groupName:
+          description: The name of the property group the property belongs to.
+          type: string
+        description:
+          description: A description of the property that will be shown as help text
+            in HubSpot.
+          type: string
+        options:
+          description: A list of valid options for the property.
+          items:
+            $ref: '#/components/schemas/OptionInput'
+          type: array
+        displayOrder:
+          description: Properties are displayed in order starting with the lowest
+            positive integer value. Values of -1 will cause the Property to be displayed
+            after any positive values.
+          format: int32
+          type: integer
+        hidden:
+          description: "If true, the property won't be visible and can't be used in\
+            \ HubSpot."
+          type: boolean
+        formField:
+          description: Whether or not the property can be used in a HubSpot form.
+          type: boolean
+      type: object
+    BatchReadInputPropertyName:
+      example:
+        archived: true
+        inputs:
+        - name: my_custom_property
+        - name: my_custom_property
+      properties:
+        inputs:
+          items:
+            $ref: '#/components/schemas/PropertyName'
+          type: array
+        archived:
+          type: boolean
+      required:
+      - archived
+      - inputs
+      type: object
+    PropertyGroupCreate:
+      example:
+        name: mypropertygroup
+        displayOrder: -1
+        label: My Property Group
+      properties:
+        name:
+          description: "The internal property group name, which must be used when\
+            \ referencing the property group via the API."
+          type: string
+        label:
+          description: A human-readable label that will be shown in HubSpot.
+          type: string
+        displayOrder:
+          description: Property groups are displayed in order starting with the lowest
+            positive integer value. Values of -1 will cause the property group to
+            be displayed after any positive values.
+          format: int32
+          type: integer
+      required:
+      - label
+      - name
+      type: object
+    PropertyModificationMetadata:
+      properties:
+        archivable:
+          type: boolean
+        readOnlyDefinition:
+          type: boolean
+        readOnlyOptions:
+          type: boolean
+        readOnlyValue:
+          type: boolean
+      required:
+      - archivable
+      - readOnlyDefinition
+      - readOnlyValue
       type: object
     ErrorCategory:
       example:
@@ -1230,56 +1589,18 @@ components:
       - httpStatus
       - name
       type: object
-    ErrorDetail:
+    BatchInputPropertyName:
       example:
-        subCategory: subCategory
-        code: code
-        in: in
-        context:
-          missingScopes:
-          - scope1
-          - scope2
-        message: message
+        inputs:
+        - name: my_custom_property
+        - name: my_custom_property
       properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          type: string
-        in:
-          description: The name of the field or parameter in which the error was found.
-          type: string
-        code:
-          description: The status code associated with the error detail
-          type: string
-        subCategory:
-          description: A specific category that contains more specific detail about
-            the error
-          type: string
-        context:
-          additionalProperties:
-            items:
-              type: string
-            type: array
-          description: Context about the error condition
-          example:
-            missingScopes:
-            - scope1
-            - scope2
-          type: object
+        inputs:
+          items:
+            $ref: '#/components/schemas/PropertyName'
+          type: array
       required:
-      - message
-      type: object
-    NextPage:
-      example:
-        link: link
-        after: after
-      properties:
-        after:
-          type: string
-        link:
-          type: string
-      required:
-      - after
+      - inputs
       type: object
     Option:
       example:
@@ -1313,46 +1634,55 @@ components:
       - label
       - value
       type: object
-    OptionInput:
+    CollectionResponsePropertyGroup:
       example:
-        hidden: false
-        displayOrder: 1
-        description: Choice number one
-        label: Option A
-        value: A
+        paging:
+          next:
+            link: link
+            after: after
+        results:
+        - name: mypropertygroup
+          displayOrder: -1
+          label: My Property Group
+        - name: mypropertygroup
+          displayOrder: -1
+          label: My Property Group
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/PropertyGroup'
+          type: array
+        paging:
+          $ref: '#/components/schemas/Paging'
+      required:
+      - results
+      type: object
+    PropertyGroupUpdate:
+      example:
+        displayOrder: -1
+        label: My Property Group
       properties:
         label:
-          description: A human-readable option label that will be shown in HubSpot.
-          type: string
-        value:
-          description: "The internal value of the option, which must be used when\
-            \ setting the property value through the API."
-          type: string
-        description:
-          description: A description of the option.
+          description: A human-readable label that will be shown in HubSpot.
           type: string
         displayOrder:
-          description: Options are shown in order starting with the lowest positive
-            integer value. Values of -1 will cause the option to be displayed after
-            any positive values.
+          description: Property groups are displayed in order starting with the lowest
+            positive integer value. Values of -1 will cause the property group to
+            be displayed after any positive values.
           format: int32
           type: integer
-        hidden:
-          description: Hidden options won't be shown in HubSpot.
-          type: boolean
-      required:
-      - hidden
-      - label
-      - value
       type: object
-    Paging:
+    NextPage:
       example:
-        next:
-          link: link
-          after: after
+        link: link
+        after: after
       properties:
-        next:
-          $ref: '#/components/schemas/NextPage'
+        after:
+          type: string
+        link:
+          type: string
+      required:
+      - after
       type: object
     Property:
       example:
@@ -1478,356 +1808,43 @@ components:
       - options
       - type
       type: object
-    PropertyCreate:
-      example:
-        groupName: contactinformation
-        hidden: false
-        displayOrder: 2
-        options:
-        - label: Option A
-          description: Choice number one
-          value: A
-          displayOrder: 1
-          hidden: false
-        - label: Option B
-          description: Choice number two
-          value: B
-          displayOrder: 2
-          hidden: false
-        label: My Contact Property
-        hasUniqueValue: false
-        type: enumeration
-        fieldType: select
-        formField: true
-      properties:
-        name:
-          description: "The internal property name, which must be used when referencing\
-            \ the property via the API."
-          type: string
-        label:
-          description: A human-readable property label that will be shown in HubSpot.
-          type: string
-        type:
-          description: The data type of the property.
-          enum:
-          - string
-          - number
-          - date
-          - datetime
-          - enumeration
-          type: string
-        fieldType:
-          description: Controls how the property appears in HubSpot.
-          enum:
-          - textarea
-          - text
-          - date
-          - file
-          - number
-          - select
-          - radio
-          - checkbox
-          - booleancheckbox
-          type: string
-        groupName:
-          description: The name of the property group the property belongs to.
-          type: string
-        description:
-          description: A description of the property that will be shown as help text
-            in HubSpot.
-          type: string
-        options:
-          description: A list of valid options for the property. This field is required
-            for enumerated properties.
-          items:
-            $ref: '#/components/schemas/OptionInput'
-          type: array
-        displayOrder:
-          description: Properties are displayed in order starting with the lowest
-            positive integer value. Values of -1 will cause the property to be displayed
-            after any positive values.
-          format: int32
-          type: integer
-        hasUniqueValue:
-          description: "Whether or not the property's value must be unique. Once set,\
-            \ this can't be changed."
-          type: boolean
-        hidden:
-          description: "If true, the property won't be visible and can't be used in\
-            \ HubSpot."
-          type: boolean
-        formField:
-          description: Whether or not the property can be used in a HubSpot form.
-          type: boolean
-      required:
-      - fieldType
-      - groupName
-      - label
-      - name
-      - type
-      type: object
-    PropertyGroup:
-      description: An ID for a group of properties
-      example:
-        name: mypropertygroup
-        displayOrder: -1
-        label: My Property Group
-      properties:
-        name:
-          description: "The internal property group name, which must be used when\
-            \ referencing the property group via the API."
-          type: string
-        label:
-          description: A human-readable label that will be shown in HubSpot.
-          type: string
-        displayOrder:
-          description: Property groups are displayed in order starting with the lowest
-            positive integer value. Values of -1 will cause the property group to
-            be displayed after any positive values.
-          format: int32
-          type: integer
-        archived:
-          type: boolean
-      required:
-      - archived
-      - displayOrder
-      - label
-      - name
-      type: object
-    PropertyGroupCreate:
-      example:
-        name: mypropertygroup
-        displayOrder: -1
-        label: My Property Group
-      properties:
-        name:
-          description: "The internal property group name, which must be used when\
-            \ referencing the property group via the API."
-          type: string
-        label:
-          description: A human-readable label that will be shown in HubSpot.
-          type: string
-        displayOrder:
-          description: Property groups are displayed in order starting with the lowest
-            positive integer value. Values of -1 will cause the property group to
-            be displayed after any positive values.
-          format: int32
-          type: integer
-      required:
-      - label
-      - name
-      type: object
-    PropertyGroupUpdate:
-      example:
-        displayOrder: -1
-        label: My Property Group
-      properties:
-        label:
-          description: A human-readable label that will be shown in HubSpot.
-          type: string
-        displayOrder:
-          description: Property groups are displayed in order starting with the lowest
-            positive integer value. Values of -1 will cause the property group to
-            be displayed after any positive values.
-          format: int32
-          type: integer
-      type: object
-    PropertyModificationMetadata:
-      properties:
-        archivable:
-          type: boolean
-        readOnlyDefinition:
-          type: boolean
-        readOnlyOptions:
-          type: boolean
-        readOnlyValue:
-          type: boolean
-      required:
-      - archivable
-      - readOnlyDefinition
-      - readOnlyValue
-      type: object
-    PropertyName:
-      example:
-        name: my_custom_property
-      properties:
-        name:
-          description: The name of the property to read or modify.
-          type: string
-      required:
-      - name
-      type: object
-    PropertyUpdate:
-      example:
-        groupName: contactinformation
-        hidden: false
-        displayOrder: 2
-        options:
-        - label: Option A
-          description: Choice number one
-          value: A
-          displayOrder: 1
-          hidden: false
-        - label: Option B
-          description: Choice number two
-          value: B
-          displayOrder: 2
-          hidden: false
-        label: My Contact Property
-        type: enumeration
-        fieldType: select
-        formField: true
-      properties:
-        label:
-          description: A human-readable property label that will be shown in HubSpot.
-          type: string
-        type:
-          description: The data type of the property.
-          enum:
-          - string
-          - number
-          - date
-          - datetime
-          - enumeration
-          type: string
-        fieldType:
-          description: Controls how the property appears in HubSpot.
-          enum:
-          - textarea
-          - text
-          - date
-          - file
-          - number
-          - select
-          - radio
-          - checkbox
-          - booleancheckbox
-          type: string
-        groupName:
-          description: The name of the property group the property belongs to.
-          type: string
-        description:
-          description: A description of the property that will be shown as help text
-            in HubSpot.
-          type: string
-        options:
-          description: A list of valid options for the property.
-          items:
-            $ref: '#/components/schemas/OptionInput'
-          type: array
-        displayOrder:
-          description: Properties are displayed in order starting with the lowest
-            positive integer value. Values of -1 will cause the Property to be displayed
-            after any positive values.
-          format: int32
-          type: integer
-        hidden:
-          description: "If true, the property won't be visible and can't be used in\
-            \ HubSpot."
-          type: boolean
-        formField:
-          description: Whether or not the property can be used in a HubSpot form.
-          type: boolean
-      type: object
-    StandardError:
-      example:
-        subCategory: "{}"
-        context:
-          key:
-          - context
-          - context
-        links:
-          key: links
-        id: id
-        category:
-          httpStatus: CONTINUE
-          name: name
-        message: message
-        errors:
-        - subCategory: subCategory
-          code: code
-          in: in
-          context:
-            missingScopes:
-            - scope1
-            - scope2
-          message: message
-        - subCategory: subCategory
-          code: code
-          in: in
-          context:
-            missingScopes:
-            - scope1
-            - scope2
-          message: message
-        status: status
-      properties:
-        status:
-          type: string
-        id:
-          type: string
-        category:
-          $ref: '#/components/schemas/ErrorCategory'
-        subCategory:
-          properties: {}
-          type: object
-        message:
-          type: string
-        errors:
-          items:
-            $ref: '#/components/schemas/ErrorDetail'
-          type: array
-        context:
-          additionalProperties:
-            items:
-              type: string
-            type: array
-          type: object
-        links:
-          additionalProperties:
-            type: string
-          type: object
-      required:
-      - category
-      - context
-      - errors
-      - links
-      - message
-      - status
-      type: object
   securitySchemes:
     oauth2_legacy:
       flows:
         authorizationCode:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
-            crm.schemas.custom.read: View custom object definitions
-            tickets: Read and write tickets
-            media_bridge.read: Read media and media events
-            contacts: Read from and write to my Contacts
             e-commerce: e-commerce
+            contacts: Read from and write to my Contacts
+            media_bridge.read: Read media and media events
+            tickets: Read and write tickets
+            crm.schemas.custom.read: View custom object definitions
             timeline: Create timeline events
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
+    hapikey:
+      in: query
+      name: hapikey
+      type: apiKey
     oauth2:
       flows:
         authorizationCode:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
-            crm.schemas.companies.read: ' '
-            crm.objects.deals.read: ' '
-            crm.schemas.line_items.read: Line Items schemas
-            crm.objects.deals.write: ' '
-            crm.schemas.deals.read: ' '
-            crm.objects.contacts.read: ' '
-            crm.schemas.quotes.read: Quotes schemas
-            crm.objects.contacts.write: ' '
-            crm.schemas.contacts.read: ' '
-            crm.objects.companies.write: ' '
             crm.objects.companies.read: ' '
+            crm.objects.companies.write: ' '
+            crm.schemas.contacts.read: ' '
+            crm.objects.contacts.write: ' '
+            crm.schemas.quotes.read: Quotes schemas
+            crm.objects.contacts.read: ' '
+            crm.schemas.deals.read: ' '
+            crm.objects.deals.write: ' '
+            crm.schemas.line_items.read: Line Items schemas
+            crm.objects.deals.read: ' '
+            crm.schemas.companies.read: ' '
             crm.schemas.contacts.write: ' '
-            crm.schemas.companies.write: ' '
             crm.schemas.deals.write: ' '
+            crm.schemas.companies.write: ' '
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
 x-hubspot-available-client-libraries:

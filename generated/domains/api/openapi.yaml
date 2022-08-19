@@ -176,7 +176,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security: []
+      security:
+      - hapikey: []
       summary: Get current domains
       tags:
       - Domains
@@ -235,7 +236,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security: []
+      security:
+      - hapikey: []
       summary: Get a single domain
       tags:
       - Domains
@@ -248,197 +250,220 @@ components:
             $ref: '#/components/schemas/Error'
       description: An error occurred.
   schemas:
-    CollectionResponseWithTotalDomain:
-      example:
-        total: 0
-        paging:
-          next:
-            link: link
-            after: after
-        results:
-        - sslCname: sslCname
-          primaryBlog: true
-          setUpLanguage: setUpLanguage
-          certificateId: 7
-          sslRequestId: 9
-          setupInfo:
-            supportsSslExternally: true
-            whoIsEmailAddresses:
-            - whoIsEmailAddresses
-            - whoIsEmailAddresses
-          isResolving: true
-          isDnsCorrect: true
-          id: 1
-          correctCname: correctCname
-          isResolvingIgnoringManuallyMarkedAsResolving: true
-          primaryEmail: true
-          createdById: 5
-          isUsedForLandingPage: true
-          isLegacy: true
-          created: 5
-          updatedById: 9
-          teamIds:
-          - 2
-          - 2
-          domainCdnConfig:
-            httpBody: httpBody
-            minimumTlsVersion: "1.0"
-            created: 1
-            sslStatus: "0"
-            cname: cname
-            cdnId: cdnId
-            certId: 7
-            httpUrlPath: httpUrlPath
-            domainId: 6
-            alternateOriginHostname: alternateOriginHostname
-            cdnGroupId: cdnGroupId
-            validationMethod: "0"
-            portalId: 1
-            certExpirationDate: 1
-            cnameTarget: cnameTarget
-            id: 4
-            updated: 1
-          isSslEnabled: true
-          isLegacyDomain: true
-          apexIpAddresses:
-          - apexIpAddresses
-          - apexIpAddresses
-          domain: domain
-          brandId: 7
-          primaryClickTracking: true
-          isInternalDomain: true
-          updated: 5
-          consecutiveNonResolvingCount: 2
-          actualIp: actualIp
-          isSetupComplete: true
-          primaryBlogPost: true
-          deletable: true
-          derivedBrandName: derivedBrandName
-          isAnyPrimary: true
-          isUsedForKnowledge: true
-          isUsedForBlogPost: true
-          isStagingDomain: true
-          isUsedForEmail: true
-          portalId: 6
-          cosObjectType: CONTENT
-          apexResolutionStatus: INELIGIBLE
-          apexDomain: apexDomain
-          isResolvingInternalProperty: true
-          setupTaskId: 3
-          primaryKnowledge: true
-          actualCname: actualCname
-          cdnPurgeEmbargoTime: 6
-          fullCategoryKey: fullCategoryKey
-          isUsedForAnyContentType: true
-          secondaryToDomain: secondaryToDomain
-          manuallyMarkedAsResolving: true
-          label: label
-          isUsedForSitePage: true
-          primaryLegacyPage: true
-          authorAt: 9
-          primarySitePage: true
-          primaryLandingPage: true
-          siteId: 4
-          publicSuffix: publicSuffix
-          isSslOnly: true
-        - sslCname: sslCname
-          primaryBlog: true
-          setUpLanguage: setUpLanguage
-          certificateId: 7
-          sslRequestId: 9
-          setupInfo:
-            supportsSslExternally: true
-            whoIsEmailAddresses:
-            - whoIsEmailAddresses
-            - whoIsEmailAddresses
-          isResolving: true
-          isDnsCorrect: true
-          id: 1
-          correctCname: correctCname
-          isResolvingIgnoringManuallyMarkedAsResolving: true
-          primaryEmail: true
-          createdById: 5
-          isUsedForLandingPage: true
-          isLegacy: true
-          created: 5
-          updatedById: 9
-          teamIds:
-          - 2
-          - 2
-          domainCdnConfig:
-            httpBody: httpBody
-            minimumTlsVersion: "1.0"
-            created: 1
-            sslStatus: "0"
-            cname: cname
-            cdnId: cdnId
-            certId: 7
-            httpUrlPath: httpUrlPath
-            domainId: 6
-            alternateOriginHostname: alternateOriginHostname
-            cdnGroupId: cdnGroupId
-            validationMethod: "0"
-            portalId: 1
-            certExpirationDate: 1
-            cnameTarget: cnameTarget
-            id: 4
-            updated: 1
-          isSslEnabled: true
-          isLegacyDomain: true
-          apexIpAddresses:
-          - apexIpAddresses
-          - apexIpAddresses
-          domain: domain
-          brandId: 7
-          primaryClickTracking: true
-          isInternalDomain: true
-          updated: 5
-          consecutiveNonResolvingCount: 2
-          actualIp: actualIp
-          isSetupComplete: true
-          primaryBlogPost: true
-          deletable: true
-          derivedBrandName: derivedBrandName
-          isAnyPrimary: true
-          isUsedForKnowledge: true
-          isUsedForBlogPost: true
-          isStagingDomain: true
-          isUsedForEmail: true
-          portalId: 6
-          cosObjectType: CONTENT
-          apexResolutionStatus: INELIGIBLE
-          apexDomain: apexDomain
-          isResolvingInternalProperty: true
-          setupTaskId: 3
-          primaryKnowledge: true
-          actualCname: actualCname
-          cdnPurgeEmbargoTime: 6
-          fullCategoryKey: fullCategoryKey
-          isUsedForAnyContentType: true
-          secondaryToDomain: secondaryToDomain
-          manuallyMarkedAsResolving: true
-          label: label
-          isUsedForSitePage: true
-          primaryLegacyPage: true
-          authorAt: 9
-          primarySitePage: true
-          primaryLandingPage: true
-          siteId: 4
-          publicSuffix: publicSuffix
-          isSslOnly: true
+    ErrorDetail:
       properties:
-        total:
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          type: string
+        in:
+          description: The name of the field or parameter in which the error was found.
+          type: string
+        code:
+          description: The status code associated with the error detail
+          type: string
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
+          type: string
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: Context about the error condition
+          example:
+            missingScopes:
+            - scope1
+            - scope2
+          type: object
+      required:
+      - message
+      type: object
+    DomainSetupInfo:
+      example:
+        supportsSslExternally: true
+        whoIsEmailAddresses:
+        - whoIsEmailAddresses
+        - whoIsEmailAddresses
+      properties:
+        supportsSslExternally:
+          type: boolean
+        whoIsEmailAddresses:
+          items:
+            type: string
+          type: array
+      required:
+      - supportsSslExternally
+      - whoIsEmailAddresses
+      type: object
+    DomainCdnConfig:
+      example:
+        httpBody: httpBody
+        minimumTlsVersion: "1.0"
+        created: 1
+        sslStatus: "0"
+        cname: cname
+        cdnId: cdnId
+        certId: 7
+        httpUrlPath: httpUrlPath
+        domainId: 6
+        alternateOriginHostname: alternateOriginHostname
+        cdnGroupId: cdnGroupId
+        validationMethod: "0"
+        portalId: 1
+        certExpirationDate: 1
+        cnameTarget: cnameTarget
+        id: 4
+        updated: 1
+      properties:
+        portalId:
           format: int32
           type: integer
-        results:
-          items:
-            $ref: '#/components/schemas/Domain'
-          type: array
-        paging:
-          $ref: '#/components/schemas/Paging'
+        created:
+          format: int64
+          type: integer
+        updated:
+          format: int64
+          type: integer
+        domainId:
+          format: int64
+          type: integer
+        certId:
+          format: int64
+          type: integer
+        certExpirationDate:
+          format: int64
+          type: integer
+        cdnId:
+          type: string
+        cdnGroupId:
+          type: string
+        sslStatus:
+          enum:
+          - "0"
+          - "1"
+          - "2"
+          - "3"
+          - "4"
+          - "5"
+          - "6"
+          - "7"
+          - "8"
+          - "9"
+          - "10"
+          - "11"
+          type: string
+        validationMethod:
+          enum:
+          - "0"
+          - "1"
+          - "2"
+          type: string
+        httpBody:
+          type: string
+        httpUrlPath:
+          type: string
+        cname:
+          type: string
+        cnameTarget:
+          type: string
+        minimumTlsVersion:
+          enum:
+          - "1.0"
+          - "1.1"
+          - "1.2"
+          - "1.3"
+          - none
+          - "null"
+          type: string
+        alternateOriginHostname:
+          type: string
+        id:
+          format: int64
+          type: integer
       required:
-      - results
-      - total
+      - alternateOriginHostname
+      - cdnGroupId
+      - cdnId
+      - certExpirationDate
+      - certId
+      - cname
+      - cnameTarget
+      - created
+      - domainId
+      - httpBody
+      - httpUrlPath
+      - id
+      - minimumTlsVersion
+      - portalId
+      - sslStatus
+      - updated
+      - validationMethod
+      type: object
+    Paging:
+      example:
+        next:
+          link: link
+          after: after
+      properties:
+        next:
+          $ref: '#/components/schemas/NextPage'
+      type: object
+    Error:
+      example:
+        message: Invalid input (details will vary based on the error)
+        correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
+        category: VALIDATION_ERROR
+        links:
+          knowledge-base: https://www.hubspot.com/products/service/knowledge-base
+      properties:
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          example: An error occurred
+          type: string
+        correlationId:
+          description: A unique identifier for the request. Include this value with
+            any error reports or support tickets
+          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
+          format: uuid
+          type: string
+        category:
+          description: The error category
+          type: string
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
+          type: string
+        errors:
+          description: further information about the error
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: Context about the error condition
+          example:
+            invalidPropertyName:
+            - propertyValue
+            missingScopes:
+            - scope1
+            - scope2
+          type: object
+        links:
+          additionalProperties:
+            type: string
+          description: A map of link names to associated URIs containing documentation
+            about the error or recommended remediation steps
+          type: object
+      required:
+      - category
+      - correlationId
+      - message
       type: object
     Domain:
       example:
@@ -777,212 +802,6 @@ components:
       - updated
       - updatedById
       type: object
-    DomainCdnConfig:
-      example:
-        httpBody: httpBody
-        minimumTlsVersion: "1.0"
-        created: 1
-        sslStatus: "0"
-        cname: cname
-        cdnId: cdnId
-        certId: 7
-        httpUrlPath: httpUrlPath
-        domainId: 6
-        alternateOriginHostname: alternateOriginHostname
-        cdnGroupId: cdnGroupId
-        validationMethod: "0"
-        portalId: 1
-        certExpirationDate: 1
-        cnameTarget: cnameTarget
-        id: 4
-        updated: 1
-      properties:
-        portalId:
-          format: int32
-          type: integer
-        created:
-          format: int64
-          type: integer
-        updated:
-          format: int64
-          type: integer
-        domainId:
-          format: int64
-          type: integer
-        certId:
-          format: int64
-          type: integer
-        certExpirationDate:
-          format: int64
-          type: integer
-        cdnId:
-          type: string
-        cdnGroupId:
-          type: string
-        sslStatus:
-          enum:
-          - "0"
-          - "1"
-          - "2"
-          - "3"
-          - "4"
-          - "5"
-          - "6"
-          - "7"
-          - "8"
-          - "9"
-          - "10"
-          - "11"
-          type: string
-        validationMethod:
-          enum:
-          - "0"
-          - "1"
-          - "2"
-          type: string
-        httpBody:
-          type: string
-        httpUrlPath:
-          type: string
-        cname:
-          type: string
-        cnameTarget:
-          type: string
-        minimumTlsVersion:
-          enum:
-          - "1.0"
-          - "1.1"
-          - "1.2"
-          - "1.3"
-          - none
-          - "null"
-          type: string
-        alternateOriginHostname:
-          type: string
-        id:
-          format: int64
-          type: integer
-      required:
-      - alternateOriginHostname
-      - cdnGroupId
-      - cdnId
-      - certExpirationDate
-      - certId
-      - cname
-      - cnameTarget
-      - created
-      - domainId
-      - httpBody
-      - httpUrlPath
-      - id
-      - minimumTlsVersion
-      - portalId
-      - sslStatus
-      - updated
-      - validationMethod
-      type: object
-    DomainSetupInfo:
-      example:
-        supportsSslExternally: true
-        whoIsEmailAddresses:
-        - whoIsEmailAddresses
-        - whoIsEmailAddresses
-      properties:
-        supportsSslExternally:
-          type: boolean
-        whoIsEmailAddresses:
-          items:
-            type: string
-          type: array
-      required:
-      - supportsSslExternally
-      - whoIsEmailAddresses
-      type: object
-    Error:
-      example:
-        message: Invalid input (details will vary based on the error)
-        correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
-        category: VALIDATION_ERROR
-        links:
-          knowledge-base: https://www.hubspot.com/products/service/knowledge-base
-      properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          example: An error occurred
-          type: string
-        correlationId:
-          description: A unique identifier for the request. Include this value with
-            any error reports or support tickets
-          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
-          format: uuid
-          type: string
-        category:
-          description: The error category
-          type: string
-        subCategory:
-          description: A specific category that contains more specific detail about
-            the error
-          type: string
-        errors:
-          description: further information about the error
-          items:
-            $ref: '#/components/schemas/ErrorDetail'
-          type: array
-        context:
-          additionalProperties:
-            items:
-              type: string
-            type: array
-          description: Context about the error condition
-          example:
-            invalidPropertyName:
-            - propertyValue
-            missingScopes:
-            - scope1
-            - scope2
-          type: object
-        links:
-          additionalProperties:
-            type: string
-          description: A map of link names to associated URIs containing documentation
-            about the error or recommended remediation steps
-          type: object
-      required:
-      - category
-      - correlationId
-      - message
-      type: object
-    ErrorDetail:
-      properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          type: string
-        in:
-          description: The name of the field or parameter in which the error was found.
-          type: string
-        code:
-          description: The status code associated with the error detail
-          type: string
-        subCategory:
-          description: A specific category that contains more specific detail about
-            the error
-          type: string
-        context:
-          additionalProperties:
-            items:
-              type: string
-            type: array
-          description: Context about the error condition
-          example:
-            missingScopes:
-            - scope1
-            - scope2
-          type: object
-      required:
-      - message
-      type: object
     NextPage:
       example:
         link: link
@@ -995,15 +814,203 @@ components:
       required:
       - after
       type: object
-    Paging:
+    CollectionResponseWithTotalDomain:
       example:
-        next:
-          link: link
-          after: after
+        total: 0
+        paging:
+          next:
+            link: link
+            after: after
+        results:
+        - sslCname: sslCname
+          primaryBlog: true
+          setUpLanguage: setUpLanguage
+          certificateId: 7
+          sslRequestId: 9
+          setupInfo:
+            supportsSslExternally: true
+            whoIsEmailAddresses:
+            - whoIsEmailAddresses
+            - whoIsEmailAddresses
+          isResolving: true
+          isDnsCorrect: true
+          id: 1
+          correctCname: correctCname
+          isResolvingIgnoringManuallyMarkedAsResolving: true
+          primaryEmail: true
+          createdById: 5
+          isUsedForLandingPage: true
+          isLegacy: true
+          created: 5
+          updatedById: 9
+          teamIds:
+          - 2
+          - 2
+          domainCdnConfig:
+            httpBody: httpBody
+            minimumTlsVersion: "1.0"
+            created: 1
+            sslStatus: "0"
+            cname: cname
+            cdnId: cdnId
+            certId: 7
+            httpUrlPath: httpUrlPath
+            domainId: 6
+            alternateOriginHostname: alternateOriginHostname
+            cdnGroupId: cdnGroupId
+            validationMethod: "0"
+            portalId: 1
+            certExpirationDate: 1
+            cnameTarget: cnameTarget
+            id: 4
+            updated: 1
+          isSslEnabled: true
+          isLegacyDomain: true
+          apexIpAddresses:
+          - apexIpAddresses
+          - apexIpAddresses
+          domain: domain
+          brandId: 7
+          primaryClickTracking: true
+          isInternalDomain: true
+          updated: 5
+          consecutiveNonResolvingCount: 2
+          actualIp: actualIp
+          isSetupComplete: true
+          primaryBlogPost: true
+          deletable: true
+          derivedBrandName: derivedBrandName
+          isAnyPrimary: true
+          isUsedForKnowledge: true
+          isUsedForBlogPost: true
+          isStagingDomain: true
+          isUsedForEmail: true
+          portalId: 6
+          cosObjectType: CONTENT
+          apexResolutionStatus: INELIGIBLE
+          apexDomain: apexDomain
+          isResolvingInternalProperty: true
+          setupTaskId: 3
+          primaryKnowledge: true
+          actualCname: actualCname
+          cdnPurgeEmbargoTime: 6
+          fullCategoryKey: fullCategoryKey
+          isUsedForAnyContentType: true
+          secondaryToDomain: secondaryToDomain
+          manuallyMarkedAsResolving: true
+          label: label
+          isUsedForSitePage: true
+          primaryLegacyPage: true
+          authorAt: 9
+          primarySitePage: true
+          primaryLandingPage: true
+          siteId: 4
+          publicSuffix: publicSuffix
+          isSslOnly: true
+        - sslCname: sslCname
+          primaryBlog: true
+          setUpLanguage: setUpLanguage
+          certificateId: 7
+          sslRequestId: 9
+          setupInfo:
+            supportsSslExternally: true
+            whoIsEmailAddresses:
+            - whoIsEmailAddresses
+            - whoIsEmailAddresses
+          isResolving: true
+          isDnsCorrect: true
+          id: 1
+          correctCname: correctCname
+          isResolvingIgnoringManuallyMarkedAsResolving: true
+          primaryEmail: true
+          createdById: 5
+          isUsedForLandingPage: true
+          isLegacy: true
+          created: 5
+          updatedById: 9
+          teamIds:
+          - 2
+          - 2
+          domainCdnConfig:
+            httpBody: httpBody
+            minimumTlsVersion: "1.0"
+            created: 1
+            sslStatus: "0"
+            cname: cname
+            cdnId: cdnId
+            certId: 7
+            httpUrlPath: httpUrlPath
+            domainId: 6
+            alternateOriginHostname: alternateOriginHostname
+            cdnGroupId: cdnGroupId
+            validationMethod: "0"
+            portalId: 1
+            certExpirationDate: 1
+            cnameTarget: cnameTarget
+            id: 4
+            updated: 1
+          isSslEnabled: true
+          isLegacyDomain: true
+          apexIpAddresses:
+          - apexIpAddresses
+          - apexIpAddresses
+          domain: domain
+          brandId: 7
+          primaryClickTracking: true
+          isInternalDomain: true
+          updated: 5
+          consecutiveNonResolvingCount: 2
+          actualIp: actualIp
+          isSetupComplete: true
+          primaryBlogPost: true
+          deletable: true
+          derivedBrandName: derivedBrandName
+          isAnyPrimary: true
+          isUsedForKnowledge: true
+          isUsedForBlogPost: true
+          isStagingDomain: true
+          isUsedForEmail: true
+          portalId: 6
+          cosObjectType: CONTENT
+          apexResolutionStatus: INELIGIBLE
+          apexDomain: apexDomain
+          isResolvingInternalProperty: true
+          setupTaskId: 3
+          primaryKnowledge: true
+          actualCname: actualCname
+          cdnPurgeEmbargoTime: 6
+          fullCategoryKey: fullCategoryKey
+          isUsedForAnyContentType: true
+          secondaryToDomain: secondaryToDomain
+          manuallyMarkedAsResolving: true
+          label: label
+          isUsedForSitePage: true
+          primaryLegacyPage: true
+          authorAt: 9
+          primarySitePage: true
+          primaryLandingPage: true
+          siteId: 4
+          publicSuffix: publicSuffix
+          isSslOnly: true
       properties:
-        next:
-          $ref: '#/components/schemas/NextPage'
+        total:
+          format: int32
+          type: integer
+        results:
+          items:
+            $ref: '#/components/schemas/Domain'
+          type: array
+        paging:
+          $ref: '#/components/schemas/Paging'
+      required:
+      - results
+      - total
       type: object
+  securitySchemes:
+    hapikey:
+      in: query
+      name: hapikey
+      type: apiKey
 x-hubspot-available-client-libraries:
 - PHP
 - Node

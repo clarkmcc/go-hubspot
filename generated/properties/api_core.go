@@ -15,6 +15,8 @@ import (
 	"context"
 	"io/ioutil"
 	"net/http"
+
+	"github.com/clarkmcc/go-hubspot"
 	"net/url"
 	"strings"
 )
@@ -89,6 +91,16 @@ func (a *CoreApiService) DeleteCrmV3PropertiesObjectTypePropertyNameArchiveExecu
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -200,6 +212,16 @@ func (a *CoreApiService) GetCrmV3PropertiesObjectTypeGetAllExecute(r ApiGetCrmV3
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -324,6 +346,16 @@ func (a *CoreApiService) GetCrmV3PropertiesObjectTypePropertyNameGetByNameExecut
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -450,6 +482,16 @@ func (a *CoreApiService) PatchCrmV3PropertiesObjectTypePropertyNameUpdateExecute
 	}
 	// body params
 	localVarPostBody = r.propertyUpdate
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -571,6 +613,16 @@ func (a *CoreApiService) PostCrmV3PropertiesObjectTypeCreateExecute(r ApiPostCrm
 	}
 	// body params
 	localVarPostBody = r.propertyCreate
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

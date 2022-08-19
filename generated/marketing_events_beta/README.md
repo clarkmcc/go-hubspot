@@ -135,6 +135,15 @@ Class | Method | HTTP request | Description
 Note, each API key must be added to a map of `map[string]APIKey` where the key is: hapikey and passed in as the auth context for each request.
 
 
+### hapikey
+
+- **Type**: API key
+- **API key parameter name**: hapikey
+- **Location**: URL query string
+
+Note, each API key must be added to a map of `map[string]APIKey` where the key is: hapikey and passed in as the auth context for each request.
+
+
 ### oauth2_legacy
 
 

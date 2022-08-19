@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **ArchivedAt** | Pointer to **int64** | The date that this custom action was archived, if the custom action is archived. | [optional] 
 **InputFields** | [**[]InputFieldDefinition**](InputFieldDefinition.md) | The list of input fields to display in this custom action. | 
 **ObjectRequestOptions** | Pointer to [**ObjectRequestOptions**](ObjectRequestOptions.md) |  | [optional] 
-**InputFieldDependencies** | Pointer to [**[]ExtensionActionDefinitionInputFieldDependenciesInner**](ExtensionActionDefinitionInputFieldDependenciesInner.md) | A list of dependencies between the input fields. These configure when the input fields should be visible. | [optional] 
+**InputFieldDependencies** | Pointer to [**[]ExtensionActionDefinitionPatchInputFieldDependenciesInner**](ExtensionActionDefinitionPatchInputFieldDependenciesInner.md) | A list of dependencies between the input fields. These configure when the input fields should be visible. | [optional] 
 **Labels** | [**map[string]ActionLabels**](ActionLabels.md) | The user-facing labels for the custom action. | 
 **ObjectTypes** | **[]string** | The object types that this custom action supports. | 
 
@@ -165,20 +165,20 @@ HasObjectRequestOptions returns a boolean if a field has been set.
 
 ### GetInputFieldDependencies
 
-`func (o *ExtensionActionDefinitionInput) GetInputFieldDependencies() []ExtensionActionDefinitionInputFieldDependenciesInner`
+`func (o *ExtensionActionDefinitionInput) GetInputFieldDependencies() []ExtensionActionDefinitionPatchInputFieldDependenciesInner`
 
 GetInputFieldDependencies returns the InputFieldDependencies field if non-nil, zero value otherwise.
 
 ### GetInputFieldDependenciesOk
 
-`func (o *ExtensionActionDefinitionInput) GetInputFieldDependenciesOk() (*[]ExtensionActionDefinitionInputFieldDependenciesInner, bool)`
+`func (o *ExtensionActionDefinitionInput) GetInputFieldDependenciesOk() (*[]ExtensionActionDefinitionPatchInputFieldDependenciesInner, bool)`
 
 GetInputFieldDependenciesOk returns a tuple with the InputFieldDependencies field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInputFieldDependencies
 
-`func (o *ExtensionActionDefinitionInput) SetInputFieldDependencies(v []ExtensionActionDefinitionInputFieldDependenciesInner)`
+`func (o *ExtensionActionDefinitionInput) SetInputFieldDependencies(v []ExtensionActionDefinitionPatchInputFieldDependenciesInner)`
 
 SetInputFieldDependencies sets InputFieldDependencies field to given value.
 

@@ -68,7 +68,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[hapikey](../README.md#hapikey)
 
 ### HTTP request headers
 

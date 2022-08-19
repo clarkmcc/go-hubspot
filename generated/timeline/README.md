@@ -136,8 +136,8 @@ Note, each API key must be added to a map of `map[string]APIKey` where the key i
 - **Authorization URL**: https://app.hubspot.com/oauth/authorize
 - **Scopes**: 
  - **contacts**: Read from and write to my Contacts
- - **timeline**: Create timeline events
  - **tickets**: Read and write tickets
+ - **timeline**: Create timeline events
 
 Example
 

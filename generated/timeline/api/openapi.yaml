@@ -71,8 +71,8 @@ paths:
       security:
       - oauth2_legacy:
         - contacts
-        - timeline
         - tickets
+        - timeline
       summary: Create a single event
       tags:
       - Events
@@ -113,8 +113,8 @@ paths:
       security:
       - oauth2_legacy:
         - contacts
-        - timeline
         - tickets
+        - timeline
       summary: Creates multiple events
       tags:
       - Events
@@ -156,8 +156,8 @@ paths:
       security:
       - oauth2_legacy:
         - contacts
-        - timeline
         - tickets
+        - timeline
       summary: Gets the event
       tags:
       - Events
@@ -201,8 +201,8 @@ paths:
       security:
       - oauth2_legacy:
         - contacts
-        - timeline
         - tickets
+        - timeline
       summary: Gets the detailTemplate as rendered
       tags:
       - Events
@@ -255,8 +255,8 @@ paths:
       security:
       - oauth2_legacy:
         - contacts
-        - timeline
         - tickets
+        - timeline
       summary: Renders the header or detail as HTML
       tags:
       - Events
@@ -837,459 +837,6 @@ components:
             $ref: '#/components/schemas/Error'
       description: An error occurred.
   schemas:
-    BatchInputTimelineEvent:
-      description: Used to create timeline events in batches.
-      example:
-        inputs:
-        - eventTemplateId: "1001298"
-          email: art3mis-pup@petspot.com
-          tokens:
-            petName: Art3mis
-            petAge: 3
-            petColor: black
-          extraData:
-            questions:
-            - question: Who's a good girl?
-              answer: Bark!
-            - question: Do you wanna go on a walk?
-              answer: Woof!
-          timelineIFrame:
-            linkLabel: View Art3mis
-            headerLabel: Art3mis dog
-            url: https://my.petspot.com/pets/Art3mis
-            width: 600
-            height: 400
-        - eventTemplateId: "1001298"
-          email: pocket-tiger@petspot.com
-          tokens:
-            petName: Pocket
-            petAge: 3
-            petColor: yellow
-          extraData:
-            questions:
-            - question: Who's a good kitty?
-              answer: Purr...
-            - question: Will you stop playing with that?
-              answer: Meow!
-          timelineIFrame:
-            linkLabel: View Pocket
-            headerLabel: Pocket Tiger
-            url: https://my.petspot.com/pets/Pocket
-            width: 600
-            height: 400
-      properties:
-        inputs:
-          description: A collection of timeline events we want to create.
-          items:
-            $ref: '#/components/schemas/TimelineEvent'
-          type: array
-      required:
-      - inputs
-      type: object
-    BatchResponseTimelineEventResponse:
-      description: The state of the batch event request.
-      example:
-        results:
-        - objectType: contacts
-          id: petspot:1001298:art3mis-pup@petspot.com-6edaa73d-d734-404d-908f-74774d58ac2b
-          eventTemplateId: "1001298"
-          email: art3mis-pup@petspot.com
-          objectId: "28001"
-          timestamp: 2020-01-30T18:13:25.665Z
-          tokens:
-            petName: Art3mis
-            petColor: black
-            petAge: "3"
-          extraData:
-            questions:
-            - question: Who's a good girl?
-              answer: Bark!
-            - question: Do you wanna go on a walk?
-              answer: Woof!
-          timelineIFrame:
-            linkLabel: View Art3mis
-            headerLabel: Art3mis dog
-            url: https://my.petspot.com/pets/Art3mis
-            width: 600
-            height: 400
-        - objectType: contacts
-          id: petspot:1001298:pocket-tiger@petspot.com-0df6277b-6eba-4d1f-8c19-1994cbfaa4ca
-          eventTemplateId: "1001298"
-          email: pocket-tiger@petspot.com
-          objectId: "28651"
-          timestamp: 2020-01-30T18:13:25.665Z
-          tokens:
-            petName: Pocket
-            petColor: yellow
-            petAge: "3"
-          extraData:
-            questions:
-            - question: Who's a good kitty?
-              answer: Purr...
-            - question: Will you stop playing with that?
-              answer: Meow!
-          timelineIFrame:
-            linkLabel: View Pocket
-            headerLabel: Pocket Tiger
-            url: https://my.petspot.com/pets/Pocket
-            width: 600
-            height: 400
-        status: COMPLETE
-        startedAt: 2020-01-30T18:13:24.974023Z
-        completedAt: 2020-01-30T18:13:26.227559Z
-      properties:
-        status:
-          description: The status of the batch response. Should always be COMPLETED
-            if processed.
-          enum:
-          - PENDING
-          - PROCESSING
-          - CANCELED
-          - COMPLETE
-          type: string
-        results:
-          description: Successfully created events.
-          items:
-            $ref: '#/components/schemas/TimelineEventResponse'
-          type: array
-        requestedAt:
-          description: The time the request occurred.
-          format: date-time
-          type: string
-        startedAt:
-          description: The time the request began processing.
-          format: date-time
-          type: string
-        completedAt:
-          description: The time the request was completed.
-          format: date-time
-          type: string
-        links:
-          additionalProperties:
-            type: string
-          type: object
-      required:
-      - completedAt
-      - results
-      - startedAt
-      - status
-      type: object
-    BatchResponseTimelineEventResponseWithErrors:
-      properties:
-        status:
-          enum:
-          - PENDING
-          - PROCESSING
-          - CANCELED
-          - COMPLETE
-          type: string
-        results:
-          items:
-            $ref: '#/components/schemas/TimelineEventResponse'
-          type: array
-        numErrors:
-          format: int32
-          type: integer
-        errors:
-          items:
-            $ref: '#/components/schemas/StandardError'
-          type: array
-        requestedAt:
-          format: date-time
-          type: string
-        startedAt:
-          format: date-time
-          type: string
-        completedAt:
-          format: date-time
-          type: string
-        links:
-          additionalProperties:
-            type: string
-          type: object
-      required:
-      - completedAt
-      - results
-      - startedAt
-      - status
-      type: object
-    CollectionResponseTimelineEventTemplateNoPaging:
-      example:
-        results:
-        - createdAt: 2000-01-23T04:56:07.000+00:00
-          detailTemplate: detailTemplate
-          name: name
-          tokens:
-          - name: petType
-            label: Pet Type
-            type: enumeration
-            createdAt: 2020-02-12T20:58:26Z
-            updatedAt: 2020-02-12T20:58:26Z
-            objectPropertyName: customPropertyPetType
-            options:
-            - value: dog
-              label: Dog
-            - value: cat
-              label: Cat
-          - name: petType
-            label: Pet Type
-            type: enumeration
-            createdAt: 2020-02-12T20:58:26Z
-            updatedAt: 2020-02-12T20:58:26Z
-            objectPropertyName: customPropertyPetType
-            options:
-            - value: dog
-              label: Dog
-            - value: cat
-              label: Cat
-          id: id
-          headerTemplate: headerTemplate
-          objectType: objectType
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        - createdAt: 2000-01-23T04:56:07.000+00:00
-          detailTemplate: detailTemplate
-          name: name
-          tokens:
-          - name: petType
-            label: Pet Type
-            type: enumeration
-            createdAt: 2020-02-12T20:58:26Z
-            updatedAt: 2020-02-12T20:58:26Z
-            objectPropertyName: customPropertyPetType
-            options:
-            - value: dog
-              label: Dog
-            - value: cat
-              label: Cat
-          - name: petType
-            label: Pet Type
-            type: enumeration
-            createdAt: 2020-02-12T20:58:26Z
-            updatedAt: 2020-02-12T20:58:26Z
-            objectPropertyName: customPropertyPetType
-            options:
-            - value: dog
-              label: Dog
-            - value: cat
-              label: Cat
-          id: id
-          headerTemplate: headerTemplate
-          objectType: objectType
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/TimelineEventTemplate'
-          type: array
-      required:
-      - results
-      type: object
-    Error:
-      example:
-        message: Invalid input (details will vary based on the error)
-        correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
-        category: VALIDATION_ERROR
-        links:
-          knowledge-base: https://www.hubspot.com/products/service/knowledge-base
-      properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          example: An error occurred
-          type: string
-        correlationId:
-          description: A unique identifier for the request. Include this value with
-            any error reports or support tickets
-          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
-          format: uuid
-          type: string
-        category:
-          description: The error category
-          type: string
-        subCategory:
-          description: A specific category that contains more specific detail about
-            the error
-          type: string
-        errors:
-          description: further information about the error
-          items:
-            $ref: '#/components/schemas/ErrorDetail'
-          type: array
-        context:
-          additionalProperties:
-            items:
-              type: string
-            type: array
-          description: Context about the error condition
-          example:
-            invalidPropertyName:
-            - propertyValue
-            missingScopes:
-            - scope1
-            - scope2
-          type: object
-        links:
-          additionalProperties:
-            type: string
-          description: A map of link names to associated URIs containing documentation
-            about the error or recommended remediation steps
-          type: object
-      required:
-      - category
-      - correlationId
-      - message
-      type: object
-    ErrorCategory:
-      properties:
-        httpStatus:
-          enum:
-          - CONTINUE
-          - SWITCHING_PROTOCOLS
-          - PROCESSING
-          - OK
-          - CREATED
-          - ACCEPTED
-          - NON_AUTHORITATIVE_INFORMATION
-          - NO_CONTENT
-          - RESET_CONTENT
-          - PARTIAL_CONTENT
-          - MULTI_STATUS
-          - ALREADY_REPORTED
-          - IM_USED
-          - MULTIPLE_CHOICES
-          - MOVED_PERMANENTLY
-          - FOUND
-          - SEE_OTHER
-          - NOT_MODIFIED
-          - USE_PROXY
-          - TEMPORARY_REDIRECT
-          - PERMANENT_REDIRECT
-          - BAD_REQUEST
-          - UNAUTHORIZED
-          - PAYMENT_REQUIRED
-          - FORBIDDEN
-          - NOT_FOUND
-          - METHOD_NOT_ALLOWED
-          - NOT_ACCEPTABLE
-          - PROXY_AUTHENTICATION_REQUIRED
-          - REQUEST_TIMEOUT
-          - CONFLICT
-          - GONE
-          - LENGTH_REQUIRED
-          - PRECONDITION_FAILED
-          - REQUEST_ENTITY_TOO_LARGE
-          - REQUEST_URI_TOO_LONG
-          - UNSUPPORTED_MEDIA_TYPE
-          - REQUESTED_RANGE_NOT_SATISFIABLE
-          - EXPECTATION_FAILED
-          - IM_A_TEAPOT
-          - MISDIRECTED_REQUEST
-          - UNPROCESSABLE_ENTITY
-          - LOCKED
-          - FAILED_DEPENDENCY
-          - UPGRADE_REQUIRED
-          - PRECONDITION_REQUIRED
-          - TOO_MANY_REQUESTS
-          - REQUEST_HEADERS_FIELDS_TOO_LARGE
-          - INTERNAL_STALE_SERVICE_DISCOVERY
-          - UNAVAILABLE_FOR_LEGAL_REASONS
-          - MIGRATION_IN_PROGRESS
-          - INTERNAL_SERVER_ERROR
-          - NOT_IMPLEMENTED
-          - BAD_GATEWAY
-          - SERVICE_UNAVAILABLE
-          - GATEWAY_TIMEOUT
-          - HTTP_VERSION_NOT_SUPPORTED
-          - VARIANT_ALSO_NEGOTIATES
-          - INSUFFICIENT_STORAGE
-          - LOOP_DETECTED
-          - NOT_EXTENDED
-          - NETWORK_AUTHENTICATION_REQUIRED
-          type: string
-        name:
-          type: string
-      required:
-      - httpStatus
-      - name
-      type: object
-    ErrorDetail:
-      properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          type: string
-        in:
-          description: The name of the field or parameter in which the error was found.
-          type: string
-        code:
-          description: The status code associated with the error detail
-          type: string
-        subCategory:
-          description: A specific category that contains more specific detail about
-            the error
-          type: string
-        context:
-          additionalProperties:
-            items:
-              type: string
-            type: array
-          description: Context about the error condition
-          example:
-            missingScopes:
-            - scope1
-            - scope2
-          type: object
-      required:
-      - message
-      type: object
-    EventDetail:
-      description: The details Markdown rendered as HTML.
-      example:
-        details: "<p>Registration occurred at Jan 30, 2020, 1:13:25 PM</p><h4>Questions</h4><p><strong>Who&#x27;s\
-          \ a good kitty?</strong>: Purr...</p><p><strong>Will you stop playing with\
-          \ that?</strong>: Meow!</p><p>EDIT</p>"
-      properties:
-        details:
-          description: The details Markdown rendered as HTML.
-          type: string
-      required:
-      - details
-      type: object
-    StandardError:
-      properties:
-        status:
-          type: string
-        id:
-          type: string
-        category:
-          $ref: '#/components/schemas/ErrorCategory'
-        subCategory:
-          properties: {}
-          type: object
-        message:
-          type: string
-        errors:
-          items:
-            $ref: '#/components/schemas/ErrorDetail'
-          type: array
-        context:
-          additionalProperties:
-            items:
-              type: string
-            type: array
-          type: object
-        links:
-          additionalProperties:
-            type: string
-          type: object
-      required:
-      - category
-      - context
-      - errors
-      - links
-      - message
-      - status
-      type: object
     TimelineEvent:
       description: The state of the timeline event.
       example:
@@ -1393,6 +940,679 @@ components:
       - url
       - width
       type: object
+    StandardError:
+      properties:
+        status:
+          type: string
+        id:
+          type: string
+        category:
+          $ref: '#/components/schemas/ErrorCategory'
+        subCategory:
+          properties: {}
+          type: object
+        message:
+          type: string
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          type: object
+        links:
+          additionalProperties:
+            type: string
+          type: object
+      required:
+      - category
+      - context
+      - errors
+      - links
+      - message
+      - status
+      type: object
+    Error:
+      example:
+        message: Invalid input (details will vary based on the error)
+        correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
+        category: VALIDATION_ERROR
+        links:
+          knowledge-base: https://www.hubspot.com/products/service/knowledge-base
+      properties:
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          example: An error occurred
+          type: string
+        correlationId:
+          description: A unique identifier for the request. Include this value with
+            any error reports or support tickets
+          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
+          format: uuid
+          type: string
+        category:
+          description: The error category
+          type: string
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
+          type: string
+        errors:
+          description: further information about the error
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: Context about the error condition
+          example:
+            invalidPropertyName:
+            - propertyValue
+            missingScopes:
+            - scope1
+            - scope2
+          type: object
+        links:
+          additionalProperties:
+            type: string
+          description: A map of link names to associated URIs containing documentation
+            about the error or recommended remediation steps
+          type: object
+      required:
+      - category
+      - correlationId
+      - message
+      type: object
+    EventDetail:
+      description: The details Markdown rendered as HTML.
+      example:
+        details: "<p>Registration occurred at Jan 30, 2020, 1:13:25 PM</p><h4>Questions</h4><p><strong>Who&#x27;s\
+          \ a good kitty?</strong>: Purr...</p><p><strong>Will you stop playing with\
+          \ that?</strong>: Meow!</p><p>EDIT</p>"
+      properties:
+        details:
+          description: The details Markdown rendered as HTML.
+          type: string
+      required:
+      - details
+      type: object
+    TimelineEventTemplateCreateRequest:
+      description: State of the template definition being created.
+      example:
+        name: PetSpot Registration
+        objectType: contacts
+        headerTemplate: "Registered for [{{petName}}](https://my.petspot.com/pets/{{petName}})"
+        detailTemplate: "Registration occurred at {{#formatDate timestamp}}{{/formatDate}}\n\
+          \n#### Questions\n{{#each extraData.questions}}\n  **{{question}}**: {{answer}}\n\
+          {{/each}}"
+        tokens:
+        - name: petName
+          label: Pet Name
+          type: string
+        - name: petAge
+          label: Pet Age
+          type: number
+        - name: petColor
+          label: Pet Color
+          type: enumeration
+          options:
+          - value: white
+            label: White
+          - value: black
+            label: Black
+          - value: brown
+            label: Brown
+          - value: other
+            label: Other
+      properties:
+        name:
+          description: The template name.
+          type: string
+        headerTemplate:
+          description: This uses Markdown syntax with Handlebars and event-specific
+            data to render HTML on a timeline as a header.
+          type: string
+        detailTemplate:
+          description: This uses Markdown syntax with Handlebars and event-specific
+            data to render HTML on a timeline when you expand the details.
+          type: string
+        tokens:
+          description: A collection of tokens that can be used as custom properties
+            on the event and to create fully fledged CRM objects.
+          items:
+            $ref: '#/components/schemas/TimelineEventTemplateToken'
+          type: array
+        objectType:
+          description: "The type of CRM object this template is for. [Contacts, companies,\
+            \ tickets, and deals] are supported."
+          type: string
+      required:
+      - name
+      - objectType
+      - tokens
+      type: object
+    TimelineEventTemplateUpdateRequest:
+      description: State of the template definition being updated.
+      example:
+        id: "1001298"
+        name: PetSpot Registration
+        headerTemplate: "Registered for [{{petName}}](https://my.petspot.com/pets/{{petName}})"
+        detailTemplate: "Registration occurred at {{#formatDate timestamp}}{{/formatDate}}\n\
+          \n#### Questions\n{{#each extraData.questions}}\n  **{{question}}**: {{answer}}\n\
+          {{/each}}\n\nEDIT"
+        tokens:
+        - name: petName
+          label: Pet Name
+          type: string
+          objectPropertyName: firstname
+        - name: petAge
+          label: Pet Age
+          type: number
+        - name: petColor
+          label: Pet Color
+          type: enumeration
+          options:
+          - value: white
+            label: White
+          - value: black
+            label: Black
+          - value: brown
+            label: Brown
+          - value: yellow
+            label: Yellow
+          - value: other
+            label: Other
+      properties:
+        name:
+          description: The template name.
+          type: string
+        headerTemplate:
+          description: This uses Markdown syntax with Handlebars and event-specific
+            data to render HTML on a timeline as a header.
+          type: string
+        detailTemplate:
+          description: This uses Markdown syntax with Handlebars and event-specific
+            data to render HTML on a timeline when you expand the details.
+          type: string
+        tokens:
+          description: A collection of tokens that can be used as custom properties
+            on the event and to create fully fledged CRM objects.
+          items:
+            $ref: '#/components/schemas/TimelineEventTemplateToken'
+          type: array
+        id:
+          description: The template ID.
+          type: string
+      required:
+      - id
+      - name
+      - tokens
+      type: object
+    CollectionResponseTimelineEventTemplateNoPaging:
+      example:
+        results:
+        - createdAt: 2000-01-23T04:56:07.000+00:00
+          detailTemplate: detailTemplate
+          name: name
+          tokens:
+          - name: petType
+            label: Pet Type
+            type: enumeration
+            createdAt: 2020-02-12T20:58:26Z
+            updatedAt: 2020-02-12T20:58:26Z
+            objectPropertyName: customPropertyPetType
+            options:
+            - value: dog
+              label: Dog
+            - value: cat
+              label: Cat
+          - name: petType
+            label: Pet Type
+            type: enumeration
+            createdAt: 2020-02-12T20:58:26Z
+            updatedAt: 2020-02-12T20:58:26Z
+            objectPropertyName: customPropertyPetType
+            options:
+            - value: dog
+              label: Dog
+            - value: cat
+              label: Cat
+          id: id
+          headerTemplate: headerTemplate
+          objectType: objectType
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        - createdAt: 2000-01-23T04:56:07.000+00:00
+          detailTemplate: detailTemplate
+          name: name
+          tokens:
+          - name: petType
+            label: Pet Type
+            type: enumeration
+            createdAt: 2020-02-12T20:58:26Z
+            updatedAt: 2020-02-12T20:58:26Z
+            objectPropertyName: customPropertyPetType
+            options:
+            - value: dog
+              label: Dog
+            - value: cat
+              label: Cat
+          - name: petType
+            label: Pet Type
+            type: enumeration
+            createdAt: 2020-02-12T20:58:26Z
+            updatedAt: 2020-02-12T20:58:26Z
+            objectPropertyName: customPropertyPetType
+            options:
+            - value: dog
+              label: Dog
+            - value: cat
+              label: Cat
+          id: id
+          headerTemplate: headerTemplate
+          objectType: objectType
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/TimelineEventTemplate'
+          type: array
+      required:
+      - results
+      type: object
+    ErrorDetail:
+      properties:
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          type: string
+        in:
+          description: The name of the field or parameter in which the error was found.
+          type: string
+        code:
+          description: The status code associated with the error detail
+          type: string
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
+          type: string
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: Context about the error condition
+          example:
+            missingScopes:
+            - scope1
+            - scope2
+          type: object
+      required:
+      - message
+      type: object
+    BatchResponseTimelineEventResponse:
+      description: The state of the batch event request.
+      example:
+        results:
+        - objectType: contacts
+          id: petspot:1001298:art3mis-pup@petspot.com-6edaa73d-d734-404d-908f-74774d58ac2b
+          eventTemplateId: "1001298"
+          email: art3mis-pup@petspot.com
+          objectId: "28001"
+          timestamp: 2020-01-30T18:13:25.665Z
+          tokens:
+            petName: Art3mis
+            petColor: black
+            petAge: "3"
+          extraData:
+            questions:
+            - question: Who's a good girl?
+              answer: Bark!
+            - question: Do you wanna go on a walk?
+              answer: Woof!
+          timelineIFrame:
+            linkLabel: View Art3mis
+            headerLabel: Art3mis dog
+            url: https://my.petspot.com/pets/Art3mis
+            width: 600
+            height: 400
+        - objectType: contacts
+          id: petspot:1001298:pocket-tiger@petspot.com-0df6277b-6eba-4d1f-8c19-1994cbfaa4ca
+          eventTemplateId: "1001298"
+          email: pocket-tiger@petspot.com
+          objectId: "28651"
+          timestamp: 2020-01-30T18:13:25.665Z
+          tokens:
+            petName: Pocket
+            petColor: yellow
+            petAge: "3"
+          extraData:
+            questions:
+            - question: Who's a good kitty?
+              answer: Purr...
+            - question: Will you stop playing with that?
+              answer: Meow!
+          timelineIFrame:
+            linkLabel: View Pocket
+            headerLabel: Pocket Tiger
+            url: https://my.petspot.com/pets/Pocket
+            width: 600
+            height: 400
+        status: COMPLETE
+        startedAt: 2020-01-30T18:13:24.974023Z
+        completedAt: 2020-01-30T18:13:26.227559Z
+      properties:
+        status:
+          description: The status of the batch response. Should always be COMPLETED
+            if processed.
+          enum:
+          - PENDING
+          - PROCESSING
+          - CANCELED
+          - COMPLETE
+          type: string
+        results:
+          description: Successfully created events.
+          items:
+            $ref: '#/components/schemas/TimelineEventResponse'
+          type: array
+        requestedAt:
+          description: The time the request occurred.
+          format: date-time
+          type: string
+        startedAt:
+          description: The time the request began processing.
+          format: date-time
+          type: string
+        completedAt:
+          description: The time the request was completed.
+          format: date-time
+          type: string
+        links:
+          additionalProperties:
+            type: string
+          type: object
+      required:
+      - completedAt
+      - results
+      - startedAt
+      - status
+      type: object
+    BatchInputTimelineEvent:
+      description: Used to create timeline events in batches.
+      example:
+        inputs:
+        - eventTemplateId: "1001298"
+          email: art3mis-pup@petspot.com
+          tokens:
+            petName: Art3mis
+            petAge: 3
+            petColor: black
+          extraData:
+            questions:
+            - question: Who's a good girl?
+              answer: Bark!
+            - question: Do you wanna go on a walk?
+              answer: Woof!
+          timelineIFrame:
+            linkLabel: View Art3mis
+            headerLabel: Art3mis dog
+            url: https://my.petspot.com/pets/Art3mis
+            width: 600
+            height: 400
+        - eventTemplateId: "1001298"
+          email: pocket-tiger@petspot.com
+          tokens:
+            petName: Pocket
+            petAge: 3
+            petColor: yellow
+          extraData:
+            questions:
+            - question: Who's a good kitty?
+              answer: Purr...
+            - question: Will you stop playing with that?
+              answer: Meow!
+          timelineIFrame:
+            linkLabel: View Pocket
+            headerLabel: Pocket Tiger
+            url: https://my.petspot.com/pets/Pocket
+            width: 600
+            height: 400
+      properties:
+        inputs:
+          description: A collection of timeline events we want to create.
+          items:
+            $ref: '#/components/schemas/TimelineEvent'
+          type: array
+      required:
+      - inputs
+      type: object
+    ErrorCategory:
+      properties:
+        httpStatus:
+          enum:
+          - CONTINUE
+          - SWITCHING_PROTOCOLS
+          - PROCESSING
+          - OK
+          - CREATED
+          - ACCEPTED
+          - NON_AUTHORITATIVE_INFORMATION
+          - NO_CONTENT
+          - RESET_CONTENT
+          - PARTIAL_CONTENT
+          - MULTI_STATUS
+          - ALREADY_REPORTED
+          - IM_USED
+          - MULTIPLE_CHOICES
+          - MOVED_PERMANENTLY
+          - FOUND
+          - SEE_OTHER
+          - NOT_MODIFIED
+          - USE_PROXY
+          - TEMPORARY_REDIRECT
+          - PERMANENT_REDIRECT
+          - BAD_REQUEST
+          - UNAUTHORIZED
+          - PAYMENT_REQUIRED
+          - FORBIDDEN
+          - NOT_FOUND
+          - METHOD_NOT_ALLOWED
+          - NOT_ACCEPTABLE
+          - PROXY_AUTHENTICATION_REQUIRED
+          - REQUEST_TIMEOUT
+          - CONFLICT
+          - GONE
+          - LENGTH_REQUIRED
+          - PRECONDITION_FAILED
+          - REQUEST_ENTITY_TOO_LARGE
+          - REQUEST_URI_TOO_LONG
+          - UNSUPPORTED_MEDIA_TYPE
+          - REQUESTED_RANGE_NOT_SATISFIABLE
+          - EXPECTATION_FAILED
+          - IM_A_TEAPOT
+          - MISDIRECTED_REQUEST
+          - UNPROCESSABLE_ENTITY
+          - LOCKED
+          - FAILED_DEPENDENCY
+          - UPGRADE_REQUIRED
+          - PRECONDITION_REQUIRED
+          - TOO_MANY_REQUESTS
+          - REQUEST_HEADERS_FIELDS_TOO_LARGE
+          - INTERNAL_STALE_SERVICE_DISCOVERY
+          - UNAVAILABLE_FOR_LEGAL_REASONS
+          - MIGRATION_IN_PROGRESS
+          - INTERNAL_SERVER_ERROR
+          - NOT_IMPLEMENTED
+          - BAD_GATEWAY
+          - SERVICE_UNAVAILABLE
+          - GATEWAY_TIMEOUT
+          - HTTP_VERSION_NOT_SUPPORTED
+          - VARIANT_ALSO_NEGOTIATES
+          - INSUFFICIENT_STORAGE
+          - LOOP_DETECTED
+          - NOT_EXTENDED
+          - NETWORK_AUTHENTICATION_REQUIRED
+          type: string
+        name:
+          type: string
+      required:
+      - httpStatus
+      - name
+      type: object
+    TimelineEventTemplate:
+      description: The current state of the template definition.
+      example:
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        detailTemplate: detailTemplate
+        name: name
+        tokens:
+        - name: petType
+          label: Pet Type
+          type: enumeration
+          createdAt: 2020-02-12T20:58:26Z
+          updatedAt: 2020-02-12T20:58:26Z
+          objectPropertyName: customPropertyPetType
+          options:
+          - value: dog
+            label: Dog
+          - value: cat
+            label: Cat
+        - name: petType
+          label: Pet Type
+          type: enumeration
+          createdAt: 2020-02-12T20:58:26Z
+          updatedAt: 2020-02-12T20:58:26Z
+          objectPropertyName: customPropertyPetType
+          options:
+          - value: dog
+            label: Dog
+          - value: cat
+            label: Cat
+        id: id
+        headerTemplate: headerTemplate
+        objectType: objectType
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        name:
+          description: The template name.
+          type: string
+        headerTemplate:
+          description: This uses Markdown syntax with Handlebars and event-specific
+            data to render HTML on a timeline as a header.
+          type: string
+        detailTemplate:
+          description: This uses Markdown syntax with Handlebars and event-specific
+            data to render HTML on a timeline when you expand the details.
+          type: string
+        tokens:
+          description: A collection of tokens that can be used as custom properties
+            on the event and to create fully fledged CRM objects.
+          items:
+            $ref: '#/components/schemas/TimelineEventTemplateToken'
+          type: array
+        id:
+          description: The template ID.
+          type: string
+        objectType:
+          description: "The type of CRM object this template is for. [Contacts, companies,\
+            \ tickets, and deals] are supported."
+          type: string
+        createdAt:
+          description: "The date and time that the Event Template was created, as\
+            \ an ISO 8601 timestamp. Will be null if the template was created before\
+            \ Feb 18th, 2020."
+          format: date-time
+          type: string
+        updatedAt:
+          description: "The date and time that the Event Template was last updated,\
+            \ as an ISO 8601 timestamp. Will be null if the template was created before\
+            \ Feb 18th, 2020."
+          format: date-time
+          type: string
+      required:
+      - id
+      - name
+      - objectType
+      - tokens
+      type: object
+    TimelineEventTemplateTokenOption:
+      properties:
+        value:
+          type: string
+        label:
+          type: string
+      required:
+      - label
+      - value
+      type: object
+    TimelineEventTemplateToken:
+      description: State of the token definition.
+      example:
+        name: petType
+        label: Pet Type
+        type: enumeration
+        createdAt: 2020-02-12T20:58:26Z
+        updatedAt: 2020-02-12T20:58:26Z
+        objectPropertyName: customPropertyPetType
+        options:
+        - value: dog
+          label: Dog
+        - value: cat
+          label: Cat
+      properties:
+        label:
+          description: Used for list segmentation and reporting.
+          type: string
+        objectPropertyName:
+          description: "The name of the CRM object property. This will populate the\
+            \ CRM object property associated with the event. With enough of these,\
+            \ you can fully build CRM objects via the Timeline API."
+          type: string
+        options:
+          description: "If type is `enumeration`, we should have a list of options\
+            \ to choose from."
+          items:
+            $ref: '#/components/schemas/TimelineEventTemplateTokenOption'
+          type: array
+        name:
+          description: "The name of the token referenced in the templates. This must\
+            \ be unique for the specific template. It may only contain alphanumeric\
+            \ characters, periods, dashes, or underscores (. - _)."
+          type: string
+        type:
+          description: "The data type of the token. You can currently choose from\
+            \ [string, number, date, enumeration]."
+          enum:
+          - date
+          - enumeration
+          - number
+          - string
+          type: string
+        createdAt:
+          description: "The date and time that the Event Template Token was created,\
+            \ as an ISO 8601 timestamp. Will be null if the template was created before\
+            \ Feb 18th, 2020."
+          format: date-time
+          type: string
+        updatedAt:
+          description: "The date and time that the Event Template Token was last updated,\
+            \ as an ISO 8601 timestamp. Will be null if the template was created before\
+            \ Feb 18th, 2020."
+          format: date-time
+          type: string
+      required:
+      - label
+      - name
+      - options
+      - type
+      type: object
     TimelineEventResponse:
       description: The current state of the timeline event.
       example:
@@ -1477,208 +1697,6 @@ components:
       - objectType
       - tokens
       type: object
-    TimelineEventTemplate:
-      description: The current state of the template definition.
-      example:
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        detailTemplate: detailTemplate
-        name: name
-        tokens:
-        - name: petType
-          label: Pet Type
-          type: enumeration
-          createdAt: 2020-02-12T20:58:26Z
-          updatedAt: 2020-02-12T20:58:26Z
-          objectPropertyName: customPropertyPetType
-          options:
-          - value: dog
-            label: Dog
-          - value: cat
-            label: Cat
-        - name: petType
-          label: Pet Type
-          type: enumeration
-          createdAt: 2020-02-12T20:58:26Z
-          updatedAt: 2020-02-12T20:58:26Z
-          objectPropertyName: customPropertyPetType
-          options:
-          - value: dog
-            label: Dog
-          - value: cat
-            label: Cat
-        id: id
-        headerTemplate: headerTemplate
-        objectType: objectType
-        updatedAt: 2000-01-23T04:56:07.000+00:00
-      properties:
-        name:
-          description: The template name.
-          type: string
-        headerTemplate:
-          description: This uses Markdown syntax with Handlebars and event-specific
-            data to render HTML on a timeline as a header.
-          type: string
-        detailTemplate:
-          description: This uses Markdown syntax with Handlebars and event-specific
-            data to render HTML on a timeline when you expand the details.
-          type: string
-        tokens:
-          description: A collection of tokens that can be used as custom properties
-            on the event and to create fully fledged CRM objects.
-          items:
-            $ref: '#/components/schemas/TimelineEventTemplateToken'
-          type: array
-        id:
-          description: The template ID.
-          type: string
-        objectType:
-          description: "The type of CRM object this template is for. [Contacts, companies,\
-            \ tickets, and deals] are supported."
-          type: string
-        createdAt:
-          description: "The date and time that the Event Template was created, as\
-            \ an ISO 8601 timestamp. Will be null if the template was created before\
-            \ Feb 18th, 2020."
-          format: date-time
-          type: string
-        updatedAt:
-          description: "The date and time that the Event Template was last updated,\
-            \ as an ISO 8601 timestamp. Will be null if the template was created before\
-            \ Feb 18th, 2020."
-          format: date-time
-          type: string
-      required:
-      - id
-      - name
-      - objectType
-      - tokens
-      type: object
-    TimelineEventTemplateCreateRequest:
-      description: State of the template definition being created.
-      example:
-        name: PetSpot Registration
-        objectType: contacts
-        headerTemplate: "Registered for [{{petName}}](https://my.petspot.com/pets/{{petName}})"
-        detailTemplate: "Registration occurred at {{#formatDate timestamp}}{{/formatDate}}\n\
-          \n#### Questions\n{{#each extraData.questions}}\n  **{{question}}**: {{answer}}\n\
-          {{/each}}"
-        tokens:
-        - name: petName
-          label: Pet Name
-          type: string
-        - name: petAge
-          label: Pet Age
-          type: number
-        - name: petColor
-          label: Pet Color
-          type: enumeration
-          options:
-          - value: white
-            label: White
-          - value: black
-            label: Black
-          - value: brown
-            label: Brown
-          - value: other
-            label: Other
-      properties:
-        name:
-          description: The template name.
-          type: string
-        headerTemplate:
-          description: This uses Markdown syntax with Handlebars and event-specific
-            data to render HTML on a timeline as a header.
-          type: string
-        detailTemplate:
-          description: This uses Markdown syntax with Handlebars and event-specific
-            data to render HTML on a timeline when you expand the details.
-          type: string
-        tokens:
-          description: A collection of tokens that can be used as custom properties
-            on the event and to create fully fledged CRM objects.
-          items:
-            $ref: '#/components/schemas/TimelineEventTemplateToken'
-          type: array
-        objectType:
-          description: "The type of CRM object this template is for. [Contacts, companies,\
-            \ tickets, and deals] are supported."
-          type: string
-      required:
-      - name
-      - objectType
-      - tokens
-      type: object
-    TimelineEventTemplateToken:
-      description: State of the token definition.
-      example:
-        name: petType
-        label: Pet Type
-        type: enumeration
-        createdAt: 2020-02-12T20:58:26Z
-        updatedAt: 2020-02-12T20:58:26Z
-        objectPropertyName: customPropertyPetType
-        options:
-        - value: dog
-          label: Dog
-        - value: cat
-          label: Cat
-      properties:
-        label:
-          description: Used for list segmentation and reporting.
-          type: string
-        objectPropertyName:
-          description: "The name of the CRM object property. This will populate the\
-            \ CRM object property associated with the event. With enough of these,\
-            \ you can fully build CRM objects via the Timeline API."
-          type: string
-        options:
-          description: "If type is `enumeration`, we should have a list of options\
-            \ to choose from."
-          items:
-            $ref: '#/components/schemas/TimelineEventTemplateTokenOption'
-          type: array
-        name:
-          description: "The name of the token referenced in the templates. This must\
-            \ be unique for the specific template. It may only contain alphanumeric\
-            \ characters, periods, dashes, or underscores (. - _)."
-          type: string
-        type:
-          description: "The data type of the token. You can currently choose from\
-            \ [string, number, date, enumeration]."
-          enum:
-          - date
-          - enumeration
-          - number
-          - string
-          type: string
-        createdAt:
-          description: "The date and time that the Event Template Token was created,\
-            \ as an ISO 8601 timestamp. Will be null if the template was created before\
-            \ Feb 18th, 2020."
-          format: date-time
-          type: string
-        updatedAt:
-          description: "The date and time that the Event Template Token was last updated,\
-            \ as an ISO 8601 timestamp. Will be null if the template was created before\
-            \ Feb 18th, 2020."
-          format: date-time
-          type: string
-      required:
-      - label
-      - name
-      - options
-      - type
-      type: object
-    TimelineEventTemplateTokenOption:
-      properties:
-        value:
-          type: string
-        label:
-          type: string
-      required:
-      - label
-      - value
-      type: object
     TimelineEventTemplateTokenUpdateRequest:
       description: State of the token definition for update requests.
       example:
@@ -1709,62 +1727,44 @@ components:
       - label
       - options
       type: object
-    TimelineEventTemplateUpdateRequest:
-      description: State of the template definition being updated.
-      example:
-        id: "1001298"
-        name: PetSpot Registration
-        headerTemplate: "Registered for [{{petName}}](https://my.petspot.com/pets/{{petName}})"
-        detailTemplate: "Registration occurred at {{#formatDate timestamp}}{{/formatDate}}\n\
-          \n#### Questions\n{{#each extraData.questions}}\n  **{{question}}**: {{answer}}\n\
-          {{/each}}\n\nEDIT"
-        tokens:
-        - name: petName
-          label: Pet Name
-          type: string
-          objectPropertyName: firstname
-        - name: petAge
-          label: Pet Age
-          type: number
-        - name: petColor
-          label: Pet Color
-          type: enumeration
-          options:
-          - value: white
-            label: White
-          - value: black
-            label: Black
-          - value: brown
-            label: Brown
-          - value: yellow
-            label: Yellow
-          - value: other
-            label: Other
+    BatchResponseTimelineEventResponseWithErrors:
       properties:
-        name:
-          description: The template name.
+        status:
+          enum:
+          - PENDING
+          - PROCESSING
+          - CANCELED
+          - COMPLETE
           type: string
-        headerTemplate:
-          description: This uses Markdown syntax with Handlebars and event-specific
-            data to render HTML on a timeline as a header.
-          type: string
-        detailTemplate:
-          description: This uses Markdown syntax with Handlebars and event-specific
-            data to render HTML on a timeline when you expand the details.
-          type: string
-        tokens:
-          description: A collection of tokens that can be used as custom properties
-            on the event and to create fully fledged CRM objects.
+        results:
           items:
-            $ref: '#/components/schemas/TimelineEventTemplateToken'
+            $ref: '#/components/schemas/TimelineEventResponse'
           type: array
-        id:
-          description: The template ID.
+        numErrors:
+          format: int32
+          type: integer
+        errors:
+          items:
+            $ref: '#/components/schemas/StandardError'
+          type: array
+        requestedAt:
+          format: date-time
           type: string
+        startedAt:
+          format: date-time
+          type: string
+        completedAt:
+          format: date-time
+          type: string
+        links:
+          additionalProperties:
+            type: string
+          type: object
       required:
-      - id
-      - name
-      - tokens
+      - completedAt
+      - results
+      - startedAt
+      - status
       type: object
   securitySchemes:
     oauth2_legacy:
@@ -1773,8 +1773,8 @@ components:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
             contacts: Read from and write to my Contacts
-            timeline: Create timeline events
             tickets: Read and write tickets
+            timeline: Create timeline events
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
     developer_hapikey:
