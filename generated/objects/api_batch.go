@@ -24,31 +24,31 @@ import (
 // BatchApiService BatchApi service
 type BatchApiService service
 
-type ApiPostCrmV3ObjectsObjectTypeBatchArchiveArchiveRequest struct {
+type ApiBatchArchiveRequest struct {
 	ctx                            context.Context
 	ApiService                     *BatchApiService
 	objectType                     string
 	batchInputSimplePublicObjectId *BatchInputSimplePublicObjectId
 }
 
-func (r ApiPostCrmV3ObjectsObjectTypeBatchArchiveArchiveRequest) BatchInputSimplePublicObjectId(batchInputSimplePublicObjectId BatchInputSimplePublicObjectId) ApiPostCrmV3ObjectsObjectTypeBatchArchiveArchiveRequest {
+func (r ApiBatchArchiveRequest) BatchInputSimplePublicObjectId(batchInputSimplePublicObjectId BatchInputSimplePublicObjectId) ApiBatchArchiveRequest {
 	r.batchInputSimplePublicObjectId = &batchInputSimplePublicObjectId
 	return r
 }
 
-func (r ApiPostCrmV3ObjectsObjectTypeBatchArchiveArchiveRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostCrmV3ObjectsObjectTypeBatchArchiveArchiveExecute(r)
+func (r ApiBatchArchiveRequest) Execute() (*http.Response, error) {
+	return r.ApiService.BatchArchiveExecute(r)
 }
 
 /*
-PostCrmV3ObjectsObjectTypeBatchArchiveArchive Archive a batch of objects by ID
+BatchArchive Archive a batch of objects by ID
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param objectType
- @return ApiPostCrmV3ObjectsObjectTypeBatchArchiveArchiveRequest
+ @return ApiBatchArchiveRequest
 */
-func (a *BatchApiService) PostCrmV3ObjectsObjectTypeBatchArchiveArchive(ctx context.Context, objectType string) ApiPostCrmV3ObjectsObjectTypeBatchArchiveArchiveRequest {
-	return ApiPostCrmV3ObjectsObjectTypeBatchArchiveArchiveRequest{
+func (a *BatchApiService) BatchArchive(ctx context.Context, objectType string) ApiBatchArchiveRequest {
+	return ApiBatchArchiveRequest{
 		ApiService: a,
 		ctx:        ctx,
 		objectType: objectType,
@@ -56,14 +56,14 @@ func (a *BatchApiService) PostCrmV3ObjectsObjectTypeBatchArchiveArchive(ctx cont
 }
 
 // Execute executes the request
-func (a *BatchApiService) PostCrmV3ObjectsObjectTypeBatchArchiveArchiveExecute(r ApiPostCrmV3ObjectsObjectTypeBatchArchiveArchiveRequest) (*http.Response, error) {
+func (a *BatchApiService) BatchArchiveExecute(r ApiBatchArchiveRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchApiService.PostCrmV3ObjectsObjectTypeBatchArchiveArchive")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchApiService.BatchArchive")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -142,31 +142,31 @@ func (a *BatchApiService) PostCrmV3ObjectsObjectTypeBatchArchiveArchiveExecute(r
 	return localVarHTTPResponse, nil
 }
 
-type ApiPostCrmV3ObjectsObjectTypeBatchCreateCreateRequest struct {
+type ApiBatchCreateRequest struct {
 	ctx                               context.Context
 	ApiService                        *BatchApiService
 	objectType                        string
 	batchInputSimplePublicObjectInput *BatchInputSimplePublicObjectInput
 }
 
-func (r ApiPostCrmV3ObjectsObjectTypeBatchCreateCreateRequest) BatchInputSimplePublicObjectInput(batchInputSimplePublicObjectInput BatchInputSimplePublicObjectInput) ApiPostCrmV3ObjectsObjectTypeBatchCreateCreateRequest {
+func (r ApiBatchCreateRequest) BatchInputSimplePublicObjectInput(batchInputSimplePublicObjectInput BatchInputSimplePublicObjectInput) ApiBatchCreateRequest {
 	r.batchInputSimplePublicObjectInput = &batchInputSimplePublicObjectInput
 	return r
 }
 
-func (r ApiPostCrmV3ObjectsObjectTypeBatchCreateCreateRequest) Execute() (*BatchResponseSimplePublicObject, *http.Response, error) {
-	return r.ApiService.PostCrmV3ObjectsObjectTypeBatchCreateCreateExecute(r)
+func (r ApiBatchCreateRequest) Execute() (*BatchResponseSimplePublicObject, *http.Response, error) {
+	return r.ApiService.BatchCreateExecute(r)
 }
 
 /*
-PostCrmV3ObjectsObjectTypeBatchCreateCreate Create a batch of objects
+BatchCreate Create a batch of objects
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param objectType
- @return ApiPostCrmV3ObjectsObjectTypeBatchCreateCreateRequest
+ @return ApiBatchCreateRequest
 */
-func (a *BatchApiService) PostCrmV3ObjectsObjectTypeBatchCreateCreate(ctx context.Context, objectType string) ApiPostCrmV3ObjectsObjectTypeBatchCreateCreateRequest {
-	return ApiPostCrmV3ObjectsObjectTypeBatchCreateCreateRequest{
+func (a *BatchApiService) BatchCreate(ctx context.Context, objectType string) ApiBatchCreateRequest {
+	return ApiBatchCreateRequest{
 		ApiService: a,
 		ctx:        ctx,
 		objectType: objectType,
@@ -175,7 +175,7 @@ func (a *BatchApiService) PostCrmV3ObjectsObjectTypeBatchCreateCreate(ctx contex
 
 // Execute executes the request
 //  @return BatchResponseSimplePublicObject
-func (a *BatchApiService) PostCrmV3ObjectsObjectTypeBatchCreateCreateExecute(r ApiPostCrmV3ObjectsObjectTypeBatchCreateCreateRequest) (*BatchResponseSimplePublicObject, *http.Response, error) {
+func (a *BatchApiService) BatchCreateExecute(r ApiBatchCreateRequest) (*BatchResponseSimplePublicObject, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -183,7 +183,7 @@ func (a *BatchApiService) PostCrmV3ObjectsObjectTypeBatchCreateCreateExecute(r A
 		localVarReturnValue *BatchResponseSimplePublicObject
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchApiService.PostCrmV3ObjectsObjectTypeBatchCreateCreate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchApiService.BatchCreate")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -271,7 +271,7 @@ func (a *BatchApiService) PostCrmV3ObjectsObjectTypeBatchCreateCreateExecute(r A
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPostCrmV3ObjectsObjectTypeBatchReadReadRequest struct {
+type ApiBatchReadRequest struct {
 	ctx                                context.Context
 	ApiService                         *BatchApiService
 	objectType                         string
@@ -279,30 +279,30 @@ type ApiPostCrmV3ObjectsObjectTypeBatchReadReadRequest struct {
 	archived                           *bool
 }
 
-func (r ApiPostCrmV3ObjectsObjectTypeBatchReadReadRequest) BatchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId BatchReadInputSimplePublicObjectId) ApiPostCrmV3ObjectsObjectTypeBatchReadReadRequest {
+func (r ApiBatchReadRequest) BatchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId BatchReadInputSimplePublicObjectId) ApiBatchReadRequest {
 	r.batchReadInputSimplePublicObjectId = &batchReadInputSimplePublicObjectId
 	return r
 }
 
 // Whether to return only results that have been archived.
-func (r ApiPostCrmV3ObjectsObjectTypeBatchReadReadRequest) Archived(archived bool) ApiPostCrmV3ObjectsObjectTypeBatchReadReadRequest {
+func (r ApiBatchReadRequest) Archived(archived bool) ApiBatchReadRequest {
 	r.archived = &archived
 	return r
 }
 
-func (r ApiPostCrmV3ObjectsObjectTypeBatchReadReadRequest) Execute() (*BatchResponseSimplePublicObject, *http.Response, error) {
-	return r.ApiService.PostCrmV3ObjectsObjectTypeBatchReadReadExecute(r)
+func (r ApiBatchReadRequest) Execute() (*BatchResponseSimplePublicObject, *http.Response, error) {
+	return r.ApiService.BatchReadExecute(r)
 }
 
 /*
-PostCrmV3ObjectsObjectTypeBatchReadRead Read a batch of objects by internal ID, or unique property values
+BatchRead Read a batch of objects by internal ID, or unique property values
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param objectType
- @return ApiPostCrmV3ObjectsObjectTypeBatchReadReadRequest
+ @return ApiBatchReadRequest
 */
-func (a *BatchApiService) PostCrmV3ObjectsObjectTypeBatchReadRead(ctx context.Context, objectType string) ApiPostCrmV3ObjectsObjectTypeBatchReadReadRequest {
-	return ApiPostCrmV3ObjectsObjectTypeBatchReadReadRequest{
+func (a *BatchApiService) BatchRead(ctx context.Context, objectType string) ApiBatchReadRequest {
+	return ApiBatchReadRequest{
 		ApiService: a,
 		ctx:        ctx,
 		objectType: objectType,
@@ -311,7 +311,7 @@ func (a *BatchApiService) PostCrmV3ObjectsObjectTypeBatchReadRead(ctx context.Co
 
 // Execute executes the request
 //  @return BatchResponseSimplePublicObject
-func (a *BatchApiService) PostCrmV3ObjectsObjectTypeBatchReadReadExecute(r ApiPostCrmV3ObjectsObjectTypeBatchReadReadRequest) (*BatchResponseSimplePublicObject, *http.Response, error) {
+func (a *BatchApiService) BatchReadExecute(r ApiBatchReadRequest) (*BatchResponseSimplePublicObject, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -319,7 +319,7 @@ func (a *BatchApiService) PostCrmV3ObjectsObjectTypeBatchReadReadExecute(r ApiPo
 		localVarReturnValue *BatchResponseSimplePublicObject
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchApiService.PostCrmV3ObjectsObjectTypeBatchReadRead")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchApiService.BatchRead")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -410,31 +410,31 @@ func (a *BatchApiService) PostCrmV3ObjectsObjectTypeBatchReadReadExecute(r ApiPo
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPostCrmV3ObjectsObjectTypeBatchUpdateUpdateRequest struct {
+type ApiBatchUpdateRequest struct {
 	ctx                                    context.Context
 	ApiService                             *BatchApiService
 	objectType                             string
 	batchInputSimplePublicObjectBatchInput *BatchInputSimplePublicObjectBatchInput
 }
 
-func (r ApiPostCrmV3ObjectsObjectTypeBatchUpdateUpdateRequest) BatchInputSimplePublicObjectBatchInput(batchInputSimplePublicObjectBatchInput BatchInputSimplePublicObjectBatchInput) ApiPostCrmV3ObjectsObjectTypeBatchUpdateUpdateRequest {
+func (r ApiBatchUpdateRequest) BatchInputSimplePublicObjectBatchInput(batchInputSimplePublicObjectBatchInput BatchInputSimplePublicObjectBatchInput) ApiBatchUpdateRequest {
 	r.batchInputSimplePublicObjectBatchInput = &batchInputSimplePublicObjectBatchInput
 	return r
 }
 
-func (r ApiPostCrmV3ObjectsObjectTypeBatchUpdateUpdateRequest) Execute() (*BatchResponseSimplePublicObject, *http.Response, error) {
-	return r.ApiService.PostCrmV3ObjectsObjectTypeBatchUpdateUpdateExecute(r)
+func (r ApiBatchUpdateRequest) Execute() (*BatchResponseSimplePublicObject, *http.Response, error) {
+	return r.ApiService.BatchUpdateExecute(r)
 }
 
 /*
-PostCrmV3ObjectsObjectTypeBatchUpdateUpdate Update a batch of objects
+BatchUpdate Update a batch of objects
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param objectType
- @return ApiPostCrmV3ObjectsObjectTypeBatchUpdateUpdateRequest
+ @return ApiBatchUpdateRequest
 */
-func (a *BatchApiService) PostCrmV3ObjectsObjectTypeBatchUpdateUpdate(ctx context.Context, objectType string) ApiPostCrmV3ObjectsObjectTypeBatchUpdateUpdateRequest {
-	return ApiPostCrmV3ObjectsObjectTypeBatchUpdateUpdateRequest{
+func (a *BatchApiService) BatchUpdate(ctx context.Context, objectType string) ApiBatchUpdateRequest {
+	return ApiBatchUpdateRequest{
 		ApiService: a,
 		ctx:        ctx,
 		objectType: objectType,
@@ -443,7 +443,7 @@ func (a *BatchApiService) PostCrmV3ObjectsObjectTypeBatchUpdateUpdate(ctx contex
 
 // Execute executes the request
 //  @return BatchResponseSimplePublicObject
-func (a *BatchApiService) PostCrmV3ObjectsObjectTypeBatchUpdateUpdateExecute(r ApiPostCrmV3ObjectsObjectTypeBatchUpdateUpdateRequest) (*BatchResponseSimplePublicObject, *http.Response, error) {
+func (a *BatchApiService) BatchUpdateExecute(r ApiBatchUpdateRequest) (*BatchResponseSimplePublicObject, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -451,7 +451,7 @@ func (a *BatchApiService) PostCrmV3ObjectsObjectTypeBatchUpdateUpdateExecute(r A
 		localVarReturnValue *BatchResponseSimplePublicObject
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchApiService.PostCrmV3ObjectsObjectTypeBatchUpdateUpdate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchApiService.BatchUpdate")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

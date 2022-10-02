@@ -16,7 +16,7 @@ paths:
     get:
       description: Read a page of contacts. Control what is returned via the `properties`
         query param.
-      operationId: get-/crm/v3/objects/contacts_getPage
+      operationId: GetPage
       parameters:
       - description: The maximum number of results to display per page.
         explode: true
@@ -111,7 +111,7 @@ paths:
       description: "Create a contact with the given properties and return a copy of\
         \ the object, including the ID. Documentation and examples for creating standard\
         \ contacts is provided."
-      operationId: post-/crm/v3/objects/contacts_create
+      operationId: Create
       parameters: []
       requestBody:
         content:
@@ -143,7 +143,7 @@ paths:
       - Basic
   /crm/v3/objects/contacts/batch/archive:
     post:
-      operationId: post-/crm/v3/objects/contacts/batch/archive_archive
+      operationId: BatchArchive
       parameters: []
       requestBody:
         content:
@@ -172,7 +172,7 @@ paths:
       - Batch
   /crm/v3/objects/contacts/batch/create:
     post:
-      operationId: post-/crm/v3/objects/contacts/batch/create_create
+      operationId: BatchCreate
       parameters: []
       requestBody:
         content:
@@ -210,7 +210,7 @@ paths:
       - Batch
   /crm/v3/objects/contacts/batch/read:
     post:
-      operationId: post-/crm/v3/objects/contacts/batch/read_read
+      operationId: BatchRead
       parameters:
       - description: Whether to return only results that have been archived.
         explode: true
@@ -257,7 +257,7 @@ paths:
       - Batch
   /crm/v3/objects/contacts/batch/update:
     post:
-      operationId: post-/crm/v3/objects/contacts/batch/update_update
+      operationId: BatchUpdate
       parameters: []
       requestBody:
         content:
@@ -299,7 +299,7 @@ paths:
         \ GDPR. Use optional property 'idProperty' set to 'email' to identify contact\
         \ by email address. If email address is not found, the email address will\
         \ be added to a blocklist and prevent it from being used in the future."
-      operationId: post-/crm/v3/objects/contacts/gdpr-delete_purge
+      operationId: Delete
       parameters: []
       requestBody:
         content:
@@ -328,7 +328,7 @@ paths:
       - GDPR
   /crm/v3/objects/contacts/merge:
     post:
-      operationId: post-/crm/v3/objects/contacts/merge_merge
+      operationId: Merge
       parameters: []
       requestBody:
         content:
@@ -360,7 +360,7 @@ paths:
       - Public_Object
   /crm/v3/objects/contacts/search:
     post:
-      operationId: post-/crm/v3/objects/contacts/search_doSearch
+      operationId: Search
       parameters: []
       requestBody:
         content:
@@ -394,7 +394,7 @@ paths:
   /crm/v3/objects/contacts/{contactId}:
     delete:
       description: "Move an Object identified by `{contactId}` to the recycling bin."
-      operationId: "delete-/crm/v3/objects/contacts/{contactId}_archive"
+      operationId: Archive
       parameters:
       - explode: false
         in: path
@@ -426,7 +426,7 @@ paths:
       description: "Read an Object identified by `{contactId}`. `{contactId}` refers\
         \ to the internal object ID.  Control what is returned via the `properties`\
         \ query param."
-      operationId: "get-/crm/v3/objects/contacts/{contactId}_getById"
+      operationId: Get
       parameters:
       - explode: false
         in: path
@@ -507,7 +507,7 @@ paths:
         \ `{contactId}` refers to the internal object ID. Provided property values\
         \ will be overwritten. Read-only and non-existent properties will be ignored.\
         \ Properties values can be cleared by passing an empty string."
-      operationId: "patch-/crm/v3/objects/contacts/{contactId}_update"
+      operationId: Update
       parameters:
       - explode: false
         in: path
@@ -546,7 +546,7 @@ paths:
       - Basic
   /crm/v3/objects/contacts/{contactId}/associations/{toObjectType}:
     get:
-      operationId: "get-/crm/v3/objects/contacts/{contactId}/associations/{toObjectType}_getAll"
+      operationId: AssociationsGet
       parameters:
       - explode: false
         in: path
@@ -606,7 +606,7 @@ paths:
       - Associations
   /crm/v3/objects/contacts/{contactId}/associations/{toObjectType}/{toObjectId}/{associationType}:
     delete:
-      operationId: "delete-/crm/v3/objects/contacts/{contactId}/associations/{toObjectType}/{toObjectId}/{associationType}_archive"
+      operationId: AssociationsArchive
       parameters:
       - explode: false
         in: path
@@ -656,7 +656,7 @@ paths:
       tags:
       - Associations
     put:
-      operationId: "put-/crm/v3/objects/contacts/{contactId}/associations/{toObjectType}/{toObjectId}/{associationType}_create"
+      operationId: AssociationsCreate
       parameters:
       - explode: false
         in: path

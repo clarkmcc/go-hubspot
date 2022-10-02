@@ -61,7 +61,7 @@ Each operation can use different server URL defined using `OperationServers` map
 An operation is uniquely identified by `"{classname}Service.{nickname}"` string.
 Similar rules for overriding default operation server index and variables applies by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
 
-```
+```golang
 ctx := context.WithValue(context.Background(), properties.ContextOperationServerIndices, map[string]int{
 	"{classname}Service.{nickname}": 2,
 })
@@ -139,19 +139,19 @@ Note, each API key must be added to a map of `map[string]APIKey` where the key i
 - **Flow**: accessCode
 - **Authorization URL**: https://app.hubspot.com/oauth/authorize
 - **Scopes**: 
- - **crm.objects.companies.read**:  
- - **crm.objects.companies.write**:  
- - **crm.schemas.contacts.read**:  
- - **crm.objects.contacts.write**:  
- - **crm.schemas.quotes.read**: Quotes schemas
- - **crm.objects.contacts.read**:  
- - **crm.schemas.deals.read**:  
- - **crm.objects.deals.write**:  
- - **crm.schemas.line_items.read**: Line Items schemas
- - **crm.objects.deals.read**:  
  - **crm.schemas.companies.read**:  
- - **crm.schemas.contacts.write**:  
+ - **crm.objects.deals.read**:  
+ - **crm.schemas.line_items.read**: Line Items schemas
+ - **crm.objects.deals.write**:  
+ - **crm.schemas.deals.read**:  
+ - **crm.objects.contacts.read**:  
+ - **crm.schemas.quotes.read**: Quotes schemas
+ - **crm.objects.contacts.write**:  
+ - **crm.schemas.contacts.read**:  
+ - **crm.objects.companies.write**:  
+ - **crm.objects.companies.read**:  
  - **crm.schemas.deals.write**:  
+ - **crm.schemas.contacts.write**:  
  - **crm.schemas.companies.write**:  
 
 Example
@@ -181,12 +181,12 @@ r, err := client.Service.Operation(auth, args)
 - **Flow**: accessCode
 - **Authorization URL**: https://app.hubspot.com/oauth/authorize
 - **Scopes**: 
- - **e-commerce**: e-commerce
- - **contacts**: Read from and write to my Contacts
  - **media_bridge.read**: Read media and media events
- - **tickets**: Read and write tickets
- - **crm.schemas.custom.read**: View custom object definitions
+ - **contacts**: Read from and write to my Contacts
+ - **e-commerce**: e-commerce
  - **timeline**: Create timeline events
+ - **crm.schemas.custom.read**: View custom object definitions
+ - **tickets**: Read and write tickets
 
 Example
 

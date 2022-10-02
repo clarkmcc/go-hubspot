@@ -4,13 +4,13 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**PostCrmV3ObjectsContactsGdprDeletePurge**](GDPRApi.md#PostCrmV3ObjectsContactsGdprDeletePurge) | **Post** /crm/v3/objects/contacts/gdpr-delete | GDPR DELETE
+[**Delete**](GDPRApi.md#Delete) | **Post** /crm/v3/objects/contacts/gdpr-delete | GDPR DELETE
 
 
 
-## PostCrmV3ObjectsContactsGdprDeletePurge
+## Delete
 
-> PostCrmV3ObjectsContactsGdprDeletePurge(ctx).PublicGdprDeleteInput(publicGdprDeleteInput).Execute()
+> Delete(ctx).PublicGdprDeleteInput(publicGdprDeleteInput).Execute()
 
 GDPR DELETE
 
@@ -33,9 +33,9 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.GDPRApi.PostCrmV3ObjectsContactsGdprDeletePurge(context.Background()).PublicGdprDeleteInput(publicGdprDeleteInput).Execute()
+    resp, r, err := apiClient.GDPRApi.Delete(context.Background()).PublicGdprDeleteInput(publicGdprDeleteInput).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `GDPRApi.PostCrmV3ObjectsContactsGdprDeletePurge``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `GDPRApi.Delete``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -47,7 +47,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCrmV3ObjectsContactsGdprDeletePurgeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"io"
 	"io/fs"
 	"io/ioutil"
 	"net/http"
@@ -18,6 +19,69 @@ var (
 	replacer     = strings.NewReplacer(" ", "_", "-", "_")
 )
 
+//preProcessMap contains a grouped list of operations to rename before generating typings.
+var preProcessMap = map[string][]preProcessEntry{
+	"Companies": {
+		{old: "get-/crm/v3/objects/companies_getPage", new: "GetPage"},
+		{old: "post-/crm/v3/objects/companies_create", new: "Create"},
+		{old: "post-/crm/v3/objects/companies/merge_merge", new: "Merge"},
+		{old: "post-/crm/v3/objects/companies/search_doSearch", new: "Search"},
+		{old: "get-/crm/v3/objects/companies/{companyId}_getById", new: "Get"},
+		{old: "delete-/crm/v3/objects/companies/{companyId}_archive", new: "Archive"},
+		{old: "patch-/crm/v3/objects/companies/{companyId}_update", new: "Update"},
+		{old: "post-/crm/v3/objects/companies/batch/archive_archive", new: "BatchArchive"},
+		{old: "post-/crm/v3/objects/companies/batch/create_create", new: "BatchCreate"},
+		{old: "post-/crm/v3/objects/companies/batch/read_read", new: "BatchRead"},
+		{old: "post-/crm/v3/objects/companies/batch/update_update", new: "BatchUpdate"},
+		{old: "get-/crm/v3/objects/companies/{companyId}/associations/{toObjectType}_getAll", new: "AssociationsGet"},
+		{old: "put-/crm/v3/objects/companies/{companyId}/associations/{toObjectType}/{toObjectId}/{associationType}_create", new: "AssociationsCreate"},
+		{old: "delete-/crm/v3/objects/companies/{companyId}/associations/{toObjectType}/{toObjectId}/{associationType}_archive", new: "AssociationsArchive"},
+	},
+	"Contacts": {
+		{old: "get-/crm/v3/objects/contacts_getPage", new: "GetPage"},
+		{old: "post-/crm/v3/objects/contacts_create", new: "Create"},
+		{old: "post-/crm/v3/objects/contacts/gdpr-delete_purge", new: "Delete"},
+		{old: "post-/crm/v3/objects/contacts/merge_merge", new: "Merge"},
+		{old: "post-/crm/v3/objects/contacts/search_doSearch", new: "Search"},
+		{old: "get-/crm/v3/objects/contacts/{contactId}_getById", new: "Get"},
+		{old: "delete-/crm/v3/objects/contacts/{contactId}_archive", new: "Archive"},
+		{old: "patch-/crm/v3/objects/contacts/{contactId}_update", new: "Update"},
+		{old: "post-/crm/v3/objects/contacts/batch/archive_archive", new: "BatchArchive"},
+		{old: "post-/crm/v3/objects/contacts/batch/create_create", new: "BatchCreate"},
+		{old: "post-/crm/v3/objects/contacts/batch/read_read", new: "BatchRead"},
+		{old: "post-/crm/v3/objects/contacts/batch/update_update", new: "BatchUpdate"},
+		{old: "get-/crm/v3/objects/contacts/{contactId}/associations/{toObjectType}_getAll", new: "AssociationsGet"},
+		{old: "put-/crm/v3/objects/contacts/{contactId}/associations/{toObjectType}/{toObjectId}/{associationType}_create", new: "AssociationsCreate"},
+		{old: "delete-/crm/v3/objects/contacts/{contactId}/associations/{toObjectType}/{toObjectId}/{associationType}_archive", new: "AssociationsArchive"},
+	},
+	"Events": {
+		{old: "get-/events/v3/events_getPage", new: "GetPage"},
+	},
+	"Objects": {
+		{old: "get-/crm/v3/objects/{objectType}_getPage", new: "GetPage"},
+		{old: "post-/crm/v3/objects/{objectType}_create", new: "Create"},
+		{old: "post-/crm/v3/objects/{objectType}/batch/archive_archive", new: "BatchArchive"},
+		{old: "post-/crm/v3/objects/{objectType}/batch/create_create", new: "BatchCreate"},
+		{old: "post-/crm/v3/objects/{objectType}/batch/read_read", new: "BatchRead"},
+		{old: "post-/crm/v3/objects/{objectType}/batch/update_update", new: "BatchUpdate"},
+		{old: "post-/crm/v3/objects/{objectType}/gdpr-delete_purge", new: "Delete"},
+		{old: "post-/crm/v3/objects/{objectType}/merge_merge", new: "Merge"},
+		{old: "post-/crm/v3/objects/{objectType}/search_doSearch", new: "Search"},
+		{old: "get-/crm/v3/objects/{objectType}/{objectId}_getById", new: "Get"},
+		{old: "delete-/crm/v3/objects/{objectType}/{objectId}_archive", new: "Archive"},
+		{old: "patch-/crm/v3/objects/{objectType}/{objectId}_update", new: "Update"},
+		{old: "get-/crm/v3/objects/{objectType}/{objectId}/associations/{toObjectType}_getAll", new: "AssociationsGet"},
+		{old: "put-/crm/v3/objects/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}/{associationType}_create", new: "AssociationsCreate"},
+		{old: "delete-/crm/v3/objects/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}/{associationType}_archive", new: "AssociationsArchive"},
+	},
+}
+
+// preProcessEntry contains a mapping from an old operation to a new operation.
+type preProcessEntry struct {
+	old string
+	new string
+}
+
 // Directory is the schema for the https://api.hubspot.com/api-catalog-public/v1/apis page which lists all
 // the publicly available APIs.
 type Directory struct {
@@ -28,6 +92,39 @@ type Directory struct {
 			Stage   string `json:"stage"`
 		} `json:"features"`
 	} `json:"results"`
+}
+
+func preProcessResponse(name string, url string) (string, error) {
+	res, err := http.Get(url)
+
+	if err != nil {
+		return "", err
+	}
+
+	defer res.Body.Close()
+
+	b, err := io.ReadAll(res.Body)
+
+	if err != nil {
+		return "", err
+	}
+
+	result := string(b)
+
+	entries := preProcessMap[name]
+
+	for _, entry := range entries {
+		result = strings.ReplaceAll(result, entry.old, entry.new)
+	}
+
+	filename := "./schema/" + name + ".json"
+	err = ioutil.WriteFile(filename, []byte(result), 0644)
+
+	if err != nil {
+		return "", err
+	}
+
+	return filename, nil
 }
 
 func main() {
@@ -57,13 +154,19 @@ func main() {
 	//outer:
 	for _, group := range r.Results {
 		for name, feature := range group.Features {
+			filename, err := preProcessResponse(name, feature.OpenAPI)
+
+			if err != nil {
+				panic(err)
+			}
+
 			//if i > 0 {
 			//	break outer
 			//}
 			name = replacer.Replace(strings.ToLower(name))
 			fmt.Printf("generating group/feature %s/%s\n", strings.ToLower(group.Name), name)
-			_, err := exec.Command(generator, "generate",
-				"-i", feature.OpenAPI,
+			_, err = exec.Command(generator, "generate",
+				"-i", filename,
 				"-g", "go",
 				"--package-name", name,
 				"--additional-properties=isGoSubmodule=false",

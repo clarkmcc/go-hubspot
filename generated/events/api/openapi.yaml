@@ -10,7 +10,7 @@ tags:
 paths:
   /events/v3/events:
     get:
-      operationId: get-/events/v3/events_getPage
+      operationId: GetPage
       parameters:
       - description: The starting time as an ISO 8601 timestamp.
         explode: true

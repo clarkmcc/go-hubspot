@@ -61,7 +61,7 @@ Each operation can use different server URL defined using `OperationServers` map
 An operation is uniquely identified by `"{classname}Service.{nickname}"` string.
 Similar rules for overriding default operation server index and variables applies by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
 
-```
+```golang
 ctx := context.WithValue(context.Background(), timeline.ContextOperationServerIndices, map[string]int{
 	"{classname}Service.{nickname}": 2,
 })
@@ -136,8 +136,8 @@ Note, each API key must be added to a map of `map[string]APIKey` where the key i
 - **Authorization URL**: https://app.hubspot.com/oauth/authorize
 - **Scopes**: 
  - **contacts**: Read from and write to my Contacts
- - **tickets**: Read and write tickets
  - **timeline**: Create timeline events
+ - **tickets**: Read and write tickets
 
 Example
 

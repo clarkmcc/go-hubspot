@@ -4,13 +4,13 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**PostCrmV3ObjectsCompaniesSearchDoSearch**](SearchApi.md#PostCrmV3ObjectsCompaniesSearchDoSearch) | **Post** /crm/v3/objects/companies/search | 
+[**Search**](SearchApi.md#Search) | **Post** /crm/v3/objects/companies/search | 
 
 
 
-## PostCrmV3ObjectsCompaniesSearchDoSearch
+## Search
 
-> CollectionResponseWithTotalSimplePublicObjectForwardPaging PostCrmV3ObjectsCompaniesSearchDoSearch(ctx).PublicObjectSearchRequest(publicObjectSearchRequest).Execute()
+> CollectionResponseWithTotalSimplePublicObjectForwardPaging Search(ctx).PublicObjectSearchRequest(publicObjectSearchRequest).Execute()
 
 
 
@@ -31,13 +31,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SearchApi.PostCrmV3ObjectsCompaniesSearchDoSearch(context.Background()).PublicObjectSearchRequest(publicObjectSearchRequest).Execute()
+    resp, r, err := apiClient.SearchApi.Search(context.Background()).PublicObjectSearchRequest(publicObjectSearchRequest).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SearchApi.PostCrmV3ObjectsCompaniesSearchDoSearch``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SearchApi.Search``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostCrmV3ObjectsCompaniesSearchDoSearch`: CollectionResponseWithTotalSimplePublicObjectForwardPaging
-    fmt.Fprintf(os.Stdout, "Response from `SearchApi.PostCrmV3ObjectsCompaniesSearchDoSearch`: %v\n", resp)
+    // response from `Search`: CollectionResponseWithTotalSimplePublicObjectForwardPaging
+    fmt.Fprintf(os.Stdout, "Response from `SearchApi.Search`: %v\n", resp)
 }
 ```
 
@@ -47,7 +47,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCrmV3ObjectsCompaniesSearchDoSearchRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiSearchRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

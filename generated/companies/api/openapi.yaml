@@ -15,7 +15,7 @@ paths:
     get:
       description: Read a page of companies. Control what is returned via the `properties`
         query param.
-      operationId: get-/crm/v3/objects/companies_getPage
+      operationId: GetPage
       parameters:
       - description: The maximum number of results to display per page.
         explode: true
@@ -110,7 +110,7 @@ paths:
       description: "Create a company with the given properties and return a copy of\
         \ the object, including the ID. Documentation and examples for creating standard\
         \ companies is provided."
-      operationId: post-/crm/v3/objects/companies_create
+      operationId: Create
       parameters: []
       requestBody:
         content:
@@ -142,7 +142,7 @@ paths:
       - Basic
   /crm/v3/objects/companies/batch/archive:
     post:
-      operationId: post-/crm/v3/objects/companies/batch/archive_archive
+      operationId: BatchArchive
       parameters: []
       requestBody:
         content:
@@ -171,7 +171,7 @@ paths:
       - Batch
   /crm/v3/objects/companies/batch/create:
     post:
-      operationId: post-/crm/v3/objects/companies/batch/create_create
+      operationId: BatchCreate
       parameters: []
       requestBody:
         content:
@@ -209,7 +209,7 @@ paths:
       - Batch
   /crm/v3/objects/companies/batch/read:
     post:
-      operationId: post-/crm/v3/objects/companies/batch/read_read
+      operationId: BatchRead
       parameters:
       - description: Whether to return only results that have been archived.
         explode: true
@@ -256,7 +256,7 @@ paths:
       - Batch
   /crm/v3/objects/companies/batch/update:
     post:
-      operationId: post-/crm/v3/objects/companies/batch/update_update
+      operationId: BatchUpdate
       parameters: []
       requestBody:
         content:
@@ -294,7 +294,7 @@ paths:
       - Batch
   /crm/v3/objects/companies/merge:
     post:
-      operationId: post-/crm/v3/objects/companies/merge_merge
+      operationId: Merge
       parameters: []
       requestBody:
         content:
@@ -326,7 +326,7 @@ paths:
       - Public_Object
   /crm/v3/objects/companies/search:
     post:
-      operationId: post-/crm/v3/objects/companies/search_doSearch
+      operationId: Search
       parameters: []
       requestBody:
         content:
@@ -360,7 +360,7 @@ paths:
   /crm/v3/objects/companies/{companyId}:
     delete:
       description: "Move an Object identified by `{companyId}` to the recycling bin."
-      operationId: "delete-/crm/v3/objects/companies/{companyId}_archive"
+      operationId: Archive
       parameters:
       - explode: false
         in: path
@@ -393,7 +393,7 @@ paths:
         \ to the internal object ID by default, or optionally any unique property\
         \ value as specified by the `idProperty` query param.  Control what is returned\
         \ via the `properties` query param."
-      operationId: "get-/crm/v3/objects/companies/{companyId}_getById"
+      operationId: Get
       parameters:
       - explode: false
         in: path
@@ -485,7 +485,7 @@ paths:
         \ Provided property values will be overwritten. Read-only and non-existent\
         \ properties will be ignored. Properties values can be cleared by passing\
         \ an empty string."
-      operationId: "patch-/crm/v3/objects/companies/{companyId}_update"
+      operationId: Update
       parameters:
       - explode: false
         in: path
@@ -533,7 +533,7 @@ paths:
       - Basic
   /crm/v3/objects/companies/{companyId}/associations/{toObjectType}:
     get:
-      operationId: "get-/crm/v3/objects/companies/{companyId}/associations/{toObjectType}_getAll"
+      operationId: AssociationsGet
       parameters:
       - explode: false
         in: path
@@ -593,7 +593,7 @@ paths:
       - Associations
   /crm/v3/objects/companies/{companyId}/associations/{toObjectType}/{toObjectId}/{associationType}:
     delete:
-      operationId: "delete-/crm/v3/objects/companies/{companyId}/associations/{toObjectType}/{toObjectId}/{associationType}_archive"
+      operationId: AssociationsArchive
       parameters:
       - explode: false
         in: path
@@ -643,7 +643,7 @@ paths:
       tags:
       - Associations
     put:
-      operationId: "put-/crm/v3/objects/companies/{companyId}/associations/{toObjectType}/{toObjectId}/{associationType}_create"
+      operationId: AssociationsCreate
       parameters:
       - explode: false
         in: path

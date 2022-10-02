@@ -25,7 +25,7 @@ import (
 // EventsApiService EventsApi service
 type EventsApiService service
 
-type ApiGetEventsV3EventsGetPageRequest struct {
+type ApiGetPageRequest struct {
 	ctx            context.Context
 	ApiService     *EventsApiService
 	occurredAfter  *time.Time
@@ -40,70 +40,70 @@ type ApiGetEventsV3EventsGetPageRequest struct {
 }
 
 // The starting time as an ISO 8601 timestamp.
-func (r ApiGetEventsV3EventsGetPageRequest) OccurredAfter(occurredAfter time.Time) ApiGetEventsV3EventsGetPageRequest {
+func (r ApiGetPageRequest) OccurredAfter(occurredAfter time.Time) ApiGetPageRequest {
 	r.occurredAfter = &occurredAfter
 	return r
 }
 
 // The ending time as an ISO 8601 timestamp.
-func (r ApiGetEventsV3EventsGetPageRequest) OccurredBefore(occurredBefore time.Time) ApiGetEventsV3EventsGetPageRequest {
+func (r ApiGetPageRequest) OccurredBefore(occurredBefore time.Time) ApiGetPageRequest {
 	r.occurredBefore = &occurredBefore
 	return r
 }
 
 // The type of object being selected. Valid values are hubspot named object types (e.g. &#x60;contact&#x60;).
-func (r ApiGetEventsV3EventsGetPageRequest) ObjectType(objectType string) ApiGetEventsV3EventsGetPageRequest {
+func (r ApiGetPageRequest) ObjectType(objectType string) ApiGetPageRequest {
 	r.objectType = &objectType
 	return r
 }
 
 // The id of the selected object. If not present, then the &#x60;objectProperty&#x60; parameter is required.
-func (r ApiGetEventsV3EventsGetPageRequest) ObjectId(objectId int64) ApiGetEventsV3EventsGetPageRequest {
+func (r ApiGetPageRequest) ObjectId(objectId int64) ApiGetPageRequest {
 	r.objectId = &objectId
 	return r
 }
 
 // Limits the response to the specified event type.  For example &#x60;&amp;eventType&#x3D;e_visited_page&#x60; returns only &#x60;e_visited_page&#x60; events.  If not present all event types are returned.
-func (r ApiGetEventsV3EventsGetPageRequest) EventType(eventType string) ApiGetEventsV3EventsGetPageRequest {
+func (r ApiGetPageRequest) EventType(eventType string) ApiGetPageRequest {
 	r.eventType = &eventType
 	return r
 }
 
 // An additional parameter that may be used to get the next &#x60;limit&#x60; set of results.
-func (r ApiGetEventsV3EventsGetPageRequest) After(after string) ApiGetEventsV3EventsGetPageRequest {
+func (r ApiGetPageRequest) After(after string) ApiGetPageRequest {
 	r.after = &after
 	return r
 }
 
-func (r ApiGetEventsV3EventsGetPageRequest) Before(before string) ApiGetEventsV3EventsGetPageRequest {
+func (r ApiGetPageRequest) Before(before string) ApiGetPageRequest {
 	r.before = &before
 	return r
 }
 
 // The maximum number of events to return, defaults to 20.
-func (r ApiGetEventsV3EventsGetPageRequest) Limit(limit int32) ApiGetEventsV3EventsGetPageRequest {
+func (r ApiGetPageRequest) Limit(limit int32) ApiGetPageRequest {
 	r.limit = &limit
 	return r
 }
 
 // Selects the sort field and order. Defaults to ascending, prefix with &#x60;-&#x60; for descending order. &#x60;occurredAt&#x60; is the only field supported for sorting.
-func (r ApiGetEventsV3EventsGetPageRequest) Sort(sort []string) ApiGetEventsV3EventsGetPageRequest {
+func (r ApiGetPageRequest) Sort(sort []string) ApiGetPageRequest {
 	r.sort = &sort
 	return r
 }
 
-func (r ApiGetEventsV3EventsGetPageRequest) Execute() (*CollectionResponseExternalUnifiedEvent, *http.Response, error) {
-	return r.ApiService.GetEventsV3EventsGetPageExecute(r)
+func (r ApiGetPageRequest) Execute() (*CollectionResponseExternalUnifiedEvent, *http.Response, error) {
+	return r.ApiService.GetPageExecute(r)
 }
 
 /*
-GetEventsV3EventsGetPage Returns a collection of events matching a query.
+GetPage Returns a collection of events matching a query.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetEventsV3EventsGetPageRequest
+ @return ApiGetPageRequest
 */
-func (a *EventsApiService) GetEventsV3EventsGetPage(ctx context.Context) ApiGetEventsV3EventsGetPageRequest {
-	return ApiGetEventsV3EventsGetPageRequest{
+func (a *EventsApiService) GetPage(ctx context.Context) ApiGetPageRequest {
+	return ApiGetPageRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -111,7 +111,7 @@ func (a *EventsApiService) GetEventsV3EventsGetPage(ctx context.Context) ApiGetE
 
 // Execute executes the request
 //  @return CollectionResponseExternalUnifiedEvent
-func (a *EventsApiService) GetEventsV3EventsGetPageExecute(r ApiGetEventsV3EventsGetPageRequest) (*CollectionResponseExternalUnifiedEvent, *http.Response, error) {
+func (a *EventsApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionResponseExternalUnifiedEvent, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -119,7 +119,7 @@ func (a *EventsApiService) GetEventsV3EventsGetPageExecute(r ApiGetEventsV3Event
 		localVarReturnValue *CollectionResponseExternalUnifiedEvent
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventsApiService.GetEventsV3EventsGetPage")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventsApiService.GetPage")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

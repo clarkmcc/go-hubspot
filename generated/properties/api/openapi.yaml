@@ -65,9 +65,9 @@ paths:
       - oauth2:
         - crm.schemas.quotes.read
       - oauth2:
-        - crm.objects.companies.read
-      - oauth2:
         - crm.objects.deals.write
+      - oauth2:
+        - crm.objects.companies.read
       - oauth2:
         - crm.schemas.companies.read
       - oauth2_legacy:
@@ -79,9 +79,9 @@ paths:
       - oauth2_legacy:
         - contacts
       - oauth2:
-        - crm.objects.companies.write
-      - oauth2:
         - crm.schemas.line_items.read
+      - oauth2:
+        - crm.objects.companies.write
       summary: Read all properties
       tags:
       - Core
@@ -291,9 +291,9 @@ paths:
       - oauth2:
         - crm.schemas.quotes.read
       - oauth2:
-        - crm.objects.companies.read
-      - oauth2:
         - crm.objects.deals.write
+      - oauth2:
+        - crm.objects.companies.read
       - oauth2:
         - crm.schemas.companies.read
       - oauth2_legacy:
@@ -305,9 +305,9 @@ paths:
       - oauth2_legacy:
         - contacts
       - oauth2:
-        - crm.objects.companies.write
-      - oauth2:
         - crm.schemas.line_items.read
+      - oauth2:
+        - crm.objects.companies.write
       summary: Read a batch of properties
       tags:
       - Batch
@@ -356,9 +356,9 @@ paths:
       - oauth2:
         - crm.schemas.quotes.read
       - oauth2:
-        - crm.objects.companies.read
-      - oauth2:
         - crm.objects.deals.write
+      - oauth2:
+        - crm.objects.companies.read
       - oauth2:
         - crm.schemas.companies.read
       - oauth2_legacy:
@@ -370,9 +370,9 @@ paths:
       - oauth2_legacy:
         - contacts
       - oauth2:
-        - crm.objects.companies.write
-      - oauth2:
         - crm.schemas.line_items.read
+      - oauth2:
+        - crm.objects.companies.write
       summary: Read all property groups
       tags:
       - Groups
@@ -520,9 +520,9 @@ paths:
       - oauth2:
         - crm.schemas.quotes.read
       - oauth2:
-        - crm.objects.companies.read
-      - oauth2:
         - crm.objects.deals.write
+      - oauth2:
+        - crm.objects.companies.read
       - oauth2:
         - crm.schemas.companies.read
       - oauth2_legacy:
@@ -534,9 +534,9 @@ paths:
       - oauth2_legacy:
         - contacts
       - oauth2:
-        - crm.objects.companies.write
-      - oauth2:
         - crm.schemas.line_items.read
+      - oauth2:
+        - crm.objects.companies.write
       summary: Read a property group
       tags:
       - Groups
@@ -701,9 +701,9 @@ paths:
       - oauth2:
         - crm.schemas.quotes.read
       - oauth2:
-        - crm.objects.companies.read
-      - oauth2:
         - crm.objects.deals.write
+      - oauth2:
+        - crm.objects.companies.read
       - oauth2:
         - crm.schemas.companies.read
       - oauth2_legacy:
@@ -715,9 +715,9 @@ paths:
       - oauth2_legacy:
         - contacts
       - oauth2:
-        - crm.objects.companies.write
-      - oauth2:
         - crm.schemas.line_items.read
+      - oauth2:
+        - crm.objects.companies.write
       summary: Read a property
       tags:
       - Core
@@ -1814,12 +1814,12 @@ components:
         authorizationCode:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
-            e-commerce: e-commerce
-            contacts: Read from and write to my Contacts
             media_bridge.read: Read media and media events
-            tickets: Read and write tickets
-            crm.schemas.custom.read: View custom object definitions
+            contacts: Read from and write to my Contacts
+            e-commerce: e-commerce
             timeline: Create timeline events
+            crm.schemas.custom.read: View custom object definitions
+            tickets: Read and write tickets
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
     hapikey:
@@ -1831,19 +1831,19 @@ components:
         authorizationCode:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
-            crm.objects.companies.read: ' '
-            crm.objects.companies.write: ' '
-            crm.schemas.contacts.read: ' '
-            crm.objects.contacts.write: ' '
-            crm.schemas.quotes.read: Quotes schemas
-            crm.objects.contacts.read: ' '
-            crm.schemas.deals.read: ' '
-            crm.objects.deals.write: ' '
-            crm.schemas.line_items.read: Line Items schemas
-            crm.objects.deals.read: ' '
             crm.schemas.companies.read: ' '
-            crm.schemas.contacts.write: ' '
+            crm.objects.deals.read: ' '
+            crm.schemas.line_items.read: Line Items schemas
+            crm.objects.deals.write: ' '
+            crm.schemas.deals.read: ' '
+            crm.objects.contacts.read: ' '
+            crm.schemas.quotes.read: Quotes schemas
+            crm.objects.contacts.write: ' '
+            crm.schemas.contacts.read: ' '
+            crm.objects.companies.write: ' '
+            crm.objects.companies.read: ' '
             crm.schemas.deals.write: ' '
+            crm.schemas.contacts.write: ' '
             crm.schemas.companies.write: ' '
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2

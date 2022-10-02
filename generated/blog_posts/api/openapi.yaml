@@ -161,10 +161,9 @@ paths:
       - Blog Posts
   /cms/v3/blogs/posts/batch/archive:
     post:
-      description: "Delete the Blog Post objects identified in the request body.\n\
-        Note: This is not the same as the in-app `archive` function. To perform a\
-        \ dashboard `archive` send an normal update with the `archivedInDashboard`\
-        \ field set to true."
+      description: |-
+        Delete the Blog Post objects identified in the request body.
+        Note: This is not the same as the in-app `archive` function. To perform a dashboard `archive` send an normal update with the `archivedInDashboard` field set to true.
       operationId: post-/cms/v3/blogs/posts/batch/archive_archiveBatch
       requestBody:
         content:

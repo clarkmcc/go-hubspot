@@ -75,7 +75,7 @@ Each operation can use different server URL defined using `OperationServers` map
 An operation is uniquely identified by `"{classname}Service.{nickname}"` string.
 Similar rules for overriding default operation server index and variables applies by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
 
-```
+```golang
 ctx := context.WithValue(context.Background(), objects.ContextOperationServerIndices, map[string]int{
 	"{classname}Service.{nickname}": 2,
 })
@@ -92,21 +92,21 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*AssociationsApi* | [**DeleteCrmV3ObjectsObjectTypeObjectIdAssociationsToObjectTypeToObjectIdAssociationTypeArchive**](docs/AssociationsApi.md#deletecrmv3objectsobjecttypeobjectidassociationstoobjecttypetoobjectidassociationtypearchive) | **Delete** /crm/v3/objects/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}/{associationType} | Remove an association between two objects
-*AssociationsApi* | [**GetCrmV3ObjectsObjectTypeObjectIdAssociationsToObjectTypeGetAll**](docs/AssociationsApi.md#getcrmv3objectsobjecttypeobjectidassociationstoobjecttypegetall) | **Get** /crm/v3/objects/{objectType}/{objectId}/associations/{toObjectType} | List associations of an object by type
-*AssociationsApi* | [**PutCrmV3ObjectsObjectTypeObjectIdAssociationsToObjectTypeToObjectIdAssociationTypeCreate**](docs/AssociationsApi.md#putcrmv3objectsobjecttypeobjectidassociationstoobjecttypetoobjectidassociationtypecreate) | **Put** /crm/v3/objects/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}/{associationType} | Associate an object with another object
-*BasicApi* | [**DeleteCrmV3ObjectsObjectTypeObjectIdArchive**](docs/BasicApi.md#deletecrmv3objectsobjecttypeobjectidarchive) | **Delete** /crm/v3/objects/{objectType}/{objectId} | Archive
-*BasicApi* | [**GetCrmV3ObjectsObjectTypeGetPage**](docs/BasicApi.md#getcrmv3objectsobjecttypegetpage) | **Get** /crm/v3/objects/{objectType} | List
-*BasicApi* | [**GetCrmV3ObjectsObjectTypeObjectIdGetById**](docs/BasicApi.md#getcrmv3objectsobjecttypeobjectidgetbyid) | **Get** /crm/v3/objects/{objectType}/{objectId} | Read
-*BasicApi* | [**PatchCrmV3ObjectsObjectTypeObjectIdUpdate**](docs/BasicApi.md#patchcrmv3objectsobjecttypeobjectidupdate) | **Patch** /crm/v3/objects/{objectType}/{objectId} | Update
-*BasicApi* | [**PostCrmV3ObjectsObjectTypeCreate**](docs/BasicApi.md#postcrmv3objectsobjecttypecreate) | **Post** /crm/v3/objects/{objectType} | Create
-*BatchApi* | [**PostCrmV3ObjectsObjectTypeBatchArchiveArchive**](docs/BatchApi.md#postcrmv3objectsobjecttypebatcharchivearchive) | **Post** /crm/v3/objects/{objectType}/batch/archive | Archive a batch of objects by ID
-*BatchApi* | [**PostCrmV3ObjectsObjectTypeBatchCreateCreate**](docs/BatchApi.md#postcrmv3objectsobjecttypebatchcreatecreate) | **Post** /crm/v3/objects/{objectType}/batch/create | Create a batch of objects
-*BatchApi* | [**PostCrmV3ObjectsObjectTypeBatchReadRead**](docs/BatchApi.md#postcrmv3objectsobjecttypebatchreadread) | **Post** /crm/v3/objects/{objectType}/batch/read | Read a batch of objects by internal ID, or unique property values
-*BatchApi* | [**PostCrmV3ObjectsObjectTypeBatchUpdateUpdate**](docs/BatchApi.md#postcrmv3objectsobjecttypebatchupdateupdate) | **Post** /crm/v3/objects/{objectType}/batch/update | Update a batch of objects
-*GDPRApi* | [**PostCrmV3ObjectsObjectTypeGdprDeletePurge**](docs/GDPRApi.md#postcrmv3objectsobjecttypegdprdeletepurge) | **Post** /crm/v3/objects/{objectType}/gdpr-delete | GDPR DELETE
-*PublicObjectApi* | [**PostCrmV3ObjectsObjectTypeMergeMerge**](docs/PublicObjectApi.md#postcrmv3objectsobjecttypemergemerge) | **Post** /crm/v3/objects/{objectType}/merge | Merge two objects with same type
-*SearchApi* | [**PostCrmV3ObjectsObjectTypeSearchDoSearch**](docs/SearchApi.md#postcrmv3objectsobjecttypesearchdosearch) | **Post** /crm/v3/objects/{objectType}/search | 
+*AssociationsApi* | [**AssociationsArchive**](docs/AssociationsApi.md#associationsarchive) | **Delete** /crm/v3/objects/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}/{associationType} | Remove an association between two objects
+*AssociationsApi* | [**AssociationsCreate**](docs/AssociationsApi.md#associationscreate) | **Put** /crm/v3/objects/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}/{associationType} | Associate an object with another object
+*AssociationsApi* | [**AssociationsGet**](docs/AssociationsApi.md#associationsget) | **Get** /crm/v3/objects/{objectType}/{objectId}/associations/{toObjectType} | List associations of an object by type
+*BasicApi* | [**Archive**](docs/BasicApi.md#archive) | **Delete** /crm/v3/objects/{objectType}/{objectId} | Archive
+*BasicApi* | [**Create**](docs/BasicApi.md#create) | **Post** /crm/v3/objects/{objectType} | Create
+*BasicApi* | [**Get**](docs/BasicApi.md#get) | **Get** /crm/v3/objects/{objectType}/{objectId} | Read
+*BasicApi* | [**GetPage**](docs/BasicApi.md#getpage) | **Get** /crm/v3/objects/{objectType} | List
+*BasicApi* | [**Update**](docs/BasicApi.md#update) | **Patch** /crm/v3/objects/{objectType}/{objectId} | Update
+*BatchApi* | [**BatchArchive**](docs/BatchApi.md#batcharchive) | **Post** /crm/v3/objects/{objectType}/batch/archive | Archive a batch of objects by ID
+*BatchApi* | [**BatchCreate**](docs/BatchApi.md#batchcreate) | **Post** /crm/v3/objects/{objectType}/batch/create | Create a batch of objects
+*BatchApi* | [**BatchRead**](docs/BatchApi.md#batchread) | **Post** /crm/v3/objects/{objectType}/batch/read | Read a batch of objects by internal ID, or unique property values
+*BatchApi* | [**BatchUpdate**](docs/BatchApi.md#batchupdate) | **Post** /crm/v3/objects/{objectType}/batch/update | Update a batch of objects
+*GDPRApi* | [**Delete**](docs/GDPRApi.md#delete) | **Post** /crm/v3/objects/{objectType}/gdpr-delete | GDPR DELETE
+*PublicObjectApi* | [**Merge**](docs/PublicObjectApi.md#merge) | **Post** /crm/v3/objects/{objectType}/merge | Merge two objects with same type
+*SearchApi* | [**Search**](docs/SearchApi.md#search) | **Post** /crm/v3/objects/{objectType}/search | 
 
 
 ## Documentation For Models
@@ -163,16 +163,16 @@ Note, each API key must be added to a map of `map[string]APIKey` where the key i
 - **Flow**: accessCode
 - **Authorization URL**: https://app.hubspot.com/oauth/authorize
 - **Scopes**: 
- - **crm.objects.deals.read**:  
- - **crm.objects.line_items.read**: Line Items
- - **crm.objects.deals.write**:  
- - **crm.objects.quotes.read**: Quotes
- - **crm.objects.line_items.write**: Line Items
- - **crm.objects.companies.read**:  
- - **crm.objects.companies.write**:  
- - **crm.objects.contacts.write**:  
- - **crm.objects.contacts.read**:  
  - **crm.objects.quotes.write**: Quotes
+ - **crm.objects.contacts.read**:  
+ - **crm.objects.contacts.write**:  
+ - **crm.objects.companies.write**:  
+ - **crm.objects.companies.read**:  
+ - **crm.objects.line_items.write**: Line Items
+ - **crm.objects.quotes.read**: Quotes
+ - **crm.objects.deals.write**:  
+ - **crm.objects.line_items.read**: Line Items
+ - **crm.objects.deals.read**:  
 
 Example
 
@@ -201,12 +201,12 @@ r, err := client.Service.Operation(auth, args)
 - **Flow**: accessCode
 - **Authorization URL**: https://app.hubspot.com/oauth/authorize
 - **Scopes**: 
- - **e-commerce**: e-commerce
- - **crm.objects.custom.write**: Change custom object records
- - **contacts**: Read from and write to my Contacts
  - **crm.objects.custom.read**: View custom object records
- - **tickets**: Read and write tickets
+ - **contacts**: Read from and write to my Contacts
+ - **crm.objects.custom.write**: Change custom object records
+ - **e-commerce**: e-commerce
  - **media_bridge.read**: Read media and media events
+ - **tickets**: Read and write tickets
 
 Example
 

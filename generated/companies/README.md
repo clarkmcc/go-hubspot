@@ -61,7 +61,7 @@ Each operation can use different server URL defined using `OperationServers` map
 An operation is uniquely identified by `"{classname}Service.{nickname}"` string.
 Similar rules for overriding default operation server index and variables applies by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
 
-```
+```golang
 ctx := context.WithValue(context.Background(), companies.ContextOperationServerIndices, map[string]int{
 	"{classname}Service.{nickname}": 2,
 })
@@ -78,20 +78,20 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*AssociationsApi* | [**DeleteCrmV3ObjectsCompaniesCompanyIdAssociationsToObjectTypeToObjectIdAssociationTypeArchive**](docs/AssociationsApi.md#deletecrmv3objectscompaniescompanyidassociationstoobjecttypetoobjectidassociationtypearchive) | **Delete** /crm/v3/objects/companies/{companyId}/associations/{toObjectType}/{toObjectId}/{associationType} | Remove an association between two companies
-*AssociationsApi* | [**GetCrmV3ObjectsCompaniesCompanyIdAssociationsToObjectTypeGetAll**](docs/AssociationsApi.md#getcrmv3objectscompaniescompanyidassociationstoobjecttypegetall) | **Get** /crm/v3/objects/companies/{companyId}/associations/{toObjectType} | List associations of a company by type
-*AssociationsApi* | [**PutCrmV3ObjectsCompaniesCompanyIdAssociationsToObjectTypeToObjectIdAssociationTypeCreate**](docs/AssociationsApi.md#putcrmv3objectscompaniescompanyidassociationstoobjecttypetoobjectidassociationtypecreate) | **Put** /crm/v3/objects/companies/{companyId}/associations/{toObjectType}/{toObjectId}/{associationType} | Associate a company with another object
-*BasicApi* | [**DeleteCrmV3ObjectsCompaniesCompanyIdArchive**](docs/BasicApi.md#deletecrmv3objectscompaniescompanyidarchive) | **Delete** /crm/v3/objects/companies/{companyId} | Archive
-*BasicApi* | [**GetCrmV3ObjectsCompaniesCompanyIdGetById**](docs/BasicApi.md#getcrmv3objectscompaniescompanyidgetbyid) | **Get** /crm/v3/objects/companies/{companyId} | Read
-*BasicApi* | [**GetCrmV3ObjectsCompaniesGetPage**](docs/BasicApi.md#getcrmv3objectscompaniesgetpage) | **Get** /crm/v3/objects/companies | List
-*BasicApi* | [**PatchCrmV3ObjectsCompaniesCompanyIdUpdate**](docs/BasicApi.md#patchcrmv3objectscompaniescompanyidupdate) | **Patch** /crm/v3/objects/companies/{companyId} | Update
-*BasicApi* | [**PostCrmV3ObjectsCompaniesCreate**](docs/BasicApi.md#postcrmv3objectscompaniescreate) | **Post** /crm/v3/objects/companies | Create
-*BatchApi* | [**PostCrmV3ObjectsCompaniesBatchArchiveArchive**](docs/BatchApi.md#postcrmv3objectscompaniesbatcharchivearchive) | **Post** /crm/v3/objects/companies/batch/archive | Archive a batch of companies by ID
-*BatchApi* | [**PostCrmV3ObjectsCompaniesBatchCreateCreate**](docs/BatchApi.md#postcrmv3objectscompaniesbatchcreatecreate) | **Post** /crm/v3/objects/companies/batch/create | Create a batch of companies
-*BatchApi* | [**PostCrmV3ObjectsCompaniesBatchReadRead**](docs/BatchApi.md#postcrmv3objectscompaniesbatchreadread) | **Post** /crm/v3/objects/companies/batch/read | Read a batch of companies by internal ID, or unique property values
-*BatchApi* | [**PostCrmV3ObjectsCompaniesBatchUpdateUpdate**](docs/BatchApi.md#postcrmv3objectscompaniesbatchupdateupdate) | **Post** /crm/v3/objects/companies/batch/update | Update a batch of companies
-*PublicObjectApi* | [**PostCrmV3ObjectsCompaniesMergeMerge**](docs/PublicObjectApi.md#postcrmv3objectscompaniesmergemerge) | **Post** /crm/v3/objects/companies/merge | Merge two companies with same type
-*SearchApi* | [**PostCrmV3ObjectsCompaniesSearchDoSearch**](docs/SearchApi.md#postcrmv3objectscompaniessearchdosearch) | **Post** /crm/v3/objects/companies/search | 
+*AssociationsApi* | [**AssociationsArchive**](docs/AssociationsApi.md#associationsarchive) | **Delete** /crm/v3/objects/companies/{companyId}/associations/{toObjectType}/{toObjectId}/{associationType} | Remove an association between two companies
+*AssociationsApi* | [**AssociationsCreate**](docs/AssociationsApi.md#associationscreate) | **Put** /crm/v3/objects/companies/{companyId}/associations/{toObjectType}/{toObjectId}/{associationType} | Associate a company with another object
+*AssociationsApi* | [**AssociationsGet**](docs/AssociationsApi.md#associationsget) | **Get** /crm/v3/objects/companies/{companyId}/associations/{toObjectType} | List associations of a company by type
+*BasicApi* | [**Archive**](docs/BasicApi.md#archive) | **Delete** /crm/v3/objects/companies/{companyId} | Archive
+*BasicApi* | [**Create**](docs/BasicApi.md#create) | **Post** /crm/v3/objects/companies | Create
+*BasicApi* | [**Get**](docs/BasicApi.md#get) | **Get** /crm/v3/objects/companies/{companyId} | Read
+*BasicApi* | [**GetPage**](docs/BasicApi.md#getpage) | **Get** /crm/v3/objects/companies | List
+*BasicApi* | [**Update**](docs/BasicApi.md#update) | **Patch** /crm/v3/objects/companies/{companyId} | Update
+*BatchApi* | [**BatchArchive**](docs/BatchApi.md#batcharchive) | **Post** /crm/v3/objects/companies/batch/archive | Archive a batch of companies by ID
+*BatchApi* | [**BatchCreate**](docs/BatchApi.md#batchcreate) | **Post** /crm/v3/objects/companies/batch/create | Create a batch of companies
+*BatchApi* | [**BatchRead**](docs/BatchApi.md#batchread) | **Post** /crm/v3/objects/companies/batch/read | Read a batch of companies by internal ID, or unique property values
+*BatchApi* | [**BatchUpdate**](docs/BatchApi.md#batchupdate) | **Post** /crm/v3/objects/companies/batch/update | Update a batch of companies
+*PublicObjectApi* | [**Merge**](docs/PublicObjectApi.md#merge) | **Post** /crm/v3/objects/companies/merge | Merge two companies with same type
+*SearchApi* | [**Search**](docs/SearchApi.md#search) | **Post** /crm/v3/objects/companies/search | 
 
 
 ## Documentation For Models

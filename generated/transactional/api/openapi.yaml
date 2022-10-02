@@ -454,12 +454,9 @@ components:
           additionalProperties:
             properties: {}
             type: object
-          description: "The customProperties field is a map of property values. Each\
-            \ property value contains a name and value property. Each property will\
-            \ be visible in the template under {{ custom.NAME }}.\nNote: Custom properties\
-            \ do not currently support arrays. To provide a listing in an email, one\
-            \ workaround is to build an HTML list (either with tables or ul) and specify\
-            \ it as a custom property."
+          description: |-
+            The customProperties field is a map of property values. Each property value contains a name and value property. Each property will be visible in the template under {{ custom.NAME }}.
+            Note: Custom properties do not currently support arrays. To provide a listing in an email, one workaround is to build an HTML list (either with tables or ul) and specify it as a custom property.
           type: object
       required:
       - emailId

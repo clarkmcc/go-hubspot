@@ -61,7 +61,7 @@ Each operation can use different server URL defined using `OperationServers` map
 An operation is uniquely identified by `"{classname}Service.{nickname}"` string.
 Similar rules for overriding default operation server index and variables applies by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
 
-```
+```golang
 ctx := context.WithValue(context.Background(), events.ContextOperationServerIndices, map[string]int{
 	"{classname}Service.{nickname}": 2,
 })
@@ -78,7 +78,7 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*EventsApi* | [**GetEventsV3EventsGetPage**](docs/EventsApi.md#geteventsv3eventsgetpage) | **Get** /events/v3/events | Returns a collection of events matching a query.
+*EventsApi* | [**GetPage**](docs/EventsApi.md#getpage) | **Get** /events/v3/events | Returns a collection of events matching a query.
 
 
 ## Documentation For Models

@@ -12,11 +12,9 @@ tags:
 - description: Operations to interact with URL settings for an external accounting
     system.
   name: Settings
-- description: "Endpoints that an external accounting system should call when it has\
-    \ finished performing a task requested by HubSpot.\n_Note that all responses to\
-    \ the callback endpoints should contain a `\"@result\"` field, that has a value\
-    \ of either `\"OK\"` or `\"ERR'`, which indicates if the response represents a\
-    \ success or failure of the requested task._\n"
+- description: |
+    Endpoints that an external accounting system should call when it has finished performing a task requested by HubSpot.
+    _Note that all responses to the callback endpoints should contain a `"@result"` field, that has a value of either `"OK"` or `"ERR'`, which indicates if the response represents a success or failure of the requested task._
   name: Callbacks
 - description: Operations to inform HubSpot about some required account details for
     users in an external accounting system.
@@ -959,12 +957,20 @@ components:
         sync:
           additionalProperties:
             $ref: '#/components/schemas/ObjectSyncFeature'
-          description: "Indicates if syncing objects from the external account system\
-            \ into HubSpot is supported for the integration.\nThis is a map, where\
-            \ the key is one of `CONTACT` or `PRODUCT`, to indicate which type of\
-            \ object you do or don't support syncing.\nFor example:\n```\n  \"sync\"\
-            : {\n    \"CONTACT\": {\n      \"toHubSpot\": true\n    },\n    \"PRODUCT\"\
-            : {\n      \"toHubSpot\": true\n    }\n  }\n```\n"
+          description: |
+            Indicates if syncing objects from the external account system into HubSpot is supported for the integration.
+            This is a map, where the key is one of `CONTACT` or `PRODUCT`, to indicate which type of object you do or don't support syncing.
+            For example:
+            ```
+              "sync": {
+                "CONTACT": {
+                  "toHubSpot": true
+                },
+                "PRODUCT": {
+                  "toHubSpot": true
+                }
+              }
+            ```
           type: object
       required:
       - createInvoice

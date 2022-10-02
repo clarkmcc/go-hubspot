@@ -1,21 +1,21 @@
 openapi: 3.0.1
 info:
-  description: "CRM objects such as companies, contacts, deals, line items, products,\
-    \ tickets, and quotes are standard objects in HubSpot’s CRM. These core building\
-    \ blocks support custom properties, store critical information, and play a central\
-    \ role in the HubSpot application.\n\n## Supported Object Types\n\nThis API provides\
-    \ access to collections of CRM objects, which return a map of property names to\
-    \ values. Each object type has its own set of default properties, which can be\
-    \ found by exploring the [CRM Object Properties API](https://developers.hubspot.com/docs/methods/crm-properties/crm-properties-overview).\n\
-    \n|Object Type |Properties returned by default |\n|--|--|\n| `companies` | `name`,\
-    \ `domain` |\n| `contacts` | `firstname`, `lastname`, `email` |\n| `deals` | `dealname`,\
-    \ `amount`, `closedate`, `pipeline`, `dealstage` |\n| `products` | `name`, `description`,\
-    \ `price` |\n| `tickets` | `content`, `hs_pipeline`, `hs_pipeline_stage`, `hs_ticket_category`,\
-    \ `hs_ticket_priority`, `subject` |\n\nFind a list of all properties for an object\
-    \ type using the [CRM Object Properties](https://developers.hubspot.com/docs/methods/crm-properties/get-properties)\
-    \ API. e.g. `GET https://api.hubapi.com/properties/v2/companies/properties`. Change\
-    \ the properties returned in the response using the `properties` array in the\
-    \ request body."
+  description: |-
+    CRM objects such as companies, contacts, deals, line items, products, tickets, and quotes are standard objects in HubSpot’s CRM. These core building blocks support custom properties, store critical information, and play a central role in the HubSpot application.
+
+    ## Supported Object Types
+
+    This API provides access to collections of CRM objects, which return a map of property names to values. Each object type has its own set of default properties, which can be found by exploring the [CRM Object Properties API](https://developers.hubspot.com/docs/methods/crm-properties/crm-properties-overview).
+
+    |Object Type |Properties returned by default |
+    |--|--|
+    | `companies` | `name`, `domain` |
+    | `contacts` | `firstname`, `lastname`, `email` |
+    | `deals` | `dealname`, `amount`, `closedate`, `pipeline`, `dealstage` |
+    | `products` | `name`, `description`, `price` |
+    | `tickets` | `content`, `hs_pipeline`, `hs_pipeline_stage`, `hs_ticket_category`, `hs_ticket_priority`, `subject` |
+
+    Find a list of all properties for an object type using the [CRM Object Properties](https://developers.hubspot.com/docs/methods/crm-properties/get-properties) API. e.g. `GET https://api.hubapi.com/properties/v2/companies/properties`. Change the properties returned in the response using the `properties` array in the request body.
   title: CRM Objects
   version: v3
 servers:
@@ -32,7 +32,7 @@ paths:
     get:
       description: Read a page of objects. Control what is returned via the `properties`
         query param.
-      operationId: "get-/crm/v3/objects/{objectType}_getPage"
+      operationId: GetPage
       parameters:
       - explode: false
         in: path
@@ -125,26 +125,26 @@ paths:
       - oauth2:
         - crm.objects.quotes.write
       - oauth2_legacy:
-        - tickets
-      - oauth2_legacy:
         - media_bridge.read
+      - oauth2_legacy:
+        - tickets
       - oauth2:
         - crm.objects.contacts.read
       - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
       - oauth2:
-        - crm.objects.deals.read
-      - oauth2:
         - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.deals.read
       - oauth2_legacy:
         - crm.objects.custom.read
       - oauth2:
         - crm.objects.line_items.write
       - oauth2:
-        - crm.objects.deals.write
-      - oauth2:
         - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.deals.write
       - oauth2_legacy:
         - e-commerce
       - oauth2:
@@ -162,7 +162,7 @@ paths:
       description: "Create a CRM object with the given properties and return a copy\
         \ of the object, including the ID. Documentation and examples for creating\
         \ standard objects is provided."
-      operationId: "post-/crm/v3/objects/{objectType}_create"
+      operationId: Create
       parameters:
       - explode: false
         in: path
@@ -194,26 +194,26 @@ paths:
       - oauth2:
         - crm.objects.quotes.write
       - oauth2_legacy:
-        - tickets
-      - oauth2_legacy:
         - media_bridge.read
+      - oauth2_legacy:
+        - tickets
       - oauth2:
         - crm.objects.contacts.read
       - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
       - oauth2:
-        - crm.objects.deals.read
-      - oauth2:
         - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.deals.read
       - oauth2_legacy:
         - crm.objects.custom.read
       - oauth2:
         - crm.objects.line_items.write
       - oauth2:
-        - crm.objects.deals.write
-      - oauth2:
         - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.deals.write
       - oauth2_legacy:
         - e-commerce
       - oauth2:
@@ -229,7 +229,7 @@ paths:
       - Basic
   /crm/v3/objects/{objectType}/batch/archive:
     post:
-      operationId: "post-/crm/v3/objects/{objectType}/batch/archive_archive"
+      operationId: BatchArchive
       parameters:
       - explode: false
         in: path
@@ -258,26 +258,26 @@ paths:
       - oauth2:
         - crm.objects.quotes.write
       - oauth2_legacy:
-        - tickets
-      - oauth2_legacy:
         - media_bridge.read
+      - oauth2_legacy:
+        - tickets
       - oauth2:
         - crm.objects.contacts.read
       - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
       - oauth2:
-        - crm.objects.deals.read
-      - oauth2:
         - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.deals.read
       - oauth2_legacy:
         - crm.objects.custom.read
       - oauth2:
         - crm.objects.line_items.write
       - oauth2:
-        - crm.objects.deals.write
-      - oauth2:
         - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.deals.write
       - oauth2_legacy:
         - e-commerce
       - oauth2:
@@ -293,7 +293,7 @@ paths:
       - Batch
   /crm/v3/objects/{objectType}/batch/create:
     post:
-      operationId: "post-/crm/v3/objects/{objectType}/batch/create_create"
+      operationId: BatchCreate
       parameters:
       - explode: false
         in: path
@@ -331,26 +331,26 @@ paths:
       - oauth2:
         - crm.objects.quotes.write
       - oauth2_legacy:
-        - tickets
-      - oauth2_legacy:
         - media_bridge.read
+      - oauth2_legacy:
+        - tickets
       - oauth2:
         - crm.objects.contacts.read
       - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
       - oauth2:
-        - crm.objects.deals.read
-      - oauth2:
         - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.deals.read
       - oauth2_legacy:
         - crm.objects.custom.read
       - oauth2:
         - crm.objects.line_items.write
       - oauth2:
-        - crm.objects.deals.write
-      - oauth2:
         - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.deals.write
       - oauth2_legacy:
         - e-commerce
       - oauth2:
@@ -366,7 +366,7 @@ paths:
       - Batch
   /crm/v3/objects/{objectType}/batch/read:
     post:
-      operationId: "post-/crm/v3/objects/{objectType}/batch/read_read"
+      operationId: BatchRead
       parameters:
       - explode: false
         in: path
@@ -413,26 +413,26 @@ paths:
       - oauth2:
         - crm.objects.quotes.write
       - oauth2_legacy:
-        - tickets
-      - oauth2_legacy:
         - media_bridge.read
+      - oauth2_legacy:
+        - tickets
       - oauth2:
         - crm.objects.contacts.read
       - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
       - oauth2:
-        - crm.objects.deals.read
-      - oauth2:
         - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.deals.read
       - oauth2_legacy:
         - crm.objects.custom.read
       - oauth2:
         - crm.objects.line_items.write
       - oauth2:
-        - crm.objects.deals.write
-      - oauth2:
         - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.deals.write
       - oauth2_legacy:
         - e-commerce
       - oauth2:
@@ -448,7 +448,7 @@ paths:
       - Batch
   /crm/v3/objects/{objectType}/batch/update:
     post:
-      operationId: "post-/crm/v3/objects/{objectType}/batch/update_update"
+      operationId: BatchUpdate
       parameters:
       - explode: false
         in: path
@@ -486,26 +486,26 @@ paths:
       - oauth2:
         - crm.objects.quotes.write
       - oauth2_legacy:
-        - tickets
-      - oauth2_legacy:
         - media_bridge.read
+      - oauth2_legacy:
+        - tickets
       - oauth2:
         - crm.objects.contacts.read
       - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
       - oauth2:
-        - crm.objects.deals.read
-      - oauth2:
         - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.deals.read
       - oauth2_legacy:
         - crm.objects.custom.read
       - oauth2:
         - crm.objects.line_items.write
       - oauth2:
-        - crm.objects.deals.write
-      - oauth2:
         - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.deals.write
       - oauth2_legacy:
         - e-commerce
       - oauth2:
@@ -525,7 +525,7 @@ paths:
         \ GDPR. Use optional property 'idProperty' set to 'email' to identify contact\
         \ by email address. If email address is not found, the email address will\
         \ be added to a blocklist and prevent it from being used in the future."
-      operationId: "post-/crm/v3/objects/{objectType}/gdpr-delete_purge"
+      operationId: Delete
       parameters:
       - explode: false
         in: path
@@ -554,26 +554,26 @@ paths:
       - oauth2:
         - crm.objects.quotes.write
       - oauth2_legacy:
-        - tickets
-      - oauth2_legacy:
         - media_bridge.read
+      - oauth2_legacy:
+        - tickets
       - oauth2:
         - crm.objects.contacts.read
       - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
       - oauth2:
-        - crm.objects.deals.read
-      - oauth2:
         - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.deals.read
       - oauth2_legacy:
         - crm.objects.custom.read
       - oauth2:
         - crm.objects.line_items.write
       - oauth2:
-        - crm.objects.deals.write
-      - oauth2:
         - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.deals.write
       - oauth2_legacy:
         - e-commerce
       - oauth2:
@@ -589,7 +589,7 @@ paths:
       - GDPR
   /crm/v3/objects/{objectType}/merge:
     post:
-      operationId: "post-/crm/v3/objects/{objectType}/merge_merge"
+      operationId: Merge
       parameters:
       - explode: false
         in: path
@@ -621,26 +621,26 @@ paths:
       - oauth2:
         - crm.objects.quotes.write
       - oauth2_legacy:
-        - tickets
-      - oauth2_legacy:
         - media_bridge.read
+      - oauth2_legacy:
+        - tickets
       - oauth2:
         - crm.objects.contacts.read
       - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
       - oauth2:
-        - crm.objects.deals.read
-      - oauth2:
         - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.deals.read
       - oauth2_legacy:
         - crm.objects.custom.read
       - oauth2:
         - crm.objects.line_items.write
       - oauth2:
-        - crm.objects.deals.write
-      - oauth2:
         - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.deals.write
       - oauth2_legacy:
         - e-commerce
       - oauth2:
@@ -656,7 +656,7 @@ paths:
       - Public_Object
   /crm/v3/objects/{objectType}/search:
     post:
-      operationId: "post-/crm/v3/objects/{objectType}/search_doSearch"
+      operationId: Search
       parameters:
       - explode: false
         in: path
@@ -688,26 +688,26 @@ paths:
       - oauth2:
         - crm.objects.quotes.write
       - oauth2_legacy:
-        - tickets
-      - oauth2_legacy:
         - media_bridge.read
+      - oauth2_legacy:
+        - tickets
       - oauth2:
         - crm.objects.contacts.read
       - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
       - oauth2:
-        - crm.objects.deals.read
-      - oauth2:
         - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.deals.read
       - oauth2_legacy:
         - crm.objects.custom.read
       - oauth2:
         - crm.objects.line_items.write
       - oauth2:
-        - crm.objects.deals.write
-      - oauth2:
         - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.deals.write
       - oauth2_legacy:
         - e-commerce
       - oauth2:
@@ -725,7 +725,7 @@ paths:
   /crm/v3/objects/{objectType}/{objectId}:
     delete:
       description: "Move an Object identified by `{objectId}` to the recycling bin."
-      operationId: "delete-/crm/v3/objects/{objectType}/{objectId}_archive"
+      operationId: Archive
       parameters:
       - explode: false
         in: path
@@ -755,26 +755,26 @@ paths:
       - oauth2:
         - crm.objects.quotes.write
       - oauth2_legacy:
-        - tickets
-      - oauth2_legacy:
         - media_bridge.read
+      - oauth2_legacy:
+        - tickets
       - oauth2:
         - crm.objects.contacts.read
       - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
       - oauth2:
-        - crm.objects.deals.read
-      - oauth2:
         - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.deals.read
       - oauth2_legacy:
         - crm.objects.custom.read
       - oauth2:
         - crm.objects.line_items.write
       - oauth2:
-        - crm.objects.deals.write
-      - oauth2:
         - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.deals.write
       - oauth2_legacy:
         - e-commerce
       - oauth2:
@@ -793,7 +793,7 @@ paths:
         \ to the internal object ID by default, or optionally any unique property\
         \ value as specified by the `idProperty` query param.  Control what is returned\
         \ via the `properties` query param."
-      operationId: "get-/crm/v3/objects/{objectType}/{objectId}_getById"
+      operationId: Get
       parameters:
       - explode: false
         in: path
@@ -880,26 +880,26 @@ paths:
       - oauth2:
         - crm.objects.quotes.write
       - oauth2_legacy:
-        - tickets
-      - oauth2_legacy:
         - media_bridge.read
+      - oauth2_legacy:
+        - tickets
       - oauth2:
         - crm.objects.contacts.read
       - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
       - oauth2:
-        - crm.objects.deals.read
-      - oauth2:
         - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.deals.read
       - oauth2_legacy:
         - crm.objects.custom.read
       - oauth2:
         - crm.objects.line_items.write
       - oauth2:
-        - crm.objects.deals.write
-      - oauth2:
         - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.deals.write
       - oauth2_legacy:
         - e-commerce
       - oauth2:
@@ -920,7 +920,7 @@ paths:
         \ Provided property values will be overwritten. Read-only and non-existent\
         \ properties will be ignored. Properties values can be cleared by passing\
         \ an empty string."
-      operationId: "patch-/crm/v3/objects/{objectType}/{objectId}_update"
+      operationId: Update
       parameters:
       - explode: false
         in: path
@@ -968,26 +968,26 @@ paths:
       - oauth2:
         - crm.objects.quotes.write
       - oauth2_legacy:
-        - tickets
-      - oauth2_legacy:
         - media_bridge.read
+      - oauth2_legacy:
+        - tickets
       - oauth2:
         - crm.objects.contacts.read
       - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
       - oauth2:
-        - crm.objects.deals.read
-      - oauth2:
         - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.deals.read
       - oauth2_legacy:
         - crm.objects.custom.read
       - oauth2:
         - crm.objects.line_items.write
       - oauth2:
-        - crm.objects.deals.write
-      - oauth2:
         - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.deals.write
       - oauth2_legacy:
         - e-commerce
       - oauth2:
@@ -1003,7 +1003,7 @@ paths:
       - Basic
   /crm/v3/objects/{objectType}/{objectId}/associations/{toObjectType}:
     get:
-      operationId: "get-/crm/v3/objects/{objectType}/{objectId}/associations/{toObjectType}_getAll"
+      operationId: AssociationsGet
       parameters:
       - explode: false
         in: path
@@ -1063,26 +1063,26 @@ paths:
       - oauth2:
         - crm.objects.quotes.write
       - oauth2_legacy:
-        - tickets
-      - oauth2_legacy:
         - media_bridge.read
+      - oauth2_legacy:
+        - tickets
       - oauth2:
         - crm.objects.contacts.read
       - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
       - oauth2:
-        - crm.objects.deals.read
-      - oauth2:
         - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.deals.read
       - oauth2_legacy:
         - crm.objects.custom.read
       - oauth2:
         - crm.objects.line_items.write
       - oauth2:
-        - crm.objects.deals.write
-      - oauth2:
         - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.deals.write
       - oauth2_legacy:
         - e-commerce
       - oauth2:
@@ -1098,7 +1098,7 @@ paths:
       - Associations
   /crm/v3/objects/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}/{associationType}:
     delete:
-      operationId: "delete-/crm/v3/objects/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}/{associationType}_archive"
+      operationId: AssociationsArchive
       parameters:
       - explode: false
         in: path
@@ -1149,26 +1149,26 @@ paths:
       - oauth2:
         - crm.objects.quotes.write
       - oauth2_legacy:
-        - tickets
-      - oauth2_legacy:
         - media_bridge.read
+      - oauth2_legacy:
+        - tickets
       - oauth2:
         - crm.objects.contacts.read
       - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
       - oauth2:
-        - crm.objects.deals.read
-      - oauth2:
         - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.deals.read
       - oauth2_legacy:
         - crm.objects.custom.read
       - oauth2:
         - crm.objects.line_items.write
       - oauth2:
-        - crm.objects.deals.write
-      - oauth2:
         - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.deals.write
       - oauth2_legacy:
         - e-commerce
       - oauth2:
@@ -1183,7 +1183,7 @@ paths:
       tags:
       - Associations
     put:
-      operationId: "put-/crm/v3/objects/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}/{associationType}_create"
+      operationId: AssociationsCreate
       parameters:
       - explode: false
         in: path
@@ -1237,26 +1237,26 @@ paths:
       - oauth2:
         - crm.objects.quotes.write
       - oauth2_legacy:
-        - tickets
-      - oauth2_legacy:
         - media_bridge.read
+      - oauth2_legacy:
+        - tickets
       - oauth2:
         - crm.objects.contacts.read
       - hapikey: []
       - oauth2:
         - crm.objects.contacts.write
       - oauth2:
-        - crm.objects.deals.read
-      - oauth2:
         - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.deals.read
       - oauth2_legacy:
         - crm.objects.custom.read
       - oauth2:
         - crm.objects.line_items.write
       - oauth2:
-        - crm.objects.deals.write
-      - oauth2:
         - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.deals.write
       - oauth2_legacy:
         - e-commerce
       - oauth2:
@@ -2246,12 +2246,12 @@ components:
         authorizationCode:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
-            e-commerce: e-commerce
-            crm.objects.custom.write: Change custom object records
-            contacts: Read from and write to my Contacts
             crm.objects.custom.read: View custom object records
-            tickets: Read and write tickets
+            contacts: Read from and write to my Contacts
+            crm.objects.custom.write: Change custom object records
+            e-commerce: e-commerce
             media_bridge.read: Read media and media events
+            tickets: Read and write tickets
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
     hapikey:
@@ -2263,16 +2263,16 @@ components:
         authorizationCode:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
-            crm.objects.deals.read: ' '
-            crm.objects.line_items.read: Line Items
-            crm.objects.deals.write: ' '
-            crm.objects.quotes.read: Quotes
-            crm.objects.line_items.write: Line Items
-            crm.objects.companies.read: ' '
-            crm.objects.companies.write: ' '
-            crm.objects.contacts.write: ' '
-            crm.objects.contacts.read: ' '
             crm.objects.quotes.write: Quotes
+            crm.objects.contacts.read: ' '
+            crm.objects.contacts.write: ' '
+            crm.objects.companies.write: ' '
+            crm.objects.companies.read: ' '
+            crm.objects.line_items.write: Line Items
+            crm.objects.quotes.read: Quotes
+            crm.objects.deals.write: ' '
+            crm.objects.line_items.read: Line Items
+            crm.objects.deals.read: ' '
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
 x-hubspot-available-client-libraries:

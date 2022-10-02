@@ -25,29 +25,29 @@ import (
 // BasicApiService BasicApi service
 type BasicApiService service
 
-type ApiDeleteCrmV3ObjectsObjectTypeObjectIdArchiveRequest struct {
+type ApiArchiveRequest struct {
 	ctx        context.Context
 	ApiService *BasicApiService
 	objectType string
 	objectId   string
 }
 
-func (r ApiDeleteCrmV3ObjectsObjectTypeObjectIdArchiveRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteCrmV3ObjectsObjectTypeObjectIdArchiveExecute(r)
+func (r ApiArchiveRequest) Execute() (*http.Response, error) {
+	return r.ApiService.ArchiveExecute(r)
 }
 
 /*
-DeleteCrmV3ObjectsObjectTypeObjectIdArchive Archive
+Archive Archive
 
 Move an Object identified by `{objectId}` to the recycling bin.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param objectType
  @param objectId
- @return ApiDeleteCrmV3ObjectsObjectTypeObjectIdArchiveRequest
+ @return ApiArchiveRequest
 */
-func (a *BasicApiService) DeleteCrmV3ObjectsObjectTypeObjectIdArchive(ctx context.Context, objectType string, objectId string) ApiDeleteCrmV3ObjectsObjectTypeObjectIdArchiveRequest {
-	return ApiDeleteCrmV3ObjectsObjectTypeObjectIdArchiveRequest{
+func (a *BasicApiService) Archive(ctx context.Context, objectType string, objectId string) ApiArchiveRequest {
+	return ApiArchiveRequest{
 		ApiService: a,
 		ctx:        ctx,
 		objectType: objectType,
@@ -56,14 +56,14 @@ func (a *BasicApiService) DeleteCrmV3ObjectsObjectTypeObjectIdArchive(ctx contex
 }
 
 // Execute executes the request
-func (a *BasicApiService) DeleteCrmV3ObjectsObjectTypeObjectIdArchiveExecute(r ApiDeleteCrmV3ObjectsObjectTypeObjectIdArchiveRequest) (*http.Response, error) {
+func (a *BasicApiService) ArchiveExecute(r ApiArchiveRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.DeleteCrmV3ObjectsObjectTypeObjectIdArchive")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.Archive")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -138,7 +138,336 @@ func (a *BasicApiService) DeleteCrmV3ObjectsObjectTypeObjectIdArchiveExecute(r A
 	return localVarHTTPResponse, nil
 }
 
-type ApiGetCrmV3ObjectsObjectTypeGetPageRequest struct {
+type ApiCreateRequest struct {
+	ctx                     context.Context
+	ApiService              *BasicApiService
+	objectType              string
+	simplePublicObjectInput *SimplePublicObjectInput
+}
+
+func (r ApiCreateRequest) SimplePublicObjectInput(simplePublicObjectInput SimplePublicObjectInput) ApiCreateRequest {
+	r.simplePublicObjectInput = &simplePublicObjectInput
+	return r
+}
+
+func (r ApiCreateRequest) Execute() (*SimplePublicObject, *http.Response, error) {
+	return r.ApiService.CreateExecute(r)
+}
+
+/*
+Create Create
+
+Create a CRM object with the given properties and return a copy of the object, including the ID. Documentation and examples for creating standard objects is provided.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param objectType
+ @return ApiCreateRequest
+*/
+func (a *BasicApiService) Create(ctx context.Context, objectType string) ApiCreateRequest {
+	return ApiCreateRequest{
+		ApiService: a,
+		ctx:        ctx,
+		objectType: objectType,
+	}
+}
+
+// Execute executes the request
+//  @return SimplePublicObject
+func (a *BasicApiService) CreateExecute(r ApiCreateRequest) (*SimplePublicObject, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SimplePublicObject
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.Create")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/crm/v3/objects/{objectType}"
+	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterToString(r.objectType, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.simplePublicObjectInput == nil {
+		return localVarReturnValue, nil, reportError("simplePublicObjectInput is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "*/*"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.simplePublicObjectInput
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetRequest struct {
+	ctx                   context.Context
+	ApiService            *BasicApiService
+	objectType            string
+	objectId              string
+	properties            *[]string
+	propertiesWithHistory *[]string
+	associations          *[]string
+	archived              *bool
+	idProperty            *string
+}
+
+// A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
+func (r ApiGetRequest) Properties(properties []string) ApiGetRequest {
+	r.properties = &properties
+	return r
+}
+
+// A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored.
+func (r ApiGetRequest) PropertiesWithHistory(propertiesWithHistory []string) ApiGetRequest {
+	r.propertiesWithHistory = &propertiesWithHistory
+	return r
+}
+
+// A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
+func (r ApiGetRequest) Associations(associations []string) ApiGetRequest {
+	r.associations = &associations
+	return r
+}
+
+// Whether to return only results that have been archived.
+func (r ApiGetRequest) Archived(archived bool) ApiGetRequest {
+	r.archived = &archived
+	return r
+}
+
+// The name of a property whose values are unique for this object type
+func (r ApiGetRequest) IdProperty(idProperty string) ApiGetRequest {
+	r.idProperty = &idProperty
+	return r
+}
+
+func (r ApiGetRequest) Execute() (*SimplePublicObjectWithAssociations, *http.Response, error) {
+	return r.ApiService.GetExecute(r)
+}
+
+/*
+Get Read
+
+Read an Object identified by `{objectId}`. `{objectId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param objectType
+ @param objectId
+ @return ApiGetRequest
+*/
+func (a *BasicApiService) Get(ctx context.Context, objectType string, objectId string) ApiGetRequest {
+	return ApiGetRequest{
+		ApiService: a,
+		ctx:        ctx,
+		objectType: objectType,
+		objectId:   objectId,
+	}
+}
+
+// Execute executes the request
+//  @return SimplePublicObjectWithAssociations
+func (a *BasicApiService) GetExecute(r ApiGetRequest) (*SimplePublicObjectWithAssociations, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SimplePublicObjectWithAssociations
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.Get")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/crm/v3/objects/{objectType}/{objectId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterToString(r.objectType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"objectId"+"}", url.PathEscape(parameterToString(r.objectId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.properties != nil {
+		t := *r.properties
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				localVarQueryParams.Add("properties", parameterToString(s.Index(i), "multi"))
+			}
+		} else {
+			localVarQueryParams.Add("properties", parameterToString(t, "multi"))
+		}
+	}
+	if r.propertiesWithHistory != nil {
+		t := *r.propertiesWithHistory
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				localVarQueryParams.Add("propertiesWithHistory", parameterToString(s.Index(i), "multi"))
+			}
+		} else {
+			localVarQueryParams.Add("propertiesWithHistory", parameterToString(t, "multi"))
+		}
+	}
+	if r.associations != nil {
+		t := *r.associations
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				localVarQueryParams.Add("associations", parameterToString(s.Index(i), "multi"))
+			}
+		} else {
+			localVarQueryParams.Add("associations", parameterToString(t, "multi"))
+		}
+	}
+	if r.archived != nil {
+		localVarQueryParams.Add("archived", parameterToString(*r.archived, ""))
+	}
+	if r.idProperty != nil {
+		localVarQueryParams.Add("idProperty", parameterToString(*r.idProperty, ""))
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "*/*"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetPageRequest struct {
 	ctx                   context.Context
 	ApiService            *BasicApiService
 	objectType            string
@@ -151,56 +480,56 @@ type ApiGetCrmV3ObjectsObjectTypeGetPageRequest struct {
 }
 
 // The maximum number of results to display per page.
-func (r ApiGetCrmV3ObjectsObjectTypeGetPageRequest) Limit(limit int32) ApiGetCrmV3ObjectsObjectTypeGetPageRequest {
+func (r ApiGetPageRequest) Limit(limit int32) ApiGetPageRequest {
 	r.limit = &limit
 	return r
 }
 
 // The paging cursor token of the last successfully read resource will be returned as the &#x60;paging.next.after&#x60; JSON property of a paged response containing more results.
-func (r ApiGetCrmV3ObjectsObjectTypeGetPageRequest) After(after string) ApiGetCrmV3ObjectsObjectTypeGetPageRequest {
+func (r ApiGetPageRequest) After(after string) ApiGetPageRequest {
 	r.after = &after
 	return r
 }
 
 // A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
-func (r ApiGetCrmV3ObjectsObjectTypeGetPageRequest) Properties(properties []string) ApiGetCrmV3ObjectsObjectTypeGetPageRequest {
+func (r ApiGetPageRequest) Properties(properties []string) ApiGetPageRequest {
 	r.properties = &properties
 	return r
 }
 
 // A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored. Usage of this parameter will reduce the maximum number of objects that can be read by a single request.
-func (r ApiGetCrmV3ObjectsObjectTypeGetPageRequest) PropertiesWithHistory(propertiesWithHistory []string) ApiGetCrmV3ObjectsObjectTypeGetPageRequest {
+func (r ApiGetPageRequest) PropertiesWithHistory(propertiesWithHistory []string) ApiGetPageRequest {
 	r.propertiesWithHistory = &propertiesWithHistory
 	return r
 }
 
 // A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
-func (r ApiGetCrmV3ObjectsObjectTypeGetPageRequest) Associations(associations []string) ApiGetCrmV3ObjectsObjectTypeGetPageRequest {
+func (r ApiGetPageRequest) Associations(associations []string) ApiGetPageRequest {
 	r.associations = &associations
 	return r
 }
 
 // Whether to return only results that have been archived.
-func (r ApiGetCrmV3ObjectsObjectTypeGetPageRequest) Archived(archived bool) ApiGetCrmV3ObjectsObjectTypeGetPageRequest {
+func (r ApiGetPageRequest) Archived(archived bool) ApiGetPageRequest {
 	r.archived = &archived
 	return r
 }
 
-func (r ApiGetCrmV3ObjectsObjectTypeGetPageRequest) Execute() (*CollectionResponseSimplePublicObjectWithAssociationsForwardPaging, *http.Response, error) {
-	return r.ApiService.GetCrmV3ObjectsObjectTypeGetPageExecute(r)
+func (r ApiGetPageRequest) Execute() (*CollectionResponseSimplePublicObjectWithAssociationsForwardPaging, *http.Response, error) {
+	return r.ApiService.GetPageExecute(r)
 }
 
 /*
-GetCrmV3ObjectsObjectTypeGetPage List
+GetPage List
 
 Read a page of objects. Control what is returned via the `properties` query param.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param objectType
- @return ApiGetCrmV3ObjectsObjectTypeGetPageRequest
+ @return ApiGetPageRequest
 */
-func (a *BasicApiService) GetCrmV3ObjectsObjectTypeGetPage(ctx context.Context, objectType string) ApiGetCrmV3ObjectsObjectTypeGetPageRequest {
-	return ApiGetCrmV3ObjectsObjectTypeGetPageRequest{
+func (a *BasicApiService) GetPage(ctx context.Context, objectType string) ApiGetPageRequest {
+	return ApiGetPageRequest{
 		ApiService: a,
 		ctx:        ctx,
 		objectType: objectType,
@@ -209,7 +538,7 @@ func (a *BasicApiService) GetCrmV3ObjectsObjectTypeGetPage(ctx context.Context, 
 
 // Execute executes the request
 //  @return CollectionResponseSimplePublicObjectWithAssociationsForwardPaging
-func (a *BasicApiService) GetCrmV3ObjectsObjectTypeGetPageExecute(r ApiGetCrmV3ObjectsObjectTypeGetPageRequest) (*CollectionResponseSimplePublicObjectWithAssociationsForwardPaging, *http.Response, error) {
+func (a *BasicApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionResponseSimplePublicObjectWithAssociationsForwardPaging, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -217,7 +546,7 @@ func (a *BasicApiService) GetCrmV3ObjectsObjectTypeGetPageExecute(r ApiGetCrmV3O
 		localVarReturnValue *CollectionResponseSimplePublicObjectWithAssociationsForwardPaging
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.GetCrmV3ObjectsObjectTypeGetPage")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.GetPage")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -342,205 +671,7 @@ func (a *BasicApiService) GetCrmV3ObjectsObjectTypeGetPageExecute(r ApiGetCrmV3O
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetCrmV3ObjectsObjectTypeObjectIdGetByIdRequest struct {
-	ctx                   context.Context
-	ApiService            *BasicApiService
-	objectType            string
-	objectId              string
-	properties            *[]string
-	propertiesWithHistory *[]string
-	associations          *[]string
-	archived              *bool
-	idProperty            *string
-}
-
-// A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
-func (r ApiGetCrmV3ObjectsObjectTypeObjectIdGetByIdRequest) Properties(properties []string) ApiGetCrmV3ObjectsObjectTypeObjectIdGetByIdRequest {
-	r.properties = &properties
-	return r
-}
-
-// A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored.
-func (r ApiGetCrmV3ObjectsObjectTypeObjectIdGetByIdRequest) PropertiesWithHistory(propertiesWithHistory []string) ApiGetCrmV3ObjectsObjectTypeObjectIdGetByIdRequest {
-	r.propertiesWithHistory = &propertiesWithHistory
-	return r
-}
-
-// A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
-func (r ApiGetCrmV3ObjectsObjectTypeObjectIdGetByIdRequest) Associations(associations []string) ApiGetCrmV3ObjectsObjectTypeObjectIdGetByIdRequest {
-	r.associations = &associations
-	return r
-}
-
-// Whether to return only results that have been archived.
-func (r ApiGetCrmV3ObjectsObjectTypeObjectIdGetByIdRequest) Archived(archived bool) ApiGetCrmV3ObjectsObjectTypeObjectIdGetByIdRequest {
-	r.archived = &archived
-	return r
-}
-
-// The name of a property whose values are unique for this object type
-func (r ApiGetCrmV3ObjectsObjectTypeObjectIdGetByIdRequest) IdProperty(idProperty string) ApiGetCrmV3ObjectsObjectTypeObjectIdGetByIdRequest {
-	r.idProperty = &idProperty
-	return r
-}
-
-func (r ApiGetCrmV3ObjectsObjectTypeObjectIdGetByIdRequest) Execute() (*SimplePublicObjectWithAssociations, *http.Response, error) {
-	return r.ApiService.GetCrmV3ObjectsObjectTypeObjectIdGetByIdExecute(r)
-}
-
-/*
-GetCrmV3ObjectsObjectTypeObjectIdGetById Read
-
-Read an Object identified by `{objectId}`. `{objectId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param objectType
- @param objectId
- @return ApiGetCrmV3ObjectsObjectTypeObjectIdGetByIdRequest
-*/
-func (a *BasicApiService) GetCrmV3ObjectsObjectTypeObjectIdGetById(ctx context.Context, objectType string, objectId string) ApiGetCrmV3ObjectsObjectTypeObjectIdGetByIdRequest {
-	return ApiGetCrmV3ObjectsObjectTypeObjectIdGetByIdRequest{
-		ApiService: a,
-		ctx:        ctx,
-		objectType: objectType,
-		objectId:   objectId,
-	}
-}
-
-// Execute executes the request
-//  @return SimplePublicObjectWithAssociations
-func (a *BasicApiService) GetCrmV3ObjectsObjectTypeObjectIdGetByIdExecute(r ApiGetCrmV3ObjectsObjectTypeObjectIdGetByIdRequest) (*SimplePublicObjectWithAssociations, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *SimplePublicObjectWithAssociations
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.GetCrmV3ObjectsObjectTypeObjectIdGetById")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/crm/v3/objects/{objectType}/{objectId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterToString(r.objectType, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"objectId"+"}", url.PathEscape(parameterToString(r.objectId, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	if r.properties != nil {
-		t := *r.properties
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("properties", parameterToString(s.Index(i), "multi"))
-			}
-		} else {
-			localVarQueryParams.Add("properties", parameterToString(t, "multi"))
-		}
-	}
-	if r.propertiesWithHistory != nil {
-		t := *r.propertiesWithHistory
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("propertiesWithHistory", parameterToString(s.Index(i), "multi"))
-			}
-		} else {
-			localVarQueryParams.Add("propertiesWithHistory", parameterToString(t, "multi"))
-		}
-	}
-	if r.associations != nil {
-		t := *r.associations
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("associations", parameterToString(s.Index(i), "multi"))
-			}
-		} else {
-			localVarQueryParams.Add("associations", parameterToString(t, "multi"))
-		}
-	}
-	if r.archived != nil {
-		localVarQueryParams.Add("archived", parameterToString(*r.archived, ""))
-	}
-	if r.idProperty != nil {
-		localVarQueryParams.Add("idProperty", parameterToString(*r.idProperty, ""))
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "*/*"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		var v Error
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiPatchCrmV3ObjectsObjectTypeObjectIdUpdateRequest struct {
+type ApiUpdateRequest struct {
 	ctx                     context.Context
 	ApiService              *BasicApiService
 	objectType              string
@@ -549,33 +680,33 @@ type ApiPatchCrmV3ObjectsObjectTypeObjectIdUpdateRequest struct {
 	idProperty              *string
 }
 
-func (r ApiPatchCrmV3ObjectsObjectTypeObjectIdUpdateRequest) SimplePublicObjectInput(simplePublicObjectInput SimplePublicObjectInput) ApiPatchCrmV3ObjectsObjectTypeObjectIdUpdateRequest {
+func (r ApiUpdateRequest) SimplePublicObjectInput(simplePublicObjectInput SimplePublicObjectInput) ApiUpdateRequest {
 	r.simplePublicObjectInput = &simplePublicObjectInput
 	return r
 }
 
 // The name of a property whose values are unique for this object type
-func (r ApiPatchCrmV3ObjectsObjectTypeObjectIdUpdateRequest) IdProperty(idProperty string) ApiPatchCrmV3ObjectsObjectTypeObjectIdUpdateRequest {
+func (r ApiUpdateRequest) IdProperty(idProperty string) ApiUpdateRequest {
 	r.idProperty = &idProperty
 	return r
 }
 
-func (r ApiPatchCrmV3ObjectsObjectTypeObjectIdUpdateRequest) Execute() (*SimplePublicObject, *http.Response, error) {
-	return r.ApiService.PatchCrmV3ObjectsObjectTypeObjectIdUpdateExecute(r)
+func (r ApiUpdateRequest) Execute() (*SimplePublicObject, *http.Response, error) {
+	return r.ApiService.UpdateExecute(r)
 }
 
 /*
-PatchCrmV3ObjectsObjectTypeObjectIdUpdate Update
+Update Update
 
 Perform a partial update of an Object identified by `{objectId}`. `{objectId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param. Provided property values will be overwritten. Read-only and non-existent properties will be ignored. Properties values can be cleared by passing an empty string.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param objectType
  @param objectId
- @return ApiPatchCrmV3ObjectsObjectTypeObjectIdUpdateRequest
+ @return ApiUpdateRequest
 */
-func (a *BasicApiService) PatchCrmV3ObjectsObjectTypeObjectIdUpdate(ctx context.Context, objectType string, objectId string) ApiPatchCrmV3ObjectsObjectTypeObjectIdUpdateRequest {
-	return ApiPatchCrmV3ObjectsObjectTypeObjectIdUpdateRequest{
+func (a *BasicApiService) Update(ctx context.Context, objectType string, objectId string) ApiUpdateRequest {
+	return ApiUpdateRequest{
 		ApiService: a,
 		ctx:        ctx,
 		objectType: objectType,
@@ -585,7 +716,7 @@ func (a *BasicApiService) PatchCrmV3ObjectsObjectTypeObjectIdUpdate(ctx context.
 
 // Execute executes the request
 //  @return SimplePublicObject
-func (a *BasicApiService) PatchCrmV3ObjectsObjectTypeObjectIdUpdateExecute(r ApiPatchCrmV3ObjectsObjectTypeObjectIdUpdateRequest) (*SimplePublicObject, *http.Response, error) {
+func (a *BasicApiService) UpdateExecute(r ApiUpdateRequest) (*SimplePublicObject, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
 		localVarPostBody    interface{}
@@ -593,7 +724,7 @@ func (a *BasicApiService) PatchCrmV3ObjectsObjectTypeObjectIdUpdateExecute(r Api
 		localVarReturnValue *SimplePublicObject
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.PatchCrmV3ObjectsObjectTypeObjectIdUpdate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.Update")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -612,137 +743,6 @@ func (a *BasicApiService) PatchCrmV3ObjectsObjectTypeObjectIdUpdateExecute(r Api
 	if r.idProperty != nil {
 		localVarQueryParams.Add("idProperty", parameterToString(*r.idProperty, ""))
 	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "*/*"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.simplePublicObjectInput
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		var v Error
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiPostCrmV3ObjectsObjectTypeCreateRequest struct {
-	ctx                     context.Context
-	ApiService              *BasicApiService
-	objectType              string
-	simplePublicObjectInput *SimplePublicObjectInput
-}
-
-func (r ApiPostCrmV3ObjectsObjectTypeCreateRequest) SimplePublicObjectInput(simplePublicObjectInput SimplePublicObjectInput) ApiPostCrmV3ObjectsObjectTypeCreateRequest {
-	r.simplePublicObjectInput = &simplePublicObjectInput
-	return r
-}
-
-func (r ApiPostCrmV3ObjectsObjectTypeCreateRequest) Execute() (*SimplePublicObject, *http.Response, error) {
-	return r.ApiService.PostCrmV3ObjectsObjectTypeCreateExecute(r)
-}
-
-/*
-PostCrmV3ObjectsObjectTypeCreate Create
-
-Create a CRM object with the given properties and return a copy of the object, including the ID. Documentation and examples for creating standard objects is provided.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param objectType
- @return ApiPostCrmV3ObjectsObjectTypeCreateRequest
-*/
-func (a *BasicApiService) PostCrmV3ObjectsObjectTypeCreate(ctx context.Context, objectType string) ApiPostCrmV3ObjectsObjectTypeCreateRequest {
-	return ApiPostCrmV3ObjectsObjectTypeCreateRequest{
-		ApiService: a,
-		ctx:        ctx,
-		objectType: objectType,
-	}
-}
-
-// Execute executes the request
-//  @return SimplePublicObject
-func (a *BasicApiService) PostCrmV3ObjectsObjectTypeCreateExecute(r ApiPostCrmV3ObjectsObjectTypeCreateRequest) (*SimplePublicObject, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *SimplePublicObject
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.PostCrmV3ObjectsObjectTypeCreate")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/crm/v3/objects/{objectType}"
-	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterToString(r.objectType, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.simplePublicObjectInput == nil {
-		return localVarReturnValue, nil, reportError("simplePublicObjectInput is required and must be specified")
-	}
-
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 

@@ -24,33 +24,33 @@ import (
 // GDPRApiService GDPRApi service
 type GDPRApiService service
 
-type ApiPostCrmV3ObjectsObjectTypeGdprDeletePurgeRequest struct {
+type ApiDeleteRequest struct {
 	ctx                   context.Context
 	ApiService            *GDPRApiService
 	objectType            string
 	publicGdprDeleteInput *PublicGdprDeleteInput
 }
 
-func (r ApiPostCrmV3ObjectsObjectTypeGdprDeletePurgeRequest) PublicGdprDeleteInput(publicGdprDeleteInput PublicGdprDeleteInput) ApiPostCrmV3ObjectsObjectTypeGdprDeletePurgeRequest {
+func (r ApiDeleteRequest) PublicGdprDeleteInput(publicGdprDeleteInput PublicGdprDeleteInput) ApiDeleteRequest {
 	r.publicGdprDeleteInput = &publicGdprDeleteInput
 	return r
 }
 
-func (r ApiPostCrmV3ObjectsObjectTypeGdprDeletePurgeRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostCrmV3ObjectsObjectTypeGdprDeletePurgeExecute(r)
+func (r ApiDeleteRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteExecute(r)
 }
 
 /*
-PostCrmV3ObjectsObjectTypeGdprDeletePurge GDPR DELETE
+Delete GDPR DELETE
 
 Permanently delete a contact and all associated content to follow GDPR. Use optional property 'idProperty' set to 'email' to identify contact by email address. If email address is not found, the email address will be added to a blocklist and prevent it from being used in the future.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param objectType
- @return ApiPostCrmV3ObjectsObjectTypeGdprDeletePurgeRequest
+ @return ApiDeleteRequest
 */
-func (a *GDPRApiService) PostCrmV3ObjectsObjectTypeGdprDeletePurge(ctx context.Context, objectType string) ApiPostCrmV3ObjectsObjectTypeGdprDeletePurgeRequest {
-	return ApiPostCrmV3ObjectsObjectTypeGdprDeletePurgeRequest{
+func (a *GDPRApiService) Delete(ctx context.Context, objectType string) ApiDeleteRequest {
+	return ApiDeleteRequest{
 		ApiService: a,
 		ctx:        ctx,
 		objectType: objectType,
@@ -58,14 +58,14 @@ func (a *GDPRApiService) PostCrmV3ObjectsObjectTypeGdprDeletePurge(ctx context.C
 }
 
 // Execute executes the request
-func (a *GDPRApiService) PostCrmV3ObjectsObjectTypeGdprDeletePurgeExecute(r ApiPostCrmV3ObjectsObjectTypeGdprDeletePurgeRequest) (*http.Response, error) {
+func (a *GDPRApiService) DeleteExecute(r ApiDeleteRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GDPRApiService.PostCrmV3ObjectsObjectTypeGdprDeletePurge")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GDPRApiService.Delete")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}

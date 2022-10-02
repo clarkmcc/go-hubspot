@@ -4,17 +4,17 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteCrmV3ObjectsContactsContactIdArchive**](BasicApi.md#DeleteCrmV3ObjectsContactsContactIdArchive) | **Delete** /crm/v3/objects/contacts/{contactId} | Archive
-[**GetCrmV3ObjectsContactsContactIdGetById**](BasicApi.md#GetCrmV3ObjectsContactsContactIdGetById) | **Get** /crm/v3/objects/contacts/{contactId} | Read
-[**GetCrmV3ObjectsContactsGetPage**](BasicApi.md#GetCrmV3ObjectsContactsGetPage) | **Get** /crm/v3/objects/contacts | List
-[**PatchCrmV3ObjectsContactsContactIdUpdate**](BasicApi.md#PatchCrmV3ObjectsContactsContactIdUpdate) | **Patch** /crm/v3/objects/contacts/{contactId} | Update
-[**PostCrmV3ObjectsContactsCreate**](BasicApi.md#PostCrmV3ObjectsContactsCreate) | **Post** /crm/v3/objects/contacts | Create
+[**Archive**](BasicApi.md#Archive) | **Delete** /crm/v3/objects/contacts/{contactId} | Archive
+[**Create**](BasicApi.md#Create) | **Post** /crm/v3/objects/contacts | Create
+[**Get**](BasicApi.md#Get) | **Get** /crm/v3/objects/contacts/{contactId} | Read
+[**GetPage**](BasicApi.md#GetPage) | **Get** /crm/v3/objects/contacts | List
+[**Update**](BasicApi.md#Update) | **Patch** /crm/v3/objects/contacts/{contactId} | Update
 
 
 
-## DeleteCrmV3ObjectsContactsContactIdArchive
+## Archive
 
-> DeleteCrmV3ObjectsContactsContactIdArchive(ctx, contactId).Execute()
+> Archive(ctx, contactId).Execute()
 
 Archive
 
@@ -37,9 +37,9 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BasicApi.DeleteCrmV3ObjectsContactsContactIdArchive(context.Background(), contactId).Execute()
+    resp, r, err := apiClient.BasicApi.Archive(context.Background(), contactId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.DeleteCrmV3ObjectsContactsContactIdArchive``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.Archive``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -55,7 +55,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteCrmV3ObjectsContactsContactIdArchiveRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiArchiveRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -80,9 +80,75 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetCrmV3ObjectsContactsContactIdGetById
+## Create
 
-> SimplePublicObjectWithAssociations GetCrmV3ObjectsContactsContactIdGetById(ctx, contactId).Properties(properties).PropertiesWithHistory(propertiesWithHistory).Associations(associations).Archived(archived).Execute()
+> SimplePublicObject Create(ctx).SimplePublicObjectInput(simplePublicObjectInput).Execute()
+
+Create
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    simplePublicObjectInput := *openapiclient.NewSimplePublicObjectInput(map[string]string{"key": "Inner_example"}) // SimplePublicObjectInput | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.BasicApi.Create(context.Background()).SimplePublicObjectInput(simplePublicObjectInput).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.Create``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `Create`: SimplePublicObject
+    fmt.Fprintf(os.Stdout, "Response from `BasicApi.Create`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **simplePublicObjectInput** | [**SimplePublicObjectInput**](SimplePublicObjectInput.md) |  | 
+
+### Return type
+
+[**SimplePublicObject**](SimplePublicObject.md)
+
+### Authorization
+
+[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, */*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## Get
+
+> SimplePublicObjectWithAssociations Get(ctx, contactId).Properties(properties).PropertiesWithHistory(propertiesWithHistory).Associations(associations).Archived(archived).Execute()
 
 Read
 
@@ -109,13 +175,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BasicApi.GetCrmV3ObjectsContactsContactIdGetById(context.Background(), contactId).Properties(properties).PropertiesWithHistory(propertiesWithHistory).Associations(associations).Archived(archived).Execute()
+    resp, r, err := apiClient.BasicApi.Get(context.Background(), contactId).Properties(properties).PropertiesWithHistory(propertiesWithHistory).Associations(associations).Archived(archived).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.GetCrmV3ObjectsContactsContactIdGetById``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.Get``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetCrmV3ObjectsContactsContactIdGetById`: SimplePublicObjectWithAssociations
-    fmt.Fprintf(os.Stdout, "Response from `BasicApi.GetCrmV3ObjectsContactsContactIdGetById`: %v\n", resp)
+    // response from `Get`: SimplePublicObjectWithAssociations
+    fmt.Fprintf(os.Stdout, "Response from `BasicApi.Get`: %v\n", resp)
 }
 ```
 
@@ -129,7 +195,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetCrmV3ObjectsContactsContactIdGetByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -158,9 +224,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetCrmV3ObjectsContactsGetPage
+## GetPage
 
-> CollectionResponseSimplePublicObjectWithAssociationsForwardPaging GetCrmV3ObjectsContactsGetPage(ctx).Limit(limit).After(after).Properties(properties).PropertiesWithHistory(propertiesWithHistory).Associations(associations).Archived(archived).Execute()
+> CollectionResponseSimplePublicObjectWithAssociationsForwardPaging GetPage(ctx).Limit(limit).After(after).Properties(properties).PropertiesWithHistory(propertiesWithHistory).Associations(associations).Archived(archived).Execute()
 
 List
 
@@ -188,13 +254,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BasicApi.GetCrmV3ObjectsContactsGetPage(context.Background()).Limit(limit).After(after).Properties(properties).PropertiesWithHistory(propertiesWithHistory).Associations(associations).Archived(archived).Execute()
+    resp, r, err := apiClient.BasicApi.GetPage(context.Background()).Limit(limit).After(after).Properties(properties).PropertiesWithHistory(propertiesWithHistory).Associations(associations).Archived(archived).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.GetCrmV3ObjectsContactsGetPage``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.GetPage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetCrmV3ObjectsContactsGetPage`: CollectionResponseSimplePublicObjectWithAssociationsForwardPaging
-    fmt.Fprintf(os.Stdout, "Response from `BasicApi.GetCrmV3ObjectsContactsGetPage`: %v\n", resp)
+    // response from `GetPage`: CollectionResponseSimplePublicObjectWithAssociationsForwardPaging
+    fmt.Fprintf(os.Stdout, "Response from `BasicApi.GetPage`: %v\n", resp)
 }
 ```
 
@@ -204,7 +270,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetCrmV3ObjectsContactsGetPageRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetPageRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -234,9 +300,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PatchCrmV3ObjectsContactsContactIdUpdate
+## Update
 
-> SimplePublicObject PatchCrmV3ObjectsContactsContactIdUpdate(ctx, contactId).SimplePublicObjectInput(simplePublicObjectInput).Execute()
+> SimplePublicObject Update(ctx, contactId).SimplePublicObjectInput(simplePublicObjectInput).Execute()
 
 Update
 
@@ -260,13 +326,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BasicApi.PatchCrmV3ObjectsContactsContactIdUpdate(context.Background(), contactId).SimplePublicObjectInput(simplePublicObjectInput).Execute()
+    resp, r, err := apiClient.BasicApi.Update(context.Background(), contactId).SimplePublicObjectInput(simplePublicObjectInput).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.PatchCrmV3ObjectsContactsContactIdUpdate``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.Update``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PatchCrmV3ObjectsContactsContactIdUpdate`: SimplePublicObject
-    fmt.Fprintf(os.Stdout, "Response from `BasicApi.PatchCrmV3ObjectsContactsContactIdUpdate`: %v\n", resp)
+    // response from `Update`: SimplePublicObject
+    fmt.Fprintf(os.Stdout, "Response from `BasicApi.Update`: %v\n", resp)
 }
 ```
 
@@ -280,78 +346,12 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPatchCrmV3ObjectsContactsContactIdUpdateRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiUpdateRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **simplePublicObjectInput** | [**SimplePublicObjectInput**](SimplePublicObjectInput.md) |  | 
-
-### Return type
-
-[**SimplePublicObject**](SimplePublicObject.md)
-
-### Authorization
-
-[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json, */*
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostCrmV3ObjectsContactsCreate
-
-> SimplePublicObject PostCrmV3ObjectsContactsCreate(ctx).SimplePublicObjectInput(simplePublicObjectInput).Execute()
-
-Create
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    simplePublicObjectInput := *openapiclient.NewSimplePublicObjectInput(map[string]string{"key": "Inner_example"}) // SimplePublicObjectInput | 
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BasicApi.PostCrmV3ObjectsContactsCreate(context.Background()).SimplePublicObjectInput(simplePublicObjectInput).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.PostCrmV3ObjectsContactsCreate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostCrmV3ObjectsContactsCreate`: SimplePublicObject
-    fmt.Fprintf(os.Stdout, "Response from `BasicApi.PostCrmV3ObjectsContactsCreate`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostCrmV3ObjectsContactsCreateRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
  **simplePublicObjectInput** | [**SimplePublicObjectInput**](SimplePublicObjectInput.md) |  | 
 
 ### Return type

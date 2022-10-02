@@ -720,10 +720,9 @@ paths:
             application/json:
               example:
                 functionType: PRE_ACTION_EXECUTION
-                functionSource: "exports.main = (event, callback) => { return callback(transformRequest(event));\
-                  \ };\nfunction transformRequest(request) { return { webhookUrl:\
-                  \ request.webhookUrl, body: JSON.stringify(request.body), httpMethod:\
-                  \ \"POST\" } }"
+                functionSource: |-
+                  exports.main = (event, callback) => { return callback(transformRequest(event)); };
+                  function transformRequest(request) { return { webhookUrl: request.webhookUrl, body: JSON.stringify(request.body), httpMethod: "POST" } }
               schema:
                 $ref: '#/components/schemas/ActionFunction'
           description: successful operation
@@ -909,10 +908,9 @@ paths:
               example:
                 functionType: PRE_FETCH_OPTIONS
                 id: widgetSize
-                functionSource: "exports.main = (event, callback) => { return callback(transformRequest(event));\
-                  \ };\nfunction transformRequest(request) { return { webhookUrl:\
-                  \ request.webhookUrl, body: JSON.stringify(request.body), httpMethod:\
-                  \ \"POST\" } }"
+                functionSource: |-
+                  exports.main = (event, callback) => { return callback(transformRequest(event)); };
+                  function transformRequest(request) { return { webhookUrl: request.webhookUrl, body: JSON.stringify(request.body), httpMethod: "POST" } }
               schema:
                 $ref: '#/components/schemas/ActionFunction'
           description: successful operation
@@ -2692,3 +2690,8 @@ components:
       in: query
       name: hapikey
       type: apiKey
+x-hubspot-available-client-libraries:
+- PHP
+- Node
+- Python
+- Ruby

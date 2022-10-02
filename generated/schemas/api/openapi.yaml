@@ -1090,8 +1090,8 @@ components:
         authorizationCode:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
-            crm.objects.custom.read: View custom object records
             crm.schemas.custom.read: View custom object definitions
+            crm.objects.custom.read: View custom object records
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
     hapikey:

@@ -61,7 +61,7 @@ Each operation can use different server URL defined using `OperationServers` map
 An operation is uniquely identified by `"{classname}Service.{nickname}"` string.
 Similar rules for overriding default operation server index and variables applies by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
 
-```
+```golang
 ctx := context.WithValue(context.Background(), contacts.ContextOperationServerIndices, map[string]int{
 	"{classname}Service.{nickname}": 2,
 })
@@ -78,21 +78,21 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*AssociationsApi* | [**DeleteCrmV3ObjectsContactsContactIdAssociationsToObjectTypeToObjectIdAssociationTypeArchive**](docs/AssociationsApi.md#deletecrmv3objectscontactscontactidassociationstoobjecttypetoobjectidassociationtypearchive) | **Delete** /crm/v3/objects/contacts/{contactId}/associations/{toObjectType}/{toObjectId}/{associationType} | Remove an association between two contacts
-*AssociationsApi* | [**GetCrmV3ObjectsContactsContactIdAssociationsToObjectTypeGetAll**](docs/AssociationsApi.md#getcrmv3objectscontactscontactidassociationstoobjecttypegetall) | **Get** /crm/v3/objects/contacts/{contactId}/associations/{toObjectType} | List associations of a contact by type
-*AssociationsApi* | [**PutCrmV3ObjectsContactsContactIdAssociationsToObjectTypeToObjectIdAssociationTypeCreate**](docs/AssociationsApi.md#putcrmv3objectscontactscontactidassociationstoobjecttypetoobjectidassociationtypecreate) | **Put** /crm/v3/objects/contacts/{contactId}/associations/{toObjectType}/{toObjectId}/{associationType} | Associate a contact with another object
-*BasicApi* | [**DeleteCrmV3ObjectsContactsContactIdArchive**](docs/BasicApi.md#deletecrmv3objectscontactscontactidarchive) | **Delete** /crm/v3/objects/contacts/{contactId} | Archive
-*BasicApi* | [**GetCrmV3ObjectsContactsContactIdGetById**](docs/BasicApi.md#getcrmv3objectscontactscontactidgetbyid) | **Get** /crm/v3/objects/contacts/{contactId} | Read
-*BasicApi* | [**GetCrmV3ObjectsContactsGetPage**](docs/BasicApi.md#getcrmv3objectscontactsgetpage) | **Get** /crm/v3/objects/contacts | List
-*BasicApi* | [**PatchCrmV3ObjectsContactsContactIdUpdate**](docs/BasicApi.md#patchcrmv3objectscontactscontactidupdate) | **Patch** /crm/v3/objects/contacts/{contactId} | Update
-*BasicApi* | [**PostCrmV3ObjectsContactsCreate**](docs/BasicApi.md#postcrmv3objectscontactscreate) | **Post** /crm/v3/objects/contacts | Create
-*BatchApi* | [**PostCrmV3ObjectsContactsBatchArchiveArchive**](docs/BatchApi.md#postcrmv3objectscontactsbatcharchivearchive) | **Post** /crm/v3/objects/contacts/batch/archive | Archive a batch of contacts by ID
-*BatchApi* | [**PostCrmV3ObjectsContactsBatchCreateCreate**](docs/BatchApi.md#postcrmv3objectscontactsbatchcreatecreate) | **Post** /crm/v3/objects/contacts/batch/create | Create a batch of contacts
-*BatchApi* | [**PostCrmV3ObjectsContactsBatchReadRead**](docs/BatchApi.md#postcrmv3objectscontactsbatchreadread) | **Post** /crm/v3/objects/contacts/batch/read | Read a batch of contacts by internal ID, or unique property values
-*BatchApi* | [**PostCrmV3ObjectsContactsBatchUpdateUpdate**](docs/BatchApi.md#postcrmv3objectscontactsbatchupdateupdate) | **Post** /crm/v3/objects/contacts/batch/update | Update a batch of contacts
-*GDPRApi* | [**PostCrmV3ObjectsContactsGdprDeletePurge**](docs/GDPRApi.md#postcrmv3objectscontactsgdprdeletepurge) | **Post** /crm/v3/objects/contacts/gdpr-delete | GDPR DELETE
-*PublicObjectApi* | [**PostCrmV3ObjectsContactsMergeMerge**](docs/PublicObjectApi.md#postcrmv3objectscontactsmergemerge) | **Post** /crm/v3/objects/contacts/merge | Merge two contacts with same type
-*SearchApi* | [**PostCrmV3ObjectsContactsSearchDoSearch**](docs/SearchApi.md#postcrmv3objectscontactssearchdosearch) | **Post** /crm/v3/objects/contacts/search | 
+*AssociationsApi* | [**AssociationsArchive**](docs/AssociationsApi.md#associationsarchive) | **Delete** /crm/v3/objects/contacts/{contactId}/associations/{toObjectType}/{toObjectId}/{associationType} | Remove an association between two contacts
+*AssociationsApi* | [**AssociationsCreate**](docs/AssociationsApi.md#associationscreate) | **Put** /crm/v3/objects/contacts/{contactId}/associations/{toObjectType}/{toObjectId}/{associationType} | Associate a contact with another object
+*AssociationsApi* | [**AssociationsGet**](docs/AssociationsApi.md#associationsget) | **Get** /crm/v3/objects/contacts/{contactId}/associations/{toObjectType} | List associations of a contact by type
+*BasicApi* | [**Archive**](docs/BasicApi.md#archive) | **Delete** /crm/v3/objects/contacts/{contactId} | Archive
+*BasicApi* | [**Create**](docs/BasicApi.md#create) | **Post** /crm/v3/objects/contacts | Create
+*BasicApi* | [**Get**](docs/BasicApi.md#get) | **Get** /crm/v3/objects/contacts/{contactId} | Read
+*BasicApi* | [**GetPage**](docs/BasicApi.md#getpage) | **Get** /crm/v3/objects/contacts | List
+*BasicApi* | [**Update**](docs/BasicApi.md#update) | **Patch** /crm/v3/objects/contacts/{contactId} | Update
+*BatchApi* | [**BatchArchive**](docs/BatchApi.md#batcharchive) | **Post** /crm/v3/objects/contacts/batch/archive | Archive a batch of contacts by ID
+*BatchApi* | [**BatchCreate**](docs/BatchApi.md#batchcreate) | **Post** /crm/v3/objects/contacts/batch/create | Create a batch of contacts
+*BatchApi* | [**BatchRead**](docs/BatchApi.md#batchread) | **Post** /crm/v3/objects/contacts/batch/read | Read a batch of contacts by internal ID, or unique property values
+*BatchApi* | [**BatchUpdate**](docs/BatchApi.md#batchupdate) | **Post** /crm/v3/objects/contacts/batch/update | Update a batch of contacts
+*GDPRApi* | [**Delete**](docs/GDPRApi.md#delete) | **Post** /crm/v3/objects/contacts/gdpr-delete | GDPR DELETE
+*PublicObjectApi* | [**Merge**](docs/PublicObjectApi.md#merge) | **Post** /crm/v3/objects/contacts/merge | Merge two contacts with same type
+*SearchApi* | [**Search**](docs/SearchApi.md#search) | **Post** /crm/v3/objects/contacts/search | 
 
 
 ## Documentation For Models

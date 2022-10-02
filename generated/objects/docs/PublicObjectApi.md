@@ -4,13 +4,13 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**PostCrmV3ObjectsObjectTypeMergeMerge**](PublicObjectApi.md#PostCrmV3ObjectsObjectTypeMergeMerge) | **Post** /crm/v3/objects/{objectType}/merge | Merge two objects with same type
+[**Merge**](PublicObjectApi.md#Merge) | **Post** /crm/v3/objects/{objectType}/merge | Merge two objects with same type
 
 
 
-## PostCrmV3ObjectsObjectTypeMergeMerge
+## Merge
 
-> SimplePublicObject PostCrmV3ObjectsObjectTypeMergeMerge(ctx, objectType).PublicMergeInput(publicMergeInput).Execute()
+> SimplePublicObject Merge(ctx, objectType).PublicMergeInput(publicMergeInput).Execute()
 
 Merge two objects with same type
 
@@ -32,13 +32,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PublicObjectApi.PostCrmV3ObjectsObjectTypeMergeMerge(context.Background(), objectType).PublicMergeInput(publicMergeInput).Execute()
+    resp, r, err := apiClient.PublicObjectApi.Merge(context.Background(), objectType).PublicMergeInput(publicMergeInput).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PublicObjectApi.PostCrmV3ObjectsObjectTypeMergeMerge``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `PublicObjectApi.Merge``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostCrmV3ObjectsObjectTypeMergeMerge`: SimplePublicObject
-    fmt.Fprintf(os.Stdout, "Response from `PublicObjectApi.PostCrmV3ObjectsObjectTypeMergeMerge`: %v\n", resp)
+    // response from `Merge`: SimplePublicObject
+    fmt.Fprintf(os.Stdout, "Response from `PublicObjectApi.Merge`: %v\n", resp)
 }
 ```
 
@@ -52,7 +52,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCrmV3ObjectsObjectTypeMergeMergeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiMergeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

@@ -61,7 +61,7 @@ Each operation can use different server URL defined using `OperationServers` map
 An operation is uniquely identified by `"{classname}Service.{nickname}"` string.
 Similar rules for overriding default operation server index and variables applies by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
 
-```
+```golang
 ctx := context.WithValue(context.Background(), associations.ContextOperationServerIndices, map[string]int{
 	"{classname}Service.{nickname}": 2,
 })
@@ -124,16 +124,16 @@ Note, each API key must be added to a map of `map[string]APIKey` where the key i
 - **Flow**: accessCode
 - **Authorization URL**: https://app.hubspot.com/oauth/authorize
 - **Scopes**: 
- - **crm.objects.deals.read**:  
- - **crm.objects.line_items.read**: Line Items
- - **crm.objects.deals.write**:  
- - **crm.objects.quotes.read**: Quotes
- - **crm.objects.line_items.write**: Line Items
- - **crm.objects.companies.read**:  
- - **crm.objects.companies.write**:  
- - **crm.objects.contacts.write**:  
- - **crm.objects.contacts.read**:  
  - **crm.objects.quotes.write**: Quotes
+ - **crm.objects.contacts.read**:  
+ - **crm.objects.contacts.write**:  
+ - **crm.objects.companies.write**:  
+ - **crm.objects.companies.read**:  
+ - **crm.objects.line_items.write**: Line Items
+ - **crm.objects.quotes.read**: Quotes
+ - **crm.objects.deals.write**:  
+ - **crm.objects.line_items.read**: Line Items
+ - **crm.objects.deals.read**:  
 
 Example
 
@@ -162,12 +162,12 @@ r, err := client.Service.Operation(auth, args)
 - **Flow**: accessCode
 - **Authorization URL**: https://app.hubspot.com/oauth/authorize
 - **Scopes**: 
- - **e-commerce**: e-commerce
- - **crm.objects.custom.write**: Change custom object records
- - **contacts**: Read from and write to my Contacts
  - **crm.objects.custom.read**: View custom object records
- - **tickets**: Read and write tickets
+ - **contacts**: Read from and write to my Contacts
+ - **crm.objects.custom.write**: Change custom object records
+ - **e-commerce**: e-commerce
  - **media_bridge.read**: Read media and media events
+ - **tickets**: Read and write tickets
 
 Example
 

@@ -4,13 +4,13 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetEventsV3EventsGetPage**](EventsApi.md#GetEventsV3EventsGetPage) | **Get** /events/v3/events | Returns a collection of events matching a query.
+[**GetPage**](EventsApi.md#GetPage) | **Get** /events/v3/events | Returns a collection of events matching a query.
 
 
 
-## GetEventsV3EventsGetPage
+## GetPage
 
-> CollectionResponseExternalUnifiedEvent GetEventsV3EventsGetPage(ctx).OccurredAfter(occurredAfter).OccurredBefore(occurredBefore).ObjectType(objectType).ObjectId(objectId).EventType(eventType).After(after).Before(before).Limit(limit).Sort(sort).Execute()
+> CollectionResponseExternalUnifiedEvent GetPage(ctx).OccurredAfter(occurredAfter).OccurredBefore(occurredBefore).ObjectType(objectType).ObjectId(objectId).EventType(eventType).After(after).Before(before).Limit(limit).Sort(sort).Execute()
 
 Returns a collection of events matching a query.
 
@@ -40,13 +40,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.EventsApi.GetEventsV3EventsGetPage(context.Background()).OccurredAfter(occurredAfter).OccurredBefore(occurredBefore).ObjectType(objectType).ObjectId(objectId).EventType(eventType).After(after).Before(before).Limit(limit).Sort(sort).Execute()
+    resp, r, err := apiClient.EventsApi.GetPage(context.Background()).OccurredAfter(occurredAfter).OccurredBefore(occurredBefore).ObjectType(objectType).ObjectId(objectId).EventType(eventType).After(after).Before(before).Limit(limit).Sort(sort).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.GetEventsV3EventsGetPage``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.GetPage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetEventsV3EventsGetPage`: CollectionResponseExternalUnifiedEvent
-    fmt.Fprintf(os.Stdout, "Response from `EventsApi.GetEventsV3EventsGetPage`: %v\n", resp)
+    // response from `GetPage`: CollectionResponseExternalUnifiedEvent
+    fmt.Fprintf(os.Stdout, "Response from `EventsApi.GetPage`: %v\n", resp)
 }
 ```
 
@@ -56,7 +56,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetEventsV3EventsGetPageRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetPageRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

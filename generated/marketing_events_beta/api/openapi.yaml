@@ -1,10 +1,10 @@
 openapi: 3.0.1
 info:
-  description: "These APIs allow you to interact with HubSpot's Marketing Events Extension.\
-    \ It allows you to:\n* Create, Read or update Marketing Event information in HubSpot\n\
-    * Specify whether a HubSpot contact has registered, attended or cancelled a registration\
-    \ to a Marketing Event.\n* Specify a URL that can be called to get the details\
-    \ of a Marketing Event.\n"
+  description: |
+    These APIs allow you to interact with HubSpot's Marketing Events Extension. It allows you to:
+    * Create, Read or update Marketing Event information in HubSpot
+    * Specify whether a HubSpot contact has registered, attended or cancelled a registration to a Marketing Event.
+    * Specify a URL that can be called to get the details of a Marketing Event.
   title: Marketing Events Extension
   version: v3
 servers:
@@ -697,14 +697,9 @@ components:
             to `false`
           type: boolean
         customProperties:
-          description: "A list of PropertyValues. These can be whatever kind of property\
-            \ names and values you want. However, they must already exist on the HubSpot\
-            \ account's definition of the MarketingEvent Object. If they don't they\
-            \ will be filtered out and not set.\nIn order to do this you'll need to\
-            \ create a new PropertyGroup on the HubSpot account's MarketingEvent object\
-            \ for your specific app and create the Custom Property you want to track\
-            \ on that HubSpot account. Do not create any new default properties on\
-            \ the MarketingEvent object as that will apply to all HubSpot accounts.\n"
+          description: |
+            A list of PropertyValues. These can be whatever kind of property names and values you want. However, they must already exist on the HubSpot account's definition of the MarketingEvent Object. If they don't they will be filtered out and not set.
+            In order to do this you'll need to create a new PropertyGroup on the HubSpot account's MarketingEvent object for your specific app and create the Custom Property you want to track on that HubSpot account. Do not create any new default properties on the MarketingEvent object as that will apply to all HubSpot accounts.
           items:
             $ref: '#/components/schemas/PropertyValue'
           type: array
@@ -1109,14 +1104,9 @@ components:
           description: Indicates if the marketing event has been cancelled.
           type: boolean
         customProperties:
-          description: "A list of PropertyValues. These can be whatever kind of property\
-            \ names and values you want. However, they must already exist on the HubSpot\
-            \ account's definition of the MarketingEvent Object. If they don't they\
-            \ will be filtered out and not set.\nIn order to do this you'll need to\
-            \ create a new PropertyGroup on the HubSpot account's MarketingEvent object\
-            \ for your specific app and create the Custom Property you want to track\
-            \ on that HubSpot account. Do not create any new default properties on\
-            \ the MarketingEvent object as that will apply to all HubSpot accounts.\n"
+          description: |
+            A list of PropertyValues. These can be whatever kind of property names and values you want. However, they must already exist on the HubSpot account's definition of the MarketingEvent Object. If they don't they will be filtered out and not set.
+            In order to do this you'll need to create a new PropertyGroup on the HubSpot account's MarketingEvent object for your specific app and create the Custom Property you want to track on that HubSpot account. Do not create any new default properties on the MarketingEvent object as that will apply to all HubSpot accounts.
           items:
             $ref: '#/components/schemas/PropertyValue'
           type: array
@@ -1234,14 +1224,9 @@ components:
             to `false`
           type: boolean
         customProperties:
-          description: "A list of PropertyValues. These can be whatever kind of property\
-            \ names and values you want. However, they must already exist on the HubSpot\
-            \ account's definition of the MarketingEvent Object. If they don't they\
-            \ will be filtered out and not set.\nIn order to do this you'll need to\
-            \ create a new PropertyGroup on the HubSpot account's MarketingEvent object\
-            \ for your specific app and create the Custom Property you want to track\
-            \ on that HubSpot account. Do not create any new default properties on\
-            \ the MarketingEvent object as that will apply to all HubSpot accounts.\n"
+          description: |
+            A list of PropertyValues. These can be whatever kind of property names and values you want. However, they must already exist on the HubSpot account's definition of the MarketingEvent Object. If they don't they will be filtered out and not set.
+            In order to do this you'll need to create a new PropertyGroup on the HubSpot account's MarketingEvent object for your specific app and create the Custom Property you want to track on that HubSpot account. Do not create any new default properties on the MarketingEvent object as that will apply to all HubSpot accounts.
           items:
             $ref: '#/components/schemas/PropertyValue'
           type: array
@@ -1493,14 +1478,9 @@ components:
           description: Indicates if the marketing event has been cancelled.
           type: boolean
         customProperties:
-          description: "A list of PropertyValues. These can be whatever kind of property\
-            \ names and values you want. However, they must already exist on the HubSpot\
-            \ account's definition of the MarketingEvent Object. If they don't they\
-            \ will be filtered out and not set.\nIn order to do this you'll need to\
-            \ create a new PropertyGroup on the HubSpot account's MarketingEvent object\
-            \ for your specific app and create the Custom Property you want to track\
-            \ on that HubSpot account. Do not create any new default properties on\
-            \ the MarketingEvent object as that will apply to all HubSpot accounts.\n"
+          description: |
+            A list of PropertyValues. These can be whatever kind of property names and values you want. However, they must already exist on the HubSpot account's definition of the MarketingEvent Object. If they don't they will be filtered out and not set.
+            In order to do this you'll need to create a new PropertyGroup on the HubSpot account's MarketingEvent object for your specific app and create the Custom Property you want to track on that HubSpot account. Do not create any new default properties on the MarketingEvent object as that will apply to all HubSpot accounts.
           items:
             $ref: '#/components/schemas/PropertyValue'
           type: array
@@ -1587,14 +1567,9 @@ components:
           description: Indicates if the marketing event has been cancelled.
           type: boolean
         customProperties:
-          description: "A list of PropertyValues. These can be whatever kind of property\
-            \ names and values you want. However, they must already exist on the HubSpot\
-            \ account's definition of the MarketingEvent Object. If they don't they\
-            \ will be filtered out and not set.\nIn order to do this you'll need to\
-            \ create a new PropertyGroup on the HubSpot account's MarketingEvent object\
-            \ for your specific app and create the Custom Property you want to track\
-            \ on that HubSpot account. Do not create any new default properties on\
-            \ the MarketingEvent object as that will apply to all HubSpot accounts.\n"
+          description: |
+            A list of PropertyValues. These can be whatever kind of property names and values you want. However, they must already exist on the HubSpot account's definition of the MarketingEvent Object. If they don't they will be filtered out and not set.
+            In order to do this you'll need to create a new PropertyGroup on the HubSpot account's MarketingEvent object for your specific app and create the Custom Property you want to track on that HubSpot account. Do not create any new default properties on the MarketingEvent object as that will apply to all HubSpot accounts.
           items:
             $ref: '#/components/schemas/PropertyValue'
           type: array
