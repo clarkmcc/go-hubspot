@@ -11,6 +11,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"regexp"
 	"strings"
 )
 
@@ -22,57 +23,57 @@ var (
 //preProcessMap contains a grouped list of operations to rename before generating typings.
 var preProcessMap = map[string][]preProcessEntry{
 	"Companies": {
-		{old: "get-/crm/v3/objects/companies_getPage", new: "GetPage"},
-		{old: "post-/crm/v3/objects/companies_create", new: "Create"},
-		{old: "post-/crm/v3/objects/companies/merge_merge", new: "Merge"},
-		{old: "post-/crm/v3/objects/companies/search_doSearch", new: "Search"},
-		{old: "get-/crm/v3/objects/companies/{companyId}_getById", new: "Get"},
-		{old: "delete-/crm/v3/objects/companies/{companyId}_archive", new: "Archive"},
-		{old: "patch-/crm/v3/objects/companies/{companyId}_update", new: "Update"},
-		{old: "post-/crm/v3/objects/companies/batch/archive_archive", new: "BatchArchive"},
-		{old: "post-/crm/v3/objects/companies/batch/create_create", new: "BatchCreate"},
-		{old: "post-/crm/v3/objects/companies/batch/read_read", new: "BatchRead"},
-		{old: "post-/crm/v3/objects/companies/batch/update_update", new: "BatchUpdate"},
-		{old: "get-/crm/v3/objects/companies/{companyId}/associations/{toObjectType}_getAll", new: "AssociationsGet"},
-		{old: "put-/crm/v3/objects/companies/{companyId}/associations/{toObjectType}/{toObjectId}/{associationType}_create", new: "AssociationsCreate"},
-		{old: "delete-/crm/v3/objects/companies/{companyId}/associations/{toObjectType}/{toObjectId}/{associationType}_archive", new: "AssociationsArchive"},
+		{old: "get-/crm/.*/objects/companies_getPage", new: "GetPage"},
+		{old: "post-/crm/.*/objects/companies_create", new: "Create"},
+		{old: "post-/crm/.*/objects/companies/merge_merge", new: "Merge"},
+		{old: "post-/crm/.*/objects/companies/search_doSearch", new: "Search"},
+		{old: "get-/crm/.*/objects/companies/{companyId}_getById", new: "Get"},
+		{old: "delete-/crm/.*/objects/companies/{companyId}_archive", new: "Archive"},
+		{old: "patch-/crm/.*/objects/companies/{companyId}_update", new: "Update"},
+		{old: "post-/crm/.*/objects/companies/batch/archive_archive", new: "BatchArchive"},
+		{old: "post-/crm/.*/objects/companies/batch/create_create", new: "BatchCreate"},
+		{old: "post-/crm/.*/objects/companies/batch/read_read", new: "BatchRead"},
+		{old: "post-/crm/.*/objects/companies/batch/update_update", new: "BatchUpdate"},
+		{old: "get-/crm/.*/objects/companies/{companyId}/associations/{toObjectType}_getAll", new: "AssociationsGet"},
+		{old: "put-/crm/.*/objects/companies/{companyId}/associations/{toObjectType}/{toObjectId}/{associationType}_create", new: "AssociationsCreate"},
+		{old: "delete-/crm/.*/objects/companies/{companyId}/associations/{toObjectType}/{toObjectId}/{associationType}_archive", new: "AssociationsArchive"},
 	},
 	"Contacts": {
-		{old: "get-/crm/v3/objects/contacts_getPage", new: "GetPage"},
-		{old: "post-/crm/v3/objects/contacts_create", new: "Create"},
-		{old: "post-/crm/v3/objects/contacts/gdpr-delete_purge", new: "Delete"},
-		{old: "post-/crm/v3/objects/contacts/merge_merge", new: "Merge"},
-		{old: "post-/crm/v3/objects/contacts/search_doSearch", new: "Search"},
-		{old: "get-/crm/v3/objects/contacts/{contactId}_getById", new: "Get"},
-		{old: "delete-/crm/v3/objects/contacts/{contactId}_archive", new: "Archive"},
-		{old: "patch-/crm/v3/objects/contacts/{contactId}_update", new: "Update"},
-		{old: "post-/crm/v3/objects/contacts/batch/archive_archive", new: "BatchArchive"},
-		{old: "post-/crm/v3/objects/contacts/batch/create_create", new: "BatchCreate"},
-		{old: "post-/crm/v3/objects/contacts/batch/read_read", new: "BatchRead"},
-		{old: "post-/crm/v3/objects/contacts/batch/update_update", new: "BatchUpdate"},
-		{old: "get-/crm/v3/objects/contacts/{contactId}/associations/{toObjectType}_getAll", new: "AssociationsGet"},
-		{old: "put-/crm/v3/objects/contacts/{contactId}/associations/{toObjectType}/{toObjectId}/{associationType}_create", new: "AssociationsCreate"},
-		{old: "delete-/crm/v3/objects/contacts/{contactId}/associations/{toObjectType}/{toObjectId}/{associationType}_archive", new: "AssociationsArchive"},
+		{old: "get-/crm/.*/objects/contacts_getPage", new: "GetPage"},
+		{old: "post-/crm/.*/objects/contacts_create", new: "Create"},
+		{old: "post-/crm/.*/objects/contacts/gdpr-delete_purge", new: "Delete"},
+		{old: "post-/crm/.*/objects/contacts/merge_merge", new: "Merge"},
+		{old: "post-/crm/.*/objects/contacts/search_doSearch", new: "Search"},
+		{old: "get-/crm/.*/objects/contacts/{contactId}_getById", new: "Get"},
+		{old: "delete-/crm/.*/objects/contacts/{contactId}_archive", new: "Archive"},
+		{old: "patch-/crm/.*/objects/contacts/{contactId}_update", new: "Update"},
+		{old: "post-/crm/.*/objects/contacts/batch/archive_archive", new: "BatchArchive"},
+		{old: "post-/crm/.*/objects/contacts/batch/create_create", new: "BatchCreate"},
+		{old: "post-/crm/.*/objects/contacts/batch/read_read", new: "BatchRead"},
+		{old: "post-/crm/.*/objects/contacts/batch/update_update", new: "BatchUpdate"},
+		{old: "get-/crm/.*/objects/contacts/{contactId}/associations/{toObjectType}_getAll", new: "AssociationsGet"},
+		{old: "put-/crm/.*/objects/contacts/{contactId}/associations/{toObjectType}/{toObjectId}/{associationType}_create", new: "AssociationsCreate"},
+		{old: "delete-/crm/.*/objects/contacts/{contactId}/associations/{toObjectType}/{toObjectId}/{associationType}_archive", new: "AssociationsArchive"},
 	},
 	"Events": {
-		{old: "get-/events/v3/events_getPage", new: "GetPage"},
+		{old: "get-/events/.*/events_getPage", new: "GetPage"},
 	},
 	"Objects": {
-		{old: "get-/crm/v3/objects/{objectType}_getPage", new: "GetPage"},
-		{old: "post-/crm/v3/objects/{objectType}_create", new: "Create"},
-		{old: "post-/crm/v3/objects/{objectType}/batch/archive_archive", new: "BatchArchive"},
-		{old: "post-/crm/v3/objects/{objectType}/batch/create_create", new: "BatchCreate"},
-		{old: "post-/crm/v3/objects/{objectType}/batch/read_read", new: "BatchRead"},
-		{old: "post-/crm/v3/objects/{objectType}/batch/update_update", new: "BatchUpdate"},
-		{old: "post-/crm/v3/objects/{objectType}/gdpr-delete_purge", new: "Delete"},
-		{old: "post-/crm/v3/objects/{objectType}/merge_merge", new: "Merge"},
-		{old: "post-/crm/v3/objects/{objectType}/search_doSearch", new: "Search"},
-		{old: "get-/crm/v3/objects/{objectType}/{objectId}_getById", new: "Get"},
-		{old: "delete-/crm/v3/objects/{objectType}/{objectId}_archive", new: "Archive"},
-		{old: "patch-/crm/v3/objects/{objectType}/{objectId}_update", new: "Update"},
-		{old: "get-/crm/v3/objects/{objectType}/{objectId}/associations/{toObjectType}_getAll", new: "AssociationsGet"},
-		{old: "put-/crm/v3/objects/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}/{associationType}_create", new: "AssociationsCreate"},
-		{old: "delete-/crm/v3/objects/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}/{associationType}_archive", new: "AssociationsArchive"},
+		{old: "get-/crm/.*/objects/{objectType}_getPage", new: "GetPage"},
+		{old: "post-/crm/.*/objects/{objectType}_create", new: "Create"},
+		{old: "post-/crm/.*/objects/{objectType}/batch/archive_archive", new: "BatchArchive"},
+		{old: "post-/crm/.*/objects/{objectType}/batch/create_create", new: "BatchCreate"},
+		{old: "post-/crm/.*/objects/{objectType}/batch/read_read", new: "BatchRead"},
+		{old: "post-/crm/.*/objects/{objectType}/batch/update_update", new: "BatchUpdate"},
+		{old: "post-/crm/.*/objects/{objectType}/gdpr-delete_purge", new: "Delete"},
+		{old: "post-/crm/.*/objects/{objectType}/merge_merge", new: "Merge"},
+		{old: "post-/crm/.*/objects/{objectType}/search_doSearch", new: "Search"},
+		{old: "get-/crm/.*/objects/{objectType}/{objectId}_getById", new: "Get"},
+		{old: "delete-/crm/.*/objects/{objectType}/{objectId}_archive", new: "Archive"},
+		{old: "patch-/crm/.*/objects/{objectType}/{objectId}_update", new: "Update"},
+		{old: "get-/crm/.*/objects/{objectType}/{objectId}/associations/{toObjectType}_getAll", new: "AssociationsGet"},
+		{old: "put-/crm/.*/objects/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}/{associationType}_create", new: "AssociationsCreate"},
+		{old: "delete-/crm/.*/objects/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}/{associationType}_archive", new: "AssociationsArchive"},
 	},
 }
 
@@ -82,9 +83,17 @@ type preProcessEntry struct {
 	new string
 }
 
-// Directory is the schema for the https://api.hubspot.com/api-catalog-public/v1/apis page which lists all
+// schemaOpenAPI contains the OpenAPI schema definition.
+type schemaOpenAPI struct {
+	Info struct {
+		Title   string `json:"title"`
+		Version string `json:"version"`
+	} `json:"info"`
+}
+
+// directory is the schema for the https://api.hubspot.com/api-catalog-public/v1/apis page which lists all
 // the publicly available APIs.
-type Directory struct {
+type directory struct {
 	Results []struct {
 		Name     string `json:"name"`
 		Features map[string]struct {
@@ -94,7 +103,9 @@ type Directory struct {
 	} `json:"results"`
 }
 
-func preProcessResponse(name string, url string) (string, error) {
+// retrieveSchema downloads a schema from the given url.
+// It returns the schema text as a string.
+func retrieveSchema(url string) (string, error) {
 	res, err := http.Get(url)
 
 	if err != nil {
@@ -103,22 +114,27 @@ func preProcessResponse(name string, url string) (string, error) {
 
 	defer res.Body.Close()
 
-	b, err := io.ReadAll(res.Body)
+	schema, err := io.ReadAll(res.Body)
 
 	if err != nil {
 		return "", err
 	}
 
-	result := string(b)
+	return string(schema), nil
+}
 
-	entries := preProcessMap[name]
+// preProcessSchema replaces operation names in the given schema and saves the results to file.
+// It returns a path to the saved file.
+func preProcessSchema(group string, schema string) (string, error) {
+	entries := preProcessMap[group]
 
 	for _, entry := range entries {
-		result = strings.ReplaceAll(result, entry.old, entry.new)
+		pattern := regexp.MustCompile(entry.old)
+		schema = pattern.ReplaceAllString(schema, entry.new)
 	}
 
-	filename := "./schema/" + name + ".json"
-	err = ioutil.WriteFile(filename, []byte(result), 0644)
+	filename := "./schema/" + group + ".json"
+	err := ioutil.WriteFile(filename, []byte(schema), 0644)
 
 	if err != nil {
 		return "", err
@@ -127,12 +143,25 @@ func preProcessResponse(name string, url string) (string, error) {
 	return filename, nil
 }
 
+// versionFromSchema retrieves the OpenAPI schema version from the input JSON string.
+// It returns the API version.
+func versionFromSchema(input string) (string, error) {
+	var schema schemaOpenAPI
+	err := json.Unmarshal([]byte(input), &schema)
+
+	if err != nil {
+		return "", err
+	}
+
+	return schema.Info.Version, nil
+}
+
 func main() {
 	res, err := http.Get(directoryUrl)
 	if err != nil {
 		panic(err)
 	}
-	var r Directory
+	var r directory
 	err = json.NewDecoder(res.Body).Decode(&r)
 	if err != nil {
 		panic(err)
@@ -154,7 +183,19 @@ func main() {
 	//outer:
 	for _, group := range r.Results {
 		for name, feature := range group.Features {
-			filename, err := preProcessResponse(name, feature.OpenAPI)
+			schema, err := retrieveSchema(feature.OpenAPI)
+
+			if err != nil {
+				panic(err)
+			}
+
+			filename, err := preProcessSchema(name, schema)
+
+			if err != nil {
+				panic(err)
+			}
+
+			version, err := versionFromSchema(schema)
 
 			if err != nil {
 				panic(err)
@@ -171,7 +212,7 @@ func main() {
 				"--package-name", name,
 				"--additional-properties=isGoSubmodule=false",
 				"--skip-validate-spec",
-				"-o", "./generated/"+name,
+				"-o", "./generated/"+version+"/"+name,
 			).CombinedOutput()
 			if err != nil {
 				panic(err)
