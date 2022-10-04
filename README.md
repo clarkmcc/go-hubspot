@@ -14,9 +14,22 @@ go generate
 ```
 
 ## Using the clients
-The clients are broken out into their own packages by name. Currently, `openapi-generator` produces mutilated method names like `GetCrmV3ObjectsContactsContactIdGetById`. This will need to be fixed in the `openapi-generator` project at some point.
+The clients are broken out into their own packages by name and categorized by API version.
 ```go
+import "github.com/clarkmcc/go-hubspot/generated/v3/contacts"
+
 client := contacts.NewAPIClient(contacts.NewConfiguration())
+request := client.BasicApi.Create(context.Background())
+
+input := contacts.SimplePublicObjectInput{
+  Properties: map[string]string{
+    "firstname": "Adrian", 
+    "lastname": "Mott",
+  },
+}
+
+request.SimplePublicObjectInput(input)
+request.Execute()
 ```
 
 ## Authorization
