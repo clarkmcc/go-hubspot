@@ -19,7 +19,6 @@ The clients are broken out into their own packages by name and categorized by AP
 import "github.com/clarkmcc/go-hubspot/generated/v3/contacts"
 
 client := contacts.NewAPIClient(contacts.NewConfiguration())
-request := client.BasicApi.Create(context.Background())
 
 input := contacts.SimplePublicObjectInput{
   Properties: map[string]string{
@@ -28,8 +27,10 @@ input := contacts.SimplePublicObjectInput{
   },
 }
 
-request.SimplePublicObjectInput(input)
-request.Execute()
+client.BasicApi.
+    Create(context.Background()).
+    SimplePublicObjectInput(input).
+    Execute()
 ```
 
 ## Authorization
