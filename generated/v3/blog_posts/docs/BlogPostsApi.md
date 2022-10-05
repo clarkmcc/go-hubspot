@@ -5,15 +5,15 @@ All URIs are relative to *https://api.hubapi.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**Archive**](BlogPostsApi.md#Archive) | **Delete** /cms/v3/blogs/posts/{objectId} | Delete a Blog Post
-[**AttachToLangGroup**](BlogPostsApi.md#AttachToLangGroup) | **Post** /cms/v3/blogs/posts/multi-language/attach-to-lang-group | Attach a Blog Post to a multi-language group
+[**AttachToLanguageGroup**](BlogPostsApi.md#AttachToLanguageGroup) | **Post** /cms/v3/blogs/posts/multi-language/attach-to-lang-group | Attach a Blog Post to a multi-language group
 [**BatchArchive**](BlogPostsApi.md#BatchArchive) | **Post** /cms/v3/blogs/posts/batch/archive | Delete a batch of Blog Posts
 [**BatchCreate**](BlogPostsApi.md#BatchCreate) | **Post** /cms/v3/blogs/posts/batch/create | Create a batch of Blog Posts
 [**BatchRead**](BlogPostsApi.md#BatchRead) | **Post** /cms/v3/blogs/posts/batch/read | Retrieve a batch of Blog Posts
 [**BatchUpdate**](BlogPostsApi.md#BatchUpdate) | **Post** /cms/v3/blogs/posts/batch/update | Update a batch of Blog Posts
 [**Clone**](BlogPostsApi.md#Clone) | **Post** /cms/v3/blogs/posts/clone | Clone a Blog Post
 [**Create**](BlogPostsApi.md#Create) | **Post** /cms/v3/blogs/posts | Create a new Blog Post
-[**CreateLangVariation**](BlogPostsApi.md#CreateLangVariation) | **Post** /cms/v3/blogs/posts/multi-language/create-language-variation | Create a new language variation
-[**DetachFromLangGroup**](BlogPostsApi.md#DetachFromLangGroup) | **Post** /cms/v3/blogs/posts/multi-language/detach-from-lang-group | Detach a Blog Post from a multi-language group
+[**CreateLanguageVariation**](BlogPostsApi.md#CreateLanguageVariation) | **Post** /cms/v3/blogs/posts/multi-language/create-language-variation | Create a new language variation
+[**DetachFromLanguageGroup**](BlogPostsApi.md#DetachFromLanguageGroup) | **Post** /cms/v3/blogs/posts/multi-language/detach-from-lang-group | Detach a Blog Post from a multi-language group
 [**GetByID**](BlogPostsApi.md#GetByID) | **Get** /cms/v3/blogs/posts/{objectId} | Retrieve a Blog Post
 [**GetDraftByID**](BlogPostsApi.md#GetDraftByID) | **Get** /cms/v3/blogs/posts/{objectId}/draft | Retrieve the full draft version of the Blog Post
 [**GetPage**](BlogPostsApi.md#GetPage) | **Get** /cms/v3/blogs/posts | Get all Blog Posts
@@ -24,10 +24,10 @@ Method | HTTP request | Description
 [**RestorePreviousVersion**](BlogPostsApi.md#RestorePreviousVersion) | **Post** /cms/v3/blogs/posts/{objectId}/revisions/{revisionId}/restore | Restore a previous version of a blog post
 [**RestorePreviousVersionToDraft**](BlogPostsApi.md#RestorePreviousVersionToDraft) | **Post** /cms/v3/blogs/posts/{objectId}/revisions/{revisionId}/restore-to-draft | Restore a previous version of a blog post, to the draft version of the blog post
 [**Schedule**](BlogPostsApi.md#Schedule) | **Post** /cms/v3/blogs/posts/schedule | Schedule a Blog Post to be Published
-[**SetLangPrimary**](BlogPostsApi.md#SetLangPrimary) | **Put** /cms/v3/blogs/posts/multi-language/set-new-lang-primary | Set a new primary language
+[**SetLanguagePrimary**](BlogPostsApi.md#SetLanguagePrimary) | **Put** /cms/v3/blogs/posts/multi-language/set-new-lang-primary | Set a new primary language
 [**Update**](BlogPostsApi.md#Update) | **Patch** /cms/v3/blogs/posts/{objectId} | Update a Blog Post
 [**UpdateDraft**](BlogPostsApi.md#UpdateDraft) | **Patch** /cms/v3/blogs/posts/{objectId}/draft | Update a Blog Post draft
-[**UpdateLangs**](BlogPostsApi.md#UpdateLangs) | **Post** /cms/v3/blogs/posts/multi-language/update-languages | Update languages of multi-language group
+[**UpdateLanguages**](BlogPostsApi.md#UpdateLanguages) | **Post** /cms/v3/blogs/posts/multi-language/update-languages | Update languages of multi-language group
 
 
 
@@ -101,9 +101,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## AttachToLangGroup
+## AttachToLanguageGroup
 
-> Error AttachToLangGroup(ctx).AttachToLangPrimaryRequestVNext(attachToLangPrimaryRequestVNext).Execute()
+> Error AttachToLanguageGroup(ctx).AttachToLangPrimaryRequestVNext(attachToLangPrimaryRequestVNext).Execute()
 
 Attach a Blog Post to a multi-language group
 
@@ -126,13 +126,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogPostsApi.AttachToLangGroup(context.Background()).AttachToLangPrimaryRequestVNext(attachToLangPrimaryRequestVNext).Execute()
+    resp, r, err := apiClient.BlogPostsApi.AttachToLanguageGroup(context.Background()).AttachToLangPrimaryRequestVNext(attachToLangPrimaryRequestVNext).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsApi.AttachToLangGroup``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsApi.AttachToLanguageGroup``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AttachToLangGroup`: Error
-    fmt.Fprintf(os.Stdout, "Response from `BlogPostsApi.AttachToLangGroup`: %v\n", resp)
+    // response from `AttachToLanguageGroup`: Error
+    fmt.Fprintf(os.Stdout, "Response from `BlogPostsApi.AttachToLanguageGroup`: %v\n", resp)
 }
 ```
 
@@ -142,7 +142,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAttachToLangGroupRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiAttachToLanguageGroupRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -567,9 +567,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CreateLangVariation
+## CreateLanguageVariation
 
-> BlogPost CreateLangVariation(ctx).BlogPostLanguageCloneRequestVNext(blogPostLanguageCloneRequestVNext).Execute()
+> BlogPost CreateLanguageVariation(ctx).BlogPostLanguageCloneRequestVNext(blogPostLanguageCloneRequestVNext).Execute()
 
 Create a new language variation
 
@@ -592,13 +592,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogPostsApi.CreateLangVariation(context.Background()).BlogPostLanguageCloneRequestVNext(blogPostLanguageCloneRequestVNext).Execute()
+    resp, r, err := apiClient.BlogPostsApi.CreateLanguageVariation(context.Background()).BlogPostLanguageCloneRequestVNext(blogPostLanguageCloneRequestVNext).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsApi.CreateLangVariation``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsApi.CreateLanguageVariation``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `CreateLangVariation`: BlogPost
-    fmt.Fprintf(os.Stdout, "Response from `BlogPostsApi.CreateLangVariation`: %v\n", resp)
+    // response from `CreateLanguageVariation`: BlogPost
+    fmt.Fprintf(os.Stdout, "Response from `BlogPostsApi.CreateLanguageVariation`: %v\n", resp)
 }
 ```
 
@@ -608,7 +608,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCreateLangVariationRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCreateLanguageVariationRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -633,9 +633,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## DetachFromLangGroup
+## DetachFromLanguageGroup
 
-> Error DetachFromLangGroup(ctx).DetachFromLangGroupRequestVNext(detachFromLangGroupRequestVNext).Execute()
+> Error DetachFromLanguageGroup(ctx).DetachFromLangGroupRequestVNext(detachFromLangGroupRequestVNext).Execute()
 
 Detach a Blog Post from a multi-language group
 
@@ -658,13 +658,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogPostsApi.DetachFromLangGroup(context.Background()).DetachFromLangGroupRequestVNext(detachFromLangGroupRequestVNext).Execute()
+    resp, r, err := apiClient.BlogPostsApi.DetachFromLanguageGroup(context.Background()).DetachFromLangGroupRequestVNext(detachFromLangGroupRequestVNext).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsApi.DetachFromLangGroup``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsApi.DetachFromLanguageGroup``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `DetachFromLangGroup`: Error
-    fmt.Fprintf(os.Stdout, "Response from `BlogPostsApi.DetachFromLangGroup`: %v\n", resp)
+    // response from `DetachFromLanguageGroup`: Error
+    fmt.Fprintf(os.Stdout, "Response from `BlogPostsApi.DetachFromLanguageGroup`: %v\n", resp)
 }
 ```
 
@@ -674,7 +674,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDetachFromLangGroupRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDetachFromLanguageGroupRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1422,9 +1422,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## SetLangPrimary
+## SetLanguagePrimary
 
-> SetLangPrimary(ctx).SetNewLanguagePrimaryRequestVNext(setNewLanguagePrimaryRequestVNext).Execute()
+> SetLanguagePrimary(ctx).SetNewLanguagePrimaryRequestVNext(setNewLanguagePrimaryRequestVNext).Execute()
 
 Set a new primary language
 
@@ -1447,9 +1447,9 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogPostsApi.SetLangPrimary(context.Background()).SetNewLanguagePrimaryRequestVNext(setNewLanguagePrimaryRequestVNext).Execute()
+    resp, r, err := apiClient.BlogPostsApi.SetLanguagePrimary(context.Background()).SetNewLanguagePrimaryRequestVNext(setNewLanguagePrimaryRequestVNext).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsApi.SetLangPrimary``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsApi.SetLanguagePrimary``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -1461,7 +1461,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiSetLangPrimaryRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiSetLanguagePrimaryRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1634,9 +1634,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## UpdateLangs
+## UpdateLanguages
 
-> Error UpdateLangs(ctx).UpdateLanguagesRequestVNext(updateLanguagesRequestVNext).Execute()
+> Error UpdateLanguages(ctx).UpdateLanguagesRequestVNext(updateLanguagesRequestVNext).Execute()
 
 Update languages of multi-language group
 
@@ -1659,13 +1659,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogPostsApi.UpdateLangs(context.Background()).UpdateLanguagesRequestVNext(updateLanguagesRequestVNext).Execute()
+    resp, r, err := apiClient.BlogPostsApi.UpdateLanguages(context.Background()).UpdateLanguagesRequestVNext(updateLanguagesRequestVNext).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsApi.UpdateLangs``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsApi.UpdateLanguages``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `UpdateLangs`: Error
-    fmt.Fprintf(os.Stdout, "Response from `BlogPostsApi.UpdateLangs`: %v\n", resp)
+    // response from `UpdateLanguages`: Error
+    fmt.Fprintf(os.Stdout, "Response from `BlogPostsApi.UpdateLanguages`: %v\n", resp)
 }
 ```
 
@@ -1675,7 +1675,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiUpdateLangsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiUpdateLanguagesRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

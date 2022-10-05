@@ -4,13 +4,13 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**PostVisitorIdentificationV3TokensCreateGenerateToken**](GenerateApi.md#PostVisitorIdentificationV3TokensCreateGenerateToken) | **Post** /conversations/v3/visitor-identification/tokens/create | Generate a token
+[**GenerateToken**](GenerateApi.md#GenerateToken) | **Post** /conversations/v3/visitor-identification/tokens/create | Generate a token
 
 
 
-## PostVisitorIdentificationV3TokensCreateGenerateToken
+## GenerateToken
 
-> IdentificationTokenResponse PostVisitorIdentificationV3TokensCreateGenerateToken(ctx).IdentificationTokenGenerationRequest(identificationTokenGenerationRequest).Execute()
+> IdentificationTokenResponse GenerateToken(ctx).IdentificationTokenGenerationRequest(identificationTokenGenerationRequest).Execute()
 
 Generate a token
 
@@ -33,13 +33,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.GenerateApi.PostVisitorIdentificationV3TokensCreateGenerateToken(context.Background()).IdentificationTokenGenerationRequest(identificationTokenGenerationRequest).Execute()
+    resp, r, err := apiClient.GenerateApi.GenerateToken(context.Background()).IdentificationTokenGenerationRequest(identificationTokenGenerationRequest).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `GenerateApi.PostVisitorIdentificationV3TokensCreateGenerateToken``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `GenerateApi.GenerateToken``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostVisitorIdentificationV3TokensCreateGenerateToken`: IdentificationTokenResponse
-    fmt.Fprintf(os.Stdout, "Response from `GenerateApi.PostVisitorIdentificationV3TokensCreateGenerateToken`: %v\n", resp)
+    // response from `GenerateToken`: IdentificationTokenResponse
+    fmt.Fprintf(os.Stdout, "Response from `GenerateApi.GenerateToken`: %v\n", resp)
 }
 ```
 
@@ -49,7 +49,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostVisitorIdentificationV3TokensCreateGenerateTokenRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGenerateTokenRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

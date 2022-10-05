@@ -4,14 +4,14 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**PostAutomationV4ActionsCallbacksCallbackIdCompleteComplete**](CallbacksApi.md#PostAutomationV4ActionsCallbacksCallbackIdCompleteComplete) | **Post** /automation/v4/actions/callbacks/{callbackId}/complete | Complete a callback
-[**PostAutomationV4ActionsCallbacksCompleteCompleteBatch**](CallbacksApi.md#PostAutomationV4ActionsCallbacksCompleteCompleteBatch) | **Post** /automation/v4/actions/callbacks/complete | Complete a batch of callbacks
+[**CallbackComplete**](CallbacksApi.md#CallbackComplete) | **Post** /automation/v4/actions/callbacks/{callbackId}/complete | Complete a callback
+[**CallbackCompleteBatch**](CallbacksApi.md#CallbackCompleteBatch) | **Post** /automation/v4/actions/callbacks/complete | Complete a batch of callbacks
 
 
 
-## PostAutomationV4ActionsCallbacksCallbackIdCompleteComplete
+## CallbackComplete
 
-> PostAutomationV4ActionsCallbacksCallbackIdCompleteComplete(ctx, callbackId).CallbackCompletionRequest(callbackCompletionRequest).Execute()
+> CallbackComplete(ctx, callbackId).CallbackCompletionRequest(callbackCompletionRequest).Execute()
 
 Complete a callback
 
@@ -35,9 +35,9 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CallbacksApi.PostAutomationV4ActionsCallbacksCallbackIdCompleteComplete(context.Background(), callbackId).CallbackCompletionRequest(callbackCompletionRequest).Execute()
+    resp, r, err := apiClient.CallbacksApi.CallbackComplete(context.Background(), callbackId).CallbackCompletionRequest(callbackCompletionRequest).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CallbacksApi.PostAutomationV4ActionsCallbacksCallbackIdCompleteComplete``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `CallbacksApi.CallbackComplete``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -53,7 +53,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostAutomationV4ActionsCallbacksCallbackIdCompleteCompleteRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCallbackCompleteRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -79,9 +79,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostAutomationV4ActionsCallbacksCompleteCompleteBatch
+## CallbackCompleteBatch
 
-> PostAutomationV4ActionsCallbacksCompleteCompleteBatch(ctx).BatchInputCallbackCompletionBatchRequest(batchInputCallbackCompletionBatchRequest).Execute()
+> CallbackCompleteBatch(ctx).BatchInputCallbackCompletionBatchRequest(batchInputCallbackCompletionBatchRequest).Execute()
 
 Complete a batch of callbacks
 
@@ -104,9 +104,9 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CallbacksApi.PostAutomationV4ActionsCallbacksCompleteCompleteBatch(context.Background()).BatchInputCallbackCompletionBatchRequest(batchInputCallbackCompletionBatchRequest).Execute()
+    resp, r, err := apiClient.CallbacksApi.CallbackCompleteBatch(context.Background()).BatchInputCallbackCompletionBatchRequest(batchInputCallbackCompletionBatchRequest).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CallbacksApi.PostAutomationV4ActionsCallbacksCompleteCompleteBatch``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `CallbacksApi.CallbackCompleteBatch``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -118,7 +118,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostAutomationV4ActionsCallbacksCompleteCompleteBatchRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCallbackCompleteBatchRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

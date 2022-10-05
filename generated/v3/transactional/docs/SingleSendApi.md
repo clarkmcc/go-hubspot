@@ -4,13 +4,13 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**PostMarketingV3TransactionalSingleEmailSendSendEmail**](SingleSendApi.md#PostMarketingV3TransactionalSingleEmailSendSendEmail) | **Post** /marketing/v3/transactional/single-email/send | Send a single transactional email asynchronously.
+[**SendEmail**](SingleSendApi.md#SendEmail) | **Post** /marketing/v3/transactional/single-email/send | Send a single transactional email asynchronously.
 
 
 
-## PostMarketingV3TransactionalSingleEmailSendSendEmail
+## SendEmail
 
-> EmailSendStatusView PostMarketingV3TransactionalSingleEmailSendSendEmail(ctx).PublicSingleSendRequestEgg(publicSingleSendRequestEgg).Execute()
+> EmailSendStatusView SendEmail(ctx).PublicSingleSendRequestEgg(publicSingleSendRequestEgg).Execute()
 
 Send a single transactional email asynchronously.
 
@@ -33,13 +33,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SingleSendApi.PostMarketingV3TransactionalSingleEmailSendSendEmail(context.Background()).PublicSingleSendRequestEgg(publicSingleSendRequestEgg).Execute()
+    resp, r, err := apiClient.SingleSendApi.SendEmail(context.Background()).PublicSingleSendRequestEgg(publicSingleSendRequestEgg).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SingleSendApi.PostMarketingV3TransactionalSingleEmailSendSendEmail``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SingleSendApi.SendEmail``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostMarketingV3TransactionalSingleEmailSendSendEmail`: EmailSendStatusView
-    fmt.Fprintf(os.Stdout, "Response from `SingleSendApi.PostMarketingV3TransactionalSingleEmailSendSendEmail`: %v\n", resp)
+    // response from `SendEmail`: EmailSendStatusView
+    fmt.Fprintf(os.Stdout, "Response from `SingleSendApi.SendEmail`: %v\n", resp)
 }
 ```
 
@@ -49,7 +49,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostMarketingV3TransactionalSingleEmailSendSendEmailRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiSendEmailRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

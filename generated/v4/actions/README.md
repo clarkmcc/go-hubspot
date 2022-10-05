@@ -78,22 +78,22 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*CallbacksApi* | [**PostAutomationV4ActionsCallbacksCallbackIdCompleteComplete**](docs/CallbacksApi.md#postautomationv4actionscallbackscallbackidcompletecomplete) | **Post** /automation/v4/actions/callbacks/{callbackId}/complete | Complete a callback
-*CallbacksApi* | [**PostAutomationV4ActionsCallbacksCompleteCompleteBatch**](docs/CallbacksApi.md#postautomationv4actionscallbackscompletecompletebatch) | **Post** /automation/v4/actions/callbacks/complete | Complete a batch of callbacks
-*DefinitionsApi* | [**DeleteAutomationV4ActionsAppIdDefinitionIdArchive**](docs/DefinitionsApi.md#deleteautomationv4actionsappiddefinitionidarchive) | **Delete** /automation/v4/actions/{appId}/{definitionId} | Archive a custom action
-*DefinitionsApi* | [**GetAutomationV4ActionsAppIdDefinitionIdGetById**](docs/DefinitionsApi.md#getautomationv4actionsappiddefinitionidgetbyid) | **Get** /automation/v4/actions/{appId}/{definitionId} | Get a custom action
-*DefinitionsApi* | [**GetAutomationV4ActionsAppIdGetPage**](docs/DefinitionsApi.md#getautomationv4actionsappidgetpage) | **Get** /automation/v4/actions/{appId} | Get all custom actions
-*DefinitionsApi* | [**PatchAutomationV4ActionsAppIdDefinitionIdUpdate**](docs/DefinitionsApi.md#patchautomationv4actionsappiddefinitionidupdate) | **Patch** /automation/v4/actions/{appId}/{definitionId} | Update a custom action
-*DefinitionsApi* | [**PostAutomationV4ActionsAppIdCreate**](docs/DefinitionsApi.md#postautomationv4actionsappidcreate) | **Post** /automation/v4/actions/{appId} | Create new custom action
-*FunctionsApi* | [**DeleteAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeArchiveByFunctionType**](docs/FunctionsApi.md#deleteautomationv4actionsappiddefinitionidfunctionsfunctiontypearchivebyfunctiontype) | **Delete** /automation/v4/actions/{appId}/{definitionId}/functions/{functionType} | Delete a custom action function
-*FunctionsApi* | [**DeleteAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdArchive**](docs/FunctionsApi.md#deleteautomationv4actionsappiddefinitionidfunctionsfunctiontypefunctionidarchive) | **Delete** /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId} | Delete a custom action function
-*FunctionsApi* | [**GetAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdGetById**](docs/FunctionsApi.md#getautomationv4actionsappiddefinitionidfunctionsfunctiontypefunctionidgetbyid) | **Get** /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId} | Get a custom action function
-*FunctionsApi* | [**GetAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeGetByFunctionType**](docs/FunctionsApi.md#getautomationv4actionsappiddefinitionidfunctionsfunctiontypegetbyfunctiontype) | **Get** /automation/v4/actions/{appId}/{definitionId}/functions/{functionType} | Get a custom action function
-*FunctionsApi* | [**GetAutomationV4ActionsAppIdDefinitionIdFunctionsGetPage**](docs/FunctionsApi.md#getautomationv4actionsappiddefinitionidfunctionsgetpage) | **Get** /automation/v4/actions/{appId}/{definitionId}/functions | Get all custom action functions
-*FunctionsApi* | [**PutAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeCreateOrReplaceByFunctionType**](docs/FunctionsApi.md#putautomationv4actionsappiddefinitionidfunctionsfunctiontypecreateorreplacebyfunctiontype) | **Put** /automation/v4/actions/{appId}/{definitionId}/functions/{functionType} | Create or replace a custom action function
-*FunctionsApi* | [**PutAutomationV4ActionsAppIdDefinitionIdFunctionsFunctionTypeFunctionIdCreateOrReplace**](docs/FunctionsApi.md#putautomationv4actionsappiddefinitionidfunctionsfunctiontypefunctionidcreateorreplace) | **Put** /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId} | Create or replace a custom action function
-*RevisionsApi* | [**GetAutomationV4ActionsAppIdDefinitionIdRevisionsGetPage**](docs/RevisionsApi.md#getautomationv4actionsappiddefinitionidrevisionsgetpage) | **Get** /automation/v4/actions/{appId}/{definitionId}/revisions | Get all revisions for a custom action
-*RevisionsApi* | [**GetAutomationV4ActionsAppIdDefinitionIdRevisionsRevisionIdGetById**](docs/RevisionsApi.md#getautomationv4actionsappiddefinitionidrevisionsrevisionidgetbyid) | **Get** /automation/v4/actions/{appId}/{definitionId}/revisions/{revisionId} | Get a revision for a custom action
+*CallbacksApi* | [**CallbackComplete**](docs/CallbacksApi.md#callbackcomplete) | **Post** /automation/v4/actions/callbacks/{callbackId}/complete | Complete a callback
+*CallbacksApi* | [**CallbackCompleteBatch**](docs/CallbacksApi.md#callbackcompletebatch) | **Post** /automation/v4/actions/callbacks/complete | Complete a batch of callbacks
+*DefinitionsApi* | [**Archive**](docs/DefinitionsApi.md#archive) | **Delete** /automation/v4/actions/{appId}/{definitionId} | Archive a custom action
+*DefinitionsApi* | [**Create**](docs/DefinitionsApi.md#create) | **Post** /automation/v4/actions/{appId} | Create new custom action
+*DefinitionsApi* | [**GetByID**](docs/DefinitionsApi.md#getbyid) | **Get** /automation/v4/actions/{appId}/{definitionId} | Get a custom action
+*DefinitionsApi* | [**GetPage**](docs/DefinitionsApi.md#getpage) | **Get** /automation/v4/actions/{appId} | Get all custom actions
+*DefinitionsApi* | [**Update**](docs/DefinitionsApi.md#update) | **Patch** /automation/v4/actions/{appId}/{definitionId} | Update a custom action
+*FunctionsApi* | [**FunctionsArchive**](docs/FunctionsApi.md#functionsarchive) | **Delete** /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId} | Delete a custom action function
+*FunctionsApi* | [**FunctionsArchiveByType**](docs/FunctionsApi.md#functionsarchivebytype) | **Delete** /automation/v4/actions/{appId}/{definitionId}/functions/{functionType} | Delete a custom action function
+*FunctionsApi* | [**FunctionsCreateOrReplace**](docs/FunctionsApi.md#functionscreateorreplace) | **Put** /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId} | Create or replace a custom action function
+*FunctionsApi* | [**FunctionsCreateOrReplaceByType**](docs/FunctionsApi.md#functionscreateorreplacebytype) | **Put** /automation/v4/actions/{appId}/{definitionId}/functions/{functionType} | Create or replace a custom action function
+*FunctionsApi* | [**FunctionsGetByID**](docs/FunctionsApi.md#functionsgetbyid) | **Get** /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId} | Get a custom action function
+*FunctionsApi* | [**FunctionsGetByType**](docs/FunctionsApi.md#functionsgetbytype) | **Get** /automation/v4/actions/{appId}/{definitionId}/functions/{functionType} | Get a custom action function
+*FunctionsApi* | [**FunctionsGetPage**](docs/FunctionsApi.md#functionsgetpage) | **Get** /automation/v4/actions/{appId}/{definitionId}/functions | Get all custom action functions
+*RevisionsApi* | [**RevisionsGetByID**](docs/RevisionsApi.md#revisionsgetbyid) | **Get** /automation/v4/actions/{appId}/{definitionId}/revisions/{revisionId} | Get a revision for a custom action
+*RevisionsApi* | [**RevisionsGetPage**](docs/RevisionsApi.md#revisionsgetpage) | **Get** /automation/v4/actions/{appId}/{definitionId}/revisions | Get all revisions for a custom action
 
 
 ## Documentation For Models

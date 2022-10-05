@@ -78,19 +78,19 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*EventsApi* | [**GetIntegratorsTimelineV3EventsEventTemplateIdEventIdDetailGetDetailById**](docs/EventsApi.md#getintegratorstimelinev3eventseventtemplateideventiddetailgetdetailbyid) | **Get** /crm/v3/timeline/events/{eventTemplateId}/{eventId}/detail | Gets the detailTemplate as rendered
-*EventsApi* | [**GetIntegratorsTimelineV3EventsEventTemplateIdEventIdGetById**](docs/EventsApi.md#getintegratorstimelinev3eventseventtemplateideventidgetbyid) | **Get** /crm/v3/timeline/events/{eventTemplateId}/{eventId} | Gets the event
-*EventsApi* | [**GetIntegratorsTimelineV3EventsEventTemplateIdEventIdRenderGetRenderById**](docs/EventsApi.md#getintegratorstimelinev3eventseventtemplateideventidrendergetrenderbyid) | **Get** /crm/v3/timeline/events/{eventTemplateId}/{eventId}/render | Renders the header or detail as HTML
-*EventsApi* | [**PostIntegratorsTimelineV3EventsBatchCreateCreateBatch**](docs/EventsApi.md#postintegratorstimelinev3eventsbatchcreatecreatebatch) | **Post** /crm/v3/timeline/events/batch/create | Creates multiple events
-*EventsApi* | [**PostIntegratorsTimelineV3EventsCreate**](docs/EventsApi.md#postintegratorstimelinev3eventscreate) | **Post** /crm/v3/timeline/events | Create a single event
-*TemplatesApi* | [**DeleteIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdArchive**](docs/TemplatesApi.md#deleteintegratorstimelinev3appideventtemplateseventtemplateidarchive) | **Delete** /crm/v3/timeline/{appId}/event-templates/{eventTemplateId} | Deletes an event template for the app
-*TemplatesApi* | [**GetIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdGetById**](docs/TemplatesApi.md#getintegratorstimelinev3appideventtemplateseventtemplateidgetbyid) | **Get** /crm/v3/timeline/{appId}/event-templates/{eventTemplateId} | Gets a specific event template for your app
-*TemplatesApi* | [**GetIntegratorsTimelineV3AppIdEventTemplatesGetAll**](docs/TemplatesApi.md#getintegratorstimelinev3appideventtemplatesgetall) | **Get** /crm/v3/timeline/{appId}/event-templates | List all event templates for your app
-*TemplatesApi* | [**PostIntegratorsTimelineV3AppIdEventTemplatesCreate**](docs/TemplatesApi.md#postintegratorstimelinev3appideventtemplatescreate) | **Post** /crm/v3/timeline/{appId}/event-templates | Create an event template for your app
-*TemplatesApi* | [**PutIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdUpdate**](docs/TemplatesApi.md#putintegratorstimelinev3appideventtemplateseventtemplateidupdate) | **Put** /crm/v3/timeline/{appId}/event-templates/{eventTemplateId} | Update an existing event template
-*TokensApi* | [**DeleteIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdTokensTokenNameArchive**](docs/TokensApi.md#deleteintegratorstimelinev3appideventtemplateseventtemplateidtokenstokennamearchive) | **Delete** /crm/v3/timeline/{appId}/event-templates/{eventTemplateId}/tokens/{tokenName} | Removes a token from the event template
-*TokensApi* | [**PostIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdTokensCreate**](docs/TokensApi.md#postintegratorstimelinev3appideventtemplateseventtemplateidtokenscreate) | **Post** /crm/v3/timeline/{appId}/event-templates/{eventTemplateId}/tokens | Adds a token to an existing event template
-*TokensApi* | [**PutIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdTokensTokenNameUpdate**](docs/TokensApi.md#putintegratorstimelinev3appideventtemplateseventtemplateidtokenstokennameupdate) | **Put** /crm/v3/timeline/{appId}/event-templates/{eventTemplateId}/tokens/{tokenName} | Updates an existing token on an event template
+*EventsApi* | [**BatchCreate**](docs/EventsApi.md#batchcreate) | **Post** /crm/v3/timeline/events/batch/create | Creates multiple events
+*EventsApi* | [**Create**](docs/EventsApi.md#create) | **Post** /crm/v3/timeline/events | Create a single event
+*EventsApi* | [**GetByID**](docs/EventsApi.md#getbyid) | **Get** /crm/v3/timeline/events/{eventTemplateId}/{eventId} | Gets the event
+*EventsApi* | [**GetDetailByID**](docs/EventsApi.md#getdetailbyid) | **Get** /crm/v3/timeline/events/{eventTemplateId}/{eventId}/detail | Gets the detailTemplate as rendered
+*EventsApi* | [**GetRenderByID**](docs/EventsApi.md#getrenderbyid) | **Get** /crm/v3/timeline/events/{eventTemplateId}/{eventId}/render | Renders the header or detail as HTML
+*TemplatesApi* | [**TemplateCreate**](docs/TemplatesApi.md#templatecreate) | **Post** /crm/v3/timeline/{appId}/event-templates | Create an event template for your app
+*TemplatesApi* | [**TemplateGetAll**](docs/TemplatesApi.md#templategetall) | **Get** /crm/v3/timeline/{appId}/event-templates | List all event templates for your app
+*TemplatesApi* | [**TemplatesArchive**](docs/TemplatesApi.md#templatesarchive) | **Delete** /crm/v3/timeline/{appId}/event-templates/{eventTemplateId} | Deletes an event template for the app
+*TemplatesApi* | [**TemplatesGetByID**](docs/TemplatesApi.md#templatesgetbyid) | **Get** /crm/v3/timeline/{appId}/event-templates/{eventTemplateId} | Gets a specific event template for your app
+*TemplatesApi* | [**TemplatesUpdate**](docs/TemplatesApi.md#templatesupdate) | **Put** /crm/v3/timeline/{appId}/event-templates/{eventTemplateId} | Update an existing event template
+*TokensApi* | [**TemplatesTokensArchive**](docs/TokensApi.md#templatestokensarchive) | **Delete** /crm/v3/timeline/{appId}/event-templates/{eventTemplateId}/tokens/{tokenName} | Removes a token from the event template
+*TokensApi* | [**TemplatesTokensCreate**](docs/TokensApi.md#templatestokenscreate) | **Post** /crm/v3/timeline/{appId}/event-templates/{eventTemplateId}/tokens | Adds a token to an existing event template
+*TokensApi* | [**TemplatesTokensUpdate**](docs/TokensApi.md#templatestokensupdate) | **Put** /crm/v3/timeline/{appId}/event-templates/{eventTemplateId}/tokens/{tokenName} | Updates an existing token on an event template
 
 
 ## Documentation For Models

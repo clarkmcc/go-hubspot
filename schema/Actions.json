@@ -27,7 +27,7 @@
         "tags" : [ "Callbacks" ],
         "summary" : "Complete a batch of callbacks",
         "description" : "Completes the given action callbacks.",
-        "operationId" : "post-/automation/v4/actions/callbacks/complete_completeBatch",
+        "operationId" : "CallbackCompleteBatch",
         "requestBody" : {
           "description" : "The result of the completed action.",
           "content" : {
@@ -60,7 +60,7 @@
         "tags" : [ "Callbacks" ],
         "summary" : "Complete a callback",
         "description" : "Completes the given action callback.",
-        "operationId" : "post-/automation/v4/actions/callbacks/{callbackId}/complete_complete",
+        "operationId" : "CallbackComplete",
         "parameters" : [ {
           "name" : "callbackId",
           "in" : "path",
@@ -104,7 +104,7 @@
         "tags" : [ "Definitions" ],
         "summary" : "Get all custom actions",
         "description" : "Returns a list of all custom workflow actions.",
-        "operationId" : "get-/automation/v4/actions/{appId}_getPage",
+        "operationId" : "GetPage",
         "parameters" : [ {
           "name" : "limit",
           "in" : "query",
@@ -253,7 +253,7 @@
         "tags" : [ "Definitions" ],
         "summary" : "Create new custom action",
         "description" : "Creates a new custom workflow action.",
-        "operationId" : "post-/automation/v4/actions/{appId}_create",
+        "operationId" : "Create",
         "parameters" : [ {
           "name" : "appId",
           "in" : "path",
@@ -371,7 +371,7 @@
         "tags" : [ "Definitions" ],
         "summary" : "Get a custom action",
         "description" : "Returns a single custom workflow action with the specified ID.",
-        "operationId" : "get-/automation/v4/actions/{appId}/{definitionId}_getById",
+        "operationId" : "GetByID",
         "parameters" : [ {
           "name" : "definitionId",
           "in" : "path",
@@ -497,7 +497,7 @@
         "tags" : [ "Definitions" ],
         "summary" : "Archive a custom action",
         "description" : "Archives a single custom workflow action with the specified ID. Workflows that currently use this custom action will stop attempting to execute the action, and all future executions will be marked as a failure.",
-        "operationId" : "delete-/automation/v4/actions/{appId}/{definitionId}_archive",
+        "operationId" : "Archive",
         "parameters" : [ {
           "name" : "definitionId",
           "in" : "path",
@@ -536,7 +536,7 @@
         "tags" : [ "Definitions" ],
         "summary" : "Update a custom action",
         "description" : "Updates a custom workflow action with new values for the specified fields.",
-        "operationId" : "patch-/automation/v4/actions/{appId}/{definitionId}_update",
+        "operationId" : "Update",
         "parameters" : [ {
           "name" : "definitionId",
           "in" : "path",
@@ -667,7 +667,7 @@
         "tags" : [ "Functions" ],
         "summary" : "Get all custom action functions",
         "description" : "Returns a list of all functions that are associated with the given custom workflow action.",
-        "operationId" : "get-/automation/v4/actions/{appId}/{definitionId}/functions_getPage",
+        "operationId" : "FunctionsGetPage",
         "parameters" : [ {
           "name" : "definitionId",
           "in" : "path",
@@ -727,7 +727,7 @@
         "tags" : [ "Functions" ],
         "summary" : "Get a custom action function",
         "description" : "Returns the given function for a custom workflow action.",
-        "operationId" : "get-/automation/v4/actions/{appId}/{definitionId}/functions/{functionType}_getByFunctionType",
+        "operationId" : "FunctionsGetByType",
         "parameters" : [ {
           "name" : "definitionId",
           "in" : "path",
@@ -787,7 +787,7 @@
         "tags" : [ "Functions" ],
         "summary" : "Create or replace a custom action function",
         "description" : "Creates or replaces a function for a custom workflow action.",
-        "operationId" : "put-/automation/v4/actions/{appId}/{definitionId}/functions/{functionType}_createOrReplaceByFunctionType",
+        "operationId" : "FunctionsCreateOrReplaceByType",
         "parameters" : [ {
           "name" : "definitionId",
           "in" : "path",
@@ -857,7 +857,7 @@
         "tags" : [ "Functions" ],
         "summary" : "Delete a custom action function",
         "description" : "Delete a function for a custom workflow action. This will remove the function itself as well as removing the association between the function and the custom action. This can't be undone.",
-        "operationId" : "delete-/automation/v4/actions/{appId}/{definitionId}/functions/{functionType}_archiveByFunctionType",
+        "operationId" : "FunctionsArchiveByType",
         "parameters" : [ {
           "name" : "definitionId",
           "in" : "path",
@@ -909,7 +909,7 @@
         "tags" : [ "Functions" ],
         "summary" : "Get a custom action function",
         "description" : "Returns the given function for a custom workflow action.",
-        "operationId" : "get-/automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId}_getById",
+        "operationId" : "FunctionsGetByID",
         "parameters" : [ {
           "name" : "definitionId",
           "in" : "path",
@@ -980,7 +980,7 @@
         "tags" : [ "Functions" ],
         "summary" : "Create or replace a custom action function",
         "description" : "Creates or replaces a function for a custom workflow action.",
-        "operationId" : "put-/automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId}_createOrReplace",
+        "operationId" : "FunctionsCreateOrReplace",
         "parameters" : [ {
           "name" : "definitionId",
           "in" : "path",
@@ -1061,7 +1061,7 @@
         "tags" : [ "Functions" ],
         "summary" : "Delete a custom action function",
         "description" : "Delete a function for a custom workflow action. This will remove the function itself as well as removing the association between the function and the custom action. This can't be undone.",
-        "operationId" : "delete-/automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId}_archive",
+        "operationId" : "FunctionsArchive",
         "parameters" : [ {
           "name" : "definitionId",
           "in" : "path",
@@ -1123,7 +1123,7 @@
         "tags" : [ "Revisions" ],
         "summary" : "Get all revisions for a custom action",
         "description" : "Returns a list of revisions for a custom workflow action.",
-        "operationId" : "get-/automation/v4/actions/{appId}/{definitionId}/revisions_getPage",
+        "operationId" : "RevisionsGetPage",
         "parameters" : [ {
           "name" : "definitionId",
           "in" : "path",
@@ -1283,7 +1283,7 @@
         "tags" : [ "Revisions" ],
         "summary" : "Get a revision for a custom action",
         "description" : "Returns the given version of a custom workflow action.",
-        "operationId" : "get-/automation/v4/actions/{appId}/{definitionId}/revisions/{revisionId}_getById",
+        "operationId" : "RevisionsGetByID",
         "parameters" : [ {
           "name" : "definitionId",
           "in" : "path",

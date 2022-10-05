@@ -4,13 +4,13 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetCommunicationPreferencesV3DefinitionsGetPage**](DefinitionApi.md#GetCommunicationPreferencesV3DefinitionsGetPage) | **Get** /communication-preferences/v3/definitions | Get subscription definitions
+[**GetPage**](DefinitionApi.md#GetPage) | **Get** /communication-preferences/v3/definitions | Get subscription definitions
 
 
 
-## GetCommunicationPreferencesV3DefinitionsGetPage
+## GetPage
 
-> SubscriptionDefinitionsResponse GetCommunicationPreferencesV3DefinitionsGetPage(ctx).Execute()
+> SubscriptionDefinitionsResponse GetPage(ctx).Execute()
 
 Get subscription definitions
 
@@ -32,13 +32,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.DefinitionApi.GetCommunicationPreferencesV3DefinitionsGetPage(context.Background()).Execute()
+    resp, r, err := apiClient.DefinitionApi.GetPage(context.Background()).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefinitionApi.GetCommunicationPreferencesV3DefinitionsGetPage``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `DefinitionApi.GetPage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetCommunicationPreferencesV3DefinitionsGetPage`: SubscriptionDefinitionsResponse
-    fmt.Fprintf(os.Stdout, "Response from `DefinitionApi.GetCommunicationPreferencesV3DefinitionsGetPage`: %v\n", resp)
+    // response from `GetPage`: SubscriptionDefinitionsResponse
+    fmt.Fprintf(os.Stdout, "Response from `DefinitionApi.GetPage`: %v\n", resp)
 }
 ```
 
@@ -48,7 +48,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetCommunicationPreferencesV3DefinitionsGetPageRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetPageRequest struct via the builder pattern
 
 
 ### Return type

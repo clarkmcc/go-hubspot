@@ -23,31 +23,31 @@ import (
 // GenerateApiService GenerateApi service
 type GenerateApiService service
 
-type ApiPostVisitorIdentificationV3TokensCreateGenerateTokenRequest struct {
+type ApiGenerateTokenRequest struct {
 	ctx                                  context.Context
 	ApiService                           *GenerateApiService
 	identificationTokenGenerationRequest *IdentificationTokenGenerationRequest
 }
 
-func (r ApiPostVisitorIdentificationV3TokensCreateGenerateTokenRequest) IdentificationTokenGenerationRequest(identificationTokenGenerationRequest IdentificationTokenGenerationRequest) ApiPostVisitorIdentificationV3TokensCreateGenerateTokenRequest {
+func (r ApiGenerateTokenRequest) IdentificationTokenGenerationRequest(identificationTokenGenerationRequest IdentificationTokenGenerationRequest) ApiGenerateTokenRequest {
 	r.identificationTokenGenerationRequest = &identificationTokenGenerationRequest
 	return r
 }
 
-func (r ApiPostVisitorIdentificationV3TokensCreateGenerateTokenRequest) Execute() (*IdentificationTokenResponse, *http.Response, error) {
-	return r.ApiService.PostVisitorIdentificationV3TokensCreateGenerateTokenExecute(r)
+func (r ApiGenerateTokenRequest) Execute() (*IdentificationTokenResponse, *http.Response, error) {
+	return r.ApiService.GenerateTokenExecute(r)
 }
 
 /*
-PostVisitorIdentificationV3TokensCreateGenerateToken Generate a token
+GenerateToken Generate a token
 
 Generates a new visitor identification token. This token will be unique every time this endpoint is called, even if called with the same email address. This token is temporary and will expire after 12 hours
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostVisitorIdentificationV3TokensCreateGenerateTokenRequest
+ @return ApiGenerateTokenRequest
 */
-func (a *GenerateApiService) PostVisitorIdentificationV3TokensCreateGenerateToken(ctx context.Context) ApiPostVisitorIdentificationV3TokensCreateGenerateTokenRequest {
-	return ApiPostVisitorIdentificationV3TokensCreateGenerateTokenRequest{
+func (a *GenerateApiService) GenerateToken(ctx context.Context) ApiGenerateTokenRequest {
+	return ApiGenerateTokenRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -55,7 +55,7 @@ func (a *GenerateApiService) PostVisitorIdentificationV3TokensCreateGenerateToke
 
 // Execute executes the request
 //  @return IdentificationTokenResponse
-func (a *GenerateApiService) PostVisitorIdentificationV3TokensCreateGenerateTokenExecute(r ApiPostVisitorIdentificationV3TokensCreateGenerateTokenRequest) (*IdentificationTokenResponse, *http.Response, error) {
+func (a *GenerateApiService) GenerateTokenExecute(r ApiGenerateTokenRequest) (*IdentificationTokenResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -63,7 +63,7 @@ func (a *GenerateApiService) PostVisitorIdentificationV3TokensCreateGenerateToke
 		localVarReturnValue *IdentificationTokenResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GenerateApiService.PostVisitorIdentificationV3TokensCreateGenerateToken")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GenerateApiService.GenerateToken")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

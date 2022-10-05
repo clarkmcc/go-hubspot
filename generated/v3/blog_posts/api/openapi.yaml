@@ -353,7 +353,7 @@ paths:
   /cms/v3/blogs/posts/multi-language/attach-to-lang-group:
     post:
       description: Attach a Blog Post to a multi-language group.
-      operationId: AttachToLangGroup
+      operationId: AttachToLanguageGroup
       requestBody:
         content:
           application/json:
@@ -378,7 +378,7 @@ paths:
   /cms/v3/blogs/posts/multi-language/create-language-variation:
     post:
       description: Create a new language variation from an existing Blog Post
-      operationId: CreateLangVariation
+      operationId: CreateLanguageVariation
       requestBody:
         content:
           application/json:
@@ -410,7 +410,7 @@ paths:
   /cms/v3/blogs/posts/multi-language/detach-from-lang-group:
     post:
       description: Detach a Blog Post from a multi-language group.
-      operationId: DetachFromLangGroup
+      operationId: DetachFromLanguageGroup
       requestBody:
         content:
           application/json:
@@ -435,7 +435,7 @@ paths:
   /cms/v3/blogs/posts/multi-language/set-new-lang-primary:
     put:
       description: Set a Blog Post as the primary language of a multi-language group.
-      operationId: SetLangPrimary
+      operationId: SetLanguagePrimary
       requestBody:
         content:
           application/json:
@@ -464,7 +464,7 @@ paths:
     post:
       description: Explicitly set new languages for each Blog Post in a multi-language
         group.
-      operationId: UpdateLangs
+      operationId: UpdateLanguages
       requestBody:
         content:
           application/json:

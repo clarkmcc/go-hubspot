@@ -22,7 +22,7 @@
         "tags" : [ "Attendance Subscriber State Changes" ],
         "summary" : "Record",
         "description" : "Record a subscription state between multiple HubSpot contacts and a marketing event, using HubSpot contact ids.",
-        "operationId" : "post-/marketing/v3/marketing-events/attendance/{externalEventId}/{subscriberState}/create",
+        "operationId" : "AttendanceCreate",
         "parameters" : [ {
           "name" : "externalEventId",
           "in" : "path",
@@ -92,7 +92,7 @@
         "tags" : [ "Attendance Subscriber State Changes" ],
         "summary" : "Record",
         "description" : "Record a subscription state between multiple HubSpot contacts and a marketing event, using contact email addresses. If contact is not present it will be automatically created. If you set params ",
-        "operationId" : "post-/marketing/v3/marketing-events/attendance/{externalEventId}/{subscriberState}/email-create",
+        "operationId" : "AttendanceEmailCreate",
         "parameters" : [ {
           "name" : "externalEventId",
           "in" : "path",
@@ -160,7 +160,7 @@
     "/marketing/v3/marketing-events/events" : {
       "post" : {
         "tags" : [ "Marketing_Events_External" ],
-        "operationId" : "post-/marketing/v3/marketing-events/events_create",
+        "operationId" : "Create",
         "requestBody" : {
           "content" : {
             "application/json" : {
@@ -196,7 +196,7 @@
     "/marketing/v3/marketing-events/events/delete" : {
       "post" : {
         "tags" : [ "Marketing_Events_External" ],
-        "operationId" : "post-/marketing/v3/marketing-events/events/delete_archive",
+        "operationId" : "Archive",
         "requestBody" : {
           "content" : {
             "application/json" : {
@@ -222,7 +222,7 @@
     "/marketing/v3/marketing-events/events/search" : {
       "get" : {
         "tags" : [ "Marketing_Events_External" ],
-        "operationId" : "get-/marketing/v3/marketing-events/events/search_doSearch",
+        "operationId" : "Search",
         "parameters" : [ {
           "name" : "q",
           "in" : "query",
@@ -258,7 +258,7 @@
     "/marketing/v3/marketing-events/events/upsert" : {
       "post" : {
         "tags" : [ "Marketing_Events_External" ],
-        "operationId" : "post-/marketing/v3/marketing-events/events/upsert_doUpsert",
+        "operationId" : "Upsert",
         "requestBody" : {
           "content" : {
             "application/json" : {
@@ -294,7 +294,7 @@
     "/marketing/v3/marketing-events/events/{externalEventId}" : {
       "get" : {
         "tags" : [ "Marketing_Events_External" ],
-        "operationId" : "get-/marketing/v3/marketing-events/events/{externalEventId}_getById",
+        "operationId" : "ExternalGetByID",
         "parameters" : [ {
           "name" : "externalEventId",
           "in" : "path",
@@ -337,7 +337,7 @@
       },
       "put" : {
         "tags" : [ "Marketing_Events_External" ],
-        "operationId" : "put-/marketing/v3/marketing-events/events/{externalEventId}_replace",
+        "operationId" : "ExternalReplace",
         "parameters" : [ {
           "name" : "externalEventId",
           "in" : "path",
@@ -381,7 +381,7 @@
       },
       "delete" : {
         "tags" : [ "Marketing_Events_External" ],
-        "operationId" : "delete-/marketing/v3/marketing-events/events/{externalEventId}_archive",
+        "operationId" : "ExternalArchive",
         "parameters" : [ {
           "name" : "externalEventId",
           "in" : "path",
@@ -418,7 +418,7 @@
       },
       "patch" : {
         "tags" : [ "Marketing_Events_External" ],
-        "operationId" : "patch-/marketing/v3/marketing-events/events/{externalEventId}_update",
+        "operationId" : "ExternalUpdate",
         "parameters" : [ {
           "name" : "externalEventId",
           "in" : "path",
@@ -473,7 +473,7 @@
     "/marketing/v3/marketing-events/events/{externalEventId}/cancel" : {
       "post" : {
         "tags" : [ "Marketing_Events_External" ],
-        "operationId" : "post-/marketing/v3/marketing-events/events/{externalEventId}/cancel_doCancel",
+        "operationId" : "ExternalCancel",
         "parameters" : [ {
           "name" : "externalEventId",
           "in" : "path",
@@ -518,7 +518,7 @@
     "/marketing/v3/marketing-events/events/{externalEventId}/complete" : {
       "post" : {
         "tags" : [ "Marketing_Events_External" ],
-        "operationId" : "post-/marketing/v3/marketing-events/events/{externalEventId}/complete",
+        "operationId" : "ExternalComplete",
         "parameters" : [ {
           "name" : "externalEventId",
           "in" : "path",
@@ -573,7 +573,7 @@
     "/marketing/v3/marketing-events/events/{externalEventId}/{subscriberState}/email-upsert" : {
       "post" : {
         "tags" : [ "Marketing_Events_External" ],
-        "operationId" : "post-/marketing/v3/marketing-events/events/{externalEventId}/{subscriberState}/email-upsert_doEmailUpsertById",
+        "operationId" : "ExternalEmailUpsertByID",
         "parameters" : [ {
           "name" : "externalEventId",
           "in" : "path",
@@ -627,7 +627,7 @@
     "/marketing/v3/marketing-events/events/{externalEventId}/{subscriberState}/upsert" : {
       "post" : {
         "tags" : [ "Marketing_Events_External" ],
-        "operationId" : "post-/marketing/v3/marketing-events/events/{externalEventId}/{subscriberState}/upsert_doUpsertById",
+        "operationId" : "ExternalUpsertByID",
         "parameters" : [ {
           "name" : "externalEventId",
           "in" : "path",
@@ -681,7 +681,7 @@
     "/marketing/v3/marketing-events/{appId}/settings" : {
       "get" : {
         "tags" : [ "Settings_External" ],
-        "operationId" : "get-/marketing/v3/marketing-events/{appId}/settings_getAll",
+        "operationId" : "SettingsGetAll",
         "parameters" : [ {
           "name" : "appId",
           "in" : "path",
@@ -716,7 +716,7 @@
       },
       "post" : {
         "tags" : [ "Settings_External" ],
-        "operationId" : "post-/marketing/v3/marketing-events/{appId}/settings_create",
+        "operationId" : "SettingsCreate",
         "parameters" : [ {
           "name" : "appId",
           "in" : "path",

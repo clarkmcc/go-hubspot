@@ -24,25 +24,31 @@ import (
 // SettingsExternalApiService SettingsExternalApi service
 type SettingsExternalApiService service
 
-type ApiGetMarketingV3MarketingEventsAppIdSettingsGetAllRequest struct {
-	ctx        context.Context
-	ApiService *SettingsExternalApiService
-	appId      int32
+type ApiSettingsCreateRequest struct {
+	ctx                    context.Context
+	ApiService             *SettingsExternalApiService
+	appId                  int32
+	eventDetailSettingsUrl *EventDetailSettingsUrl
 }
 
-func (r ApiGetMarketingV3MarketingEventsAppIdSettingsGetAllRequest) Execute() (*EventDetailSettings, *http.Response, error) {
-	return r.ApiService.GetMarketingV3MarketingEventsAppIdSettingsGetAllExecute(r)
+func (r ApiSettingsCreateRequest) EventDetailSettingsUrl(eventDetailSettingsUrl EventDetailSettingsUrl) ApiSettingsCreateRequest {
+	r.eventDetailSettingsUrl = &eventDetailSettingsUrl
+	return r
+}
+
+func (r ApiSettingsCreateRequest) Execute() (*EventDetailSettings, *http.Response, error) {
+	return r.ApiService.SettingsCreateExecute(r)
 }
 
 /*
-GetMarketingV3MarketingEventsAppIdSettingsGetAll Method for GetMarketingV3MarketingEventsAppIdSettingsGetAll
+SettingsCreate Method for SettingsCreate
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param appId
- @return ApiGetMarketingV3MarketingEventsAppIdSettingsGetAllRequest
+ @return ApiSettingsCreateRequest
 */
-func (a *SettingsExternalApiService) GetMarketingV3MarketingEventsAppIdSettingsGetAll(ctx context.Context, appId int32) ApiGetMarketingV3MarketingEventsAppIdSettingsGetAllRequest {
-	return ApiGetMarketingV3MarketingEventsAppIdSettingsGetAllRequest{
+func (a *SettingsExternalApiService) SettingsCreate(ctx context.Context, appId int32) ApiSettingsCreateRequest {
+	return ApiSettingsCreateRequest{
 		ApiService: a,
 		ctx:        ctx,
 		appId:      appId,
@@ -51,15 +57,15 @@ func (a *SettingsExternalApiService) GetMarketingV3MarketingEventsAppIdSettingsG
 
 // Execute executes the request
 //  @return EventDetailSettings
-func (a *SettingsExternalApiService) GetMarketingV3MarketingEventsAppIdSettingsGetAllExecute(r ApiGetMarketingV3MarketingEventsAppIdSettingsGetAllRequest) (*EventDetailSettings, *http.Response, error) {
+func (a *SettingsExternalApiService) SettingsCreateExecute(r ApiSettingsCreateRequest) (*EventDetailSettings, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
+		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *EventDetailSettings
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsExternalApiService.GetMarketingV3MarketingEventsAppIdSettingsGetAll")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsExternalApiService.SettingsCreate")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -70,9 +76,12 @@ func (a *SettingsExternalApiService) GetMarketingV3MarketingEventsAppIdSettingsG
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.eventDetailSettingsUrl == nil {
+		return localVarReturnValue, nil, reportError("eventDetailSettingsUrl is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -88,6 +97,8 @@ func (a *SettingsExternalApiService) GetMarketingV3MarketingEventsAppIdSettingsG
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.eventDetailSettingsUrl
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -156,31 +167,25 @@ func (a *SettingsExternalApiService) GetMarketingV3MarketingEventsAppIdSettingsG
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPostMarketingV3MarketingEventsAppIdSettingsCreateRequest struct {
-	ctx                    context.Context
-	ApiService             *SettingsExternalApiService
-	appId                  int32
-	eventDetailSettingsUrl *EventDetailSettingsUrl
+type ApiSettingsGetAllRequest struct {
+	ctx        context.Context
+	ApiService *SettingsExternalApiService
+	appId      int32
 }
 
-func (r ApiPostMarketingV3MarketingEventsAppIdSettingsCreateRequest) EventDetailSettingsUrl(eventDetailSettingsUrl EventDetailSettingsUrl) ApiPostMarketingV3MarketingEventsAppIdSettingsCreateRequest {
-	r.eventDetailSettingsUrl = &eventDetailSettingsUrl
-	return r
-}
-
-func (r ApiPostMarketingV3MarketingEventsAppIdSettingsCreateRequest) Execute() (*EventDetailSettings, *http.Response, error) {
-	return r.ApiService.PostMarketingV3MarketingEventsAppIdSettingsCreateExecute(r)
+func (r ApiSettingsGetAllRequest) Execute() (*EventDetailSettings, *http.Response, error) {
+	return r.ApiService.SettingsGetAllExecute(r)
 }
 
 /*
-PostMarketingV3MarketingEventsAppIdSettingsCreate Method for PostMarketingV3MarketingEventsAppIdSettingsCreate
+SettingsGetAll Method for SettingsGetAll
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param appId
- @return ApiPostMarketingV3MarketingEventsAppIdSettingsCreateRequest
+ @return ApiSettingsGetAllRequest
 */
-func (a *SettingsExternalApiService) PostMarketingV3MarketingEventsAppIdSettingsCreate(ctx context.Context, appId int32) ApiPostMarketingV3MarketingEventsAppIdSettingsCreateRequest {
-	return ApiPostMarketingV3MarketingEventsAppIdSettingsCreateRequest{
+func (a *SettingsExternalApiService) SettingsGetAll(ctx context.Context, appId int32) ApiSettingsGetAllRequest {
+	return ApiSettingsGetAllRequest{
 		ApiService: a,
 		ctx:        ctx,
 		appId:      appId,
@@ -189,15 +194,15 @@ func (a *SettingsExternalApiService) PostMarketingV3MarketingEventsAppIdSettings
 
 // Execute executes the request
 //  @return EventDetailSettings
-func (a *SettingsExternalApiService) PostMarketingV3MarketingEventsAppIdSettingsCreateExecute(r ApiPostMarketingV3MarketingEventsAppIdSettingsCreateRequest) (*EventDetailSettings, *http.Response, error) {
+func (a *SettingsExternalApiService) SettingsGetAllExecute(r ApiSettingsGetAllRequest) (*EventDetailSettings, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
+		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *EventDetailSettings
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsExternalApiService.PostMarketingV3MarketingEventsAppIdSettingsCreate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsExternalApiService.SettingsGetAll")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -208,12 +213,9 @@ func (a *SettingsExternalApiService) PostMarketingV3MarketingEventsAppIdSettings
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.eventDetailSettingsUrl == nil {
-		return localVarReturnValue, nil, reportError("eventDetailSettingsUrl is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -229,8 +231,6 @@ func (a *SettingsExternalApiService) PostMarketingV3MarketingEventsAppIdSettings
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.eventDetailSettingsUrl
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {

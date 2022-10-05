@@ -4,15 +4,15 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdTokensTokenNameArchive**](TokensApi.md#DeleteIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdTokensTokenNameArchive) | **Delete** /crm/v3/timeline/{appId}/event-templates/{eventTemplateId}/tokens/{tokenName} | Removes a token from the event template
-[**PostIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdTokensCreate**](TokensApi.md#PostIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdTokensCreate) | **Post** /crm/v3/timeline/{appId}/event-templates/{eventTemplateId}/tokens | Adds a token to an existing event template
-[**PutIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdTokensTokenNameUpdate**](TokensApi.md#PutIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdTokensTokenNameUpdate) | **Put** /crm/v3/timeline/{appId}/event-templates/{eventTemplateId}/tokens/{tokenName} | Updates an existing token on an event template
+[**TemplatesTokensArchive**](TokensApi.md#TemplatesTokensArchive) | **Delete** /crm/v3/timeline/{appId}/event-templates/{eventTemplateId}/tokens/{tokenName} | Removes a token from the event template
+[**TemplatesTokensCreate**](TokensApi.md#TemplatesTokensCreate) | **Post** /crm/v3/timeline/{appId}/event-templates/{eventTemplateId}/tokens | Adds a token to an existing event template
+[**TemplatesTokensUpdate**](TokensApi.md#TemplatesTokensUpdate) | **Put** /crm/v3/timeline/{appId}/event-templates/{eventTemplateId}/tokens/{tokenName} | Updates an existing token on an event template
 
 
 
-## DeleteIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdTokensTokenNameArchive
+## TemplatesTokensArchive
 
-> DeleteIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdTokensTokenNameArchive(ctx, eventTemplateId, tokenName, appId).Execute()
+> TemplatesTokensArchive(ctx, eventTemplateId, tokenName, appId).Execute()
 
 Removes a token from the event template
 
@@ -37,9 +37,9 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TokensApi.DeleteIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdTokensTokenNameArchive(context.Background(), eventTemplateId, tokenName, appId).Execute()
+    resp, r, err := apiClient.TokensApi.TemplatesTokensArchive(context.Background(), eventTemplateId, tokenName, appId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TokensApi.DeleteIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdTokensTokenNameArchive``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `TokensApi.TemplatesTokensArchive``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -57,7 +57,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdTokensTokenNameArchiveRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiTemplatesTokensArchiveRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -84,9 +84,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdTokensCreate
+## TemplatesTokensCreate
 
-> TimelineEventTemplateToken PostIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdTokensCreate(ctx, eventTemplateId, appId).TimelineEventTemplateToken(timelineEventTemplateToken).Execute()
+> TimelineEventTemplateToken TemplatesTokensCreate(ctx, eventTemplateId, appId).TimelineEventTemplateToken(timelineEventTemplateToken).Execute()
 
 Adds a token to an existing event template
 
@@ -111,13 +111,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TokensApi.PostIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdTokensCreate(context.Background(), eventTemplateId, appId).TimelineEventTemplateToken(timelineEventTemplateToken).Execute()
+    resp, r, err := apiClient.TokensApi.TemplatesTokensCreate(context.Background(), eventTemplateId, appId).TimelineEventTemplateToken(timelineEventTemplateToken).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TokensApi.PostIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdTokensCreate``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `TokensApi.TemplatesTokensCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdTokensCreate`: TimelineEventTemplateToken
-    fmt.Fprintf(os.Stdout, "Response from `TokensApi.PostIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdTokensCreate`: %v\n", resp)
+    // response from `TemplatesTokensCreate`: TimelineEventTemplateToken
+    fmt.Fprintf(os.Stdout, "Response from `TokensApi.TemplatesTokensCreate`: %v\n", resp)
 }
 ```
 
@@ -132,7 +132,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdTokensCreateRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiTemplatesTokensCreateRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -159,9 +159,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PutIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdTokensTokenNameUpdate
+## TemplatesTokensUpdate
 
-> TimelineEventTemplateToken PutIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdTokensTokenNameUpdate(ctx, eventTemplateId, tokenName, appId).TimelineEventTemplateTokenUpdateRequest(timelineEventTemplateTokenUpdateRequest).Execute()
+> TimelineEventTemplateToken TemplatesTokensUpdate(ctx, eventTemplateId, tokenName, appId).TimelineEventTemplateTokenUpdateRequest(timelineEventTemplateTokenUpdateRequest).Execute()
 
 Updates an existing token on an event template
 
@@ -187,13 +187,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TokensApi.PutIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdTokensTokenNameUpdate(context.Background(), eventTemplateId, tokenName, appId).TimelineEventTemplateTokenUpdateRequest(timelineEventTemplateTokenUpdateRequest).Execute()
+    resp, r, err := apiClient.TokensApi.TemplatesTokensUpdate(context.Background(), eventTemplateId, tokenName, appId).TimelineEventTemplateTokenUpdateRequest(timelineEventTemplateTokenUpdateRequest).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TokensApi.PutIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdTokensTokenNameUpdate``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `TokensApi.TemplatesTokensUpdate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PutIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdTokensTokenNameUpdate`: TimelineEventTemplateToken
-    fmt.Fprintf(os.Stdout, "Response from `TokensApi.PutIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdTokensTokenNameUpdate`: %v\n", resp)
+    // response from `TemplatesTokensUpdate`: TimelineEventTemplateToken
+    fmt.Fprintf(os.Stdout, "Response from `TokensApi.TemplatesTokensUpdate`: %v\n", resp)
 }
 ```
 
@@ -209,7 +209,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPutIntegratorsTimelineV3AppIdEventTemplatesEventTemplateIdTokensTokenNameUpdateRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiTemplatesTokensUpdateRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

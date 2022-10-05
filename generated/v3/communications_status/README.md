@@ -78,10 +78,10 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefinitionApi* | [**GetCommunicationPreferencesV3DefinitionsGetPage**](docs/DefinitionApi.md#getcommunicationpreferencesv3definitionsgetpage) | **Get** /communication-preferences/v3/definitions | Get subscription definitions
-*StatusApi* | [**GetCommunicationPreferencesV3StatusEmailEmailAddressGetEmailStatus**](docs/StatusApi.md#getcommunicationpreferencesv3statusemailemailaddressgetemailstatus) | **Get** /communication-preferences/v3/status/email/{emailAddress} | Get subscription statuses for a contact
-*StatusApi* | [**PostCommunicationPreferencesV3SubscribeSubscribe**](docs/StatusApi.md#postcommunicationpreferencesv3subscribesubscribe) | **Post** /communication-preferences/v3/subscribe | Subscribe a contact
-*StatusApi* | [**PostCommunicationPreferencesV3UnsubscribeUnsubscribe**](docs/StatusApi.md#postcommunicationpreferencesv3unsubscribeunsubscribe) | **Post** /communication-preferences/v3/unsubscribe | Unsubscribe a contact
+*DefinitionApi* | [**GetPage**](docs/DefinitionApi.md#getpage) | **Get** /communication-preferences/v3/definitions | Get subscription definitions
+*StatusApi* | [**GetEmailStatus**](docs/StatusApi.md#getemailstatus) | **Get** /communication-preferences/v3/status/email/{emailAddress} | Get subscription statuses for a contact
+*StatusApi* | [**Subscribe**](docs/StatusApi.md#subscribe) | **Post** /communication-preferences/v3/subscribe | Subscribe a contact
+*StatusApi* | [**Unsubscribe**](docs/StatusApi.md#unsubscribe) | **Post** /communication-preferences/v3/unsubscribe | Unsubscribe a contact
 
 
 ## Documentation For Models

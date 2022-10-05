@@ -78,7 +78,7 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*BehavioralEventsTrackingApi* | [**PostEventsV3Send**](docs/BehavioralEventsTrackingApi.md#posteventsv3send) | **Post** /events/v3/send | Sends Custom Behavioral Event
+*BehavioralEventsTrackingApi* | [**Send**](docs/BehavioralEventsTrackingApi.md#send) | **Post** /events/v3/send | Sends Custom Behavioral Event
 
 
 ## Documentation For Models

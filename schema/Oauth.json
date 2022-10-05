@@ -18,7 +18,7 @@
     "/oauth/v1/access-tokens/{token}" : {
       "get" : {
         "tags" : [ "Access_Tokens" ],
-        "operationId" : "get-/oauth/v1/access-tokens/{token}_getAccessToken",
+        "operationId" : "GetAccessToken",
         "parameters" : [ {
           "name" : "token",
           "in" : "path",
@@ -50,7 +50,7 @@
     "/oauth/v1/refresh-tokens/{token}" : {
       "get" : {
         "tags" : [ "Refresh_Tokens" ],
-        "operationId" : "get-/oauth/v1/refresh-tokens/{token}_getRefreshToken",
+        "operationId" : "GetRefreshToken",
         "parameters" : [ {
           "name" : "token",
           "in" : "path",
@@ -80,7 +80,7 @@
       },
       "delete" : {
         "tags" : [ "Refresh_Tokens" ],
-        "operationId" : "delete-/oauth/v1/refresh-tokens/{token}_archiveRefreshToken",
+        "operationId" : "ArchiveRefreshToken",
         "parameters" : [ {
           "name" : "token",
           "in" : "path",
@@ -102,7 +102,7 @@
     "/oauth/v1/token" : {
       "post" : {
         "tags" : [ "Tokens" ],
-        "operationId" : "post-/oauth/v1/token_createToken",
+        "operationId" : "CreateToken",
         "requestBody" : {
           "content" : {
             "application/x-www-form-urlencoded" : {

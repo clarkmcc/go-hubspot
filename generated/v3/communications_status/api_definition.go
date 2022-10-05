@@ -23,25 +23,25 @@ import (
 // DefinitionApiService DefinitionApi service
 type DefinitionApiService service
 
-type ApiGetCommunicationPreferencesV3DefinitionsGetPageRequest struct {
+type ApiGetPageRequest struct {
 	ctx        context.Context
 	ApiService *DefinitionApiService
 }
 
-func (r ApiGetCommunicationPreferencesV3DefinitionsGetPageRequest) Execute() (*SubscriptionDefinitionsResponse, *http.Response, error) {
-	return r.ApiService.GetCommunicationPreferencesV3DefinitionsGetPageExecute(r)
+func (r ApiGetPageRequest) Execute() (*SubscriptionDefinitionsResponse, *http.Response, error) {
+	return r.ApiService.GetPageExecute(r)
 }
 
 /*
-GetCommunicationPreferencesV3DefinitionsGetPage Get subscription definitions
+GetPage Get subscription definitions
 
 Get a list of all subscription definitions for the portal
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetCommunicationPreferencesV3DefinitionsGetPageRequest
+ @return ApiGetPageRequest
 */
-func (a *DefinitionApiService) GetCommunicationPreferencesV3DefinitionsGetPage(ctx context.Context) ApiGetCommunicationPreferencesV3DefinitionsGetPageRequest {
-	return ApiGetCommunicationPreferencesV3DefinitionsGetPageRequest{
+func (a *DefinitionApiService) GetPage(ctx context.Context) ApiGetPageRequest {
+	return ApiGetPageRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -49,7 +49,7 @@ func (a *DefinitionApiService) GetCommunicationPreferencesV3DefinitionsGetPage(c
 
 // Execute executes the request
 //  @return SubscriptionDefinitionsResponse
-func (a *DefinitionApiService) GetCommunicationPreferencesV3DefinitionsGetPageExecute(r ApiGetCommunicationPreferencesV3DefinitionsGetPageRequest) (*SubscriptionDefinitionsResponse, *http.Response, error) {
+func (a *DefinitionApiService) GetPageExecute(r ApiGetPageRequest) (*SubscriptionDefinitionsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -57,7 +57,7 @@ func (a *DefinitionApiService) GetCommunicationPreferencesV3DefinitionsGetPageEx
 		localVarReturnValue *SubscriptionDefinitionsResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefinitionApiService.GetCommunicationPreferencesV3DefinitionsGetPage")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefinitionApiService.GetPage")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

@@ -22,29 +22,29 @@ import (
 // DefinitionsApiService DefinitionsApi service
 type DefinitionsApiService service
 
-type ApiDeleteAutomationV4ActionsAppIdDefinitionIdArchiveRequest struct {
+type ApiArchiveRequest struct {
 	ctx          context.Context
 	ApiService   *DefinitionsApiService
 	definitionId string
 	appId        int32
 }
 
-func (r ApiDeleteAutomationV4ActionsAppIdDefinitionIdArchiveRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteAutomationV4ActionsAppIdDefinitionIdArchiveExecute(r)
+func (r ApiArchiveRequest) Execute() (*http.Response, error) {
+	return r.ApiService.ArchiveExecute(r)
 }
 
 /*
-DeleteAutomationV4ActionsAppIdDefinitionIdArchive Archive a custom action
+Archive Archive a custom action
 
 Archives a single custom workflow action with the specified ID. Workflows that currently use this custom action will stop attempting to execute the action, and all future executions will be marked as a failure.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param definitionId The ID of the custom workflow action.
  @param appId
- @return ApiDeleteAutomationV4ActionsAppIdDefinitionIdArchiveRequest
+ @return ApiArchiveRequest
 */
-func (a *DefinitionsApiService) DeleteAutomationV4ActionsAppIdDefinitionIdArchive(ctx context.Context, definitionId string, appId int32) ApiDeleteAutomationV4ActionsAppIdDefinitionIdArchiveRequest {
-	return ApiDeleteAutomationV4ActionsAppIdDefinitionIdArchiveRequest{
+func (a *DefinitionsApiService) Archive(ctx context.Context, definitionId string, appId int32) ApiArchiveRequest {
+	return ApiArchiveRequest{
 		ApiService:   a,
 		ctx:          ctx,
 		definitionId: definitionId,
@@ -53,14 +53,14 @@ func (a *DefinitionsApiService) DeleteAutomationV4ActionsAppIdDefinitionIdArchiv
 }
 
 // Execute executes the request
-func (a *DefinitionsApiService) DeleteAutomationV4ActionsAppIdDefinitionIdArchiveExecute(r ApiDeleteAutomationV4ActionsAppIdDefinitionIdArchiveRequest) (*http.Response, error) {
+func (a *DefinitionsApiService) ArchiveExecute(r ApiArchiveRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefinitionsApiService.DeleteAutomationV4ActionsAppIdDefinitionIdArchive")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefinitionsApiService.Archive")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -139,7 +139,143 @@ func (a *DefinitionsApiService) DeleteAutomationV4ActionsAppIdDefinitionIdArchiv
 	return localVarHTTPResponse, nil
 }
 
-type ApiGetAutomationV4ActionsAppIdDefinitionIdGetByIdRequest struct {
+type ApiCreateRequest struct {
+	ctx                            context.Context
+	ApiService                     *DefinitionsApiService
+	appId                          int32
+	extensionActionDefinitionInput *ExtensionActionDefinitionInput
+}
+
+// The custom workflow action to create.
+func (r ApiCreateRequest) ExtensionActionDefinitionInput(extensionActionDefinitionInput ExtensionActionDefinitionInput) ApiCreateRequest {
+	r.extensionActionDefinitionInput = &extensionActionDefinitionInput
+	return r
+}
+
+func (r ApiCreateRequest) Execute() (*ExtensionActionDefinition, *http.Response, error) {
+	return r.ApiService.CreateExecute(r)
+}
+
+/*
+Create Create new custom action
+
+Creates a new custom workflow action.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param appId
+ @return ApiCreateRequest
+*/
+func (a *DefinitionsApiService) Create(ctx context.Context, appId int32) ApiCreateRequest {
+	return ApiCreateRequest{
+		ApiService: a,
+		ctx:        ctx,
+		appId:      appId,
+	}
+}
+
+// Execute executes the request
+//  @return ExtensionActionDefinition
+func (a *DefinitionsApiService) CreateExecute(r ApiCreateRequest) (*ExtensionActionDefinition, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ExtensionActionDefinition
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefinitionsApiService.Create")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/automation/v4/actions/{appId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.extensionActionDefinitionInput == nil {
+		return localVarReturnValue, nil, reportError("extensionActionDefinitionInput is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "*/*"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.extensionActionDefinitionInput
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["developer_hapikey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarQueryParams.Add("hapikey", key)
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetByIDRequest struct {
 	ctx          context.Context
 	ApiService   *DefinitionsApiService
 	definitionId string
@@ -148,27 +284,27 @@ type ApiGetAutomationV4ActionsAppIdDefinitionIdGetByIdRequest struct {
 }
 
 // Whether to include archived custom actions.
-func (r ApiGetAutomationV4ActionsAppIdDefinitionIdGetByIdRequest) Archived(archived bool) ApiGetAutomationV4ActionsAppIdDefinitionIdGetByIdRequest {
+func (r ApiGetByIDRequest) Archived(archived bool) ApiGetByIDRequest {
 	r.archived = &archived
 	return r
 }
 
-func (r ApiGetAutomationV4ActionsAppIdDefinitionIdGetByIdRequest) Execute() (*ExtensionActionDefinition, *http.Response, error) {
-	return r.ApiService.GetAutomationV4ActionsAppIdDefinitionIdGetByIdExecute(r)
+func (r ApiGetByIDRequest) Execute() (*ExtensionActionDefinition, *http.Response, error) {
+	return r.ApiService.GetByIDExecute(r)
 }
 
 /*
-GetAutomationV4ActionsAppIdDefinitionIdGetById Get a custom action
+GetByID Get a custom action
 
 Returns a single custom workflow action with the specified ID.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param definitionId The ID of the custom workflow action.
  @param appId
- @return ApiGetAutomationV4ActionsAppIdDefinitionIdGetByIdRequest
+ @return ApiGetByIDRequest
 */
-func (a *DefinitionsApiService) GetAutomationV4ActionsAppIdDefinitionIdGetById(ctx context.Context, definitionId string, appId int32) ApiGetAutomationV4ActionsAppIdDefinitionIdGetByIdRequest {
-	return ApiGetAutomationV4ActionsAppIdDefinitionIdGetByIdRequest{
+func (a *DefinitionsApiService) GetByID(ctx context.Context, definitionId string, appId int32) ApiGetByIDRequest {
+	return ApiGetByIDRequest{
 		ApiService:   a,
 		ctx:          ctx,
 		definitionId: definitionId,
@@ -178,7 +314,7 @@ func (a *DefinitionsApiService) GetAutomationV4ActionsAppIdDefinitionIdGetById(c
 
 // Execute executes the request
 //  @return ExtensionActionDefinition
-func (a *DefinitionsApiService) GetAutomationV4ActionsAppIdDefinitionIdGetByIdExecute(r ApiGetAutomationV4ActionsAppIdDefinitionIdGetByIdRequest) (*ExtensionActionDefinition, *http.Response, error) {
+func (a *DefinitionsApiService) GetByIDExecute(r ApiGetByIDRequest) (*ExtensionActionDefinition, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -186,7 +322,7 @@ func (a *DefinitionsApiService) GetAutomationV4ActionsAppIdDefinitionIdGetByIdEx
 		localVarReturnValue *ExtensionActionDefinition
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefinitionsApiService.GetAutomationV4ActionsAppIdDefinitionIdGetById")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefinitionsApiService.GetByID")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -277,7 +413,7 @@ func (a *DefinitionsApiService) GetAutomationV4ActionsAppIdDefinitionIdGetByIdEx
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetAutomationV4ActionsAppIdGetPageRequest struct {
+type ApiGetPageRequest struct {
 	ctx        context.Context
 	ApiService *DefinitionsApiService
 	appId      int32
@@ -287,38 +423,38 @@ type ApiGetAutomationV4ActionsAppIdGetPageRequest struct {
 }
 
 // Maximum number of results per page.
-func (r ApiGetAutomationV4ActionsAppIdGetPageRequest) Limit(limit int32) ApiGetAutomationV4ActionsAppIdGetPageRequest {
+func (r ApiGetPageRequest) Limit(limit int32) ApiGetPageRequest {
 	r.limit = &limit
 	return r
 }
 
 // The paging cursor token of the last successfully read resource will be returned as the &#x60;paging.next.after&#x60; JSON property of a paged response containing more results.
-func (r ApiGetAutomationV4ActionsAppIdGetPageRequest) After(after string) ApiGetAutomationV4ActionsAppIdGetPageRequest {
+func (r ApiGetPageRequest) After(after string) ApiGetPageRequest {
 	r.after = &after
 	return r
 }
 
 // Whether to include archived custom actions.
-func (r ApiGetAutomationV4ActionsAppIdGetPageRequest) Archived(archived bool) ApiGetAutomationV4ActionsAppIdGetPageRequest {
+func (r ApiGetPageRequest) Archived(archived bool) ApiGetPageRequest {
 	r.archived = &archived
 	return r
 }
 
-func (r ApiGetAutomationV4ActionsAppIdGetPageRequest) Execute() (*CollectionResponseExtensionActionDefinitionForwardPaging, *http.Response, error) {
-	return r.ApiService.GetAutomationV4ActionsAppIdGetPageExecute(r)
+func (r ApiGetPageRequest) Execute() (*CollectionResponseExtensionActionDefinitionForwardPaging, *http.Response, error) {
+	return r.ApiService.GetPageExecute(r)
 }
 
 /*
-GetAutomationV4ActionsAppIdGetPage Get all custom actions
+GetPage Get all custom actions
 
 Returns a list of all custom workflow actions.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param appId
- @return ApiGetAutomationV4ActionsAppIdGetPageRequest
+ @return ApiGetPageRequest
 */
-func (a *DefinitionsApiService) GetAutomationV4ActionsAppIdGetPage(ctx context.Context, appId int32) ApiGetAutomationV4ActionsAppIdGetPageRequest {
-	return ApiGetAutomationV4ActionsAppIdGetPageRequest{
+func (a *DefinitionsApiService) GetPage(ctx context.Context, appId int32) ApiGetPageRequest {
+	return ApiGetPageRequest{
 		ApiService: a,
 		ctx:        ctx,
 		appId:      appId,
@@ -327,7 +463,7 @@ func (a *DefinitionsApiService) GetAutomationV4ActionsAppIdGetPage(ctx context.C
 
 // Execute executes the request
 //  @return CollectionResponseExtensionActionDefinitionForwardPaging
-func (a *DefinitionsApiService) GetAutomationV4ActionsAppIdGetPageExecute(r ApiGetAutomationV4ActionsAppIdGetPageRequest) (*CollectionResponseExtensionActionDefinitionForwardPaging, *http.Response, error) {
+func (a *DefinitionsApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionResponseExtensionActionDefinitionForwardPaging, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -335,7 +471,7 @@ func (a *DefinitionsApiService) GetAutomationV4ActionsAppIdGetPageExecute(r ApiG
 		localVarReturnValue *CollectionResponseExtensionActionDefinitionForwardPaging
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefinitionsApiService.GetAutomationV4ActionsAppIdGetPage")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefinitionsApiService.GetPage")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -431,7 +567,7 @@ func (a *DefinitionsApiService) GetAutomationV4ActionsAppIdGetPageExecute(r ApiG
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPatchAutomationV4ActionsAppIdDefinitionIdUpdateRequest struct {
+type ApiUpdateRequest struct {
 	ctx                            context.Context
 	ApiService                     *DefinitionsApiService
 	definitionId                   string
@@ -440,27 +576,27 @@ type ApiPatchAutomationV4ActionsAppIdDefinitionIdUpdateRequest struct {
 }
 
 // The custom workflow action fields to be updated.
-func (r ApiPatchAutomationV4ActionsAppIdDefinitionIdUpdateRequest) ExtensionActionDefinitionPatch(extensionActionDefinitionPatch ExtensionActionDefinitionPatch) ApiPatchAutomationV4ActionsAppIdDefinitionIdUpdateRequest {
+func (r ApiUpdateRequest) ExtensionActionDefinitionPatch(extensionActionDefinitionPatch ExtensionActionDefinitionPatch) ApiUpdateRequest {
 	r.extensionActionDefinitionPatch = &extensionActionDefinitionPatch
 	return r
 }
 
-func (r ApiPatchAutomationV4ActionsAppIdDefinitionIdUpdateRequest) Execute() (*ExtensionActionDefinition, *http.Response, error) {
-	return r.ApiService.PatchAutomationV4ActionsAppIdDefinitionIdUpdateExecute(r)
+func (r ApiUpdateRequest) Execute() (*ExtensionActionDefinition, *http.Response, error) {
+	return r.ApiService.UpdateExecute(r)
 }
 
 /*
-PatchAutomationV4ActionsAppIdDefinitionIdUpdate Update a custom action
+Update Update a custom action
 
 Updates a custom workflow action with new values for the specified fields.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param definitionId The ID of the custom workflow action.
  @param appId
- @return ApiPatchAutomationV4ActionsAppIdDefinitionIdUpdateRequest
+ @return ApiUpdateRequest
 */
-func (a *DefinitionsApiService) PatchAutomationV4ActionsAppIdDefinitionIdUpdate(ctx context.Context, definitionId string, appId int32) ApiPatchAutomationV4ActionsAppIdDefinitionIdUpdateRequest {
-	return ApiPatchAutomationV4ActionsAppIdDefinitionIdUpdateRequest{
+func (a *DefinitionsApiService) Update(ctx context.Context, definitionId string, appId int32) ApiUpdateRequest {
+	return ApiUpdateRequest{
 		ApiService:   a,
 		ctx:          ctx,
 		definitionId: definitionId,
@@ -470,7 +606,7 @@ func (a *DefinitionsApiService) PatchAutomationV4ActionsAppIdDefinitionIdUpdate(
 
 // Execute executes the request
 //  @return ExtensionActionDefinition
-func (a *DefinitionsApiService) PatchAutomationV4ActionsAppIdDefinitionIdUpdateExecute(r ApiPatchAutomationV4ActionsAppIdDefinitionIdUpdateRequest) (*ExtensionActionDefinition, *http.Response, error) {
+func (a *DefinitionsApiService) UpdateExecute(r ApiUpdateRequest) (*ExtensionActionDefinition, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
 		localVarPostBody    interface{}
@@ -478,7 +614,7 @@ func (a *DefinitionsApiService) PatchAutomationV4ActionsAppIdDefinitionIdUpdateE
 		localVarReturnValue *ExtensionActionDefinition
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefinitionsApiService.PatchAutomationV4ActionsAppIdDefinitionIdUpdate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefinitionsApiService.Update")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -513,142 +649,6 @@ func (a *DefinitionsApiService) PatchAutomationV4ActionsAppIdDefinitionIdUpdateE
 	}
 	// body params
 	localVarPostBody = r.extensionActionDefinitionPatch
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["developer_hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		var v Error
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiPostAutomationV4ActionsAppIdCreateRequest struct {
-	ctx                            context.Context
-	ApiService                     *DefinitionsApiService
-	appId                          int32
-	extensionActionDefinitionInput *ExtensionActionDefinitionInput
-}
-
-// The custom workflow action to create.
-func (r ApiPostAutomationV4ActionsAppIdCreateRequest) ExtensionActionDefinitionInput(extensionActionDefinitionInput ExtensionActionDefinitionInput) ApiPostAutomationV4ActionsAppIdCreateRequest {
-	r.extensionActionDefinitionInput = &extensionActionDefinitionInput
-	return r
-}
-
-func (r ApiPostAutomationV4ActionsAppIdCreateRequest) Execute() (*ExtensionActionDefinition, *http.Response, error) {
-	return r.ApiService.PostAutomationV4ActionsAppIdCreateExecute(r)
-}
-
-/*
-PostAutomationV4ActionsAppIdCreate Create new custom action
-
-Creates a new custom workflow action.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId
- @return ApiPostAutomationV4ActionsAppIdCreateRequest
-*/
-func (a *DefinitionsApiService) PostAutomationV4ActionsAppIdCreate(ctx context.Context, appId int32) ApiPostAutomationV4ActionsAppIdCreateRequest {
-	return ApiPostAutomationV4ActionsAppIdCreateRequest{
-		ApiService: a,
-		ctx:        ctx,
-		appId:      appId,
-	}
-}
-
-// Execute executes the request
-//  @return ExtensionActionDefinition
-func (a *DefinitionsApiService) PostAutomationV4ActionsAppIdCreateExecute(r ApiPostAutomationV4ActionsAppIdCreateRequest) (*ExtensionActionDefinition, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ExtensionActionDefinition
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefinitionsApiService.PostAutomationV4ActionsAppIdCreate")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/automation/v4/actions/{appId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.extensionActionDefinitionInput == nil {
-		return localVarReturnValue, nil, reportError("extensionActionDefinitionInput is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "*/*"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.extensionActionDefinitionInput
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {

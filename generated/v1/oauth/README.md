@@ -78,10 +78,10 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*AccessTokensApi* | [**GetOauthV1AccessTokensTokenGetAccessToken**](docs/AccessTokensApi.md#getoauthv1accesstokenstokengetaccesstoken) | **Get** /oauth/v1/access-tokens/{token} | 
-*RefreshTokensApi* | [**DeleteOauthV1RefreshTokensTokenArchiveRefreshToken**](docs/RefreshTokensApi.md#deleteoauthv1refreshtokenstokenarchiverefreshtoken) | **Delete** /oauth/v1/refresh-tokens/{token} | 
-*RefreshTokensApi* | [**GetOauthV1RefreshTokensTokenGetRefreshToken**](docs/RefreshTokensApi.md#getoauthv1refreshtokenstokengetrefreshtoken) | **Get** /oauth/v1/refresh-tokens/{token} | 
-*TokensApi* | [**PostOauthV1TokenCreateToken**](docs/TokensApi.md#postoauthv1tokencreatetoken) | **Post** /oauth/v1/token | 
+*AccessTokensApi* | [**GetAccessToken**](docs/AccessTokensApi.md#getaccesstoken) | **Get** /oauth/v1/access-tokens/{token} | 
+*RefreshTokensApi* | [**ArchiveRefreshToken**](docs/RefreshTokensApi.md#archiverefreshtoken) | **Delete** /oauth/v1/refresh-tokens/{token} | 
+*RefreshTokensApi* | [**GetRefreshToken**](docs/RefreshTokensApi.md#getrefreshtoken) | **Get** /oauth/v1/refresh-tokens/{token} | 
+*TokensApi* | [**CreateToken**](docs/TokensApi.md#createtoken) | **Post** /oauth/v1/token | 
 
 
 ## Documentation For Models

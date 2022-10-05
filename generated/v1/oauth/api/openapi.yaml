@@ -11,7 +11,7 @@ tags:
 paths:
   /oauth/v1/access-tokens/{token}:
     get:
-      operationId: "get-/oauth/v1/access-tokens/{token}_getAccessToken"
+      operationId: GetAccessToken
       parameters:
       - explode: false
         in: path
@@ -38,7 +38,7 @@ paths:
       - Access_Tokens
   /oauth/v1/refresh-tokens/{token}:
     delete:
-      operationId: "delete-/oauth/v1/refresh-tokens/{token}_archiveRefreshToken"
+      operationId: ArchiveRefreshToken
       parameters:
       - explode: false
         in: path
@@ -58,7 +58,7 @@ paths:
       tags:
       - Refresh_Tokens
     get:
-      operationId: "get-/oauth/v1/refresh-tokens/{token}_getRefreshToken"
+      operationId: GetRefreshToken
       parameters:
       - explode: false
         in: path
@@ -85,12 +85,12 @@ paths:
       - Refresh_Tokens
   /oauth/v1/token:
     post:
-      operationId: post-/oauth/v1/token_createToken
+      operationId: CreateToken
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/post__oauth_v1_token_createToken_request'
+              $ref: '#/components/schemas/CreateToken_request'
       responses:
         "200":
           content:
@@ -340,7 +340,7 @@ components:
       - token_type
       - user_id
       type: object
-    post__oauth_v1_token_createToken_request:
+    CreateToken_request:
       properties:
         grant_type:
           enum:

@@ -24,7 +24,7 @@
         "tags" : [ "Events" ],
         "summary" : "Create a single event",
         "description" : "Creates an instance of a timeline event based on an event template. Once created, this event is immutable on the object timeline and cannot be modified. If the event template was configured to update object properties via `objectPropertyName`, this call will also attempt to updates those properties, or add them if they don't exist.",
-        "operationId" : "post-/integrators/timeline/v3/events_create",
+        "operationId" : "Create",
         "requestBody" : {
           "description" : "The timeline event definition.",
           "content" : {
@@ -90,7 +90,7 @@
         "tags" : [ "Events" ],
         "summary" : "Creates multiple events",
         "description" : "Creates multiple instances of timeline events based on an event template. Once created, these event are immutable on the object timeline and cannot be modified. If the event template was configured to update object properties via `objectPropertyName`, this call will also attempt to updates those properties, or add them if they don't exist.",
-        "operationId" : "post-/integrators/timeline/v3/events/batch/create_createBatch",
+        "operationId" : "BatchCreate",
         "requestBody" : {
           "description" : "The timeline event definition.",
           "content" : {
@@ -137,7 +137,7 @@
         "tags" : [ "Events" ],
         "summary" : "Gets the event",
         "description" : "This returns the previously created event. It contains all existing info for the event, but not necessarily the CRM object.",
-        "operationId" : "get-/integrators/timeline/v3/events/{eventTemplateId}/{eventId}_getById",
+        "operationId" : "GetByID",
         "parameters" : [ {
           "name" : "eventTemplateId",
           "in" : "path",
@@ -184,7 +184,7 @@
         "tags" : [ "Events" ],
         "summary" : "Gets the detailTemplate as rendered",
         "description" : "This will take the `detailTemplate` from the event template and return an object rendering the specified event. If the template references `extraData` that isn't found in the event, it will be ignored and we'll render without it.",
-        "operationId" : "get-/integrators/timeline/v3/events/{eventTemplateId}/{eventId}/detail_getDetailById",
+        "operationId" : "GetDetailByID",
         "parameters" : [ {
           "name" : "eventTemplateId",
           "in" : "path",
@@ -231,7 +231,7 @@
         "tags" : [ "Events" ],
         "summary" : "Renders the header or detail as HTML",
         "description" : "This will take either the `headerTemplate` or `detailTemplate` from the event template and render for the specified event as HTML. If the template references `extraData` that isn't found in the event, it will be ignored and we'll render without it.",
-        "operationId" : "get-/integrators/timeline/v3/events/{eventTemplateId}/{eventId}/render_getRenderById",
+        "operationId" : "GetRenderByID",
         "parameters" : [ {
           "name" : "eventTemplateId",
           "in" : "path",
@@ -288,7 +288,7 @@
         "tags" : [ "Templates" ],
         "summary" : "List all event templates for your app",
         "description" : "Use this to list all event templates owned by your app.",
-        "operationId" : "get-/integrators/timeline/v3/{appId}/event-templates_getAll",
+        "operationId" : "TemplateGetAll",
         "parameters" : [ {
           "name" : "appId",
           "in" : "path",
@@ -395,7 +395,7 @@
         "tags" : [ "Templates" ],
         "summary" : "Create an event template for your app",
         "description" : "Event templates define the general structure for a custom timeline event. This includes formatted copy for its heading and details, as well as any custom property definitions. The event could be something like viewing a video, registering for a webinar, or filling out a survey. A single app can define multiple event templates.\n\nEvent templates will be created for contacts by default, but they can be created for companies, tickets, and deals as well.\n\nEach event template contains its own set of tokens and `Markdown` templates. These tokens can be associated with any CRM object properties via the `objectPropertyName` field to fully build out CRM objects.\n\nYou must create an event template before you can create events.",
-        "operationId" : "post-/integrators/timeline/v3/{appId}/event-templates_create",
+        "operationId" : "TemplateCreate",
         "parameters" : [ {
           "name" : "appId",
           "in" : "path",
@@ -487,7 +487,7 @@
         "tags" : [ "Templates" ],
         "summary" : "Gets a specific event template for your app",
         "description" : "View the current state of a specific template and its tokens.",
-        "operationId" : "get-/integrators/timeline/v3/{appId}/event-templates/{eventTemplateId}_getById",
+        "operationId" : "TemplatesGetByID",
         "parameters" : [ {
           "name" : "eventTemplateId",
           "in" : "path",
@@ -579,7 +579,7 @@
         "tags" : [ "Templates" ],
         "summary" : "Update an existing event template",
         "description" : "Updates an existing template and its tokens. This is primarily used to update the headerTemplate/detailTemplate, and those changes will take effect for existing events.\n\nYou can also update or replace all the tokens in the template here instead of doing individual API calls on the `/tokens` endpoint.",
-        "operationId" : "put-/integrators/timeline/v3/{appId}/event-templates/{eventTemplateId}_update",
+        "operationId" : "TemplatesUpdate",
         "parameters" : [ {
           "name" : "eventTemplateId",
           "in" : "path",
@@ -683,7 +683,7 @@
         "tags" : [ "Templates" ],
         "summary" : "Deletes an event template for the app",
         "description" : "This will delete the event template. All associated events will be removed from search results and the timeline UI.\n\nThis action can't be undone, so it's highly recommended that you stop using any associated events before deleting a template.",
-        "operationId" : "delete-/integrators/timeline/v3/{appId}/event-templates/{eventTemplateId}_archive",
+        "operationId" : "TemplatesArchive",
         "parameters" : [ {
           "name" : "eventTemplateId",
           "in" : "path",
@@ -725,7 +725,7 @@
         "tags" : [ "Tokens" ],
         "summary" : "Adds a token to an existing event template",
         "description" : "Once you've defined an event template, it's likely that you'll want to define tokens for it as well. You can do this on the event template itself or update individual tokens here.\n\nEvent type tokens allow you to attach custom data to events displayed in a timeline or used for list segmentation.\n\nYou can also use `objectPropertyName` to associate any CRM object properties. This will allow you to fully build out CRM objects.\n\nToken names should be unique across the template.",
-        "operationId" : "post-/integrators/timeline/v3/{appId}/event-templates/{eventTemplateId}/tokens_create",
+        "operationId" : "TemplatesTokensCreate",
         "parameters" : [ {
           "name" : "eventTemplateId",
           "in" : "path",
@@ -798,7 +798,7 @@
         "tags" : [ "Tokens" ],
         "summary" : "Updates an existing token on an event template",
         "description" : "This will update the existing token on an event template. Name and type can't be changed on existing tokens.",
-        "operationId" : "put-/integrators/timeline/v3/{appId}/event-templates/{eventTemplateId}/tokens/{tokenName}_update",
+        "operationId" : "TemplatesTokensUpdate",
         "parameters" : [ {
           "name" : "eventTemplateId",
           "in" : "path",
@@ -882,7 +882,7 @@
         "tags" : [ "Tokens" ],
         "summary" : "Removes a token from the event template",
         "description" : "This will remove the token from an existing template. Existing events and CRM objects will still retain the token and its mapped object properties, but new ones will not.\n\nThe timeline will still display this property for older CRM objects if it's still referenced in the template `Markdown`. New events will not.\n\nAny lists or reports referencing deleted tokens will no longer return new contacts, but old ones will still exist in the lists.",
-        "operationId" : "delete-/integrators/timeline/v3/{appId}/event-templates/{eventTemplateId}/tokens/{tokenName}_archive",
+        "operationId" : "TemplatesTokensArchive",
         "parameters" : [ {
           "name" : "eventTemplateId",
           "in" : "path",

@@ -11,7 +11,7 @@ paths:
   /events/v3/send:
     post:
       description: Endpoint to send an instance of a behavioral event
-      operationId: post-/events/v3/send
+      operationId: Send
       requestBody:
         content:
           application/json:

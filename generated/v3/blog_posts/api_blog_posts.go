@@ -145,32 +145,32 @@ func (a *BlogPostsApiService) ArchiveExecute(r ApiArchiveRequest) (*http.Respons
 	return localVarHTTPResponse, nil
 }
 
-type ApiAttachToLangGroupRequest struct {
+type ApiAttachToLanguageGroupRequest struct {
 	ctx                             context.Context
 	ApiService                      *BlogPostsApiService
 	attachToLangPrimaryRequestVNext *AttachToLangPrimaryRequestVNext
 }
 
 // The JSON representation of the AttachToLangPrimaryRequest object.
-func (r ApiAttachToLangGroupRequest) AttachToLangPrimaryRequestVNext(attachToLangPrimaryRequestVNext AttachToLangPrimaryRequestVNext) ApiAttachToLangGroupRequest {
+func (r ApiAttachToLanguageGroupRequest) AttachToLangPrimaryRequestVNext(attachToLangPrimaryRequestVNext AttachToLangPrimaryRequestVNext) ApiAttachToLanguageGroupRequest {
 	r.attachToLangPrimaryRequestVNext = &attachToLangPrimaryRequestVNext
 	return r
 }
 
-func (r ApiAttachToLangGroupRequest) Execute() (*Error, *http.Response, error) {
-	return r.ApiService.AttachToLangGroupExecute(r)
+func (r ApiAttachToLanguageGroupRequest) Execute() (*Error, *http.Response, error) {
+	return r.ApiService.AttachToLanguageGroupExecute(r)
 }
 
 /*
-AttachToLangGroup Attach a Blog Post to a multi-language group
+AttachToLanguageGroup Attach a Blog Post to a multi-language group
 
 Attach a Blog Post to a multi-language group.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiAttachToLangGroupRequest
+ @return ApiAttachToLanguageGroupRequest
 */
-func (a *BlogPostsApiService) AttachToLangGroup(ctx context.Context) ApiAttachToLangGroupRequest {
-	return ApiAttachToLangGroupRequest{
+func (a *BlogPostsApiService) AttachToLanguageGroup(ctx context.Context) ApiAttachToLanguageGroupRequest {
+	return ApiAttachToLanguageGroupRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -178,7 +178,7 @@ func (a *BlogPostsApiService) AttachToLangGroup(ctx context.Context) ApiAttachTo
 
 // Execute executes the request
 //  @return Error
-func (a *BlogPostsApiService) AttachToLangGroupExecute(r ApiAttachToLangGroupRequest) (*Error, *http.Response, error) {
+func (a *BlogPostsApiService) AttachToLanguageGroupExecute(r ApiAttachToLanguageGroupRequest) (*Error, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -186,7 +186,7 @@ func (a *BlogPostsApiService) AttachToLangGroupExecute(r ApiAttachToLangGroupReq
 		localVarReturnValue *Error
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlogPostsApiService.AttachToLangGroup")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlogPostsApiService.AttachToLanguageGroup")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1051,32 +1051,32 @@ func (a *BlogPostsApiService) CreateExecute(r ApiCreateRequest) (*BlogPost, *htt
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiCreateLangVariationRequest struct {
+type ApiCreateLanguageVariationRequest struct {
 	ctx                               context.Context
 	ApiService                        *BlogPostsApiService
 	blogPostLanguageCloneRequestVNext *BlogPostLanguageCloneRequestVNext
 }
 
 // The JSON representation of the BlogPostLanguageCloneRequestVNext object.
-func (r ApiCreateLangVariationRequest) BlogPostLanguageCloneRequestVNext(blogPostLanguageCloneRequestVNext BlogPostLanguageCloneRequestVNext) ApiCreateLangVariationRequest {
+func (r ApiCreateLanguageVariationRequest) BlogPostLanguageCloneRequestVNext(blogPostLanguageCloneRequestVNext BlogPostLanguageCloneRequestVNext) ApiCreateLanguageVariationRequest {
 	r.blogPostLanguageCloneRequestVNext = &blogPostLanguageCloneRequestVNext
 	return r
 }
 
-func (r ApiCreateLangVariationRequest) Execute() (*BlogPost, *http.Response, error) {
-	return r.ApiService.CreateLangVariationExecute(r)
+func (r ApiCreateLanguageVariationRequest) Execute() (*BlogPost, *http.Response, error) {
+	return r.ApiService.CreateLanguageVariationExecute(r)
 }
 
 /*
-CreateLangVariation Create a new language variation
+CreateLanguageVariation Create a new language variation
 
 Create a new language variation from an existing Blog Post
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateLangVariationRequest
+ @return ApiCreateLanguageVariationRequest
 */
-func (a *BlogPostsApiService) CreateLangVariation(ctx context.Context) ApiCreateLangVariationRequest {
-	return ApiCreateLangVariationRequest{
+func (a *BlogPostsApiService) CreateLanguageVariation(ctx context.Context) ApiCreateLanguageVariationRequest {
+	return ApiCreateLanguageVariationRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1084,7 +1084,7 @@ func (a *BlogPostsApiService) CreateLangVariation(ctx context.Context) ApiCreate
 
 // Execute executes the request
 //  @return BlogPost
-func (a *BlogPostsApiService) CreateLangVariationExecute(r ApiCreateLangVariationRequest) (*BlogPost, *http.Response, error) {
+func (a *BlogPostsApiService) CreateLanguageVariationExecute(r ApiCreateLanguageVariationRequest) (*BlogPost, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1092,7 +1092,7 @@ func (a *BlogPostsApiService) CreateLangVariationExecute(r ApiCreateLangVariatio
 		localVarReturnValue *BlogPost
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlogPostsApiService.CreateLangVariation")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlogPostsApiService.CreateLanguageVariation")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1179,32 +1179,32 @@ func (a *BlogPostsApiService) CreateLangVariationExecute(r ApiCreateLangVariatio
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiDetachFromLangGroupRequest struct {
+type ApiDetachFromLanguageGroupRequest struct {
 	ctx                             context.Context
 	ApiService                      *BlogPostsApiService
 	detachFromLangGroupRequestVNext *DetachFromLangGroupRequestVNext
 }
 
 // The JSON representation of the DetachFromLangGroupRequest object.
-func (r ApiDetachFromLangGroupRequest) DetachFromLangGroupRequestVNext(detachFromLangGroupRequestVNext DetachFromLangGroupRequestVNext) ApiDetachFromLangGroupRequest {
+func (r ApiDetachFromLanguageGroupRequest) DetachFromLangGroupRequestVNext(detachFromLangGroupRequestVNext DetachFromLangGroupRequestVNext) ApiDetachFromLanguageGroupRequest {
 	r.detachFromLangGroupRequestVNext = &detachFromLangGroupRequestVNext
 	return r
 }
 
-func (r ApiDetachFromLangGroupRequest) Execute() (*Error, *http.Response, error) {
-	return r.ApiService.DetachFromLangGroupExecute(r)
+func (r ApiDetachFromLanguageGroupRequest) Execute() (*Error, *http.Response, error) {
+	return r.ApiService.DetachFromLanguageGroupExecute(r)
 }
 
 /*
-DetachFromLangGroup Detach a Blog Post from a multi-language group
+DetachFromLanguageGroup Detach a Blog Post from a multi-language group
 
 Detach a Blog Post from a multi-language group.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiDetachFromLangGroupRequest
+ @return ApiDetachFromLanguageGroupRequest
 */
-func (a *BlogPostsApiService) DetachFromLangGroup(ctx context.Context) ApiDetachFromLangGroupRequest {
-	return ApiDetachFromLangGroupRequest{
+func (a *BlogPostsApiService) DetachFromLanguageGroup(ctx context.Context) ApiDetachFromLanguageGroupRequest {
+	return ApiDetachFromLanguageGroupRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1212,7 +1212,7 @@ func (a *BlogPostsApiService) DetachFromLangGroup(ctx context.Context) ApiDetach
 
 // Execute executes the request
 //  @return Error
-func (a *BlogPostsApiService) DetachFromLangGroupExecute(r ApiDetachFromLangGroupRequest) (*Error, *http.Response, error) {
+func (a *BlogPostsApiService) DetachFromLanguageGroupExecute(r ApiDetachFromLanguageGroupRequest) (*Error, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1220,7 +1220,7 @@ func (a *BlogPostsApiService) DetachFromLangGroupExecute(r ApiDetachFromLangGrou
 		localVarReturnValue *Error
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlogPostsApiService.DetachFromLangGroup")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlogPostsApiService.DetachFromLanguageGroup")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -2638,46 +2638,46 @@ func (a *BlogPostsApiService) ScheduleExecute(r ApiScheduleRequest) (*http.Respo
 	return localVarHTTPResponse, nil
 }
 
-type ApiSetLangPrimaryRequest struct {
+type ApiSetLanguagePrimaryRequest struct {
 	ctx                               context.Context
 	ApiService                        *BlogPostsApiService
 	setNewLanguagePrimaryRequestVNext *SetNewLanguagePrimaryRequestVNext
 }
 
 // The JSON representation of the SetNewLanguagePrimaryRequest object.
-func (r ApiSetLangPrimaryRequest) SetNewLanguagePrimaryRequestVNext(setNewLanguagePrimaryRequestVNext SetNewLanguagePrimaryRequestVNext) ApiSetLangPrimaryRequest {
+func (r ApiSetLanguagePrimaryRequest) SetNewLanguagePrimaryRequestVNext(setNewLanguagePrimaryRequestVNext SetNewLanguagePrimaryRequestVNext) ApiSetLanguagePrimaryRequest {
 	r.setNewLanguagePrimaryRequestVNext = &setNewLanguagePrimaryRequestVNext
 	return r
 }
 
-func (r ApiSetLangPrimaryRequest) Execute() (*http.Response, error) {
-	return r.ApiService.SetLangPrimaryExecute(r)
+func (r ApiSetLanguagePrimaryRequest) Execute() (*http.Response, error) {
+	return r.ApiService.SetLanguagePrimaryExecute(r)
 }
 
 /*
-SetLangPrimary Set a new primary language
+SetLanguagePrimary Set a new primary language
 
 Set a Blog Post as the primary language of a multi-language group.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiSetLangPrimaryRequest
+ @return ApiSetLanguagePrimaryRequest
 */
-func (a *BlogPostsApiService) SetLangPrimary(ctx context.Context) ApiSetLangPrimaryRequest {
-	return ApiSetLangPrimaryRequest{
+func (a *BlogPostsApiService) SetLanguagePrimary(ctx context.Context) ApiSetLanguagePrimaryRequest {
+	return ApiSetLanguagePrimaryRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *BlogPostsApiService) SetLangPrimaryExecute(r ApiSetLangPrimaryRequest) (*http.Response, error) {
+func (a *BlogPostsApiService) SetLanguagePrimaryExecute(r ApiSetLanguagePrimaryRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPut
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlogPostsApiService.SetLangPrimary")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlogPostsApiService.SetLanguagePrimary")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -3033,32 +3033,32 @@ func (a *BlogPostsApiService) UpdateDraftExecute(r ApiUpdateDraftRequest) (*Blog
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiUpdateLangsRequest struct {
+type ApiUpdateLanguagesRequest struct {
 	ctx                         context.Context
 	ApiService                  *BlogPostsApiService
 	updateLanguagesRequestVNext *UpdateLanguagesRequestVNext
 }
 
 // The JSON representation of the SetNewLanguagePrimaryRequest object.
-func (r ApiUpdateLangsRequest) UpdateLanguagesRequestVNext(updateLanguagesRequestVNext UpdateLanguagesRequestVNext) ApiUpdateLangsRequest {
+func (r ApiUpdateLanguagesRequest) UpdateLanguagesRequestVNext(updateLanguagesRequestVNext UpdateLanguagesRequestVNext) ApiUpdateLanguagesRequest {
 	r.updateLanguagesRequestVNext = &updateLanguagesRequestVNext
 	return r
 }
 
-func (r ApiUpdateLangsRequest) Execute() (*Error, *http.Response, error) {
-	return r.ApiService.UpdateLangsExecute(r)
+func (r ApiUpdateLanguagesRequest) Execute() (*Error, *http.Response, error) {
+	return r.ApiService.UpdateLanguagesExecute(r)
 }
 
 /*
-UpdateLangs Update languages of multi-language group
+UpdateLanguages Update languages of multi-language group
 
 Explicitly set new languages for each Blog Post in a multi-language group.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiUpdateLangsRequest
+ @return ApiUpdateLanguagesRequest
 */
-func (a *BlogPostsApiService) UpdateLangs(ctx context.Context) ApiUpdateLangsRequest {
-	return ApiUpdateLangsRequest{
+func (a *BlogPostsApiService) UpdateLanguages(ctx context.Context) ApiUpdateLanguagesRequest {
+	return ApiUpdateLanguagesRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -3066,7 +3066,7 @@ func (a *BlogPostsApiService) UpdateLangs(ctx context.Context) ApiUpdateLangsReq
 
 // Execute executes the request
 //  @return Error
-func (a *BlogPostsApiService) UpdateLangsExecute(r ApiUpdateLangsRequest) (*Error, *http.Response, error) {
+func (a *BlogPostsApiService) UpdateLanguagesExecute(r ApiUpdateLanguagesRequest) (*Error, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -3074,7 +3074,7 @@ func (a *BlogPostsApiService) UpdateLangsExecute(r ApiUpdateLangsRequest) (*Erro
 		localVarReturnValue *Error
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlogPostsApiService.UpdateLangs")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlogPostsApiService.UpdateLanguages")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

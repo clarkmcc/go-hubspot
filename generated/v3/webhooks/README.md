@@ -78,15 +78,15 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*SettingsApi* | [**DeleteWebhooksV3AppIdSettingsClear**](docs/SettingsApi.md#deletewebhooksv3appidsettingsclear) | **Delete** /webhooks/v3/{appId}/settings | 
-*SettingsApi* | [**GetWebhooksV3AppIdSettingsGetAll**](docs/SettingsApi.md#getwebhooksv3appidsettingsgetall) | **Get** /webhooks/v3/{appId}/settings | 
-*SettingsApi* | [**PutWebhooksV3AppIdSettingsConfigure**](docs/SettingsApi.md#putwebhooksv3appidsettingsconfigure) | **Put** /webhooks/v3/{appId}/settings | 
-*SubscriptionsApi* | [**DeleteWebhooksV3AppIdSubscriptionsSubscriptionIdArchive**](docs/SubscriptionsApi.md#deletewebhooksv3appidsubscriptionssubscriptionidarchive) | **Delete** /webhooks/v3/{appId}/subscriptions/{subscriptionId} | 
-*SubscriptionsApi* | [**GetWebhooksV3AppIdSubscriptionsGetAll**](docs/SubscriptionsApi.md#getwebhooksv3appidsubscriptionsgetall) | **Get** /webhooks/v3/{appId}/subscriptions | 
-*SubscriptionsApi* | [**GetWebhooksV3AppIdSubscriptionsSubscriptionIdGetById**](docs/SubscriptionsApi.md#getwebhooksv3appidsubscriptionssubscriptionidgetbyid) | **Get** /webhooks/v3/{appId}/subscriptions/{subscriptionId} | 
-*SubscriptionsApi* | [**PatchWebhooksV3AppIdSubscriptionsSubscriptionIdUpdate**](docs/SubscriptionsApi.md#patchwebhooksv3appidsubscriptionssubscriptionidupdate) | **Patch** /webhooks/v3/{appId}/subscriptions/{subscriptionId} | 
-*SubscriptionsApi* | [**PostWebhooksV3AppIdSubscriptionsBatchUpdateUpdateBatch**](docs/SubscriptionsApi.md#postwebhooksv3appidsubscriptionsbatchupdateupdatebatch) | **Post** /webhooks/v3/{appId}/subscriptions/batch/update | 
-*SubscriptionsApi* | [**PostWebhooksV3AppIdSubscriptionsCreate**](docs/SubscriptionsApi.md#postwebhooksv3appidsubscriptionscreate) | **Post** /webhooks/v3/{appId}/subscriptions | 
+*SettingsApi* | [**SettingsClear**](docs/SettingsApi.md#settingsclear) | **Delete** /webhooks/v3/{appId}/settings | 
+*SettingsApi* | [**SettingsConfigure**](docs/SettingsApi.md#settingsconfigure) | **Put** /webhooks/v3/{appId}/settings | 
+*SettingsApi* | [**SettingsGetAll**](docs/SettingsApi.md#settingsgetall) | **Get** /webhooks/v3/{appId}/settings | 
+*SubscriptionsApi* | [**SubscriptionsArchive**](docs/SubscriptionsApi.md#subscriptionsarchive) | **Delete** /webhooks/v3/{appId}/subscriptions/{subscriptionId} | 
+*SubscriptionsApi* | [**SubscriptionsBatchUpdate**](docs/SubscriptionsApi.md#subscriptionsbatchupdate) | **Post** /webhooks/v3/{appId}/subscriptions/batch/update | 
+*SubscriptionsApi* | [**SubscriptionsCreate**](docs/SubscriptionsApi.md#subscriptionscreate) | **Post** /webhooks/v3/{appId}/subscriptions | 
+*SubscriptionsApi* | [**SubscriptionsGetAll**](docs/SubscriptionsApi.md#subscriptionsgetall) | **Get** /webhooks/v3/{appId}/subscriptions | 
+*SubscriptionsApi* | [**SubscriptionsGetByID**](docs/SubscriptionsApi.md#subscriptionsgetbyid) | **Get** /webhooks/v3/{appId}/subscriptions/{subscriptionId} | 
+*SubscriptionsApi* | [**SubscriptionsUpdate**](docs/SubscriptionsApi.md#subscriptionsupdate) | **Patch** /webhooks/v3/{appId}/subscriptions/{subscriptionId} | 
 
 
 ## Documentation For Models

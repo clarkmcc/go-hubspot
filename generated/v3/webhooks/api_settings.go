@@ -22,25 +22,25 @@ import (
 // SettingsApiService SettingsApi service
 type SettingsApiService service
 
-type ApiDeleteWebhooksV3AppIdSettingsClearRequest struct {
+type ApiSettingsClearRequest struct {
 	ctx        context.Context
 	ApiService *SettingsApiService
 	appId      int32
 }
 
-func (r ApiDeleteWebhooksV3AppIdSettingsClearRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteWebhooksV3AppIdSettingsClearExecute(r)
+func (r ApiSettingsClearRequest) Execute() (*http.Response, error) {
+	return r.ApiService.SettingsClearExecute(r)
 }
 
 /*
-DeleteWebhooksV3AppIdSettingsClear Method for DeleteWebhooksV3AppIdSettingsClear
+SettingsClear Method for SettingsClear
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param appId
- @return ApiDeleteWebhooksV3AppIdSettingsClearRequest
+ @return ApiSettingsClearRequest
 */
-func (a *SettingsApiService) DeleteWebhooksV3AppIdSettingsClear(ctx context.Context, appId int32) ApiDeleteWebhooksV3AppIdSettingsClearRequest {
-	return ApiDeleteWebhooksV3AppIdSettingsClearRequest{
+func (a *SettingsApiService) SettingsClear(ctx context.Context, appId int32) ApiSettingsClearRequest {
+	return ApiSettingsClearRequest{
 		ApiService: a,
 		ctx:        ctx,
 		appId:      appId,
@@ -48,14 +48,14 @@ func (a *SettingsApiService) DeleteWebhooksV3AppIdSettingsClear(ctx context.Cont
 }
 
 // Execute executes the request
-func (a *SettingsApiService) DeleteWebhooksV3AppIdSettingsClearExecute(r ApiDeleteWebhooksV3AppIdSettingsClearRequest) (*http.Response, error) {
+func (a *SettingsApiService) SettingsClearExecute(r ApiSettingsClearRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsApiService.DeleteWebhooksV3AppIdSettingsClear")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsApiService.SettingsClear")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -133,25 +133,31 @@ func (a *SettingsApiService) DeleteWebhooksV3AppIdSettingsClearExecute(r ApiDele
 	return localVarHTTPResponse, nil
 }
 
-type ApiGetWebhooksV3AppIdSettingsGetAllRequest struct {
-	ctx        context.Context
-	ApiService *SettingsApiService
-	appId      int32
+type ApiSettingsConfigureRequest struct {
+	ctx                   context.Context
+	ApiService            *SettingsApiService
+	appId                 int32
+	settingsChangeRequest *SettingsChangeRequest
 }
 
-func (r ApiGetWebhooksV3AppIdSettingsGetAllRequest) Execute() (*SettingsResponse, *http.Response, error) {
-	return r.ApiService.GetWebhooksV3AppIdSettingsGetAllExecute(r)
+func (r ApiSettingsConfigureRequest) SettingsChangeRequest(settingsChangeRequest SettingsChangeRequest) ApiSettingsConfigureRequest {
+	r.settingsChangeRequest = &settingsChangeRequest
+	return r
+}
+
+func (r ApiSettingsConfigureRequest) Execute() (*SettingsResponse, *http.Response, error) {
+	return r.ApiService.SettingsConfigureExecute(r)
 }
 
 /*
-GetWebhooksV3AppIdSettingsGetAll Method for GetWebhooksV3AppIdSettingsGetAll
+SettingsConfigure Method for SettingsConfigure
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param appId
- @return ApiGetWebhooksV3AppIdSettingsGetAllRequest
+ @return ApiSettingsConfigureRequest
 */
-func (a *SettingsApiService) GetWebhooksV3AppIdSettingsGetAll(ctx context.Context, appId int32) ApiGetWebhooksV3AppIdSettingsGetAllRequest {
-	return ApiGetWebhooksV3AppIdSettingsGetAllRequest{
+func (a *SettingsApiService) SettingsConfigure(ctx context.Context, appId int32) ApiSettingsConfigureRequest {
+	return ApiSettingsConfigureRequest{
 		ApiService: a,
 		ctx:        ctx,
 		appId:      appId,
@@ -160,15 +166,15 @@ func (a *SettingsApiService) GetWebhooksV3AppIdSettingsGetAll(ctx context.Contex
 
 // Execute executes the request
 //  @return SettingsResponse
-func (a *SettingsApiService) GetWebhooksV3AppIdSettingsGetAllExecute(r ApiGetWebhooksV3AppIdSettingsGetAllRequest) (*SettingsResponse, *http.Response, error) {
+func (a *SettingsApiService) SettingsConfigureExecute(r ApiSettingsConfigureRequest) (*SettingsResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
+		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *SettingsResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsApiService.GetWebhooksV3AppIdSettingsGetAll")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsApiService.SettingsConfigure")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -179,9 +185,12 @@ func (a *SettingsApiService) GetWebhooksV3AppIdSettingsGetAllExecute(r ApiGetWeb
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.settingsChangeRequest == nil {
+		return localVarReturnValue, nil, reportError("settingsChangeRequest is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -197,6 +206,8 @@ func (a *SettingsApiService) GetWebhooksV3AppIdSettingsGetAllExecute(r ApiGetWeb
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.settingsChangeRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -255,31 +266,25 @@ func (a *SettingsApiService) GetWebhooksV3AppIdSettingsGetAllExecute(r ApiGetWeb
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPutWebhooksV3AppIdSettingsConfigureRequest struct {
-	ctx                   context.Context
-	ApiService            *SettingsApiService
-	appId                 int32
-	settingsChangeRequest *SettingsChangeRequest
+type ApiSettingsGetAllRequest struct {
+	ctx        context.Context
+	ApiService *SettingsApiService
+	appId      int32
 }
 
-func (r ApiPutWebhooksV3AppIdSettingsConfigureRequest) SettingsChangeRequest(settingsChangeRequest SettingsChangeRequest) ApiPutWebhooksV3AppIdSettingsConfigureRequest {
-	r.settingsChangeRequest = &settingsChangeRequest
-	return r
-}
-
-func (r ApiPutWebhooksV3AppIdSettingsConfigureRequest) Execute() (*SettingsResponse, *http.Response, error) {
-	return r.ApiService.PutWebhooksV3AppIdSettingsConfigureExecute(r)
+func (r ApiSettingsGetAllRequest) Execute() (*SettingsResponse, *http.Response, error) {
+	return r.ApiService.SettingsGetAllExecute(r)
 }
 
 /*
-PutWebhooksV3AppIdSettingsConfigure Method for PutWebhooksV3AppIdSettingsConfigure
+SettingsGetAll Method for SettingsGetAll
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param appId
- @return ApiPutWebhooksV3AppIdSettingsConfigureRequest
+ @return ApiSettingsGetAllRequest
 */
-func (a *SettingsApiService) PutWebhooksV3AppIdSettingsConfigure(ctx context.Context, appId int32) ApiPutWebhooksV3AppIdSettingsConfigureRequest {
-	return ApiPutWebhooksV3AppIdSettingsConfigureRequest{
+func (a *SettingsApiService) SettingsGetAll(ctx context.Context, appId int32) ApiSettingsGetAllRequest {
+	return ApiSettingsGetAllRequest{
 		ApiService: a,
 		ctx:        ctx,
 		appId:      appId,
@@ -288,15 +293,15 @@ func (a *SettingsApiService) PutWebhooksV3AppIdSettingsConfigure(ctx context.Con
 
 // Execute executes the request
 //  @return SettingsResponse
-func (a *SettingsApiService) PutWebhooksV3AppIdSettingsConfigureExecute(r ApiPutWebhooksV3AppIdSettingsConfigureRequest) (*SettingsResponse, *http.Response, error) {
+func (a *SettingsApiService) SettingsGetAllExecute(r ApiSettingsGetAllRequest) (*SettingsResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
+		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *SettingsResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsApiService.PutWebhooksV3AppIdSettingsConfigure")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsApiService.SettingsGetAll")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -307,12 +312,9 @@ func (a *SettingsApiService) PutWebhooksV3AppIdSettingsConfigureExecute(r ApiPut
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.settingsChangeRequest == nil {
-		return localVarReturnValue, nil, reportError("settingsChangeRequest is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -328,8 +330,6 @@ func (a *SettingsApiService) PutWebhooksV3AppIdSettingsConfigureExecute(r ApiPut
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.settingsChangeRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {

@@ -82,22 +82,22 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*AttendanceSubscriberStateChangesApi* | [**PostMarketingV3MarketingEventsAttendanceExternalEventIdSubscriberStateCreate**](docs/AttendanceSubscriberStateChangesApi.md#postmarketingv3marketingeventsattendanceexternaleventidsubscriberstatecreate) | **Post** /marketing/v3/marketing-events/attendance/{externalEventId}/{subscriberState}/create | Record
-*AttendanceSubscriberStateChangesApi* | [**PostMarketingV3MarketingEventsAttendanceExternalEventIdSubscriberStateEmailCreate**](docs/AttendanceSubscriberStateChangesApi.md#postmarketingv3marketingeventsattendanceexternaleventidsubscriberstateemailcreate) | **Post** /marketing/v3/marketing-events/attendance/{externalEventId}/{subscriberState}/email-create | Record
-*MarketingEventsExternalApi* | [**DeleteMarketingV3MarketingEventsEventsExternalEventIdArchive**](docs/MarketingEventsExternalApi.md#deletemarketingv3marketingeventseventsexternaleventidarchive) | **Delete** /marketing/v3/marketing-events/events/{externalEventId} | 
-*MarketingEventsExternalApi* | [**GetMarketingV3MarketingEventsEventsExternalEventIdGetById**](docs/MarketingEventsExternalApi.md#getmarketingv3marketingeventseventsexternaleventidgetbyid) | **Get** /marketing/v3/marketing-events/events/{externalEventId} | 
-*MarketingEventsExternalApi* | [**GetMarketingV3MarketingEventsEventsSearchDoSearch**](docs/MarketingEventsExternalApi.md#getmarketingv3marketingeventseventssearchdosearch) | **Get** /marketing/v3/marketing-events/events/search | 
-*MarketingEventsExternalApi* | [**PatchMarketingV3MarketingEventsEventsExternalEventIdUpdate**](docs/MarketingEventsExternalApi.md#patchmarketingv3marketingeventseventsexternaleventidupdate) | **Patch** /marketing/v3/marketing-events/events/{externalEventId} | 
-*MarketingEventsExternalApi* | [**PostMarketingV3MarketingEventsEventsCreate**](docs/MarketingEventsExternalApi.md#postmarketingv3marketingeventseventscreate) | **Post** /marketing/v3/marketing-events/events | 
-*MarketingEventsExternalApi* | [**PostMarketingV3MarketingEventsEventsDeleteArchive**](docs/MarketingEventsExternalApi.md#postmarketingv3marketingeventseventsdeletearchive) | **Post** /marketing/v3/marketing-events/events/delete | 
-*MarketingEventsExternalApi* | [**PostMarketingV3MarketingEventsEventsExternalEventIdCancelDoCancel**](docs/MarketingEventsExternalApi.md#postmarketingv3marketingeventseventsexternaleventidcanceldocancel) | **Post** /marketing/v3/marketing-events/events/{externalEventId}/cancel | 
-*MarketingEventsExternalApi* | [**PostMarketingV3MarketingEventsEventsExternalEventIdComplete**](docs/MarketingEventsExternalApi.md#postmarketingv3marketingeventseventsexternaleventidcomplete) | **Post** /marketing/v3/marketing-events/events/{externalEventId}/complete | 
-*MarketingEventsExternalApi* | [**PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateEmailUpsertDoEmailUpsertById**](docs/MarketingEventsExternalApi.md#postmarketingv3marketingeventseventsexternaleventidsubscriberstateemailupsertdoemailupsertbyid) | **Post** /marketing/v3/marketing-events/events/{externalEventId}/{subscriberState}/email-upsert | 
-*MarketingEventsExternalApi* | [**PostMarketingV3MarketingEventsEventsExternalEventIdSubscriberStateUpsertDoUpsertById**](docs/MarketingEventsExternalApi.md#postmarketingv3marketingeventseventsexternaleventidsubscriberstateupsertdoupsertbyid) | **Post** /marketing/v3/marketing-events/events/{externalEventId}/{subscriberState}/upsert | 
-*MarketingEventsExternalApi* | [**PostMarketingV3MarketingEventsEventsUpsertDoUpsert**](docs/MarketingEventsExternalApi.md#postmarketingv3marketingeventseventsupsertdoupsert) | **Post** /marketing/v3/marketing-events/events/upsert | 
-*MarketingEventsExternalApi* | [**PutMarketingV3MarketingEventsEventsExternalEventIdReplace**](docs/MarketingEventsExternalApi.md#putmarketingv3marketingeventseventsexternaleventidreplace) | **Put** /marketing/v3/marketing-events/events/{externalEventId} | 
-*SettingsExternalApi* | [**GetMarketingV3MarketingEventsAppIdSettingsGetAll**](docs/SettingsExternalApi.md#getmarketingv3marketingeventsappidsettingsgetall) | **Get** /marketing/v3/marketing-events/{appId}/settings | 
-*SettingsExternalApi* | [**PostMarketingV3MarketingEventsAppIdSettingsCreate**](docs/SettingsExternalApi.md#postmarketingv3marketingeventsappidsettingscreate) | **Post** /marketing/v3/marketing-events/{appId}/settings | 
+*AttendanceSubscriberStateChangesApi* | [**AttendanceCreate**](docs/AttendanceSubscriberStateChangesApi.md#attendancecreate) | **Post** /marketing/v3/marketing-events/attendance/{externalEventId}/{subscriberState}/create | Record
+*AttendanceSubscriberStateChangesApi* | [**AttendanceEmailCreate**](docs/AttendanceSubscriberStateChangesApi.md#attendanceemailcreate) | **Post** /marketing/v3/marketing-events/attendance/{externalEventId}/{subscriberState}/email-create | Record
+*MarketingEventsExternalApi* | [**Archive**](docs/MarketingEventsExternalApi.md#archive) | **Post** /marketing/v3/marketing-events/events/delete | 
+*MarketingEventsExternalApi* | [**Create**](docs/MarketingEventsExternalApi.md#create) | **Post** /marketing/v3/marketing-events/events | 
+*MarketingEventsExternalApi* | [**ExternalArchive**](docs/MarketingEventsExternalApi.md#externalarchive) | **Delete** /marketing/v3/marketing-events/events/{externalEventId} | 
+*MarketingEventsExternalApi* | [**ExternalCancel**](docs/MarketingEventsExternalApi.md#externalcancel) | **Post** /marketing/v3/marketing-events/events/{externalEventId}/cancel | 
+*MarketingEventsExternalApi* | [**ExternalComplete**](docs/MarketingEventsExternalApi.md#externalcomplete) | **Post** /marketing/v3/marketing-events/events/{externalEventId}/complete | 
+*MarketingEventsExternalApi* | [**ExternalEmailUpsertByID**](docs/MarketingEventsExternalApi.md#externalemailupsertbyid) | **Post** /marketing/v3/marketing-events/events/{externalEventId}/{subscriberState}/email-upsert | 
+*MarketingEventsExternalApi* | [**ExternalGetByID**](docs/MarketingEventsExternalApi.md#externalgetbyid) | **Get** /marketing/v3/marketing-events/events/{externalEventId} | 
+*MarketingEventsExternalApi* | [**ExternalReplace**](docs/MarketingEventsExternalApi.md#externalreplace) | **Put** /marketing/v3/marketing-events/events/{externalEventId} | 
+*MarketingEventsExternalApi* | [**ExternalUpdate**](docs/MarketingEventsExternalApi.md#externalupdate) | **Patch** /marketing/v3/marketing-events/events/{externalEventId} | 
+*MarketingEventsExternalApi* | [**ExternalUpsertByID**](docs/MarketingEventsExternalApi.md#externalupsertbyid) | **Post** /marketing/v3/marketing-events/events/{externalEventId}/{subscriberState}/upsert | 
+*MarketingEventsExternalApi* | [**Search**](docs/MarketingEventsExternalApi.md#search) | **Get** /marketing/v3/marketing-events/events/search | 
+*MarketingEventsExternalApi* | [**Upsert**](docs/MarketingEventsExternalApi.md#upsert) | **Post** /marketing/v3/marketing-events/events/upsert | 
+*SettingsExternalApi* | [**SettingsCreate**](docs/SettingsExternalApi.md#settingscreate) | **Post** /marketing/v3/marketing-events/{appId}/settings | 
+*SettingsExternalApi* | [**SettingsGetAll**](docs/SettingsExternalApi.md#settingsgetall) | **Get** /marketing/v3/marketing-events/{appId}/settings | 
 
 
 ## Documentation For Models

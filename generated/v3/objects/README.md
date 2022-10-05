@@ -163,6 +163,9 @@ Note, each API key must be added to a map of `map[string]APIKey` where the key i
 - **Flow**: accessCode
 - **Authorization URL**: https://app.hubspot.com/oauth/authorize
 - **Scopes**: 
+ - **crm.objects.quotes.write**: Quotes
+ - **crm.objects.contacts.read**:  
+ - **crm.objects.contacts.write**:  
  - **crm.objects.companies.write**:  
  - **crm.objects.companies.read**:  
  - **crm.objects.line_items.write**: Line Items
@@ -170,9 +173,6 @@ Note, each API key must be added to a map of `map[string]APIKey` where the key i
  - **crm.objects.deals.write**:  
  - **crm.objects.line_items.read**: Line Items
  - **crm.objects.deals.read**:  
- - **crm.objects.quotes.write**: Quotes
- - **crm.objects.contacts.read**:  
- - **crm.objects.contacts.write**:  
 
 Example
 
@@ -202,11 +202,11 @@ r, err := client.Service.Operation(auth, args)
 - **Authorization URL**: https://app.hubspot.com/oauth/authorize
 - **Scopes**: 
  - **crm.objects.custom.read**: View custom object records
- - **tickets**: Read and write tickets
- - **media_bridge.read**: Read media and media events
  - **contacts**: Read from and write to my Contacts
  - **crm.objects.custom.write**: Change custom object records
  - **e-commerce**: e-commerce
+ - **media_bridge.read**: Read media and media events
+ - **tickets**: Read and write tickets
 
 Example
 

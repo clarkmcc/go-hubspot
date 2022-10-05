@@ -4,14 +4,14 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**PostMarketingV3MarketingEventsAttendanceExternalEventIdSubscriberStateCreate**](AttendanceSubscriberStateChangesApi.md#PostMarketingV3MarketingEventsAttendanceExternalEventIdSubscriberStateCreate) | **Post** /marketing/v3/marketing-events/attendance/{externalEventId}/{subscriberState}/create | Record
-[**PostMarketingV3MarketingEventsAttendanceExternalEventIdSubscriberStateEmailCreate**](AttendanceSubscriberStateChangesApi.md#PostMarketingV3MarketingEventsAttendanceExternalEventIdSubscriberStateEmailCreate) | **Post** /marketing/v3/marketing-events/attendance/{externalEventId}/{subscriberState}/email-create | Record
+[**AttendanceCreate**](AttendanceSubscriberStateChangesApi.md#AttendanceCreate) | **Post** /marketing/v3/marketing-events/attendance/{externalEventId}/{subscriberState}/create | Record
+[**AttendanceEmailCreate**](AttendanceSubscriberStateChangesApi.md#AttendanceEmailCreate) | **Post** /marketing/v3/marketing-events/attendance/{externalEventId}/{subscriberState}/email-create | Record
 
 
 
-## PostMarketingV3MarketingEventsAttendanceExternalEventIdSubscriberStateCreate
+## AttendanceCreate
 
-> BatchResponseSubscriberVidResponse PostMarketingV3MarketingEventsAttendanceExternalEventIdSubscriberStateCreate(ctx, externalEventId, subscriberState).BatchInputMarketingEventSubscriber(batchInputMarketingEventSubscriber).ExternalAccountId(externalAccountId).Execute()
+> BatchResponseSubscriberVidResponse AttendanceCreate(ctx, externalEventId, subscriberState).BatchInputMarketingEventSubscriber(batchInputMarketingEventSubscriber).ExternalAccountId(externalAccountId).Execute()
 
 Record
 
@@ -37,13 +37,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AttendanceSubscriberStateChangesApi.PostMarketingV3MarketingEventsAttendanceExternalEventIdSubscriberStateCreate(context.Background(), externalEventId, subscriberState).BatchInputMarketingEventSubscriber(batchInputMarketingEventSubscriber).ExternalAccountId(externalAccountId).Execute()
+    resp, r, err := apiClient.AttendanceSubscriberStateChangesApi.AttendanceCreate(context.Background(), externalEventId, subscriberState).BatchInputMarketingEventSubscriber(batchInputMarketingEventSubscriber).ExternalAccountId(externalAccountId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AttendanceSubscriberStateChangesApi.PostMarketingV3MarketingEventsAttendanceExternalEventIdSubscriberStateCreate``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `AttendanceSubscriberStateChangesApi.AttendanceCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostMarketingV3MarketingEventsAttendanceExternalEventIdSubscriberStateCreate`: BatchResponseSubscriberVidResponse
-    fmt.Fprintf(os.Stdout, "Response from `AttendanceSubscriberStateChangesApi.PostMarketingV3MarketingEventsAttendanceExternalEventIdSubscriberStateCreate`: %v\n", resp)
+    // response from `AttendanceCreate`: BatchResponseSubscriberVidResponse
+    fmt.Fprintf(os.Stdout, "Response from `AttendanceSubscriberStateChangesApi.AttendanceCreate`: %v\n", resp)
 }
 ```
 
@@ -58,7 +58,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostMarketingV3MarketingEventsAttendanceExternalEventIdSubscriberStateCreateRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiAttendanceCreateRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -86,9 +86,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostMarketingV3MarketingEventsAttendanceExternalEventIdSubscriberStateEmailCreate
+## AttendanceEmailCreate
 
-> BatchResponseSubscriberEmailResponse PostMarketingV3MarketingEventsAttendanceExternalEventIdSubscriberStateEmailCreate(ctx, externalEventId, subscriberState).BatchInputMarketingEventEmailSubscriber(batchInputMarketingEventEmailSubscriber).ExternalAccountId(externalAccountId).Execute()
+> BatchResponseSubscriberEmailResponse AttendanceEmailCreate(ctx, externalEventId, subscriberState).BatchInputMarketingEventEmailSubscriber(batchInputMarketingEventEmailSubscriber).ExternalAccountId(externalAccountId).Execute()
 
 Record
 
@@ -114,13 +114,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AttendanceSubscriberStateChangesApi.PostMarketingV3MarketingEventsAttendanceExternalEventIdSubscriberStateEmailCreate(context.Background(), externalEventId, subscriberState).BatchInputMarketingEventEmailSubscriber(batchInputMarketingEventEmailSubscriber).ExternalAccountId(externalAccountId).Execute()
+    resp, r, err := apiClient.AttendanceSubscriberStateChangesApi.AttendanceEmailCreate(context.Background(), externalEventId, subscriberState).BatchInputMarketingEventEmailSubscriber(batchInputMarketingEventEmailSubscriber).ExternalAccountId(externalAccountId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AttendanceSubscriberStateChangesApi.PostMarketingV3MarketingEventsAttendanceExternalEventIdSubscriberStateEmailCreate``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `AttendanceSubscriberStateChangesApi.AttendanceEmailCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostMarketingV3MarketingEventsAttendanceExternalEventIdSubscriberStateEmailCreate`: BatchResponseSubscriberEmailResponse
-    fmt.Fprintf(os.Stdout, "Response from `AttendanceSubscriberStateChangesApi.PostMarketingV3MarketingEventsAttendanceExternalEventIdSubscriberStateEmailCreate`: %v\n", resp)
+    // response from `AttendanceEmailCreate`: BatchResponseSubscriberEmailResponse
+    fmt.Fprintf(os.Stdout, "Response from `AttendanceSubscriberStateChangesApi.AttendanceEmailCreate`: %v\n", resp)
 }
 ```
 
@@ -135,7 +135,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostMarketingV3MarketingEventsAttendanceExternalEventIdSubscriberStateEmailCreateRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiAttendanceEmailCreateRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

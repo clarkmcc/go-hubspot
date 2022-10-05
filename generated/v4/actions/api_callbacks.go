@@ -24,7 +24,7 @@ import (
 // CallbacksApiService CallbacksApi service
 type CallbacksApiService service
 
-type ApiPostAutomationV4ActionsCallbacksCallbackIdCompleteCompleteRequest struct {
+type ApiCallbackCompleteRequest struct {
 	ctx                       context.Context
 	ApiService                *CallbacksApiService
 	callbackId                string
@@ -32,26 +32,26 @@ type ApiPostAutomationV4ActionsCallbacksCallbackIdCompleteCompleteRequest struct
 }
 
 // The result of the completed action.
-func (r ApiPostAutomationV4ActionsCallbacksCallbackIdCompleteCompleteRequest) CallbackCompletionRequest(callbackCompletionRequest CallbackCompletionRequest) ApiPostAutomationV4ActionsCallbacksCallbackIdCompleteCompleteRequest {
+func (r ApiCallbackCompleteRequest) CallbackCompletionRequest(callbackCompletionRequest CallbackCompletionRequest) ApiCallbackCompleteRequest {
 	r.callbackCompletionRequest = &callbackCompletionRequest
 	return r
 }
 
-func (r ApiPostAutomationV4ActionsCallbacksCallbackIdCompleteCompleteRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostAutomationV4ActionsCallbacksCallbackIdCompleteCompleteExecute(r)
+func (r ApiCallbackCompleteRequest) Execute() (*http.Response, error) {
+	return r.ApiService.CallbackCompleteExecute(r)
 }
 
 /*
-PostAutomationV4ActionsCallbacksCallbackIdCompleteComplete Complete a callback
+CallbackComplete Complete a callback
 
 Completes the given action callback.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param callbackId The ID of the target app.
- @return ApiPostAutomationV4ActionsCallbacksCallbackIdCompleteCompleteRequest
+ @return ApiCallbackCompleteRequest
 */
-func (a *CallbacksApiService) PostAutomationV4ActionsCallbacksCallbackIdCompleteComplete(ctx context.Context, callbackId string) ApiPostAutomationV4ActionsCallbacksCallbackIdCompleteCompleteRequest {
-	return ApiPostAutomationV4ActionsCallbacksCallbackIdCompleteCompleteRequest{
+func (a *CallbacksApiService) CallbackComplete(ctx context.Context, callbackId string) ApiCallbackCompleteRequest {
+	return ApiCallbackCompleteRequest{
 		ApiService: a,
 		ctx:        ctx,
 		callbackId: callbackId,
@@ -59,14 +59,14 @@ func (a *CallbacksApiService) PostAutomationV4ActionsCallbacksCallbackIdComplete
 }
 
 // Execute executes the request
-func (a *CallbacksApiService) PostAutomationV4ActionsCallbacksCallbackIdCompleteCompleteExecute(r ApiPostAutomationV4ActionsCallbacksCallbackIdCompleteCompleteRequest) (*http.Response, error) {
+func (a *CallbacksApiService) CallbackCompleteExecute(r ApiCallbackCompleteRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CallbacksApiService.PostAutomationV4ActionsCallbacksCallbackIdCompleteComplete")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CallbacksApiService.CallbackComplete")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -145,46 +145,46 @@ func (a *CallbacksApiService) PostAutomationV4ActionsCallbacksCallbackIdComplete
 	return localVarHTTPResponse, nil
 }
 
-type ApiPostAutomationV4ActionsCallbacksCompleteCompleteBatchRequest struct {
+type ApiCallbackCompleteBatchRequest struct {
 	ctx                                      context.Context
 	ApiService                               *CallbacksApiService
 	batchInputCallbackCompletionBatchRequest *BatchInputCallbackCompletionBatchRequest
 }
 
 // The result of the completed action.
-func (r ApiPostAutomationV4ActionsCallbacksCompleteCompleteBatchRequest) BatchInputCallbackCompletionBatchRequest(batchInputCallbackCompletionBatchRequest BatchInputCallbackCompletionBatchRequest) ApiPostAutomationV4ActionsCallbacksCompleteCompleteBatchRequest {
+func (r ApiCallbackCompleteBatchRequest) BatchInputCallbackCompletionBatchRequest(batchInputCallbackCompletionBatchRequest BatchInputCallbackCompletionBatchRequest) ApiCallbackCompleteBatchRequest {
 	r.batchInputCallbackCompletionBatchRequest = &batchInputCallbackCompletionBatchRequest
 	return r
 }
 
-func (r ApiPostAutomationV4ActionsCallbacksCompleteCompleteBatchRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostAutomationV4ActionsCallbacksCompleteCompleteBatchExecute(r)
+func (r ApiCallbackCompleteBatchRequest) Execute() (*http.Response, error) {
+	return r.ApiService.CallbackCompleteBatchExecute(r)
 }
 
 /*
-PostAutomationV4ActionsCallbacksCompleteCompleteBatch Complete a batch of callbacks
+CallbackCompleteBatch Complete a batch of callbacks
 
 Completes the given action callbacks.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostAutomationV4ActionsCallbacksCompleteCompleteBatchRequest
+ @return ApiCallbackCompleteBatchRequest
 */
-func (a *CallbacksApiService) PostAutomationV4ActionsCallbacksCompleteCompleteBatch(ctx context.Context) ApiPostAutomationV4ActionsCallbacksCompleteCompleteBatchRequest {
-	return ApiPostAutomationV4ActionsCallbacksCompleteCompleteBatchRequest{
+func (a *CallbacksApiService) CallbackCompleteBatch(ctx context.Context) ApiCallbackCompleteBatchRequest {
+	return ApiCallbackCompleteBatchRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *CallbacksApiService) PostAutomationV4ActionsCallbacksCompleteCompleteBatchExecute(r ApiPostAutomationV4ActionsCallbacksCompleteCompleteBatchRequest) (*http.Response, error) {
+func (a *CallbacksApiService) CallbackCompleteBatchExecute(r ApiCallbackCompleteBatchRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CallbacksApiService.PostAutomationV4ActionsCallbacksCompleteCompleteBatch")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CallbacksApiService.CallbackCompleteBatch")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}

@@ -18,7 +18,7 @@
         "tags" : [ "Single_Send" ],
         "summary" : "Send a single transactional email asynchronously.",
         "description" : "Asynchronously send a transactional email. Returns the status of the email send with a statusId that can be used to continuously query for the status using the Email Send Status API.",
-        "operationId" : "post-/marketing/v3/transactional/single-email/send_sendEmail",
+        "operationId" : "SendEmail",
         "requestBody" : {
           "description" : "A request object describing the email to send.",
           "content" : {
@@ -58,7 +58,7 @@
         "tags" : [ "Public_Smtp_Tokens" ],
         "summary" : "Query SMTP API tokens by campaign name or an emailCampaignId.",
         "description" : "Query multiple SMTP API tokens by campaign name or a single token by emailCampaignId.",
-        "operationId" : "get-/marketing/v3/transactional/smtp-tokens_getTokensPage",
+        "operationId" : "GetTokensPage",
         "parameters" : [ {
           "name" : "campaignName",
           "in" : "query",
@@ -124,7 +124,7 @@
         "tags" : [ "Public_Smtp_Tokens" ],
         "summary" : "Create a SMTP API token.",
         "description" : "Create a SMTP API token.",
-        "operationId" : "post-/marketing/v3/transactional/smtp-tokens_createToken",
+        "operationId" : "CreateToken",
         "requestBody" : {
           "description" : "A request object that includes the campaign name tied to the token and whether contacts should be created for email recipients.",
           "content" : {
@@ -161,7 +161,7 @@
         "tags" : [ "Public_Smtp_Tokens" ],
         "summary" : "Query a single token by ID.",
         "description" : "Query a single token by ID.",
-        "operationId" : "get-/marketing/v3/transactional/smtp-tokens/{tokenId}_getTokenById",
+        "operationId" : "GetTokenByID",
         "parameters" : [ {
           "name" : "tokenId",
           "in" : "path",
@@ -196,7 +196,7 @@
         "tags" : [ "Public_Smtp_Tokens" ],
         "summary" : "Delete a single token by ID.",
         "description" : "Delete a single token by ID.",
-        "operationId" : "delete-/marketing/v3/transactional/smtp-tokens/{tokenId}_archiveToken",
+        "operationId" : "ArchiveToken",
         "parameters" : [ {
           "name" : "tokenId",
           "in" : "path",
@@ -227,7 +227,7 @@
         "tags" : [ "Public_Smtp_Tokens" ],
         "summary" : "Reset the password of an existing token.",
         "description" : "Allows the creation of a replacement password for a given token. Once the password is successfully reset, the old password for the token will be invalid.",
-        "operationId" : "post-/marketing/v3/transactional/smtp-tokens/{tokenId}/password-reset_resetPassword",
+        "operationId" : "ResetPassword",
         "parameters" : [ {
           "name" : "tokenId",
           "in" : "path",

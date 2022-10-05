@@ -4,15 +4,15 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetCommunicationPreferencesV3StatusEmailEmailAddressGetEmailStatus**](StatusApi.md#GetCommunicationPreferencesV3StatusEmailEmailAddressGetEmailStatus) | **Get** /communication-preferences/v3/status/email/{emailAddress} | Get subscription statuses for a contact
-[**PostCommunicationPreferencesV3SubscribeSubscribe**](StatusApi.md#PostCommunicationPreferencesV3SubscribeSubscribe) | **Post** /communication-preferences/v3/subscribe | Subscribe a contact
-[**PostCommunicationPreferencesV3UnsubscribeUnsubscribe**](StatusApi.md#PostCommunicationPreferencesV3UnsubscribeUnsubscribe) | **Post** /communication-preferences/v3/unsubscribe | Unsubscribe a contact
+[**GetEmailStatus**](StatusApi.md#GetEmailStatus) | **Get** /communication-preferences/v3/status/email/{emailAddress} | Get subscription statuses for a contact
+[**Subscribe**](StatusApi.md#Subscribe) | **Post** /communication-preferences/v3/subscribe | Subscribe a contact
+[**Unsubscribe**](StatusApi.md#Unsubscribe) | **Post** /communication-preferences/v3/unsubscribe | Unsubscribe a contact
 
 
 
-## GetCommunicationPreferencesV3StatusEmailEmailAddressGetEmailStatus
+## GetEmailStatus
 
-> PublicSubscriptionStatusesResponse GetCommunicationPreferencesV3StatusEmailEmailAddressGetEmailStatus(ctx, emailAddress).Execute()
+> PublicSubscriptionStatusesResponse GetEmailStatus(ctx, emailAddress).Execute()
 
 Get subscription statuses for a contact
 
@@ -35,13 +35,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.StatusApi.GetCommunicationPreferencesV3StatusEmailEmailAddressGetEmailStatus(context.Background(), emailAddress).Execute()
+    resp, r, err := apiClient.StatusApi.GetEmailStatus(context.Background(), emailAddress).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `StatusApi.GetCommunicationPreferencesV3StatusEmailEmailAddressGetEmailStatus``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `StatusApi.GetEmailStatus``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetCommunicationPreferencesV3StatusEmailEmailAddressGetEmailStatus`: PublicSubscriptionStatusesResponse
-    fmt.Fprintf(os.Stdout, "Response from `StatusApi.GetCommunicationPreferencesV3StatusEmailEmailAddressGetEmailStatus`: %v\n", resp)
+    // response from `GetEmailStatus`: PublicSubscriptionStatusesResponse
+    fmt.Fprintf(os.Stdout, "Response from `StatusApi.GetEmailStatus`: %v\n", resp)
 }
 ```
 
@@ -55,7 +55,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetCommunicationPreferencesV3StatusEmailEmailAddressGetEmailStatusRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetEmailStatusRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -80,9 +80,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostCommunicationPreferencesV3SubscribeSubscribe
+## Subscribe
 
-> PublicSubscriptionStatus PostCommunicationPreferencesV3SubscribeSubscribe(ctx).PublicUpdateSubscriptionStatusRequest(publicUpdateSubscriptionStatusRequest).Execute()
+> PublicSubscriptionStatus Subscribe(ctx).PublicUpdateSubscriptionStatusRequest(publicUpdateSubscriptionStatusRequest).Execute()
 
 Subscribe a contact
 
@@ -105,13 +105,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.StatusApi.PostCommunicationPreferencesV3SubscribeSubscribe(context.Background()).PublicUpdateSubscriptionStatusRequest(publicUpdateSubscriptionStatusRequest).Execute()
+    resp, r, err := apiClient.StatusApi.Subscribe(context.Background()).PublicUpdateSubscriptionStatusRequest(publicUpdateSubscriptionStatusRequest).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `StatusApi.PostCommunicationPreferencesV3SubscribeSubscribe``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `StatusApi.Subscribe``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostCommunicationPreferencesV3SubscribeSubscribe`: PublicSubscriptionStatus
-    fmt.Fprintf(os.Stdout, "Response from `StatusApi.PostCommunicationPreferencesV3SubscribeSubscribe`: %v\n", resp)
+    // response from `Subscribe`: PublicSubscriptionStatus
+    fmt.Fprintf(os.Stdout, "Response from `StatusApi.Subscribe`: %v\n", resp)
 }
 ```
 
@@ -121,7 +121,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCommunicationPreferencesV3SubscribeSubscribeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiSubscribeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -146,9 +146,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostCommunicationPreferencesV3UnsubscribeUnsubscribe
+## Unsubscribe
 
-> PublicSubscriptionStatus PostCommunicationPreferencesV3UnsubscribeUnsubscribe(ctx).PublicUpdateSubscriptionStatusRequest(publicUpdateSubscriptionStatusRequest).Execute()
+> PublicSubscriptionStatus Unsubscribe(ctx).PublicUpdateSubscriptionStatusRequest(publicUpdateSubscriptionStatusRequest).Execute()
 
 Unsubscribe a contact
 
@@ -171,13 +171,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.StatusApi.PostCommunicationPreferencesV3UnsubscribeUnsubscribe(context.Background()).PublicUpdateSubscriptionStatusRequest(publicUpdateSubscriptionStatusRequest).Execute()
+    resp, r, err := apiClient.StatusApi.Unsubscribe(context.Background()).PublicUpdateSubscriptionStatusRequest(publicUpdateSubscriptionStatusRequest).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `StatusApi.PostCommunicationPreferencesV3UnsubscribeUnsubscribe``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `StatusApi.Unsubscribe``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostCommunicationPreferencesV3UnsubscribeUnsubscribe`: PublicSubscriptionStatus
-    fmt.Fprintf(os.Stdout, "Response from `StatusApi.PostCommunicationPreferencesV3UnsubscribeUnsubscribe`: %v\n", resp)
+    // response from `Unsubscribe`: PublicSubscriptionStatus
+    fmt.Fprintf(os.Stdout, "Response from `StatusApi.Unsubscribe`: %v\n", resp)
 }
 ```
 
@@ -187,7 +187,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCommunicationPreferencesV3UnsubscribeUnsubscribeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiUnsubscribeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

@@ -23,32 +23,32 @@ import (
 // SingleSendApiService SingleSendApi service
 type SingleSendApiService service
 
-type ApiPostMarketingV3TransactionalSingleEmailSendSendEmailRequest struct {
+type ApiSendEmailRequest struct {
 	ctx                        context.Context
 	ApiService                 *SingleSendApiService
 	publicSingleSendRequestEgg *PublicSingleSendRequestEgg
 }
 
 // A request object describing the email to send.
-func (r ApiPostMarketingV3TransactionalSingleEmailSendSendEmailRequest) PublicSingleSendRequestEgg(publicSingleSendRequestEgg PublicSingleSendRequestEgg) ApiPostMarketingV3TransactionalSingleEmailSendSendEmailRequest {
+func (r ApiSendEmailRequest) PublicSingleSendRequestEgg(publicSingleSendRequestEgg PublicSingleSendRequestEgg) ApiSendEmailRequest {
 	r.publicSingleSendRequestEgg = &publicSingleSendRequestEgg
 	return r
 }
 
-func (r ApiPostMarketingV3TransactionalSingleEmailSendSendEmailRequest) Execute() (*EmailSendStatusView, *http.Response, error) {
-	return r.ApiService.PostMarketingV3TransactionalSingleEmailSendSendEmailExecute(r)
+func (r ApiSendEmailRequest) Execute() (*EmailSendStatusView, *http.Response, error) {
+	return r.ApiService.SendEmailExecute(r)
 }
 
 /*
-PostMarketingV3TransactionalSingleEmailSendSendEmail Send a single transactional email asynchronously.
+SendEmail Send a single transactional email asynchronously.
 
 Asynchronously send a transactional email. Returns the status of the email send with a statusId that can be used to continuously query for the status using the Email Send Status API.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostMarketingV3TransactionalSingleEmailSendSendEmailRequest
+ @return ApiSendEmailRequest
 */
-func (a *SingleSendApiService) PostMarketingV3TransactionalSingleEmailSendSendEmail(ctx context.Context) ApiPostMarketingV3TransactionalSingleEmailSendSendEmailRequest {
-	return ApiPostMarketingV3TransactionalSingleEmailSendSendEmailRequest{
+func (a *SingleSendApiService) SendEmail(ctx context.Context) ApiSendEmailRequest {
+	return ApiSendEmailRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -56,7 +56,7 @@ func (a *SingleSendApiService) PostMarketingV3TransactionalSingleEmailSendSendEm
 
 // Execute executes the request
 //  @return EmailSendStatusView
-func (a *SingleSendApiService) PostMarketingV3TransactionalSingleEmailSendSendEmailExecute(r ApiPostMarketingV3TransactionalSingleEmailSendSendEmailRequest) (*EmailSendStatusView, *http.Response, error) {
+func (a *SingleSendApiService) SendEmailExecute(r ApiSendEmailRequest) (*EmailSendStatusView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -64,7 +64,7 @@ func (a *SingleSendApiService) PostMarketingV3TransactionalSingleEmailSendSendEm
 		localVarReturnValue *EmailSendStatusView
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SingleSendApiService.PostMarketingV3TransactionalSingleEmailSendSendEmail")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SingleSendApiService.SendEmail")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

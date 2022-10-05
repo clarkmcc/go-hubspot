@@ -323,7 +323,7 @@ paths:
   /cms/v3/blogs/authors/multi-language/attach-to-lang-group:
     post:
       description: Attach a Blog Author to a multi-language group.
-      operationId: AttachToLangGroup
+      operationId: AttachToLanguageGroup
       requestBody:
         content:
           application/json:
@@ -348,7 +348,7 @@ paths:
   /cms/v3/blogs/authors/multi-language/create-language-variation:
     post:
       description: Create a new language variation from an existing Blog Author.
-      operationId: CreateLangVariation
+      operationId: CreateLanguageVariation
       requestBody:
         content:
           application/json:
@@ -379,7 +379,7 @@ paths:
   /cms/v3/blogs/authors/multi-language/detach-from-lang-group:
     post:
       description: Detach a Blog Author from a multi-language group.
-      operationId: DetachFromLangGroup
+      operationId: DetachFromLanguageGroup
       requestBody:
         content:
           application/json:
@@ -404,7 +404,7 @@ paths:
   /cms/v3/blogs/authors/multi-language/set-new-lang-primary:
     put:
       description: Set a Blog Author as the primary language of a multi-language group.
-      operationId: SetLangPrimary
+      operationId: SetLanguagePrimary
       requestBody:
         content:
           application/json:
@@ -433,7 +433,7 @@ paths:
     post:
       description: Explicitly set new languages for each Blog Author in a multi-language
         group.
-      operationId: UpdateLangs
+      operationId: UpdateLanguages
       requestBody:
         content:
           application/json:

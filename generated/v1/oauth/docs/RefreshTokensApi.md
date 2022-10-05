@@ -4,14 +4,14 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteOauthV1RefreshTokensTokenArchiveRefreshToken**](RefreshTokensApi.md#DeleteOauthV1RefreshTokensTokenArchiveRefreshToken) | **Delete** /oauth/v1/refresh-tokens/{token} | 
-[**GetOauthV1RefreshTokensTokenGetRefreshToken**](RefreshTokensApi.md#GetOauthV1RefreshTokensTokenGetRefreshToken) | **Get** /oauth/v1/refresh-tokens/{token} | 
+[**ArchiveRefreshToken**](RefreshTokensApi.md#ArchiveRefreshToken) | **Delete** /oauth/v1/refresh-tokens/{token} | 
+[**GetRefreshToken**](RefreshTokensApi.md#GetRefreshToken) | **Get** /oauth/v1/refresh-tokens/{token} | 
 
 
 
-## DeleteOauthV1RefreshTokensTokenArchiveRefreshToken
+## ArchiveRefreshToken
 
-> Error DeleteOauthV1RefreshTokensTokenArchiveRefreshToken(ctx, token).Execute()
+> Error ArchiveRefreshToken(ctx, token).Execute()
 
 
 
@@ -32,13 +32,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RefreshTokensApi.DeleteOauthV1RefreshTokensTokenArchiveRefreshToken(context.Background(), token).Execute()
+    resp, r, err := apiClient.RefreshTokensApi.ArchiveRefreshToken(context.Background(), token).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RefreshTokensApi.DeleteOauthV1RefreshTokensTokenArchiveRefreshToken``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `RefreshTokensApi.ArchiveRefreshToken``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `DeleteOauthV1RefreshTokensTokenArchiveRefreshToken`: Error
-    fmt.Fprintf(os.Stdout, "Response from `RefreshTokensApi.DeleteOauthV1RefreshTokensTokenArchiveRefreshToken`: %v\n", resp)
+    // response from `ArchiveRefreshToken`: Error
+    fmt.Fprintf(os.Stdout, "Response from `RefreshTokensApi.ArchiveRefreshToken`: %v\n", resp)
 }
 ```
 
@@ -52,7 +52,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteOauthV1RefreshTokensTokenArchiveRefreshTokenRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiArchiveRefreshTokenRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -77,9 +77,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## GetOauthV1RefreshTokensTokenGetRefreshToken
+## GetRefreshToken
 
-> RefreshTokenInfoResponse GetOauthV1RefreshTokensTokenGetRefreshToken(ctx, token).Execute()
+> RefreshTokenInfoResponse GetRefreshToken(ctx, token).Execute()
 
 
 
@@ -100,13 +100,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RefreshTokensApi.GetOauthV1RefreshTokensTokenGetRefreshToken(context.Background(), token).Execute()
+    resp, r, err := apiClient.RefreshTokensApi.GetRefreshToken(context.Background(), token).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RefreshTokensApi.GetOauthV1RefreshTokensTokenGetRefreshToken``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `RefreshTokensApi.GetRefreshToken``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetOauthV1RefreshTokensTokenGetRefreshToken`: RefreshTokenInfoResponse
-    fmt.Fprintf(os.Stdout, "Response from `RefreshTokensApi.GetOauthV1RefreshTokensTokenGetRefreshToken`: %v\n", resp)
+    // response from `GetRefreshToken`: RefreshTokenInfoResponse
+    fmt.Fprintf(os.Stdout, "Response from `RefreshTokensApi.GetRefreshToken`: %v\n", resp)
 }
 ```
 
@@ -120,7 +120,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetOauthV1RefreshTokensTokenGetRefreshTokenRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetRefreshTokenRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

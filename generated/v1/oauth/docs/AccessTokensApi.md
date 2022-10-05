@@ -4,13 +4,13 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetOauthV1AccessTokensTokenGetAccessToken**](AccessTokensApi.md#GetOauthV1AccessTokensTokenGetAccessToken) | **Get** /oauth/v1/access-tokens/{token} | 
+[**GetAccessToken**](AccessTokensApi.md#GetAccessToken) | **Get** /oauth/v1/access-tokens/{token} | 
 
 
 
-## GetOauthV1AccessTokensTokenGetAccessToken
+## GetAccessToken
 
-> AccessTokenInfoResponse GetOauthV1AccessTokensTokenGetAccessToken(ctx, token).Execute()
+> AccessTokenInfoResponse GetAccessToken(ctx, token).Execute()
 
 
 
@@ -31,13 +31,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccessTokensApi.GetOauthV1AccessTokensTokenGetAccessToken(context.Background(), token).Execute()
+    resp, r, err := apiClient.AccessTokensApi.GetAccessToken(context.Background(), token).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AccessTokensApi.GetOauthV1AccessTokensTokenGetAccessToken``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `AccessTokensApi.GetAccessToken``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetOauthV1AccessTokensTokenGetAccessToken`: AccessTokenInfoResponse
-    fmt.Fprintf(os.Stdout, "Response from `AccessTokensApi.GetOauthV1AccessTokensTokenGetAccessToken`: %v\n", resp)
+    // response from `GetAccessToken`: AccessTokenInfoResponse
+    fmt.Fprintf(os.Stdout, "Response from `AccessTokensApi.GetAccessToken`: %v\n", resp)
 }
 ```
 
@@ -51,7 +51,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetOauthV1AccessTokensTokenGetAccessTokenRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAccessTokenRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

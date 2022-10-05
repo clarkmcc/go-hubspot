@@ -22,79 +22,63 @@ import (
 // RevisionsApiService RevisionsApi service
 type RevisionsApiService service
 
-type ApiGetAutomationV4ActionsAppIdDefinitionIdRevisionsGetPageRequest struct {
+type ApiRevisionsGetByIDRequest struct {
 	ctx          context.Context
 	ApiService   *RevisionsApiService
 	definitionId string
+	revisionId   string
 	appId        int32
-	limit        *int32
-	after        *string
 }
 
-// Maximum number of results per page.
-func (r ApiGetAutomationV4ActionsAppIdDefinitionIdRevisionsGetPageRequest) Limit(limit int32) ApiGetAutomationV4ActionsAppIdDefinitionIdRevisionsGetPageRequest {
-	r.limit = &limit
-	return r
-}
-
-// The paging cursor token of the last successfully read resource will be returned as the &#x60;paging.next.after&#x60; JSON property of a paged response containing more results.
-func (r ApiGetAutomationV4ActionsAppIdDefinitionIdRevisionsGetPageRequest) After(after string) ApiGetAutomationV4ActionsAppIdDefinitionIdRevisionsGetPageRequest {
-	r.after = &after
-	return r
-}
-
-func (r ApiGetAutomationV4ActionsAppIdDefinitionIdRevisionsGetPageRequest) Execute() (*CollectionResponseActionRevisionForwardPaging, *http.Response, error) {
-	return r.ApiService.GetAutomationV4ActionsAppIdDefinitionIdRevisionsGetPageExecute(r)
+func (r ApiRevisionsGetByIDRequest) Execute() (*ActionRevision, *http.Response, error) {
+	return r.ApiService.RevisionsGetByIDExecute(r)
 }
 
 /*
-GetAutomationV4ActionsAppIdDefinitionIdRevisionsGetPage Get all revisions for a custom action
+RevisionsGetByID Get a revision for a custom action
 
-Returns a list of revisions for a custom workflow action.
+Returns the given version of a custom workflow action.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param definitionId The ID of the custom workflow action
+ @param definitionId The ID of the custom workflow action.
+ @param revisionId The version of the custom workflow action.
  @param appId
- @return ApiGetAutomationV4ActionsAppIdDefinitionIdRevisionsGetPageRequest
+ @return ApiRevisionsGetByIDRequest
 */
-func (a *RevisionsApiService) GetAutomationV4ActionsAppIdDefinitionIdRevisionsGetPage(ctx context.Context, definitionId string, appId int32) ApiGetAutomationV4ActionsAppIdDefinitionIdRevisionsGetPageRequest {
-	return ApiGetAutomationV4ActionsAppIdDefinitionIdRevisionsGetPageRequest{
+func (a *RevisionsApiService) RevisionsGetByID(ctx context.Context, definitionId string, revisionId string, appId int32) ApiRevisionsGetByIDRequest {
+	return ApiRevisionsGetByIDRequest{
 		ApiService:   a,
 		ctx:          ctx,
 		definitionId: definitionId,
+		revisionId:   revisionId,
 		appId:        appId,
 	}
 }
 
 // Execute executes the request
-//  @return CollectionResponseActionRevisionForwardPaging
-func (a *RevisionsApiService) GetAutomationV4ActionsAppIdDefinitionIdRevisionsGetPageExecute(r ApiGetAutomationV4ActionsAppIdDefinitionIdRevisionsGetPageRequest) (*CollectionResponseActionRevisionForwardPaging, *http.Response, error) {
+//  @return ActionRevision
+func (a *RevisionsApiService) RevisionsGetByIDExecute(r ApiRevisionsGetByIDRequest) (*ActionRevision, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CollectionResponseActionRevisionForwardPaging
+		localVarReturnValue *ActionRevision
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RevisionsApiService.GetAutomationV4ActionsAppIdDefinitionIdRevisionsGetPage")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RevisionsApiService.RevisionsGetByID")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/automation/v4/actions/{appId}/{definitionId}/revisions"
+	localVarPath := localBasePath + "/automation/v4/actions/{appId}/{definitionId}/revisions/{revisionId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"definitionId"+"}", url.PathEscape(parameterToString(r.definitionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"revisionId"+"}", url.PathEscape(parameterToString(r.revisionId, "")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
-	}
-	if r.after != nil {
-		localVarQueryParams.Add("after", parameterToString(*r.after, ""))
-	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -170,63 +154,79 @@ func (a *RevisionsApiService) GetAutomationV4ActionsAppIdDefinitionIdRevisionsGe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetAutomationV4ActionsAppIdDefinitionIdRevisionsRevisionIdGetByIdRequest struct {
+type ApiRevisionsGetPageRequest struct {
 	ctx          context.Context
 	ApiService   *RevisionsApiService
 	definitionId string
-	revisionId   string
 	appId        int32
+	limit        *int32
+	after        *string
 }
 
-func (r ApiGetAutomationV4ActionsAppIdDefinitionIdRevisionsRevisionIdGetByIdRequest) Execute() (*ActionRevision, *http.Response, error) {
-	return r.ApiService.GetAutomationV4ActionsAppIdDefinitionIdRevisionsRevisionIdGetByIdExecute(r)
+// Maximum number of results per page.
+func (r ApiRevisionsGetPageRequest) Limit(limit int32) ApiRevisionsGetPageRequest {
+	r.limit = &limit
+	return r
+}
+
+// The paging cursor token of the last successfully read resource will be returned as the &#x60;paging.next.after&#x60; JSON property of a paged response containing more results.
+func (r ApiRevisionsGetPageRequest) After(after string) ApiRevisionsGetPageRequest {
+	r.after = &after
+	return r
+}
+
+func (r ApiRevisionsGetPageRequest) Execute() (*CollectionResponseActionRevisionForwardPaging, *http.Response, error) {
+	return r.ApiService.RevisionsGetPageExecute(r)
 }
 
 /*
-GetAutomationV4ActionsAppIdDefinitionIdRevisionsRevisionIdGetById Get a revision for a custom action
+RevisionsGetPage Get all revisions for a custom action
 
-Returns the given version of a custom workflow action.
+Returns a list of revisions for a custom workflow action.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param definitionId The ID of the custom workflow action.
- @param revisionId The version of the custom workflow action.
+ @param definitionId The ID of the custom workflow action
  @param appId
- @return ApiGetAutomationV4ActionsAppIdDefinitionIdRevisionsRevisionIdGetByIdRequest
+ @return ApiRevisionsGetPageRequest
 */
-func (a *RevisionsApiService) GetAutomationV4ActionsAppIdDefinitionIdRevisionsRevisionIdGetById(ctx context.Context, definitionId string, revisionId string, appId int32) ApiGetAutomationV4ActionsAppIdDefinitionIdRevisionsRevisionIdGetByIdRequest {
-	return ApiGetAutomationV4ActionsAppIdDefinitionIdRevisionsRevisionIdGetByIdRequest{
+func (a *RevisionsApiService) RevisionsGetPage(ctx context.Context, definitionId string, appId int32) ApiRevisionsGetPageRequest {
+	return ApiRevisionsGetPageRequest{
 		ApiService:   a,
 		ctx:          ctx,
 		definitionId: definitionId,
-		revisionId:   revisionId,
 		appId:        appId,
 	}
 }
 
 // Execute executes the request
-//  @return ActionRevision
-func (a *RevisionsApiService) GetAutomationV4ActionsAppIdDefinitionIdRevisionsRevisionIdGetByIdExecute(r ApiGetAutomationV4ActionsAppIdDefinitionIdRevisionsRevisionIdGetByIdRequest) (*ActionRevision, *http.Response, error) {
+//  @return CollectionResponseActionRevisionForwardPaging
+func (a *RevisionsApiService) RevisionsGetPageExecute(r ApiRevisionsGetPageRequest) (*CollectionResponseActionRevisionForwardPaging, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ActionRevision
+		localVarReturnValue *CollectionResponseActionRevisionForwardPaging
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RevisionsApiService.GetAutomationV4ActionsAppIdDefinitionIdRevisionsRevisionIdGetById")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RevisionsApiService.RevisionsGetPage")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/automation/v4/actions/{appId}/{definitionId}/revisions/{revisionId}"
+	localVarPath := localBasePath + "/automation/v4/actions/{appId}/{definitionId}/revisions"
 	localVarPath = strings.Replace(localVarPath, "{"+"definitionId"+"}", url.PathEscape(parameterToString(r.definitionId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"revisionId"+"}", url.PathEscape(parameterToString(r.revisionId, "")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.limit != nil {
+		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+	}
+	if r.after != nil {
+		localVarQueryParams.Add("after", parameterToString(*r.after, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

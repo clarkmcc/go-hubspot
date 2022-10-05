@@ -19,7 +19,7 @@
         "tags" : [ "Core" ],
         "summary" : "Get all schemas",
         "description" : "Returns all object schemas that have been defined for your account.",
-        "operationId" : "get-/crm-object-schemas/v3/schemas_getAll",
+        "operationId" : "GetAll",
         "parameters" : [ {
           "name" : "archived",
           "in" : "query",
@@ -59,7 +59,7 @@
         "tags" : [ "Core" ],
         "summary" : "Create a new schema",
         "description" : "Define a new object schema, along with custom properties and associations. The entire object schema, including its object type ID, properties, and associations will be returned in the response.",
-        "operationId" : "post-/crm-object-schemas/v3/schemas_create",
+        "operationId" : "Create",
         "requestBody" : {
           "description" : "Object schema definition, including properties and associations.",
           "content" : {
@@ -96,7 +96,7 @@
         "tags" : [ "Core" ],
         "summary" : "Get an existing schema",
         "description" : "Returns an existing object schema.",
-        "operationId" : "get-/crm-object-schemas/v3/schemas/{objectType}_getById",
+        "operationId" : "GetByID",
         "parameters" : [ {
           "name" : "objectType",
           "in" : "path",
@@ -135,7 +135,7 @@
         "tags" : [ "Core" ],
         "summary" : "Delete a schema",
         "description" : "Deletes a schema. Any existing records of this schema must be deleted **first**. Otherwise this call will fail.",
-        "operationId" : "delete-/crm-object-schemas/v3/schemas/{objectType}_archive",
+        "operationId" : "Archive",
         "parameters" : [ {
           "name" : "objectType",
           "in" : "path",
@@ -175,7 +175,7 @@
         "tags" : [ "Core" ],
         "summary" : "Update a schema",
         "description" : "Update the details for an existing object schema.",
-        "operationId" : "patch-/crm-object-schemas/v3/schemas/{objectType}_update",
+        "operationId" : "Update",
         "parameters" : [ {
           "name" : "objectType",
           "in" : "path",
@@ -223,7 +223,7 @@
         "tags" : [ "Core" ],
         "summary" : "Create an association",
         "description" : "Defines a new association between the primary schema's object type and other object types.",
-        "operationId" : "post-/crm-object-schemas/v3/schemas/{objectType}/associations_createAssociation",
+        "operationId" : "CreateAssociation",
         "parameters" : [ {
           "name" : "objectType",
           "in" : "path",
@@ -271,7 +271,7 @@
         "tags" : [ "Core" ],
         "summary" : "Remove an association",
         "description" : "Removes an existing association from a schema.",
-        "operationId" : "delete-/crm-object-schemas/v3/schemas/{objectType}/associations/{associationIdentifier}_archiveAssociation",
+        "operationId" : "ArchiveAssociation",
         "parameters" : [ {
           "name" : "objectType",
           "in" : "path",
@@ -310,7 +310,7 @@
     "/crm/v3/schemas/{objectType}/purge" : {
       "delete" : {
         "tags" : [ "Public_Object_Schemas" ],
-        "operationId" : "delete-/crm-object-schemas/v3/schemas/{objectType}/purge_purge",
+        "operationId" : "Purge",
         "parameters" : [ {
           "name" : "objectType",
           "in" : "path",

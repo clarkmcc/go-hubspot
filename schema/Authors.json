@@ -395,7 +395,7 @@
         "tags" : [ "Blog Authors" ],
         "summary" : "Attach a Blog Author to a multi-language group",
         "description" : "Attach a Blog Author to a multi-language group.",
-        "operationId" : "AttachToLangGroup",
+        "operationId" : "AttachToLanguageGroup",
         "requestBody" : {
           "description" : "The JSON representation of the AttachToLangPrimaryRequest object.",
           "content" : {
@@ -424,7 +424,7 @@
         "tags" : [ "Blog Authors" ],
         "summary" : "Create a new language variation",
         "description" : "Create a new language variation from an existing Blog Author.",
-        "operationId" : "CreateLangVariation",
+        "operationId" : "CreateLanguageVariation",
         "requestBody" : {
           "description" : "The JSON representation of the ContentLanguageCloneRequest object.",
           "content" : {
@@ -463,7 +463,7 @@
         "tags" : [ "Blog Authors" ],
         "summary" : "Detach a Blog Author from a multi-language group",
         "description" : "Detach a Blog Author from a multi-language group.",
-        "operationId" : "DetachFromLangGroup",
+        "operationId" : "DetachFromLanguageGroup",
         "requestBody" : {
           "description" : "The JSON representation of the DetachFromLangGroupRequest object.",
           "content" : {
@@ -492,7 +492,7 @@
         "tags" : [ "Blog Authors" ],
         "summary" : "Set a new primary language",
         "description" : "Set a Blog Author as the primary language of a multi-language group.",
-        "operationId" : "SetLangPrimary",
+        "operationId" : "SetLanguagePrimary",
         "requestBody" : {
           "description" : "The JSON representation of the SetNewLanguagePrimaryRequest object.",
           "content" : {
@@ -525,7 +525,7 @@
         "tags" : [ "Blog Authors" ],
         "summary" : "Update languages of multi-language group",
         "description" : "Explicitly set new languages for each Blog Author in a multi-language group.",
-        "operationId" : "UpdateLangs",
+        "operationId" : "UpdateLanguages",
         "requestBody" : {
           "description" : "The JSON representation of the UpdateLanguagesRequest object.",
           "content" : {

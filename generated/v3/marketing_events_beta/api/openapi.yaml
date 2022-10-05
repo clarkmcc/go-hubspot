@@ -20,7 +20,7 @@ paths:
     post:
       description: "Record a subscription state between multiple HubSpot contacts\
         \ and a marketing event, using HubSpot contact ids."
-      operationId: "post-/marketing/v3/marketing-events/attendance/{externalEventId}/{subscriberState}/create"
+      operationId: AttendanceCreate
       parameters:
       - description: The id of the marketing event
         explode: false
@@ -80,7 +80,7 @@ paths:
       description: "Record a subscription state between multiple HubSpot contacts\
         \ and a marketing event, using contact email addresses. If contact is not\
         \ present it will be automatically created. If you set params "
-      operationId: "post-/marketing/v3/marketing-events/attendance/{externalEventId}/{subscriberState}/email-create"
+      operationId: AttendanceEmailCreate
       parameters:
       - description: The id of the marketing event
         explode: false
@@ -137,7 +137,7 @@ paths:
       - Attendance Subscriber State Changes
   /marketing/v3/marketing-events/events:
     post:
-      operationId: post-/marketing/v3/marketing-events/events_create
+      operationId: Create
       requestBody:
         content:
           application/json:
@@ -165,7 +165,7 @@ paths:
       - Marketing_Events_External
   /marketing/v3/marketing-events/events/delete:
     post:
-      operationId: post-/marketing/v3/marketing-events/events/delete_archive
+      operationId: Archive
       requestBody:
         content:
           application/json:
@@ -187,7 +187,7 @@ paths:
       - Marketing_Events_External
   /marketing/v3/marketing-events/events/search:
     get:
-      operationId: get-/marketing/v3/marketing-events/events/search_doSearch
+      operationId: Search
       parameters:
       - explode: true
         in: query
@@ -217,7 +217,7 @@ paths:
       - Marketing_Events_External
   /marketing/v3/marketing-events/events/upsert:
     post:
-      operationId: post-/marketing/v3/marketing-events/events/upsert_doUpsert
+      operationId: Upsert
       requestBody:
         content:
           application/json:
@@ -245,7 +245,7 @@ paths:
       - Marketing_Events_External
   /marketing/v3/marketing-events/events/{externalEventId}:
     delete:
-      operationId: "delete-/marketing/v3/marketing-events/events/{externalEventId}_archive"
+      operationId: ExternalArchive
       parameters:
       - explode: false
         in: path
@@ -278,7 +278,7 @@ paths:
       tags:
       - Marketing_Events_External
     get:
-      operationId: "get-/marketing/v3/marketing-events/events/{externalEventId}_getById"
+      operationId: ExternalGetByID
       parameters:
       - explode: false
         in: path
@@ -314,7 +314,7 @@ paths:
       tags:
       - Marketing_Events_External
     patch:
-      operationId: "patch-/marketing/v3/marketing-events/events/{externalEventId}_update"
+      operationId: ExternalUpdate
       parameters:
       - explode: false
         in: path
@@ -356,7 +356,7 @@ paths:
       tags:
       - Marketing_Events_External
     put:
-      operationId: "put-/marketing/v3/marketing-events/events/{externalEventId}_replace"
+      operationId: ExternalReplace
       parameters:
       - explode: false
         in: path
@@ -392,7 +392,7 @@ paths:
       - Marketing_Events_External
   /marketing/v3/marketing-events/events/{externalEventId}/cancel:
     post:
-      operationId: "post-/marketing/v3/marketing-events/events/{externalEventId}/cancel_doCancel"
+      operationId: ExternalCancel
       parameters:
       - explode: false
         in: path
@@ -429,7 +429,7 @@ paths:
       - Marketing_Events_External
   /marketing/v3/marketing-events/events/{externalEventId}/complete:
     post:
-      operationId: "post-/marketing/v3/marketing-events/events/{externalEventId}/complete"
+      operationId: ExternalComplete
       parameters:
       - explode: false
         in: path
@@ -472,7 +472,7 @@ paths:
       - Marketing_Events_External
   /marketing/v3/marketing-events/events/{externalEventId}/{subscriberState}/email-upsert:
     post:
-      operationId: "post-/marketing/v3/marketing-events/events/{externalEventId}/{subscriberState}/email-upsert_doEmailUpsertById"
+      operationId: ExternalEmailUpsertByID
       parameters:
       - explode: false
         in: path
@@ -516,7 +516,7 @@ paths:
       - Marketing_Events_External
   /marketing/v3/marketing-events/events/{externalEventId}/{subscriberState}/upsert:
     post:
-      operationId: "post-/marketing/v3/marketing-events/events/{externalEventId}/{subscriberState}/upsert_doUpsertById"
+      operationId: ExternalUpsertByID
       parameters:
       - explode: false
         in: path
@@ -560,7 +560,7 @@ paths:
       - Marketing_Events_External
   /marketing/v3/marketing-events/{appId}/settings:
     get:
-      operationId: "get-/marketing/v3/marketing-events/{appId}/settings_getAll"
+      operationId: SettingsGetAll
       parameters:
       - explode: false
         in: path
@@ -589,7 +589,7 @@ paths:
       tags:
       - Settings_External
     post:
-      operationId: "post-/marketing/v3/marketing-events/{appId}/settings_create"
+      operationId: SettingsCreate
       parameters:
       - explode: false
         in: path

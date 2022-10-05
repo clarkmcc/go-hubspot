@@ -21,7 +21,7 @@ import (
 // TokensApiService TokensApi service
 type TokensApiService service
 
-type ApiPostOauthV1TokenCreateTokenRequest struct {
+type ApiCreateTokenRequest struct {
 	ctx          context.Context
 	ApiService   *TokensApiService
 	grantType    *string
@@ -32,48 +32,48 @@ type ApiPostOauthV1TokenCreateTokenRequest struct {
 	refreshToken *string
 }
 
-func (r ApiPostOauthV1TokenCreateTokenRequest) GrantType(grantType string) ApiPostOauthV1TokenCreateTokenRequest {
+func (r ApiCreateTokenRequest) GrantType(grantType string) ApiCreateTokenRequest {
 	r.grantType = &grantType
 	return r
 }
 
-func (r ApiPostOauthV1TokenCreateTokenRequest) Code(code string) ApiPostOauthV1TokenCreateTokenRequest {
+func (r ApiCreateTokenRequest) Code(code string) ApiCreateTokenRequest {
 	r.code = &code
 	return r
 }
 
-func (r ApiPostOauthV1TokenCreateTokenRequest) RedirectUri(redirectUri string) ApiPostOauthV1TokenCreateTokenRequest {
+func (r ApiCreateTokenRequest) RedirectUri(redirectUri string) ApiCreateTokenRequest {
 	r.redirectUri = &redirectUri
 	return r
 }
 
-func (r ApiPostOauthV1TokenCreateTokenRequest) ClientId(clientId string) ApiPostOauthV1TokenCreateTokenRequest {
+func (r ApiCreateTokenRequest) ClientId(clientId string) ApiCreateTokenRequest {
 	r.clientId = &clientId
 	return r
 }
 
-func (r ApiPostOauthV1TokenCreateTokenRequest) ClientSecret(clientSecret string) ApiPostOauthV1TokenCreateTokenRequest {
+func (r ApiCreateTokenRequest) ClientSecret(clientSecret string) ApiCreateTokenRequest {
 	r.clientSecret = &clientSecret
 	return r
 }
 
-func (r ApiPostOauthV1TokenCreateTokenRequest) RefreshToken(refreshToken string) ApiPostOauthV1TokenCreateTokenRequest {
+func (r ApiCreateTokenRequest) RefreshToken(refreshToken string) ApiCreateTokenRequest {
 	r.refreshToken = &refreshToken
 	return r
 }
 
-func (r ApiPostOauthV1TokenCreateTokenRequest) Execute() (*TokenResponseIF, *http.Response, error) {
-	return r.ApiService.PostOauthV1TokenCreateTokenExecute(r)
+func (r ApiCreateTokenRequest) Execute() (*TokenResponseIF, *http.Response, error) {
+	return r.ApiService.CreateTokenExecute(r)
 }
 
 /*
-PostOauthV1TokenCreateToken Method for PostOauthV1TokenCreateToken
+CreateToken Method for CreateToken
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostOauthV1TokenCreateTokenRequest
+ @return ApiCreateTokenRequest
 */
-func (a *TokensApiService) PostOauthV1TokenCreateToken(ctx context.Context) ApiPostOauthV1TokenCreateTokenRequest {
-	return ApiPostOauthV1TokenCreateTokenRequest{
+func (a *TokensApiService) CreateToken(ctx context.Context) ApiCreateTokenRequest {
+	return ApiCreateTokenRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -81,7 +81,7 @@ func (a *TokensApiService) PostOauthV1TokenCreateToken(ctx context.Context) ApiP
 
 // Execute executes the request
 //  @return TokenResponseIF
-func (a *TokensApiService) PostOauthV1TokenCreateTokenExecute(r ApiPostOauthV1TokenCreateTokenRequest) (*TokenResponseIF, *http.Response, error) {
+func (a *TokensApiService) CreateTokenExecute(r ApiCreateTokenRequest) (*TokenResponseIF, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -89,7 +89,7 @@ func (a *TokensApiService) PostOauthV1TokenCreateTokenExecute(r ApiPostOauthV1To
 		localVarReturnValue *TokenResponseIF
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TokensApiService.PostOauthV1TokenCreateToken")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TokensApiService.CreateToken")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

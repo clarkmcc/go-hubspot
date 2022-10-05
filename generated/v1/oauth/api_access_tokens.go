@@ -22,25 +22,25 @@ import (
 // AccessTokensApiService AccessTokensApi service
 type AccessTokensApiService service
 
-type ApiGetOauthV1AccessTokensTokenGetAccessTokenRequest struct {
+type ApiGetAccessTokenRequest struct {
 	ctx        context.Context
 	ApiService *AccessTokensApiService
 	token      string
 }
 
-func (r ApiGetOauthV1AccessTokensTokenGetAccessTokenRequest) Execute() (*AccessTokenInfoResponse, *http.Response, error) {
-	return r.ApiService.GetOauthV1AccessTokensTokenGetAccessTokenExecute(r)
+func (r ApiGetAccessTokenRequest) Execute() (*AccessTokenInfoResponse, *http.Response, error) {
+	return r.ApiService.GetAccessTokenExecute(r)
 }
 
 /*
-GetOauthV1AccessTokensTokenGetAccessToken Method for GetOauthV1AccessTokensTokenGetAccessToken
+GetAccessToken Method for GetAccessToken
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param token
- @return ApiGetOauthV1AccessTokensTokenGetAccessTokenRequest
+ @return ApiGetAccessTokenRequest
 */
-func (a *AccessTokensApiService) GetOauthV1AccessTokensTokenGetAccessToken(ctx context.Context, token string) ApiGetOauthV1AccessTokensTokenGetAccessTokenRequest {
-	return ApiGetOauthV1AccessTokensTokenGetAccessTokenRequest{
+func (a *AccessTokensApiService) GetAccessToken(ctx context.Context, token string) ApiGetAccessTokenRequest {
+	return ApiGetAccessTokenRequest{
 		ApiService: a,
 		ctx:        ctx,
 		token:      token,
@@ -49,7 +49,7 @@ func (a *AccessTokensApiService) GetOauthV1AccessTokensTokenGetAccessToken(ctx c
 
 // Execute executes the request
 //  @return AccessTokenInfoResponse
-func (a *AccessTokensApiService) GetOauthV1AccessTokensTokenGetAccessTokenExecute(r ApiGetOauthV1AccessTokensTokenGetAccessTokenRequest) (*AccessTokenInfoResponse, *http.Response, error) {
+func (a *AccessTokensApiService) GetAccessTokenExecute(r ApiGetAccessTokenRequest) (*AccessTokenInfoResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -57,7 +57,7 @@ func (a *AccessTokensApiService) GetOauthV1AccessTokensTokenGetAccessTokenExecut
 		localVarReturnValue *AccessTokenInfoResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessTokensApiService.GetOauthV1AccessTokensTokenGetAccessToken")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessTokensApiService.GetAccessToken")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

@@ -4,13 +4,13 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**PostEventsV3Send**](BehavioralEventsTrackingApi.md#PostEventsV3Send) | **Post** /events/v3/send | Sends Custom Behavioral Event
+[**Send**](BehavioralEventsTrackingApi.md#Send) | **Post** /events/v3/send | Sends Custom Behavioral Event
 
 
 
-## PostEventsV3Send
+## Send
 
-> PostEventsV3Send(ctx).BehavioralEventHttpCompletionRequest(behavioralEventHttpCompletionRequest).Execute()
+> Send(ctx).BehavioralEventHttpCompletionRequest(behavioralEventHttpCompletionRequest).Execute()
 
 Sends Custom Behavioral Event
 
@@ -33,9 +33,9 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BehavioralEventsTrackingApi.PostEventsV3Send(context.Background()).BehavioralEventHttpCompletionRequest(behavioralEventHttpCompletionRequest).Execute()
+    resp, r, err := apiClient.BehavioralEventsTrackingApi.Send(context.Background()).BehavioralEventHttpCompletionRequest(behavioralEventHttpCompletionRequest).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BehavioralEventsTrackingApi.PostEventsV3Send``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BehavioralEventsTrackingApi.Send``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -47,7 +47,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostEventsV3SendRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiSendRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

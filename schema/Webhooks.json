@@ -19,7 +19,7 @@
     "/webhooks/v3/{appId}/settings" : {
       "get" : {
         "tags" : [ "Settings" ],
-        "operationId" : "get-/webhooks/v3/{appId}/settings_getAll",
+        "operationId" : "SettingsGetAll",
         "parameters" : [ {
           "name" : "appId",
           "in" : "path",
@@ -52,7 +52,7 @@
       },
       "put" : {
         "tags" : [ "Settings" ],
-        "operationId" : "put-/webhooks/v3/{appId}/settings_configure",
+        "operationId" : "SettingsConfigure",
         "parameters" : [ {
           "name" : "appId",
           "in" : "path",
@@ -95,7 +95,7 @@
       },
       "delete" : {
         "tags" : [ "Settings" ],
-        "operationId" : "delete-/webhooks/v3/{appId}/settings_clear",
+        "operationId" : "SettingsClear",
         "parameters" : [ {
           "name" : "appId",
           "in" : "path",
@@ -124,7 +124,7 @@
     "/webhooks/v3/{appId}/subscriptions" : {
       "get" : {
         "tags" : [ "Subscriptions" ],
-        "operationId" : "get-/webhooks/v3/{appId}/subscriptions_getAll",
+        "operationId" : "SubscriptionsGetAll",
         "parameters" : [ {
           "name" : "appId",
           "in" : "path",
@@ -157,7 +157,7 @@
       },
       "post" : {
         "tags" : [ "Subscriptions" ],
-        "operationId" : "post-/webhooks/v3/{appId}/subscriptions_create",
+        "operationId" : "SubscriptionsCreate",
         "parameters" : [ {
           "name" : "appId",
           "in" : "path",
@@ -202,7 +202,7 @@
     "/webhooks/v3/{appId}/subscriptions/batch/update" : {
       "post" : {
         "tags" : [ "Subscriptions" ],
-        "operationId" : "post-/webhooks/v3/{appId}/subscriptions/batch/update_updateBatch",
+        "operationId" : "SubscriptionsBatchUpdate",
         "parameters" : [ {
           "name" : "appId",
           "in" : "path",
@@ -257,7 +257,7 @@
     "/webhooks/v3/{appId}/subscriptions/{subscriptionId}" : {
       "get" : {
         "tags" : [ "Subscriptions" ],
-        "operationId" : "get-/webhooks/v3/{appId}/subscriptions/{subscriptionId}_getById",
+        "operationId" : "SubscriptionsGetByID",
         "parameters" : [ {
           "name" : "subscriptionId",
           "in" : "path",
@@ -300,7 +300,7 @@
       },
       "delete" : {
         "tags" : [ "Subscriptions" ],
-        "operationId" : "delete-/webhooks/v3/{appId}/subscriptions/{subscriptionId}_archive",
+        "operationId" : "SubscriptionsArchive",
         "parameters" : [ {
           "name" : "subscriptionId",
           "in" : "path",
@@ -337,7 +337,7 @@
       },
       "patch" : {
         "tags" : [ "Subscriptions" ],
-        "operationId" : "patch-/webhooks/v3/{appId}/subscriptions/{subscriptionId}_update",
+        "operationId" : "SubscriptionsUpdate",
         "parameters" : [ {
           "name" : "subscriptionId",
           "in" : "path",

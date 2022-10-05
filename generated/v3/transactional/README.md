@@ -78,12 +78,12 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*PublicSmtpTokensApi* | [**DeleteMarketingV3TransactionalSmtpTokensTokenIdArchiveToken**](docs/PublicSmtpTokensApi.md#deletemarketingv3transactionalsmtptokenstokenidarchivetoken) | **Delete** /marketing/v3/transactional/smtp-tokens/{tokenId} | Delete a single token by ID.
-*PublicSmtpTokensApi* | [**GetMarketingV3TransactionalSmtpTokensGetTokensPage**](docs/PublicSmtpTokensApi.md#getmarketingv3transactionalsmtptokensgettokenspage) | **Get** /marketing/v3/transactional/smtp-tokens | Query SMTP API tokens by campaign name or an emailCampaignId.
-*PublicSmtpTokensApi* | [**GetMarketingV3TransactionalSmtpTokensTokenIdGetTokenById**](docs/PublicSmtpTokensApi.md#getmarketingv3transactionalsmtptokenstokenidgettokenbyid) | **Get** /marketing/v3/transactional/smtp-tokens/{tokenId} | Query a single token by ID.
-*PublicSmtpTokensApi* | [**PostMarketingV3TransactionalSmtpTokensCreateToken**](docs/PublicSmtpTokensApi.md#postmarketingv3transactionalsmtptokenscreatetoken) | **Post** /marketing/v3/transactional/smtp-tokens | Create a SMTP API token.
-*PublicSmtpTokensApi* | [**PostMarketingV3TransactionalSmtpTokensTokenIdPasswordResetResetPassword**](docs/PublicSmtpTokensApi.md#postmarketingv3transactionalsmtptokenstokenidpasswordresetresetpassword) | **Post** /marketing/v3/transactional/smtp-tokens/{tokenId}/password-reset | Reset the password of an existing token.
-*SingleSendApi* | [**PostMarketingV3TransactionalSingleEmailSendSendEmail**](docs/SingleSendApi.md#postmarketingv3transactionalsingleemailsendsendemail) | **Post** /marketing/v3/transactional/single-email/send | Send a single transactional email asynchronously.
+*PublicSmtpTokensApi* | [**ArchiveToken**](docs/PublicSmtpTokensApi.md#archivetoken) | **Delete** /marketing/v3/transactional/smtp-tokens/{tokenId} | Delete a single token by ID.
+*PublicSmtpTokensApi* | [**CreateToken**](docs/PublicSmtpTokensApi.md#createtoken) | **Post** /marketing/v3/transactional/smtp-tokens | Create a SMTP API token.
+*PublicSmtpTokensApi* | [**GetTokenByID**](docs/PublicSmtpTokensApi.md#gettokenbyid) | **Get** /marketing/v3/transactional/smtp-tokens/{tokenId} | Query a single token by ID.
+*PublicSmtpTokensApi* | [**GetTokensPage**](docs/PublicSmtpTokensApi.md#gettokenspage) | **Get** /marketing/v3/transactional/smtp-tokens | Query SMTP API tokens by campaign name or an emailCampaignId.
+*PublicSmtpTokensApi* | [**ResetPassword**](docs/PublicSmtpTokensApi.md#resetpassword) | **Post** /marketing/v3/transactional/smtp-tokens/{tokenId}/password-reset | Reset the password of an existing token.
+*SingleSendApi* | [**SendEmail**](docs/SingleSendApi.md#sendemail) | **Post** /marketing/v3/transactional/single-email/send | Send a single transactional email asynchronously.
 
 
 ## Documentation For Models

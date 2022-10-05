@@ -79,15 +79,15 @@ All URIs are relative to *https://api.hubapi.com*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *BlogPostsApi* | [**Archive**](docs/BlogPostsApi.md#archive) | **Delete** /cms/v3/blogs/posts/{objectId} | Delete a Blog Post
-*BlogPostsApi* | [**AttachToLangGroup**](docs/BlogPostsApi.md#attachtolanggroup) | **Post** /cms/v3/blogs/posts/multi-language/attach-to-lang-group | Attach a Blog Post to a multi-language group
+*BlogPostsApi* | [**AttachToLanguageGroup**](docs/BlogPostsApi.md#attachtolanguagegroup) | **Post** /cms/v3/blogs/posts/multi-language/attach-to-lang-group | Attach a Blog Post to a multi-language group
 *BlogPostsApi* | [**BatchArchive**](docs/BlogPostsApi.md#batcharchive) | **Post** /cms/v3/blogs/posts/batch/archive | Delete a batch of Blog Posts
 *BlogPostsApi* | [**BatchCreate**](docs/BlogPostsApi.md#batchcreate) | **Post** /cms/v3/blogs/posts/batch/create | Create a batch of Blog Posts
 *BlogPostsApi* | [**BatchRead**](docs/BlogPostsApi.md#batchread) | **Post** /cms/v3/blogs/posts/batch/read | Retrieve a batch of Blog Posts
 *BlogPostsApi* | [**BatchUpdate**](docs/BlogPostsApi.md#batchupdate) | **Post** /cms/v3/blogs/posts/batch/update | Update a batch of Blog Posts
 *BlogPostsApi* | [**Clone**](docs/BlogPostsApi.md#clone) | **Post** /cms/v3/blogs/posts/clone | Clone a Blog Post
 *BlogPostsApi* | [**Create**](docs/BlogPostsApi.md#create) | **Post** /cms/v3/blogs/posts | Create a new Blog Post
-*BlogPostsApi* | [**CreateLangVariation**](docs/BlogPostsApi.md#createlangvariation) | **Post** /cms/v3/blogs/posts/multi-language/create-language-variation | Create a new language variation
-*BlogPostsApi* | [**DetachFromLangGroup**](docs/BlogPostsApi.md#detachfromlanggroup) | **Post** /cms/v3/blogs/posts/multi-language/detach-from-lang-group | Detach a Blog Post from a multi-language group
+*BlogPostsApi* | [**CreateLanguageVariation**](docs/BlogPostsApi.md#createlanguagevariation) | **Post** /cms/v3/blogs/posts/multi-language/create-language-variation | Create a new language variation
+*BlogPostsApi* | [**DetachFromLanguageGroup**](docs/BlogPostsApi.md#detachfromlanguagegroup) | **Post** /cms/v3/blogs/posts/multi-language/detach-from-lang-group | Detach a Blog Post from a multi-language group
 *BlogPostsApi* | [**GetByID**](docs/BlogPostsApi.md#getbyid) | **Get** /cms/v3/blogs/posts/{objectId} | Retrieve a Blog Post
 *BlogPostsApi* | [**GetDraftByID**](docs/BlogPostsApi.md#getdraftbyid) | **Get** /cms/v3/blogs/posts/{objectId}/draft | Retrieve the full draft version of the Blog Post
 *BlogPostsApi* | [**GetPage**](docs/BlogPostsApi.md#getpage) | **Get** /cms/v3/blogs/posts | Get all Blog Posts
@@ -98,10 +98,10 @@ Class | Method | HTTP request | Description
 *BlogPostsApi* | [**RestorePreviousVersion**](docs/BlogPostsApi.md#restorepreviousversion) | **Post** /cms/v3/blogs/posts/{objectId}/revisions/{revisionId}/restore | Restore a previous version of a blog post
 *BlogPostsApi* | [**RestorePreviousVersionToDraft**](docs/BlogPostsApi.md#restorepreviousversiontodraft) | **Post** /cms/v3/blogs/posts/{objectId}/revisions/{revisionId}/restore-to-draft | Restore a previous version of a blog post, to the draft version of the blog post
 *BlogPostsApi* | [**Schedule**](docs/BlogPostsApi.md#schedule) | **Post** /cms/v3/blogs/posts/schedule | Schedule a Blog Post to be Published
-*BlogPostsApi* | [**SetLangPrimary**](docs/BlogPostsApi.md#setlangprimary) | **Put** /cms/v3/blogs/posts/multi-language/set-new-lang-primary | Set a new primary language
+*BlogPostsApi* | [**SetLanguagePrimary**](docs/BlogPostsApi.md#setlanguageprimary) | **Put** /cms/v3/blogs/posts/multi-language/set-new-lang-primary | Set a new primary language
 *BlogPostsApi* | [**Update**](docs/BlogPostsApi.md#update) | **Patch** /cms/v3/blogs/posts/{objectId} | Update a Blog Post
 *BlogPostsApi* | [**UpdateDraft**](docs/BlogPostsApi.md#updatedraft) | **Patch** /cms/v3/blogs/posts/{objectId}/draft | Update a Blog Post draft
-*BlogPostsApi* | [**UpdateLangs**](docs/BlogPostsApi.md#updatelangs) | **Post** /cms/v3/blogs/posts/multi-language/update-languages | Update languages of multi-language group
+*BlogPostsApi* | [**UpdateLanguages**](docs/BlogPostsApi.md#updatelanguages) | **Post** /cms/v3/blogs/posts/multi-language/update-languages | Update languages of multi-language group
 
 
 ## Documentation For Models

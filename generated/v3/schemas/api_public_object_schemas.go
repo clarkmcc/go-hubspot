@@ -24,27 +24,27 @@ import (
 // PublicObjectSchemasApiService PublicObjectSchemasApi service
 type PublicObjectSchemasApiService service
 
-type ApiDeleteCrmObjectSchemasV3SchemasObjectTypePurgePurgeRequest struct {
+type ApiPurgeRequest struct {
 	ctx        context.Context
 	ApiService *PublicObjectSchemasApiService
 	objectType string
 }
 
-func (r ApiDeleteCrmObjectSchemasV3SchemasObjectTypePurgePurgeRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteCrmObjectSchemasV3SchemasObjectTypePurgePurgeExecute(r)
+func (r ApiPurgeRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PurgeExecute(r)
 }
 
 /*
-DeleteCrmObjectSchemasV3SchemasObjectTypePurgePurge Method for DeleteCrmObjectSchemasV3SchemasObjectTypePurgePurge
+Purge Method for Purge
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param objectType
- @return ApiDeleteCrmObjectSchemasV3SchemasObjectTypePurgePurgeRequest
+ @return ApiPurgeRequest
 
 Deprecated
 */
-func (a *PublicObjectSchemasApiService) DeleteCrmObjectSchemasV3SchemasObjectTypePurgePurge(ctx context.Context, objectType string) ApiDeleteCrmObjectSchemasV3SchemasObjectTypePurgePurgeRequest {
-	return ApiDeleteCrmObjectSchemasV3SchemasObjectTypePurgePurgeRequest{
+func (a *PublicObjectSchemasApiService) Purge(ctx context.Context, objectType string) ApiPurgeRequest {
+	return ApiPurgeRequest{
 		ApiService: a,
 		ctx:        ctx,
 		objectType: objectType,
@@ -53,14 +53,14 @@ func (a *PublicObjectSchemasApiService) DeleteCrmObjectSchemasV3SchemasObjectTyp
 
 // Execute executes the request
 // Deprecated
-func (a *PublicObjectSchemasApiService) DeleteCrmObjectSchemasV3SchemasObjectTypePurgePurgeExecute(r ApiDeleteCrmObjectSchemasV3SchemasObjectTypePurgePurgeRequest) (*http.Response, error) {
+func (a *PublicObjectSchemasApiService) PurgeExecute(r ApiPurgeRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicObjectSchemasApiService.DeleteCrmObjectSchemasV3SchemasObjectTypePurgePurge")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicObjectSchemasApiService.Purge")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}

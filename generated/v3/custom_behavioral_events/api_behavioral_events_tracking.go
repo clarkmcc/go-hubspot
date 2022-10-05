@@ -23,45 +23,45 @@ import (
 // BehavioralEventsTrackingApiService BehavioralEventsTrackingApi service
 type BehavioralEventsTrackingApiService service
 
-type ApiPostEventsV3SendRequest struct {
+type ApiSendRequest struct {
 	ctx                                  context.Context
 	ApiService                           *BehavioralEventsTrackingApiService
 	behavioralEventHttpCompletionRequest *BehavioralEventHttpCompletionRequest
 }
 
-func (r ApiPostEventsV3SendRequest) BehavioralEventHttpCompletionRequest(behavioralEventHttpCompletionRequest BehavioralEventHttpCompletionRequest) ApiPostEventsV3SendRequest {
+func (r ApiSendRequest) BehavioralEventHttpCompletionRequest(behavioralEventHttpCompletionRequest BehavioralEventHttpCompletionRequest) ApiSendRequest {
 	r.behavioralEventHttpCompletionRequest = &behavioralEventHttpCompletionRequest
 	return r
 }
 
-func (r ApiPostEventsV3SendRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostEventsV3SendExecute(r)
+func (r ApiSendRequest) Execute() (*http.Response, error) {
+	return r.ApiService.SendExecute(r)
 }
 
 /*
-PostEventsV3Send Sends Custom Behavioral Event
+Send Sends Custom Behavioral Event
 
 Endpoint to send an instance of a behavioral event
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostEventsV3SendRequest
+ @return ApiSendRequest
 */
-func (a *BehavioralEventsTrackingApiService) PostEventsV3Send(ctx context.Context) ApiPostEventsV3SendRequest {
-	return ApiPostEventsV3SendRequest{
+func (a *BehavioralEventsTrackingApiService) Send(ctx context.Context) ApiSendRequest {
+	return ApiSendRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *BehavioralEventsTrackingApiService) PostEventsV3SendExecute(r ApiPostEventsV3SendRequest) (*http.Response, error) {
+func (a *BehavioralEventsTrackingApiService) SendExecute(r ApiSendRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BehavioralEventsTrackingApiService.PostEventsV3Send")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BehavioralEventsTrackingApiService.Send")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
