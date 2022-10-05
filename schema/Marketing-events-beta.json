@@ -9,30 +9,159 @@
     "url" : "https://api.hubapi.com/"
   } ],
   "tags" : [ {
-    "name" : "Settings",
-    "description" : "Operations to interact with URL settings for an external application."
-  }, {
-    "name" : "Basic",
-    "description" : "Endpoints that allow you to create or modify the state of an individual Marketing Event in HubSpot."
-  }, {
-    "name" : "Batch",
-    "description" : "Endpoints that allow you to create or modify the state of multiple Marketing Events in HubSpot."
-  }, {
-    "name" : "Search",
-    "description" : "Endpoints that allow you to search for Marketing Events in HubSpot."
-  }, {
-    "name" : "Subscriber State Changes",
+    "name" : "Attendance Subscriber State Changes",
     "description" : "Operations to mark HubSpot contacts as registered, attended or cancelled a registration to a Marketing Event."
+  }, {
+    "name" : "Marketing_Events_External"
+  }, {
+    "name" : "Settings_External"
   } ],
   "paths" : {
+    "/marketing/v3/marketing-events/attendance/{externalEventId}/{subscriberState}/create" : {
+      "post" : {
+        "tags" : [ "Attendance Subscriber State Changes" ],
+        "summary" : "Record",
+        "description" : "Record a subscription state between multiple HubSpot contacts and a marketing event, using HubSpot contact ids.",
+        "operationId" : "post-/marketing/v3/marketing-events/attendance/{externalEventId}/{subscriberState}/create",
+        "parameters" : [ {
+          "name" : "externalEventId",
+          "in" : "path",
+          "description" : "The id of the marketing event",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "subscriberState",
+          "in" : "path",
+          "description" : "The new subscriber state for the HubSpot contacts and the specified marketing event",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "externalAccountId",
+          "in" : "query",
+          "description" : "The account id associated with the marketing event",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "The details of the contacts to subscribe to the event. Parameters of join and left time if state is Attended.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/BatchInputMarketingEventSubscriber"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BatchResponseSubscriberVidResponse"
+                }
+              }
+            }
+          },
+          "default" : {
+            "$ref" : "#/components/responses/Error"
+          }
+        },
+        "security" : [ {
+          "hapikey" : [ ]
+        }, {
+          "oauth2_legacy" : [ "crm.objects.marketing_events.write" ]
+        } ]
+      }
+    },
+    "/marketing/v3/marketing-events/attendance/{externalEventId}/{subscriberState}/email-create" : {
+      "post" : {
+        "tags" : [ "Attendance Subscriber State Changes" ],
+        "summary" : "Record",
+        "description" : "Record a subscription state between multiple HubSpot contacts and a marketing event, using contact email addresses. If contact is not present it will be automatically created. If you set params ",
+        "operationId" : "post-/marketing/v3/marketing-events/attendance/{externalEventId}/{subscriberState}/email-create",
+        "parameters" : [ {
+          "name" : "externalEventId",
+          "in" : "path",
+          "description" : "The id of the marketing event",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "subscriberState",
+          "in" : "path",
+          "description" : "The new subscriber state for the HubSpot contacts and the specified marketing event",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "externalAccountId",
+          "in" : "query",
+          "description" : "The account id associated with the marketing event",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "The details of the contacts to subscribe to the event. Parameters of join and left time if state is Attended.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/BatchInputMarketingEventEmailSubscriber"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BatchResponseSubscriberEmailResponse"
+                }
+              }
+            }
+          },
+          "default" : {
+            "$ref" : "#/components/responses/Error"
+          }
+        },
+        "security" : [ {
+          "hapikey" : [ ]
+        }, {
+          "oauth2_legacy" : [ "crm.objects.marketing_events.write" ]
+        } ]
+      }
+    },
     "/marketing/v3/marketing-events/events" : {
       "post" : {
-        "tags" : [ "Basic" ],
-        "summary" : "Create a marketing event",
-        "description" : "Creates a new marketing event in HubSpot",
+        "tags" : [ "Marketing_Events_External" ],
         "operationId" : "post-/marketing/v3/marketing-events/events_create",
         "requestBody" : {
-          "description" : "The details of the marketing event to create",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -66,12 +195,9 @@
     },
     "/marketing/v3/marketing-events/events/delete" : {
       "post" : {
-        "tags" : [ "Batch" ],
-        "summary" : "Delete multiple marketing events",
-        "description" : "Bulk delete a number of marketing events in HubSpot",
+        "tags" : [ "Marketing_Events_External" ],
         "operationId" : "post-/marketing/v3/marketing-events/events/delete_archive",
         "requestBody" : {
-          "description" : "The details of the marketing events to delete",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -95,14 +221,11 @@
     },
     "/marketing/v3/marketing-events/events/search" : {
       "get" : {
-        "tags" : [ "Search" ],
-        "summary" : "Search for marketing events",
-        "description" : "Search for marketing events that have an event id that starts with the query string",
+        "tags" : [ "Marketing_Events_External" ],
         "operationId" : "get-/marketing/v3/marketing-events/events/search_doSearch",
         "parameters" : [ {
           "name" : "q",
           "in" : "query",
-          "description" : "The partial event id to search for",
           "required" : true,
           "style" : "form",
           "explode" : true,
@@ -134,12 +257,9 @@
     },
     "/marketing/v3/marketing-events/events/upsert" : {
       "post" : {
-        "tags" : [ "Batch" ],
-        "summary" : "Create or update multiple marketing events",
-        "description" : "Upset multiple Marketing Event. If there is an existing Marketing event with the specified id, it will be updated; otherwise a new event will be created.",
+        "tags" : [ "Marketing_Events_External" ],
         "operationId" : "post-/marketing/v3/marketing-events/events/upsert_doUpsert",
         "requestBody" : {
-          "description" : "The details of the marketing events to upsert",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -173,14 +293,11 @@
     },
     "/marketing/v3/marketing-events/events/{externalEventId}" : {
       "get" : {
-        "tags" : [ "Basic" ],
-        "summary" : "Get a marketing event",
-        "description" : "Returns the details of the Marketing Event with the specified id, if one exists.",
+        "tags" : [ "Marketing_Events_External" ],
         "operationId" : "get-/marketing/v3/marketing-events/events/{externalEventId}_getById",
         "parameters" : [ {
           "name" : "externalEventId",
           "in" : "path",
-          "description" : "The id of the marketing event to return",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -190,7 +307,6 @@
         }, {
           "name" : "externalAccountId",
           "in" : "query",
-          "description" : "The account id associated with the marketing event",
           "required" : true,
           "style" : "form",
           "explode" : true,
@@ -220,14 +336,11 @@
         } ]
       },
       "put" : {
-        "tags" : [ "Basic" ],
-        "summary" : "Create or update a marketing event",
-        "description" : "Upsets a Marketing Event. If there is an existing Marketing event with the specified id, it will be updated; otherwise a new event will be created.",
+        "tags" : [ "Marketing_Events_External" ],
         "operationId" : "put-/marketing/v3/marketing-events/events/{externalEventId}_replace",
         "parameters" : [ {
           "name" : "externalEventId",
           "in" : "path",
-          "description" : "The id of the marketing event to upsert",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -236,7 +349,6 @@
           }
         } ],
         "requestBody" : {
-          "description" : "The details of the marketing event to upsert",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -268,14 +380,11 @@
         } ]
       },
       "delete" : {
-        "tags" : [ "Basic" ],
-        "summary" : "Delete a marketing event",
-        "description" : "Deletes an existing Marketing Event with the specified id, if one exists.",
+        "tags" : [ "Marketing_Events_External" ],
         "operationId" : "delete-/marketing/v3/marketing-events/events/{externalEventId}_archive",
         "parameters" : [ {
           "name" : "externalEventId",
           "in" : "path",
-          "description" : "The id of the marketing event to delete",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -285,7 +394,6 @@
         }, {
           "name" : "externalAccountId",
           "in" : "query",
-          "description" : "The account id associated with the marketing event",
           "required" : true,
           "style" : "form",
           "explode" : true,
@@ -309,14 +417,11 @@
         } ]
       },
       "patch" : {
-        "tags" : [ "Basic" ],
-        "summary" : "Update a marketing event",
-        "description" : "Updates an existing Marketing Event with the specified id, if one exists.",
+        "tags" : [ "Marketing_Events_External" ],
         "operationId" : "patch-/marketing/v3/marketing-events/events/{externalEventId}_update",
         "parameters" : [ {
           "name" : "externalEventId",
           "in" : "path",
-          "description" : "The id of the marketing event to update",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -326,7 +431,6 @@
         }, {
           "name" : "externalAccountId",
           "in" : "query",
-          "description" : "The account id associated with the marketing event",
           "required" : true,
           "style" : "form",
           "explode" : true,
@@ -335,7 +439,6 @@
           }
         } ],
         "requestBody" : {
-          "description" : "The details of the marketing event to update",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -369,14 +472,11 @@
     },
     "/marketing/v3/marketing-events/events/{externalEventId}/cancel" : {
       "post" : {
-        "tags" : [ "Basic" ],
-        "summary" : "Mark a marketing event as cancelled",
-        "description" : "Mark a marketing event as cancelled.",
+        "tags" : [ "Marketing_Events_External" ],
         "operationId" : "post-/marketing/v3/marketing-events/events/{externalEventId}/cancel_doCancel",
         "parameters" : [ {
           "name" : "externalEventId",
           "in" : "path",
-          "description" : "The id of the marketing event to mark as cancelled",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -386,7 +486,6 @@
         }, {
           "name" : "externalAccountId",
           "in" : "query",
-          "description" : "The account id associated with the marketing event",
           "required" : true,
           "style" : "form",
           "explode" : true,
@@ -416,26 +515,13 @@
         } ]
       }
     },
-    "/marketing/v3/marketing-events/events/{externalEventId}/{subscriberState}/email-upsert" : {
+    "/marketing/v3/marketing-events/events/{externalEventId}/complete" : {
       "post" : {
-        "tags" : [ "Subscriber State Changes" ],
-        "summary" : "Record",
-        "description" : "Record a subscription state between multiple HubSpot contacts and a marketing event, using contact email addresses.",
-        "operationId" : "post-/marketing/v3/marketing-events/events/{externalEventId}/{subscriberState}/email-upsert_doEmailUpsertById",
+        "tags" : [ "Marketing_Events_External" ],
+        "operationId" : "post-/marketing/v3/marketing-events/events/{externalEventId}/complete",
         "parameters" : [ {
           "name" : "externalEventId",
           "in" : "path",
-          "description" : "The id of the marketing event",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "subscriberState",
-          "in" : "path",
-          "description" : "The new subscriber state for the HubSpot contacts and the specified marketing event",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -445,7 +531,6 @@
         }, {
           "name" : "externalAccountId",
           "in" : "query",
-          "description" : "The account id associated with the marketing event",
           "required" : true,
           "style" : "form",
           "explode" : true,
@@ -454,7 +539,70 @@
           }
         } ],
         "requestBody" : {
-          "description" : "The details of the contacts to subscribe to the event",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/MarketingEventCompleteRequestParams"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/MarketingEventDefaultResponse"
+                }
+              }
+            }
+          },
+          "default" : {
+            "$ref" : "#/components/responses/Error"
+          }
+        },
+        "security" : [ {
+          "hapikey" : [ ]
+        }, {
+          "oauth2_legacy" : [ "crm.objects.marketing_events.write" ]
+        } ]
+      }
+    },
+    "/marketing/v3/marketing-events/events/{externalEventId}/{subscriberState}/email-upsert" : {
+      "post" : {
+        "tags" : [ "Marketing_Events_External" ],
+        "operationId" : "post-/marketing/v3/marketing-events/events/{externalEventId}/{subscriberState}/email-upsert_doEmailUpsertById",
+        "parameters" : [ {
+          "name" : "externalEventId",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "subscriberState",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "externalAccountId",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
           "content" : {
             "application/json" : {
               "schema" : {
@@ -478,14 +626,11 @@
     },
     "/marketing/v3/marketing-events/events/{externalEventId}/{subscriberState}/upsert" : {
       "post" : {
-        "tags" : [ "Subscriber State Changes" ],
-        "summary" : "Record",
-        "description" : "Record a subscription state between multiple HubSpot contacts and a marketing event, using HubSpot contact ids.",
+        "tags" : [ "Marketing_Events_External" ],
         "operationId" : "post-/marketing/v3/marketing-events/events/{externalEventId}/{subscriberState}/upsert_doUpsertById",
         "parameters" : [ {
           "name" : "externalEventId",
           "in" : "path",
-          "description" : "The id of the marketing event",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -495,7 +640,6 @@
         }, {
           "name" : "subscriberState",
           "in" : "path",
-          "description" : "The new subscriber state for the HubSpot contacts and the specified marketing event",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -505,7 +649,6 @@
         }, {
           "name" : "externalAccountId",
           "in" : "query",
-          "description" : "The account id associated with the marketing event",
           "required" : true,
           "style" : "form",
           "explode" : true,
@@ -514,7 +657,6 @@
           }
         } ],
         "requestBody" : {
-          "description" : "The details of the contacts to subscribe to the event",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -538,14 +680,11 @@
     },
     "/marketing/v3/marketing-events/{appId}/settings" : {
       "get" : {
-        "tags" : [ "Settings" ],
-        "summary" : "Retrieve the application settings",
-        "description" : "Retrieve the current settings for the application.",
+        "tags" : [ "Settings_External" ],
         "operationId" : "get-/marketing/v3/marketing-events/{appId}/settings_getAll",
         "parameters" : [ {
           "name" : "appId",
           "in" : "path",
-          "description" : "The id of the application to retrieve the settings for.",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -576,14 +715,11 @@
         } ]
       },
       "post" : {
-        "tags" : [ "Settings" ],
-        "summary" : "Update the application settings",
-        "description" : "Create or update the current settings for the application.",
+        "tags" : [ "Settings_External" ],
         "operationId" : "post-/marketing/v3/marketing-events/{appId}/settings_create",
         "parameters" : [ {
           "name" : "appId",
           "in" : "path",
-          "description" : "The id of the application to update the settings for.",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -593,7 +729,6 @@
           }
         } ],
         "requestBody" : {
-          "description" : "The new application settings",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -738,139 +873,30 @@
           }
         }
       },
-      "BatchInputMarketingEventCreateRequestParams" : {
-        "required" : [ "inputs" ],
+      "MarketingEventCompleteRequestParams" : {
+        "required" : [ "endDateTime", "startDateTime" ],
         "type" : "object",
         "properties" : {
-          "inputs" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/MarketingEventCreateRequestParams"
-            }
+          "startDateTime" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "endDateTime" : {
+            "type" : "string",
+            "format" : "date-time"
           }
         }
       },
-      "Error" : {
-        "required" : [ "category", "correlationId", "message" ],
+      "SubscriberEmailResponse" : {
+        "required" : [ "email", "vid" ],
         "type" : "object",
         "properties" : {
-          "message" : {
-            "type" : "string",
-            "description" : "A human readable message describing the error along with remediation steps where appropriate",
-            "example" : "An error occurred"
-          },
-          "correlationId" : {
-            "type" : "string",
-            "description" : "A unique identifier for the request. Include this value with any error reports or support tickets",
-            "format" : "uuid",
-            "example" : "aeb5f871-7f07-4993-9211-075dc63e7cbf"
-          },
-          "category" : {
-            "type" : "string",
-            "description" : "The error category"
-          },
-          "subCategory" : {
-            "type" : "string",
-            "description" : "A specific category that contains more specific detail about the error"
-          },
-          "errors" : {
-            "type" : "array",
-            "description" : "further information about the error",
-            "items" : {
-              "$ref" : "#/components/schemas/ErrorDetail"
-            }
-          },
-          "context" : {
-            "type" : "object",
-            "additionalProperties" : {
-              "type" : "array",
-              "items" : {
-                "type" : "string"
-              }
-            },
-            "description" : "Context about the error condition",
-            "example" : {
-              "invalidPropertyName" : [ "propertyValue" ],
-              "missingScopes" : [ "scope1", "scope2" ]
-            }
-          },
-          "links" : {
-            "type" : "object",
-            "additionalProperties" : {
-              "type" : "string"
-            },
-            "description" : "A map of link names to associated URIs containing documentation about the error or recommended remediation steps"
-          }
-        },
-        "example" : {
-          "message" : "Invalid input (details will vary based on the error)",
-          "correlationId" : "aeb5f871-7f07-4993-9211-075dc63e7cbf",
-          "category" : "VALIDATION_ERROR",
-          "links" : {
-            "knowledge-base" : "https://www.hubspot.com/products/service/knowledge-base"
-          }
-        }
-      },
-      "PropertyValue" : {
-        "required" : [ "name", "requestId", "selectedByUser", "selectedByUserTimestamp", "source", "sourceId", "sourceLabel", "sourceMetadata", "sourceVid", "timestamp", "value" ],
-        "type" : "object",
-        "properties" : {
-          "name" : {
-            "type" : "string"
-          },
-          "value" : {
-            "type" : "string"
-          },
-          "timestamp" : {
-            "type" : "integer",
-            "format" : "int64"
-          },
-          "sourceId" : {
-            "type" : "string"
-          },
-          "sourceLabel" : {
-            "type" : "string"
-          },
-          "source" : {
-            "type" : "string",
-            "enum" : [ "IMPORT", "API", "FORM", "ANALYTICS", "MIGRATION", "SALESFORCE", "INTEGRATION", "CONTACTS_WEB", "WAL_INCREMENTAL", "TASK", "EMAIL", "WORKFLOWS", "CALCULATED", "SOCIAL", "BATCH_UPDATE", "SIGNALS", "BIDEN", "DEFAULT", "COMPANIES", "DEALS", "ASSISTS", "PRESENTATIONS", "TALLY", "SIDEKICK", "CRM_UI", "MERGE_CONTACTS", "PORTAL_USER_ASSOCIATOR", "INTEGRATIONS_PLATFORM", "BCC_TO_CRM", "FORWARD_TO_CRM", "ENGAGEMENTS", "SALES", "HEISENBERG", "LEADIN", "GMAIL_INTEGRATION", "ACADEMY", "SALES_MESSAGES", "AVATARS_SERVICE", "MERGE_COMPANIES", "SEQUENCES", "COMPANY_FAMILIES", "MOBILE_IOS", "MOBILE_ANDROID", "CONTACTS", "ASSOCIATIONS", "EXTENSION", "SUCCESS", "BOT", "INTEGRATIONS_SYNC", "AUTOMATION_PLATFORM", "CONVERSATIONS", "EMAIL_INTEGRATION", "CONTENT_MEMBERSHIP", "QUOTES", "BET_ASSIGNMENT", "QUOTAS", "BET_CRM_CONNECTOR", "MEETINGS", "MERGE_OBJECTS", "RECYCLING_BIN", "ADS", "AI_GROUP", "COMMUNICATOR", "SETTINGS", "PROPERTY_SETTINGS", "PIPELINE_SETTINGS", "COMPANY_INSIGHTS", "BEHAVIORAL_EVENTS", "PAYMENTS", "GOALS", "PORTAL_OBJECT_SYNC", "APPROVALS" ]
-          },
-          "selectedByUser" : {
-            "type" : "boolean"
-          },
-          "selectedByUserTimestamp" : {
-            "type" : "integer",
-            "format" : "int64"
-          },
-          "sourceVid" : {
-            "type" : "array",
-            "items" : {
-              "type" : "integer",
-              "format" : "int64"
-            }
-          },
-          "sourceMetadata" : {
-            "type" : "string",
-            "description" : "Source metadata encoded as a base64 string. For example: `ZXhhbXBsZSBzdHJpbmc=`"
-          },
-          "requestId" : {
-            "type" : "string"
-          },
-          "updatedByUserId" : {
+          "vid" : {
             "type" : "integer",
             "format" : "int32"
-          }
-        }
-      },
-      "BatchInputMarketingEventExternalUniqueIdentifier" : {
-        "required" : [ "inputs" ],
-        "type" : "object",
-        "properties" : {
-          "inputs" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/MarketingEventExternalUniqueIdentifier"
-            }
+          },
+          "email" : {
+            "type" : "string"
           }
         }
       },
@@ -971,52 +997,6 @@
           }
         }
       },
-      "MarketingEventUpdateRequestParams" : {
-        "type" : "object",
-        "properties" : {
-          "eventName" : {
-            "type" : "string",
-            "description" : "The name of the marketing event."
-          },
-          "eventType" : {
-            "type" : "string",
-            "description" : "Describes what type of event this is.  For example: `WEBINAR`, `CONFERENCE`, `WORKSHOP`"
-          },
-          "startDateTime" : {
-            "type" : "string",
-            "description" : "The start date and time of the marketing event.",
-            "format" : "date-time"
-          },
-          "endDateTime" : {
-            "type" : "string",
-            "description" : "The end date and time of the marketing event.",
-            "format" : "date-time"
-          },
-          "eventOrganizer" : {
-            "type" : "string",
-            "description" : "The name of the organizer of the marketing event."
-          },
-          "eventDescription" : {
-            "type" : "string",
-            "description" : "The description of the marketing event."
-          },
-          "eventUrl" : {
-            "type" : "string",
-            "description" : "A URL in the external event application where the marketing event can be managed."
-          },
-          "eventCancelled" : {
-            "type" : "boolean",
-            "description" : "Indicates if the marketing event has been cancelled. Defaults to `false`"
-          },
-          "customProperties" : {
-            "type" : "array",
-            "description" : "A list of PropertyValues. These can be whatever kind of property names and values you want. However, they must already exist on the HubSpot account's definition of the MarketingEvent Object. If they don't they will be filtered out and not set.\nIn order to do this you'll need to create a new PropertyGroup on the HubSpot account's MarketingEvent object for your specific app and create the Custom Property you want to track on that HubSpot account. Do not create any new default properties on the MarketingEvent object as that will apply to all HubSpot accounts.\n",
-            "items" : {
-              "$ref" : "#/components/schemas/PropertyValue"
-            }
-          }
-        }
-      },
       "MarketingEventSubscriber" : {
         "required" : [ "interactionDateTime" ],
         "type" : "object",
@@ -1025,6 +1005,12 @@
             "type" : "integer",
             "description" : "The date and time at which the contact subscribed to the event.",
             "format" : "int64"
+          },
+          "properties" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
           },
           "vid" : {
             "type" : "integer",
@@ -1076,22 +1062,21 @@
             "description" : "The date and time at which the contact subscribed to the event.",
             "format" : "int64"
           },
+          "properties" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          },
           "email" : {
             "type" : "string",
             "description" : "The email address of the contact in HubSpot to associate with the event. Note that the contact must already exist in HubSpot; a contact will not be created."
-          }
-        }
-      },
-      "ErrorCategory" : {
-        "required" : [ "httpStatus", "name" ],
-        "type" : "object",
-        "properties" : {
-          "httpStatus" : {
-            "type" : "string",
-            "enum" : [ "CONTINUE", "SWITCHING_PROTOCOLS", "PROCESSING", "OK", "CREATED", "ACCEPTED", "NON_AUTHORITATIVE_INFORMATION", "NO_CONTENT", "RESET_CONTENT", "PARTIAL_CONTENT", "MULTI_STATUS", "ALREADY_REPORTED", "IM_USED", "MULTIPLE_CHOICES", "MOVED_PERMANENTLY", "FOUND", "SEE_OTHER", "NOT_MODIFIED", "USE_PROXY", "TEMPORARY_REDIRECT", "PERMANENT_REDIRECT", "BAD_REQUEST", "UNAUTHORIZED", "PAYMENT_REQUIRED", "FORBIDDEN", "NOT_FOUND", "METHOD_NOT_ALLOWED", "NOT_ACCEPTABLE", "PROXY_AUTHENTICATION_REQUIRED", "REQUEST_TIMEOUT", "CONFLICT", "GONE", "LENGTH_REQUIRED", "PRECONDITION_FAILED", "REQUEST_ENTITY_TOO_LARGE", "REQUEST_URI_TOO_LONG", "UNSUPPORTED_MEDIA_TYPE", "REQUESTED_RANGE_NOT_SATISFIABLE", "EXPECTATION_FAILED", "IM_A_TEAPOT", "MISDIRECTED_REQUEST", "UNPROCESSABLE_ENTITY", "LOCKED", "FAILED_DEPENDENCY", "UPGRADE_REQUIRED", "PRECONDITION_REQUIRED", "TOO_MANY_REQUESTS", "REQUEST_HEADERS_FIELDS_TOO_LARGE", "INTERNAL_STALE_SERVICE_DISCOVERY", "UNAVAILABLE_FOR_LEGAL_REASONS", "INTERNAL_SERVER_ERROR", "NOT_IMPLEMENTED", "BAD_GATEWAY", "SERVICE_UNAVAILABLE", "GATEWAY_TIMEOUT", "HTTP_VERSION_NOT_SUPPORTED", "VARIANT_ALSO_NEGOTIATES", "INSUFFICIENT_STORAGE", "LOOP_DETECTED", "NOT_EXTENDED", "NETWORK_AUTHENTICATION_REQUIRED" ]
           },
-          "name" : {
-            "type" : "string"
+          "contactProperties" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
           }
         }
       },
@@ -1118,6 +1103,274 @@
           }
         },
         "description" : "List of marketing event details to create or update"
+      },
+      "MarketingEventExternalUniqueIdentifier" : {
+        "required" : [ "appId", "externalAccountId", "externalEventId" ],
+        "type" : "object",
+        "properties" : {
+          "appId" : {
+            "type" : "integer",
+            "description" : "The id of the application that created the marketing event in HubSpot.",
+            "format" : "int32"
+          },
+          "externalAccountId" : {
+            "type" : "string",
+            "description" : "The accountId that is associated with this marketing event in the external event application."
+          },
+          "externalEventId" : {
+            "type" : "string",
+            "description" : "The id of the marketing event in the external event application."
+          }
+        }
+      },
+      "SubscriberVidResponse" : {
+        "required" : [ "vid" ],
+        "type" : "object",
+        "properties" : {
+          "vid" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
+      },
+      "BatchInputMarketingEventCreateRequestParams" : {
+        "required" : [ "inputs" ],
+        "type" : "object",
+        "properties" : {
+          "inputs" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/MarketingEventCreateRequestParams"
+            }
+          }
+        }
+      },
+      "Error" : {
+        "required" : [ "category", "correlationId", "message" ],
+        "type" : "object",
+        "properties" : {
+          "message" : {
+            "type" : "string",
+            "description" : "A human readable message describing the error along with remediation steps where appropriate",
+            "example" : "An error occurred"
+          },
+          "correlationId" : {
+            "type" : "string",
+            "description" : "A unique identifier for the request. Include this value with any error reports or support tickets",
+            "format" : "uuid",
+            "example" : "aeb5f871-7f07-4993-9211-075dc63e7cbf"
+          },
+          "category" : {
+            "type" : "string",
+            "description" : "The error category"
+          },
+          "subCategory" : {
+            "type" : "string",
+            "description" : "A specific category that contains more specific detail about the error"
+          },
+          "errors" : {
+            "type" : "array",
+            "description" : "further information about the error",
+            "items" : {
+              "$ref" : "#/components/schemas/ErrorDetail"
+            }
+          },
+          "context" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              }
+            },
+            "description" : "Context about the error condition",
+            "example" : {
+              "invalidPropertyName" : [ "propertyValue" ],
+              "missingScopes" : [ "scope1", "scope2" ]
+            }
+          },
+          "links" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            },
+            "description" : "A map of link names to associated URIs containing documentation about the error or recommended remediation steps"
+          }
+        },
+        "example" : {
+          "message" : "Invalid input (details will vary based on the error)",
+          "correlationId" : "aeb5f871-7f07-4993-9211-075dc63e7cbf",
+          "category" : "VALIDATION_ERROR",
+          "links" : {
+            "knowledge-base" : "https://www.hubspot.com/products/service/knowledge-base"
+          }
+        }
+      },
+      "PropertyValue" : {
+        "required" : [ "name", "requestId", "selectedByUser", "selectedByUserTimestamp", "source", "sourceId", "sourceLabel", "sourceMetadata", "sourceVid", "timestamp", "value" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "value" : {
+            "type" : "string"
+          },
+          "timestamp" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "sourceId" : {
+            "type" : "string"
+          },
+          "sourceLabel" : {
+            "type" : "string"
+          },
+          "source" : {
+            "type" : "string",
+            "enum" : [ "IMPORT", "API", "FORM", "ANALYTICS", "MIGRATION", "SALESFORCE", "INTEGRATION", "CONTACTS_WEB", "WAL_INCREMENTAL", "TASK", "EMAIL", "WORKFLOWS", "CALCULATED", "SOCIAL", "BATCH_UPDATE", "SIGNALS", "BIDEN", "DEFAULT", "COMPANIES", "DEALS", "ASSISTS", "PRESENTATIONS", "TALLY", "SIDEKICK", "CRM_UI", "MERGE_CONTACTS", "PORTAL_USER_ASSOCIATOR", "INTEGRATIONS_PLATFORM", "BCC_TO_CRM", "FORWARD_TO_CRM", "ENGAGEMENTS", "SALES", "HEISENBERG", "LEADIN", "GMAIL_INTEGRATION", "ACADEMY", "SALES_MESSAGES", "AVATARS_SERVICE", "MERGE_COMPANIES", "SEQUENCES", "COMPANY_FAMILIES", "MOBILE_IOS", "MOBILE_ANDROID", "CONTACTS", "ASSOCIATIONS", "EXTENSION", "SUCCESS", "BOT", "INTEGRATIONS_SYNC", "AUTOMATION_PLATFORM", "CONVERSATIONS", "EMAIL_INTEGRATION", "CONTENT_MEMBERSHIP", "QUOTES", "BET_ASSIGNMENT", "QUOTAS", "BET_CRM_CONNECTOR", "MEETINGS", "MERGE_OBJECTS", "RECYCLING_BIN", "ADS", "AI_GROUP", "COMMUNICATOR", "SETTINGS", "PROPERTY_SETTINGS", "PIPELINE_SETTINGS", "COMPANY_INSIGHTS", "BEHAVIORAL_EVENTS", "PAYMENTS", "GOALS", "PORTAL_OBJECT_SYNC", "APPROVALS", "FILE_MANAGER", "MARKETPLACE", "INTERNAL_PROCESSING", "FORECASTING", "SLACK_INTEGRATION", "CRM_UI_BULK_ACTION", "WORKFLOW_CONTACT_DELETE_ACTION" ]
+          },
+          "selectedByUser" : {
+            "type" : "boolean"
+          },
+          "selectedByUserTimestamp" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "sourceVid" : {
+            "type" : "array",
+            "items" : {
+              "type" : "integer",
+              "format" : "int64"
+            }
+          },
+          "sourceMetadata" : {
+            "type" : "string",
+            "description" : "Source metadata encoded as a base64 string. For example: `ZXhhbXBsZSBzdHJpbmc=`"
+          },
+          "requestId" : {
+            "type" : "string"
+          },
+          "updatedByUserId" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
+      },
+      "BatchInputMarketingEventExternalUniqueIdentifier" : {
+        "required" : [ "inputs" ],
+        "type" : "object",
+        "properties" : {
+          "inputs" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/MarketingEventExternalUniqueIdentifier"
+            }
+          }
+        }
+      },
+      "MarketingEventUpdateRequestParams" : {
+        "type" : "object",
+        "properties" : {
+          "eventName" : {
+            "type" : "string",
+            "description" : "The name of the marketing event."
+          },
+          "eventType" : {
+            "type" : "string",
+            "description" : "Describes what type of event this is.  For example: `WEBINAR`, `CONFERENCE`, `WORKSHOP`"
+          },
+          "startDateTime" : {
+            "type" : "string",
+            "description" : "The start date and time of the marketing event.",
+            "format" : "date-time"
+          },
+          "endDateTime" : {
+            "type" : "string",
+            "description" : "The end date and time of the marketing event.",
+            "format" : "date-time"
+          },
+          "eventOrganizer" : {
+            "type" : "string",
+            "description" : "The name of the organizer of the marketing event."
+          },
+          "eventDescription" : {
+            "type" : "string",
+            "description" : "The description of the marketing event."
+          },
+          "eventUrl" : {
+            "type" : "string",
+            "description" : "A URL in the external event application where the marketing event can be managed."
+          },
+          "eventCancelled" : {
+            "type" : "boolean",
+            "description" : "Indicates if the marketing event has been cancelled. Defaults to `false`"
+          },
+          "customProperties" : {
+            "type" : "array",
+            "description" : "A list of PropertyValues. These can be whatever kind of property names and values you want. However, they must already exist on the HubSpot account's definition of the MarketingEvent Object. If they don't they will be filtered out and not set.\nIn order to do this you'll need to create a new PropertyGroup on the HubSpot account's MarketingEvent object for your specific app and create the Custom Property you want to track on that HubSpot account. Do not create any new default properties on the MarketingEvent object as that will apply to all HubSpot accounts.\n",
+            "items" : {
+              "$ref" : "#/components/schemas/PropertyValue"
+            }
+          }
+        }
+      },
+      "BatchResponseSubscriberEmailResponse" : {
+        "required" : [ "completedAt", "results", "startedAt", "status" ],
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "string",
+            "enum" : [ "PENDING", "PROCESSING", "CANCELED", "COMPLETE" ]
+          },
+          "results" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/SubscriberEmailResponse"
+            }
+          },
+          "numErrors" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "errors" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/StandardError"
+            }
+          },
+          "requestedAt" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "startedAt" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "completedAt" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "links" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "ErrorCategory" : {
+        "required" : [ "httpStatus", "name" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "httpStatus" : {
+            "type" : "string",
+            "enum" : [ "CONTINUE", "SWITCHING_PROTOCOLS", "PROCESSING", "OK", "CREATED", "ACCEPTED", "NON_AUTHORITATIVE_INFORMATION", "NO_CONTENT", "RESET_CONTENT", "PARTIAL_CONTENT", "MULTI_STATUS", "ALREADY_REPORTED", "IM_USED", "MULTIPLE_CHOICES", "MOVED_PERMANENTLY", "FOUND", "SEE_OTHER", "NOT_MODIFIED", "USE_PROXY", "TEMPORARY_REDIRECT", "PERMANENT_REDIRECT", "BAD_REQUEST", "UNAUTHORIZED", "PAYMENT_REQUIRED", "FORBIDDEN", "NOT_FOUND", "METHOD_NOT_ALLOWED", "NOT_ACCEPTABLE", "PROXY_AUTHENTICATION_REQUIRED", "REQUEST_TIMEOUT", "CONFLICT", "GONE", "LENGTH_REQUIRED", "PRECONDITION_FAILED", "REQUEST_ENTITY_TOO_LARGE", "REQUEST_URI_TOO_LONG", "UNSUPPORTED_MEDIA_TYPE", "REQUESTED_RANGE_NOT_SATISFIABLE", "EXPECTATION_FAILED", "IM_A_TEAPOT", "MISDIRECTED_REQUEST", "UNPROCESSABLE_ENTITY", "LOCKED", "FAILED_DEPENDENCY", "UPGRADE_REQUIRED", "PRECONDITION_REQUIRED", "TOO_MANY_REQUESTS", "REQUEST_HEADERS_FIELDS_TOO_LARGE", "INTERNAL_STALE_SERVICE_DISCOVERY", "UNAVAILABLE_FOR_LEGAL_REASONS", "MIGRATION_IN_PROGRESS", "INTERNAL_SERVER_ERROR", "NOT_IMPLEMENTED", "BAD_GATEWAY", "SERVICE_UNAVAILABLE", "GATEWAY_TIMEOUT", "HTTP_VERSION_NOT_SUPPORTED", "VARIANT_ALSO_NEGOTIATES", "INSUFFICIENT_STORAGE", "LOOP_DETECTED", "NOT_EXTENDED", "NETWORK_AUTHENTICATION_REQUIRED" ]
+          }
+        }
       },
       "MarketingEventPublicDefaultResponse" : {
         "required" : [ "createdAt", "eventName", "eventOrganizer", "id", "updatedAt" ],
@@ -1177,6 +1430,50 @@
           }
         }
       },
+      "BatchResponseSubscriberVidResponse" : {
+        "required" : [ "completedAt", "results", "startedAt", "status" ],
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "string",
+            "enum" : [ "PENDING", "PROCESSING", "CANCELED", "COMPLETE" ]
+          },
+          "results" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/SubscriberVidResponse"
+            }
+          },
+          "numErrors" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "errors" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/StandardError"
+            }
+          },
+          "requestedAt" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "startedAt" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "completedAt" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "links" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
       "MarketingEventDefaultResponse" : {
         "required" : [ "eventName", "eventOrganizer" ],
         "type" : "object",
@@ -1221,25 +1518,6 @@
             "items" : {
               "$ref" : "#/components/schemas/PropertyValue"
             }
-          }
-        }
-      },
-      "MarketingEventExternalUniqueIdentifier" : {
-        "required" : [ "appId", "externalAccountId", "externalEventId" ],
-        "type" : "object",
-        "properties" : {
-          "appId" : {
-            "type" : "integer",
-            "description" : "The id of the application that created the marketing event in HubSpot.",
-            "format" : "int32"
-          },
-          "externalAccountId" : {
-            "type" : "string",
-            "description" : "The accountId that is associated with this marketing event in the external event application."
-          },
-          "externalEventId" : {
-            "type" : "string",
-            "description" : "The id of the marketing event in the external event application."
           }
         }
       },

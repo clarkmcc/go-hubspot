@@ -4,15 +4,15 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchive**](BatchApi.md#PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchive) | **Post** /crm/v3/associations/{fromObjectType}/{toObjectType}/batch/archive | Archive a batch of associations
-[**PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreate**](BatchApi.md#PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreate) | **Post** /crm/v3/associations/{fromObjectType}/{toObjectType}/batch/create | Create a batch of associations
-[**PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadRead**](BatchApi.md#PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadRead) | **Post** /crm/v3/associations/{fromObjectType}/{toObjectType}/batch/read | Read a batch of associations
+[**BatchArchive**](BatchApi.md#BatchArchive) | **Post** /crm/v3/associations/{fromObjectType}/{toObjectType}/batch/archive | Archive a batch of associations
+[**BatchCreate**](BatchApi.md#BatchCreate) | **Post** /crm/v3/associations/{fromObjectType}/{toObjectType}/batch/create | Create a batch of associations
+[**BatchRead**](BatchApi.md#BatchRead) | **Post** /crm/v3/associations/{fromObjectType}/{toObjectType}/batch/read | Read a batch of associations
 
 
 
-## PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchive
+## BatchArchive
 
-> PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchive(ctx, fromObjectType, toObjectType).BatchInputPublicAssociation(batchInputPublicAssociation).Execute()
+> BatchArchive(ctx, fromObjectType, toObjectType).BatchInputPublicAssociation(batchInputPublicAssociation).Execute()
 
 Archive a batch of associations
 
@@ -37,9 +37,9 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BatchApi.PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchive(context.Background(), fromObjectType, toObjectType).BatchInputPublicAssociation(batchInputPublicAssociation).Execute()
+    resp, r, err := apiClient.BatchApi.BatchArchive(context.Background(), fromObjectType, toObjectType).BatchInputPublicAssociation(batchInputPublicAssociation).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchive``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.BatchArchive``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -56,7 +56,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchiveRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiBatchArchiveRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -83,9 +83,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreate
+## BatchCreate
 
-> BatchResponsePublicAssociation PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreate(ctx, fromObjectType, toObjectType).BatchInputPublicAssociation(batchInputPublicAssociation).Execute()
+> BatchResponsePublicAssociation BatchCreate(ctx, fromObjectType, toObjectType).BatchInputPublicAssociation(batchInputPublicAssociation).Execute()
 
 Create a batch of associations
 
@@ -110,13 +110,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BatchApi.PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreate(context.Background(), fromObjectType, toObjectType).BatchInputPublicAssociation(batchInputPublicAssociation).Execute()
+    resp, r, err := apiClient.BatchApi.BatchCreate(context.Background(), fromObjectType, toObjectType).BatchInputPublicAssociation(batchInputPublicAssociation).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreate``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.BatchCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreate`: BatchResponsePublicAssociation
-    fmt.Fprintf(os.Stdout, "Response from `BatchApi.PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreate`: %v\n", resp)
+    // response from `BatchCreate`: BatchResponsePublicAssociation
+    fmt.Fprintf(os.Stdout, "Response from `BatchApi.BatchCreate`: %v\n", resp)
 }
 ```
 
@@ -131,7 +131,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreateRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiBatchCreateRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -158,9 +158,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadRead
+## BatchRead
 
-> BatchResponsePublicAssociationMulti PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadRead(ctx, fromObjectType, toObjectType).BatchInputPublicObjectId(batchInputPublicObjectId).Execute()
+> BatchResponsePublicAssociationMulti BatchRead(ctx, fromObjectType, toObjectType).BatchInputPublicObjectId(batchInputPublicObjectId).Execute()
 
 Read a batch of associations
 
@@ -185,13 +185,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BatchApi.PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadRead(context.Background(), fromObjectType, toObjectType).BatchInputPublicObjectId(batchInputPublicObjectId).Execute()
+    resp, r, err := apiClient.BatchApi.BatchRead(context.Background(), fromObjectType, toObjectType).BatchInputPublicObjectId(batchInputPublicObjectId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadRead``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.BatchRead``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadRead`: BatchResponsePublicAssociationMulti
-    fmt.Fprintf(os.Stdout, "Response from `BatchApi.PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadRead`: %v\n", resp)
+    // response from `BatchRead`: BatchResponsePublicAssociationMulti
+    fmt.Fprintf(os.Stdout, "Response from `BatchApi.BatchRead`: %v\n", resp)
 }
 ```
 
@@ -206,7 +206,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadReadRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiBatchReadRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

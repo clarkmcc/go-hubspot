@@ -24,7 +24,7 @@ import (
 // AssociationsApiService AssociationsApi service
 type AssociationsApiService service
 
-type ApiDeleteCrmV3ObjectsLineItemsLineItemIdAssociationsToObjectTypeToObjectIdAssociationTypeArchiveRequest struct {
+type ApiAssociationsArchiveRequest struct {
 	ctx             context.Context
 	ApiService      *AssociationsApiService
 	lineItemId      string
@@ -33,22 +33,22 @@ type ApiDeleteCrmV3ObjectsLineItemsLineItemIdAssociationsToObjectTypeToObjectIdA
 	associationType string
 }
 
-func (r ApiDeleteCrmV3ObjectsLineItemsLineItemIdAssociationsToObjectTypeToObjectIdAssociationTypeArchiveRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteCrmV3ObjectsLineItemsLineItemIdAssociationsToObjectTypeToObjectIdAssociationTypeArchiveExecute(r)
+func (r ApiAssociationsArchiveRequest) Execute() (*http.Response, error) {
+	return r.ApiService.AssociationsArchiveExecute(r)
 }
 
 /*
-DeleteCrmV3ObjectsLineItemsLineItemIdAssociationsToObjectTypeToObjectIdAssociationTypeArchive Remove an association between two line items
+AssociationsArchive Remove an association between two line items
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param lineItemId
  @param toObjectType
  @param toObjectId
  @param associationType
- @return ApiDeleteCrmV3ObjectsLineItemsLineItemIdAssociationsToObjectTypeToObjectIdAssociationTypeArchiveRequest
+ @return ApiAssociationsArchiveRequest
 */
-func (a *AssociationsApiService) DeleteCrmV3ObjectsLineItemsLineItemIdAssociationsToObjectTypeToObjectIdAssociationTypeArchive(ctx context.Context, lineItemId string, toObjectType string, toObjectId string, associationType string) ApiDeleteCrmV3ObjectsLineItemsLineItemIdAssociationsToObjectTypeToObjectIdAssociationTypeArchiveRequest {
-	return ApiDeleteCrmV3ObjectsLineItemsLineItemIdAssociationsToObjectTypeToObjectIdAssociationTypeArchiveRequest{
+func (a *AssociationsApiService) AssociationsArchive(ctx context.Context, lineItemId string, toObjectType string, toObjectId string, associationType string) ApiAssociationsArchiveRequest {
+	return ApiAssociationsArchiveRequest{
 		ApiService:      a,
 		ctx:             ctx,
 		lineItemId:      lineItemId,
@@ -59,14 +59,14 @@ func (a *AssociationsApiService) DeleteCrmV3ObjectsLineItemsLineItemIdAssociatio
 }
 
 // Execute executes the request
-func (a *AssociationsApiService) DeleteCrmV3ObjectsLineItemsLineItemIdAssociationsToObjectTypeToObjectIdAssociationTypeArchiveExecute(r ApiDeleteCrmV3ObjectsLineItemsLineItemIdAssociationsToObjectTypeToObjectIdAssociationTypeArchiveRequest) (*http.Response, error) {
+func (a *AssociationsApiService) AssociationsArchiveExecute(r ApiAssociationsArchiveRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AssociationsApiService.DeleteCrmV3ObjectsLineItemsLineItemIdAssociationsToObjectTypeToObjectIdAssociationTypeArchive")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AssociationsApiService.AssociationsArchive")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -143,77 +143,65 @@ func (a *AssociationsApiService) DeleteCrmV3ObjectsLineItemsLineItemIdAssociatio
 	return localVarHTTPResponse, nil
 }
 
-type ApiGetCrmV3ObjectsLineItemsLineItemIdAssociationsToObjectTypeGetAllRequest struct {
-	ctx          context.Context
-	ApiService   *AssociationsApiService
-	lineItemId   string
-	toObjectType string
-	after        *string
-	limit        *int32
+type ApiAssociationsCreateRequest struct {
+	ctx             context.Context
+	ApiService      *AssociationsApiService
+	lineItemId      string
+	toObjectType    string
+	toObjectId      string
+	associationType string
 }
 
-// The paging cursor token of the last successfully read resource will be returned as the &#x60;paging.next.after&#x60; JSON property of a paged response containing more results.
-func (r ApiGetCrmV3ObjectsLineItemsLineItemIdAssociationsToObjectTypeGetAllRequest) After(after string) ApiGetCrmV3ObjectsLineItemsLineItemIdAssociationsToObjectTypeGetAllRequest {
-	r.after = &after
-	return r
-}
-
-// The maximum number of results to display per page.
-func (r ApiGetCrmV3ObjectsLineItemsLineItemIdAssociationsToObjectTypeGetAllRequest) Limit(limit int32) ApiGetCrmV3ObjectsLineItemsLineItemIdAssociationsToObjectTypeGetAllRequest {
-	r.limit = &limit
-	return r
-}
-
-func (r ApiGetCrmV3ObjectsLineItemsLineItemIdAssociationsToObjectTypeGetAllRequest) Execute() (*CollectionResponseAssociatedIdForwardPaging, *http.Response, error) {
-	return r.ApiService.GetCrmV3ObjectsLineItemsLineItemIdAssociationsToObjectTypeGetAllExecute(r)
+func (r ApiAssociationsCreateRequest) Execute() (*SimplePublicObjectWithAssociations, *http.Response, error) {
+	return r.ApiService.AssociationsCreateExecute(r)
 }
 
 /*
-GetCrmV3ObjectsLineItemsLineItemIdAssociationsToObjectTypeGetAll List associations of a line item by type
+AssociationsCreate Associate a line item with another object
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param lineItemId
  @param toObjectType
- @return ApiGetCrmV3ObjectsLineItemsLineItemIdAssociationsToObjectTypeGetAllRequest
+ @param toObjectId
+ @param associationType
+ @return ApiAssociationsCreateRequest
 */
-func (a *AssociationsApiService) GetCrmV3ObjectsLineItemsLineItemIdAssociationsToObjectTypeGetAll(ctx context.Context, lineItemId string, toObjectType string) ApiGetCrmV3ObjectsLineItemsLineItemIdAssociationsToObjectTypeGetAllRequest {
-	return ApiGetCrmV3ObjectsLineItemsLineItemIdAssociationsToObjectTypeGetAllRequest{
-		ApiService:   a,
-		ctx:          ctx,
-		lineItemId:   lineItemId,
-		toObjectType: toObjectType,
+func (a *AssociationsApiService) AssociationsCreate(ctx context.Context, lineItemId string, toObjectType string, toObjectId string, associationType string) ApiAssociationsCreateRequest {
+	return ApiAssociationsCreateRequest{
+		ApiService:      a,
+		ctx:             ctx,
+		lineItemId:      lineItemId,
+		toObjectType:    toObjectType,
+		toObjectId:      toObjectId,
+		associationType: associationType,
 	}
 }
 
 // Execute executes the request
-//  @return CollectionResponseAssociatedIdForwardPaging
-func (a *AssociationsApiService) GetCrmV3ObjectsLineItemsLineItemIdAssociationsToObjectTypeGetAllExecute(r ApiGetCrmV3ObjectsLineItemsLineItemIdAssociationsToObjectTypeGetAllRequest) (*CollectionResponseAssociatedIdForwardPaging, *http.Response, error) {
+//  @return SimplePublicObjectWithAssociations
+func (a *AssociationsApiService) AssociationsCreateExecute(r ApiAssociationsCreateRequest) (*SimplePublicObjectWithAssociations, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
+		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CollectionResponseAssociatedIdForwardPaging
+		localVarReturnValue *SimplePublicObjectWithAssociations
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AssociationsApiService.GetCrmV3ObjectsLineItemsLineItemIdAssociationsToObjectTypeGetAll")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AssociationsApiService.AssociationsCreate")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/crm/v3/objects/line_items/{lineItemId}/associations/{toObjectType}"
+	localVarPath := localBasePath + "/crm/v3/objects/line_items/{lineItemId}/associations/{toObjectType}/{toObjectId}/{associationType}"
 	localVarPath = strings.Replace(localVarPath, "{"+"lineItemId"+"}", url.PathEscape(parameterToString(r.lineItemId, "")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"toObjectType"+"}", url.PathEscape(parameterToString(r.toObjectType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"toObjectId"+"}", url.PathEscape(parameterToString(r.toObjectId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"associationType"+"}", url.PathEscape(parameterToString(r.associationType, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if r.after != nil {
-		localVarQueryParams.Add("after", parameterToString(*r.after, ""))
-	}
-	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
-	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -285,65 +273,77 @@ func (a *AssociationsApiService) GetCrmV3ObjectsLineItemsLineItemIdAssociationsT
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPutCrmV3ObjectsLineItemsLineItemIdAssociationsToObjectTypeToObjectIdAssociationTypeCreateRequest struct {
-	ctx             context.Context
-	ApiService      *AssociationsApiService
-	lineItemId      string
-	toObjectType    string
-	toObjectId      string
-	associationType string
+type ApiAssociationsGetAllRequest struct {
+	ctx          context.Context
+	ApiService   *AssociationsApiService
+	lineItemId   string
+	toObjectType string
+	after        *string
+	limit        *int32
 }
 
-func (r ApiPutCrmV3ObjectsLineItemsLineItemIdAssociationsToObjectTypeToObjectIdAssociationTypeCreateRequest) Execute() (*SimplePublicObjectWithAssociations, *http.Response, error) {
-	return r.ApiService.PutCrmV3ObjectsLineItemsLineItemIdAssociationsToObjectTypeToObjectIdAssociationTypeCreateExecute(r)
+// The paging cursor token of the last successfully read resource will be returned as the &#x60;paging.next.after&#x60; JSON property of a paged response containing more results.
+func (r ApiAssociationsGetAllRequest) After(after string) ApiAssociationsGetAllRequest {
+	r.after = &after
+	return r
+}
+
+// The maximum number of results to display per page.
+func (r ApiAssociationsGetAllRequest) Limit(limit int32) ApiAssociationsGetAllRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r ApiAssociationsGetAllRequest) Execute() (*CollectionResponseAssociatedIdForwardPaging, *http.Response, error) {
+	return r.ApiService.AssociationsGetAllExecute(r)
 }
 
 /*
-PutCrmV3ObjectsLineItemsLineItemIdAssociationsToObjectTypeToObjectIdAssociationTypeCreate Associate a line item with another object
+AssociationsGetAll List associations of a line item by type
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param lineItemId
  @param toObjectType
- @param toObjectId
- @param associationType
- @return ApiPutCrmV3ObjectsLineItemsLineItemIdAssociationsToObjectTypeToObjectIdAssociationTypeCreateRequest
+ @return ApiAssociationsGetAllRequest
 */
-func (a *AssociationsApiService) PutCrmV3ObjectsLineItemsLineItemIdAssociationsToObjectTypeToObjectIdAssociationTypeCreate(ctx context.Context, lineItemId string, toObjectType string, toObjectId string, associationType string) ApiPutCrmV3ObjectsLineItemsLineItemIdAssociationsToObjectTypeToObjectIdAssociationTypeCreateRequest {
-	return ApiPutCrmV3ObjectsLineItemsLineItemIdAssociationsToObjectTypeToObjectIdAssociationTypeCreateRequest{
-		ApiService:      a,
-		ctx:             ctx,
-		lineItemId:      lineItemId,
-		toObjectType:    toObjectType,
-		toObjectId:      toObjectId,
-		associationType: associationType,
+func (a *AssociationsApiService) AssociationsGetAll(ctx context.Context, lineItemId string, toObjectType string) ApiAssociationsGetAllRequest {
+	return ApiAssociationsGetAllRequest{
+		ApiService:   a,
+		ctx:          ctx,
+		lineItemId:   lineItemId,
+		toObjectType: toObjectType,
 	}
 }
 
 // Execute executes the request
-//  @return SimplePublicObjectWithAssociations
-func (a *AssociationsApiService) PutCrmV3ObjectsLineItemsLineItemIdAssociationsToObjectTypeToObjectIdAssociationTypeCreateExecute(r ApiPutCrmV3ObjectsLineItemsLineItemIdAssociationsToObjectTypeToObjectIdAssociationTypeCreateRequest) (*SimplePublicObjectWithAssociations, *http.Response, error) {
+//  @return CollectionResponseAssociatedIdForwardPaging
+func (a *AssociationsApiService) AssociationsGetAllExecute(r ApiAssociationsGetAllRequest) (*CollectionResponseAssociatedIdForwardPaging, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
+		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SimplePublicObjectWithAssociations
+		localVarReturnValue *CollectionResponseAssociatedIdForwardPaging
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AssociationsApiService.PutCrmV3ObjectsLineItemsLineItemIdAssociationsToObjectTypeToObjectIdAssociationTypeCreate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AssociationsApiService.AssociationsGetAll")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/crm/v3/objects/line_items/{lineItemId}/associations/{toObjectType}/{toObjectId}/{associationType}"
+	localVarPath := localBasePath + "/crm/v3/objects/line_items/{lineItemId}/associations/{toObjectType}"
 	localVarPath = strings.Replace(localVarPath, "{"+"lineItemId"+"}", url.PathEscape(parameterToString(r.lineItemId, "")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"toObjectType"+"}", url.PathEscape(parameterToString(r.toObjectType, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"toObjectId"+"}", url.PathEscape(parameterToString(r.toObjectId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"associationType"+"}", url.PathEscape(parameterToString(r.associationType, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.after != nil {
+		localVarQueryParams.Add("after", parameterToString(*r.after, ""))
+	}
+	if r.limit != nil {
+		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

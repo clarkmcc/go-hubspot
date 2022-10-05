@@ -4,14 +4,14 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchive**](UserAccountsApi.md#DeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchive) | **Delete** /crm/v3/extensions/accounting/user-accounts/{accountId} | Delete user account
-[**PutCrmV3ExtensionsAccountingUserAccountsReplace**](UserAccountsApi.md#PutCrmV3ExtensionsAccountingUserAccountsReplace) | **Put** /crm/v3/extensions/accounting/user-accounts | Create a user account
+[**UserAccountsArchive**](UserAccountsApi.md#UserAccountsArchive) | **Delete** /crm/v3/extensions/accounting/user-accounts/{accountId} | Delete user account
+[**UserAccountsReplace**](UserAccountsApi.md#UserAccountsReplace) | **Put** /crm/v3/extensions/accounting/user-accounts | Create a user account
 
 
 
-## DeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchive
+## UserAccountsArchive
 
-> DeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchive(ctx, accountId).Execute()
+> UserAccountsArchive(ctx, accountId).Execute()
 
 Delete user account
 
@@ -34,9 +34,9 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserAccountsApi.DeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchive(context.Background(), accountId).Execute()
+    resp, r, err := apiClient.UserAccountsApi.UserAccountsArchive(context.Background(), accountId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserAccountsApi.DeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchive``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAccountsApi.UserAccountsArchive``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -52,7 +52,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchiveRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiUserAccountsArchiveRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -77,9 +77,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PutCrmV3ExtensionsAccountingUserAccountsReplace
+## UserAccountsReplace
 
-> PutCrmV3ExtensionsAccountingUserAccountsReplace(ctx).CreateUserAccountRequestExternal(createUserAccountRequestExternal).Execute()
+> UserAccountsReplace(ctx).CreateUserAccountRequestExternal(createUserAccountRequestExternal).Execute()
 
 Create a user account
 
@@ -102,9 +102,9 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserAccountsApi.PutCrmV3ExtensionsAccountingUserAccountsReplace(context.Background()).CreateUserAccountRequestExternal(createUserAccountRequestExternal).Execute()
+    resp, r, err := apiClient.UserAccountsApi.UserAccountsReplace(context.Background()).CreateUserAccountRequestExternal(createUserAccountRequestExternal).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserAccountsApi.PutCrmV3ExtensionsAccountingUserAccountsReplace``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAccountsApi.UserAccountsReplace``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -116,7 +116,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPutCrmV3ExtensionsAccountingUserAccountsReplaceRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiUserAccountsReplaceRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

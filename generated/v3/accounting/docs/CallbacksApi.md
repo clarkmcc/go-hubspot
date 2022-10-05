@@ -4,22 +4,22 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**PostCrmV3ExtensionsAccountingCallbackCustomerCreateRequestIdCreateCustomer**](CallbacksApi.md#PostCrmV3ExtensionsAccountingCallbackCustomerCreateRequestIdCreateCustomer) | **Post** /crm/v3/extensions/accounting/callback/customer-create/{requestId} | Endpoint for customer creation response
-[**PostCrmV3ExtensionsAccountingCallbackCustomerSearchRequestIdDoCustomerSearch**](CallbacksApi.md#PostCrmV3ExtensionsAccountingCallbackCustomerSearchRequestIdDoCustomerSearch) | **Post** /crm/v3/extensions/accounting/callback/customer-search/{requestId} | Endpoint for customer search response
-[**PostCrmV3ExtensionsAccountingCallbackExchangeRateRequestIdCreateExchangeRate**](CallbacksApi.md#PostCrmV3ExtensionsAccountingCallbackExchangeRateRequestIdCreateExchangeRate) | **Post** /crm/v3/extensions/accounting/callback/exchange-rate/{requestId} | Endpoint for exchange rate response
-[**PostCrmV3ExtensionsAccountingCallbackInvoiceCreateRequestIdCreateInvoice**](CallbacksApi.md#PostCrmV3ExtensionsAccountingCallbackInvoiceCreateRequestIdCreateInvoice) | **Post** /crm/v3/extensions/accounting/callback/invoice-create/{requestId} | Endpoint for invoice creation response
-[**PostCrmV3ExtensionsAccountingCallbackInvoicePdfRequestIdInvoicePdf**](CallbacksApi.md#PostCrmV3ExtensionsAccountingCallbackInvoicePdfRequestIdInvoicePdf) | **Post** /crm/v3/extensions/accounting/callback/invoice-pdf/{requestId} | Endpoint for PDF content of invoice
-[**PostCrmV3ExtensionsAccountingCallbackInvoiceSearchRequestIdDoInvoiceSearch**](CallbacksApi.md#PostCrmV3ExtensionsAccountingCallbackInvoiceSearchRequestIdDoInvoiceSearch) | **Post** /crm/v3/extensions/accounting/callback/invoice-search/{requestId} | Endpoint for invoice search response
-[**PostCrmV3ExtensionsAccountingCallbackInvoicesRequestIdGetById**](CallbacksApi.md#PostCrmV3ExtensionsAccountingCallbackInvoicesRequestIdGetById) | **Post** /crm/v3/extensions/accounting/callback/invoices/{requestId} | Endpoint for invoice get-by-id response
-[**PostCrmV3ExtensionsAccountingCallbackProductSearchRequestIdDoProductSearch**](CallbacksApi.md#PostCrmV3ExtensionsAccountingCallbackProductSearchRequestIdDoProductSearch) | **Post** /crm/v3/extensions/accounting/callback/product-search/{requestId} | Endpoint for product search response
-[**PostCrmV3ExtensionsAccountingCallbackTaxSearchRequestIdDoTaxSearch**](CallbacksApi.md#PostCrmV3ExtensionsAccountingCallbackTaxSearchRequestIdDoTaxSearch) | **Post** /crm/v3/extensions/accounting/callback/tax-search/{requestId} | Endpoint for taxes search response
-[**PostCrmV3ExtensionsAccountingCallbackTermsRequestIdCreateTerm**](CallbacksApi.md#PostCrmV3ExtensionsAccountingCallbackTermsRequestIdCreateTerm) | **Post** /crm/v3/extensions/accounting/callback/terms/{requestId} | Endpoint for terms search response
+[**CallbackCreateCustomer**](CallbacksApi.md#CallbackCreateCustomer) | **Post** /crm/v3/extensions/accounting/callback/customer-create/{requestId} | Endpoint for customer creation response
+[**CallbackCreateExchangeRate**](CallbacksApi.md#CallbackCreateExchangeRate) | **Post** /crm/v3/extensions/accounting/callback/exchange-rate/{requestId} | Endpoint for exchange rate response
+[**CallbackCreateInvoice**](CallbacksApi.md#CallbackCreateInvoice) | **Post** /crm/v3/extensions/accounting/callback/invoice-create/{requestId} | Endpoint for invoice creation response
+[**CallbackCreateTerm**](CallbacksApi.md#CallbackCreateTerm) | **Post** /crm/v3/extensions/accounting/callback/terms/{requestId} | Endpoint for terms search response
+[**CallbackDoInvoiceSearch**](CallbacksApi.md#CallbackDoInvoiceSearch) | **Post** /crm/v3/extensions/accounting/callback/invoice-search/{requestId} | Endpoint for invoice search response
+[**CallbackDoProductSearch**](CallbacksApi.md#CallbackDoProductSearch) | **Post** /crm/v3/extensions/accounting/callback/product-search/{requestId} | Endpoint for product search response
+[**CallbackDoSearchCustomer**](CallbacksApi.md#CallbackDoSearchCustomer) | **Post** /crm/v3/extensions/accounting/callback/customer-search/{requestId} | Endpoint for customer search response
+[**CallbackDoTaxSearch**](CallbacksApi.md#CallbackDoTaxSearch) | **Post** /crm/v3/extensions/accounting/callback/tax-search/{requestId} | Endpoint for taxes search response
+[**CallbackGetByID**](CallbacksApi.md#CallbackGetByID) | **Post** /crm/v3/extensions/accounting/callback/invoices/{requestId} | Endpoint for invoice get-by-id response
+[**CallbackInvoicePDF**](CallbacksApi.md#CallbackInvoicePDF) | **Post** /crm/v3/extensions/accounting/callback/invoice-pdf/{requestId} | Endpoint for PDF content of invoice
 
 
 
-## PostCrmV3ExtensionsAccountingCallbackCustomerCreateRequestIdCreateCustomer
+## CallbackCreateCustomer
 
-> PostCrmV3ExtensionsAccountingCallbackCustomerCreateRequestIdCreateCustomer(ctx, requestId).ResultIdAccountingResponse(resultIdAccountingResponse).Execute()
+> CallbackCreateCustomer(ctx, requestId).ResultIdAccountingResponse(resultIdAccountingResponse).Execute()
 
 Endpoint for customer creation response
 
@@ -43,9 +43,9 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CallbacksApi.PostCrmV3ExtensionsAccountingCallbackCustomerCreateRequestIdCreateCustomer(context.Background(), requestId).ResultIdAccountingResponse(resultIdAccountingResponse).Execute()
+    resp, r, err := apiClient.CallbacksApi.CallbackCreateCustomer(context.Background(), requestId).ResultIdAccountingResponse(resultIdAccountingResponse).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CallbacksApi.PostCrmV3ExtensionsAccountingCallbackCustomerCreateRequestIdCreateCustomer``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `CallbacksApi.CallbackCreateCustomer``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -61,7 +61,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCrmV3ExtensionsAccountingCallbackCustomerCreateRequestIdCreateCustomerRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCallbackCreateCustomerRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -87,79 +87,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostCrmV3ExtensionsAccountingCallbackCustomerSearchRequestIdDoCustomerSearch
+## CallbackCreateExchangeRate
 
-> PostCrmV3ExtensionsAccountingCallbackCustomerSearchRequestIdDoCustomerSearch(ctx, requestId).CustomerSearchResponseExternal(customerSearchResponseExternal).Execute()
-
-Endpoint for customer search response
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    requestId := "requestId_example" // string | The ID of the request that this response is for
-    customerSearchResponseExternal := *openapiclient.NewCustomerSearchResponseExternal("OK", []openapiclient.AccountingExtensionCustomer{*openapiclient.NewAccountingExtensionCustomer("John Smith", "js-1")}) // CustomerSearchResponseExternal | The result of the customer search request.
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CallbacksApi.PostCrmV3ExtensionsAccountingCallbackCustomerSearchRequestIdDoCustomerSearch(context.Background(), requestId).CustomerSearchResponseExternal(customerSearchResponseExternal).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CallbacksApi.PostCrmV3ExtensionsAccountingCallbackCustomerSearchRequestIdDoCustomerSearch``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**requestId** | **string** | The ID of the request that this response is for | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostCrmV3ExtensionsAccountingCallbackCustomerSearchRequestIdDoCustomerSearchRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **customerSearchResponseExternal** | [**CustomerSearchResponseExternal**](CustomerSearchResponseExternal.md) | The result of the customer search request. | 
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: */*
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostCrmV3ExtensionsAccountingCallbackExchangeRateRequestIdCreateExchangeRate
-
-> PostCrmV3ExtensionsAccountingCallbackExchangeRateRequestIdCreateExchangeRate(ctx, requestId).ExchangeRateResponse(exchangeRateResponse).Execute()
+> CallbackCreateExchangeRate(ctx, requestId).ExchangeRateResponse(exchangeRateResponse).Execute()
 
 Endpoint for exchange rate response
 
@@ -183,9 +113,9 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CallbacksApi.PostCrmV3ExtensionsAccountingCallbackExchangeRateRequestIdCreateExchangeRate(context.Background(), requestId).ExchangeRateResponse(exchangeRateResponse).Execute()
+    resp, r, err := apiClient.CallbacksApi.CallbackCreateExchangeRate(context.Background(), requestId).ExchangeRateResponse(exchangeRateResponse).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CallbacksApi.PostCrmV3ExtensionsAccountingCallbackExchangeRateRequestIdCreateExchangeRate``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `CallbacksApi.CallbackCreateExchangeRate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -201,7 +131,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCrmV3ExtensionsAccountingCallbackExchangeRateRequestIdCreateExchangeRateRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCallbackCreateExchangeRateRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -227,9 +157,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostCrmV3ExtensionsAccountingCallbackInvoiceCreateRequestIdCreateInvoice
+## CallbackCreateInvoice
 
-> PostCrmV3ExtensionsAccountingCallbackInvoiceCreateRequestIdCreateInvoice(ctx, requestId).ResultIdAccountingResponse(resultIdAccountingResponse).Execute()
+> CallbackCreateInvoice(ctx, requestId).ResultIdAccountingResponse(resultIdAccountingResponse).Execute()
 
 Endpoint for invoice creation response
 
@@ -253,9 +183,9 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CallbacksApi.PostCrmV3ExtensionsAccountingCallbackInvoiceCreateRequestIdCreateInvoice(context.Background(), requestId).ResultIdAccountingResponse(resultIdAccountingResponse).Execute()
+    resp, r, err := apiClient.CallbacksApi.CallbackCreateInvoice(context.Background(), requestId).ResultIdAccountingResponse(resultIdAccountingResponse).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CallbacksApi.PostCrmV3ExtensionsAccountingCallbackInvoiceCreateRequestIdCreateInvoice``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `CallbacksApi.CallbackCreateInvoice``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -271,7 +201,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCrmV3ExtensionsAccountingCallbackInvoiceCreateRequestIdCreateInvoiceRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCallbackCreateInvoiceRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -297,11 +227,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostCrmV3ExtensionsAccountingCallbackInvoicePdfRequestIdInvoicePdf
+## CallbackCreateTerm
 
-> PostCrmV3ExtensionsAccountingCallbackInvoicePdfRequestIdInvoicePdf(ctx, requestId).InvoicePdfResponse(invoicePdfResponse).Execute()
+> CallbackCreateTerm(ctx, requestId).TermsResponse(termsResponse).Execute()
 
-Endpoint for PDF content of invoice
+Endpoint for terms search response
 
 
 
@@ -319,13 +249,13 @@ import (
 
 func main() {
     requestId := "requestId_example" // string | The ID of the request that this response is for
-    invoicePdfResponse := *openapiclient.NewInvoicePdfResponse(string(123)) // InvoicePdfResponse | The bytes of the invoice PDF.
+    termsResponse := *openapiclient.NewTermsResponse([]openapiclient.AccountingExtensionTerm{*openapiclient.NewAccountingExtensionTerm("Net 30", "net-30")}) // TermsResponse | The result of the terms search
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CallbacksApi.PostCrmV3ExtensionsAccountingCallbackInvoicePdfRequestIdInvoicePdf(context.Background(), requestId).InvoicePdfResponse(invoicePdfResponse).Execute()
+    resp, r, err := apiClient.CallbacksApi.CallbackCreateTerm(context.Background(), requestId).TermsResponse(termsResponse).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CallbacksApi.PostCrmV3ExtensionsAccountingCallbackInvoicePdfRequestIdInvoicePdf``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `CallbacksApi.CallbackCreateTerm``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -341,13 +271,13 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCrmV3ExtensionsAccountingCallbackInvoicePdfRequestIdInvoicePdfRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCallbackCreateTermRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **invoicePdfResponse** | [**InvoicePdfResponse**](InvoicePdfResponse.md) | The bytes of the invoice PDF. | 
+ **termsResponse** | [**TermsResponse**](TermsResponse.md) | The result of the terms search | 
 
 ### Return type
 
@@ -367,9 +297,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostCrmV3ExtensionsAccountingCallbackInvoiceSearchRequestIdDoInvoiceSearch
+## CallbackDoInvoiceSearch
 
-> PostCrmV3ExtensionsAccountingCallbackInvoiceSearchRequestIdDoInvoiceSearch(ctx, requestId).InvoiceSearchResponse(invoiceSearchResponse).Execute()
+> CallbackDoInvoiceSearch(ctx, requestId).InvoiceSearchResponse(invoiceSearchResponse).Execute()
 
 Endpoint for invoice search response
 
@@ -394,9 +324,9 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CallbacksApi.PostCrmV3ExtensionsAccountingCallbackInvoiceSearchRequestIdDoInvoiceSearch(context.Background(), requestId).InvoiceSearchResponse(invoiceSearchResponse).Execute()
+    resp, r, err := apiClient.CallbacksApi.CallbackDoInvoiceSearch(context.Background(), requestId).InvoiceSearchResponse(invoiceSearchResponse).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CallbacksApi.PostCrmV3ExtensionsAccountingCallbackInvoiceSearchRequestIdDoInvoiceSearch``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `CallbacksApi.CallbackDoInvoiceSearch``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -412,7 +342,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCrmV3ExtensionsAccountingCallbackInvoiceSearchRequestIdDoInvoiceSearchRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCallbackDoInvoiceSearchRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -438,80 +368,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostCrmV3ExtensionsAccountingCallbackInvoicesRequestIdGetById
+## CallbackDoProductSearch
 
-> PostCrmV3ExtensionsAccountingCallbackInvoicesRequestIdGetById(ctx, requestId).InvoicesResponseExternal(invoicesResponseExternal).Execute()
-
-Endpoint for invoice get-by-id response
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    "time"
-    openapiclient "./openapi"
-)
-
-func main() {
-    requestId := "requestId_example" // string | The ID of the request that this response is for
-    invoicesResponseExternal := *openapiclient.NewInvoicesResponseExternal([]openapiclient.AccountingExtensionInvoice{*openapiclient.NewAccountingExtensionInvoice(float32(100.5), time.Now(), "USD", "https://myapp.com/invoices/1243a2", "John Smith", "OVERDUE")}) // InvoicesResponseExternal | The result of the invoice request.
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CallbacksApi.PostCrmV3ExtensionsAccountingCallbackInvoicesRequestIdGetById(context.Background(), requestId).InvoicesResponseExternal(invoicesResponseExternal).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CallbacksApi.PostCrmV3ExtensionsAccountingCallbackInvoicesRequestIdGetById``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**requestId** | **string** | The ID of the request that this response is for | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostCrmV3ExtensionsAccountingCallbackInvoicesRequestIdGetByIdRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **invoicesResponseExternal** | [**InvoicesResponseExternal**](InvoicesResponseExternal.md) | The result of the invoice request. | 
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: */*
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostCrmV3ExtensionsAccountingCallbackProductSearchRequestIdDoProductSearch
-
-> PostCrmV3ExtensionsAccountingCallbackProductSearchRequestIdDoProductSearch(ctx, requestId).ProductSearchResponse(productSearchResponse).Execute()
+> CallbackDoProductSearch(ctx, requestId).ProductSearchResponse(productSearchResponse).Execute()
 
 Endpoint for product search response
 
@@ -535,9 +394,9 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CallbacksApi.PostCrmV3ExtensionsAccountingCallbackProductSearchRequestIdDoProductSearch(context.Background(), requestId).ProductSearchResponse(productSearchResponse).Execute()
+    resp, r, err := apiClient.CallbacksApi.CallbackDoProductSearch(context.Background(), requestId).ProductSearchResponse(productSearchResponse).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CallbacksApi.PostCrmV3ExtensionsAccountingCallbackProductSearchRequestIdDoProductSearch``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `CallbacksApi.CallbackDoProductSearch``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -553,7 +412,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCrmV3ExtensionsAccountingCallbackProductSearchRequestIdDoProductSearchRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCallbackDoProductSearchRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -579,9 +438,79 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostCrmV3ExtensionsAccountingCallbackTaxSearchRequestIdDoTaxSearch
+## CallbackDoSearchCustomer
 
-> PostCrmV3ExtensionsAccountingCallbackTaxSearchRequestIdDoTaxSearch(ctx, requestId).TaxSearchResponse(taxSearchResponse).Execute()
+> CallbackDoSearchCustomer(ctx, requestId).CustomerSearchResponseExternal(customerSearchResponseExternal).Execute()
+
+Endpoint for customer search response
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    requestId := "requestId_example" // string | The ID of the request that this response is for
+    customerSearchResponseExternal := *openapiclient.NewCustomerSearchResponseExternal("OK", []openapiclient.AccountingExtensionCustomer{*openapiclient.NewAccountingExtensionCustomer("John Smith", "js-1")}) // CustomerSearchResponseExternal | The result of the customer search request.
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CallbacksApi.CallbackDoSearchCustomer(context.Background(), requestId).CustomerSearchResponseExternal(customerSearchResponseExternal).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `CallbacksApi.CallbackDoSearchCustomer``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**requestId** | **string** | The ID of the request that this response is for | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCallbackDoSearchCustomerRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **customerSearchResponseExternal** | [**CustomerSearchResponseExternal**](CustomerSearchResponseExternal.md) | The result of the customer search request. | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: */*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CallbackDoTaxSearch
+
+> CallbackDoTaxSearch(ctx, requestId).TaxSearchResponse(taxSearchResponse).Execute()
 
 Endpoint for taxes search response
 
@@ -605,9 +534,9 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CallbacksApi.PostCrmV3ExtensionsAccountingCallbackTaxSearchRequestIdDoTaxSearch(context.Background(), requestId).TaxSearchResponse(taxSearchResponse).Execute()
+    resp, r, err := apiClient.CallbacksApi.CallbackDoTaxSearch(context.Background(), requestId).TaxSearchResponse(taxSearchResponse).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CallbacksApi.PostCrmV3ExtensionsAccountingCallbackTaxSearchRequestIdDoTaxSearch``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `CallbacksApi.CallbackDoTaxSearch``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -623,7 +552,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCrmV3ExtensionsAccountingCallbackTaxSearchRequestIdDoTaxSearchRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCallbackDoTaxSearchRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -649,11 +578,82 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostCrmV3ExtensionsAccountingCallbackTermsRequestIdCreateTerm
+## CallbackGetByID
 
-> PostCrmV3ExtensionsAccountingCallbackTermsRequestIdCreateTerm(ctx, requestId).TermsResponse(termsResponse).Execute()
+> CallbackGetByID(ctx, requestId).InvoicesResponseExternal(invoicesResponseExternal).Execute()
 
-Endpoint for terms search response
+Endpoint for invoice get-by-id response
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    "time"
+    openapiclient "./openapi"
+)
+
+func main() {
+    requestId := "requestId_example" // string | The ID of the request that this response is for
+    invoicesResponseExternal := *openapiclient.NewInvoicesResponseExternal([]openapiclient.AccountingExtensionInvoice{*openapiclient.NewAccountingExtensionInvoice(float32(100.5), time.Now(), "USD", "https://myapp.com/invoices/1243a2", "John Smith", "OVERDUE")}) // InvoicesResponseExternal | The result of the invoice request.
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CallbacksApi.CallbackGetByID(context.Background(), requestId).InvoicesResponseExternal(invoicesResponseExternal).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `CallbacksApi.CallbackGetByID``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**requestId** | **string** | The ID of the request that this response is for | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCallbackGetByIDRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **invoicesResponseExternal** | [**InvoicesResponseExternal**](InvoicesResponseExternal.md) | The result of the invoice request. | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: */*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CallbackInvoicePDF
+
+> CallbackInvoicePDF(ctx, requestId).InvoicePdfResponse(invoicePdfResponse).Execute()
+
+Endpoint for PDF content of invoice
 
 
 
@@ -671,13 +671,13 @@ import (
 
 func main() {
     requestId := "requestId_example" // string | The ID of the request that this response is for
-    termsResponse := *openapiclient.NewTermsResponse([]openapiclient.AccountingExtensionTerm{*openapiclient.NewAccountingExtensionTerm("Net 30", "net-30")}) // TermsResponse | The result of the terms search
+    invoicePdfResponse := *openapiclient.NewInvoicePdfResponse(string(123)) // InvoicePdfResponse | The bytes of the invoice PDF.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CallbacksApi.PostCrmV3ExtensionsAccountingCallbackTermsRequestIdCreateTerm(context.Background(), requestId).TermsResponse(termsResponse).Execute()
+    resp, r, err := apiClient.CallbacksApi.CallbackInvoicePDF(context.Background(), requestId).InvoicePdfResponse(invoicePdfResponse).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CallbacksApi.PostCrmV3ExtensionsAccountingCallbackTermsRequestIdCreateTerm``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `CallbacksApi.CallbackInvoicePDF``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -693,13 +693,13 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCrmV3ExtensionsAccountingCallbackTermsRequestIdCreateTermRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCallbackInvoicePDFRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **termsResponse** | [**TermsResponse**](TermsResponse.md) | The result of the terms search | 
+ **invoicePdfResponse** | [**InvoicePdfResponse**](InvoicePdfResponse.md) | The bytes of the invoice PDF. | 
 
 ### Return type
 

@@ -19,7 +19,7 @@
         "tags" : [ "Batch" ],
         "summary" : "Archive a batch of associations",
         "description" : "Remove the associations between all pairs of objects identified in the request body.",
-        "operationId" : "post-/crm/v3/associations/{fromObjectType}/{toObjectType}/batch/archive_archive",
+        "operationId" : "BatchArchive",
         "parameters" : [ {
           "name" : "fromObjectType",
           "in" : "path",
@@ -100,7 +100,7 @@
         "tags" : [ "Batch" ],
         "summary" : "Create a batch of associations",
         "description" : "Associate all pairs of objects identified in the request body.",
-        "operationId" : "post-/crm/v3/associations/{fromObjectType}/{toObjectType}/batch/create_create",
+        "operationId" : "BatchCreate",
         "parameters" : [ {
           "name" : "fromObjectType",
           "in" : "path",
@@ -197,7 +197,7 @@
         "tags" : [ "Batch" ],
         "summary" : "Read a batch of associations",
         "description" : "Get the IDs of all `{toObjectType}` objects associated with those specified in the request body.",
-        "operationId" : "post-/crm/v3/associations/{fromObjectType}/{toObjectType}/batch/read_read",
+        "operationId" : "BatchRead",
         "parameters" : [ {
           "name" : "fromObjectType",
           "in" : "path",
@@ -294,7 +294,7 @@
         "tags" : [ "Types" ],
         "summary" : "List association types",
         "description" : "List all the valid association types available between two object types",
-        "operationId" : "get-/crm/v3/associations/{fromObjectType}/{toObjectType}/types_getAll",
+        "operationId" : "GetAll",
         "parameters" : [ {
           "name" : "fromObjectType",
           "in" : "path",

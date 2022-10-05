@@ -23,29 +23,29 @@ import (
 // PublicObjectApiService PublicObjectApi service
 type PublicObjectApiService service
 
-type ApiPostCrmV3ObjectsFeedbackSubmissionsMergeMergeRequest struct {
+type ApiMergeRequest struct {
 	ctx              context.Context
 	ApiService       *PublicObjectApiService
 	publicMergeInput *PublicMergeInput
 }
 
-func (r ApiPostCrmV3ObjectsFeedbackSubmissionsMergeMergeRequest) PublicMergeInput(publicMergeInput PublicMergeInput) ApiPostCrmV3ObjectsFeedbackSubmissionsMergeMergeRequest {
+func (r ApiMergeRequest) PublicMergeInput(publicMergeInput PublicMergeInput) ApiMergeRequest {
 	r.publicMergeInput = &publicMergeInput
 	return r
 }
 
-func (r ApiPostCrmV3ObjectsFeedbackSubmissionsMergeMergeRequest) Execute() (*SimplePublicObject, *http.Response, error) {
-	return r.ApiService.PostCrmV3ObjectsFeedbackSubmissionsMergeMergeExecute(r)
+func (r ApiMergeRequest) Execute() (*SimplePublicObject, *http.Response, error) {
+	return r.ApiService.MergeExecute(r)
 }
 
 /*
-PostCrmV3ObjectsFeedbackSubmissionsMergeMerge Merge two feedback submissions with same type
+Merge Merge two feedback submissions with same type
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostCrmV3ObjectsFeedbackSubmissionsMergeMergeRequest
+ @return ApiMergeRequest
 */
-func (a *PublicObjectApiService) PostCrmV3ObjectsFeedbackSubmissionsMergeMerge(ctx context.Context) ApiPostCrmV3ObjectsFeedbackSubmissionsMergeMergeRequest {
-	return ApiPostCrmV3ObjectsFeedbackSubmissionsMergeMergeRequest{
+func (a *PublicObjectApiService) Merge(ctx context.Context) ApiMergeRequest {
+	return ApiMergeRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -53,7 +53,7 @@ func (a *PublicObjectApiService) PostCrmV3ObjectsFeedbackSubmissionsMergeMerge(c
 
 // Execute executes the request
 //  @return SimplePublicObject
-func (a *PublicObjectApiService) PostCrmV3ObjectsFeedbackSubmissionsMergeMergeExecute(r ApiPostCrmV3ObjectsFeedbackSubmissionsMergeMergeRequest) (*SimplePublicObject, *http.Response, error) {
+func (a *PublicObjectApiService) MergeExecute(r ApiMergeRequest) (*SimplePublicObject, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -61,7 +61,7 @@ func (a *PublicObjectApiService) PostCrmV3ObjectsFeedbackSubmissionsMergeMergeEx
 		localVarReturnValue *SimplePublicObject
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicObjectApiService.PostCrmV3ObjectsFeedbackSubmissionsMergeMerge")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicObjectApiService.Merge")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

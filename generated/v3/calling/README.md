@@ -78,10 +78,10 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*SettingsApi* | [**DeleteCrmV3ExtensionsCallingAppIdSettingsArchive**](docs/SettingsApi.md#deletecrmv3extensionscallingappidsettingsarchive) | **Delete** /crm/v3/extensions/calling/{appId}/settings | Delete calling settings
-*SettingsApi* | [**GetCrmV3ExtensionsCallingAppIdSettingsGetById**](docs/SettingsApi.md#getcrmv3extensionscallingappidsettingsgetbyid) | **Get** /crm/v3/extensions/calling/{appId}/settings | Get calling settings
-*SettingsApi* | [**PatchCrmV3ExtensionsCallingAppIdSettingsUpdate**](docs/SettingsApi.md#patchcrmv3extensionscallingappidsettingsupdate) | **Patch** /crm/v3/extensions/calling/{appId}/settings | Update settings
-*SettingsApi* | [**PostCrmV3ExtensionsCallingAppIdSettingsCreate**](docs/SettingsApi.md#postcrmv3extensionscallingappidsettingscreate) | **Post** /crm/v3/extensions/calling/{appId}/settings | Configure a calling extension
+*SettingsApi* | [**Archive**](docs/SettingsApi.md#archive) | **Delete** /crm/v3/extensions/calling/{appId}/settings | Delete calling settings
+*SettingsApi* | [**Create**](docs/SettingsApi.md#create) | **Post** /crm/v3/extensions/calling/{appId}/settings | Configure a calling extension
+*SettingsApi* | [**GetByID**](docs/SettingsApi.md#getbyid) | **Get** /crm/v3/extensions/calling/{appId}/settings | Get calling settings
+*SettingsApi* | [**Update**](docs/SettingsApi.md#update) | **Patch** /crm/v3/extensions/calling/{appId}/settings | Update settings
 
 
 ## Documentation For Models

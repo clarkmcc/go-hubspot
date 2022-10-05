@@ -24,7 +24,7 @@ import (
 // AssociationsApiService AssociationsApi service
 type AssociationsApiService service
 
-type ApiDeleteCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeToObjectIdAssociationTypeArchiveRequest struct {
+type ApiAssociationsArchiveRequest struct {
 	ctx             context.Context
 	ApiService      *AssociationsApiService
 	ticketId        string
@@ -33,22 +33,22 @@ type ApiDeleteCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeToObjectIdAssoc
 	associationType string
 }
 
-func (r ApiDeleteCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeToObjectIdAssociationTypeArchiveRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeToObjectIdAssociationTypeArchiveExecute(r)
+func (r ApiAssociationsArchiveRequest) Execute() (*http.Response, error) {
+	return r.ApiService.AssociationsArchiveExecute(r)
 }
 
 /*
-DeleteCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeToObjectIdAssociationTypeArchive Remove an association between two tickets
+AssociationsArchive Remove an association between two tickets
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param ticketId
  @param toObjectType
  @param toObjectId
  @param associationType
- @return ApiDeleteCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeToObjectIdAssociationTypeArchiveRequest
+ @return ApiAssociationsArchiveRequest
 */
-func (a *AssociationsApiService) DeleteCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeToObjectIdAssociationTypeArchive(ctx context.Context, ticketId string, toObjectType string, toObjectId string, associationType string) ApiDeleteCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeToObjectIdAssociationTypeArchiveRequest {
-	return ApiDeleteCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeToObjectIdAssociationTypeArchiveRequest{
+func (a *AssociationsApiService) AssociationsArchive(ctx context.Context, ticketId string, toObjectType string, toObjectId string, associationType string) ApiAssociationsArchiveRequest {
+	return ApiAssociationsArchiveRequest{
 		ApiService:      a,
 		ctx:             ctx,
 		ticketId:        ticketId,
@@ -59,14 +59,14 @@ func (a *AssociationsApiService) DeleteCrmV3ObjectsTicketsTicketIdAssociationsTo
 }
 
 // Execute executes the request
-func (a *AssociationsApiService) DeleteCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeToObjectIdAssociationTypeArchiveExecute(r ApiDeleteCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeToObjectIdAssociationTypeArchiveRequest) (*http.Response, error) {
+func (a *AssociationsApiService) AssociationsArchiveExecute(r ApiAssociationsArchiveRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AssociationsApiService.DeleteCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeToObjectIdAssociationTypeArchive")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AssociationsApiService.AssociationsArchive")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -143,77 +143,65 @@ func (a *AssociationsApiService) DeleteCrmV3ObjectsTicketsTicketIdAssociationsTo
 	return localVarHTTPResponse, nil
 }
 
-type ApiGetCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeGetAllRequest struct {
-	ctx          context.Context
-	ApiService   *AssociationsApiService
-	ticketId     string
-	toObjectType string
-	after        *string
-	limit        *int32
+type ApiAssociationsCreateRequest struct {
+	ctx             context.Context
+	ApiService      *AssociationsApiService
+	ticketId        string
+	toObjectType    string
+	toObjectId      string
+	associationType string
 }
 
-// The paging cursor token of the last successfully read resource will be returned as the &#x60;paging.next.after&#x60; JSON property of a paged response containing more results.
-func (r ApiGetCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeGetAllRequest) After(after string) ApiGetCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeGetAllRequest {
-	r.after = &after
-	return r
-}
-
-// The maximum number of results to display per page.
-func (r ApiGetCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeGetAllRequest) Limit(limit int32) ApiGetCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeGetAllRequest {
-	r.limit = &limit
-	return r
-}
-
-func (r ApiGetCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeGetAllRequest) Execute() (*CollectionResponseAssociatedIdForwardPaging, *http.Response, error) {
-	return r.ApiService.GetCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeGetAllExecute(r)
+func (r ApiAssociationsCreateRequest) Execute() (*SimplePublicObjectWithAssociations, *http.Response, error) {
+	return r.ApiService.AssociationsCreateExecute(r)
 }
 
 /*
-GetCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeGetAll List associations of a ticket by type
+AssociationsCreate Associate a ticket with another object
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param ticketId
  @param toObjectType
- @return ApiGetCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeGetAllRequest
+ @param toObjectId
+ @param associationType
+ @return ApiAssociationsCreateRequest
 */
-func (a *AssociationsApiService) GetCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeGetAll(ctx context.Context, ticketId string, toObjectType string) ApiGetCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeGetAllRequest {
-	return ApiGetCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeGetAllRequest{
-		ApiService:   a,
-		ctx:          ctx,
-		ticketId:     ticketId,
-		toObjectType: toObjectType,
+func (a *AssociationsApiService) AssociationsCreate(ctx context.Context, ticketId string, toObjectType string, toObjectId string, associationType string) ApiAssociationsCreateRequest {
+	return ApiAssociationsCreateRequest{
+		ApiService:      a,
+		ctx:             ctx,
+		ticketId:        ticketId,
+		toObjectType:    toObjectType,
+		toObjectId:      toObjectId,
+		associationType: associationType,
 	}
 }
 
 // Execute executes the request
-//  @return CollectionResponseAssociatedIdForwardPaging
-func (a *AssociationsApiService) GetCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeGetAllExecute(r ApiGetCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeGetAllRequest) (*CollectionResponseAssociatedIdForwardPaging, *http.Response, error) {
+//  @return SimplePublicObjectWithAssociations
+func (a *AssociationsApiService) AssociationsCreateExecute(r ApiAssociationsCreateRequest) (*SimplePublicObjectWithAssociations, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
+		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CollectionResponseAssociatedIdForwardPaging
+		localVarReturnValue *SimplePublicObjectWithAssociations
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AssociationsApiService.GetCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeGetAll")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AssociationsApiService.AssociationsCreate")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/crm/v3/objects/tickets/{ticketId}/associations/{toObjectType}"
+	localVarPath := localBasePath + "/crm/v3/objects/tickets/{ticketId}/associations/{toObjectType}/{toObjectId}/{associationType}"
 	localVarPath = strings.Replace(localVarPath, "{"+"ticketId"+"}", url.PathEscape(parameterToString(r.ticketId, "")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"toObjectType"+"}", url.PathEscape(parameterToString(r.toObjectType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"toObjectId"+"}", url.PathEscape(parameterToString(r.toObjectId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"associationType"+"}", url.PathEscape(parameterToString(r.associationType, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if r.after != nil {
-		localVarQueryParams.Add("after", parameterToString(*r.after, ""))
-	}
-	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
-	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -285,65 +273,77 @@ func (a *AssociationsApiService) GetCrmV3ObjectsTicketsTicketIdAssociationsToObj
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPutCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeToObjectIdAssociationTypeCreateRequest struct {
-	ctx             context.Context
-	ApiService      *AssociationsApiService
-	ticketId        string
-	toObjectType    string
-	toObjectId      string
-	associationType string
+type ApiAssociationsGetAllRequest struct {
+	ctx          context.Context
+	ApiService   *AssociationsApiService
+	ticketId     string
+	toObjectType string
+	after        *string
+	limit        *int32
 }
 
-func (r ApiPutCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeToObjectIdAssociationTypeCreateRequest) Execute() (*SimplePublicObjectWithAssociations, *http.Response, error) {
-	return r.ApiService.PutCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeToObjectIdAssociationTypeCreateExecute(r)
+// The paging cursor token of the last successfully read resource will be returned as the &#x60;paging.next.after&#x60; JSON property of a paged response containing more results.
+func (r ApiAssociationsGetAllRequest) After(after string) ApiAssociationsGetAllRequest {
+	r.after = &after
+	return r
+}
+
+// The maximum number of results to display per page.
+func (r ApiAssociationsGetAllRequest) Limit(limit int32) ApiAssociationsGetAllRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r ApiAssociationsGetAllRequest) Execute() (*CollectionResponseAssociatedIdForwardPaging, *http.Response, error) {
+	return r.ApiService.AssociationsGetAllExecute(r)
 }
 
 /*
-PutCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeToObjectIdAssociationTypeCreate Associate a ticket with another object
+AssociationsGetAll List associations of a ticket by type
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param ticketId
  @param toObjectType
- @param toObjectId
- @param associationType
- @return ApiPutCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeToObjectIdAssociationTypeCreateRequest
+ @return ApiAssociationsGetAllRequest
 */
-func (a *AssociationsApiService) PutCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeToObjectIdAssociationTypeCreate(ctx context.Context, ticketId string, toObjectType string, toObjectId string, associationType string) ApiPutCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeToObjectIdAssociationTypeCreateRequest {
-	return ApiPutCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeToObjectIdAssociationTypeCreateRequest{
-		ApiService:      a,
-		ctx:             ctx,
-		ticketId:        ticketId,
-		toObjectType:    toObjectType,
-		toObjectId:      toObjectId,
-		associationType: associationType,
+func (a *AssociationsApiService) AssociationsGetAll(ctx context.Context, ticketId string, toObjectType string) ApiAssociationsGetAllRequest {
+	return ApiAssociationsGetAllRequest{
+		ApiService:   a,
+		ctx:          ctx,
+		ticketId:     ticketId,
+		toObjectType: toObjectType,
 	}
 }
 
 // Execute executes the request
-//  @return SimplePublicObjectWithAssociations
-func (a *AssociationsApiService) PutCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeToObjectIdAssociationTypeCreateExecute(r ApiPutCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeToObjectIdAssociationTypeCreateRequest) (*SimplePublicObjectWithAssociations, *http.Response, error) {
+//  @return CollectionResponseAssociatedIdForwardPaging
+func (a *AssociationsApiService) AssociationsGetAllExecute(r ApiAssociationsGetAllRequest) (*CollectionResponseAssociatedIdForwardPaging, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
+		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SimplePublicObjectWithAssociations
+		localVarReturnValue *CollectionResponseAssociatedIdForwardPaging
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AssociationsApiService.PutCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeToObjectIdAssociationTypeCreate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AssociationsApiService.AssociationsGetAll")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/crm/v3/objects/tickets/{ticketId}/associations/{toObjectType}/{toObjectId}/{associationType}"
+	localVarPath := localBasePath + "/crm/v3/objects/tickets/{ticketId}/associations/{toObjectType}"
 	localVarPath = strings.Replace(localVarPath, "{"+"ticketId"+"}", url.PathEscape(parameterToString(r.ticketId, "")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"toObjectType"+"}", url.PathEscape(parameterToString(r.toObjectType, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"toObjectId"+"}", url.PathEscape(parameterToString(r.toObjectId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"associationType"+"}", url.PathEscape(parameterToString(r.associationType, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.after != nil {
+		localVarQueryParams.Add("after", parameterToString(*r.after, ""))
+	}
+	if r.limit != nil {
+		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

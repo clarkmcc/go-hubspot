@@ -78,20 +78,20 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*BlogTagsApi* | [**DeleteCmsV3BlogsTagsObjectIdArchive**](docs/BlogTagsApi.md#deletecmsv3blogstagsobjectidarchive) | **Delete** /cms/v3/blogs/tags/{objectId} | Delete a Blog Tag
-*BlogTagsApi* | [**GetCmsV3BlogsTagsGetPage**](docs/BlogTagsApi.md#getcmsv3blogstagsgetpage) | **Get** /cms/v3/blogs/tags | Get all Blog Tags
-*BlogTagsApi* | [**GetCmsV3BlogsTagsObjectIdGetById**](docs/BlogTagsApi.md#getcmsv3blogstagsobjectidgetbyid) | **Get** /cms/v3/blogs/tags/{objectId} | Retrieve a Blog Tag
-*BlogTagsApi* | [**PatchCmsV3BlogsTagsObjectIdUpdate**](docs/BlogTagsApi.md#patchcmsv3blogstagsobjectidupdate) | **Patch** /cms/v3/blogs/tags/{objectId} | Update a Blog Tag
-*BlogTagsApi* | [**PostCmsV3BlogsTagsBatchArchiveArchiveBatch**](docs/BlogTagsApi.md#postcmsv3blogstagsbatcharchivearchivebatch) | **Post** /cms/v3/blogs/tags/batch/archive | Delete a batch of Blog Tags
-*BlogTagsApi* | [**PostCmsV3BlogsTagsBatchCreateCreateBatch**](docs/BlogTagsApi.md#postcmsv3blogstagsbatchcreatecreatebatch) | **Post** /cms/v3/blogs/tags/batch/create | Create a batch of Blog Tags
-*BlogTagsApi* | [**PostCmsV3BlogsTagsBatchReadReadBatch**](docs/BlogTagsApi.md#postcmsv3blogstagsbatchreadreadbatch) | **Post** /cms/v3/blogs/tags/batch/read | Retrieve a batch of Blog Tags
-*BlogTagsApi* | [**PostCmsV3BlogsTagsBatchUpdateUpdateBatch**](docs/BlogTagsApi.md#postcmsv3blogstagsbatchupdateupdatebatch) | **Post** /cms/v3/blogs/tags/batch/update | Update a batch of Blog Tags
-*BlogTagsApi* | [**PostCmsV3BlogsTagsCreate**](docs/BlogTagsApi.md#postcmsv3blogstagscreate) | **Post** /cms/v3/blogs/tags | Create a new Blog Tag
-*BlogTagsApi* | [**PostCmsV3BlogsTagsMultiLanguageAttachToLangGroupAttachToLangGroup**](docs/BlogTagsApi.md#postcmsv3blogstagsmultilanguageattachtolanggroupattachtolanggroup) | **Post** /cms/v3/blogs/tags/multi-language/attach-to-lang-group | Attach a Blog Tag to a multi-language group
-*BlogTagsApi* | [**PostCmsV3BlogsTagsMultiLanguageCreateLanguageVariationCreateLangVariation**](docs/BlogTagsApi.md#postcmsv3blogstagsmultilanguagecreatelanguagevariationcreatelangvariation) | **Post** /cms/v3/blogs/tags/multi-language/create-language-variation | Create a new language variation
-*BlogTagsApi* | [**PostCmsV3BlogsTagsMultiLanguageDetachFromLangGroupDetachFromLangGroup**](docs/BlogTagsApi.md#postcmsv3blogstagsmultilanguagedetachfromlanggroupdetachfromlanggroup) | **Post** /cms/v3/blogs/tags/multi-language/detach-from-lang-group | Detach a Blog Tag from a multi-language group
-*BlogTagsApi* | [**PostCmsV3BlogsTagsMultiLanguageUpdateLanguagesUpdateLangs**](docs/BlogTagsApi.md#postcmsv3blogstagsmultilanguageupdatelanguagesupdatelangs) | **Post** /cms/v3/blogs/tags/multi-language/update-languages | Update languages of multi-language group
-*BlogTagsApi* | [**PutCmsV3BlogsTagsMultiLanguageSetNewLangPrimarySetLangPrimary**](docs/BlogTagsApi.md#putcmsv3blogstagsmultilanguagesetnewlangprimarysetlangprimary) | **Put** /cms/v3/blogs/tags/multi-language/set-new-lang-primary | Set a new primary language
+*BlogTagsApi* | [**Archive**](docs/BlogTagsApi.md#archive) | **Delete** /cms/v3/blogs/tags/{objectId} | Delete a Blog Tag
+*BlogTagsApi* | [**AttachToLangGroup**](docs/BlogTagsApi.md#attachtolanggroup) | **Post** /cms/v3/blogs/tags/multi-language/attach-to-lang-group | Attach a Blog Tag to a multi-language group
+*BlogTagsApi* | [**BatchArchive**](docs/BlogTagsApi.md#batcharchive) | **Post** /cms/v3/blogs/tags/batch/archive | Delete a batch of Blog Tags
+*BlogTagsApi* | [**BatchCreate**](docs/BlogTagsApi.md#batchcreate) | **Post** /cms/v3/blogs/tags/batch/create | Create a batch of Blog Tags
+*BlogTagsApi* | [**BatchRead**](docs/BlogTagsApi.md#batchread) | **Post** /cms/v3/blogs/tags/batch/read | Retrieve a batch of Blog Tags
+*BlogTagsApi* | [**BatchUpdate**](docs/BlogTagsApi.md#batchupdate) | **Post** /cms/v3/blogs/tags/batch/update | Update a batch of Blog Tags
+*BlogTagsApi* | [**Create**](docs/BlogTagsApi.md#create) | **Post** /cms/v3/blogs/tags | Create a new Blog Tag
+*BlogTagsApi* | [**CreateLangVariation**](docs/BlogTagsApi.md#createlangvariation) | **Post** /cms/v3/blogs/tags/multi-language/create-language-variation | Create a new language variation
+*BlogTagsApi* | [**DetachFromLangGroup**](docs/BlogTagsApi.md#detachfromlanggroup) | **Post** /cms/v3/blogs/tags/multi-language/detach-from-lang-group | Detach a Blog Tag from a multi-language group
+*BlogTagsApi* | [**GetByID**](docs/BlogTagsApi.md#getbyid) | **Get** /cms/v3/blogs/tags/{objectId} | Retrieve a Blog Tag
+*BlogTagsApi* | [**GetPage**](docs/BlogTagsApi.md#getpage) | **Get** /cms/v3/blogs/tags | Get all Blog Tags
+*BlogTagsApi* | [**SetLangPrimary**](docs/BlogTagsApi.md#setlangprimary) | **Put** /cms/v3/blogs/tags/multi-language/set-new-lang-primary | Set a new primary language
+*BlogTagsApi* | [**Update**](docs/BlogTagsApi.md#update) | **Patch** /cms/v3/blogs/tags/{objectId} | Update a Blog Tag
+*BlogTagsApi* | [**UpdateLangs**](docs/BlogTagsApi.md#updatelangs) | **Post** /cms/v3/blogs/tags/multi-language/update-languages | Update languages of multi-language group
 
 
 ## Documentation For Models

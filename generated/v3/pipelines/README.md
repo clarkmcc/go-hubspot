@@ -82,20 +82,20 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*PipelineAuditsApi* | [**GetCrmV3PipelinesObjectTypePipelineIdAuditGetAudit**](docs/PipelineAuditsApi.md#getcrmv3pipelinesobjecttypepipelineidauditgetaudit) | **Get** /crm/v3/pipelines/{objectType}/{pipelineId}/audit | Return an audit of all changes to the pipeline
-*PipelineStageAuditsApi* | [**GetCrmV3PipelinesObjectTypePipelineIdStagesStageIdAuditGetAudit**](docs/PipelineStageAuditsApi.md#getcrmv3pipelinesobjecttypepipelineidstagesstageidauditgetaudit) | **Get** /crm/v3/pipelines/{objectType}/{pipelineId}/stages/{stageId}/audit | Return an audit of all changes to the pipeline stage
-*PipelineStagesApi* | [**DeleteCrmV3PipelinesObjectTypePipelineIdStagesStageIdArchive**](docs/PipelineStagesApi.md#deletecrmv3pipelinesobjecttypepipelineidstagesstageidarchive) | **Delete** /crm/v3/pipelines/{objectType}/{pipelineId}/stages/{stageId} | Delete a pipeline stage
-*PipelineStagesApi* | [**GetCrmV3PipelinesObjectTypePipelineIdStagesGetAll**](docs/PipelineStagesApi.md#getcrmv3pipelinesobjecttypepipelineidstagesgetall) | **Get** /crm/v3/pipelines/{objectType}/{pipelineId}/stages | Return all stages of a pipeline
-*PipelineStagesApi* | [**GetCrmV3PipelinesObjectTypePipelineIdStagesStageIdGetById**](docs/PipelineStagesApi.md#getcrmv3pipelinesobjecttypepipelineidstagesstageidgetbyid) | **Get** /crm/v3/pipelines/{objectType}/{pipelineId}/stages/{stageId} | Return a pipeline stage by ID
-*PipelineStagesApi* | [**PatchCrmV3PipelinesObjectTypePipelineIdStagesStageIdUpdate**](docs/PipelineStagesApi.md#patchcrmv3pipelinesobjecttypepipelineidstagesstageidupdate) | **Patch** /crm/v3/pipelines/{objectType}/{pipelineId}/stages/{stageId} | Update a pipeline stage
-*PipelineStagesApi* | [**PostCrmV3PipelinesObjectTypePipelineIdStagesCreate**](docs/PipelineStagesApi.md#postcrmv3pipelinesobjecttypepipelineidstagescreate) | **Post** /crm/v3/pipelines/{objectType}/{pipelineId}/stages | Create a pipeline stage
-*PipelineStagesApi* | [**PutCrmV3PipelinesObjectTypePipelineIdStagesStageIdReplace**](docs/PipelineStagesApi.md#putcrmv3pipelinesobjecttypepipelineidstagesstageidreplace) | **Put** /crm/v3/pipelines/{objectType}/{pipelineId}/stages/{stageId} | Replace a pipeline stage
-*PipelinesApi* | [**DeleteCrmV3PipelinesObjectTypePipelineIdArchive**](docs/PipelinesApi.md#deletecrmv3pipelinesobjecttypepipelineidarchive) | **Delete** /crm/v3/pipelines/{objectType}/{pipelineId} | Delete a pipeline
-*PipelinesApi* | [**GetCrmV3PipelinesObjectTypeGetAll**](docs/PipelinesApi.md#getcrmv3pipelinesobjecttypegetall) | **Get** /crm/v3/pipelines/{objectType} | Retrieve all pipelines
-*PipelinesApi* | [**GetCrmV3PipelinesObjectTypePipelineIdGetById**](docs/PipelinesApi.md#getcrmv3pipelinesobjecttypepipelineidgetbyid) | **Get** /crm/v3/pipelines/{objectType}/{pipelineId} | Return a pipeline by ID
-*PipelinesApi* | [**PatchCrmV3PipelinesObjectTypePipelineIdUpdate**](docs/PipelinesApi.md#patchcrmv3pipelinesobjecttypepipelineidupdate) | **Patch** /crm/v3/pipelines/{objectType}/{pipelineId} | Update a pipeline
-*PipelinesApi* | [**PostCrmV3PipelinesObjectTypeCreate**](docs/PipelinesApi.md#postcrmv3pipelinesobjecttypecreate) | **Post** /crm/v3/pipelines/{objectType} | Create a pipeline
-*PipelinesApi* | [**PutCrmV3PipelinesObjectTypePipelineIdReplace**](docs/PipelinesApi.md#putcrmv3pipelinesobjecttypepipelineidreplace) | **Put** /crm/v3/pipelines/{objectType}/{pipelineId} | Replace a pipeline
+*PipelineAuditsApi* | [**GetAudit**](docs/PipelineAuditsApi.md#getaudit) | **Get** /crm/v3/pipelines/{objectType}/{pipelineId}/audit | Return an audit of all changes to the pipeline
+*PipelineStageAuditsApi* | [**StagesGetAudit**](docs/PipelineStageAuditsApi.md#stagesgetaudit) | **Get** /crm/v3/pipelines/{objectType}/{pipelineId}/stages/{stageId}/audit | Return an audit of all changes to the pipeline stage
+*PipelineStagesApi* | [**StagesArchive**](docs/PipelineStagesApi.md#stagesarchive) | **Delete** /crm/v3/pipelines/{objectType}/{pipelineId}/stages/{stageId} | Delete a pipeline stage
+*PipelineStagesApi* | [**StagesCreate**](docs/PipelineStagesApi.md#stagescreate) | **Post** /crm/v3/pipelines/{objectType}/{pipelineId}/stages | Create a pipeline stage
+*PipelineStagesApi* | [**StagesGetAll**](docs/PipelineStagesApi.md#stagesgetall) | **Get** /crm/v3/pipelines/{objectType}/{pipelineId}/stages | Return all stages of a pipeline
+*PipelineStagesApi* | [**StagesGetByID**](docs/PipelineStagesApi.md#stagesgetbyid) | **Get** /crm/v3/pipelines/{objectType}/{pipelineId}/stages/{stageId} | Return a pipeline stage by ID
+*PipelineStagesApi* | [**StagesReplace**](docs/PipelineStagesApi.md#stagesreplace) | **Put** /crm/v3/pipelines/{objectType}/{pipelineId}/stages/{stageId} | Replace a pipeline stage
+*PipelineStagesApi* | [**StagesUpdate**](docs/PipelineStagesApi.md#stagesupdate) | **Patch** /crm/v3/pipelines/{objectType}/{pipelineId}/stages/{stageId} | Update a pipeline stage
+*PipelinesApi* | [**Archive**](docs/PipelinesApi.md#archive) | **Delete** /crm/v3/pipelines/{objectType}/{pipelineId} | Delete a pipeline
+*PipelinesApi* | [**Create**](docs/PipelinesApi.md#create) | **Post** /crm/v3/pipelines/{objectType} | Create a pipeline
+*PipelinesApi* | [**GetAll**](docs/PipelinesApi.md#getall) | **Get** /crm/v3/pipelines/{objectType} | Retrieve all pipelines
+*PipelinesApi* | [**GetByID**](docs/PipelinesApi.md#getbyid) | **Get** /crm/v3/pipelines/{objectType}/{pipelineId} | Return a pipeline by ID
+*PipelinesApi* | [**Replace**](docs/PipelinesApi.md#replace) | **Put** /crm/v3/pipelines/{objectType}/{pipelineId} | Replace a pipeline
+*PipelinesApi* | [**Update**](docs/PipelinesApi.md#update) | **Patch** /crm/v3/pipelines/{objectType}/{pipelineId} | Update a pipeline
 
 
 ## Documentation For Models

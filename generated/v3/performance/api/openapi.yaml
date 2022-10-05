@@ -12,7 +12,7 @@ paths:
     get:
       description: Returns time series data website performance data for the given
         domain and/or path.
-      operationId: get-/cms/v3/performance/_getPage
+      operationId: GetPage
       parameters:
       - description: The domain to search return data for.
         explode: true
@@ -109,7 +109,7 @@ paths:
     get:
       description: Returns uptime time series website performance data for the given
         domain.
-      operationId: get-/cms/v3/performance/uptime_getUptime
+      operationId: GetUptime
       parameters:
       - description: The domain to search return data for.
         explode: true

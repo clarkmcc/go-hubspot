@@ -4,13 +4,13 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetCrmV3AssociationsFromObjectTypeToObjectTypeTypesGetAll**](TypesApi.md#GetCrmV3AssociationsFromObjectTypeToObjectTypeTypesGetAll) | **Get** /crm/v3/associations/{fromObjectType}/{toObjectType}/types | List association types
+[**GetAll**](TypesApi.md#GetAll) | **Get** /crm/v3/associations/{fromObjectType}/{toObjectType}/types | List association types
 
 
 
-## GetCrmV3AssociationsFromObjectTypeToObjectTypeTypesGetAll
+## GetAll
 
-> CollectionResponsePublicAssociationDefiniton GetCrmV3AssociationsFromObjectTypeToObjectTypeTypesGetAll(ctx, fromObjectType, toObjectType).Execute()
+> CollectionResponsePublicAssociationDefiniton GetAll(ctx, fromObjectType, toObjectType).Execute()
 
 List association types
 
@@ -34,13 +34,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TypesApi.GetCrmV3AssociationsFromObjectTypeToObjectTypeTypesGetAll(context.Background(), fromObjectType, toObjectType).Execute()
+    resp, r, err := apiClient.TypesApi.GetAll(context.Background(), fromObjectType, toObjectType).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TypesApi.GetCrmV3AssociationsFromObjectTypeToObjectTypeTypesGetAll``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `TypesApi.GetAll``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetCrmV3AssociationsFromObjectTypeToObjectTypeTypesGetAll`: CollectionResponsePublicAssociationDefiniton
-    fmt.Fprintf(os.Stdout, "Response from `TypesApi.GetCrmV3AssociationsFromObjectTypeToObjectTypeTypesGetAll`: %v\n", resp)
+    // response from `GetAll`: CollectionResponsePublicAssociationDefiniton
+    fmt.Fprintf(os.Stdout, "Response from `TypesApi.GetAll`: %v\n", resp)
 }
 ```
 
@@ -55,7 +55,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetCrmV3AssociationsFromObjectTypeToObjectTypeTypesGetAllRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAllRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

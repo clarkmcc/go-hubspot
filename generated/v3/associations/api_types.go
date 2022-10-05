@@ -24,29 +24,29 @@ import (
 // TypesApiService TypesApi service
 type TypesApiService service
 
-type ApiGetCrmV3AssociationsFromObjectTypeToObjectTypeTypesGetAllRequest struct {
+type ApiGetAllRequest struct {
 	ctx            context.Context
 	ApiService     *TypesApiService
 	fromObjectType string
 	toObjectType   string
 }
 
-func (r ApiGetCrmV3AssociationsFromObjectTypeToObjectTypeTypesGetAllRequest) Execute() (*CollectionResponsePublicAssociationDefiniton, *http.Response, error) {
-	return r.ApiService.GetCrmV3AssociationsFromObjectTypeToObjectTypeTypesGetAllExecute(r)
+func (r ApiGetAllRequest) Execute() (*CollectionResponsePublicAssociationDefiniton, *http.Response, error) {
+	return r.ApiService.GetAllExecute(r)
 }
 
 /*
-GetCrmV3AssociationsFromObjectTypeToObjectTypeTypesGetAll List association types
+GetAll List association types
 
 List all the valid association types available between two object types
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param fromObjectType
  @param toObjectType
- @return ApiGetCrmV3AssociationsFromObjectTypeToObjectTypeTypesGetAllRequest
+ @return ApiGetAllRequest
 */
-func (a *TypesApiService) GetCrmV3AssociationsFromObjectTypeToObjectTypeTypesGetAll(ctx context.Context, fromObjectType string, toObjectType string) ApiGetCrmV3AssociationsFromObjectTypeToObjectTypeTypesGetAllRequest {
-	return ApiGetCrmV3AssociationsFromObjectTypeToObjectTypeTypesGetAllRequest{
+func (a *TypesApiService) GetAll(ctx context.Context, fromObjectType string, toObjectType string) ApiGetAllRequest {
+	return ApiGetAllRequest{
 		ApiService:     a,
 		ctx:            ctx,
 		fromObjectType: fromObjectType,
@@ -56,7 +56,7 @@ func (a *TypesApiService) GetCrmV3AssociationsFromObjectTypeToObjectTypeTypesGet
 
 // Execute executes the request
 //  @return CollectionResponsePublicAssociationDefiniton
-func (a *TypesApiService) GetCrmV3AssociationsFromObjectTypeToObjectTypeTypesGetAllExecute(r ApiGetCrmV3AssociationsFromObjectTypeToObjectTypeTypesGetAllRequest) (*CollectionResponsePublicAssociationDefiniton, *http.Response, error) {
+func (a *TypesApiService) GetAllExecute(r ApiGetAllRequest) (*CollectionResponsePublicAssociationDefiniton, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -64,7 +64,7 @@ func (a *TypesApiService) GetCrmV3AssociationsFromObjectTypeToObjectTypeTypesGet
 		localVarReturnValue *CollectionResponsePublicAssociationDefiniton
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TypesApiService.GetCrmV3AssociationsFromObjectTypeToObjectTypeTypesGetAll")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TypesApiService.GetAll")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

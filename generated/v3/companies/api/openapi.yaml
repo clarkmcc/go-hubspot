@@ -393,7 +393,7 @@ paths:
         \ to the internal object ID by default, or optionally any unique property\
         \ value as specified by the `idProperty` query param.  Control what is returned\
         \ via the `properties` query param."
-      operationId: Get
+      operationId: GetByID
       parameters:
       - explode: false
         in: path
@@ -533,7 +533,7 @@ paths:
       - Basic
   /crm/v3/objects/companies/{companyId}/associations/{toObjectType}:
     get:
-      operationId: AssociationsGet
+      operationId: AssociationsGetAll
       parameters:
       - explode: false
         in: path

@@ -24,7 +24,7 @@
         "tags" : [ "Basic" ],
         "summary" : "List",
         "description" : "Read a page of products. Control what is returned via the `properties` query param.",
-        "operationId" : "get-/crm/v3/objects/products_getPage",
+        "operationId" : "GetPage",
         "parameters" : [ {
           "name" : "limit",
           "in" : "query",
@@ -123,7 +123,7 @@
         "tags" : [ "Basic" ],
         "summary" : "Create",
         "description" : "Create a product with the given properties and return a copy of the object, including the ID. Documentation and examples for creating standard products is provided.",
-        "operationId" : "post-/crm/v3/objects/products_create",
+        "operationId" : "Create",
         "parameters" : [ ],
         "requestBody" : {
           "content" : {
@@ -161,7 +161,7 @@
       "post" : {
         "tags" : [ "Batch" ],
         "summary" : "Archive a batch of products by ID",
-        "operationId" : "post-/crm/v3/objects/products/batch/archive_archive",
+        "operationId" : "BatchArchive",
         "parameters" : [ ],
         "requestBody" : {
           "content" : {
@@ -193,7 +193,7 @@
       "post" : {
         "tags" : [ "Batch" ],
         "summary" : "Create a batch of products",
-        "operationId" : "post-/crm/v3/objects/products/batch/create_create",
+        "operationId" : "BatchCreate",
         "parameters" : [ ],
         "requestBody" : {
           "content" : {
@@ -241,7 +241,7 @@
       "post" : {
         "tags" : [ "Batch" ],
         "summary" : "Read a batch of products by internal ID, or unique property values",
-        "operationId" : "post-/crm/v3/objects/products/batch/read_read",
+        "operationId" : "BatchRead",
         "parameters" : [ {
           "name" : "archived",
           "in" : "query",
@@ -300,7 +300,7 @@
       "post" : {
         "tags" : [ "Batch" ],
         "summary" : "Update a batch of products",
-        "operationId" : "post-/crm/v3/objects/products/batch/update_update",
+        "operationId" : "BatchUpdate",
         "parameters" : [ ],
         "requestBody" : {
           "content" : {
@@ -348,7 +348,7 @@
       "post" : {
         "tags" : [ "Public_Object" ],
         "summary" : "Merge two products with same type",
-        "operationId" : "post-/crm/v3/objects/products/merge_merge",
+        "operationId" : "Merge",
         "parameters" : [ ],
         "requestBody" : {
           "content" : {
@@ -385,7 +385,7 @@
     "/crm/v3/objects/products/search" : {
       "post" : {
         "tags" : [ "Search" ],
-        "operationId" : "post-/crm/v3/objects/products/search_doSearch",
+        "operationId" : "Search",
         "parameters" : [ ],
         "requestBody" : {
           "content" : {
@@ -425,7 +425,7 @@
         "tags" : [ "Basic" ],
         "summary" : "Read",
         "description" : "Read an Object identified by `{productId}`. `{productId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.",
-        "operationId" : "get-/crm/v3/objects/products/{productId}_getById",
+        "operationId" : "GetByID",
         "parameters" : [ {
           "name" : "productId",
           "in" : "path",
@@ -521,7 +521,7 @@
         "tags" : [ "Basic" ],
         "summary" : "Archive",
         "description" : "Move an Object identified by `{productId}` to the recycling bin.",
-        "operationId" : "delete-/crm/v3/objects/products/{productId}_archive",
+        "operationId" : "Archive",
         "parameters" : [ {
           "name" : "productId",
           "in" : "path",
@@ -551,7 +551,7 @@
         "tags" : [ "Basic" ],
         "summary" : "Update",
         "description" : "Perform a partial update of an Object identified by `{productId}`. `{productId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param. Provided property values will be overwritten. Read-only and non-existent properties will be ignored. Properties values can be cleared by passing an empty string.",
-        "operationId" : "patch-/crm/v3/objects/products/{productId}_update",
+        "operationId" : "Update",
         "parameters" : [ {
           "name" : "productId",
           "in" : "path",
@@ -608,7 +608,7 @@
       "get" : {
         "tags" : [ "Associations" ],
         "summary" : "List associations of a product by type",
-        "operationId" : "get-/crm/v3/objects/products/{productId}/associations/{toObjectType}_getAll",
+        "operationId" : "AssociationsGetAll",
         "parameters" : [ {
           "name" : "productId",
           "in" : "path",
@@ -676,7 +676,7 @@
       "put" : {
         "tags" : [ "Associations" ],
         "summary" : "Associate a product with another object",
-        "operationId" : "put-/crm/v3/objects/products/{productId}/associations/{toObjectType}/{toObjectId}/{associationType}_create",
+        "operationId" : "AssociationsCreate",
         "parameters" : [ {
           "name" : "productId",
           "in" : "path",
@@ -738,7 +738,7 @@
       "delete" : {
         "tags" : [ "Associations" ],
         "summary" : "Remove an association between two products",
-        "operationId" : "delete-/crm/v3/objects/products/{productId}/associations/{toObjectType}/{toObjectId}/{associationType}_archive",
+        "operationId" : "AssociationsArchive",
         "parameters" : [ {
           "name" : "productId",
           "in" : "path",

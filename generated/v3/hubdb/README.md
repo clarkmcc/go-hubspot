@@ -80,36 +80,36 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*RowsApi* | [**DeleteCmsV3HubdbTablesTableIdOrNameRowsRowIdDraftPurgeDraftTableRow**](docs/RowsApi.md#deletecmsv3hubdbtablestableidornamerowsrowiddraftpurgedrafttablerow) | **Delete** /cms/v3/hubdb/tables/{tableIdOrName}/rows/{rowId}/draft | Permanently deletes a row
-*RowsApi* | [**GetCmsV3HubdbTablesTableIdOrNameRowsDraftReadDraftTableRows**](docs/RowsApi.md#getcmsv3hubdbtablestableidornamerowsdraftreaddrafttablerows) | **Get** /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft | Get rows from draft table
-*RowsApi* | [**GetCmsV3HubdbTablesTableIdOrNameRowsGetTableRows**](docs/RowsApi.md#getcmsv3hubdbtablestableidornamerowsgettablerows) | **Get** /cms/v3/hubdb/tables/{tableIdOrName}/rows | Get rows for a table
-*RowsApi* | [**GetCmsV3HubdbTablesTableIdOrNameRowsRowIdDraftGetDraftTableRowById**](docs/RowsApi.md#getcmsv3hubdbtablestableidornamerowsrowiddraftgetdrafttablerowbyid) | **Get** /cms/v3/hubdb/tables/{tableIdOrName}/rows/{rowId}/draft | Get a row from the draft table
-*RowsApi* | [**GetCmsV3HubdbTablesTableIdOrNameRowsRowIdGetTableRow**](docs/RowsApi.md#getcmsv3hubdbtablestableidornamerowsrowidgettablerow) | **Get** /cms/v3/hubdb/tables/{tableIdOrName}/rows/{rowId} | Get a table row
-*RowsApi* | [**PatchCmsV3HubdbTablesTableIdOrNameRowsRowIdDraftUpdateDraftTableRow**](docs/RowsApi.md#patchcmsv3hubdbtablestableidornamerowsrowiddraftupdatedrafttablerow) | **Patch** /cms/v3/hubdb/tables/{tableIdOrName}/rows/{rowId}/draft | Updates an existing row
-*RowsApi* | [**PostCmsV3HubdbTablesTableIdOrNameRowsCreateTableRow**](docs/RowsApi.md#postcmsv3hubdbtablestableidornamerowscreatetablerow) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/rows | Add a new row to a table
-*RowsApi* | [**PostCmsV3HubdbTablesTableIdOrNameRowsRowIdDraftCloneCloneDraftTableRow**](docs/RowsApi.md#postcmsv3hubdbtablestableidornamerowsrowiddraftcloneclonedrafttablerow) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/rows/{rowId}/draft/clone | Clone a row
-*RowsApi* | [**PutCmsV3HubdbTablesTableIdOrNameRowsRowIdDraftReplaceDraftTableRow**](docs/RowsApi.md#putcmsv3hubdbtablestableidornamerowsrowiddraftreplacedrafttablerow) | **Put** /cms/v3/hubdb/tables/{tableIdOrName}/rows/{rowId}/draft | Replaces an existing row
-*RowsBatchApi* | [**PostCmsV3HubdbTablesTableIdOrNameRowsBatchReadBatchReadTableRows**](docs/RowsBatchApi.md#postcmsv3hubdbtablestableidornamerowsbatchreadbatchreadtablerows) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/rows/batch/read | Get a set of rows
-*RowsBatchApi* | [**PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCloneBatchCloneDraftTableRows**](docs/RowsBatchApi.md#postcmsv3hubdbtablestableidornamerowsdraftbatchclonebatchclonedrafttablerows) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/clone | Clone rows in batch
-*RowsBatchApi* | [**PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCreateBatchCreateDraftTableRows**](docs/RowsBatchApi.md#postcmsv3hubdbtablestableidornamerowsdraftbatchcreatebatchcreatedrafttablerows) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/create | Create rows in batch
-*RowsBatchApi* | [**PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchPurgeBatchPurgeDraftTableRows**](docs/RowsBatchApi.md#postcmsv3hubdbtablestableidornamerowsdraftbatchpurgebatchpurgedrafttablerows) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/purge | Permanently deletes rows
-*RowsBatchApi* | [**PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReadBatchReadDraftTableRows**](docs/RowsBatchApi.md#postcmsv3hubdbtablestableidornamerowsdraftbatchreadbatchreaddrafttablerows) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/read | Get a set of rows from draft table
-*RowsBatchApi* | [**PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReplaceBatchReplaceDraftTableRows**](docs/RowsBatchApi.md#postcmsv3hubdbtablestableidornamerowsdraftbatchreplacebatchreplacedrafttablerows) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/replace | Replace rows in batch in draft table
-*RowsBatchApi* | [**PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchUpdateBatchUpdateDraftTableRows**](docs/RowsBatchApi.md#postcmsv3hubdbtablestableidornamerowsdraftbatchupdatebatchupdatedrafttablerows) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/update | Update rows in batch in draft table
-*TablesApi* | [**DeleteCmsV3HubdbTablesTableIdOrNameArchiveTable**](docs/TablesApi.md#deletecmsv3hubdbtablestableidornamearchivetable) | **Delete** /cms/v3/hubdb/tables/{tableIdOrName} | Archive a table
-*TablesApi* | [**GetCmsV3HubdbTablesDraftGetAllDraftTables**](docs/TablesApi.md#getcmsv3hubdbtablesdraftgetalldrafttables) | **Get** /cms/v3/hubdb/tables/draft | Return all draft tables
-*TablesApi* | [**GetCmsV3HubdbTablesGetAllTables**](docs/TablesApi.md#getcmsv3hubdbtablesgetalltables) | **Get** /cms/v3/hubdb/tables | Get all published tables
-*TablesApi* | [**GetCmsV3HubdbTablesTableIdOrNameDraftExportExportDraftTable**](docs/TablesApi.md#getcmsv3hubdbtablestableidornamedraftexportexportdrafttable) | **Get** /cms/v3/hubdb/tables/{tableIdOrName}/draft/export | Export a draft table
-*TablesApi* | [**GetCmsV3HubdbTablesTableIdOrNameDraftGetDraftTableDetailsById**](docs/TablesApi.md#getcmsv3hubdbtablestableidornamedraftgetdrafttabledetailsbyid) | **Get** /cms/v3/hubdb/tables/{tableIdOrName}/draft | Get details for a draft table
-*TablesApi* | [**GetCmsV3HubdbTablesTableIdOrNameExportExportTable**](docs/TablesApi.md#getcmsv3hubdbtablestableidornameexportexporttable) | **Get** /cms/v3/hubdb/tables/{tableIdOrName}/export | Export a published version of a table
-*TablesApi* | [**GetCmsV3HubdbTablesTableIdOrNameGetTableDetails**](docs/TablesApi.md#getcmsv3hubdbtablestableidornamegettabledetails) | **Get** /cms/v3/hubdb/tables/{tableIdOrName} | Get details for a published table
-*TablesApi* | [**PatchCmsV3HubdbTablesTableIdOrNameDraftUpdateDraftTable**](docs/TablesApi.md#patchcmsv3hubdbtablestableidornamedraftupdatedrafttable) | **Patch** /cms/v3/hubdb/tables/{tableIdOrName}/draft | Update an existing table
-*TablesApi* | [**PostCmsV3HubdbTablesCreateTable**](docs/TablesApi.md#postcmsv3hubdbtablescreatetable) | **Post** /cms/v3/hubdb/tables | Create a new table
-*TablesApi* | [**PostCmsV3HubdbTablesTableIdOrNameDraftCloneCloneDraftTable**](docs/TablesApi.md#postcmsv3hubdbtablestableidornamedraftcloneclonedrafttable) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/draft/clone | Clone a table
-*TablesApi* | [**PostCmsV3HubdbTablesTableIdOrNameDraftImportImportDraftTable**](docs/TablesApi.md#postcmsv3hubdbtablestableidornamedraftimportimportdrafttable) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/draft/import | Import data into draft table
-*TablesApi* | [**PostCmsV3HubdbTablesTableIdOrNameDraftPublishPublishDraftTable**](docs/TablesApi.md#postcmsv3hubdbtablestableidornamedraftpublishpublishdrafttable) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/draft/publish | Publish a table from draft
-*TablesApi* | [**PostCmsV3HubdbTablesTableIdOrNameDraftResetResetDraftTable**](docs/TablesApi.md#postcmsv3hubdbtablestableidornamedraftresetresetdrafttable) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/draft/reset | Reset a draft table
-*TablesApi* | [**PostCmsV3HubdbTablesTableIdOrNameUnpublishUnpublishTable**](docs/TablesApi.md#postcmsv3hubdbtablestableidornameunpublishunpublishtable) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/unpublish | Unpublish a table
+*RowsApi* | [**CloneDraftTableRow**](docs/RowsApi.md#clonedrafttablerow) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/rows/{rowId}/draft/clone | Clone a row
+*RowsApi* | [**CreateTableRow**](docs/RowsApi.md#createtablerow) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/rows | Add a new row to a table
+*RowsApi* | [**GetDraftTableRowByID**](docs/RowsApi.md#getdrafttablerowbyid) | **Get** /cms/v3/hubdb/tables/{tableIdOrName}/rows/{rowId}/draft | Get a row from the draft table
+*RowsApi* | [**GetTableRow**](docs/RowsApi.md#gettablerow) | **Get** /cms/v3/hubdb/tables/{tableIdOrName}/rows/{rowId} | Get a table row
+*RowsApi* | [**GetTableRows**](docs/RowsApi.md#gettablerows) | **Get** /cms/v3/hubdb/tables/{tableIdOrName}/rows | Get rows for a table
+*RowsApi* | [**PurgeDraftTableRow**](docs/RowsApi.md#purgedrafttablerow) | **Delete** /cms/v3/hubdb/tables/{tableIdOrName}/rows/{rowId}/draft | Permanently deletes a row
+*RowsApi* | [**ReadDraftTableRows**](docs/RowsApi.md#readdrafttablerows) | **Get** /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft | Get rows from draft table
+*RowsApi* | [**ReplaceDraftTableRow**](docs/RowsApi.md#replacedrafttablerow) | **Put** /cms/v3/hubdb/tables/{tableIdOrName}/rows/{rowId}/draft | Replaces an existing row
+*RowsApi* | [**UpdateDraftTableRow**](docs/RowsApi.md#updatedrafttablerow) | **Patch** /cms/v3/hubdb/tables/{tableIdOrName}/rows/{rowId}/draft | Updates an existing row
+*RowsBatchApi* | [**BatchCloneDraftTableRows**](docs/RowsBatchApi.md#batchclonedrafttablerows) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/clone | Clone rows in batch
+*RowsBatchApi* | [**BatchCreateDraftTableRows**](docs/RowsBatchApi.md#batchcreatedrafttablerows) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/create | Create rows in batch
+*RowsBatchApi* | [**BatchPurgeDraftTableRows**](docs/RowsBatchApi.md#batchpurgedrafttablerows) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/purge | Permanently deletes rows
+*RowsBatchApi* | [**BatchReadDraftTableRows**](docs/RowsBatchApi.md#batchreaddrafttablerows) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/read | Get a set of rows from draft table
+*RowsBatchApi* | [**BatchReadTableRows**](docs/RowsBatchApi.md#batchreadtablerows) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/rows/batch/read | Get a set of rows
+*RowsBatchApi* | [**BatchReplaceDraftTableRows**](docs/RowsBatchApi.md#batchreplacedrafttablerows) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/replace | Replace rows in batch in draft table
+*RowsBatchApi* | [**BatchUpdateDraftTableRows**](docs/RowsBatchApi.md#batchupdatedrafttablerows) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/update | Update rows in batch in draft table
+*TablesApi* | [**ArchiveTable**](docs/TablesApi.md#archivetable) | **Delete** /cms/v3/hubdb/tables/{tableIdOrName} | Archive a table
+*TablesApi* | [**CloneDraftTable**](docs/TablesApi.md#clonedrafttable) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/draft/clone | Clone a table
+*TablesApi* | [**CreateTable**](docs/TablesApi.md#createtable) | **Post** /cms/v3/hubdb/tables | Create a new table
+*TablesApi* | [**ExportDraftTable**](docs/TablesApi.md#exportdrafttable) | **Get** /cms/v3/hubdb/tables/{tableIdOrName}/draft/export | Export a draft table
+*TablesApi* | [**ExportTable**](docs/TablesApi.md#exporttable) | **Get** /cms/v3/hubdb/tables/{tableIdOrName}/export | Export a published version of a table
+*TablesApi* | [**GetAllDraftTables**](docs/TablesApi.md#getalldrafttables) | **Get** /cms/v3/hubdb/tables/draft | Return all draft tables
+*TablesApi* | [**GetAllTables**](docs/TablesApi.md#getalltables) | **Get** /cms/v3/hubdb/tables | Get all published tables
+*TablesApi* | [**GetDraftTableDetailsByID**](docs/TablesApi.md#getdrafttabledetailsbyid) | **Get** /cms/v3/hubdb/tables/{tableIdOrName}/draft | Get details for a draft table
+*TablesApi* | [**GetTableDetails**](docs/TablesApi.md#gettabledetails) | **Get** /cms/v3/hubdb/tables/{tableIdOrName} | Get details for a published table
+*TablesApi* | [**ImportDraftTable**](docs/TablesApi.md#importdrafttable) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/draft/import | Import data into draft table
+*TablesApi* | [**PublishDraftTable**](docs/TablesApi.md#publishdrafttable) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/draft/publish | Publish a table from draft
+*TablesApi* | [**ResetDraftTable**](docs/TablesApi.md#resetdrafttable) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/draft/reset | Reset a draft table
+*TablesApi* | [**UnpublishTable**](docs/TablesApi.md#unpublishtable) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/unpublish | Unpublish a table
+*TablesApi* | [**UpdateDraftTable**](docs/TablesApi.md#updatedrafttable) | **Patch** /cms/v3/hubdb/tables/{tableIdOrName}/draft | Update an existing table
 
 
 ## Documentation For Models

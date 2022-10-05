@@ -24,7 +24,149 @@ import (
 // InvoiceApiService InvoiceApi service
 type InvoiceApiService service
 
-type ApiGetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetByIdRequest struct {
+type ApiInvoiceCreatePaymentRequest struct {
+	ctx                         context.Context
+	ApiService                  *InvoiceApiService
+	invoiceId                   string
+	invoiceCreatePaymentRequest *InvoiceCreatePaymentRequest
+	accountId                   *string
+}
+
+// The payment information
+func (r ApiInvoiceCreatePaymentRequest) InvoiceCreatePaymentRequest(invoiceCreatePaymentRequest InvoiceCreatePaymentRequest) ApiInvoiceCreatePaymentRequest {
+	r.invoiceCreatePaymentRequest = &invoiceCreatePaymentRequest
+	return r
+}
+
+// The ID of the account that the invoice belongs to. This is the account ID from the external accounting system.
+func (r ApiInvoiceCreatePaymentRequest) AccountId(accountId string) ApiInvoiceCreatePaymentRequest {
+	r.accountId = &accountId
+	return r
+}
+
+func (r ApiInvoiceCreatePaymentRequest) Execute() (*InvoiceUpdateResponse, *http.Response, error) {
+	return r.ApiService.InvoiceCreatePaymentExecute(r)
+}
+
+/*
+InvoiceCreatePayment Records an invoice payment
+
+Records an payment against an invoice.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param invoiceId The ID of the invoice. This is the invoice ID from the external accounting system.
+ @return ApiInvoiceCreatePaymentRequest
+*/
+func (a *InvoiceApiService) InvoiceCreatePayment(ctx context.Context, invoiceId string) ApiInvoiceCreatePaymentRequest {
+	return ApiInvoiceCreatePaymentRequest{
+		ApiService: a,
+		ctx:        ctx,
+		invoiceId:  invoiceId,
+	}
+}
+
+// Execute executes the request
+//  @return InvoiceUpdateResponse
+func (a *InvoiceApiService) InvoiceCreatePaymentExecute(r ApiInvoiceCreatePaymentRequest) (*InvoiceUpdateResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *InvoiceUpdateResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InvoiceApiService.InvoiceCreatePayment")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/crm/v3/extensions/accounting/invoice/{invoiceId}/payment"
+	localVarPath = strings.Replace(localVarPath, "{"+"invoiceId"+"}", url.PathEscape(parameterToString(r.invoiceId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.invoiceCreatePaymentRequest == nil {
+		return localVarReturnValue, nil, reportError("invoiceCreatePaymentRequest is required and must be specified")
+	}
+
+	if r.accountId != nil {
+		localVarQueryParams.Add("accountId", parameterToString(*r.accountId, ""))
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "*/*"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.invoiceCreatePaymentRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiInvoiceGetByIDRequest struct {
 	ctx        context.Context
 	ApiService *InvoiceApiService
 	invoiceId  string
@@ -32,26 +174,26 @@ type ApiGetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetByIdRequest struct {
 }
 
 // The ID of the account that the invoice belongs to. This is the account ID from the external accounting system.
-func (r ApiGetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetByIdRequest) AccountId(accountId string) ApiGetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetByIdRequest {
+func (r ApiInvoiceGetByIDRequest) AccountId(accountId string) ApiInvoiceGetByIDRequest {
 	r.accountId = &accountId
 	return r
 }
 
-func (r ApiGetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetByIdRequest) Execute() (*InvoiceReadResponse, *http.Response, error) {
-	return r.ApiService.GetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetByIdExecute(r)
+func (r ApiInvoiceGetByIDRequest) Execute() (*InvoiceReadResponse, *http.Response, error) {
+	return r.ApiService.InvoiceGetByIDExecute(r)
 }
 
 /*
-GetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetById Get invoice data
+InvoiceGetByID Get invoice data
 
 Returns invoice data for an Accounting account from the specified ID
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param invoiceId The ID of the invoice. This is the invoice ID from the external accounting system.
- @return ApiGetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetByIdRequest
+ @return ApiInvoiceGetByIDRequest
 */
-func (a *InvoiceApiService) GetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetById(ctx context.Context, invoiceId string) ApiGetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetByIdRequest {
-	return ApiGetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetByIdRequest{
+func (a *InvoiceApiService) InvoiceGetByID(ctx context.Context, invoiceId string) ApiInvoiceGetByIDRequest {
+	return ApiInvoiceGetByIDRequest{
 		ApiService: a,
 		ctx:        ctx,
 		invoiceId:  invoiceId,
@@ -60,7 +202,7 @@ func (a *InvoiceApiService) GetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetById(
 
 // Execute executes the request
 //  @return InvoiceReadResponse
-func (a *InvoiceApiService) GetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetByIdExecute(r ApiGetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetByIdRequest) (*InvoiceReadResponse, *http.Response, error) {
+func (a *InvoiceApiService) InvoiceGetByIDExecute(r ApiInvoiceGetByIDRequest) (*InvoiceReadResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -68,7 +210,7 @@ func (a *InvoiceApiService) GetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetByIdE
 		localVarReturnValue *InvoiceReadResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InvoiceApiService.GetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetById")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InvoiceApiService.InvoiceGetByID")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -155,7 +297,7 @@ func (a *InvoiceApiService) GetCrmV3ExtensionsAccountingInvoiceInvoiceIdGetByIdE
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdateRequest struct {
+type ApiInvoiceUpdateRequest struct {
 	ctx                  context.Context
 	ApiService           *InvoiceApiService
 	invoiceId            string
@@ -164,32 +306,32 @@ type ApiPatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdateRequest struct {
 }
 
 // The ID of the account that the invoice belongs to. This is the account ID from the external accounting system.
-func (r ApiPatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdateRequest) AccountId(accountId string) ApiPatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdateRequest {
+func (r ApiInvoiceUpdateRequest) AccountId(accountId string) ApiInvoiceUpdateRequest {
 	r.accountId = &accountId
 	return r
 }
 
 // The invoice data to update
-func (r ApiPatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdateRequest) InvoiceUpdateRequest(invoiceUpdateRequest InvoiceUpdateRequest) ApiPatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdateRequest {
+func (r ApiInvoiceUpdateRequest) InvoiceUpdateRequest(invoiceUpdateRequest InvoiceUpdateRequest) ApiInvoiceUpdateRequest {
 	r.invoiceUpdateRequest = &invoiceUpdateRequest
 	return r
 }
 
-func (r ApiPatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdateRequest) Execute() (*InvoiceUpdateResponse, *http.Response, error) {
-	return r.ApiService.PatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdateExecute(r)
+func (r ApiInvoiceUpdateRequest) Execute() (*InvoiceUpdateResponse, *http.Response, error) {
+	return r.ApiService.InvoiceUpdateExecute(r)
 }
 
 /*
-PatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdate Update an invoice
+InvoiceUpdate Update an invoice
 
 Updates an Invoice by the given ID.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param invoiceId The ID of the invoice. This is the invoice ID from the external accounting system.
- @return ApiPatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdateRequest
+ @return ApiInvoiceUpdateRequest
 */
-func (a *InvoiceApiService) PatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdate(ctx context.Context, invoiceId string) ApiPatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdateRequest {
-	return ApiPatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdateRequest{
+func (a *InvoiceApiService) InvoiceUpdate(ctx context.Context, invoiceId string) ApiInvoiceUpdateRequest {
+	return ApiInvoiceUpdateRequest{
 		ApiService: a,
 		ctx:        ctx,
 		invoiceId:  invoiceId,
@@ -198,7 +340,7 @@ func (a *InvoiceApiService) PatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdate
 
 // Execute executes the request
 //  @return InvoiceUpdateResponse
-func (a *InvoiceApiService) PatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdateExecute(r ApiPatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdateRequest) (*InvoiceUpdateResponse, *http.Response, error) {
+func (a *InvoiceApiService) InvoiceUpdateExecute(r ApiInvoiceUpdateRequest) (*InvoiceUpdateResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
 		localVarPostBody    interface{}
@@ -206,7 +348,7 @@ func (a *InvoiceApiService) PatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdate
 		localVarReturnValue *InvoiceUpdateResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InvoiceApiService.PatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InvoiceApiService.InvoiceUpdate")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -244,148 +386,6 @@ func (a *InvoiceApiService) PatchCrmV3ExtensionsAccountingInvoiceInvoiceIdUpdate
 	}
 	// body params
 	localVarPostBody = r.invoiceUpdateRequest
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		var v Error
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiPostCrmV3ExtensionsAccountingInvoiceInvoiceIdPaymentCreatePaymentRequest struct {
-	ctx                         context.Context
-	ApiService                  *InvoiceApiService
-	invoiceId                   string
-	invoiceCreatePaymentRequest *InvoiceCreatePaymentRequest
-	accountId                   *string
-}
-
-// The payment information
-func (r ApiPostCrmV3ExtensionsAccountingInvoiceInvoiceIdPaymentCreatePaymentRequest) InvoiceCreatePaymentRequest(invoiceCreatePaymentRequest InvoiceCreatePaymentRequest) ApiPostCrmV3ExtensionsAccountingInvoiceInvoiceIdPaymentCreatePaymentRequest {
-	r.invoiceCreatePaymentRequest = &invoiceCreatePaymentRequest
-	return r
-}
-
-// The ID of the account that the invoice belongs to. This is the account ID from the external accounting system.
-func (r ApiPostCrmV3ExtensionsAccountingInvoiceInvoiceIdPaymentCreatePaymentRequest) AccountId(accountId string) ApiPostCrmV3ExtensionsAccountingInvoiceInvoiceIdPaymentCreatePaymentRequest {
-	r.accountId = &accountId
-	return r
-}
-
-func (r ApiPostCrmV3ExtensionsAccountingInvoiceInvoiceIdPaymentCreatePaymentRequest) Execute() (*InvoiceUpdateResponse, *http.Response, error) {
-	return r.ApiService.PostCrmV3ExtensionsAccountingInvoiceInvoiceIdPaymentCreatePaymentExecute(r)
-}
-
-/*
-PostCrmV3ExtensionsAccountingInvoiceInvoiceIdPaymentCreatePayment Records an invoice payment
-
-Records an payment against an invoice.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param invoiceId The ID of the invoice. This is the invoice ID from the external accounting system.
- @return ApiPostCrmV3ExtensionsAccountingInvoiceInvoiceIdPaymentCreatePaymentRequest
-*/
-func (a *InvoiceApiService) PostCrmV3ExtensionsAccountingInvoiceInvoiceIdPaymentCreatePayment(ctx context.Context, invoiceId string) ApiPostCrmV3ExtensionsAccountingInvoiceInvoiceIdPaymentCreatePaymentRequest {
-	return ApiPostCrmV3ExtensionsAccountingInvoiceInvoiceIdPaymentCreatePaymentRequest{
-		ApiService: a,
-		ctx:        ctx,
-		invoiceId:  invoiceId,
-	}
-}
-
-// Execute executes the request
-//  @return InvoiceUpdateResponse
-func (a *InvoiceApiService) PostCrmV3ExtensionsAccountingInvoiceInvoiceIdPaymentCreatePaymentExecute(r ApiPostCrmV3ExtensionsAccountingInvoiceInvoiceIdPaymentCreatePaymentRequest) (*InvoiceUpdateResponse, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *InvoiceUpdateResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InvoiceApiService.PostCrmV3ExtensionsAccountingInvoiceInvoiceIdPaymentCreatePayment")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/crm/v3/extensions/accounting/invoice/{invoiceId}/payment"
-	localVarPath = strings.Replace(localVarPath, "{"+"invoiceId"+"}", url.PathEscape(parameterToString(r.invoiceId, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.invoiceCreatePaymentRequest == nil {
-		return localVarReturnValue, nil, reportError("invoiceCreatePaymentRequest is required and must be specified")
-	}
-
-	if r.accountId != nil {
-		localVarQueryParams.Add("accountId", parameterToString(*r.accountId, ""))
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "*/*"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.invoiceCreatePaymentRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {

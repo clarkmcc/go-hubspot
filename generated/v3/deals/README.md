@@ -78,20 +78,20 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*AssociationsApi* | [**DeleteCrmV3ObjectsDealsDealIdAssociationsToObjectTypeToObjectIdAssociationTypeArchive**](docs/AssociationsApi.md#deletecrmv3objectsdealsdealidassociationstoobjecttypetoobjectidassociationtypearchive) | **Delete** /crm/v3/objects/deals/{dealId}/associations/{toObjectType}/{toObjectId}/{associationType} | Remove an association between two deals
-*AssociationsApi* | [**GetCrmV3ObjectsDealsDealIdAssociationsToObjectTypeGetAll**](docs/AssociationsApi.md#getcrmv3objectsdealsdealidassociationstoobjecttypegetall) | **Get** /crm/v3/objects/deals/{dealId}/associations/{toObjectType} | List associations of a deal by type
-*AssociationsApi* | [**PutCrmV3ObjectsDealsDealIdAssociationsToObjectTypeToObjectIdAssociationTypeCreate**](docs/AssociationsApi.md#putcrmv3objectsdealsdealidassociationstoobjecttypetoobjectidassociationtypecreate) | **Put** /crm/v3/objects/deals/{dealId}/associations/{toObjectType}/{toObjectId}/{associationType} | Associate a deal with another object
-*BasicApi* | [**DeleteCrmV3ObjectsDealsDealIdArchive**](docs/BasicApi.md#deletecrmv3objectsdealsdealidarchive) | **Delete** /crm/v3/objects/deals/{dealId} | Archive
-*BasicApi* | [**GetCrmV3ObjectsDealsDealIdGetById**](docs/BasicApi.md#getcrmv3objectsdealsdealidgetbyid) | **Get** /crm/v3/objects/deals/{dealId} | Read
-*BasicApi* | [**GetCrmV3ObjectsDealsGetPage**](docs/BasicApi.md#getcrmv3objectsdealsgetpage) | **Get** /crm/v3/objects/deals | List
-*BasicApi* | [**PatchCrmV3ObjectsDealsDealIdUpdate**](docs/BasicApi.md#patchcrmv3objectsdealsdealidupdate) | **Patch** /crm/v3/objects/deals/{dealId} | Update
-*BasicApi* | [**PostCrmV3ObjectsDealsCreate**](docs/BasicApi.md#postcrmv3objectsdealscreate) | **Post** /crm/v3/objects/deals | Create
-*BatchApi* | [**PostCrmV3ObjectsDealsBatchArchiveArchive**](docs/BatchApi.md#postcrmv3objectsdealsbatcharchivearchive) | **Post** /crm/v3/objects/deals/batch/archive | Archive a batch of deals by ID
-*BatchApi* | [**PostCrmV3ObjectsDealsBatchCreateCreate**](docs/BatchApi.md#postcrmv3objectsdealsbatchcreatecreate) | **Post** /crm/v3/objects/deals/batch/create | Create a batch of deals
-*BatchApi* | [**PostCrmV3ObjectsDealsBatchReadRead**](docs/BatchApi.md#postcrmv3objectsdealsbatchreadread) | **Post** /crm/v3/objects/deals/batch/read | Read a batch of deals by internal ID, or unique property values
-*BatchApi* | [**PostCrmV3ObjectsDealsBatchUpdateUpdate**](docs/BatchApi.md#postcrmv3objectsdealsbatchupdateupdate) | **Post** /crm/v3/objects/deals/batch/update | Update a batch of deals
-*PublicObjectApi* | [**PostCrmV3ObjectsDealsMergeMerge**](docs/PublicObjectApi.md#postcrmv3objectsdealsmergemerge) | **Post** /crm/v3/objects/deals/merge | Merge two deals with same type
-*SearchApi* | [**PostCrmV3ObjectsDealsSearchDoSearch**](docs/SearchApi.md#postcrmv3objectsdealssearchdosearch) | **Post** /crm/v3/objects/deals/search | 
+*AssociationsApi* | [**AssociationsArchive**](docs/AssociationsApi.md#associationsarchive) | **Delete** /crm/v3/objects/deals/{dealId}/associations/{toObjectType}/{toObjectId}/{associationType} | Remove an association between two deals
+*AssociationsApi* | [**AssociationsCreate**](docs/AssociationsApi.md#associationscreate) | **Put** /crm/v3/objects/deals/{dealId}/associations/{toObjectType}/{toObjectId}/{associationType} | Associate a deal with another object
+*AssociationsApi* | [**AssociationsGetAll**](docs/AssociationsApi.md#associationsgetall) | **Get** /crm/v3/objects/deals/{dealId}/associations/{toObjectType} | List associations of a deal by type
+*BasicApi* | [**Archive**](docs/BasicApi.md#archive) | **Delete** /crm/v3/objects/deals/{dealId} | Archive
+*BasicApi* | [**Create**](docs/BasicApi.md#create) | **Post** /crm/v3/objects/deals | Create
+*BasicApi* | [**GetByID**](docs/BasicApi.md#getbyid) | **Get** /crm/v3/objects/deals/{dealId} | Read
+*BasicApi* | [**GetPage**](docs/BasicApi.md#getpage) | **Get** /crm/v3/objects/deals | List
+*BasicApi* | [**Update**](docs/BasicApi.md#update) | **Patch** /crm/v3/objects/deals/{dealId} | Update
+*BatchApi* | [**BatchArchive**](docs/BatchApi.md#batcharchive) | **Post** /crm/v3/objects/deals/batch/archive | Archive a batch of deals by ID
+*BatchApi* | [**BatchCreate**](docs/BatchApi.md#batchcreate) | **Post** /crm/v3/objects/deals/batch/create | Create a batch of deals
+*BatchApi* | [**BatchRead**](docs/BatchApi.md#batchread) | **Post** /crm/v3/objects/deals/batch/read | Read a batch of deals by internal ID, or unique property values
+*BatchApi* | [**BatchUpdate**](docs/BatchApi.md#batchupdate) | **Post** /crm/v3/objects/deals/batch/update | Update a batch of deals
+*PublicObjectApi* | [**Merge**](docs/PublicObjectApi.md#merge) | **Post** /crm/v3/objects/deals/merge | Merge two deals with same type
+*SearchApi* | [**Search**](docs/SearchApi.md#search) | **Post** /crm/v3/objects/deals/search | 
 
 
 ## Documentation For Models

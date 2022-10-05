@@ -13,7 +13,7 @@ tags:
 paths:
   /crm/v3/owners/:
     get:
-      operationId: get-/crm/v3/owners/_getPage
+      operationId: GetPage
       parameters:
       - description: Filter by email address (optional)
         explode: true
@@ -76,7 +76,7 @@ paths:
       - Owners
   /crm/v3/owners/{ownerId}:
     get:
-      operationId: "get-/crm/v3/owners/{ownerId}_getById"
+      operationId: GetByID
       parameters:
       - explode: false
         in: path

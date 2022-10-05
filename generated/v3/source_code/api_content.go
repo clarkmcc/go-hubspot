@@ -25,29 +25,29 @@ import (
 // ContentApiService ContentApi service
 type ContentApiService service
 
-type ApiDeleteCmsV3SourceCodeEnvironmentContentPathArchiveRequest struct {
+type ApiContentArchiveRequest struct {
 	ctx         context.Context
 	ApiService  *ContentApiService
 	environment string
 	path        string
 }
 
-func (r ApiDeleteCmsV3SourceCodeEnvironmentContentPathArchiveRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteCmsV3SourceCodeEnvironmentContentPathArchiveExecute(r)
+func (r ApiContentArchiveRequest) Execute() (*http.Response, error) {
+	return r.ApiService.ContentArchiveExecute(r)
 }
 
 /*
-DeleteCmsV3SourceCodeEnvironmentContentPathArchive Delete a file
+ContentArchive Delete a file
 
 Deletes the file at the specified path in the specified environment.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param environment The environment of the file (\"draft\" or \"published\").
  @param path The file system location of the file.
- @return ApiDeleteCmsV3SourceCodeEnvironmentContentPathArchiveRequest
+ @return ApiContentArchiveRequest
 */
-func (a *ContentApiService) DeleteCmsV3SourceCodeEnvironmentContentPathArchive(ctx context.Context, environment string, path string) ApiDeleteCmsV3SourceCodeEnvironmentContentPathArchiveRequest {
-	return ApiDeleteCmsV3SourceCodeEnvironmentContentPathArchiveRequest{
+func (a *ContentApiService) ContentArchive(ctx context.Context, environment string, path string) ApiContentArchiveRequest {
+	return ApiContentArchiveRequest{
 		ApiService:  a,
 		ctx:         ctx,
 		environment: environment,
@@ -56,14 +56,14 @@ func (a *ContentApiService) DeleteCmsV3SourceCodeEnvironmentContentPathArchive(c
 }
 
 // Execute executes the request
-func (a *ContentApiService) DeleteCmsV3SourceCodeEnvironmentContentPathArchiveExecute(r ApiDeleteCmsV3SourceCodeEnvironmentContentPathArchiveRequest) (*http.Response, error) {
+func (a *ContentApiService) ContentArchiveExecute(r ApiContentArchiveRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ContentApiService.DeleteCmsV3SourceCodeEnvironmentContentPathArchive")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ContentApiService.ContentArchive")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -138,131 +138,7 @@ func (a *ContentApiService) DeleteCmsV3SourceCodeEnvironmentContentPathArchiveEx
 	return localVarHTTPResponse, nil
 }
 
-type ApiGetCmsV3SourceCodeEnvironmentContentPathGetRequest struct {
-	ctx         context.Context
-	ApiService  *ContentApiService
-	environment string
-	path        string
-}
-
-func (r ApiGetCmsV3SourceCodeEnvironmentContentPathGetRequest) Execute() (*Error, *http.Response, error) {
-	return r.ApiService.GetCmsV3SourceCodeEnvironmentContentPathGetExecute(r)
-}
-
-/*
-GetCmsV3SourceCodeEnvironmentContentPathGet Download a file
-
-Downloads the byte contents of the file at the specified path in the specified environment.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param environment The environment of the file (\"draft\" or \"published\").
- @param path The file system location of the file.
- @return ApiGetCmsV3SourceCodeEnvironmentContentPathGetRequest
-*/
-func (a *ContentApiService) GetCmsV3SourceCodeEnvironmentContentPathGet(ctx context.Context, environment string, path string) ApiGetCmsV3SourceCodeEnvironmentContentPathGetRequest {
-	return ApiGetCmsV3SourceCodeEnvironmentContentPathGetRequest{
-		ApiService:  a,
-		ctx:         ctx,
-		environment: environment,
-		path:        path,
-	}
-}
-
-// Execute executes the request
-//  @return Error
-func (a *ContentApiService) GetCmsV3SourceCodeEnvironmentContentPathGetExecute(r ApiGetCmsV3SourceCodeEnvironmentContentPathGetRequest) (*Error, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Error
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ContentApiService.GetCmsV3SourceCodeEnvironmentContentPathGet")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/cms/v3/source-code/{environment}/content/{path}"
-	localVarPath = strings.Replace(localVarPath, "{"+"environment"+"}", url.PathEscape(parameterToString(r.environment, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"path"+"}", url.PathEscape(parameterToString(r.path, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"*/*"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		var v Error
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiPostCmsV3SourceCodeEnvironmentContentPathCreateRequest struct {
+type ApiContentCreateRequest struct {
 	ctx         context.Context
 	ApiService  *ContentApiService
 	environment string
@@ -271,29 +147,29 @@ type ApiPostCmsV3SourceCodeEnvironmentContentPathCreateRequest struct {
 }
 
 // The file to upload.
-func (r ApiPostCmsV3SourceCodeEnvironmentContentPathCreateRequest) File(file *os.File) ApiPostCmsV3SourceCodeEnvironmentContentPathCreateRequest {
+func (r ApiContentCreateRequest) File(file *os.File) ApiContentCreateRequest {
 	r.file = &file
 	return r
 }
 
-func (r ApiPostCmsV3SourceCodeEnvironmentContentPathCreateRequest) Execute() (*AssetFileMetadata, *http.Response, error) {
-	return r.ApiService.PostCmsV3SourceCodeEnvironmentContentPathCreateExecute(r)
+func (r ApiContentCreateRequest) Execute() (*AssetFileMetadata, *http.Response, error) {
+	return r.ApiService.ContentCreateExecute(r)
 }
 
 /*
-PostCmsV3SourceCodeEnvironmentContentPathCreate Create a file
+ContentCreate Create a file
 
 Creates a file at the specified path in the specified environment. Accepts multipart/form-data content type. Throws an error if a file already exists at the specified path.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param environment The environment of the file (\"draft\" or \"published\").
  @param path The file system location of the file.
- @return ApiPostCmsV3SourceCodeEnvironmentContentPathCreateRequest
+ @return ApiContentCreateRequest
 
 Deprecated
 */
-func (a *ContentApiService) PostCmsV3SourceCodeEnvironmentContentPathCreate(ctx context.Context, environment string, path string) ApiPostCmsV3SourceCodeEnvironmentContentPathCreateRequest {
-	return ApiPostCmsV3SourceCodeEnvironmentContentPathCreateRequest{
+func (a *ContentApiService) ContentCreate(ctx context.Context, environment string, path string) ApiContentCreateRequest {
+	return ApiContentCreateRequest{
 		ApiService:  a,
 		ctx:         ctx,
 		environment: environment,
@@ -304,7 +180,7 @@ func (a *ContentApiService) PostCmsV3SourceCodeEnvironmentContentPathCreate(ctx 
 // Execute executes the request
 //  @return AssetFileMetadata
 // Deprecated
-func (a *ContentApiService) PostCmsV3SourceCodeEnvironmentContentPathCreateExecute(r ApiPostCmsV3SourceCodeEnvironmentContentPathCreateRequest) (*AssetFileMetadata, *http.Response, error) {
+func (a *ContentApiService) ContentCreateExecute(r ApiContentCreateRequest) (*AssetFileMetadata, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -312,7 +188,7 @@ func (a *ContentApiService) PostCmsV3SourceCodeEnvironmentContentPathCreateExecu
 		localVarReturnValue *AssetFileMetadata
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ContentApiService.PostCmsV3SourceCodeEnvironmentContentPathCreate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ContentApiService.ContentCreate")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -413,7 +289,131 @@ func (a *ContentApiService) PostCmsV3SourceCodeEnvironmentContentPathCreateExecu
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPutCmsV3SourceCodeEnvironmentContentPathReplaceRequest struct {
+type ApiContentGetRequest struct {
+	ctx         context.Context
+	ApiService  *ContentApiService
+	environment string
+	path        string
+}
+
+func (r ApiContentGetRequest) Execute() (*Error, *http.Response, error) {
+	return r.ApiService.ContentGetExecute(r)
+}
+
+/*
+ContentGet Download a file
+
+Downloads the byte contents of the file at the specified path in the specified environment.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param environment The environment of the file (\"draft\" or \"published\").
+ @param path The file system location of the file.
+ @return ApiContentGetRequest
+*/
+func (a *ContentApiService) ContentGet(ctx context.Context, environment string, path string) ApiContentGetRequest {
+	return ApiContentGetRequest{
+		ApiService:  a,
+		ctx:         ctx,
+		environment: environment,
+		path:        path,
+	}
+}
+
+// Execute executes the request
+//  @return Error
+func (a *ContentApiService) ContentGetExecute(r ApiContentGetRequest) (*Error, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Error
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ContentApiService.ContentGet")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/cms/v3/source-code/{environment}/content/{path}"
+	localVarPath = strings.Replace(localVarPath, "{"+"environment"+"}", url.PathEscape(parameterToString(r.environment, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"path"+"}", url.PathEscape(parameterToString(r.path, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"*/*"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiContentReplaceRequest struct {
 	ctx         context.Context
 	ApiService  *ContentApiService
 	environment string
@@ -422,27 +422,27 @@ type ApiPutCmsV3SourceCodeEnvironmentContentPathReplaceRequest struct {
 }
 
 // The file to upload.
-func (r ApiPutCmsV3SourceCodeEnvironmentContentPathReplaceRequest) File(file *os.File) ApiPutCmsV3SourceCodeEnvironmentContentPathReplaceRequest {
+func (r ApiContentReplaceRequest) File(file *os.File) ApiContentReplaceRequest {
 	r.file = &file
 	return r
 }
 
-func (r ApiPutCmsV3SourceCodeEnvironmentContentPathReplaceRequest) Execute() (*AssetFileMetadata, *http.Response, error) {
-	return r.ApiService.PutCmsV3SourceCodeEnvironmentContentPathReplaceExecute(r)
+func (r ApiContentReplaceRequest) Execute() (*AssetFileMetadata, *http.Response, error) {
+	return r.ApiService.ContentReplaceExecute(r)
 }
 
 /*
-PutCmsV3SourceCodeEnvironmentContentPathReplace Create or update a file
+ContentReplace Create or update a file
 
 Upserts a file at the specified path in the specified environment. Accepts multipart/form-data content type.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param environment The environment of the file (\"draft\" or \"published\").
  @param path The file system location of the file.
- @return ApiPutCmsV3SourceCodeEnvironmentContentPathReplaceRequest
+ @return ApiContentReplaceRequest
 */
-func (a *ContentApiService) PutCmsV3SourceCodeEnvironmentContentPathReplace(ctx context.Context, environment string, path string) ApiPutCmsV3SourceCodeEnvironmentContentPathReplaceRequest {
-	return ApiPutCmsV3SourceCodeEnvironmentContentPathReplaceRequest{
+func (a *ContentApiService) ContentReplace(ctx context.Context, environment string, path string) ApiContentReplaceRequest {
+	return ApiContentReplaceRequest{
 		ApiService:  a,
 		ctx:         ctx,
 		environment: environment,
@@ -452,7 +452,7 @@ func (a *ContentApiService) PutCmsV3SourceCodeEnvironmentContentPathReplace(ctx 
 
 // Execute executes the request
 //  @return AssetFileMetadata
-func (a *ContentApiService) PutCmsV3SourceCodeEnvironmentContentPathReplaceExecute(r ApiPutCmsV3SourceCodeEnvironmentContentPathReplaceRequest) (*AssetFileMetadata, *http.Response, error) {
+func (a *ContentApiService) ContentReplaceExecute(r ApiContentReplaceRequest) (*AssetFileMetadata, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
@@ -460,7 +460,7 @@ func (a *ContentApiService) PutCmsV3SourceCodeEnvironmentContentPathReplaceExecu
 		localVarReturnValue *AssetFileMetadata
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ContentApiService.PutCmsV3SourceCodeEnvironmentContentPathReplace")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ContentApiService.ContentReplace")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

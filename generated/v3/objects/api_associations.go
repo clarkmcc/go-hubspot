@@ -281,7 +281,7 @@ func (a *AssociationsApiService) AssociationsCreateExecute(r ApiAssociationsCrea
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiAssociationsGetRequest struct {
+type ApiAssociationsGetAllRequest struct {
 	ctx          context.Context
 	ApiService   *AssociationsApiService
 	objectType   string
@@ -292,32 +292,32 @@ type ApiAssociationsGetRequest struct {
 }
 
 // The paging cursor token of the last successfully read resource will be returned as the &#x60;paging.next.after&#x60; JSON property of a paged response containing more results.
-func (r ApiAssociationsGetRequest) After(after string) ApiAssociationsGetRequest {
+func (r ApiAssociationsGetAllRequest) After(after string) ApiAssociationsGetAllRequest {
 	r.after = &after
 	return r
 }
 
 // The maximum number of results to display per page.
-func (r ApiAssociationsGetRequest) Limit(limit int32) ApiAssociationsGetRequest {
+func (r ApiAssociationsGetAllRequest) Limit(limit int32) ApiAssociationsGetAllRequest {
 	r.limit = &limit
 	return r
 }
 
-func (r ApiAssociationsGetRequest) Execute() (*CollectionResponseAssociatedIdForwardPaging, *http.Response, error) {
-	return r.ApiService.AssociationsGetExecute(r)
+func (r ApiAssociationsGetAllRequest) Execute() (*CollectionResponseAssociatedIdForwardPaging, *http.Response, error) {
+	return r.ApiService.AssociationsGetAllExecute(r)
 }
 
 /*
-AssociationsGet List associations of an object by type
+AssociationsGetAll List associations of an object by type
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param objectType
  @param objectId
  @param toObjectType
- @return ApiAssociationsGetRequest
+ @return ApiAssociationsGetAllRequest
 */
-func (a *AssociationsApiService) AssociationsGet(ctx context.Context, objectType string, objectId string, toObjectType string) ApiAssociationsGetRequest {
-	return ApiAssociationsGetRequest{
+func (a *AssociationsApiService) AssociationsGetAll(ctx context.Context, objectType string, objectId string, toObjectType string) ApiAssociationsGetAllRequest {
+	return ApiAssociationsGetAllRequest{
 		ApiService:   a,
 		ctx:          ctx,
 		objectType:   objectType,
@@ -328,7 +328,7 @@ func (a *AssociationsApiService) AssociationsGet(ctx context.Context, objectType
 
 // Execute executes the request
 //  @return CollectionResponseAssociatedIdForwardPaging
-func (a *AssociationsApiService) AssociationsGetExecute(r ApiAssociationsGetRequest) (*CollectionResponseAssociatedIdForwardPaging, *http.Response, error) {
+func (a *AssociationsApiService) AssociationsGetAllExecute(r ApiAssociationsGetAllRequest) (*CollectionResponseAssociatedIdForwardPaging, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -336,7 +336,7 @@ func (a *AssociationsApiService) AssociationsGetExecute(r ApiAssociationsGetRequ
 		localVarReturnValue *CollectionResponseAssociatedIdForwardPaging
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AssociationsApiService.AssociationsGet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AssociationsApiService.AssociationsGetAll")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

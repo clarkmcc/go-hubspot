@@ -24,29 +24,29 @@ import (
 // ExtractApiService ExtractApi service
 type ExtractApiService service
 
-type ApiPostCmsV3SourceCodeExtractPathExtractByPathRequest struct {
+type ApiExtractByPathRequest struct {
 	ctx        context.Context
 	ApiService *ExtractApiService
 	path       string
 }
 
-func (r ApiPostCmsV3SourceCodeExtractPathExtractByPathRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostCmsV3SourceCodeExtractPathExtractByPathExecute(r)
+func (r ApiExtractByPathRequest) Execute() (*http.Response, error) {
+	return r.ApiService.ExtractByPathExecute(r)
 }
 
 /*
-PostCmsV3SourceCodeExtractPathExtractByPath Extracts a zip file
+ExtractByPath Extracts a zip file
 
 Extracts a zip file in the file system. The zip file will be extracted in-place and not be deleted automatically.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param path The file system location of the zip file.
- @return ApiPostCmsV3SourceCodeExtractPathExtractByPathRequest
+ @return ApiExtractByPathRequest
 
 Deprecated
 */
-func (a *ExtractApiService) PostCmsV3SourceCodeExtractPathExtractByPath(ctx context.Context, path string) ApiPostCmsV3SourceCodeExtractPathExtractByPathRequest {
-	return ApiPostCmsV3SourceCodeExtractPathExtractByPathRequest{
+func (a *ExtractApiService) ExtractByPath(ctx context.Context, path string) ApiExtractByPathRequest {
+	return ApiExtractByPathRequest{
 		ApiService: a,
 		ctx:        ctx,
 		path:       path,
@@ -55,14 +55,14 @@ func (a *ExtractApiService) PostCmsV3SourceCodeExtractPathExtractByPath(ctx cont
 
 // Execute executes the request
 // Deprecated
-func (a *ExtractApiService) PostCmsV3SourceCodeExtractPathExtractByPathExecute(r ApiPostCmsV3SourceCodeExtractPathExtractByPathRequest) (*http.Response, error) {
+func (a *ExtractApiService) ExtractByPathExecute(r ApiExtractByPathRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExtractApiService.PostCmsV3SourceCodeExtractPathExtractByPath")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExtractApiService.ExtractByPath")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}

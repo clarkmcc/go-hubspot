@@ -25,7 +25,7 @@ import (
 // DomainsApiService DomainsApi service
 type DomainsApiService service
 
-type ApiGetCmsV3DomainsDomainIdGetByIdRequest struct {
+type ApiGetByIDRequest struct {
 	ctx        context.Context
 	ApiService *DomainsApiService
 	domainId   string
@@ -33,26 +33,26 @@ type ApiGetCmsV3DomainsDomainIdGetByIdRequest struct {
 }
 
 // Whether to return only results that have been archived.
-func (r ApiGetCmsV3DomainsDomainIdGetByIdRequest) Archived(archived bool) ApiGetCmsV3DomainsDomainIdGetByIdRequest {
+func (r ApiGetByIDRequest) Archived(archived bool) ApiGetByIDRequest {
 	r.archived = &archived
 	return r
 }
 
-func (r ApiGetCmsV3DomainsDomainIdGetByIdRequest) Execute() (*Domain, *http.Response, error) {
-	return r.ApiService.GetCmsV3DomainsDomainIdGetByIdExecute(r)
+func (r ApiGetByIDRequest) Execute() (*Domain, *http.Response, error) {
+	return r.ApiService.GetByIDExecute(r)
 }
 
 /*
-GetCmsV3DomainsDomainIdGetById Get a single domain
+GetByID Get a single domain
 
 Returns a single domains with the id specified.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param domainId The unique ID of the domain.
- @return ApiGetCmsV3DomainsDomainIdGetByIdRequest
+ @return ApiGetByIDRequest
 */
-func (a *DomainsApiService) GetCmsV3DomainsDomainIdGetById(ctx context.Context, domainId string) ApiGetCmsV3DomainsDomainIdGetByIdRequest {
-	return ApiGetCmsV3DomainsDomainIdGetByIdRequest{
+func (a *DomainsApiService) GetByID(ctx context.Context, domainId string) ApiGetByIDRequest {
+	return ApiGetByIDRequest{
 		ApiService: a,
 		ctx:        ctx,
 		domainId:   domainId,
@@ -61,7 +61,7 @@ func (a *DomainsApiService) GetCmsV3DomainsDomainIdGetById(ctx context.Context, 
 
 // Execute executes the request
 //  @return Domain
-func (a *DomainsApiService) GetCmsV3DomainsDomainIdGetByIdExecute(r ApiGetCmsV3DomainsDomainIdGetByIdRequest) (*Domain, *http.Response, error) {
+func (a *DomainsApiService) GetByIDExecute(r ApiGetByIDRequest) (*Domain, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -69,7 +69,7 @@ func (a *DomainsApiService) GetCmsV3DomainsDomainIdGetByIdExecute(r ApiGetCmsV3D
 		localVarReturnValue *Domain
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DomainsApiService.GetCmsV3DomainsDomainIdGetById")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DomainsApiService.GetByID")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -155,7 +155,7 @@ func (a *DomainsApiService) GetCmsV3DomainsDomainIdGetByIdExecute(r ApiGetCmsV3D
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetCmsV3DomainsGetPageRequest struct {
+type ApiGetPageRequest struct {
 	ctx           context.Context
 	ApiService    *DomainsApiService
 	createdAt     *int64
@@ -173,88 +173,88 @@ type ApiGetCmsV3DomainsGetPageRequest struct {
 }
 
 // Only return domains created at this date.
-func (r ApiGetCmsV3DomainsGetPageRequest) CreatedAt(createdAt int64) ApiGetCmsV3DomainsGetPageRequest {
+func (r ApiGetPageRequest) CreatedAt(createdAt int64) ApiGetPageRequest {
 	r.createdAt = &createdAt
 	return r
 }
 
 // Only return domains created after this date.
-func (r ApiGetCmsV3DomainsGetPageRequest) CreatedAfter(createdAfter int64) ApiGetCmsV3DomainsGetPageRequest {
+func (r ApiGetPageRequest) CreatedAfter(createdAfter int64) ApiGetPageRequest {
 	r.createdAfter = &createdAfter
 	return r
 }
 
 // Only return domains created before this date.
-func (r ApiGetCmsV3DomainsGetPageRequest) CreatedBefore(createdBefore int64) ApiGetCmsV3DomainsGetPageRequest {
+func (r ApiGetPageRequest) CreatedBefore(createdBefore int64) ApiGetPageRequest {
 	r.createdBefore = &createdBefore
 	return r
 }
 
 // Only return domains updated at this date.
-func (r ApiGetCmsV3DomainsGetPageRequest) UpdatedAt(updatedAt int64) ApiGetCmsV3DomainsGetPageRequest {
+func (r ApiGetPageRequest) UpdatedAt(updatedAt int64) ApiGetPageRequest {
 	r.updatedAt = &updatedAt
 	return r
 }
 
 // Only return domains updated after this date.
-func (r ApiGetCmsV3DomainsGetPageRequest) UpdatedAfter(updatedAfter int64) ApiGetCmsV3DomainsGetPageRequest {
+func (r ApiGetPageRequest) UpdatedAfter(updatedAfter int64) ApiGetPageRequest {
 	r.updatedAfter = &updatedAfter
 	return r
 }
 
 // Only return domains updated before this date.
-func (r ApiGetCmsV3DomainsGetPageRequest) UpdatedBefore(updatedBefore int64) ApiGetCmsV3DomainsGetPageRequest {
+func (r ApiGetPageRequest) UpdatedBefore(updatedBefore int64) ApiGetPageRequest {
 	r.updatedBefore = &updatedBefore
 	return r
 }
 
-func (r ApiGetCmsV3DomainsGetPageRequest) Sort(sort []string) ApiGetCmsV3DomainsGetPageRequest {
+func (r ApiGetPageRequest) Sort(sort []string) ApiGetPageRequest {
 	r.sort = &sort
 	return r
 }
 
-func (r ApiGetCmsV3DomainsGetPageRequest) Properties(properties []string) ApiGetCmsV3DomainsGetPageRequest {
+func (r ApiGetPageRequest) Properties(properties []string) ApiGetPageRequest {
 	r.properties = &properties
 	return r
 }
 
 // The paging cursor token of the last successfully read resource will be returned as the &#x60;paging.next.after&#x60; JSON property of a paged response containing more results.
-func (r ApiGetCmsV3DomainsGetPageRequest) After(after string) ApiGetCmsV3DomainsGetPageRequest {
+func (r ApiGetPageRequest) After(after string) ApiGetPageRequest {
 	r.after = &after
 	return r
 }
 
-func (r ApiGetCmsV3DomainsGetPageRequest) Before(before string) ApiGetCmsV3DomainsGetPageRequest {
+func (r ApiGetPageRequest) Before(before string) ApiGetPageRequest {
 	r.before = &before
 	return r
 }
 
 // Maximum number of results per page.
-func (r ApiGetCmsV3DomainsGetPageRequest) Limit(limit int32) ApiGetCmsV3DomainsGetPageRequest {
+func (r ApiGetPageRequest) Limit(limit int32) ApiGetPageRequest {
 	r.limit = &limit
 	return r
 }
 
 // Whether to return only results that have been archived.
-func (r ApiGetCmsV3DomainsGetPageRequest) Archived(archived bool) ApiGetCmsV3DomainsGetPageRequest {
+func (r ApiGetPageRequest) Archived(archived bool) ApiGetPageRequest {
 	r.archived = &archived
 	return r
 }
 
-func (r ApiGetCmsV3DomainsGetPageRequest) Execute() (*CollectionResponseWithTotalDomain, *http.Response, error) {
-	return r.ApiService.GetCmsV3DomainsGetPageExecute(r)
+func (r ApiGetPageRequest) Execute() (*CollectionResponseWithTotalDomain, *http.Response, error) {
+	return r.ApiService.GetPageExecute(r)
 }
 
 /*
-GetCmsV3DomainsGetPage Get current domains
+GetPage Get current domains
 
 Returns all existing domains that have been created. Results can be limited and filtered by creation or updated date.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetCmsV3DomainsGetPageRequest
+ @return ApiGetPageRequest
 */
-func (a *DomainsApiService) GetCmsV3DomainsGetPage(ctx context.Context) ApiGetCmsV3DomainsGetPageRequest {
-	return ApiGetCmsV3DomainsGetPageRequest{
+func (a *DomainsApiService) GetPage(ctx context.Context) ApiGetPageRequest {
+	return ApiGetPageRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -262,7 +262,7 @@ func (a *DomainsApiService) GetCmsV3DomainsGetPage(ctx context.Context) ApiGetCm
 
 // Execute executes the request
 //  @return CollectionResponseWithTotalDomain
-func (a *DomainsApiService) GetCmsV3DomainsGetPageExecute(r ApiGetCmsV3DomainsGetPageRequest) (*CollectionResponseWithTotalDomain, *http.Response, error) {
+func (a *DomainsApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionResponseWithTotalDomain, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -270,7 +270,7 @@ func (a *DomainsApiService) GetCmsV3DomainsGetPageExecute(r ApiGetCmsV3DomainsGe
 		localVarReturnValue *CollectionResponseWithTotalDomain
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DomainsApiService.GetCmsV3DomainsGetPage")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DomainsApiService.GetPage")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

@@ -4,14 +4,14 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetCmsV3PerformanceGetPage**](PublicPerformanceApi.md#GetCmsV3PerformanceGetPage) | **Get** /cms/v3/performance/ | View your website&#39;s performance.
-[**GetCmsV3PerformanceUptimeGetUptime**](PublicPerformanceApi.md#GetCmsV3PerformanceUptimeGetUptime) | **Get** /cms/v3/performance/uptime | View your website&#39;s uptime.
+[**GetPage**](PublicPerformanceApi.md#GetPage) | **Get** /cms/v3/performance/ | View your website&#39;s performance.
+[**GetUptime**](PublicPerformanceApi.md#GetUptime) | **Get** /cms/v3/performance/uptime | View your website&#39;s uptime.
 
 
 
-## GetCmsV3PerformanceGetPage
+## GetPage
 
-> PublicPerformanceResponse GetCmsV3PerformanceGetPage(ctx).Domain(domain).Path(path).Pad(pad).Sum(sum).Period(period).Interval(interval).Start(start).End(end).Execute()
+> PublicPerformanceResponse GetPage(ctx).Domain(domain).Path(path).Pad(pad).Sum(sum).Period(period).Interval(interval).Start(start).End(end).Execute()
 
 View your website's performance.
 
@@ -41,13 +41,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PublicPerformanceApi.GetCmsV3PerformanceGetPage(context.Background()).Domain(domain).Path(path).Pad(pad).Sum(sum).Period(period).Interval(interval).Start(start).End(end).Execute()
+    resp, r, err := apiClient.PublicPerformanceApi.GetPage(context.Background()).Domain(domain).Path(path).Pad(pad).Sum(sum).Period(period).Interval(interval).Start(start).End(end).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PublicPerformanceApi.GetCmsV3PerformanceGetPage``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `PublicPerformanceApi.GetPage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetCmsV3PerformanceGetPage`: PublicPerformanceResponse
-    fmt.Fprintf(os.Stdout, "Response from `PublicPerformanceApi.GetCmsV3PerformanceGetPage`: %v\n", resp)
+    // response from `GetPage`: PublicPerformanceResponse
+    fmt.Fprintf(os.Stdout, "Response from `PublicPerformanceApi.GetPage`: %v\n", resp)
 }
 ```
 
@@ -57,7 +57,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetCmsV3PerformanceGetPageRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetPageRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -89,9 +89,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetCmsV3PerformanceUptimeGetUptime
+## GetUptime
 
-> PublicPerformanceResponse GetCmsV3PerformanceUptimeGetUptime(ctx).Domain(domain).Path(path).Pad(pad).Sum(sum).Period(period).Interval(interval).Start(start).End(end).Execute()
+> PublicPerformanceResponse GetUptime(ctx).Domain(domain).Path(path).Pad(pad).Sum(sum).Period(period).Interval(interval).Start(start).End(end).Execute()
 
 View your website's uptime.
 
@@ -121,13 +121,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PublicPerformanceApi.GetCmsV3PerformanceUptimeGetUptime(context.Background()).Domain(domain).Path(path).Pad(pad).Sum(sum).Period(period).Interval(interval).Start(start).End(end).Execute()
+    resp, r, err := apiClient.PublicPerformanceApi.GetUptime(context.Background()).Domain(domain).Path(path).Pad(pad).Sum(sum).Period(period).Interval(interval).Start(start).End(end).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PublicPerformanceApi.GetCmsV3PerformanceUptimeGetUptime``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `PublicPerformanceApi.GetUptime``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetCmsV3PerformanceUptimeGetUptime`: PublicPerformanceResponse
-    fmt.Fprintf(os.Stdout, "Response from `PublicPerformanceApi.GetCmsV3PerformanceUptimeGetUptime`: %v\n", resp)
+    // response from `GetUptime`: PublicPerformanceResponse
+    fmt.Fprintf(os.Stdout, "Response from `PublicPerformanceApi.GetUptime`: %v\n", resp)
 }
 ```
 
@@ -137,7 +137,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetCmsV3PerformanceUptimeGetUptimeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetUptimeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

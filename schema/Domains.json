@@ -17,7 +17,7 @@
         "tags" : [ "Domains" ],
         "summary" : "Get current domains",
         "description" : "Returns all existing domains that have been created. Results can be limited and filtered by creation or updated date.",
-        "operationId" : "get-/cms/v3/domains/_getPage",
+        "operationId" : "GetPage",
         "parameters" : [ {
           "name" : "createdAt",
           "in" : "query",
@@ -220,7 +220,7 @@
         "tags" : [ "Domains" ],
         "summary" : "Get a single domain",
         "description" : "Returns a single domains with the id specified.",
-        "operationId" : "get-/cms/v3/domains/{domainId}_getById",
+        "operationId" : "GetByID",
         "parameters" : [ {
           "name" : "domainId",
           "in" : "path",

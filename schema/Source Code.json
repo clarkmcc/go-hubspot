@@ -26,7 +26,7 @@
     "/cms/v3/source-code/extract/async" : {
       "post" : {
         "tags" : [ "Source_Code_Extract" ],
-        "operationId" : "post-/cms/v3/source-code/extract/async_doAsync",
+        "operationId" : "ExtractAsync",
         "requestBody" : {
           "content" : {
             "*/*" : {
@@ -62,7 +62,7 @@
     "/cms/v3/source-code/extract/async/tasks/{taskId}/status" : {
       "get" : {
         "tags" : [ "Source_Code_Extract" ],
-        "operationId" : "get-/cms/v3/source-code/extract/async/tasks/{taskId}/status_getAsyncStatus",
+        "operationId" : "ExtractGetAsyncStatus",
         "parameters" : [ {
           "name" : "taskId",
           "in" : "path",
@@ -101,7 +101,7 @@
         "tags" : [ "Extract" ],
         "summary" : "Extracts a zip file",
         "description" : "Extracts a zip file in the file system. The zip file will be extracted in-place and not be deleted automatically.",
-        "operationId" : "post-/cms/v3/source-code/extract/{path}_extractByPath",
+        "operationId" : "ExtractByPath",
         "parameters" : [ {
           "name" : "path",
           "in" : "path",
@@ -136,7 +136,7 @@
         "tags" : [ "Content" ],
         "summary" : "Download a file",
         "description" : "Downloads the byte contents of the file at the specified path in the specified environment.",
-        "operationId" : "get-/cms/v3/source-code/{environment}/content/{path}_get",
+        "operationId" : "ContentGet",
         "parameters" : [ {
           "name" : "environment",
           "in" : "path",
@@ -175,7 +175,7 @@
         "tags" : [ "Content" ],
         "summary" : "Create or update a file",
         "description" : "Upserts a file at the specified path in the specified environment. Accepts multipart/form-data content type.",
-        "operationId" : "put-/cms/v3/source-code/{environment}/content/{path}_replace",
+        "operationId" : "ContentReplace",
         "parameters" : [ {
           "name" : "environment",
           "in" : "path",
@@ -248,7 +248,7 @@
         "tags" : [ "Content" ],
         "summary" : "Create a file",
         "description" : "Creates a file at the specified path in the specified environment. Accepts multipart/form-data content type. Throws an error if a file already exists at the specified path.",
-        "operationId" : "post-/cms/v3/source-code/{environment}/content/{path}_create",
+        "operationId" : "ContentCreate",
         "parameters" : [ {
           "name" : "environment",
           "in" : "path",
@@ -322,7 +322,7 @@
         "tags" : [ "Content" ],
         "summary" : "Delete a file",
         "description" : "Deletes the file at the specified path in the specified environment.",
-        "operationId" : "delete-/cms/v3/source-code/{environment}/content/{path}_archive",
+        "operationId" : "ContentArchive",
         "parameters" : [ {
           "name" : "environment",
           "in" : "path",
@@ -367,7 +367,7 @@
         "tags" : [ "Metadata" ],
         "summary" : "Get the metadata for a file",
         "description" : "Gets the metadata object for the file at the specified path in the specified environment.",
-        "operationId" : "get-/cms/v3/source-code/{environment}/metadata/{path}_get",
+        "operationId" : "MetadataGet",
         "parameters" : [ {
           "name" : "environment",
           "in" : "path",
@@ -427,7 +427,7 @@
         "tags" : [ "Validation" ],
         "summary" : "Validate the contents of a file",
         "description" : "Validates the file contents passed to the endpoint given a specified path and environment. Accepts multipart/form-data content type.",
-        "operationId" : "post-/cms/v3/source-code/{environment}/validate/{path}_doValidate",
+        "operationId" : "Validate",
         "parameters" : [ {
           "name" : "path",
           "in" : "path",

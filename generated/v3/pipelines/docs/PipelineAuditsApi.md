@@ -4,13 +4,13 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetCrmV3PipelinesObjectTypePipelineIdAuditGetAudit**](PipelineAuditsApi.md#GetCrmV3PipelinesObjectTypePipelineIdAuditGetAudit) | **Get** /crm/v3/pipelines/{objectType}/{pipelineId}/audit | Return an audit of all changes to the pipeline
+[**GetAudit**](PipelineAuditsApi.md#GetAudit) | **Get** /crm/v3/pipelines/{objectType}/{pipelineId}/audit | Return an audit of all changes to the pipeline
 
 
 
-## GetCrmV3PipelinesObjectTypePipelineIdAuditGetAudit
+## GetAudit
 
-> CollectionResponsePublicAuditInfoNoPaging GetCrmV3PipelinesObjectTypePipelineIdAuditGetAudit(ctx, objectType, pipelineId).Execute()
+> CollectionResponsePublicAuditInfoNoPaging GetAudit(ctx, objectType, pipelineId).Execute()
 
 Return an audit of all changes to the pipeline
 
@@ -34,13 +34,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PipelineAuditsApi.GetCrmV3PipelinesObjectTypePipelineIdAuditGetAudit(context.Background(), objectType, pipelineId).Execute()
+    resp, r, err := apiClient.PipelineAuditsApi.GetAudit(context.Background(), objectType, pipelineId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PipelineAuditsApi.GetCrmV3PipelinesObjectTypePipelineIdAuditGetAudit``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `PipelineAuditsApi.GetAudit``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetCrmV3PipelinesObjectTypePipelineIdAuditGetAudit`: CollectionResponsePublicAuditInfoNoPaging
-    fmt.Fprintf(os.Stdout, "Response from `PipelineAuditsApi.GetCrmV3PipelinesObjectTypePipelineIdAuditGetAudit`: %v\n", resp)
+    // response from `GetAudit`: CollectionResponsePublicAuditInfoNoPaging
+    fmt.Fprintf(os.Stdout, "Response from `PipelineAuditsApi.GetAudit`: %v\n", resp)
 }
 ```
 
@@ -55,7 +55,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetCrmV3PipelinesObjectTypePipelineIdAuditGetAuditRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAuditRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

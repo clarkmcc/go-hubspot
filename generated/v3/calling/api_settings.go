@@ -22,27 +22,27 @@ import (
 // SettingsApiService SettingsApi service
 type SettingsApiService service
 
-type ApiDeleteCrmV3ExtensionsCallingAppIdSettingsArchiveRequest struct {
+type ApiArchiveRequest struct {
 	ctx        context.Context
 	ApiService *SettingsApiService
 	appId      int32
 }
 
-func (r ApiDeleteCrmV3ExtensionsCallingAppIdSettingsArchiveRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteCrmV3ExtensionsCallingAppIdSettingsArchiveExecute(r)
+func (r ApiArchiveRequest) Execute() (*http.Response, error) {
+	return r.ApiService.ArchiveExecute(r)
 }
 
 /*
-DeleteCrmV3ExtensionsCallingAppIdSettingsArchive Delete calling settings
+Archive Delete calling settings
 
 Deletes this calling extension. This will remove your service as an option for all connected accounts.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param appId The ID of the target app.
- @return ApiDeleteCrmV3ExtensionsCallingAppIdSettingsArchiveRequest
+ @return ApiArchiveRequest
 */
-func (a *SettingsApiService) DeleteCrmV3ExtensionsCallingAppIdSettingsArchive(ctx context.Context, appId int32) ApiDeleteCrmV3ExtensionsCallingAppIdSettingsArchiveRequest {
-	return ApiDeleteCrmV3ExtensionsCallingAppIdSettingsArchiveRequest{
+func (a *SettingsApiService) Archive(ctx context.Context, appId int32) ApiArchiveRequest {
+	return ApiArchiveRequest{
 		ApiService: a,
 		ctx:        ctx,
 		appId:      appId,
@@ -50,14 +50,14 @@ func (a *SettingsApiService) DeleteCrmV3ExtensionsCallingAppIdSettingsArchive(ct
 }
 
 // Execute executes the request
-func (a *SettingsApiService) DeleteCrmV3ExtensionsCallingAppIdSettingsArchiveExecute(r ApiDeleteCrmV3ExtensionsCallingAppIdSettingsArchiveRequest) (*http.Response, error) {
+func (a *SettingsApiService) ArchiveExecute(r ApiArchiveRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsApiService.DeleteCrmV3ExtensionsCallingAppIdSettingsArchive")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsApiService.Archive")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -135,27 +135,34 @@ func (a *SettingsApiService) DeleteCrmV3ExtensionsCallingAppIdSettingsArchiveExe
 	return localVarHTTPResponse, nil
 }
 
-type ApiGetCrmV3ExtensionsCallingAppIdSettingsGetByIdRequest struct {
-	ctx        context.Context
-	ApiService *SettingsApiService
-	appId      int32
+type ApiCreateRequest struct {
+	ctx             context.Context
+	ApiService      *SettingsApiService
+	appId           int32
+	settingsRequest *SettingsRequest
 }
 
-func (r ApiGetCrmV3ExtensionsCallingAppIdSettingsGetByIdRequest) Execute() (*SettingsResponse, *http.Response, error) {
-	return r.ApiService.GetCrmV3ExtensionsCallingAppIdSettingsGetByIdExecute(r)
+// Settings state to create with.
+func (r ApiCreateRequest) SettingsRequest(settingsRequest SettingsRequest) ApiCreateRequest {
+	r.settingsRequest = &settingsRequest
+	return r
+}
+
+func (r ApiCreateRequest) Execute() (*SettingsResponse, *http.Response, error) {
+	return r.ApiService.CreateExecute(r)
 }
 
 /*
-GetCrmV3ExtensionsCallingAppIdSettingsGetById Get calling settings
+Create Configure a calling extension
 
-Returns the calling extension settings configured for your app.
+Used to set the menu label, target iframe URL, and dimensions for your calling extension.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param appId The ID of the target app.
- @return ApiGetCrmV3ExtensionsCallingAppIdSettingsGetByIdRequest
+ @return ApiCreateRequest
 */
-func (a *SettingsApiService) GetCrmV3ExtensionsCallingAppIdSettingsGetById(ctx context.Context, appId int32) ApiGetCrmV3ExtensionsCallingAppIdSettingsGetByIdRequest {
-	return ApiGetCrmV3ExtensionsCallingAppIdSettingsGetByIdRequest{
+func (a *SettingsApiService) Create(ctx context.Context, appId int32) ApiCreateRequest {
+	return ApiCreateRequest{
 		ApiService: a,
 		ctx:        ctx,
 		appId:      appId,
@@ -164,7 +171,136 @@ func (a *SettingsApiService) GetCrmV3ExtensionsCallingAppIdSettingsGetById(ctx c
 
 // Execute executes the request
 //  @return SettingsResponse
-func (a *SettingsApiService) GetCrmV3ExtensionsCallingAppIdSettingsGetByIdExecute(r ApiGetCrmV3ExtensionsCallingAppIdSettingsGetByIdRequest) (*SettingsResponse, *http.Response, error) {
+func (a *SettingsApiService) CreateExecute(r ApiCreateRequest) (*SettingsResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SettingsResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsApiService.Create")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/crm/v3/extensions/calling/{appId}/settings"
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.settingsRequest == nil {
+		return localVarReturnValue, nil, reportError("settingsRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "*/*"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.settingsRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["developer_hapikey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarQueryParams.Add("hapikey", key)
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetByIDRequest struct {
+	ctx        context.Context
+	ApiService *SettingsApiService
+	appId      int32
+}
+
+func (r ApiGetByIDRequest) Execute() (*SettingsResponse, *http.Response, error) {
+	return r.ApiService.GetByIDExecute(r)
+}
+
+/*
+GetByID Get calling settings
+
+Returns the calling extension settings configured for your app.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param appId The ID of the target app.
+ @return ApiGetByIDRequest
+*/
+func (a *SettingsApiService) GetByID(ctx context.Context, appId int32) ApiGetByIDRequest {
+	return ApiGetByIDRequest{
+		ApiService: a,
+		ctx:        ctx,
+		appId:      appId,
+	}
+}
+
+// Execute executes the request
+//  @return SettingsResponse
+func (a *SettingsApiService) GetByIDExecute(r ApiGetByIDRequest) (*SettingsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -172,7 +308,7 @@ func (a *SettingsApiService) GetCrmV3ExtensionsCallingAppIdSettingsGetByIdExecut
 		localVarReturnValue *SettingsResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsApiService.GetCrmV3ExtensionsCallingAppIdSettingsGetById")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsApiService.GetByID")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -259,7 +395,7 @@ func (a *SettingsApiService) GetCrmV3ExtensionsCallingAppIdSettingsGetByIdExecut
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPatchCrmV3ExtensionsCallingAppIdSettingsUpdateRequest struct {
+type ApiUpdateRequest struct {
 	ctx                  context.Context
 	ApiService           *SettingsApiService
 	appId                int32
@@ -267,26 +403,26 @@ type ApiPatchCrmV3ExtensionsCallingAppIdSettingsUpdateRequest struct {
 }
 
 // Updated details for the settings.
-func (r ApiPatchCrmV3ExtensionsCallingAppIdSettingsUpdateRequest) SettingsPatchRequest(settingsPatchRequest SettingsPatchRequest) ApiPatchCrmV3ExtensionsCallingAppIdSettingsUpdateRequest {
+func (r ApiUpdateRequest) SettingsPatchRequest(settingsPatchRequest SettingsPatchRequest) ApiUpdateRequest {
 	r.settingsPatchRequest = &settingsPatchRequest
 	return r
 }
 
-func (r ApiPatchCrmV3ExtensionsCallingAppIdSettingsUpdateRequest) Execute() (*SettingsResponse, *http.Response, error) {
-	return r.ApiService.PatchCrmV3ExtensionsCallingAppIdSettingsUpdateExecute(r)
+func (r ApiUpdateRequest) Execute() (*SettingsResponse, *http.Response, error) {
+	return r.ApiService.UpdateExecute(r)
 }
 
 /*
-PatchCrmV3ExtensionsCallingAppIdSettingsUpdate Update settings
+Update Update settings
 
 Updates existing calling extension settings.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param appId The ID of the target app.
- @return ApiPatchCrmV3ExtensionsCallingAppIdSettingsUpdateRequest
+ @return ApiUpdateRequest
 */
-func (a *SettingsApiService) PatchCrmV3ExtensionsCallingAppIdSettingsUpdate(ctx context.Context, appId int32) ApiPatchCrmV3ExtensionsCallingAppIdSettingsUpdateRequest {
-	return ApiPatchCrmV3ExtensionsCallingAppIdSettingsUpdateRequest{
+func (a *SettingsApiService) Update(ctx context.Context, appId int32) ApiUpdateRequest {
+	return ApiUpdateRequest{
 		ApiService: a,
 		ctx:        ctx,
 		appId:      appId,
@@ -295,7 +431,7 @@ func (a *SettingsApiService) PatchCrmV3ExtensionsCallingAppIdSettingsUpdate(ctx 
 
 // Execute executes the request
 //  @return SettingsResponse
-func (a *SettingsApiService) PatchCrmV3ExtensionsCallingAppIdSettingsUpdateExecute(r ApiPatchCrmV3ExtensionsCallingAppIdSettingsUpdateRequest) (*SettingsResponse, *http.Response, error) {
+func (a *SettingsApiService) UpdateExecute(r ApiUpdateRequest) (*SettingsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
 		localVarPostBody    interface{}
@@ -303,7 +439,7 @@ func (a *SettingsApiService) PatchCrmV3ExtensionsCallingAppIdSettingsUpdateExecu
 		localVarReturnValue *SettingsResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsApiService.PatchCrmV3ExtensionsCallingAppIdSettingsUpdate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsApiService.Update")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -337,142 +473,6 @@ func (a *SettingsApiService) PatchCrmV3ExtensionsCallingAppIdSettingsUpdateExecu
 	}
 	// body params
 	localVarPostBody = r.settingsPatchRequest
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["developer_hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		var v Error
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiPostCrmV3ExtensionsCallingAppIdSettingsCreateRequest struct {
-	ctx             context.Context
-	ApiService      *SettingsApiService
-	appId           int32
-	settingsRequest *SettingsRequest
-}
-
-// Settings state to create with.
-func (r ApiPostCrmV3ExtensionsCallingAppIdSettingsCreateRequest) SettingsRequest(settingsRequest SettingsRequest) ApiPostCrmV3ExtensionsCallingAppIdSettingsCreateRequest {
-	r.settingsRequest = &settingsRequest
-	return r
-}
-
-func (r ApiPostCrmV3ExtensionsCallingAppIdSettingsCreateRequest) Execute() (*SettingsResponse, *http.Response, error) {
-	return r.ApiService.PostCrmV3ExtensionsCallingAppIdSettingsCreateExecute(r)
-}
-
-/*
-PostCrmV3ExtensionsCallingAppIdSettingsCreate Configure a calling extension
-
-Used to set the menu label, target iframe URL, and dimensions for your calling extension.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId The ID of the target app.
- @return ApiPostCrmV3ExtensionsCallingAppIdSettingsCreateRequest
-*/
-func (a *SettingsApiService) PostCrmV3ExtensionsCallingAppIdSettingsCreate(ctx context.Context, appId int32) ApiPostCrmV3ExtensionsCallingAppIdSettingsCreateRequest {
-	return ApiPostCrmV3ExtensionsCallingAppIdSettingsCreateRequest{
-		ApiService: a,
-		ctx:        ctx,
-		appId:      appId,
-	}
-}
-
-// Execute executes the request
-//  @return SettingsResponse
-func (a *SettingsApiService) PostCrmV3ExtensionsCallingAppIdSettingsCreateExecute(r ApiPostCrmV3ExtensionsCallingAppIdSettingsCreateRequest) (*SettingsResponse, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *SettingsResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsApiService.PostCrmV3ExtensionsCallingAppIdSettingsCreate")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/crm/v3/extensions/calling/{appId}/settings"
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.settingsRequest == nil {
-		return localVarReturnValue, nil, reportError("settingsRequest is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "*/*"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.settingsRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {

@@ -78,10 +78,10 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*BatchApi* | [**PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchive**](docs/BatchApi.md#postcrmv3associationsfromobjecttypetoobjecttypebatcharchivearchive) | **Post** /crm/v3/associations/{fromObjectType}/{toObjectType}/batch/archive | Archive a batch of associations
-*BatchApi* | [**PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreate**](docs/BatchApi.md#postcrmv3associationsfromobjecttypetoobjecttypebatchcreatecreate) | **Post** /crm/v3/associations/{fromObjectType}/{toObjectType}/batch/create | Create a batch of associations
-*BatchApi* | [**PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadRead**](docs/BatchApi.md#postcrmv3associationsfromobjecttypetoobjecttypebatchreadread) | **Post** /crm/v3/associations/{fromObjectType}/{toObjectType}/batch/read | Read a batch of associations
-*TypesApi* | [**GetCrmV3AssociationsFromObjectTypeToObjectTypeTypesGetAll**](docs/TypesApi.md#getcrmv3associationsfromobjecttypetoobjecttypetypesgetall) | **Get** /crm/v3/associations/{fromObjectType}/{toObjectType}/types | List association types
+*BatchApi* | [**BatchArchive**](docs/BatchApi.md#batcharchive) | **Post** /crm/v3/associations/{fromObjectType}/{toObjectType}/batch/archive | Archive a batch of associations
+*BatchApi* | [**BatchCreate**](docs/BatchApi.md#batchcreate) | **Post** /crm/v3/associations/{fromObjectType}/{toObjectType}/batch/create | Create a batch of associations
+*BatchApi* | [**BatchRead**](docs/BatchApi.md#batchread) | **Post** /crm/v3/associations/{fromObjectType}/{toObjectType}/batch/read | Read a batch of associations
+*TypesApi* | [**GetAll**](docs/TypesApi.md#getall) | **Get** /crm/v3/associations/{fromObjectType}/{toObjectType}/types | List association types
 
 
 ## Documentation For Models

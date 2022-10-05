@@ -441,7 +441,7 @@
         "tags" : [ "Basic" ],
         "summary" : "Read",
         "description" : "Read an Object identified by `{companyId}`. `{companyId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.",
-        "operationId" : "Get",
+        "operationId" : "GetByID",
         "parameters" : [ {
           "name" : "companyId",
           "in" : "path",
@@ -630,7 +630,7 @@
       "get" : {
         "tags" : [ "Associations" ],
         "summary" : "List associations of a company by type",
-        "operationId" : "AssociationsGet",
+        "operationId" : "AssociationsGetAll",
         "parameters" : [ {
           "name" : "companyId",
           "in" : "path",

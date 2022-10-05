@@ -78,20 +78,20 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*AssociationsApi* | [**DeleteCrmV3ObjectsLineItemsLineItemIdAssociationsToObjectTypeToObjectIdAssociationTypeArchive**](docs/AssociationsApi.md#deletecrmv3objectslineitemslineitemidassociationstoobjecttypetoobjectidassociationtypearchive) | **Delete** /crm/v3/objects/line_items/{lineItemId}/associations/{toObjectType}/{toObjectId}/{associationType} | Remove an association between two line items
-*AssociationsApi* | [**GetCrmV3ObjectsLineItemsLineItemIdAssociationsToObjectTypeGetAll**](docs/AssociationsApi.md#getcrmv3objectslineitemslineitemidassociationstoobjecttypegetall) | **Get** /crm/v3/objects/line_items/{lineItemId}/associations/{toObjectType} | List associations of a line item by type
-*AssociationsApi* | [**PutCrmV3ObjectsLineItemsLineItemIdAssociationsToObjectTypeToObjectIdAssociationTypeCreate**](docs/AssociationsApi.md#putcrmv3objectslineitemslineitemidassociationstoobjecttypetoobjectidassociationtypecreate) | **Put** /crm/v3/objects/line_items/{lineItemId}/associations/{toObjectType}/{toObjectId}/{associationType} | Associate a line item with another object
-*BasicApi* | [**DeleteCrmV3ObjectsLineItemsLineItemIdArchive**](docs/BasicApi.md#deletecrmv3objectslineitemslineitemidarchive) | **Delete** /crm/v3/objects/line_items/{lineItemId} | Archive
-*BasicApi* | [**GetCrmV3ObjectsLineItemsGetPage**](docs/BasicApi.md#getcrmv3objectslineitemsgetpage) | **Get** /crm/v3/objects/line_items | List
-*BasicApi* | [**GetCrmV3ObjectsLineItemsLineItemIdGetById**](docs/BasicApi.md#getcrmv3objectslineitemslineitemidgetbyid) | **Get** /crm/v3/objects/line_items/{lineItemId} | Read
-*BasicApi* | [**PatchCrmV3ObjectsLineItemsLineItemIdUpdate**](docs/BasicApi.md#patchcrmv3objectslineitemslineitemidupdate) | **Patch** /crm/v3/objects/line_items/{lineItemId} | Update
-*BasicApi* | [**PostCrmV3ObjectsLineItemsCreate**](docs/BasicApi.md#postcrmv3objectslineitemscreate) | **Post** /crm/v3/objects/line_items | Create
-*BatchApi* | [**PostCrmV3ObjectsLineItemsBatchArchiveArchive**](docs/BatchApi.md#postcrmv3objectslineitemsbatcharchivearchive) | **Post** /crm/v3/objects/line_items/batch/archive | Archive a batch of line items by ID
-*BatchApi* | [**PostCrmV3ObjectsLineItemsBatchCreateCreate**](docs/BatchApi.md#postcrmv3objectslineitemsbatchcreatecreate) | **Post** /crm/v3/objects/line_items/batch/create | Create a batch of line items
-*BatchApi* | [**PostCrmV3ObjectsLineItemsBatchReadRead**](docs/BatchApi.md#postcrmv3objectslineitemsbatchreadread) | **Post** /crm/v3/objects/line_items/batch/read | Read a batch of line items by internal ID, or unique property values
-*BatchApi* | [**PostCrmV3ObjectsLineItemsBatchUpdateUpdate**](docs/BatchApi.md#postcrmv3objectslineitemsbatchupdateupdate) | **Post** /crm/v3/objects/line_items/batch/update | Update a batch of line items
-*PublicObjectApi* | [**PostCrmV3ObjectsLineItemsMergeMerge**](docs/PublicObjectApi.md#postcrmv3objectslineitemsmergemerge) | **Post** /crm/v3/objects/line_items/merge | Merge two line items with same type
-*SearchApi* | [**PostCrmV3ObjectsLineItemsSearchDoSearch**](docs/SearchApi.md#postcrmv3objectslineitemssearchdosearch) | **Post** /crm/v3/objects/line_items/search | 
+*AssociationsApi* | [**AssociationsArchive**](docs/AssociationsApi.md#associationsarchive) | **Delete** /crm/v3/objects/line_items/{lineItemId}/associations/{toObjectType}/{toObjectId}/{associationType} | Remove an association between two line items
+*AssociationsApi* | [**AssociationsCreate**](docs/AssociationsApi.md#associationscreate) | **Put** /crm/v3/objects/line_items/{lineItemId}/associations/{toObjectType}/{toObjectId}/{associationType} | Associate a line item with another object
+*AssociationsApi* | [**AssociationsGetAll**](docs/AssociationsApi.md#associationsgetall) | **Get** /crm/v3/objects/line_items/{lineItemId}/associations/{toObjectType} | List associations of a line item by type
+*BasicApi* | [**Archive**](docs/BasicApi.md#archive) | **Delete** /crm/v3/objects/line_items/{lineItemId} | Archive
+*BasicApi* | [**Create**](docs/BasicApi.md#create) | **Post** /crm/v3/objects/line_items | Create
+*BasicApi* | [**GetByID**](docs/BasicApi.md#getbyid) | **Get** /crm/v3/objects/line_items/{lineItemId} | Read
+*BasicApi* | [**GetPage**](docs/BasicApi.md#getpage) | **Get** /crm/v3/objects/line_items | List
+*BasicApi* | [**Update**](docs/BasicApi.md#update) | **Patch** /crm/v3/objects/line_items/{lineItemId} | Update
+*BatchApi* | [**BatchArchive**](docs/BatchApi.md#batcharchive) | **Post** /crm/v3/objects/line_items/batch/archive | Archive a batch of line items by ID
+*BatchApi* | [**BatchCreate**](docs/BatchApi.md#batchcreate) | **Post** /crm/v3/objects/line_items/batch/create | Create a batch of line items
+*BatchApi* | [**BatchRead**](docs/BatchApi.md#batchread) | **Post** /crm/v3/objects/line_items/batch/read | Read a batch of line items by internal ID, or unique property values
+*BatchApi* | [**BatchUpdate**](docs/BatchApi.md#batchupdate) | **Post** /crm/v3/objects/line_items/batch/update | Update a batch of line items
+*PublicObjectApi* | [**Merge**](docs/PublicObjectApi.md#merge) | **Post** /crm/v3/objects/line_items/merge | Merge two line items with same type
+*SearchApi* | [**Search**](docs/SearchApi.md#search) | **Post** /crm/v3/objects/line_items/search | 
 
 
 ## Documentation For Models

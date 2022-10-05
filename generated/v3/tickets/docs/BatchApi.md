@@ -4,16 +4,16 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**PostCrmV3ObjectsTicketsBatchArchiveArchive**](BatchApi.md#PostCrmV3ObjectsTicketsBatchArchiveArchive) | **Post** /crm/v3/objects/tickets/batch/archive | Archive a batch of tickets by ID
-[**PostCrmV3ObjectsTicketsBatchCreateCreate**](BatchApi.md#PostCrmV3ObjectsTicketsBatchCreateCreate) | **Post** /crm/v3/objects/tickets/batch/create | Create a batch of tickets
-[**PostCrmV3ObjectsTicketsBatchReadRead**](BatchApi.md#PostCrmV3ObjectsTicketsBatchReadRead) | **Post** /crm/v3/objects/tickets/batch/read | Read a batch of tickets by internal ID, or unique property values
-[**PostCrmV3ObjectsTicketsBatchUpdateUpdate**](BatchApi.md#PostCrmV3ObjectsTicketsBatchUpdateUpdate) | **Post** /crm/v3/objects/tickets/batch/update | Update a batch of tickets
+[**BatchArchive**](BatchApi.md#BatchArchive) | **Post** /crm/v3/objects/tickets/batch/archive | Archive a batch of tickets by ID
+[**BatchCreate**](BatchApi.md#BatchCreate) | **Post** /crm/v3/objects/tickets/batch/create | Create a batch of tickets
+[**BatchRead**](BatchApi.md#BatchRead) | **Post** /crm/v3/objects/tickets/batch/read | Read a batch of tickets by internal ID, or unique property values
+[**BatchUpdate**](BatchApi.md#BatchUpdate) | **Post** /crm/v3/objects/tickets/batch/update | Update a batch of tickets
 
 
 
-## PostCrmV3ObjectsTicketsBatchArchiveArchive
+## BatchArchive
 
-> PostCrmV3ObjectsTicketsBatchArchiveArchive(ctx).BatchInputSimplePublicObjectId(batchInputSimplePublicObjectId).Execute()
+> BatchArchive(ctx).BatchInputSimplePublicObjectId(batchInputSimplePublicObjectId).Execute()
 
 Archive a batch of tickets by ID
 
@@ -34,9 +34,9 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BatchApi.PostCrmV3ObjectsTicketsBatchArchiveArchive(context.Background()).BatchInputSimplePublicObjectId(batchInputSimplePublicObjectId).Execute()
+    resp, r, err := apiClient.BatchApi.BatchArchive(context.Background()).BatchInputSimplePublicObjectId(batchInputSimplePublicObjectId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.PostCrmV3ObjectsTicketsBatchArchiveArchive``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.BatchArchive``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -48,7 +48,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCrmV3ObjectsTicketsBatchArchiveArchiveRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiBatchArchiveRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -73,9 +73,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostCrmV3ObjectsTicketsBatchCreateCreate
+## BatchCreate
 
-> BatchResponseSimplePublicObject PostCrmV3ObjectsTicketsBatchCreateCreate(ctx).BatchInputSimplePublicObjectInput(batchInputSimplePublicObjectInput).Execute()
+> BatchResponseSimplePublicObject BatchCreate(ctx).BatchInputSimplePublicObjectInput(batchInputSimplePublicObjectInput).Execute()
 
 Create a batch of tickets
 
@@ -96,13 +96,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BatchApi.PostCrmV3ObjectsTicketsBatchCreateCreate(context.Background()).BatchInputSimplePublicObjectInput(batchInputSimplePublicObjectInput).Execute()
+    resp, r, err := apiClient.BatchApi.BatchCreate(context.Background()).BatchInputSimplePublicObjectInput(batchInputSimplePublicObjectInput).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.PostCrmV3ObjectsTicketsBatchCreateCreate``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.BatchCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostCrmV3ObjectsTicketsBatchCreateCreate`: BatchResponseSimplePublicObject
-    fmt.Fprintf(os.Stdout, "Response from `BatchApi.PostCrmV3ObjectsTicketsBatchCreateCreate`: %v\n", resp)
+    // response from `BatchCreate`: BatchResponseSimplePublicObject
+    fmt.Fprintf(os.Stdout, "Response from `BatchApi.BatchCreate`: %v\n", resp)
 }
 ```
 
@@ -112,7 +112,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCrmV3ObjectsTicketsBatchCreateCreateRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiBatchCreateRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -137,9 +137,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostCrmV3ObjectsTicketsBatchReadRead
+## BatchRead
 
-> BatchResponseSimplePublicObject PostCrmV3ObjectsTicketsBatchReadRead(ctx).BatchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId).Archived(archived).Execute()
+> BatchResponseSimplePublicObject BatchRead(ctx).BatchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId).Archived(archived).Execute()
 
 Read a batch of tickets by internal ID, or unique property values
 
@@ -161,13 +161,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BatchApi.PostCrmV3ObjectsTicketsBatchReadRead(context.Background()).BatchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId).Archived(archived).Execute()
+    resp, r, err := apiClient.BatchApi.BatchRead(context.Background()).BatchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId).Archived(archived).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.PostCrmV3ObjectsTicketsBatchReadRead``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.BatchRead``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostCrmV3ObjectsTicketsBatchReadRead`: BatchResponseSimplePublicObject
-    fmt.Fprintf(os.Stdout, "Response from `BatchApi.PostCrmV3ObjectsTicketsBatchReadRead`: %v\n", resp)
+    // response from `BatchRead`: BatchResponseSimplePublicObject
+    fmt.Fprintf(os.Stdout, "Response from `BatchApi.BatchRead`: %v\n", resp)
 }
 ```
 
@@ -177,7 +177,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCrmV3ObjectsTicketsBatchReadReadRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiBatchReadRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -203,9 +203,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostCrmV3ObjectsTicketsBatchUpdateUpdate
+## BatchUpdate
 
-> BatchResponseSimplePublicObject PostCrmV3ObjectsTicketsBatchUpdateUpdate(ctx).BatchInputSimplePublicObjectBatchInput(batchInputSimplePublicObjectBatchInput).Execute()
+> BatchResponseSimplePublicObject BatchUpdate(ctx).BatchInputSimplePublicObjectBatchInput(batchInputSimplePublicObjectBatchInput).Execute()
 
 Update a batch of tickets
 
@@ -226,13 +226,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BatchApi.PostCrmV3ObjectsTicketsBatchUpdateUpdate(context.Background()).BatchInputSimplePublicObjectBatchInput(batchInputSimplePublicObjectBatchInput).Execute()
+    resp, r, err := apiClient.BatchApi.BatchUpdate(context.Background()).BatchInputSimplePublicObjectBatchInput(batchInputSimplePublicObjectBatchInput).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.PostCrmV3ObjectsTicketsBatchUpdateUpdate``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.BatchUpdate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostCrmV3ObjectsTicketsBatchUpdateUpdate`: BatchResponseSimplePublicObject
-    fmt.Fprintf(os.Stdout, "Response from `BatchApi.PostCrmV3ObjectsTicketsBatchUpdateUpdate`: %v\n", resp)
+    // response from `BatchUpdate`: BatchResponseSimplePublicObject
+    fmt.Fprintf(os.Stdout, "Response from `BatchApi.BatchUpdate`: %v\n", resp)
 }
 ```
 
@@ -242,7 +242,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCrmV3ObjectsTicketsBatchUpdateUpdateRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiBatchUpdateRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

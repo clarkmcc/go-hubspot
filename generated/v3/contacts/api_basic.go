@@ -261,7 +261,7 @@ func (a *BasicApiService) CreateExecute(r ApiCreateRequest) (*SimplePublicObject
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetRequest struct {
+type ApiGetByIDRequest struct {
 	ctx                   context.Context
 	ApiService            *BasicApiService
 	contactId             string
@@ -272,44 +272,44 @@ type ApiGetRequest struct {
 }
 
 // A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
-func (r ApiGetRequest) Properties(properties []string) ApiGetRequest {
+func (r ApiGetByIDRequest) Properties(properties []string) ApiGetByIDRequest {
 	r.properties = &properties
 	return r
 }
 
 // A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored.
-func (r ApiGetRequest) PropertiesWithHistory(propertiesWithHistory []string) ApiGetRequest {
+func (r ApiGetByIDRequest) PropertiesWithHistory(propertiesWithHistory []string) ApiGetByIDRequest {
 	r.propertiesWithHistory = &propertiesWithHistory
 	return r
 }
 
 // A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
-func (r ApiGetRequest) Associations(associations []string) ApiGetRequest {
+func (r ApiGetByIDRequest) Associations(associations []string) ApiGetByIDRequest {
 	r.associations = &associations
 	return r
 }
 
 // Whether to return only results that have been archived.
-func (r ApiGetRequest) Archived(archived bool) ApiGetRequest {
+func (r ApiGetByIDRequest) Archived(archived bool) ApiGetByIDRequest {
 	r.archived = &archived
 	return r
 }
 
-func (r ApiGetRequest) Execute() (*SimplePublicObjectWithAssociations, *http.Response, error) {
-	return r.ApiService.GetExecute(r)
+func (r ApiGetByIDRequest) Execute() (*SimplePublicObjectWithAssociations, *http.Response, error) {
+	return r.ApiService.GetByIDExecute(r)
 }
 
 /*
-Get Read
+GetByID Read
 
 Read an Object identified by `{contactId}`. `{contactId}` refers to the internal object ID.  Control what is returned via the `properties` query param.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param contactId
- @return ApiGetRequest
+ @return ApiGetByIDRequest
 */
-func (a *BasicApiService) Get(ctx context.Context, contactId string) ApiGetRequest {
-	return ApiGetRequest{
+func (a *BasicApiService) GetByID(ctx context.Context, contactId string) ApiGetByIDRequest {
+	return ApiGetByIDRequest{
 		ApiService: a,
 		ctx:        ctx,
 		contactId:  contactId,
@@ -318,7 +318,7 @@ func (a *BasicApiService) Get(ctx context.Context, contactId string) ApiGetReque
 
 // Execute executes the request
 //  @return SimplePublicObjectWithAssociations
-func (a *BasicApiService) GetExecute(r ApiGetRequest) (*SimplePublicObjectWithAssociations, *http.Response, error) {
+func (a *BasicApiService) GetByIDExecute(r ApiGetByIDRequest) (*SimplePublicObjectWithAssociations, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -326,7 +326,7 @@ func (a *BasicApiService) GetExecute(r ApiGetRequest) (*SimplePublicObjectWithAs
 		localVarReturnValue *SimplePublicObjectWithAssociations
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.Get")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.GetByID")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

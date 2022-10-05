@@ -78,20 +78,20 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*AssociationsApi* | [**DeleteCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdAssociationsToObjectTypeToObjectIdAssociationTypeArchive**](docs/AssociationsApi.md#deletecrmv3objectsfeedbacksubmissionsfeedbacksubmissionidassociationstoobjecttypetoobjectidassociationtypearchive) | **Delete** /crm/v3/objects/feedback_submissions/{feedbackSubmissionId}/associations/{toObjectType}/{toObjectId}/{associationType} | Remove an association between two feedback submissions
-*AssociationsApi* | [**GetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdAssociationsToObjectTypeGetPage**](docs/AssociationsApi.md#getcrmv3objectsfeedbacksubmissionsfeedbacksubmissionidassociationstoobjecttypegetpage) | **Get** /crm/v3/objects/feedback_submissions/{feedbackSubmissionId}/associations/{toObjectType} | List associations of a feedback submission by type
-*AssociationsApi* | [**PutCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdAssociationsToObjectTypeToObjectIdAssociationTypeCreate**](docs/AssociationsApi.md#putcrmv3objectsfeedbacksubmissionsfeedbacksubmissionidassociationstoobjecttypetoobjectidassociationtypecreate) | **Put** /crm/v3/objects/feedback_submissions/{feedbackSubmissionId}/associations/{toObjectType}/{toObjectId}/{associationType} | Associate a feedback submission with another object
-*BasicApi* | [**DeleteCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdArchive**](docs/BasicApi.md#deletecrmv3objectsfeedbacksubmissionsfeedbacksubmissionidarchive) | **Delete** /crm/v3/objects/feedback_submissions/{feedbackSubmissionId} | Archive
-*BasicApi* | [**GetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdGetById**](docs/BasicApi.md#getcrmv3objectsfeedbacksubmissionsfeedbacksubmissionidgetbyid) | **Get** /crm/v3/objects/feedback_submissions/{feedbackSubmissionId} | Read
-*BasicApi* | [**GetCrmV3ObjectsFeedbackSubmissionsGetPage**](docs/BasicApi.md#getcrmv3objectsfeedbacksubmissionsgetpage) | **Get** /crm/v3/objects/feedback_submissions | List
-*BasicApi* | [**PatchCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdUpdate**](docs/BasicApi.md#patchcrmv3objectsfeedbacksubmissionsfeedbacksubmissionidupdate) | **Patch** /crm/v3/objects/feedback_submissions/{feedbackSubmissionId} | Update
-*BasicApi* | [**PostCrmV3ObjectsFeedbackSubmissionsCreate**](docs/BasicApi.md#postcrmv3objectsfeedbacksubmissionscreate) | **Post** /crm/v3/objects/feedback_submissions | Create
-*BatchApi* | [**PostCrmV3ObjectsFeedbackSubmissionsBatchArchiveArchive**](docs/BatchApi.md#postcrmv3objectsfeedbacksubmissionsbatcharchivearchive) | **Post** /crm/v3/objects/feedback_submissions/batch/archive | Archive a batch of feedback submissions by ID
-*BatchApi* | [**PostCrmV3ObjectsFeedbackSubmissionsBatchCreateCreate**](docs/BatchApi.md#postcrmv3objectsfeedbacksubmissionsbatchcreatecreate) | **Post** /crm/v3/objects/feedback_submissions/batch/create | Create a batch of feedback submissions
-*BatchApi* | [**PostCrmV3ObjectsFeedbackSubmissionsBatchReadRead**](docs/BatchApi.md#postcrmv3objectsfeedbacksubmissionsbatchreadread) | **Post** /crm/v3/objects/feedback_submissions/batch/read | Read a batch of feedback submissions by internal ID, or unique property values
-*BatchApi* | [**PostCrmV3ObjectsFeedbackSubmissionsBatchUpdateUpdate**](docs/BatchApi.md#postcrmv3objectsfeedbacksubmissionsbatchupdateupdate) | **Post** /crm/v3/objects/feedback_submissions/batch/update | Update a batch of feedback submissions
-*PublicObjectApi* | [**PostCrmV3ObjectsFeedbackSubmissionsMergeMerge**](docs/PublicObjectApi.md#postcrmv3objectsfeedbacksubmissionsmergemerge) | **Post** /crm/v3/objects/feedback_submissions/merge | Merge two feedback submissions with same type
-*SearchApi* | [**PostCrmV3ObjectsFeedbackSubmissionsSearchDoSearch**](docs/SearchApi.md#postcrmv3objectsfeedbacksubmissionssearchdosearch) | **Post** /crm/v3/objects/feedback_submissions/search | 
+*AssociationsApi* | [**AssociationsArchive**](docs/AssociationsApi.md#associationsarchive) | **Delete** /crm/v3/objects/feedback_submissions/{feedbackSubmissionId}/associations/{toObjectType}/{toObjectId}/{associationType} | Remove an association between two feedback submissions
+*AssociationsApi* | [**AssociationsCreate**](docs/AssociationsApi.md#associationscreate) | **Put** /crm/v3/objects/feedback_submissions/{feedbackSubmissionId}/associations/{toObjectType}/{toObjectId}/{associationType} | Associate a feedback submission with another object
+*AssociationsApi* | [**AssociationsGetPage**](docs/AssociationsApi.md#associationsgetpage) | **Get** /crm/v3/objects/feedback_submissions/{feedbackSubmissionId}/associations/{toObjectType} | List associations of a feedback submission by type
+*BasicApi* | [**Archive**](docs/BasicApi.md#archive) | **Delete** /crm/v3/objects/feedback_submissions/{feedbackSubmissionId} | Archive
+*BasicApi* | [**Create**](docs/BasicApi.md#create) | **Post** /crm/v3/objects/feedback_submissions | Create
+*BasicApi* | [**GetByID**](docs/BasicApi.md#getbyid) | **Get** /crm/v3/objects/feedback_submissions/{feedbackSubmissionId} | Read
+*BasicApi* | [**GetPage**](docs/BasicApi.md#getpage) | **Get** /crm/v3/objects/feedback_submissions | List
+*BasicApi* | [**Update**](docs/BasicApi.md#update) | **Patch** /crm/v3/objects/feedback_submissions/{feedbackSubmissionId} | Update
+*BatchApi* | [**BatchArchive**](docs/BatchApi.md#batcharchive) | **Post** /crm/v3/objects/feedback_submissions/batch/archive | Archive a batch of feedback submissions by ID
+*BatchApi* | [**BatchCreate**](docs/BatchApi.md#batchcreate) | **Post** /crm/v3/objects/feedback_submissions/batch/create | Create a batch of feedback submissions
+*BatchApi* | [**BatchRead**](docs/BatchApi.md#batchread) | **Post** /crm/v3/objects/feedback_submissions/batch/read | Read a batch of feedback submissions by internal ID, or unique property values
+*BatchApi* | [**BatchUpdate**](docs/BatchApi.md#batchupdate) | **Post** /crm/v3/objects/feedback_submissions/batch/update | Update a batch of feedback submissions
+*PublicObjectApi* | [**Merge**](docs/PublicObjectApi.md#merge) | **Post** /crm/v3/objects/feedback_submissions/merge | Merge two feedback submissions with same type
+*SearchApi* | [**Search**](docs/SearchApi.md#search) | **Post** /crm/v3/objects/feedback_submissions/search | 
 
 
 ## Documentation For Models

@@ -4,14 +4,14 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetCmsV3DomainsDomainIdGetById**](DomainsApi.md#GetCmsV3DomainsDomainIdGetById) | **Get** /cms/v3/domains/{domainId} | Get a single domain
-[**GetCmsV3DomainsGetPage**](DomainsApi.md#GetCmsV3DomainsGetPage) | **Get** /cms/v3/domains/ | Get current domains
+[**GetByID**](DomainsApi.md#GetByID) | **Get** /cms/v3/domains/{domainId} | Get a single domain
+[**GetPage**](DomainsApi.md#GetPage) | **Get** /cms/v3/domains/ | Get current domains
 
 
 
-## GetCmsV3DomainsDomainIdGetById
+## GetByID
 
-> Domain GetCmsV3DomainsDomainIdGetById(ctx, domainId).Archived(archived).Execute()
+> Domain GetByID(ctx, domainId).Archived(archived).Execute()
 
 Get a single domain
 
@@ -35,13 +35,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.DomainsApi.GetCmsV3DomainsDomainIdGetById(context.Background(), domainId).Archived(archived).Execute()
+    resp, r, err := apiClient.DomainsApi.GetByID(context.Background(), domainId).Archived(archived).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DomainsApi.GetCmsV3DomainsDomainIdGetById``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `DomainsApi.GetByID``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetCmsV3DomainsDomainIdGetById`: Domain
-    fmt.Fprintf(os.Stdout, "Response from `DomainsApi.GetCmsV3DomainsDomainIdGetById`: %v\n", resp)
+    // response from `GetByID`: Domain
+    fmt.Fprintf(os.Stdout, "Response from `DomainsApi.GetByID`: %v\n", resp)
 }
 ```
 
@@ -55,7 +55,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetCmsV3DomainsDomainIdGetByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetByIDRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -81,9 +81,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetCmsV3DomainsGetPage
+## GetPage
 
-> CollectionResponseWithTotalDomain GetCmsV3DomainsGetPage(ctx).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Sort(sort).Properties(properties).After(after).Before(before).Limit(limit).Archived(archived).Execute()
+> CollectionResponseWithTotalDomain GetPage(ctx).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Sort(sort).Properties(properties).After(after).Before(before).Limit(limit).Archived(archived).Execute()
 
 Get current domains
 
@@ -117,13 +117,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.DomainsApi.GetCmsV3DomainsGetPage(context.Background()).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Sort(sort).Properties(properties).After(after).Before(before).Limit(limit).Archived(archived).Execute()
+    resp, r, err := apiClient.DomainsApi.GetPage(context.Background()).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Sort(sort).Properties(properties).After(after).Before(before).Limit(limit).Archived(archived).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DomainsApi.GetCmsV3DomainsGetPage``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `DomainsApi.GetPage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetCmsV3DomainsGetPage`: CollectionResponseWithTotalDomain
-    fmt.Fprintf(os.Stdout, "Response from `DomainsApi.GetCmsV3DomainsGetPage`: %v\n", resp)
+    // response from `GetPage`: CollectionResponseWithTotalDomain
+    fmt.Fprintf(os.Stdout, "Response from `DomainsApi.GetPage`: %v\n", resp)
 }
 ```
 
@@ -133,7 +133,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetCmsV3DomainsGetPageRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetPageRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

@@ -78,20 +78,20 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*AssociationsApi* | [**DeleteCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeToObjectIdAssociationTypeArchive**](docs/AssociationsApi.md#deletecrmv3objectsticketsticketidassociationstoobjecttypetoobjectidassociationtypearchive) | **Delete** /crm/v3/objects/tickets/{ticketId}/associations/{toObjectType}/{toObjectId}/{associationType} | Remove an association between two tickets
-*AssociationsApi* | [**GetCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeGetAll**](docs/AssociationsApi.md#getcrmv3objectsticketsticketidassociationstoobjecttypegetall) | **Get** /crm/v3/objects/tickets/{ticketId}/associations/{toObjectType} | List associations of a ticket by type
-*AssociationsApi* | [**PutCrmV3ObjectsTicketsTicketIdAssociationsToObjectTypeToObjectIdAssociationTypeCreate**](docs/AssociationsApi.md#putcrmv3objectsticketsticketidassociationstoobjecttypetoobjectidassociationtypecreate) | **Put** /crm/v3/objects/tickets/{ticketId}/associations/{toObjectType}/{toObjectId}/{associationType} | Associate a ticket with another object
-*BasicApi* | [**DeleteCrmV3ObjectsTicketsTicketIdArchive**](docs/BasicApi.md#deletecrmv3objectsticketsticketidarchive) | **Delete** /crm/v3/objects/tickets/{ticketId} | Archive
-*BasicApi* | [**GetCrmV3ObjectsTicketsGetPage**](docs/BasicApi.md#getcrmv3objectsticketsgetpage) | **Get** /crm/v3/objects/tickets | List
-*BasicApi* | [**GetCrmV3ObjectsTicketsTicketIdGetById**](docs/BasicApi.md#getcrmv3objectsticketsticketidgetbyid) | **Get** /crm/v3/objects/tickets/{ticketId} | Read
-*BasicApi* | [**PatchCrmV3ObjectsTicketsTicketIdUpdate**](docs/BasicApi.md#patchcrmv3objectsticketsticketidupdate) | **Patch** /crm/v3/objects/tickets/{ticketId} | Update
-*BasicApi* | [**PostCrmV3ObjectsTicketsCreate**](docs/BasicApi.md#postcrmv3objectsticketscreate) | **Post** /crm/v3/objects/tickets | Create
-*BatchApi* | [**PostCrmV3ObjectsTicketsBatchArchiveArchive**](docs/BatchApi.md#postcrmv3objectsticketsbatcharchivearchive) | **Post** /crm/v3/objects/tickets/batch/archive | Archive a batch of tickets by ID
-*BatchApi* | [**PostCrmV3ObjectsTicketsBatchCreateCreate**](docs/BatchApi.md#postcrmv3objectsticketsbatchcreatecreate) | **Post** /crm/v3/objects/tickets/batch/create | Create a batch of tickets
-*BatchApi* | [**PostCrmV3ObjectsTicketsBatchReadRead**](docs/BatchApi.md#postcrmv3objectsticketsbatchreadread) | **Post** /crm/v3/objects/tickets/batch/read | Read a batch of tickets by internal ID, or unique property values
-*BatchApi* | [**PostCrmV3ObjectsTicketsBatchUpdateUpdate**](docs/BatchApi.md#postcrmv3objectsticketsbatchupdateupdate) | **Post** /crm/v3/objects/tickets/batch/update | Update a batch of tickets
-*PublicObjectApi* | [**PostCrmV3ObjectsTicketsMergeMerge**](docs/PublicObjectApi.md#postcrmv3objectsticketsmergemerge) | **Post** /crm/v3/objects/tickets/merge | Merge two tickets with same type
-*SearchApi* | [**PostCrmV3ObjectsTicketsSearchDoSearch**](docs/SearchApi.md#postcrmv3objectsticketssearchdosearch) | **Post** /crm/v3/objects/tickets/search | 
+*AssociationsApi* | [**AssociationsArchive**](docs/AssociationsApi.md#associationsarchive) | **Delete** /crm/v3/objects/tickets/{ticketId}/associations/{toObjectType}/{toObjectId}/{associationType} | Remove an association between two tickets
+*AssociationsApi* | [**AssociationsCreate**](docs/AssociationsApi.md#associationscreate) | **Put** /crm/v3/objects/tickets/{ticketId}/associations/{toObjectType}/{toObjectId}/{associationType} | Associate a ticket with another object
+*AssociationsApi* | [**AssociationsGetAll**](docs/AssociationsApi.md#associationsgetall) | **Get** /crm/v3/objects/tickets/{ticketId}/associations/{toObjectType} | List associations of a ticket by type
+*BasicApi* | [**Archive**](docs/BasicApi.md#archive) | **Delete** /crm/v3/objects/tickets/{ticketId} | Archive
+*BasicApi* | [**Create**](docs/BasicApi.md#create) | **Post** /crm/v3/objects/tickets | Create
+*BasicApi* | [**GetByID**](docs/BasicApi.md#getbyid) | **Get** /crm/v3/objects/tickets/{ticketId} | Read
+*BasicApi* | [**GetPage**](docs/BasicApi.md#getpage) | **Get** /crm/v3/objects/tickets | List
+*BasicApi* | [**Update**](docs/BasicApi.md#update) | **Patch** /crm/v3/objects/tickets/{ticketId} | Update
+*BatchApi* | [**BatchArchive**](docs/BatchApi.md#batcharchive) | **Post** /crm/v3/objects/tickets/batch/archive | Archive a batch of tickets by ID
+*BatchApi* | [**BatchCreate**](docs/BatchApi.md#batchcreate) | **Post** /crm/v3/objects/tickets/batch/create | Create a batch of tickets
+*BatchApi* | [**BatchRead**](docs/BatchApi.md#batchread) | **Post** /crm/v3/objects/tickets/batch/read | Read a batch of tickets by internal ID, or unique property values
+*BatchApi* | [**BatchUpdate**](docs/BatchApi.md#batchupdate) | **Post** /crm/v3/objects/tickets/batch/update | Update a batch of tickets
+*PublicObjectApi* | [**Merge**](docs/PublicObjectApi.md#merge) | **Post** /crm/v3/objects/tickets/merge | Merge two tickets with same type
+*SearchApi* | [**Search**](docs/SearchApi.md#search) | **Post** /crm/v3/objects/tickets/search | 
 
 
 ## Documentation For Models

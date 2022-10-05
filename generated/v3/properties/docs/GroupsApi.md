@@ -4,17 +4,17 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchive**](GroupsApi.md#DeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchive) | **Delete** /crm/v3/properties/{objectType}/groups/{groupName} | Archive a property group
-[**GetCrmV3PropertiesObjectTypeGroupsGetAll**](GroupsApi.md#GetCrmV3PropertiesObjectTypeGroupsGetAll) | **Get** /crm/v3/properties/{objectType}/groups | Read all property groups
-[**GetCrmV3PropertiesObjectTypeGroupsGroupNameGetByName**](GroupsApi.md#GetCrmV3PropertiesObjectTypeGroupsGroupNameGetByName) | **Get** /crm/v3/properties/{objectType}/groups/{groupName} | Read a property group
-[**PatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdate**](GroupsApi.md#PatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdate) | **Patch** /crm/v3/properties/{objectType}/groups/{groupName} | Update a property group
-[**PostCrmV3PropertiesObjectTypeGroupsCreate**](GroupsApi.md#PostCrmV3PropertiesObjectTypeGroupsCreate) | **Post** /crm/v3/properties/{objectType}/groups | Create a property group
+[**GroupsArchive**](GroupsApi.md#GroupsArchive) | **Delete** /crm/v3/properties/{objectType}/groups/{groupName} | Archive a property group
+[**GroupsCreate**](GroupsApi.md#GroupsCreate) | **Post** /crm/v3/properties/{objectType}/groups | Create a property group
+[**GroupsGetAll**](GroupsApi.md#GroupsGetAll) | **Get** /crm/v3/properties/{objectType}/groups | Read all property groups
+[**GroupsGetByName**](GroupsApi.md#GroupsGetByName) | **Get** /crm/v3/properties/{objectType}/groups/{groupName} | Read a property group
+[**GroupsUpdate**](GroupsApi.md#GroupsUpdate) | **Patch** /crm/v3/properties/{objectType}/groups/{groupName} | Update a property group
 
 
 
-## DeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchive
+## GroupsArchive
 
-> DeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchive(ctx, objectType, groupName).Execute()
+> GroupsArchive(ctx, objectType, groupName).Execute()
 
 Archive a property group
 
@@ -38,9 +38,9 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.GroupsApi.DeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchive(context.Background(), objectType, groupName).Execute()
+    resp, r, err := apiClient.GroupsApi.GroupsArchive(context.Background(), objectType, groupName).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `GroupsApi.DeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchive``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `GroupsApi.GroupsArchive``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -57,7 +57,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchiveRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGroupsArchiveRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -83,9 +83,81 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetCrmV3PropertiesObjectTypeGroupsGetAll
+## GroupsCreate
 
-> CollectionResponsePropertyGroup GetCrmV3PropertiesObjectTypeGroupsGetAll(ctx, objectType).Execute()
+> PropertyGroup GroupsCreate(ctx, objectType).PropertyGroupCreate(propertyGroupCreate).Execute()
+
+Create a property group
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    objectType := "objectType_example" // string | 
+    propertyGroupCreate := *openapiclient.NewPropertyGroupCreate("Name_example", "Label_example") // PropertyGroupCreate | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.GroupsApi.GroupsCreate(context.Background(), objectType).PropertyGroupCreate(propertyGroupCreate).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `GroupsApi.GroupsCreate``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GroupsCreate`: PropertyGroup
+    fmt.Fprintf(os.Stdout, "Response from `GroupsApi.GroupsCreate`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**objectType** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGroupsCreateRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **propertyGroupCreate** | [**PropertyGroupCreate**](PropertyGroupCreate.md) |  | 
+
+### Return type
+
+[**PropertyGroup**](PropertyGroup.md)
+
+### Authorization
+
+[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, */*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GroupsGetAll
+
+> CollectionResponsePropertyGroup GroupsGetAll(ctx, objectType).Execute()
 
 Read all property groups
 
@@ -108,13 +180,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.GroupsApi.GetCrmV3PropertiesObjectTypeGroupsGetAll(context.Background(), objectType).Execute()
+    resp, r, err := apiClient.GroupsApi.GroupsGetAll(context.Background(), objectType).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `GroupsApi.GetCrmV3PropertiesObjectTypeGroupsGetAll``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `GroupsApi.GroupsGetAll``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetCrmV3PropertiesObjectTypeGroupsGetAll`: CollectionResponsePropertyGroup
-    fmt.Fprintf(os.Stdout, "Response from `GroupsApi.GetCrmV3PropertiesObjectTypeGroupsGetAll`: %v\n", resp)
+    // response from `GroupsGetAll`: CollectionResponsePropertyGroup
+    fmt.Fprintf(os.Stdout, "Response from `GroupsApi.GroupsGetAll`: %v\n", resp)
 }
 ```
 
@@ -128,7 +200,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetCrmV3PropertiesObjectTypeGroupsGetAllRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGroupsGetAllRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -153,9 +225,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetCrmV3PropertiesObjectTypeGroupsGroupNameGetByName
+## GroupsGetByName
 
-> PropertyGroup GetCrmV3PropertiesObjectTypeGroupsGroupNameGetByName(ctx, objectType, groupName).Execute()
+> PropertyGroup GroupsGetByName(ctx, objectType, groupName).Execute()
 
 Read a property group
 
@@ -179,13 +251,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.GroupsApi.GetCrmV3PropertiesObjectTypeGroupsGroupNameGetByName(context.Background(), objectType, groupName).Execute()
+    resp, r, err := apiClient.GroupsApi.GroupsGetByName(context.Background(), objectType, groupName).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `GroupsApi.GetCrmV3PropertiesObjectTypeGroupsGroupNameGetByName``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `GroupsApi.GroupsGetByName``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetCrmV3PropertiesObjectTypeGroupsGroupNameGetByName`: PropertyGroup
-    fmt.Fprintf(os.Stdout, "Response from `GroupsApi.GetCrmV3PropertiesObjectTypeGroupsGroupNameGetByName`: %v\n", resp)
+    // response from `GroupsGetByName`: PropertyGroup
+    fmt.Fprintf(os.Stdout, "Response from `GroupsApi.GroupsGetByName`: %v\n", resp)
 }
 ```
 
@@ -200,7 +272,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetCrmV3PropertiesObjectTypeGroupsGroupNameGetByNameRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGroupsGetByNameRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -226,9 +298,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdate
+## GroupsUpdate
 
-> PropertyGroup PatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdate(ctx, objectType, groupName).PropertyGroupUpdate(propertyGroupUpdate).Execute()
+> PropertyGroup GroupsUpdate(ctx, objectType, groupName).PropertyGroupUpdate(propertyGroupUpdate).Execute()
 
 Update a property group
 
@@ -253,13 +325,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.GroupsApi.PatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdate(context.Background(), objectType, groupName).PropertyGroupUpdate(propertyGroupUpdate).Execute()
+    resp, r, err := apiClient.GroupsApi.GroupsUpdate(context.Background(), objectType, groupName).PropertyGroupUpdate(propertyGroupUpdate).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `GroupsApi.PatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdate``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `GroupsApi.GroupsUpdate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdate`: PropertyGroup
-    fmt.Fprintf(os.Stdout, "Response from `GroupsApi.PatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdate`: %v\n", resp)
+    // response from `GroupsUpdate`: PropertyGroup
+    fmt.Fprintf(os.Stdout, "Response from `GroupsApi.GroupsUpdate`: %v\n", resp)
 }
 ```
 
@@ -274,7 +346,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdateRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGroupsUpdateRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -282,78 +354,6 @@ Name | Type | Description  | Notes
 
 
  **propertyGroupUpdate** | [**PropertyGroupUpdate**](PropertyGroupUpdate.md) |  | 
-
-### Return type
-
-[**PropertyGroup**](PropertyGroup.md)
-
-### Authorization
-
-[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json, */*
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostCrmV3PropertiesObjectTypeGroupsCreate
-
-> PropertyGroup PostCrmV3PropertiesObjectTypeGroupsCreate(ctx, objectType).PropertyGroupCreate(propertyGroupCreate).Execute()
-
-Create a property group
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    objectType := "objectType_example" // string | 
-    propertyGroupCreate := *openapiclient.NewPropertyGroupCreate("Name_example", "Label_example") // PropertyGroupCreate | 
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.GroupsApi.PostCrmV3PropertiesObjectTypeGroupsCreate(context.Background(), objectType).PropertyGroupCreate(propertyGroupCreate).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `GroupsApi.PostCrmV3PropertiesObjectTypeGroupsCreate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostCrmV3PropertiesObjectTypeGroupsCreate`: PropertyGroup
-    fmt.Fprintf(os.Stdout, "Response from `GroupsApi.PostCrmV3PropertiesObjectTypeGroupsCreate`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**objectType** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostCrmV3PropertiesObjectTypeGroupsCreateRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **propertyGroupCreate** | [**PropertyGroupCreate**](PropertyGroupCreate.md) |  | 
 
 ### Return type
 

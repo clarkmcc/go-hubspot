@@ -12,7 +12,7 @@ paths:
     get:
       description: Returns all existing domains that have been created. Results can
         be limited and filtered by creation or updated date.
-      operationId: get-/cms/v3/domains/_getPage
+      operationId: GetPage
       parameters:
       - description: Only return domains created at this date.
         explode: true
@@ -184,7 +184,7 @@ paths:
   /cms/v3/domains/{domainId}:
     get:
       description: Returns a single domains with the id specified.
-      operationId: "get-/cms/v3/domains/{domainId}_getById"
+      operationId: GetByID
       parameters:
       - description: The unique ID of the domain.
         explode: false

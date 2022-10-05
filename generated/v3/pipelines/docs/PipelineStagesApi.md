@@ -4,18 +4,18 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteCrmV3PipelinesObjectTypePipelineIdStagesStageIdArchive**](PipelineStagesApi.md#DeleteCrmV3PipelinesObjectTypePipelineIdStagesStageIdArchive) | **Delete** /crm/v3/pipelines/{objectType}/{pipelineId}/stages/{stageId} | Delete a pipeline stage
-[**GetCrmV3PipelinesObjectTypePipelineIdStagesGetAll**](PipelineStagesApi.md#GetCrmV3PipelinesObjectTypePipelineIdStagesGetAll) | **Get** /crm/v3/pipelines/{objectType}/{pipelineId}/stages | Return all stages of a pipeline
-[**GetCrmV3PipelinesObjectTypePipelineIdStagesStageIdGetById**](PipelineStagesApi.md#GetCrmV3PipelinesObjectTypePipelineIdStagesStageIdGetById) | **Get** /crm/v3/pipelines/{objectType}/{pipelineId}/stages/{stageId} | Return a pipeline stage by ID
-[**PatchCrmV3PipelinesObjectTypePipelineIdStagesStageIdUpdate**](PipelineStagesApi.md#PatchCrmV3PipelinesObjectTypePipelineIdStagesStageIdUpdate) | **Patch** /crm/v3/pipelines/{objectType}/{pipelineId}/stages/{stageId} | Update a pipeline stage
-[**PostCrmV3PipelinesObjectTypePipelineIdStagesCreate**](PipelineStagesApi.md#PostCrmV3PipelinesObjectTypePipelineIdStagesCreate) | **Post** /crm/v3/pipelines/{objectType}/{pipelineId}/stages | Create a pipeline stage
-[**PutCrmV3PipelinesObjectTypePipelineIdStagesStageIdReplace**](PipelineStagesApi.md#PutCrmV3PipelinesObjectTypePipelineIdStagesStageIdReplace) | **Put** /crm/v3/pipelines/{objectType}/{pipelineId}/stages/{stageId} | Replace a pipeline stage
+[**StagesArchive**](PipelineStagesApi.md#StagesArchive) | **Delete** /crm/v3/pipelines/{objectType}/{pipelineId}/stages/{stageId} | Delete a pipeline stage
+[**StagesCreate**](PipelineStagesApi.md#StagesCreate) | **Post** /crm/v3/pipelines/{objectType}/{pipelineId}/stages | Create a pipeline stage
+[**StagesGetAll**](PipelineStagesApi.md#StagesGetAll) | **Get** /crm/v3/pipelines/{objectType}/{pipelineId}/stages | Return all stages of a pipeline
+[**StagesGetByID**](PipelineStagesApi.md#StagesGetByID) | **Get** /crm/v3/pipelines/{objectType}/{pipelineId}/stages/{stageId} | Return a pipeline stage by ID
+[**StagesReplace**](PipelineStagesApi.md#StagesReplace) | **Put** /crm/v3/pipelines/{objectType}/{pipelineId}/stages/{stageId} | Replace a pipeline stage
+[**StagesUpdate**](PipelineStagesApi.md#StagesUpdate) | **Patch** /crm/v3/pipelines/{objectType}/{pipelineId}/stages/{stageId} | Update a pipeline stage
 
 
 
-## DeleteCrmV3PipelinesObjectTypePipelineIdStagesStageIdArchive
+## StagesArchive
 
-> DeleteCrmV3PipelinesObjectTypePipelineIdStagesStageIdArchive(ctx, objectType, pipelineId, stageId).Execute()
+> StagesArchive(ctx, objectType, pipelineId, stageId).Execute()
 
 Delete a pipeline stage
 
@@ -40,9 +40,9 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PipelineStagesApi.DeleteCrmV3PipelinesObjectTypePipelineIdStagesStageIdArchive(context.Background(), objectType, pipelineId, stageId).Execute()
+    resp, r, err := apiClient.PipelineStagesApi.StagesArchive(context.Background(), objectType, pipelineId, stageId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PipelineStagesApi.DeleteCrmV3PipelinesObjectTypePipelineIdStagesStageIdArchive``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `PipelineStagesApi.StagesArchive``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -60,7 +60,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteCrmV3PipelinesObjectTypePipelineIdStagesStageIdArchiveRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiStagesArchiveRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -87,9 +87,84 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetCrmV3PipelinesObjectTypePipelineIdStagesGetAll
+## StagesCreate
 
-> CollectionResponsePipelineStageNoPaging GetCrmV3PipelinesObjectTypePipelineIdStagesGetAll(ctx, objectType, pipelineId).Execute()
+> PipelineStage StagesCreate(ctx, objectType, pipelineId).PipelineStageInput(pipelineStageInput).Execute()
+
+Create a pipeline stage
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    objectType := "objectType_example" // string | 
+    pipelineId := "pipelineId_example" // string | 
+    pipelineStageInput := *openapiclient.NewPipelineStageInput("Label_example", int32(123), map[string]string{"key": "Inner_example"}) // PipelineStageInput | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.PipelineStagesApi.StagesCreate(context.Background(), objectType, pipelineId).PipelineStageInput(pipelineStageInput).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `PipelineStagesApi.StagesCreate``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `StagesCreate`: PipelineStage
+    fmt.Fprintf(os.Stdout, "Response from `PipelineStagesApi.StagesCreate`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**objectType** | **string** |  | 
+**pipelineId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiStagesCreateRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **pipelineStageInput** | [**PipelineStageInput**](PipelineStageInput.md) |  | 
+
+### Return type
+
+[**PipelineStage**](PipelineStage.md)
+
+### Authorization
+
+[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, */*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## StagesGetAll
+
+> CollectionResponsePipelineStageNoPaging StagesGetAll(ctx, objectType, pipelineId).Execute()
 
 Return all stages of a pipeline
 
@@ -113,13 +188,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PipelineStagesApi.GetCrmV3PipelinesObjectTypePipelineIdStagesGetAll(context.Background(), objectType, pipelineId).Execute()
+    resp, r, err := apiClient.PipelineStagesApi.StagesGetAll(context.Background(), objectType, pipelineId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PipelineStagesApi.GetCrmV3PipelinesObjectTypePipelineIdStagesGetAll``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `PipelineStagesApi.StagesGetAll``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetCrmV3PipelinesObjectTypePipelineIdStagesGetAll`: CollectionResponsePipelineStageNoPaging
-    fmt.Fprintf(os.Stdout, "Response from `PipelineStagesApi.GetCrmV3PipelinesObjectTypePipelineIdStagesGetAll`: %v\n", resp)
+    // response from `StagesGetAll`: CollectionResponsePipelineStageNoPaging
+    fmt.Fprintf(os.Stdout, "Response from `PipelineStagesApi.StagesGetAll`: %v\n", resp)
 }
 ```
 
@@ -134,7 +209,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetCrmV3PipelinesObjectTypePipelineIdStagesGetAllRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiStagesGetAllRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -160,9 +235,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetCrmV3PipelinesObjectTypePipelineIdStagesStageIdGetById
+## StagesGetByID
 
-> PipelineStage GetCrmV3PipelinesObjectTypePipelineIdStagesStageIdGetById(ctx, objectType, pipelineId, stageId).Execute()
+> PipelineStage StagesGetByID(ctx, objectType, pipelineId, stageId).Execute()
 
 Return a pipeline stage by ID
 
@@ -187,13 +262,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PipelineStagesApi.GetCrmV3PipelinesObjectTypePipelineIdStagesStageIdGetById(context.Background(), objectType, pipelineId, stageId).Execute()
+    resp, r, err := apiClient.PipelineStagesApi.StagesGetByID(context.Background(), objectType, pipelineId, stageId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PipelineStagesApi.GetCrmV3PipelinesObjectTypePipelineIdStagesStageIdGetById``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `PipelineStagesApi.StagesGetByID``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetCrmV3PipelinesObjectTypePipelineIdStagesStageIdGetById`: PipelineStage
-    fmt.Fprintf(os.Stdout, "Response from `PipelineStagesApi.GetCrmV3PipelinesObjectTypePipelineIdStagesStageIdGetById`: %v\n", resp)
+    // response from `StagesGetByID`: PipelineStage
+    fmt.Fprintf(os.Stdout, "Response from `PipelineStagesApi.StagesGetByID`: %v\n", resp)
 }
 ```
 
@@ -209,7 +284,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetCrmV3PipelinesObjectTypePipelineIdStagesStageIdGetByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiStagesGetByIDRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -236,162 +311,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PatchCrmV3PipelinesObjectTypePipelineIdStagesStageIdUpdate
+## StagesReplace
 
-> PipelineStage PatchCrmV3PipelinesObjectTypePipelineIdStagesStageIdUpdate(ctx, objectType, pipelineId, stageId).PipelineStagePatchInput(pipelineStagePatchInput).Execute()
-
-Update a pipeline stage
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    objectType := "objectType_example" // string | 
-    pipelineId := "pipelineId_example" // string | 
-    stageId := "stageId_example" // string | 
-    pipelineStagePatchInput := *openapiclient.NewPipelineStagePatchInput(map[string]string{"key": "Inner_example"}) // PipelineStagePatchInput | 
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PipelineStagesApi.PatchCrmV3PipelinesObjectTypePipelineIdStagesStageIdUpdate(context.Background(), objectType, pipelineId, stageId).PipelineStagePatchInput(pipelineStagePatchInput).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PipelineStagesApi.PatchCrmV3PipelinesObjectTypePipelineIdStagesStageIdUpdate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PatchCrmV3PipelinesObjectTypePipelineIdStagesStageIdUpdate`: PipelineStage
-    fmt.Fprintf(os.Stdout, "Response from `PipelineStagesApi.PatchCrmV3PipelinesObjectTypePipelineIdStagesStageIdUpdate`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**objectType** | **string** |  | 
-**pipelineId** | **string** |  | 
-**stageId** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPatchCrmV3PipelinesObjectTypePipelineIdStagesStageIdUpdateRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
- **pipelineStagePatchInput** | [**PipelineStagePatchInput**](PipelineStagePatchInput.md) |  | 
-
-### Return type
-
-[**PipelineStage**](PipelineStage.md)
-
-### Authorization
-
-[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json, */*
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostCrmV3PipelinesObjectTypePipelineIdStagesCreate
-
-> PipelineStage PostCrmV3PipelinesObjectTypePipelineIdStagesCreate(ctx, objectType, pipelineId).PipelineStageInput(pipelineStageInput).Execute()
-
-Create a pipeline stage
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    objectType := "objectType_example" // string | 
-    pipelineId := "pipelineId_example" // string | 
-    pipelineStageInput := *openapiclient.NewPipelineStageInput("Label_example", int32(123), map[string]string{"key": "Inner_example"}) // PipelineStageInput | 
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PipelineStagesApi.PostCrmV3PipelinesObjectTypePipelineIdStagesCreate(context.Background(), objectType, pipelineId).PipelineStageInput(pipelineStageInput).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PipelineStagesApi.PostCrmV3PipelinesObjectTypePipelineIdStagesCreate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostCrmV3PipelinesObjectTypePipelineIdStagesCreate`: PipelineStage
-    fmt.Fprintf(os.Stdout, "Response from `PipelineStagesApi.PostCrmV3PipelinesObjectTypePipelineIdStagesCreate`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**objectType** | **string** |  | 
-**pipelineId** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostCrmV3PipelinesObjectTypePipelineIdStagesCreateRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
- **pipelineStageInput** | [**PipelineStageInput**](PipelineStageInput.md) |  | 
-
-### Return type
-
-[**PipelineStage**](PipelineStage.md)
-
-### Authorization
-
-[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json, */*
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PutCrmV3PipelinesObjectTypePipelineIdStagesStageIdReplace
-
-> PipelineStage PutCrmV3PipelinesObjectTypePipelineIdStagesStageIdReplace(ctx, objectType, pipelineId, stageId).PipelineStageInput(pipelineStageInput).Execute()
+> PipelineStage StagesReplace(ctx, objectType, pipelineId, stageId).PipelineStageInput(pipelineStageInput).Execute()
 
 Replace a pipeline stage
 
@@ -417,13 +339,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PipelineStagesApi.PutCrmV3PipelinesObjectTypePipelineIdStagesStageIdReplace(context.Background(), objectType, pipelineId, stageId).PipelineStageInput(pipelineStageInput).Execute()
+    resp, r, err := apiClient.PipelineStagesApi.StagesReplace(context.Background(), objectType, pipelineId, stageId).PipelineStageInput(pipelineStageInput).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PipelineStagesApi.PutCrmV3PipelinesObjectTypePipelineIdStagesStageIdReplace``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `PipelineStagesApi.StagesReplace``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PutCrmV3PipelinesObjectTypePipelineIdStagesStageIdReplace`: PipelineStage
-    fmt.Fprintf(os.Stdout, "Response from `PipelineStagesApi.PutCrmV3PipelinesObjectTypePipelineIdStagesStageIdReplace`: %v\n", resp)
+    // response from `StagesReplace`: PipelineStage
+    fmt.Fprintf(os.Stdout, "Response from `PipelineStagesApi.StagesReplace`: %v\n", resp)
 }
 ```
 
@@ -439,7 +361,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPutCrmV3PipelinesObjectTypePipelineIdStagesStageIdReplaceRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiStagesReplaceRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -448,6 +370,84 @@ Name | Type | Description  | Notes
 
 
  **pipelineStageInput** | [**PipelineStageInput**](PipelineStageInput.md) |  | 
+
+### Return type
+
+[**PipelineStage**](PipelineStage.md)
+
+### Authorization
+
+[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, */*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## StagesUpdate
+
+> PipelineStage StagesUpdate(ctx, objectType, pipelineId, stageId).PipelineStagePatchInput(pipelineStagePatchInput).Execute()
+
+Update a pipeline stage
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    objectType := "objectType_example" // string | 
+    pipelineId := "pipelineId_example" // string | 
+    stageId := "stageId_example" // string | 
+    pipelineStagePatchInput := *openapiclient.NewPipelineStagePatchInput(map[string]string{"key": "Inner_example"}) // PipelineStagePatchInput | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.PipelineStagesApi.StagesUpdate(context.Background(), objectType, pipelineId, stageId).PipelineStagePatchInput(pipelineStagePatchInput).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `PipelineStagesApi.StagesUpdate``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `StagesUpdate`: PipelineStage
+    fmt.Fprintf(os.Stdout, "Response from `PipelineStagesApi.StagesUpdate`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**objectType** | **string** |  | 
+**pipelineId** | **string** |  | 
+**stageId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiStagesUpdateRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+ **pipelineStagePatchInput** | [**PipelineStagePatchInput**](PipelineStagePatchInput.md) |  | 
 
 ### Return type
 

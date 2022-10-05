@@ -4,13 +4,13 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**PostCmsV3SourceCodeExtractPathExtractByPath**](ExtractApi.md#PostCmsV3SourceCodeExtractPathExtractByPath) | **Post** /cms/v3/source-code/extract/{path} | Extracts a zip file
+[**ExtractByPath**](ExtractApi.md#ExtractByPath) | **Post** /cms/v3/source-code/extract/{path} | Extracts a zip file
 
 
 
-## PostCmsV3SourceCodeExtractPathExtractByPath
+## ExtractByPath
 
-> PostCmsV3SourceCodeExtractPathExtractByPath(ctx, path).Execute()
+> ExtractByPath(ctx, path).Execute()
 
 Extracts a zip file
 
@@ -33,9 +33,9 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ExtractApi.PostCmsV3SourceCodeExtractPathExtractByPath(context.Background(), path).Execute()
+    resp, r, err := apiClient.ExtractApi.ExtractByPath(context.Background(), path).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ExtractApi.PostCmsV3SourceCodeExtractPathExtractByPath``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ExtractApi.ExtractByPath``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -51,7 +51,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCmsV3SourceCodeExtractPathExtractByPathRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiExtractByPathRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

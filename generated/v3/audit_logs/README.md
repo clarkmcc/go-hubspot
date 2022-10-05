@@ -78,7 +78,7 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*AuditLogsApi* | [**GetCmsV3AuditLogsGetPage**](docs/AuditLogsApi.md#getcmsv3auditlogsgetpage) | **Get** /cms/v3/audit-logs/ | Query audit logs
+*AuditLogsApi* | [**GetPage**](docs/AuditLogsApi.md#getpage) | **Get** /cms/v3/audit-logs/ | Query audit logs
 
 
 ## Documentation For Models

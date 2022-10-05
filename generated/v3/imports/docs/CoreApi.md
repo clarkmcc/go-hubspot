@@ -4,88 +4,18 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetCrmV3ImportsGetPage**](CoreApi.md#GetCrmV3ImportsGetPage) | **Get** /crm/v3/imports/ | Get active imports
-[**GetCrmV3ImportsImportIdGetById**](CoreApi.md#GetCrmV3ImportsImportIdGetById) | **Get** /crm/v3/imports/{importId} | Get the information on any import
-[**PostCrmV3ImportsCreate**](CoreApi.md#PostCrmV3ImportsCreate) | **Post** /crm/v3/imports/ | Start a new import
-[**PostCrmV3ImportsImportIdCancelCancel**](CoreApi.md#PostCrmV3ImportsImportIdCancelCancel) | **Post** /crm/v3/imports/{importId}/cancel | Cancel an active import
+[**Cancel**](CoreApi.md#Cancel) | **Post** /crm/v3/imports/{importId}/cancel | Cancel an active import
+[**Create**](CoreApi.md#Create) | **Post** /crm/v3/imports/ | Start a new import
+[**GetByID**](CoreApi.md#GetByID) | **Get** /crm/v3/imports/{importId} | Get the information on any import
+[**GetPage**](CoreApi.md#GetPage) | **Get** /crm/v3/imports/ | Get active imports
 
 
 
-## GetCrmV3ImportsGetPage
+## Cancel
 
-> CollectionResponsePublicImportResponse GetCrmV3ImportsGetPage(ctx).After(after).Before(before).Limit(limit).Execute()
+> ActionResponse Cancel(ctx, importId).Execute()
 
-Get active imports
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    after := "after_example" // string | The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results. (optional)
-    before := "before_example" // string |  (optional)
-    limit := int32(56) // int32 | The maximum number of results to display per page. (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CoreApi.GetCrmV3ImportsGetPage(context.Background()).After(after).Before(before).Limit(limit).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CoreApi.GetCrmV3ImportsGetPage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetCrmV3ImportsGetPage`: CollectionResponsePublicImportResponse
-    fmt.Fprintf(os.Stdout, "Response from `CoreApi.GetCrmV3ImportsGetPage`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetCrmV3ImportsGetPageRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **after** | **string** | The paging cursor token of the last successfully read resource will be returned as the &#x60;paging.next.after&#x60; JSON property of a paged response containing more results. | 
- **before** | **string** |  | 
- **limit** | **int32** | The maximum number of results to display per page. | 
-
-### Return type
-
-[**CollectionResponsePublicImportResponse**](CollectionResponsePublicImportResponse.md)
-
-### Authorization
-
-[hapikey](../README.md#hapikey)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json, */*
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetCrmV3ImportsImportIdGetById
-
-> PublicImportResponse GetCrmV3ImportsImportIdGetById(ctx, importId).Execute()
-
-Get the information on any import
+Cancel an active import
 
 
 
@@ -106,13 +36,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CoreApi.GetCrmV3ImportsImportIdGetById(context.Background(), importId).Execute()
+    resp, r, err := apiClient.CoreApi.Cancel(context.Background(), importId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CoreApi.GetCrmV3ImportsImportIdGetById``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `CoreApi.Cancel``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetCrmV3ImportsImportIdGetById`: PublicImportResponse
-    fmt.Fprintf(os.Stdout, "Response from `CoreApi.GetCrmV3ImportsImportIdGetById`: %v\n", resp)
+    // response from `Cancel`: ActionResponse
+    fmt.Fprintf(os.Stdout, "Response from `CoreApi.Cancel`: %v\n", resp)
 }
 ```
 
@@ -126,7 +56,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetCrmV3ImportsImportIdGetByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCancelRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -135,11 +65,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PublicImportResponse**](PublicImportResponse.md)
+[**ActionResponse**](ActionResponse.md)
 
 ### Authorization
 
-[hapikey](../README.md#hapikey)
+[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
 
 ### HTTP request headers
 
@@ -151,9 +81,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostCrmV3ImportsCreate
+## Create
 
-> PublicImportResponse PostCrmV3ImportsCreate(ctx).Files(files).ImportRequest(importRequest).Execute()
+> PublicImportResponse Create(ctx).Files(files).ImportRequest(importRequest).Execute()
 
 Start a new import
 
@@ -177,13 +107,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CoreApi.PostCrmV3ImportsCreate(context.Background()).Files(files).ImportRequest(importRequest).Execute()
+    resp, r, err := apiClient.CoreApi.Create(context.Background()).Files(files).ImportRequest(importRequest).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CoreApi.PostCrmV3ImportsCreate``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `CoreApi.Create``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostCrmV3ImportsCreate`: PublicImportResponse
-    fmt.Fprintf(os.Stdout, "Response from `CoreApi.PostCrmV3ImportsCreate`: %v\n", resp)
+    // response from `Create`: PublicImportResponse
+    fmt.Fprintf(os.Stdout, "Response from `CoreApi.Create`: %v\n", resp)
 }
 ```
 
@@ -193,7 +123,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCrmV3ImportsCreateRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCreateRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -219,11 +149,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostCrmV3ImportsImportIdCancelCancel
+## GetByID
 
-> ActionResponse PostCrmV3ImportsImportIdCancelCancel(ctx, importId).Execute()
+> PublicImportResponse GetByID(ctx, importId).Execute()
 
-Cancel an active import
+Get the information on any import
 
 
 
@@ -244,13 +174,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CoreApi.PostCrmV3ImportsImportIdCancelCancel(context.Background(), importId).Execute()
+    resp, r, err := apiClient.CoreApi.GetByID(context.Background(), importId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CoreApi.PostCrmV3ImportsImportIdCancelCancel``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `CoreApi.GetByID``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostCrmV3ImportsImportIdCancelCancel`: ActionResponse
-    fmt.Fprintf(os.Stdout, "Response from `CoreApi.PostCrmV3ImportsImportIdCancelCancel`: %v\n", resp)
+    // response from `GetByID`: PublicImportResponse
+    fmt.Fprintf(os.Stdout, "Response from `CoreApi.GetByID`: %v\n", resp)
 }
 ```
 
@@ -264,7 +194,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCrmV3ImportsImportIdCancelCancelRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetByIDRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -273,11 +203,81 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ActionResponse**](ActionResponse.md)
+[**PublicImportResponse**](PublicImportResponse.md)
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[hapikey](../README.md#hapikey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, */*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetPage
+
+> CollectionResponsePublicImportResponse GetPage(ctx).After(after).Before(before).Limit(limit).Execute()
+
+Get active imports
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    after := "after_example" // string | The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results. (optional)
+    before := "before_example" // string |  (optional)
+    limit := int32(56) // int32 | The maximum number of results to display per page. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CoreApi.GetPage(context.Background()).After(after).Before(before).Limit(limit).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `CoreApi.GetPage``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetPage`: CollectionResponsePublicImportResponse
+    fmt.Fprintf(os.Stdout, "Response from `CoreApi.GetPage`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetPageRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **after** | **string** | The paging cursor token of the last successfully read resource will be returned as the &#x60;paging.next.after&#x60; JSON property of a paged response containing more results. | 
+ **before** | **string** |  | 
+ **limit** | **int32** | The maximum number of results to display per page. | 
+
+### Return type
+
+[**CollectionResponsePublicImportResponse**](CollectionResponsePublicImportResponse.md)
+
+### Authorization
+
+[hapikey](../README.md#hapikey)
 
 ### HTTP request headers
 

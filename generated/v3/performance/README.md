@@ -78,8 +78,8 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*PublicPerformanceApi* | [**GetCmsV3PerformanceGetPage**](docs/PublicPerformanceApi.md#getcmsv3performancegetpage) | **Get** /cms/v3/performance/ | View your website&#39;s performance.
-*PublicPerformanceApi* | [**GetCmsV3PerformanceUptimeGetUptime**](docs/PublicPerformanceApi.md#getcmsv3performanceuptimegetuptime) | **Get** /cms/v3/performance/uptime | View your website&#39;s uptime.
+*PublicPerformanceApi* | [**GetPage**](docs/PublicPerformanceApi.md#getpage) | **Get** /cms/v3/performance/ | View your website&#39;s performance.
+*PublicPerformanceApi* | [**GetUptime**](docs/PublicPerformanceApi.md#getuptime) | **Get** /cms/v3/performance/uptime | View your website&#39;s uptime.
 
 
 ## Documentation For Models

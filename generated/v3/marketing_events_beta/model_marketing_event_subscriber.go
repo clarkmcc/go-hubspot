@@ -17,8 +17,9 @@ import (
 // MarketingEventSubscriber struct for MarketingEventSubscriber
 type MarketingEventSubscriber struct {
 	// The date and time at which the contact subscribed to the event.
-	InteractionDateTime int64  `json:"interactionDateTime"`
-	Vid                 *int32 `json:"vid,omitempty"`
+	InteractionDateTime int64              `json:"interactionDateTime"`
+	Properties          *map[string]string `json:"properties,omitempty"`
+	Vid                 *int32             `json:"vid,omitempty"`
 }
 
 // NewMarketingEventSubscriber instantiates a new MarketingEventSubscriber object
@@ -63,6 +64,38 @@ func (o *MarketingEventSubscriber) SetInteractionDateTime(v int64) {
 	o.InteractionDateTime = v
 }
 
+// GetProperties returns the Properties field value if set, zero value otherwise.
+func (o *MarketingEventSubscriber) GetProperties() map[string]string {
+	if o == nil || o.Properties == nil {
+		var ret map[string]string
+		return ret
+	}
+	return *o.Properties
+}
+
+// GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MarketingEventSubscriber) GetPropertiesOk() (*map[string]string, bool) {
+	if o == nil || o.Properties == nil {
+		return nil, false
+	}
+	return o.Properties, true
+}
+
+// HasProperties returns a boolean if a field has been set.
+func (o *MarketingEventSubscriber) HasProperties() bool {
+	if o != nil && o.Properties != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetProperties gets a reference to the given map[string]string and assigns it to the Properties field.
+func (o *MarketingEventSubscriber) SetProperties(v map[string]string) {
+	o.Properties = &v
+}
+
 // GetVid returns the Vid field value if set, zero value otherwise.
 func (o *MarketingEventSubscriber) GetVid() int32 {
 	if o == nil || o.Vid == nil {
@@ -99,6 +132,9 @@ func (o MarketingEventSubscriber) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
 		toSerialize["interactionDateTime"] = o.InteractionDateTime
+	}
+	if o.Properties != nil {
+		toSerialize["properties"] = o.Properties
 	}
 	if o.Vid != nil {
 		toSerialize["vid"] = o.Vid

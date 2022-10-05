@@ -21,25 +21,25 @@ import (
 // SampleResponseApiService SampleResponseApi service
 type SampleResponseApiService service
 
-type ApiGetCrmV3ExtensionsCardsSampleResponseGetCardsSampleResponseRequest struct {
+type ApiCardsGetSampleRequest struct {
 	ctx        context.Context
 	ApiService *SampleResponseApiService
 }
 
-func (r ApiGetCrmV3ExtensionsCardsSampleResponseGetCardsSampleResponseRequest) Execute() (*IntegratorCardPayloadResponse, *http.Response, error) {
-	return r.ApiService.GetCrmV3ExtensionsCardsSampleResponseGetCardsSampleResponseExecute(r)
+func (r ApiCardsGetSampleRequest) Execute() (*IntegratorCardPayloadResponse, *http.Response, error) {
+	return r.ApiService.CardsGetSampleExecute(r)
 }
 
 /*
-GetCrmV3ExtensionsCardsSampleResponseGetCardsSampleResponse Get sample card detail response
+CardsGetSample Get sample card detail response
 
 Returns an example card detail response. This is the payload with displayed details for a card that will be shown to a user. An app should send this in response to the data fetch request.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetCrmV3ExtensionsCardsSampleResponseGetCardsSampleResponseRequest
+ @return ApiCardsGetSampleRequest
 */
-func (a *SampleResponseApiService) GetCrmV3ExtensionsCardsSampleResponseGetCardsSampleResponse(ctx context.Context) ApiGetCrmV3ExtensionsCardsSampleResponseGetCardsSampleResponseRequest {
-	return ApiGetCrmV3ExtensionsCardsSampleResponseGetCardsSampleResponseRequest{
+func (a *SampleResponseApiService) CardsGetSample(ctx context.Context) ApiCardsGetSampleRequest {
+	return ApiCardsGetSampleRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -47,7 +47,7 @@ func (a *SampleResponseApiService) GetCrmV3ExtensionsCardsSampleResponseGetCards
 
 // Execute executes the request
 //  @return IntegratorCardPayloadResponse
-func (a *SampleResponseApiService) GetCrmV3ExtensionsCardsSampleResponseGetCardsSampleResponseExecute(r ApiGetCrmV3ExtensionsCardsSampleResponseGetCardsSampleResponseRequest) (*IntegratorCardPayloadResponse, *http.Response, error) {
+func (a *SampleResponseApiService) CardsGetSampleExecute(r ApiCardsGetSampleRequest) (*IntegratorCardPayloadResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -55,7 +55,7 @@ func (a *SampleResponseApiService) GetCrmV3ExtensionsCardsSampleResponseGetCards
 		localVarReturnValue *IntegratorCardPayloadResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SampleResponseApiService.GetCrmV3ExtensionsCardsSampleResponseGetCardsSampleResponse")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SampleResponseApiService.CardsGetSample")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

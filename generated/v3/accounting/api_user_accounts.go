@@ -24,27 +24,27 @@ import (
 // UserAccountsApiService UserAccountsApi service
 type UserAccountsApiService service
 
-type ApiDeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchiveRequest struct {
+type ApiUserAccountsArchiveRequest struct {
 	ctx        context.Context
 	ApiService *UserAccountsApiService
 	accountId  string
 }
 
-func (r ApiDeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchiveRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchiveExecute(r)
+func (r ApiUserAccountsArchiveRequest) Execute() (*http.Response, error) {
+	return r.ApiService.UserAccountsArchiveExecute(r)
 }
 
 /*
-DeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchive Delete user account
+UserAccountsArchive Delete user account
 
 Deletes a user account from HubSpot, meaning that HubSpot will no longer send requests to the external accounting system for this user.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param accountId The ID of the user account to delete.
- @return ApiDeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchiveRequest
+ @return ApiUserAccountsArchiveRequest
 */
-func (a *UserAccountsApiService) DeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchive(ctx context.Context, accountId string) ApiDeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchiveRequest {
-	return ApiDeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchiveRequest{
+func (a *UserAccountsApiService) UserAccountsArchive(ctx context.Context, accountId string) ApiUserAccountsArchiveRequest {
+	return ApiUserAccountsArchiveRequest{
 		ApiService: a,
 		ctx:        ctx,
 		accountId:  accountId,
@@ -52,14 +52,14 @@ func (a *UserAccountsApiService) DeleteCrmV3ExtensionsAccountingUserAccountsAcco
 }
 
 // Execute executes the request
-func (a *UserAccountsApiService) DeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchiveExecute(r ApiDeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchiveRequest) (*http.Response, error) {
+func (a *UserAccountsApiService) UserAccountsArchiveExecute(r ApiUserAccountsArchiveRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAccountsApiService.DeleteCrmV3ExtensionsAccountingUserAccountsAccountIdArchive")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAccountsApiService.UserAccountsArchive")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -133,46 +133,46 @@ func (a *UserAccountsApiService) DeleteCrmV3ExtensionsAccountingUserAccountsAcco
 	return localVarHTTPResponse, nil
 }
 
-type ApiPutCrmV3ExtensionsAccountingUserAccountsReplaceRequest struct {
+type ApiUserAccountsReplaceRequest struct {
 	ctx                              context.Context
 	ApiService                       *UserAccountsApiService
 	createUserAccountRequestExternal *CreateUserAccountRequestExternal
 }
 
 // The external accounting system user account information.
-func (r ApiPutCrmV3ExtensionsAccountingUserAccountsReplaceRequest) CreateUserAccountRequestExternal(createUserAccountRequestExternal CreateUserAccountRequestExternal) ApiPutCrmV3ExtensionsAccountingUserAccountsReplaceRequest {
+func (r ApiUserAccountsReplaceRequest) CreateUserAccountRequestExternal(createUserAccountRequestExternal CreateUserAccountRequestExternal) ApiUserAccountsReplaceRequest {
 	r.createUserAccountRequestExternal = &createUserAccountRequestExternal
 	return r
 }
 
-func (r ApiPutCrmV3ExtensionsAccountingUserAccountsReplaceRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PutCrmV3ExtensionsAccountingUserAccountsReplaceExecute(r)
+func (r ApiUserAccountsReplaceRequest) Execute() (*http.Response, error) {
+	return r.ApiService.UserAccountsReplaceExecute(r)
 }
 
 /*
-PutCrmV3ExtensionsAccountingUserAccountsReplace Create a user account
+UserAccountsReplace Create a user account
 
 Creates an account which contains the information about the account in the external accounting system.  This *must* be called after a user connects their HubSpot account to the external accounting system, as there is no other way for HubSpot to obtain the external account details.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPutCrmV3ExtensionsAccountingUserAccountsReplaceRequest
+ @return ApiUserAccountsReplaceRequest
 */
-func (a *UserAccountsApiService) PutCrmV3ExtensionsAccountingUserAccountsReplace(ctx context.Context) ApiPutCrmV3ExtensionsAccountingUserAccountsReplaceRequest {
-	return ApiPutCrmV3ExtensionsAccountingUserAccountsReplaceRequest{
+func (a *UserAccountsApiService) UserAccountsReplace(ctx context.Context) ApiUserAccountsReplaceRequest {
+	return ApiUserAccountsReplaceRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *UserAccountsApiService) PutCrmV3ExtensionsAccountingUserAccountsReplaceExecute(r ApiPutCrmV3ExtensionsAccountingUserAccountsReplaceRequest) (*http.Response, error) {
+func (a *UserAccountsApiService) UserAccountsReplaceExecute(r ApiUserAccountsReplaceRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPut
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAccountsApiService.PutCrmV3ExtensionsAccountingUserAccountsReplace")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAccountsApiService.UserAccountsReplace")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}

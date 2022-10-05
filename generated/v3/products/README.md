@@ -78,20 +78,20 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*AssociationsApi* | [**DeleteCrmV3ObjectsProductsProductIdAssociationsToObjectTypeToObjectIdAssociationTypeArchive**](docs/AssociationsApi.md#deletecrmv3objectsproductsproductidassociationstoobjecttypetoobjectidassociationtypearchive) | **Delete** /crm/v3/objects/products/{productId}/associations/{toObjectType}/{toObjectId}/{associationType} | Remove an association between two products
-*AssociationsApi* | [**GetCrmV3ObjectsProductsProductIdAssociationsToObjectTypeGetAll**](docs/AssociationsApi.md#getcrmv3objectsproductsproductidassociationstoobjecttypegetall) | **Get** /crm/v3/objects/products/{productId}/associations/{toObjectType} | List associations of a product by type
-*AssociationsApi* | [**PutCrmV3ObjectsProductsProductIdAssociationsToObjectTypeToObjectIdAssociationTypeCreate**](docs/AssociationsApi.md#putcrmv3objectsproductsproductidassociationstoobjecttypetoobjectidassociationtypecreate) | **Put** /crm/v3/objects/products/{productId}/associations/{toObjectType}/{toObjectId}/{associationType} | Associate a product with another object
-*BasicApi* | [**DeleteCrmV3ObjectsProductsProductIdArchive**](docs/BasicApi.md#deletecrmv3objectsproductsproductidarchive) | **Delete** /crm/v3/objects/products/{productId} | Archive
-*BasicApi* | [**GetCrmV3ObjectsProductsGetPage**](docs/BasicApi.md#getcrmv3objectsproductsgetpage) | **Get** /crm/v3/objects/products | List
-*BasicApi* | [**GetCrmV3ObjectsProductsProductIdGetById**](docs/BasicApi.md#getcrmv3objectsproductsproductidgetbyid) | **Get** /crm/v3/objects/products/{productId} | Read
-*BasicApi* | [**PatchCrmV3ObjectsProductsProductIdUpdate**](docs/BasicApi.md#patchcrmv3objectsproductsproductidupdate) | **Patch** /crm/v3/objects/products/{productId} | Update
-*BasicApi* | [**PostCrmV3ObjectsProductsCreate**](docs/BasicApi.md#postcrmv3objectsproductscreate) | **Post** /crm/v3/objects/products | Create
-*BatchApi* | [**PostCrmV3ObjectsProductsBatchArchiveArchive**](docs/BatchApi.md#postcrmv3objectsproductsbatcharchivearchive) | **Post** /crm/v3/objects/products/batch/archive | Archive a batch of products by ID
-*BatchApi* | [**PostCrmV3ObjectsProductsBatchCreateCreate**](docs/BatchApi.md#postcrmv3objectsproductsbatchcreatecreate) | **Post** /crm/v3/objects/products/batch/create | Create a batch of products
-*BatchApi* | [**PostCrmV3ObjectsProductsBatchReadRead**](docs/BatchApi.md#postcrmv3objectsproductsbatchreadread) | **Post** /crm/v3/objects/products/batch/read | Read a batch of products by internal ID, or unique property values
-*BatchApi* | [**PostCrmV3ObjectsProductsBatchUpdateUpdate**](docs/BatchApi.md#postcrmv3objectsproductsbatchupdateupdate) | **Post** /crm/v3/objects/products/batch/update | Update a batch of products
-*PublicObjectApi* | [**PostCrmV3ObjectsProductsMergeMerge**](docs/PublicObjectApi.md#postcrmv3objectsproductsmergemerge) | **Post** /crm/v3/objects/products/merge | Merge two products with same type
-*SearchApi* | [**PostCrmV3ObjectsProductsSearchDoSearch**](docs/SearchApi.md#postcrmv3objectsproductssearchdosearch) | **Post** /crm/v3/objects/products/search | 
+*AssociationsApi* | [**AssociationsArchive**](docs/AssociationsApi.md#associationsarchive) | **Delete** /crm/v3/objects/products/{productId}/associations/{toObjectType}/{toObjectId}/{associationType} | Remove an association between two products
+*AssociationsApi* | [**AssociationsCreate**](docs/AssociationsApi.md#associationscreate) | **Put** /crm/v3/objects/products/{productId}/associations/{toObjectType}/{toObjectId}/{associationType} | Associate a product with another object
+*AssociationsApi* | [**AssociationsGetAll**](docs/AssociationsApi.md#associationsgetall) | **Get** /crm/v3/objects/products/{productId}/associations/{toObjectType} | List associations of a product by type
+*BasicApi* | [**Archive**](docs/BasicApi.md#archive) | **Delete** /crm/v3/objects/products/{productId} | Archive
+*BasicApi* | [**Create**](docs/BasicApi.md#create) | **Post** /crm/v3/objects/products | Create
+*BasicApi* | [**GetByID**](docs/BasicApi.md#getbyid) | **Get** /crm/v3/objects/products/{productId} | Read
+*BasicApi* | [**GetPage**](docs/BasicApi.md#getpage) | **Get** /crm/v3/objects/products | List
+*BasicApi* | [**Update**](docs/BasicApi.md#update) | **Patch** /crm/v3/objects/products/{productId} | Update
+*BatchApi* | [**BatchArchive**](docs/BatchApi.md#batcharchive) | **Post** /crm/v3/objects/products/batch/archive | Archive a batch of products by ID
+*BatchApi* | [**BatchCreate**](docs/BatchApi.md#batchcreate) | **Post** /crm/v3/objects/products/batch/create | Create a batch of products
+*BatchApi* | [**BatchRead**](docs/BatchApi.md#batchread) | **Post** /crm/v3/objects/products/batch/read | Read a batch of products by internal ID, or unique property values
+*BatchApi* | [**BatchUpdate**](docs/BatchApi.md#batchupdate) | **Post** /crm/v3/objects/products/batch/update | Update a batch of products
+*PublicObjectApi* | [**Merge**](docs/PublicObjectApi.md#merge) | **Post** /crm/v3/objects/products/merge | Merge two products with same type
+*SearchApi* | [**Search**](docs/SearchApi.md#search) | **Post** /crm/v3/objects/products/search | 
 
 
 ## Documentation For Models

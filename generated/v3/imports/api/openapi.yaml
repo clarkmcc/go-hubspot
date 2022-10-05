@@ -11,7 +11,7 @@ paths:
   /crm/v3/imports/:
     get:
       description: Returns a paged list of active imports for this account.
-      operationId: get-/crm/v3/imports/_getPage
+      operationId: GetPage
       parameters:
       - description: The paging cursor token of the last successfully read resource
           will be returned as the `paging.next.after` JSON property of a paged response
@@ -61,12 +61,12 @@ paths:
       description: Begins importing data from the specified file resources. This uploads
         the corresponding file and uses the import request object to convert rows
         in the files to objects.
-      operationId: post-/crm/v3/imports/_create
+      operationId: Create
       requestBody:
         content:
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/post__crm_v3_imports__create_request'
+              $ref: '#/components/schemas/Create_request'
       responses:
         "200":
           content:
@@ -90,7 +90,7 @@ paths:
   /crm/v3/imports/{importId}:
     get:
       description: "A complete summary of an import record, including any updates."
-      operationId: "get-/crm/v3/imports/{importId}_getById"
+      operationId: GetByID
       parameters:
       - explode: false
         in: path
@@ -121,7 +121,7 @@ paths:
   /crm/v3/imports/{importId}/cancel:
     post:
       description: This allows a developer to cancel an active import.
-      operationId: "post-/crm/v3/imports/{importId}/cancel_cancel"
+      operationId: Cancel
       parameters:
       - explode: false
         in: path
@@ -153,7 +153,7 @@ paths:
       - Core
   /crm/v3/imports/{importId}/errors:
     get:
-      operationId: "get-/crm/v3/imports/{importId}/errors_getErrors"
+      operationId: GetErrors
       parameters:
       - description: The paging cursor token of the last successfully read resource
           will be returned as the `paging.next.after` JSON property of a paged response
@@ -761,7 +761,7 @@ components:
       required:
       - after
       type: object
-    post__crm_v3_imports__create_request:
+    Create_request:
       properties:
         files:
           description: A list of files containing the data to import

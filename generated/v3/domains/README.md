@@ -78,8 +78,8 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DomainsApi* | [**GetCmsV3DomainsDomainIdGetById**](docs/DomainsApi.md#getcmsv3domainsdomainidgetbyid) | **Get** /cms/v3/domains/{domainId} | Get a single domain
-*DomainsApi* | [**GetCmsV3DomainsGetPage**](docs/DomainsApi.md#getcmsv3domainsgetpage) | **Get** /cms/v3/domains/ | Get current domains
+*DomainsApi* | [**GetByID**](docs/DomainsApi.md#getbyid) | **Get** /cms/v3/domains/{domainId} | Get a single domain
+*DomainsApi* | [**GetPage**](docs/DomainsApi.md#getpage) | **Get** /cms/v3/domains/ | Get current domains
 
 
 ## Documentation For Models

@@ -78,20 +78,20 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*AssociationsApi* | [**DeleteCrmV3ObjectsQuotesQuoteIdAssociationsToObjectTypeToObjectIdAssociationTypeArchive**](docs/AssociationsApi.md#deletecrmv3objectsquotesquoteidassociationstoobjecttypetoobjectidassociationtypearchive) | **Delete** /crm/v3/objects/quotes/{quoteId}/associations/{toObjectType}/{toObjectId}/{associationType} | Remove an association between two quotes
-*AssociationsApi* | [**GetCrmV3ObjectsQuotesQuoteIdAssociationsToObjectTypeGetAll**](docs/AssociationsApi.md#getcrmv3objectsquotesquoteidassociationstoobjecttypegetall) | **Get** /crm/v3/objects/quotes/{quoteId}/associations/{toObjectType} | List associations of a quote by type
-*AssociationsApi* | [**PutCrmV3ObjectsQuotesQuoteIdAssociationsToObjectTypeToObjectIdAssociationTypeCreate**](docs/AssociationsApi.md#putcrmv3objectsquotesquoteidassociationstoobjecttypetoobjectidassociationtypecreate) | **Put** /crm/v3/objects/quotes/{quoteId}/associations/{toObjectType}/{toObjectId}/{associationType} | Associate a quote with another object
-*BasicApi* | [**DeleteCrmV3ObjectsQuotesQuoteIdArchive**](docs/BasicApi.md#deletecrmv3objectsquotesquoteidarchive) | **Delete** /crm/v3/objects/quotes/{quoteId} | Archive
-*BasicApi* | [**GetCrmV3ObjectsQuotesGetPage**](docs/BasicApi.md#getcrmv3objectsquotesgetpage) | **Get** /crm/v3/objects/quotes | List
-*BasicApi* | [**GetCrmV3ObjectsQuotesQuoteIdGetById**](docs/BasicApi.md#getcrmv3objectsquotesquoteidgetbyid) | **Get** /crm/v3/objects/quotes/{quoteId} | Read
-*BasicApi* | [**PatchCrmV3ObjectsQuotesQuoteIdUpdate**](docs/BasicApi.md#patchcrmv3objectsquotesquoteidupdate) | **Patch** /crm/v3/objects/quotes/{quoteId} | Update
-*BasicApi* | [**PostCrmV3ObjectsQuotesCreate**](docs/BasicApi.md#postcrmv3objectsquotescreate) | **Post** /crm/v3/objects/quotes | Create
-*BatchApi* | [**PostCrmV3ObjectsQuotesBatchArchiveArchive**](docs/BatchApi.md#postcrmv3objectsquotesbatcharchivearchive) | **Post** /crm/v3/objects/quotes/batch/archive | Archive a batch of quotes by ID
-*BatchApi* | [**PostCrmV3ObjectsQuotesBatchCreateCreate**](docs/BatchApi.md#postcrmv3objectsquotesbatchcreatecreate) | **Post** /crm/v3/objects/quotes/batch/create | Create a batch of quotes
-*BatchApi* | [**PostCrmV3ObjectsQuotesBatchReadRead**](docs/BatchApi.md#postcrmv3objectsquotesbatchreadread) | **Post** /crm/v3/objects/quotes/batch/read | Read a batch of quotes by internal ID, or unique property values
-*BatchApi* | [**PostCrmV3ObjectsQuotesBatchUpdateUpdate**](docs/BatchApi.md#postcrmv3objectsquotesbatchupdateupdate) | **Post** /crm/v3/objects/quotes/batch/update | Update a batch of quotes
-*PublicObjectApi* | [**PostCrmV3ObjectsQuotesMergeMerge**](docs/PublicObjectApi.md#postcrmv3objectsquotesmergemerge) | **Post** /crm/v3/objects/quotes/merge | Merge two quotes with same type
-*SearchApi* | [**PostCrmV3ObjectsQuotesSearchDoSearch**](docs/SearchApi.md#postcrmv3objectsquotessearchdosearch) | **Post** /crm/v3/objects/quotes/search | 
+*AssociationsApi* | [**AssociationsArchive**](docs/AssociationsApi.md#associationsarchive) | **Delete** /crm/v3/objects/quotes/{quoteId}/associations/{toObjectType}/{toObjectId}/{associationType} | Remove an association between two quotes
+*AssociationsApi* | [**AssociationsCreate**](docs/AssociationsApi.md#associationscreate) | **Put** /crm/v3/objects/quotes/{quoteId}/associations/{toObjectType}/{toObjectId}/{associationType} | Associate a quote with another object
+*AssociationsApi* | [**AssociationsGetAll**](docs/AssociationsApi.md#associationsgetall) | **Get** /crm/v3/objects/quotes/{quoteId}/associations/{toObjectType} | List associations of a quote by type
+*BasicApi* | [**Archive**](docs/BasicApi.md#archive) | **Delete** /crm/v3/objects/quotes/{quoteId} | Archive
+*BasicApi* | [**Create**](docs/BasicApi.md#create) | **Post** /crm/v3/objects/quotes | Create
+*BasicApi* | [**GetByID**](docs/BasicApi.md#getbyid) | **Get** /crm/v3/objects/quotes/{quoteId} | Read
+*BasicApi* | [**GetPage**](docs/BasicApi.md#getpage) | **Get** /crm/v3/objects/quotes | List
+*BasicApi* | [**Update**](docs/BasicApi.md#update) | **Patch** /crm/v3/objects/quotes/{quoteId} | Update
+*BatchApi* | [**BatchArchive**](docs/BatchApi.md#batcharchive) | **Post** /crm/v3/objects/quotes/batch/archive | Archive a batch of quotes by ID
+*BatchApi* | [**BatchCreate**](docs/BatchApi.md#batchcreate) | **Post** /crm/v3/objects/quotes/batch/create | Create a batch of quotes
+*BatchApi* | [**BatchRead**](docs/BatchApi.md#batchread) | **Post** /crm/v3/objects/quotes/batch/read | Read a batch of quotes by internal ID, or unique property values
+*BatchApi* | [**BatchUpdate**](docs/BatchApi.md#batchupdate) | **Post** /crm/v3/objects/quotes/batch/update | Update a batch of quotes
+*PublicObjectApi* | [**Merge**](docs/PublicObjectApi.md#merge) | **Post** /crm/v3/objects/quotes/merge | Merge two quotes with same type
+*SearchApi* | [**Search**](docs/SearchApi.md#search) | **Post** /crm/v3/objects/quotes/search | 
 
 
 ## Documentation For Models

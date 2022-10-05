@@ -24,27 +24,27 @@ import (
 // SettingsApiService SettingsApi service
 type SettingsApiService service
 
-type ApiGetCrmV3ExtensionsAccountingSettingsAppIdGetByIdRequest struct {
+type ApiSettingsGetByIDRequest struct {
 	ctx        context.Context
 	ApiService *SettingsApiService
 	appId      int32
 }
 
-func (r ApiGetCrmV3ExtensionsAccountingSettingsAppIdGetByIdRequest) Execute() (*AccountingAppSettings, *http.Response, error) {
-	return r.ApiService.GetCrmV3ExtensionsAccountingSettingsAppIdGetByIdExecute(r)
+func (r ApiSettingsGetByIDRequest) Execute() (*AccountingAppSettings, *http.Response, error) {
+	return r.ApiService.SettingsGetByIDExecute(r)
 }
 
 /*
-GetCrmV3ExtensionsAccountingSettingsAppIdGetById Get URL settings
+SettingsGetByID Get URL settings
 
 Returns the URL settings for an accounting app with the specified ID.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param appId The ID of the accounting app. This is the identifier of the application created in your HubSpot developer portal.
- @return ApiGetCrmV3ExtensionsAccountingSettingsAppIdGetByIdRequest
+ @return ApiSettingsGetByIDRequest
 */
-func (a *SettingsApiService) GetCrmV3ExtensionsAccountingSettingsAppIdGetById(ctx context.Context, appId int32) ApiGetCrmV3ExtensionsAccountingSettingsAppIdGetByIdRequest {
-	return ApiGetCrmV3ExtensionsAccountingSettingsAppIdGetByIdRequest{
+func (a *SettingsApiService) SettingsGetByID(ctx context.Context, appId int32) ApiSettingsGetByIDRequest {
+	return ApiSettingsGetByIDRequest{
 		ApiService: a,
 		ctx:        ctx,
 		appId:      appId,
@@ -53,7 +53,7 @@ func (a *SettingsApiService) GetCrmV3ExtensionsAccountingSettingsAppIdGetById(ct
 
 // Execute executes the request
 //  @return AccountingAppSettings
-func (a *SettingsApiService) GetCrmV3ExtensionsAccountingSettingsAppIdGetByIdExecute(r ApiGetCrmV3ExtensionsAccountingSettingsAppIdGetByIdRequest) (*AccountingAppSettings, *http.Response, error) {
+func (a *SettingsApiService) SettingsGetByIDExecute(r ApiSettingsGetByIDRequest) (*AccountingAppSettings, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -61,7 +61,7 @@ func (a *SettingsApiService) GetCrmV3ExtensionsAccountingSettingsAppIdGetByIdExe
 		localVarReturnValue *AccountingAppSettings
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsApiService.GetCrmV3ExtensionsAccountingSettingsAppIdGetById")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsApiService.SettingsGetByID")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -144,33 +144,33 @@ func (a *SettingsApiService) GetCrmV3ExtensionsAccountingSettingsAppIdGetByIdExe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPutCrmV3ExtensionsAccountingSettingsAppIdReplaceRequest struct {
+type ApiSettingsReplaceRequest struct {
 	ctx                   context.Context
 	ApiService            *SettingsApiService
 	appId                 int32
 	accountingAppSettings *AccountingAppSettings
 }
 
-func (r ApiPutCrmV3ExtensionsAccountingSettingsAppIdReplaceRequest) AccountingAppSettings(accountingAppSettings AccountingAppSettings) ApiPutCrmV3ExtensionsAccountingSettingsAppIdReplaceRequest {
+func (r ApiSettingsReplaceRequest) AccountingAppSettings(accountingAppSettings AccountingAppSettings) ApiSettingsReplaceRequest {
 	r.accountingAppSettings = &accountingAppSettings
 	return r
 }
 
-func (r ApiPutCrmV3ExtensionsAccountingSettingsAppIdReplaceRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PutCrmV3ExtensionsAccountingSettingsAppIdReplaceExecute(r)
+func (r ApiSettingsReplaceRequest) Execute() (*http.Response, error) {
+	return r.ApiService.SettingsReplaceExecute(r)
 }
 
 /*
-PutCrmV3ExtensionsAccountingSettingsAppIdReplace Add/Update URL Settings
+SettingsReplace Add/Update URL Settings
 
 Add/Update the URL settings for an accounting app with the specified ID.  All URLs must use the `https` protocol.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param appId The ID of the accounting app. This is the identifier of the application created in your HubSpot developer portal.
- @return ApiPutCrmV3ExtensionsAccountingSettingsAppIdReplaceRequest
+ @return ApiSettingsReplaceRequest
 */
-func (a *SettingsApiService) PutCrmV3ExtensionsAccountingSettingsAppIdReplace(ctx context.Context, appId int32) ApiPutCrmV3ExtensionsAccountingSettingsAppIdReplaceRequest {
-	return ApiPutCrmV3ExtensionsAccountingSettingsAppIdReplaceRequest{
+func (a *SettingsApiService) SettingsReplace(ctx context.Context, appId int32) ApiSettingsReplaceRequest {
+	return ApiSettingsReplaceRequest{
 		ApiService: a,
 		ctx:        ctx,
 		appId:      appId,
@@ -178,14 +178,14 @@ func (a *SettingsApiService) PutCrmV3ExtensionsAccountingSettingsAppIdReplace(ct
 }
 
 // Execute executes the request
-func (a *SettingsApiService) PutCrmV3ExtensionsAccountingSettingsAppIdReplaceExecute(r ApiPutCrmV3ExtensionsAccountingSettingsAppIdReplaceRequest) (*http.Response, error) {
+func (a *SettingsApiService) SettingsReplaceExecute(r ApiSettingsReplaceRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPut
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsApiService.PutCrmV3ExtensionsAccountingSettingsAppIdReplace")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsApiService.SettingsReplace")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}

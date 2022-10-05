@@ -4,15 +4,15 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteCrmV3ExtensionsVideoconferencingSettingsAppIdArchive**](SettingsApi.md#DeleteCrmV3ExtensionsVideoconferencingSettingsAppIdArchive) | **Delete** /crm/v3/extensions/videoconferencing/settings/{appId} | Delete settings
-[**GetCrmV3ExtensionsVideoconferencingSettingsAppIdGetById**](SettingsApi.md#GetCrmV3ExtensionsVideoconferencingSettingsAppIdGetById) | **Get** /crm/v3/extensions/videoconferencing/settings/{appId} | Get settings
-[**PutCrmV3ExtensionsVideoconferencingSettingsAppIdReplace**](SettingsApi.md#PutCrmV3ExtensionsVideoconferencingSettingsAppIdReplace) | **Put** /crm/v3/extensions/videoconferencing/settings/{appId} | Update settings
+[**Archive**](SettingsApi.md#Archive) | **Delete** /crm/v3/extensions/videoconferencing/settings/{appId} | Delete settings
+[**GetByID**](SettingsApi.md#GetByID) | **Get** /crm/v3/extensions/videoconferencing/settings/{appId} | Get settings
+[**Replace**](SettingsApi.md#Replace) | **Put** /crm/v3/extensions/videoconferencing/settings/{appId} | Update settings
 
 
 
-## DeleteCrmV3ExtensionsVideoconferencingSettingsAppIdArchive
+## Archive
 
-> DeleteCrmV3ExtensionsVideoconferencingSettingsAppIdArchive(ctx, appId).Execute()
+> Archive(ctx, appId).Execute()
 
 Delete settings
 
@@ -35,9 +35,9 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SettingsApi.DeleteCrmV3ExtensionsVideoconferencingSettingsAppIdArchive(context.Background(), appId).Execute()
+    resp, r, err := apiClient.SettingsApi.Archive(context.Background(), appId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SettingsApi.DeleteCrmV3ExtensionsVideoconferencingSettingsAppIdArchive``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SettingsApi.Archive``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -53,7 +53,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteCrmV3ExtensionsVideoconferencingSettingsAppIdArchiveRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiArchiveRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -78,9 +78,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetCrmV3ExtensionsVideoconferencingSettingsAppIdGetById
+## GetByID
 
-> ExternalSettings GetCrmV3ExtensionsVideoconferencingSettingsAppIdGetById(ctx, appId).Execute()
+> ExternalSettings GetByID(ctx, appId).Execute()
 
 Get settings
 
@@ -103,13 +103,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SettingsApi.GetCrmV3ExtensionsVideoconferencingSettingsAppIdGetById(context.Background(), appId).Execute()
+    resp, r, err := apiClient.SettingsApi.GetByID(context.Background(), appId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SettingsApi.GetCrmV3ExtensionsVideoconferencingSettingsAppIdGetById``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SettingsApi.GetByID``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetCrmV3ExtensionsVideoconferencingSettingsAppIdGetById`: ExternalSettings
-    fmt.Fprintf(os.Stdout, "Response from `SettingsApi.GetCrmV3ExtensionsVideoconferencingSettingsAppIdGetById`: %v\n", resp)
+    // response from `GetByID`: ExternalSettings
+    fmt.Fprintf(os.Stdout, "Response from `SettingsApi.GetByID`: %v\n", resp)
 }
 ```
 
@@ -123,7 +123,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetCrmV3ExtensionsVideoconferencingSettingsAppIdGetByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetByIDRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -148,9 +148,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PutCrmV3ExtensionsVideoconferencingSettingsAppIdReplace
+## Replace
 
-> ExternalSettings PutCrmV3ExtensionsVideoconferencingSettingsAppIdReplace(ctx, appId).ExternalSettings(externalSettings).Execute()
+> ExternalSettings Replace(ctx, appId).ExternalSettings(externalSettings).Execute()
 
 Update settings
 
@@ -174,13 +174,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SettingsApi.PutCrmV3ExtensionsVideoconferencingSettingsAppIdReplace(context.Background(), appId).ExternalSettings(externalSettings).Execute()
+    resp, r, err := apiClient.SettingsApi.Replace(context.Background(), appId).ExternalSettings(externalSettings).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SettingsApi.PutCrmV3ExtensionsVideoconferencingSettingsAppIdReplace``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SettingsApi.Replace``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PutCrmV3ExtensionsVideoconferencingSettingsAppIdReplace`: ExternalSettings
-    fmt.Fprintf(os.Stdout, "Response from `SettingsApi.PutCrmV3ExtensionsVideoconferencingSettingsAppIdReplace`: %v\n", resp)
+    // response from `Replace`: ExternalSettings
+    fmt.Fprintf(os.Stdout, "Response from `SettingsApi.Replace`: %v\n", resp)
 }
 ```
 
@@ -194,7 +194,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPutCrmV3ExtensionsVideoconferencingSettingsAppIdReplaceRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiReplaceRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

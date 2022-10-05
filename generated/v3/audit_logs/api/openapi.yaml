@@ -12,7 +12,7 @@ paths:
   /cms/v3/audit-logs/:
     get:
       description: Returns audit logs based on filters.
-      operationId: get-/cms/v3/audit-logs/_getPage
+      operationId: GetPage
       parameters:
       - description: Comma separated list of object ids to filter by.
         explode: true

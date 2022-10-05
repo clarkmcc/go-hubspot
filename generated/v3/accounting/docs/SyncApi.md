@@ -4,14 +4,14 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**PostCrmV3ExtensionsAccountingSyncAppIdContactsCreateContact**](SyncApi.md#PostCrmV3ExtensionsAccountingSyncAppIdContactsCreateContact) | **Post** /crm/v3/extensions/accounting/sync/{appId}/contacts | Import contacts
-[**PostCrmV3ExtensionsAccountingSyncAppIdProductsCreateProduct**](SyncApi.md#PostCrmV3ExtensionsAccountingSyncAppIdProductsCreateProduct) | **Post** /crm/v3/extensions/accounting/sync/{appId}/products | Import products
+[**SyncCreateContact**](SyncApi.md#SyncCreateContact) | **Post** /crm/v3/extensions/accounting/sync/{appId}/contacts | Import contacts
+[**SyncCreateProduct**](SyncApi.md#SyncCreateProduct) | **Post** /crm/v3/extensions/accounting/sync/{appId}/products | Import products
 
 
 
-## PostCrmV3ExtensionsAccountingSyncAppIdContactsCreateContact
+## SyncCreateContact
 
-> ActionResponse PostCrmV3ExtensionsAccountingSyncAppIdContactsCreateContact(ctx, appId).SyncContactsRequest(syncContactsRequest).Execute()
+> ActionResponse SyncCreateContact(ctx, appId).SyncContactsRequest(syncContactsRequest).Execute()
 
 Import contacts
 
@@ -36,13 +36,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SyncApi.PostCrmV3ExtensionsAccountingSyncAppIdContactsCreateContact(context.Background(), appId).SyncContactsRequest(syncContactsRequest).Execute()
+    resp, r, err := apiClient.SyncApi.SyncCreateContact(context.Background(), appId).SyncContactsRequest(syncContactsRequest).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SyncApi.PostCrmV3ExtensionsAccountingSyncAppIdContactsCreateContact``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SyncApi.SyncCreateContact``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostCrmV3ExtensionsAccountingSyncAppIdContactsCreateContact`: ActionResponse
-    fmt.Fprintf(os.Stdout, "Response from `SyncApi.PostCrmV3ExtensionsAccountingSyncAppIdContactsCreateContact`: %v\n", resp)
+    // response from `SyncCreateContact`: ActionResponse
+    fmt.Fprintf(os.Stdout, "Response from `SyncApi.SyncCreateContact`: %v\n", resp)
 }
 ```
 
@@ -56,7 +56,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCrmV3ExtensionsAccountingSyncAppIdContactsCreateContactRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiSyncCreateContactRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -82,9 +82,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostCrmV3ExtensionsAccountingSyncAppIdProductsCreateProduct
+## SyncCreateProduct
 
-> ActionResponse PostCrmV3ExtensionsAccountingSyncAppIdProductsCreateProduct(ctx, appId).SyncProductsRequest(syncProductsRequest).Execute()
+> ActionResponse SyncCreateProduct(ctx, appId).SyncProductsRequest(syncProductsRequest).Execute()
 
 Import products
 
@@ -109,13 +109,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SyncApi.PostCrmV3ExtensionsAccountingSyncAppIdProductsCreateProduct(context.Background(), appId).SyncProductsRequest(syncProductsRequest).Execute()
+    resp, r, err := apiClient.SyncApi.SyncCreateProduct(context.Background(), appId).SyncProductsRequest(syncProductsRequest).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SyncApi.PostCrmV3ExtensionsAccountingSyncAppIdProductsCreateProduct``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SyncApi.SyncCreateProduct``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostCrmV3ExtensionsAccountingSyncAppIdProductsCreateProduct`: ActionResponse
-    fmt.Fprintf(os.Stdout, "Response from `SyncApi.PostCrmV3ExtensionsAccountingSyncAppIdProductsCreateProduct`: %v\n", resp)
+    // response from `SyncCreateProduct`: ActionResponse
+    fmt.Fprintf(os.Stdout, "Response from `SyncApi.SyncCreateProduct`: %v\n", resp)
 }
 ```
 
@@ -129,7 +129,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCrmV3ExtensionsAccountingSyncAppIdProductsCreateProductRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiSyncCreateProductRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

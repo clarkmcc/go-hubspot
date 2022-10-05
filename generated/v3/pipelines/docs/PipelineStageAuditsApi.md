@@ -4,13 +4,13 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetCrmV3PipelinesObjectTypePipelineIdStagesStageIdAuditGetAudit**](PipelineStageAuditsApi.md#GetCrmV3PipelinesObjectTypePipelineIdStagesStageIdAuditGetAudit) | **Get** /crm/v3/pipelines/{objectType}/{pipelineId}/stages/{stageId}/audit | Return an audit of all changes to the pipeline stage
+[**StagesGetAudit**](PipelineStageAuditsApi.md#StagesGetAudit) | **Get** /crm/v3/pipelines/{objectType}/{pipelineId}/stages/{stageId}/audit | Return an audit of all changes to the pipeline stage
 
 
 
-## GetCrmV3PipelinesObjectTypePipelineIdStagesStageIdAuditGetAudit
+## StagesGetAudit
 
-> CollectionResponsePublicAuditInfoNoPaging GetCrmV3PipelinesObjectTypePipelineIdStagesStageIdAuditGetAudit(ctx, objectType, stageId).Execute()
+> CollectionResponsePublicAuditInfoNoPaging StagesGetAudit(ctx, objectType, stageId).Execute()
 
 Return an audit of all changes to the pipeline stage
 
@@ -34,13 +34,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PipelineStageAuditsApi.GetCrmV3PipelinesObjectTypePipelineIdStagesStageIdAuditGetAudit(context.Background(), objectType, stageId).Execute()
+    resp, r, err := apiClient.PipelineStageAuditsApi.StagesGetAudit(context.Background(), objectType, stageId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PipelineStageAuditsApi.GetCrmV3PipelinesObjectTypePipelineIdStagesStageIdAuditGetAudit``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `PipelineStageAuditsApi.StagesGetAudit``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetCrmV3PipelinesObjectTypePipelineIdStagesStageIdAuditGetAudit`: CollectionResponsePublicAuditInfoNoPaging
-    fmt.Fprintf(os.Stdout, "Response from `PipelineStageAuditsApi.GetCrmV3PipelinesObjectTypePipelineIdStagesStageIdAuditGetAudit`: %v\n", resp)
+    // response from `StagesGetAudit`: CollectionResponsePublicAuditInfoNoPaging
+    fmt.Fprintf(os.Stdout, "Response from `PipelineStageAuditsApi.StagesGetAudit`: %v\n", resp)
 }
 ```
 
@@ -55,7 +55,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetCrmV3PipelinesObjectTypePipelineIdStagesStageIdAuditGetAuditRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiStagesGetAuditRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

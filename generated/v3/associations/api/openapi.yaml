@@ -14,7 +14,7 @@ paths:
     post:
       description: Remove the associations between all pairs of objects identified
         in the request body.
-      operationId: "post-/crm/v3/associations/{fromObjectType}/{toObjectType}/batch/archive_archive"
+      operationId: BatchArchive
       parameters:
       - explode: false
         in: path
@@ -86,7 +86,7 @@ paths:
   /crm/v3/associations/{fromObjectType}/{toObjectType}/batch/create:
     post:
       description: Associate all pairs of objects identified in the request body.
-      operationId: "post-/crm/v3/associations/{fromObjectType}/{toObjectType}/batch/create_create"
+      operationId: BatchCreate
       parameters:
       - explode: false
         in: path
@@ -168,7 +168,7 @@ paths:
     post:
       description: "Get the IDs of all `{toObjectType}` objects associated with those\
         \ specified in the request body."
-      operationId: "post-/crm/v3/associations/{fromObjectType}/{toObjectType}/batch/read_read"
+      operationId: BatchRead
       parameters:
       - explode: false
         in: path
@@ -250,7 +250,7 @@ paths:
     get:
       description: List all the valid association types available between two object
         types
-      operationId: "get-/crm/v3/associations/{fromObjectType}/{toObjectType}/types_getAll"
+      operationId: GetAll
       parameters:
       - explode: false
         in: path

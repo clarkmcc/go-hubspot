@@ -5,7 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **InteractionDateTime** | **int64** | The date and time at which the contact subscribed to the event. | 
+**Properties** | Pointer to **map[string]string** |  | [optional] 
 **Email** | **string** | The email address of the contact in HubSpot to associate with the event. Note that the contact must already exist in HubSpot; a contact will not be created. | 
+**ContactProperties** | Pointer to **map[string]string** |  | [optional] 
 
 ## Methods
 
@@ -46,6 +48,31 @@ and a boolean to check if the value has been set.
 SetInteractionDateTime sets InteractionDateTime field to given value.
 
 
+### GetProperties
+
+`func (o *MarketingEventEmailSubscriber) GetProperties() map[string]string`
+
+GetProperties returns the Properties field if non-nil, zero value otherwise.
+
+### GetPropertiesOk
+
+`func (o *MarketingEventEmailSubscriber) GetPropertiesOk() (*map[string]string, bool)`
+
+GetPropertiesOk returns a tuple with the Properties field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProperties
+
+`func (o *MarketingEventEmailSubscriber) SetProperties(v map[string]string)`
+
+SetProperties sets Properties field to given value.
+
+### HasProperties
+
+`func (o *MarketingEventEmailSubscriber) HasProperties() bool`
+
+HasProperties returns a boolean if a field has been set.
+
 ### GetEmail
 
 `func (o *MarketingEventEmailSubscriber) GetEmail() string`
@@ -65,6 +92,31 @@ and a boolean to check if the value has been set.
 
 SetEmail sets Email field to given value.
 
+
+### GetContactProperties
+
+`func (o *MarketingEventEmailSubscriber) GetContactProperties() map[string]string`
+
+GetContactProperties returns the ContactProperties field if non-nil, zero value otherwise.
+
+### GetContactPropertiesOk
+
+`func (o *MarketingEventEmailSubscriber) GetContactPropertiesOk() (*map[string]string, bool)`
+
+GetContactPropertiesOk returns a tuple with the ContactProperties field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetContactProperties
+
+`func (o *MarketingEventEmailSubscriber) SetContactProperties(v map[string]string)`
+
+SetContactProperties sets ContactProperties field to given value.
+
+### HasContactProperties
+
+`func (o *MarketingEventEmailSubscriber) HasContactProperties() bool`
+
+HasContactProperties returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

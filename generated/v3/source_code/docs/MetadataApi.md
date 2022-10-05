@@ -4,13 +4,13 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetCmsV3SourceCodeEnvironmentMetadataPathGet**](MetadataApi.md#GetCmsV3SourceCodeEnvironmentMetadataPathGet) | **Get** /cms/v3/source-code/{environment}/metadata/{path} | Get the metadata for a file
+[**MetadataGet**](MetadataApi.md#MetadataGet) | **Get** /cms/v3/source-code/{environment}/metadata/{path} | Get the metadata for a file
 
 
 
-## GetCmsV3SourceCodeEnvironmentMetadataPathGet
+## MetadataGet
 
-> AssetFileMetadata GetCmsV3SourceCodeEnvironmentMetadataPathGet(ctx, environment, path).Execute()
+> AssetFileMetadata MetadataGet(ctx, environment, path).Execute()
 
 Get the metadata for a file
 
@@ -34,13 +34,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.MetadataApi.GetCmsV3SourceCodeEnvironmentMetadataPathGet(context.Background(), environment, path).Execute()
+    resp, r, err := apiClient.MetadataApi.MetadataGet(context.Background(), environment, path).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `MetadataApi.GetCmsV3SourceCodeEnvironmentMetadataPathGet``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `MetadataApi.MetadataGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetCmsV3SourceCodeEnvironmentMetadataPathGet`: AssetFileMetadata
-    fmt.Fprintf(os.Stdout, "Response from `MetadataApi.GetCmsV3SourceCodeEnvironmentMetadataPathGet`: %v\n", resp)
+    // response from `MetadataGet`: AssetFileMetadata
+    fmt.Fprintf(os.Stdout, "Response from `MetadataApi.MetadataGet`: %v\n", resp)
 }
 ```
 
@@ -55,7 +55,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetCmsV3SourceCodeEnvironmentMetadataPathGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiMetadataGetRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

@@ -29,7 +29,7 @@
         "tags" : [ "Callbacks" ],
         "summary" : "Endpoint for customer creation response",
         "description" : "Call this endpoint with the response to a customer creation request.",
-        "operationId" : "post-/crm/v3/extensions/accounting/callback/customer-create/{requestId}_createCustomer",
+        "operationId" : "CallbackCreateCustomer",
         "parameters" : [ {
           "name" : "requestId",
           "in" : "path",
@@ -73,7 +73,7 @@
         "tags" : [ "Callbacks" ],
         "summary" : "Endpoint for customer search response",
         "description" : "Call this endpoint with the response to a customer search request.",
-        "operationId" : "post-/crm/v3/extensions/accounting/callback/customer-search/{requestId}_doCustomerSearch",
+        "operationId" : "CallbackDoSearchCustomer",
         "parameters" : [ {
           "name" : "requestId",
           "in" : "path",
@@ -117,7 +117,7 @@
         "tags" : [ "Callbacks" ],
         "summary" : "Endpoint for exchange rate response",
         "description" : "Call this endpoint with the response to an exchange rate request.",
-        "operationId" : "post-/crm/v3/extensions/accounting/callback/exchange-rate/{requestId}_createExchangeRate",
+        "operationId" : "CallbackCreateExchangeRate",
         "parameters" : [ {
           "name" : "requestId",
           "in" : "path",
@@ -161,7 +161,7 @@
         "tags" : [ "Callbacks" ],
         "summary" : "Endpoint for invoice creation response",
         "description" : "Call this endpoint with the response to a invoice creation request.",
-        "operationId" : "post-/crm/v3/extensions/accounting/callback/invoice-create/{requestId}_createInvoice",
+        "operationId" : "CallbackCreateInvoice",
         "parameters" : [ {
           "name" : "requestId",
           "in" : "path",
@@ -205,7 +205,7 @@
         "tags" : [ "Callbacks" ],
         "summary" : "Endpoint for PDF content of invoice",
         "description" : "Call this endpoint with the PDF content of a requested invoice.",
-        "operationId" : "post-/crm/v3/extensions/accounting/callback/invoice-pdf/{requestId}_invoicePdf",
+        "operationId" : "CallbackInvoicePDF",
         "parameters" : [ {
           "name" : "requestId",
           "in" : "path",
@@ -249,7 +249,7 @@
         "tags" : [ "Callbacks" ],
         "summary" : "Endpoint for invoice search response",
         "description" : "Call this endpoint with the response to a invoice search request.",
-        "operationId" : "post-/crm/v3/extensions/accounting/callback/invoice-search/{requestId}_doInvoiceSearch",
+        "operationId" : "CallbackDoInvoiceSearch",
         "parameters" : [ {
           "name" : "requestId",
           "in" : "path",
@@ -293,7 +293,7 @@
         "tags" : [ "Callbacks" ],
         "summary" : "Endpoint for invoice get-by-id response",
         "description" : "Call this endpoint with the response to a invoice get-by-id request.",
-        "operationId" : "post-/crm/v3/extensions/accounting/callback/invoices/{requestId}_getById",
+        "operationId" : "CallbackGetByID",
         "parameters" : [ {
           "name" : "requestId",
           "in" : "path",
@@ -337,7 +337,7 @@
         "tags" : [ "Callbacks" ],
         "summary" : "Endpoint for product search response",
         "description" : "Call this endpoint with the response to a product search request.",
-        "operationId" : "post-/crm/v3/extensions/accounting/callback/product-search/{requestId}_doProductSearch",
+        "operationId" : "CallbackDoProductSearch",
         "parameters" : [ {
           "name" : "requestId",
           "in" : "path",
@@ -381,7 +381,7 @@
         "tags" : [ "Callbacks" ],
         "summary" : "Endpoint for taxes search response",
         "description" : "Call this endpoint with the response to a taxes search request.",
-        "operationId" : "post-/crm/v3/extensions/accounting/callback/tax-search/{requestId}_doTaxSearch",
+        "operationId" : "CallbackDoTaxSearch",
         "parameters" : [ {
           "name" : "requestId",
           "in" : "path",
@@ -425,7 +425,7 @@
         "tags" : [ "Callbacks" ],
         "summary" : "Endpoint for terms search response",
         "description" : "Call this endpoint with the response to a terms search request.",
-        "operationId" : "post-/crm/v3/extensions/accounting/callback/terms/{requestId}_createTerm",
+        "operationId" : "CallbackCreateTerm",
         "parameters" : [ {
           "name" : "requestId",
           "in" : "path",
@@ -469,7 +469,7 @@
         "tags" : [ "Invoice" ],
         "summary" : "Get invoice data",
         "description" : "Returns invoice data for an Accounting account from the specified ID",
-        "operationId" : "get-/crm/v3/extensions/accounting/invoice/{invoiceId}_getById",
+        "operationId" : "InvoiceGetByID",
         "parameters" : [ {
           "name" : "invoiceId",
           "in" : "path",
@@ -516,7 +516,7 @@
         "tags" : [ "Invoice" ],
         "summary" : "Update an invoice",
         "description" : "Updates an Invoice by the given ID.",
-        "operationId" : "patch-/crm/v3/extensions/accounting/invoice/{invoiceId}_update",
+        "operationId" : "InvoiceUpdate",
         "parameters" : [ {
           "name" : "invoiceId",
           "in" : "path",
@@ -576,7 +576,7 @@
         "tags" : [ "Invoice" ],
         "summary" : "Records an invoice payment",
         "description" : "Records an payment against an invoice.",
-        "operationId" : "post-/crm/v3/extensions/accounting/invoice/{invoiceId}/payment_createPayment",
+        "operationId" : "InvoiceCreatePayment",
         "parameters" : [ {
           "name" : "invoiceId",
           "in" : "path",
@@ -636,7 +636,7 @@
         "tags" : [ "Settings" ],
         "summary" : "Get URL settings",
         "description" : "Returns the URL settings for an accounting app with the specified ID.",
-        "operationId" : "get-/crm/v3/extensions/accounting/settings/{appId}_getById",
+        "operationId" : "SettingsGetByID",
         "parameters" : [ {
           "name" : "appId",
           "in" : "path",
@@ -672,7 +672,7 @@
         "tags" : [ "Settings" ],
         "summary" : "Add/Update URL Settings",
         "description" : "Add/Update the URL settings for an accounting app with the specified ID.  All URLs must use the `https` protocol.",
-        "operationId" : "put-/crm/v3/extensions/accounting/settings/{appId}_replace",
+        "operationId" : "SettingsReplace",
         "parameters" : [ {
           "name" : "appId",
           "in" : "path",
@@ -714,7 +714,7 @@
         "tags" : [ "Sync" ],
         "summary" : "Import contacts",
         "description" : "Imports contacts' properties from an external accounting system to HubSpot. Import details, including property mappings, must be configured previously in HubSpot infrastructure.",
-        "operationId" : "post-/crm/v3/extensions/accounting/sync/{appId}/contacts_createContact",
+        "operationId" : "SyncCreateContact",
         "parameters" : [ {
           "name" : "appId",
           "in" : "path",
@@ -764,7 +764,7 @@
         "tags" : [ "Sync" ],
         "summary" : "Import products",
         "description" : "Imports products' properties from an external accounting system to HubSpot. Import details, including property mappings, must be configured previously in HubSpot infrastructure.",
-        "operationId" : "post-/crm/v3/extensions/accounting/sync/{appId}/products_createProduct",
+        "operationId" : "SyncCreateProduct",
         "parameters" : [ {
           "name" : "appId",
           "in" : "path",
@@ -814,7 +814,7 @@
         "tags" : [ "UserAccounts" ],
         "summary" : "Create a user account",
         "description" : "Creates an account which contains the information about the account in the external accounting system.  This *must* be called after a user connects their HubSpot account to the external accounting system, as there is no other way for HubSpot to obtain the external account details.",
-        "operationId" : "put-/crm/v3/extensions/accounting/user-accounts_replace",
+        "operationId" : "UserAccountsReplace",
         "requestBody" : {
           "description" : "The external accounting system user account information.",
           "content" : {
@@ -847,7 +847,7 @@
         "tags" : [ "UserAccounts" ],
         "summary" : "Delete user account",
         "description" : "Deletes a user account from HubSpot, meaning that HubSpot will no longer send requests to the external accounting system for this user.",
-        "operationId" : "delete-/crm/v3/extensions/accounting/user-accounts/{accountId}_archive",
+        "operationId" : "UserAccountsArchive",
         "parameters" : [ {
           "name" : "accountId",
           "in" : "path",

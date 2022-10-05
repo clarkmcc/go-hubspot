@@ -78,8 +78,8 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*PublicApi* | [**GetCmsV3SiteSearchIndexedDataContentIdGetById**](docs/PublicApi.md#getcmsv3sitesearchindexeddatacontentidgetbyid) | **Get** /cms/v3/site-search/indexed-data/{contentId} | Get indexed properties.
-*PublicApi* | [**GetCmsV3SiteSearchSearchSearch**](docs/PublicApi.md#getcmsv3sitesearchsearchsearch) | **Get** /cms/v3/site-search/search | Search your site.
+*PublicApi* | [**GetByID**](docs/PublicApi.md#getbyid) | **Get** /cms/v3/site-search/indexed-data/{contentId} | Get indexed properties.
+*PublicApi* | [**Search**](docs/PublicApi.md#search) | **Get** /cms/v3/site-search/search | Search your site.
 
 
 ## Documentation For Models

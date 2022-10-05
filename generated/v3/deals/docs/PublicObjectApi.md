@@ -4,13 +4,13 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**PostCrmV3ObjectsDealsMergeMerge**](PublicObjectApi.md#PostCrmV3ObjectsDealsMergeMerge) | **Post** /crm/v3/objects/deals/merge | Merge two deals with same type
+[**Merge**](PublicObjectApi.md#Merge) | **Post** /crm/v3/objects/deals/merge | Merge two deals with same type
 
 
 
-## PostCrmV3ObjectsDealsMergeMerge
+## Merge
 
-> SimplePublicObject PostCrmV3ObjectsDealsMergeMerge(ctx).PublicMergeInput(publicMergeInput).Execute()
+> SimplePublicObject Merge(ctx).PublicMergeInput(publicMergeInput).Execute()
 
 Merge two deals with same type
 
@@ -31,13 +31,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PublicObjectApi.PostCrmV3ObjectsDealsMergeMerge(context.Background()).PublicMergeInput(publicMergeInput).Execute()
+    resp, r, err := apiClient.PublicObjectApi.Merge(context.Background()).PublicMergeInput(publicMergeInput).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PublicObjectApi.PostCrmV3ObjectsDealsMergeMerge``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `PublicObjectApi.Merge``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostCrmV3ObjectsDealsMergeMerge`: SimplePublicObject
-    fmt.Fprintf(os.Stdout, "Response from `PublicObjectApi.PostCrmV3ObjectsDealsMergeMerge`: %v\n", resp)
+    // response from `Merge`: SimplePublicObject
+    fmt.Fprintf(os.Stdout, "Response from `PublicObjectApi.Merge`: %v\n", resp)
 }
 ```
 
@@ -47,7 +47,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCrmV3ObjectsDealsMergeMergeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiMergeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

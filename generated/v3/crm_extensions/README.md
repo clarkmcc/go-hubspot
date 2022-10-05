@@ -78,12 +78,12 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*CardsApi* | [**DeleteCrmV3ExtensionsCardsAppIdCardIdArchive**](docs/CardsApi.md#deletecrmv3extensionscardsappidcardidarchive) | **Delete** /crm/v3/extensions/cards/{appId}/{cardId} | Delete a card
-*CardsApi* | [**GetCrmV3ExtensionsCardsAppIdCardIdGetById**](docs/CardsApi.md#getcrmv3extensionscardsappidcardidgetbyid) | **Get** /crm/v3/extensions/cards/{appId}/{cardId} | Get a card.
-*CardsApi* | [**GetCrmV3ExtensionsCardsAppIdGetAll**](docs/CardsApi.md#getcrmv3extensionscardsappidgetall) | **Get** /crm/v3/extensions/cards/{appId} | Get all cards
-*CardsApi* | [**PatchCrmV3ExtensionsCardsAppIdCardIdUpdate**](docs/CardsApi.md#patchcrmv3extensionscardsappidcardidupdate) | **Patch** /crm/v3/extensions/cards/{appId}/{cardId} | Update a card
-*CardsApi* | [**PostCrmV3ExtensionsCardsAppIdCreate**](docs/CardsApi.md#postcrmv3extensionscardsappidcreate) | **Post** /crm/v3/extensions/cards/{appId} | Create a new card
-*SampleResponseApi* | [**GetCrmV3ExtensionsCardsSampleResponseGetCardsSampleResponse**](docs/SampleResponseApi.md#getcrmv3extensionscardssampleresponsegetcardssampleresponse) | **Get** /crm/v3/extensions/cards/sample-response | Get sample card detail response
+*CardsApi* | [**CardsArchive**](docs/CardsApi.md#cardsarchive) | **Delete** /crm/v3/extensions/cards/{appId}/{cardId} | Delete a card
+*CardsApi* | [**CardsCreate**](docs/CardsApi.md#cardscreate) | **Post** /crm/v3/extensions/cards/{appId} | Create a new card
+*CardsApi* | [**CardsGetAll**](docs/CardsApi.md#cardsgetall) | **Get** /crm/v3/extensions/cards/{appId} | Get all cards
+*CardsApi* | [**CardsGetByID**](docs/CardsApi.md#cardsgetbyid) | **Get** /crm/v3/extensions/cards/{appId}/{cardId} | Get a card.
+*CardsApi* | [**CardsUpdate**](docs/CardsApi.md#cardsupdate) | **Patch** /crm/v3/extensions/cards/{appId}/{cardId} | Update a card
+*SampleResponseApi* | [**CardsGetSample**](docs/SampleResponseApi.md#cardsgetsample) | **Get** /crm/v3/extensions/cards/sample-response | Get sample card detail response
 
 
 ## Documentation For Models

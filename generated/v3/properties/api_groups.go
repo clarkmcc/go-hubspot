@@ -24,29 +24,29 @@ import (
 // GroupsApiService GroupsApi service
 type GroupsApiService service
 
-type ApiDeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchiveRequest struct {
+type ApiGroupsArchiveRequest struct {
 	ctx        context.Context
 	ApiService *GroupsApiService
 	objectType string
 	groupName  string
 }
 
-func (r ApiDeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchiveRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchiveExecute(r)
+func (r ApiGroupsArchiveRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GroupsArchiveExecute(r)
 }
 
 /*
-DeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchive Archive a property group
+GroupsArchive Archive a property group
 
 Move a property group identified by {groupName} to the recycling bin.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param objectType
  @param groupName
- @return ApiDeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchiveRequest
+ @return ApiGroupsArchiveRequest
 */
-func (a *GroupsApiService) DeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchive(ctx context.Context, objectType string, groupName string) ApiDeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchiveRequest {
-	return ApiDeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchiveRequest{
+func (a *GroupsApiService) GroupsArchive(ctx context.Context, objectType string, groupName string) ApiGroupsArchiveRequest {
+	return ApiGroupsArchiveRequest{
 		ApiService: a,
 		ctx:        ctx,
 		objectType: objectType,
@@ -55,14 +55,14 @@ func (a *GroupsApiService) DeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchive
 }
 
 // Execute executes the request
-func (a *GroupsApiService) DeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchiveExecute(r ApiDeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchiveRequest) (*http.Response, error) {
+func (a *GroupsApiService) GroupsArchiveExecute(r ApiGroupsArchiveRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsApiService.DeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchive")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsApiService.GroupsArchive")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -137,27 +137,158 @@ func (a *GroupsApiService) DeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchive
 	return localVarHTTPResponse, nil
 }
 
-type ApiGetCrmV3PropertiesObjectTypeGroupsGetAllRequest struct {
+type ApiGroupsCreateRequest struct {
+	ctx                 context.Context
+	ApiService          *GroupsApiService
+	objectType          string
+	propertyGroupCreate *PropertyGroupCreate
+}
+
+func (r ApiGroupsCreateRequest) PropertyGroupCreate(propertyGroupCreate PropertyGroupCreate) ApiGroupsCreateRequest {
+	r.propertyGroupCreate = &propertyGroupCreate
+	return r
+}
+
+func (r ApiGroupsCreateRequest) Execute() (*PropertyGroup, *http.Response, error) {
+	return r.ApiService.GroupsCreateExecute(r)
+}
+
+/*
+GroupsCreate Create a property group
+
+Create and return a copy of a new property group.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param objectType
+ @return ApiGroupsCreateRequest
+*/
+func (a *GroupsApiService) GroupsCreate(ctx context.Context, objectType string) ApiGroupsCreateRequest {
+	return ApiGroupsCreateRequest{
+		ApiService: a,
+		ctx:        ctx,
+		objectType: objectType,
+	}
+}
+
+// Execute executes the request
+//  @return PropertyGroup
+func (a *GroupsApiService) GroupsCreateExecute(r ApiGroupsCreateRequest) (*PropertyGroup, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PropertyGroup
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsApiService.GroupsCreate")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/crm/v3/properties/{objectType}/groups"
+	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterToString(r.objectType, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.propertyGroupCreate == nil {
+		return localVarReturnValue, nil, reportError("propertyGroupCreate is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "*/*"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.propertyGroupCreate
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGroupsGetAllRequest struct {
 	ctx        context.Context
 	ApiService *GroupsApiService
 	objectType string
 }
 
-func (r ApiGetCrmV3PropertiesObjectTypeGroupsGetAllRequest) Execute() (*CollectionResponsePropertyGroup, *http.Response, error) {
-	return r.ApiService.GetCrmV3PropertiesObjectTypeGroupsGetAllExecute(r)
+func (r ApiGroupsGetAllRequest) Execute() (*CollectionResponsePropertyGroup, *http.Response, error) {
+	return r.ApiService.GroupsGetAllExecute(r)
 }
 
 /*
-GetCrmV3PropertiesObjectTypeGroupsGetAll Read all property groups
+GroupsGetAll Read all property groups
 
 Read all existing property groups for the specified object type and HubSpot account.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param objectType
- @return ApiGetCrmV3PropertiesObjectTypeGroupsGetAllRequest
+ @return ApiGroupsGetAllRequest
 */
-func (a *GroupsApiService) GetCrmV3PropertiesObjectTypeGroupsGetAll(ctx context.Context, objectType string) ApiGetCrmV3PropertiesObjectTypeGroupsGetAllRequest {
-	return ApiGetCrmV3PropertiesObjectTypeGroupsGetAllRequest{
+func (a *GroupsApiService) GroupsGetAll(ctx context.Context, objectType string) ApiGroupsGetAllRequest {
+	return ApiGroupsGetAllRequest{
 		ApiService: a,
 		ctx:        ctx,
 		objectType: objectType,
@@ -166,7 +297,7 @@ func (a *GroupsApiService) GetCrmV3PropertiesObjectTypeGroupsGetAll(ctx context.
 
 // Execute executes the request
 //  @return CollectionResponsePropertyGroup
-func (a *GroupsApiService) GetCrmV3PropertiesObjectTypeGroupsGetAllExecute(r ApiGetCrmV3PropertiesObjectTypeGroupsGetAllRequest) (*CollectionResponsePropertyGroup, *http.Response, error) {
+func (a *GroupsApiService) GroupsGetAllExecute(r ApiGroupsGetAllRequest) (*CollectionResponsePropertyGroup, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -174,7 +305,7 @@ func (a *GroupsApiService) GetCrmV3PropertiesObjectTypeGroupsGetAllExecute(r Api
 		localVarReturnValue *CollectionResponsePropertyGroup
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsApiService.GetCrmV3PropertiesObjectTypeGroupsGetAll")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsApiService.GroupsGetAll")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -257,29 +388,29 @@ func (a *GroupsApiService) GetCrmV3PropertiesObjectTypeGroupsGetAllExecute(r Api
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetCrmV3PropertiesObjectTypeGroupsGroupNameGetByNameRequest struct {
+type ApiGroupsGetByNameRequest struct {
 	ctx        context.Context
 	ApiService *GroupsApiService
 	objectType string
 	groupName  string
 }
 
-func (r ApiGetCrmV3PropertiesObjectTypeGroupsGroupNameGetByNameRequest) Execute() (*PropertyGroup, *http.Response, error) {
-	return r.ApiService.GetCrmV3PropertiesObjectTypeGroupsGroupNameGetByNameExecute(r)
+func (r ApiGroupsGetByNameRequest) Execute() (*PropertyGroup, *http.Response, error) {
+	return r.ApiService.GroupsGetByNameExecute(r)
 }
 
 /*
-GetCrmV3PropertiesObjectTypeGroupsGroupNameGetByName Read a property group
+GroupsGetByName Read a property group
 
 Read a property group identified by {groupName}.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param objectType
  @param groupName
- @return ApiGetCrmV3PropertiesObjectTypeGroupsGroupNameGetByNameRequest
+ @return ApiGroupsGetByNameRequest
 */
-func (a *GroupsApiService) GetCrmV3PropertiesObjectTypeGroupsGroupNameGetByName(ctx context.Context, objectType string, groupName string) ApiGetCrmV3PropertiesObjectTypeGroupsGroupNameGetByNameRequest {
-	return ApiGetCrmV3PropertiesObjectTypeGroupsGroupNameGetByNameRequest{
+func (a *GroupsApiService) GroupsGetByName(ctx context.Context, objectType string, groupName string) ApiGroupsGetByNameRequest {
+	return ApiGroupsGetByNameRequest{
 		ApiService: a,
 		ctx:        ctx,
 		objectType: objectType,
@@ -289,7 +420,7 @@ func (a *GroupsApiService) GetCrmV3PropertiesObjectTypeGroupsGroupNameGetByName(
 
 // Execute executes the request
 //  @return PropertyGroup
-func (a *GroupsApiService) GetCrmV3PropertiesObjectTypeGroupsGroupNameGetByNameExecute(r ApiGetCrmV3PropertiesObjectTypeGroupsGroupNameGetByNameRequest) (*PropertyGroup, *http.Response, error) {
+func (a *GroupsApiService) GroupsGetByNameExecute(r ApiGroupsGetByNameRequest) (*PropertyGroup, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -297,7 +428,7 @@ func (a *GroupsApiService) GetCrmV3PropertiesObjectTypeGroupsGroupNameGetByNameE
 		localVarReturnValue *PropertyGroup
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsApiService.GetCrmV3PropertiesObjectTypeGroupsGroupNameGetByName")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsApiService.GroupsGetByName")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -381,7 +512,7 @@ func (a *GroupsApiService) GetCrmV3PropertiesObjectTypeGroupsGroupNameGetByNameE
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdateRequest struct {
+type ApiGroupsUpdateRequest struct {
 	ctx                 context.Context
 	ApiService          *GroupsApiService
 	objectType          string
@@ -389,27 +520,27 @@ type ApiPatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdateRequest struct {
 	propertyGroupUpdate *PropertyGroupUpdate
 }
 
-func (r ApiPatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdateRequest) PropertyGroupUpdate(propertyGroupUpdate PropertyGroupUpdate) ApiPatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdateRequest {
+func (r ApiGroupsUpdateRequest) PropertyGroupUpdate(propertyGroupUpdate PropertyGroupUpdate) ApiGroupsUpdateRequest {
 	r.propertyGroupUpdate = &propertyGroupUpdate
 	return r
 }
 
-func (r ApiPatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdateRequest) Execute() (*PropertyGroup, *http.Response, error) {
-	return r.ApiService.PatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdateExecute(r)
+func (r ApiGroupsUpdateRequest) Execute() (*PropertyGroup, *http.Response, error) {
+	return r.ApiService.GroupsUpdateExecute(r)
 }
 
 /*
-PatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdate Update a property group
+GroupsUpdate Update a property group
 
 Perform a partial update of a property group identified by {groupName}. Provided fields will be overwritten.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param objectType
  @param groupName
- @return ApiPatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdateRequest
+ @return ApiGroupsUpdateRequest
 */
-func (a *GroupsApiService) PatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdate(ctx context.Context, objectType string, groupName string) ApiPatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdateRequest {
-	return ApiPatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdateRequest{
+func (a *GroupsApiService) GroupsUpdate(ctx context.Context, objectType string, groupName string) ApiGroupsUpdateRequest {
+	return ApiGroupsUpdateRequest{
 		ApiService: a,
 		ctx:        ctx,
 		objectType: objectType,
@@ -419,7 +550,7 @@ func (a *GroupsApiService) PatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdate(c
 
 // Execute executes the request
 //  @return PropertyGroup
-func (a *GroupsApiService) PatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdateExecute(r ApiPatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdateRequest) (*PropertyGroup, *http.Response, error) {
+func (a *GroupsApiService) GroupsUpdateExecute(r ApiGroupsUpdateRequest) (*PropertyGroup, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
 		localVarPostBody    interface{}
@@ -427,7 +558,7 @@ func (a *GroupsApiService) PatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdateEx
 		localVarReturnValue *PropertyGroup
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsApiService.PatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsApiService.GroupsUpdate")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -462,137 +593,6 @@ func (a *GroupsApiService) PatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdateEx
 	}
 	// body params
 	localVarPostBody = r.propertyGroupUpdate
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		var v Error
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiPostCrmV3PropertiesObjectTypeGroupsCreateRequest struct {
-	ctx                 context.Context
-	ApiService          *GroupsApiService
-	objectType          string
-	propertyGroupCreate *PropertyGroupCreate
-}
-
-func (r ApiPostCrmV3PropertiesObjectTypeGroupsCreateRequest) PropertyGroupCreate(propertyGroupCreate PropertyGroupCreate) ApiPostCrmV3PropertiesObjectTypeGroupsCreateRequest {
-	r.propertyGroupCreate = &propertyGroupCreate
-	return r
-}
-
-func (r ApiPostCrmV3PropertiesObjectTypeGroupsCreateRequest) Execute() (*PropertyGroup, *http.Response, error) {
-	return r.ApiService.PostCrmV3PropertiesObjectTypeGroupsCreateExecute(r)
-}
-
-/*
-PostCrmV3PropertiesObjectTypeGroupsCreate Create a property group
-
-Create and return a copy of a new property group.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param objectType
- @return ApiPostCrmV3PropertiesObjectTypeGroupsCreateRequest
-*/
-func (a *GroupsApiService) PostCrmV3PropertiesObjectTypeGroupsCreate(ctx context.Context, objectType string) ApiPostCrmV3PropertiesObjectTypeGroupsCreateRequest {
-	return ApiPostCrmV3PropertiesObjectTypeGroupsCreateRequest{
-		ApiService: a,
-		ctx:        ctx,
-		objectType: objectType,
-	}
-}
-
-// Execute executes the request
-//  @return PropertyGroup
-func (a *GroupsApiService) PostCrmV3PropertiesObjectTypeGroupsCreateExecute(r ApiPostCrmV3PropertiesObjectTypeGroupsCreateRequest) (*PropertyGroup, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PropertyGroup
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsApiService.PostCrmV3PropertiesObjectTypeGroupsCreate")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/crm/v3/properties/{objectType}/groups"
-	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterToString(r.objectType, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.propertyGroupCreate == nil {
-		return localVarReturnValue, nil, reportError("propertyGroupCreate is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "*/*"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.propertyGroupCreate
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {

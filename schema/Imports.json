@@ -18,7 +18,7 @@
         "tags" : [ "Core" ],
         "summary" : "Get active imports",
         "description" : "Returns a paged list of active imports for this account.",
-        "operationId" : "get-/crm/v3/imports/_getPage",
+        "operationId" : "GetPage",
         "parameters" : [ {
           "name" : "after",
           "in" : "query",
@@ -73,7 +73,7 @@
         "tags" : [ "Core" ],
         "summary" : "Start a new import",
         "description" : "Begins importing data from the specified file resources. This uploads the corresponding file and uses the import request object to convert rows in the files to objects.",
-        "operationId" : "post-/crm/v3/imports/_create",
+        "operationId" : "Create",
         "requestBody" : {
           "content" : {
             "multipart/form-data" : {
@@ -120,7 +120,7 @@
         "tags" : [ "Core" ],
         "summary" : "Get the information on any import",
         "description" : "A complete summary of an import record, including any updates.",
-        "operationId" : "get-/crm/v3/imports/{importId}_getById",
+        "operationId" : "GetByID",
         "parameters" : [ {
           "name" : "importId",
           "in" : "path",
@@ -157,7 +157,7 @@
         "tags" : [ "Core" ],
         "summary" : "Cancel an active import",
         "description" : "This allows a developer to cancel an active import.",
-        "operationId" : "post-/crm/v3/imports/{importId}/cancel_cancel",
+        "operationId" : "Cancel",
         "parameters" : [ {
           "name" : "importId",
           "in" : "path",
@@ -194,7 +194,7 @@
     "/crm/v3/imports/{importId}/errors" : {
       "get" : {
         "tags" : [ "Public_Imports" ],
-        "operationId" : "get-/crm/v3/imports/{importId}/errors_getErrors",
+        "operationId" : "GetErrors",
         "parameters" : [ {
           "name" : "after",
           "in" : "query",

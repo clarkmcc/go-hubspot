@@ -17,7 +17,7 @@
         "tags" : [ "Public_Performance" ],
         "summary" : "View your website's performance.",
         "description" : "Returns time series data website performance data for the given domain and/or path.",
-        "operationId" : "get-/cms/v3/performance/_getPage",
+        "operationId" : "GetPage",
         "parameters" : [ {
           "name" : "domain",
           "in" : "query",
@@ -126,7 +126,7 @@
         "tags" : [ "Public_Performance" ],
         "summary" : "View your website's uptime.",
         "description" : "Returns uptime time series website performance data for the given domain.",
-        "operationId" : "get-/cms/v3/performance/uptime_getUptime",
+        "operationId" : "GetUptime",
         "parameters" : [ {
           "name" : "domain",
           "in" : "query",

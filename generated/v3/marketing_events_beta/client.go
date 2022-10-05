@@ -49,15 +49,11 @@ type APIClient struct {
 
 	// API Services
 
-	BasicApi *BasicApiService
+	AttendanceSubscriberStateChangesApi *AttendanceSubscriberStateChangesApiService
 
-	BatchApi *BatchApiService
+	MarketingEventsExternalApi *MarketingEventsExternalApiService
 
-	SearchApi *SearchApiService
-
-	SettingsApi *SettingsApiService
-
-	SubscriberStateChangesApi *SubscriberStateChangesApiService
+	SettingsExternalApi *SettingsExternalApiService
 }
 
 type service struct {
@@ -76,11 +72,9 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.common.client = c
 
 	// API Services
-	c.BasicApi = (*BasicApiService)(&c.common)
-	c.BatchApi = (*BatchApiService)(&c.common)
-	c.SearchApi = (*SearchApiService)(&c.common)
-	c.SettingsApi = (*SettingsApiService)(&c.common)
-	c.SubscriberStateChangesApi = (*SubscriberStateChangesApiService)(&c.common)
+	c.AttendanceSubscriberStateChangesApi = (*AttendanceSubscriberStateChangesApiService)(&c.common)
+	c.MarketingEventsExternalApi = (*MarketingEventsExternalApiService)(&c.common)
+	c.SettingsExternalApi = (*SettingsExternalApiService)(&c.common)
 
 	return c
 }

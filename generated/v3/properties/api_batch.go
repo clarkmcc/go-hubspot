@@ -24,33 +24,33 @@ import (
 // BatchApiService BatchApi service
 type BatchApiService service
 
-type ApiPostCrmV3PropertiesObjectTypeBatchArchiveArchiveRequest struct {
+type ApiBatchArchiveRequest struct {
 	ctx                    context.Context
 	ApiService             *BatchApiService
 	objectType             string
 	batchInputPropertyName *BatchInputPropertyName
 }
 
-func (r ApiPostCrmV3PropertiesObjectTypeBatchArchiveArchiveRequest) BatchInputPropertyName(batchInputPropertyName BatchInputPropertyName) ApiPostCrmV3PropertiesObjectTypeBatchArchiveArchiveRequest {
+func (r ApiBatchArchiveRequest) BatchInputPropertyName(batchInputPropertyName BatchInputPropertyName) ApiBatchArchiveRequest {
 	r.batchInputPropertyName = &batchInputPropertyName
 	return r
 }
 
-func (r ApiPostCrmV3PropertiesObjectTypeBatchArchiveArchiveRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostCrmV3PropertiesObjectTypeBatchArchiveArchiveExecute(r)
+func (r ApiBatchArchiveRequest) Execute() (*http.Response, error) {
+	return r.ApiService.BatchArchiveExecute(r)
 }
 
 /*
-PostCrmV3PropertiesObjectTypeBatchArchiveArchive Archive a batch of properties
+BatchArchive Archive a batch of properties
 
 Archive a provided list of properties. This method will return a 204 No Content response on success regardless of the initial state of the property (e.g. active, already archived, non-existent).
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param objectType
- @return ApiPostCrmV3PropertiesObjectTypeBatchArchiveArchiveRequest
+ @return ApiBatchArchiveRequest
 */
-func (a *BatchApiService) PostCrmV3PropertiesObjectTypeBatchArchiveArchive(ctx context.Context, objectType string) ApiPostCrmV3PropertiesObjectTypeBatchArchiveArchiveRequest {
-	return ApiPostCrmV3PropertiesObjectTypeBatchArchiveArchiveRequest{
+func (a *BatchApiService) BatchArchive(ctx context.Context, objectType string) ApiBatchArchiveRequest {
+	return ApiBatchArchiveRequest{
 		ApiService: a,
 		ctx:        ctx,
 		objectType: objectType,
@@ -58,14 +58,14 @@ func (a *BatchApiService) PostCrmV3PropertiesObjectTypeBatchArchiveArchive(ctx c
 }
 
 // Execute executes the request
-func (a *BatchApiService) PostCrmV3PropertiesObjectTypeBatchArchiveArchiveExecute(r ApiPostCrmV3PropertiesObjectTypeBatchArchiveArchiveRequest) (*http.Response, error) {
+func (a *BatchApiService) BatchArchiveExecute(r ApiBatchArchiveRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchApiService.PostCrmV3PropertiesObjectTypeBatchArchiveArchive")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchApiService.BatchArchive")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -144,33 +144,33 @@ func (a *BatchApiService) PostCrmV3PropertiesObjectTypeBatchArchiveArchiveExecut
 	return localVarHTTPResponse, nil
 }
 
-type ApiPostCrmV3PropertiesObjectTypeBatchCreateCreateRequest struct {
+type ApiBatchCreateRequest struct {
 	ctx                      context.Context
 	ApiService               *BatchApiService
 	objectType               string
 	batchInputPropertyCreate *BatchInputPropertyCreate
 }
 
-func (r ApiPostCrmV3PropertiesObjectTypeBatchCreateCreateRequest) BatchInputPropertyCreate(batchInputPropertyCreate BatchInputPropertyCreate) ApiPostCrmV3PropertiesObjectTypeBatchCreateCreateRequest {
+func (r ApiBatchCreateRequest) BatchInputPropertyCreate(batchInputPropertyCreate BatchInputPropertyCreate) ApiBatchCreateRequest {
 	r.batchInputPropertyCreate = &batchInputPropertyCreate
 	return r
 }
 
-func (r ApiPostCrmV3PropertiesObjectTypeBatchCreateCreateRequest) Execute() (*BatchResponseProperty, *http.Response, error) {
-	return r.ApiService.PostCrmV3PropertiesObjectTypeBatchCreateCreateExecute(r)
+func (r ApiBatchCreateRequest) Execute() (*BatchResponseProperty, *http.Response, error) {
+	return r.ApiService.BatchCreateExecute(r)
 }
 
 /*
-PostCrmV3PropertiesObjectTypeBatchCreateCreate Create a batch of properties
+BatchCreate Create a batch of properties
 
 Create a batch of properties using the same rules as when creating an individual property.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param objectType
- @return ApiPostCrmV3PropertiesObjectTypeBatchCreateCreateRequest
+ @return ApiBatchCreateRequest
 */
-func (a *BatchApiService) PostCrmV3PropertiesObjectTypeBatchCreateCreate(ctx context.Context, objectType string) ApiPostCrmV3PropertiesObjectTypeBatchCreateCreateRequest {
-	return ApiPostCrmV3PropertiesObjectTypeBatchCreateCreateRequest{
+func (a *BatchApiService) BatchCreate(ctx context.Context, objectType string) ApiBatchCreateRequest {
+	return ApiBatchCreateRequest{
 		ApiService: a,
 		ctx:        ctx,
 		objectType: objectType,
@@ -179,7 +179,7 @@ func (a *BatchApiService) PostCrmV3PropertiesObjectTypeBatchCreateCreate(ctx con
 
 // Execute executes the request
 //  @return BatchResponseProperty
-func (a *BatchApiService) PostCrmV3PropertiesObjectTypeBatchCreateCreateExecute(r ApiPostCrmV3PropertiesObjectTypeBatchCreateCreateRequest) (*BatchResponseProperty, *http.Response, error) {
+func (a *BatchApiService) BatchCreateExecute(r ApiBatchCreateRequest) (*BatchResponseProperty, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -187,7 +187,7 @@ func (a *BatchApiService) PostCrmV3PropertiesObjectTypeBatchCreateCreateExecute(
 		localVarReturnValue *BatchResponseProperty
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchApiService.PostCrmV3PropertiesObjectTypeBatchCreateCreate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchApiService.BatchCreate")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -275,33 +275,33 @@ func (a *BatchApiService) PostCrmV3PropertiesObjectTypeBatchCreateCreateExecute(
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPostCrmV3PropertiesObjectTypeBatchReadReadRequest struct {
+type ApiBatchReadRequest struct {
 	ctx                        context.Context
 	ApiService                 *BatchApiService
 	objectType                 string
 	batchReadInputPropertyName *BatchReadInputPropertyName
 }
 
-func (r ApiPostCrmV3PropertiesObjectTypeBatchReadReadRequest) BatchReadInputPropertyName(batchReadInputPropertyName BatchReadInputPropertyName) ApiPostCrmV3PropertiesObjectTypeBatchReadReadRequest {
+func (r ApiBatchReadRequest) BatchReadInputPropertyName(batchReadInputPropertyName BatchReadInputPropertyName) ApiBatchReadRequest {
 	r.batchReadInputPropertyName = &batchReadInputPropertyName
 	return r
 }
 
-func (r ApiPostCrmV3PropertiesObjectTypeBatchReadReadRequest) Execute() (*BatchResponseProperty, *http.Response, error) {
-	return r.ApiService.PostCrmV3PropertiesObjectTypeBatchReadReadExecute(r)
+func (r ApiBatchReadRequest) Execute() (*BatchResponseProperty, *http.Response, error) {
+	return r.ApiService.BatchReadExecute(r)
 }
 
 /*
-PostCrmV3PropertiesObjectTypeBatchReadRead Read a batch of properties
+BatchRead Read a batch of properties
 
 Read a provided list of properties.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param objectType
- @return ApiPostCrmV3PropertiesObjectTypeBatchReadReadRequest
+ @return ApiBatchReadRequest
 */
-func (a *BatchApiService) PostCrmV3PropertiesObjectTypeBatchReadRead(ctx context.Context, objectType string) ApiPostCrmV3PropertiesObjectTypeBatchReadReadRequest {
-	return ApiPostCrmV3PropertiesObjectTypeBatchReadReadRequest{
+func (a *BatchApiService) BatchRead(ctx context.Context, objectType string) ApiBatchReadRequest {
+	return ApiBatchReadRequest{
 		ApiService: a,
 		ctx:        ctx,
 		objectType: objectType,
@@ -310,7 +310,7 @@ func (a *BatchApiService) PostCrmV3PropertiesObjectTypeBatchReadRead(ctx context
 
 // Execute executes the request
 //  @return BatchResponseProperty
-func (a *BatchApiService) PostCrmV3PropertiesObjectTypeBatchReadReadExecute(r ApiPostCrmV3PropertiesObjectTypeBatchReadReadRequest) (*BatchResponseProperty, *http.Response, error) {
+func (a *BatchApiService) BatchReadExecute(r ApiBatchReadRequest) (*BatchResponseProperty, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -318,7 +318,7 @@ func (a *BatchApiService) PostCrmV3PropertiesObjectTypeBatchReadReadExecute(r Ap
 		localVarReturnValue *BatchResponseProperty
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchApiService.PostCrmV3PropertiesObjectTypeBatchReadRead")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchApiService.BatchRead")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

@@ -80,8 +80,8 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*OwnersApi* | [**GetCrmV3OwnersGetPage**](docs/OwnersApi.md#getcrmv3ownersgetpage) | **Get** /crm/v3/owners/ | Get a page of owners
-*OwnersApi* | [**GetCrmV3OwnersOwnerIdGetById**](docs/OwnersApi.md#getcrmv3ownersowneridgetbyid) | **Get** /crm/v3/owners/{ownerId} | Read an owner by given &#x60;id&#x60; or &#x60;userId&#x60;
+*OwnersApi* | [**GetByID**](docs/OwnersApi.md#getbyid) | **Get** /crm/v3/owners/{ownerId} | Read an owner by given &#x60;id&#x60; or &#x60;userId&#x60;
+*OwnersApi* | [**GetPage**](docs/OwnersApi.md#getpage) | **Get** /crm/v3/owners/ | Get a page of owners
 
 
 ## Documentation For Models

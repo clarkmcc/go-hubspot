@@ -24,27 +24,27 @@ import (
 // SettingsApiService SettingsApi service
 type SettingsApiService service
 
-type ApiDeleteCrmV3ExtensionsVideoconferencingSettingsAppIdArchiveRequest struct {
+type ApiArchiveRequest struct {
 	ctx        context.Context
 	ApiService *SettingsApiService
 	appId      int32
 }
 
-func (r ApiDeleteCrmV3ExtensionsVideoconferencingSettingsAppIdArchiveRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteCrmV3ExtensionsVideoconferencingSettingsAppIdArchiveExecute(r)
+func (r ApiArchiveRequest) Execute() (*http.Response, error) {
+	return r.ApiService.ArchiveExecute(r)
 }
 
 /*
-DeleteCrmV3ExtensionsVideoconferencingSettingsAppIdArchive Delete settings
+Archive Delete settings
 
 Deletes the settings for a video conference application with the specified ID.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param appId The ID of the video conference application. This is the identifier of the application created in your HubSpot developer portal.
- @return ApiDeleteCrmV3ExtensionsVideoconferencingSettingsAppIdArchiveRequest
+ @return ApiArchiveRequest
 */
-func (a *SettingsApiService) DeleteCrmV3ExtensionsVideoconferencingSettingsAppIdArchive(ctx context.Context, appId int32) ApiDeleteCrmV3ExtensionsVideoconferencingSettingsAppIdArchiveRequest {
-	return ApiDeleteCrmV3ExtensionsVideoconferencingSettingsAppIdArchiveRequest{
+func (a *SettingsApiService) Archive(ctx context.Context, appId int32) ApiArchiveRequest {
+	return ApiArchiveRequest{
 		ApiService: a,
 		ctx:        ctx,
 		appId:      appId,
@@ -52,14 +52,14 @@ func (a *SettingsApiService) DeleteCrmV3ExtensionsVideoconferencingSettingsAppId
 }
 
 // Execute executes the request
-func (a *SettingsApiService) DeleteCrmV3ExtensionsVideoconferencingSettingsAppIdArchiveExecute(r ApiDeleteCrmV3ExtensionsVideoconferencingSettingsAppIdArchiveRequest) (*http.Response, error) {
+func (a *SettingsApiService) ArchiveExecute(r ApiArchiveRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsApiService.DeleteCrmV3ExtensionsVideoconferencingSettingsAppIdArchive")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsApiService.Archive")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -133,27 +133,27 @@ func (a *SettingsApiService) DeleteCrmV3ExtensionsVideoconferencingSettingsAppId
 	return localVarHTTPResponse, nil
 }
 
-type ApiGetCrmV3ExtensionsVideoconferencingSettingsAppIdGetByIdRequest struct {
+type ApiGetByIDRequest struct {
 	ctx        context.Context
 	ApiService *SettingsApiService
 	appId      int32
 }
 
-func (r ApiGetCrmV3ExtensionsVideoconferencingSettingsAppIdGetByIdRequest) Execute() (*ExternalSettings, *http.Response, error) {
-	return r.ApiService.GetCrmV3ExtensionsVideoconferencingSettingsAppIdGetByIdExecute(r)
+func (r ApiGetByIDRequest) Execute() (*ExternalSettings, *http.Response, error) {
+	return r.ApiService.GetByIDExecute(r)
 }
 
 /*
-GetCrmV3ExtensionsVideoconferencingSettingsAppIdGetById Get settings
+GetByID Get settings
 
 Return the settings for a video conference application with the specified ID.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param appId The ID of the video conference application. This is the identifier of the application created in your HubSpot developer portal.
- @return ApiGetCrmV3ExtensionsVideoconferencingSettingsAppIdGetByIdRequest
+ @return ApiGetByIDRequest
 */
-func (a *SettingsApiService) GetCrmV3ExtensionsVideoconferencingSettingsAppIdGetById(ctx context.Context, appId int32) ApiGetCrmV3ExtensionsVideoconferencingSettingsAppIdGetByIdRequest {
-	return ApiGetCrmV3ExtensionsVideoconferencingSettingsAppIdGetByIdRequest{
+func (a *SettingsApiService) GetByID(ctx context.Context, appId int32) ApiGetByIDRequest {
+	return ApiGetByIDRequest{
 		ApiService: a,
 		ctx:        ctx,
 		appId:      appId,
@@ -162,7 +162,7 @@ func (a *SettingsApiService) GetCrmV3ExtensionsVideoconferencingSettingsAppIdGet
 
 // Execute executes the request
 //  @return ExternalSettings
-func (a *SettingsApiService) GetCrmV3ExtensionsVideoconferencingSettingsAppIdGetByIdExecute(r ApiGetCrmV3ExtensionsVideoconferencingSettingsAppIdGetByIdRequest) (*ExternalSettings, *http.Response, error) {
+func (a *SettingsApiService) GetByIDExecute(r ApiGetByIDRequest) (*ExternalSettings, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -170,7 +170,7 @@ func (a *SettingsApiService) GetCrmV3ExtensionsVideoconferencingSettingsAppIdGet
 		localVarReturnValue *ExternalSettings
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsApiService.GetCrmV3ExtensionsVideoconferencingSettingsAppIdGetById")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsApiService.GetByID")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -253,33 +253,33 @@ func (a *SettingsApiService) GetCrmV3ExtensionsVideoconferencingSettingsAppIdGet
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPutCrmV3ExtensionsVideoconferencingSettingsAppIdReplaceRequest struct {
+type ApiReplaceRequest struct {
 	ctx              context.Context
 	ApiService       *SettingsApiService
 	appId            int32
 	externalSettings *ExternalSettings
 }
 
-func (r ApiPutCrmV3ExtensionsVideoconferencingSettingsAppIdReplaceRequest) ExternalSettings(externalSettings ExternalSettings) ApiPutCrmV3ExtensionsVideoconferencingSettingsAppIdReplaceRequest {
+func (r ApiReplaceRequest) ExternalSettings(externalSettings ExternalSettings) ApiReplaceRequest {
 	r.externalSettings = &externalSettings
 	return r
 }
 
-func (r ApiPutCrmV3ExtensionsVideoconferencingSettingsAppIdReplaceRequest) Execute() (*ExternalSettings, *http.Response, error) {
-	return r.ApiService.PutCrmV3ExtensionsVideoconferencingSettingsAppIdReplaceExecute(r)
+func (r ApiReplaceRequest) Execute() (*ExternalSettings, *http.Response, error) {
+	return r.ApiService.ReplaceExecute(r)
 }
 
 /*
-PutCrmV3ExtensionsVideoconferencingSettingsAppIdReplace Update settings
+Replace Update settings
 
 Updates the settings for a video conference application with the specified ID.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param appId The ID of the video conference application. This is the identifier of the application created in your HubSpot developer portal.
- @return ApiPutCrmV3ExtensionsVideoconferencingSettingsAppIdReplaceRequest
+ @return ApiReplaceRequest
 */
-func (a *SettingsApiService) PutCrmV3ExtensionsVideoconferencingSettingsAppIdReplace(ctx context.Context, appId int32) ApiPutCrmV3ExtensionsVideoconferencingSettingsAppIdReplaceRequest {
-	return ApiPutCrmV3ExtensionsVideoconferencingSettingsAppIdReplaceRequest{
+func (a *SettingsApiService) Replace(ctx context.Context, appId int32) ApiReplaceRequest {
+	return ApiReplaceRequest{
 		ApiService: a,
 		ctx:        ctx,
 		appId:      appId,
@@ -288,7 +288,7 @@ func (a *SettingsApiService) PutCrmV3ExtensionsVideoconferencingSettingsAppIdRep
 
 // Execute executes the request
 //  @return ExternalSettings
-func (a *SettingsApiService) PutCrmV3ExtensionsVideoconferencingSettingsAppIdReplaceExecute(r ApiPutCrmV3ExtensionsVideoconferencingSettingsAppIdReplaceRequest) (*ExternalSettings, *http.Response, error) {
+func (a *SettingsApiService) ReplaceExecute(r ApiReplaceRequest) (*ExternalSettings, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
@@ -296,7 +296,7 @@ func (a *SettingsApiService) PutCrmV3ExtensionsVideoconferencingSettingsAppIdRep
 		localVarReturnValue *ExternalSettings
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsApiService.PutCrmV3ExtensionsVideoconferencingSettingsAppIdReplace")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsApiService.Replace")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

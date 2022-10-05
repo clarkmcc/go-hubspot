@@ -4,13 +4,13 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetCrmV3ImportsImportIdErrorsGetErrors**](PublicImportsApi.md#GetCrmV3ImportsImportIdErrorsGetErrors) | **Get** /crm/v3/imports/{importId}/errors | 
+[**GetErrors**](PublicImportsApi.md#GetErrors) | **Get** /crm/v3/imports/{importId}/errors | 
 
 
 
-## GetCrmV3ImportsImportIdErrorsGetErrors
+## GetErrors
 
-> CollectionResponsePublicImportErrorForwardPaging GetCrmV3ImportsImportIdErrorsGetErrors(ctx, importId).After(after).Limit(limit).Execute()
+> CollectionResponsePublicImportErrorForwardPaging GetErrors(ctx, importId).After(after).Limit(limit).Execute()
 
 
 
@@ -33,13 +33,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PublicImportsApi.GetCrmV3ImportsImportIdErrorsGetErrors(context.Background(), importId).After(after).Limit(limit).Execute()
+    resp, r, err := apiClient.PublicImportsApi.GetErrors(context.Background(), importId).After(after).Limit(limit).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PublicImportsApi.GetCrmV3ImportsImportIdErrorsGetErrors``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `PublicImportsApi.GetErrors``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetCrmV3ImportsImportIdErrorsGetErrors`: CollectionResponsePublicImportErrorForwardPaging
-    fmt.Fprintf(os.Stdout, "Response from `PublicImportsApi.GetCrmV3ImportsImportIdErrorsGetErrors`: %v\n", resp)
+    // response from `GetErrors`: CollectionResponsePublicImportErrorForwardPaging
+    fmt.Fprintf(os.Stdout, "Response from `PublicImportsApi.GetErrors`: %v\n", resp)
 }
 ```
 
@@ -53,7 +53,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetCrmV3ImportsImportIdErrorsGetErrorsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetErrorsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

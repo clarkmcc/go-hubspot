@@ -23,29 +23,29 @@ import (
 // SearchApiService SearchApi service
 type SearchApiService service
 
-type ApiPostCrmV3ObjectsFeedbackSubmissionsSearchDoSearchRequest struct {
+type ApiSearchRequest struct {
 	ctx                       context.Context
 	ApiService                *SearchApiService
 	publicObjectSearchRequest *PublicObjectSearchRequest
 }
 
-func (r ApiPostCrmV3ObjectsFeedbackSubmissionsSearchDoSearchRequest) PublicObjectSearchRequest(publicObjectSearchRequest PublicObjectSearchRequest) ApiPostCrmV3ObjectsFeedbackSubmissionsSearchDoSearchRequest {
+func (r ApiSearchRequest) PublicObjectSearchRequest(publicObjectSearchRequest PublicObjectSearchRequest) ApiSearchRequest {
 	r.publicObjectSearchRequest = &publicObjectSearchRequest
 	return r
 }
 
-func (r ApiPostCrmV3ObjectsFeedbackSubmissionsSearchDoSearchRequest) Execute() (*CollectionResponseWithTotalSimplePublicObjectForwardPaging, *http.Response, error) {
-	return r.ApiService.PostCrmV3ObjectsFeedbackSubmissionsSearchDoSearchExecute(r)
+func (r ApiSearchRequest) Execute() (*CollectionResponseWithTotalSimplePublicObjectForwardPaging, *http.Response, error) {
+	return r.ApiService.SearchExecute(r)
 }
 
 /*
-PostCrmV3ObjectsFeedbackSubmissionsSearchDoSearch Method for PostCrmV3ObjectsFeedbackSubmissionsSearchDoSearch
+Search Method for Search
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostCrmV3ObjectsFeedbackSubmissionsSearchDoSearchRequest
+ @return ApiSearchRequest
 */
-func (a *SearchApiService) PostCrmV3ObjectsFeedbackSubmissionsSearchDoSearch(ctx context.Context) ApiPostCrmV3ObjectsFeedbackSubmissionsSearchDoSearchRequest {
-	return ApiPostCrmV3ObjectsFeedbackSubmissionsSearchDoSearchRequest{
+func (a *SearchApiService) Search(ctx context.Context) ApiSearchRequest {
+	return ApiSearchRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -53,7 +53,7 @@ func (a *SearchApiService) PostCrmV3ObjectsFeedbackSubmissionsSearchDoSearch(ctx
 
 // Execute executes the request
 //  @return CollectionResponseWithTotalSimplePublicObjectForwardPaging
-func (a *SearchApiService) PostCrmV3ObjectsFeedbackSubmissionsSearchDoSearchExecute(r ApiPostCrmV3ObjectsFeedbackSubmissionsSearchDoSearchRequest) (*CollectionResponseWithTotalSimplePublicObjectForwardPaging, *http.Response, error) {
+func (a *SearchApiService) SearchExecute(r ApiSearchRequest) (*CollectionResponseWithTotalSimplePublicObjectForwardPaging, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -61,7 +61,7 @@ func (a *SearchApiService) PostCrmV3ObjectsFeedbackSubmissionsSearchDoSearchExec
 		localVarReturnValue *CollectionResponseWithTotalSimplePublicObjectForwardPaging
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SearchApiService.PostCrmV3ObjectsFeedbackSubmissionsSearchDoSearch")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SearchApiService.Search")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

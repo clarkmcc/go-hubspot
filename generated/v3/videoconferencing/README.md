@@ -78,9 +78,9 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*SettingsApi* | [**DeleteCrmV3ExtensionsVideoconferencingSettingsAppIdArchive**](docs/SettingsApi.md#deletecrmv3extensionsvideoconferencingsettingsappidarchive) | **Delete** /crm/v3/extensions/videoconferencing/settings/{appId} | Delete settings
-*SettingsApi* | [**GetCrmV3ExtensionsVideoconferencingSettingsAppIdGetById**](docs/SettingsApi.md#getcrmv3extensionsvideoconferencingsettingsappidgetbyid) | **Get** /crm/v3/extensions/videoconferencing/settings/{appId} | Get settings
-*SettingsApi* | [**PutCrmV3ExtensionsVideoconferencingSettingsAppIdReplace**](docs/SettingsApi.md#putcrmv3extensionsvideoconferencingsettingsappidreplace) | **Put** /crm/v3/extensions/videoconferencing/settings/{appId} | Update settings
+*SettingsApi* | [**Archive**](docs/SettingsApi.md#archive) | **Delete** /crm/v3/extensions/videoconferencing/settings/{appId} | Delete settings
+*SettingsApi* | [**GetByID**](docs/SettingsApi.md#getbyid) | **Get** /crm/v3/extensions/videoconferencing/settings/{appId} | Get settings
+*SettingsApi* | [**Replace**](docs/SettingsApi.md#replace) | **Put** /crm/v3/extensions/videoconferencing/settings/{appId} | Update settings
 
 
 ## Documentation For Models

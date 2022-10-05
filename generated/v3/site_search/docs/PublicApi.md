@@ -4,14 +4,14 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetCmsV3SiteSearchIndexedDataContentIdGetById**](PublicApi.md#GetCmsV3SiteSearchIndexedDataContentIdGetById) | **Get** /cms/v3/site-search/indexed-data/{contentId} | Get indexed properties.
-[**GetCmsV3SiteSearchSearchSearch**](PublicApi.md#GetCmsV3SiteSearchSearchSearch) | **Get** /cms/v3/site-search/search | Search your site.
+[**GetByID**](PublicApi.md#GetByID) | **Get** /cms/v3/site-search/indexed-data/{contentId} | Get indexed properties.
+[**Search**](PublicApi.md#Search) | **Get** /cms/v3/site-search/search | Search your site.
 
 
 
-## GetCmsV3SiteSearchIndexedDataContentIdGetById
+## GetByID
 
-> IndexedData GetCmsV3SiteSearchIndexedDataContentIdGetById(ctx, contentId).Type_(type_).Execute()
+> IndexedData GetByID(ctx, contentId).Type_(type_).Execute()
 
 Get indexed properties.
 
@@ -35,13 +35,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PublicApi.GetCmsV3SiteSearchIndexedDataContentIdGetById(context.Background(), contentId).Type_(type_).Execute()
+    resp, r, err := apiClient.PublicApi.GetByID(context.Background(), contentId).Type_(type_).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PublicApi.GetCmsV3SiteSearchIndexedDataContentIdGetById``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `PublicApi.GetByID``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetCmsV3SiteSearchIndexedDataContentIdGetById`: IndexedData
-    fmt.Fprintf(os.Stdout, "Response from `PublicApi.GetCmsV3SiteSearchIndexedDataContentIdGetById`: %v\n", resp)
+    // response from `GetByID`: IndexedData
+    fmt.Fprintf(os.Stdout, "Response from `PublicApi.GetByID`: %v\n", resp)
 }
 ```
 
@@ -55,7 +55,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetCmsV3SiteSearchIndexedDataContentIdGetByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetByIDRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -81,9 +81,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetCmsV3SiteSearchSearchSearch
+## Search
 
-> PublicSearchResults GetCmsV3SiteSearchSearchSearch(ctx).Q(q).Limit(limit).Offset(offset).Language(language).MatchPrefix(matchPrefix).Autocomplete(autocomplete).PopularityBoost(popularityBoost).BoostLimit(boostLimit).BoostRecent(boostRecent).TableId(tableId).HubdbQuery(hubdbQuery).Domain(domain).Type_(type_).PathPrefix(pathPrefix).Property(property).Length(length).GroupId(groupId).Execute()
+> PublicSearchResults Search(ctx).Q(q).Limit(limit).Offset(offset).Language(language).MatchPrefix(matchPrefix).Autocomplete(autocomplete).PopularityBoost(popularityBoost).BoostLimit(boostLimit).BoostRecent(boostRecent).TableId(tableId).HubdbQuery(hubdbQuery).Domain(domain).Type_(type_).PathPrefix(pathPrefix).Property(property).Length(length).GroupId(groupId).Execute()
 
 Search your site.
 
@@ -122,13 +122,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PublicApi.GetCmsV3SiteSearchSearchSearch(context.Background()).Q(q).Limit(limit).Offset(offset).Language(language).MatchPrefix(matchPrefix).Autocomplete(autocomplete).PopularityBoost(popularityBoost).BoostLimit(boostLimit).BoostRecent(boostRecent).TableId(tableId).HubdbQuery(hubdbQuery).Domain(domain).Type_(type_).PathPrefix(pathPrefix).Property(property).Length(length).GroupId(groupId).Execute()
+    resp, r, err := apiClient.PublicApi.Search(context.Background()).Q(q).Limit(limit).Offset(offset).Language(language).MatchPrefix(matchPrefix).Autocomplete(autocomplete).PopularityBoost(popularityBoost).BoostLimit(boostLimit).BoostRecent(boostRecent).TableId(tableId).HubdbQuery(hubdbQuery).Domain(domain).Type_(type_).PathPrefix(pathPrefix).Property(property).Length(length).GroupId(groupId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PublicApi.GetCmsV3SiteSearchSearchSearch``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `PublicApi.Search``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetCmsV3SiteSearchSearchSearch`: PublicSearchResults
-    fmt.Fprintf(os.Stdout, "Response from `PublicApi.GetCmsV3SiteSearchSearchSearch`: %v\n", resp)
+    // response from `Search`: PublicSearchResults
+    fmt.Fprintf(os.Stdout, "Response from `PublicApi.Search`: %v\n", resp)
 }
 ```
 
@@ -138,7 +138,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetCmsV3SiteSearchSearchSearchRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiSearchRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

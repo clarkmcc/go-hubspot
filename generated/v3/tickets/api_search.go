@@ -23,29 +23,29 @@ import (
 // SearchApiService SearchApi service
 type SearchApiService service
 
-type ApiPostCrmV3ObjectsTicketsSearchDoSearchRequest struct {
+type ApiSearchRequest struct {
 	ctx                       context.Context
 	ApiService                *SearchApiService
 	publicObjectSearchRequest *PublicObjectSearchRequest
 }
 
-func (r ApiPostCrmV3ObjectsTicketsSearchDoSearchRequest) PublicObjectSearchRequest(publicObjectSearchRequest PublicObjectSearchRequest) ApiPostCrmV3ObjectsTicketsSearchDoSearchRequest {
+func (r ApiSearchRequest) PublicObjectSearchRequest(publicObjectSearchRequest PublicObjectSearchRequest) ApiSearchRequest {
 	r.publicObjectSearchRequest = &publicObjectSearchRequest
 	return r
 }
 
-func (r ApiPostCrmV3ObjectsTicketsSearchDoSearchRequest) Execute() (*CollectionResponseWithTotalSimplePublicObjectForwardPaging, *http.Response, error) {
-	return r.ApiService.PostCrmV3ObjectsTicketsSearchDoSearchExecute(r)
+func (r ApiSearchRequest) Execute() (*CollectionResponseWithTotalSimplePublicObjectForwardPaging, *http.Response, error) {
+	return r.ApiService.SearchExecute(r)
 }
 
 /*
-PostCrmV3ObjectsTicketsSearchDoSearch Method for PostCrmV3ObjectsTicketsSearchDoSearch
+Search Method for Search
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostCrmV3ObjectsTicketsSearchDoSearchRequest
+ @return ApiSearchRequest
 */
-func (a *SearchApiService) PostCrmV3ObjectsTicketsSearchDoSearch(ctx context.Context) ApiPostCrmV3ObjectsTicketsSearchDoSearchRequest {
-	return ApiPostCrmV3ObjectsTicketsSearchDoSearchRequest{
+func (a *SearchApiService) Search(ctx context.Context) ApiSearchRequest {
+	return ApiSearchRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -53,7 +53,7 @@ func (a *SearchApiService) PostCrmV3ObjectsTicketsSearchDoSearch(ctx context.Con
 
 // Execute executes the request
 //  @return CollectionResponseWithTotalSimplePublicObjectForwardPaging
-func (a *SearchApiService) PostCrmV3ObjectsTicketsSearchDoSearchExecute(r ApiPostCrmV3ObjectsTicketsSearchDoSearchRequest) (*CollectionResponseWithTotalSimplePublicObjectForwardPaging, *http.Response, error) {
+func (a *SearchApiService) SearchExecute(r ApiSearchRequest) (*CollectionResponseWithTotalSimplePublicObjectForwardPaging, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -61,7 +61,7 @@ func (a *SearchApiService) PostCrmV3ObjectsTicketsSearchDoSearchExecute(r ApiPos
 		localVarReturnValue *CollectionResponseWithTotalSimplePublicObjectForwardPaging
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SearchApiService.PostCrmV3ObjectsTicketsSearchDoSearch")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SearchApiService.Search")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

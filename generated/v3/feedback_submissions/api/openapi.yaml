@@ -15,7 +15,7 @@ paths:
     get:
       description: Read a page of feedback submissions. Control what is returned via
         the `properties` query param.
-      operationId: get-/crm/v3/objects/feedback-submissions_getPage
+      operationId: GetPage
       parameters:
       - description: The maximum number of results to display per page.
         explode: true
@@ -108,7 +108,7 @@ paths:
       description: "Create a feedback submission with the given properties and return\
         \ a copy of the object, including the ID. Documentation and examples for creating\
         \ standard feedback submissions is provided."
-      operationId: post-/crm/v3/objects/feedback-submissions_create
+      operationId: Create
       parameters: []
       requestBody:
         content:
@@ -138,7 +138,7 @@ paths:
       - Basic
   /crm/v3/objects/feedback_submissions/batch/archive:
     post:
-      operationId: post-/crm/v3/objects/feedback-submissions/batch/archive_archive
+      operationId: BatchArchive
       parameters: []
       requestBody:
         content:
@@ -165,7 +165,7 @@ paths:
       - Batch
   /crm/v3/objects/feedback_submissions/batch/create:
     post:
-      operationId: post-/crm/v3/objects/feedback-submissions/batch/create_create
+      operationId: BatchCreate
       parameters: []
       requestBody:
         content:
@@ -201,7 +201,7 @@ paths:
       - Batch
   /crm/v3/objects/feedback_submissions/batch/read:
     post:
-      operationId: post-/crm/v3/objects/feedback-submissions/batch/read_read
+      operationId: BatchRead
       parameters:
       - description: Whether to return only results that have been archived.
         explode: true
@@ -247,7 +247,7 @@ paths:
       - Batch
   /crm/v3/objects/feedback_submissions/batch/update:
     post:
-      operationId: post-/crm/v3/objects/feedback-submissions/batch/update_update
+      operationId: BatchUpdate
       parameters: []
       requestBody:
         content:
@@ -283,7 +283,7 @@ paths:
       - Batch
   /crm/v3/objects/feedback_submissions/merge:
     post:
-      operationId: post-/crm/v3/objects/feedback-submissions/merge_merge
+      operationId: Merge
       parameters: []
       requestBody:
         content:
@@ -313,7 +313,7 @@ paths:
       - Public_Object
   /crm/v3/objects/feedback_submissions/search:
     post:
-      operationId: post-/crm/v3/objects/feedback-submissions/search_doSearch
+      operationId: Search
       parameters: []
       requestBody:
         content:
@@ -346,7 +346,7 @@ paths:
     delete:
       description: "Move an Object identified by `{feedbackSubmissionId}` to the recycling\
         \ bin."
-      operationId: "delete-/crm/v3/objects/feedback-submissions/{feedbackSubmissionId}_archive"
+      operationId: Archive
       parameters:
       - explode: false
         in: path
@@ -377,7 +377,7 @@ paths:
         \ refers to the internal object ID by default, or optionally any unique property\
         \ value as specified by the `idProperty` query param.  Control what is returned\
         \ via the `properties` query param."
-      operationId: "get-/crm/v3/objects/feedback-submissions/{feedbackSubmissionId}_getById"
+      operationId: GetByID
       parameters:
       - explode: false
         in: path
@@ -467,7 +467,7 @@ paths:
         \ param. Provided property values will be overwritten. Read-only and non-existent\
         \ properties will be ignored. Properties values can be cleared by passing\
         \ an empty string."
-      operationId: "patch-/crm/v3/objects/feedback-submissions/{feedbackSubmissionId}_update"
+      operationId: Update
       parameters:
       - explode: false
         in: path
@@ -513,7 +513,7 @@ paths:
       - Basic
   /crm/v3/objects/feedback_submissions/{feedbackSubmissionId}/associations/{toObjectType}:
     get:
-      operationId: "get-/crm/v3/objects/feedback-submissions/{feedbackSubmissionId}/associations/{toObjectType}_getPage"
+      operationId: AssociationsGetPage
       parameters:
       - explode: false
         in: path
@@ -571,7 +571,7 @@ paths:
       - Associations
   /crm/v3/objects/feedback_submissions/{feedbackSubmissionId}/associations/{toObjectType}/{toObjectId}/{associationType}:
     delete:
-      operationId: "delete-/crm/v3/objects/feedback-submissions/{feedbackSubmissionId}/associations/{toObjectType}/{toObjectId}/{associationType}_archive"
+      operationId: AssociationsArchive
       parameters:
       - explode: false
         in: path
@@ -619,7 +619,7 @@ paths:
       tags:
       - Associations
     put:
-      operationId: "put-/crm/v3/objects/feedback-submissions/{feedbackSubmissionId}/associations/{toObjectType}/{toObjectId}/{associationType}_create"
+      operationId: AssociationsCreate
       parameters:
       - explode: false
         in: path

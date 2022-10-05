@@ -4,17 +4,17 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteCmsV3UrlRedirectsUrlRedirectIdArchive**](RedirectsApi.md#DeleteCmsV3UrlRedirectsUrlRedirectIdArchive) | **Delete** /cms/v3/url-redirects/{urlRedirectId} | Delete a redirect
-[**GetCmsV3UrlRedirectsGetPage**](RedirectsApi.md#GetCmsV3UrlRedirectsGetPage) | **Get** /cms/v3/url-redirects/ | Get current redirects
-[**GetCmsV3UrlRedirectsUrlRedirectIdGetById**](RedirectsApi.md#GetCmsV3UrlRedirectsUrlRedirectIdGetById) | **Get** /cms/v3/url-redirects/{urlRedirectId} | Get details for a redirect
-[**PatchCmsV3UrlRedirectsUrlRedirectIdUpdate**](RedirectsApi.md#PatchCmsV3UrlRedirectsUrlRedirectIdUpdate) | **Patch** /cms/v3/url-redirects/{urlRedirectId} | Update a redirect
-[**PostCmsV3UrlRedirectsCreate**](RedirectsApi.md#PostCmsV3UrlRedirectsCreate) | **Post** /cms/v3/url-redirects/ | Create a redirect
+[**Archive**](RedirectsApi.md#Archive) | **Delete** /cms/v3/url-redirects/{urlRedirectId} | Delete a redirect
+[**Create**](RedirectsApi.md#Create) | **Post** /cms/v3/url-redirects/ | Create a redirect
+[**GetByID**](RedirectsApi.md#GetByID) | **Get** /cms/v3/url-redirects/{urlRedirectId} | Get details for a redirect
+[**GetPage**](RedirectsApi.md#GetPage) | **Get** /cms/v3/url-redirects/ | Get current redirects
+[**Update**](RedirectsApi.md#Update) | **Patch** /cms/v3/url-redirects/{urlRedirectId} | Update a redirect
 
 
 
-## DeleteCmsV3UrlRedirectsUrlRedirectIdArchive
+## Archive
 
-> DeleteCmsV3UrlRedirectsUrlRedirectIdArchive(ctx, urlRedirectId).Execute()
+> Archive(ctx, urlRedirectId).Execute()
 
 Delete a redirect
 
@@ -37,9 +37,9 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RedirectsApi.DeleteCmsV3UrlRedirectsUrlRedirectIdArchive(context.Background(), urlRedirectId).Execute()
+    resp, r, err := apiClient.RedirectsApi.Archive(context.Background(), urlRedirectId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RedirectsApi.DeleteCmsV3UrlRedirectsUrlRedirectIdArchive``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `RedirectsApi.Archive``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -55,7 +55,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteCmsV3UrlRedirectsUrlRedirectIdArchiveRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiArchiveRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -80,9 +80,145 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetCmsV3UrlRedirectsGetPage
+## Create
 
-> CollectionResponseWithTotalUrlMappingForwardPaging GetCmsV3UrlRedirectsGetPage(ctx).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Sort(sort).After(after).Limit(limit).Archived(archived).Execute()
+> UrlMapping Create(ctx).UrlMappingCreateRequestBody(urlMappingCreateRequestBody).Execute()
+
+Create a redirect
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    urlMappingCreateRequestBody := *openapiclient.NewUrlMappingCreateRequestBody("RoutePrefix_example", "Destination_example", int32(123)) // UrlMappingCreateRequestBody | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RedirectsApi.Create(context.Background()).UrlMappingCreateRequestBody(urlMappingCreateRequestBody).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RedirectsApi.Create``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `Create`: UrlMapping
+    fmt.Fprintf(os.Stdout, "Response from `RedirectsApi.Create`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **urlMappingCreateRequestBody** | [**UrlMappingCreateRequestBody**](UrlMappingCreateRequestBody.md) |  | 
+
+### Return type
+
+[**UrlMapping**](UrlMapping.md)
+
+### Authorization
+
+[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, */*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetByID
+
+> UrlMapping GetByID(ctx, urlRedirectId).Execute()
+
+Get details for a redirect
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    urlRedirectId := "urlRedirectId_example" // string | The ID of the target redirect.
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RedirectsApi.GetByID(context.Background(), urlRedirectId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RedirectsApi.GetByID``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetByID`: UrlMapping
+    fmt.Fprintf(os.Stdout, "Response from `RedirectsApi.GetByID`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**urlRedirectId** | **string** | The ID of the target redirect. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetByIDRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**UrlMapping**](UrlMapping.md)
+
+### Authorization
+
+[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, */*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetPage
+
+> CollectionResponseWithTotalUrlMappingForwardPaging GetPage(ctx).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Sort(sort).After(after).Limit(limit).Archived(archived).Execute()
 
 Get current redirects
 
@@ -115,13 +251,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RedirectsApi.GetCmsV3UrlRedirectsGetPage(context.Background()).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Sort(sort).After(after).Limit(limit).Archived(archived).Execute()
+    resp, r, err := apiClient.RedirectsApi.GetPage(context.Background()).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Sort(sort).After(after).Limit(limit).Archived(archived).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RedirectsApi.GetCmsV3UrlRedirectsGetPage``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `RedirectsApi.GetPage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetCmsV3UrlRedirectsGetPage`: CollectionResponseWithTotalUrlMappingForwardPaging
-    fmt.Fprintf(os.Stdout, "Response from `RedirectsApi.GetCmsV3UrlRedirectsGetPage`: %v\n", resp)
+    // response from `GetPage`: CollectionResponseWithTotalUrlMappingForwardPaging
+    fmt.Fprintf(os.Stdout, "Response from `RedirectsApi.GetPage`: %v\n", resp)
 }
 ```
 
@@ -131,7 +267,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetCmsV3UrlRedirectsGetPageRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetPageRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -165,79 +301,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetCmsV3UrlRedirectsUrlRedirectIdGetById
+## Update
 
-> UrlMapping GetCmsV3UrlRedirectsUrlRedirectIdGetById(ctx, urlRedirectId).Execute()
-
-Get details for a redirect
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    urlRedirectId := "urlRedirectId_example" // string | The ID of the target redirect.
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RedirectsApi.GetCmsV3UrlRedirectsUrlRedirectIdGetById(context.Background(), urlRedirectId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RedirectsApi.GetCmsV3UrlRedirectsUrlRedirectIdGetById``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetCmsV3UrlRedirectsUrlRedirectIdGetById`: UrlMapping
-    fmt.Fprintf(os.Stdout, "Response from `RedirectsApi.GetCmsV3UrlRedirectsUrlRedirectIdGetById`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**urlRedirectId** | **string** | The ID of the target redirect. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetCmsV3UrlRedirectsUrlRedirectIdGetByIdRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**UrlMapping**](UrlMapping.md)
-
-### Authorization
-
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json, */*
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PatchCmsV3UrlRedirectsUrlRedirectIdUpdate
-
-> UrlMapping PatchCmsV3UrlRedirectsUrlRedirectIdUpdate(ctx, urlRedirectId).UrlMapping(urlMapping).Execute()
+> UrlMapping Update(ctx, urlRedirectId).UrlMapping(urlMapping).Execute()
 
 Update a redirect
 
@@ -261,13 +327,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RedirectsApi.PatchCmsV3UrlRedirectsUrlRedirectIdUpdate(context.Background(), urlRedirectId).UrlMapping(urlMapping).Execute()
+    resp, r, err := apiClient.RedirectsApi.Update(context.Background(), urlRedirectId).UrlMapping(urlMapping).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RedirectsApi.PatchCmsV3UrlRedirectsUrlRedirectIdUpdate``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `RedirectsApi.Update``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PatchCmsV3UrlRedirectsUrlRedirectIdUpdate`: UrlMapping
-    fmt.Fprintf(os.Stdout, "Response from `RedirectsApi.PatchCmsV3UrlRedirectsUrlRedirectIdUpdate`: %v\n", resp)
+    // response from `Update`: UrlMapping
+    fmt.Fprintf(os.Stdout, "Response from `RedirectsApi.Update`: %v\n", resp)
 }
 ```
 
@@ -281,79 +347,13 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPatchCmsV3UrlRedirectsUrlRedirectIdUpdateRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiUpdateRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **urlMapping** | [**UrlMapping**](UrlMapping.md) |  | 
-
-### Return type
-
-[**UrlMapping**](UrlMapping.md)
-
-### Authorization
-
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json, */*
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostCmsV3UrlRedirectsCreate
-
-> UrlMapping PostCmsV3UrlRedirectsCreate(ctx).UrlMappingCreateRequestBody(urlMappingCreateRequestBody).Execute()
-
-Create a redirect
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    urlMappingCreateRequestBody := *openapiclient.NewUrlMappingCreateRequestBody("RoutePrefix_example", "Destination_example", int32(123)) // UrlMappingCreateRequestBody | 
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RedirectsApi.PostCmsV3UrlRedirectsCreate(context.Background()).UrlMappingCreateRequestBody(urlMappingCreateRequestBody).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RedirectsApi.PostCmsV3UrlRedirectsCreate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostCmsV3UrlRedirectsCreate`: UrlMapping
-    fmt.Fprintf(os.Stdout, "Response from `RedirectsApi.PostCmsV3UrlRedirectsCreate`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostCmsV3UrlRedirectsCreateRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **urlMappingCreateRequestBody** | [**UrlMappingCreateRequestBody**](UrlMappingCreateRequestBody.md) |  | 
 
 ### Return type
 

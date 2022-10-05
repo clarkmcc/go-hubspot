@@ -24,7 +24,7 @@ import (
 // AuditLogsApiService AuditLogsApi service
 type AuditLogsApiService service
 
-type ApiGetCmsV3AuditLogsGetPageRequest struct {
+type ApiGetPageRequest struct {
 	ctx        context.Context
 	ApiService *AuditLogsApiService
 	objectId   *[]string
@@ -38,67 +38,67 @@ type ApiGetCmsV3AuditLogsGetPageRequest struct {
 }
 
 // Comma separated list of object ids to filter by.
-func (r ApiGetCmsV3AuditLogsGetPageRequest) ObjectId(objectId []string) ApiGetCmsV3AuditLogsGetPageRequest {
+func (r ApiGetPageRequest) ObjectId(objectId []string) ApiGetPageRequest {
 	r.objectId = &objectId
 	return r
 }
 
 // Comma separated list of user ids to filter by.
-func (r ApiGetCmsV3AuditLogsGetPageRequest) UserId(userId []string) ApiGetCmsV3AuditLogsGetPageRequest {
+func (r ApiGetPageRequest) UserId(userId []string) ApiGetPageRequest {
 	r.userId = &userId
 	return r
 }
 
 // Timestamp after which audit logs will be returned
-func (r ApiGetCmsV3AuditLogsGetPageRequest) After(after string) ApiGetCmsV3AuditLogsGetPageRequest {
+func (r ApiGetPageRequest) After(after string) ApiGetPageRequest {
 	r.after = &after
 	return r
 }
 
 // Timestamp before which audit logs will be returned
-func (r ApiGetCmsV3AuditLogsGetPageRequest) Before(before string) ApiGetCmsV3AuditLogsGetPageRequest {
+func (r ApiGetPageRequest) Before(before string) ApiGetPageRequest {
 	r.before = &before
 	return r
 }
 
 // The sort direction for the audit logs. (Can only sort by timestamp).
-func (r ApiGetCmsV3AuditLogsGetPageRequest) Sort(sort []string) ApiGetCmsV3AuditLogsGetPageRequest {
+func (r ApiGetPageRequest) Sort(sort []string) ApiGetPageRequest {
 	r.sort = &sort
 	return r
 }
 
 // Comma separated list of event types to filter by (CREATED, UPDATED, PUBLISHED, DELETED, UNPUBLISHED).
-func (r ApiGetCmsV3AuditLogsGetPageRequest) EventType(eventType []string) ApiGetCmsV3AuditLogsGetPageRequest {
+func (r ApiGetPageRequest) EventType(eventType []string) ApiGetPageRequest {
 	r.eventType = &eventType
 	return r
 }
 
 // The number of logs to return.
-func (r ApiGetCmsV3AuditLogsGetPageRequest) Limit(limit int32) ApiGetCmsV3AuditLogsGetPageRequest {
+func (r ApiGetPageRequest) Limit(limit int32) ApiGetPageRequest {
 	r.limit = &limit
 	return r
 }
 
 // Comma separated list of object types to filter by (BLOG, LANDING_PAGE, DOMAIN, HUBDB_TABLE etc.)
-func (r ApiGetCmsV3AuditLogsGetPageRequest) ObjectType(objectType []string) ApiGetCmsV3AuditLogsGetPageRequest {
+func (r ApiGetPageRequest) ObjectType(objectType []string) ApiGetPageRequest {
 	r.objectType = &objectType
 	return r
 }
 
-func (r ApiGetCmsV3AuditLogsGetPageRequest) Execute() (*CollectionResponsePublicAuditLog, *http.Response, error) {
-	return r.ApiService.GetCmsV3AuditLogsGetPageExecute(r)
+func (r ApiGetPageRequest) Execute() (*CollectionResponsePublicAuditLog, *http.Response, error) {
+	return r.ApiService.GetPageExecute(r)
 }
 
 /*
-GetCmsV3AuditLogsGetPage Query audit logs
+GetPage Query audit logs
 
 Returns audit logs based on filters.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetCmsV3AuditLogsGetPageRequest
+ @return ApiGetPageRequest
 */
-func (a *AuditLogsApiService) GetCmsV3AuditLogsGetPage(ctx context.Context) ApiGetCmsV3AuditLogsGetPageRequest {
-	return ApiGetCmsV3AuditLogsGetPageRequest{
+func (a *AuditLogsApiService) GetPage(ctx context.Context) ApiGetPageRequest {
+	return ApiGetPageRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -106,7 +106,7 @@ func (a *AuditLogsApiService) GetCmsV3AuditLogsGetPage(ctx context.Context) ApiG
 
 // Execute executes the request
 //  @return CollectionResponsePublicAuditLog
-func (a *AuditLogsApiService) GetCmsV3AuditLogsGetPageExecute(r ApiGetCmsV3AuditLogsGetPageRequest) (*CollectionResponsePublicAuditLog, *http.Response, error) {
+func (a *AuditLogsApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionResponsePublicAuditLog, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -114,7 +114,7 @@ func (a *AuditLogsApiService) GetCmsV3AuditLogsGetPageExecute(r ApiGetCmsV3Audit
 		localVarReturnValue *CollectionResponsePublicAuditLog
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuditLogsApiService.GetCmsV3AuditLogsGetPage")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuditLogsApiService.GetPage")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

@@ -78,30 +78,30 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*BlogPostsApi* | [**DeleteCmsV3BlogsPostsObjectIdArchive**](docs/BlogPostsApi.md#deletecmsv3blogspostsobjectidarchive) | **Delete** /cms/v3/blogs/posts/{objectId} | Delete a Blog Post
-*BlogPostsApi* | [**GetCmsV3BlogsPostsGetPage**](docs/BlogPostsApi.md#getcmsv3blogspostsgetpage) | **Get** /cms/v3/blogs/posts | Get all Blog Posts
-*BlogPostsApi* | [**GetCmsV3BlogsPostsObjectIdDraftGetDraftById**](docs/BlogPostsApi.md#getcmsv3blogspostsobjectiddraftgetdraftbyid) | **Get** /cms/v3/blogs/posts/{objectId}/draft | Retrieve the full draft version of the Blog Post
-*BlogPostsApi* | [**GetCmsV3BlogsPostsObjectIdGetById**](docs/BlogPostsApi.md#getcmsv3blogspostsobjectidgetbyid) | **Get** /cms/v3/blogs/posts/{objectId} | Retrieve a Blog Post
-*BlogPostsApi* | [**GetCmsV3BlogsPostsObjectIdRevisionsGetPreviousVersions**](docs/BlogPostsApi.md#getcmsv3blogspostsobjectidrevisionsgetpreviousversions) | **Get** /cms/v3/blogs/posts/{objectId}/revisions | Retrieves all the previous versions of a blog post
-*BlogPostsApi* | [**GetCmsV3BlogsPostsObjectIdRevisionsRevisionIdGetPreviousVersion**](docs/BlogPostsApi.md#getcmsv3blogspostsobjectidrevisionsrevisionidgetpreviousversion) | **Get** /cms/v3/blogs/posts/{objectId}/revisions/{revisionId} | Retrieves a previous version of a blog post
-*BlogPostsApi* | [**PatchCmsV3BlogsPostsObjectIdDraftUpdateDraft**](docs/BlogPostsApi.md#patchcmsv3blogspostsobjectiddraftupdatedraft) | **Patch** /cms/v3/blogs/posts/{objectId}/draft | Update a Blog Post draft
-*BlogPostsApi* | [**PatchCmsV3BlogsPostsObjectIdUpdate**](docs/BlogPostsApi.md#patchcmsv3blogspostsobjectidupdate) | **Patch** /cms/v3/blogs/posts/{objectId} | Update a Blog Post
-*BlogPostsApi* | [**PostCmsV3BlogsPostsBatchArchiveArchiveBatch**](docs/BlogPostsApi.md#postcmsv3blogspostsbatcharchivearchivebatch) | **Post** /cms/v3/blogs/posts/batch/archive | Delete a batch of Blog Posts
-*BlogPostsApi* | [**PostCmsV3BlogsPostsBatchCreateCreateBatch**](docs/BlogPostsApi.md#postcmsv3blogspostsbatchcreatecreatebatch) | **Post** /cms/v3/blogs/posts/batch/create | Create a batch of Blog Posts
-*BlogPostsApi* | [**PostCmsV3BlogsPostsBatchReadReadBatch**](docs/BlogPostsApi.md#postcmsv3blogspostsbatchreadreadbatch) | **Post** /cms/v3/blogs/posts/batch/read | Retrieve a batch of Blog Posts
-*BlogPostsApi* | [**PostCmsV3BlogsPostsBatchUpdateUpdateBatch**](docs/BlogPostsApi.md#postcmsv3blogspostsbatchupdateupdatebatch) | **Post** /cms/v3/blogs/posts/batch/update | Update a batch of Blog Posts
-*BlogPostsApi* | [**PostCmsV3BlogsPostsCloneClone**](docs/BlogPostsApi.md#postcmsv3blogspostscloneclone) | **Post** /cms/v3/blogs/posts/clone | Clone a Blog Post
-*BlogPostsApi* | [**PostCmsV3BlogsPostsCreate**](docs/BlogPostsApi.md#postcmsv3blogspostscreate) | **Post** /cms/v3/blogs/posts | Create a new Blog Post
-*BlogPostsApi* | [**PostCmsV3BlogsPostsMultiLanguageAttachToLangGroupAttachToLangGroup**](docs/BlogPostsApi.md#postcmsv3blogspostsmultilanguageattachtolanggroupattachtolanggroup) | **Post** /cms/v3/blogs/posts/multi-language/attach-to-lang-group | Attach a Blog Post to a multi-language group
-*BlogPostsApi* | [**PostCmsV3BlogsPostsMultiLanguageCreateLanguageVariationCreateLangVariation**](docs/BlogPostsApi.md#postcmsv3blogspostsmultilanguagecreatelanguagevariationcreatelangvariation) | **Post** /cms/v3/blogs/posts/multi-language/create-language-variation | Create a new language variation
-*BlogPostsApi* | [**PostCmsV3BlogsPostsMultiLanguageDetachFromLangGroupDetachFromLangGroup**](docs/BlogPostsApi.md#postcmsv3blogspostsmultilanguagedetachfromlanggroupdetachfromlanggroup) | **Post** /cms/v3/blogs/posts/multi-language/detach-from-lang-group | Detach a Blog Post from a multi-language group
-*BlogPostsApi* | [**PostCmsV3BlogsPostsMultiLanguageUpdateLanguagesUpdateLangs**](docs/BlogPostsApi.md#postcmsv3blogspostsmultilanguageupdatelanguagesupdatelangs) | **Post** /cms/v3/blogs/posts/multi-language/update-languages | Update languages of multi-language group
-*BlogPostsApi* | [**PostCmsV3BlogsPostsObjectIdDraftPushLivePushLive**](docs/BlogPostsApi.md#postcmsv3blogspostsobjectiddraftpushlivepushlive) | **Post** /cms/v3/blogs/posts/{objectId}/draft/push-live | Push Blog Post draft edits live
-*BlogPostsApi* | [**PostCmsV3BlogsPostsObjectIdDraftResetResetDraft**](docs/BlogPostsApi.md#postcmsv3blogspostsobjectiddraftresetresetdraft) | **Post** /cms/v3/blogs/posts/{objectId}/draft/reset | Reset the Blog Post draft to the live version
-*BlogPostsApi* | [**PostCmsV3BlogsPostsObjectIdRevisionsRevisionIdRestoreRestorePreviousVersion**](docs/BlogPostsApi.md#postcmsv3blogspostsobjectidrevisionsrevisionidrestorerestorepreviousversion) | **Post** /cms/v3/blogs/posts/{objectId}/revisions/{revisionId}/restore | Restore a previous version of a blog post
-*BlogPostsApi* | [**PostCmsV3BlogsPostsObjectIdRevisionsRevisionIdRestoreToDraftRestorePreviousVersionToDraft**](docs/BlogPostsApi.md#postcmsv3blogspostsobjectidrevisionsrevisionidrestoretodraftrestorepreviousversiontodraft) | **Post** /cms/v3/blogs/posts/{objectId}/revisions/{revisionId}/restore-to-draft | Restore a previous version of a blog post, to the draft version of the blog post
-*BlogPostsApi* | [**PostCmsV3BlogsPostsScheduleSchedule**](docs/BlogPostsApi.md#postcmsv3blogspostsscheduleschedule) | **Post** /cms/v3/blogs/posts/schedule | Schedule a Blog Post to be Published
-*BlogPostsApi* | [**PutCmsV3BlogsPostsMultiLanguageSetNewLangPrimarySetLangPrimary**](docs/BlogPostsApi.md#putcmsv3blogspostsmultilanguagesetnewlangprimarysetlangprimary) | **Put** /cms/v3/blogs/posts/multi-language/set-new-lang-primary | Set a new primary language
+*BlogPostsApi* | [**Archive**](docs/BlogPostsApi.md#archive) | **Delete** /cms/v3/blogs/posts/{objectId} | Delete a Blog Post
+*BlogPostsApi* | [**AttachToLangGroup**](docs/BlogPostsApi.md#attachtolanggroup) | **Post** /cms/v3/blogs/posts/multi-language/attach-to-lang-group | Attach a Blog Post to a multi-language group
+*BlogPostsApi* | [**BatchArchive**](docs/BlogPostsApi.md#batcharchive) | **Post** /cms/v3/blogs/posts/batch/archive | Delete a batch of Blog Posts
+*BlogPostsApi* | [**BatchCreate**](docs/BlogPostsApi.md#batchcreate) | **Post** /cms/v3/blogs/posts/batch/create | Create a batch of Blog Posts
+*BlogPostsApi* | [**BatchRead**](docs/BlogPostsApi.md#batchread) | **Post** /cms/v3/blogs/posts/batch/read | Retrieve a batch of Blog Posts
+*BlogPostsApi* | [**BatchUpdate**](docs/BlogPostsApi.md#batchupdate) | **Post** /cms/v3/blogs/posts/batch/update | Update a batch of Blog Posts
+*BlogPostsApi* | [**Clone**](docs/BlogPostsApi.md#clone) | **Post** /cms/v3/blogs/posts/clone | Clone a Blog Post
+*BlogPostsApi* | [**Create**](docs/BlogPostsApi.md#create) | **Post** /cms/v3/blogs/posts | Create a new Blog Post
+*BlogPostsApi* | [**CreateLangVariation**](docs/BlogPostsApi.md#createlangvariation) | **Post** /cms/v3/blogs/posts/multi-language/create-language-variation | Create a new language variation
+*BlogPostsApi* | [**DetachFromLangGroup**](docs/BlogPostsApi.md#detachfromlanggroup) | **Post** /cms/v3/blogs/posts/multi-language/detach-from-lang-group | Detach a Blog Post from a multi-language group
+*BlogPostsApi* | [**GetByID**](docs/BlogPostsApi.md#getbyid) | **Get** /cms/v3/blogs/posts/{objectId} | Retrieve a Blog Post
+*BlogPostsApi* | [**GetDraftByID**](docs/BlogPostsApi.md#getdraftbyid) | **Get** /cms/v3/blogs/posts/{objectId}/draft | Retrieve the full draft version of the Blog Post
+*BlogPostsApi* | [**GetPage**](docs/BlogPostsApi.md#getpage) | **Get** /cms/v3/blogs/posts | Get all Blog Posts
+*BlogPostsApi* | [**GetPreviousVersion**](docs/BlogPostsApi.md#getpreviousversion) | **Get** /cms/v3/blogs/posts/{objectId}/revisions/{revisionId} | Retrieves a previous version of a blog post
+*BlogPostsApi* | [**GetPreviousVersions**](docs/BlogPostsApi.md#getpreviousversions) | **Get** /cms/v3/blogs/posts/{objectId}/revisions | Retrieves all the previous versions of a blog post
+*BlogPostsApi* | [**PushLive**](docs/BlogPostsApi.md#pushlive) | **Post** /cms/v3/blogs/posts/{objectId}/draft/push-live | Push Blog Post draft edits live
+*BlogPostsApi* | [**ResetDraft**](docs/BlogPostsApi.md#resetdraft) | **Post** /cms/v3/blogs/posts/{objectId}/draft/reset | Reset the Blog Post draft to the live version
+*BlogPostsApi* | [**RestorePreviousVersion**](docs/BlogPostsApi.md#restorepreviousversion) | **Post** /cms/v3/blogs/posts/{objectId}/revisions/{revisionId}/restore | Restore a previous version of a blog post
+*BlogPostsApi* | [**RestorePreviousVersionToDraft**](docs/BlogPostsApi.md#restorepreviousversiontodraft) | **Post** /cms/v3/blogs/posts/{objectId}/revisions/{revisionId}/restore-to-draft | Restore a previous version of a blog post, to the draft version of the blog post
+*BlogPostsApi* | [**Schedule**](docs/BlogPostsApi.md#schedule) | **Post** /cms/v3/blogs/posts/schedule | Schedule a Blog Post to be Published
+*BlogPostsApi* | [**SetLangPrimary**](docs/BlogPostsApi.md#setlangprimary) | **Put** /cms/v3/blogs/posts/multi-language/set-new-lang-primary | Set a new primary language
+*BlogPostsApi* | [**Update**](docs/BlogPostsApi.md#update) | **Patch** /cms/v3/blogs/posts/{objectId} | Update a Blog Post
+*BlogPostsApi* | [**UpdateDraft**](docs/BlogPostsApi.md#updatedraft) | **Patch** /cms/v3/blogs/posts/{objectId}/draft | Update a Blog Post draft
+*BlogPostsApi* | [**UpdateLangs**](docs/BlogPostsApi.md#updatelangs) | **Post** /cms/v3/blogs/posts/multi-language/update-languages | Update languages of multi-language group
 
 
 ## Documentation For Models

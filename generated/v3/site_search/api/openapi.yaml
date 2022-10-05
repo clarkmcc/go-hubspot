@@ -15,7 +15,7 @@ paths:
       description: "For a given account and document ID (page ID, blog post ID, HubDB\
         \ row ID, etc.), return all indexed data for that document. This is useful\
         \ when debugging why a particular document is not returned from a custom search."
-      operationId: "get-/cms/v3/site-search/indexed-data/{contentId}_getById"
+      operationId: GetByID
       parameters:
       - description: ID of the target document when searching for indexed properties.
         explode: false
@@ -470,7 +470,7 @@ paths:
       description: "Returns any website content matching the given search criteria\
         \ for a given HubSpot account. Searches can be filtered by content type, domain,\
         \ or URL path."
-      operationId: get-/cms/v3/site-search/search_search
+      operationId: Search
       parameters:
       - description: The term to search for.
         explode: true

@@ -24,7 +24,7 @@ import (
 // BatchApiService BatchApi service
 type BatchApiService service
 
-type ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchiveRequest struct {
+type ApiBatchArchiveRequest struct {
 	ctx                         context.Context
 	ApiService                  *BatchApiService
 	fromObjectType              string
@@ -32,27 +32,27 @@ type ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchiveReques
 	batchInputPublicAssociation *BatchInputPublicAssociation
 }
 
-func (r ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchiveRequest) BatchInputPublicAssociation(batchInputPublicAssociation BatchInputPublicAssociation) ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchiveRequest {
+func (r ApiBatchArchiveRequest) BatchInputPublicAssociation(batchInputPublicAssociation BatchInputPublicAssociation) ApiBatchArchiveRequest {
 	r.batchInputPublicAssociation = &batchInputPublicAssociation
 	return r
 }
 
-func (r ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchiveRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchiveExecute(r)
+func (r ApiBatchArchiveRequest) Execute() (*http.Response, error) {
+	return r.ApiService.BatchArchiveExecute(r)
 }
 
 /*
-PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchive Archive a batch of associations
+BatchArchive Archive a batch of associations
 
 Remove the associations between all pairs of objects identified in the request body.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param fromObjectType
  @param toObjectType
- @return ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchiveRequest
+ @return ApiBatchArchiveRequest
 */
-func (a *BatchApiService) PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchive(ctx context.Context, fromObjectType string, toObjectType string) ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchiveRequest {
-	return ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchiveRequest{
+func (a *BatchApiService) BatchArchive(ctx context.Context, fromObjectType string, toObjectType string) ApiBatchArchiveRequest {
+	return ApiBatchArchiveRequest{
 		ApiService:     a,
 		ctx:            ctx,
 		fromObjectType: fromObjectType,
@@ -61,14 +61,14 @@ func (a *BatchApiService) PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchAr
 }
 
 // Execute executes the request
-func (a *BatchApiService) PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchiveExecute(r ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchiveRequest) (*http.Response, error) {
+func (a *BatchApiService) BatchArchiveExecute(r ApiBatchArchiveRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchApiService.PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchArchiveArchive")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchApiService.BatchArchive")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -145,7 +145,7 @@ func (a *BatchApiService) PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchAr
 	return localVarHTTPResponse, nil
 }
 
-type ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreateRequest struct {
+type ApiBatchCreateRequest struct {
 	ctx                         context.Context
 	ApiService                  *BatchApiService
 	fromObjectType              string
@@ -153,27 +153,27 @@ type ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreateRequest 
 	batchInputPublicAssociation *BatchInputPublicAssociation
 }
 
-func (r ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreateRequest) BatchInputPublicAssociation(batchInputPublicAssociation BatchInputPublicAssociation) ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreateRequest {
+func (r ApiBatchCreateRequest) BatchInputPublicAssociation(batchInputPublicAssociation BatchInputPublicAssociation) ApiBatchCreateRequest {
 	r.batchInputPublicAssociation = &batchInputPublicAssociation
 	return r
 }
 
-func (r ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreateRequest) Execute() (*BatchResponsePublicAssociation, *http.Response, error) {
-	return r.ApiService.PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreateExecute(r)
+func (r ApiBatchCreateRequest) Execute() (*BatchResponsePublicAssociation, *http.Response, error) {
+	return r.ApiService.BatchCreateExecute(r)
 }
 
 /*
-PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreate Create a batch of associations
+BatchCreate Create a batch of associations
 
 Associate all pairs of objects identified in the request body.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param fromObjectType
  @param toObjectType
- @return ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreateRequest
+ @return ApiBatchCreateRequest
 */
-func (a *BatchApiService) PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreate(ctx context.Context, fromObjectType string, toObjectType string) ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreateRequest {
-	return ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreateRequest{
+func (a *BatchApiService) BatchCreate(ctx context.Context, fromObjectType string, toObjectType string) ApiBatchCreateRequest {
+	return ApiBatchCreateRequest{
 		ApiService:     a,
 		ctx:            ctx,
 		fromObjectType: fromObjectType,
@@ -183,7 +183,7 @@ func (a *BatchApiService) PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCr
 
 // Execute executes the request
 //  @return BatchResponsePublicAssociation
-func (a *BatchApiService) PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreateExecute(r ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreateRequest) (*BatchResponsePublicAssociation, *http.Response, error) {
+func (a *BatchApiService) BatchCreateExecute(r ApiBatchCreateRequest) (*BatchResponsePublicAssociation, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -191,7 +191,7 @@ func (a *BatchApiService) PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCr
 		localVarReturnValue *BatchResponsePublicAssociation
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchApiService.PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCreateCreate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchApiService.BatchCreate")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -277,7 +277,7 @@ func (a *BatchApiService) PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchCr
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadReadRequest struct {
+type ApiBatchReadRequest struct {
 	ctx                      context.Context
 	ApiService               *BatchApiService
 	fromObjectType           string
@@ -285,27 +285,27 @@ type ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadReadRequest stru
 	batchInputPublicObjectId *BatchInputPublicObjectId
 }
 
-func (r ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadReadRequest) BatchInputPublicObjectId(batchInputPublicObjectId BatchInputPublicObjectId) ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadReadRequest {
+func (r ApiBatchReadRequest) BatchInputPublicObjectId(batchInputPublicObjectId BatchInputPublicObjectId) ApiBatchReadRequest {
 	r.batchInputPublicObjectId = &batchInputPublicObjectId
 	return r
 }
 
-func (r ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadReadRequest) Execute() (*BatchResponsePublicAssociationMulti, *http.Response, error) {
-	return r.ApiService.PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadReadExecute(r)
+func (r ApiBatchReadRequest) Execute() (*BatchResponsePublicAssociationMulti, *http.Response, error) {
+	return r.ApiService.BatchReadExecute(r)
 }
 
 /*
-PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadRead Read a batch of associations
+BatchRead Read a batch of associations
 
 Get the IDs of all `{toObjectType}` objects associated with those specified in the request body.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param fromObjectType
  @param toObjectType
- @return ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadReadRequest
+ @return ApiBatchReadRequest
 */
-func (a *BatchApiService) PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadRead(ctx context.Context, fromObjectType string, toObjectType string) ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadReadRequest {
-	return ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadReadRequest{
+func (a *BatchApiService) BatchRead(ctx context.Context, fromObjectType string, toObjectType string) ApiBatchReadRequest {
+	return ApiBatchReadRequest{
 		ApiService:     a,
 		ctx:            ctx,
 		fromObjectType: fromObjectType,
@@ -315,7 +315,7 @@ func (a *BatchApiService) PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchRe
 
 // Execute executes the request
 //  @return BatchResponsePublicAssociationMulti
-func (a *BatchApiService) PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadReadExecute(r ApiPostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadReadRequest) (*BatchResponsePublicAssociationMulti, *http.Response, error) {
+func (a *BatchApiService) BatchReadExecute(r ApiBatchReadRequest) (*BatchResponsePublicAssociationMulti, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -323,7 +323,7 @@ func (a *BatchApiService) PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchRe
 		localVarReturnValue *BatchResponsePublicAssociationMulti
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchApiService.PostCrmV3AssociationsFromObjectTypeToObjectTypeBatchReadRead")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchApiService.BatchRead")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

@@ -23,29 +23,29 @@ import (
 // PublicObjectApiService PublicObjectApi service
 type PublicObjectApiService service
 
-type ApiPostCrmV3ObjectsQuotesMergeMergeRequest struct {
+type ApiMergeRequest struct {
 	ctx              context.Context
 	ApiService       *PublicObjectApiService
 	publicMergeInput *PublicMergeInput
 }
 
-func (r ApiPostCrmV3ObjectsQuotesMergeMergeRequest) PublicMergeInput(publicMergeInput PublicMergeInput) ApiPostCrmV3ObjectsQuotesMergeMergeRequest {
+func (r ApiMergeRequest) PublicMergeInput(publicMergeInput PublicMergeInput) ApiMergeRequest {
 	r.publicMergeInput = &publicMergeInput
 	return r
 }
 
-func (r ApiPostCrmV3ObjectsQuotesMergeMergeRequest) Execute() (*SimplePublicObject, *http.Response, error) {
-	return r.ApiService.PostCrmV3ObjectsQuotesMergeMergeExecute(r)
+func (r ApiMergeRequest) Execute() (*SimplePublicObject, *http.Response, error) {
+	return r.ApiService.MergeExecute(r)
 }
 
 /*
-PostCrmV3ObjectsQuotesMergeMerge Merge two quotes with same type
+Merge Merge two quotes with same type
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostCrmV3ObjectsQuotesMergeMergeRequest
+ @return ApiMergeRequest
 */
-func (a *PublicObjectApiService) PostCrmV3ObjectsQuotesMergeMerge(ctx context.Context) ApiPostCrmV3ObjectsQuotesMergeMergeRequest {
-	return ApiPostCrmV3ObjectsQuotesMergeMergeRequest{
+func (a *PublicObjectApiService) Merge(ctx context.Context) ApiMergeRequest {
+	return ApiMergeRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -53,7 +53,7 @@ func (a *PublicObjectApiService) PostCrmV3ObjectsQuotesMergeMerge(ctx context.Co
 
 // Execute executes the request
 //  @return SimplePublicObject
-func (a *PublicObjectApiService) PostCrmV3ObjectsQuotesMergeMergeExecute(r ApiPostCrmV3ObjectsQuotesMergeMergeRequest) (*SimplePublicObject, *http.Response, error) {
+func (a *PublicObjectApiService) MergeExecute(r ApiMergeRequest) (*SimplePublicObject, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -61,7 +61,7 @@ func (a *PublicObjectApiService) PostCrmV3ObjectsQuotesMergeMergeExecute(r ApiPo
 		localVarReturnValue *SimplePublicObject
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicObjectApiService.PostCrmV3ObjectsQuotesMergeMerge")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicObjectApiService.Merge")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

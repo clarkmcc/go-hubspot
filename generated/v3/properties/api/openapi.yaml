@@ -15,7 +15,7 @@ paths:
     get:
       description: Read all existing properties for the specified object type and
         HubSpot account.
-      operationId: "get-/crm/v3/properties/{objectType}_getAll"
+      operationId: GetAll
       parameters:
       - explode: false
         in: path
@@ -88,7 +88,7 @@ paths:
     post:
       description: Create and return a copy of a new property for the specified object
         type.
-      operationId: "post-/crm/v3/properties/{objectType}_create"
+      operationId: Create
       parameters:
       - explode: false
         in: path
@@ -138,7 +138,7 @@ paths:
       description: "Archive a provided list of properties. This method will return\
         \ a 204 No Content response on success regardless of the initial state of\
         \ the property (e.g. active, already archived, non-existent)."
-      operationId: "post-/crm/v3/properties/{objectType}/batch/archive_archive"
+      operationId: BatchArchive
       parameters:
       - explode: false
         in: path
@@ -184,7 +184,7 @@ paths:
     post:
       description: Create a batch of properties using the same rules as when creating
         an individual property.
-      operationId: "post-/crm/v3/properties/{objectType}/batch/create_create"
+      operationId: BatchCreate
       parameters:
       - explode: false
         in: path
@@ -238,7 +238,7 @@ paths:
   /crm/v3/properties/{objectType}/batch/read:
     post:
       description: Read a provided list of properties.
-      operationId: "post-/crm/v3/properties/{objectType}/batch/read_read"
+      operationId: BatchRead
       parameters:
       - explode: false
         in: path
@@ -315,7 +315,7 @@ paths:
     get:
       description: Read all existing property groups for the specified object type
         and HubSpot account.
-      operationId: "get-/crm/v3/properties/{objectType}/groups_getAll"
+      operationId: GroupsGetAll
       parameters:
       - explode: false
         in: path
@@ -378,7 +378,7 @@ paths:
       - Groups
     post:
       description: Create and return a copy of a new property group.
-      operationId: "post-/crm/v3/properties/{objectType}/groups_create"
+      operationId: GroupsCreate
       parameters:
       - explode: false
         in: path
@@ -427,7 +427,7 @@ paths:
     delete:
       description: "Move a property group identified by {groupName} to the recycling\
         \ bin."
-      operationId: "delete-/crm/v3/properties/{objectType}/groups/{groupName}_archive"
+      operationId: GroupsArchive
       parameters:
       - explode: false
         in: path
@@ -472,7 +472,7 @@ paths:
       - Groups
     get:
       description: "Read a property group identified by {groupName}."
-      operationId: "get-/crm/v3/properties/{objectType}/groups/{groupName}_getByName"
+      operationId: GroupsGetByName
       parameters:
       - explode: false
         in: path
@@ -543,7 +543,7 @@ paths:
     patch:
       description: "Perform a partial update of a property group identified by {groupName}.\
         \ Provided fields will be overwritten."
-      operationId: "patch-/crm/v3/properties/{objectType}/groups/{groupName}_update"
+      operationId: GroupsUpdate
       parameters:
       - explode: false
         in: path
@@ -599,7 +599,7 @@ paths:
     delete:
       description: "Move a property identified by {propertyName} to the recycling\
         \ bin."
-      operationId: "delete-/crm/v3/properties/{objectType}/{propertyName}_archive"
+      operationId: Archive
       parameters:
       - explode: false
         in: path
@@ -644,7 +644,7 @@ paths:
       - Core
     get:
       description: "Read a property identified by {propertyName}."
-      operationId: "get-/crm/v3/properties/{objectType}/{propertyName}_getByName"
+      operationId: GetByName
       parameters:
       - explode: false
         in: path
@@ -724,7 +724,7 @@ paths:
     patch:
       description: "Perform a partial update of a property identified by {propertyName}.\
         \ Provided fields will be overwritten."
-      operationId: "patch-/crm/v3/properties/{objectType}/{propertyName}_update"
+      operationId: Update
       parameters:
       - explode: false
         in: path

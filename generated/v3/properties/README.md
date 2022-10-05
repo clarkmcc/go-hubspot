@@ -78,19 +78,19 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*BatchApi* | [**PostCrmV3PropertiesObjectTypeBatchArchiveArchive**](docs/BatchApi.md#postcrmv3propertiesobjecttypebatcharchivearchive) | **Post** /crm/v3/properties/{objectType}/batch/archive | Archive a batch of properties
-*BatchApi* | [**PostCrmV3PropertiesObjectTypeBatchCreateCreate**](docs/BatchApi.md#postcrmv3propertiesobjecttypebatchcreatecreate) | **Post** /crm/v3/properties/{objectType}/batch/create | Create a batch of properties
-*BatchApi* | [**PostCrmV3PropertiesObjectTypeBatchReadRead**](docs/BatchApi.md#postcrmv3propertiesobjecttypebatchreadread) | **Post** /crm/v3/properties/{objectType}/batch/read | Read a batch of properties
-*CoreApi* | [**DeleteCrmV3PropertiesObjectTypePropertyNameArchive**](docs/CoreApi.md#deletecrmv3propertiesobjecttypepropertynamearchive) | **Delete** /crm/v3/properties/{objectType}/{propertyName} | Archive a property
-*CoreApi* | [**GetCrmV3PropertiesObjectTypeGetAll**](docs/CoreApi.md#getcrmv3propertiesobjecttypegetall) | **Get** /crm/v3/properties/{objectType} | Read all properties
-*CoreApi* | [**GetCrmV3PropertiesObjectTypePropertyNameGetByName**](docs/CoreApi.md#getcrmv3propertiesobjecttypepropertynamegetbyname) | **Get** /crm/v3/properties/{objectType}/{propertyName} | Read a property
-*CoreApi* | [**PatchCrmV3PropertiesObjectTypePropertyNameUpdate**](docs/CoreApi.md#patchcrmv3propertiesobjecttypepropertynameupdate) | **Patch** /crm/v3/properties/{objectType}/{propertyName} | Update a property
-*CoreApi* | [**PostCrmV3PropertiesObjectTypeCreate**](docs/CoreApi.md#postcrmv3propertiesobjecttypecreate) | **Post** /crm/v3/properties/{objectType} | Create a property
-*GroupsApi* | [**DeleteCrmV3PropertiesObjectTypeGroupsGroupNameArchive**](docs/GroupsApi.md#deletecrmv3propertiesobjecttypegroupsgroupnamearchive) | **Delete** /crm/v3/properties/{objectType}/groups/{groupName} | Archive a property group
-*GroupsApi* | [**GetCrmV3PropertiesObjectTypeGroupsGetAll**](docs/GroupsApi.md#getcrmv3propertiesobjecttypegroupsgetall) | **Get** /crm/v3/properties/{objectType}/groups | Read all property groups
-*GroupsApi* | [**GetCrmV3PropertiesObjectTypeGroupsGroupNameGetByName**](docs/GroupsApi.md#getcrmv3propertiesobjecttypegroupsgroupnamegetbyname) | **Get** /crm/v3/properties/{objectType}/groups/{groupName} | Read a property group
-*GroupsApi* | [**PatchCrmV3PropertiesObjectTypeGroupsGroupNameUpdate**](docs/GroupsApi.md#patchcrmv3propertiesobjecttypegroupsgroupnameupdate) | **Patch** /crm/v3/properties/{objectType}/groups/{groupName} | Update a property group
-*GroupsApi* | [**PostCrmV3PropertiesObjectTypeGroupsCreate**](docs/GroupsApi.md#postcrmv3propertiesobjecttypegroupscreate) | **Post** /crm/v3/properties/{objectType}/groups | Create a property group
+*BatchApi* | [**BatchArchive**](docs/BatchApi.md#batcharchive) | **Post** /crm/v3/properties/{objectType}/batch/archive | Archive a batch of properties
+*BatchApi* | [**BatchCreate**](docs/BatchApi.md#batchcreate) | **Post** /crm/v3/properties/{objectType}/batch/create | Create a batch of properties
+*BatchApi* | [**BatchRead**](docs/BatchApi.md#batchread) | **Post** /crm/v3/properties/{objectType}/batch/read | Read a batch of properties
+*CoreApi* | [**Archive**](docs/CoreApi.md#archive) | **Delete** /crm/v3/properties/{objectType}/{propertyName} | Archive a property
+*CoreApi* | [**Create**](docs/CoreApi.md#create) | **Post** /crm/v3/properties/{objectType} | Create a property
+*CoreApi* | [**GetAll**](docs/CoreApi.md#getall) | **Get** /crm/v3/properties/{objectType} | Read all properties
+*CoreApi* | [**GetByName**](docs/CoreApi.md#getbyname) | **Get** /crm/v3/properties/{objectType}/{propertyName} | Read a property
+*CoreApi* | [**Update**](docs/CoreApi.md#update) | **Patch** /crm/v3/properties/{objectType}/{propertyName} | Update a property
+*GroupsApi* | [**GroupsArchive**](docs/GroupsApi.md#groupsarchive) | **Delete** /crm/v3/properties/{objectType}/groups/{groupName} | Archive a property group
+*GroupsApi* | [**GroupsCreate**](docs/GroupsApi.md#groupscreate) | **Post** /crm/v3/properties/{objectType}/groups | Create a property group
+*GroupsApi* | [**GroupsGetAll**](docs/GroupsApi.md#groupsgetall) | **Get** /crm/v3/properties/{objectType}/groups | Read all property groups
+*GroupsApi* | [**GroupsGetByName**](docs/GroupsApi.md#groupsgetbyname) | **Get** /crm/v3/properties/{objectType}/groups/{groupName} | Read a property group
+*GroupsApi* | [**GroupsUpdate**](docs/GroupsApi.md#groupsupdate) | **Patch** /crm/v3/properties/{objectType}/groups/{groupName} | Update a property group
 
 
 ## Documentation For Models

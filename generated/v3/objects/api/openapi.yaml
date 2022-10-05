@@ -125,9 +125,9 @@ paths:
       - oauth2:
         - crm.objects.quotes.write
       - oauth2_legacy:
-        - media_bridge.read
-      - oauth2_legacy:
         - tickets
+      - oauth2_legacy:
+        - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
       - hapikey: []
@@ -194,9 +194,9 @@ paths:
       - oauth2:
         - crm.objects.quotes.write
       - oauth2_legacy:
-        - media_bridge.read
-      - oauth2_legacy:
         - tickets
+      - oauth2_legacy:
+        - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
       - hapikey: []
@@ -258,9 +258,9 @@ paths:
       - oauth2:
         - crm.objects.quotes.write
       - oauth2_legacy:
-        - media_bridge.read
-      - oauth2_legacy:
         - tickets
+      - oauth2_legacy:
+        - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
       - hapikey: []
@@ -331,9 +331,9 @@ paths:
       - oauth2:
         - crm.objects.quotes.write
       - oauth2_legacy:
-        - media_bridge.read
-      - oauth2_legacy:
         - tickets
+      - oauth2_legacy:
+        - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
       - hapikey: []
@@ -413,9 +413,9 @@ paths:
       - oauth2:
         - crm.objects.quotes.write
       - oauth2_legacy:
-        - media_bridge.read
-      - oauth2_legacy:
         - tickets
+      - oauth2_legacy:
+        - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
       - hapikey: []
@@ -486,9 +486,9 @@ paths:
       - oauth2:
         - crm.objects.quotes.write
       - oauth2_legacy:
-        - media_bridge.read
-      - oauth2_legacy:
         - tickets
+      - oauth2_legacy:
+        - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
       - hapikey: []
@@ -554,9 +554,9 @@ paths:
       - oauth2:
         - crm.objects.quotes.write
       - oauth2_legacy:
-        - media_bridge.read
-      - oauth2_legacy:
         - tickets
+      - oauth2_legacy:
+        - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
       - hapikey: []
@@ -621,9 +621,9 @@ paths:
       - oauth2:
         - crm.objects.quotes.write
       - oauth2_legacy:
-        - media_bridge.read
-      - oauth2_legacy:
         - tickets
+      - oauth2_legacy:
+        - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
       - hapikey: []
@@ -688,9 +688,9 @@ paths:
       - oauth2:
         - crm.objects.quotes.write
       - oauth2_legacy:
-        - media_bridge.read
-      - oauth2_legacy:
         - tickets
+      - oauth2_legacy:
+        - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
       - hapikey: []
@@ -755,9 +755,9 @@ paths:
       - oauth2:
         - crm.objects.quotes.write
       - oauth2_legacy:
-        - media_bridge.read
-      - oauth2_legacy:
         - tickets
+      - oauth2_legacy:
+        - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
       - hapikey: []
@@ -793,7 +793,7 @@ paths:
         \ to the internal object ID by default, or optionally any unique property\
         \ value as specified by the `idProperty` query param.  Control what is returned\
         \ via the `properties` query param."
-      operationId: Get
+      operationId: GetByID
       parameters:
       - explode: false
         in: path
@@ -880,9 +880,9 @@ paths:
       - oauth2:
         - crm.objects.quotes.write
       - oauth2_legacy:
-        - media_bridge.read
-      - oauth2_legacy:
         - tickets
+      - oauth2_legacy:
+        - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
       - hapikey: []
@@ -968,9 +968,9 @@ paths:
       - oauth2:
         - crm.objects.quotes.write
       - oauth2_legacy:
-        - media_bridge.read
-      - oauth2_legacy:
         - tickets
+      - oauth2_legacy:
+        - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
       - hapikey: []
@@ -1003,7 +1003,7 @@ paths:
       - Basic
   /crm/v3/objects/{objectType}/{objectId}/associations/{toObjectType}:
     get:
-      operationId: AssociationsGet
+      operationId: AssociationsGetAll
       parameters:
       - explode: false
         in: path
@@ -1063,9 +1063,9 @@ paths:
       - oauth2:
         - crm.objects.quotes.write
       - oauth2_legacy:
-        - media_bridge.read
-      - oauth2_legacy:
         - tickets
+      - oauth2_legacy:
+        - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
       - hapikey: []
@@ -1149,9 +1149,9 @@ paths:
       - oauth2:
         - crm.objects.quotes.write
       - oauth2_legacy:
-        - media_bridge.read
-      - oauth2_legacy:
         - tickets
+      - oauth2_legacy:
+        - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
       - hapikey: []
@@ -1237,9 +1237,9 @@ paths:
       - oauth2:
         - crm.objects.quotes.write
       - oauth2_legacy:
-        - media_bridge.read
-      - oauth2_legacy:
         - tickets
+      - oauth2_legacy:
+        - media_bridge.read
       - oauth2:
         - crm.objects.contacts.read
       - hapikey: []
@@ -2247,11 +2247,11 @@ components:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
             crm.objects.custom.read: View custom object records
+            tickets: Read and write tickets
+            media_bridge.read: Read media and media events
             contacts: Read from and write to my Contacts
             crm.objects.custom.write: Change custom object records
             e-commerce: e-commerce
-            media_bridge.read: Read media and media events
-            tickets: Read and write tickets
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
     hapikey:
@@ -2263,9 +2263,6 @@ components:
         authorizationCode:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
-            crm.objects.quotes.write: Quotes
-            crm.objects.contacts.read: ' '
-            crm.objects.contacts.write: ' '
             crm.objects.companies.write: ' '
             crm.objects.companies.read: ' '
             crm.objects.line_items.write: Line Items
@@ -2273,6 +2270,9 @@ components:
             crm.objects.deals.write: ' '
             crm.objects.line_items.read: Line Items
             crm.objects.deals.read: ' '
+            crm.objects.quotes.write: Quotes
+            crm.objects.contacts.read: ' '
+            crm.objects.contacts.write: ' '
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
 x-hubspot-available-client-libraries:

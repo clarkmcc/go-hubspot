@@ -24,85 +24,68 @@ import (
 // OwnersApiService OwnersApi service
 type OwnersApiService service
 
-type ApiGetCrmV3OwnersGetPageRequest struct {
+type ApiGetByIDRequest struct {
 	ctx        context.Context
 	ApiService *OwnersApiService
-	email      *string
-	after      *string
-	limit      *int32
+	ownerId    int32
+	idProperty *string
 	archived   *bool
 }
 
-// Filter by email address (optional)
-func (r ApiGetCrmV3OwnersGetPageRequest) Email(email string) ApiGetCrmV3OwnersGetPageRequest {
-	r.email = &email
-	return r
-}
-
-// The paging cursor token of the last successfully read resource will be returned as the &#x60;paging.next.after&#x60; JSON property of a paged response containing more results.
-func (r ApiGetCrmV3OwnersGetPageRequest) After(after string) ApiGetCrmV3OwnersGetPageRequest {
-	r.after = &after
-	return r
-}
-
-// The maximum number of results to display per page.
-func (r ApiGetCrmV3OwnersGetPageRequest) Limit(limit int32) ApiGetCrmV3OwnersGetPageRequest {
-	r.limit = &limit
+func (r ApiGetByIDRequest) IdProperty(idProperty string) ApiGetByIDRequest {
+	r.idProperty = &idProperty
 	return r
 }
 
 // Whether to return only results that have been archived.
-func (r ApiGetCrmV3OwnersGetPageRequest) Archived(archived bool) ApiGetCrmV3OwnersGetPageRequest {
+func (r ApiGetByIDRequest) Archived(archived bool) ApiGetByIDRequest {
 	r.archived = &archived
 	return r
 }
 
-func (r ApiGetCrmV3OwnersGetPageRequest) Execute() (*CollectionResponsePublicOwnerForwardPaging, *http.Response, error) {
-	return r.ApiService.GetCrmV3OwnersGetPageExecute(r)
+func (r ApiGetByIDRequest) Execute() (*PublicOwner, *http.Response, error) {
+	return r.ApiService.GetByIDExecute(r)
 }
 
 /*
-GetCrmV3OwnersGetPage Get a page of owners
+GetByID Read an owner by given `id` or `userId`
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetCrmV3OwnersGetPageRequest
+ @param ownerId
+ @return ApiGetByIDRequest
 */
-func (a *OwnersApiService) GetCrmV3OwnersGetPage(ctx context.Context) ApiGetCrmV3OwnersGetPageRequest {
-	return ApiGetCrmV3OwnersGetPageRequest{
+func (a *OwnersApiService) GetByID(ctx context.Context, ownerId int32) ApiGetByIDRequest {
+	return ApiGetByIDRequest{
 		ApiService: a,
 		ctx:        ctx,
+		ownerId:    ownerId,
 	}
 }
 
 // Execute executes the request
-//  @return CollectionResponsePublicOwnerForwardPaging
-func (a *OwnersApiService) GetCrmV3OwnersGetPageExecute(r ApiGetCrmV3OwnersGetPageRequest) (*CollectionResponsePublicOwnerForwardPaging, *http.Response, error) {
+//  @return PublicOwner
+func (a *OwnersApiService) GetByIDExecute(r ApiGetByIDRequest) (*PublicOwner, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CollectionResponsePublicOwnerForwardPaging
+		localVarReturnValue *PublicOwner
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OwnersApiService.GetCrmV3OwnersGetPage")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OwnersApiService.GetByID")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/crm/v3/owners/"
+	localVarPath := localBasePath + "/crm/v3/owners/{ownerId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"ownerId"+"}", url.PathEscape(parameterToString(r.ownerId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if r.email != nil {
-		localVarQueryParams.Add("email", parameterToString(*r.email, ""))
-	}
-	if r.after != nil {
-		localVarQueryParams.Add("after", parameterToString(*r.after, ""))
-	}
-	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+	if r.idProperty != nil {
+		localVarQueryParams.Add("idProperty", parameterToString(*r.idProperty, ""))
 	}
 	if r.archived != nil {
 		localVarQueryParams.Add("archived", parameterToString(*r.archived, ""))
@@ -178,68 +161,85 @@ func (a *OwnersApiService) GetCrmV3OwnersGetPageExecute(r ApiGetCrmV3OwnersGetPa
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetCrmV3OwnersOwnerIdGetByIdRequest struct {
+type ApiGetPageRequest struct {
 	ctx        context.Context
 	ApiService *OwnersApiService
-	ownerId    int32
-	idProperty *string
+	email      *string
+	after      *string
+	limit      *int32
 	archived   *bool
 }
 
-func (r ApiGetCrmV3OwnersOwnerIdGetByIdRequest) IdProperty(idProperty string) ApiGetCrmV3OwnersOwnerIdGetByIdRequest {
-	r.idProperty = &idProperty
+// Filter by email address (optional)
+func (r ApiGetPageRequest) Email(email string) ApiGetPageRequest {
+	r.email = &email
+	return r
+}
+
+// The paging cursor token of the last successfully read resource will be returned as the &#x60;paging.next.after&#x60; JSON property of a paged response containing more results.
+func (r ApiGetPageRequest) After(after string) ApiGetPageRequest {
+	r.after = &after
+	return r
+}
+
+// The maximum number of results to display per page.
+func (r ApiGetPageRequest) Limit(limit int32) ApiGetPageRequest {
+	r.limit = &limit
 	return r
 }
 
 // Whether to return only results that have been archived.
-func (r ApiGetCrmV3OwnersOwnerIdGetByIdRequest) Archived(archived bool) ApiGetCrmV3OwnersOwnerIdGetByIdRequest {
+func (r ApiGetPageRequest) Archived(archived bool) ApiGetPageRequest {
 	r.archived = &archived
 	return r
 }
 
-func (r ApiGetCrmV3OwnersOwnerIdGetByIdRequest) Execute() (*PublicOwner, *http.Response, error) {
-	return r.ApiService.GetCrmV3OwnersOwnerIdGetByIdExecute(r)
+func (r ApiGetPageRequest) Execute() (*CollectionResponsePublicOwnerForwardPaging, *http.Response, error) {
+	return r.ApiService.GetPageExecute(r)
 }
 
 /*
-GetCrmV3OwnersOwnerIdGetById Read an owner by given `id` or `userId`
+GetPage Get a page of owners
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param ownerId
- @return ApiGetCrmV3OwnersOwnerIdGetByIdRequest
+ @return ApiGetPageRequest
 */
-func (a *OwnersApiService) GetCrmV3OwnersOwnerIdGetById(ctx context.Context, ownerId int32) ApiGetCrmV3OwnersOwnerIdGetByIdRequest {
-	return ApiGetCrmV3OwnersOwnerIdGetByIdRequest{
+func (a *OwnersApiService) GetPage(ctx context.Context) ApiGetPageRequest {
+	return ApiGetPageRequest{
 		ApiService: a,
 		ctx:        ctx,
-		ownerId:    ownerId,
 	}
 }
 
 // Execute executes the request
-//  @return PublicOwner
-func (a *OwnersApiService) GetCrmV3OwnersOwnerIdGetByIdExecute(r ApiGetCrmV3OwnersOwnerIdGetByIdRequest) (*PublicOwner, *http.Response, error) {
+//  @return CollectionResponsePublicOwnerForwardPaging
+func (a *OwnersApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionResponsePublicOwnerForwardPaging, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PublicOwner
+		localVarReturnValue *CollectionResponsePublicOwnerForwardPaging
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OwnersApiService.GetCrmV3OwnersOwnerIdGetById")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OwnersApiService.GetPage")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/crm/v3/owners/{ownerId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"ownerId"+"}", url.PathEscape(parameterToString(r.ownerId, "")), -1)
+	localVarPath := localBasePath + "/crm/v3/owners/"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if r.idProperty != nil {
-		localVarQueryParams.Add("idProperty", parameterToString(*r.idProperty, ""))
+	if r.email != nil {
+		localVarQueryParams.Add("email", parameterToString(*r.email, ""))
+	}
+	if r.after != nil {
+		localVarQueryParams.Add("after", parameterToString(*r.after, ""))
+	}
+	if r.limit != nil {
+		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
 	}
 	if r.archived != nil {
 		localVarQueryParams.Add("archived", parameterToString(*r.archived, ""))

@@ -25,7 +25,7 @@ import (
 // PublicApiService PublicApi service
 type PublicApiService service
 
-type ApiGetCmsV3SiteSearchIndexedDataContentIdGetByIdRequest struct {
+type ApiGetByIDRequest struct {
 	ctx        context.Context
 	ApiService *PublicApiService
 	contentId  string
@@ -33,26 +33,26 @@ type ApiGetCmsV3SiteSearchIndexedDataContentIdGetByIdRequest struct {
 }
 
 // The type of document. Can be one of &#x60;SITE_PAGE&#x60;, &#x60;BLOG_POST&#x60;, or &#x60;KNOWLEDGE_ARTICLE&#x60;.
-func (r ApiGetCmsV3SiteSearchIndexedDataContentIdGetByIdRequest) Type_(type_ string) ApiGetCmsV3SiteSearchIndexedDataContentIdGetByIdRequest {
+func (r ApiGetByIDRequest) Type_(type_ string) ApiGetByIDRequest {
 	r.type_ = &type_
 	return r
 }
 
-func (r ApiGetCmsV3SiteSearchIndexedDataContentIdGetByIdRequest) Execute() (*IndexedData, *http.Response, error) {
-	return r.ApiService.GetCmsV3SiteSearchIndexedDataContentIdGetByIdExecute(r)
+func (r ApiGetByIDRequest) Execute() (*IndexedData, *http.Response, error) {
+	return r.ApiService.GetByIDExecute(r)
 }
 
 /*
-GetCmsV3SiteSearchIndexedDataContentIdGetById Get indexed properties.
+GetByID Get indexed properties.
 
 For a given account and document ID (page ID, blog post ID, HubDB row ID, etc.), return all indexed data for that document. This is useful when debugging why a particular document is not returned from a custom search.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param contentId ID of the target document when searching for indexed properties.
- @return ApiGetCmsV3SiteSearchIndexedDataContentIdGetByIdRequest
+ @return ApiGetByIDRequest
 */
-func (a *PublicApiService) GetCmsV3SiteSearchIndexedDataContentIdGetById(ctx context.Context, contentId string) ApiGetCmsV3SiteSearchIndexedDataContentIdGetByIdRequest {
-	return ApiGetCmsV3SiteSearchIndexedDataContentIdGetByIdRequest{
+func (a *PublicApiService) GetByID(ctx context.Context, contentId string) ApiGetByIDRequest {
+	return ApiGetByIDRequest{
 		ApiService: a,
 		ctx:        ctx,
 		contentId:  contentId,
@@ -61,7 +61,7 @@ func (a *PublicApiService) GetCmsV3SiteSearchIndexedDataContentIdGetById(ctx con
 
 // Execute executes the request
 //  @return IndexedData
-func (a *PublicApiService) GetCmsV3SiteSearchIndexedDataContentIdGetByIdExecute(r ApiGetCmsV3SiteSearchIndexedDataContentIdGetByIdRequest) (*IndexedData, *http.Response, error) {
+func (a *PublicApiService) GetByIDExecute(r ApiGetByIDRequest) (*IndexedData, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -69,7 +69,7 @@ func (a *PublicApiService) GetCmsV3SiteSearchIndexedDataContentIdGetByIdExecute(
 		localVarReturnValue *IndexedData
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicApiService.GetCmsV3SiteSearchIndexedDataContentIdGetById")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicApiService.GetByID")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -155,7 +155,7 @@ func (a *PublicApiService) GetCmsV3SiteSearchIndexedDataContentIdGetByIdExecute(
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetCmsV3SiteSearchSearchSearchRequest struct {
+type ApiSearchRequest struct {
 	ctx             context.Context
 	ApiService      *PublicApiService
 	q               *string
@@ -178,121 +178,121 @@ type ApiGetCmsV3SiteSearchSearchSearchRequest struct {
 }
 
 // The term to search for.
-func (r ApiGetCmsV3SiteSearchSearchSearchRequest) Q(q string) ApiGetCmsV3SiteSearchSearchSearchRequest {
+func (r ApiSearchRequest) Q(q string) ApiSearchRequest {
 	r.q = &q
 	return r
 }
 
 // Specifies the number of results to be returned in a single response. Defaults to &#x60;10&#x60;. Maximum value is &#x60;100&#x60;.
-func (r ApiGetCmsV3SiteSearchSearchSearchRequest) Limit(limit int32) ApiGetCmsV3SiteSearchSearchSearchRequest {
+func (r ApiSearchRequest) Limit(limit int32) ApiSearchRequest {
 	r.limit = &limit
 	return r
 }
 
 // Used to page through the results. If there are more results than specified by the &#x60;limit&#x60; parameter, you will need to use the value of offset returned in the previous request to get the next set of results.
-func (r ApiGetCmsV3SiteSearchSearchSearchRequest) Offset(offset int32) ApiGetCmsV3SiteSearchSearchSearchRequest {
+func (r ApiSearchRequest) Offset(offset int32) ApiSearchRequest {
 	r.offset = &offset
 	return r
 }
 
 // Specifies the language of content to be searched. This value must be a valid [ISO 639-1 language code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) (e.g. &#x60;es&#x60; for Spanish)
-func (r ApiGetCmsV3SiteSearchSearchSearchRequest) Language(language string) ApiGetCmsV3SiteSearchSearchSearchRequest {
+func (r ApiSearchRequest) Language(language string) ApiSearchRequest {
 	r.language = &language
 	return r
 }
 
 // Inverts the behavior of the pathPrefix filter when set to &#x60;false&#x60;. Defaults to &#x60;true&#x60;.
-func (r ApiGetCmsV3SiteSearchSearchSearchRequest) MatchPrefix(matchPrefix bool) ApiGetCmsV3SiteSearchSearchSearchRequest {
+func (r ApiSearchRequest) MatchPrefix(matchPrefix bool) ApiSearchRequest {
 	r.matchPrefix = &matchPrefix
 	return r
 }
 
 // Specifies whether or not you are showing autocomplete results. Defaults to false.
-func (r ApiGetCmsV3SiteSearchSearchSearchRequest) Autocomplete(autocomplete bool) ApiGetCmsV3SiteSearchSearchSearchRequest {
+func (r ApiSearchRequest) Autocomplete(autocomplete bool) ApiSearchRequest {
 	r.autocomplete = &autocomplete
 	return r
 }
 
 // Specifies how strongly a result is boosted based on its view count. Defaults to 1.0.
-func (r ApiGetCmsV3SiteSearchSearchSearchRequest) PopularityBoost(popularityBoost float32) ApiGetCmsV3SiteSearchSearchSearchRequest {
+func (r ApiSearchRequest) PopularityBoost(popularityBoost float32) ApiSearchRequest {
 	r.popularityBoost = &popularityBoost
 	return r
 }
 
 // Specifies the maximum amount a result will be boosted based on its view count. Defaults to 5.0. Read more about elasticsearch boosting [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-boost.html).
-func (r ApiGetCmsV3SiteSearchSearchSearchRequest) BoostLimit(boostLimit float32) ApiGetCmsV3SiteSearchSearchSearchRequest {
+func (r ApiSearchRequest) BoostLimit(boostLimit float32) ApiSearchRequest {
 	r.boostLimit = &boostLimit
 	return r
 }
 
 // Specifies a relative time window where scores of documents published outside this time window decay. This can only be used for blog posts. For example, boostRecent&#x3D;10d will boost documents published within the last 10 days. Supported timeunits are ms (milliseconds), s (seconds), m (minutes), h (hours), d (days).
-func (r ApiGetCmsV3SiteSearchSearchSearchRequest) BoostRecent(boostRecent string) ApiGetCmsV3SiteSearchSearchSearchRequest {
+func (r ApiSearchRequest) BoostRecent(boostRecent string) ApiSearchRequest {
 	r.boostRecent = &boostRecent
 	return r
 }
 
 // Specifies a specific HubDB table to search. Only returns results from the specified table. Can be used in tandem with the &#x60;hubdbQuery&#x60; parameter to further filter results.
-func (r ApiGetCmsV3SiteSearchSearchSearchRequest) TableId(tableId int64) ApiGetCmsV3SiteSearchSearchSearchRequest {
+func (r ApiSearchRequest) TableId(tableId int64) ApiSearchRequest {
 	r.tableId = &tableId
 	return r
 }
 
 // Specify a HubDB query to further filter the search results.
-func (r ApiGetCmsV3SiteSearchSearchSearchRequest) HubdbQuery(hubdbQuery string) ApiGetCmsV3SiteSearchSearchSearchRequest {
+func (r ApiSearchRequest) HubdbQuery(hubdbQuery string) ApiSearchRequest {
 	r.hubdbQuery = &hubdbQuery
 	return r
 }
 
 // A domain to match search results for. Multiple domains can be provided with &amp;.
-func (r ApiGetCmsV3SiteSearchSearchSearchRequest) Domain(domain []string) ApiGetCmsV3SiteSearchSearchSearchRequest {
+func (r ApiSearchRequest) Domain(domain []string) ApiSearchRequest {
 	r.domain = &domain
 	return r
 }
 
 // Specifies the type of content to search. Can be one or more of SITE_PAGE, LANDING_PAGE, BLOG_POST, LISTING_PAGE, and KNOWLEDGE_ARTICLE. Defaults to all content types except LANDING_PAGE and KNOWLEDGE_ARTICLE
-func (r ApiGetCmsV3SiteSearchSearchSearchRequest) Type_(type_ []string) ApiGetCmsV3SiteSearchSearchSearchRequest {
+func (r ApiSearchRequest) Type_(type_ []string) ApiSearchRequest {
 	r.type_ = &type_
 	return r
 }
 
 // Specifies a path prefix to filter search results. Will only return results with URL paths that start with the specified parameter. Can be used multiple times.
-func (r ApiGetCmsV3SiteSearchSearchSearchRequest) PathPrefix(pathPrefix []string) ApiGetCmsV3SiteSearchSearchSearchRequest {
+func (r ApiSearchRequest) PathPrefix(pathPrefix []string) ApiSearchRequest {
 	r.pathPrefix = &pathPrefix
 	return r
 }
 
 // Specifies which properties to include in the search. Options include &#x60;title&#x60;, &#x60;description&#x60;, and &#x60;html&#x60;. All properties will be searched by default.
-func (r ApiGetCmsV3SiteSearchSearchSearchRequest) Property(property []string) ApiGetCmsV3SiteSearchSearchSearchRequest {
+func (r ApiSearchRequest) Property(property []string) ApiSearchRequest {
 	r.property = &property
 	return r
 }
 
 // Specifies the length of the search results. Can be set to &#x60;LONG&#x60; or &#x60;SHORT&#x60;. &#x60;SHORT&#x60; will return the first 128 characters of the content&#39;s meta description. &#x60;LONG&#x60; will build a more detailed content snippet based on the html/content of the page.
-func (r ApiGetCmsV3SiteSearchSearchSearchRequest) Length(length string) ApiGetCmsV3SiteSearchSearchSearchRequest {
+func (r ApiSearchRequest) Length(length string) ApiSearchRequest {
 	r.length = &length
 	return r
 }
 
 // Specifies which blog(s) to be searched by blog ID. Can be used multiple times to search more than one blog.
-func (r ApiGetCmsV3SiteSearchSearchSearchRequest) GroupId(groupId []int64) ApiGetCmsV3SiteSearchSearchSearchRequest {
+func (r ApiSearchRequest) GroupId(groupId []int64) ApiSearchRequest {
 	r.groupId = &groupId
 	return r
 }
 
-func (r ApiGetCmsV3SiteSearchSearchSearchRequest) Execute() (*PublicSearchResults, *http.Response, error) {
-	return r.ApiService.GetCmsV3SiteSearchSearchSearchExecute(r)
+func (r ApiSearchRequest) Execute() (*PublicSearchResults, *http.Response, error) {
+	return r.ApiService.SearchExecute(r)
 }
 
 /*
-GetCmsV3SiteSearchSearchSearch Search your site.
+Search Search your site.
 
 Returns any website content matching the given search criteria for a given HubSpot account. Searches can be filtered by content type, domain, or URL path.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetCmsV3SiteSearchSearchSearchRequest
+ @return ApiSearchRequest
 */
-func (a *PublicApiService) GetCmsV3SiteSearchSearchSearch(ctx context.Context) ApiGetCmsV3SiteSearchSearchSearchRequest {
-	return ApiGetCmsV3SiteSearchSearchSearchRequest{
+func (a *PublicApiService) Search(ctx context.Context) ApiSearchRequest {
+	return ApiSearchRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -300,7 +300,7 @@ func (a *PublicApiService) GetCmsV3SiteSearchSearchSearch(ctx context.Context) A
 
 // Execute executes the request
 //  @return PublicSearchResults
-func (a *PublicApiService) GetCmsV3SiteSearchSearchSearchExecute(r ApiGetCmsV3SiteSearchSearchSearchRequest) (*PublicSearchResults, *http.Response, error) {
+func (a *PublicApiService) SearchExecute(r ApiSearchRequest) (*PublicSearchResults, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -308,7 +308,7 @@ func (a *PublicApiService) GetCmsV3SiteSearchSearchSearchExecute(r ApiGetCmsV3Si
 		localVarReturnValue *PublicSearchResults
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicApiService.GetCmsV3SiteSearchSearchSearch")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicApiService.Search")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

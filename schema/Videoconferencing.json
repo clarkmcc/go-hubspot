@@ -18,7 +18,7 @@
         "tags" : [ "Settings" ],
         "summary" : "Get settings",
         "description" : "Return the settings for a video conference application with the specified ID.",
-        "operationId" : "get-/crm/v3/extensions/videoconferencing/settings/{appId}_getById",
+        "operationId" : "GetByID",
         "parameters" : [ {
           "name" : "appId",
           "in" : "path",
@@ -54,7 +54,7 @@
         "tags" : [ "Settings" ],
         "summary" : "Update settings",
         "description" : "Updates the settings for a video conference application with the specified ID.",
-        "operationId" : "put-/crm/v3/extensions/videoconferencing/settings/{appId}_replace",
+        "operationId" : "Replace",
         "parameters" : [ {
           "name" : "appId",
           "in" : "path",
@@ -100,7 +100,7 @@
         "tags" : [ "Settings" ],
         "summary" : "Delete settings",
         "description" : "Deletes the settings for a video conference application with the specified ID.",
-        "operationId" : "delete-/crm/v3/extensions/videoconferencing/settings/{appId}_archive",
+        "operationId" : "Archive",
         "parameters" : [ {
           "name" : "appId",
           "in" : "path",

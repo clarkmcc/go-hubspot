@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**AssociationsArchive**](AssociationsApi.md#AssociationsArchive) | **Delete** /crm/v3/objects/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}/{associationType} | Remove an association between two objects
 [**AssociationsCreate**](AssociationsApi.md#AssociationsCreate) | **Put** /crm/v3/objects/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}/{associationType} | Associate an object with another object
-[**AssociationsGet**](AssociationsApi.md#AssociationsGet) | **Get** /crm/v3/objects/{objectType}/{objectId}/associations/{toObjectType} | List associations of an object by type
+[**AssociationsGetAll**](AssociationsApi.md#AssociationsGetAll) | **Get** /crm/v3/objects/{objectType}/{objectId}/associations/{toObjectType} | List associations of an object by type
 
 
 
@@ -168,9 +168,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## AssociationsGet
+## AssociationsGetAll
 
-> CollectionResponseAssociatedIdForwardPaging AssociationsGet(ctx, objectType, objectId, toObjectType).After(after).Limit(limit).Execute()
+> CollectionResponseAssociatedIdForwardPaging AssociationsGetAll(ctx, objectType, objectId, toObjectType).After(after).Limit(limit).Execute()
 
 List associations of an object by type
 
@@ -195,13 +195,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AssociationsApi.AssociationsGet(context.Background(), objectType, objectId, toObjectType).After(after).Limit(limit).Execute()
+    resp, r, err := apiClient.AssociationsApi.AssociationsGetAll(context.Background(), objectType, objectId, toObjectType).After(after).Limit(limit).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AssociationsApi.AssociationsGet``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `AssociationsApi.AssociationsGetAll``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AssociationsGet`: CollectionResponseAssociatedIdForwardPaging
-    fmt.Fprintf(os.Stdout, "Response from `AssociationsApi.AssociationsGet`: %v\n", resp)
+    // response from `AssociationsGetAll`: CollectionResponseAssociatedIdForwardPaging
+    fmt.Fprintf(os.Stdout, "Response from `AssociationsApi.AssociationsGetAll`: %v\n", resp)
 }
 ```
 
@@ -217,7 +217,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAssociationsGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiAssociationsGetAllRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

@@ -27,27 +27,27 @@ import (
 // TablesApiService TablesApi service
 type TablesApiService service
 
-type ApiDeleteCmsV3HubdbTablesTableIdOrNameArchiveTableRequest struct {
+type ApiArchiveTableRequest struct {
 	ctx           context.Context
 	ApiService    *TablesApiService
 	tableIdOrName string
 }
 
-func (r ApiDeleteCmsV3HubdbTablesTableIdOrNameArchiveTableRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteCmsV3HubdbTablesTableIdOrNameArchiveTableExecute(r)
+func (r ApiArchiveTableRequest) Execute() (*http.Response, error) {
+	return r.ApiService.ArchiveTableExecute(r)
 }
 
 /*
-DeleteCmsV3HubdbTablesTableIdOrNameArchiveTable Archive a table
+ArchiveTable Archive a table
 
 Archive (soft delete) an existing HubDB table. This archives both the published and draft versions.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param tableIdOrName The ID or name of the table to archive.
- @return ApiDeleteCmsV3HubdbTablesTableIdOrNameArchiveTableRequest
+ @return ApiArchiveTableRequest
 */
-func (a *TablesApiService) DeleteCmsV3HubdbTablesTableIdOrNameArchiveTable(ctx context.Context, tableIdOrName string) ApiDeleteCmsV3HubdbTablesTableIdOrNameArchiveTableRequest {
-	return ApiDeleteCmsV3HubdbTablesTableIdOrNameArchiveTableRequest{
+func (a *TablesApiService) ArchiveTable(ctx context.Context, tableIdOrName string) ApiArchiveTableRequest {
+	return ApiArchiveTableRequest{
 		ApiService:    a,
 		ctx:           ctx,
 		tableIdOrName: tableIdOrName,
@@ -55,14 +55,14 @@ func (a *TablesApiService) DeleteCmsV3HubdbTablesTableIdOrNameArchiveTable(ctx c
 }
 
 // Execute executes the request
-func (a *TablesApiService) DeleteCmsV3HubdbTablesTableIdOrNameArchiveTableExecute(r ApiDeleteCmsV3HubdbTablesTableIdOrNameArchiveTableRequest) (*http.Response, error) {
+func (a *TablesApiService) ArchiveTableExecute(r ApiArchiveTableRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TablesApiService.DeleteCmsV3HubdbTablesTableIdOrNameArchiveTable")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TablesApiService.ArchiveTable")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -136,7 +136,527 @@ func (a *TablesApiService) DeleteCmsV3HubdbTablesTableIdOrNameArchiveTableExecut
 	return localVarHTTPResponse, nil
 }
 
-type ApiGetCmsV3HubdbTablesDraftGetAllDraftTablesRequest struct {
+type ApiCloneDraftTableRequest struct {
+	ctx                    context.Context
+	ApiService             *TablesApiService
+	tableIdOrName          string
+	hubDbTableCloneRequest *HubDbTableCloneRequest
+}
+
+// JSON object with the properties newName and newLabel. You can set copyRows to false to clone the table with copying rows and default is true.
+func (r ApiCloneDraftTableRequest) HubDbTableCloneRequest(hubDbTableCloneRequest HubDbTableCloneRequest) ApiCloneDraftTableRequest {
+	r.hubDbTableCloneRequest = &hubDbTableCloneRequest
+	return r
+}
+
+func (r ApiCloneDraftTableRequest) Execute() (*HubDbTableV3, *http.Response, error) {
+	return r.ApiService.CloneDraftTableExecute(r)
+}
+
+/*
+CloneDraftTable Clone a table
+
+Clone an existing HubDB table. The `newName` and `newLabel` of the new table can be sent as JSON in the `body` parameter. This will create the cloned table as a `draft`.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tableIdOrName The ID or name of the table to clone.
+ @return ApiCloneDraftTableRequest
+*/
+func (a *TablesApiService) CloneDraftTable(ctx context.Context, tableIdOrName string) ApiCloneDraftTableRequest {
+	return ApiCloneDraftTableRequest{
+		ApiService:    a,
+		ctx:           ctx,
+		tableIdOrName: tableIdOrName,
+	}
+}
+
+// Execute executes the request
+//  @return HubDbTableV3
+func (a *TablesApiService) CloneDraftTableExecute(r ApiCloneDraftTableRequest) (*HubDbTableV3, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *HubDbTableV3
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TablesApiService.CloneDraftTable")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/cms/v3/hubdb/tables/{tableIdOrName}/draft/clone"
+	localVarPath = strings.Replace(localVarPath, "{"+"tableIdOrName"+"}", url.PathEscape(parameterToString(r.tableIdOrName, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.hubDbTableCloneRequest == nil {
+		return localVarReturnValue, nil, reportError("hubDbTableCloneRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "*/*"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.hubDbTableCloneRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiCreateTableRequest struct {
+	ctx                 context.Context
+	ApiService          *TablesApiService
+	hubDbTableV3Request *HubDbTableV3Request
+}
+
+// The JSON schema for the table being created.
+func (r ApiCreateTableRequest) HubDbTableV3Request(hubDbTableV3Request HubDbTableV3Request) ApiCreateTableRequest {
+	r.hubDbTableV3Request = &hubDbTableV3Request
+	return r
+}
+
+func (r ApiCreateTableRequest) Execute() (*HubDbTableV3, *http.Response, error) {
+	return r.ApiService.CreateTableExecute(r)
+}
+
+/*
+CreateTable Create a new table
+
+Creates a new draft HubDB table given a JSON schema. The table name and label should be unique for each account.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiCreateTableRequest
+*/
+func (a *TablesApiService) CreateTable(ctx context.Context) ApiCreateTableRequest {
+	return ApiCreateTableRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//  @return HubDbTableV3
+func (a *TablesApiService) CreateTableExecute(r ApiCreateTableRequest) (*HubDbTableV3, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *HubDbTableV3
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TablesApiService.CreateTable")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/cms/v3/hubdb/tables"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.hubDbTableV3Request == nil {
+		return localVarReturnValue, nil, reportError("hubDbTableV3Request is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "*/*"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.hubDbTableV3Request
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiExportDraftTableRequest struct {
+	ctx           context.Context
+	ApiService    *TablesApiService
+	tableIdOrName string
+	format        *string
+}
+
+// The file format to export. Possible values include &#x60;CSV&#x60;, &#x60;XLSX&#x60;, and &#x60;XLS&#x60;.
+func (r ApiExportDraftTableRequest) Format(format string) ApiExportDraftTableRequest {
+	r.format = &format
+	return r
+}
+
+func (r ApiExportDraftTableRequest) Execute() (**os.File, *http.Response, error) {
+	return r.ApiService.ExportDraftTableExecute(r)
+}
+
+/*
+ExportDraftTable Export a draft table
+
+Exports the `draft` version of a table to CSV / EXCEL format.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tableIdOrName The ID or name of the table to export.
+ @return ApiExportDraftTableRequest
+*/
+func (a *TablesApiService) ExportDraftTable(ctx context.Context, tableIdOrName string) ApiExportDraftTableRequest {
+	return ApiExportDraftTableRequest{
+		ApiService:    a,
+		ctx:           ctx,
+		tableIdOrName: tableIdOrName,
+	}
+}
+
+// Execute executes the request
+//  @return *os.File
+func (a *TablesApiService) ExportDraftTableExecute(r ApiExportDraftTableRequest) (**os.File, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue **os.File
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TablesApiService.ExportDraftTable")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/cms/v3/hubdb/tables/{tableIdOrName}/draft/export"
+	localVarPath = strings.Replace(localVarPath, "{"+"tableIdOrName"+"}", url.PathEscape(parameterToString(r.tableIdOrName, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.format != nil {
+		localVarQueryParams.Add("format", parameterToString(*r.format, ""))
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/vnd.ms-excel", "text/csv", "*/*"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiExportTableRequest struct {
+	ctx           context.Context
+	ApiService    *TablesApiService
+	tableIdOrName string
+	format        *string
+}
+
+// The file format to export. Possible values include &#x60;CSV&#x60;, &#x60;XLSX&#x60;, and &#x60;XLS&#x60;.
+func (r ApiExportTableRequest) Format(format string) ApiExportTableRequest {
+	r.format = &format
+	return r
+}
+
+func (r ApiExportTableRequest) Execute() (**os.File, *http.Response, error) {
+	return r.ApiService.ExportTableExecute(r)
+}
+
+/*
+ExportTable Export a published version of a table
+
+Exports the `published` version of a table to CSV / EXCEL format.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tableIdOrName The ID or name of the table to export.
+ @return ApiExportTableRequest
+*/
+func (a *TablesApiService) ExportTable(ctx context.Context, tableIdOrName string) ApiExportTableRequest {
+	return ApiExportTableRequest{
+		ApiService:    a,
+		ctx:           ctx,
+		tableIdOrName: tableIdOrName,
+	}
+}
+
+// Execute executes the request
+//  @return *os.File
+func (a *TablesApiService) ExportTableExecute(r ApiExportTableRequest) (**os.File, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue **os.File
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TablesApiService.ExportTable")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/cms/v3/hubdb/tables/{tableIdOrName}/export"
+	localVarPath = strings.Replace(localVarPath, "{"+"tableIdOrName"+"}", url.PathEscape(parameterToString(r.tableIdOrName, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.format != nil {
+		localVarQueryParams.Add("format", parameterToString(*r.format, ""))
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/vnd.ms-excel", "text/csv", "*/*"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetAllDraftTablesRequest struct {
 	ctx           context.Context
 	ApiService    *TablesApiService
 	sort          *[]string
@@ -152,79 +672,79 @@ type ApiGetCmsV3HubdbTablesDraftGetAllDraftTablesRequest struct {
 }
 
 // Specifies which fields to use for sorting results. Valid fields are &#x60;name&#x60;, &#x60;createdAt&#x60;, &#x60;updatedAt&#x60;, &#x60;createdBy&#x60;, &#x60;updatedBy&#x60;. &#x60;createdAt&#x60; will be used by default.
-func (r ApiGetCmsV3HubdbTablesDraftGetAllDraftTablesRequest) Sort(sort []string) ApiGetCmsV3HubdbTablesDraftGetAllDraftTablesRequest {
+func (r ApiGetAllDraftTablesRequest) Sort(sort []string) ApiGetAllDraftTablesRequest {
 	r.sort = &sort
 	return r
 }
 
 // The cursor token value to get the next set of results. You can get this from the &#x60;paging.next.after&#x60; JSON property of a paged response containing more results.
-func (r ApiGetCmsV3HubdbTablesDraftGetAllDraftTablesRequest) After(after string) ApiGetCmsV3HubdbTablesDraftGetAllDraftTablesRequest {
+func (r ApiGetAllDraftTablesRequest) After(after string) ApiGetAllDraftTablesRequest {
 	r.after = &after
 	return r
 }
 
 // The maximum number of results to return. Default is 1000.
-func (r ApiGetCmsV3HubdbTablesDraftGetAllDraftTablesRequest) Limit(limit int32) ApiGetCmsV3HubdbTablesDraftGetAllDraftTablesRequest {
+func (r ApiGetAllDraftTablesRequest) Limit(limit int32) ApiGetAllDraftTablesRequest {
 	r.limit = &limit
 	return r
 }
 
 // Only return tables created at exactly the specified time.
-func (r ApiGetCmsV3HubdbTablesDraftGetAllDraftTablesRequest) CreatedAt(createdAt time.Time) ApiGetCmsV3HubdbTablesDraftGetAllDraftTablesRequest {
+func (r ApiGetAllDraftTablesRequest) CreatedAt(createdAt time.Time) ApiGetAllDraftTablesRequest {
 	r.createdAt = &createdAt
 	return r
 }
 
 // Only return tables created after the specified time.
-func (r ApiGetCmsV3HubdbTablesDraftGetAllDraftTablesRequest) CreatedAfter(createdAfter time.Time) ApiGetCmsV3HubdbTablesDraftGetAllDraftTablesRequest {
+func (r ApiGetAllDraftTablesRequest) CreatedAfter(createdAfter time.Time) ApiGetAllDraftTablesRequest {
 	r.createdAfter = &createdAfter
 	return r
 }
 
 // Only return tables created before the specified time.
-func (r ApiGetCmsV3HubdbTablesDraftGetAllDraftTablesRequest) CreatedBefore(createdBefore time.Time) ApiGetCmsV3HubdbTablesDraftGetAllDraftTablesRequest {
+func (r ApiGetAllDraftTablesRequest) CreatedBefore(createdBefore time.Time) ApiGetAllDraftTablesRequest {
 	r.createdBefore = &createdBefore
 	return r
 }
 
 // Only return tables last updated at exactly the specified time.
-func (r ApiGetCmsV3HubdbTablesDraftGetAllDraftTablesRequest) UpdatedAt(updatedAt time.Time) ApiGetCmsV3HubdbTablesDraftGetAllDraftTablesRequest {
+func (r ApiGetAllDraftTablesRequest) UpdatedAt(updatedAt time.Time) ApiGetAllDraftTablesRequest {
 	r.updatedAt = &updatedAt
 	return r
 }
 
 // Only return tables last updated after the specified time.
-func (r ApiGetCmsV3HubdbTablesDraftGetAllDraftTablesRequest) UpdatedAfter(updatedAfter time.Time) ApiGetCmsV3HubdbTablesDraftGetAllDraftTablesRequest {
+func (r ApiGetAllDraftTablesRequest) UpdatedAfter(updatedAfter time.Time) ApiGetAllDraftTablesRequest {
 	r.updatedAfter = &updatedAfter
 	return r
 }
 
 // Only return tables last updated before the specified time.
-func (r ApiGetCmsV3HubdbTablesDraftGetAllDraftTablesRequest) UpdatedBefore(updatedBefore time.Time) ApiGetCmsV3HubdbTablesDraftGetAllDraftTablesRequest {
+func (r ApiGetAllDraftTablesRequest) UpdatedBefore(updatedBefore time.Time) ApiGetAllDraftTablesRequest {
 	r.updatedBefore = &updatedBefore
 	return r
 }
 
 // Specifies whether to return archived tables. Defaults to &#x60;false&#x60;.
-func (r ApiGetCmsV3HubdbTablesDraftGetAllDraftTablesRequest) Archived(archived bool) ApiGetCmsV3HubdbTablesDraftGetAllDraftTablesRequest {
+func (r ApiGetAllDraftTablesRequest) Archived(archived bool) ApiGetAllDraftTablesRequest {
 	r.archived = &archived
 	return r
 }
 
-func (r ApiGetCmsV3HubdbTablesDraftGetAllDraftTablesRequest) Execute() (*CollectionResponseWithTotalHubDbTableV3ForwardPaging, *http.Response, error) {
-	return r.ApiService.GetCmsV3HubdbTablesDraftGetAllDraftTablesExecute(r)
+func (r ApiGetAllDraftTablesRequest) Execute() (*CollectionResponseWithTotalHubDbTableV3ForwardPaging, *http.Response, error) {
+	return r.ApiService.GetAllDraftTablesExecute(r)
 }
 
 /*
-GetCmsV3HubdbTablesDraftGetAllDraftTables Return all draft tables
+GetAllDraftTables Return all draft tables
 
 Returns the details for each draft table defined in the specified account, including column definitions.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetCmsV3HubdbTablesDraftGetAllDraftTablesRequest
+ @return ApiGetAllDraftTablesRequest
 */
-func (a *TablesApiService) GetCmsV3HubdbTablesDraftGetAllDraftTables(ctx context.Context) ApiGetCmsV3HubdbTablesDraftGetAllDraftTablesRequest {
-	return ApiGetCmsV3HubdbTablesDraftGetAllDraftTablesRequest{
+func (a *TablesApiService) GetAllDraftTables(ctx context.Context) ApiGetAllDraftTablesRequest {
+	return ApiGetAllDraftTablesRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -232,7 +752,7 @@ func (a *TablesApiService) GetCmsV3HubdbTablesDraftGetAllDraftTables(ctx context
 
 // Execute executes the request
 //  @return CollectionResponseWithTotalHubDbTableV3ForwardPaging
-func (a *TablesApiService) GetCmsV3HubdbTablesDraftGetAllDraftTablesExecute(r ApiGetCmsV3HubdbTablesDraftGetAllDraftTablesRequest) (*CollectionResponseWithTotalHubDbTableV3ForwardPaging, *http.Response, error) {
+func (a *TablesApiService) GetAllDraftTablesExecute(r ApiGetAllDraftTablesRequest) (*CollectionResponseWithTotalHubDbTableV3ForwardPaging, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -240,7 +760,7 @@ func (a *TablesApiService) GetCmsV3HubdbTablesDraftGetAllDraftTablesExecute(r Ap
 		localVarReturnValue *CollectionResponseWithTotalHubDbTableV3ForwardPaging
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TablesApiService.GetCmsV3HubdbTablesDraftGetAllDraftTables")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TablesApiService.GetAllDraftTables")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -360,7 +880,7 @@ func (a *TablesApiService) GetCmsV3HubdbTablesDraftGetAllDraftTablesExecute(r Ap
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetCmsV3HubdbTablesGetAllTablesRequest struct {
+type ApiGetAllTablesRequest struct {
 	ctx           context.Context
 	ApiService    *TablesApiService
 	sort          *[]string
@@ -376,79 +896,79 @@ type ApiGetCmsV3HubdbTablesGetAllTablesRequest struct {
 }
 
 // Specifies which fields to use for sorting results. Valid fields are &#x60;name&#x60;, &#x60;createdAt&#x60;, &#x60;updatedAt&#x60;, &#x60;createdBy&#x60;, &#x60;updatedBy&#x60;. &#x60;createdAt&#x60; will be used by default.
-func (r ApiGetCmsV3HubdbTablesGetAllTablesRequest) Sort(sort []string) ApiGetCmsV3HubdbTablesGetAllTablesRequest {
+func (r ApiGetAllTablesRequest) Sort(sort []string) ApiGetAllTablesRequest {
 	r.sort = &sort
 	return r
 }
 
 // The cursor token value to get the next set of results. You can get this from the &#x60;paging.next.after&#x60; JSON property of a paged response containing more results.
-func (r ApiGetCmsV3HubdbTablesGetAllTablesRequest) After(after string) ApiGetCmsV3HubdbTablesGetAllTablesRequest {
+func (r ApiGetAllTablesRequest) After(after string) ApiGetAllTablesRequest {
 	r.after = &after
 	return r
 }
 
 // The maximum number of results to return. Default is 1000.
-func (r ApiGetCmsV3HubdbTablesGetAllTablesRequest) Limit(limit int32) ApiGetCmsV3HubdbTablesGetAllTablesRequest {
+func (r ApiGetAllTablesRequest) Limit(limit int32) ApiGetAllTablesRequest {
 	r.limit = &limit
 	return r
 }
 
 // Only return tables created at exactly the specified time.
-func (r ApiGetCmsV3HubdbTablesGetAllTablesRequest) CreatedAt(createdAt time.Time) ApiGetCmsV3HubdbTablesGetAllTablesRequest {
+func (r ApiGetAllTablesRequest) CreatedAt(createdAt time.Time) ApiGetAllTablesRequest {
 	r.createdAt = &createdAt
 	return r
 }
 
 // Only return tables created after the specified time.
-func (r ApiGetCmsV3HubdbTablesGetAllTablesRequest) CreatedAfter(createdAfter time.Time) ApiGetCmsV3HubdbTablesGetAllTablesRequest {
+func (r ApiGetAllTablesRequest) CreatedAfter(createdAfter time.Time) ApiGetAllTablesRequest {
 	r.createdAfter = &createdAfter
 	return r
 }
 
 // Only return tables created before the specified time.
-func (r ApiGetCmsV3HubdbTablesGetAllTablesRequest) CreatedBefore(createdBefore time.Time) ApiGetCmsV3HubdbTablesGetAllTablesRequest {
+func (r ApiGetAllTablesRequest) CreatedBefore(createdBefore time.Time) ApiGetAllTablesRequest {
 	r.createdBefore = &createdBefore
 	return r
 }
 
 // Only return tables last updated at exactly the specified time.
-func (r ApiGetCmsV3HubdbTablesGetAllTablesRequest) UpdatedAt(updatedAt time.Time) ApiGetCmsV3HubdbTablesGetAllTablesRequest {
+func (r ApiGetAllTablesRequest) UpdatedAt(updatedAt time.Time) ApiGetAllTablesRequest {
 	r.updatedAt = &updatedAt
 	return r
 }
 
 // Only return tables last updated after the specified time.
-func (r ApiGetCmsV3HubdbTablesGetAllTablesRequest) UpdatedAfter(updatedAfter time.Time) ApiGetCmsV3HubdbTablesGetAllTablesRequest {
+func (r ApiGetAllTablesRequest) UpdatedAfter(updatedAfter time.Time) ApiGetAllTablesRequest {
 	r.updatedAfter = &updatedAfter
 	return r
 }
 
 // Only return tables last updated before the specified time.
-func (r ApiGetCmsV3HubdbTablesGetAllTablesRequest) UpdatedBefore(updatedBefore time.Time) ApiGetCmsV3HubdbTablesGetAllTablesRequest {
+func (r ApiGetAllTablesRequest) UpdatedBefore(updatedBefore time.Time) ApiGetAllTablesRequest {
 	r.updatedBefore = &updatedBefore
 	return r
 }
 
 // Specifies whether to return archived tables. Defaults to &#x60;false&#x60;.
-func (r ApiGetCmsV3HubdbTablesGetAllTablesRequest) Archived(archived bool) ApiGetCmsV3HubdbTablesGetAllTablesRequest {
+func (r ApiGetAllTablesRequest) Archived(archived bool) ApiGetAllTablesRequest {
 	r.archived = &archived
 	return r
 }
 
-func (r ApiGetCmsV3HubdbTablesGetAllTablesRequest) Execute() (*CollectionResponseWithTotalHubDbTableV3ForwardPaging, *http.Response, error) {
-	return r.ApiService.GetCmsV3HubdbTablesGetAllTablesExecute(r)
+func (r ApiGetAllTablesRequest) Execute() (*CollectionResponseWithTotalHubDbTableV3ForwardPaging, *http.Response, error) {
+	return r.ApiService.GetAllTablesExecute(r)
 }
 
 /*
-GetCmsV3HubdbTablesGetAllTables Get all published tables
+GetAllTables Get all published tables
 
 Returns the details for the `published` version of each table defined in an account, including column definitions.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetCmsV3HubdbTablesGetAllTablesRequest
+ @return ApiGetAllTablesRequest
 */
-func (a *TablesApiService) GetCmsV3HubdbTablesGetAllTables(ctx context.Context) ApiGetCmsV3HubdbTablesGetAllTablesRequest {
-	return ApiGetCmsV3HubdbTablesGetAllTablesRequest{
+func (a *TablesApiService) GetAllTables(ctx context.Context) ApiGetAllTablesRequest {
+	return ApiGetAllTablesRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -456,7 +976,7 @@ func (a *TablesApiService) GetCmsV3HubdbTablesGetAllTables(ctx context.Context) 
 
 // Execute executes the request
 //  @return CollectionResponseWithTotalHubDbTableV3ForwardPaging
-func (a *TablesApiService) GetCmsV3HubdbTablesGetAllTablesExecute(r ApiGetCmsV3HubdbTablesGetAllTablesRequest) (*CollectionResponseWithTotalHubDbTableV3ForwardPaging, *http.Response, error) {
+func (a *TablesApiService) GetAllTablesExecute(r ApiGetAllTablesRequest) (*CollectionResponseWithTotalHubDbTableV3ForwardPaging, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -464,7 +984,7 @@ func (a *TablesApiService) GetCmsV3HubdbTablesGetAllTablesExecute(r ApiGetCmsV3H
 		localVarReturnValue *CollectionResponseWithTotalHubDbTableV3ForwardPaging
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TablesApiService.GetCmsV3HubdbTablesGetAllTables")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TablesApiService.GetAllTables")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -584,137 +1104,7 @@ func (a *TablesApiService) GetCmsV3HubdbTablesGetAllTablesExecute(r ApiGetCmsV3H
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetCmsV3HubdbTablesTableIdOrNameDraftExportExportDraftTableRequest struct {
-	ctx           context.Context
-	ApiService    *TablesApiService
-	tableIdOrName string
-	format        *string
-}
-
-// The file format to export. Possible values include &#x60;CSV&#x60;, &#x60;XLSX&#x60;, and &#x60;XLS&#x60;.
-func (r ApiGetCmsV3HubdbTablesTableIdOrNameDraftExportExportDraftTableRequest) Format(format string) ApiGetCmsV3HubdbTablesTableIdOrNameDraftExportExportDraftTableRequest {
-	r.format = &format
-	return r
-}
-
-func (r ApiGetCmsV3HubdbTablesTableIdOrNameDraftExportExportDraftTableRequest) Execute() (**os.File, *http.Response, error) {
-	return r.ApiService.GetCmsV3HubdbTablesTableIdOrNameDraftExportExportDraftTableExecute(r)
-}
-
-/*
-GetCmsV3HubdbTablesTableIdOrNameDraftExportExportDraftTable Export a draft table
-
-Exports the `draft` version of a table to CSV / EXCEL format.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param tableIdOrName The ID or name of the table to export.
- @return ApiGetCmsV3HubdbTablesTableIdOrNameDraftExportExportDraftTableRequest
-*/
-func (a *TablesApiService) GetCmsV3HubdbTablesTableIdOrNameDraftExportExportDraftTable(ctx context.Context, tableIdOrName string) ApiGetCmsV3HubdbTablesTableIdOrNameDraftExportExportDraftTableRequest {
-	return ApiGetCmsV3HubdbTablesTableIdOrNameDraftExportExportDraftTableRequest{
-		ApiService:    a,
-		ctx:           ctx,
-		tableIdOrName: tableIdOrName,
-	}
-}
-
-// Execute executes the request
-//  @return *os.File
-func (a *TablesApiService) GetCmsV3HubdbTablesTableIdOrNameDraftExportExportDraftTableExecute(r ApiGetCmsV3HubdbTablesTableIdOrNameDraftExportExportDraftTableRequest) (**os.File, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue **os.File
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TablesApiService.GetCmsV3HubdbTablesTableIdOrNameDraftExportExportDraftTable")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/cms/v3/hubdb/tables/{tableIdOrName}/draft/export"
-	localVarPath = strings.Replace(localVarPath, "{"+"tableIdOrName"+"}", url.PathEscape(parameterToString(r.tableIdOrName, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	if r.format != nil {
-		localVarQueryParams.Add("format", parameterToString(*r.format, ""))
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/vnd.ms-excel", "text/csv", "*/*"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		var v Error
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiGetCmsV3HubdbTablesTableIdOrNameDraftGetDraftTableDetailsByIdRequest struct {
+type ApiGetDraftTableDetailsByIDRequest struct {
 	ctx               context.Context
 	ApiService        *TablesApiService
 	tableIdOrName     string
@@ -723,32 +1113,32 @@ type ApiGetCmsV3HubdbTablesTableIdOrNameDraftGetDraftTableDetailsByIdRequest str
 }
 
 // Set this to &#x60;true&#x60; to return an archived table. Defaults to &#x60;false&#x60;.
-func (r ApiGetCmsV3HubdbTablesTableIdOrNameDraftGetDraftTableDetailsByIdRequest) Archived(archived bool) ApiGetCmsV3HubdbTablesTableIdOrNameDraftGetDraftTableDetailsByIdRequest {
+func (r ApiGetDraftTableDetailsByIDRequest) Archived(archived bool) ApiGetDraftTableDetailsByIDRequest {
 	r.archived = &archived
 	return r
 }
 
 // Set this to &#x60;true&#x60; to populate foreign ID values in the result.
-func (r ApiGetCmsV3HubdbTablesTableIdOrNameDraftGetDraftTableDetailsByIdRequest) IncludeForeignIds(includeForeignIds bool) ApiGetCmsV3HubdbTablesTableIdOrNameDraftGetDraftTableDetailsByIdRequest {
+func (r ApiGetDraftTableDetailsByIDRequest) IncludeForeignIds(includeForeignIds bool) ApiGetDraftTableDetailsByIDRequest {
 	r.includeForeignIds = &includeForeignIds
 	return r
 }
 
-func (r ApiGetCmsV3HubdbTablesTableIdOrNameDraftGetDraftTableDetailsByIdRequest) Execute() (*HubDbTableV3, *http.Response, error) {
-	return r.ApiService.GetCmsV3HubdbTablesTableIdOrNameDraftGetDraftTableDetailsByIdExecute(r)
+func (r ApiGetDraftTableDetailsByIDRequest) Execute() (*HubDbTableV3, *http.Response, error) {
+	return r.ApiService.GetDraftTableDetailsByIDExecute(r)
 }
 
 /*
-GetCmsV3HubdbTablesTableIdOrNameDraftGetDraftTableDetailsById Get details for a draft table
+GetDraftTableDetailsByID Get details for a draft table
 
 Get the details for the `draft` version of a specific HubDB table. This will include the definitions for the columns in the table and the number of rows in the table.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param tableIdOrName The ID or name of the table to return.
- @return ApiGetCmsV3HubdbTablesTableIdOrNameDraftGetDraftTableDetailsByIdRequest
+ @return ApiGetDraftTableDetailsByIDRequest
 */
-func (a *TablesApiService) GetCmsV3HubdbTablesTableIdOrNameDraftGetDraftTableDetailsById(ctx context.Context, tableIdOrName string) ApiGetCmsV3HubdbTablesTableIdOrNameDraftGetDraftTableDetailsByIdRequest {
-	return ApiGetCmsV3HubdbTablesTableIdOrNameDraftGetDraftTableDetailsByIdRequest{
+func (a *TablesApiService) GetDraftTableDetailsByID(ctx context.Context, tableIdOrName string) ApiGetDraftTableDetailsByIDRequest {
+	return ApiGetDraftTableDetailsByIDRequest{
 		ApiService:    a,
 		ctx:           ctx,
 		tableIdOrName: tableIdOrName,
@@ -757,7 +1147,7 @@ func (a *TablesApiService) GetCmsV3HubdbTablesTableIdOrNameDraftGetDraftTableDet
 
 // Execute executes the request
 //  @return HubDbTableV3
-func (a *TablesApiService) GetCmsV3HubdbTablesTableIdOrNameDraftGetDraftTableDetailsByIdExecute(r ApiGetCmsV3HubdbTablesTableIdOrNameDraftGetDraftTableDetailsByIdRequest) (*HubDbTableV3, *http.Response, error) {
+func (a *TablesApiService) GetDraftTableDetailsByIDExecute(r ApiGetDraftTableDetailsByIDRequest) (*HubDbTableV3, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -765,7 +1155,7 @@ func (a *TablesApiService) GetCmsV3HubdbTablesTableIdOrNameDraftGetDraftTableDet
 		localVarReturnValue *HubDbTableV3
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TablesApiService.GetCmsV3HubdbTablesTableIdOrNameDraftGetDraftTableDetailsById")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TablesApiService.GetDraftTableDetailsByID")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -854,137 +1244,7 @@ func (a *TablesApiService) GetCmsV3HubdbTablesTableIdOrNameDraftGetDraftTableDet
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetCmsV3HubdbTablesTableIdOrNameExportExportTableRequest struct {
-	ctx           context.Context
-	ApiService    *TablesApiService
-	tableIdOrName string
-	format        *string
-}
-
-// The file format to export. Possible values include &#x60;CSV&#x60;, &#x60;XLSX&#x60;, and &#x60;XLS&#x60;.
-func (r ApiGetCmsV3HubdbTablesTableIdOrNameExportExportTableRequest) Format(format string) ApiGetCmsV3HubdbTablesTableIdOrNameExportExportTableRequest {
-	r.format = &format
-	return r
-}
-
-func (r ApiGetCmsV3HubdbTablesTableIdOrNameExportExportTableRequest) Execute() (**os.File, *http.Response, error) {
-	return r.ApiService.GetCmsV3HubdbTablesTableIdOrNameExportExportTableExecute(r)
-}
-
-/*
-GetCmsV3HubdbTablesTableIdOrNameExportExportTable Export a published version of a table
-
-Exports the `published` version of a table to CSV / EXCEL format.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param tableIdOrName The ID or name of the table to export.
- @return ApiGetCmsV3HubdbTablesTableIdOrNameExportExportTableRequest
-*/
-func (a *TablesApiService) GetCmsV3HubdbTablesTableIdOrNameExportExportTable(ctx context.Context, tableIdOrName string) ApiGetCmsV3HubdbTablesTableIdOrNameExportExportTableRequest {
-	return ApiGetCmsV3HubdbTablesTableIdOrNameExportExportTableRequest{
-		ApiService:    a,
-		ctx:           ctx,
-		tableIdOrName: tableIdOrName,
-	}
-}
-
-// Execute executes the request
-//  @return *os.File
-func (a *TablesApiService) GetCmsV3HubdbTablesTableIdOrNameExportExportTableExecute(r ApiGetCmsV3HubdbTablesTableIdOrNameExportExportTableRequest) (**os.File, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue **os.File
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TablesApiService.GetCmsV3HubdbTablesTableIdOrNameExportExportTable")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/cms/v3/hubdb/tables/{tableIdOrName}/export"
-	localVarPath = strings.Replace(localVarPath, "{"+"tableIdOrName"+"}", url.PathEscape(parameterToString(r.tableIdOrName, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	if r.format != nil {
-		localVarQueryParams.Add("format", parameterToString(*r.format, ""))
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/vnd.ms-excel", "text/csv", "*/*"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		var v Error
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiGetCmsV3HubdbTablesTableIdOrNameGetTableDetailsRequest struct {
+type ApiGetTableDetailsRequest struct {
 	ctx               context.Context
 	ApiService        *TablesApiService
 	tableIdOrName     string
@@ -993,23 +1253,23 @@ type ApiGetCmsV3HubdbTablesTableIdOrNameGetTableDetailsRequest struct {
 }
 
 // Set this to &#x60;true&#x60; to return details for an archived table. Defaults to &#x60;false&#x60;.
-func (r ApiGetCmsV3HubdbTablesTableIdOrNameGetTableDetailsRequest) Archived(archived bool) ApiGetCmsV3HubdbTablesTableIdOrNameGetTableDetailsRequest {
+func (r ApiGetTableDetailsRequest) Archived(archived bool) ApiGetTableDetailsRequest {
 	r.archived = &archived
 	return r
 }
 
 // Set this to &#x60;true&#x60; to populate foreign ID values in the result.
-func (r ApiGetCmsV3HubdbTablesTableIdOrNameGetTableDetailsRequest) IncludeForeignIds(includeForeignIds bool) ApiGetCmsV3HubdbTablesTableIdOrNameGetTableDetailsRequest {
+func (r ApiGetTableDetailsRequest) IncludeForeignIds(includeForeignIds bool) ApiGetTableDetailsRequest {
 	r.includeForeignIds = &includeForeignIds
 	return r
 }
 
-func (r ApiGetCmsV3HubdbTablesTableIdOrNameGetTableDetailsRequest) Execute() (*HubDbTableV3, *http.Response, error) {
-	return r.ApiService.GetCmsV3HubdbTablesTableIdOrNameGetTableDetailsExecute(r)
+func (r ApiGetTableDetailsRequest) Execute() (*HubDbTableV3, *http.Response, error) {
+	return r.ApiService.GetTableDetailsExecute(r)
 }
 
 /*
-GetCmsV3HubdbTablesTableIdOrNameGetTableDetails Get details for a published table
+GetTableDetails Get details for a published table
 
 Returns the details for the `published` version of the specified table. This will include the definitions for the columns in the table and the number of rows in the table.
 
@@ -1017,10 +1277,10 @@ Returns the details for the `published` version of the specified table. This wil
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param tableIdOrName The ID or name of the table to return.
- @return ApiGetCmsV3HubdbTablesTableIdOrNameGetTableDetailsRequest
+ @return ApiGetTableDetailsRequest
 */
-func (a *TablesApiService) GetCmsV3HubdbTablesTableIdOrNameGetTableDetails(ctx context.Context, tableIdOrName string) ApiGetCmsV3HubdbTablesTableIdOrNameGetTableDetailsRequest {
-	return ApiGetCmsV3HubdbTablesTableIdOrNameGetTableDetailsRequest{
+func (a *TablesApiService) GetTableDetails(ctx context.Context, tableIdOrName string) ApiGetTableDetailsRequest {
+	return ApiGetTableDetailsRequest{
 		ApiService:    a,
 		ctx:           ctx,
 		tableIdOrName: tableIdOrName,
@@ -1029,7 +1289,7 @@ func (a *TablesApiService) GetCmsV3HubdbTablesTableIdOrNameGetTableDetails(ctx c
 
 // Execute executes the request
 //  @return HubDbTableV3
-func (a *TablesApiService) GetCmsV3HubdbTablesTableIdOrNameGetTableDetailsExecute(r ApiGetCmsV3HubdbTablesTableIdOrNameGetTableDetailsRequest) (*HubDbTableV3, *http.Response, error) {
+func (a *TablesApiService) GetTableDetailsExecute(r ApiGetTableDetailsRequest) (*HubDbTableV3, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1037,7 +1297,7 @@ func (a *TablesApiService) GetCmsV3HubdbTablesTableIdOrNameGetTableDetailsExecut
 		localVarReturnValue *HubDbTableV3
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TablesApiService.GetCmsV3HubdbTablesTableIdOrNameGetTableDetails")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TablesApiService.GetTableDetails")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1126,420 +1386,7 @@ func (a *TablesApiService) GetCmsV3HubdbTablesTableIdOrNameGetTableDetailsExecut
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPatchCmsV3HubdbTablesTableIdOrNameDraftUpdateDraftTableRequest struct {
-	ctx                 context.Context
-	ApiService          *TablesApiService
-	tableIdOrName       string
-	hubDbTableV3Request *HubDbTableV3Request
-	archived            *bool
-	includeForeignIds   *bool
-}
-
-// The JSON schema for the table being updated.
-func (r ApiPatchCmsV3HubdbTablesTableIdOrNameDraftUpdateDraftTableRequest) HubDbTableV3Request(hubDbTableV3Request HubDbTableV3Request) ApiPatchCmsV3HubdbTablesTableIdOrNameDraftUpdateDraftTableRequest {
-	r.hubDbTableV3Request = &hubDbTableV3Request
-	return r
-}
-
-// Specifies whether to return archived tables. Defaults to &#x60;false&#x60;.
-func (r ApiPatchCmsV3HubdbTablesTableIdOrNameDraftUpdateDraftTableRequest) Archived(archived bool) ApiPatchCmsV3HubdbTablesTableIdOrNameDraftUpdateDraftTableRequest {
-	r.archived = &archived
-	return r
-}
-
-// Set this to &#x60;true&#x60; to populate foreign ID values in the result.
-func (r ApiPatchCmsV3HubdbTablesTableIdOrNameDraftUpdateDraftTableRequest) IncludeForeignIds(includeForeignIds bool) ApiPatchCmsV3HubdbTablesTableIdOrNameDraftUpdateDraftTableRequest {
-	r.includeForeignIds = &includeForeignIds
-	return r
-}
-
-func (r ApiPatchCmsV3HubdbTablesTableIdOrNameDraftUpdateDraftTableRequest) Execute() (*HubDbTableV3, *http.Response, error) {
-	return r.ApiService.PatchCmsV3HubdbTablesTableIdOrNameDraftUpdateDraftTableExecute(r)
-}
-
-/*
-PatchCmsV3HubdbTablesTableIdOrNameDraftUpdateDraftTable Update an existing table
-
-Update an existing HubDB table. You can use this endpoint to add or remove columns to the table as well as restore an archived table. Tables updated using the endpoint will only modify the `draft` verion of the table. Use `publish` endpoint to push all the changes to the `published` version. To restore a table, include the query parameter `archived=true` and `"archived": false` in the json body.
-**Note:** You need to include all the columns in the input when you are adding/removing/updating a column. If you do not include an already existing column in the request, it will be deleted.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param tableIdOrName The ID or name of the table to update.
- @return ApiPatchCmsV3HubdbTablesTableIdOrNameDraftUpdateDraftTableRequest
-*/
-func (a *TablesApiService) PatchCmsV3HubdbTablesTableIdOrNameDraftUpdateDraftTable(ctx context.Context, tableIdOrName string) ApiPatchCmsV3HubdbTablesTableIdOrNameDraftUpdateDraftTableRequest {
-	return ApiPatchCmsV3HubdbTablesTableIdOrNameDraftUpdateDraftTableRequest{
-		ApiService:    a,
-		ctx:           ctx,
-		tableIdOrName: tableIdOrName,
-	}
-}
-
-// Execute executes the request
-//  @return HubDbTableV3
-func (a *TablesApiService) PatchCmsV3HubdbTablesTableIdOrNameDraftUpdateDraftTableExecute(r ApiPatchCmsV3HubdbTablesTableIdOrNameDraftUpdateDraftTableRequest) (*HubDbTableV3, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *HubDbTableV3
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TablesApiService.PatchCmsV3HubdbTablesTableIdOrNameDraftUpdateDraftTable")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/cms/v3/hubdb/tables/{tableIdOrName}/draft"
-	localVarPath = strings.Replace(localVarPath, "{"+"tableIdOrName"+"}", url.PathEscape(parameterToString(r.tableIdOrName, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.hubDbTableV3Request == nil {
-		return localVarReturnValue, nil, reportError("hubDbTableV3Request is required and must be specified")
-	}
-
-	if r.archived != nil {
-		localVarQueryParams.Add("archived", parameterToString(*r.archived, ""))
-	}
-	if r.includeForeignIds != nil {
-		localVarQueryParams.Add("includeForeignIds", parameterToString(*r.includeForeignIds, ""))
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "*/*"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.hubDbTableV3Request
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		var v Error
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiPostCmsV3HubdbTablesCreateTableRequest struct {
-	ctx                 context.Context
-	ApiService          *TablesApiService
-	hubDbTableV3Request *HubDbTableV3Request
-}
-
-// The JSON schema for the table being created.
-func (r ApiPostCmsV3HubdbTablesCreateTableRequest) HubDbTableV3Request(hubDbTableV3Request HubDbTableV3Request) ApiPostCmsV3HubdbTablesCreateTableRequest {
-	r.hubDbTableV3Request = &hubDbTableV3Request
-	return r
-}
-
-func (r ApiPostCmsV3HubdbTablesCreateTableRequest) Execute() (*HubDbTableV3, *http.Response, error) {
-	return r.ApiService.PostCmsV3HubdbTablesCreateTableExecute(r)
-}
-
-/*
-PostCmsV3HubdbTablesCreateTable Create a new table
-
-Creates a new draft HubDB table given a JSON schema. The table name and label should be unique for each account.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostCmsV3HubdbTablesCreateTableRequest
-*/
-func (a *TablesApiService) PostCmsV3HubdbTablesCreateTable(ctx context.Context) ApiPostCmsV3HubdbTablesCreateTableRequest {
-	return ApiPostCmsV3HubdbTablesCreateTableRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//  @return HubDbTableV3
-func (a *TablesApiService) PostCmsV3HubdbTablesCreateTableExecute(r ApiPostCmsV3HubdbTablesCreateTableRequest) (*HubDbTableV3, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *HubDbTableV3
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TablesApiService.PostCmsV3HubdbTablesCreateTable")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/cms/v3/hubdb/tables"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.hubDbTableV3Request == nil {
-		return localVarReturnValue, nil, reportError("hubDbTableV3Request is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "*/*"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.hubDbTableV3Request
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		var v Error
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiPostCmsV3HubdbTablesTableIdOrNameDraftCloneCloneDraftTableRequest struct {
-	ctx                    context.Context
-	ApiService             *TablesApiService
-	tableIdOrName          string
-	hubDbTableCloneRequest *HubDbTableCloneRequest
-}
-
-// JSON object with the properties newName and newLabel. You can set copyRows to false to clone the table with copying rows and default is true.
-func (r ApiPostCmsV3HubdbTablesTableIdOrNameDraftCloneCloneDraftTableRequest) HubDbTableCloneRequest(hubDbTableCloneRequest HubDbTableCloneRequest) ApiPostCmsV3HubdbTablesTableIdOrNameDraftCloneCloneDraftTableRequest {
-	r.hubDbTableCloneRequest = &hubDbTableCloneRequest
-	return r
-}
-
-func (r ApiPostCmsV3HubdbTablesTableIdOrNameDraftCloneCloneDraftTableRequest) Execute() (*HubDbTableV3, *http.Response, error) {
-	return r.ApiService.PostCmsV3HubdbTablesTableIdOrNameDraftCloneCloneDraftTableExecute(r)
-}
-
-/*
-PostCmsV3HubdbTablesTableIdOrNameDraftCloneCloneDraftTable Clone a table
-
-Clone an existing HubDB table. The `newName` and `newLabel` of the new table can be sent as JSON in the `body` parameter. This will create the cloned table as a `draft`.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param tableIdOrName The ID or name of the table to clone.
- @return ApiPostCmsV3HubdbTablesTableIdOrNameDraftCloneCloneDraftTableRequest
-*/
-func (a *TablesApiService) PostCmsV3HubdbTablesTableIdOrNameDraftCloneCloneDraftTable(ctx context.Context, tableIdOrName string) ApiPostCmsV3HubdbTablesTableIdOrNameDraftCloneCloneDraftTableRequest {
-	return ApiPostCmsV3HubdbTablesTableIdOrNameDraftCloneCloneDraftTableRequest{
-		ApiService:    a,
-		ctx:           ctx,
-		tableIdOrName: tableIdOrName,
-	}
-}
-
-// Execute executes the request
-//  @return HubDbTableV3
-func (a *TablesApiService) PostCmsV3HubdbTablesTableIdOrNameDraftCloneCloneDraftTableExecute(r ApiPostCmsV3HubdbTablesTableIdOrNameDraftCloneCloneDraftTableRequest) (*HubDbTableV3, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *HubDbTableV3
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TablesApiService.PostCmsV3HubdbTablesTableIdOrNameDraftCloneCloneDraftTable")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/cms/v3/hubdb/tables/{tableIdOrName}/draft/clone"
-	localVarPath = strings.Replace(localVarPath, "{"+"tableIdOrName"+"}", url.PathEscape(parameterToString(r.tableIdOrName, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.hubDbTableCloneRequest == nil {
-		return localVarReturnValue, nil, reportError("hubDbTableCloneRequest is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "*/*"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.hubDbTableCloneRequest
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		var v Error
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiPostCmsV3HubdbTablesTableIdOrNameDraftImportImportDraftTableRequest struct {
+type ApiImportDraftTableRequest struct {
 	ctx           context.Context
 	ApiService    *TablesApiService
 	tableIdOrName string
@@ -1548,33 +1395,33 @@ type ApiPostCmsV3HubdbTablesTableIdOrNameDraftImportImportDraftTableRequest stru
 }
 
 // Configuration for the import in JSON format as described above.
-func (r ApiPostCmsV3HubdbTablesTableIdOrNameDraftImportImportDraftTableRequest) Config(config string) ApiPostCmsV3HubdbTablesTableIdOrNameDraftImportImportDraftTableRequest {
+func (r ApiImportDraftTableRequest) Config(config string) ApiImportDraftTableRequest {
 	r.config = &config
 	return r
 }
 
 // The source CSV file to be imported.
-func (r ApiPostCmsV3HubdbTablesTableIdOrNameDraftImportImportDraftTableRequest) File(file *os.File) ApiPostCmsV3HubdbTablesTableIdOrNameDraftImportImportDraftTableRequest {
+func (r ApiImportDraftTableRequest) File(file *os.File) ApiImportDraftTableRequest {
 	r.file = &file
 	return r
 }
 
-func (r ApiPostCmsV3HubdbTablesTableIdOrNameDraftImportImportDraftTableRequest) Execute() (*ImportResult, *http.Response, error) {
-	return r.ApiService.PostCmsV3HubdbTablesTableIdOrNameDraftImportImportDraftTableExecute(r)
+func (r ApiImportDraftTableRequest) Execute() (*ImportResult, *http.Response, error) {
+	return r.ApiService.ImportDraftTableExecute(r)
 }
 
 /*
-PostCmsV3HubdbTablesTableIdOrNameDraftImportImportDraftTable Import data into draft table
+ImportDraftTable Import data into draft table
 
 Import the contents of a CSV file into an existing HubDB table. The data will always be imported into the `draft` version of the table. Use `/publish` endpoint to push these changes to `published` version.
 This endpoint takes a multi-part POST request. The first part will be a set of JSON-formatted options for the import and you can specify this with the name as `config`.  The second part will be the CSV file you want to import and you can specify this with the name as `file`. Refer the [overview section](https://developers.hubspot.com/docs/api/cms/hubdb#importing-tables) to check the details and format of the JSON-formatted options for the import.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param tableIdOrName The ID of the destination table where data will be imported.
- @return ApiPostCmsV3HubdbTablesTableIdOrNameDraftImportImportDraftTableRequest
+ @return ApiImportDraftTableRequest
 */
-func (a *TablesApiService) PostCmsV3HubdbTablesTableIdOrNameDraftImportImportDraftTable(ctx context.Context, tableIdOrName string) ApiPostCmsV3HubdbTablesTableIdOrNameDraftImportImportDraftTableRequest {
-	return ApiPostCmsV3HubdbTablesTableIdOrNameDraftImportImportDraftTableRequest{
+func (a *TablesApiService) ImportDraftTable(ctx context.Context, tableIdOrName string) ApiImportDraftTableRequest {
+	return ApiImportDraftTableRequest{
 		ApiService:    a,
 		ctx:           ctx,
 		tableIdOrName: tableIdOrName,
@@ -1583,7 +1430,7 @@ func (a *TablesApiService) PostCmsV3HubdbTablesTableIdOrNameDraftImportImportDra
 
 // Execute executes the request
 //  @return ImportResult
-func (a *TablesApiService) PostCmsV3HubdbTablesTableIdOrNameDraftImportImportDraftTableExecute(r ApiPostCmsV3HubdbTablesTableIdOrNameDraftImportImportDraftTableRequest) (*ImportResult, *http.Response, error) {
+func (a *TablesApiService) ImportDraftTableExecute(r ApiImportDraftTableRequest) (*ImportResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1591,7 +1438,7 @@ func (a *TablesApiService) PostCmsV3HubdbTablesTableIdOrNameDraftImportImportDra
 		localVarReturnValue *ImportResult
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TablesApiService.PostCmsV3HubdbTablesTableIdOrNameDraftImportImportDraftTable")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TablesApiService.ImportDraftTable")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1694,7 +1541,7 @@ func (a *TablesApiService) PostCmsV3HubdbTablesTableIdOrNameDraftImportImportDra
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPostCmsV3HubdbTablesTableIdOrNameDraftPublishPublishDraftTableRequest struct {
+type ApiPublishDraftTableRequest struct {
 	ctx               context.Context
 	ApiService        *TablesApiService
 	tableIdOrName     string
@@ -1702,26 +1549,26 @@ type ApiPostCmsV3HubdbTablesTableIdOrNameDraftPublishPublishDraftTableRequest st
 }
 
 // Set this to &#x60;true&#x60; to populate foreign ID values in the response.
-func (r ApiPostCmsV3HubdbTablesTableIdOrNameDraftPublishPublishDraftTableRequest) IncludeForeignIds(includeForeignIds bool) ApiPostCmsV3HubdbTablesTableIdOrNameDraftPublishPublishDraftTableRequest {
+func (r ApiPublishDraftTableRequest) IncludeForeignIds(includeForeignIds bool) ApiPublishDraftTableRequest {
 	r.includeForeignIds = &includeForeignIds
 	return r
 }
 
-func (r ApiPostCmsV3HubdbTablesTableIdOrNameDraftPublishPublishDraftTableRequest) Execute() (*HubDbTableV3, *http.Response, error) {
-	return r.ApiService.PostCmsV3HubdbTablesTableIdOrNameDraftPublishPublishDraftTableExecute(r)
+func (r ApiPublishDraftTableRequest) Execute() (*HubDbTableV3, *http.Response, error) {
+	return r.ApiService.PublishDraftTableExecute(r)
 }
 
 /*
-PostCmsV3HubdbTablesTableIdOrNameDraftPublishPublishDraftTable Publish a table from draft
+PublishDraftTable Publish a table from draft
 
 Publishes the table by copying the data and table schema changes from draft version to the published version, meaning any website pages using data from the table will be updated.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param tableIdOrName The ID or name of the table to publish.
- @return ApiPostCmsV3HubdbTablesTableIdOrNameDraftPublishPublishDraftTableRequest
+ @return ApiPublishDraftTableRequest
 */
-func (a *TablesApiService) PostCmsV3HubdbTablesTableIdOrNameDraftPublishPublishDraftTable(ctx context.Context, tableIdOrName string) ApiPostCmsV3HubdbTablesTableIdOrNameDraftPublishPublishDraftTableRequest {
-	return ApiPostCmsV3HubdbTablesTableIdOrNameDraftPublishPublishDraftTableRequest{
+func (a *TablesApiService) PublishDraftTable(ctx context.Context, tableIdOrName string) ApiPublishDraftTableRequest {
+	return ApiPublishDraftTableRequest{
 		ApiService:    a,
 		ctx:           ctx,
 		tableIdOrName: tableIdOrName,
@@ -1730,7 +1577,7 @@ func (a *TablesApiService) PostCmsV3HubdbTablesTableIdOrNameDraftPublishPublishD
 
 // Execute executes the request
 //  @return HubDbTableV3
-func (a *TablesApiService) PostCmsV3HubdbTablesTableIdOrNameDraftPublishPublishDraftTableExecute(r ApiPostCmsV3HubdbTablesTableIdOrNameDraftPublishPublishDraftTableRequest) (*HubDbTableV3, *http.Response, error) {
+func (a *TablesApiService) PublishDraftTableExecute(r ApiPublishDraftTableRequest) (*HubDbTableV3, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1738,7 +1585,7 @@ func (a *TablesApiService) PostCmsV3HubdbTablesTableIdOrNameDraftPublishPublishD
 		localVarReturnValue *HubDbTableV3
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TablesApiService.PostCmsV3HubdbTablesTableIdOrNameDraftPublishPublishDraftTable")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TablesApiService.PublishDraftTable")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1824,7 +1671,7 @@ func (a *TablesApiService) PostCmsV3HubdbTablesTableIdOrNameDraftPublishPublishD
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPostCmsV3HubdbTablesTableIdOrNameDraftResetResetDraftTableRequest struct {
+type ApiResetDraftTableRequest struct {
 	ctx               context.Context
 	ApiService        *TablesApiService
 	tableIdOrName     string
@@ -1832,26 +1679,26 @@ type ApiPostCmsV3HubdbTablesTableIdOrNameDraftResetResetDraftTableRequest struct
 }
 
 // Set this to &#x60;true&#x60; to populate foreign ID values in the response.
-func (r ApiPostCmsV3HubdbTablesTableIdOrNameDraftResetResetDraftTableRequest) IncludeForeignIds(includeForeignIds bool) ApiPostCmsV3HubdbTablesTableIdOrNameDraftResetResetDraftTableRequest {
+func (r ApiResetDraftTableRequest) IncludeForeignIds(includeForeignIds bool) ApiResetDraftTableRequest {
 	r.includeForeignIds = &includeForeignIds
 	return r
 }
 
-func (r ApiPostCmsV3HubdbTablesTableIdOrNameDraftResetResetDraftTableRequest) Execute() (*HubDbTableV3, *http.Response, error) {
-	return r.ApiService.PostCmsV3HubdbTablesTableIdOrNameDraftResetResetDraftTableExecute(r)
+func (r ApiResetDraftTableRequest) Execute() (*HubDbTableV3, *http.Response, error) {
+	return r.ApiService.ResetDraftTableExecute(r)
 }
 
 /*
-PostCmsV3HubdbTablesTableIdOrNameDraftResetResetDraftTable Reset a draft table
+ResetDraftTable Reset a draft table
 
 Replaces the data in the `draft` version of the table with values from the `published` version. Any unpublished changes in the `draft` will be lost after this call is made.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param tableIdOrName The ID or name of the table to reset.
- @return ApiPostCmsV3HubdbTablesTableIdOrNameDraftResetResetDraftTableRequest
+ @return ApiResetDraftTableRequest
 */
-func (a *TablesApiService) PostCmsV3HubdbTablesTableIdOrNameDraftResetResetDraftTable(ctx context.Context, tableIdOrName string) ApiPostCmsV3HubdbTablesTableIdOrNameDraftResetResetDraftTableRequest {
-	return ApiPostCmsV3HubdbTablesTableIdOrNameDraftResetResetDraftTableRequest{
+func (a *TablesApiService) ResetDraftTable(ctx context.Context, tableIdOrName string) ApiResetDraftTableRequest {
+	return ApiResetDraftTableRequest{
 		ApiService:    a,
 		ctx:           ctx,
 		tableIdOrName: tableIdOrName,
@@ -1860,7 +1707,7 @@ func (a *TablesApiService) PostCmsV3HubdbTablesTableIdOrNameDraftResetResetDraft
 
 // Execute executes the request
 //  @return HubDbTableV3
-func (a *TablesApiService) PostCmsV3HubdbTablesTableIdOrNameDraftResetResetDraftTableExecute(r ApiPostCmsV3HubdbTablesTableIdOrNameDraftResetResetDraftTableRequest) (*HubDbTableV3, *http.Response, error) {
+func (a *TablesApiService) ResetDraftTableExecute(r ApiResetDraftTableRequest) (*HubDbTableV3, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1868,7 +1715,7 @@ func (a *TablesApiService) PostCmsV3HubdbTablesTableIdOrNameDraftResetResetDraft
 		localVarReturnValue *HubDbTableV3
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TablesApiService.PostCmsV3HubdbTablesTableIdOrNameDraftResetResetDraftTable")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TablesApiService.ResetDraftTable")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1954,7 +1801,7 @@ func (a *TablesApiService) PostCmsV3HubdbTablesTableIdOrNameDraftResetResetDraft
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPostCmsV3HubdbTablesTableIdOrNameUnpublishUnpublishTableRequest struct {
+type ApiUnpublishTableRequest struct {
 	ctx               context.Context
 	ApiService        *TablesApiService
 	tableIdOrName     string
@@ -1962,26 +1809,26 @@ type ApiPostCmsV3HubdbTablesTableIdOrNameUnpublishUnpublishTableRequest struct {
 }
 
 // Set this to &#x60;true&#x60; to populate foreign ID values in the response.
-func (r ApiPostCmsV3HubdbTablesTableIdOrNameUnpublishUnpublishTableRequest) IncludeForeignIds(includeForeignIds bool) ApiPostCmsV3HubdbTablesTableIdOrNameUnpublishUnpublishTableRequest {
+func (r ApiUnpublishTableRequest) IncludeForeignIds(includeForeignIds bool) ApiUnpublishTableRequest {
 	r.includeForeignIds = &includeForeignIds
 	return r
 }
 
-func (r ApiPostCmsV3HubdbTablesTableIdOrNameUnpublishUnpublishTableRequest) Execute() (*HubDbTableV3, *http.Response, error) {
-	return r.ApiService.PostCmsV3HubdbTablesTableIdOrNameUnpublishUnpublishTableExecute(r)
+func (r ApiUnpublishTableRequest) Execute() (*HubDbTableV3, *http.Response, error) {
+	return r.ApiService.UnpublishTableExecute(r)
 }
 
 /*
-PostCmsV3HubdbTablesTableIdOrNameUnpublishUnpublishTable Unpublish a table
+UnpublishTable Unpublish a table
 
 Unpublishes the table, meaning any website pages using data from the table will not render any data.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param tableIdOrName The ID or name of the table to publish.
- @return ApiPostCmsV3HubdbTablesTableIdOrNameUnpublishUnpublishTableRequest
+ @return ApiUnpublishTableRequest
 */
-func (a *TablesApiService) PostCmsV3HubdbTablesTableIdOrNameUnpublishUnpublishTable(ctx context.Context, tableIdOrName string) ApiPostCmsV3HubdbTablesTableIdOrNameUnpublishUnpublishTableRequest {
-	return ApiPostCmsV3HubdbTablesTableIdOrNameUnpublishUnpublishTableRequest{
+func (a *TablesApiService) UnpublishTable(ctx context.Context, tableIdOrName string) ApiUnpublishTableRequest {
+	return ApiUnpublishTableRequest{
 		ApiService:    a,
 		ctx:           ctx,
 		tableIdOrName: tableIdOrName,
@@ -1990,7 +1837,7 @@ func (a *TablesApiService) PostCmsV3HubdbTablesTableIdOrNameUnpublishUnpublishTa
 
 // Execute executes the request
 //  @return HubDbTableV3
-func (a *TablesApiService) PostCmsV3HubdbTablesTableIdOrNameUnpublishUnpublishTableExecute(r ApiPostCmsV3HubdbTablesTableIdOrNameUnpublishUnpublishTableRequest) (*HubDbTableV3, *http.Response, error) {
+func (a *TablesApiService) UnpublishTableExecute(r ApiUnpublishTableRequest) (*HubDbTableV3, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1998,7 +1845,7 @@ func (a *TablesApiService) PostCmsV3HubdbTablesTableIdOrNameUnpublishUnpublishTa
 		localVarReturnValue *HubDbTableV3
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TablesApiService.PostCmsV3HubdbTablesTableIdOrNameUnpublishUnpublishTable")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TablesApiService.UnpublishTable")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -2030,6 +1877,159 @@ func (a *TablesApiService) PostCmsV3HubdbTablesTableIdOrNameUnpublishUnpublishTa
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiUpdateDraftTableRequest struct {
+	ctx                 context.Context
+	ApiService          *TablesApiService
+	tableIdOrName       string
+	hubDbTableV3Request *HubDbTableV3Request
+	archived            *bool
+	includeForeignIds   *bool
+}
+
+// The JSON schema for the table being updated.
+func (r ApiUpdateDraftTableRequest) HubDbTableV3Request(hubDbTableV3Request HubDbTableV3Request) ApiUpdateDraftTableRequest {
+	r.hubDbTableV3Request = &hubDbTableV3Request
+	return r
+}
+
+// Specifies whether to return archived tables. Defaults to &#x60;false&#x60;.
+func (r ApiUpdateDraftTableRequest) Archived(archived bool) ApiUpdateDraftTableRequest {
+	r.archived = &archived
+	return r
+}
+
+// Set this to &#x60;true&#x60; to populate foreign ID values in the result.
+func (r ApiUpdateDraftTableRequest) IncludeForeignIds(includeForeignIds bool) ApiUpdateDraftTableRequest {
+	r.includeForeignIds = &includeForeignIds
+	return r
+}
+
+func (r ApiUpdateDraftTableRequest) Execute() (*HubDbTableV3, *http.Response, error) {
+	return r.ApiService.UpdateDraftTableExecute(r)
+}
+
+/*
+UpdateDraftTable Update an existing table
+
+Update an existing HubDB table. You can use this endpoint to add or remove columns to the table as well as restore an archived table. Tables updated using the endpoint will only modify the `draft` verion of the table. Use `publish` endpoint to push all the changes to the `published` version. To restore a table, include the query parameter `archived=true` and `"archived": false` in the json body.
+**Note:** You need to include all the columns in the input when you are adding/removing/updating a column. If you do not include an already existing column in the request, it will be deleted.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tableIdOrName The ID or name of the table to update.
+ @return ApiUpdateDraftTableRequest
+*/
+func (a *TablesApiService) UpdateDraftTable(ctx context.Context, tableIdOrName string) ApiUpdateDraftTableRequest {
+	return ApiUpdateDraftTableRequest{
+		ApiService:    a,
+		ctx:           ctx,
+		tableIdOrName: tableIdOrName,
+	}
+}
+
+// Execute executes the request
+//  @return HubDbTableV3
+func (a *TablesApiService) UpdateDraftTableExecute(r ApiUpdateDraftTableRequest) (*HubDbTableV3, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *HubDbTableV3
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TablesApiService.UpdateDraftTable")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/cms/v3/hubdb/tables/{tableIdOrName}/draft"
+	localVarPath = strings.Replace(localVarPath, "{"+"tableIdOrName"+"}", url.PathEscape(parameterToString(r.tableIdOrName, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.hubDbTableV3Request == nil {
+		return localVarReturnValue, nil, reportError("hubDbTableV3Request is required and must be specified")
+	}
+
+	if r.archived != nil {
+		localVarQueryParams.Add("archived", parameterToString(*r.archived, ""))
+	}
+	if r.includeForeignIds != nil {
+		localVarQueryParams.Add("includeForeignIds", parameterToString(*r.includeForeignIds, ""))
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "*/*"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.hubDbTableV3Request
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {

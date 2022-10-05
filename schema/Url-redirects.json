@@ -17,7 +17,7 @@
         "tags" : [ "Redirects" ],
         "summary" : "Get current redirects",
         "description" : "Returns all existing URL redirects. Results can be limited and filtered by creation or updated date.",
-        "operationId" : "get-/cms/v3/url-redirects/_getPage",
+        "operationId" : "GetPage",
         "parameters" : [ {
           "name" : "createdAt",
           "in" : "query",
@@ -191,7 +191,7 @@
         "tags" : [ "Redirects" ],
         "summary" : "Create a redirect",
         "description" : "Creates and configures a new URL redirect.",
-        "operationId" : "post-/cms/v3/url-redirects/_create",
+        "operationId" : "Create",
         "requestBody" : {
           "content" : {
             "application/json" : {
@@ -229,7 +229,7 @@
         "tags" : [ "Redirects" ],
         "summary" : "Get details for a redirect",
         "description" : "Returns the details for a single existing URL redirect by ID.",
-        "operationId" : "get-/cms/v3/url-redirects/{urlRedirectId}_getById",
+        "operationId" : "GetByID",
         "parameters" : [ {
           "name" : "urlRedirectId",
           "in" : "path",
@@ -279,7 +279,7 @@
         "tags" : [ "Redirects" ],
         "summary" : "Delete a redirect",
         "description" : "Delete one existing redirect, so it is no longer mapped.",
-        "operationId" : "delete-/cms/v3/url-redirects/{urlRedirectId}_archive",
+        "operationId" : "Archive",
         "parameters" : [ {
           "name" : "urlRedirectId",
           "in" : "path",
@@ -310,7 +310,7 @@
         "tags" : [ "Redirects" ],
         "summary" : "Update a redirect",
         "description" : "Updates the settings for an existing URL redirect.",
-        "operationId" : "patch-/cms/v3/url-redirects/{urlRedirectId}_update",
+        "operationId" : "Update",
         "parameters" : [ {
           "name" : "urlRedirectId",
           "in" : "path",

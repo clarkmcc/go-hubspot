@@ -24,7 +24,7 @@
         "tags" : [ "Basic" ],
         "summary" : "List",
         "description" : "Read a page of feedback submissions. Control what is returned via the `properties` query param.",
-        "operationId" : "get-/crm/v3/objects/feedback-submissions_getPage",
+        "operationId" : "GetPage",
         "parameters" : [ {
           "name" : "limit",
           "in" : "query",
@@ -125,7 +125,7 @@
         "tags" : [ "Basic" ],
         "summary" : "Create",
         "description" : "Create a feedback submission with the given properties and return a copy of the object, including the ID. Documentation and examples for creating standard feedback submissions is provided.",
-        "operationId" : "post-/crm/v3/objects/feedback-submissions_create",
+        "operationId" : "Create",
         "parameters" : [ ],
         "requestBody" : {
           "content" : {
@@ -165,7 +165,7 @@
       "post" : {
         "tags" : [ "Batch" ],
         "summary" : "Archive a batch of feedback submissions by ID",
-        "operationId" : "post-/crm/v3/objects/feedback-submissions/batch/archive_archive",
+        "operationId" : "BatchArchive",
         "parameters" : [ ],
         "requestBody" : {
           "content" : {
@@ -199,7 +199,7 @@
       "post" : {
         "tags" : [ "Batch" ],
         "summary" : "Create a batch of feedback submissions",
-        "operationId" : "post-/crm/v3/objects/feedback-submissions/batch/create_create",
+        "operationId" : "BatchCreate",
         "parameters" : [ ],
         "requestBody" : {
           "content" : {
@@ -249,7 +249,7 @@
       "post" : {
         "tags" : [ "Batch" ],
         "summary" : "Read a batch of feedback submissions by internal ID, or unique property values",
-        "operationId" : "post-/crm/v3/objects/feedback-submissions/batch/read_read",
+        "operationId" : "BatchRead",
         "parameters" : [ {
           "name" : "archived",
           "in" : "query",
@@ -310,7 +310,7 @@
       "post" : {
         "tags" : [ "Batch" ],
         "summary" : "Update a batch of feedback submissions",
-        "operationId" : "post-/crm/v3/objects/feedback-submissions/batch/update_update",
+        "operationId" : "BatchUpdate",
         "parameters" : [ ],
         "requestBody" : {
           "content" : {
@@ -360,7 +360,7 @@
       "post" : {
         "tags" : [ "Public_Object" ],
         "summary" : "Merge two feedback submissions with same type",
-        "operationId" : "post-/crm/v3/objects/feedback-submissions/merge_merge",
+        "operationId" : "Merge",
         "parameters" : [ ],
         "requestBody" : {
           "content" : {
@@ -399,7 +399,7 @@
     "/crm/v3/objects/feedback_submissions/search" : {
       "post" : {
         "tags" : [ "Search" ],
-        "operationId" : "post-/crm/v3/objects/feedback-submissions/search_doSearch",
+        "operationId" : "Search",
         "parameters" : [ ],
         "requestBody" : {
           "content" : {
@@ -441,7 +441,7 @@
         "tags" : [ "Basic" ],
         "summary" : "Read",
         "description" : "Read an Object identified by `{feedbackSubmissionId}`. `{feedbackSubmissionId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.",
-        "operationId" : "get-/crm/v3/objects/feedback-submissions/{feedbackSubmissionId}_getById",
+        "operationId" : "GetByID",
         "parameters" : [ {
           "name" : "feedbackSubmissionId",
           "in" : "path",
@@ -539,7 +539,7 @@
         "tags" : [ "Basic" ],
         "summary" : "Archive",
         "description" : "Move an Object identified by `{feedbackSubmissionId}` to the recycling bin.",
-        "operationId" : "delete-/crm/v3/objects/feedback-submissions/{feedbackSubmissionId}_archive",
+        "operationId" : "Archive",
         "parameters" : [ {
           "name" : "feedbackSubmissionId",
           "in" : "path",
@@ -571,7 +571,7 @@
         "tags" : [ "Basic" ],
         "summary" : "Update",
         "description" : "Perform a partial update of an Object identified by `{feedbackSubmissionId}`. `{feedbackSubmissionId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param. Provided property values will be overwritten. Read-only and non-existent properties will be ignored. Properties values can be cleared by passing an empty string.",
-        "operationId" : "patch-/crm/v3/objects/feedback-submissions/{feedbackSubmissionId}_update",
+        "operationId" : "Update",
         "parameters" : [ {
           "name" : "feedbackSubmissionId",
           "in" : "path",
@@ -630,7 +630,7 @@
       "get" : {
         "tags" : [ "Associations" ],
         "summary" : "List associations of a feedback submission by type",
-        "operationId" : "get-/crm/v3/objects/feedback-submissions/{feedbackSubmissionId}/associations/{toObjectType}_getPage",
+        "operationId" : "AssociationsGetPage",
         "parameters" : [ {
           "name" : "feedbackSubmissionId",
           "in" : "path",
@@ -700,7 +700,7 @@
       "put" : {
         "tags" : [ "Associations" ],
         "summary" : "Associate a feedback submission with another object",
-        "operationId" : "put-/crm/v3/objects/feedback-submissions/{feedbackSubmissionId}/associations/{toObjectType}/{toObjectId}/{associationType}_create",
+        "operationId" : "AssociationsCreate",
         "parameters" : [ {
           "name" : "feedbackSubmissionId",
           "in" : "path",
@@ -764,7 +764,7 @@
       "delete" : {
         "tags" : [ "Associations" ],
         "summary" : "Remove an association between two feedback submissions",
-        "operationId" : "delete-/crm/v3/objects/feedback-submissions/{feedbackSubmissionId}/associations/{toObjectType}/{toObjectId}/{associationType}_archive",
+        "operationId" : "AssociationsArchive",
         "parameters" : [ {
           "name" : "feedbackSubmissionId",
           "in" : "path",

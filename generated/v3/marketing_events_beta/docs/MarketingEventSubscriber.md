@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **InteractionDateTime** | **int64** | The date and time at which the contact subscribed to the event. | 
+**Properties** | Pointer to **map[string]string** |  | [optional] 
 **Vid** | Pointer to **int32** |  | [optional] 
 
 ## Methods
@@ -45,6 +46,31 @@ and a boolean to check if the value has been set.
 
 SetInteractionDateTime sets InteractionDateTime field to given value.
 
+
+### GetProperties
+
+`func (o *MarketingEventSubscriber) GetProperties() map[string]string`
+
+GetProperties returns the Properties field if non-nil, zero value otherwise.
+
+### GetPropertiesOk
+
+`func (o *MarketingEventSubscriber) GetPropertiesOk() (*map[string]string, bool)`
+
+GetPropertiesOk returns a tuple with the Properties field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProperties
+
+`func (o *MarketingEventSubscriber) SetProperties(v map[string]string)`
+
+SetProperties sets Properties field to given value.
+
+### HasProperties
+
+`func (o *MarketingEventSubscriber) HasProperties() bool`
+
+HasProperties returns a boolean if a field has been set.
 
 ### GetVid
 

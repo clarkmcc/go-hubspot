@@ -17,9 +17,11 @@ import (
 // MarketingEventEmailSubscriber struct for MarketingEventEmailSubscriber
 type MarketingEventEmailSubscriber struct {
 	// The date and time at which the contact subscribed to the event.
-	InteractionDateTime int64 `json:"interactionDateTime"`
+	InteractionDateTime int64              `json:"interactionDateTime"`
+	Properties          *map[string]string `json:"properties,omitempty"`
 	// The email address of the contact in HubSpot to associate with the event. Note that the contact must already exist in HubSpot; a contact will not be created.
-	Email string `json:"email"`
+	Email             string             `json:"email"`
+	ContactProperties *map[string]string `json:"contactProperties,omitempty"`
 }
 
 // NewMarketingEventEmailSubscriber instantiates a new MarketingEventEmailSubscriber object
@@ -65,6 +67,38 @@ func (o *MarketingEventEmailSubscriber) SetInteractionDateTime(v int64) {
 	o.InteractionDateTime = v
 }
 
+// GetProperties returns the Properties field value if set, zero value otherwise.
+func (o *MarketingEventEmailSubscriber) GetProperties() map[string]string {
+	if o == nil || o.Properties == nil {
+		var ret map[string]string
+		return ret
+	}
+	return *o.Properties
+}
+
+// GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MarketingEventEmailSubscriber) GetPropertiesOk() (*map[string]string, bool) {
+	if o == nil || o.Properties == nil {
+		return nil, false
+	}
+	return o.Properties, true
+}
+
+// HasProperties returns a boolean if a field has been set.
+func (o *MarketingEventEmailSubscriber) HasProperties() bool {
+	if o != nil && o.Properties != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetProperties gets a reference to the given map[string]string and assigns it to the Properties field.
+func (o *MarketingEventEmailSubscriber) SetProperties(v map[string]string) {
+	o.Properties = &v
+}
+
 // GetEmail returns the Email field value
 func (o *MarketingEventEmailSubscriber) GetEmail() string {
 	if o == nil {
@@ -89,13 +123,51 @@ func (o *MarketingEventEmailSubscriber) SetEmail(v string) {
 	o.Email = v
 }
 
+// GetContactProperties returns the ContactProperties field value if set, zero value otherwise.
+func (o *MarketingEventEmailSubscriber) GetContactProperties() map[string]string {
+	if o == nil || o.ContactProperties == nil {
+		var ret map[string]string
+		return ret
+	}
+	return *o.ContactProperties
+}
+
+// GetContactPropertiesOk returns a tuple with the ContactProperties field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MarketingEventEmailSubscriber) GetContactPropertiesOk() (*map[string]string, bool) {
+	if o == nil || o.ContactProperties == nil {
+		return nil, false
+	}
+	return o.ContactProperties, true
+}
+
+// HasContactProperties returns a boolean if a field has been set.
+func (o *MarketingEventEmailSubscriber) HasContactProperties() bool {
+	if o != nil && o.ContactProperties != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetContactProperties gets a reference to the given map[string]string and assigns it to the ContactProperties field.
+func (o *MarketingEventEmailSubscriber) SetContactProperties(v map[string]string) {
+	o.ContactProperties = &v
+}
+
 func (o MarketingEventEmailSubscriber) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
 		toSerialize["interactionDateTime"] = o.InteractionDateTime
 	}
+	if o.Properties != nil {
+		toSerialize["properties"] = o.Properties
+	}
 	if true {
 		toSerialize["email"] = o.Email
+	}
+	if o.ContactProperties != nil {
+		toSerialize["contactProperties"] = o.ContactProperties
 	}
 	return json.Marshal(toSerialize)
 }

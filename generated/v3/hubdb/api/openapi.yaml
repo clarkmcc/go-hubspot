@@ -17,7 +17,7 @@ paths:
     get:
       description: "Returns the details for the `published` version of each table\
         \ defined in an account, including column definitions."
-      operationId: get-/cms/v3/hubdb/tables_getAllTables
+      operationId: GetAllTables
       parameters:
       - description: "Specifies which fields to use for sorting results. Valid fields\
           \ are `name`, `createdAt`, `updatedAt`, `createdBy`, `updatedBy`. `createdAt`\
@@ -135,7 +135,7 @@ paths:
     post:
       description: Creates a new draft HubDB table given a JSON schema. The table
         name and label should be unique for each account.
-      operationId: post-/cms/v3/hubdb/tables_createTable
+      operationId: CreateTable
       requestBody:
         content:
           application/json:
@@ -167,7 +167,7 @@ paths:
     get:
       description: "Returns the details for each draft table defined in the specified\
         \ account, including column definitions."
-      operationId: get-/cms/v3/hubdb/tables/draft_getAllDraftTables
+      operationId: GetAllDraftTables
       parameters:
       - description: "Specifies which fields to use for sorting results. Valid fields\
           \ are `name`, `createdAt`, `updatedAt`, `createdBy`, `updatedBy`. `createdAt`\
@@ -286,7 +286,7 @@ paths:
     delete:
       description: Archive (soft delete) an existing HubDB table. This archives both
         the published and draft versions.
-      operationId: "delete-/cms/v3/hubdb/tables/{tableIdOrName}_archiveTable"
+      operationId: ArchiveTable
       parameters:
       - description: The ID or name of the table to archive.
         explode: false
@@ -318,7 +318,7 @@ paths:
         Returns the details for the `published` version of the specified table. This will include the definitions for the columns in the table and the number of rows in the table.
 
         **Note:** This endpoint can be accessed without any authentication if the table is set to be allowed for public access.
-      operationId: "get-/cms/v3/hubdb/tables/{tableIdOrName}_getTableDetails"
+      operationId: GetTableDetails
       parameters:
       - description: The ID or name of the table to return.
         explode: false
@@ -370,7 +370,7 @@ paths:
       description: Get the details for the `draft` version of a specific HubDB table.
         This will include the definitions for the columns in the table and the number
         of rows in the table.
-      operationId: "get-/cms/v3/hubdb/tables/{tableIdOrName}/draft_getDraftTableDetailsById"
+      operationId: GetDraftTableDetailsByID
       parameters:
       - description: The ID or name of the table to return.
         explode: false
@@ -420,7 +420,7 @@ paths:
       description: |-
         Update an existing HubDB table. You can use this endpoint to add or remove columns to the table as well as restore an archived table. Tables updated using the endpoint will only modify the `draft` verion of the table. Use `publish` endpoint to push all the changes to the `published` version. To restore a table, include the query parameter `archived=true` and `"archived": false` in the json body.
         **Note:** You need to include all the columns in the input when you are adding/removing/updating a column. If you do not include an already existing column in the request, it will be deleted.
-      operationId: "patch-/cms/v3/hubdb/tables/{tableIdOrName}/draft_updateDraftTable"
+      operationId: UpdateDraftTable
       parameters:
       - description: The ID or name of the table to update.
         explode: false
@@ -478,7 +478,7 @@ paths:
       description: Clone an existing HubDB table. The `newName` and `newLabel` of
         the new table can be sent as JSON in the `body` parameter. This will create
         the cloned table as a `draft`.
-      operationId: "post-/cms/v3/hubdb/tables/{tableIdOrName}/draft/clone_cloneDraftTable"
+      operationId: CloneDraftTable
       parameters:
       - description: The ID or name of the table to clone.
         explode: false
@@ -520,7 +520,7 @@ paths:
   /cms/v3/hubdb/tables/{tableIdOrName}/draft/export:
     get:
       description: Exports the `draft` version of a table to CSV / EXCEL format.
-      operationId: "get-/cms/v3/hubdb/tables/{tableIdOrName}/draft/export_exportDraftTable"
+      operationId: ExportDraftTable
       parameters:
       - description: The ID or name of the table to export.
         explode: false
@@ -569,7 +569,7 @@ paths:
       description: |-
         Import the contents of a CSV file into an existing HubDB table. The data will always be imported into the `draft` version of the table. Use `/publish` endpoint to push these changes to `published` version.
         This endpoint takes a multi-part POST request. The first part will be a set of JSON-formatted options for the import and you can specify this with the name as `config`.  The second part will be the CSV file you want to import and you can specify this with the name as `file`. Refer the [overview section](https://developers.hubspot.com/docs/api/cms/hubdb#importing-tables) to check the details and format of the JSON-formatted options for the import.
-      operationId: "post-/cms/v3/hubdb/tables/{tableIdOrName}/draft/import_importDraftTable"
+      operationId: ImportDraftTable
       parameters:
       - description: The ID of the destination table where data will be imported.
         explode: false
@@ -583,7 +583,7 @@ paths:
         content:
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/post__cms_v3_hubdb_tables__tableIdOrName__draft_import_importDraftTable_request'
+              $ref: '#/components/schemas/ImportDraftTable_request'
       responses:
         "200":
           content:
@@ -609,7 +609,7 @@ paths:
       description: "Publishes the table by copying the data and table schema changes\
         \ from draft version to the published version, meaning any website pages using\
         \ data from the table will be updated."
-      operationId: "post-/cms/v3/hubdb/tables/{tableIdOrName}/draft/publish_publishDraftTable"
+      operationId: PublishDraftTable
       parameters:
       - description: The ID or name of the table to publish.
         explode: false
@@ -652,7 +652,7 @@ paths:
       description: Replaces the data in the `draft` version of the table with values
         from the `published` version. Any unpublished changes in the `draft` will
         be lost after this call is made.
-      operationId: "post-/cms/v3/hubdb/tables/{tableIdOrName}/draft/reset_resetDraftTable"
+      operationId: ResetDraftTable
       parameters:
       - description: The ID or name of the table to reset.
         explode: false
@@ -693,7 +693,7 @@ paths:
   /cms/v3/hubdb/tables/{tableIdOrName}/export:
     get:
       description: Exports the `published` version of a table to CSV / EXCEL format.
-      operationId: "get-/cms/v3/hubdb/tables/{tableIdOrName}/export_exportTable"
+      operationId: ExportTable
       parameters:
       - description: The ID or name of the table to export.
         explode: false
@@ -742,7 +742,7 @@ paths:
       description: |-
         Returns a set of rows in the `published` version of the specified table. Row results can be filtered and sorted. Filtering and sorting options will be sent as query parameters to the API request. For example, by adding the query parameters `column1__gt=5&sort=-column1`, API returns the rows with values for column `column1` greater than 5 and in the descending order of `column1` values. Refer to the [overview section](https://developers.hubspot.com/docs/api/cms/hubdb#filtering-and-sorting-table-rows) for detailed filtering and sorting options.
         **Note:** This endpoint can be accessed without any authentication, if the table is set to be allowed for public access.
-      operationId: "get-/cms/v3/hubdb/tables/{tableIdOrName}/rows_getTableRows"
+      operationId: GetTableRows
       parameters:
       - description: The ID or name of the table to query.
         explode: false
@@ -817,7 +817,7 @@ paths:
       description: Add a new row to a HubDB table. New rows will be added to the `draft`
         version of the table. Use `publish` endpoint to push these changes to published
         version.
-      operationId: "post-/cms/v3/hubdb/tables/{tableIdOrName}/rows_createTableRow"
+      operationId: CreateTableRow
       parameters:
       - description: The ID or name of the target table.
         explode: false
@@ -859,7 +859,7 @@ paths:
       description: |-
         Returns rows in the `published` version of the specified table, given a set of row ids.
         **Note:** This endpoint can be accessed without any authentication if the table is set to be allowed for public access.
-      operationId: "post-/cms/v3/hubdb/tables/{tableIdOrName}/rows/batch/read_batchReadTableRows"
+      operationId: BatchReadTableRows
       parameters:
       - description: The ID or name of the table to query.
         explode: false
@@ -911,7 +911,7 @@ paths:
         \ values for column `column1` greater than 5 and in the descending order of\
         \ `column1` values. Refer to the [overview section](https://developers.hubspot.com/docs/api/cms/hubdb#filtering-and-sorting-table-rows)\
         \ for detailed filtering and sorting options."
-      operationId: "get-/cms/v3/hubdb/tables/{tableIdOrName}/rows/draft_readDraftTableRows"
+      operationId: ReadDraftTableRows
       parameters:
       - description: The ID or name of the table to query.
         explode: false
@@ -986,7 +986,7 @@ paths:
     post:
       description: "Clones rows in the `draft` version of the specified table, given\
         \ a set of row ids."
-      operationId: "post-/cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/clone_batchCloneDraftTableRows"
+      operationId: BatchCloneDraftTableRows
       parameters:
       - description: The ID or name of the table
         explode: false
@@ -1028,7 +1028,7 @@ paths:
       description: "Creates rows in the `draft` version of the specified table, given\
         \ an array of row objects. See the overview section for more details with\
         \ an example."
-      operationId: "post-/cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/create_batchCreateDraftTableRows"
+      operationId: BatchCreateDraftTableRows
       parameters:
       - description: The ID or name of the table
         explode: false
@@ -1075,7 +1075,7 @@ paths:
     post:
       description: "Permanently deletes rows from the `draft` version of the table,\
         \ given a set of row ids."
-      operationId: "post-/cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/purge_batchPurgeDraftTableRows"
+      operationId: BatchPurgeDraftTableRows
       parameters:
       - description: The ID or name of the table
         explode: false
@@ -1113,7 +1113,7 @@ paths:
     post:
       description: "Returns rows in the `draft` version of the specified table, given\
         \ a set of row ids."
-      operationId: "post-/cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/read_batchReadDraftTableRows"
+      operationId: BatchReadDraftTableRows
       parameters:
       - description: The ID or name of the table
         explode: false
@@ -1161,7 +1161,7 @@ paths:
       description: "Replaces multiple rows as a batch in the `draft` version of the\
         \ table. See the endpoint `PUT /tables/{tableIdOrName}/rows/{rowId}/draft`\
         \ for details on updating a single row."
-      operationId: "post-/cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/replace_batchReplaceDraftTableRows"
+      operationId: BatchReplaceDraftTableRows
       parameters:
       - description: The ID or name of the table
         explode: false
@@ -1209,7 +1209,7 @@ paths:
       description: "Updates multiple rows as a batch in the `draft` version of the\
         \ table. See the endpoint `PATCH /tables/{tableIdOrName}/rows/{rowId}/draft`\
         \ for details on updating a single row."
-      operationId: "post-/cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/update_batchUpdateDraftTableRows"
+      operationId: BatchUpdateDraftTableRows
       parameters:
       - description: The ID or name of the table
         explode: false
@@ -1257,7 +1257,7 @@ paths:
       description: |-
         Get a single row by ID from a table's `published` version.
         **Note:** This endpoint can be accessed without any authentication, if the table is set to be allowed for public access.
-      operationId: "get-/cms/v3/hubdb/tables/{tableIdOrName}/rows/{rowId}_getTableRow"
+      operationId: GetTableRow
       parameters:
       - description: The ID or name of the table
         explode: false
@@ -1299,7 +1299,7 @@ paths:
   /cms/v3/hubdb/tables/{tableIdOrName}/rows/{rowId}/draft:
     delete:
       description: Permanently deletes a row from a table's `draft` version.
-      operationId: "delete-/cms/v3/hubdb/tables/{tableIdOrName}/rows/{rowId}/draft_purgeDraftTableRow"
+      operationId: PurgeDraftTableRow
       parameters:
       - description: The ID or name of the table
         explode: false
@@ -1337,7 +1337,7 @@ paths:
       - Rows
     get:
       description: Get a single row by ID from a table's `draft` version.
-      operationId: "get-/cms/v3/hubdb/tables/{tableIdOrName}/rows/{rowId}/draft_getDraftTableRowById"
+      operationId: GetDraftTableRowByID
       parameters:
       - description: The ID or name of the table
         explode: false
@@ -1381,7 +1381,7 @@ paths:
         Sparse updates a single row in the table's `draft` version.
         All the column values need not be specified. Only the columns or fields that needs to be modified can be specified.
         See the `Create a row` endpoint for instructions on how to format the JSON row definitions.
-      operationId: "patch-/cms/v3/hubdb/tables/{tableIdOrName}/rows/{rowId}/draft_updateDraftTableRow"
+      operationId: UpdateDraftTableRow
       parameters:
       - description: The ID or name of the table
         explode: false
@@ -1433,7 +1433,7 @@ paths:
         Replace a single row in the table's `draft` version.
         All the column values must be specified. If a column has a value in the target table and this request doesn't define that value, it will be deleted.
         See the `Create a row` endpoint for instructions on how to format the JSON row definitions.
-      operationId: "put-/cms/v3/hubdb/tables/{tableIdOrName}/rows/{rowId}/draft_replaceDraftTableRow"
+      operationId: ReplaceDraftTableRow
       parameters:
       - description: The ID or name of the table
         explode: false
@@ -1482,7 +1482,7 @@ paths:
   /cms/v3/hubdb/tables/{tableIdOrName}/rows/{rowId}/draft/clone:
     post:
       description: Clones a single row in the `draft` version of the table.
-      operationId: "post-/cms/v3/hubdb/tables/{tableIdOrName}/rows/{rowId}/draft/clone_cloneDraftTableRow"
+      operationId: CloneDraftTableRow
       parameters:
       - description: The ID or name of the table
         explode: false
@@ -1525,7 +1525,7 @@ paths:
     post:
       description: "Unpublishes the table, meaning any website pages using data from\
         \ the table will not render any data."
-      operationId: "post-/cms/v3/hubdb/tables/{tableIdOrName}/unpublish_unpublishTable"
+      operationId: UnpublishTable
       parameters:
       - description: The ID or name of the table to publish.
         explode: false
@@ -2498,7 +2498,7 @@ components:
       required:
       - after
       type: object
-    post__cms_v3_hubdb_tables__tableIdOrName__draft_import_importDraftTable_request:
+    ImportDraftTable_request:
       properties:
         config:
           description: Configuration for the import in JSON format as described above.

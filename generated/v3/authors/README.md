@@ -78,20 +78,20 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*BlogAuthorsApi* | [**DeleteCmsV3BlogsAuthorsObjectIdArchive**](docs/BlogAuthorsApi.md#deletecmsv3blogsauthorsobjectidarchive) | **Delete** /cms/v3/blogs/authors/{objectId} | Delete a Blog Author
-*BlogAuthorsApi* | [**GetCmsV3BlogsAuthorsGetPage**](docs/BlogAuthorsApi.md#getcmsv3blogsauthorsgetpage) | **Get** /cms/v3/blogs/authors | Get all Blog Authors
-*BlogAuthorsApi* | [**GetCmsV3BlogsAuthorsObjectIdGetById**](docs/BlogAuthorsApi.md#getcmsv3blogsauthorsobjectidgetbyid) | **Get** /cms/v3/blogs/authors/{objectId} | Retrieve a Blog Author
-*BlogAuthorsApi* | [**PatchCmsV3BlogsAuthorsObjectIdUpdate**](docs/BlogAuthorsApi.md#patchcmsv3blogsauthorsobjectidupdate) | **Patch** /cms/v3/blogs/authors/{objectId} | Update a Blog Author
-*BlogAuthorsApi* | [**PostCmsV3BlogsAuthorsBatchArchiveArchiveBatch**](docs/BlogAuthorsApi.md#postcmsv3blogsauthorsbatcharchivearchivebatch) | **Post** /cms/v3/blogs/authors/batch/archive | Delete a batch of Blog Authors
-*BlogAuthorsApi* | [**PostCmsV3BlogsAuthorsBatchCreateCreateBatch**](docs/BlogAuthorsApi.md#postcmsv3blogsauthorsbatchcreatecreatebatch) | **Post** /cms/v3/blogs/authors/batch/create | Create a batch of Blog Authors
-*BlogAuthorsApi* | [**PostCmsV3BlogsAuthorsBatchReadReadBatch**](docs/BlogAuthorsApi.md#postcmsv3blogsauthorsbatchreadreadbatch) | **Post** /cms/v3/blogs/authors/batch/read | Retrieve a batch of Blog Authors
-*BlogAuthorsApi* | [**PostCmsV3BlogsAuthorsBatchUpdateUpdateBatch**](docs/BlogAuthorsApi.md#postcmsv3blogsauthorsbatchupdateupdatebatch) | **Post** /cms/v3/blogs/authors/batch/update | Update a batch of Blog Authors
-*BlogAuthorsApi* | [**PostCmsV3BlogsAuthorsCreate**](docs/BlogAuthorsApi.md#postcmsv3blogsauthorscreate) | **Post** /cms/v3/blogs/authors | Create a new Blog Author
-*BlogAuthorsApi* | [**PostCmsV3BlogsAuthorsMultiLanguageAttachToLangGroupAttachToLangGroup**](docs/BlogAuthorsApi.md#postcmsv3blogsauthorsmultilanguageattachtolanggroupattachtolanggroup) | **Post** /cms/v3/blogs/authors/multi-language/attach-to-lang-group | Attach a Blog Author to a multi-language group
-*BlogAuthorsApi* | [**PostCmsV3BlogsAuthorsMultiLanguageCreateLanguageVariationCreateLangVariation**](docs/BlogAuthorsApi.md#postcmsv3blogsauthorsmultilanguagecreatelanguagevariationcreatelangvariation) | **Post** /cms/v3/blogs/authors/multi-language/create-language-variation | Create a new language variation
-*BlogAuthorsApi* | [**PostCmsV3BlogsAuthorsMultiLanguageDetachFromLangGroupDetachFromLangGroup**](docs/BlogAuthorsApi.md#postcmsv3blogsauthorsmultilanguagedetachfromlanggroupdetachfromlanggroup) | **Post** /cms/v3/blogs/authors/multi-language/detach-from-lang-group | Detach a Blog Author from a multi-language group
-*BlogAuthorsApi* | [**PostCmsV3BlogsAuthorsMultiLanguageUpdateLanguagesUpdateLangs**](docs/BlogAuthorsApi.md#postcmsv3blogsauthorsmultilanguageupdatelanguagesupdatelangs) | **Post** /cms/v3/blogs/authors/multi-language/update-languages | Update languages of multi-language group
-*BlogAuthorsApi* | [**PutCmsV3BlogsAuthorsMultiLanguageSetNewLangPrimarySetLangPrimary**](docs/BlogAuthorsApi.md#putcmsv3blogsauthorsmultilanguagesetnewlangprimarysetlangprimary) | **Put** /cms/v3/blogs/authors/multi-language/set-new-lang-primary | Set a new primary language
+*BlogAuthorsApi* | [**Archive**](docs/BlogAuthorsApi.md#archive) | **Delete** /cms/v3/blogs/authors/{objectId} | Delete a Blog Author
+*BlogAuthorsApi* | [**AttachToLangGroup**](docs/BlogAuthorsApi.md#attachtolanggroup) | **Post** /cms/v3/blogs/authors/multi-language/attach-to-lang-group | Attach a Blog Author to a multi-language group
+*BlogAuthorsApi* | [**BatchArchive**](docs/BlogAuthorsApi.md#batcharchive) | **Post** /cms/v3/blogs/authors/batch/archive | Delete a batch of Blog Authors
+*BlogAuthorsApi* | [**BatchCreate**](docs/BlogAuthorsApi.md#batchcreate) | **Post** /cms/v3/blogs/authors/batch/create | Create a batch of Blog Authors
+*BlogAuthorsApi* | [**BatchRead**](docs/BlogAuthorsApi.md#batchread) | **Post** /cms/v3/blogs/authors/batch/read | Retrieve a batch of Blog Authors
+*BlogAuthorsApi* | [**BatchUpdate**](docs/BlogAuthorsApi.md#batchupdate) | **Post** /cms/v3/blogs/authors/batch/update | Update a batch of Blog Authors
+*BlogAuthorsApi* | [**Create**](docs/BlogAuthorsApi.md#create) | **Post** /cms/v3/blogs/authors | Create a new Blog Author
+*BlogAuthorsApi* | [**CreateLangVariation**](docs/BlogAuthorsApi.md#createlangvariation) | **Post** /cms/v3/blogs/authors/multi-language/create-language-variation | Create a new language variation
+*BlogAuthorsApi* | [**DetachFromLangGroup**](docs/BlogAuthorsApi.md#detachfromlanggroup) | **Post** /cms/v3/blogs/authors/multi-language/detach-from-lang-group | Detach a Blog Author from a multi-language group
+*BlogAuthorsApi* | [**GetByID**](docs/BlogAuthorsApi.md#getbyid) | **Get** /cms/v3/blogs/authors/{objectId} | Retrieve a Blog Author
+*BlogAuthorsApi* | [**GetPage**](docs/BlogAuthorsApi.md#getpage) | **Get** /cms/v3/blogs/authors | Get all Blog Authors
+*BlogAuthorsApi* | [**SetLangPrimary**](docs/BlogAuthorsApi.md#setlangprimary) | **Put** /cms/v3/blogs/authors/multi-language/set-new-lang-primary | Set a new primary language
+*BlogAuthorsApi* | [**Update**](docs/BlogAuthorsApi.md#update) | **Patch** /cms/v3/blogs/authors/{objectId} | Update a Blog Author
+*BlogAuthorsApi* | [**UpdateLangs**](docs/BlogAuthorsApi.md#updatelangs) | **Post** /cms/v3/blogs/authors/multi-language/update-languages | Update languages of multi-language group
 
 
 ## Documentation For Models

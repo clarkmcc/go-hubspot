@@ -478,7 +478,7 @@
         "tags" : [ "Basic" ],
         "summary" : "Read",
         "description" : "Read an Object identified by `{contactId}`. `{contactId}` refers to the internal object ID.  Control what is returned via the `properties` query param.",
-        "operationId" : "Get",
+        "operationId" : "GetByID",
         "parameters" : [ {
           "name" : "contactId",
           "in" : "path",
@@ -647,7 +647,7 @@
       "get" : {
         "tags" : [ "Associations" ],
         "summary" : "List associations of a contact by type",
-        "operationId" : "AssociationsGet",
+        "operationId" : "AssociationsGetAll",
         "parameters" : [ {
           "name" : "contactId",
           "in" : "path",

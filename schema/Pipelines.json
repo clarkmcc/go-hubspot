@@ -23,7 +23,7 @@
         "tags" : [ "Pipelines" ],
         "summary" : "Retrieve all pipelines",
         "description" : "Return all pipelines for the object type specified by `{objectType}`.",
-        "operationId" : "get-/crm/v3/pipelines/{objectType}_getAll",
+        "operationId" : "GetAll",
         "parameters" : [ {
           "name" : "objectType",
           "in" : "path",
@@ -91,7 +91,7 @@
         "tags" : [ "Pipelines" ],
         "summary" : "Create a pipeline",
         "description" : "Create a new pipeline with the provided property values. The entire pipeline object, including its unique ID, will be returned in the response.",
-        "operationId" : "post-/crm/v3/pipelines/{objectType}_create",
+        "operationId" : "Create",
         "parameters" : [ {
           "name" : "objectType",
           "in" : "path",
@@ -149,7 +149,7 @@
         "tags" : [ "Pipelines" ],
         "summary" : "Return a pipeline by ID",
         "description" : "Return a single pipeline object identified by its unique `{pipelineId}`.",
-        "operationId" : "get-/crm/v3/pipelines/{objectType}/{pipelineId}_getById",
+        "operationId" : "GetByID",
         "parameters" : [ {
           "name" : "objectType",
           "in" : "path",
@@ -226,7 +226,7 @@
         "tags" : [ "Pipelines" ],
         "summary" : "Replace a pipeline",
         "description" : "Replace all the properties of an existing pipeline with the values provided. This will overwrite any existing pipeline stages. The updated pipeline will be returned in the response.",
-        "operationId" : "put-/crm/v3/pipelines/{objectType}/{pipelineId}_replace",
+        "operationId" : "Replace",
         "parameters" : [ {
           "name" : "objectType",
           "in" : "path",
@@ -301,7 +301,7 @@
         "tags" : [ "Pipelines" ],
         "summary" : "Delete a pipeline",
         "description" : "Delete the pipeline identified by `{pipelineId}`.",
-        "operationId" : "delete-/crm/v3/pipelines/{objectType}/{pipelineId}_archive",
+        "operationId" : "Archive",
         "parameters" : [ {
           "name" : "objectType",
           "in" : "path",
@@ -360,7 +360,7 @@
         "tags" : [ "Pipelines" ],
         "summary" : "Update a pipeline",
         "description" : "Perform a partial update of the pipeline identified by `{pipelineId}`. The updated pipeline will be returned in the response.",
-        "operationId" : "patch-/crm/v3/pipelines/{objectType}/{pipelineId}_update",
+        "operationId" : "Update",
         "parameters" : [ {
           "name" : "objectType",
           "in" : "path",
@@ -437,7 +437,7 @@
         "tags" : [ "Pipeline Audits" ],
         "summary" : "Return an audit of all changes to the pipeline",
         "description" : "Return a reverse chronological list of all mutations that have occurred on the pipeline identified by `{pipelineId}`.",
-        "operationId" : "get-/crm/v3/pipelines/{objectType}/{pipelineId}/audit_getAudit",
+        "operationId" : "GetAudit",
         "parameters" : [ {
           "name" : "objectType",
           "in" : "path",
@@ -516,7 +516,7 @@
         "tags" : [ "Pipeline Stages" ],
         "summary" : "Return all stages of a pipeline",
         "description" : "Return all the stages associated with the pipeline identified by `{pipelineId}`.",
-        "operationId" : "get-/crm/v3/pipelines/{objectType}/{pipelineId}/stages_getAll",
+        "operationId" : "StagesGetAll",
         "parameters" : [ {
           "name" : "objectType",
           "in" : "path",
@@ -593,7 +593,7 @@
         "tags" : [ "Pipeline Stages" ],
         "summary" : "Create a pipeline stage",
         "description" : "Create a new stage associated with the pipeline identified by `{pipelineId}`. The entire stage object, including its unique ID, will be returned in the response.",
-        "operationId" : "post-/crm/v3/pipelines/{objectType}/{pipelineId}/stages_create",
+        "operationId" : "StagesCreate",
         "parameters" : [ {
           "name" : "objectType",
           "in" : "path",
@@ -660,7 +660,7 @@
         "tags" : [ "Pipeline Stages" ],
         "summary" : "Return a pipeline stage by ID",
         "description" : "Return the stage identified by `{stageId}` associated with the pipeline identified by `{pipelineId}`.",
-        "operationId" : "get-/crm/v3/pipelines/{objectType}/{pipelineId}/stages/{stageId}_getById",
+        "operationId" : "StagesGetByID",
         "parameters" : [ {
           "name" : "objectType",
           "in" : "path",
@@ -746,7 +746,7 @@
         "tags" : [ "Pipeline Stages" ],
         "summary" : "Replace a pipeline stage",
         "description" : "Replace all the properties of an existing pipeline stage with the values provided. The updated stage will be returned in the response.",
-        "operationId" : "put-/crm/v3/pipelines/{objectType}/{pipelineId}/stages/{stageId}_replace",
+        "operationId" : "StagesReplace",
         "parameters" : [ {
           "name" : "objectType",
           "in" : "path",
@@ -820,7 +820,7 @@
         "tags" : [ "Pipeline Stages" ],
         "summary" : "Delete a pipeline stage",
         "description" : "Delete the pipeline stage identified by `{stageId}` associated with the pipeline identified by `{pipelineId}`.",
-        "operationId" : "delete-/crm/v3/pipelines/{objectType}/{pipelineId}/stages/{stageId}_archive",
+        "operationId" : "StagesArchive",
         "parameters" : [ {
           "name" : "objectType",
           "in" : "path",
@@ -878,7 +878,7 @@
         "tags" : [ "Pipeline Stages" ],
         "summary" : "Update a pipeline stage",
         "description" : "Perform a partial update of the pipeline stage identified by `{stageId}` associated with the pipeline identified by `{pipelineId}`. Any properties not included in this update will keep their existing values. The updated stage will be returned in the response.",
-        "operationId" : "patch-/crm/v3/pipelines/{objectType}/{pipelineId}/stages/{stageId}_update",
+        "operationId" : "StagesUpdate",
         "parameters" : [ {
           "name" : "objectType",
           "in" : "path",
@@ -954,7 +954,7 @@
         "tags" : [ "Pipeline Stage Audits" ],
         "summary" : "Return an audit of all changes to the pipeline stage",
         "description" : "Return a reverse chronological list of all mutations that have occurred on the pipeline stage identified by `{stageId}`.",
-        "operationId" : "get-/crm/v3/pipelines/{objectType}/{pipelineId}/stages/{stageId}/audit_getAudit",
+        "operationId" : "StagesGetAudit",
         "parameters" : [ {
           "name" : "objectType",
           "in" : "path",

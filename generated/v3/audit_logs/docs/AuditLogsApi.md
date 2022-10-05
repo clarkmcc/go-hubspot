@@ -4,13 +4,13 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetCmsV3AuditLogsGetPage**](AuditLogsApi.md#GetCmsV3AuditLogsGetPage) | **Get** /cms/v3/audit-logs/ | Query audit logs
+[**GetPage**](AuditLogsApi.md#GetPage) | **Get** /cms/v3/audit-logs/ | Query audit logs
 
 
 
-## GetCmsV3AuditLogsGetPage
+## GetPage
 
-> CollectionResponsePublicAuditLog GetCmsV3AuditLogsGetPage(ctx).ObjectId(objectId).UserId(userId).After(after).Before(before).Sort(sort).EventType(eventType).Limit(limit).ObjectType(objectType).Execute()
+> CollectionResponsePublicAuditLog GetPage(ctx).ObjectId(objectId).UserId(userId).After(after).Before(before).Sort(sort).EventType(eventType).Limit(limit).ObjectType(objectType).Execute()
 
 Query audit logs
 
@@ -40,13 +40,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuditLogsApi.GetCmsV3AuditLogsGetPage(context.Background()).ObjectId(objectId).UserId(userId).After(after).Before(before).Sort(sort).EventType(eventType).Limit(limit).ObjectType(objectType).Execute()
+    resp, r, err := apiClient.AuditLogsApi.GetPage(context.Background()).ObjectId(objectId).UserId(userId).After(after).Before(before).Sort(sort).EventType(eventType).Limit(limit).ObjectType(objectType).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuditLogsApi.GetCmsV3AuditLogsGetPage``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `AuditLogsApi.GetPage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetCmsV3AuditLogsGetPage`: CollectionResponsePublicAuditLog
-    fmt.Fprintf(os.Stdout, "Response from `AuditLogsApi.GetCmsV3AuditLogsGetPage`: %v\n", resp)
+    // response from `GetPage`: CollectionResponsePublicAuditLog
+    fmt.Fprintf(os.Stdout, "Response from `AuditLogsApi.GetPage`: %v\n", resp)
 }
 ```
 
@@ -56,7 +56,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetCmsV3AuditLogsGetPageRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetPageRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

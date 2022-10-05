@@ -4,15 +4,15 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**PostCrmV3PropertiesObjectTypeBatchArchiveArchive**](BatchApi.md#PostCrmV3PropertiesObjectTypeBatchArchiveArchive) | **Post** /crm/v3/properties/{objectType}/batch/archive | Archive a batch of properties
-[**PostCrmV3PropertiesObjectTypeBatchCreateCreate**](BatchApi.md#PostCrmV3PropertiesObjectTypeBatchCreateCreate) | **Post** /crm/v3/properties/{objectType}/batch/create | Create a batch of properties
-[**PostCrmV3PropertiesObjectTypeBatchReadRead**](BatchApi.md#PostCrmV3PropertiesObjectTypeBatchReadRead) | **Post** /crm/v3/properties/{objectType}/batch/read | Read a batch of properties
+[**BatchArchive**](BatchApi.md#BatchArchive) | **Post** /crm/v3/properties/{objectType}/batch/archive | Archive a batch of properties
+[**BatchCreate**](BatchApi.md#BatchCreate) | **Post** /crm/v3/properties/{objectType}/batch/create | Create a batch of properties
+[**BatchRead**](BatchApi.md#BatchRead) | **Post** /crm/v3/properties/{objectType}/batch/read | Read a batch of properties
 
 
 
-## PostCrmV3PropertiesObjectTypeBatchArchiveArchive
+## BatchArchive
 
-> PostCrmV3PropertiesObjectTypeBatchArchiveArchive(ctx, objectType).BatchInputPropertyName(batchInputPropertyName).Execute()
+> BatchArchive(ctx, objectType).BatchInputPropertyName(batchInputPropertyName).Execute()
 
 Archive a batch of properties
 
@@ -36,9 +36,9 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BatchApi.PostCrmV3PropertiesObjectTypeBatchArchiveArchive(context.Background(), objectType).BatchInputPropertyName(batchInputPropertyName).Execute()
+    resp, r, err := apiClient.BatchApi.BatchArchive(context.Background(), objectType).BatchInputPropertyName(batchInputPropertyName).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.PostCrmV3PropertiesObjectTypeBatchArchiveArchive``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.BatchArchive``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -54,7 +54,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCrmV3PropertiesObjectTypeBatchArchiveArchiveRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiBatchArchiveRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -80,9 +80,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostCrmV3PropertiesObjectTypeBatchCreateCreate
+## BatchCreate
 
-> BatchResponseProperty PostCrmV3PropertiesObjectTypeBatchCreateCreate(ctx, objectType).BatchInputPropertyCreate(batchInputPropertyCreate).Execute()
+> BatchResponseProperty BatchCreate(ctx, objectType).BatchInputPropertyCreate(batchInputPropertyCreate).Execute()
 
 Create a batch of properties
 
@@ -106,13 +106,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BatchApi.PostCrmV3PropertiesObjectTypeBatchCreateCreate(context.Background(), objectType).BatchInputPropertyCreate(batchInputPropertyCreate).Execute()
+    resp, r, err := apiClient.BatchApi.BatchCreate(context.Background(), objectType).BatchInputPropertyCreate(batchInputPropertyCreate).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.PostCrmV3PropertiesObjectTypeBatchCreateCreate``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.BatchCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostCrmV3PropertiesObjectTypeBatchCreateCreate`: BatchResponseProperty
-    fmt.Fprintf(os.Stdout, "Response from `BatchApi.PostCrmV3PropertiesObjectTypeBatchCreateCreate`: %v\n", resp)
+    // response from `BatchCreate`: BatchResponseProperty
+    fmt.Fprintf(os.Stdout, "Response from `BatchApi.BatchCreate`: %v\n", resp)
 }
 ```
 
@@ -126,7 +126,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCrmV3PropertiesObjectTypeBatchCreateCreateRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiBatchCreateRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -152,9 +152,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostCrmV3PropertiesObjectTypeBatchReadRead
+## BatchRead
 
-> BatchResponseProperty PostCrmV3PropertiesObjectTypeBatchReadRead(ctx, objectType).BatchReadInputPropertyName(batchReadInputPropertyName).Execute()
+> BatchResponseProperty BatchRead(ctx, objectType).BatchReadInputPropertyName(batchReadInputPropertyName).Execute()
 
 Read a batch of properties
 
@@ -178,13 +178,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BatchApi.PostCrmV3PropertiesObjectTypeBatchReadRead(context.Background(), objectType).BatchReadInputPropertyName(batchReadInputPropertyName).Execute()
+    resp, r, err := apiClient.BatchApi.BatchRead(context.Background(), objectType).BatchReadInputPropertyName(batchReadInputPropertyName).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.PostCrmV3PropertiesObjectTypeBatchReadRead``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.BatchRead``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostCrmV3PropertiesObjectTypeBatchReadRead`: BatchResponseProperty
-    fmt.Fprintf(os.Stdout, "Response from `BatchApi.PostCrmV3PropertiesObjectTypeBatchReadRead`: %v\n", resp)
+    // response from `BatchRead`: BatchResponseProperty
+    fmt.Fprintf(os.Stdout, "Response from `BatchApi.BatchRead`: %v\n", resp)
 }
 ```
 
@@ -198,7 +198,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCrmV3PropertiesObjectTypeBatchReadReadRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiBatchReadRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

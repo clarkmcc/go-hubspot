@@ -94,10 +94,10 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *AssociationsApi* | [**AssociationsArchive**](docs/AssociationsApi.md#associationsarchive) | **Delete** /crm/v3/objects/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}/{associationType} | Remove an association between two objects
 *AssociationsApi* | [**AssociationsCreate**](docs/AssociationsApi.md#associationscreate) | **Put** /crm/v3/objects/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}/{associationType} | Associate an object with another object
-*AssociationsApi* | [**AssociationsGet**](docs/AssociationsApi.md#associationsget) | **Get** /crm/v3/objects/{objectType}/{objectId}/associations/{toObjectType} | List associations of an object by type
+*AssociationsApi* | [**AssociationsGetAll**](docs/AssociationsApi.md#associationsgetall) | **Get** /crm/v3/objects/{objectType}/{objectId}/associations/{toObjectType} | List associations of an object by type
 *BasicApi* | [**Archive**](docs/BasicApi.md#archive) | **Delete** /crm/v3/objects/{objectType}/{objectId} | Archive
 *BasicApi* | [**Create**](docs/BasicApi.md#create) | **Post** /crm/v3/objects/{objectType} | Create
-*BasicApi* | [**Get**](docs/BasicApi.md#get) | **Get** /crm/v3/objects/{objectType}/{objectId} | Read
+*BasicApi* | [**GetByID**](docs/BasicApi.md#getbyid) | **Get** /crm/v3/objects/{objectType}/{objectId} | Read
 *BasicApi* | [**GetPage**](docs/BasicApi.md#getpage) | **Get** /crm/v3/objects/{objectType} | List
 *BasicApi* | [**Update**](docs/BasicApi.md#update) | **Patch** /crm/v3/objects/{objectType}/{objectId} | Update
 *BatchApi* | [**BatchArchive**](docs/BatchApi.md#batcharchive) | **Post** /crm/v3/objects/{objectType}/batch/archive | Archive a batch of objects by ID
@@ -163,9 +163,6 @@ Note, each API key must be added to a map of `map[string]APIKey` where the key i
 - **Flow**: accessCode
 - **Authorization URL**: https://app.hubspot.com/oauth/authorize
 - **Scopes**: 
- - **crm.objects.quotes.write**: Quotes
- - **crm.objects.contacts.read**:  
- - **crm.objects.contacts.write**:  
  - **crm.objects.companies.write**:  
  - **crm.objects.companies.read**:  
  - **crm.objects.line_items.write**: Line Items
@@ -173,6 +170,9 @@ Note, each API key must be added to a map of `map[string]APIKey` where the key i
  - **crm.objects.deals.write**:  
  - **crm.objects.line_items.read**: Line Items
  - **crm.objects.deals.read**:  
+ - **crm.objects.quotes.write**: Quotes
+ - **crm.objects.contacts.read**:  
+ - **crm.objects.contacts.write**:  
 
 Example
 
@@ -202,11 +202,11 @@ r, err := client.Service.Operation(auth, args)
 - **Authorization URL**: https://app.hubspot.com/oauth/authorize
 - **Scopes**: 
  - **crm.objects.custom.read**: View custom object records
+ - **tickets**: Read and write tickets
+ - **media_bridge.read**: Read media and media events
  - **contacts**: Read from and write to my Contacts
  - **crm.objects.custom.write**: Change custom object records
  - **e-commerce**: e-commerce
- - **media_bridge.read**: Read media and media events
- - **tickets**: Read and write tickets
 
 Example
 

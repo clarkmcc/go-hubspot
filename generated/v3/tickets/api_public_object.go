@@ -23,29 +23,29 @@ import (
 // PublicObjectApiService PublicObjectApi service
 type PublicObjectApiService service
 
-type ApiPostCrmV3ObjectsTicketsMergeMergeRequest struct {
+type ApiMergeRequest struct {
 	ctx              context.Context
 	ApiService       *PublicObjectApiService
 	publicMergeInput *PublicMergeInput
 }
 
-func (r ApiPostCrmV3ObjectsTicketsMergeMergeRequest) PublicMergeInput(publicMergeInput PublicMergeInput) ApiPostCrmV3ObjectsTicketsMergeMergeRequest {
+func (r ApiMergeRequest) PublicMergeInput(publicMergeInput PublicMergeInput) ApiMergeRequest {
 	r.publicMergeInput = &publicMergeInput
 	return r
 }
 
-func (r ApiPostCrmV3ObjectsTicketsMergeMergeRequest) Execute() (*SimplePublicObject, *http.Response, error) {
-	return r.ApiService.PostCrmV3ObjectsTicketsMergeMergeExecute(r)
+func (r ApiMergeRequest) Execute() (*SimplePublicObject, *http.Response, error) {
+	return r.ApiService.MergeExecute(r)
 }
 
 /*
-PostCrmV3ObjectsTicketsMergeMerge Merge two tickets with same type
+Merge Merge two tickets with same type
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostCrmV3ObjectsTicketsMergeMergeRequest
+ @return ApiMergeRequest
 */
-func (a *PublicObjectApiService) PostCrmV3ObjectsTicketsMergeMerge(ctx context.Context) ApiPostCrmV3ObjectsTicketsMergeMergeRequest {
-	return ApiPostCrmV3ObjectsTicketsMergeMergeRequest{
+func (a *PublicObjectApiService) Merge(ctx context.Context) ApiMergeRequest {
+	return ApiMergeRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -53,7 +53,7 @@ func (a *PublicObjectApiService) PostCrmV3ObjectsTicketsMergeMerge(ctx context.C
 
 // Execute executes the request
 //  @return SimplePublicObject
-func (a *PublicObjectApiService) PostCrmV3ObjectsTicketsMergeMergeExecute(r ApiPostCrmV3ObjectsTicketsMergeMergeRequest) (*SimplePublicObject, *http.Response, error) {
+func (a *PublicObjectApiService) MergeExecute(r ApiMergeRequest) (*SimplePublicObject, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -61,7 +61,7 @@ func (a *PublicObjectApiService) PostCrmV3ObjectsTicketsMergeMergeExecute(r ApiP
 		localVarReturnValue *SimplePublicObject
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicObjectApiService.PostCrmV3ObjectsTicketsMergeMerge")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicObjectApiService.Merge")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

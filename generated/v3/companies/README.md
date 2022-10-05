@@ -80,10 +80,10 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *AssociationsApi* | [**AssociationsArchive**](docs/AssociationsApi.md#associationsarchive) | **Delete** /crm/v3/objects/companies/{companyId}/associations/{toObjectType}/{toObjectId}/{associationType} | Remove an association between two companies
 *AssociationsApi* | [**AssociationsCreate**](docs/AssociationsApi.md#associationscreate) | **Put** /crm/v3/objects/companies/{companyId}/associations/{toObjectType}/{toObjectId}/{associationType} | Associate a company with another object
-*AssociationsApi* | [**AssociationsGet**](docs/AssociationsApi.md#associationsget) | **Get** /crm/v3/objects/companies/{companyId}/associations/{toObjectType} | List associations of a company by type
+*AssociationsApi* | [**AssociationsGetAll**](docs/AssociationsApi.md#associationsgetall) | **Get** /crm/v3/objects/companies/{companyId}/associations/{toObjectType} | List associations of a company by type
 *BasicApi* | [**Archive**](docs/BasicApi.md#archive) | **Delete** /crm/v3/objects/companies/{companyId} | Archive
 *BasicApi* | [**Create**](docs/BasicApi.md#create) | **Post** /crm/v3/objects/companies | Create
-*BasicApi* | [**Get**](docs/BasicApi.md#get) | **Get** /crm/v3/objects/companies/{companyId} | Read
+*BasicApi* | [**GetByID**](docs/BasicApi.md#getbyid) | **Get** /crm/v3/objects/companies/{companyId} | Read
 *BasicApi* | [**GetPage**](docs/BasicApi.md#getpage) | **Get** /crm/v3/objects/companies | List
 *BasicApi* | [**Update**](docs/BasicApi.md#update) | **Patch** /crm/v3/objects/companies/{companyId} | Update
 *BatchApi* | [**BatchArchive**](docs/BatchApi.md#batcharchive) | **Post** /crm/v3/objects/companies/batch/archive | Archive a batch of companies by ID

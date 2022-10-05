@@ -27,7 +27,7 @@ paths:
   /crm/v3/extensions/accounting/callback/customer-create/{requestId}:
     post:
       description: Call this endpoint with the response to a customer creation request.
-      operationId: "post-/crm/v3/extensions/accounting/callback/customer-create/{requestId}_createCustomer"
+      operationId: CallbackCreateCustomer
       parameters:
       - description: The ID of the request that this response is for
         explode: false
@@ -64,7 +64,7 @@ paths:
   /crm/v3/extensions/accounting/callback/customer-search/{requestId}:
     post:
       description: Call this endpoint with the response to a customer search request.
-      operationId: "post-/crm/v3/extensions/accounting/callback/customer-search/{requestId}_doCustomerSearch"
+      operationId: CallbackDoSearchCustomer
       parameters:
       - description: The ID of the request that this response is for
         explode: false
@@ -101,7 +101,7 @@ paths:
   /crm/v3/extensions/accounting/callback/exchange-rate/{requestId}:
     post:
       description: Call this endpoint with the response to an exchange rate request.
-      operationId: "post-/crm/v3/extensions/accounting/callback/exchange-rate/{requestId}_createExchangeRate"
+      operationId: CallbackCreateExchangeRate
       parameters:
       - description: The ID of the request that this response is for
         explode: false
@@ -138,7 +138,7 @@ paths:
   /crm/v3/extensions/accounting/callback/invoice-create/{requestId}:
     post:
       description: Call this endpoint with the response to a invoice creation request.
-      operationId: "post-/crm/v3/extensions/accounting/callback/invoice-create/{requestId}_createInvoice"
+      operationId: CallbackCreateInvoice
       parameters:
       - description: The ID of the request that this response is for
         explode: false
@@ -175,7 +175,7 @@ paths:
   /crm/v3/extensions/accounting/callback/invoice-pdf/{requestId}:
     post:
       description: Call this endpoint with the PDF content of a requested invoice.
-      operationId: "post-/crm/v3/extensions/accounting/callback/invoice-pdf/{requestId}_invoicePdf"
+      operationId: CallbackInvoicePDF
       parameters:
       - description: The ID of the request that this response is for
         explode: false
@@ -212,7 +212,7 @@ paths:
   /crm/v3/extensions/accounting/callback/invoice-search/{requestId}:
     post:
       description: Call this endpoint with the response to a invoice search request.
-      operationId: "post-/crm/v3/extensions/accounting/callback/invoice-search/{requestId}_doInvoiceSearch"
+      operationId: CallbackDoInvoiceSearch
       parameters:
       - description: The ID of the request that this response is for
         explode: false
@@ -249,7 +249,7 @@ paths:
   /crm/v3/extensions/accounting/callback/invoices/{requestId}:
     post:
       description: Call this endpoint with the response to a invoice get-by-id request.
-      operationId: "post-/crm/v3/extensions/accounting/callback/invoices/{requestId}_getById"
+      operationId: CallbackGetByID
       parameters:
       - description: The ID of the request that this response is for
         explode: false
@@ -286,7 +286,7 @@ paths:
   /crm/v3/extensions/accounting/callback/product-search/{requestId}:
     post:
       description: Call this endpoint with the response to a product search request.
-      operationId: "post-/crm/v3/extensions/accounting/callback/product-search/{requestId}_doProductSearch"
+      operationId: CallbackDoProductSearch
       parameters:
       - description: The ID of the request that this response is for
         explode: false
@@ -323,7 +323,7 @@ paths:
   /crm/v3/extensions/accounting/callback/tax-search/{requestId}:
     post:
       description: Call this endpoint with the response to a taxes search request.
-      operationId: "post-/crm/v3/extensions/accounting/callback/tax-search/{requestId}_doTaxSearch"
+      operationId: CallbackDoTaxSearch
       parameters:
       - description: The ID of the request that this response is for
         explode: false
@@ -360,7 +360,7 @@ paths:
   /crm/v3/extensions/accounting/callback/terms/{requestId}:
     post:
       description: Call this endpoint with the response to a terms search request.
-      operationId: "post-/crm/v3/extensions/accounting/callback/terms/{requestId}_createTerm"
+      operationId: CallbackCreateTerm
       parameters:
       - description: The ID of the request that this response is for
         explode: false
@@ -398,7 +398,7 @@ paths:
     get:
       description: Returns invoice data for an Accounting account from the specified
         ID
-      operationId: "get-/crm/v3/extensions/accounting/invoice/{invoiceId}_getById"
+      operationId: InvoiceGetByID
       parameters:
       - description: The ID of the invoice. This is the invoice ID from the external
           accounting system.
@@ -440,7 +440,7 @@ paths:
       - Invoice
     patch:
       description: Updates an Invoice by the given ID.
-      operationId: "patch-/crm/v3/extensions/accounting/invoice/{invoiceId}_update"
+      operationId: InvoiceUpdate
       parameters:
       - description: The ID of the invoice. This is the invoice ID from the external
           accounting system.
@@ -490,7 +490,7 @@ paths:
   /crm/v3/extensions/accounting/invoice/{invoiceId}/payment:
     post:
       description: Records an payment against an invoice.
-      operationId: "post-/crm/v3/extensions/accounting/invoice/{invoiceId}/payment_createPayment"
+      operationId: InvoiceCreatePayment
       parameters:
       - description: The ID of the invoice. This is the invoice ID from the external
           accounting system.
@@ -541,7 +541,7 @@ paths:
     get:
       description: Returns the URL settings for an accounting app with the specified
         ID.
-      operationId: "get-/crm/v3/extensions/accounting/settings/{appId}_getById"
+      operationId: SettingsGetByID
       parameters:
       - description: The ID of the accounting app. This is the identifier of the application
           created in your HubSpot developer portal.
@@ -574,7 +574,7 @@ paths:
     put:
       description: Add/Update the URL settings for an accounting app with the specified
         ID.  All URLs must use the `https` protocol.
-      operationId: "put-/crm/v3/extensions/accounting/settings/{appId}_replace"
+      operationId: SettingsReplace
       parameters:
       - description: The ID of the accounting app. This is the identifier of the application
           created in your HubSpot developer portal.
@@ -612,7 +612,7 @@ paths:
       description: "Imports contacts' properties from an external accounting system\
         \ to HubSpot. Import details, including property mappings, must be configured\
         \ previously in HubSpot infrastructure."
-      operationId: "post-/crm/v3/extensions/accounting/sync/{appId}/contacts_createContact"
+      operationId: SyncCreateContact
       parameters:
       - description: The ID of the accounting app. This is the identifier of the application
           created in your HubSpot developer portal.
@@ -655,7 +655,7 @@ paths:
       description: "Imports products' properties from an external accounting system\
         \ to HubSpot. Import details, including property mappings, must be configured\
         \ previously in HubSpot infrastructure."
-      operationId: "post-/crm/v3/extensions/accounting/sync/{appId}/products_createProduct"
+      operationId: SyncCreateProduct
       parameters:
       - description: The ID of the accounting app. This is the identifier of the application
           created in your HubSpot developer portal.
@@ -699,7 +699,7 @@ paths:
         \ in the external accounting system.  This *must* be called after a user connects\
         \ their HubSpot account to the external accounting system, as there is no\
         \ other way for HubSpot to obtain the external account details."
-      operationId: put-/crm/v3/extensions/accounting/user-accounts_replace
+      operationId: UserAccountsReplace
       requestBody:
         content:
           application/json:
@@ -728,7 +728,7 @@ paths:
     delete:
       description: "Deletes a user account from HubSpot, meaning that HubSpot will\
         \ no longer send requests to the external accounting system for this user."
-      operationId: "delete-/crm/v3/extensions/accounting/user-accounts/{accountId}_archive"
+      operationId: UserAccountsArchive
       parameters:
       - description: The ID of the user account to delete.
         explode: false

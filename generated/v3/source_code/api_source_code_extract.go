@@ -24,52 +24,57 @@ import (
 // SourceCodeExtractApiService SourceCodeExtractApi service
 type SourceCodeExtractApiService service
 
-type ApiGetCmsV3SourceCodeExtractAsyncTasksTaskIdStatusGetAsyncStatusRequest struct {
-	ctx        context.Context
-	ApiService *SourceCodeExtractApiService
-	taskId     int32
+type ApiExtractAsyncRequest struct {
+	ctx                context.Context
+	ApiService         *SourceCodeExtractApiService
+	fileExtractRequest *FileExtractRequest
 }
 
-func (r ApiGetCmsV3SourceCodeExtractAsyncTasksTaskIdStatusGetAsyncStatusRequest) Execute() (*ActionResponse, *http.Response, error) {
-	return r.ApiService.GetCmsV3SourceCodeExtractAsyncTasksTaskIdStatusGetAsyncStatusExecute(r)
+func (r ApiExtractAsyncRequest) FileExtractRequest(fileExtractRequest FileExtractRequest) ApiExtractAsyncRequest {
+	r.fileExtractRequest = &fileExtractRequest
+	return r
+}
+
+func (r ApiExtractAsyncRequest) Execute() (*TaskLocator, *http.Response, error) {
+	return r.ApiService.ExtractAsyncExecute(r)
 }
 
 /*
-GetCmsV3SourceCodeExtractAsyncTasksTaskIdStatusGetAsyncStatus Method for GetCmsV3SourceCodeExtractAsyncTasksTaskIdStatusGetAsyncStatus
+ExtractAsync Method for ExtractAsync
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param taskId
- @return ApiGetCmsV3SourceCodeExtractAsyncTasksTaskIdStatusGetAsyncStatusRequest
+ @return ApiExtractAsyncRequest
 */
-func (a *SourceCodeExtractApiService) GetCmsV3SourceCodeExtractAsyncTasksTaskIdStatusGetAsyncStatus(ctx context.Context, taskId int32) ApiGetCmsV3SourceCodeExtractAsyncTasksTaskIdStatusGetAsyncStatusRequest {
-	return ApiGetCmsV3SourceCodeExtractAsyncTasksTaskIdStatusGetAsyncStatusRequest{
+func (a *SourceCodeExtractApiService) ExtractAsync(ctx context.Context) ApiExtractAsyncRequest {
+	return ApiExtractAsyncRequest{
 		ApiService: a,
 		ctx:        ctx,
-		taskId:     taskId,
 	}
 }
 
 // Execute executes the request
-//  @return ActionResponse
-func (a *SourceCodeExtractApiService) GetCmsV3SourceCodeExtractAsyncTasksTaskIdStatusGetAsyncStatusExecute(r ApiGetCmsV3SourceCodeExtractAsyncTasksTaskIdStatusGetAsyncStatusRequest) (*ActionResponse, *http.Response, error) {
+//  @return TaskLocator
+func (a *SourceCodeExtractApiService) ExtractAsyncExecute(r ApiExtractAsyncRequest) (*TaskLocator, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
+		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ActionResponse
+		localVarReturnValue *TaskLocator
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SourceCodeExtractApiService.GetCmsV3SourceCodeExtractAsyncTasksTaskIdStatusGetAsyncStatus")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SourceCodeExtractApiService.ExtractAsync")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/cms/v3/source-code/extract/async/tasks/{taskId}/status"
-	localVarPath = strings.Replace(localVarPath, "{"+"taskId"+"}", url.PathEscape(parameterToString(r.taskId, "")), -1)
+	localVarPath := localBasePath + "/cms/v3/source-code/extract/async"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.fileExtractRequest == nil {
+		return localVarReturnValue, nil, reportError("fileExtractRequest is required and must be specified")
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -88,6 +93,8 @@ func (a *SourceCodeExtractApiService) GetCmsV3SourceCodeExtractAsyncTasksTaskIdS
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.fileExtractRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
@@ -142,57 +149,52 @@ func (a *SourceCodeExtractApiService) GetCmsV3SourceCodeExtractAsyncTasksTaskIdS
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPostCmsV3SourceCodeExtractAsyncDoAsyncRequest struct {
-	ctx                context.Context
-	ApiService         *SourceCodeExtractApiService
-	fileExtractRequest *FileExtractRequest
+type ApiExtractGetAsyncStatusRequest struct {
+	ctx        context.Context
+	ApiService *SourceCodeExtractApiService
+	taskId     int32
 }
 
-func (r ApiPostCmsV3SourceCodeExtractAsyncDoAsyncRequest) FileExtractRequest(fileExtractRequest FileExtractRequest) ApiPostCmsV3SourceCodeExtractAsyncDoAsyncRequest {
-	r.fileExtractRequest = &fileExtractRequest
-	return r
-}
-
-func (r ApiPostCmsV3SourceCodeExtractAsyncDoAsyncRequest) Execute() (*TaskLocator, *http.Response, error) {
-	return r.ApiService.PostCmsV3SourceCodeExtractAsyncDoAsyncExecute(r)
+func (r ApiExtractGetAsyncStatusRequest) Execute() (*ActionResponse, *http.Response, error) {
+	return r.ApiService.ExtractGetAsyncStatusExecute(r)
 }
 
 /*
-PostCmsV3SourceCodeExtractAsyncDoAsync Method for PostCmsV3SourceCodeExtractAsyncDoAsync
+ExtractGetAsyncStatus Method for ExtractGetAsyncStatus
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostCmsV3SourceCodeExtractAsyncDoAsyncRequest
+ @param taskId
+ @return ApiExtractGetAsyncStatusRequest
 */
-func (a *SourceCodeExtractApiService) PostCmsV3SourceCodeExtractAsyncDoAsync(ctx context.Context) ApiPostCmsV3SourceCodeExtractAsyncDoAsyncRequest {
-	return ApiPostCmsV3SourceCodeExtractAsyncDoAsyncRequest{
+func (a *SourceCodeExtractApiService) ExtractGetAsyncStatus(ctx context.Context, taskId int32) ApiExtractGetAsyncStatusRequest {
+	return ApiExtractGetAsyncStatusRequest{
 		ApiService: a,
 		ctx:        ctx,
+		taskId:     taskId,
 	}
 }
 
 // Execute executes the request
-//  @return TaskLocator
-func (a *SourceCodeExtractApiService) PostCmsV3SourceCodeExtractAsyncDoAsyncExecute(r ApiPostCmsV3SourceCodeExtractAsyncDoAsyncRequest) (*TaskLocator, *http.Response, error) {
+//  @return ActionResponse
+func (a *SourceCodeExtractApiService) ExtractGetAsyncStatusExecute(r ApiExtractGetAsyncStatusRequest) (*ActionResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
+		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TaskLocator
+		localVarReturnValue *ActionResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SourceCodeExtractApiService.PostCmsV3SourceCodeExtractAsyncDoAsync")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SourceCodeExtractApiService.ExtractGetAsyncStatus")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/cms/v3/source-code/extract/async"
+	localVarPath := localBasePath + "/cms/v3/source-code/extract/async/tasks/{taskId}/status"
+	localVarPath = strings.Replace(localVarPath, "{"+"taskId"+"}", url.PathEscape(parameterToString(r.taskId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.fileExtractRequest == nil {
-		return localVarReturnValue, nil, reportError("fileExtractRequest is required and must be specified")
-	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -211,8 +213,6 @@ func (a *SourceCodeExtractApiService) PostCmsV3SourceCodeExtractAsyncDoAsyncExec
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.fileExtractRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {

@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**Archive**](BasicApi.md#Archive) | **Delete** /crm/v3/objects/companies/{companyId} | Archive
 [**Create**](BasicApi.md#Create) | **Post** /crm/v3/objects/companies | Create
-[**Get**](BasicApi.md#Get) | **Get** /crm/v3/objects/companies/{companyId} | Read
+[**GetByID**](BasicApi.md#GetByID) | **Get** /crm/v3/objects/companies/{companyId} | Read
 [**GetPage**](BasicApi.md#GetPage) | **Get** /crm/v3/objects/companies | List
 [**Update**](BasicApi.md#Update) | **Patch** /crm/v3/objects/companies/{companyId} | Update
 
@@ -146,9 +146,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## Get
+## GetByID
 
-> SimplePublicObjectWithAssociations Get(ctx, companyId).Properties(properties).PropertiesWithHistory(propertiesWithHistory).Associations(associations).Archived(archived).IdProperty(idProperty).Execute()
+> SimplePublicObjectWithAssociations GetByID(ctx, companyId).Properties(properties).PropertiesWithHistory(propertiesWithHistory).Associations(associations).Archived(archived).IdProperty(idProperty).Execute()
 
 Read
 
@@ -176,13 +176,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BasicApi.Get(context.Background(), companyId).Properties(properties).PropertiesWithHistory(propertiesWithHistory).Associations(associations).Archived(archived).IdProperty(idProperty).Execute()
+    resp, r, err := apiClient.BasicApi.GetByID(context.Background(), companyId).Properties(properties).PropertiesWithHistory(propertiesWithHistory).Associations(associations).Archived(archived).IdProperty(idProperty).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.Get``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.GetByID``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `Get`: SimplePublicObjectWithAssociations
-    fmt.Fprintf(os.Stdout, "Response from `BasicApi.Get`: %v\n", resp)
+    // response from `GetByID`: SimplePublicObjectWithAssociations
+    fmt.Fprintf(os.Stdout, "Response from `BasicApi.GetByID`: %v\n", resp)
 }
 ```
 
@@ -196,7 +196,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetByIDRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

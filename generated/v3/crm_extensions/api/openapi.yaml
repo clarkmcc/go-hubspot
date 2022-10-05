@@ -19,7 +19,7 @@ paths:
       description: Returns an example card detail response. This is the payload with
         displayed details for a card that will be shown to a user. An app should send
         this in response to the data fetch request.
-      operationId: get-/crm/v3/extensions/cards/sample-response_getCardsSampleResponse
+      operationId: CardsGetSample
       responses:
         "200":
           content:
@@ -103,7 +103,7 @@ paths:
   /crm/v3/extensions/cards/{appId}:
     get:
       description: Returns a list of cards for a given app.
-      operationId: "get-/crm/v3/extensions/cards/{appId}_getAll"
+      operationId: CardsGetAll
       parameters:
       - description: The ID of the target app.
         explode: false
@@ -156,7 +156,7 @@ paths:
     post:
       description: Defines a new card that will become active on an account when this
         app is installed.
-      operationId: "post-/crm/v3/extensions/cards/{appId}_create"
+      operationId: CardsCreate
       parameters:
       - description: The ID of the target app.
         explode: false
@@ -216,7 +216,7 @@ paths:
       description: "Permanently deletes a card definition with the given ID. Once\
         \ deleted, data fetch requests for this card will no longer be sent to your\
         \ service. This can't be undone."
-      operationId: "delete-/crm/v3/extensions/cards/{appId}/{cardId}_archive"
+      operationId: CardsArchive
       parameters:
       - description: The ID of the target app.
         explode: false
@@ -252,7 +252,7 @@ paths:
       - Cards
     get:
       description: Returns the definition for a card with the given ID.
-      operationId: "get-/crm/v3/extensions/cards/{appId}/{cardId}_getById"
+      operationId: CardsGetByID
       parameters:
       - description: The ID of the target app.
         explode: false
@@ -310,7 +310,7 @@ paths:
       - Cards
     patch:
       description: Update a card definition with new details.
-      operationId: "patch-/crm/v3/extensions/cards/{appId}/{cardId}_update"
+      operationId: CardsUpdate
       parameters:
       - description: The ID of the target app.
         explode: false

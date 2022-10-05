@@ -78,15 +78,15 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*ContentApi* | [**DeleteCmsV3SourceCodeEnvironmentContentPathArchive**](docs/ContentApi.md#deletecmsv3sourcecodeenvironmentcontentpatharchive) | **Delete** /cms/v3/source-code/{environment}/content/{path} | Delete a file
-*ContentApi* | [**GetCmsV3SourceCodeEnvironmentContentPathGet**](docs/ContentApi.md#getcmsv3sourcecodeenvironmentcontentpathget) | **Get** /cms/v3/source-code/{environment}/content/{path} | Download a file
-*ContentApi* | [**PostCmsV3SourceCodeEnvironmentContentPathCreate**](docs/ContentApi.md#postcmsv3sourcecodeenvironmentcontentpathcreate) | **Post** /cms/v3/source-code/{environment}/content/{path} | Create a file
-*ContentApi* | [**PutCmsV3SourceCodeEnvironmentContentPathReplace**](docs/ContentApi.md#putcmsv3sourcecodeenvironmentcontentpathreplace) | **Put** /cms/v3/source-code/{environment}/content/{path} | Create or update a file
-*ExtractApi* | [**PostCmsV3SourceCodeExtractPathExtractByPath**](docs/ExtractApi.md#postcmsv3sourcecodeextractpathextractbypath) | **Post** /cms/v3/source-code/extract/{path} | Extracts a zip file
-*MetadataApi* | [**GetCmsV3SourceCodeEnvironmentMetadataPathGet**](docs/MetadataApi.md#getcmsv3sourcecodeenvironmentmetadatapathget) | **Get** /cms/v3/source-code/{environment}/metadata/{path} | Get the metadata for a file
-*SourceCodeExtractApi* | [**GetCmsV3SourceCodeExtractAsyncTasksTaskIdStatusGetAsyncStatus**](docs/SourceCodeExtractApi.md#getcmsv3sourcecodeextractasynctaskstaskidstatusgetasyncstatus) | **Get** /cms/v3/source-code/extract/async/tasks/{taskId}/status | 
-*SourceCodeExtractApi* | [**PostCmsV3SourceCodeExtractAsyncDoAsync**](docs/SourceCodeExtractApi.md#postcmsv3sourcecodeextractasyncdoasync) | **Post** /cms/v3/source-code/extract/async | 
-*ValidationApi* | [**PostCmsV3SourceCodeEnvironmentValidatePathDoValidate**](docs/ValidationApi.md#postcmsv3sourcecodeenvironmentvalidatepathdovalidate) | **Post** /cms/v3/source-code/{environment}/validate/{path} | Validate the contents of a file
+*ContentApi* | [**ContentArchive**](docs/ContentApi.md#contentarchive) | **Delete** /cms/v3/source-code/{environment}/content/{path} | Delete a file
+*ContentApi* | [**ContentCreate**](docs/ContentApi.md#contentcreate) | **Post** /cms/v3/source-code/{environment}/content/{path} | Create a file
+*ContentApi* | [**ContentGet**](docs/ContentApi.md#contentget) | **Get** /cms/v3/source-code/{environment}/content/{path} | Download a file
+*ContentApi* | [**ContentReplace**](docs/ContentApi.md#contentreplace) | **Put** /cms/v3/source-code/{environment}/content/{path} | Create or update a file
+*ExtractApi* | [**ExtractByPath**](docs/ExtractApi.md#extractbypath) | **Post** /cms/v3/source-code/extract/{path} | Extracts a zip file
+*MetadataApi* | [**MetadataGet**](docs/MetadataApi.md#metadataget) | **Get** /cms/v3/source-code/{environment}/metadata/{path} | Get the metadata for a file
+*SourceCodeExtractApi* | [**ExtractAsync**](docs/SourceCodeExtractApi.md#extractasync) | **Post** /cms/v3/source-code/extract/async | 
+*SourceCodeExtractApi* | [**ExtractGetAsyncStatus**](docs/SourceCodeExtractApi.md#extractgetasyncstatus) | **Get** /cms/v3/source-code/extract/async/tasks/{taskId}/status | 
+*ValidationApi* | [**Validate**](docs/ValidationApi.md#validate) | **Post** /cms/v3/source-code/{environment}/validate/{path} | Validate the contents of a file
 
 
 ## Documentation For Models

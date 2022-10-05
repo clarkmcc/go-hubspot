@@ -24,7 +24,7 @@ import (
 // RowsBatchApiService RowsBatchApi service
 type RowsBatchApiService service
 
-type ApiPostCmsV3HubdbTablesTableIdOrNameRowsBatchReadBatchReadTableRowsRequest struct {
+type ApiBatchCloneDraftTableRowsRequest struct {
 	ctx              context.Context
 	ApiService       *RowsBatchApiService
 	tableIdOrName    string
@@ -32,159 +32,26 @@ type ApiPostCmsV3HubdbTablesTableIdOrNameRowsBatchReadBatchReadTableRowsRequest 
 }
 
 // The JSON array of row ids
-func (r ApiPostCmsV3HubdbTablesTableIdOrNameRowsBatchReadBatchReadTableRowsRequest) BatchInputString(batchInputString BatchInputString) ApiPostCmsV3HubdbTablesTableIdOrNameRowsBatchReadBatchReadTableRowsRequest {
+func (r ApiBatchCloneDraftTableRowsRequest) BatchInputString(batchInputString BatchInputString) ApiBatchCloneDraftTableRowsRequest {
 	r.batchInputString = &batchInputString
 	return r
 }
 
-func (r ApiPostCmsV3HubdbTablesTableIdOrNameRowsBatchReadBatchReadTableRowsRequest) Execute() (*BatchResponseHubDbTableRowV3, *http.Response, error) {
-	return r.ApiService.PostCmsV3HubdbTablesTableIdOrNameRowsBatchReadBatchReadTableRowsExecute(r)
+func (r ApiBatchCloneDraftTableRowsRequest) Execute() (*BatchResponseHubDbTableRowV3, *http.Response, error) {
+	return r.ApiService.BatchCloneDraftTableRowsExecute(r)
 }
 
 /*
-PostCmsV3HubdbTablesTableIdOrNameRowsBatchReadBatchReadTableRows Get a set of rows
-
-Returns rows in the `published` version of the specified table, given a set of row ids.
-**Note:** This endpoint can be accessed without any authentication if the table is set to be allowed for public access.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param tableIdOrName The ID or name of the table to query.
- @return ApiPostCmsV3HubdbTablesTableIdOrNameRowsBatchReadBatchReadTableRowsRequest
-*/
-func (a *RowsBatchApiService) PostCmsV3HubdbTablesTableIdOrNameRowsBatchReadBatchReadTableRows(ctx context.Context, tableIdOrName string) ApiPostCmsV3HubdbTablesTableIdOrNameRowsBatchReadBatchReadTableRowsRequest {
-	return ApiPostCmsV3HubdbTablesTableIdOrNameRowsBatchReadBatchReadTableRowsRequest{
-		ApiService:    a,
-		ctx:           ctx,
-		tableIdOrName: tableIdOrName,
-	}
-}
-
-// Execute executes the request
-//  @return BatchResponseHubDbTableRowV3
-func (a *RowsBatchApiService) PostCmsV3HubdbTablesTableIdOrNameRowsBatchReadBatchReadTableRowsExecute(r ApiPostCmsV3HubdbTablesTableIdOrNameRowsBatchReadBatchReadTableRowsRequest) (*BatchResponseHubDbTableRowV3, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *BatchResponseHubDbTableRowV3
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RowsBatchApiService.PostCmsV3HubdbTablesTableIdOrNameRowsBatchReadBatchReadTableRows")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/cms/v3/hubdb/tables/{tableIdOrName}/rows/batch/read"
-	localVarPath = strings.Replace(localVarPath, "{"+"tableIdOrName"+"}", url.PathEscape(parameterToString(r.tableIdOrName, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.batchInputString == nil {
-		return localVarReturnValue, nil, reportError("batchInputString is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "*/*"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.batchInputString
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		var v Error
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCloneBatchCloneDraftTableRowsRequest struct {
-	ctx              context.Context
-	ApiService       *RowsBatchApiService
-	tableIdOrName    string
-	batchInputString *BatchInputString
-}
-
-// The JSON array of row ids
-func (r ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCloneBatchCloneDraftTableRowsRequest) BatchInputString(batchInputString BatchInputString) ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCloneBatchCloneDraftTableRowsRequest {
-	r.batchInputString = &batchInputString
-	return r
-}
-
-func (r ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCloneBatchCloneDraftTableRowsRequest) Execute() (*BatchResponseHubDbTableRowV3, *http.Response, error) {
-	return r.ApiService.PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCloneBatchCloneDraftTableRowsExecute(r)
-}
-
-/*
-PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCloneBatchCloneDraftTableRows Clone rows in batch
+BatchCloneDraftTableRows Clone rows in batch
 
 Clones rows in the `draft` version of the specified table, given a set of row ids.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param tableIdOrName The ID or name of the table
- @return ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCloneBatchCloneDraftTableRowsRequest
+ @return ApiBatchCloneDraftTableRowsRequest
 */
-func (a *RowsBatchApiService) PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCloneBatchCloneDraftTableRows(ctx context.Context, tableIdOrName string) ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCloneBatchCloneDraftTableRowsRequest {
-	return ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCloneBatchCloneDraftTableRowsRequest{
+func (a *RowsBatchApiService) BatchCloneDraftTableRows(ctx context.Context, tableIdOrName string) ApiBatchCloneDraftTableRowsRequest {
+	return ApiBatchCloneDraftTableRowsRequest{
 		ApiService:    a,
 		ctx:           ctx,
 		tableIdOrName: tableIdOrName,
@@ -193,7 +60,7 @@ func (a *RowsBatchApiService) PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchClo
 
 // Execute executes the request
 //  @return BatchResponseHubDbTableRowV3
-func (a *RowsBatchApiService) PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCloneBatchCloneDraftTableRowsExecute(r ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCloneBatchCloneDraftTableRowsRequest) (*BatchResponseHubDbTableRowV3, *http.Response, error) {
+func (a *RowsBatchApiService) BatchCloneDraftTableRowsExecute(r ApiBatchCloneDraftTableRowsRequest) (*BatchResponseHubDbTableRowV3, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -201,7 +68,7 @@ func (a *RowsBatchApiService) PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchClo
 		localVarReturnValue *BatchResponseHubDbTableRowV3
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RowsBatchApiService.PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCloneBatchCloneDraftTableRows")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RowsBatchApiService.BatchCloneDraftTableRows")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -289,7 +156,7 @@ func (a *RowsBatchApiService) PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchClo
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCreateBatchCreateDraftTableRowsRequest struct {
+type ApiBatchCreateDraftTableRowsRequest struct {
 	ctx                              context.Context
 	ApiService                       *RowsBatchApiService
 	tableIdOrName                    string
@@ -297,26 +164,26 @@ type ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCreateBatchCreateDraftTab
 }
 
 // JSON array of row objects
-func (r ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCreateBatchCreateDraftTableRowsRequest) BatchInputHubDbTableRowV3Request(batchInputHubDbTableRowV3Request BatchInputHubDbTableRowV3Request) ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCreateBatchCreateDraftTableRowsRequest {
+func (r ApiBatchCreateDraftTableRowsRequest) BatchInputHubDbTableRowV3Request(batchInputHubDbTableRowV3Request BatchInputHubDbTableRowV3Request) ApiBatchCreateDraftTableRowsRequest {
 	r.batchInputHubDbTableRowV3Request = &batchInputHubDbTableRowV3Request
 	return r
 }
 
-func (r ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCreateBatchCreateDraftTableRowsRequest) Execute() (*BatchResponseHubDbTableRowV3, *http.Response, error) {
-	return r.ApiService.PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCreateBatchCreateDraftTableRowsExecute(r)
+func (r ApiBatchCreateDraftTableRowsRequest) Execute() (*BatchResponseHubDbTableRowV3, *http.Response, error) {
+	return r.ApiService.BatchCreateDraftTableRowsExecute(r)
 }
 
 /*
-PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCreateBatchCreateDraftTableRows Create rows in batch
+BatchCreateDraftTableRows Create rows in batch
 
 Creates rows in the `draft` version of the specified table, given an array of row objects. See the overview section for more details with an example.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param tableIdOrName The ID or name of the table
- @return ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCreateBatchCreateDraftTableRowsRequest
+ @return ApiBatchCreateDraftTableRowsRequest
 */
-func (a *RowsBatchApiService) PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCreateBatchCreateDraftTableRows(ctx context.Context, tableIdOrName string) ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCreateBatchCreateDraftTableRowsRequest {
-	return ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCreateBatchCreateDraftTableRowsRequest{
+func (a *RowsBatchApiService) BatchCreateDraftTableRows(ctx context.Context, tableIdOrName string) ApiBatchCreateDraftTableRowsRequest {
+	return ApiBatchCreateDraftTableRowsRequest{
 		ApiService:    a,
 		ctx:           ctx,
 		tableIdOrName: tableIdOrName,
@@ -325,7 +192,7 @@ func (a *RowsBatchApiService) PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCre
 
 // Execute executes the request
 //  @return BatchResponseHubDbTableRowV3
-func (a *RowsBatchApiService) PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCreateBatchCreateDraftTableRowsExecute(r ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCreateBatchCreateDraftTableRowsRequest) (*BatchResponseHubDbTableRowV3, *http.Response, error) {
+func (a *RowsBatchApiService) BatchCreateDraftTableRowsExecute(r ApiBatchCreateDraftTableRowsRequest) (*BatchResponseHubDbTableRowV3, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -333,7 +200,7 @@ func (a *RowsBatchApiService) PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCre
 		localVarReturnValue *BatchResponseHubDbTableRowV3
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RowsBatchApiService.PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCreateBatchCreateDraftTableRows")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RowsBatchApiService.BatchCreateDraftTableRows")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -421,7 +288,7 @@ func (a *RowsBatchApiService) PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCre
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchPurgeBatchPurgeDraftTableRowsRequest struct {
+type ApiBatchPurgeDraftTableRowsRequest struct {
 	ctx              context.Context
 	ApiService       *RowsBatchApiService
 	tableIdOrName    string
@@ -429,26 +296,26 @@ type ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchPurgeBatchPurgeDraftTable
 }
 
 // JSON array of row ids.
-func (r ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchPurgeBatchPurgeDraftTableRowsRequest) BatchInputString(batchInputString BatchInputString) ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchPurgeBatchPurgeDraftTableRowsRequest {
+func (r ApiBatchPurgeDraftTableRowsRequest) BatchInputString(batchInputString BatchInputString) ApiBatchPurgeDraftTableRowsRequest {
 	r.batchInputString = &batchInputString
 	return r
 }
 
-func (r ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchPurgeBatchPurgeDraftTableRowsRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchPurgeBatchPurgeDraftTableRowsExecute(r)
+func (r ApiBatchPurgeDraftTableRowsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.BatchPurgeDraftTableRowsExecute(r)
 }
 
 /*
-PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchPurgeBatchPurgeDraftTableRows Permanently deletes rows
+BatchPurgeDraftTableRows Permanently deletes rows
 
 Permanently deletes rows from the `draft` version of the table, given a set of row ids.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param tableIdOrName The ID or name of the table
- @return ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchPurgeBatchPurgeDraftTableRowsRequest
+ @return ApiBatchPurgeDraftTableRowsRequest
 */
-func (a *RowsBatchApiService) PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchPurgeBatchPurgeDraftTableRows(ctx context.Context, tableIdOrName string) ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchPurgeBatchPurgeDraftTableRowsRequest {
-	return ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchPurgeBatchPurgeDraftTableRowsRequest{
+func (a *RowsBatchApiService) BatchPurgeDraftTableRows(ctx context.Context, tableIdOrName string) ApiBatchPurgeDraftTableRowsRequest {
+	return ApiBatchPurgeDraftTableRowsRequest{
 		ApiService:    a,
 		ctx:           ctx,
 		tableIdOrName: tableIdOrName,
@@ -456,14 +323,14 @@ func (a *RowsBatchApiService) PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchPur
 }
 
 // Execute executes the request
-func (a *RowsBatchApiService) PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchPurgeBatchPurgeDraftTableRowsExecute(r ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchPurgeBatchPurgeDraftTableRowsRequest) (*http.Response, error) {
+func (a *RowsBatchApiService) BatchPurgeDraftTableRowsExecute(r ApiBatchPurgeDraftTableRowsRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RowsBatchApiService.PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchPurgeBatchPurgeDraftTableRows")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RowsBatchApiService.BatchPurgeDraftTableRows")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -542,7 +409,7 @@ func (a *RowsBatchApiService) PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchPur
 	return localVarHTTPResponse, nil
 }
 
-type ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReadBatchReadDraftTableRowsRequest struct {
+type ApiBatchReadDraftTableRowsRequest struct {
 	ctx              context.Context
 	ApiService       *RowsBatchApiService
 	tableIdOrName    string
@@ -550,26 +417,26 @@ type ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReadBatchReadDraftTableRo
 }
 
 // JSON array of row ids.
-func (r ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReadBatchReadDraftTableRowsRequest) BatchInputString(batchInputString BatchInputString) ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReadBatchReadDraftTableRowsRequest {
+func (r ApiBatchReadDraftTableRowsRequest) BatchInputString(batchInputString BatchInputString) ApiBatchReadDraftTableRowsRequest {
 	r.batchInputString = &batchInputString
 	return r
 }
 
-func (r ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReadBatchReadDraftTableRowsRequest) Execute() (*BatchResponseHubDbTableRowV3, *http.Response, error) {
-	return r.ApiService.PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReadBatchReadDraftTableRowsExecute(r)
+func (r ApiBatchReadDraftTableRowsRequest) Execute() (*BatchResponseHubDbTableRowV3, *http.Response, error) {
+	return r.ApiService.BatchReadDraftTableRowsExecute(r)
 }
 
 /*
-PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReadBatchReadDraftTableRows Get a set of rows from draft table
+BatchReadDraftTableRows Get a set of rows from draft table
 
 Returns rows in the `draft` version of the specified table, given a set of row ids.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param tableIdOrName The ID or name of the table
- @return ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReadBatchReadDraftTableRowsRequest
+ @return ApiBatchReadDraftTableRowsRequest
 */
-func (a *RowsBatchApiService) PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReadBatchReadDraftTableRows(ctx context.Context, tableIdOrName string) ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReadBatchReadDraftTableRowsRequest {
-	return ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReadBatchReadDraftTableRowsRequest{
+func (a *RowsBatchApiService) BatchReadDraftTableRows(ctx context.Context, tableIdOrName string) ApiBatchReadDraftTableRowsRequest {
+	return ApiBatchReadDraftTableRowsRequest{
 		ApiService:    a,
 		ctx:           ctx,
 		tableIdOrName: tableIdOrName,
@@ -578,7 +445,7 @@ func (a *RowsBatchApiService) PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchRea
 
 // Execute executes the request
 //  @return BatchResponseHubDbTableRowV3
-func (a *RowsBatchApiService) PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReadBatchReadDraftTableRowsExecute(r ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReadBatchReadDraftTableRowsRequest) (*BatchResponseHubDbTableRowV3, *http.Response, error) {
+func (a *RowsBatchApiService) BatchReadDraftTableRowsExecute(r ApiBatchReadDraftTableRowsRequest) (*BatchResponseHubDbTableRowV3, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -586,7 +453,7 @@ func (a *RowsBatchApiService) PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchRea
 		localVarReturnValue *BatchResponseHubDbTableRowV3
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RowsBatchApiService.PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReadBatchReadDraftTableRows")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RowsBatchApiService.BatchReadDraftTableRows")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -674,34 +541,35 @@ func (a *RowsBatchApiService) PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchRea
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReplaceBatchReplaceDraftTableRowsRequest struct {
-	ctx                              context.Context
-	ApiService                       *RowsBatchApiService
-	tableIdOrName                    string
-	batchInputHubDbTableRowV3Request *BatchInputHubDbTableRowV3Request
+type ApiBatchReadTableRowsRequest struct {
+	ctx              context.Context
+	ApiService       *RowsBatchApiService
+	tableIdOrName    string
+	batchInputString *BatchInputString
 }
 
-// JSON array of row objects.
-func (r ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReplaceBatchReplaceDraftTableRowsRequest) BatchInputHubDbTableRowV3Request(batchInputHubDbTableRowV3Request BatchInputHubDbTableRowV3Request) ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReplaceBatchReplaceDraftTableRowsRequest {
-	r.batchInputHubDbTableRowV3Request = &batchInputHubDbTableRowV3Request
+// The JSON array of row ids
+func (r ApiBatchReadTableRowsRequest) BatchInputString(batchInputString BatchInputString) ApiBatchReadTableRowsRequest {
+	r.batchInputString = &batchInputString
 	return r
 }
 
-func (r ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReplaceBatchReplaceDraftTableRowsRequest) Execute() (*BatchResponseHubDbTableRowV3, *http.Response, error) {
-	return r.ApiService.PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReplaceBatchReplaceDraftTableRowsExecute(r)
+func (r ApiBatchReadTableRowsRequest) Execute() (*BatchResponseHubDbTableRowV3, *http.Response, error) {
+	return r.ApiService.BatchReadTableRowsExecute(r)
 }
 
 /*
-PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReplaceBatchReplaceDraftTableRows Replace rows in batch in draft table
+BatchReadTableRows Get a set of rows
 
-Replaces multiple rows as a batch in the `draft` version of the table. See the endpoint `PUT /tables/{tableIdOrName}/rows/{rowId}/draft` for details on updating a single row.
+Returns rows in the `published` version of the specified table, given a set of row ids.
+**Note:** This endpoint can be accessed without any authentication if the table is set to be allowed for public access.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param tableIdOrName The ID or name of the table
- @return ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReplaceBatchReplaceDraftTableRowsRequest
+ @param tableIdOrName The ID or name of the table to query.
+ @return ApiBatchReadTableRowsRequest
 */
-func (a *RowsBatchApiService) PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReplaceBatchReplaceDraftTableRows(ctx context.Context, tableIdOrName string) ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReplaceBatchReplaceDraftTableRowsRequest {
-	return ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReplaceBatchReplaceDraftTableRowsRequest{
+func (a *RowsBatchApiService) BatchReadTableRows(ctx context.Context, tableIdOrName string) ApiBatchReadTableRowsRequest {
+	return ApiBatchReadTableRowsRequest{
 		ApiService:    a,
 		ctx:           ctx,
 		tableIdOrName: tableIdOrName,
@@ -710,7 +578,7 @@ func (a *RowsBatchApiService) PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchRep
 
 // Execute executes the request
 //  @return BatchResponseHubDbTableRowV3
-func (a *RowsBatchApiService) PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReplaceBatchReplaceDraftTableRowsExecute(r ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReplaceBatchReplaceDraftTableRowsRequest) (*BatchResponseHubDbTableRowV3, *http.Response, error) {
+func (a *RowsBatchApiService) BatchReadTableRowsExecute(r ApiBatchReadTableRowsRequest) (*BatchResponseHubDbTableRowV3, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -718,7 +586,139 @@ func (a *RowsBatchApiService) PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchRep
 		localVarReturnValue *BatchResponseHubDbTableRowV3
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RowsBatchApiService.PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReplaceBatchReplaceDraftTableRows")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RowsBatchApiService.BatchReadTableRows")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/cms/v3/hubdb/tables/{tableIdOrName}/rows/batch/read"
+	localVarPath = strings.Replace(localVarPath, "{"+"tableIdOrName"+"}", url.PathEscape(parameterToString(r.tableIdOrName, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.batchInputString == nil {
+		return localVarReturnValue, nil, reportError("batchInputString is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "*/*"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.batchInputString
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiBatchReplaceDraftTableRowsRequest struct {
+	ctx                              context.Context
+	ApiService                       *RowsBatchApiService
+	tableIdOrName                    string
+	batchInputHubDbTableRowV3Request *BatchInputHubDbTableRowV3Request
+}
+
+// JSON array of row objects.
+func (r ApiBatchReplaceDraftTableRowsRequest) BatchInputHubDbTableRowV3Request(batchInputHubDbTableRowV3Request BatchInputHubDbTableRowV3Request) ApiBatchReplaceDraftTableRowsRequest {
+	r.batchInputHubDbTableRowV3Request = &batchInputHubDbTableRowV3Request
+	return r
+}
+
+func (r ApiBatchReplaceDraftTableRowsRequest) Execute() (*BatchResponseHubDbTableRowV3, *http.Response, error) {
+	return r.ApiService.BatchReplaceDraftTableRowsExecute(r)
+}
+
+/*
+BatchReplaceDraftTableRows Replace rows in batch in draft table
+
+Replaces multiple rows as a batch in the `draft` version of the table. See the endpoint `PUT /tables/{tableIdOrName}/rows/{rowId}/draft` for details on updating a single row.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tableIdOrName The ID or name of the table
+ @return ApiBatchReplaceDraftTableRowsRequest
+*/
+func (a *RowsBatchApiService) BatchReplaceDraftTableRows(ctx context.Context, tableIdOrName string) ApiBatchReplaceDraftTableRowsRequest {
+	return ApiBatchReplaceDraftTableRowsRequest{
+		ApiService:    a,
+		ctx:           ctx,
+		tableIdOrName: tableIdOrName,
+	}
+}
+
+// Execute executes the request
+//  @return BatchResponseHubDbTableRowV3
+func (a *RowsBatchApiService) BatchReplaceDraftTableRowsExecute(r ApiBatchReplaceDraftTableRowsRequest) (*BatchResponseHubDbTableRowV3, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *BatchResponseHubDbTableRowV3
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RowsBatchApiService.BatchReplaceDraftTableRows")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -806,7 +806,7 @@ func (a *RowsBatchApiService) PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchRep
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchUpdateBatchUpdateDraftTableRowsRequest struct {
+type ApiBatchUpdateDraftTableRowsRequest struct {
 	ctx                context.Context
 	ApiService         *RowsBatchApiService
 	tableIdOrName      string
@@ -814,26 +814,26 @@ type ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchUpdateBatchUpdateDraftTab
 }
 
 // JSON array of row objects.
-func (r ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchUpdateBatchUpdateDraftTableRowsRequest) BatchInputJsonNode(batchInputJsonNode BatchInputJsonNode) ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchUpdateBatchUpdateDraftTableRowsRequest {
+func (r ApiBatchUpdateDraftTableRowsRequest) BatchInputJsonNode(batchInputJsonNode BatchInputJsonNode) ApiBatchUpdateDraftTableRowsRequest {
 	r.batchInputJsonNode = &batchInputJsonNode
 	return r
 }
 
-func (r ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchUpdateBatchUpdateDraftTableRowsRequest) Execute() (*BatchResponseHubDbTableRowV3, *http.Response, error) {
-	return r.ApiService.PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchUpdateBatchUpdateDraftTableRowsExecute(r)
+func (r ApiBatchUpdateDraftTableRowsRequest) Execute() (*BatchResponseHubDbTableRowV3, *http.Response, error) {
+	return r.ApiService.BatchUpdateDraftTableRowsExecute(r)
 }
 
 /*
-PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchUpdateBatchUpdateDraftTableRows Update rows in batch in draft table
+BatchUpdateDraftTableRows Update rows in batch in draft table
 
 Updates multiple rows as a batch in the `draft` version of the table. See the endpoint `PATCH /tables/{tableIdOrName}/rows/{rowId}/draft` for details on updating a single row.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param tableIdOrName The ID or name of the table
- @return ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchUpdateBatchUpdateDraftTableRowsRequest
+ @return ApiBatchUpdateDraftTableRowsRequest
 */
-func (a *RowsBatchApiService) PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchUpdateBatchUpdateDraftTableRows(ctx context.Context, tableIdOrName string) ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchUpdateBatchUpdateDraftTableRowsRequest {
-	return ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchUpdateBatchUpdateDraftTableRowsRequest{
+func (a *RowsBatchApiService) BatchUpdateDraftTableRows(ctx context.Context, tableIdOrName string) ApiBatchUpdateDraftTableRowsRequest {
+	return ApiBatchUpdateDraftTableRowsRequest{
 		ApiService:    a,
 		ctx:           ctx,
 		tableIdOrName: tableIdOrName,
@@ -842,7 +842,7 @@ func (a *RowsBatchApiService) PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchUpd
 
 // Execute executes the request
 //  @return BatchResponseHubDbTableRowV3
-func (a *RowsBatchApiService) PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchUpdateBatchUpdateDraftTableRowsExecute(r ApiPostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchUpdateBatchUpdateDraftTableRowsRequest) (*BatchResponseHubDbTableRowV3, *http.Response, error) {
+func (a *RowsBatchApiService) BatchUpdateDraftTableRowsExecute(r ApiBatchUpdateDraftTableRowsRequest) (*BatchResponseHubDbTableRowV3, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -850,7 +850,7 @@ func (a *RowsBatchApiService) PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchUpd
 		localVarReturnValue *BatchResponseHubDbTableRowV3
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RowsBatchApiService.PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchUpdateBatchUpdateDraftTableRows")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RowsBatchApiService.BatchUpdateDraftTableRows")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

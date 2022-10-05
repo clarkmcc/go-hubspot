@@ -4,14 +4,14 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetCrmV3ExtensionsAccountingSettingsAppIdGetById**](SettingsApi.md#GetCrmV3ExtensionsAccountingSettingsAppIdGetById) | **Get** /crm/v3/extensions/accounting/settings/{appId} | Get URL settings
-[**PutCrmV3ExtensionsAccountingSettingsAppIdReplace**](SettingsApi.md#PutCrmV3ExtensionsAccountingSettingsAppIdReplace) | **Put** /crm/v3/extensions/accounting/settings/{appId} | Add/Update URL Settings
+[**SettingsGetByID**](SettingsApi.md#SettingsGetByID) | **Get** /crm/v3/extensions/accounting/settings/{appId} | Get URL settings
+[**SettingsReplace**](SettingsApi.md#SettingsReplace) | **Put** /crm/v3/extensions/accounting/settings/{appId} | Add/Update URL Settings
 
 
 
-## GetCrmV3ExtensionsAccountingSettingsAppIdGetById
+## SettingsGetByID
 
-> AccountingAppSettings GetCrmV3ExtensionsAccountingSettingsAppIdGetById(ctx, appId).Execute()
+> AccountingAppSettings SettingsGetByID(ctx, appId).Execute()
 
 Get URL settings
 
@@ -34,13 +34,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SettingsApi.GetCrmV3ExtensionsAccountingSettingsAppIdGetById(context.Background(), appId).Execute()
+    resp, r, err := apiClient.SettingsApi.SettingsGetByID(context.Background(), appId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SettingsApi.GetCrmV3ExtensionsAccountingSettingsAppIdGetById``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SettingsApi.SettingsGetByID``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetCrmV3ExtensionsAccountingSettingsAppIdGetById`: AccountingAppSettings
-    fmt.Fprintf(os.Stdout, "Response from `SettingsApi.GetCrmV3ExtensionsAccountingSettingsAppIdGetById`: %v\n", resp)
+    // response from `SettingsGetByID`: AccountingAppSettings
+    fmt.Fprintf(os.Stdout, "Response from `SettingsApi.SettingsGetByID`: %v\n", resp)
 }
 ```
 
@@ -54,7 +54,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetCrmV3ExtensionsAccountingSettingsAppIdGetByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiSettingsGetByIDRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -79,9 +79,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PutCrmV3ExtensionsAccountingSettingsAppIdReplace
+## SettingsReplace
 
-> PutCrmV3ExtensionsAccountingSettingsAppIdReplace(ctx, appId).AccountingAppSettings(accountingAppSettings).Execute()
+> SettingsReplace(ctx, appId).AccountingAppSettings(accountingAppSettings).Execute()
 
 Add/Update URL Settings
 
@@ -105,9 +105,9 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SettingsApi.PutCrmV3ExtensionsAccountingSettingsAppIdReplace(context.Background(), appId).AccountingAppSettings(accountingAppSettings).Execute()
+    resp, r, err := apiClient.SettingsApi.SettingsReplace(context.Background(), appId).AccountingAppSettings(accountingAppSettings).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SettingsApi.PutCrmV3ExtensionsAccountingSettingsAppIdReplace``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SettingsApi.SettingsReplace``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -123,7 +123,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPutCrmV3ExtensionsAccountingSettingsAppIdReplaceRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiSettingsReplaceRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

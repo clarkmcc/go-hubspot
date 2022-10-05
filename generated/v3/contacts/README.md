@@ -80,10 +80,10 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *AssociationsApi* | [**AssociationsArchive**](docs/AssociationsApi.md#associationsarchive) | **Delete** /crm/v3/objects/contacts/{contactId}/associations/{toObjectType}/{toObjectId}/{associationType} | Remove an association between two contacts
 *AssociationsApi* | [**AssociationsCreate**](docs/AssociationsApi.md#associationscreate) | **Put** /crm/v3/objects/contacts/{contactId}/associations/{toObjectType}/{toObjectId}/{associationType} | Associate a contact with another object
-*AssociationsApi* | [**AssociationsGet**](docs/AssociationsApi.md#associationsget) | **Get** /crm/v3/objects/contacts/{contactId}/associations/{toObjectType} | List associations of a contact by type
+*AssociationsApi* | [**AssociationsGetAll**](docs/AssociationsApi.md#associationsgetall) | **Get** /crm/v3/objects/contacts/{contactId}/associations/{toObjectType} | List associations of a contact by type
 *BasicApi* | [**Archive**](docs/BasicApi.md#archive) | **Delete** /crm/v3/objects/contacts/{contactId} | Archive
 *BasicApi* | [**Create**](docs/BasicApi.md#create) | **Post** /crm/v3/objects/contacts | Create
-*BasicApi* | [**Get**](docs/BasicApi.md#get) | **Get** /crm/v3/objects/contacts/{contactId} | Read
+*BasicApi* | [**GetByID**](docs/BasicApi.md#getbyid) | **Get** /crm/v3/objects/contacts/{contactId} | Read
 *BasicApi* | [**GetPage**](docs/BasicApi.md#getpage) | **Get** /crm/v3/objects/contacts | List
 *BasicApi* | [**Update**](docs/BasicApi.md#update) | **Patch** /crm/v3/objects/contacts/{contactId} | Update
 *BatchApi* | [**BatchArchive**](docs/BatchApi.md#batcharchive) | **Post** /crm/v3/objects/contacts/batch/archive | Archive a batch of contacts by ID

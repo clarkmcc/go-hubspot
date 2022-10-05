@@ -4,26 +4,26 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteCmsV3BlogsTagsObjectIdArchive**](BlogTagsApi.md#DeleteCmsV3BlogsTagsObjectIdArchive) | **Delete** /cms/v3/blogs/tags/{objectId} | Delete a Blog Tag
-[**GetCmsV3BlogsTagsGetPage**](BlogTagsApi.md#GetCmsV3BlogsTagsGetPage) | **Get** /cms/v3/blogs/tags | Get all Blog Tags
-[**GetCmsV3BlogsTagsObjectIdGetById**](BlogTagsApi.md#GetCmsV3BlogsTagsObjectIdGetById) | **Get** /cms/v3/blogs/tags/{objectId} | Retrieve a Blog Tag
-[**PatchCmsV3BlogsTagsObjectIdUpdate**](BlogTagsApi.md#PatchCmsV3BlogsTagsObjectIdUpdate) | **Patch** /cms/v3/blogs/tags/{objectId} | Update a Blog Tag
-[**PostCmsV3BlogsTagsBatchArchiveArchiveBatch**](BlogTagsApi.md#PostCmsV3BlogsTagsBatchArchiveArchiveBatch) | **Post** /cms/v3/blogs/tags/batch/archive | Delete a batch of Blog Tags
-[**PostCmsV3BlogsTagsBatchCreateCreateBatch**](BlogTagsApi.md#PostCmsV3BlogsTagsBatchCreateCreateBatch) | **Post** /cms/v3/blogs/tags/batch/create | Create a batch of Blog Tags
-[**PostCmsV3BlogsTagsBatchReadReadBatch**](BlogTagsApi.md#PostCmsV3BlogsTagsBatchReadReadBatch) | **Post** /cms/v3/blogs/tags/batch/read | Retrieve a batch of Blog Tags
-[**PostCmsV3BlogsTagsBatchUpdateUpdateBatch**](BlogTagsApi.md#PostCmsV3BlogsTagsBatchUpdateUpdateBatch) | **Post** /cms/v3/blogs/tags/batch/update | Update a batch of Blog Tags
-[**PostCmsV3BlogsTagsCreate**](BlogTagsApi.md#PostCmsV3BlogsTagsCreate) | **Post** /cms/v3/blogs/tags | Create a new Blog Tag
-[**PostCmsV3BlogsTagsMultiLanguageAttachToLangGroupAttachToLangGroup**](BlogTagsApi.md#PostCmsV3BlogsTagsMultiLanguageAttachToLangGroupAttachToLangGroup) | **Post** /cms/v3/blogs/tags/multi-language/attach-to-lang-group | Attach a Blog Tag to a multi-language group
-[**PostCmsV3BlogsTagsMultiLanguageCreateLanguageVariationCreateLangVariation**](BlogTagsApi.md#PostCmsV3BlogsTagsMultiLanguageCreateLanguageVariationCreateLangVariation) | **Post** /cms/v3/blogs/tags/multi-language/create-language-variation | Create a new language variation
-[**PostCmsV3BlogsTagsMultiLanguageDetachFromLangGroupDetachFromLangGroup**](BlogTagsApi.md#PostCmsV3BlogsTagsMultiLanguageDetachFromLangGroupDetachFromLangGroup) | **Post** /cms/v3/blogs/tags/multi-language/detach-from-lang-group | Detach a Blog Tag from a multi-language group
-[**PostCmsV3BlogsTagsMultiLanguageUpdateLanguagesUpdateLangs**](BlogTagsApi.md#PostCmsV3BlogsTagsMultiLanguageUpdateLanguagesUpdateLangs) | **Post** /cms/v3/blogs/tags/multi-language/update-languages | Update languages of multi-language group
-[**PutCmsV3BlogsTagsMultiLanguageSetNewLangPrimarySetLangPrimary**](BlogTagsApi.md#PutCmsV3BlogsTagsMultiLanguageSetNewLangPrimarySetLangPrimary) | **Put** /cms/v3/blogs/tags/multi-language/set-new-lang-primary | Set a new primary language
+[**Archive**](BlogTagsApi.md#Archive) | **Delete** /cms/v3/blogs/tags/{objectId} | Delete a Blog Tag
+[**AttachToLangGroup**](BlogTagsApi.md#AttachToLangGroup) | **Post** /cms/v3/blogs/tags/multi-language/attach-to-lang-group | Attach a Blog Tag to a multi-language group
+[**BatchArchive**](BlogTagsApi.md#BatchArchive) | **Post** /cms/v3/blogs/tags/batch/archive | Delete a batch of Blog Tags
+[**BatchCreate**](BlogTagsApi.md#BatchCreate) | **Post** /cms/v3/blogs/tags/batch/create | Create a batch of Blog Tags
+[**BatchRead**](BlogTagsApi.md#BatchRead) | **Post** /cms/v3/blogs/tags/batch/read | Retrieve a batch of Blog Tags
+[**BatchUpdate**](BlogTagsApi.md#BatchUpdate) | **Post** /cms/v3/blogs/tags/batch/update | Update a batch of Blog Tags
+[**Create**](BlogTagsApi.md#Create) | **Post** /cms/v3/blogs/tags | Create a new Blog Tag
+[**CreateLangVariation**](BlogTagsApi.md#CreateLangVariation) | **Post** /cms/v3/blogs/tags/multi-language/create-language-variation | Create a new language variation
+[**DetachFromLangGroup**](BlogTagsApi.md#DetachFromLangGroup) | **Post** /cms/v3/blogs/tags/multi-language/detach-from-lang-group | Detach a Blog Tag from a multi-language group
+[**GetByID**](BlogTagsApi.md#GetByID) | **Get** /cms/v3/blogs/tags/{objectId} | Retrieve a Blog Tag
+[**GetPage**](BlogTagsApi.md#GetPage) | **Get** /cms/v3/blogs/tags | Get all Blog Tags
+[**SetLangPrimary**](BlogTagsApi.md#SetLangPrimary) | **Put** /cms/v3/blogs/tags/multi-language/set-new-lang-primary | Set a new primary language
+[**Update**](BlogTagsApi.md#Update) | **Patch** /cms/v3/blogs/tags/{objectId} | Update a Blog Tag
+[**UpdateLangs**](BlogTagsApi.md#UpdateLangs) | **Post** /cms/v3/blogs/tags/multi-language/update-languages | Update languages of multi-language group
 
 
 
-## DeleteCmsV3BlogsTagsObjectIdArchive
+## Archive
 
-> DeleteCmsV3BlogsTagsObjectIdArchive(ctx, objectId).Archived(archived).Execute()
+> Archive(ctx, objectId).Archived(archived).Execute()
 
 Delete a Blog Tag
 
@@ -47,9 +47,9 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogTagsApi.DeleteCmsV3BlogsTagsObjectIdArchive(context.Background(), objectId).Archived(archived).Execute()
+    resp, r, err := apiClient.BlogTagsApi.Archive(context.Background(), objectId).Archived(archived).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogTagsApi.DeleteCmsV3BlogsTagsObjectIdArchive``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BlogTagsApi.Archive``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -65,7 +65,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteCmsV3BlogsTagsObjectIdArchiveRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiArchiveRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -91,9 +91,613 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetCmsV3BlogsTagsGetPage
+## AttachToLangGroup
 
-> CollectionResponseWithTotalTagForwardPaging GetCmsV3BlogsTagsGetPage(ctx).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Sort(sort).After(after).Limit(limit).Archived(archived).Execute()
+> Error AttachToLangGroup(ctx).AttachToLangPrimaryRequestVNext(attachToLangPrimaryRequestVNext).Execute()
+
+Attach a Blog Tag to a multi-language group
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    attachToLangPrimaryRequestVNext := *openapiclient.NewAttachToLangPrimaryRequestVNext("Id_example", "Language_example", "PrimaryId_example") // AttachToLangPrimaryRequestVNext | The JSON representation of the AttachToLangPrimaryRequest object.
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.BlogTagsApi.AttachToLangGroup(context.Background()).AttachToLangPrimaryRequestVNext(attachToLangPrimaryRequestVNext).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `BlogTagsApi.AttachToLangGroup``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `AttachToLangGroup`: Error
+    fmt.Fprintf(os.Stdout, "Response from `BlogTagsApi.AttachToLangGroup`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiAttachToLangGroupRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **attachToLangPrimaryRequestVNext** | [**AttachToLangPrimaryRequestVNext**](AttachToLangPrimaryRequestVNext.md) | The JSON representation of the AttachToLangPrimaryRequest object. | 
+
+### Return type
+
+[**Error**](Error.md)
+
+### Authorization
+
+[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: */*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## BatchArchive
+
+> BatchArchive(ctx).BatchInputString(batchInputString).Execute()
+
+Delete a batch of Blog Tags
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    batchInputString := *openapiclient.NewBatchInputString([]string{"Inputs_example"}) // BatchInputString | The JSON array of Blog Tag ids.
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.BlogTagsApi.BatchArchive(context.Background()).BatchInputString(batchInputString).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `BlogTagsApi.BatchArchive``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiBatchArchiveRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **batchInputString** | [**BatchInputString**](BatchInputString.md) | The JSON array of Blog Tag ids. | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: */*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## BatchCreate
+
+> BatchResponseTag BatchCreate(ctx).BatchInputTag(batchInputTag).Execute()
+
+Create a batch of Blog Tags
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    "time"
+    openapiclient "./openapi"
+)
+
+func main() {
+    batchInputTag := *openapiclient.NewBatchInputTag([]openapiclient.Tag{*openapiclient.NewTag("Id_example", "Name_example", "Language_example", int64(123), time.Now(), time.Now(), time.Now())}) // BatchInputTag | The JSON array of new Blog Tags to create.
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.BlogTagsApi.BatchCreate(context.Background()).BatchInputTag(batchInputTag).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `BlogTagsApi.BatchCreate``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `BatchCreate`: BatchResponseTag
+    fmt.Fprintf(os.Stdout, "Response from `BlogTagsApi.BatchCreate`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiBatchCreateRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **batchInputTag** | [**BatchInputTag**](BatchInputTag.md) | The JSON array of new Blog Tags to create. | 
+
+### Return type
+
+[**BatchResponseTag**](BatchResponseTag.md)
+
+### Authorization
+
+[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, */*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## BatchRead
+
+> BatchResponseTag BatchRead(ctx).BatchInputString(batchInputString).Archived(archived).Execute()
+
+Retrieve a batch of Blog Tags
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    batchInputString := *openapiclient.NewBatchInputString([]string{"Inputs_example"}) // BatchInputString | The JSON array of Blog Tag ids.
+    archived := true // bool | Specifies whether to return deleted Blog Tags. Defaults to `false`. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.BlogTagsApi.BatchRead(context.Background()).BatchInputString(batchInputString).Archived(archived).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `BlogTagsApi.BatchRead``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `BatchRead`: BatchResponseTag
+    fmt.Fprintf(os.Stdout, "Response from `BlogTagsApi.BatchRead`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiBatchReadRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **batchInputString** | [**BatchInputString**](BatchInputString.md) | The JSON array of Blog Tag ids. | 
+ **archived** | **bool** | Specifies whether to return deleted Blog Tags. Defaults to &#x60;false&#x60;. | 
+
+### Return type
+
+[**BatchResponseTag**](BatchResponseTag.md)
+
+### Authorization
+
+[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, */*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## BatchUpdate
+
+> BatchResponseTag BatchUpdate(ctx).BatchInputJsonNode(batchInputJsonNode).Archived(archived).Execute()
+
+Update a batch of Blog Tags
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    batchInputJsonNode := *openapiclient.NewBatchInputJsonNode([]map[string]interface{}{map[string]interface{}(123)}) // BatchInputJsonNode | A JSON array of the JSON representations of the updated Blog Tags.
+    archived := true // bool | Specifies whether to update deleted Blog Tags. Defaults to `false`. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.BlogTagsApi.BatchUpdate(context.Background()).BatchInputJsonNode(batchInputJsonNode).Archived(archived).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `BlogTagsApi.BatchUpdate``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `BatchUpdate`: BatchResponseTag
+    fmt.Fprintf(os.Stdout, "Response from `BlogTagsApi.BatchUpdate`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiBatchUpdateRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **batchInputJsonNode** | [**BatchInputJsonNode**](BatchInputJsonNode.md) | A JSON array of the JSON representations of the updated Blog Tags. | 
+ **archived** | **bool** | Specifies whether to update deleted Blog Tags. Defaults to &#x60;false&#x60;. | 
+
+### Return type
+
+[**BatchResponseTag**](BatchResponseTag.md)
+
+### Authorization
+
+[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, */*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## Create
+
+> Tag Create(ctx).Tag(tag).Execute()
+
+Create a new Blog Tag
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    "time"
+    openapiclient "./openapi"
+)
+
+func main() {
+    tag := *openapiclient.NewTag("Id_example", "Name_example", "Language_example", int64(123), time.Now(), time.Now(), time.Now()) // Tag | The JSON representation of a new Blog Tag.
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.BlogTagsApi.Create(context.Background()).Tag(tag).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `BlogTagsApi.Create``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `Create`: Tag
+    fmt.Fprintf(os.Stdout, "Response from `BlogTagsApi.Create`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tag** | [**Tag**](Tag.md) | The JSON representation of a new Blog Tag. | 
+
+### Return type
+
+[**Tag**](Tag.md)
+
+### Authorization
+
+[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, */*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CreateLangVariation
+
+> Tag CreateLangVariation(ctx).TagCloneRequestVNext(tagCloneRequestVNext).Execute()
+
+Create a new language variation
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    tagCloneRequestVNext := *openapiclient.NewTagCloneRequestVNext("Id_example", "Name_example") // TagCloneRequestVNext | The JSON representation of the ContentLanguageCloneRequest object.
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.BlogTagsApi.CreateLangVariation(context.Background()).TagCloneRequestVNext(tagCloneRequestVNext).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `BlogTagsApi.CreateLangVariation``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateLangVariation`: Tag
+    fmt.Fprintf(os.Stdout, "Response from `BlogTagsApi.CreateLangVariation`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateLangVariationRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tagCloneRequestVNext** | [**TagCloneRequestVNext**](TagCloneRequestVNext.md) | The JSON representation of the ContentLanguageCloneRequest object. | 
+
+### Return type
+
+[**Tag**](Tag.md)
+
+### Authorization
+
+[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, */*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DetachFromLangGroup
+
+> Error DetachFromLangGroup(ctx).DetachFromLangGroupRequestVNext(detachFromLangGroupRequestVNext).Execute()
+
+Detach a Blog Tag from a multi-language group
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    detachFromLangGroupRequestVNext := *openapiclient.NewDetachFromLangGroupRequestVNext("Id_example") // DetachFromLangGroupRequestVNext | The JSON representation of the DetachFromLangGroupRequest object.
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.BlogTagsApi.DetachFromLangGroup(context.Background()).DetachFromLangGroupRequestVNext(detachFromLangGroupRequestVNext).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `BlogTagsApi.DetachFromLangGroup``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `DetachFromLangGroup`: Error
+    fmt.Fprintf(os.Stdout, "Response from `BlogTagsApi.DetachFromLangGroup`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDetachFromLangGroupRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **detachFromLangGroupRequestVNext** | [**DetachFromLangGroupRequestVNext**](DetachFromLangGroupRequestVNext.md) | The JSON representation of the DetachFromLangGroupRequest object. | 
+
+### Return type
+
+[**Error**](Error.md)
+
+### Authorization
+
+[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: */*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetByID
+
+> Tag GetByID(ctx, objectId).Archived(archived).Execute()
+
+Retrieve a Blog Tag
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    objectId := "objectId_example" // string | The Blog Tag id.
+    archived := true // bool | Specifies whether to return deleted Blog Tags. Defaults to `false`. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.BlogTagsApi.GetByID(context.Background(), objectId).Archived(archived).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `BlogTagsApi.GetByID``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetByID`: Tag
+    fmt.Fprintf(os.Stdout, "Response from `BlogTagsApi.GetByID`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**objectId** | **string** | The Blog Tag id. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetByIDRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **archived** | **bool** | Specifies whether to return deleted Blog Tags. Defaults to &#x60;false&#x60;. | 
+
+### Return type
+
+[**Tag**](Tag.md)
+
+### Authorization
+
+[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, */*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetPage
+
+> CollectionResponseWithTotalTagForwardPaging GetPage(ctx).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Sort(sort).After(after).Limit(limit).Archived(archived).Execute()
 
 Get all Blog Tags
 
@@ -126,13 +730,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogTagsApi.GetCmsV3BlogsTagsGetPage(context.Background()).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Sort(sort).After(after).Limit(limit).Archived(archived).Execute()
+    resp, r, err := apiClient.BlogTagsApi.GetPage(context.Background()).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Sort(sort).After(after).Limit(limit).Archived(archived).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogTagsApi.GetCmsV3BlogsTagsGetPage``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BlogTagsApi.GetPage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetCmsV3BlogsTagsGetPage`: CollectionResponseWithTotalTagForwardPaging
-    fmt.Fprintf(os.Stdout, "Response from `BlogTagsApi.GetCmsV3BlogsTagsGetPage`: %v\n", resp)
+    // response from `GetPage`: CollectionResponseWithTotalTagForwardPaging
+    fmt.Fprintf(os.Stdout, "Response from `BlogTagsApi.GetPage`: %v\n", resp)
 }
 ```
 
@@ -142,7 +746,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetCmsV3BlogsTagsGetPageRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetPageRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -176,11 +780,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetCmsV3BlogsTagsObjectIdGetById
+## SetLangPrimary
 
-> Tag GetCmsV3BlogsTagsObjectIdGetById(ctx, objectId).Archived(archived).Execute()
+> SetLangPrimary(ctx).SetNewLanguagePrimaryRequestVNext(setNewLanguagePrimaryRequestVNext).Execute()
 
-Retrieve a Blog Tag
+Set a new primary language
 
 
 
@@ -197,42 +801,34 @@ import (
 )
 
 func main() {
-    objectId := "objectId_example" // string | The Blog Tag id.
-    archived := true // bool | Specifies whether to return deleted Blog Tags. Defaults to `false`. (optional)
+    setNewLanguagePrimaryRequestVNext := *openapiclient.NewSetNewLanguagePrimaryRequestVNext("Id_example") // SetNewLanguagePrimaryRequestVNext | The JSON representation of the SetNewLanguagePrimaryRequest object.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogTagsApi.GetCmsV3BlogsTagsObjectIdGetById(context.Background(), objectId).Archived(archived).Execute()
+    resp, r, err := apiClient.BlogTagsApi.SetLangPrimary(context.Background()).SetNewLanguagePrimaryRequestVNext(setNewLanguagePrimaryRequestVNext).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogTagsApi.GetCmsV3BlogsTagsObjectIdGetById``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BlogTagsApi.SetLangPrimary``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetCmsV3BlogsTagsObjectIdGetById`: Tag
-    fmt.Fprintf(os.Stdout, "Response from `BlogTagsApi.GetCmsV3BlogsTagsObjectIdGetById`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**objectId** | **string** | The Blog Tag id. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetCmsV3BlogsTagsObjectIdGetByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiSetLangPrimaryRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **archived** | **bool** | Specifies whether to return deleted Blog Tags. Defaults to &#x60;false&#x60;. | 
+ **setNewLanguagePrimaryRequestVNext** | [**SetNewLanguagePrimaryRequestVNext**](SetNewLanguagePrimaryRequestVNext.md) | The JSON representation of the SetNewLanguagePrimaryRequest object. | 
 
 ### Return type
 
-[**Tag**](Tag.md)
+ (empty response body)
 
 ### Authorization
 
@@ -240,17 +836,17 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: application/json, */*
+- **Content-Type**: application/json
+- **Accept**: */*
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
 
 
-## PatchCmsV3BlogsTagsObjectIdUpdate
+## Update
 
-> Tag PatchCmsV3BlogsTagsObjectIdUpdate(ctx, objectId).Tag(tag).Archived(archived).Execute()
+> Tag Update(ctx, objectId).Tag(tag).Archived(archived).Execute()
 
 Update a Blog Tag
 
@@ -276,13 +872,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogTagsApi.PatchCmsV3BlogsTagsObjectIdUpdate(context.Background(), objectId).Tag(tag).Archived(archived).Execute()
+    resp, r, err := apiClient.BlogTagsApi.Update(context.Background(), objectId).Tag(tag).Archived(archived).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogTagsApi.PatchCmsV3BlogsTagsObjectIdUpdate``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BlogTagsApi.Update``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PatchCmsV3BlogsTagsObjectIdUpdate`: Tag
-    fmt.Fprintf(os.Stdout, "Response from `BlogTagsApi.PatchCmsV3BlogsTagsObjectIdUpdate`: %v\n", resp)
+    // response from `Update`: Tag
+    fmt.Fprintf(os.Stdout, "Response from `BlogTagsApi.Update`: %v\n", resp)
 }
 ```
 
@@ -296,7 +892,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPatchCmsV3BlogsTagsObjectIdUpdateRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiUpdateRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -323,541 +919,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostCmsV3BlogsTagsBatchArchiveArchiveBatch
+## UpdateLangs
 
-> PostCmsV3BlogsTagsBatchArchiveArchiveBatch(ctx).BatchInputString(batchInputString).Execute()
-
-Delete a batch of Blog Tags
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    batchInputString := *openapiclient.NewBatchInputString([]string{"Inputs_example"}) // BatchInputString | The JSON array of Blog Tag ids.
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogTagsApi.PostCmsV3BlogsTagsBatchArchiveArchiveBatch(context.Background()).BatchInputString(batchInputString).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogTagsApi.PostCmsV3BlogsTagsBatchArchiveArchiveBatch``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostCmsV3BlogsTagsBatchArchiveArchiveBatchRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **batchInputString** | [**BatchInputString**](BatchInputString.md) | The JSON array of Blog Tag ids. | 
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: */*
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostCmsV3BlogsTagsBatchCreateCreateBatch
-
-> BatchResponseTag PostCmsV3BlogsTagsBatchCreateCreateBatch(ctx).BatchInputTag(batchInputTag).Execute()
-
-Create a batch of Blog Tags
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    "time"
-    openapiclient "./openapi"
-)
-
-func main() {
-    batchInputTag := *openapiclient.NewBatchInputTag([]openapiclient.Tag{*openapiclient.NewTag("Id_example", "Name_example", "Language_example", int64(123), time.Now(), time.Now(), time.Now())}) // BatchInputTag | The JSON array of new Blog Tags to create.
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogTagsApi.PostCmsV3BlogsTagsBatchCreateCreateBatch(context.Background()).BatchInputTag(batchInputTag).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogTagsApi.PostCmsV3BlogsTagsBatchCreateCreateBatch``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostCmsV3BlogsTagsBatchCreateCreateBatch`: BatchResponseTag
-    fmt.Fprintf(os.Stdout, "Response from `BlogTagsApi.PostCmsV3BlogsTagsBatchCreateCreateBatch`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostCmsV3BlogsTagsBatchCreateCreateBatchRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **batchInputTag** | [**BatchInputTag**](BatchInputTag.md) | The JSON array of new Blog Tags to create. | 
-
-### Return type
-
-[**BatchResponseTag**](BatchResponseTag.md)
-
-### Authorization
-
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json, */*
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostCmsV3BlogsTagsBatchReadReadBatch
-
-> BatchResponseTag PostCmsV3BlogsTagsBatchReadReadBatch(ctx).BatchInputString(batchInputString).Archived(archived).Execute()
-
-Retrieve a batch of Blog Tags
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    batchInputString := *openapiclient.NewBatchInputString([]string{"Inputs_example"}) // BatchInputString | The JSON array of Blog Tag ids.
-    archived := true // bool | Specifies whether to return deleted Blog Tags. Defaults to `false`. (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogTagsApi.PostCmsV3BlogsTagsBatchReadReadBatch(context.Background()).BatchInputString(batchInputString).Archived(archived).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogTagsApi.PostCmsV3BlogsTagsBatchReadReadBatch``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostCmsV3BlogsTagsBatchReadReadBatch`: BatchResponseTag
-    fmt.Fprintf(os.Stdout, "Response from `BlogTagsApi.PostCmsV3BlogsTagsBatchReadReadBatch`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostCmsV3BlogsTagsBatchReadReadBatchRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **batchInputString** | [**BatchInputString**](BatchInputString.md) | The JSON array of Blog Tag ids. | 
- **archived** | **bool** | Specifies whether to return deleted Blog Tags. Defaults to &#x60;false&#x60;. | 
-
-### Return type
-
-[**BatchResponseTag**](BatchResponseTag.md)
-
-### Authorization
-
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json, */*
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostCmsV3BlogsTagsBatchUpdateUpdateBatch
-
-> BatchResponseTag PostCmsV3BlogsTagsBatchUpdateUpdateBatch(ctx).BatchInputJsonNode(batchInputJsonNode).Archived(archived).Execute()
-
-Update a batch of Blog Tags
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    batchInputJsonNode := *openapiclient.NewBatchInputJsonNode([]map[string]interface{}{map[string]interface{}(123)}) // BatchInputJsonNode | A JSON array of the JSON representations of the updated Blog Tags.
-    archived := true // bool | Specifies whether to update deleted Blog Tags. Defaults to `false`. (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogTagsApi.PostCmsV3BlogsTagsBatchUpdateUpdateBatch(context.Background()).BatchInputJsonNode(batchInputJsonNode).Archived(archived).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogTagsApi.PostCmsV3BlogsTagsBatchUpdateUpdateBatch``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostCmsV3BlogsTagsBatchUpdateUpdateBatch`: BatchResponseTag
-    fmt.Fprintf(os.Stdout, "Response from `BlogTagsApi.PostCmsV3BlogsTagsBatchUpdateUpdateBatch`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostCmsV3BlogsTagsBatchUpdateUpdateBatchRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **batchInputJsonNode** | [**BatchInputJsonNode**](BatchInputJsonNode.md) | A JSON array of the JSON representations of the updated Blog Tags. | 
- **archived** | **bool** | Specifies whether to update deleted Blog Tags. Defaults to &#x60;false&#x60;. | 
-
-### Return type
-
-[**BatchResponseTag**](BatchResponseTag.md)
-
-### Authorization
-
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json, */*
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostCmsV3BlogsTagsCreate
-
-> Tag PostCmsV3BlogsTagsCreate(ctx).Tag(tag).Execute()
-
-Create a new Blog Tag
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    "time"
-    openapiclient "./openapi"
-)
-
-func main() {
-    tag := *openapiclient.NewTag("Id_example", "Name_example", "Language_example", int64(123), time.Now(), time.Now(), time.Now()) // Tag | The JSON representation of a new Blog Tag.
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogTagsApi.PostCmsV3BlogsTagsCreate(context.Background()).Tag(tag).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogTagsApi.PostCmsV3BlogsTagsCreate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostCmsV3BlogsTagsCreate`: Tag
-    fmt.Fprintf(os.Stdout, "Response from `BlogTagsApi.PostCmsV3BlogsTagsCreate`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostCmsV3BlogsTagsCreateRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **tag** | [**Tag**](Tag.md) | The JSON representation of a new Blog Tag. | 
-
-### Return type
-
-[**Tag**](Tag.md)
-
-### Authorization
-
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json, */*
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostCmsV3BlogsTagsMultiLanguageAttachToLangGroupAttachToLangGroup
-
-> Error PostCmsV3BlogsTagsMultiLanguageAttachToLangGroupAttachToLangGroup(ctx).AttachToLangPrimaryRequestVNext(attachToLangPrimaryRequestVNext).Execute()
-
-Attach a Blog Tag to a multi-language group
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    attachToLangPrimaryRequestVNext := *openapiclient.NewAttachToLangPrimaryRequestVNext("Id_example", "Language_example", "PrimaryId_example") // AttachToLangPrimaryRequestVNext | The JSON representation of the AttachToLangPrimaryRequest object.
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogTagsApi.PostCmsV3BlogsTagsMultiLanguageAttachToLangGroupAttachToLangGroup(context.Background()).AttachToLangPrimaryRequestVNext(attachToLangPrimaryRequestVNext).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogTagsApi.PostCmsV3BlogsTagsMultiLanguageAttachToLangGroupAttachToLangGroup``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostCmsV3BlogsTagsMultiLanguageAttachToLangGroupAttachToLangGroup`: Error
-    fmt.Fprintf(os.Stdout, "Response from `BlogTagsApi.PostCmsV3BlogsTagsMultiLanguageAttachToLangGroupAttachToLangGroup`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostCmsV3BlogsTagsMultiLanguageAttachToLangGroupAttachToLangGroupRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **attachToLangPrimaryRequestVNext** | [**AttachToLangPrimaryRequestVNext**](AttachToLangPrimaryRequestVNext.md) | The JSON representation of the AttachToLangPrimaryRequest object. | 
-
-### Return type
-
-[**Error**](Error.md)
-
-### Authorization
-
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: */*
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostCmsV3BlogsTagsMultiLanguageCreateLanguageVariationCreateLangVariation
-
-> Tag PostCmsV3BlogsTagsMultiLanguageCreateLanguageVariationCreateLangVariation(ctx).TagCloneRequestVNext(tagCloneRequestVNext).Execute()
-
-Create a new language variation
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    tagCloneRequestVNext := *openapiclient.NewTagCloneRequestVNext("Id_example", "Name_example") // TagCloneRequestVNext | The JSON representation of the ContentLanguageCloneRequest object.
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogTagsApi.PostCmsV3BlogsTagsMultiLanguageCreateLanguageVariationCreateLangVariation(context.Background()).TagCloneRequestVNext(tagCloneRequestVNext).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogTagsApi.PostCmsV3BlogsTagsMultiLanguageCreateLanguageVariationCreateLangVariation``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostCmsV3BlogsTagsMultiLanguageCreateLanguageVariationCreateLangVariation`: Tag
-    fmt.Fprintf(os.Stdout, "Response from `BlogTagsApi.PostCmsV3BlogsTagsMultiLanguageCreateLanguageVariationCreateLangVariation`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostCmsV3BlogsTagsMultiLanguageCreateLanguageVariationCreateLangVariationRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **tagCloneRequestVNext** | [**TagCloneRequestVNext**](TagCloneRequestVNext.md) | The JSON representation of the ContentLanguageCloneRequest object. | 
-
-### Return type
-
-[**Tag**](Tag.md)
-
-### Authorization
-
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json, */*
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostCmsV3BlogsTagsMultiLanguageDetachFromLangGroupDetachFromLangGroup
-
-> Error PostCmsV3BlogsTagsMultiLanguageDetachFromLangGroupDetachFromLangGroup(ctx).DetachFromLangGroupRequestVNext(detachFromLangGroupRequestVNext).Execute()
-
-Detach a Blog Tag from a multi-language group
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    detachFromLangGroupRequestVNext := *openapiclient.NewDetachFromLangGroupRequestVNext("Id_example") // DetachFromLangGroupRequestVNext | The JSON representation of the DetachFromLangGroupRequest object.
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogTagsApi.PostCmsV3BlogsTagsMultiLanguageDetachFromLangGroupDetachFromLangGroup(context.Background()).DetachFromLangGroupRequestVNext(detachFromLangGroupRequestVNext).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogTagsApi.PostCmsV3BlogsTagsMultiLanguageDetachFromLangGroupDetachFromLangGroup``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostCmsV3BlogsTagsMultiLanguageDetachFromLangGroupDetachFromLangGroup`: Error
-    fmt.Fprintf(os.Stdout, "Response from `BlogTagsApi.PostCmsV3BlogsTagsMultiLanguageDetachFromLangGroupDetachFromLangGroup`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostCmsV3BlogsTagsMultiLanguageDetachFromLangGroupDetachFromLangGroupRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **detachFromLangGroupRequestVNext** | [**DetachFromLangGroupRequestVNext**](DetachFromLangGroupRequestVNext.md) | The JSON representation of the DetachFromLangGroupRequest object. | 
-
-### Return type
-
-[**Error**](Error.md)
-
-### Authorization
-
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: */*
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostCmsV3BlogsTagsMultiLanguageUpdateLanguagesUpdateLangs
-
-> Error PostCmsV3BlogsTagsMultiLanguageUpdateLanguagesUpdateLangs(ctx).UpdateLanguagesRequestVNext(updateLanguagesRequestVNext).Execute()
+> Error UpdateLangs(ctx).UpdateLanguagesRequestVNext(updateLanguagesRequestVNext).Execute()
 
 Update languages of multi-language group
 
@@ -880,13 +944,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogTagsApi.PostCmsV3BlogsTagsMultiLanguageUpdateLanguagesUpdateLangs(context.Background()).UpdateLanguagesRequestVNext(updateLanguagesRequestVNext).Execute()
+    resp, r, err := apiClient.BlogTagsApi.UpdateLangs(context.Background()).UpdateLanguagesRequestVNext(updateLanguagesRequestVNext).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogTagsApi.PostCmsV3BlogsTagsMultiLanguageUpdateLanguagesUpdateLangs``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BlogTagsApi.UpdateLangs``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostCmsV3BlogsTagsMultiLanguageUpdateLanguagesUpdateLangs`: Error
-    fmt.Fprintf(os.Stdout, "Response from `BlogTagsApi.PostCmsV3BlogsTagsMultiLanguageUpdateLanguagesUpdateLangs`: %v\n", resp)
+    // response from `UpdateLangs`: Error
+    fmt.Fprintf(os.Stdout, "Response from `BlogTagsApi.UpdateLangs`: %v\n", resp)
 }
 ```
 
@@ -896,7 +960,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCmsV3BlogsTagsMultiLanguageUpdateLanguagesUpdateLangsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiUpdateLangsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -906,70 +970,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Error**](Error.md)
-
-### Authorization
-
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: */*
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PutCmsV3BlogsTagsMultiLanguageSetNewLangPrimarySetLangPrimary
-
-> PutCmsV3BlogsTagsMultiLanguageSetNewLangPrimarySetLangPrimary(ctx).SetNewLanguagePrimaryRequestVNext(setNewLanguagePrimaryRequestVNext).Execute()
-
-Set a new primary language
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    setNewLanguagePrimaryRequestVNext := *openapiclient.NewSetNewLanguagePrimaryRequestVNext("Id_example") // SetNewLanguagePrimaryRequestVNext | The JSON representation of the SetNewLanguagePrimaryRequest object.
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogTagsApi.PutCmsV3BlogsTagsMultiLanguageSetNewLangPrimarySetLangPrimary(context.Background()).SetNewLanguagePrimaryRequestVNext(setNewLanguagePrimaryRequestVNext).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogTagsApi.PutCmsV3BlogsTagsMultiLanguageSetNewLangPrimarySetLangPrimary``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPutCmsV3BlogsTagsMultiLanguageSetNewLangPrimarySetLangPrimaryRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **setNewLanguagePrimaryRequestVNext** | [**SetNewLanguagePrimaryRequestVNext**](SetNewLanguagePrimaryRequestVNext.md) | The JSON representation of the SetNewLanguagePrimaryRequest object. | 
-
-### Return type
-
- (empty response body)
 
 ### Authorization
 

@@ -24,29 +24,29 @@ import (
 // PipelineStageAuditsApiService PipelineStageAuditsApi service
 type PipelineStageAuditsApiService service
 
-type ApiGetCrmV3PipelinesObjectTypePipelineIdStagesStageIdAuditGetAuditRequest struct {
+type ApiStagesGetAuditRequest struct {
 	ctx        context.Context
 	ApiService *PipelineStageAuditsApiService
 	objectType string
 	stageId    string
 }
 
-func (r ApiGetCrmV3PipelinesObjectTypePipelineIdStagesStageIdAuditGetAuditRequest) Execute() (*CollectionResponsePublicAuditInfoNoPaging, *http.Response, error) {
-	return r.ApiService.GetCrmV3PipelinesObjectTypePipelineIdStagesStageIdAuditGetAuditExecute(r)
+func (r ApiStagesGetAuditRequest) Execute() (*CollectionResponsePublicAuditInfoNoPaging, *http.Response, error) {
+	return r.ApiService.StagesGetAuditExecute(r)
 }
 
 /*
-GetCrmV3PipelinesObjectTypePipelineIdStagesStageIdAuditGetAudit Return an audit of all changes to the pipeline stage
+StagesGetAudit Return an audit of all changes to the pipeline stage
 
 Return a reverse chronological list of all mutations that have occurred on the pipeline stage identified by `{stageId}`.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param objectType
  @param stageId
- @return ApiGetCrmV3PipelinesObjectTypePipelineIdStagesStageIdAuditGetAuditRequest
+ @return ApiStagesGetAuditRequest
 */
-func (a *PipelineStageAuditsApiService) GetCrmV3PipelinesObjectTypePipelineIdStagesStageIdAuditGetAudit(ctx context.Context, objectType string, stageId string) ApiGetCrmV3PipelinesObjectTypePipelineIdStagesStageIdAuditGetAuditRequest {
-	return ApiGetCrmV3PipelinesObjectTypePipelineIdStagesStageIdAuditGetAuditRequest{
+func (a *PipelineStageAuditsApiService) StagesGetAudit(ctx context.Context, objectType string, stageId string) ApiStagesGetAuditRequest {
+	return ApiStagesGetAuditRequest{
 		ApiService: a,
 		ctx:        ctx,
 		objectType: objectType,
@@ -56,7 +56,7 @@ func (a *PipelineStageAuditsApiService) GetCrmV3PipelinesObjectTypePipelineIdSta
 
 // Execute executes the request
 //  @return CollectionResponsePublicAuditInfoNoPaging
-func (a *PipelineStageAuditsApiService) GetCrmV3PipelinesObjectTypePipelineIdStagesStageIdAuditGetAuditExecute(r ApiGetCrmV3PipelinesObjectTypePipelineIdStagesStageIdAuditGetAuditRequest) (*CollectionResponsePublicAuditInfoNoPaging, *http.Response, error) {
+func (a *PipelineStageAuditsApiService) StagesGetAuditExecute(r ApiStagesGetAuditRequest) (*CollectionResponsePublicAuditInfoNoPaging, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -64,7 +64,7 @@ func (a *PipelineStageAuditsApiService) GetCrmV3PipelinesObjectTypePipelineIdSta
 		localVarReturnValue *CollectionResponsePublicAuditInfoNoPaging
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PipelineStageAuditsApiService.GetCrmV3PipelinesObjectTypePipelineIdStagesStageIdAuditGetAudit")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PipelineStageAuditsApiService.StagesGetAudit")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

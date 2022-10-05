@@ -426,7 +426,7 @@ paths:
       description: "Read an Object identified by `{contactId}`. `{contactId}` refers\
         \ to the internal object ID.  Control what is returned via the `properties`\
         \ query param."
-      operationId: Get
+      operationId: GetByID
       parameters:
       - explode: false
         in: path
@@ -546,7 +546,7 @@ paths:
       - Basic
   /crm/v3/objects/contacts/{contactId}/associations/{toObjectType}:
     get:
-      operationId: AssociationsGet
+      operationId: AssociationsGetAll
       parameters:
       - explode: false
         in: path

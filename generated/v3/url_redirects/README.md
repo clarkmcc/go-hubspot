@@ -78,11 +78,11 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*RedirectsApi* | [**DeleteCmsV3UrlRedirectsUrlRedirectIdArchive**](docs/RedirectsApi.md#deletecmsv3urlredirectsurlredirectidarchive) | **Delete** /cms/v3/url-redirects/{urlRedirectId} | Delete a redirect
-*RedirectsApi* | [**GetCmsV3UrlRedirectsGetPage**](docs/RedirectsApi.md#getcmsv3urlredirectsgetpage) | **Get** /cms/v3/url-redirects/ | Get current redirects
-*RedirectsApi* | [**GetCmsV3UrlRedirectsUrlRedirectIdGetById**](docs/RedirectsApi.md#getcmsv3urlredirectsurlredirectidgetbyid) | **Get** /cms/v3/url-redirects/{urlRedirectId} | Get details for a redirect
-*RedirectsApi* | [**PatchCmsV3UrlRedirectsUrlRedirectIdUpdate**](docs/RedirectsApi.md#patchcmsv3urlredirectsurlredirectidupdate) | **Patch** /cms/v3/url-redirects/{urlRedirectId} | Update a redirect
-*RedirectsApi* | [**PostCmsV3UrlRedirectsCreate**](docs/RedirectsApi.md#postcmsv3urlredirectscreate) | **Post** /cms/v3/url-redirects/ | Create a redirect
+*RedirectsApi* | [**Archive**](docs/RedirectsApi.md#archive) | **Delete** /cms/v3/url-redirects/{urlRedirectId} | Delete a redirect
+*RedirectsApi* | [**Create**](docs/RedirectsApi.md#create) | **Post** /cms/v3/url-redirects/ | Create a redirect
+*RedirectsApi* | [**GetByID**](docs/RedirectsApi.md#getbyid) | **Get** /cms/v3/url-redirects/{urlRedirectId} | Get details for a redirect
+*RedirectsApi* | [**GetPage**](docs/RedirectsApi.md#getpage) | **Get** /cms/v3/url-redirects/ | Get current redirects
+*RedirectsApi* | [**Update**](docs/RedirectsApi.md#update) | **Patch** /cms/v3/url-redirects/{urlRedirectId} | Update a redirect
 
 
 ## Documentation For Models

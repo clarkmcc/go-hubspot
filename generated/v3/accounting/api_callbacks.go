@@ -24,7 +24,7 @@ import (
 // CallbacksApiService CallbacksApi service
 type CallbacksApiService service
 
-type ApiPostCrmV3ExtensionsAccountingCallbackCustomerCreateRequestIdCreateCustomerRequest struct {
+type ApiCallbackCreateCustomerRequest struct {
 	ctx                        context.Context
 	ApiService                 *CallbacksApiService
 	requestId                  string
@@ -32,26 +32,26 @@ type ApiPostCrmV3ExtensionsAccountingCallbackCustomerCreateRequestIdCreateCustom
 }
 
 // The ID of the created customer.
-func (r ApiPostCrmV3ExtensionsAccountingCallbackCustomerCreateRequestIdCreateCustomerRequest) ResultIdAccountingResponse(resultIdAccountingResponse ResultIdAccountingResponse) ApiPostCrmV3ExtensionsAccountingCallbackCustomerCreateRequestIdCreateCustomerRequest {
+func (r ApiCallbackCreateCustomerRequest) ResultIdAccountingResponse(resultIdAccountingResponse ResultIdAccountingResponse) ApiCallbackCreateCustomerRequest {
 	r.resultIdAccountingResponse = &resultIdAccountingResponse
 	return r
 }
 
-func (r ApiPostCrmV3ExtensionsAccountingCallbackCustomerCreateRequestIdCreateCustomerRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostCrmV3ExtensionsAccountingCallbackCustomerCreateRequestIdCreateCustomerExecute(r)
+func (r ApiCallbackCreateCustomerRequest) Execute() (*http.Response, error) {
+	return r.ApiService.CallbackCreateCustomerExecute(r)
 }
 
 /*
-PostCrmV3ExtensionsAccountingCallbackCustomerCreateRequestIdCreateCustomer Endpoint for customer creation response
+CallbackCreateCustomer Endpoint for customer creation response
 
 Call this endpoint with the response to a customer creation request.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param requestId The ID of the request that this response is for
- @return ApiPostCrmV3ExtensionsAccountingCallbackCustomerCreateRequestIdCreateCustomerRequest
+ @return ApiCallbackCreateCustomerRequest
 */
-func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackCustomerCreateRequestIdCreateCustomer(ctx context.Context, requestId string) ApiPostCrmV3ExtensionsAccountingCallbackCustomerCreateRequestIdCreateCustomerRequest {
-	return ApiPostCrmV3ExtensionsAccountingCallbackCustomerCreateRequestIdCreateCustomerRequest{
+func (a *CallbacksApiService) CallbackCreateCustomer(ctx context.Context, requestId string) ApiCallbackCreateCustomerRequest {
+	return ApiCallbackCreateCustomerRequest{
 		ApiService: a,
 		ctx:        ctx,
 		requestId:  requestId,
@@ -59,14 +59,14 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackCustomerCreat
 }
 
 // Execute executes the request
-func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackCustomerCreateRequestIdCreateCustomerExecute(r ApiPostCrmV3ExtensionsAccountingCallbackCustomerCreateRequestIdCreateCustomerRequest) (*http.Response, error) {
+func (a *CallbacksApiService) CallbackCreateCustomerExecute(r ApiCallbackCreateCustomerRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CallbacksApiService.PostCrmV3ExtensionsAccountingCallbackCustomerCreateRequestIdCreateCustomer")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CallbacksApiService.CallbackCreateCustomer")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -145,128 +145,7 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackCustomerCreat
 	return localVarHTTPResponse, nil
 }
 
-type ApiPostCrmV3ExtensionsAccountingCallbackCustomerSearchRequestIdDoCustomerSearchRequest struct {
-	ctx                            context.Context
-	ApiService                     *CallbacksApiService
-	requestId                      string
-	customerSearchResponseExternal *CustomerSearchResponseExternal
-}
-
-// The result of the customer search request.
-func (r ApiPostCrmV3ExtensionsAccountingCallbackCustomerSearchRequestIdDoCustomerSearchRequest) CustomerSearchResponseExternal(customerSearchResponseExternal CustomerSearchResponseExternal) ApiPostCrmV3ExtensionsAccountingCallbackCustomerSearchRequestIdDoCustomerSearchRequest {
-	r.customerSearchResponseExternal = &customerSearchResponseExternal
-	return r
-}
-
-func (r ApiPostCrmV3ExtensionsAccountingCallbackCustomerSearchRequestIdDoCustomerSearchRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostCrmV3ExtensionsAccountingCallbackCustomerSearchRequestIdDoCustomerSearchExecute(r)
-}
-
-/*
-PostCrmV3ExtensionsAccountingCallbackCustomerSearchRequestIdDoCustomerSearch Endpoint for customer search response
-
-Call this endpoint with the response to a customer search request.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param requestId The ID of the request that this response is for
- @return ApiPostCrmV3ExtensionsAccountingCallbackCustomerSearchRequestIdDoCustomerSearchRequest
-*/
-func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackCustomerSearchRequestIdDoCustomerSearch(ctx context.Context, requestId string) ApiPostCrmV3ExtensionsAccountingCallbackCustomerSearchRequestIdDoCustomerSearchRequest {
-	return ApiPostCrmV3ExtensionsAccountingCallbackCustomerSearchRequestIdDoCustomerSearchRequest{
-		ApiService: a,
-		ctx:        ctx,
-		requestId:  requestId,
-	}
-}
-
-// Execute executes the request
-func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackCustomerSearchRequestIdDoCustomerSearchExecute(r ApiPostCrmV3ExtensionsAccountingCallbackCustomerSearchRequestIdDoCustomerSearchRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CallbacksApiService.PostCrmV3ExtensionsAccountingCallbackCustomerSearchRequestIdDoCustomerSearch")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/crm/v3/extensions/accounting/callback/customer-search/{requestId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"requestId"+"}", url.PathEscape(parameterToString(r.requestId, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.customerSearchResponseExternal == nil {
-		return nil, reportError("customerSearchResponseExternal is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"*/*"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.customerSearchResponseExternal
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		var v Error
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarHTTPResponse, newErr
-		}
-		newErr.model = v
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type ApiPostCrmV3ExtensionsAccountingCallbackExchangeRateRequestIdCreateExchangeRateRequest struct {
+type ApiCallbackCreateExchangeRateRequest struct {
 	ctx                  context.Context
 	ApiService           *CallbacksApiService
 	requestId            string
@@ -274,26 +153,26 @@ type ApiPostCrmV3ExtensionsAccountingCallbackExchangeRateRequestIdCreateExchange
 }
 
 // The result of the exchange rate request.
-func (r ApiPostCrmV3ExtensionsAccountingCallbackExchangeRateRequestIdCreateExchangeRateRequest) ExchangeRateResponse(exchangeRateResponse ExchangeRateResponse) ApiPostCrmV3ExtensionsAccountingCallbackExchangeRateRequestIdCreateExchangeRateRequest {
+func (r ApiCallbackCreateExchangeRateRequest) ExchangeRateResponse(exchangeRateResponse ExchangeRateResponse) ApiCallbackCreateExchangeRateRequest {
 	r.exchangeRateResponse = &exchangeRateResponse
 	return r
 }
 
-func (r ApiPostCrmV3ExtensionsAccountingCallbackExchangeRateRequestIdCreateExchangeRateRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostCrmV3ExtensionsAccountingCallbackExchangeRateRequestIdCreateExchangeRateExecute(r)
+func (r ApiCallbackCreateExchangeRateRequest) Execute() (*http.Response, error) {
+	return r.ApiService.CallbackCreateExchangeRateExecute(r)
 }
 
 /*
-PostCrmV3ExtensionsAccountingCallbackExchangeRateRequestIdCreateExchangeRate Endpoint for exchange rate response
+CallbackCreateExchangeRate Endpoint for exchange rate response
 
 Call this endpoint with the response to an exchange rate request.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param requestId The ID of the request that this response is for
- @return ApiPostCrmV3ExtensionsAccountingCallbackExchangeRateRequestIdCreateExchangeRateRequest
+ @return ApiCallbackCreateExchangeRateRequest
 */
-func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackExchangeRateRequestIdCreateExchangeRate(ctx context.Context, requestId string) ApiPostCrmV3ExtensionsAccountingCallbackExchangeRateRequestIdCreateExchangeRateRequest {
-	return ApiPostCrmV3ExtensionsAccountingCallbackExchangeRateRequestIdCreateExchangeRateRequest{
+func (a *CallbacksApiService) CallbackCreateExchangeRate(ctx context.Context, requestId string) ApiCallbackCreateExchangeRateRequest {
+	return ApiCallbackCreateExchangeRateRequest{
 		ApiService: a,
 		ctx:        ctx,
 		requestId:  requestId,
@@ -301,14 +180,14 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackExchangeRateR
 }
 
 // Execute executes the request
-func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackExchangeRateRequestIdCreateExchangeRateExecute(r ApiPostCrmV3ExtensionsAccountingCallbackExchangeRateRequestIdCreateExchangeRateRequest) (*http.Response, error) {
+func (a *CallbacksApiService) CallbackCreateExchangeRateExecute(r ApiCallbackCreateExchangeRateRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CallbacksApiService.PostCrmV3ExtensionsAccountingCallbackExchangeRateRequestIdCreateExchangeRate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CallbacksApiService.CallbackCreateExchangeRate")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -387,7 +266,7 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackExchangeRateR
 	return localVarHTTPResponse, nil
 }
 
-type ApiPostCrmV3ExtensionsAccountingCallbackInvoiceCreateRequestIdCreateInvoiceRequest struct {
+type ApiCallbackCreateInvoiceRequest struct {
 	ctx                        context.Context
 	ApiService                 *CallbacksApiService
 	requestId                  string
@@ -395,26 +274,26 @@ type ApiPostCrmV3ExtensionsAccountingCallbackInvoiceCreateRequestIdCreateInvoice
 }
 
 // The ID of the created invoice.
-func (r ApiPostCrmV3ExtensionsAccountingCallbackInvoiceCreateRequestIdCreateInvoiceRequest) ResultIdAccountingResponse(resultIdAccountingResponse ResultIdAccountingResponse) ApiPostCrmV3ExtensionsAccountingCallbackInvoiceCreateRequestIdCreateInvoiceRequest {
+func (r ApiCallbackCreateInvoiceRequest) ResultIdAccountingResponse(resultIdAccountingResponse ResultIdAccountingResponse) ApiCallbackCreateInvoiceRequest {
 	r.resultIdAccountingResponse = &resultIdAccountingResponse
 	return r
 }
 
-func (r ApiPostCrmV3ExtensionsAccountingCallbackInvoiceCreateRequestIdCreateInvoiceRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostCrmV3ExtensionsAccountingCallbackInvoiceCreateRequestIdCreateInvoiceExecute(r)
+func (r ApiCallbackCreateInvoiceRequest) Execute() (*http.Response, error) {
+	return r.ApiService.CallbackCreateInvoiceExecute(r)
 }
 
 /*
-PostCrmV3ExtensionsAccountingCallbackInvoiceCreateRequestIdCreateInvoice Endpoint for invoice creation response
+CallbackCreateInvoice Endpoint for invoice creation response
 
 Call this endpoint with the response to a invoice creation request.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param requestId The ID of the request that this response is for
- @return ApiPostCrmV3ExtensionsAccountingCallbackInvoiceCreateRequestIdCreateInvoiceRequest
+ @return ApiCallbackCreateInvoiceRequest
 */
-func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoiceCreateRequestIdCreateInvoice(ctx context.Context, requestId string) ApiPostCrmV3ExtensionsAccountingCallbackInvoiceCreateRequestIdCreateInvoiceRequest {
-	return ApiPostCrmV3ExtensionsAccountingCallbackInvoiceCreateRequestIdCreateInvoiceRequest{
+func (a *CallbacksApiService) CallbackCreateInvoice(ctx context.Context, requestId string) ApiCallbackCreateInvoiceRequest {
+	return ApiCallbackCreateInvoiceRequest{
 		ApiService: a,
 		ctx:        ctx,
 		requestId:  requestId,
@@ -422,14 +301,14 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoiceCreate
 }
 
 // Execute executes the request
-func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoiceCreateRequestIdCreateInvoiceExecute(r ApiPostCrmV3ExtensionsAccountingCallbackInvoiceCreateRequestIdCreateInvoiceRequest) (*http.Response, error) {
+func (a *CallbacksApiService) CallbackCreateInvoiceExecute(r ApiCallbackCreateInvoiceRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CallbacksApiService.PostCrmV3ExtensionsAccountingCallbackInvoiceCreateRequestIdCreateInvoice")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CallbacksApiService.CallbackCreateInvoice")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -508,34 +387,34 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoiceCreate
 	return localVarHTTPResponse, nil
 }
 
-type ApiPostCrmV3ExtensionsAccountingCallbackInvoicePdfRequestIdInvoicePdfRequest struct {
-	ctx                context.Context
-	ApiService         *CallbacksApiService
-	requestId          string
-	invoicePdfResponse *InvoicePdfResponse
+type ApiCallbackCreateTermRequest struct {
+	ctx           context.Context
+	ApiService    *CallbacksApiService
+	requestId     string
+	termsResponse *TermsResponse
 }
 
-// The bytes of the invoice PDF.
-func (r ApiPostCrmV3ExtensionsAccountingCallbackInvoicePdfRequestIdInvoicePdfRequest) InvoicePdfResponse(invoicePdfResponse InvoicePdfResponse) ApiPostCrmV3ExtensionsAccountingCallbackInvoicePdfRequestIdInvoicePdfRequest {
-	r.invoicePdfResponse = &invoicePdfResponse
+// The result of the terms search
+func (r ApiCallbackCreateTermRequest) TermsResponse(termsResponse TermsResponse) ApiCallbackCreateTermRequest {
+	r.termsResponse = &termsResponse
 	return r
 }
 
-func (r ApiPostCrmV3ExtensionsAccountingCallbackInvoicePdfRequestIdInvoicePdfRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostCrmV3ExtensionsAccountingCallbackInvoicePdfRequestIdInvoicePdfExecute(r)
+func (r ApiCallbackCreateTermRequest) Execute() (*http.Response, error) {
+	return r.ApiService.CallbackCreateTermExecute(r)
 }
 
 /*
-PostCrmV3ExtensionsAccountingCallbackInvoicePdfRequestIdInvoicePdf Endpoint for PDF content of invoice
+CallbackCreateTerm Endpoint for terms search response
 
-Call this endpoint with the PDF content of a requested invoice.
+Call this endpoint with the response to a terms search request.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param requestId The ID of the request that this response is for
- @return ApiPostCrmV3ExtensionsAccountingCallbackInvoicePdfRequestIdInvoicePdfRequest
+ @return ApiCallbackCreateTermRequest
 */
-func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoicePdfRequestIdInvoicePdf(ctx context.Context, requestId string) ApiPostCrmV3ExtensionsAccountingCallbackInvoicePdfRequestIdInvoicePdfRequest {
-	return ApiPostCrmV3ExtensionsAccountingCallbackInvoicePdfRequestIdInvoicePdfRequest{
+func (a *CallbacksApiService) CallbackCreateTerm(ctx context.Context, requestId string) ApiCallbackCreateTermRequest {
+	return ApiCallbackCreateTermRequest{
 		ApiService: a,
 		ctx:        ctx,
 		requestId:  requestId,
@@ -543,26 +422,26 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoicePdfReq
 }
 
 // Execute executes the request
-func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoicePdfRequestIdInvoicePdfExecute(r ApiPostCrmV3ExtensionsAccountingCallbackInvoicePdfRequestIdInvoicePdfRequest) (*http.Response, error) {
+func (a *CallbacksApiService) CallbackCreateTermExecute(r ApiCallbackCreateTermRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CallbacksApiService.PostCrmV3ExtensionsAccountingCallbackInvoicePdfRequestIdInvoicePdf")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CallbacksApiService.CallbackCreateTerm")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/crm/v3/extensions/accounting/callback/invoice-pdf/{requestId}"
+	localVarPath := localBasePath + "/crm/v3/extensions/accounting/callback/terms/{requestId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"requestId"+"}", url.PathEscape(parameterToString(r.requestId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.invoicePdfResponse == nil {
-		return nil, reportError("invoicePdfResponse is required and must be specified")
+	if r.termsResponse == nil {
+		return nil, reportError("termsResponse is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -583,7 +462,7 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoicePdfReq
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.invoicePdfResponse
+	localVarPostBody = r.termsResponse
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
@@ -629,7 +508,7 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoicePdfReq
 	return localVarHTTPResponse, nil
 }
 
-type ApiPostCrmV3ExtensionsAccountingCallbackInvoiceSearchRequestIdDoInvoiceSearchRequest struct {
+type ApiCallbackDoInvoiceSearchRequest struct {
 	ctx                   context.Context
 	ApiService            *CallbacksApiService
 	requestId             string
@@ -637,26 +516,26 @@ type ApiPostCrmV3ExtensionsAccountingCallbackInvoiceSearchRequestIdDoInvoiceSear
 }
 
 // The result of the invoice search request.
-func (r ApiPostCrmV3ExtensionsAccountingCallbackInvoiceSearchRequestIdDoInvoiceSearchRequest) InvoiceSearchResponse(invoiceSearchResponse InvoiceSearchResponse) ApiPostCrmV3ExtensionsAccountingCallbackInvoiceSearchRequestIdDoInvoiceSearchRequest {
+func (r ApiCallbackDoInvoiceSearchRequest) InvoiceSearchResponse(invoiceSearchResponse InvoiceSearchResponse) ApiCallbackDoInvoiceSearchRequest {
 	r.invoiceSearchResponse = &invoiceSearchResponse
 	return r
 }
 
-func (r ApiPostCrmV3ExtensionsAccountingCallbackInvoiceSearchRequestIdDoInvoiceSearchRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostCrmV3ExtensionsAccountingCallbackInvoiceSearchRequestIdDoInvoiceSearchExecute(r)
+func (r ApiCallbackDoInvoiceSearchRequest) Execute() (*http.Response, error) {
+	return r.ApiService.CallbackDoInvoiceSearchExecute(r)
 }
 
 /*
-PostCrmV3ExtensionsAccountingCallbackInvoiceSearchRequestIdDoInvoiceSearch Endpoint for invoice search response
+CallbackDoInvoiceSearch Endpoint for invoice search response
 
 Call this endpoint with the response to a invoice search request.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param requestId The ID of the request that this response is for
- @return ApiPostCrmV3ExtensionsAccountingCallbackInvoiceSearchRequestIdDoInvoiceSearchRequest
+ @return ApiCallbackDoInvoiceSearchRequest
 */
-func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoiceSearchRequestIdDoInvoiceSearch(ctx context.Context, requestId string) ApiPostCrmV3ExtensionsAccountingCallbackInvoiceSearchRequestIdDoInvoiceSearchRequest {
-	return ApiPostCrmV3ExtensionsAccountingCallbackInvoiceSearchRequestIdDoInvoiceSearchRequest{
+func (a *CallbacksApiService) CallbackDoInvoiceSearch(ctx context.Context, requestId string) ApiCallbackDoInvoiceSearchRequest {
+	return ApiCallbackDoInvoiceSearchRequest{
 		ApiService: a,
 		ctx:        ctx,
 		requestId:  requestId,
@@ -664,14 +543,14 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoiceSearch
 }
 
 // Execute executes the request
-func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoiceSearchRequestIdDoInvoiceSearchExecute(r ApiPostCrmV3ExtensionsAccountingCallbackInvoiceSearchRequestIdDoInvoiceSearchRequest) (*http.Response, error) {
+func (a *CallbacksApiService) CallbackDoInvoiceSearchExecute(r ApiCallbackDoInvoiceSearchRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CallbacksApiService.PostCrmV3ExtensionsAccountingCallbackInvoiceSearchRequestIdDoInvoiceSearch")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CallbacksApiService.CallbackDoInvoiceSearch")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -750,128 +629,7 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoiceSearch
 	return localVarHTTPResponse, nil
 }
 
-type ApiPostCrmV3ExtensionsAccountingCallbackInvoicesRequestIdGetByIdRequest struct {
-	ctx                      context.Context
-	ApiService               *CallbacksApiService
-	requestId                string
-	invoicesResponseExternal *InvoicesResponseExternal
-}
-
-// The result of the invoice request.
-func (r ApiPostCrmV3ExtensionsAccountingCallbackInvoicesRequestIdGetByIdRequest) InvoicesResponseExternal(invoicesResponseExternal InvoicesResponseExternal) ApiPostCrmV3ExtensionsAccountingCallbackInvoicesRequestIdGetByIdRequest {
-	r.invoicesResponseExternal = &invoicesResponseExternal
-	return r
-}
-
-func (r ApiPostCrmV3ExtensionsAccountingCallbackInvoicesRequestIdGetByIdRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostCrmV3ExtensionsAccountingCallbackInvoicesRequestIdGetByIdExecute(r)
-}
-
-/*
-PostCrmV3ExtensionsAccountingCallbackInvoicesRequestIdGetById Endpoint for invoice get-by-id response
-
-Call this endpoint with the response to a invoice get-by-id request.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param requestId The ID of the request that this response is for
- @return ApiPostCrmV3ExtensionsAccountingCallbackInvoicesRequestIdGetByIdRequest
-*/
-func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoicesRequestIdGetById(ctx context.Context, requestId string) ApiPostCrmV3ExtensionsAccountingCallbackInvoicesRequestIdGetByIdRequest {
-	return ApiPostCrmV3ExtensionsAccountingCallbackInvoicesRequestIdGetByIdRequest{
-		ApiService: a,
-		ctx:        ctx,
-		requestId:  requestId,
-	}
-}
-
-// Execute executes the request
-func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackInvoicesRequestIdGetByIdExecute(r ApiPostCrmV3ExtensionsAccountingCallbackInvoicesRequestIdGetByIdRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CallbacksApiService.PostCrmV3ExtensionsAccountingCallbackInvoicesRequestIdGetById")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/crm/v3/extensions/accounting/callback/invoices/{requestId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"requestId"+"}", url.PathEscape(parameterToString(r.requestId, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.invoicesResponseExternal == nil {
-		return nil, reportError("invoicesResponseExternal is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"*/*"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.invoicesResponseExternal
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		var v Error
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarHTTPResponse, newErr
-		}
-		newErr.model = v
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type ApiPostCrmV3ExtensionsAccountingCallbackProductSearchRequestIdDoProductSearchRequest struct {
+type ApiCallbackDoProductSearchRequest struct {
 	ctx                   context.Context
 	ApiService            *CallbacksApiService
 	requestId             string
@@ -879,26 +637,26 @@ type ApiPostCrmV3ExtensionsAccountingCallbackProductSearchRequestIdDoProductSear
 }
 
 // The result of the product search request.
-func (r ApiPostCrmV3ExtensionsAccountingCallbackProductSearchRequestIdDoProductSearchRequest) ProductSearchResponse(productSearchResponse ProductSearchResponse) ApiPostCrmV3ExtensionsAccountingCallbackProductSearchRequestIdDoProductSearchRequest {
+func (r ApiCallbackDoProductSearchRequest) ProductSearchResponse(productSearchResponse ProductSearchResponse) ApiCallbackDoProductSearchRequest {
 	r.productSearchResponse = &productSearchResponse
 	return r
 }
 
-func (r ApiPostCrmV3ExtensionsAccountingCallbackProductSearchRequestIdDoProductSearchRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostCrmV3ExtensionsAccountingCallbackProductSearchRequestIdDoProductSearchExecute(r)
+func (r ApiCallbackDoProductSearchRequest) Execute() (*http.Response, error) {
+	return r.ApiService.CallbackDoProductSearchExecute(r)
 }
 
 /*
-PostCrmV3ExtensionsAccountingCallbackProductSearchRequestIdDoProductSearch Endpoint for product search response
+CallbackDoProductSearch Endpoint for product search response
 
 Call this endpoint with the response to a product search request.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param requestId The ID of the request that this response is for
- @return ApiPostCrmV3ExtensionsAccountingCallbackProductSearchRequestIdDoProductSearchRequest
+ @return ApiCallbackDoProductSearchRequest
 */
-func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackProductSearchRequestIdDoProductSearch(ctx context.Context, requestId string) ApiPostCrmV3ExtensionsAccountingCallbackProductSearchRequestIdDoProductSearchRequest {
-	return ApiPostCrmV3ExtensionsAccountingCallbackProductSearchRequestIdDoProductSearchRequest{
+func (a *CallbacksApiService) CallbackDoProductSearch(ctx context.Context, requestId string) ApiCallbackDoProductSearchRequest {
+	return ApiCallbackDoProductSearchRequest{
 		ApiService: a,
 		ctx:        ctx,
 		requestId:  requestId,
@@ -906,14 +664,14 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackProductSearch
 }
 
 // Execute executes the request
-func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackProductSearchRequestIdDoProductSearchExecute(r ApiPostCrmV3ExtensionsAccountingCallbackProductSearchRequestIdDoProductSearchRequest) (*http.Response, error) {
+func (a *CallbacksApiService) CallbackDoProductSearchExecute(r ApiCallbackDoProductSearchRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CallbacksApiService.PostCrmV3ExtensionsAccountingCallbackProductSearchRequestIdDoProductSearch")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CallbacksApiService.CallbackDoProductSearch")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -992,34 +750,34 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackProductSearch
 	return localVarHTTPResponse, nil
 }
 
-type ApiPostCrmV3ExtensionsAccountingCallbackTaxSearchRequestIdDoTaxSearchRequest struct {
-	ctx               context.Context
-	ApiService        *CallbacksApiService
-	requestId         string
-	taxSearchResponse *TaxSearchResponse
+type ApiCallbackDoSearchCustomerRequest struct {
+	ctx                            context.Context
+	ApiService                     *CallbacksApiService
+	requestId                      string
+	customerSearchResponseExternal *CustomerSearchResponseExternal
 }
 
-// The result of the taxes search request.
-func (r ApiPostCrmV3ExtensionsAccountingCallbackTaxSearchRequestIdDoTaxSearchRequest) TaxSearchResponse(taxSearchResponse TaxSearchResponse) ApiPostCrmV3ExtensionsAccountingCallbackTaxSearchRequestIdDoTaxSearchRequest {
-	r.taxSearchResponse = &taxSearchResponse
+// The result of the customer search request.
+func (r ApiCallbackDoSearchCustomerRequest) CustomerSearchResponseExternal(customerSearchResponseExternal CustomerSearchResponseExternal) ApiCallbackDoSearchCustomerRequest {
+	r.customerSearchResponseExternal = &customerSearchResponseExternal
 	return r
 }
 
-func (r ApiPostCrmV3ExtensionsAccountingCallbackTaxSearchRequestIdDoTaxSearchRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostCrmV3ExtensionsAccountingCallbackTaxSearchRequestIdDoTaxSearchExecute(r)
+func (r ApiCallbackDoSearchCustomerRequest) Execute() (*http.Response, error) {
+	return r.ApiService.CallbackDoSearchCustomerExecute(r)
 }
 
 /*
-PostCrmV3ExtensionsAccountingCallbackTaxSearchRequestIdDoTaxSearch Endpoint for taxes search response
+CallbackDoSearchCustomer Endpoint for customer search response
 
-Call this endpoint with the response to a taxes search request.
+Call this endpoint with the response to a customer search request.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param requestId The ID of the request that this response is for
- @return ApiPostCrmV3ExtensionsAccountingCallbackTaxSearchRequestIdDoTaxSearchRequest
+ @return ApiCallbackDoSearchCustomerRequest
 */
-func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackTaxSearchRequestIdDoTaxSearch(ctx context.Context, requestId string) ApiPostCrmV3ExtensionsAccountingCallbackTaxSearchRequestIdDoTaxSearchRequest {
-	return ApiPostCrmV3ExtensionsAccountingCallbackTaxSearchRequestIdDoTaxSearchRequest{
+func (a *CallbacksApiService) CallbackDoSearchCustomer(ctx context.Context, requestId string) ApiCallbackDoSearchCustomerRequest {
+	return ApiCallbackDoSearchCustomerRequest{
 		ApiService: a,
 		ctx:        ctx,
 		requestId:  requestId,
@@ -1027,14 +785,135 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackTaxSearchRequ
 }
 
 // Execute executes the request
-func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackTaxSearchRequestIdDoTaxSearchExecute(r ApiPostCrmV3ExtensionsAccountingCallbackTaxSearchRequestIdDoTaxSearchRequest) (*http.Response, error) {
+func (a *CallbacksApiService) CallbackDoSearchCustomerExecute(r ApiCallbackDoSearchCustomerRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CallbacksApiService.PostCrmV3ExtensionsAccountingCallbackTaxSearchRequestIdDoTaxSearch")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CallbacksApiService.CallbackDoSearchCustomer")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/crm/v3/extensions/accounting/callback/customer-search/{requestId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"requestId"+"}", url.PathEscape(parameterToString(r.requestId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.customerSearchResponseExternal == nil {
+		return nil, reportError("customerSearchResponseExternal is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"*/*"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.customerSearchResponseExternal
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.model = v
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type ApiCallbackDoTaxSearchRequest struct {
+	ctx               context.Context
+	ApiService        *CallbacksApiService
+	requestId         string
+	taxSearchResponse *TaxSearchResponse
+}
+
+// The result of the taxes search request.
+func (r ApiCallbackDoTaxSearchRequest) TaxSearchResponse(taxSearchResponse TaxSearchResponse) ApiCallbackDoTaxSearchRequest {
+	r.taxSearchResponse = &taxSearchResponse
+	return r
+}
+
+func (r ApiCallbackDoTaxSearchRequest) Execute() (*http.Response, error) {
+	return r.ApiService.CallbackDoTaxSearchExecute(r)
+}
+
+/*
+CallbackDoTaxSearch Endpoint for taxes search response
+
+Call this endpoint with the response to a taxes search request.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param requestId The ID of the request that this response is for
+ @return ApiCallbackDoTaxSearchRequest
+*/
+func (a *CallbacksApiService) CallbackDoTaxSearch(ctx context.Context, requestId string) ApiCallbackDoTaxSearchRequest {
+	return ApiCallbackDoTaxSearchRequest{
+		ApiService: a,
+		ctx:        ctx,
+		requestId:  requestId,
+	}
+}
+
+// Execute executes the request
+func (a *CallbacksApiService) CallbackDoTaxSearchExecute(r ApiCallbackDoTaxSearchRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CallbacksApiService.CallbackDoTaxSearch")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1113,34 +992,34 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackTaxSearchRequ
 	return localVarHTTPResponse, nil
 }
 
-type ApiPostCrmV3ExtensionsAccountingCallbackTermsRequestIdCreateTermRequest struct {
-	ctx           context.Context
-	ApiService    *CallbacksApiService
-	requestId     string
-	termsResponse *TermsResponse
+type ApiCallbackGetByIDRequest struct {
+	ctx                      context.Context
+	ApiService               *CallbacksApiService
+	requestId                string
+	invoicesResponseExternal *InvoicesResponseExternal
 }
 
-// The result of the terms search
-func (r ApiPostCrmV3ExtensionsAccountingCallbackTermsRequestIdCreateTermRequest) TermsResponse(termsResponse TermsResponse) ApiPostCrmV3ExtensionsAccountingCallbackTermsRequestIdCreateTermRequest {
-	r.termsResponse = &termsResponse
+// The result of the invoice request.
+func (r ApiCallbackGetByIDRequest) InvoicesResponseExternal(invoicesResponseExternal InvoicesResponseExternal) ApiCallbackGetByIDRequest {
+	r.invoicesResponseExternal = &invoicesResponseExternal
 	return r
 }
 
-func (r ApiPostCrmV3ExtensionsAccountingCallbackTermsRequestIdCreateTermRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostCrmV3ExtensionsAccountingCallbackTermsRequestIdCreateTermExecute(r)
+func (r ApiCallbackGetByIDRequest) Execute() (*http.Response, error) {
+	return r.ApiService.CallbackGetByIDExecute(r)
 }
 
 /*
-PostCrmV3ExtensionsAccountingCallbackTermsRequestIdCreateTerm Endpoint for terms search response
+CallbackGetByID Endpoint for invoice get-by-id response
 
-Call this endpoint with the response to a terms search request.
+Call this endpoint with the response to a invoice get-by-id request.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param requestId The ID of the request that this response is for
- @return ApiPostCrmV3ExtensionsAccountingCallbackTermsRequestIdCreateTermRequest
+ @return ApiCallbackGetByIDRequest
 */
-func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackTermsRequestIdCreateTerm(ctx context.Context, requestId string) ApiPostCrmV3ExtensionsAccountingCallbackTermsRequestIdCreateTermRequest {
-	return ApiPostCrmV3ExtensionsAccountingCallbackTermsRequestIdCreateTermRequest{
+func (a *CallbacksApiService) CallbackGetByID(ctx context.Context, requestId string) ApiCallbackGetByIDRequest {
+	return ApiCallbackGetByIDRequest{
 		ApiService: a,
 		ctx:        ctx,
 		requestId:  requestId,
@@ -1148,26 +1027,26 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackTermsRequestI
 }
 
 // Execute executes the request
-func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackTermsRequestIdCreateTermExecute(r ApiPostCrmV3ExtensionsAccountingCallbackTermsRequestIdCreateTermRequest) (*http.Response, error) {
+func (a *CallbacksApiService) CallbackGetByIDExecute(r ApiCallbackGetByIDRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CallbacksApiService.PostCrmV3ExtensionsAccountingCallbackTermsRequestIdCreateTerm")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CallbacksApiService.CallbackGetByID")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/crm/v3/extensions/accounting/callback/terms/{requestId}"
+	localVarPath := localBasePath + "/crm/v3/extensions/accounting/callback/invoices/{requestId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"requestId"+"}", url.PathEscape(parameterToString(r.requestId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.termsResponse == nil {
-		return nil, reportError("termsResponse is required and must be specified")
+	if r.invoicesResponseExternal == nil {
+		return nil, reportError("invoicesResponseExternal is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1188,7 +1067,128 @@ func (a *CallbacksApiService) PostCrmV3ExtensionsAccountingCallbackTermsRequestI
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.termsResponse
+	localVarPostBody = r.invoicesResponseExternal
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.model = v
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type ApiCallbackInvoicePDFRequest struct {
+	ctx                context.Context
+	ApiService         *CallbacksApiService
+	requestId          string
+	invoicePdfResponse *InvoicePdfResponse
+}
+
+// The bytes of the invoice PDF.
+func (r ApiCallbackInvoicePDFRequest) InvoicePdfResponse(invoicePdfResponse InvoicePdfResponse) ApiCallbackInvoicePDFRequest {
+	r.invoicePdfResponse = &invoicePdfResponse
+	return r
+}
+
+func (r ApiCallbackInvoicePDFRequest) Execute() (*http.Response, error) {
+	return r.ApiService.CallbackInvoicePDFExecute(r)
+}
+
+/*
+CallbackInvoicePDF Endpoint for PDF content of invoice
+
+Call this endpoint with the PDF content of a requested invoice.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param requestId The ID of the request that this response is for
+ @return ApiCallbackInvoicePDFRequest
+*/
+func (a *CallbacksApiService) CallbackInvoicePDF(ctx context.Context, requestId string) ApiCallbackInvoicePDFRequest {
+	return ApiCallbackInvoicePDFRequest{
+		ApiService: a,
+		ctx:        ctx,
+		requestId:  requestId,
+	}
+}
+
+// Execute executes the request
+func (a *CallbacksApiService) CallbackInvoicePDFExecute(r ApiCallbackInvoicePDFRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CallbacksApiService.CallbackInvoicePDF")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/crm/v3/extensions/accounting/callback/invoice-pdf/{requestId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"requestId"+"}", url.PathEscape(parameterToString(r.requestId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.invoicePdfResponse == nil {
+		return nil, reportError("invoicePdfResponse is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"*/*"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.invoicePdfResponse
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {

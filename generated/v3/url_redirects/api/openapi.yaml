@@ -12,7 +12,7 @@ paths:
     get:
       description: Returns all existing URL redirects. Results can be limited and
         filtered by creation or updated date.
-      operationId: get-/cms/v3/url-redirects/_getPage
+      operationId: GetPage
       parameters:
       - description: Only return redirects created on exactly this date.
         explode: true
@@ -159,7 +159,7 @@ paths:
       - Redirects
     post:
       description: Creates and configures a new URL redirect.
-      operationId: post-/cms/v3/url-redirects/_create
+      operationId: Create
       requestBody:
         content:
           application/json:
@@ -189,7 +189,7 @@ paths:
   /cms/v3/url-redirects/{urlRedirectId}:
     delete:
       description: "Delete one existing redirect, so it is no longer mapped."
-      operationId: "delete-/cms/v3/url-redirects/{urlRedirectId}_archive"
+      operationId: Archive
       parameters:
       - description: The ID of the target redirect.
         explode: false
@@ -218,7 +218,7 @@ paths:
       - Redirects
     get:
       description: Returns the details for a single existing URL redirect by ID.
-      operationId: "get-/cms/v3/url-redirects/{urlRedirectId}_getById"
+      operationId: GetByID
       parameters:
       - description: The ID of the target redirect.
         explode: false
@@ -262,7 +262,7 @@ paths:
       - Redirects
     patch:
       description: Updates the settings for an existing URL redirect.
-      operationId: "patch-/cms/v3/url-redirects/{urlRedirectId}_update"
+      operationId: Update
       parameters:
       - explode: false
         in: path

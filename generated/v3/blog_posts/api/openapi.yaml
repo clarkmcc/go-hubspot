@@ -13,7 +13,7 @@ paths:
     get:
       description: |
         Get the list of blog posts. Supports paging and filtering. This method would be useful for an integration that examined these models and used an external service to suggest edits.
-      operationId: get-/cms/v3/blogs/posts_getPage
+      operationId: GetPage
       parameters:
       - description: Only return Blog Posts created at exactly the specified time.
         explode: true
@@ -131,7 +131,7 @@ paths:
       - Blog Posts
     post:
       description: Create a new Blog Post.
-      operationId: post-/cms/v3/blogs/posts_create
+      operationId: Create
       requestBody:
         content:
           application/json:
@@ -164,7 +164,7 @@ paths:
       description: |-
         Delete the Blog Post objects identified in the request body.
         Note: This is not the same as the in-app `archive` function. To perform a dashboard `archive` send an normal update with the `archivedInDashboard` field set to true.
-      operationId: post-/cms/v3/blogs/posts/batch/archive_archiveBatch
+      operationId: BatchArchive
       requestBody:
         content:
           application/json:
@@ -192,7 +192,7 @@ paths:
   /cms/v3/blogs/posts/batch/create:
     post:
       description: Create the Blog Post objects detailed in the request body.
-      operationId: post-/cms/v3/blogs/posts/batch/create_createBatch
+      operationId: BatchCreate
       requestBody:
         content:
           application/json:
@@ -229,7 +229,7 @@ paths:
   /cms/v3/blogs/posts/batch/read:
     post:
       description: Retrieve the Blog Post objects identified in the request body.
-      operationId: post-/cms/v3/blogs/posts/batch/read_readBatch
+      operationId: BatchRead
       parameters:
       - description: Specifies whether to return deleted Blog Posts. Defaults to `false`.
         explode: true
@@ -275,7 +275,7 @@ paths:
   /cms/v3/blogs/posts/batch/update:
     post:
       description: Update the Blog Post objects identified in the request body.
-      operationId: post-/cms/v3/blogs/posts/batch/update_updateBatch
+      operationId: BatchUpdate
       parameters:
       - description: Specifies whether to update deleted Blog Posts. Defaults to `false`.
         explode: true
@@ -322,7 +322,7 @@ paths:
   /cms/v3/blogs/posts/clone:
     post:
       description: Clone a Blog Post.
-      operationId: post-/cms/v3/blogs/posts/clone_clone
+      operationId: Clone
       requestBody:
         content:
           application/json:
@@ -353,7 +353,7 @@ paths:
   /cms/v3/blogs/posts/multi-language/attach-to-lang-group:
     post:
       description: Attach a Blog Post to a multi-language group.
-      operationId: post-/cms/v3/blogs/posts/multi-language/attach-to-lang-group_attachToLangGroup
+      operationId: AttachToLangGroup
       requestBody:
         content:
           application/json:
@@ -378,7 +378,7 @@ paths:
   /cms/v3/blogs/posts/multi-language/create-language-variation:
     post:
       description: Create a new language variation from an existing Blog Post
-      operationId: post-/cms/v3/blogs/posts/multi-language/create-language-variation_createLangVariation
+      operationId: CreateLangVariation
       requestBody:
         content:
           application/json:
@@ -410,7 +410,7 @@ paths:
   /cms/v3/blogs/posts/multi-language/detach-from-lang-group:
     post:
       description: Detach a Blog Post from a multi-language group.
-      operationId: post-/cms/v3/blogs/posts/multi-language/detach-from-lang-group_detachFromLangGroup
+      operationId: DetachFromLangGroup
       requestBody:
         content:
           application/json:
@@ -435,7 +435,7 @@ paths:
   /cms/v3/blogs/posts/multi-language/set-new-lang-primary:
     put:
       description: Set a Blog Post as the primary language of a multi-language group.
-      operationId: put-/cms/v3/blogs/posts/multi-language/set-new-lang-primary_setLangPrimary
+      operationId: SetLangPrimary
       requestBody:
         content:
           application/json:
@@ -464,7 +464,7 @@ paths:
     post:
       description: Explicitly set new languages for each Blog Post in a multi-language
         group.
-      operationId: post-/cms/v3/blogs/posts/multi-language/update-languages_updateLangs
+      operationId: UpdateLangs
       requestBody:
         content:
           application/json:
@@ -489,7 +489,7 @@ paths:
   /cms/v3/blogs/posts/schedule:
     post:
       description: Schedule a Blog Post to be Published.
-      operationId: post-/cms/v3/blogs/posts/schedule_schedule
+      operationId: Schedule
       requestBody:
         content:
           application/json:
@@ -517,7 +517,7 @@ paths:
   /cms/v3/blogs/posts/{objectId}:
     delete:
       description: Delete the Blog Post object identified by the id in the path.
-      operationId: "delete-/cms/v3/blogs/posts/{objectId}_archive"
+      operationId: Archive
       parameters:
       - description: The Blog Post id.
         explode: false
@@ -554,7 +554,7 @@ paths:
       - Blog Posts
     get:
       description: Retrieve the Blog Post object identified by the id in the path.
-      operationId: "get-/cms/v3/blogs/posts/{objectId}_getById"
+      operationId: GetByID
       parameters:
       - description: The Blog Post id.
         explode: false
@@ -596,7 +596,7 @@ paths:
       description: |
         Sparse updates a single Blog Post object identified by the id in the path.
         All the column values need not be specified. Only the that need to be modified can be specified.
-      operationId: "patch-/cms/v3/blogs/posts/{objectId}_update"
+      operationId: Update
       parameters:
       - description: The Blog Post id.
         explode: false
@@ -644,7 +644,7 @@ paths:
   /cms/v3/blogs/posts/{objectId}/draft:
     get:
       description: Retrieve the full draft version of the Blog Post.
-      operationId: "get-/cms/v3/blogs/posts/{objectId}/draft_getDraftById"
+      operationId: GetDraftByID
       parameters:
       - description: The Blog Post id.
         explode: false
@@ -678,7 +678,7 @@ paths:
       description: |
         Sparse updates the draft version of a single Blog Post object identified by the id in the path.
         All the column values need not be specified. Only the that need to be modified can be specified.
-      operationId: "patch-/cms/v3/blogs/posts/{objectId}/draft_updateDraft"
+      operationId: UpdateDraft
       parameters:
       - description: The Blog Post id.
         explode: false
@@ -720,7 +720,7 @@ paths:
     post:
       description: Take any changes from the draft version of the Blog Post and apply
         them to the live version.
-      operationId: "post-/cms/v3/blogs/posts/{objectId}/draft/push-live_pushLive"
+      operationId: PushLive
       parameters:
       - description: The id of the Blog Post for which it's draft will be pushed live.
         explode: false
@@ -750,7 +750,7 @@ paths:
   /cms/v3/blogs/posts/{objectId}/draft/reset:
     post:
       description: Discards any edits and resets the draft to the live version.
-      operationId: "post-/cms/v3/blogs/posts/{objectId}/draft/reset_resetDraft"
+      operationId: ResetDraft
       parameters:
       - description: The id of the Blog Post for which it's draft will be reset.
         explode: false
@@ -780,7 +780,7 @@ paths:
   /cms/v3/blogs/posts/{objectId}/revisions:
     get:
       description: Retrieves all the previous versions of a blog post.
-      operationId: "get-/cms/v3/blogs/posts/{objectId}/revisions_getPreviousVersions"
+      operationId: GetPreviousVersions
       parameters:
       - description: The Blog Post id.
         explode: false
@@ -839,7 +839,7 @@ paths:
   /cms/v3/blogs/posts/{objectId}/revisions/{revisionId}:
     get:
       description: Retrieves a previous version of a blog post.
-      operationId: "get-/cms/v3/blogs/posts/{objectId}/revisions/{revisionId}_getPreviousVersion"
+      operationId: GetPreviousVersion
       parameters:
       - description: The Blog Post id.
         explode: false
@@ -880,7 +880,7 @@ paths:
   /cms/v3/blogs/posts/{objectId}/revisions/{revisionId}/restore:
     post:
       description: Takes a specified version of a blog post and restores it.
-      operationId: "post-/cms/v3/blogs/posts/{objectId}/revisions/{revisionId}/restore_restorePreviousVersion"
+      operationId: RestorePreviousVersion
       parameters:
       - description: The Blog Post id.
         explode: false
@@ -922,7 +922,7 @@ paths:
     post:
       description: "Takes a specified version of a blog post, sets it as the new draft\
         \ version of the blog post."
-      operationId: "post-/cms/v3/blogs/posts/{objectId}/revisions/{revisionId}/restore-to-draft_restorePreviousVersionToDraft"
+      operationId: RestorePreviousVersionToDraft
       parameters:
       - description: The Blog Post id.
         explode: false

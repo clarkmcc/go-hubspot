@@ -24,7 +24,7 @@ import (
 // PublicImportsApiService PublicImportsApi service
 type PublicImportsApiService service
 
-type ApiGetCrmV3ImportsImportIdErrorsGetErrorsRequest struct {
+type ApiGetErrorsRequest struct {
 	ctx        context.Context
 	ApiService *PublicImportsApiService
 	importId   int64
@@ -33,30 +33,30 @@ type ApiGetCrmV3ImportsImportIdErrorsGetErrorsRequest struct {
 }
 
 // The paging cursor token of the last successfully read resource will be returned as the &#x60;paging.next.after&#x60; JSON property of a paged response containing more results.
-func (r ApiGetCrmV3ImportsImportIdErrorsGetErrorsRequest) After(after string) ApiGetCrmV3ImportsImportIdErrorsGetErrorsRequest {
+func (r ApiGetErrorsRequest) After(after string) ApiGetErrorsRequest {
 	r.after = &after
 	return r
 }
 
 // The maximum number of results to display per page.
-func (r ApiGetCrmV3ImportsImportIdErrorsGetErrorsRequest) Limit(limit int32) ApiGetCrmV3ImportsImportIdErrorsGetErrorsRequest {
+func (r ApiGetErrorsRequest) Limit(limit int32) ApiGetErrorsRequest {
 	r.limit = &limit
 	return r
 }
 
-func (r ApiGetCrmV3ImportsImportIdErrorsGetErrorsRequest) Execute() (*CollectionResponsePublicImportErrorForwardPaging, *http.Response, error) {
-	return r.ApiService.GetCrmV3ImportsImportIdErrorsGetErrorsExecute(r)
+func (r ApiGetErrorsRequest) Execute() (*CollectionResponsePublicImportErrorForwardPaging, *http.Response, error) {
+	return r.ApiService.GetErrorsExecute(r)
 }
 
 /*
-GetCrmV3ImportsImportIdErrorsGetErrors Method for GetCrmV3ImportsImportIdErrorsGetErrors
+GetErrors Method for GetErrors
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param importId
- @return ApiGetCrmV3ImportsImportIdErrorsGetErrorsRequest
+ @return ApiGetErrorsRequest
 */
-func (a *PublicImportsApiService) GetCrmV3ImportsImportIdErrorsGetErrors(ctx context.Context, importId int64) ApiGetCrmV3ImportsImportIdErrorsGetErrorsRequest {
-	return ApiGetCrmV3ImportsImportIdErrorsGetErrorsRequest{
+func (a *PublicImportsApiService) GetErrors(ctx context.Context, importId int64) ApiGetErrorsRequest {
+	return ApiGetErrorsRequest{
 		ApiService: a,
 		ctx:        ctx,
 		importId:   importId,
@@ -65,7 +65,7 @@ func (a *PublicImportsApiService) GetCrmV3ImportsImportIdErrorsGetErrors(ctx con
 
 // Execute executes the request
 //  @return CollectionResponsePublicImportErrorForwardPaging
-func (a *PublicImportsApiService) GetCrmV3ImportsImportIdErrorsGetErrorsExecute(r ApiGetCrmV3ImportsImportIdErrorsGetErrorsRequest) (*CollectionResponsePublicImportErrorForwardPaging, *http.Response, error) {
+func (a *PublicImportsApiService) GetErrorsExecute(r ApiGetErrorsRequest) (*CollectionResponsePublicImportErrorForwardPaging, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -73,7 +73,7 @@ func (a *PublicImportsApiService) GetCrmV3ImportsImportIdErrorsGetErrorsExecute(
 		localVarReturnValue *CollectionResponsePublicImportErrorForwardPaging
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicImportsApiService.GetCrmV3ImportsImportIdErrorsGetErrors")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicImportsApiService.GetErrors")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

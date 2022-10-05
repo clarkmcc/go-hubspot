@@ -18,7 +18,7 @@ paths:
     delete:
       description: Deletes this calling extension. This will remove your service as
         an option for all connected accounts.
-      operationId: "delete-/crm/v3/extensions/calling/{appId}/settings_archive"
+      operationId: Archive
       parameters:
       - description: The ID of the target app.
         explode: false
@@ -46,7 +46,7 @@ paths:
       - Settings
     get:
       description: Returns the calling extension settings configured for your app.
-      operationId: "get-/crm/v3/extensions/calling/{appId}/settings_getById"
+      operationId: GetByID
       parameters:
       - description: The ID of the target app.
         explode: false
@@ -86,7 +86,7 @@ paths:
       - Settings
     patch:
       description: Updates existing calling extension settings.
-      operationId: "patch-/crm/v3/extensions/calling/{appId}/settings_update"
+      operationId: Update
       parameters:
       - description: The ID of the target app.
         explode: false
@@ -134,7 +134,7 @@ paths:
     post:
       description: "Used to set the menu label, target iframe URL, and dimensions\
         \ for your calling extension."
-      operationId: "post-/crm/v3/extensions/calling/{appId}/settings_create"
+      operationId: Create
       parameters:
       - description: The ID of the target app.
         explode: false

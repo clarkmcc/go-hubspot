@@ -78,11 +78,11 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*CoreApi* | [**GetCrmV3ImportsGetPage**](docs/CoreApi.md#getcrmv3importsgetpage) | **Get** /crm/v3/imports/ | Get active imports
-*CoreApi* | [**GetCrmV3ImportsImportIdGetById**](docs/CoreApi.md#getcrmv3importsimportidgetbyid) | **Get** /crm/v3/imports/{importId} | Get the information on any import
-*CoreApi* | [**PostCrmV3ImportsCreate**](docs/CoreApi.md#postcrmv3importscreate) | **Post** /crm/v3/imports/ | Start a new import
-*CoreApi* | [**PostCrmV3ImportsImportIdCancelCancel**](docs/CoreApi.md#postcrmv3importsimportidcancelcancel) | **Post** /crm/v3/imports/{importId}/cancel | Cancel an active import
-*PublicImportsApi* | [**GetCrmV3ImportsImportIdErrorsGetErrors**](docs/PublicImportsApi.md#getcrmv3importsimportiderrorsgeterrors) | **Get** /crm/v3/imports/{importId}/errors | 
+*CoreApi* | [**Cancel**](docs/CoreApi.md#cancel) | **Post** /crm/v3/imports/{importId}/cancel | Cancel an active import
+*CoreApi* | [**Create**](docs/CoreApi.md#create) | **Post** /crm/v3/imports/ | Start a new import
+*CoreApi* | [**GetByID**](docs/CoreApi.md#getbyid) | **Get** /crm/v3/imports/{importId} | Get the information on any import
+*CoreApi* | [**GetPage**](docs/CoreApi.md#getpage) | **Get** /crm/v3/imports/ | Get active imports
+*PublicImportsApi* | [**GetErrors**](docs/PublicImportsApi.md#geterrors) | **Get** /crm/v3/imports/{importId}/errors | 
 
 
 ## Documentation For Models
