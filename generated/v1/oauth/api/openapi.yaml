@@ -1,0 +1,364 @@
+openapi: 3.0.1
+info:
+  title: OAuthService
+  version: v1
+servers:
+- url: https://api.hubapi.com/
+tags:
+- name: Access_Tokens
+- name: Refresh_Tokens
+- name: Tokens
+paths:
+  /oauth/v1/access-tokens/{token}:
+    get:
+      operationId: GetAccessToken
+      parameters:
+      - explode: false
+        in: path
+        name: token
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessTokenInfoResponse'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security: []
+      tags:
+      - Access_Tokens
+  /oauth/v1/refresh-tokens/{token}:
+    delete:
+      operationId: ArchiveRefreshToken
+      parameters:
+      - explode: false
+        in: path
+        name: token
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security: []
+      tags:
+      - Refresh_Tokens
+    get:
+      operationId: GetRefreshToken
+      parameters:
+      - explode: false
+        in: path
+        name: token
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RefreshTokenInfoResponse'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security: []
+      tags:
+      - Refresh_Tokens
+  /oauth/v1/token:
+    post:
+      operationId: CreateToken
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateToken_request'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponseIF'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security: []
+      tags:
+      - Tokens
+components:
+  responses:
+    Error:
+      content:
+        '*/*':
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An error occurred.
+  schemas:
+    ErrorDetail:
+      properties:
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          type: string
+        in:
+          description: The name of the field or parameter in which the error was found.
+          type: string
+        code:
+          description: The status code associated with the error detail
+          type: string
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
+          type: string
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: Context about the error condition
+          example:
+            missingScopes:
+            - scope1
+            - scope2
+          type: object
+      required:
+      - message
+      type: object
+    Error:
+      example:
+        message: Invalid input (details will vary based on the error)
+        correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
+        category: VALIDATION_ERROR
+        links:
+          knowledge-base: https://www.hubspot.com/products/service/knowledge-base
+      properties:
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          example: An error occurred
+          type: string
+        correlationId:
+          description: A unique identifier for the request. Include this value with
+            any error reports or support tickets
+          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
+          format: uuid
+          type: string
+        category:
+          description: The error category
+          type: string
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
+          type: string
+        errors:
+          description: further information about the error
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: Context about the error condition
+          example:
+            invalidPropertyName:
+            - propertyValue
+            missingScopes:
+            - scope1
+            - scope2
+          type: object
+        links:
+          additionalProperties:
+            type: string
+          description: A map of link names to associated URIs containing documentation
+            about the error or recommended remediation steps
+          type: object
+      required:
+      - category
+      - correlationId
+      - message
+      type: object
+    AccessTokenInfoResponse:
+      example:
+        hub_id: 1
+        user_id: 2
+        trial_scope_to_scope_group_pks:
+        - 6
+        - 6
+        scopes:
+        - scopes
+        - scopes
+        token_type: token_type
+        user: user
+        hub_domain: hub_domain
+        scope_to_scope_group_pks:
+        - 0
+        - 0
+        app_id: 5
+        expires_in: 5
+        token: token
+        trial_scopes:
+        - trial_scopes
+        - trial_scopes
+      properties:
+        token:
+          type: string
+        user:
+          type: string
+        hub_domain:
+          type: string
+        scopes:
+          items:
+            type: string
+          type: array
+        scope_to_scope_group_pks:
+          items:
+            format: int32
+            type: integer
+          type: array
+        trial_scopes:
+          items:
+            type: string
+          type: array
+        trial_scope_to_scope_group_pks:
+          items:
+            format: int32
+            type: integer
+          type: array
+        hub_id:
+          format: int32
+          type: integer
+        app_id:
+          format: int32
+          type: integer
+        expires_in:
+          format: int32
+          type: integer
+        user_id:
+          format: int32
+          type: integer
+        token_type:
+          type: string
+      required:
+      - app_id
+      - expires_in
+      - hub_id
+      - scope_to_scope_group_pks
+      - scopes
+      - token
+      - token_type
+      - trial_scope_to_scope_group_pks
+      - trial_scopes
+      - user_id
+      type: object
+    TokenResponseIF:
+      example:
+        access_token: access_token
+        refresh_token: refresh_token
+        id_token: id_token
+        token_type: token_type
+        expires_in: 0
+      properties:
+        refresh_token:
+          type: string
+        expires_in:
+          format: int32
+          type: integer
+        access_token:
+          type: string
+        id_token:
+          type: string
+        token_type:
+          type: string
+      required:
+      - access_token
+      - expires_in
+      - refresh_token
+      - token_type
+      type: object
+    RefreshTokenInfoResponse:
+      example:
+        hub_id: 0
+        user_id: 6
+        scopes:
+        - scopes
+        - scopes
+        token_type: token_type
+        user: user
+        hub_domain: hub_domain
+        client_id: client_id
+        token: token
+      properties:
+        token:
+          type: string
+        user:
+          type: string
+        hub_domain:
+          type: string
+        scopes:
+          items:
+            type: string
+          type: array
+        hub_id:
+          format: int32
+          type: integer
+        client_id:
+          type: string
+        user_id:
+          format: int32
+          type: integer
+        token_type:
+          type: string
+      required:
+      - client_id
+      - hub_id
+      - scopes
+      - token
+      - token_type
+      - user_id
+      type: object
+    CreateToken_request:
+      properties:
+        grant_type:
+          enum:
+          - authorization_code
+          - refresh_token
+          type: string
+        code:
+          type: string
+        redirect_uri:
+          type: string
+        client_id:
+          type: string
+        client_secret:
+          type: string
+        refresh_token:
+          type: string
+x-hubspot-available-client-libraries:
+- PHP
+- Node
+- Python
+- Ruby

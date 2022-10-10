@@ -1,0 +1,868 @@
+openapi: 3.0.1
+info:
+  description: "Provides a way for apps to subscribe to certain change events in HubSpot.\
+    \ Once configured, apps will receive event payloads containing details about the\
+    \ changes at a specified target URL. There can only be one target URL for receiving\
+    \ event notifications per app."
+  title: Webhooks API
+  version: v3
+servers:
+- url: https://api.hubapi.com/
+tags:
+- description: Operations to manage app-level webhook settings.
+  name: Settings
+- description: Operations to manage event subscriptions.
+  name: Subscriptions
+paths:
+  /webhooks/v3/{appId}/settings:
+    delete:
+      operationId: SettingsClear
+      parameters:
+      - explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "204":
+          content: {}
+          description: No content
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - developer_hapikey: []
+      tags:
+      - Settings
+    get:
+      operationId: SettingsGetAll
+      parameters:
+      - explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SettingsResponse'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - developer_hapikey: []
+      tags:
+      - Settings
+    put:
+      operationId: SettingsConfigure
+      parameters:
+      - explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SettingsChangeRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SettingsResponse'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - developer_hapikey: []
+      tags:
+      - Settings
+  /webhooks/v3/{appId}/subscriptions:
+    get:
+      operationId: SubscriptionsGetAll
+      parameters:
+      - explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionListResponse'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - developer_hapikey: []
+      tags:
+      - Subscriptions
+    post:
+      operationId: SubscriptionsCreate
+      parameters:
+      - explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscriptionCreateRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionResponse'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - developer_hapikey: []
+      tags:
+      - Subscriptions
+  /webhooks/v3/{appId}/subscriptions/batch/update:
+    post:
+      operationId: SubscriptionsBatchUpdate
+      parameters:
+      - explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchInputSubscriptionBatchUpdateRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchResponseSubscriptionResponse'
+          description: successful operation
+        "207":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchResponseSubscriptionResponseWithErrors'
+          description: multiple statuses
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - developer_hapikey: []
+      tags:
+      - Subscriptions
+  /webhooks/v3/{appId}/subscriptions/{subscriptionId}:
+    delete:
+      operationId: SubscriptionsArchive
+      parameters:
+      - explode: false
+        in: path
+        name: subscriptionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "204":
+          content: {}
+          description: No content
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - developer_hapikey: []
+      tags:
+      - Subscriptions
+    get:
+      operationId: SubscriptionsGetByID
+      parameters:
+      - explode: false
+        in: path
+        name: subscriptionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionResponse'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - developer_hapikey: []
+      tags:
+      - Subscriptions
+    patch:
+      operationId: SubscriptionsUpdate
+      parameters:
+      - explode: false
+        in: path
+        name: subscriptionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscriptionPatchRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionResponse'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - developer_hapikey: []
+      tags:
+      - Subscriptions
+components:
+  responses:
+    Error:
+      content:
+        '*/*':
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An error occurred.
+  schemas:
+    ThrottlingSettings:
+      description: Configuration details for webhook throttling.
+      properties:
+        maxConcurrentRequests:
+          description: The maximum number of HTTP requests HubSpot will attempt to
+            make to your app in a given time frame determined by `period`.
+          format: int32
+          type: integer
+        period:
+          description: Time scale for this setting. Can be either `SECONDLY` (per
+            second) or `ROLLING_MINUTE` (per minute).
+          enum:
+          - SECONDLY
+          - ROLLING_MINUTE
+          type: string
+      required:
+      - maxConcurrentRequests
+      - period
+      type: object
+    StandardError:
+      properties:
+        status:
+          type: string
+        id:
+          type: string
+        category:
+          $ref: '#/components/schemas/ErrorCategory'
+        subCategory:
+          properties: {}
+          type: object
+        message:
+          type: string
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          type: object
+        links:
+          additionalProperties:
+            type: string
+          type: object
+      required:
+      - category
+      - context
+      - errors
+      - links
+      - message
+      - status
+      type: object
+    BatchResponseSubscriptionResponse:
+      example:
+        completedAt: 2000-01-23T04:56:07.000+00:00
+        requestedAt: 2000-01-23T04:56:07.000+00:00
+        startedAt: 2000-01-23T04:56:07.000+00:00
+        links:
+          key: links
+        results:
+        - createdAt: 2000-01-23T04:56:07.000+00:00
+          propertyName: propertyName
+          active: true
+          eventType: contact.propertyChange
+          id: id
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        - createdAt: 2000-01-23T04:56:07.000+00:00
+          propertyName: propertyName
+          active: true
+          eventType: contact.propertyChange
+          id: id
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        status: PENDING
+      properties:
+        status:
+          enum:
+          - PENDING
+          - PROCESSING
+          - CANCELED
+          - COMPLETE
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/SubscriptionResponse'
+          type: array
+        requestedAt:
+          format: date-time
+          type: string
+        startedAt:
+          format: date-time
+          type: string
+        completedAt:
+          format: date-time
+          type: string
+        links:
+          additionalProperties:
+            type: string
+          type: object
+      required:
+      - completedAt
+      - results
+      - startedAt
+      - status
+      type: object
+    SubscriptionListResponse:
+      description: List of event subscriptions for your app
+      example:
+        results:
+        - createdAt: 2000-01-23T04:56:07.000+00:00
+          propertyName: propertyName
+          active: true
+          eventType: contact.propertyChange
+          id: id
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        - createdAt: 2000-01-23T04:56:07.000+00:00
+          propertyName: propertyName
+          active: true
+          eventType: contact.propertyChange
+          id: id
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        results:
+          description: List of event subscriptions for your app
+          items:
+            $ref: '#/components/schemas/SubscriptionResponse'
+          type: array
+      required:
+      - results
+      type: object
+    Error:
+      example:
+        message: Invalid input (details will vary based on the error)
+        correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
+        category: VALIDATION_ERROR
+        links:
+          knowledge-base: https://www.hubspot.com/products/service/knowledge-base
+      properties:
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          example: An error occurred
+          type: string
+        correlationId:
+          description: A unique identifier for the request. Include this value with
+            any error reports or support tickets
+          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
+          format: uuid
+          type: string
+        category:
+          description: The error category
+          type: string
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
+          type: string
+        errors:
+          description: further information about the error
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: Context about the error condition
+          example:
+            invalidPropertyName:
+            - propertyValue
+            missingScopes:
+            - scope1
+            - scope2
+          type: object
+        links:
+          additionalProperties:
+            type: string
+          description: A map of link names to associated URIs containing documentation
+            about the error or recommended remediation steps
+          type: object
+      required:
+      - category
+      - correlationId
+      - message
+      type: object
+    SettingsChangeRequest:
+      description: New or updated webhook settings for an app.
+      example:
+        targetUrl: https://www.example.com/hubspot/target
+        throttling:
+          maxConcurrentRequests: 10
+          period: SECONDLY
+      properties:
+        targetUrl:
+          description: "A publicly available URL for Hubspot to call where event payloads\
+            \ will be delivered. See [link-so-some-doc](#) for details about the format\
+            \ of these event payloads."
+          type: string
+        throttling:
+          $ref: '#/components/schemas/ThrottlingSettings'
+      required:
+      - targetUrl
+      - throttling
+      type: object
+    SubscriptionPatchRequest:
+      description: Updated details for the subscription.
+      example:
+        active: true
+      properties:
+        active:
+          description: Determines if the subscription is active or paused.
+          type: boolean
+      type: object
+    BatchResponseSubscriptionResponseWithErrors:
+      properties:
+        status:
+          enum:
+          - PENDING
+          - PROCESSING
+          - CANCELED
+          - COMPLETE
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/SubscriptionResponse'
+          type: array
+        numErrors:
+          format: int32
+          type: integer
+        errors:
+          items:
+            $ref: '#/components/schemas/StandardError'
+          type: array
+        requestedAt:
+          format: date-time
+          type: string
+        startedAt:
+          format: date-time
+          type: string
+        completedAt:
+          format: date-time
+          type: string
+        links:
+          additionalProperties:
+            type: string
+          type: object
+      required:
+      - completedAt
+      - results
+      - startedAt
+      - status
+      type: object
+    ErrorDetail:
+      properties:
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          type: string
+        in:
+          description: The name of the field or parameter in which the error was found.
+          type: string
+        code:
+          description: The status code associated with the error detail
+          type: string
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
+          type: string
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: Context about the error condition
+          example:
+            missingScopes:
+            - scope1
+            - scope2
+          type: object
+      required:
+      - message
+      type: object
+    SettingsResponse:
+      description: Webhook settings for an app.
+      example:
+        targetUrl: https://www.example.com/hubspot/target
+        throttling:
+          maxConcurrentRequests: 10
+          period: SECONDLY
+        createdAt: 2020-01-24T16:27:59Z
+        updatedAt: 2020-01-24T16:32:43Z
+      properties:
+        targetUrl:
+          description: "A publicly available URL for Hubspot to call where event payloads\
+            \ will be delivered. See [link-so-some-doc](#) for details about the format\
+            \ of these event payloads."
+          type: string
+        throttling:
+          $ref: '#/components/schemas/ThrottlingSettings'
+        createdAt:
+          description: "When this subscription was created. Formatted as milliseconds\
+            \ from the [Unix epoch](#)."
+          format: date-time
+          type: string
+        updatedAt:
+          description: "When this subscription was last updated. Formatted as milliseconds\
+            \ from the [Unix epoch](#)."
+          format: date-time
+          type: string
+      required:
+      - createdAt
+      - targetUrl
+      - throttling
+      type: object
+    ErrorCategory:
+      properties:
+        httpStatus:
+          enum:
+          - CONTINUE
+          - SWITCHING_PROTOCOLS
+          - PROCESSING
+          - OK
+          - CREATED
+          - ACCEPTED
+          - NON_AUTHORITATIVE_INFORMATION
+          - NO_CONTENT
+          - RESET_CONTENT
+          - PARTIAL_CONTENT
+          - MULTI_STATUS
+          - ALREADY_REPORTED
+          - IM_USED
+          - MULTIPLE_CHOICES
+          - MOVED_PERMANENTLY
+          - FOUND
+          - SEE_OTHER
+          - NOT_MODIFIED
+          - USE_PROXY
+          - TEMPORARY_REDIRECT
+          - PERMANENT_REDIRECT
+          - BAD_REQUEST
+          - UNAUTHORIZED
+          - PAYMENT_REQUIRED
+          - FORBIDDEN
+          - NOT_FOUND
+          - METHOD_NOT_ALLOWED
+          - NOT_ACCEPTABLE
+          - PROXY_AUTHENTICATION_REQUIRED
+          - REQUEST_TIMEOUT
+          - CONFLICT
+          - GONE
+          - LENGTH_REQUIRED
+          - PRECONDITION_FAILED
+          - REQUEST_ENTITY_TOO_LARGE
+          - REQUEST_URI_TOO_LONG
+          - UNSUPPORTED_MEDIA_TYPE
+          - REQUESTED_RANGE_NOT_SATISFIABLE
+          - EXPECTATION_FAILED
+          - IM_A_TEAPOT
+          - MISDIRECTED_REQUEST
+          - UNPROCESSABLE_ENTITY
+          - LOCKED
+          - FAILED_DEPENDENCY
+          - UPGRADE_REQUIRED
+          - PRECONDITION_REQUIRED
+          - TOO_MANY_REQUESTS
+          - REQUEST_HEADERS_FIELDS_TOO_LARGE
+          - INTERNAL_STALE_SERVICE_DISCOVERY
+          - UNAVAILABLE_FOR_LEGAL_REASONS
+          - MIGRATION_IN_PROGRESS
+          - INTERNAL_SERVER_ERROR
+          - NOT_IMPLEMENTED
+          - BAD_GATEWAY
+          - SERVICE_UNAVAILABLE
+          - GATEWAY_TIMEOUT
+          - HTTP_VERSION_NOT_SUPPORTED
+          - VARIANT_ALSO_NEGOTIATES
+          - INSUFFICIENT_STORAGE
+          - LOOP_DETECTED
+          - NOT_EXTENDED
+          - NETWORK_AUTHENTICATION_REQUIRED
+          type: string
+        name:
+          type: string
+      required:
+      - httpStatus
+      - name
+      type: object
+    BatchInputSubscriptionBatchUpdateRequest:
+      example:
+        inputs:
+        - active: true
+          id: 0
+        - active: true
+          id: 0
+      properties:
+        inputs:
+          items:
+            $ref: '#/components/schemas/SubscriptionBatchUpdateRequest'
+          type: array
+      required:
+      - inputs
+      type: object
+    SubscriptionBatchUpdateRequest:
+      example:
+        active: true
+        id: 0
+      properties:
+        id:
+          format: int32
+          type: integer
+        active:
+          type: boolean
+      required:
+      - active
+      - id
+      type: object
+    SubscriptionResponse:
+      description: Complete details for an event subscription.
+      example:
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        propertyName: propertyName
+        active: true
+        eventType: contact.propertyChange
+        id: id
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        eventType:
+          description: "Type of event to listen for. Can be one of `create`, `delete`,\
+            \ `deletedForPrivacy`, or `propertyChange`."
+          enum:
+          - contact.propertyChange
+          - company.propertyChange
+          - deal.propertyChange
+          - ticket.propertyChange
+          - product.propertyChange
+          - line_item.propertyChange
+          - contact.creation
+          - contact.deletion
+          - contact.privacyDeletion
+          - company.creation
+          - company.deletion
+          - deal.creation
+          - deal.deletion
+          - ticket.creation
+          - ticket.deletion
+          - product.creation
+          - product.deletion
+          - line_item.creation
+          - line_item.deletion
+          - conversation.creation
+          - conversation.deletion
+          - conversation.newMessage
+          - conversation.privacyDeletion
+          - conversation.propertyChange
+          type: string
+        propertyName:
+          description: The internal name of the property being monitored for changes.
+            Only applies when `eventType` is `propertyChange`.
+          type: string
+        active:
+          description: Determines if the subscription is active or paused.
+          type: boolean
+        id:
+          description: The unique ID of the subscription.
+          type: string
+        createdAt:
+          description: "When this subscription was created. Formatted as milliseconds\
+            \ from the [Unix epoch](#)."
+          format: date-time
+          type: string
+        updatedAt:
+          description: "When this subscription was last updated. Formatted as milliseconds\
+            \ from the [Unix epoch](#)."
+          format: date-time
+          type: string
+      required:
+      - active
+      - createdAt
+      - eventType
+      - id
+      type: object
+    SubscriptionCreateRequest:
+      description: New webhook settings for an app.
+      example:
+        active: true
+        eventType: contact.propertyChange
+        propertyName: email
+      properties:
+        eventType:
+          description: "Type of event to listen for. Can be one of `create`, `delete`,\
+            \ `deletedForPrivacy`, or `propertyChange`."
+          enum:
+          - contact.propertyChange
+          - company.propertyChange
+          - deal.propertyChange
+          - ticket.propertyChange
+          - product.propertyChange
+          - line_item.propertyChange
+          - contact.creation
+          - contact.deletion
+          - contact.privacyDeletion
+          - company.creation
+          - company.deletion
+          - deal.creation
+          - deal.deletion
+          - ticket.creation
+          - ticket.deletion
+          - product.creation
+          - product.deletion
+          - line_item.creation
+          - line_item.deletion
+          - conversation.creation
+          - conversation.deletion
+          - conversation.newMessage
+          - conversation.privacyDeletion
+          - conversation.propertyChange
+          type: string
+        propertyName:
+          description: The internal name of the property to monitor for changes. Only
+            applies when `eventType` is `propertyChange`.
+          type: string
+        active:
+          description: Determines if the subscription is active or paused. Defaults
+            to false.
+          type: boolean
+      required:
+      - eventType
+      type: object
+  securitySchemes:
+    developer_hapikey:
+      in: query
+      name: hapikey
+      type: apiKey
+x-hubspot-available-client-libraries:
+- PHP
+- Node
+- Python
+- Ruby

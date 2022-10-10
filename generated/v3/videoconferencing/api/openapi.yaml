@@ -1,0 +1,248 @@
+openapi: 3.0.1
+info:
+  description: "These APIs allow you to specify URLs that can be used to interact\
+    \ with a video conferencing application, to allow HubSpot to add video conference\
+    \ links to meeting requests with contacts."
+  title: Video Conference Extension
+  version: v3
+servers:
+- url: https://api.hubapi.com/
+tags:
+- description: Operations to change settings.
+  name: Settings
+paths:
+  /crm/v3/extensions/videoconferencing/settings/{appId}:
+    delete:
+      description: Deletes the settings for a video conference application with the
+        specified ID.
+      operationId: Archive
+      parameters:
+      - description: The ID of the video conference application. This is the identifier
+          of the application created in your HubSpot developer portal.
+        explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "204":
+          content: {}
+          description: No content
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - hapikey: []
+      summary: Delete settings
+      tags:
+      - Settings
+    get:
+      description: Return the settings for a video conference application with the
+        specified ID.
+      operationId: GetByID
+      parameters:
+      - description: The ID of the video conference application. This is the identifier
+          of the application created in your HubSpot developer portal.
+        explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalSettings'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - hapikey: []
+      summary: Get settings
+      tags:
+      - Settings
+    put:
+      description: Updates the settings for a video conference application with the
+        specified ID.
+      operationId: Replace
+      parameters:
+      - description: The ID of the video conference application. This is the identifier
+          of the application created in your HubSpot developer portal.
+        explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalSettings'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalSettings'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - hapikey: []
+      summary: Update settings
+      tags:
+      - Settings
+components:
+  responses:
+    Error:
+      content:
+        '*/*':
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An error occurred.
+  schemas:
+    ErrorDetail:
+      properties:
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          type: string
+        in:
+          description: The name of the field or parameter in which the error was found.
+          type: string
+        code:
+          description: The status code associated with the error detail
+          type: string
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
+          type: string
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: Context about the error condition
+          example:
+            missingScopes:
+            - scope1
+            - scope2
+          type: object
+      required:
+      - message
+      type: object
+    Error:
+      example:
+        message: Invalid input (details will vary based on the error)
+        correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
+        category: VALIDATION_ERROR
+        links:
+          knowledge-base: https://www.hubspot.com/products/service/knowledge-base
+      properties:
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          example: An error occurred
+          type: string
+        correlationId:
+          description: A unique identifier for the request. Include this value with
+            any error reports or support tickets
+          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
+          format: uuid
+          type: string
+        category:
+          description: The error category
+          type: string
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
+          type: string
+        errors:
+          description: further information about the error
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: Context about the error condition
+          example:
+            invalidPropertyName:
+            - propertyValue
+            missingScopes:
+            - scope1
+            - scope2
+          type: object
+        links:
+          additionalProperties:
+            type: string
+          description: A map of link names to associated URIs containing documentation
+            about the error or recommended remediation steps
+          type: object
+      required:
+      - category
+      - correlationId
+      - message
+      type: object
+    ExternalSettings:
+      description: The URLs of the various actions provided by the video conferencing
+        application. All URLs must use the `https` protocol.
+      example:
+        createMeetingUrl: https://example.com/create-meeting
+        updateMeetingUrl: https://example.com/update-meeting
+        deleteMeetingUrl: https://example.com/delete-meeting
+        userVerifyUrl: https://example.com/user-verify
+      properties:
+        createMeetingUrl:
+          description: The URL that HubSpot will send requests to create a new video
+            conference.
+          type: string
+        updateMeetingUrl:
+          description: The URL that HubSpot will send updates to existing meetings.
+            Typically called when the user changes the topic or times of a meeting.
+          type: string
+        deleteMeetingUrl:
+          description: The URL that HubSpot will send notifications of meetings that
+            have been deleted in HubSpot.
+          type: string
+        userVerifyUrl:
+          description: The URL that HubSpot will use to verify that a user exists
+            in the video conference application.
+          type: string
+      required:
+      - createMeetingUrl
+      type: object
+  securitySchemes:
+    hapikey:
+      in: query
+      name: hapikey
+      type: apiKey
+x-hubspot-available-client-libraries:
+- PHP
+- Node
+- Python
+- Ruby

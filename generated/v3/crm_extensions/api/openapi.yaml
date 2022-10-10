@@ -1,0 +1,1173 @@
+openapi: 3.0.1
+info:
+  description: "Allows an app to extend the CRM UI by surfacing custom cards in the\
+    \ sidebar of record pages. These cards are defined up-front as part of app configuration,\
+    \ then populated by external data fetch requests when the record page is accessed\
+    \ by a user."
+  title: CRM cards
+  version: v3
+servers:
+- url: https://api.hubapi.com/
+tags:
+- description: Definitions and configuration for the CRM cards your app can display.
+  name: Cards
+- description: Operations related to card detail responses sent to HubSpot by an app.
+  name: SampleResponse
+paths:
+  /crm/v3/extensions/cards/sample-response:
+    get:
+      description: Returns an example card detail response. This is the payload with
+        displayed details for a card that will be shown to a user. An app should send
+        this in response to the data fetch request.
+      operationId: CardsGetSample
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                responseVersion: v3
+                cardLabel: Tickets
+                allItemsLinkUrl: https://example.com/all-items-link-url
+                totalCount: 1
+                topLevelActions:
+                  secondary:
+                  - type: IFRAME
+                    width: 640
+                    height: 480
+                    url: https://example.com/secondary-iframe
+                    label: test_label_secondary
+                    propertyNamesIncluded: []
+                  settings:
+                    propertyNamesIncluded:
+                    - some_crm_property
+                    width: 640
+                    label: Edit
+                    type: IFRAME
+                    url: https://example.com/iframe-contents
+                    height: 480
+                  primary:
+                    propertyNamesIncluded: []
+                    width: 640
+                    label: test_label_primary
+                    type: IFRAME
+                    url: https://example.com/primary-iframe
+                    height: 480
+                sections:
+                - id: "123"
+                  title: "API-22: APIs working too fast"
+                  linkUrl: http://example.com/1
+                  tokens:
+                  - name: created
+                    label: test_label
+                    dataType: DATE
+                    value: 2016-08-04
+                  actions:
+                  - type: ACTION_HOOK
+                    httpMethod: POST
+                    url: https://example.com/action-hook-frame
+                    label: action-hook-label
+                    propertyNamesIncluded:
+                    - email
+                    - firstName
+                  - type: ACTION_HOOK
+                    confirmation:
+                      prompt: action-confirmation-body-prompt
+                      confirmButtonLabel: Continue
+                      cancelButtonLabel: Cancel
+                    httpMethod: POST
+                    url: https://example.com/confirmation-action-hook
+                    label: confirmation-hook-label
+                    propertyNamesIncluded: []
+                  - type: IFRAME
+                    width: 640
+                    height: 480
+                    url: https://example.com/iframe-action-label
+                    label: iframe-action-label
+                    propertyNamesIncluded:
+                    - property1
+                    - property2
+                    - property3
+              schema:
+                $ref: '#/components/schemas/IntegratorCardPayloadResponse'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security: []
+      summary: Get sample card detail response
+      tags:
+      - SampleResponse
+  /crm/v3/extensions/cards/{appId}:
+    get:
+      description: Returns a list of cards for a given app.
+      operationId: CardsGetAll
+      parameters:
+      - description: The ID of the target app.
+        explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                results:
+                - id: "123"
+                  createdAt: 2020-02-26T18:30:53.451Z
+                  updatedAt: 2020-02-26T18:30:53.451Z
+                  title: PetSpot
+                  fetch:
+                    targetUrl: https://www.example.com/hubspot/target
+                    objectTypes:
+                    - name: contacts
+                      propertiesToSend:
+                      - email
+                      - firstname
+                  display:
+                    properties:
+                    - name: pet_name
+                      label: Pets Name
+                      dataType: STRING
+                  actions:
+                    baseUrls:
+                    - https://www.example.com/hubspot
+              schema:
+                $ref: '#/components/schemas/CardListResponse'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - developer_hapikey: []
+      summary: Get all cards
+      tags:
+      - Cards
+    post:
+      description: Defines a new card that will become active on an account when this
+        app is installed.
+      operationId: CardsCreate
+      parameters:
+      - description: The ID of the target app.
+        explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CardCreateRequest'
+        description: The new card definition.
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              example:
+                createdAt: 2019-10-30T03:30:17.883Z
+                fetch:
+                  objectTypes:
+                  - name: contacts
+                    propertiesToSend:
+                    - email
+                    - firstname
+                  targetUrl: https://www.example.com/hubspot/target
+                display:
+                  properties:
+                  - name: pet_name
+                    label: Pet's Name
+                    dataType: STRING
+                title: PetSpot
+                actions:
+                  baseUrls:
+                  - https://www.example.com/hubspot
+                updatedAt: 2019-11-30T03:30:17.883Z
+              schema:
+                $ref: '#/components/schemas/CardResponse'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - developer_hapikey: []
+      summary: Create a new card
+      tags:
+      - Cards
+  /crm/v3/extensions/cards/{appId}/{cardId}:
+    delete:
+      description: "Permanently deletes a card definition with the given ID. Once\
+        \ deleted, data fetch requests for this card will no longer be sent to your\
+        \ service. This can't be undone."
+      operationId: CardsArchive
+      parameters:
+      - description: The ID of the target app.
+        explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: The ID of the card to delete.
+        explode: false
+        in: path
+        name: cardId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          content: {}
+          description: No content
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - developer_hapikey: []
+      summary: Delete a card
+      tags:
+      - Cards
+    get:
+      description: Returns the definition for a card with the given ID.
+      operationId: CardsGetByID
+      parameters:
+      - description: The ID of the target app.
+        explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: The ID of the target card.
+        explode: false
+        in: path
+        name: cardId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                createdAt: 2019-10-30T03:30:17.883Z
+                fetch:
+                  objectTypes:
+                  - name: contacts
+                    propertiesToSend:
+                    - email
+                    - firstname
+                  targetUrl: https://www.example.com/hubspot/target
+                display:
+                  properties:
+                  - name: pet_name
+                    label: Pets Name
+                    dataType: STRING
+                title: PetSpot
+                actions:
+                  baseUrls:
+                  - https://www.example.com/hubspot
+                updatedAt: 2019-11-30T03:30:17.883Z
+              schema:
+                $ref: '#/components/schemas/CardResponse'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - developer_hapikey: []
+      summary: Get a card.
+      tags:
+      - Cards
+    patch:
+      description: Update a card definition with new details.
+      operationId: CardsUpdate
+      parameters:
+      - description: The ID of the target app.
+        explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: The ID of the card to update.
+        explode: false
+        in: path
+        name: cardId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CardPatchRequest'
+        description: Card definition fields to be updated.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                createdAt: 2019-10-30T03:30:17.883Z
+                fetch:
+                  objectTypes:
+                  - name: contacts
+                    propertiesToSend:
+                    - email
+                    - firstname
+                  targetUrl: https://www.example.com/hubspot/target
+                display:
+                  properties:
+                  - name: pet_name
+                    label: Pets Name
+                    dataType: STRING
+                title: PetSpot
+                actions:
+                  baseUrls:
+                  - https://www.example.com/hubspot
+                updatedAt: 2019-11-30T03:30:17.883Z
+              schema:
+                $ref: '#/components/schemas/CardResponse'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - developer_hapikey: []
+      summary: Update a card
+      tags:
+      - Cards
+components:
+  responses:
+    Error:
+      content:
+        '*/*':
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An error occurred.
+  schemas:
+    CardCreateRequest:
+      description: State of card definition to be created
+      example:
+        fetch:
+          objectTypes:
+          - name: contacts
+            propertiesToSend:
+            - email
+            - firstname
+          targetUrl: https://www.example.com/hubspot/target
+        display:
+          properties:
+            dataType: STRING
+            name: pet_name
+            label: Pets Name
+        title: PetSpot
+        actions:
+          baseUrls:
+          - https://www.example.com/hubspot
+      properties:
+        title:
+          description: The top-level title for this card. Displayed to users in the
+            CRM UI.
+          type: string
+        fetch:
+          $ref: '#/components/schemas/CardFetchBody'
+        display:
+          $ref: '#/components/schemas/CardDisplayBody'
+        actions:
+          $ref: '#/components/schemas/CardActions'
+      required:
+      - actions
+      - display
+      - fetch
+      - title
+      type: object
+    CardFetchBodyPatch:
+      description: Variant of CardFetchBody with fields as optional for patches
+      properties:
+        targetUrl:
+          description: URL to a service endpoint that will respond with details for
+            this card. HubSpot will call this endpoint each time a user visits a CRM
+            record page where this card should be displayed.
+          type: string
+        objectTypes:
+          description: An array of CRM object types where this card should be displayed.
+            HubSpot will call your target URL whenever a user visits a record page
+            of the types defined here.
+          items:
+            $ref: '#/components/schemas/CardObjectTypeBody'
+          type: array
+      required:
+      - objectTypes
+      type: object
+    CardDisplayProperty:
+      description: Definition for a card display property.
+      example:
+        dataType: BOOLEAN
+        name: name
+        options:
+        - name: name
+          label: label
+          type: DEFAULT
+        - name: name
+          label: label
+          type: DEFAULT
+        label: label
+      properties:
+        name:
+          description: An internal identifier for this property. This value must be
+            unique TODO.
+          type: string
+        label:
+          description: The label for this property as you'd like it displayed to users.
+          type: string
+        dataType:
+          description: Type of data represented by this property.
+          enum:
+          - BOOLEAN
+          - CURRENCY
+          - DATE
+          - DATETIME
+          - EMAIL
+          - LINK
+          - NUMERIC
+          - STRING
+          - STATUS
+          type: string
+        options:
+          description: An array of available options that can be displayed. Only used
+            in when `dataType` is `STATUS`.
+          items:
+            $ref: '#/components/schemas/DisplayOption'
+          type: array
+      required:
+      - dataType
+      - label
+      - name
+      - options
+      type: object
+    IntegratorObjectResult:
+      example:
+        linkUrl: linkUrl
+        tokens:
+        - dataType: BOOLEAN
+          name: name
+          label: label
+          value: value
+        - dataType: BOOLEAN
+          name: name
+          label: label
+          value: value
+        id: id
+        title: title
+        actions:
+        - null
+        - null
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        linkUrl:
+          type: string
+        tokens:
+          items:
+            $ref: '#/components/schemas/ObjectToken'
+          type: array
+        actions:
+          items:
+            $ref: '#/components/schemas/IntegratorObjectResult_actions_inner'
+          type: array
+      required:
+      - actions
+      - id
+      - title
+      - tokens
+      type: object
+    CardFetchBody:
+      description: Configuration for this card's data fetch request.
+      example:
+        objectTypes:
+        - name: contacts
+          propertiesToSend:
+          - propertiesToSend
+          - propertiesToSend
+        - name: contacts
+          propertiesToSend:
+          - propertiesToSend
+          - propertiesToSend
+        targetUrl: targetUrl
+      properties:
+        targetUrl:
+          description: URL to a service endpoints that will respond with card details.
+            HubSpot will call this endpoint each time a user visits a CRM record page
+            where this card should be displayed.
+          type: string
+        objectTypes:
+          description: An array of CRM object types where this card should be displayed.
+            HubSpot will call your data fetch URL whenever a user visits a record
+            page of the types defined here.
+          items:
+            $ref: '#/components/schemas/CardObjectTypeBody'
+          type: array
+      required:
+      - objectTypes
+      - targetUrl
+      type: object
+    CardObjectTypeBody:
+      example:
+        name: contacts
+        propertiesToSend:
+        - propertiesToSend
+        - propertiesToSend
+      properties:
+        name:
+          description: A CRM object type where this card should be displayed.
+          enum:
+          - contacts
+          - deals
+          - companies
+          - tickets
+          type: string
+        propertiesToSend:
+          description: An array of properties that should be sent to this card's target
+            URL when the data fetch request is made. Must be valid properties for
+            the corresponding CRM object type.
+          items:
+            type: string
+          type: array
+      required:
+      - name
+      - propertiesToSend
+      type: object
+    Error:
+      example:
+        message: Invalid input (details will vary based on the error)
+        correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
+        category: VALIDATION_ERROR
+        links:
+          knowledge-base: https://www.hubspot.com/products/service/knowledge-base
+      properties:
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          example: An error occurred
+          type: string
+        correlationId:
+          description: A unique identifier for the request. Include this value with
+            any error reports or support tickets
+          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
+          format: uuid
+          type: string
+        category:
+          description: The error category
+          type: string
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
+          type: string
+        errors:
+          description: further information about the error
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: Context about the error condition
+          example:
+            invalidPropertyName:
+            - propertyValue
+            missingScopes:
+            - scope1
+            - scope2
+          type: object
+        links:
+          additionalProperties:
+            type: string
+          description: A map of link names to associated URIs containing documentation
+            about the error or recommended remediation steps
+          type: object
+      required:
+      - category
+      - correlationId
+      - message
+      type: object
+    TopLevelActions:
+      example:
+        secondary:
+        - null
+        - null
+        settings:
+          propertyNamesIncluded:
+          - propertyNamesIncluded
+          - propertyNamesIncluded
+          width: 6
+          label: label
+          type: IFRAME
+          url: url
+          height: 1
+        primary: null
+      properties:
+        settings:
+          $ref: '#/components/schemas/IFrameActionBody'
+        primary:
+          $ref: '#/components/schemas/IntegratorObjectResult_actions_inner'
+        secondary:
+          items:
+            $ref: '#/components/schemas/IntegratorObjectResult_actions_inner'
+          type: array
+      required:
+      - secondary
+      type: object
+    DisplayOption:
+      description: Option definition for STATUS dataTypes.
+      example:
+        name: name
+        label: label
+        type: DEFAULT
+      properties:
+        name:
+          description: JSON-friendly unique name for option.
+          type: string
+        label:
+          description: The text that will be displayed to users for this option.
+          type: string
+        type:
+          description: The type of status.
+          enum:
+          - DEFAULT
+          - SUCCESS
+          - WARNING
+          - DANGER
+          - INFO
+          type: string
+      required:
+      - label
+      - name
+      - type
+      type: object
+    ActionHookActionBody:
+      properties:
+        type:
+          default: ACTION_HOOK
+          enum:
+          - ACTION_HOOK
+          type: string
+        confirmation:
+          $ref: '#/components/schemas/ActionConfirmationBody'
+        httpMethod:
+          enum:
+          - CONNECT
+          - DELETE
+          - GET
+          - HEAD
+          - OPTIONS
+          - PATCH
+          - POST
+          - PUT
+          - TRACE
+          type: string
+        url:
+          type: string
+        label:
+          type: string
+        propertyNamesIncluded:
+          items:
+            type: string
+          type: array
+      required:
+      - httpMethod
+      - propertyNamesIncluded
+      - type
+      - url
+      title: ACTION_HOOK
+      type: object
+    ErrorDetail:
+      properties:
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          type: string
+        in:
+          description: The name of the field or parameter in which the error was found.
+          type: string
+        code:
+          description: The status code associated with the error detail
+          type: string
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
+          type: string
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: Context about the error condition
+          example:
+            missingScopes:
+            - scope1
+            - scope2
+          type: object
+      required:
+      - message
+      type: object
+    CardListResponse:
+      description: List of card definitions
+      example:
+        results:
+        - createdAt: 2000-01-23T04:56:07.000+00:00
+          fetch:
+            objectTypes:
+            - name: contacts
+              propertiesToSend:
+              - propertiesToSend
+              - propertiesToSend
+            - name: contacts
+              propertiesToSend:
+              - propertiesToSend
+              - propertiesToSend
+            targetUrl: targetUrl
+          display:
+            properties:
+            - dataType: BOOLEAN
+              name: name
+              options:
+              - name: name
+                label: label
+                type: DEFAULT
+              - name: name
+                label: label
+                type: DEFAULT
+              label: label
+            - dataType: BOOLEAN
+              name: name
+              options:
+              - name: name
+                label: label
+                type: DEFAULT
+              - name: name
+                label: label
+                type: DEFAULT
+              label: label
+          id: id
+          title: title
+          actions:
+            baseUrls:
+            - https://www.example.com/hubspot
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        - createdAt: 2000-01-23T04:56:07.000+00:00
+          fetch:
+            objectTypes:
+            - name: contacts
+              propertiesToSend:
+              - propertiesToSend
+              - propertiesToSend
+            - name: contacts
+              propertiesToSend:
+              - propertiesToSend
+              - propertiesToSend
+            targetUrl: targetUrl
+          display:
+            properties:
+            - dataType: BOOLEAN
+              name: name
+              options:
+              - name: name
+                label: label
+                type: DEFAULT
+              - name: name
+                label: label
+                type: DEFAULT
+              label: label
+            - dataType: BOOLEAN
+              name: name
+              options:
+              - name: name
+                label: label
+                type: DEFAULT
+              - name: name
+                label: label
+                type: DEFAULT
+              label: label
+          id: id
+          title: title
+          actions:
+            baseUrls:
+            - https://www.example.com/hubspot
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        results:
+          description: List of card definitions
+          items:
+            $ref: '#/components/schemas/CardResponse'
+          type: array
+      required:
+      - results
+      type: object
+    ObjectToken:
+      example:
+        dataType: BOOLEAN
+        name: name
+        label: label
+        value: value
+      properties:
+        name:
+          type: string
+        label:
+          type: string
+        dataType:
+          enum:
+          - BOOLEAN
+          - CURRENCY
+          - DATE
+          - DATETIME
+          - EMAIL
+          - LINK
+          - NUMERIC
+          - STRING
+          - STATUS
+          type: string
+        value:
+          type: string
+      required:
+      - value
+      type: object
+    ActionConfirmationBody:
+      properties:
+        prompt:
+          type: string
+        confirmButtonLabel:
+          type: string
+        cancelButtonLabel:
+          type: string
+      required:
+      - cancelButtonLabel
+      - confirmButtonLabel
+      - prompt
+      type: object
+    IFrameActionBody:
+      example:
+        propertyNamesIncluded:
+        - propertyNamesIncluded
+        - propertyNamesIncluded
+        width: 6
+        label: label
+        type: IFRAME
+        url: url
+        height: 1
+      properties:
+        type:
+          default: IFRAME
+          enum:
+          - IFRAME
+          type: string
+        width:
+          format: int32
+          type: integer
+        height:
+          format: int32
+          type: integer
+        url:
+          type: string
+        label:
+          type: string
+        propertyNamesIncluded:
+          items:
+            type: string
+          type: array
+      required:
+      - height
+      - propertyNamesIncluded
+      - type
+      - url
+      - width
+      title: IFRAME
+      type: object
+    IntegratorCardPayloadResponse:
+      description: "The card details payload, sent to HubSpot by an app in response\
+        \ to a data fetch request when a user visits a CRM record page."
+      example:
+        responseVersion: v1
+        cardLabel: cardLabel
+        allItemsLinkUrl: allItemsLinkUrl
+        totalCount: 0
+        topLevelActions:
+          secondary:
+          - null
+          - null
+          settings:
+            propertyNamesIncluded:
+            - propertyNamesIncluded
+            - propertyNamesIncluded
+            width: 6
+            label: label
+            type: IFRAME
+            url: url
+            height: 1
+          primary: null
+        sections:
+        - linkUrl: linkUrl
+          tokens:
+          - dataType: BOOLEAN
+            name: name
+            label: label
+            value: value
+          - dataType: BOOLEAN
+            name: name
+            label: label
+            value: value
+          id: id
+          title: title
+          actions:
+          - null
+          - null
+        - linkUrl: linkUrl
+          tokens:
+          - dataType: BOOLEAN
+            name: name
+            label: label
+            value: value
+          - dataType: BOOLEAN
+            name: name
+            label: label
+            value: value
+          id: id
+          title: title
+          actions:
+          - null
+          - null
+      properties:
+        totalCount:
+          description: The total number of card properties that will be sent in this
+            response.
+          format: int32
+          type: integer
+        allItemsLinkUrl:
+          description: "URL to a page the integrator has built that displays all details\
+            \ for this card. This URL will be displayed to users under a `See more\
+            \ [x]` link if there are more than five items in your response, where\
+            \ `[x]` is the value of `itemLabel`."
+          type: string
+        cardLabel:
+          description: "The label to be used for the `allItemsLinkUrl` link (e.g.\
+            \ 'See more tickets'). If not provided, this falls back to the card's\
+            \ title."
+          type: string
+        topLevelActions:
+          $ref: '#/components/schemas/TopLevelActions'
+        sections:
+          description: A list of up to five valid card sub categories.
+          items:
+            $ref: '#/components/schemas/IntegratorObjectResult'
+          type: array
+        responseVersion:
+          enum:
+          - v1
+          - v3
+          type: string
+      required:
+      - totalCount
+      type: object
+    CardResponse:
+      description: Current state of Card Definition
+      example:
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        fetch:
+          objectTypes:
+          - name: contacts
+            propertiesToSend:
+            - propertiesToSend
+            - propertiesToSend
+          - name: contacts
+            propertiesToSend:
+            - propertiesToSend
+            - propertiesToSend
+          targetUrl: targetUrl
+        display:
+          properties:
+          - dataType: BOOLEAN
+            name: name
+            options:
+            - name: name
+              label: label
+              type: DEFAULT
+            - name: name
+              label: label
+              type: DEFAULT
+            label: label
+          - dataType: BOOLEAN
+            name: name
+            options:
+            - name: name
+              label: label
+              type: DEFAULT
+            - name: name
+              label: label
+              type: DEFAULT
+            label: label
+        id: id
+        title: title
+        actions:
+          baseUrls:
+          - https://www.example.com/hubspot
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        id:
+          description: Generated unique ID for card.
+          type: string
+        createdAt:
+          description: When this card was created.
+          format: date-time
+          type: string
+        updatedAt:
+          description: The last time this card was updated.
+          format: date-time
+          type: string
+        title:
+          description: Displayed title of this card.
+          type: string
+        fetch:
+          $ref: '#/components/schemas/CardFetchBody'
+        display:
+          $ref: '#/components/schemas/CardDisplayBody'
+        actions:
+          $ref: '#/components/schemas/CardActions'
+      required:
+      - actions
+      - display
+      - fetch
+      - id
+      - title
+      type: object
+    CardDisplayBody:
+      description: Configuration for displayed info on a card
+      example:
+        properties:
+        - dataType: BOOLEAN
+          name: name
+          options:
+          - name: name
+            label: label
+            type: DEFAULT
+          - name: name
+            label: label
+            type: DEFAULT
+          label: label
+        - dataType: BOOLEAN
+          name: name
+          options:
+          - name: name
+            label: label
+            type: DEFAULT
+          - name: name
+            label: label
+            type: DEFAULT
+          label: label
+      properties:
+        properties:
+          description: "Card display properties. These will will be rendered as \"\
+            label : value\" pairs in the card UI. See the [example card](#) in the\
+            \ overview docs for more details."
+          items:
+            $ref: '#/components/schemas/CardDisplayProperty'
+          type: array
+      required:
+      - properties
+      type: object
+    CardPatchRequest:
+      description: Body for a patch with optional fields
+      example:
+        fetch:
+          objectTypes:
+          - name: contacts
+            propertiesToSend:
+            - email
+            - firstname
+          targetUrl: https://www.example.com/hubspot/target
+        display:
+          properties:
+            dataType: STRING
+            name: pet_name
+            label: Pets Name
+        title: PetSpot
+        actions:
+          baseUrls:
+          - https://www.example.com/hubspot
+      properties:
+        title:
+          description: The top-level title for this card. Displayed to users in the
+            CRM UI.
+          type: string
+        fetch:
+          $ref: '#/components/schemas/CardFetchBodyPatch'
+        display:
+          $ref: '#/components/schemas/CardDisplayBody'
+        actions:
+          $ref: '#/components/schemas/CardActions'
+      type: object
+    CardActions:
+      description: Configuration for custom user actions on cards.
+      example:
+        baseUrls:
+        - https://www.example.com/hubspot
+      properties:
+        baseUrls:
+          description: "A list of URL prefixes that will be accepted for card action\
+            \ URLs. If your data fetch response includes an action URL that doesn't\
+            \ begin with one of these values, it will result in an error and the card\
+            \ will not be displayed."
+          items:
+            type: string
+          type: array
+      required:
+      - baseUrls
+      type: object
+    IntegratorObjectResult_actions_inner:
+      oneOf:
+      - $ref: '#/components/schemas/ActionHookActionBody'
+      - $ref: '#/components/schemas/IFrameActionBody'
+  securitySchemes:
+    developer_hapikey:
+      in: query
+      name: hapikey
+      type: apiKey
