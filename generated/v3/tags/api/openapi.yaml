@@ -122,7 +122,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
+      - private_apps_legacy:
+        - content
       - oauth2_legacy:
         - content
       summary: Get all Blog Tags
@@ -152,7 +153,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
+      - private_apps_legacy:
+        - content
       - oauth2_legacy:
         - content
       summary: Create a new Blog Tag
@@ -180,7 +182,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
+      - private_apps_legacy:
+        - content
       - oauth2_legacy:
         - content
       summary: Delete a batch of Blog Tags
@@ -217,7 +220,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
+      - private_apps_legacy:
+        - content
       - oauth2_legacy:
         - content
       summary: Create a batch of Blog Tags
@@ -263,7 +267,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
+      - private_apps_legacy:
+        - content
       - oauth2_legacy:
         - content
       summary: Retrieve a batch of Blog Tags
@@ -310,7 +315,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
+      - private_apps_legacy:
+        - content
       - oauth2_legacy:
         - content
       summary: Update a batch of Blog Tags
@@ -335,7 +341,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
+      - private_apps_legacy:
+        - content
       - oauth2_legacy:
         - content
       summary: Attach a Blog Tag to a multi-language group
@@ -366,7 +373,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
+      - private_apps_legacy:
+        - content
       - oauth2_legacy:
         - content
       summary: Create a new language variation
@@ -391,7 +399,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
+      - private_apps_legacy:
+        - content
       - oauth2_legacy:
         - content
       summary: Detach a Blog Tag from a multi-language group
@@ -419,7 +428,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
+      - private_apps_legacy:
+        - content
       - oauth2_legacy:
         - content
       summary: Set a new primary language
@@ -445,7 +455,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
+      - private_apps_legacy:
+        - content
       - oauth2_legacy:
         - content
       summary: Update languages of multi-language group
@@ -483,7 +494,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
+      - private_apps_legacy:
+        - content
       - oauth2_legacy:
         - content
       summary: Delete a Blog Tag
@@ -523,7 +535,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
+      - private_apps_legacy:
+        - content
       - oauth2_legacy:
         - content
       summary: Retrieve a Blog Tag
@@ -572,7 +585,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
+      - private_apps_legacy:
+        - content
       - oauth2_legacy:
         - content
       summary: Update a Blog Tag
@@ -1481,45 +1495,6 @@ components:
       required:
       - id
       type: object
-    CollectionResponseWithTotalTagForwardPaging:
-      description: Response object for collections of blog tags with pagination information.
-      example:
-        total: 0
-        paging:
-          next:
-            link: link
-            after: after
-        results:
-        - deletedAt: 2000-01-23T04:56:07.000+00:00
-          created: 2000-01-23T04:56:07.000+00:00
-          name: name
-          language: af
-          id: id
-          translatedFromId: 6
-          updated: 2000-01-23T04:56:07.000+00:00
-        - deletedAt: 2000-01-23T04:56:07.000+00:00
-          created: 2000-01-23T04:56:07.000+00:00
-          name: name
-          language: af
-          id: id
-          translatedFromId: 6
-          updated: 2000-01-23T04:56:07.000+00:00
-      properties:
-        total:
-          description: Total number of blog tags.
-          format: int32
-          type: integer
-        results:
-          description: Collection of blog tags.
-          items:
-            $ref: '#/components/schemas/Tag'
-          type: array
-        paging:
-          $ref: '#/components/schemas/ForwardPaging'
-      required:
-      - results
-      - total
-      type: object
     Error:
       example:
         message: Invalid input (details will vary based on the error)
@@ -1574,6 +1549,45 @@ components:
       - category
       - correlationId
       - message
+      type: object
+    CollectionResponseWithTotalTagForwardPaging:
+      description: Response object for collections of blog tags with pagination information.
+      example:
+        total: 0
+        paging:
+          next:
+            link: link
+            after: after
+        results:
+        - deletedAt: 2000-01-23T04:56:07.000+00:00
+          created: 2000-01-23T04:56:07.000+00:00
+          name: name
+          language: af
+          id: id
+          translatedFromId: 6
+          updated: 2000-01-23T04:56:07.000+00:00
+        - deletedAt: 2000-01-23T04:56:07.000+00:00
+          created: 2000-01-23T04:56:07.000+00:00
+          name: name
+          language: af
+          id: id
+          translatedFromId: 6
+          updated: 2000-01-23T04:56:07.000+00:00
+      properties:
+        total:
+          description: Total number of blog tags.
+          format: int32
+          type: integer
+        results:
+          description: Collection of blog tags.
+          items:
+            $ref: '#/components/schemas/Tag'
+          type: array
+        paging:
+          $ref: '#/components/schemas/ForwardPaging'
+      required:
+      - results
+      - total
       type: object
     AttachToLangPrimaryRequestVNext:
       description: Request body object fro attaching objects to multi-language groups.
@@ -3074,6 +3088,30 @@ components:
     ErrorCategory:
       description: Model definition for an error category.
       type: object
+    TagCloneRequestVNext:
+      description: Request body object for cloning blog tags.
+      example:
+        name: name
+        language: language
+        id: id
+        primaryLanguage: primaryLanguage
+      properties:
+        id:
+          description: ID of the object to be cloned.
+          type: string
+        language:
+          description: Target language of new variant.
+          type: string
+        primaryLanguage:
+          description: Language of primary blog tag to clone.
+          type: string
+        name:
+          description: Name of newly cloned blog tag.
+          type: string
+      required:
+      - id
+      - name
+      type: object
     BatchResponseTagWithErrors:
       description: Response object for batch operations on blog tags with errors.
       properties:
@@ -3121,30 +3159,6 @@ components:
       - results
       - startedAt
       - status
-      type: object
-    TagCloneRequestVNext:
-      description: Request body object for cloning blog tags.
-      example:
-        name: name
-        language: language
-        id: id
-        primaryLanguage: primaryLanguage
-      properties:
-        id:
-          description: ID of the object to be cloned.
-          type: string
-        language:
-          description: Target language of new variant.
-          type: string
-        primaryLanguage:
-          description: Language of primary blog tag to clone.
-          type: string
-        name:
-          description: Name of newly cloned blog tag.
-          type: string
-      required:
-      - id
-      - name
       type: object
     Tag:
       description: Model definition for a Tag.
@@ -3953,9 +3967,9 @@ components:
             content: Read from and write to my Content
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
-    hapikey:
-      in: query
-      name: hapikey
+    private_apps_legacy:
+      in: header
+      name: private-app-legacy
       type: apiKey
 x-hubspot-available-client-libraries:
 - PHP

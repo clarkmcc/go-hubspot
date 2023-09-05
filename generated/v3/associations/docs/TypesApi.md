@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## GetAll
 
-> CollectionResponsePublicAssociationDefiniton GetAll(ctx, fromObjectType, toObjectType).Execute()
+> CollectionResponsePublicAssociationDefinitionNoPaging GetAll(ctx, fromObjectType, toObjectType).Execute()
 
 List association types
 
@@ -39,7 +39,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `TypesApi.GetAll``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetAll`: CollectionResponsePublicAssociationDefiniton
+    // response from `GetAll`: CollectionResponsePublicAssociationDefinitionNoPaging
     fmt.Fprintf(os.Stdout, "Response from `TypesApi.GetAll`: %v\n", resp)
 }
 ```
@@ -65,11 +65,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CollectionResponsePublicAssociationDefiniton**](CollectionResponsePublicAssociationDefiniton.md)
+[**CollectionResponsePublicAssociationDefinitionNoPaging**](CollectionResponsePublicAssociationDefinitionNoPaging.md)
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 

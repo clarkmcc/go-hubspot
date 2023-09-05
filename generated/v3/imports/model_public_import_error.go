@@ -17,12 +17,12 @@ import (
 // PublicImportError struct for PublicImportError
 type PublicImportError struct {
 	ErrorType         string        `json:"errorType"`
+	SourceData        ImportRowCore `json:"sourceData"`
 	ObjectType        *string       `json:"objectType,omitempty"`
 	InvalidValue      *string       `json:"invalidValue,omitempty"`
 	ExtraContext      *string       `json:"extraContext,omitempty"`
 	ObjectTypeId      *string       `json:"objectTypeId,omitempty"`
-	KnownColumnNumber int32         `json:"knownColumnNumber"`
-	SourceData        ImportRowCore `json:"sourceData"`
+	KnownColumnNumber *int32        `json:"knownColumnNumber,omitempty"`
 	CreatedAt         int32         `json:"createdAt"`
 	Id                string        `json:"id"`
 }
@@ -31,10 +31,9 @@ type PublicImportError struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPublicImportError(errorType string, knownColumnNumber int32, sourceData ImportRowCore, createdAt int32, id string) *PublicImportError {
+func NewPublicImportError(errorType string, sourceData ImportRowCore, createdAt int32, id string) *PublicImportError {
 	this := PublicImportError{}
 	this.ErrorType = errorType
-	this.KnownColumnNumber = knownColumnNumber
 	this.SourceData = sourceData
 	this.CreatedAt = createdAt
 	this.Id = id
@@ -71,6 +70,30 @@ func (o *PublicImportError) GetErrorTypeOk() (*string, bool) {
 // SetErrorType sets field value
 func (o *PublicImportError) SetErrorType(v string) {
 	o.ErrorType = v
+}
+
+// GetSourceData returns the SourceData field value
+func (o *PublicImportError) GetSourceData() ImportRowCore {
+	if o == nil {
+		var ret ImportRowCore
+		return ret
+	}
+
+	return o.SourceData
+}
+
+// GetSourceDataOk returns a tuple with the SourceData field value
+// and a boolean to check if the value has been set.
+func (o *PublicImportError) GetSourceDataOk() (*ImportRowCore, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.SourceData, true
+}
+
+// SetSourceData sets field value
+func (o *PublicImportError) SetSourceData(v ImportRowCore) {
+	o.SourceData = v
 }
 
 // GetObjectType returns the ObjectType field value if set, zero value otherwise.
@@ -201,52 +224,36 @@ func (o *PublicImportError) SetObjectTypeId(v string) {
 	o.ObjectTypeId = &v
 }
 
-// GetKnownColumnNumber returns the KnownColumnNumber field value
+// GetKnownColumnNumber returns the KnownColumnNumber field value if set, zero value otherwise.
 func (o *PublicImportError) GetKnownColumnNumber() int32 {
-	if o == nil {
+	if o == nil || o.KnownColumnNumber == nil {
 		var ret int32
 		return ret
 	}
-
-	return o.KnownColumnNumber
+	return *o.KnownColumnNumber
 }
 
-// GetKnownColumnNumberOk returns a tuple with the KnownColumnNumber field value
+// GetKnownColumnNumberOk returns a tuple with the KnownColumnNumber field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicImportError) GetKnownColumnNumberOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || o.KnownColumnNumber == nil {
 		return nil, false
 	}
-	return &o.KnownColumnNumber, true
+	return o.KnownColumnNumber, true
 }
 
-// SetKnownColumnNumber sets field value
+// HasKnownColumnNumber returns a boolean if a field has been set.
+func (o *PublicImportError) HasKnownColumnNumber() bool {
+	if o != nil && o.KnownColumnNumber != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetKnownColumnNumber gets a reference to the given int32 and assigns it to the KnownColumnNumber field.
 func (o *PublicImportError) SetKnownColumnNumber(v int32) {
-	o.KnownColumnNumber = v
-}
-
-// GetSourceData returns the SourceData field value
-func (o *PublicImportError) GetSourceData() ImportRowCore {
-	if o == nil {
-		var ret ImportRowCore
-		return ret
-	}
-
-	return o.SourceData
-}
-
-// GetSourceDataOk returns a tuple with the SourceData field value
-// and a boolean to check if the value has been set.
-func (o *PublicImportError) GetSourceDataOk() (*ImportRowCore, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.SourceData, true
-}
-
-// SetSourceData sets field value
-func (o *PublicImportError) SetSourceData(v ImportRowCore) {
-	o.SourceData = v
+	o.KnownColumnNumber = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value
@@ -302,6 +309,9 @@ func (o PublicImportError) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["errorType"] = o.ErrorType
 	}
+	if true {
+		toSerialize["sourceData"] = o.SourceData
+	}
 	if o.ObjectType != nil {
 		toSerialize["objectType"] = o.ObjectType
 	}
@@ -314,11 +324,8 @@ func (o PublicImportError) MarshalJSON() ([]byte, error) {
 	if o.ObjectTypeId != nil {
 		toSerialize["objectTypeId"] = o.ObjectTypeId
 	}
-	if true {
+	if o.KnownColumnNumber != nil {
 		toSerialize["knownColumnNumber"] = o.KnownColumnNumber
-	}
-	if true {
-		toSerialize["sourceData"] = o.SourceData
 	}
 	if true {
 		toSerialize["createdAt"] = o.CreatedAt

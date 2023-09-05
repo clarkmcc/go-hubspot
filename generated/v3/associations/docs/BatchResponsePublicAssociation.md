@@ -4,19 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Results** | [**[]PublicAssociation**](PublicAssociation.md) |  | 
-**NumErrors** | Pointer to **int32** |  | [optional] 
-**Errors** | Pointer to [**[]StandardError**](StandardError.md) |  | [optional] 
 **Status** | **string** |  | 
+**Results** | [**[]PublicAssociation**](PublicAssociation.md) |  | 
 **RequestedAt** | Pointer to **time.Time** |  | [optional] 
 **StartedAt** | **time.Time** |  | 
 **CompletedAt** | **time.Time** |  | 
+**Links** | Pointer to **map[string]string** |  | [optional] 
 
 ## Methods
 
 ### NewBatchResponsePublicAssociation
 
-`func NewBatchResponsePublicAssociation(results []PublicAssociation, status string, startedAt time.Time, completedAt time.Time, ) *BatchResponsePublicAssociation`
+`func NewBatchResponsePublicAssociation(status string, results []PublicAssociation, startedAt time.Time, completedAt time.Time, ) *BatchResponsePublicAssociation`
 
 NewBatchResponsePublicAssociation instantiates a new BatchResponsePublicAssociation object
 This constructor will assign default values to properties that have it defined,
@@ -30,76 +29,6 @@ will change when the set of required properties is changed
 NewBatchResponsePublicAssociationWithDefaults instantiates a new BatchResponsePublicAssociation object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetResults
-
-`func (o *BatchResponsePublicAssociation) GetResults() []PublicAssociation`
-
-GetResults returns the Results field if non-nil, zero value otherwise.
-
-### GetResultsOk
-
-`func (o *BatchResponsePublicAssociation) GetResultsOk() (*[]PublicAssociation, bool)`
-
-GetResultsOk returns a tuple with the Results field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetResults
-
-`func (o *BatchResponsePublicAssociation) SetResults(v []PublicAssociation)`
-
-SetResults sets Results field to given value.
-
-
-### GetNumErrors
-
-`func (o *BatchResponsePublicAssociation) GetNumErrors() int32`
-
-GetNumErrors returns the NumErrors field if non-nil, zero value otherwise.
-
-### GetNumErrorsOk
-
-`func (o *BatchResponsePublicAssociation) GetNumErrorsOk() (*int32, bool)`
-
-GetNumErrorsOk returns a tuple with the NumErrors field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetNumErrors
-
-`func (o *BatchResponsePublicAssociation) SetNumErrors(v int32)`
-
-SetNumErrors sets NumErrors field to given value.
-
-### HasNumErrors
-
-`func (o *BatchResponsePublicAssociation) HasNumErrors() bool`
-
-HasNumErrors returns a boolean if a field has been set.
-
-### GetErrors
-
-`func (o *BatchResponsePublicAssociation) GetErrors() []StandardError`
-
-GetErrors returns the Errors field if non-nil, zero value otherwise.
-
-### GetErrorsOk
-
-`func (o *BatchResponsePublicAssociation) GetErrorsOk() (*[]StandardError, bool)`
-
-GetErrorsOk returns a tuple with the Errors field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetErrors
-
-`func (o *BatchResponsePublicAssociation) SetErrors(v []StandardError)`
-
-SetErrors sets Errors field to given value.
-
-### HasErrors
-
-`func (o *BatchResponsePublicAssociation) HasErrors() bool`
-
-HasErrors returns a boolean if a field has been set.
 
 ### GetStatus
 
@@ -119,6 +48,26 @@ and a boolean to check if the value has been set.
 `func (o *BatchResponsePublicAssociation) SetStatus(v string)`
 
 SetStatus sets Status field to given value.
+
+
+### GetResults
+
+`func (o *BatchResponsePublicAssociation) GetResults() []PublicAssociation`
+
+GetResults returns the Results field if non-nil, zero value otherwise.
+
+### GetResultsOk
+
+`func (o *BatchResponsePublicAssociation) GetResultsOk() (*[]PublicAssociation, bool)`
+
+GetResultsOk returns a tuple with the Results field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetResults
+
+`func (o *BatchResponsePublicAssociation) SetResults(v []PublicAssociation)`
+
+SetResults sets Results field to given value.
 
 
 ### GetRequestedAt
@@ -185,6 +134,31 @@ and a boolean to check if the value has been set.
 
 SetCompletedAt sets CompletedAt field to given value.
 
+
+### GetLinks
+
+`func (o *BatchResponsePublicAssociation) GetLinks() map[string]string`
+
+GetLinks returns the Links field if non-nil, zero value otherwise.
+
+### GetLinksOk
+
+`func (o *BatchResponsePublicAssociation) GetLinksOk() (*map[string]string, bool)`
+
+GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLinks
+
+`func (o *BatchResponsePublicAssociation) SetLinks(v map[string]string)`
+
+SetLinks sets Links field to given value.
+
+### HasLinks
+
+`func (o *BatchResponsePublicAssociation) HasLinks() bool`
+
+HasLinks returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

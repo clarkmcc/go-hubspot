@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 ## Archive
 
-> Archive(ctx, objectType, pipelineId).ValidateReferencesBeforeDelete(validateReferencesBeforeDelete).Execute()
+> Archive(ctx, objectType, pipelineId).ValidateReferencesBeforeDelete(validateReferencesBeforeDelete).ValidateDealStageUsagesBeforeDelete(validateDealStageUsagesBeforeDelete).Execute()
 
 Delete a pipeline
 
@@ -37,10 +37,11 @@ func main() {
     objectType := "objectType_example" // string | 
     pipelineId := "pipelineId_example" // string | 
     validateReferencesBeforeDelete := true // bool |  (optional) (default to false)
+    validateDealStageUsagesBeforeDelete := true // bool |  (optional) (default to false)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PipelinesApi.Archive(context.Background(), objectType, pipelineId).ValidateReferencesBeforeDelete(validateReferencesBeforeDelete).Execute()
+    resp, r, err := apiClient.PipelinesApi.Archive(context.Background(), objectType, pipelineId).ValidateReferencesBeforeDelete(validateReferencesBeforeDelete).ValidateDealStageUsagesBeforeDelete(validateDealStageUsagesBeforeDelete).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PipelinesApi.Archive``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -67,6 +68,7 @@ Name | Type | Description  | Notes
 
 
  **validateReferencesBeforeDelete** | **bool** |  | [default to false]
+ **validateDealStageUsagesBeforeDelete** | **bool** |  | [default to false]
 
 ### Return type
 
@@ -74,7 +76,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -146,7 +148,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -216,7 +218,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -289,7 +291,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -303,7 +305,7 @@ Name | Type | Description  | Notes
 
 ## Replace
 
-> Pipeline Replace(ctx, objectType, pipelineId).PipelineInput(pipelineInput).ValidateReferencesBeforeDelete(validateReferencesBeforeDelete).Execute()
+> Pipeline Replace(ctx, objectType, pipelineId).PipelineInput(pipelineInput).ValidateReferencesBeforeDelete(validateReferencesBeforeDelete).ValidateDealStageUsagesBeforeDelete(validateDealStageUsagesBeforeDelete).Execute()
 
 Replace a pipeline
 
@@ -326,10 +328,11 @@ func main() {
     pipelineId := "pipelineId_example" // string | 
     pipelineInput := *openapiclient.NewPipelineInput("Label_example", int32(123), []openapiclient.PipelineStageInput{*openapiclient.NewPipelineStageInput("Label_example", int32(123), map[string]string{"key": "Inner_example"})}) // PipelineInput | 
     validateReferencesBeforeDelete := true // bool |  (optional) (default to false)
+    validateDealStageUsagesBeforeDelete := true // bool |  (optional) (default to false)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PipelinesApi.Replace(context.Background(), objectType, pipelineId).PipelineInput(pipelineInput).ValidateReferencesBeforeDelete(validateReferencesBeforeDelete).Execute()
+    resp, r, err := apiClient.PipelinesApi.Replace(context.Background(), objectType, pipelineId).PipelineInput(pipelineInput).ValidateReferencesBeforeDelete(validateReferencesBeforeDelete).ValidateDealStageUsagesBeforeDelete(validateDealStageUsagesBeforeDelete).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PipelinesApi.Replace``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -359,6 +362,7 @@ Name | Type | Description  | Notes
 
  **pipelineInput** | [**PipelineInput**](PipelineInput.md) |  | 
  **validateReferencesBeforeDelete** | **bool** |  | [default to false]
+ **validateDealStageUsagesBeforeDelete** | **bool** |  | [default to false]
 
 ### Return type
 
@@ -366,7 +370,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -380,7 +384,7 @@ Name | Type | Description  | Notes
 
 ## Update
 
-> Pipeline Update(ctx, objectType, pipelineId).PipelinePatchInput(pipelinePatchInput).ValidateReferencesBeforeDelete(validateReferencesBeforeDelete).Execute()
+> Pipeline Update(ctx, objectType, pipelineId).PipelinePatchInput(pipelinePatchInput).ValidateReferencesBeforeDelete(validateReferencesBeforeDelete).ValidateDealStageUsagesBeforeDelete(validateDealStageUsagesBeforeDelete).Execute()
 
 Update a pipeline
 
@@ -403,10 +407,11 @@ func main() {
     pipelineId := "pipelineId_example" // string | 
     pipelinePatchInput := *openapiclient.NewPipelinePatchInput() // PipelinePatchInput | 
     validateReferencesBeforeDelete := true // bool |  (optional) (default to false)
+    validateDealStageUsagesBeforeDelete := true // bool |  (optional) (default to false)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PipelinesApi.Update(context.Background(), objectType, pipelineId).PipelinePatchInput(pipelinePatchInput).ValidateReferencesBeforeDelete(validateReferencesBeforeDelete).Execute()
+    resp, r, err := apiClient.PipelinesApi.Update(context.Background(), objectType, pipelineId).PipelinePatchInput(pipelinePatchInput).ValidateReferencesBeforeDelete(validateReferencesBeforeDelete).ValidateDealStageUsagesBeforeDelete(validateDealStageUsagesBeforeDelete).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PipelinesApi.Update``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -436,6 +441,7 @@ Name | Type | Description  | Notes
 
  **pipelinePatchInput** | [**PipelinePatchInput**](PipelinePatchInput.md) |  | 
  **validateReferencesBeforeDelete** | **bool** |  | [default to false]
+ **validateDealStageUsagesBeforeDelete** | **bool** |  | [default to false]
 
 ### Return type
 
@@ -443,7 +449,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 

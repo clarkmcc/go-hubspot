@@ -63,7 +63,7 @@ Each operation can use different server URL defined using `OperationServers` map
 An operation is uniquely identified by `"{classname}Service.{nickname}"` string.
 Similar rules for overriding default operation server index and variables applies by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
 
-```golang
+```
 ctx := context.WithValue(context.Background(), hubdb.ContextOperationServerIndices, map[string]int{
 	"{classname}Service.{nickname}": 2,
 })
@@ -89,13 +89,13 @@ Class | Method | HTTP request | Description
 *RowsApi* | [**ReadDraftTableRows**](docs/RowsApi.md#readdrafttablerows) | **Get** /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft | Get rows from draft table
 *RowsApi* | [**ReplaceDraftTableRow**](docs/RowsApi.md#replacedrafttablerow) | **Put** /cms/v3/hubdb/tables/{tableIdOrName}/rows/{rowId}/draft | Replaces an existing row
 *RowsApi* | [**UpdateDraftTableRow**](docs/RowsApi.md#updatedrafttablerow) | **Patch** /cms/v3/hubdb/tables/{tableIdOrName}/rows/{rowId}/draft | Updates an existing row
-*RowsBatchApi* | [**BatchCloneDraftTableRows**](docs/RowsBatchApi.md#batchclonedrafttablerows) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/clone | Clone rows in batch
-*RowsBatchApi* | [**BatchCreateDraftTableRows**](docs/RowsBatchApi.md#batchcreatedrafttablerows) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/create | Create rows in batch
-*RowsBatchApi* | [**BatchPurgeDraftTableRows**](docs/RowsBatchApi.md#batchpurgedrafttablerows) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/purge | Permanently deletes rows
-*RowsBatchApi* | [**BatchReadDraftTableRows**](docs/RowsBatchApi.md#batchreaddrafttablerows) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/read | Get a set of rows from draft table
-*RowsBatchApi* | [**BatchReadTableRows**](docs/RowsBatchApi.md#batchreadtablerows) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/rows/batch/read | Get a set of rows
-*RowsBatchApi* | [**BatchReplaceDraftTableRows**](docs/RowsBatchApi.md#batchreplacedrafttablerows) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/replace | Replace rows in batch in draft table
-*RowsBatchApi* | [**BatchUpdateDraftTableRows**](docs/RowsBatchApi.md#batchupdatedrafttablerows) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/update | Update rows in batch in draft table
+*RowsBatchApi* | [**PostCmsV3HubdbTablesTableIdOrNameRowsBatchReadReadTableRows**](docs/RowsBatchApi.md#postcmsv3hubdbtablestableidornamerowsbatchreadreadtablerows) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/rows/batch/read | Get a set of rows
+*RowsBatchApi* | [**PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCloneCloneDraftTableRows**](docs/RowsBatchApi.md#postcmsv3hubdbtablestableidornamerowsdraftbatchcloneclonedrafttablerows) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/clone | Clone rows in batch
+*RowsBatchApi* | [**PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchCreateCreateDraftTableRows**](docs/RowsBatchApi.md#postcmsv3hubdbtablestableidornamerowsdraftbatchcreatecreatedrafttablerows) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/create | Create rows in batch
+*RowsBatchApi* | [**PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchPurgePurgeDraftTableRows**](docs/RowsBatchApi.md#postcmsv3hubdbtablestableidornamerowsdraftbatchpurgepurgedrafttablerows) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/purge | Permanently deletes rows
+*RowsBatchApi* | [**PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReadReadDraftTableRows**](docs/RowsBatchApi.md#postcmsv3hubdbtablestableidornamerowsdraftbatchreadreaddrafttablerows) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/read | Get a set of rows from draft table
+*RowsBatchApi* | [**PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchReplaceReplaceDraftTableRows**](docs/RowsBatchApi.md#postcmsv3hubdbtablestableidornamerowsdraftbatchreplacereplacedrafttablerows) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/replace | Replace rows in batch in draft table
+*RowsBatchApi* | [**PostCmsV3HubdbTablesTableIdOrNameRowsDraftBatchUpdateUpdateDraftTableRows**](docs/RowsBatchApi.md#postcmsv3hubdbtablestableidornamerowsdraftbatchupdateupdatedrafttablerows) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/update | Update rows in batch in draft table
 *TablesApi* | [**ArchiveTable**](docs/TablesApi.md#archivetable) | **Delete** /cms/v3/hubdb/tables/{tableIdOrName} | Archive a table
 *TablesApi* | [**CloneDraftTable**](docs/TablesApi.md#clonedrafttable) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/draft/clone | Clone a table
 *TablesApi* | [**CreateTable**](docs/TablesApi.md#createtable) | **Post** /cms/v3/hubdb/tables | Create a new table
@@ -114,8 +114,8 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [BatchInputHubDbTableRowV3BatchUpdateRequest](docs/BatchInputHubDbTableRowV3BatchUpdateRequest.md)
  - [BatchInputHubDbTableRowV3Request](docs/BatchInputHubDbTableRowV3Request.md)
- - [BatchInputJsonNode](docs/BatchInputJsonNode.md)
  - [BatchInputString](docs/BatchInputString.md)
  - [BatchResponseHubDbTableRowV3](docs/BatchResponseHubDbTableRowV3.md)
  - [BatchResponseHubDbTableRowV3WithErrors](docs/BatchResponseHubDbTableRowV3WithErrors.md)
@@ -129,6 +129,7 @@ Class | Method | HTTP request | Description
  - [ForwardPaging](docs/ForwardPaging.md)
  - [HubDbTableCloneRequest](docs/HubDbTableCloneRequest.md)
  - [HubDbTableRowV3](docs/HubDbTableRowV3.md)
+ - [HubDbTableRowV3BatchUpdateRequest](docs/HubDbTableRowV3BatchUpdateRequest.md)
  - [HubDbTableRowV3Request](docs/HubDbTableRowV3Request.md)
  - [HubDbTableV3](docs/HubDbTableV3.md)
  - [HubDbTableV3Request](docs/HubDbTableV3Request.md)
@@ -141,15 +142,6 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Authorization
 
-
-
-### hapikey
-
-- **Type**: API key
-- **API key parameter name**: hapikey
-- **Location**: URL query string
-
-Note, each API key must be added to a map of `map[string]APIKey` where the key is: hapikey and passed in as the auth context for each request.
 
 
 ### oauth2_legacy
@@ -179,6 +171,15 @@ tokenSource := oauth2cfg.TokenSource(createContext(httpClient), &token)
 auth := context.WithValue(oauth2.NoContext, sw.ContextOAuth2, tokenSource)
 r, err := client.Service.Operation(auth, args)
 ```
+
+
+### private_apps_legacy
+
+- **Type**: API key
+- **API key parameter name**: private-app-legacy
+- **Location**: HTTP header
+
+Note, each API key must be added to a map of `map[string]APIKey` where the key is: private-app-legacy and passed in as the auth context for each request.
 
 
 ## Documentation for Utility Methods

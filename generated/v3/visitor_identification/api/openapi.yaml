@@ -6,17 +6,17 @@ info:
   title: Visitor Identification
   version: v3
 servers:
-- url: https://api.hubapi.com/
+- url: https://api.hubapi.com
 tags:
-- description: Operations to generate a token
-  name: Generate
+- name: Generate
 paths:
-  /conversations/v3/visitor-identification/tokens/create:
+  /visitor-identification/v3/tokens/create:
     post:
       description: "Generates a new visitor identification token. This token will\
         \ be unique every time this endpoint is called, even if called with the same\
         \ email address. This token is temporary and will expire after 12 hours"
       operationId: GenerateToken
+      parameters: []
       requestBody:
         content:
           application/json:
@@ -37,8 +37,9 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
       - oauth2_legacy:
+        - conversations.visitor_identification.tokens.create
+      - private_apps_legacy:
         - conversations.visitor_identification.tokens.create
       summary: Generate a token
       tags:
@@ -182,12 +183,18 @@ components:
               chat widget
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
-    hapikey:
-      in: query
-      name: hapikey
+    private_apps_legacy:
+      in: header
+      name: private-app-legacy
       type: apiKey
 x-hubspot-available-client-libraries:
 - PHP
 - Node
-- Python
 - Ruby
+- Python
+x-hubspot-product-tier-requirements:
+  marketing: FREE
+  sales: FREE
+  service: FREE
+  cms: FREE
+x-hubspot-documentation-banner: NONE

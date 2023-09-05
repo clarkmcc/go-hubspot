@@ -15,8 +15,6 @@ import (
 	"context"
 	"io/ioutil"
 	"net/http"
-
-	"github.com/clarkmcc/go-hubspot"
 	"net/url"
 	"reflect"
 )
@@ -27,25 +25,37 @@ type AuditLogsApiService service
 type ApiGetPageRequest struct {
 	ctx        context.Context
 	ApiService *AuditLogsApiService
-	objectId   *[]string
 	userId     *[]string
+	eventType  *[]string
+	objectType *[]string
+	objectId   *[]string
 	after      *string
 	before     *string
-	sort       *[]string
-	eventType  *[]string
 	limit      *int32
-	objectType *[]string
-}
-
-// Comma separated list of object ids to filter by.
-func (r ApiGetPageRequest) ObjectId(objectId []string) ApiGetPageRequest {
-	r.objectId = &objectId
-	return r
+	sort       *[]string
 }
 
 // Comma separated list of user ids to filter by.
 func (r ApiGetPageRequest) UserId(userId []string) ApiGetPageRequest {
 	r.userId = &userId
+	return r
+}
+
+// Comma separated list of event types to filter by (CREATED, UPDATED, PUBLISHED, DELETED, UNPUBLISHED).
+func (r ApiGetPageRequest) EventType(eventType []string) ApiGetPageRequest {
+	r.eventType = &eventType
+	return r
+}
+
+// Comma separated list of object types to filter by (BLOG, LANDING_PAGE, DOMAIN, HUBDB_TABLE etc.)
+func (r ApiGetPageRequest) ObjectType(objectType []string) ApiGetPageRequest {
+	r.objectType = &objectType
+	return r
+}
+
+// Comma separated list of object ids to filter by.
+func (r ApiGetPageRequest) ObjectId(objectId []string) ApiGetPageRequest {
+	r.objectId = &objectId
 	return r
 }
 
@@ -61,27 +71,15 @@ func (r ApiGetPageRequest) Before(before string) ApiGetPageRequest {
 	return r
 }
 
-// The sort direction for the audit logs. (Can only sort by timestamp).
-func (r ApiGetPageRequest) Sort(sort []string) ApiGetPageRequest {
-	r.sort = &sort
-	return r
-}
-
-// Comma separated list of event types to filter by (CREATED, UPDATED, PUBLISHED, DELETED, UNPUBLISHED).
-func (r ApiGetPageRequest) EventType(eventType []string) ApiGetPageRequest {
-	r.eventType = &eventType
-	return r
-}
-
 // The number of logs to return.
 func (r ApiGetPageRequest) Limit(limit int32) ApiGetPageRequest {
 	r.limit = &limit
 	return r
 }
 
-// Comma separated list of object types to filter by (BLOG, LANDING_PAGE, DOMAIN, HUBDB_TABLE etc.)
-func (r ApiGetPageRequest) ObjectType(objectType []string) ApiGetPageRequest {
-	r.objectType = &objectType
+// The sort direction for the audit logs. (Can only sort by timestamp).
+func (r ApiGetPageRequest) Sort(sort []string) ApiGetPageRequest {
+	r.sort = &sort
 	return r
 }
 
@@ -125,17 +123,6 @@ func (a *AuditLogsApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionRe
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if r.objectId != nil {
-		t := *r.objectId
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("objectId", parameterToString(s.Index(i), "multi"))
-			}
-		} else {
-			localVarQueryParams.Add("objectId", parameterToString(t, "multi"))
-		}
-	}
 	if r.userId != nil {
 		t := *r.userId
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
@@ -145,23 +132,6 @@ func (a *AuditLogsApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionRe
 			}
 		} else {
 			localVarQueryParams.Add("userId", parameterToString(t, "multi"))
-		}
-	}
-	if r.after != nil {
-		localVarQueryParams.Add("after", parameterToString(*r.after, ""))
-	}
-	if r.before != nil {
-		localVarQueryParams.Add("before", parameterToString(*r.before, ""))
-	}
-	if r.sort != nil {
-		t := *r.sort
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("sort", parameterToString(s.Index(i), "multi"))
-			}
-		} else {
-			localVarQueryParams.Add("sort", parameterToString(t, "multi"))
 		}
 	}
 	if r.eventType != nil {
@@ -175,9 +145,6 @@ func (a *AuditLogsApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionRe
 			localVarQueryParams.Add("eventType", parameterToString(t, "multi"))
 		}
 	}
-	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
-	}
 	if r.objectType != nil {
 		t := *r.objectType
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
@@ -187,6 +154,37 @@ func (a *AuditLogsApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionRe
 			}
 		} else {
 			localVarQueryParams.Add("objectType", parameterToString(t, "multi"))
+		}
+	}
+	if r.objectId != nil {
+		t := *r.objectId
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				localVarQueryParams.Add("objectId", parameterToString(s.Index(i), "multi"))
+			}
+		} else {
+			localVarQueryParams.Add("objectId", parameterToString(t, "multi"))
+		}
+	}
+	if r.after != nil {
+		localVarQueryParams.Add("after", parameterToString(*r.after, ""))
+	}
+	if r.before != nil {
+		localVarQueryParams.Add("before", parameterToString(*r.before, ""))
+	}
+	if r.limit != nil {
+		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+	}
+	if r.sort != nil {
+		t := *r.sort
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				localVarQueryParams.Add("sort", parameterToString(s.Index(i), "multi"))
+			}
+		} else {
+			localVarQueryParams.Add("sort", parameterToString(t, "multi"))
 		}
 	}
 	// to determine the Content-Type header
@@ -208,12 +206,16 @@ func (a *AuditLogsApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionRe
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["private_apps_legacy"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["private-app-legacy"] = key
+			}
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)

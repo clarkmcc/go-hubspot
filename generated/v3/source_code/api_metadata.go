@@ -15,8 +15,6 @@ import (
 	"context"
 	"io/ioutil"
 	"net/http"
-
-	"github.com/clarkmcc/go-hubspot"
 	"net/url"
 	"strings"
 )
@@ -29,6 +27,12 @@ type ApiMetadataGetRequest struct {
 	ApiService  *MetadataApiService
 	environment string
 	path        string
+	properties  *string
+}
+
+func (r ApiMetadataGetRequest) Properties(properties string) ApiMetadataGetRequest {
+	r.properties = &properties
+	return r
 }
 
 func (r ApiMetadataGetRequest) Execute() (*AssetFileMetadata, *http.Response, error) {
@@ -77,6 +81,9 @@ func (a *MetadataApiService) MetadataGetExecute(r ApiMetadataGetRequest) (*Asset
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.properties != nil {
+		localVarQueryParams.Add("properties", parameterToString(*r.properties, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -96,12 +103,16 @@ func (a *MetadataApiService) MetadataGetExecute(r ApiMetadataGetRequest) (*Asset
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["private_apps_legacy"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["private-app-legacy"] = key
+			}
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)

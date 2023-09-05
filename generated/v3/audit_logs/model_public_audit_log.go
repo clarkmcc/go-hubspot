@@ -17,6 +17,10 @@ import (
 
 // PublicAuditLog struct for PublicAuditLog
 type PublicAuditLog struct {
+	// The type of event that took place (CREATED, UPDATED, PUBLISHED, DELETED, UNPUBLISHED).
+	Event string `json:"event"`
+	// The type of the object (BLOG, LANDING_PAGE, DOMAIN, HUBDB_TABLE etc.)
+	ObjectType string `json:"objectType"`
 	// The ID of the object.
 	ObjectId string `json:"objectId"`
 	// The ID of the user who caused the event.
@@ -26,26 +30,23 @@ type PublicAuditLog struct {
 	// The internal name of the object in HubSpot.
 	ObjectName string `json:"objectName"`
 	// The name of the user who caused the event.
-	FullName string `json:"fullName"`
-	// The type of event that took place (CREATED, UPDATED, PUBLISHED, DELETED, UNPUBLISHED).
-	Event string `json:"event"`
-	// The type of the object (BLOG, LANDING_PAGE, DOMAIN, HUBDB_TABLE etc.)
-	ObjectType string `json:"objectType"`
+	FullName string                 `json:"fullName"`
+	Meta     map[string]interface{} `json:"meta,omitempty"`
 }
 
 // NewPublicAuditLog instantiates a new PublicAuditLog object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPublicAuditLog(objectId string, userId string, timestamp time.Time, objectName string, fullName string, event string, objectType string) *PublicAuditLog {
+func NewPublicAuditLog(event string, objectType string, objectId string, userId string, timestamp time.Time, objectName string, fullName string) *PublicAuditLog {
 	this := PublicAuditLog{}
+	this.Event = event
+	this.ObjectType = objectType
 	this.ObjectId = objectId
 	this.UserId = userId
 	this.Timestamp = timestamp
 	this.ObjectName = objectName
 	this.FullName = fullName
-	this.Event = event
-	this.ObjectType = objectType
 	return &this
 }
 
@@ -55,6 +56,54 @@ func NewPublicAuditLog(objectId string, userId string, timestamp time.Time, obje
 func NewPublicAuditLogWithDefaults() *PublicAuditLog {
 	this := PublicAuditLog{}
 	return &this
+}
+
+// GetEvent returns the Event field value
+func (o *PublicAuditLog) GetEvent() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Event
+}
+
+// GetEventOk returns a tuple with the Event field value
+// and a boolean to check if the value has been set.
+func (o *PublicAuditLog) GetEventOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Event, true
+}
+
+// SetEvent sets field value
+func (o *PublicAuditLog) SetEvent(v string) {
+	o.Event = v
+}
+
+// GetObjectType returns the ObjectType field value
+func (o *PublicAuditLog) GetObjectType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ObjectType
+}
+
+// GetObjectTypeOk returns a tuple with the ObjectType field value
+// and a boolean to check if the value has been set.
+func (o *PublicAuditLog) GetObjectTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ObjectType, true
+}
+
+// SetObjectType sets field value
+func (o *PublicAuditLog) SetObjectType(v string) {
+	o.ObjectType = v
 }
 
 // GetObjectId returns the ObjectId field value
@@ -177,56 +226,46 @@ func (o *PublicAuditLog) SetFullName(v string) {
 	o.FullName = v
 }
 
-// GetEvent returns the Event field value
-func (o *PublicAuditLog) GetEvent() string {
-	if o == nil {
-		var ret string
+// GetMeta returns the Meta field value if set, zero value otherwise.
+func (o *PublicAuditLog) GetMeta() map[string]interface{} {
+	if o == nil || o.Meta == nil {
+		var ret map[string]interface{}
 		return ret
 	}
-
-	return o.Event
+	return o.Meta
 }
 
-// GetEventOk returns a tuple with the Event field value
+// GetMetaOk returns a tuple with the Meta field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PublicAuditLog) GetEventOk() (*string, bool) {
-	if o == nil {
+func (o *PublicAuditLog) GetMetaOk() (map[string]interface{}, bool) {
+	if o == nil || o.Meta == nil {
 		return nil, false
 	}
-	return &o.Event, true
+	return o.Meta, true
 }
 
-// SetEvent sets field value
-func (o *PublicAuditLog) SetEvent(v string) {
-	o.Event = v
-}
-
-// GetObjectType returns the ObjectType field value
-func (o *PublicAuditLog) GetObjectType() string {
-	if o == nil {
-		var ret string
-		return ret
+// HasMeta returns a boolean if a field has been set.
+func (o *PublicAuditLog) HasMeta() bool {
+	if o != nil && o.Meta != nil {
+		return true
 	}
 
-	return o.ObjectType
+	return false
 }
 
-// GetObjectTypeOk returns a tuple with the ObjectType field value
-// and a boolean to check if the value has been set.
-func (o *PublicAuditLog) GetObjectTypeOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.ObjectType, true
-}
-
-// SetObjectType sets field value
-func (o *PublicAuditLog) SetObjectType(v string) {
-	o.ObjectType = v
+// SetMeta gets a reference to the given map[string]interface{} and assigns it to the Meta field.
+func (o *PublicAuditLog) SetMeta(v map[string]interface{}) {
+	o.Meta = v
 }
 
 func (o PublicAuditLog) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if true {
+		toSerialize["event"] = o.Event
+	}
+	if true {
+		toSerialize["objectType"] = o.ObjectType
+	}
 	if true {
 		toSerialize["objectId"] = o.ObjectId
 	}
@@ -242,11 +281,8 @@ func (o PublicAuditLog) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["fullName"] = o.FullName
 	}
-	if true {
-		toSerialize["event"] = o.Event
-	}
-	if true {
-		toSerialize["objectType"] = o.ObjectType
+	if o.Meta != nil {
+		toSerialize["meta"] = o.Meta
 	}
 	return json.Marshal(toSerialize)
 }

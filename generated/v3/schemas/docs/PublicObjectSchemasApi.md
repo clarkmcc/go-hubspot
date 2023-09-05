@@ -62,7 +62,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey)
+[private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 

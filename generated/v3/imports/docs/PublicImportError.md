@@ -5,12 +5,12 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ErrorType** | **string** |  | 
+**SourceData** | [**ImportRowCore**](ImportRowCore.md) |  | 
 **ObjectType** | Pointer to **string** |  | [optional] 
 **InvalidValue** | Pointer to **string** |  | [optional] 
 **ExtraContext** | Pointer to **string** |  | [optional] 
 **ObjectTypeId** | Pointer to **string** |  | [optional] 
-**KnownColumnNumber** | **int32** |  | 
-**SourceData** | [**ImportRowCore**](ImportRowCore.md) |  | 
+**KnownColumnNumber** | Pointer to **int32** |  | [optional] 
 **CreatedAt** | **int32** |  | 
 **Id** | **string** |  | 
 
@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 
 ### NewPublicImportError
 
-`func NewPublicImportError(errorType string, knownColumnNumber int32, sourceData ImportRowCore, createdAt int32, id string, ) *PublicImportError`
+`func NewPublicImportError(errorType string, sourceData ImportRowCore, createdAt int32, id string, ) *PublicImportError`
 
 NewPublicImportError instantiates a new PublicImportError object
 This constructor will assign default values to properties that have it defined,
@@ -51,6 +51,26 @@ and a boolean to check if the value has been set.
 `func (o *PublicImportError) SetErrorType(v string)`
 
 SetErrorType sets ErrorType field to given value.
+
+
+### GetSourceData
+
+`func (o *PublicImportError) GetSourceData() ImportRowCore`
+
+GetSourceData returns the SourceData field if non-nil, zero value otherwise.
+
+### GetSourceDataOk
+
+`func (o *PublicImportError) GetSourceDataOk() (*ImportRowCore, bool)`
+
+GetSourceDataOk returns a tuple with the SourceData field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSourceData
+
+`func (o *PublicImportError) SetSourceData(v ImportRowCore)`
+
+SetSourceData sets SourceData field to given value.
 
 
 ### GetObjectType
@@ -172,26 +192,11 @@ and a boolean to check if the value has been set.
 
 SetKnownColumnNumber sets KnownColumnNumber field to given value.
 
+### HasKnownColumnNumber
 
-### GetSourceData
+`func (o *PublicImportError) HasKnownColumnNumber() bool`
 
-`func (o *PublicImportError) GetSourceData() ImportRowCore`
-
-GetSourceData returns the SourceData field if non-nil, zero value otherwise.
-
-### GetSourceDataOk
-
-`func (o *PublicImportError) GetSourceDataOk() (*ImportRowCore, bool)`
-
-GetSourceDataOk returns a tuple with the SourceData field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetSourceData
-
-`func (o *PublicImportError) SetSourceData(v ImportRowCore)`
-
-SetSourceData sets SourceData field to given value.
-
+HasKnownColumnNumber returns a boolean if a field has been set.
 
 ### GetCreatedAt
 

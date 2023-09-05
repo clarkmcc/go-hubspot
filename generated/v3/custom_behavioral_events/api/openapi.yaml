@@ -29,7 +29,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
+      - private_apps_legacy:
+        - analytics.behavioral_events.send
       - oauth2_legacy:
         - analytics.behavioral_events.send
       summary: Sends Custom Behavioral Event
@@ -73,44 +74,6 @@ components:
           type: object
       required:
       - message
-      type: object
-    BehavioralEventHttpCompletionRequest:
-      example:
-        occurredAt: 2000-01-23T04:56:07.000+00:00
-        eventName: eventName
-        utk: utk
-        email: email
-        properties:
-          key: properties
-        objectId: objectId
-      properties:
-        utk:
-          description: User token
-          type: string
-        email:
-          description: Email of visitor
-          type: string
-        eventName:
-          description: Internal name of the event-type to trigger
-          type: string
-        properties:
-          additionalProperties:
-            type: string
-          description: Map of properties for the event in the format property internal
-            name - property value
-          type: object
-        occurredAt:
-          description: "The time when this event occurred (if any). If this isn't\
-            \ set, the current time will be used"
-          format: date-time
-          type: string
-        objectId:
-          description: The object id that this event occurred on. Could be a contact
-            id or a visitor id.
-          type: string
-      required:
-      - eventName
-      - properties
       type: object
     Error:
       example:
@@ -167,6 +130,44 @@ components:
       - correlationId
       - message
       type: object
+    BehavioralEventHttpCompletionRequest:
+      example:
+        occurredAt: 2000-01-23T04:56:07.000+00:00
+        eventName: eventName
+        utk: utk
+        email: email
+        properties:
+          key: properties
+        objectId: objectId
+      properties:
+        utk:
+          description: User token
+          type: string
+        email:
+          description: Email of visitor
+          type: string
+        eventName:
+          description: Internal name of the event-type to trigger
+          type: string
+        properties:
+          additionalProperties:
+            type: string
+          description: Map of properties for the event in the format property internal
+            name - property value
+          type: object
+        occurredAt:
+          description: "The time when this event occurred (if any). If this isn't\
+            \ set, the current time will be used"
+          format: date-time
+          type: string
+        objectId:
+          description: The object id that this event occurred on. Could be a contact
+            id or a visitor id.
+          type: string
+      required:
+      - eventName
+      - properties
+      type: object
   securitySchemes:
     oauth2_legacy:
       flows:
@@ -176,7 +177,7 @@ components:
             analytics.behavioral_events.send: Send Behavioral Event Completions
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
-    hapikey:
-      in: query
-      name: hapikey
+    private_apps_legacy:
+      in: header
+      name: private-app-legacy
       type: apiKey

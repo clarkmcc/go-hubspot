@@ -145,7 +145,7 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "content" ]
         }, {
           "oauth2_legacy" : [ "content" ]
         } ]
@@ -182,7 +182,7 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "content" ]
         }, {
           "oauth2_legacy" : [ "content" ]
         } ]
@@ -215,7 +215,7 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "content" ]
         }, {
           "oauth2_legacy" : [ "content" ]
         } ]
@@ -264,7 +264,7 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "content" ]
         }, {
           "oauth2_legacy" : [ "content" ]
         } ]
@@ -324,7 +324,7 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "content" ]
         }, {
           "oauth2_legacy" : [ "content" ]
         } ]
@@ -384,7 +384,7 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "content" ]
         }, {
           "oauth2_legacy" : [ "content" ]
         } ]
@@ -413,7 +413,7 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "content" ]
         }, {
           "oauth2_legacy" : [ "content" ]
         } ]
@@ -452,7 +452,7 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "content" ]
         }, {
           "oauth2_legacy" : [ "content" ]
         } ]
@@ -481,7 +481,7 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "content" ]
         }, {
           "oauth2_legacy" : [ "content" ]
         } ]
@@ -514,7 +514,7 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "content" ]
         }, {
           "oauth2_legacy" : [ "content" ]
         } ]
@@ -543,7 +543,7 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "content" ]
         }, {
           "oauth2_legacy" : [ "content" ]
         } ]
@@ -592,7 +592,7 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "content" ]
         }, {
           "oauth2_legacy" : [ "content" ]
         } ]
@@ -633,7 +633,7 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "content" ]
         }, {
           "oauth2_legacy" : [ "content" ]
         } ]
@@ -691,7 +691,7 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "content" ]
         }, {
           "oauth2_legacy" : [ "content" ]
         } ]
@@ -863,28 +863,6 @@
         },
         "description" : "Request body object for detaching objects from multi-language groups."
       },
-      "CollectionResponseWithTotalTagForwardPaging" : {
-        "required" : [ "results", "total" ],
-        "type" : "object",
-        "properties" : {
-          "total" : {
-            "type" : "integer",
-            "description" : "Total number of blog tags.",
-            "format" : "int32"
-          },
-          "results" : {
-            "type" : "array",
-            "description" : "Collection of blog tags.",
-            "items" : {
-              "$ref" : "#/components/schemas/Tag"
-            }
-          },
-          "paging" : {
-            "$ref" : "#/components/schemas/ForwardPaging"
-          }
-        },
-        "description" : "Response object for collections of blog tags with pagination information."
-      },
       "Error" : {
         "required" : [ "category", "correlationId", "message" ],
         "type" : "object",
@@ -945,6 +923,28 @@
             "knowledge-base" : "https://www.hubspot.com/products/service/knowledge-base"
           }
         }
+      },
+      "CollectionResponseWithTotalTagForwardPaging" : {
+        "required" : [ "results", "total" ],
+        "type" : "object",
+        "properties" : {
+          "total" : {
+            "type" : "integer",
+            "description" : "Total number of blog tags.",
+            "format" : "int32"
+          },
+          "results" : {
+            "type" : "array",
+            "description" : "Collection of blog tags.",
+            "items" : {
+              "$ref" : "#/components/schemas/Tag"
+            }
+          },
+          "paging" : {
+            "$ref" : "#/components/schemas/ForwardPaging"
+          }
+        },
+        "description" : "Response object for collections of blog tags with pagination information."
       },
       "AttachToLangPrimaryRequestVNext" : {
         "required" : [ "id", "language", "primaryId" ],
@@ -1019,6 +1019,29 @@
         "type" : "object",
         "description" : "Model definition for an error category."
       },
+      "TagCloneRequestVNext" : {
+        "required" : [ "id", "name" ],
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "description" : "ID of the object to be cloned."
+          },
+          "language" : {
+            "type" : "string",
+            "description" : "Target language of new variant."
+          },
+          "primaryLanguage" : {
+            "type" : "string",
+            "description" : "Language of primary blog tag to clone."
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "Name of newly cloned blog tag."
+          }
+        },
+        "description" : "Request body object for cloning blog tags."
+      },
       "BatchResponseTagWithErrors" : {
         "required" : [ "completedAt", "results", "startedAt", "status" ],
         "type" : "object",
@@ -1071,29 +1094,6 @@
           }
         },
         "description" : "Response object for batch operations on blog tags with errors."
-      },
-      "TagCloneRequestVNext" : {
-        "required" : [ "id", "name" ],
-        "type" : "object",
-        "properties" : {
-          "id" : {
-            "type" : "string",
-            "description" : "ID of the object to be cloned."
-          },
-          "language" : {
-            "type" : "string",
-            "description" : "Target language of new variant."
-          },
-          "primaryLanguage" : {
-            "type" : "string",
-            "description" : "Language of primary blog tag to clone."
-          },
-          "name" : {
-            "type" : "string",
-            "description" : "Name of newly cloned blog tag."
-          }
-        },
-        "description" : "Request body object for cloning blog tags."
       },
       "Tag" : {
         "required" : [ "created", "deletedAt", "id", "language", "name", "translatedFromId", "updated" ],
@@ -1186,10 +1186,10 @@
           }
         }
       },
-      "hapikey" : {
+      "private_apps_legacy" : {
         "type" : "apiKey",
-        "name" : "hapikey",
-        "in" : "query"
+        "name" : "private-app-legacy",
+        "in" : "header"
       }
     }
   },

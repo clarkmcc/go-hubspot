@@ -38,6 +38,12 @@ type PropertyCreate struct {
 	Hidden *bool `json:"hidden,omitempty"`
 	// Whether or not the property can be used in a HubSpot form.
 	FormField *bool `json:"formField,omitempty"`
+	// Applicable only for 'enumeration' type properties.  Should be set to true in conjunction with a 'referencedObjectType' of 'OWNER'.  Otherwise false.
+	ExternalOptions *bool `json:"externalOptions,omitempty"`
+	// Should be set to 'OWNER' when 'externalOptions' is true, which causes the property to dynamically pull option values from the current HubSpot users.
+	ReferencedObjectType *string `json:"referencedObjectType,omitempty"`
+	// Represents a formula that is used to compute a calculated property.
+	CalculationFormula *string `json:"calculationFormula,omitempty"`
 }
 
 // NewPropertyCreate instantiates a new PropertyCreate object
@@ -374,6 +380,102 @@ func (o *PropertyCreate) SetFormField(v bool) {
 	o.FormField = &v
 }
 
+// GetExternalOptions returns the ExternalOptions field value if set, zero value otherwise.
+func (o *PropertyCreate) GetExternalOptions() bool {
+	if o == nil || o.ExternalOptions == nil {
+		var ret bool
+		return ret
+	}
+	return *o.ExternalOptions
+}
+
+// GetExternalOptionsOk returns a tuple with the ExternalOptions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyCreate) GetExternalOptionsOk() (*bool, bool) {
+	if o == nil || o.ExternalOptions == nil {
+		return nil, false
+	}
+	return o.ExternalOptions, true
+}
+
+// HasExternalOptions returns a boolean if a field has been set.
+func (o *PropertyCreate) HasExternalOptions() bool {
+	if o != nil && o.ExternalOptions != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetExternalOptions gets a reference to the given bool and assigns it to the ExternalOptions field.
+func (o *PropertyCreate) SetExternalOptions(v bool) {
+	o.ExternalOptions = &v
+}
+
+// GetReferencedObjectType returns the ReferencedObjectType field value if set, zero value otherwise.
+func (o *PropertyCreate) GetReferencedObjectType() string {
+	if o == nil || o.ReferencedObjectType == nil {
+		var ret string
+		return ret
+	}
+	return *o.ReferencedObjectType
+}
+
+// GetReferencedObjectTypeOk returns a tuple with the ReferencedObjectType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyCreate) GetReferencedObjectTypeOk() (*string, bool) {
+	if o == nil || o.ReferencedObjectType == nil {
+		return nil, false
+	}
+	return o.ReferencedObjectType, true
+}
+
+// HasReferencedObjectType returns a boolean if a field has been set.
+func (o *PropertyCreate) HasReferencedObjectType() bool {
+	if o != nil && o.ReferencedObjectType != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetReferencedObjectType gets a reference to the given string and assigns it to the ReferencedObjectType field.
+func (o *PropertyCreate) SetReferencedObjectType(v string) {
+	o.ReferencedObjectType = &v
+}
+
+// GetCalculationFormula returns the CalculationFormula field value if set, zero value otherwise.
+func (o *PropertyCreate) GetCalculationFormula() string {
+	if o == nil || o.CalculationFormula == nil {
+		var ret string
+		return ret
+	}
+	return *o.CalculationFormula
+}
+
+// GetCalculationFormulaOk returns a tuple with the CalculationFormula field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyCreate) GetCalculationFormulaOk() (*string, bool) {
+	if o == nil || o.CalculationFormula == nil {
+		return nil, false
+	}
+	return o.CalculationFormula, true
+}
+
+// HasCalculationFormula returns a boolean if a field has been set.
+func (o *PropertyCreate) HasCalculationFormula() bool {
+	if o != nil && o.CalculationFormula != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCalculationFormula gets a reference to the given string and assigns it to the CalculationFormula field.
+func (o *PropertyCreate) SetCalculationFormula(v string) {
+	o.CalculationFormula = &v
+}
+
 func (o PropertyCreate) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -408,6 +510,15 @@ func (o PropertyCreate) MarshalJSON() ([]byte, error) {
 	}
 	if o.FormField != nil {
 		toSerialize["formField"] = o.FormField
+	}
+	if o.ExternalOptions != nil {
+		toSerialize["externalOptions"] = o.ExternalOptions
+	}
+	if o.ReferencedObjectType != nil {
+		toSerialize["referencedObjectType"] = o.ReferencedObjectType
+	}
+	if o.CalculationFormula != nil {
+		toSerialize["calculationFormula"] = o.CalculationFormula
 	}
 	return json.Marshal(toSerialize)
 }

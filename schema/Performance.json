@@ -6,12 +6,122 @@
     "version" : "v3"
   },
   "servers" : [ {
-    "url" : "https://api.hubapi.com/"
+    "url" : "https://api.hubapi.com"
   } ],
   "tags" : [ {
     "name" : "Public_Performance"
   } ],
   "paths" : {
+    "/cms/v3/performance/uptime" : {
+      "get" : {
+        "tags" : [ "Public_Performance" ],
+        "summary" : "View your website's uptime.",
+        "description" : "Returns uptime time series website performance data for the given domain.",
+        "operationId" : "GetUptime",
+        "parameters" : [ {
+          "name" : "domain",
+          "in" : "query",
+          "description" : "The domain to search return data for.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "path",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "pad",
+          "in" : "query",
+          "description" : "Specifies whether the time series data should have empty intervals if performance data is not present to create a continuous set.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "boolean"
+          }
+        }, {
+          "name" : "sum",
+          "in" : "query",
+          "description" : "Specifies whether the time series data should be summated for the given period. Defaults to false.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "boolean"
+          }
+        }, {
+          "name" : "period",
+          "in" : "query",
+          "description" : "A relative period to return time series data for. This value is ignored if start and/or end are provided. Valid periods: [15m, 30m, 1h, 4h, 12h, 1d, 1w]",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "interval",
+          "in" : "query",
+          "description" : "The time series interval to group data by. Valid intervals: [1m, 5m, 15m, 30m, 1h, 4h, 12h, 1d, 1w]",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "start",
+          "in" : "query",
+          "description" : "A timestamp in milliseconds that indicates the start of the time period.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "end",
+          "in" : "query",
+          "description" : "A timestamp in milliseconds that indicates the end of the time period.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PublicPerformanceResponse"
+                }
+              }
+            }
+          },
+          "default" : {
+            "$ref" : "#/components/responses/Error"
+          }
+        },
+        "security" : [ {
+          "oauth2_legacy" : [ "cms.performance.read" ]
+        }, {
+          "private_apps_legacy" : [ "cms.performance.read" ]
+        } ]
+      }
+    },
     "/cms/v3/performance/" : {
       "get" : {
         "tags" : [ "Public_Performance" ],
@@ -117,115 +227,9 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
-        } ]
-      }
-    },
-    "/cms/v3/performance/uptime" : {
-      "get" : {
-        "tags" : [ "Public_Performance" ],
-        "summary" : "View your website's uptime.",
-        "description" : "Returns uptime time series website performance data for the given domain.",
-        "operationId" : "GetUptime",
-        "parameters" : [ {
-          "name" : "domain",
-          "in" : "query",
-          "description" : "The domain to search return data for.",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
-          }
+          "oauth2_legacy" : [ "cms.performance.read" ]
         }, {
-          "name" : "path",
-          "in" : "query",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "pad",
-          "in" : "query",
-          "description" : "Specifies whether the time series data should have empty intervals if performance data is not present to create a continuous set.",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "boolean"
-          }
-        }, {
-          "name" : "sum",
-          "in" : "query",
-          "description" : "Specifies whether the time series data should be summated for the given period. Defaults to false.",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "boolean"
-          }
-        }, {
-          "name" : "period",
-          "in" : "query",
-          "description" : "A relative period to return time series data for. This value is ignored if start and/or end are provided. Valid periods: [15m, 30m, 1h, 4h, 12h, 1d, 1w]",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "interval",
-          "in" : "query",
-          "description" : "The time series interval to group data by. Valid intervals: [1m, 5m, 15m, 30m, 1h, 4h, 12h, 1d, 1w]",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "start",
-          "in" : "query",
-          "description" : "A timestamp in milliseconds that indicates the start of the time period.",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "integer",
-            "format" : "int64"
-          }
-        }, {
-          "name" : "end",
-          "in" : "query",
-          "description" : "A timestamp in milliseconds that indicates the end of the time period.",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "integer",
-            "format" : "int64"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/PublicPerformanceResponse"
-                }
-              }
-            }
-          },
-          "default" : {
-            "$ref" : "#/components/responses/Error"
-          }
-        },
-        "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "cms.performance.read" ]
         } ]
       }
     }
@@ -332,12 +336,6 @@
         "required" : [ "data", "endInterval", "interval", "startInterval" ],
         "type" : "object",
         "properties" : {
-          "data" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/PerformanceView"
-            }
-          },
           "domain" : {
             "type" : "string"
           },
@@ -352,6 +350,12 @@
             "type" : "integer",
             "format" : "int64"
           },
+          "data" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/PerformanceView"
+            }
+          },
           "interval" : {
             "type" : "string",
             "enum" : [ "ONE_MINUTE", "FIVE_MINUTES", "TEN_MINUTES", "FIFTEEN_MINUTES", "THIRTY_MINUTES", "ONE_HOUR", "FOUR_HOURS", "TWELVE_HOURS", "ONE_DAY", "ONE_WEEK" ]
@@ -363,7 +367,7 @@
         }
       },
       "PerformanceView" : {
-        "required" : [ "100X", "20X", "30X", "403", "404", "40X", "500", "504", "50X", "50th", "95th", "99th", "avgOriginResponseTime", "cacheHitRate", "cacheHits", "endDatetime", "endTimestamp", "responseTimeMs", "startDatetime", "startTimestamp", "totalRequestTime", "totalRequests" ],
+        "required" : [ "100X", "20X", "30X", "403", "404", "40X", "500", "504", "50X", "50th", "95th", "99th", "avgOriginResponseTime", "cacheHitRate", "cacheHits", "endTimestamp", "responseTimeMs", "startTimestamp", "totalRequests" ],
         "type" : "object",
         "properties" : {
           "startTimestamp" : {
@@ -487,11 +491,31 @@
       }
     },
     "securitySchemes" : {
-      "hapikey" : {
+      "oauth2_legacy" : {
+        "type" : "oauth2",
+        "flows" : {
+          "authorizationCode" : {
+            "authorizationUrl" : "https://app.hubspot.com/oauth/authorize",
+            "tokenUrl" : "https://api.hubapi.com/oauth/v1/token",
+            "scopes" : {
+              "cms.performance.read" : "Access the CMS Performance API"
+            }
+          }
+        }
+      },
+      "private_apps_legacy" : {
         "type" : "apiKey",
-        "name" : "hapikey",
-        "in" : "query"
+        "name" : "private-app-legacy",
+        "in" : "header"
       }
     }
-  }
+  },
+  "x-hubspot-available-client-libraries" : [ "PHP", "Node", "Ruby", "Python" ],
+  "x-hubspot-product-tier-requirements" : {
+    "marketing" : "FREE",
+    "sales" : "FREE",
+    "service" : "FREE",
+    "cms" : "FREE"
+  },
+  "x-hubspot-documentation-banner" : "NONE"
 }

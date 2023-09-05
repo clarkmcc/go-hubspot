@@ -14,7 +14,7 @@ import (
 	"encoding/json"
 )
 
-// AttachToLangPrimaryRequestVNext Request body object fro attaching objects to multi-language groups.
+// AttachToLangPrimaryRequestVNext Request body object for attaching objects to multi-language groups.
 type AttachToLangPrimaryRequestVNext struct {
 	// ID of the object to add to a multi-language group.
 	Id string `json:"id"`

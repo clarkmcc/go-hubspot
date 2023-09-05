@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## BatchCreate
 
-> BatchResponseTimelineEventResponse BatchCreate(ctx).BatchInputTimelineEvent(batchInputTimelineEvent).Execute()
+> BatchCreate(ctx).BatchInputTimelineEvent(batchInputTimelineEvent).Execute()
 
 Creates multiple events
 
@@ -42,8 +42,6 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.BatchCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `BatchCreate`: BatchResponseTimelineEventResponse
-    fmt.Fprintf(os.Stdout, "Response from `EventsApi.BatchCreate`: %v\n", resp)
 }
 ```
 
@@ -62,11 +60,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**BatchResponseTimelineEventResponse**](BatchResponseTimelineEventResponse.md)
+ (empty response body)
 
 ### Authorization
 
-[oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -132,7 +130,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -205,7 +203,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -278,7 +276,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -353,7 +351,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 

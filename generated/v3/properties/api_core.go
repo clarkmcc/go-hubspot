@@ -273,6 +273,7 @@ type ApiGetAllRequest struct {
 	ApiService *CoreApiService
 	objectType string
 	archived   *bool
+	properties *string
 }
 
 // Whether to return only results that have been archived.
@@ -281,7 +282,12 @@ func (r ApiGetAllRequest) Archived(archived bool) ApiGetAllRequest {
 	return r
 }
 
-func (r ApiGetAllRequest) Execute() (*CollectionResponseProperty, *http.Response, error) {
+func (r ApiGetAllRequest) Properties(properties string) ApiGetAllRequest {
+	r.properties = &properties
+	return r
+}
+
+func (r ApiGetAllRequest) Execute() (*CollectionResponsePropertyNoPaging, *http.Response, error) {
 	return r.ApiService.GetAllExecute(r)
 }
 
@@ -303,13 +309,13 @@ func (a *CoreApiService) GetAll(ctx context.Context, objectType string) ApiGetAl
 }
 
 // Execute executes the request
-//  @return CollectionResponseProperty
-func (a *CoreApiService) GetAllExecute(r ApiGetAllRequest) (*CollectionResponseProperty, *http.Response, error) {
+//  @return CollectionResponsePropertyNoPaging
+func (a *CoreApiService) GetAllExecute(r ApiGetAllRequest) (*CollectionResponsePropertyNoPaging, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CollectionResponseProperty
+		localVarReturnValue *CollectionResponsePropertyNoPaging
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CoreApiService.GetAll")
@@ -326,6 +332,9 @@ func (a *CoreApiService) GetAllExecute(r ApiGetAllRequest) (*CollectionResponseP
 
 	if r.archived != nil {
 		localVarQueryParams.Add("archived", parameterToString(*r.archived, ""))
+	}
+	if r.properties != nil {
+		localVarQueryParams.Add("properties", parameterToString(*r.properties, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -404,11 +413,17 @@ type ApiGetByNameRequest struct {
 	objectType   string
 	propertyName string
 	archived     *bool
+	properties   *string
 }
 
 // Whether to return only results that have been archived.
 func (r ApiGetByNameRequest) Archived(archived bool) ApiGetByNameRequest {
 	r.archived = &archived
+	return r
+}
+
+func (r ApiGetByNameRequest) Properties(properties string) ApiGetByNameRequest {
+	r.properties = &properties
 	return r
 }
 
@@ -460,6 +475,9 @@ func (a *CoreApiService) GetByNameExecute(r ApiGetByNameRequest) (*Property, *ht
 
 	if r.archived != nil {
 		localVarQueryParams.Add("archived", parameterToString(*r.archived, ""))
+	}
+	if r.properties != nil {
+		localVarQueryParams.Add("properties", parameterToString(*r.properties, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

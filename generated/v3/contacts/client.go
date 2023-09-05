@@ -49,8 +49,6 @@ type APIClient struct {
 
 	// API Services
 
-	AssociationsApi *AssociationsApiService
-
 	BasicApi *BasicApiService
 
 	BatchApi *BatchApiService
@@ -78,7 +76,6 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.common.client = c
 
 	// API Services
-	c.AssociationsApi = (*AssociationsApiService)(&c.common)
 	c.BasicApi = (*BasicApiService)(&c.common)
 	c.BatchApi = (*BatchApiService)(&c.common)
 	c.GDPRApi = (*GDPRApiService)(&c.common)
@@ -119,7 +116,7 @@ func selectHeaderAccept(accepts []string) string {
 // contains is a case insensitive match, finding needle in a haystack
 func contains(haystack []string, needle string) bool {
 	for _, a := range haystack {
-		if strings.EqualFold(a, needle) {
+		if strings.ToLower(a) == strings.ToLower(needle) {
 			return true
 		}
 	}
@@ -417,14 +414,11 @@ func (c *APIClient) decode(v interface{}, b []byte, contentType string) (err err
 
 // Add a file to the multipart request
 func addFile(w *multipart.Writer, fieldName, path string) error {
-	file, err := os.Open(filepath.Clean(path))
+	file, err := os.Open(path)
 	if err != nil {
 		return err
 	}
-	err = file.Close()
-	if err != nil {
-		return err
-	}
+	defer file.Close()
 
 	part, err := w.CreateFormFile(fieldName, filepath.Base(path))
 	if err != nil {

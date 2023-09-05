@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Label** | **string** | Used for list segmentation and reporting. | 
 **ObjectPropertyName** | Pointer to **string** | The name of the CRM object property. This will populate the CRM object property associated with the event. With enough of these, you can fully build CRM objects via the Timeline API. | [optional] 
-**Options** | [**[]TimelineEventTemplateTokenOption**](TimelineEventTemplateTokenOption.md) | If type is &#x60;enumeration&#x60;, we should have a list of options to choose from. | 
+**Options** | Pointer to [**[]TimelineEventTemplateTokenOption**](TimelineEventTemplateTokenOption.md) | If type is &#x60;enumeration&#x60;, we should have a list of options to choose from. | [optional] 
 **Name** | **string** | The name of the token referenced in the templates. This must be unique for the specific template. It may only contain alphanumeric characters, periods, dashes, or underscores (. - _). | 
 **Type** | **string** | The data type of the token. You can currently choose from [string, number, date, enumeration]. | 
 **CreatedAt** | Pointer to **time.Time** | The date and time that the Event Template Token was created, as an ISO 8601 timestamp. Will be null if the template was created before Feb 18th, 2020. | [optional] 
@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 
 ### NewTimelineEventTemplateToken
 
-`func NewTimelineEventTemplateToken(label string, options []TimelineEventTemplateTokenOption, name string, type_ string, ) *TimelineEventTemplateToken`
+`func NewTimelineEventTemplateToken(label string, name string, type_ string, ) *TimelineEventTemplateToken`
 
 NewTimelineEventTemplateToken instantiates a new TimelineEventTemplateToken object
 This constructor will assign default values to properties that have it defined,
@@ -95,6 +95,11 @@ and a boolean to check if the value has been set.
 
 SetOptions sets Options field to given value.
 
+### HasOptions
+
+`func (o *TimelineEventTemplateToken) HasOptions() bool`
+
+HasOptions returns a boolean if a field has been set.
 
 ### GetName
 

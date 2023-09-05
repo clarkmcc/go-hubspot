@@ -29,7 +29,8 @@ type AssetFileMetadata struct {
 	// Timestamp of when the object was first created.
 	CreatedAt int32 `json:"createdAt"`
 	// Timestamp of when the object was archived (deleted).
-	ArchivedAt *int64 `json:"archivedAt,omitempty"`
+	ArchivedAt *int64  `json:"archivedAt,omitempty"`
+	Hash       *string `json:"hash,omitempty"`
 }
 
 // NewAssetFileMetadata instantiates a new AssetFileMetadata object
@@ -238,6 +239,38 @@ func (o *AssetFileMetadata) SetArchivedAt(v int64) {
 	o.ArchivedAt = &v
 }
 
+// GetHash returns the Hash field value if set, zero value otherwise.
+func (o *AssetFileMetadata) GetHash() string {
+	if o == nil || o.Hash == nil {
+		var ret string
+		return ret
+	}
+	return *o.Hash
+}
+
+// GetHashOk returns a tuple with the Hash field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AssetFileMetadata) GetHashOk() (*string, bool) {
+	if o == nil || o.Hash == nil {
+		return nil, false
+	}
+	return o.Hash, true
+}
+
+// HasHash returns a boolean if a field has been set.
+func (o *AssetFileMetadata) HasHash() bool {
+	if o != nil && o.Hash != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetHash gets a reference to the given string and assigns it to the Hash field.
+func (o *AssetFileMetadata) SetHash(v string) {
+	o.Hash = &v
+}
+
 func (o AssetFileMetadata) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -260,6 +293,9 @@ func (o AssetFileMetadata) MarshalJSON() ([]byte, error) {
 	}
 	if o.ArchivedAt != nil {
 		toSerialize["archivedAt"] = o.ArchivedAt
+	}
+	if o.Hash != nil {
+		toSerialize["hash"] = o.Hash
 	}
 	return json.Marshal(toSerialize)
 }

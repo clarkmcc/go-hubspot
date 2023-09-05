@@ -14,6 +14,7 @@ docs/Error.md
 docs/ErrorDetail.md
 docs/ForwardPaging.md
 docs/ImportRowCore.md
+docs/ImportTemplate.md
 docs/NextPage.md
 docs/Paging.md
 docs/PreviousPage.md
@@ -32,6 +33,7 @@ model_error.go
 model_error_detail.go
 model_forward_paging.go
 model_import_row_core.go
+model_import_template.go
 model_next_page.go
 model_paging.go
 model_previous_page.go

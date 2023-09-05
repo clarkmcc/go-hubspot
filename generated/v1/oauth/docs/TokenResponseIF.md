@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**RefreshToken** | **string** |  | 
-**ExpiresIn** | **int32** |  | 
 **AccessToken** | **string** |  | 
-**IdToken** | Pointer to **string** |  | [optional] 
+**ExpiresIn** | **int32** |  | 
+**RefreshToken** | **string** |  | 
 **TokenType** | **string** |  | 
+**IdToken** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewTokenResponseIF
 
-`func NewTokenResponseIF(refreshToken string, expiresIn int32, accessToken string, tokenType string, ) *TokenResponseIF`
+`func NewTokenResponseIF(accessToken string, expiresIn int32, refreshToken string, tokenType string, ) *TokenResponseIF`
 
 NewTokenResponseIF instantiates a new TokenResponseIF object
 This constructor will assign default values to properties that have it defined,
@@ -29,24 +29,24 @@ NewTokenResponseIFWithDefaults instantiates a new TokenResponseIF object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetRefreshToken
+### GetAccessToken
 
-`func (o *TokenResponseIF) GetRefreshToken() string`
+`func (o *TokenResponseIF) GetAccessToken() string`
 
-GetRefreshToken returns the RefreshToken field if non-nil, zero value otherwise.
+GetAccessToken returns the AccessToken field if non-nil, zero value otherwise.
 
-### GetRefreshTokenOk
+### GetAccessTokenOk
 
-`func (o *TokenResponseIF) GetRefreshTokenOk() (*string, bool)`
+`func (o *TokenResponseIF) GetAccessTokenOk() (*string, bool)`
 
-GetRefreshTokenOk returns a tuple with the RefreshToken field if it's non-nil, zero value otherwise
+GetAccessTokenOk returns a tuple with the AccessToken field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetRefreshToken
+### SetAccessToken
 
-`func (o *TokenResponseIF) SetRefreshToken(v string)`
+`func (o *TokenResponseIF) SetAccessToken(v string)`
 
-SetRefreshToken sets RefreshToken field to given value.
+SetAccessToken sets AccessToken field to given value.
 
 
 ### GetExpiresIn
@@ -69,24 +69,44 @@ and a boolean to check if the value has been set.
 SetExpiresIn sets ExpiresIn field to given value.
 
 
-### GetAccessToken
+### GetRefreshToken
 
-`func (o *TokenResponseIF) GetAccessToken() string`
+`func (o *TokenResponseIF) GetRefreshToken() string`
 
-GetAccessToken returns the AccessToken field if non-nil, zero value otherwise.
+GetRefreshToken returns the RefreshToken field if non-nil, zero value otherwise.
 
-### GetAccessTokenOk
+### GetRefreshTokenOk
 
-`func (o *TokenResponseIF) GetAccessTokenOk() (*string, bool)`
+`func (o *TokenResponseIF) GetRefreshTokenOk() (*string, bool)`
 
-GetAccessTokenOk returns a tuple with the AccessToken field if it's non-nil, zero value otherwise
+GetRefreshTokenOk returns a tuple with the RefreshToken field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetAccessToken
+### SetRefreshToken
 
-`func (o *TokenResponseIF) SetAccessToken(v string)`
+`func (o *TokenResponseIF) SetRefreshToken(v string)`
 
-SetAccessToken sets AccessToken field to given value.
+SetRefreshToken sets RefreshToken field to given value.
+
+
+### GetTokenType
+
+`func (o *TokenResponseIF) GetTokenType() string`
+
+GetTokenType returns the TokenType field if non-nil, zero value otherwise.
+
+### GetTokenTypeOk
+
+`func (o *TokenResponseIF) GetTokenTypeOk() (*string, bool)`
+
+GetTokenTypeOk returns a tuple with the TokenType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTokenType
+
+`func (o *TokenResponseIF) SetTokenType(v string)`
+
+SetTokenType sets TokenType field to given value.
 
 
 ### GetIdToken
@@ -113,26 +133,6 @@ SetIdToken sets IdToken field to given value.
 `func (o *TokenResponseIF) HasIdToken() bool`
 
 HasIdToken returns a boolean if a field has been set.
-
-### GetTokenType
-
-`func (o *TokenResponseIF) GetTokenType() string`
-
-GetTokenType returns the TokenType field if non-nil, zero value otherwise.
-
-### GetTokenTypeOk
-
-`func (o *TokenResponseIF) GetTokenTypeOk() (*string, bool)`
-
-GetTokenTypeOk returns a tuple with the TokenType field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTokenType
-
-`func (o *TokenResponseIF) SetTokenType(v string)`
-
-SetTokenType sets TokenType field to given value.
-
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

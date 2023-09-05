@@ -7,8 +7,8 @@ api_rows_batch.go
 api_tables.go
 client.go
 configuration.go
+docs/BatchInputHubDbTableRowV3BatchUpdateRequest.md
 docs/BatchInputHubDbTableRowV3Request.md
-docs/BatchInputJsonNode.md
 docs/BatchInputString.md
 docs/BatchResponseHubDbTableRowV3.md
 docs/BatchResponseHubDbTableRowV3WithErrors.md
@@ -22,6 +22,7 @@ docs/ForeignId.md
 docs/ForwardPaging.md
 docs/HubDbTableCloneRequest.md
 docs/HubDbTableRowV3.md
+docs/HubDbTableRowV3BatchUpdateRequest.md
 docs/HubDbTableRowV3Request.md
 docs/HubDbTableV3.md
 docs/HubDbTableV3Request.md
@@ -36,8 +37,8 @@ docs/TablesApi.md
 git_push.sh
 go.mod
 go.sum
+model_batch_input_hub_db_table_row_v3_batch_update_request.go
 model_batch_input_hub_db_table_row_v3_request.go
-model_batch_input_json_node.go
 model_batch_input_string.go
 model_batch_response_hub_db_table_row_v3.go
 model_batch_response_hub_db_table_row_v3_with_errors.go
@@ -51,6 +52,7 @@ model_foreign_id.go
 model_forward_paging.go
 model_hub_db_table_clone_request.go
 model_hub_db_table_row_v3.go
+model_hub_db_table_row_v3_batch_update_request.go
 model_hub_db_table_row_v3_request.go
 model_hub_db_table_v3.go
 model_hub_db_table_v3_request.go

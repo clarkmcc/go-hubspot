@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Value** | Pointer to **string** |  | [optional] 
+**HighValue** | Pointer to **string** |  | [optional] 
 **Values** | Pointer to **[]string** |  | [optional] 
 **PropertyName** | **string** |  | 
 **Operator** | **string** | null | 
@@ -52,6 +53,31 @@ SetValue sets Value field to given value.
 `func (o *Filter) HasValue() bool`
 
 HasValue returns a boolean if a field has been set.
+
+### GetHighValue
+
+`func (o *Filter) GetHighValue() string`
+
+GetHighValue returns the HighValue field if non-nil, zero value otherwise.
+
+### GetHighValueOk
+
+`func (o *Filter) GetHighValueOk() (*string, bool)`
+
+GetHighValueOk returns a tuple with the HighValue field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHighValue
+
+`func (o *Filter) SetHighValue(v string)`
+
+SetHighValue sets HighValue field to given value.
+
+### HasHighValue
+
+`func (o *Filter) HasHighValue() bool`
+
+HasHighValue returns a boolean if a field has been set.
 
 ### GetValues
 

@@ -16,10 +16,11 @@ import (
 
 // Option struct for Option
 type Option struct {
-	Id    string `json:"id"`
-	Name  string `json:"name"`
-	Type  string `json:"type"`
-	Order int32  `json:"order"`
+	Id    string  `json:"id"`
+	Name  string  `json:"name"`
+	Label *string `json:"label,omitempty"`
+	Type  string  `json:"type"`
+	Order int32   `json:"order"`
 }
 
 // NewOption instantiates a new Option object
@@ -91,6 +92,38 @@ func (o *Option) SetName(v string) {
 	o.Name = v
 }
 
+// GetLabel returns the Label field value if set, zero value otherwise.
+func (o *Option) GetLabel() string {
+	if o == nil || o.Label == nil {
+		var ret string
+		return ret
+	}
+	return *o.Label
+}
+
+// GetLabelOk returns a tuple with the Label field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Option) GetLabelOk() (*string, bool) {
+	if o == nil || o.Label == nil {
+		return nil, false
+	}
+	return o.Label, true
+}
+
+// HasLabel returns a boolean if a field has been set.
+func (o *Option) HasLabel() bool {
+	if o != nil && o.Label != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLabel gets a reference to the given string and assigns it to the Label field.
+func (o *Option) SetLabel(v string) {
+	o.Label = &v
+}
+
 // GetType returns the Type field value
 func (o *Option) GetType() string {
 	if o == nil {
@@ -146,6 +179,9 @@ func (o Option) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["name"] = o.Name
+	}
+	if o.Label != nil {
+		toSerialize["label"] = o.Label
 	}
 	if true {
 		toSerialize["type"] = o.Type

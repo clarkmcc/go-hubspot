@@ -72,9 +72,11 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "communication_preferences.read" ]
         }, {
           "oauth2_legacy" : [ "communication_preferences.read_write" ]
+        }, {
+          "private_apps_legacy" : [ "communication_preferences.read_write" ]
         }, {
           "oauth2_legacy" : [ "communication_preferences.read" ]
         } ]
@@ -133,9 +135,11 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "communication_preferences.read" ]
         }, {
           "oauth2_legacy" : [ "communication_preferences.read_write" ]
+        }, {
+          "private_apps_legacy" : [ "communication_preferences.read_write" ]
         }, {
           "oauth2_legacy" : [ "communication_preferences.read" ]
         } ]
@@ -185,9 +189,11 @@
         "security" : [ {
           "oauth2_legacy" : [ "communication_preferences.write" ]
         }, {
-          "hapikey" : [ ]
-        }, {
           "oauth2_legacy" : [ "communication_preferences.read_write" ]
+        }, {
+          "private_apps_legacy" : [ "communication_preferences.write" ]
+        }, {
+          "private_apps_legacy" : [ "communication_preferences.read_write" ]
         } ]
       }
     },
@@ -235,9 +241,11 @@
         "security" : [ {
           "oauth2_legacy" : [ "communication_preferences.write" ]
         }, {
-          "hapikey" : [ ]
-        }, {
           "oauth2_legacy" : [ "communication_preferences.read_write" ]
+        }, {
+          "private_apps_legacy" : [ "communication_preferences.write" ]
+        }, {
+          "private_apps_legacy" : [ "communication_preferences.read_write" ]
         } ]
       }
     }
@@ -303,6 +311,20 @@
         },
         "description" : "A request to change the status of a contact's subscription."
       },
+      "SubscriptionDefinitionsResponse" : {
+        "required" : [ "subscriptionDefinitions" ],
+        "type" : "object",
+        "properties" : {
+          "subscriptionDefinitions" : {
+            "type" : "array",
+            "description" : "A list of all subscription definitions.",
+            "items" : {
+              "$ref" : "#/components/schemas/SubscriptionDefinition"
+            }
+          }
+        },
+        "description" : "A collection of subscription definitions for the portal."
+      },
       "PublicSubscriptionStatusesResponse" : {
         "required" : [ "recipient", "subscriptionStatuses" ],
         "type" : "object",
@@ -320,20 +342,6 @@
           }
         },
         "description" : "A collection of subscription statuses for a contact."
-      },
-      "SubscriptionDefinitionsResponse" : {
-        "required" : [ "subscriptionDefinitions" ],
-        "type" : "object",
-        "properties" : {
-          "subscriptionDefinitions" : {
-            "type" : "array",
-            "description" : "A list of all subscription definitions.",
-            "items" : {
-              "$ref" : "#/components/schemas/SubscriptionDefinition"
-            }
-          }
-        },
-        "description" : "A collection of subscription definitions for the portal."
       },
       "SubscriptionDefinition" : {
         "required" : [ "createdAt", "description", "id", "isActive", "isDefault", "isInternal", "name", "updatedAt" ],
@@ -512,19 +520,19 @@
             "authorizationUrl" : "https://app.hubspot.com/oauth/authorize",
             "tokenUrl" : "https://api.hubapi.com/oauth/v1/token",
             "scopes" : {
-              "communication_preferences.read_write" : "Update contact subscription preferences",
               "communication_preferences.read" : "Read contact subscription preferences",
+              "communication_preferences.read_write" : "Update contact subscription preferences",
               "communication_preferences.write" : "Update contact subscription preferences"
             }
           }
         }
       },
-      "hapikey" : {
+      "private_apps_legacy" : {
         "type" : "apiKey",
-        "name" : "hapikey",
-        "in" : "query"
+        "name" : "private-app-legacy",
+        "in" : "header"
       }
     }
   },
-  "x-hubspot-available-client-libraries" : [ "Python", "Ruby" ]
+  "x-hubspot-available-client-libraries" : [ "PHP", "Node", "Python", "Ruby" ]
 }

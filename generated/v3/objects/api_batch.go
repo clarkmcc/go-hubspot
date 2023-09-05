@@ -143,14 +143,14 @@ func (a *BatchApiService) BatchArchiveExecute(r ApiBatchArchiveRequest) (*http.R
 }
 
 type ApiBatchCreateRequest struct {
-	ctx                               context.Context
-	ApiService                        *BatchApiService
-	objectType                        string
-	batchInputSimplePublicObjectInput *BatchInputSimplePublicObjectInput
+	ctx                                        context.Context
+	ApiService                                 *BatchApiService
+	objectType                                 string
+	batchInputSimplePublicObjectInputForCreate *BatchInputSimplePublicObjectInputForCreate
 }
 
-func (r ApiBatchCreateRequest) BatchInputSimplePublicObjectInput(batchInputSimplePublicObjectInput BatchInputSimplePublicObjectInput) ApiBatchCreateRequest {
-	r.batchInputSimplePublicObjectInput = &batchInputSimplePublicObjectInput
+func (r ApiBatchCreateRequest) BatchInputSimplePublicObjectInputForCreate(batchInputSimplePublicObjectInputForCreate BatchInputSimplePublicObjectInputForCreate) ApiBatchCreateRequest {
+	r.batchInputSimplePublicObjectInputForCreate = &batchInputSimplePublicObjectInputForCreate
 	return r
 }
 
@@ -194,8 +194,8 @@ func (a *BatchApiService) BatchCreateExecute(r ApiBatchCreateRequest) (*BatchRes
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.batchInputSimplePublicObjectInput == nil {
-		return localVarReturnValue, nil, reportError("batchInputSimplePublicObjectInput is required and must be specified")
+	if r.batchInputSimplePublicObjectInputForCreate == nil {
+		return localVarReturnValue, nil, reportError("batchInputSimplePublicObjectInputForCreate is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -216,7 +216,7 @@ func (a *BatchApiService) BatchCreateExecute(r ApiBatchCreateRequest) (*BatchRes
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.batchInputSimplePublicObjectInput
+	localVarPostBody = r.batchInputSimplePublicObjectInputForCreate
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {

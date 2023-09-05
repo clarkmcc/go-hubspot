@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## MetadataGet
 
-> AssetFileMetadata MetadataGet(ctx, environment, path).Execute()
+> AssetFileMetadata MetadataGet(ctx, environment, path).Properties(properties).Execute()
 
 Get the metadata for a file
 
@@ -31,10 +31,11 @@ import (
 func main() {
     environment := "environment_example" // string | The environment of the file (\"draft\" or \"published\").
     path := "path_example" // string | The file system location of the file.
+    properties := "properties_example" // string |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.MetadataApi.MetadataGet(context.Background(), environment, path).Execute()
+    resp, r, err := apiClient.MetadataApi.MetadataGet(context.Background(), environment, path).Properties(properties).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MetadataApi.MetadataGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -62,6 +63,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **properties** | **string** |  | 
 
 ### Return type
 
@@ -69,7 +71,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 

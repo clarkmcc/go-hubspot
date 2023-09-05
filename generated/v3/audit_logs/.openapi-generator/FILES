@@ -11,6 +11,7 @@ docs/Error.md
 docs/ErrorDetail.md
 docs/NextPage.md
 docs/Paging.md
+docs/PreviousPage.md
 docs/PublicAuditLog.md
 git_push.sh
 go.mod
@@ -20,6 +21,7 @@ model_error.go
 model_error_detail.go
 model_next_page.go
 model_paging.go
+model_previous_page.go
 model_public_audit_log.go
 response.go
 utils.go

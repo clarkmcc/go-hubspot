@@ -16,7 +16,8 @@ import (
 
 // Paging struct for Paging
 type Paging struct {
-	Next *NextPage `json:"next,omitempty"`
+	Next *NextPage     `json:"next,omitempty"`
+	Prev *PreviousPage `json:"prev,omitempty"`
 }
 
 // NewPaging instantiates a new Paging object
@@ -68,10 +69,45 @@ func (o *Paging) SetNext(v NextPage) {
 	o.Next = &v
 }
 
+// GetPrev returns the Prev field value if set, zero value otherwise.
+func (o *Paging) GetPrev() PreviousPage {
+	if o == nil || o.Prev == nil {
+		var ret PreviousPage
+		return ret
+	}
+	return *o.Prev
+}
+
+// GetPrevOk returns a tuple with the Prev field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Paging) GetPrevOk() (*PreviousPage, bool) {
+	if o == nil || o.Prev == nil {
+		return nil, false
+	}
+	return o.Prev, true
+}
+
+// HasPrev returns a boolean if a field has been set.
+func (o *Paging) HasPrev() bool {
+	if o != nil && o.Prev != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPrev gets a reference to the given PreviousPage and assigns it to the Prev field.
+func (o *Paging) SetPrev(v PreviousPage) {
+	o.Prev = &v
+}
+
 func (o Paging) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Next != nil {
 		toSerialize["next"] = o.Next
+	}
+	if o.Prev != nil {
+		toSerialize["prev"] = o.Prev
 	}
 	return json.Marshal(toSerialize)
 }

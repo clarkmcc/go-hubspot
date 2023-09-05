@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Status** | **string** | Error status. | 
 **Id** | Pointer to **string** | Error ID. | [optional] 
-**Category** | **map[string]interface{}** | Model definition for an error category. | 
+**Category** | **string** | Error category. | 
 **SubCategory** | Pointer to **map[string]interface{}** | Error subcategory. | [optional] 
 **Message** | **string** | Error message. | 
 **Errors** | [**[]ErrorDetail**](ErrorDetail.md) | List of error details. | 
@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 
 ### NewStandardError
 
-`func NewStandardError(status string, category map[string]interface{}, message string, errors []ErrorDetail, context map[string][]string, links map[string]string, ) *StandardError`
+`func NewStandardError(status string, category string, message string, errors []ErrorDetail, context map[string][]string, links map[string]string, ) *StandardError`
 
 NewStandardError instantiates a new StandardError object
 This constructor will assign default values to properties that have it defined,
@@ -79,20 +79,20 @@ HasId returns a boolean if a field has been set.
 
 ### GetCategory
 
-`func (o *StandardError) GetCategory() map[string]interface{}`
+`func (o *StandardError) GetCategory() string`
 
 GetCategory returns the Category field if non-nil, zero value otherwise.
 
 ### GetCategoryOk
 
-`func (o *StandardError) GetCategoryOk() (*map[string]interface{}, bool)`
+`func (o *StandardError) GetCategoryOk() (*string, bool)`
 
 GetCategoryOk returns a tuple with the Category field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCategory
 
-`func (o *StandardError) SetCategory(v map[string]interface{})`
+`func (o *StandardError) SetCategory(v string)`
 
 SetCategory sets Category field to given value.
 

@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Inputs** | [**[]PropertyName**](PropertyName.md) |  | 
 **Archived** | **bool** |  | 
+**Inputs** | [**[]PropertyName**](PropertyName.md) |  | 
 
 ## Methods
 
 ### NewBatchReadInputPropertyName
 
-`func NewBatchReadInputPropertyName(inputs []PropertyName, archived bool, ) *BatchReadInputPropertyName`
+`func NewBatchReadInputPropertyName(archived bool, inputs []PropertyName, ) *BatchReadInputPropertyName`
 
 NewBatchReadInputPropertyName instantiates a new BatchReadInputPropertyName object
 This constructor will assign default values to properties that have it defined,
@@ -25,26 +25,6 @@ will change when the set of required properties is changed
 NewBatchReadInputPropertyNameWithDefaults instantiates a new BatchReadInputPropertyName object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetInputs
-
-`func (o *BatchReadInputPropertyName) GetInputs() []PropertyName`
-
-GetInputs returns the Inputs field if non-nil, zero value otherwise.
-
-### GetInputsOk
-
-`func (o *BatchReadInputPropertyName) GetInputsOk() (*[]PropertyName, bool)`
-
-GetInputsOk returns a tuple with the Inputs field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetInputs
-
-`func (o *BatchReadInputPropertyName) SetInputs(v []PropertyName)`
-
-SetInputs sets Inputs field to given value.
-
 
 ### GetArchived
 
@@ -64,6 +44,26 @@ and a boolean to check if the value has been set.
 `func (o *BatchReadInputPropertyName) SetArchived(v bool)`
 
 SetArchived sets Archived field to given value.
+
+
+### GetInputs
+
+`func (o *BatchReadInputPropertyName) GetInputs() []PropertyName`
+
+GetInputs returns the Inputs field if non-nil, zero value otherwise.
+
+### GetInputsOk
+
+`func (o *BatchReadInputPropertyName) GetInputsOk() (*[]PropertyName, bool)`
+
+GetInputsOk returns a tuple with the Inputs field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetInputs
+
+`func (o *BatchReadInputPropertyName) SetInputs(v []PropertyName)`
+
+SetInputs sets Inputs field to given value.
 
 
 

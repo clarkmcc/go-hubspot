@@ -31,7 +31,7 @@ type ApiGetAllRequest struct {
 	toObjectType   string
 }
 
-func (r ApiGetAllRequest) Execute() (*CollectionResponsePublicAssociationDefiniton, *http.Response, error) {
+func (r ApiGetAllRequest) Execute() (*CollectionResponsePublicAssociationDefinitionNoPaging, *http.Response, error) {
 	return r.ApiService.GetAllExecute(r)
 }
 
@@ -55,13 +55,13 @@ func (a *TypesApiService) GetAll(ctx context.Context, fromObjectType string, toO
 }
 
 // Execute executes the request
-//  @return CollectionResponsePublicAssociationDefiniton
-func (a *TypesApiService) GetAllExecute(r ApiGetAllRequest) (*CollectionResponsePublicAssociationDefiniton, *http.Response, error) {
+//  @return CollectionResponsePublicAssociationDefinitionNoPaging
+func (a *TypesApiService) GetAllExecute(r ApiGetAllRequest) (*CollectionResponsePublicAssociationDefinitionNoPaging, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CollectionResponsePublicAssociationDefiniton
+		localVarReturnValue *CollectionResponsePublicAssociationDefinitionNoPaging
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TypesApiService.GetAll")

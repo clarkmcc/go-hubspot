@@ -4,14 +4,14 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ArchiveRefreshToken**](RefreshTokensApi.md#ArchiveRefreshToken) | **Delete** /oauth/v1/refresh-tokens/{token} | 
-[**GetRefreshToken**](RefreshTokensApi.md#GetRefreshToken) | **Get** /oauth/v1/refresh-tokens/{token} | 
+[**DeleteOauthV1RefreshTokensTokenArchive**](RefreshTokensApi.md#DeleteOauthV1RefreshTokensTokenArchive) | **Delete** /oauth/v1/refresh-tokens/{token} | 
+[**GetOauthV1RefreshTokensTokenGet**](RefreshTokensApi.md#GetOauthV1RefreshTokensTokenGet) | **Get** /oauth/v1/refresh-tokens/{token} | 
 
 
 
-## ArchiveRefreshToken
+## DeleteOauthV1RefreshTokensTokenArchive
 
-> Error ArchiveRefreshToken(ctx, token).Execute()
+> DeleteOauthV1RefreshTokensTokenArchive(ctx, token).Execute()
 
 
 
@@ -32,13 +32,11 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RefreshTokensApi.ArchiveRefreshToken(context.Background(), token).Execute()
+    resp, r, err := apiClient.RefreshTokensApi.DeleteOauthV1RefreshTokensTokenArchive(context.Background(), token).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RefreshTokensApi.ArchiveRefreshToken``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `RefreshTokensApi.DeleteOauthV1RefreshTokensTokenArchive``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `ArchiveRefreshToken`: Error
-    fmt.Fprintf(os.Stdout, "Response from `RefreshTokensApi.ArchiveRefreshToken`: %v\n", resp)
 }
 ```
 
@@ -52,7 +50,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiArchiveRefreshTokenRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteOauthV1RefreshTokensTokenArchiveRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -61,7 +59,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Error**](Error.md)
+ (empty response body)
 
 ### Authorization
 
@@ -77,9 +75,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## GetRefreshToken
+## GetOauthV1RefreshTokensTokenGet
 
-> RefreshTokenInfoResponse GetRefreshToken(ctx, token).Execute()
+> RefreshTokenInfoResponse GetOauthV1RefreshTokensTokenGet(ctx, token).Execute()
 
 
 
@@ -100,13 +98,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RefreshTokensApi.GetRefreshToken(context.Background(), token).Execute()
+    resp, r, err := apiClient.RefreshTokensApi.GetOauthV1RefreshTokensTokenGet(context.Background(), token).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RefreshTokensApi.GetRefreshToken``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `RefreshTokensApi.GetOauthV1RefreshTokensTokenGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetRefreshToken`: RefreshTokenInfoResponse
-    fmt.Fprintf(os.Stdout, "Response from `RefreshTokensApi.GetRefreshToken`: %v\n", resp)
+    // response from `GetOauthV1RefreshTokensTokenGet`: RefreshTokenInfoResponse
+    fmt.Fprintf(os.Stdout, "Response from `RefreshTokensApi.GetOauthV1RefreshTokensTokenGet`: %v\n", resp)
 }
 ```
 
@@ -120,7 +118,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetRefreshTokenRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetOauthV1RefreshTokensTokenGetRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

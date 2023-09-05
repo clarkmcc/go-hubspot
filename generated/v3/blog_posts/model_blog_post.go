@@ -32,7 +32,6 @@ type BlogPost struct {
 	// The internal name of the Blog Post.
 	Name            string `json:"name"`
 	MabExperimentId string `json:"mabExperimentId"`
-	Archived        bool   `json:"archived"`
 	// The name of the user that updated this Blog Post.
 	AuthorName string `json:"authorName"`
 	AbTestId   string `json:"abTestId"`
@@ -51,29 +50,42 @@ type BlogPost struct {
 	// The explicitly defined ISO 639 language code of the Blog Post. If null, the Blog Post will default to the language of the ParentBlog.
 	Language string `json:"language"`
 	// ID of the primary blog post this object was translated from.
-	TranslatedFromId          string                              `json:"translatedFromId"`
-	Translations              map[string]ContentLanguageVariation `json:"translations"`
-	DynamicPageDataSourceType int32                               `json:"dynamicPageDataSourceType"`
-	DynamicPageDataSourceId   string                              `json:"dynamicPageDataSourceId"`
+	TranslatedFromId string                              `json:"translatedFromId"`
+	Translations     map[string]ContentLanguageVariation `json:"translations"`
+	// The ID of the HubDB table this Blog Post references, if applicable
+	DynamicPageHubDbTableId   string `json:"dynamicPageHubDbTableId"`
+	DynamicPageDataSourceType int32  `json:"dynamicPageDataSourceType"`
+	DynamicPageDataSourceId   string `json:"dynamicPageDataSourceId"`
 	// The ID of the Blog Author associated with this Blog Post.
 	BlogAuthorId string `json:"blogAuthorId"`
 	// List of IDs for the tags associated with this Blog Post.
 	TagIds []int64 `json:"tagIds"`
 	// The html title of this Blog Post.
 	HtmlTitle string `json:"htmlTitle"`
-	// Boolean to allow overriding the AMP settings for the blog.
-	EnableGoogleAmpOutputOverride bool `json:"enableGoogleAmpOutputOverride"`
+	// Boolean to determine whether or not to respect publicAccessRules.
+	PublicAccessRulesEnabled bool `json:"publicAccessRulesEnabled"`
+	// Rules for require member registration to access private content.
+	PublicAccessRules []map[string]interface{} `json:"publicAccessRules"`
 	// Boolean to determine if this post should use a featuredImage.
 	UseFeaturedImage bool `json:"useFeaturedImage"`
-	// The HTML of the main post body.
-	PostBody string `json:"postBody"`
 	// The summary of the blog post that will appear on the main listing page.
 	PostSummary string `json:"postSummary"`
+	// The HTML of the main post body.
+	PostBody string `json:"postBody"`
+	// The contents of the RSS summary for this Blog Post.
+	RssSummary string `json:"rssSummary"`
 	// The contents of the RSS body for this Blog Post.
 	RssBody string `json:"rssBody"`
-	// The contents of the RSS summary for this Blog Post.
-	RssSummary            string `json:"rssSummary"`
-	CurrentlyPublished    bool   `json:"currentlyPublished"`
+	// Boolean to allow overriding the AMP settings for the blog.
+	EnableGoogleAmpOutputOverride bool `json:"enableGoogleAmpOutputOverride"`
+	// Set this to true if you want to be published immediately when the schedule publish endpoint is called, and to ignore the publish_date setting.
+	PublishImmediately bool `json:"publishImmediately"`
+	// The timestamp (ISO8601 format) when this Blog Post was deleted.
+	ArchivedAt int64 `json:"archivedAt"`
+	// Optional override to set the URL to be used in the rel=canonical link tag on the page.
+	LinkRelCanonicalUrl string `json:"linkRelCanonicalUrl"`
+	// If True, the post will not show up in your dashboard, although the post could still be live.
+	ArchivedInDashboard   bool   `json:"archivedInDashboard"`
 	PageExpiryEnabled     bool   `json:"pageExpiryEnabled"`
 	PageExpiryRedirectId  int64  `json:"pageExpiryRedirectId"`
 	PageExpiryRedirectUrl string `json:"pageExpiryRedirectUrl"`
@@ -83,17 +95,10 @@ type BlogPost struct {
 	// Boolean to determine whether or not the styles from the template should be applied.
 	EnableLayoutStylesheets bool `json:"enableLayoutStylesheets"`
 	// Boolean to determine whether or not the styles from the template should be applied.
-	EnableDomainStylesheets bool `json:"enableDomainStylesheets"`
-	// Set this to true if you want to be published immediately when the schedule publish endpoint is called, and to ignore the publish_date setting.
-	PublishImmediately bool `json:"publishImmediately"`
-	// The featuredImage of this Blog Post.
-	FeaturedImage string `json:"featuredImage"`
+	EnableDomainStylesheets bool                     `json:"enableDomainStylesheets"`
+	LayoutSections          map[string]LayoutSection `json:"layoutSections"`
 	// Alt Text of the featuredImage.
 	FeaturedImageAltText string `json:"featuredImageAltText"`
-	// Optional override to set the URL to be used in the rel=canonical link tag on the page.
-	LinkRelCanonicalUrl string `json:"linkRelCanonicalUrl"`
-	// An ENUM descibing the type of this object. Should always be BLOG_POST.
-	ContentTypeCategory string `json:"contentTypeCategory"`
 	// List of stylesheets to attach to this blog post. These stylesheets are attached to just this page. Order of precedence is bottom to top, just like in the HTML.
 	AttachedStylesheets []map[string]map[string]interface{} `json:"attachedStylesheets"`
 	// A description that goes in <meta> tag on the page.
@@ -102,33 +107,29 @@ type BlogPost struct {
 	HeadHtml string `json:"headHtml"`
 	// Custom HTML for embed codes, javascript that should be placed before the </body> tag of the page.
 	FooterHtml string `json:"footerHtml"`
-	// If True, the post will not show up in your dashboard, although the post could still be live.
-	ArchivedInDashboard bool `json:"archivedInDashboard"`
-	// Boolean to determine whether or not to respect publicAccessRules.
-	PublicAccessRulesEnabled bool `json:"publicAccessRulesEnabled"`
-	// Rules for require member registration to access private content.
-	PublicAccessRules   []map[string]interface{}          `json:"publicAccessRules"`
-	LayoutSections      map[string]LayoutSection          `json:"layoutSections"`
+	// The featuredImage of this Blog Post.
+	FeaturedImage       string                            `json:"featuredImage"`
 	ThemeSettingsValues map[string]map[string]interface{} `json:"themeSettingsValues"`
 	// A generated field representing the URL of this blog post.
 	Url string `json:"url"`
 	// Set this to create a password protected page. Entering the password will be required to view the page.
 	Password string `json:"password"`
 	// A generated ENUM descibing the current state of this Blog Post. Should always match state.
-	CurrentState string `json:"currentState"`
+	CurrentState       string `json:"currentState"`
+	CurrentlyPublished bool   `json:"currentlyPublished"`
+	// An ENUM descibing the type of this object. Should always be BLOG_POST.
+	ContentTypeCategory string `json:"contentTypeCategory"`
 	// The date (ISO8601 format) the blog post is to be published at.
 	PublishDate time.Time `json:"publishDate"`
 	Created     time.Time `json:"created"`
 	Updated     time.Time `json:"updated"`
-	// The timestamp (ISO8601 format) when this Blog Post was deleted.
-	DeletedAt time.Time `json:"deletedAt"`
 }
 
 // NewBlogPost instantiates a new BlogPost object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBlogPost(id string, slug string, contentGroupId string, campaign string, categoryId int32, state string, name string, mabExperimentId string, archived bool, authorName string, abTestId string, createdById string, updatedById string, domain string, abStatus string, folderId string, widgetContainers map[string]map[string]interface{}, widgets map[string]map[string]interface{}, language string, translatedFromId string, translations map[string]ContentLanguageVariation, dynamicPageDataSourceType int32, dynamicPageDataSourceId string, blogAuthorId string, tagIds []int64, htmlTitle string, enableGoogleAmpOutputOverride bool, useFeaturedImage bool, postBody string, postSummary string, rssBody string, rssSummary string, currentlyPublished bool, pageExpiryEnabled bool, pageExpiryRedirectId int64, pageExpiryRedirectUrl string, pageExpiryDate int64, includeDefaultCustomCss bool, enableLayoutStylesheets bool, enableDomainStylesheets bool, publishImmediately bool, featuredImage string, featuredImageAltText string, linkRelCanonicalUrl string, contentTypeCategory string, attachedStylesheets []map[string]map[string]interface{}, metaDescription string, headHtml string, footerHtml string, archivedInDashboard bool, publicAccessRulesEnabled bool, publicAccessRules []map[string]interface{}, layoutSections map[string]LayoutSection, themeSettingsValues map[string]map[string]interface{}, url string, password string, currentState string, publishDate time.Time, created time.Time, updated time.Time, deletedAt time.Time) *BlogPost {
+func NewBlogPost(id string, slug string, contentGroupId string, campaign string, categoryId int32, state string, name string, mabExperimentId string, authorName string, abTestId string, createdById string, updatedById string, domain string, abStatus string, folderId string, widgetContainers map[string]map[string]interface{}, widgets map[string]map[string]interface{}, language string, translatedFromId string, translations map[string]ContentLanguageVariation, dynamicPageHubDbTableId string, dynamicPageDataSourceType int32, dynamicPageDataSourceId string, blogAuthorId string, tagIds []int64, htmlTitle string, publicAccessRulesEnabled bool, publicAccessRules []map[string]interface{}, useFeaturedImage bool, postSummary string, postBody string, rssSummary string, rssBody string, enableGoogleAmpOutputOverride bool, publishImmediately bool, archivedAt int64, linkRelCanonicalUrl string, archivedInDashboard bool, pageExpiryEnabled bool, pageExpiryRedirectId int64, pageExpiryRedirectUrl string, pageExpiryDate int64, includeDefaultCustomCss bool, enableLayoutStylesheets bool, enableDomainStylesheets bool, layoutSections map[string]LayoutSection, featuredImageAltText string, attachedStylesheets []map[string]map[string]interface{}, metaDescription string, headHtml string, footerHtml string, featuredImage string, themeSettingsValues map[string]map[string]interface{}, url string, password string, currentState string, currentlyPublished bool, contentTypeCategory string, publishDate time.Time, created time.Time, updated time.Time) *BlogPost {
 	this := BlogPost{}
 	this.Id = id
 	this.Slug = slug
@@ -138,7 +139,6 @@ func NewBlogPost(id string, slug string, contentGroupId string, campaign string,
 	this.State = state
 	this.Name = name
 	this.MabExperimentId = mabExperimentId
-	this.Archived = archived
 	this.AuthorName = authorName
 	this.AbTestId = abTestId
 	this.CreatedById = createdById
@@ -151,18 +151,24 @@ func NewBlogPost(id string, slug string, contentGroupId string, campaign string,
 	this.Language = language
 	this.TranslatedFromId = translatedFromId
 	this.Translations = translations
+	this.DynamicPageHubDbTableId = dynamicPageHubDbTableId
 	this.DynamicPageDataSourceType = dynamicPageDataSourceType
 	this.DynamicPageDataSourceId = dynamicPageDataSourceId
 	this.BlogAuthorId = blogAuthorId
 	this.TagIds = tagIds
 	this.HtmlTitle = htmlTitle
-	this.EnableGoogleAmpOutputOverride = enableGoogleAmpOutputOverride
+	this.PublicAccessRulesEnabled = publicAccessRulesEnabled
+	this.PublicAccessRules = publicAccessRules
 	this.UseFeaturedImage = useFeaturedImage
-	this.PostBody = postBody
 	this.PostSummary = postSummary
-	this.RssBody = rssBody
+	this.PostBody = postBody
 	this.RssSummary = rssSummary
-	this.CurrentlyPublished = currentlyPublished
+	this.RssBody = rssBody
+	this.EnableGoogleAmpOutputOverride = enableGoogleAmpOutputOverride
+	this.PublishImmediately = publishImmediately
+	this.ArchivedAt = archivedAt
+	this.LinkRelCanonicalUrl = linkRelCanonicalUrl
+	this.ArchivedInDashboard = archivedInDashboard
 	this.PageExpiryEnabled = pageExpiryEnabled
 	this.PageExpiryRedirectId = pageExpiryRedirectId
 	this.PageExpiryRedirectUrl = pageExpiryRedirectUrl
@@ -170,27 +176,22 @@ func NewBlogPost(id string, slug string, contentGroupId string, campaign string,
 	this.IncludeDefaultCustomCss = includeDefaultCustomCss
 	this.EnableLayoutStylesheets = enableLayoutStylesheets
 	this.EnableDomainStylesheets = enableDomainStylesheets
-	this.PublishImmediately = publishImmediately
-	this.FeaturedImage = featuredImage
+	this.LayoutSections = layoutSections
 	this.FeaturedImageAltText = featuredImageAltText
-	this.LinkRelCanonicalUrl = linkRelCanonicalUrl
-	this.ContentTypeCategory = contentTypeCategory
 	this.AttachedStylesheets = attachedStylesheets
 	this.MetaDescription = metaDescription
 	this.HeadHtml = headHtml
 	this.FooterHtml = footerHtml
-	this.ArchivedInDashboard = archivedInDashboard
-	this.PublicAccessRulesEnabled = publicAccessRulesEnabled
-	this.PublicAccessRules = publicAccessRules
-	this.LayoutSections = layoutSections
+	this.FeaturedImage = featuredImage
 	this.ThemeSettingsValues = themeSettingsValues
 	this.Url = url
 	this.Password = password
 	this.CurrentState = currentState
+	this.CurrentlyPublished = currentlyPublished
+	this.ContentTypeCategory = contentTypeCategory
 	this.PublishDate = publishDate
 	this.Created = created
 	this.Updated = updated
-	this.DeletedAt = deletedAt
 	return &this
 }
 
@@ -392,30 +393,6 @@ func (o *BlogPost) GetMabExperimentIdOk() (*string, bool) {
 // SetMabExperimentId sets field value
 func (o *BlogPost) SetMabExperimentId(v string) {
 	o.MabExperimentId = v
-}
-
-// GetArchived returns the Archived field value
-func (o *BlogPost) GetArchived() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.Archived
-}
-
-// GetArchivedOk returns a tuple with the Archived field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetArchivedOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Archived, true
-}
-
-// SetArchived sets field value
-func (o *BlogPost) SetArchived(v bool) {
-	o.Archived = v
 }
 
 // GetAuthorName returns the AuthorName field value
@@ -706,6 +683,30 @@ func (o *BlogPost) SetTranslations(v map[string]ContentLanguageVariation) {
 	o.Translations = v
 }
 
+// GetDynamicPageHubDbTableId returns the DynamicPageHubDbTableId field value
+func (o *BlogPost) GetDynamicPageHubDbTableId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.DynamicPageHubDbTableId
+}
+
+// GetDynamicPageHubDbTableIdOk returns a tuple with the DynamicPageHubDbTableId field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetDynamicPageHubDbTableIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.DynamicPageHubDbTableId, true
+}
+
+// SetDynamicPageHubDbTableId sets field value
+func (o *BlogPost) SetDynamicPageHubDbTableId(v string) {
+	o.DynamicPageHubDbTableId = v
+}
+
 // GetDynamicPageDataSourceType returns the DynamicPageDataSourceType field value
 func (o *BlogPost) GetDynamicPageDataSourceType() int32 {
 	if o == nil {
@@ -826,28 +827,52 @@ func (o *BlogPost) SetHtmlTitle(v string) {
 	o.HtmlTitle = v
 }
 
-// GetEnableGoogleAmpOutputOverride returns the EnableGoogleAmpOutputOverride field value
-func (o *BlogPost) GetEnableGoogleAmpOutputOverride() bool {
+// GetPublicAccessRulesEnabled returns the PublicAccessRulesEnabled field value
+func (o *BlogPost) GetPublicAccessRulesEnabled() bool {
 	if o == nil {
 		var ret bool
 		return ret
 	}
 
-	return o.EnableGoogleAmpOutputOverride
+	return o.PublicAccessRulesEnabled
 }
 
-// GetEnableGoogleAmpOutputOverrideOk returns a tuple with the EnableGoogleAmpOutputOverride field value
+// GetPublicAccessRulesEnabledOk returns a tuple with the PublicAccessRulesEnabled field value
 // and a boolean to check if the value has been set.
-func (o *BlogPost) GetEnableGoogleAmpOutputOverrideOk() (*bool, bool) {
+func (o *BlogPost) GetPublicAccessRulesEnabledOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.EnableGoogleAmpOutputOverride, true
+	return &o.PublicAccessRulesEnabled, true
 }
 
-// SetEnableGoogleAmpOutputOverride sets field value
-func (o *BlogPost) SetEnableGoogleAmpOutputOverride(v bool) {
-	o.EnableGoogleAmpOutputOverride = v
+// SetPublicAccessRulesEnabled sets field value
+func (o *BlogPost) SetPublicAccessRulesEnabled(v bool) {
+	o.PublicAccessRulesEnabled = v
+}
+
+// GetPublicAccessRules returns the PublicAccessRules field value
+func (o *BlogPost) GetPublicAccessRules() []map[string]interface{} {
+	if o == nil {
+		var ret []map[string]interface{}
+		return ret
+	}
+
+	return o.PublicAccessRules
+}
+
+// GetPublicAccessRulesOk returns a tuple with the PublicAccessRules field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetPublicAccessRulesOk() ([]map[string]interface{}, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.PublicAccessRules, true
+}
+
+// SetPublicAccessRules sets field value
+func (o *BlogPost) SetPublicAccessRules(v []map[string]interface{}) {
+	o.PublicAccessRules = v
 }
 
 // GetUseFeaturedImage returns the UseFeaturedImage field value
@@ -874,30 +899,6 @@ func (o *BlogPost) SetUseFeaturedImage(v bool) {
 	o.UseFeaturedImage = v
 }
 
-// GetPostBody returns the PostBody field value
-func (o *BlogPost) GetPostBody() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.PostBody
-}
-
-// GetPostBodyOk returns a tuple with the PostBody field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetPostBodyOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.PostBody, true
-}
-
-// SetPostBody sets field value
-func (o *BlogPost) SetPostBody(v string) {
-	o.PostBody = v
-}
-
 // GetPostSummary returns the PostSummary field value
 func (o *BlogPost) GetPostSummary() string {
 	if o == nil {
@@ -922,28 +923,28 @@ func (o *BlogPost) SetPostSummary(v string) {
 	o.PostSummary = v
 }
 
-// GetRssBody returns the RssBody field value
-func (o *BlogPost) GetRssBody() string {
+// GetPostBody returns the PostBody field value
+func (o *BlogPost) GetPostBody() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.RssBody
+	return o.PostBody
 }
 
-// GetRssBodyOk returns a tuple with the RssBody field value
+// GetPostBodyOk returns a tuple with the PostBody field value
 // and a boolean to check if the value has been set.
-func (o *BlogPost) GetRssBodyOk() (*string, bool) {
+func (o *BlogPost) GetPostBodyOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.RssBody, true
+	return &o.PostBody, true
 }
 
-// SetRssBody sets field value
-func (o *BlogPost) SetRssBody(v string) {
-	o.RssBody = v
+// SetPostBody sets field value
+func (o *BlogPost) SetPostBody(v string) {
+	o.PostBody = v
 }
 
 // GetRssSummary returns the RssSummary field value
@@ -970,28 +971,148 @@ func (o *BlogPost) SetRssSummary(v string) {
 	o.RssSummary = v
 }
 
-// GetCurrentlyPublished returns the CurrentlyPublished field value
-func (o *BlogPost) GetCurrentlyPublished() bool {
+// GetRssBody returns the RssBody field value
+func (o *BlogPost) GetRssBody() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.RssBody
+}
+
+// GetRssBodyOk returns a tuple with the RssBody field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetRssBodyOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.RssBody, true
+}
+
+// SetRssBody sets field value
+func (o *BlogPost) SetRssBody(v string) {
+	o.RssBody = v
+}
+
+// GetEnableGoogleAmpOutputOverride returns the EnableGoogleAmpOutputOverride field value
+func (o *BlogPost) GetEnableGoogleAmpOutputOverride() bool {
 	if o == nil {
 		var ret bool
 		return ret
 	}
 
-	return o.CurrentlyPublished
+	return o.EnableGoogleAmpOutputOverride
 }
 
-// GetCurrentlyPublishedOk returns a tuple with the CurrentlyPublished field value
+// GetEnableGoogleAmpOutputOverrideOk returns a tuple with the EnableGoogleAmpOutputOverride field value
 // and a boolean to check if the value has been set.
-func (o *BlogPost) GetCurrentlyPublishedOk() (*bool, bool) {
+func (o *BlogPost) GetEnableGoogleAmpOutputOverrideOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.CurrentlyPublished, true
+	return &o.EnableGoogleAmpOutputOverride, true
 }
 
-// SetCurrentlyPublished sets field value
-func (o *BlogPost) SetCurrentlyPublished(v bool) {
-	o.CurrentlyPublished = v
+// SetEnableGoogleAmpOutputOverride sets field value
+func (o *BlogPost) SetEnableGoogleAmpOutputOverride(v bool) {
+	o.EnableGoogleAmpOutputOverride = v
+}
+
+// GetPublishImmediately returns the PublishImmediately field value
+func (o *BlogPost) GetPublishImmediately() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.PublishImmediately
+}
+
+// GetPublishImmediatelyOk returns a tuple with the PublishImmediately field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetPublishImmediatelyOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PublishImmediately, true
+}
+
+// SetPublishImmediately sets field value
+func (o *BlogPost) SetPublishImmediately(v bool) {
+	o.PublishImmediately = v
+}
+
+// GetArchivedAt returns the ArchivedAt field value
+func (o *BlogPost) GetArchivedAt() int64 {
+	if o == nil {
+		var ret int64
+		return ret
+	}
+
+	return o.ArchivedAt
+}
+
+// GetArchivedAtOk returns a tuple with the ArchivedAt field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetArchivedAtOk() (*int64, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ArchivedAt, true
+}
+
+// SetArchivedAt sets field value
+func (o *BlogPost) SetArchivedAt(v int64) {
+	o.ArchivedAt = v
+}
+
+// GetLinkRelCanonicalUrl returns the LinkRelCanonicalUrl field value
+func (o *BlogPost) GetLinkRelCanonicalUrl() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.LinkRelCanonicalUrl
+}
+
+// GetLinkRelCanonicalUrlOk returns a tuple with the LinkRelCanonicalUrl field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetLinkRelCanonicalUrlOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.LinkRelCanonicalUrl, true
+}
+
+// SetLinkRelCanonicalUrl sets field value
+func (o *BlogPost) SetLinkRelCanonicalUrl(v string) {
+	o.LinkRelCanonicalUrl = v
+}
+
+// GetArchivedInDashboard returns the ArchivedInDashboard field value
+func (o *BlogPost) GetArchivedInDashboard() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.ArchivedInDashboard
+}
+
+// GetArchivedInDashboardOk returns a tuple with the ArchivedInDashboard field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetArchivedInDashboardOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ArchivedInDashboard, true
+}
+
+// SetArchivedInDashboard sets field value
+func (o *BlogPost) SetArchivedInDashboard(v bool) {
+	o.ArchivedInDashboard = v
 }
 
 // GetPageExpiryEnabled returns the PageExpiryEnabled field value
@@ -1162,52 +1283,28 @@ func (o *BlogPost) SetEnableDomainStylesheets(v bool) {
 	o.EnableDomainStylesheets = v
 }
 
-// GetPublishImmediately returns the PublishImmediately field value
-func (o *BlogPost) GetPublishImmediately() bool {
+// GetLayoutSections returns the LayoutSections field value
+func (o *BlogPost) GetLayoutSections() map[string]LayoutSection {
 	if o == nil {
-		var ret bool
+		var ret map[string]LayoutSection
 		return ret
 	}
 
-	return o.PublishImmediately
+	return o.LayoutSections
 }
 
-// GetPublishImmediatelyOk returns a tuple with the PublishImmediately field value
+// GetLayoutSectionsOk returns a tuple with the LayoutSections field value
 // and a boolean to check if the value has been set.
-func (o *BlogPost) GetPublishImmediatelyOk() (*bool, bool) {
+func (o *BlogPost) GetLayoutSectionsOk() (*map[string]LayoutSection, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.PublishImmediately, true
+	return &o.LayoutSections, true
 }
 
-// SetPublishImmediately sets field value
-func (o *BlogPost) SetPublishImmediately(v bool) {
-	o.PublishImmediately = v
-}
-
-// GetFeaturedImage returns the FeaturedImage field value
-func (o *BlogPost) GetFeaturedImage() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.FeaturedImage
-}
-
-// GetFeaturedImageOk returns a tuple with the FeaturedImage field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetFeaturedImageOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.FeaturedImage, true
-}
-
-// SetFeaturedImage sets field value
-func (o *BlogPost) SetFeaturedImage(v string) {
-	o.FeaturedImage = v
+// SetLayoutSections sets field value
+func (o *BlogPost) SetLayoutSections(v map[string]LayoutSection) {
+	o.LayoutSections = v
 }
 
 // GetFeaturedImageAltText returns the FeaturedImageAltText field value
@@ -1232,54 +1329,6 @@ func (o *BlogPost) GetFeaturedImageAltTextOk() (*string, bool) {
 // SetFeaturedImageAltText sets field value
 func (o *BlogPost) SetFeaturedImageAltText(v string) {
 	o.FeaturedImageAltText = v
-}
-
-// GetLinkRelCanonicalUrl returns the LinkRelCanonicalUrl field value
-func (o *BlogPost) GetLinkRelCanonicalUrl() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.LinkRelCanonicalUrl
-}
-
-// GetLinkRelCanonicalUrlOk returns a tuple with the LinkRelCanonicalUrl field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetLinkRelCanonicalUrlOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.LinkRelCanonicalUrl, true
-}
-
-// SetLinkRelCanonicalUrl sets field value
-func (o *BlogPost) SetLinkRelCanonicalUrl(v string) {
-	o.LinkRelCanonicalUrl = v
-}
-
-// GetContentTypeCategory returns the ContentTypeCategory field value
-func (o *BlogPost) GetContentTypeCategory() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.ContentTypeCategory
-}
-
-// GetContentTypeCategoryOk returns a tuple with the ContentTypeCategory field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetContentTypeCategoryOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.ContentTypeCategory, true
-}
-
-// SetContentTypeCategory sets field value
-func (o *BlogPost) SetContentTypeCategory(v string) {
-	o.ContentTypeCategory = v
 }
 
 // GetAttachedStylesheets returns the AttachedStylesheets field value
@@ -1378,100 +1427,28 @@ func (o *BlogPost) SetFooterHtml(v string) {
 	o.FooterHtml = v
 }
 
-// GetArchivedInDashboard returns the ArchivedInDashboard field value
-func (o *BlogPost) GetArchivedInDashboard() bool {
+// GetFeaturedImage returns the FeaturedImage field value
+func (o *BlogPost) GetFeaturedImage() string {
 	if o == nil {
-		var ret bool
+		var ret string
 		return ret
 	}
 
-	return o.ArchivedInDashboard
+	return o.FeaturedImage
 }
 
-// GetArchivedInDashboardOk returns a tuple with the ArchivedInDashboard field value
+// GetFeaturedImageOk returns a tuple with the FeaturedImage field value
 // and a boolean to check if the value has been set.
-func (o *BlogPost) GetArchivedInDashboardOk() (*bool, bool) {
+func (o *BlogPost) GetFeaturedImageOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.ArchivedInDashboard, true
+	return &o.FeaturedImage, true
 }
 
-// SetArchivedInDashboard sets field value
-func (o *BlogPost) SetArchivedInDashboard(v bool) {
-	o.ArchivedInDashboard = v
-}
-
-// GetPublicAccessRulesEnabled returns the PublicAccessRulesEnabled field value
-func (o *BlogPost) GetPublicAccessRulesEnabled() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.PublicAccessRulesEnabled
-}
-
-// GetPublicAccessRulesEnabledOk returns a tuple with the PublicAccessRulesEnabled field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetPublicAccessRulesEnabledOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.PublicAccessRulesEnabled, true
-}
-
-// SetPublicAccessRulesEnabled sets field value
-func (o *BlogPost) SetPublicAccessRulesEnabled(v bool) {
-	o.PublicAccessRulesEnabled = v
-}
-
-// GetPublicAccessRules returns the PublicAccessRules field value
-func (o *BlogPost) GetPublicAccessRules() []map[string]interface{} {
-	if o == nil {
-		var ret []map[string]interface{}
-		return ret
-	}
-
-	return o.PublicAccessRules
-}
-
-// GetPublicAccessRulesOk returns a tuple with the PublicAccessRules field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetPublicAccessRulesOk() ([]map[string]interface{}, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.PublicAccessRules, true
-}
-
-// SetPublicAccessRules sets field value
-func (o *BlogPost) SetPublicAccessRules(v []map[string]interface{}) {
-	o.PublicAccessRules = v
-}
-
-// GetLayoutSections returns the LayoutSections field value
-func (o *BlogPost) GetLayoutSections() map[string]LayoutSection {
-	if o == nil {
-		var ret map[string]LayoutSection
-		return ret
-	}
-
-	return o.LayoutSections
-}
-
-// GetLayoutSectionsOk returns a tuple with the LayoutSections field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetLayoutSectionsOk() (*map[string]LayoutSection, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.LayoutSections, true
-}
-
-// SetLayoutSections sets field value
-func (o *BlogPost) SetLayoutSections(v map[string]LayoutSection) {
-	o.LayoutSections = v
+// SetFeaturedImage sets field value
+func (o *BlogPost) SetFeaturedImage(v string) {
+	o.FeaturedImage = v
 }
 
 // GetThemeSettingsValues returns the ThemeSettingsValues field value
@@ -1570,6 +1547,54 @@ func (o *BlogPost) SetCurrentState(v string) {
 	o.CurrentState = v
 }
 
+// GetCurrentlyPublished returns the CurrentlyPublished field value
+func (o *BlogPost) GetCurrentlyPublished() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.CurrentlyPublished
+}
+
+// GetCurrentlyPublishedOk returns a tuple with the CurrentlyPublished field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetCurrentlyPublishedOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.CurrentlyPublished, true
+}
+
+// SetCurrentlyPublished sets field value
+func (o *BlogPost) SetCurrentlyPublished(v bool) {
+	o.CurrentlyPublished = v
+}
+
+// GetContentTypeCategory returns the ContentTypeCategory field value
+func (o *BlogPost) GetContentTypeCategory() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ContentTypeCategory
+}
+
+// GetContentTypeCategoryOk returns a tuple with the ContentTypeCategory field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetContentTypeCategoryOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ContentTypeCategory, true
+}
+
+// SetContentTypeCategory sets field value
+func (o *BlogPost) SetContentTypeCategory(v string) {
+	o.ContentTypeCategory = v
+}
+
 // GetPublishDate returns the PublishDate field value
 func (o *BlogPost) GetPublishDate() time.Time {
 	if o == nil {
@@ -1642,30 +1667,6 @@ func (o *BlogPost) SetUpdated(v time.Time) {
 	o.Updated = v
 }
 
-// GetDeletedAt returns the DeletedAt field value
-func (o *BlogPost) GetDeletedAt() time.Time {
-	if o == nil {
-		var ret time.Time
-		return ret
-	}
-
-	return o.DeletedAt
-}
-
-// GetDeletedAtOk returns a tuple with the DeletedAt field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetDeletedAtOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.DeletedAt, true
-}
-
-// SetDeletedAt sets field value
-func (o *BlogPost) SetDeletedAt(v time.Time) {
-	o.DeletedAt = v
-}
-
 func (o BlogPost) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -1691,9 +1692,6 @@ func (o BlogPost) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["mabExperimentId"] = o.MabExperimentId
-	}
-	if true {
-		toSerialize["archived"] = o.Archived
 	}
 	if true {
 		toSerialize["authorName"] = o.AuthorName
@@ -1732,6 +1730,9 @@ func (o BlogPost) MarshalJSON() ([]byte, error) {
 		toSerialize["translations"] = o.Translations
 	}
 	if true {
+		toSerialize["dynamicPageHubDbTableId"] = o.DynamicPageHubDbTableId
+	}
+	if true {
 		toSerialize["dynamicPageDataSourceType"] = o.DynamicPageDataSourceType
 	}
 	if true {
@@ -1747,25 +1748,40 @@ func (o BlogPost) MarshalJSON() ([]byte, error) {
 		toSerialize["htmlTitle"] = o.HtmlTitle
 	}
 	if true {
-		toSerialize["enableGoogleAmpOutputOverride"] = o.EnableGoogleAmpOutputOverride
+		toSerialize["publicAccessRulesEnabled"] = o.PublicAccessRulesEnabled
+	}
+	if true {
+		toSerialize["publicAccessRules"] = o.PublicAccessRules
 	}
 	if true {
 		toSerialize["useFeaturedImage"] = o.UseFeaturedImage
 	}
 	if true {
-		toSerialize["postBody"] = o.PostBody
-	}
-	if true {
 		toSerialize["postSummary"] = o.PostSummary
 	}
 	if true {
-		toSerialize["rssBody"] = o.RssBody
+		toSerialize["postBody"] = o.PostBody
 	}
 	if true {
 		toSerialize["rssSummary"] = o.RssSummary
 	}
 	if true {
-		toSerialize["currentlyPublished"] = o.CurrentlyPublished
+		toSerialize["rssBody"] = o.RssBody
+	}
+	if true {
+		toSerialize["enableGoogleAmpOutputOverride"] = o.EnableGoogleAmpOutputOverride
+	}
+	if true {
+		toSerialize["publishImmediately"] = o.PublishImmediately
+	}
+	if true {
+		toSerialize["archivedAt"] = o.ArchivedAt
+	}
+	if true {
+		toSerialize["linkRelCanonicalUrl"] = o.LinkRelCanonicalUrl
+	}
+	if true {
+		toSerialize["archivedInDashboard"] = o.ArchivedInDashboard
 	}
 	if true {
 		toSerialize["pageExpiryEnabled"] = o.PageExpiryEnabled
@@ -1789,19 +1805,10 @@ func (o BlogPost) MarshalJSON() ([]byte, error) {
 		toSerialize["enableDomainStylesheets"] = o.EnableDomainStylesheets
 	}
 	if true {
-		toSerialize["publishImmediately"] = o.PublishImmediately
-	}
-	if true {
-		toSerialize["featuredImage"] = o.FeaturedImage
+		toSerialize["layoutSections"] = o.LayoutSections
 	}
 	if true {
 		toSerialize["featuredImageAltText"] = o.FeaturedImageAltText
-	}
-	if true {
-		toSerialize["linkRelCanonicalUrl"] = o.LinkRelCanonicalUrl
-	}
-	if true {
-		toSerialize["contentTypeCategory"] = o.ContentTypeCategory
 	}
 	if true {
 		toSerialize["attachedStylesheets"] = o.AttachedStylesheets
@@ -1816,16 +1823,7 @@ func (o BlogPost) MarshalJSON() ([]byte, error) {
 		toSerialize["footerHtml"] = o.FooterHtml
 	}
 	if true {
-		toSerialize["archivedInDashboard"] = o.ArchivedInDashboard
-	}
-	if true {
-		toSerialize["publicAccessRulesEnabled"] = o.PublicAccessRulesEnabled
-	}
-	if true {
-		toSerialize["publicAccessRules"] = o.PublicAccessRules
-	}
-	if true {
-		toSerialize["layoutSections"] = o.LayoutSections
+		toSerialize["featuredImage"] = o.FeaturedImage
 	}
 	if true {
 		toSerialize["themeSettingsValues"] = o.ThemeSettingsValues
@@ -1840,6 +1838,12 @@ func (o BlogPost) MarshalJSON() ([]byte, error) {
 		toSerialize["currentState"] = o.CurrentState
 	}
 	if true {
+		toSerialize["currentlyPublished"] = o.CurrentlyPublished
+	}
+	if true {
+		toSerialize["contentTypeCategory"] = o.ContentTypeCategory
+	}
+	if true {
 		toSerialize["publishDate"] = o.PublishDate
 	}
 	if true {
@@ -1847,9 +1851,6 @@ func (o BlogPost) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["updated"] = o.Updated
-	}
-	if true {
-		toSerialize["deletedAt"] = o.DeletedAt
 	}
 	return json.Marshal(toSerialize)
 }

@@ -18,7 +18,8 @@ import (
 type PublicAssociationMulti struct {
 	From PublicObjectId `json:"from"`
 	// The IDs of objects that are associated with the object identified by the ID in 'from'.
-	To []AssociatedId `json:"to"`
+	To     []AssociatedId `json:"to"`
+	Paging *Paging        `json:"paging,omitempty"`
 }
 
 // NewPublicAssociationMulti instantiates a new PublicAssociationMulti object
@@ -88,6 +89,38 @@ func (o *PublicAssociationMulti) SetTo(v []AssociatedId) {
 	o.To = v
 }
 
+// GetPaging returns the Paging field value if set, zero value otherwise.
+func (o *PublicAssociationMulti) GetPaging() Paging {
+	if o == nil || o.Paging == nil {
+		var ret Paging
+		return ret
+	}
+	return *o.Paging
+}
+
+// GetPagingOk returns a tuple with the Paging field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PublicAssociationMulti) GetPagingOk() (*Paging, bool) {
+	if o == nil || o.Paging == nil {
+		return nil, false
+	}
+	return o.Paging, true
+}
+
+// HasPaging returns a boolean if a field has been set.
+func (o *PublicAssociationMulti) HasPaging() bool {
+	if o != nil && o.Paging != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPaging gets a reference to the given Paging and assigns it to the Paging field.
+func (o *PublicAssociationMulti) SetPaging(v Paging) {
+	o.Paging = &v
+}
+
 func (o PublicAssociationMulti) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -95,6 +128,9 @@ func (o PublicAssociationMulti) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["to"] = o.To
+	}
+	if o.Paging != nil {
+		toSerialize["paging"] = o.Paging
 	}
 	return json.Marshal(toSerialize)
 }

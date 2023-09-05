@@ -5,12 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** | The id of the table row | [optional] 
+**Values** | **map[string]map[string]interface{}** | List of key value pairs with the column name and column value | 
 **Path** | Pointer to **string** | Specifies the value for &#x60;hs_path&#x60; column, which will be used as slug in the dynamic pages | [optional] 
 **Name** | Pointer to **string** | Specifies the value for &#x60;hs_name&#x60; column, which will be used as title in the dynamic pages | [optional] 
+**ChildTableId** | Pointer to **string** | Specifies the value for the column child table id | [optional] 
 **CreatedAt** | Pointer to **time.Time** | Timestamp at which the row is created | [optional] 
 **UpdatedAt** | Pointer to **time.Time** | Timestamp at which the row is updated last time | [optional] 
-**ChildTableId** | Pointer to **string** | Specifies the value for the column child table id | [optional] 
-**Values** | **map[string]map[string]interface{}** | List of key value pairs with the column name and column value | 
+**PublishedAt** | Pointer to **time.Time** |  | [optional] 
 
 ## Methods
 
@@ -55,6 +56,26 @@ SetId sets Id field to given value.
 `func (o *HubDbTableRowV3) HasId() bool`
 
 HasId returns a boolean if a field has been set.
+
+### GetValues
+
+`func (o *HubDbTableRowV3) GetValues() map[string]map[string]interface{}`
+
+GetValues returns the Values field if non-nil, zero value otherwise.
+
+### GetValuesOk
+
+`func (o *HubDbTableRowV3) GetValuesOk() (*map[string]map[string]interface{}, bool)`
+
+GetValuesOk returns a tuple with the Values field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetValues
+
+`func (o *HubDbTableRowV3) SetValues(v map[string]map[string]interface{})`
+
+SetValues sets Values field to given value.
+
 
 ### GetPath
 
@@ -106,6 +127,31 @@ SetName sets Name field to given value.
 
 HasName returns a boolean if a field has been set.
 
+### GetChildTableId
+
+`func (o *HubDbTableRowV3) GetChildTableId() string`
+
+GetChildTableId returns the ChildTableId field if non-nil, zero value otherwise.
+
+### GetChildTableIdOk
+
+`func (o *HubDbTableRowV3) GetChildTableIdOk() (*string, bool)`
+
+GetChildTableIdOk returns a tuple with the ChildTableId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetChildTableId
+
+`func (o *HubDbTableRowV3) SetChildTableId(v string)`
+
+SetChildTableId sets ChildTableId field to given value.
+
+### HasChildTableId
+
+`func (o *HubDbTableRowV3) HasChildTableId() bool`
+
+HasChildTableId returns a boolean if a field has been set.
+
 ### GetCreatedAt
 
 `func (o *HubDbTableRowV3) GetCreatedAt() time.Time`
@@ -156,50 +202,30 @@ SetUpdatedAt sets UpdatedAt field to given value.
 
 HasUpdatedAt returns a boolean if a field has been set.
 
-### GetChildTableId
+### GetPublishedAt
 
-`func (o *HubDbTableRowV3) GetChildTableId() string`
+`func (o *HubDbTableRowV3) GetPublishedAt() time.Time`
 
-GetChildTableId returns the ChildTableId field if non-nil, zero value otherwise.
+GetPublishedAt returns the PublishedAt field if non-nil, zero value otherwise.
 
-### GetChildTableIdOk
+### GetPublishedAtOk
 
-`func (o *HubDbTableRowV3) GetChildTableIdOk() (*string, bool)`
+`func (o *HubDbTableRowV3) GetPublishedAtOk() (*time.Time, bool)`
 
-GetChildTableIdOk returns a tuple with the ChildTableId field if it's non-nil, zero value otherwise
+GetPublishedAtOk returns a tuple with the PublishedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetChildTableId
+### SetPublishedAt
 
-`func (o *HubDbTableRowV3) SetChildTableId(v string)`
+`func (o *HubDbTableRowV3) SetPublishedAt(v time.Time)`
 
-SetChildTableId sets ChildTableId field to given value.
+SetPublishedAt sets PublishedAt field to given value.
 
-### HasChildTableId
+### HasPublishedAt
 
-`func (o *HubDbTableRowV3) HasChildTableId() bool`
+`func (o *HubDbTableRowV3) HasPublishedAt() bool`
 
-HasChildTableId returns a boolean if a field has been set.
-
-### GetValues
-
-`func (o *HubDbTableRowV3) GetValues() map[string]map[string]interface{}`
-
-GetValues returns the Values field if non-nil, zero value otherwise.
-
-### GetValuesOk
-
-`func (o *HubDbTableRowV3) GetValuesOk() (*map[string]map[string]interface{}, bool)`
-
-GetValuesOk returns a tuple with the Values field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetValues
-
-`func (o *HubDbTableRowV3) SetValues(v map[string]map[string]interface{})`
-
-SetValues sets Values field to given value.
-
+HasPublishedAt returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -34,6 +34,8 @@ type PropertyUpdate struct {
 	Hidden *bool `json:"hidden,omitempty"`
 	// Whether or not the property can be used in a HubSpot form.
 	FormField *bool `json:"formField,omitempty"`
+	// Represents a formula that is used to compute a calculated property.
+	CalculationFormula *string `json:"calculationFormula,omitempty"`
 }
 
 // NewPropertyUpdate instantiates a new PropertyUpdate object
@@ -341,6 +343,38 @@ func (o *PropertyUpdate) SetFormField(v bool) {
 	o.FormField = &v
 }
 
+// GetCalculationFormula returns the CalculationFormula field value if set, zero value otherwise.
+func (o *PropertyUpdate) GetCalculationFormula() string {
+	if o == nil || o.CalculationFormula == nil {
+		var ret string
+		return ret
+	}
+	return *o.CalculationFormula
+}
+
+// GetCalculationFormulaOk returns a tuple with the CalculationFormula field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyUpdate) GetCalculationFormulaOk() (*string, bool) {
+	if o == nil || o.CalculationFormula == nil {
+		return nil, false
+	}
+	return o.CalculationFormula, true
+}
+
+// HasCalculationFormula returns a boolean if a field has been set.
+func (o *PropertyUpdate) HasCalculationFormula() bool {
+	if o != nil && o.CalculationFormula != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCalculationFormula gets a reference to the given string and assigns it to the CalculationFormula field.
+func (o *PropertyUpdate) SetCalculationFormula(v string) {
+	o.CalculationFormula = &v
+}
+
 func (o PropertyUpdate) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Label != nil {
@@ -369,6 +403,9 @@ func (o PropertyUpdate) MarshalJSON() ([]byte, error) {
 	}
 	if o.FormField != nil {
 		toSerialize["formField"] = o.FormField
+	}
+	if o.CalculationFormula != nil {
+		toSerialize["calculationFormula"] = o.CalculationFormula
 	}
 	return json.Marshal(toSerialize)
 }

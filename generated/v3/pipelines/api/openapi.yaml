@@ -1,29 +1,37 @@
 openapi: 3.0.1
 info:
-  description: |-
-    Pipelines represent distinct stages in a workflow, like closing a deal or servicing a support ticket. These endpoints provide access to read and modify pipelines in HubSpot. Pipelines support `deals` and `tickets` object types.
-
-    ## Pipeline ID validation
-
-    When calling endpoints that take pipelineId as a parameter, that ID must correspond to an existing, un-archived pipeline. Otherwise the request will fail with a `404 Not Found` response.
+  description: "Pipelines represent distinct stages in a workflow, like closing a\
+    \ deal or servicing a support ticket. These endpoints provide access to read and\
+    \ modify pipelines in HubSpot. Pipelines support `deals` and `tickets` object\
+    \ types.\n\n## Pipeline ID validation\n\nWhen calling endpoints that take pipelineId\
+    \ as a parameter, that ID must correspond to an existing, un-archived pipeline.\
+    \ Otherwise the request will fail with a `404 Not Found` response."
   title: CRM Pipelines
   version: v3
 servers:
-- url: https://api.hubapi.com/
+- url: https://api.hubapi.com
 tags:
-- name: Pipeline Stages
-- name: Pipelines
-- name: Pipeline Audits
 - name: Pipeline Stage Audits
+- name: Pipelines
+- name: Pipeline Stages
+- name: Pipeline Audits
 paths:
-  /crm/v3/pipelines/{objectType}:
+  /crm/v3/pipelines/{objectType}/{pipelineId}/stages/{stageId}/audit:
     get:
-      description: "Return all pipelines for the object type specified by `{objectType}`."
-      operationId: GetAll
+      description: "Return a reverse chronological list of all mutations that have\
+        \ occurred on the pipeline stage identified by `{stageId}`."
+      operationId: StagesGetAudit
       parameters:
       - explode: false
         in: path
         name: objectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: stageId
         required: true
         schema:
           type: string
@@ -33,7 +41,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CollectionResponsePipelineNoPaging'
+                $ref: '#/components/schemas/CollectionResponsePublicAuditInfoNoPaging'
           description: successful operation
         default:
           content:
@@ -42,92 +50,79 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - oauth2:
-        - crm.schemas.contacts.read
       - oauth2_legacy:
         - media_bridge.read
-      - oauth2_legacy:
-        - tickets
       - oauth2:
         - crm.objects.contacts.read
-      - hapikey: []
-      - oauth2:
-        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.deals.read
+      - private_apps_legacy:
+        - timeline
       - oauth2:
         - crm.objects.deals.read
+      - private_apps_legacy:
+        - contacts
+      - private_apps:
+        - crm.objects.contacts.read
       - oauth2_legacy:
         - crm.schemas.custom.read
-      - oauth2:
-        - crm.schemas.quotes.read
-      - oauth2:
+      - private_apps:
+        - crm.objects.companies.read
+      - private_apps:
         - crm.objects.deals.write
       - oauth2:
+        - crm.schemas.quotes.read
+      - private_apps:
+        - crm.schemas.quotes.read
+      - oauth2:
         - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.deals.write
+      - private_apps_legacy:
+        - crm.schemas.custom.read
+      - private_apps_legacy:
+        - crm.objects.goals.read
+      - private_apps:
+        - crm.schemas.deals.read
+      - oauth2:
+        - crm.schemas.deals.read
+      - oauth2_legacy:
+        - timeline
+      - private_apps_legacy:
+        - media_bridge.read
+      - private_apps:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.schemas.contacts.read
+      - private_apps:
+        - crm.schemas.contacts.read
+      - oauth2_legacy:
+        - tickets
+      - private_apps_legacy:
+        - e-commerce
+      - oauth2:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.schemas.companies.read
       - oauth2:
         - crm.schemas.companies.read
       - oauth2_legacy:
         - e-commerce
+      - private_apps_legacy:
+        - tickets
       - oauth2_legacy:
-        - timeline
-      - oauth2:
-        - crm.schemas.deals.read
-      - oauth2_legacy:
-        - contacts
-      - oauth2:
+        - crm.objects.goals.read
+      - private_apps:
         - crm.schemas.line_items.read
       - oauth2:
-        - crm.objects.companies.write
-      summary: Retrieve all pipelines
+        - crm.schemas.line_items.read
+      summary: Return an audit of all changes to the pipeline stage
       tags:
-      - Pipelines
-    post:
-      description: "Create a new pipeline with the provided property values. The entire\
-        \ pipeline object, including its unique ID, will be returned in the response."
-      operationId: Create
-      parameters:
-      - explode: false
-        in: path
-        name: objectType
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PipelineInput'
-        required: true
-      responses:
-        "201":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Pipeline'
-          description: successful operation
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - oauth2_legacy:
-        - tickets
-      - hapikey: []
-      - oauth2:
-        - crm.schemas.deals.write
-      - oauth2_legacy:
-        - e-commerce
-      - oauth2:
-        - crm.schemas.contacts.write
-      - oauth2:
-        - crm.schemas.companies.write
-      - oauth2_legacy:
-        - contacts
-      summary: Create a pipeline
-      tags:
-      - Pipelines
+      - Pipeline Stage Audits
   /crm/v3/pipelines/{objectType}/{pipelineId}:
     delete:
       description: "Delete the pipeline identified by `{pipelineId}`."
@@ -155,6 +150,14 @@ paths:
           default: false
           type: boolean
         style: form
+      - explode: true
+        in: query
+        name: validateDealStageUsagesBeforeDelete
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
       responses:
         "204":
           content: {}
@@ -168,17 +171,28 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
       - oauth2:
         - crm.schemas.deals.write
-      - oauth2_legacy:
+      - private_apps_legacy:
         - e-commerce
       - oauth2:
         - crm.schemas.contacts.write
       - oauth2:
         - crm.schemas.companies.write
-      - oauth2_legacy:
+      - private_apps_legacy:
         - contacts
+      - private_apps:
+        - crm.schemas.contacts.write
+      - private_apps:
+        - crm.schemas.companies.write
+      - oauth2_legacy:
+        - e-commerce
+      - private_apps_legacy:
+        - tickets
+      - private_apps_legacy:
+        - crm.schemas.custom.write
+      - private_apps:
+        - crm.schemas.deals.write
       summary: Delete a pipeline
       tags:
       - Pipelines
@@ -214,41 +228,76 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - oauth2:
-        - crm.schemas.contacts.read
       - oauth2_legacy:
         - media_bridge.read
-      - oauth2_legacy:
-        - tickets
       - oauth2:
         - crm.objects.contacts.read
-      - hapikey: []
-      - oauth2:
-        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.deals.read
+      - private_apps_legacy:
+        - timeline
       - oauth2:
         - crm.objects.deals.read
+      - private_apps_legacy:
+        - contacts
+      - private_apps:
+        - crm.objects.contacts.read
       - oauth2_legacy:
         - crm.schemas.custom.read
-      - oauth2:
-        - crm.schemas.quotes.read
-      - oauth2:
+      - private_apps:
+        - crm.objects.companies.read
+      - private_apps:
         - crm.objects.deals.write
       - oauth2:
+        - crm.schemas.quotes.read
+      - private_apps:
+        - crm.schemas.quotes.read
+      - oauth2:
         - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.deals.write
+      - private_apps_legacy:
+        - crm.schemas.custom.read
+      - private_apps_legacy:
+        - crm.objects.goals.read
+      - private_apps:
+        - crm.schemas.deals.read
+      - oauth2:
+        - crm.schemas.deals.read
+      - oauth2_legacy:
+        - timeline
+      - private_apps_legacy:
+        - media_bridge.read
+      - private_apps:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.schemas.contacts.read
+      - private_apps:
+        - crm.schemas.contacts.read
+      - oauth2_legacy:
+        - tickets
+      - private_apps_legacy:
+        - e-commerce
+      - oauth2:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.schemas.companies.read
       - oauth2:
         - crm.schemas.companies.read
       - oauth2_legacy:
         - e-commerce
+      - private_apps_legacy:
+        - tickets
       - oauth2_legacy:
-        - timeline
-      - oauth2:
-        - crm.schemas.deals.read
-      - oauth2_legacy:
-        - contacts
-      - oauth2:
+        - crm.objects.goals.read
+      - private_apps:
         - crm.schemas.line_items.read
       - oauth2:
-        - crm.objects.companies.write
+        - crm.schemas.line_items.read
       summary: Return a pipeline by ID
       tags:
       - Pipelines
@@ -279,6 +328,14 @@ paths:
           default: false
           type: boolean
         style: form
+      - explode: true
+        in: query
+        name: validateDealStageUsagesBeforeDelete
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
       requestBody:
         content:
           application/json:
@@ -301,17 +358,28 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
       - oauth2:
         - crm.schemas.deals.write
-      - oauth2_legacy:
+      - private_apps_legacy:
         - e-commerce
       - oauth2:
         - crm.schemas.contacts.write
       - oauth2:
         - crm.schemas.companies.write
-      - oauth2_legacy:
+      - private_apps_legacy:
         - contacts
+      - private_apps:
+        - crm.schemas.contacts.write
+      - private_apps:
+        - crm.schemas.companies.write
+      - oauth2_legacy:
+        - e-commerce
+      - private_apps_legacy:
+        - tickets
+      - private_apps_legacy:
+        - crm.schemas.custom.write
+      - private_apps:
+        - crm.schemas.deals.write
       summary: Update a pipeline
       tags:
       - Pipelines
@@ -343,6 +411,14 @@ paths:
           default: false
           type: boolean
         style: form
+      - explode: true
+        in: query
+        name: validateDealStageUsagesBeforeDelete
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
       requestBody:
         content:
           application/json:
@@ -365,17 +441,28 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
       - oauth2:
         - crm.schemas.deals.write
-      - oauth2_legacy:
+      - private_apps_legacy:
         - e-commerce
       - oauth2:
         - crm.schemas.contacts.write
       - oauth2:
         - crm.schemas.companies.write
-      - oauth2_legacy:
+      - private_apps_legacy:
         - contacts
+      - private_apps:
+        - crm.schemas.contacts.write
+      - private_apps:
+        - crm.schemas.companies.write
+      - oauth2_legacy:
+        - e-commerce
+      - private_apps_legacy:
+        - tickets
+      - private_apps_legacy:
+        - crm.schemas.custom.write
+      - private_apps:
+        - crm.schemas.deals.write
       summary: Replace a pipeline
       tags:
       - Pipelines
@@ -413,41 +500,76 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - oauth2:
-        - crm.schemas.contacts.read
       - oauth2_legacy:
         - media_bridge.read
-      - oauth2_legacy:
-        - tickets
       - oauth2:
         - crm.objects.contacts.read
-      - hapikey: []
-      - oauth2:
-        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.deals.read
+      - private_apps_legacy:
+        - timeline
       - oauth2:
         - crm.objects.deals.read
+      - private_apps_legacy:
+        - contacts
+      - private_apps:
+        - crm.objects.contacts.read
       - oauth2_legacy:
         - crm.schemas.custom.read
-      - oauth2:
-        - crm.schemas.quotes.read
-      - oauth2:
+      - private_apps:
+        - crm.objects.companies.read
+      - private_apps:
         - crm.objects.deals.write
       - oauth2:
+        - crm.schemas.quotes.read
+      - private_apps:
+        - crm.schemas.quotes.read
+      - oauth2:
         - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.deals.write
+      - private_apps_legacy:
+        - crm.schemas.custom.read
+      - private_apps_legacy:
+        - crm.objects.goals.read
+      - private_apps:
+        - crm.schemas.deals.read
+      - oauth2:
+        - crm.schemas.deals.read
+      - oauth2_legacy:
+        - timeline
+      - private_apps_legacy:
+        - media_bridge.read
+      - private_apps:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.schemas.contacts.read
+      - private_apps:
+        - crm.schemas.contacts.read
+      - oauth2_legacy:
+        - tickets
+      - private_apps_legacy:
+        - e-commerce
+      - oauth2:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.schemas.companies.read
       - oauth2:
         - crm.schemas.companies.read
       - oauth2_legacy:
         - e-commerce
+      - private_apps_legacy:
+        - tickets
       - oauth2_legacy:
-        - timeline
-      - oauth2:
-        - crm.schemas.deals.read
-      - oauth2_legacy:
-        - contacts
-      - oauth2:
+        - crm.objects.goals.read
+      - private_apps:
         - crm.schemas.line_items.read
       - oauth2:
-        - crm.objects.companies.write
+        - crm.schemas.line_items.read
       summary: Return an audit of all changes to the pipeline
       tags:
       - Pipeline Audits
@@ -485,41 +607,76 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - oauth2:
-        - crm.schemas.contacts.read
       - oauth2_legacy:
         - media_bridge.read
-      - oauth2_legacy:
-        - tickets
       - oauth2:
         - crm.objects.contacts.read
-      - hapikey: []
-      - oauth2:
-        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.deals.read
+      - private_apps_legacy:
+        - timeline
       - oauth2:
         - crm.objects.deals.read
+      - private_apps_legacy:
+        - contacts
+      - private_apps:
+        - crm.objects.contacts.read
       - oauth2_legacy:
         - crm.schemas.custom.read
-      - oauth2:
-        - crm.schemas.quotes.read
-      - oauth2:
+      - private_apps:
+        - crm.objects.companies.read
+      - private_apps:
         - crm.objects.deals.write
       - oauth2:
+        - crm.schemas.quotes.read
+      - private_apps:
+        - crm.schemas.quotes.read
+      - oauth2:
         - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.deals.write
+      - private_apps_legacy:
+        - crm.schemas.custom.read
+      - private_apps_legacy:
+        - crm.objects.goals.read
+      - private_apps:
+        - crm.schemas.deals.read
+      - oauth2:
+        - crm.schemas.deals.read
+      - oauth2_legacy:
+        - timeline
+      - private_apps_legacy:
+        - media_bridge.read
+      - private_apps:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.schemas.contacts.read
+      - private_apps:
+        - crm.schemas.contacts.read
+      - oauth2_legacy:
+        - tickets
+      - private_apps_legacy:
+        - e-commerce
+      - oauth2:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.schemas.companies.read
       - oauth2:
         - crm.schemas.companies.read
       - oauth2_legacy:
         - e-commerce
+      - private_apps_legacy:
+        - tickets
       - oauth2_legacy:
-        - timeline
-      - oauth2:
-        - crm.schemas.deals.read
-      - oauth2_legacy:
-        - contacts
-      - oauth2:
+        - crm.objects.goals.read
+      - private_apps:
         - crm.schemas.line_items.read
       - oauth2:
-        - crm.objects.companies.write
+        - crm.schemas.line_items.read
       summary: Return all stages of a pipeline
       tags:
       - Pipeline Stages
@@ -565,20 +722,189 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
       - oauth2:
         - crm.schemas.deals.write
-      - oauth2_legacy:
+      - private_apps_legacy:
         - e-commerce
       - oauth2:
         - crm.schemas.contacts.write
       - oauth2:
         - crm.schemas.companies.write
-      - oauth2_legacy:
+      - private_apps_legacy:
         - contacts
+      - private_apps:
+        - crm.schemas.contacts.write
+      - private_apps:
+        - crm.schemas.companies.write
+      - oauth2_legacy:
+        - e-commerce
+      - private_apps_legacy:
+        - tickets
+      - private_apps_legacy:
+        - crm.schemas.custom.write
+      - private_apps:
+        - crm.schemas.deals.write
       summary: Create a pipeline stage
       tags:
       - Pipeline Stages
+  /crm/v3/pipelines/{objectType}:
+    get:
+      description: "Return all pipelines for the object type specified by `{objectType}`."
+      operationId: GetAll
+      parameters:
+      - explode: false
+        in: path
+        name: objectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionResponsePipelineNoPaging'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - oauth2_legacy:
+        - media_bridge.read
+      - oauth2:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.deals.read
+      - private_apps_legacy:
+        - timeline
+      - oauth2:
+        - crm.objects.deals.read
+      - private_apps_legacy:
+        - contacts
+      - private_apps:
+        - crm.objects.contacts.read
+      - oauth2_legacy:
+        - crm.schemas.custom.read
+      - private_apps:
+        - crm.objects.companies.read
+      - private_apps:
+        - crm.objects.deals.write
+      - oauth2:
+        - crm.schemas.quotes.read
+      - private_apps:
+        - crm.schemas.quotes.read
+      - oauth2:
+        - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.deals.write
+      - private_apps_legacy:
+        - crm.schemas.custom.read
+      - private_apps_legacy:
+        - crm.objects.goals.read
+      - private_apps:
+        - crm.schemas.deals.read
+      - oauth2:
+        - crm.schemas.deals.read
+      - oauth2_legacy:
+        - timeline
+      - private_apps_legacy:
+        - media_bridge.read
+      - private_apps:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.schemas.contacts.read
+      - private_apps:
+        - crm.schemas.contacts.read
+      - oauth2_legacy:
+        - tickets
+      - private_apps_legacy:
+        - e-commerce
+      - oauth2:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.schemas.companies.read
+      - oauth2:
+        - crm.schemas.companies.read
+      - oauth2_legacy:
+        - e-commerce
+      - private_apps_legacy:
+        - tickets
+      - oauth2_legacy:
+        - crm.objects.goals.read
+      - private_apps:
+        - crm.schemas.line_items.read
+      - oauth2:
+        - crm.schemas.line_items.read
+      summary: Retrieve all pipelines
+      tags:
+      - Pipelines
+    post:
+      description: "Create a new pipeline with the provided property values. The entire\
+        \ pipeline object, including its unique ID, will be returned in the response."
+      operationId: Create
+      parameters:
+      - explode: false
+        in: path
+        name: objectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PipelineInput'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pipeline'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - oauth2_legacy:
+        - tickets
+      - oauth2:
+        - crm.schemas.deals.write
+      - private_apps_legacy:
+        - e-commerce
+      - oauth2:
+        - crm.schemas.contacts.write
+      - oauth2:
+        - crm.schemas.companies.write
+      - private_apps_legacy:
+        - contacts
+      - private_apps:
+        - crm.schemas.contacts.write
+      - private_apps:
+        - crm.schemas.companies.write
+      - oauth2_legacy:
+        - e-commerce
+      - private_apps_legacy:
+        - tickets
+      - private_apps_legacy:
+        - crm.schemas.custom.write
+      - private_apps:
+        - crm.schemas.deals.write
+      summary: Create a pipeline
+      tags:
+      - Pipelines
   /crm/v3/pipelines/{objectType}/{pipelineId}/stages/{stageId}:
     delete:
       description: "Delete the pipeline stage identified by `{stageId}` associated\
@@ -619,17 +945,28 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
       - oauth2:
         - crm.schemas.deals.write
-      - oauth2_legacy:
+      - private_apps_legacy:
         - e-commerce
       - oauth2:
         - crm.schemas.contacts.write
       - oauth2:
         - crm.schemas.companies.write
-      - oauth2_legacy:
+      - private_apps_legacy:
         - contacts
+      - private_apps:
+        - crm.schemas.contacts.write
+      - private_apps:
+        - crm.schemas.companies.write
+      - oauth2_legacy:
+        - e-commerce
+      - private_apps_legacy:
+        - tickets
+      - private_apps_legacy:
+        - crm.schemas.custom.write
+      - private_apps:
+        - crm.schemas.deals.write
       summary: Delete a pipeline stage
       tags:
       - Pipeline Stages
@@ -673,41 +1010,76 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - oauth2:
-        - crm.schemas.contacts.read
       - oauth2_legacy:
         - media_bridge.read
-      - oauth2_legacy:
-        - tickets
       - oauth2:
         - crm.objects.contacts.read
-      - hapikey: []
-      - oauth2:
-        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.deals.read
+      - private_apps_legacy:
+        - timeline
       - oauth2:
         - crm.objects.deals.read
+      - private_apps_legacy:
+        - contacts
+      - private_apps:
+        - crm.objects.contacts.read
       - oauth2_legacy:
         - crm.schemas.custom.read
-      - oauth2:
-        - crm.schemas.quotes.read
-      - oauth2:
+      - private_apps:
+        - crm.objects.companies.read
+      - private_apps:
         - crm.objects.deals.write
       - oauth2:
+        - crm.schemas.quotes.read
+      - private_apps:
+        - crm.schemas.quotes.read
+      - oauth2:
         - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.deals.write
+      - private_apps_legacy:
+        - crm.schemas.custom.read
+      - private_apps_legacy:
+        - crm.objects.goals.read
+      - private_apps:
+        - crm.schemas.deals.read
+      - oauth2:
+        - crm.schemas.deals.read
+      - oauth2_legacy:
+        - timeline
+      - private_apps_legacy:
+        - media_bridge.read
+      - private_apps:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.schemas.contacts.read
+      - private_apps:
+        - crm.schemas.contacts.read
+      - oauth2_legacy:
+        - tickets
+      - private_apps_legacy:
+        - e-commerce
+      - oauth2:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.schemas.companies.read
       - oauth2:
         - crm.schemas.companies.read
       - oauth2_legacy:
         - e-commerce
+      - private_apps_legacy:
+        - tickets
       - oauth2_legacy:
-        - timeline
-      - oauth2:
-        - crm.schemas.deals.read
-      - oauth2_legacy:
-        - contacts
-      - oauth2:
+        - crm.objects.goals.read
+      - private_apps:
         - crm.schemas.line_items.read
       - oauth2:
-        - crm.objects.companies.write
+        - crm.schemas.line_items.read
       summary: Return a pipeline stage by ID
       tags:
       - Pipeline Stages
@@ -761,17 +1133,28 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
       - oauth2:
         - crm.schemas.deals.write
-      - oauth2_legacy:
+      - private_apps_legacy:
         - e-commerce
       - oauth2:
         - crm.schemas.contacts.write
       - oauth2:
         - crm.schemas.companies.write
-      - oauth2_legacy:
+      - private_apps_legacy:
         - contacts
+      - private_apps:
+        - crm.schemas.contacts.write
+      - private_apps:
+        - crm.schemas.companies.write
+      - oauth2_legacy:
+        - e-commerce
+      - private_apps_legacy:
+        - tickets
+      - private_apps_legacy:
+        - crm.schemas.custom.write
+      - private_apps:
+        - crm.schemas.deals.write
       summary: Update a pipeline stage
       tags:
       - Pipeline Stages
@@ -823,92 +1206,31 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
       - oauth2:
         - crm.schemas.deals.write
-      - oauth2_legacy:
+      - private_apps_legacy:
         - e-commerce
       - oauth2:
         - crm.schemas.contacts.write
       - oauth2:
         - crm.schemas.companies.write
-      - oauth2_legacy:
+      - private_apps_legacy:
         - contacts
+      - private_apps:
+        - crm.schemas.contacts.write
+      - private_apps:
+        - crm.schemas.companies.write
+      - oauth2_legacy:
+        - e-commerce
+      - private_apps_legacy:
+        - tickets
+      - private_apps_legacy:
+        - crm.schemas.custom.write
+      - private_apps:
+        - crm.schemas.deals.write
       summary: Replace a pipeline stage
       tags:
       - Pipeline Stages
-  /crm/v3/pipelines/{objectType}/{pipelineId}/stages/{stageId}/audit:
-    get:
-      description: "Return a reverse chronological list of all mutations that have\
-        \ occurred on the pipeline stage identified by `{stageId}`."
-      operationId: StagesGetAudit
-      parameters:
-      - explode: false
-        in: path
-        name: objectType
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: stageId
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CollectionResponsePublicAuditInfoNoPaging'
-          description: successful operation
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - oauth2:
-        - crm.schemas.contacts.read
-      - oauth2_legacy:
-        - media_bridge.read
-      - oauth2_legacy:
-        - tickets
-      - oauth2:
-        - crm.objects.contacts.read
-      - hapikey: []
-      - oauth2:
-        - crm.objects.contacts.write
-      - oauth2:
-        - crm.objects.deals.read
-      - oauth2_legacy:
-        - crm.schemas.custom.read
-      - oauth2:
-        - crm.schemas.quotes.read
-      - oauth2:
-        - crm.objects.deals.write
-      - oauth2:
-        - crm.objects.companies.read
-      - oauth2:
-        - crm.schemas.companies.read
-      - oauth2_legacy:
-        - e-commerce
-      - oauth2_legacy:
-        - timeline
-      - oauth2:
-        - crm.schemas.deals.read
-      - oauth2_legacy:
-        - contacts
-      - oauth2:
-        - crm.schemas.line_items.read
-      - oauth2:
-        - crm.objects.companies.write
-      summary: Return an audit of all changes to the pipeline stage
-      tags:
-      - Pipeline Stage Audits
 components:
   responses:
     Error:
@@ -942,12 +1264,14 @@ components:
         metadata:
           additionalProperties:
             type: string
-          description: |-
-            A JSON object containing properties that are not present on all object pipelines.
-
-            For `deals` pipelines, the `probability` field is required (`{ "probability": 0.5 }`), and represents the likelihood a deal will close. Possible values are between 0.0 and 1.0 in increments of 0.1.
-
-            For `tickets` pipelines, the `ticketState` field is optional (`{ "ticketState": "OPEN" }`), and represents whether the ticket remains open or has been closed by a member of your Support team. Possible values are `OPEN` or `CLOSED`.
+          description: "A JSON object containing properties that are not present on\
+            \ all object pipelines.\n\nFor `deals` pipelines, the `probability` field\
+            \ is required (`{ \"probability\": 0.5 }`), and represents the likelihood\
+            \ a deal will close. Possible values are between 0.0 and 1.0 in increments\
+            \ of 0.1.\n\nFor `tickets` pipelines, the `ticketState` field is optional\
+            \ (`{ \"ticketState\": \"OPEN\" }`), and represents whether the ticket\
+            \ remains open or has been closed by a member of your Support team. Possible\
+            \ values are `OPEN` or `CLOSED`."
           type: object
       required:
       - metadata
@@ -998,12 +1322,14 @@ components:
         metadata:
           additionalProperties:
             type: string
-          description: |-
-            A JSON object containing properties that are not present on all object pipelines.
-
-            For `deals` pipelines, the `probability` field is required (`{ "probability": 0.5 }`), and represents the likelihood a deal will close. Possible values are between 0.0 and 1.0 in increments of 0.1.
-
-            For `tickets` pipelines, the `ticketState` field is optional (`{ "ticketState": "OPEN" }`), and represents whether the ticket remains open or has been closed by a member of your Support team. Possible values are `OPEN` or `CLOSED`.
+          description: "A JSON object containing properties that are not present on\
+            \ all object pipelines.\n\nFor `deals` pipelines, the `probability` field\
+            \ is required (`{ \"probability\": 0.5 }`), and represents the likelihood\
+            \ a deal will close. Possible values are between 0.0 and 1.0 in increments\
+            \ of 0.1.\n\nFor `tickets` pipelines, the `ticketState` field is optional\
+            \ (`{ \"ticketState\": \"OPEN\" }`), and represents whether the ticket\
+            \ remains open or has been closed by a member of your Support team. Possible\
+            \ values are `OPEN` or `CLOSED`."
           type: object
         id:
           description: A unique identifier generated by HubSpot that can be used to
@@ -1026,6 +1352,12 @@ components:
         archived:
           description: Whether the pipeline is archived.
           type: boolean
+        writePermissions:
+          enum:
+          - CRM_PERMISSIONS_ENFORCEMENT
+          - READ_ONLY
+          - INTERNAL_ONLY
+          type: string
       required:
       - archived
       - createdAt
@@ -1297,17 +1629,53 @@ components:
         metadata:
           additionalProperties:
             type: string
-          description: |-
-            A JSON object containing properties that are not present on all object pipelines.
-
-            For `deals` pipelines, the `probability` field is required (`{ "probability": 0.5 }`), and represents the likelihood a deal will close. Possible values are between 0.0 and 1.0 in increments of 0.1.
-
-            For `tickets` pipelines, the `ticketState` field is optional (`{ "ticketState": "OPEN" }`), and represents whether the ticket remains open or has been closed by a member of your Support team. Possible values are `OPEN` or `CLOSED`.
+          description: "A JSON object containing properties that are not present on\
+            \ all object pipelines.\n\nFor `deals` pipelines, the `probability` field\
+            \ is required (`{ \"probability\": 0.5 }`), and represents the likelihood\
+            \ a deal will close. Possible values are between 0.0 and 1.0 in increments\
+            \ of 0.1.\n\nFor `tickets` pipelines, the `ticketState` field is optional\
+            \ (`{ \"ticketState\": \"OPEN\" }`), and represents whether the ticket\
+            \ remains open or has been closed by a member of your Support team. Possible\
+            \ values are `OPEN` or `CLOSED`."
           type: object
       required:
       - displayOrder
       - label
       - metadata
+      type: object
+    PipelineInput:
+      description: An input used to create or replace a pipeline's definition.
+      example:
+        label: My replaced pipeline
+        displayOrder: 0
+        stages:
+        - label: In Progress
+          displayOrder: 0
+          metadata:
+            ticketState: OPEN
+        - label: Done
+          displayOrder: 1
+          metadata:
+            ticketState: CLOSED
+      properties:
+        label:
+          description: A unique label used to organize pipelines in HubSpot's UI
+          type: string
+        displayOrder:
+          description: "The order for displaying this pipeline. If two pipelines have\
+            \ a matching `displayOrder`, they will be sorted alphabetically by label."
+          format: int32
+          type: integer
+        stages:
+          description: Pipeline stage inputs used to create the new or replacement
+            pipeline.
+          items:
+            $ref: '#/components/schemas/PipelineStageInput'
+          type: array
+      required:
+      - displayOrder
+      - label
+      - stages
       type: object
     CollectionResponsePipelineNoPaging:
       example:
@@ -1366,81 +1734,57 @@ components:
       required:
       - results
       type: object
-    PipelineInput:
-      description: An input used to create or replace a pipeline's definition.
-      example:
-        label: My replaced pipeline
-        displayOrder: 0
-        stages:
-        - label: In Progress
-          displayOrder: 0
-          metadata:
-            ticketState: OPEN
-        - label: Done
-          displayOrder: 1
-          metadata:
-            ticketState: CLOSED
-      properties:
-        label:
-          description: A unique label used to organize pipelines in HubSpot's UI
-          type: string
-        displayOrder:
-          description: "The order for displaying this pipeline. If two pipelines have\
-            \ a matching `displayOrder`, they will be sorted alphabetically by label."
-          format: int32
-          type: integer
-        stages:
-          description: Pipeline stage inputs used to create the new or replacement
-            pipeline.
-          items:
-            $ref: '#/components/schemas/PipelineStageInput'
-          type: array
-      required:
-      - displayOrder
-      - label
-      - stages
-      type: object
   securitySchemes:
     oauth2_legacy:
       flows:
         authorizationCode:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
-            media_bridge.read: Read media and media events
-            contacts: Read from and write to my Contacts
-            e-commerce: e-commerce
             timeline: Create timeline events
-            crm.schemas.custom.read: View custom object definitions
+            e-commerce: e-commerce
+            media_bridge.read: Read media and media events
+            crm.objects.goals.read: Read goals
             tickets: Read and write tickets
+            crm.schemas.custom.read: View custom object definitions
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
-    hapikey:
-      in: query
-      name: hapikey
-      type: apiKey
     oauth2:
       flows:
         authorizationCode:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
-            crm.schemas.companies.read: ' '
-            crm.objects.deals.read: ' '
-            crm.schemas.line_items.read: Line Items schemas
-            crm.objects.deals.write: ' '
-            crm.schemas.deals.read: ' '
-            crm.objects.contacts.read: ' '
-            crm.schemas.quotes.read: Quotes schemas
-            crm.objects.contacts.write: ' '
-            crm.schemas.contacts.read: ' '
-            crm.objects.companies.write: ' '
             crm.objects.companies.read: ' '
-            crm.schemas.deals.write: ' '
+            crm.objects.companies.write: ' '
+            crm.schemas.contacts.read: ' '
+            crm.objects.contacts.write: ' '
+            crm.schemas.quotes.read: Quotes schemas
+            crm.objects.contacts.read: ' '
+            crm.schemas.deals.read: ' '
+            crm.objects.deals.write: ' '
+            crm.schemas.line_items.read: Line Items schemas
+            crm.objects.deals.read: ' '
+            crm.schemas.companies.read: ' '
             crm.schemas.contacts.write: ' '
+            crm.schemas.deals.write: ' '
             crm.schemas.companies.write: ' '
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
+    private_apps_legacy:
+      in: header
+      name: private-app-legacy
+      type: apiKey
+    private_apps:
+      in: header
+      name: private-app
+      type: apiKey
 x-hubspot-available-client-libraries:
 - PHP
 - Node
-- Python
 - Ruby
+- Python
+x-hubspot-product-tier-requirements:
+  marketing: FREE
+  sales: FREE
+  service: FREE
+  cms: FREE
+x-hubspot-documentation-banner: NONE

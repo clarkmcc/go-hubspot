@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **From** | [**PublicObjectId**](PublicObjectId.md) |  | 
 **To** | [**[]AssociatedId**](AssociatedId.md) | The IDs of objects that are associated with the object identified by the ID in &#39;from&#39;. | 
+**Paging** | Pointer to [**Paging**](Paging.md) |  | [optional] 
 
 ## Methods
 
@@ -65,6 +66,31 @@ and a boolean to check if the value has been set.
 
 SetTo sets To field to given value.
 
+
+### GetPaging
+
+`func (o *PublicAssociationMulti) GetPaging() Paging`
+
+GetPaging returns the Paging field if non-nil, zero value otherwise.
+
+### GetPagingOk
+
+`func (o *PublicAssociationMulti) GetPagingOk() (*Paging, bool)`
+
+GetPagingOk returns a tuple with the Paging field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPaging
+
+`func (o *PublicAssociationMulti) SetPaging(v Paging)`
+
+SetPaging sets Paging field to given value.
+
+### HasPaging
+
+`func (o *PublicAssociationMulti) HasPaging() bool`
+
+HasPaging returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

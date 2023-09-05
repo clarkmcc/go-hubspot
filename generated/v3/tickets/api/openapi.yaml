@@ -100,7 +100,8 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
+      - private_apps_legacy:
+        - tickets
       summary: List
       tags:
       - Basic
@@ -114,7 +115,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SimplePublicObjectInput'
+              $ref: '#/components/schemas/SimplePublicObjectInputForCreate'
         required: true
       responses:
         "201":
@@ -132,7 +133,8 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
+      - private_apps_legacy:
+        - tickets
       summary: Create
       tags:
       - Basic
@@ -159,7 +161,8 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
+      - private_apps_legacy:
+        - tickets
       summary: Archive a batch of tickets by ID
       tags:
       - Batch
@@ -171,7 +174,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/BatchInputSimplePublicObjectInput'
+              $ref: '#/components/schemas/BatchInputSimplePublicObjectInputForCreate'
         required: true
       responses:
         "201":
@@ -195,7 +198,8 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
+      - private_apps_legacy:
+        - tickets
       summary: Create a batch of tickets
       tags:
       - Batch
@@ -240,7 +244,8 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
+      - private_apps_legacy:
+        - tickets
       summary: "Read a batch of tickets by internal ID, or unique property values"
       tags:
       - Batch
@@ -276,7 +281,8 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
+      - private_apps_legacy:
+        - tickets
       summary: Update a batch of tickets
       tags:
       - Batch
@@ -306,7 +312,8 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
+      - private_apps_legacy:
+        - tickets
       summary: Merge two tickets with same type
       tags:
       - Public_Object
@@ -336,7 +343,8 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
+      - private_apps_legacy:
+        - tickets
       tags:
       - Search
       x-hubspot-rate-limit-exemptions:
@@ -366,7 +374,8 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
+      - private_apps_legacy:
+        - tickets
       summary: Archive
       tags:
       - Basic
@@ -454,7 +463,8 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
+      - private_apps_legacy:
+        - tickets
       summary: Read
       tags:
       - Basic
@@ -505,168 +515,11 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
+      - private_apps_legacy:
+        - tickets
       summary: Update
       tags:
       - Basic
-  /crm/v3/objects/tickets/{ticketId}/associations/{toObjectType}:
-    get:
-      operationId: AssociationsGetAll
-      parameters:
-      - explode: false
-        in: path
-        name: ticketId
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: toObjectType
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: The paging cursor token of the last successfully read resource
-          will be returned as the `paging.next.after` JSON property of a paged response
-          containing more results.
-        explode: true
-        in: query
-        name: after
-        required: false
-        schema:
-          type: string
-        style: form
-      - description: The maximum number of results to display per page.
-        explode: true
-        in: query
-        name: limit
-        required: false
-        schema:
-          default: 500
-          format: int32
-          type: integer
-        style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CollectionResponseAssociatedIdForwardPaging'
-          description: successful operation
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - oauth2_legacy:
-        - tickets
-      - hapikey: []
-      summary: List associations of a ticket by type
-      tags:
-      - Associations
-  /crm/v3/objects/tickets/{ticketId}/associations/{toObjectType}/{toObjectId}/{associationType}:
-    delete:
-      operationId: AssociationsArchive
-      parameters:
-      - explode: false
-        in: path
-        name: ticketId
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: toObjectType
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: toObjectId
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: associationType
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "204":
-          content: {}
-          description: No content
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - oauth2_legacy:
-        - tickets
-      - hapikey: []
-      summary: Remove an association between two tickets
-      tags:
-      - Associations
-    put:
-      operationId: AssociationsCreate
-      parameters:
-      - explode: false
-        in: path
-        name: ticketId
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: toObjectType
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: toObjectId
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: associationType
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SimplePublicObjectWithAssociations'
-          description: successful operation
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - oauth2_legacy:
-        - tickets
-      - hapikey: []
-      summary: Associate a ticket with another object
-      tags:
-      - Associations
 components:
   responses:
     Error:
@@ -683,7 +536,7 @@ components:
         id:
           type: string
         category:
-          $ref: '#/components/schemas/ErrorCategory'
+          type: string
         subCategory:
           properties: {}
           type: object
@@ -721,6 +574,18 @@ components:
           $ref: '#/components/schemas/Paging'
       required:
       - results
+      type: object
+    PublicAssociationsForObject:
+      properties:
+        to:
+          $ref: '#/components/schemas/PublicObjectId'
+        types:
+          items:
+            $ref: '#/components/schemas/AssociationSpec'
+          type: array
+      required:
+      - to
+      - types
       type: object
     BatchResponseSimplePublicObject:
       example:
@@ -789,13 +654,15 @@ components:
     FilterGroup:
       example:
         filters:
-        - propertyName: propertyName
+        - highValue: highValue
+          propertyName: propertyName
           values:
           - values
           - values
           value: value
           operator: EQ
-        - propertyName: propertyName
+        - highValue: highValue
+          propertyName: propertyName
           values:
           - values
           - values
@@ -889,19 +756,6 @@ components:
       - properties
       - propertiesWithHistory
       type: object
-    BatchInputSimplePublicObjectId:
-      example:
-        inputs:
-        - id: id
-        - id: id
-      properties:
-        inputs:
-          items:
-            $ref: '#/components/schemas/SimplePublicObjectId'
-          type: array
-      required:
-      - inputs
-      type: object
     ValueWithTimestamp:
       properties:
         value:
@@ -922,6 +776,19 @@ components:
       - sourceType
       - timestamp
       - value
+      type: object
+    BatchInputSimplePublicObjectId:
+      example:
+        inputs:
+        - id: id
+        - id: id
+      properties:
+        inputs:
+          items:
+            $ref: '#/components/schemas/SimplePublicObjectId'
+          type: array
+      required:
+      - inputs
       type: object
     CollectionResponseWithTotalSimplePublicObjectForwardPaging:
       example:
@@ -988,6 +855,7 @@ components:
           type: string
         properties:
           additionalProperties:
+            nullable: true
             type: string
           type: object
         propertiesWithHistory:
@@ -1013,28 +881,12 @@ components:
       - properties
       - updatedAt
       type: object
-    BatchInputSimplePublicObjectInput:
-      example:
-        inputs:
-        - properties:
-            hs_pipeline: support_pipeline
-            hs_pipeline_stage: open
-            hs_ticket_priority: HIGH
-            hubspot_owner_id: "910901"
-            subject: troubleshoot report
-        - properties:
-            hs_pipeline: support_pipeline
-            hs_pipeline_stage: open
-            hs_ticket_priority: HIGH
-            hubspot_owner_id: "910901"
-            subject: troubleshoot report
+    PublicObjectId:
       properties:
-        inputs:
-          items:
-            $ref: '#/components/schemas/SimplePublicObjectInput'
-          type: array
+        id:
+          type: string
       required:
-      - inputs
+      - id
       type: object
     Paging:
       properties:
@@ -1056,26 +908,30 @@ components:
         - properties
         filterGroups:
         - filters:
-          - propertyName: propertyName
+          - highValue: highValue
+            propertyName: propertyName
             values:
             - values
             - values
             value: value
             operator: EQ
-          - propertyName: propertyName
+          - highValue: highValue
+            propertyName: propertyName
             values:
             - values
             - values
             value: value
             operator: EQ
         - filters:
-          - propertyName: propertyName
+          - highValue: highValue
+            propertyName: propertyName
             values:
             - values
             - values
             value: value
             operator: EQ
-          - propertyName: propertyName
+          - highValue: highValue
+            propertyName: propertyName
             values:
             - values
             - values
@@ -1211,6 +1067,12 @@ components:
           hs_ticket_priority: HIGH
           hubspot_owner_id: "910901"
           subject: troubleshoot report
+        associations:
+        - to:
+            id: "101"
+          types:
+          - associationCategory: HUBSPOT_DEFINED
+            associationTypeId: 2
       properties:
         properties:
           additionalProperties:
@@ -1265,78 +1127,20 @@ components:
       - objectIdToMerge
       - primaryObjectId
       type: object
-    ErrorCategory:
+    AssociationSpec:
       properties:
-        name:
-          type: string
-        httpStatus:
+        associationCategory:
           enum:
-          - CONTINUE
-          - SWITCHING_PROTOCOLS
-          - PROCESSING
-          - OK
-          - CREATED
-          - ACCEPTED
-          - NON_AUTHORITATIVE_INFORMATION
-          - NO_CONTENT
-          - RESET_CONTENT
-          - PARTIAL_CONTENT
-          - MULTI_STATUS
-          - ALREADY_REPORTED
-          - IM_USED
-          - MULTIPLE_CHOICES
-          - MOVED_PERMANENTLY
-          - FOUND
-          - SEE_OTHER
-          - NOT_MODIFIED
-          - USE_PROXY
-          - TEMPORARY_REDIRECT
-          - PERMANENT_REDIRECT
-          - BAD_REQUEST
-          - UNAUTHORIZED
-          - PAYMENT_REQUIRED
-          - FORBIDDEN
-          - NOT_FOUND
-          - METHOD_NOT_ALLOWED
-          - NOT_ACCEPTABLE
-          - PROXY_AUTHENTICATION_REQUIRED
-          - REQUEST_TIMEOUT
-          - CONFLICT
-          - GONE
-          - LENGTH_REQUIRED
-          - PRECONDITION_FAILED
-          - REQUEST_ENTITY_TOO_LARGE
-          - REQUEST_URI_TOO_LONG
-          - UNSUPPORTED_MEDIA_TYPE
-          - REQUESTED_RANGE_NOT_SATISFIABLE
-          - EXPECTATION_FAILED
-          - IM_A_TEAPOT
-          - MISDIRECTED_REQUEST
-          - UNPROCESSABLE_ENTITY
-          - LOCKED
-          - FAILED_DEPENDENCY
-          - UPGRADE_REQUIRED
-          - PRECONDITION_REQUIRED
-          - TOO_MANY_REQUESTS
-          - REQUEST_HEADERS_FIELDS_TOO_LARGE
-          - INTERNAL_STALE_SERVICE_DISCOVERY
-          - UNAVAILABLE_FOR_LEGAL_REASONS
-          - MIGRATION_IN_PROGRESS
-          - INTERNAL_SERVER_ERROR
-          - NOT_IMPLEMENTED
-          - BAD_GATEWAY
-          - SERVICE_UNAVAILABLE
-          - GATEWAY_TIMEOUT
-          - HTTP_VERSION_NOT_SUPPORTED
-          - VARIANT_ALSO_NEGOTIATES
-          - INSUFFICIENT_STORAGE
-          - LOOP_DETECTED
-          - NOT_EXTENDED
-          - NETWORK_AUTHENTICATION_REQUIRED
+          - HUBSPOT_DEFINED
+          - USER_DEFINED
+          - INTEGRATOR_DEFINED
           type: string
+        associationTypeId:
+          format: int32
+          type: integer
       required:
-      - httpStatus
-      - name
+      - associationCategory
+      - associationTypeId
       type: object
     SimplePublicObjectWithAssociations:
       example:
@@ -1353,6 +1157,7 @@ components:
           type: string
         properties:
           additionalProperties:
+            nullable: true
             type: string
           type: object
         propertiesWithHistory:
@@ -1384,6 +1189,7 @@ components:
       type: object
     Filter:
       example:
+        highValue: highValue
         propertyName: propertyName
         values:
         - values
@@ -1392,6 +1198,8 @@ components:
         operator: EQ
       properties:
         value:
+          type: string
+        highValue:
           type: string
         values:
           items:
@@ -1420,6 +1228,50 @@ components:
       - operator
       - propertyName
       type: object
+    PreviousPage:
+      properties:
+        before:
+          type: string
+        link:
+          type: string
+      required:
+      - before
+      type: object
+    BatchInputSimplePublicObjectInputForCreate:
+      example:
+        inputs:
+        - properties:
+            hs_pipeline: support_pipeline
+            hs_pipeline_stage: open
+            hs_ticket_priority: HIGH
+            hubspot_owner_id: "910901"
+            subject: troubleshoot report
+          associations:
+          - to:
+              id: "101"
+            types:
+            - associationCategory: HUBSPOT_DEFINED
+              associationTypeId: 2
+        - properties:
+            hs_pipeline: support_pipeline
+            hs_pipeline_stage: open
+            hs_ticket_priority: HIGH
+            hubspot_owner_id: "910901"
+            subject: troubleshoot report
+          associations:
+          - to:
+              id: "101"
+            types:
+            - associationCategory: HUBSPOT_DEFINED
+              associationTypeId: 2
+      properties:
+        inputs:
+          items:
+            $ref: '#/components/schemas/SimplePublicObjectInputForCreate'
+          type: array
+      required:
+      - inputs
+      type: object
     BatchInputSimplePublicObjectBatchInput:
       example:
         inputs:
@@ -1445,36 +1297,6 @@ components:
       required:
       - inputs
       type: object
-    PreviousPage:
-      properties:
-        before:
-          type: string
-        link:
-          type: string
-      required:
-      - before
-      type: object
-    CollectionResponseAssociatedIdForwardPaging:
-      example:
-        paging:
-          next:
-            after: NTI1Cg%3D%3D
-            link: ?after=NTI1Cg%3D%3D
-        results:
-        - id: id
-          type: type
-        - id: id
-          type: type
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/AssociatedId'
-          type: array
-        paging:
-          $ref: '#/components/schemas/ForwardPaging'
-      required:
-      - results
-      type: object
     SimplePublicObjectBatchInput:
       example:
         id: "1"
@@ -1495,19 +1317,6 @@ components:
       - id
       - properties
       type: object
-    AssociatedId:
-      example:
-        id: id
-        type: type
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-      required:
-      - id
-      - type
-      type: object
     NextPage:
       example:
         after: NTI1Cg%3D%3D
@@ -1520,6 +1329,43 @@ components:
       required:
       - after
       type: object
+    AssociatedId:
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+      required:
+      - id
+      - type
+      type: object
+    SimplePublicObjectInputForCreate:
+      example:
+        properties:
+          hs_pipeline: support_pipeline
+          hs_pipeline_stage: open
+          hs_ticket_priority: HIGH
+          hubspot_owner_id: "910901"
+          subject: troubleshoot report
+        associations:
+        - to:
+            id: "101"
+          types:
+          - associationCategory: HUBSPOT_DEFINED
+            associationTypeId: 2
+      properties:
+        properties:
+          additionalProperties:
+            type: string
+          type: object
+        associations:
+          items:
+            $ref: '#/components/schemas/PublicAssociationsForObject'
+          type: array
+      required:
+      - associations
+      - properties
+      type: object
   securitySchemes:
     oauth2_legacy:
       flows:
@@ -1529,9 +1375,9 @@ components:
             tickets: Read and write tickets
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
-    hapikey:
-      in: query
-      name: hapikey
+    private_apps_legacy:
+      in: header
+      name: private-app-legacy
       type: apiKey
 x-hubspot-available-client-libraries:
 - PHP

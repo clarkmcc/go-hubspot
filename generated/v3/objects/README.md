@@ -75,7 +75,7 @@ Each operation can use different server URL defined using `OperationServers` map
 An operation is uniquely identified by `"{classname}Service.{nickname}"` string.
 Similar rules for overriding default operation server index and variables applies by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
 
-```golang
+```
 ctx := context.WithValue(context.Background(), objects.ContextOperationServerIndices, map[string]int{
 	"{classname}Service.{nickname}": 2,
 })
@@ -112,9 +112,10 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [AssociatedId](docs/AssociatedId.md)
+ - [AssociationSpec](docs/AssociationSpec.md)
  - [BatchInputSimplePublicObjectBatchInput](docs/BatchInputSimplePublicObjectBatchInput.md)
  - [BatchInputSimplePublicObjectId](docs/BatchInputSimplePublicObjectId.md)
- - [BatchInputSimplePublicObjectInput](docs/BatchInputSimplePublicObjectInput.md)
+ - [BatchInputSimplePublicObjectInputForCreate](docs/BatchInputSimplePublicObjectInputForCreate.md)
  - [BatchReadInputSimplePublicObjectId](docs/BatchReadInputSimplePublicObjectId.md)
  - [BatchResponseSimplePublicObject](docs/BatchResponseSimplePublicObject.md)
  - [BatchResponseSimplePublicObjectWithErrors](docs/BatchResponseSimplePublicObjectWithErrors.md)
@@ -123,7 +124,6 @@ Class | Method | HTTP request | Description
  - [CollectionResponseSimplePublicObjectWithAssociationsForwardPaging](docs/CollectionResponseSimplePublicObjectWithAssociationsForwardPaging.md)
  - [CollectionResponseWithTotalSimplePublicObjectForwardPaging](docs/CollectionResponseWithTotalSimplePublicObjectForwardPaging.md)
  - [Error](docs/Error.md)
- - [ErrorCategory](docs/ErrorCategory.md)
  - [ErrorDetail](docs/ErrorDetail.md)
  - [Filter](docs/Filter.md)
  - [FilterGroup](docs/FilterGroup.md)
@@ -131,13 +131,16 @@ Class | Method | HTTP request | Description
  - [NextPage](docs/NextPage.md)
  - [Paging](docs/Paging.md)
  - [PreviousPage](docs/PreviousPage.md)
+ - [PublicAssociationsForObject](docs/PublicAssociationsForObject.md)
  - [PublicGdprDeleteInput](docs/PublicGdprDeleteInput.md)
  - [PublicMergeInput](docs/PublicMergeInput.md)
+ - [PublicObjectId](docs/PublicObjectId.md)
  - [PublicObjectSearchRequest](docs/PublicObjectSearchRequest.md)
  - [SimplePublicObject](docs/SimplePublicObject.md)
  - [SimplePublicObjectBatchInput](docs/SimplePublicObjectBatchInput.md)
  - [SimplePublicObjectId](docs/SimplePublicObjectId.md)
  - [SimplePublicObjectInput](docs/SimplePublicObjectInput.md)
+ - [SimplePublicObjectInputForCreate](docs/SimplePublicObjectInputForCreate.md)
  - [SimplePublicObjectWithAssociations](docs/SimplePublicObjectWithAssociations.md)
  - [StandardError](docs/StandardError.md)
  - [ValueWithTimestamp](docs/ValueWithTimestamp.md)
@@ -147,15 +150,6 @@ Class | Method | HTTP request | Description
 
 
 
-### hapikey
-
-- **Type**: API key
-- **API key parameter name**: hapikey
-- **Location**: URL query string
-
-Note, each API key must be added to a map of `map[string]APIKey` where the key is: hapikey and passed in as the auth context for each request.
-
-
 ### oauth2
 
 
@@ -163,16 +157,16 @@ Note, each API key must be added to a map of `map[string]APIKey` where the key i
 - **Flow**: accessCode
 - **Authorization URL**: https://app.hubspot.com/oauth/authorize
 - **Scopes**: 
- - **crm.objects.quotes.write**: Quotes
- - **crm.objects.contacts.read**:  
- - **crm.objects.contacts.write**:  
- - **crm.objects.companies.write**:  
- - **crm.objects.companies.read**:  
- - **crm.objects.line_items.write**: Line Items
  - **crm.objects.quotes.read**: Quotes
- - **crm.objects.deals.write**:  
- - **crm.objects.line_items.read**: Line Items
+ - **crm.objects.line_items.write**: Line Items
+ - **crm.objects.companies.read**:  
+ - **crm.objects.companies.write**:  
+ - **crm.objects.contacts.write**:  
+ - **crm.objects.contacts.read**:  
+ - **crm.objects.quotes.write**: Quotes
  - **crm.objects.deals.read**:  
+ - **crm.objects.line_items.read**: Line Items
+ - **crm.objects.deals.write**:  
 
 Example
 
@@ -201,12 +195,12 @@ r, err := client.Service.Operation(auth, args)
 - **Flow**: accessCode
 - **Authorization URL**: https://app.hubspot.com/oauth/authorize
 - **Scopes**: 
- - **crm.objects.custom.read**: View custom object records
- - **contacts**: Read from and write to my Contacts
- - **crm.objects.custom.write**: Change custom object records
  - **e-commerce**: e-commerce
- - **media_bridge.read**: Read media and media events
+ - **crm.objects.custom.write**: Change custom object records
+ - **crm.objects.custom.read**: View custom object records
+ - **crm.objects.goals.read**: Read goals
  - **tickets**: Read and write tickets
+ - **media_bridge.read**: Read media and media events
 
 Example
 
@@ -226,6 +220,24 @@ tokenSource := oauth2cfg.TokenSource(createContext(httpClient), &token)
 auth := context.WithValue(oauth2.NoContext, sw.ContextOAuth2, tokenSource)
 r, err := client.Service.Operation(auth, args)
 ```
+
+
+### private_apps
+
+- **Type**: API key
+- **API key parameter name**: private-app
+- **Location**: HTTP header
+
+Note, each API key must be added to a map of `map[string]APIKey` where the key is: private-app and passed in as the auth context for each request.
+
+
+### private_apps_legacy
+
+- **Type**: API key
+- **API key parameter name**: private-app-legacy
+- **Location**: HTTP header
+
+Note, each API key must be added to a map of `map[string]APIKey` where the key is: private-app-legacy and passed in as the auth context for each request.
 
 
 ## Documentation for Utility Methods

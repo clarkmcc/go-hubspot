@@ -20,6 +20,7 @@ import (
 	"net/url"
 	"reflect"
 	"strings"
+	"time"
 )
 
 // DomainsApiService DomainsApi service
@@ -29,13 +30,6 @@ type ApiGetByIDRequest struct {
 	ctx        context.Context
 	ApiService *DomainsApiService
 	domainId   string
-	archived   *bool
-}
-
-// Whether to return only results that have been archived.
-func (r ApiGetByIDRequest) Archived(archived bool) ApiGetByIDRequest {
-	r.archived = &archived
-	return r
 }
 
 func (r ApiGetByIDRequest) Execute() (*Domain, *http.Response, error) {
@@ -81,9 +75,6 @@ func (a *DomainsApiService) GetByIDExecute(r ApiGetByIDRequest) (*Domain, *http.
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if r.archived != nil {
-		localVarQueryParams.Add("archived", parameterToString(*r.archived, ""))
-	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -158,52 +149,50 @@ func (a *DomainsApiService) GetByIDExecute(r ApiGetByIDRequest) (*Domain, *http.
 type ApiGetPageRequest struct {
 	ctx           context.Context
 	ApiService    *DomainsApiService
-	createdAt     *int64
-	createdAfter  *int64
-	createdBefore *int64
-	updatedAt     *int64
-	updatedAfter  *int64
-	updatedBefore *int64
+	createdAt     *time.Time
+	createdAfter  *time.Time
+	createdBefore *time.Time
+	updatedAt     *time.Time
+	updatedAfter  *time.Time
+	updatedBefore *time.Time
 	sort          *[]string
-	properties    *[]string
 	after         *string
-	before        *string
 	limit         *int32
 	archived      *bool
 }
 
 // Only return domains created at this date.
-func (r ApiGetPageRequest) CreatedAt(createdAt int64) ApiGetPageRequest {
+func (r ApiGetPageRequest) CreatedAt(createdAt time.Time) ApiGetPageRequest {
 	r.createdAt = &createdAt
 	return r
 }
 
 // Only return domains created after this date.
-func (r ApiGetPageRequest) CreatedAfter(createdAfter int64) ApiGetPageRequest {
+func (r ApiGetPageRequest) CreatedAfter(createdAfter time.Time) ApiGetPageRequest {
 	r.createdAfter = &createdAfter
 	return r
 }
 
 // Only return domains created before this date.
-func (r ApiGetPageRequest) CreatedBefore(createdBefore int64) ApiGetPageRequest {
+func (r ApiGetPageRequest) CreatedBefore(createdBefore time.Time) ApiGetPageRequest {
 	r.createdBefore = &createdBefore
 	return r
 }
 
 // Only return domains updated at this date.
-func (r ApiGetPageRequest) UpdatedAt(updatedAt int64) ApiGetPageRequest {
+func (r ApiGetPageRequest) UpdatedAt(updatedAt time.Time) ApiGetPageRequest {
 	r.updatedAt = &updatedAt
 	return r
 }
 
 // Only return domains updated after this date.
-func (r ApiGetPageRequest) UpdatedAfter(updatedAfter int64) ApiGetPageRequest {
+func (r ApiGetPageRequest) UpdatedAfter(updatedAfter time.Time) ApiGetPageRequest {
 	r.updatedAfter = &updatedAfter
 	return r
 }
 
 // Only return domains updated before this date.
-func (r ApiGetPageRequest) UpdatedBefore(updatedBefore int64) ApiGetPageRequest {
+func (r ApiGetPageRequest) UpdatedBefore(updatedBefore time.Time) ApiGetPageRequest {
 	r.updatedBefore = &updatedBefore
 	return r
 }
@@ -213,19 +202,9 @@ func (r ApiGetPageRequest) Sort(sort []string) ApiGetPageRequest {
 	return r
 }
 
-func (r ApiGetPageRequest) Properties(properties []string) ApiGetPageRequest {
-	r.properties = &properties
-	return r
-}
-
 // The paging cursor token of the last successfully read resource will be returned as the &#x60;paging.next.after&#x60; JSON property of a paged response containing more results.
 func (r ApiGetPageRequest) After(after string) ApiGetPageRequest {
 	r.after = &after
-	return r
-}
-
-func (r ApiGetPageRequest) Before(before string) ApiGetPageRequest {
-	r.before = &before
 	return r
 }
 
@@ -241,7 +220,7 @@ func (r ApiGetPageRequest) Archived(archived bool) ApiGetPageRequest {
 	return r
 }
 
-func (r ApiGetPageRequest) Execute() (*CollectionResponseWithTotalDomain, *http.Response, error) {
+func (r ApiGetPageRequest) Execute() (*CollectionResponseWithTotalDomainForwardPaging, *http.Response, error) {
 	return r.ApiService.GetPageExecute(r)
 }
 
@@ -261,13 +240,13 @@ func (a *DomainsApiService) GetPage(ctx context.Context) ApiGetPageRequest {
 }
 
 // Execute executes the request
-//  @return CollectionResponseWithTotalDomain
-func (a *DomainsApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionResponseWithTotalDomain, *http.Response, error) {
+//  @return CollectionResponseWithTotalDomainForwardPaging
+func (a *DomainsApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionResponseWithTotalDomainForwardPaging, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CollectionResponseWithTotalDomain
+		localVarReturnValue *CollectionResponseWithTotalDomainForwardPaging
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DomainsApiService.GetPage")
@@ -310,22 +289,8 @@ func (a *DomainsApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionResp
 			localVarQueryParams.Add("sort", parameterToString(t, "multi"))
 		}
 	}
-	if r.properties != nil {
-		t := *r.properties
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("properties", parameterToString(s.Index(i), "multi"))
-			}
-		} else {
-			localVarQueryParams.Add("properties", parameterToString(t, "multi"))
-		}
-	}
 	if r.after != nil {
 		localVarQueryParams.Add("after", parameterToString(*r.after, ""))
-	}
-	if r.before != nil {
-		localVarQueryParams.Add("before", parameterToString(*r.before, ""))
 	}
 	if r.limit != nil {
 		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))

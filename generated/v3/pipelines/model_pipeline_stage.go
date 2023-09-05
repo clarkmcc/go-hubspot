@@ -32,7 +32,8 @@ type PipelineStage struct {
 	// The date the pipeline stage was last updated.
 	UpdatedAt time.Time `json:"updatedAt"`
 	// Whether the pipeline is archived.
-	Archived bool `json:"archived"`
+	Archived         bool    `json:"archived"`
+	WritePermissions *string `json:"writePermissions,omitempty"`
 }
 
 // NewPipelineStage instantiates a new PipelineStage object
@@ -259,6 +260,38 @@ func (o *PipelineStage) SetArchived(v bool) {
 	o.Archived = v
 }
 
+// GetWritePermissions returns the WritePermissions field value if set, zero value otherwise.
+func (o *PipelineStage) GetWritePermissions() string {
+	if o == nil || o.WritePermissions == nil {
+		var ret string
+		return ret
+	}
+	return *o.WritePermissions
+}
+
+// GetWritePermissionsOk returns a tuple with the WritePermissions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PipelineStage) GetWritePermissionsOk() (*string, bool) {
+	if o == nil || o.WritePermissions == nil {
+		return nil, false
+	}
+	return o.WritePermissions, true
+}
+
+// HasWritePermissions returns a boolean if a field has been set.
+func (o *PipelineStage) HasWritePermissions() bool {
+	if o != nil && o.WritePermissions != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetWritePermissions gets a reference to the given string and assigns it to the WritePermissions field.
+func (o *PipelineStage) SetWritePermissions(v string) {
+	o.WritePermissions = &v
+}
+
 func (o PipelineStage) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -284,6 +317,9 @@ func (o PipelineStage) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["archived"] = o.Archived
+	}
+	if o.WritePermissions != nil {
+		toSerialize["writePermissions"] = o.WritePermissions
 	}
 	return json.Marshal(toSerialize)
 }

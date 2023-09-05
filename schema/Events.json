@@ -130,9 +130,9 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
-        }, {
           "oauth2_legacy" : [ "business-intelligence" ]
+        }, {
+          "private_apps_legacy" : [ "business-intelligence" ]
         } ]
       }
     }
@@ -330,10 +330,10 @@
           }
         }
       },
-      "hapikey" : {
+      "private_apps_legacy" : {
         "type" : "apiKey",
-        "name" : "hapikey",
-        "in" : "query"
+        "name" : "private-app-legacy",
+        "in" : "header"
       }
     }
   },

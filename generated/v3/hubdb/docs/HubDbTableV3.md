@@ -9,18 +9,19 @@ Name | Type | Description | Notes
 **Label** | **string** | Label of the table | 
 **Columns** | Pointer to [**[]Column**](Column.md) | List of columns in the table | [optional] 
 **Published** | Pointer to **bool** |  | [optional] 
+**Deleted** | Pointer to **bool** |  | [optional] 
 **ColumnCount** | Pointer to **int32** | Number of columns including deleted | [optional] 
 **RowCount** | Pointer to **int32** | Number of rows in the table | [optional] 
 **CreatedBy** | Pointer to [**SimpleUser**](SimpleUser.md) |  | [optional] 
 **UpdatedBy** | Pointer to [**SimpleUser**](SimpleUser.md) |  | [optional] 
-**PublishedAt** | Pointer to **time.Time** | Timestamp at which the table is published recently | [optional] 
-**DynamicMetaTags** | Pointer to **map[string]int32** | Specifies the key value pairs of the metadata fields with the associated column ids | [optional] 
-**CreatedAt** | Pointer to **time.Time** | Timestamp at which the table is created | [optional] 
-**Archived** | Pointer to **bool** | Specifies whether table is archived or not | [optional] 
-**AllowPublicApiAccess** | Pointer to **bool** | Specifies whether the table can be read by public without authorization | [optional] 
 **UseForPages** | Pointer to **bool** | Specifies whether the table can be used for creation of dynamic pages | [optional] 
-**EnableChildTablePages** | Pointer to **bool** | Specifies creation of multi-level dynamic pages using child tables | [optional] 
 **AllowChildTables** | Pointer to **bool** | Specifies whether child tables can be created | [optional] 
+**EnableChildTablePages** | Pointer to **bool** | Specifies creation of multi-level dynamic pages using child tables | [optional] 
+**IsOrderedManually** | Pointer to **bool** |  | [optional] 
+**DynamicMetaTags** | Pointer to **map[string]int32** | Specifies the key value pairs of the metadata fields with the associated column ids | [optional] 
+**AllowPublicApiAccess** | Pointer to **bool** | Specifies whether the table can be read by public without authorization | [optional] 
+**CreatedAt** | Pointer to **time.Time** | Timestamp at which the table is created | [optional] 
+**PublishedAt** | Pointer to **time.Time** | Timestamp at which the table is published recently | [optional] 
 **UpdatedAt** | Pointer to **time.Time** | Timestamp at which the table is updated recently | [optional] 
 
 ## Methods
@@ -157,6 +158,31 @@ SetPublished sets Published field to given value.
 
 HasPublished returns a boolean if a field has been set.
 
+### GetDeleted
+
+`func (o *HubDbTableV3) GetDeleted() bool`
+
+GetDeleted returns the Deleted field if non-nil, zero value otherwise.
+
+### GetDeletedOk
+
+`func (o *HubDbTableV3) GetDeletedOk() (*bool, bool)`
+
+GetDeletedOk returns a tuple with the Deleted field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDeleted
+
+`func (o *HubDbTableV3) SetDeleted(v bool)`
+
+SetDeleted sets Deleted field to given value.
+
+### HasDeleted
+
+`func (o *HubDbTableV3) HasDeleted() bool`
+
+HasDeleted returns a boolean if a field has been set.
+
 ### GetColumnCount
 
 `func (o *HubDbTableV3) GetColumnCount() int32`
@@ -257,131 +283,6 @@ SetUpdatedBy sets UpdatedBy field to given value.
 
 HasUpdatedBy returns a boolean if a field has been set.
 
-### GetPublishedAt
-
-`func (o *HubDbTableV3) GetPublishedAt() time.Time`
-
-GetPublishedAt returns the PublishedAt field if non-nil, zero value otherwise.
-
-### GetPublishedAtOk
-
-`func (o *HubDbTableV3) GetPublishedAtOk() (*time.Time, bool)`
-
-GetPublishedAtOk returns a tuple with the PublishedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPublishedAt
-
-`func (o *HubDbTableV3) SetPublishedAt(v time.Time)`
-
-SetPublishedAt sets PublishedAt field to given value.
-
-### HasPublishedAt
-
-`func (o *HubDbTableV3) HasPublishedAt() bool`
-
-HasPublishedAt returns a boolean if a field has been set.
-
-### GetDynamicMetaTags
-
-`func (o *HubDbTableV3) GetDynamicMetaTags() map[string]int32`
-
-GetDynamicMetaTags returns the DynamicMetaTags field if non-nil, zero value otherwise.
-
-### GetDynamicMetaTagsOk
-
-`func (o *HubDbTableV3) GetDynamicMetaTagsOk() (*map[string]int32, bool)`
-
-GetDynamicMetaTagsOk returns a tuple with the DynamicMetaTags field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDynamicMetaTags
-
-`func (o *HubDbTableV3) SetDynamicMetaTags(v map[string]int32)`
-
-SetDynamicMetaTags sets DynamicMetaTags field to given value.
-
-### HasDynamicMetaTags
-
-`func (o *HubDbTableV3) HasDynamicMetaTags() bool`
-
-HasDynamicMetaTags returns a boolean if a field has been set.
-
-### GetCreatedAt
-
-`func (o *HubDbTableV3) GetCreatedAt() time.Time`
-
-GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
-
-### GetCreatedAtOk
-
-`func (o *HubDbTableV3) GetCreatedAtOk() (*time.Time, bool)`
-
-GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCreatedAt
-
-`func (o *HubDbTableV3) SetCreatedAt(v time.Time)`
-
-SetCreatedAt sets CreatedAt field to given value.
-
-### HasCreatedAt
-
-`func (o *HubDbTableV3) HasCreatedAt() bool`
-
-HasCreatedAt returns a boolean if a field has been set.
-
-### GetArchived
-
-`func (o *HubDbTableV3) GetArchived() bool`
-
-GetArchived returns the Archived field if non-nil, zero value otherwise.
-
-### GetArchivedOk
-
-`func (o *HubDbTableV3) GetArchivedOk() (*bool, bool)`
-
-GetArchivedOk returns a tuple with the Archived field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetArchived
-
-`func (o *HubDbTableV3) SetArchived(v bool)`
-
-SetArchived sets Archived field to given value.
-
-### HasArchived
-
-`func (o *HubDbTableV3) HasArchived() bool`
-
-HasArchived returns a boolean if a field has been set.
-
-### GetAllowPublicApiAccess
-
-`func (o *HubDbTableV3) GetAllowPublicApiAccess() bool`
-
-GetAllowPublicApiAccess returns the AllowPublicApiAccess field if non-nil, zero value otherwise.
-
-### GetAllowPublicApiAccessOk
-
-`func (o *HubDbTableV3) GetAllowPublicApiAccessOk() (*bool, bool)`
-
-GetAllowPublicApiAccessOk returns a tuple with the AllowPublicApiAccess field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetAllowPublicApiAccess
-
-`func (o *HubDbTableV3) SetAllowPublicApiAccess(v bool)`
-
-SetAllowPublicApiAccess sets AllowPublicApiAccess field to given value.
-
-### HasAllowPublicApiAccess
-
-`func (o *HubDbTableV3) HasAllowPublicApiAccess() bool`
-
-HasAllowPublicApiAccess returns a boolean if a field has been set.
-
 ### GetUseForPages
 
 `func (o *HubDbTableV3) GetUseForPages() bool`
@@ -406,6 +307,31 @@ SetUseForPages sets UseForPages field to given value.
 `func (o *HubDbTableV3) HasUseForPages() bool`
 
 HasUseForPages returns a boolean if a field has been set.
+
+### GetAllowChildTables
+
+`func (o *HubDbTableV3) GetAllowChildTables() bool`
+
+GetAllowChildTables returns the AllowChildTables field if non-nil, zero value otherwise.
+
+### GetAllowChildTablesOk
+
+`func (o *HubDbTableV3) GetAllowChildTablesOk() (*bool, bool)`
+
+GetAllowChildTablesOk returns a tuple with the AllowChildTables field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAllowChildTables
+
+`func (o *HubDbTableV3) SetAllowChildTables(v bool)`
+
+SetAllowChildTables sets AllowChildTables field to given value.
+
+### HasAllowChildTables
+
+`func (o *HubDbTableV3) HasAllowChildTables() bool`
+
+HasAllowChildTables returns a boolean if a field has been set.
 
 ### GetEnableChildTablePages
 
@@ -432,30 +358,130 @@ SetEnableChildTablePages sets EnableChildTablePages field to given value.
 
 HasEnableChildTablePages returns a boolean if a field has been set.
 
-### GetAllowChildTables
+### GetIsOrderedManually
 
-`func (o *HubDbTableV3) GetAllowChildTables() bool`
+`func (o *HubDbTableV3) GetIsOrderedManually() bool`
 
-GetAllowChildTables returns the AllowChildTables field if non-nil, zero value otherwise.
+GetIsOrderedManually returns the IsOrderedManually field if non-nil, zero value otherwise.
 
-### GetAllowChildTablesOk
+### GetIsOrderedManuallyOk
 
-`func (o *HubDbTableV3) GetAllowChildTablesOk() (*bool, bool)`
+`func (o *HubDbTableV3) GetIsOrderedManuallyOk() (*bool, bool)`
 
-GetAllowChildTablesOk returns a tuple with the AllowChildTables field if it's non-nil, zero value otherwise
+GetIsOrderedManuallyOk returns a tuple with the IsOrderedManually field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetAllowChildTables
+### SetIsOrderedManually
 
-`func (o *HubDbTableV3) SetAllowChildTables(v bool)`
+`func (o *HubDbTableV3) SetIsOrderedManually(v bool)`
 
-SetAllowChildTables sets AllowChildTables field to given value.
+SetIsOrderedManually sets IsOrderedManually field to given value.
 
-### HasAllowChildTables
+### HasIsOrderedManually
 
-`func (o *HubDbTableV3) HasAllowChildTables() bool`
+`func (o *HubDbTableV3) HasIsOrderedManually() bool`
 
-HasAllowChildTables returns a boolean if a field has been set.
+HasIsOrderedManually returns a boolean if a field has been set.
+
+### GetDynamicMetaTags
+
+`func (o *HubDbTableV3) GetDynamicMetaTags() map[string]int32`
+
+GetDynamicMetaTags returns the DynamicMetaTags field if non-nil, zero value otherwise.
+
+### GetDynamicMetaTagsOk
+
+`func (o *HubDbTableV3) GetDynamicMetaTagsOk() (*map[string]int32, bool)`
+
+GetDynamicMetaTagsOk returns a tuple with the DynamicMetaTags field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDynamicMetaTags
+
+`func (o *HubDbTableV3) SetDynamicMetaTags(v map[string]int32)`
+
+SetDynamicMetaTags sets DynamicMetaTags field to given value.
+
+### HasDynamicMetaTags
+
+`func (o *HubDbTableV3) HasDynamicMetaTags() bool`
+
+HasDynamicMetaTags returns a boolean if a field has been set.
+
+### GetAllowPublicApiAccess
+
+`func (o *HubDbTableV3) GetAllowPublicApiAccess() bool`
+
+GetAllowPublicApiAccess returns the AllowPublicApiAccess field if non-nil, zero value otherwise.
+
+### GetAllowPublicApiAccessOk
+
+`func (o *HubDbTableV3) GetAllowPublicApiAccessOk() (*bool, bool)`
+
+GetAllowPublicApiAccessOk returns a tuple with the AllowPublicApiAccess field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAllowPublicApiAccess
+
+`func (o *HubDbTableV3) SetAllowPublicApiAccess(v bool)`
+
+SetAllowPublicApiAccess sets AllowPublicApiAccess field to given value.
+
+### HasAllowPublicApiAccess
+
+`func (o *HubDbTableV3) HasAllowPublicApiAccess() bool`
+
+HasAllowPublicApiAccess returns a boolean if a field has been set.
+
+### GetCreatedAt
+
+`func (o *HubDbTableV3) GetCreatedAt() time.Time`
+
+GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
+
+### GetCreatedAtOk
+
+`func (o *HubDbTableV3) GetCreatedAtOk() (*time.Time, bool)`
+
+GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedAt
+
+`func (o *HubDbTableV3) SetCreatedAt(v time.Time)`
+
+SetCreatedAt sets CreatedAt field to given value.
+
+### HasCreatedAt
+
+`func (o *HubDbTableV3) HasCreatedAt() bool`
+
+HasCreatedAt returns a boolean if a field has been set.
+
+### GetPublishedAt
+
+`func (o *HubDbTableV3) GetPublishedAt() time.Time`
+
+GetPublishedAt returns the PublishedAt field if non-nil, zero value otherwise.
+
+### GetPublishedAtOk
+
+`func (o *HubDbTableV3) GetPublishedAtOk() (*time.Time, bool)`
+
+GetPublishedAtOk returns a tuple with the PublishedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPublishedAt
+
+`func (o *HubDbTableV3) SetPublishedAt(v time.Time)`
+
+SetPublishedAt sets PublishedAt field to given value.
+
+### HasPublishedAt
+
+`func (o *HubDbTableV3) HasPublishedAt() bool`
+
+HasPublishedAt returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 

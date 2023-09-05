@@ -274,7 +274,7 @@ type ApiGroupsGetAllRequest struct {
 	objectType string
 }
 
-func (r ApiGroupsGetAllRequest) Execute() (*CollectionResponsePropertyGroup, *http.Response, error) {
+func (r ApiGroupsGetAllRequest) Execute() (*CollectionResponsePropertyGroupNoPaging, *http.Response, error) {
 	return r.ApiService.GroupsGetAllExecute(r)
 }
 
@@ -296,13 +296,13 @@ func (a *GroupsApiService) GroupsGetAll(ctx context.Context, objectType string) 
 }
 
 // Execute executes the request
-//  @return CollectionResponsePropertyGroup
-func (a *GroupsApiService) GroupsGetAllExecute(r ApiGroupsGetAllRequest) (*CollectionResponsePropertyGroup, *http.Response, error) {
+//  @return CollectionResponsePropertyGroupNoPaging
+func (a *GroupsApiService) GroupsGetAllExecute(r ApiGroupsGetAllRequest) (*CollectionResponsePropertyGroupNoPaging, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CollectionResponsePropertyGroup
+		localVarReturnValue *CollectionResponsePropertyGroupNoPaging
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsApiService.GroupsGetAll")

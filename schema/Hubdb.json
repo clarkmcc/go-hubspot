@@ -149,9 +149,9 @@
           }
         },
         "security" : [ {
-          "oauth2_legacy" : [ "hubdb" ]
+          "private_apps_legacy" : [ "hubdb" ]
         }, {
-          "hapikey" : [ ]
+          "oauth2_legacy" : [ "hubdb" ]
         } ]
       },
       "post" : {
@@ -186,9 +186,9 @@
           }
         },
         "security" : [ {
-          "oauth2_legacy" : [ "hubdb" ]
+          "private_apps_legacy" : [ "hubdb" ]
         }, {
-          "hapikey" : [ ]
+          "oauth2_legacy" : [ "hubdb" ]
         } ]
       }
     },
@@ -325,9 +325,9 @@
           }
         },
         "security" : [ {
-          "oauth2_legacy" : [ "hubdb" ]
+          "private_apps_legacy" : [ "hubdb" ]
         }, {
-          "hapikey" : [ ]
+          "oauth2_legacy" : [ "hubdb" ]
         } ]
       }
     },
@@ -384,9 +384,9 @@
           }
         },
         "security" : [ {
-          "oauth2_legacy" : [ "hubdb" ]
+          "private_apps_legacy" : [ "hubdb" ]
         }, {
-          "hapikey" : [ ]
+          "oauth2_legacy" : [ "hubdb" ]
         } ]
       },
       "delete" : {
@@ -415,9 +415,9 @@
           }
         },
         "security" : [ {
-          "oauth2_legacy" : [ "hubdb" ]
+          "private_apps_legacy" : [ "hubdb" ]
         }, {
-          "hapikey" : [ ]
+          "oauth2_legacy" : [ "hubdb" ]
         } ]
       }
     },
@@ -474,9 +474,9 @@
           }
         },
         "security" : [ {
-          "oauth2_legacy" : [ "hubdb" ]
+          "private_apps_legacy" : [ "hubdb" ]
         }, {
-          "hapikey" : [ ]
+          "oauth2_legacy" : [ "hubdb" ]
         } ]
       },
       "patch" : {
@@ -542,9 +542,9 @@
           }
         },
         "security" : [ {
-          "oauth2_legacy" : [ "hubdb" ]
+          "private_apps_legacy" : [ "hubdb" ]
         }, {
-          "hapikey" : [ ]
+          "oauth2_legacy" : [ "hubdb" ]
         } ]
       }
     },
@@ -592,9 +592,9 @@
           }
         },
         "security" : [ {
-          "oauth2_legacy" : [ "hubdb" ]
+          "private_apps_legacy" : [ "hubdb" ]
         }, {
-          "hapikey" : [ ]
+          "oauth2_legacy" : [ "hubdb" ]
         } ]
       }
     },
@@ -648,9 +648,9 @@
           }
         },
         "security" : [ {
-          "oauth2_legacy" : [ "hubdb" ]
+          "private_apps_legacy" : [ "hubdb" ]
         }, {
-          "hapikey" : [ ]
+          "oauth2_legacy" : [ "hubdb" ]
         } ]
       }
     },
@@ -706,9 +706,9 @@
           }
         },
         "security" : [ {
-          "oauth2_legacy" : [ "hubdb" ]
+          "private_apps_legacy" : [ "hubdb" ]
         }, {
-          "hapikey" : [ ]
+          "oauth2_legacy" : [ "hubdb" ]
         } ]
       }
     },
@@ -755,9 +755,9 @@
           }
         },
         "security" : [ {
-          "oauth2_legacy" : [ "hubdb" ]
+          "private_apps_legacy" : [ "hubdb" ]
         }, {
-          "hapikey" : [ ]
+          "oauth2_legacy" : [ "hubdb" ]
         } ]
       }
     },
@@ -804,9 +804,9 @@
           }
         },
         "security" : [ {
-          "oauth2_legacy" : [ "hubdb" ]
+          "private_apps_legacy" : [ "hubdb" ]
         }, {
-          "hapikey" : [ ]
+          "oauth2_legacy" : [ "hubdb" ]
         } ]
       }
     },
@@ -860,9 +860,9 @@
           }
         },
         "security" : [ {
-          "oauth2_legacy" : [ "hubdb" ]
+          "private_apps_legacy" : [ "hubdb" ]
         }, {
-          "hapikey" : [ ]
+          "oauth2_legacy" : [ "hubdb" ]
         } ]
       }
     },
@@ -946,9 +946,9 @@
           }
         },
         "security" : [ {
-          "oauth2_legacy" : [ "hubdb" ]
+          "private_apps_legacy" : [ "hubdb" ]
         }, {
-          "hapikey" : [ ]
+          "oauth2_legacy" : [ "hubdb" ]
         } ]
       },
       "post" : {
@@ -994,9 +994,9 @@
           }
         },
         "security" : [ {
-          "oauth2_legacy" : [ "hubdb" ]
+          "private_apps_legacy" : [ "hubdb" ]
         }, {
-          "hapikey" : [ ]
+          "oauth2_legacy" : [ "hubdb" ]
         } ]
       }
     },
@@ -1005,7 +1005,7 @@
         "tags" : [ "Rows Batch" ],
         "summary" : "Get a set of rows",
         "description" : "Returns rows in the `published` version of the specified table, given a set of row ids.\n**Note:** This endpoint can be accessed without any authentication if the table is set to be allowed for public access.",
-        "operationId" : "BatchReadTableRows",
+        "operationId" : "post-/cms/v3/hubdb/tables/{tableIdOrName}/rows/batch/read_readTableRows",
         "parameters" : [ {
           "name" : "tableIdOrName",
           "in" : "path",
@@ -1054,9 +1054,9 @@
           }
         },
         "security" : [ {
-          "oauth2_legacy" : [ "hubdb" ]
+          "private_apps_legacy" : [ "hubdb" ]
         }, {
-          "hapikey" : [ ]
+          "oauth2_legacy" : [ "hubdb" ]
         } ]
       }
     },
@@ -1140,9 +1140,9 @@
           }
         },
         "security" : [ {
-          "oauth2_legacy" : [ "hubdb" ]
+          "private_apps_legacy" : [ "hubdb" ]
         }, {
-          "hapikey" : [ ]
+          "oauth2_legacy" : [ "hubdb" ]
         } ]
       }
     },
@@ -1150,8 +1150,8 @@
       "post" : {
         "tags" : [ "Rows Batch" ],
         "summary" : "Clone rows in batch",
-        "description" : "Clones rows in the `draft` version of the specified table, given a set of row ids.",
-        "operationId" : "BatchCloneDraftTableRows",
+        "description" : "Clones rows in the `draft` version of the specified table, given a set of row ids. Maximum of 100 row ids per call.",
+        "operationId" : "post-/cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/clone_cloneDraftTableRows",
         "parameters" : [ {
           "name" : "tableIdOrName",
           "in" : "path",
@@ -1190,9 +1190,9 @@
           }
         },
         "security" : [ {
-          "oauth2_legacy" : [ "hubdb" ]
+          "private_apps_legacy" : [ "hubdb" ]
         }, {
-          "hapikey" : [ ]
+          "oauth2_legacy" : [ "hubdb" ]
         } ]
       }
     },
@@ -1200,8 +1200,8 @@
       "post" : {
         "tags" : [ "Rows Batch" ],
         "summary" : "Create rows in batch",
-        "description" : "Creates rows in the `draft` version of the specified table, given an array of row objects. See the overview section for more details with an example.",
-        "operationId" : "BatchCreateDraftTableRows",
+        "description" : "Creates rows in the `draft` version of the specified table, given an array of row objects. Maximum of 100 row object per call. See the overview section for more details with an example.",
+        "operationId" : "post-/cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/create_createDraftTableRows",
         "parameters" : [ {
           "name" : "tableIdOrName",
           "in" : "path",
@@ -1250,9 +1250,9 @@
           }
         },
         "security" : [ {
-          "oauth2_legacy" : [ "hubdb" ]
+          "private_apps_legacy" : [ "hubdb" ]
         }, {
-          "hapikey" : [ ]
+          "oauth2_legacy" : [ "hubdb" ]
         } ]
       }
     },
@@ -1260,8 +1260,8 @@
       "post" : {
         "tags" : [ "Rows Batch" ],
         "summary" : "Permanently deletes rows",
-        "description" : "Permanently deletes rows from the `draft` version of the table, given a set of row ids.",
-        "operationId" : "BatchPurgeDraftTableRows",
+        "description" : "Permanently deletes rows from the `draft` version of the table, given a set of row ids. Maximum of 100 row ids per call.",
+        "operationId" : "post-/cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/purge_purgeDraftTableRows",
         "parameters" : [ {
           "name" : "tableIdOrName",
           "in" : "path",
@@ -1294,9 +1294,9 @@
           }
         },
         "security" : [ {
-          "oauth2_legacy" : [ "hubdb" ]
+          "private_apps_legacy" : [ "hubdb" ]
         }, {
-          "hapikey" : [ ]
+          "oauth2_legacy" : [ "hubdb" ]
         } ]
       }
     },
@@ -1305,7 +1305,7 @@
         "tags" : [ "Rows Batch" ],
         "summary" : "Get a set of rows from draft table",
         "description" : "Returns rows in the `draft` version of the specified table, given a set of row ids.",
-        "operationId" : "BatchReadDraftTableRows",
+        "operationId" : "post-/cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/read_readDraftTableRows",
         "parameters" : [ {
           "name" : "tableIdOrName",
           "in" : "path",
@@ -1354,9 +1354,9 @@
           }
         },
         "security" : [ {
-          "oauth2_legacy" : [ "hubdb" ]
+          "private_apps_legacy" : [ "hubdb" ]
         }, {
-          "hapikey" : [ ]
+          "oauth2_legacy" : [ "hubdb" ]
         } ]
       }
     },
@@ -1364,8 +1364,8 @@
       "post" : {
         "tags" : [ "Rows Batch" ],
         "summary" : "Replace rows in batch in draft table",
-        "description" : "Replaces multiple rows as a batch in the `draft` version of the table. See the endpoint `PUT /tables/{tableIdOrName}/rows/{rowId}/draft` for details on updating a single row.",
-        "operationId" : "BatchReplaceDraftTableRows",
+        "description" : "Replaces multiple rows as a batch in the `draft` version of the table, with a maximum of 100 rows per call. See the endpoint `PUT /tables/{tableIdOrName}/rows/{rowId}/draft` for details on updating a single row.",
+        "operationId" : "post-/cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/replace_replaceDraftTableRows",
         "parameters" : [ {
           "name" : "tableIdOrName",
           "in" : "path",
@@ -1382,7 +1382,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/BatchInputHubDbTableRowV3Request"
+                "$ref" : "#/components/schemas/BatchInputHubDbTableRowV3BatchUpdateRequest"
               }
             }
           },
@@ -1414,9 +1414,9 @@
           }
         },
         "security" : [ {
-          "oauth2_legacy" : [ "hubdb" ]
+          "private_apps_legacy" : [ "hubdb" ]
         }, {
-          "hapikey" : [ ]
+          "oauth2_legacy" : [ "hubdb" ]
         } ]
       }
     },
@@ -1424,8 +1424,8 @@
       "post" : {
         "tags" : [ "Rows Batch" ],
         "summary" : "Update rows in batch in draft table",
-        "description" : "Updates multiple rows as a batch in the `draft` version of the table. See the endpoint `PATCH /tables/{tableIdOrName}/rows/{rowId}/draft` for details on updating a single row.",
-        "operationId" : "BatchUpdateDraftTableRows",
+        "description" : "Updates multiple rows as a batch in the `draft` version of the table, with a maximum of 100 rows per call. See the endpoint `PATCH /tables/{tableIdOrName}/rows/{rowId}/draft` for details on updating a single row.",
+        "operationId" : "post-/cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/update_updateDraftTableRows",
         "parameters" : [ {
           "name" : "tableIdOrName",
           "in" : "path",
@@ -1442,7 +1442,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/BatchInputJsonNode"
+                "$ref" : "#/components/schemas/BatchInputHubDbTableRowV3BatchUpdateRequest"
               }
             }
           },
@@ -1474,9 +1474,9 @@
           }
         },
         "security" : [ {
-          "oauth2_legacy" : [ "hubdb" ]
+          "private_apps_legacy" : [ "hubdb" ]
         }, {
-          "hapikey" : [ ]
+          "oauth2_legacy" : [ "hubdb" ]
         } ]
       }
     },
@@ -1524,9 +1524,9 @@
           }
         },
         "security" : [ {
-          "oauth2_legacy" : [ "hubdb" ]
+          "private_apps_legacy" : [ "hubdb" ]
         }, {
-          "hapikey" : [ ]
+          "oauth2_legacy" : [ "hubdb" ]
         } ]
       }
     },
@@ -1574,9 +1574,9 @@
           }
         },
         "security" : [ {
-          "oauth2_legacy" : [ "hubdb" ]
+          "private_apps_legacy" : [ "hubdb" ]
         }, {
-          "hapikey" : [ ]
+          "oauth2_legacy" : [ "hubdb" ]
         } ]
       },
       "put" : {
@@ -1633,9 +1633,9 @@
           }
         },
         "security" : [ {
-          "oauth2_legacy" : [ "hubdb" ]
+          "private_apps_legacy" : [ "hubdb" ]
         }, {
-          "hapikey" : [ ]
+          "oauth2_legacy" : [ "hubdb" ]
         } ]
       },
       "delete" : {
@@ -1675,9 +1675,9 @@
           }
         },
         "security" : [ {
-          "oauth2_legacy" : [ "hubdb" ]
+          "private_apps_legacy" : [ "hubdb" ]
         }, {
-          "hapikey" : [ ]
+          "oauth2_legacy" : [ "hubdb" ]
         } ]
       },
       "patch" : {
@@ -1734,9 +1734,9 @@
           }
         },
         "security" : [ {
-          "oauth2_legacy" : [ "hubdb" ]
+          "private_apps_legacy" : [ "hubdb" ]
         }, {
-          "hapikey" : [ ]
+          "oauth2_legacy" : [ "hubdb" ]
         } ]
       }
     },
@@ -1784,9 +1784,9 @@
           }
         },
         "security" : [ {
-          "oauth2_legacy" : [ "hubdb" ]
+          "private_apps_legacy" : [ "hubdb" ]
         }, {
-          "hapikey" : [ ]
+          "oauth2_legacy" : [ "hubdb" ]
         } ]
       }
     },
@@ -1833,9 +1833,9 @@
           }
         },
         "security" : [ {
-          "oauth2_legacy" : [ "hubdb" ]
+          "private_apps_legacy" : [ "hubdb" ]
         }, {
-          "hapikey" : [ ]
+          "oauth2_legacy" : [ "hubdb" ]
         } ]
       }
     }
@@ -1865,7 +1865,7 @@
             "type" : "string"
           },
           "category" : {
-            "$ref" : "#/components/schemas/ErrorCategory"
+            "type" : "string"
           },
           "subCategory" : {
             "type" : "object",
@@ -1897,16 +1897,21 @@
           }
         }
       },
-      "BatchInputJsonNode" : {
-        "required" : [ "inputs" ],
+      "SimpleUser" : {
+        "required" : [ "email", "firstName", "id", "lastName" ],
         "type" : "object",
         "properties" : {
-          "inputs" : {
-            "type" : "array",
-            "items" : {
-              "type" : "object",
-              "properties" : { }
-            }
+          "id" : {
+            "type" : "string"
+          },
+          "email" : {
+            "type" : "string"
+          },
+          "firstName" : {
+            "type" : "string"
+          },
+          "lastName" : {
+            "type" : "string"
           }
         }
       },
@@ -1931,24 +1936,6 @@
           "newName" : "test_table_new",
           "newLabel" : "Test Table New",
           "copyRows" : "true"
-        }
-      },
-      "SimpleUser" : {
-        "required" : [ "email", "firstName", "id", "lastName" ],
-        "type" : "object",
-        "properties" : {
-          "id" : {
-            "type" : "string"
-          },
-          "email" : {
-            "type" : "string"
-          },
-          "firstName" : {
-            "type" : "string"
-          },
-          "lastName" : {
-            "type" : "string"
-          }
         }
       },
       "CollectionResponseWithTotalHubDbTableV3ForwardPaging" : {
@@ -2060,6 +2047,16 @@
             "type" : "string",
             "description" : "Column Id"
           },
+          "deleted" : {
+            "type" : "boolean"
+          },
+          "options" : {
+            "type" : "array",
+            "description" : "Options to choose for select and multi-select columns",
+            "items" : {
+              "$ref" : "#/components/schemas/Option"
+            }
+          },
           "width" : {
             "type" : "integer",
             "description" : "Column width for HubDB UI",
@@ -2075,12 +2072,20 @@
             "description" : "Foreign Column id",
             "format" : "int32"
           },
+          "description" : {
+            "type" : "string"
+          },
           "foreignIds" : {
             "type" : "array",
             "description" : "Foreign Ids",
             "items" : {
               "$ref" : "#/components/schemas/ForeignId"
             }
+          },
+          "type" : {
+            "type" : "string",
+            "description" : "Type of the column",
+            "enum" : [ "NULL", "TEXT", "NUMBER", "URL", "IMAGE", "SELECT", "MULTISELECT", "BOOLEAN", "LOCATION", "DATE", "DATETIME", "CURRENCY", "RICHTEXT", "FOREIGN_ID", "VIDEO", "CTA", "FILE" ]
           },
           "foreignIdsById" : {
             "type" : "object",
@@ -2096,26 +2101,10 @@
             },
             "description" : "Foreign ids by name"
           },
-          "type" : {
-            "type" : "string",
-            "description" : "Type of the column",
-            "enum" : [ "NULL", "TEXT", "NUMBER", "URL", "IMAGE", "SELECT", "MULTISELECT", "BOOLEAN", "LOCATION", "DATE", "DATETIME", "CURRENCY", "RICHTEXT", "FOREIGN_ID", "VIDEO", "CTA" ]
-          },
           "optionCount" : {
             "type" : "integer",
             "description" : "Number of options available",
             "format" : "int32"
-          },
-          "archived" : {
-            "type" : "boolean",
-            "description" : "Specifies whether the column is archived"
-          },
-          "options" : {
-            "type" : "array",
-            "description" : "Options to choose for select and multi-select columns",
-            "items" : {
-              "$ref" : "#/components/schemas/Option"
-            }
           }
         },
         "example" : {
@@ -2152,6 +2141,9 @@
           "published" : {
             "type" : "boolean"
           },
+          "deleted" : {
+            "type" : "boolean"
+          },
           "columnCount" : {
             "type" : "integer",
             "description" : "Number of columns including deleted",
@@ -2168,10 +2160,20 @@
           "updatedBy" : {
             "$ref" : "#/components/schemas/SimpleUser"
           },
-          "publishedAt" : {
-            "type" : "string",
-            "description" : "Timestamp at which the table is published recently",
-            "format" : "date-time"
+          "useForPages" : {
+            "type" : "boolean",
+            "description" : "Specifies whether the table can be used for creation of dynamic pages"
+          },
+          "allowChildTables" : {
+            "type" : "boolean",
+            "description" : "Specifies whether child tables can be created"
+          },
+          "enableChildTablePages" : {
+            "type" : "boolean",
+            "description" : "Specifies creation of multi-level dynamic pages using child tables"
+          },
+          "isOrderedManually" : {
+            "type" : "boolean"
           },
           "dynamicMetaTags" : {
             "type" : "object",
@@ -2181,30 +2183,19 @@
             },
             "description" : "Specifies the key value pairs of the metadata fields with the associated column ids"
           },
+          "allowPublicApiAccess" : {
+            "type" : "boolean",
+            "description" : "Specifies whether the table can be read by public without authorization"
+          },
           "createdAt" : {
             "type" : "string",
             "description" : "Timestamp at which the table is created",
             "format" : "date-time"
           },
-          "archived" : {
-            "type" : "boolean",
-            "description" : "Specifies whether table is archived or not"
-          },
-          "allowPublicApiAccess" : {
-            "type" : "boolean",
-            "description" : "Specifies whether the table can be read by public without authorization"
-          },
-          "useForPages" : {
-            "type" : "boolean",
-            "description" : "Specifies whether the table can be used for creation of dynamic pages"
-          },
-          "enableChildTablePages" : {
-            "type" : "boolean",
-            "description" : "Specifies creation of multi-level dynamic pages using child tables"
-          },
-          "allowChildTables" : {
-            "type" : "boolean",
-            "description" : "Specifies whether child tables can be created"
+          "publishedAt" : {
+            "type" : "string",
+            "description" : "Timestamp at which the table is published recently",
+            "format" : "date-time"
           },
           "updatedAt" : {
             "type" : "string",
@@ -2298,11 +2289,6 @@
               "$ref" : "#/components/schemas/Error"
             }
           },
-          "rowsImported" : {
-            "type" : "integer",
-            "description" : "Specifies number of rows imported",
-            "format" : "int32"
-          },
           "duplicateRows" : {
             "type" : "integer",
             "description" : "Specifies number of duplicate rows",
@@ -2311,6 +2297,11 @@
           "rowLimitExceeded" : {
             "type" : "boolean",
             "description" : "Specifies whether row limit exceeded during import"
+          },
+          "rowsImported" : {
+            "type" : "integer",
+            "description" : "Specifies number of rows imported",
+            "format" : "int32"
           }
         },
         "description" : "The result of import operation"
@@ -2480,6 +2471,9 @@
           }
         }
       },
+      "Variant" : {
+        "type" : "object"
+      },
       "ColumnRequest" : {
         "required" : [ "id", "label", "name", "options", "type" ],
         "type" : "object",
@@ -2500,7 +2494,7 @@
           "type" : {
             "type" : "string",
             "description" : "Type of the column",
-            "enum" : [ "NULL", "TEXT", "NUMBER", "URL", "IMAGE", "SELECT", "MULTISELECT", "BOOLEAN", "LOCATION", "DATE", "DATETIME", "CURRENCY", "RICHTEXT", "FOREIGN_ID", "VIDEO", "CTA" ]
+            "enum" : [ "NULL", "TEXT", "NUMBER", "URL", "IMAGE", "SELECT", "MULTISELECT", "BOOLEAN", "LOCATION", "DATE", "DATETIME", "CURRENCY", "RICHTEXT", "FOREIGN_ID", "VIDEO", "CTA", "FILE" ]
           },
           "options" : {
             "type" : "array",
@@ -2528,20 +2522,10 @@
           "id" : 1
         }
       },
-      "Variant" : {
-        "type" : "object"
-      },
-      "ErrorCategory" : {
-        "type" : "object"
-      },
-      "HubDbTableRowV3" : {
-        "required" : [ "values" ],
+      "HubDbTableRowV3BatchUpdateRequest" : {
+        "required" : [ "id", "values" ],
         "type" : "object",
         "properties" : {
-          "id" : {
-            "type" : "string",
-            "description" : "The id of the table row"
-          },
           "path" : {
             "type" : "string",
             "description" : "Specifies the value for `hs_path` column, which will be used as slug in the dynamic pages"
@@ -2550,33 +2534,29 @@
             "type" : "string",
             "description" : "Specifies the value for `hs_name` column, which will be used as title in the dynamic pages"
           },
-          "createdAt" : {
-            "type" : "string",
-            "description" : "Timestamp at which the row is created",
-            "format" : "date-time"
-          },
-          "updatedAt" : {
-            "type" : "string",
-            "description" : "Timestamp at which the row is updated last time",
-            "format" : "date-time"
-          },
           "childTableId" : {
-            "type" : "string",
-            "description" : "Specifies the value for the column child table id"
+            "type" : "integer",
+            "description" : "Specifies the value for the column child table id",
+            "format" : "int32"
           },
           "values" : {
             "type" : "object",
             "additionalProperties" : {
-              "type" : "object",
-              "properties" : { }
+              "$ref" : "#/components/schemas/Variant"
             },
             "description" : "List of key value pairs with the column name and column value"
+          },
+          "displayIndex" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "id" : {
+            "type" : "string",
+            "description" : "The id of the table row"
           }
         },
         "example" : {
           "id" : "4099275931",
-          "createdAt" : "2020-03-30T20:39:52.328Z",
-          "updatedAt" : "2020-03-30T20:39:52.328Z",
           "values" : {
             "text_column" : "sample text value",
             "number_column" : 76,
@@ -2620,9 +2600,80 @@
               "$ref" : "#/components/schemas/Variant"
             },
             "description" : "List of key value pairs with the column name and column value"
+          },
+          "displayIndex" : {
+            "type" : "integer",
+            "format" : "int32"
           }
         },
         "example" : {
+          "values" : {
+            "text_column" : "sample text value",
+            "number_column" : 76,
+            "multiselect" : [ {
+              "id" : "1",
+              "name" : "Option 1",
+              "type" : "option",
+              "order" : 0
+            }, {
+              "id" : "2",
+              "name" : "Option 2",
+              "type" : "option",
+              "order" : 1
+            } ]
+          },
+          "path" : "test_path",
+          "name" : "test_title",
+          "childTableId" : "1902373"
+        }
+      },
+      "HubDbTableRowV3" : {
+        "required" : [ "values" ],
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "description" : "The id of the table row"
+          },
+          "values" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "object",
+              "properties" : { }
+            },
+            "description" : "List of key value pairs with the column name and column value"
+          },
+          "path" : {
+            "type" : "string",
+            "description" : "Specifies the value for `hs_path` column, which will be used as slug in the dynamic pages"
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "Specifies the value for `hs_name` column, which will be used as title in the dynamic pages"
+          },
+          "childTableId" : {
+            "type" : "string",
+            "description" : "Specifies the value for the column child table id"
+          },
+          "createdAt" : {
+            "type" : "string",
+            "description" : "Timestamp at which the row is created",
+            "format" : "date-time"
+          },
+          "updatedAt" : {
+            "type" : "string",
+            "description" : "Timestamp at which the row is updated last time",
+            "format" : "date-time"
+          },
+          "publishedAt" : {
+            "type" : "string",
+            "format" : "date-time"
+          }
+        },
+        "example" : {
+          "id" : "4099275931",
+          "createdAt" : "2020-03-30T20:39:52.328Z",
+          "updatedAt" : "2020-03-30T20:39:52.328Z",
           "values" : {
             "text_column" : "sample text value",
             "number_column" : 76,
@@ -2653,6 +2704,9 @@
           "name" : {
             "type" : "string"
           },
+          "label" : {
+            "type" : "string"
+          },
           "type" : {
             "type" : "string"
           },
@@ -2671,6 +2725,18 @@
           },
           "link" : {
             "type" : "string"
+          }
+        }
+      },
+      "BatchInputHubDbTableRowV3BatchUpdateRequest" : {
+        "required" : [ "inputs" ],
+        "type" : "object",
+        "properties" : {
+          "inputs" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/HubDbTableRowV3BatchUpdateRequest"
+            }
           }
         }
       }
@@ -2700,10 +2766,10 @@
           }
         }
       },
-      "hapikey" : {
+      "private_apps_legacy" : {
         "type" : "apiKey",
-        "name" : "hapikey",
-        "in" : "query"
+        "name" : "private-app-legacy",
+        "in" : "header"
       }
     }
   },

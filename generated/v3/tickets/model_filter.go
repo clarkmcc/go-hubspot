@@ -17,6 +17,7 @@ import (
 // Filter struct for Filter
 type Filter struct {
 	Value        *string  `json:"value,omitempty"`
+	HighValue    *string  `json:"highValue,omitempty"`
 	Values       []string `json:"values,omitempty"`
 	PropertyName string   `json:"propertyName"`
 	// null
@@ -72,6 +73,38 @@ func (o *Filter) HasValue() bool {
 // SetValue gets a reference to the given string and assigns it to the Value field.
 func (o *Filter) SetValue(v string) {
 	o.Value = &v
+}
+
+// GetHighValue returns the HighValue field value if set, zero value otherwise.
+func (o *Filter) GetHighValue() string {
+	if o == nil || o.HighValue == nil {
+		var ret string
+		return ret
+	}
+	return *o.HighValue
+}
+
+// GetHighValueOk returns a tuple with the HighValue field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Filter) GetHighValueOk() (*string, bool) {
+	if o == nil || o.HighValue == nil {
+		return nil, false
+	}
+	return o.HighValue, true
+}
+
+// HasHighValue returns a boolean if a field has been set.
+func (o *Filter) HasHighValue() bool {
+	if o != nil && o.HighValue != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetHighValue gets a reference to the given string and assigns it to the HighValue field.
+func (o *Filter) SetHighValue(v string) {
+	o.HighValue = &v
 }
 
 // GetValues returns the Values field value if set, zero value otherwise.
@@ -158,6 +191,9 @@ func (o Filter) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Value != nil {
 		toSerialize["value"] = o.Value
+	}
+	if o.HighValue != nil {
+		toSerialize["highValue"] = o.HighValue
 	}
 	if o.Values != nil {
 		toSerialize["values"] = o.Values

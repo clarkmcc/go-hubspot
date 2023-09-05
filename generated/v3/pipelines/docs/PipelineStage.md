@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **ArchivedAt** | Pointer to **time.Time** | The date the pipeline was archived. &#x60;archivedAt&#x60; will only be present if the pipeline is archived. | [optional] 
 **UpdatedAt** | **time.Time** | The date the pipeline stage was last updated. | 
 **Archived** | **bool** | Whether the pipeline is archived. | 
+**WritePermissions** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -196,6 +197,31 @@ and a boolean to check if the value has been set.
 
 SetArchived sets Archived field to given value.
 
+
+### GetWritePermissions
+
+`func (o *PipelineStage) GetWritePermissions() string`
+
+GetWritePermissions returns the WritePermissions field if non-nil, zero value otherwise.
+
+### GetWritePermissionsOk
+
+`func (o *PipelineStage) GetWritePermissionsOk() (*string, bool)`
+
+GetWritePermissionsOk returns a tuple with the WritePermissions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWritePermissions
+
+`func (o *PipelineStage) SetWritePermissions(v string)`
+
+SetWritePermissions sets WritePermissions field to given value.
+
+### HasWritePermissions
+
+`func (o *PipelineStage) HasWritePermissions() bool`
+
+HasWritePermissions returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

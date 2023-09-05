@@ -4,14 +4,14 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AttendanceCreate**](AttendanceSubscriberStateChangesApi.md#AttendanceCreate) | **Post** /marketing/v3/marketing-events/attendance/{externalEventId}/{subscriberState}/create | Record
-[**AttendanceEmailCreate**](AttendanceSubscriberStateChangesApi.md#AttendanceEmailCreate) | **Post** /marketing/v3/marketing-events/attendance/{externalEventId}/{subscriberState}/email-create | Record
+[**AttendanceCreateCreate**](AttendanceSubscriberStateChangesApi.md#AttendanceCreateCreate) | **Post** /marketing/v3/marketing-events/attendance/{externalEventId}/{subscriberState}/create | Record
+[**AttendanceEmailCreateCreateByEmail**](AttendanceSubscriberStateChangesApi.md#AttendanceEmailCreateCreateByEmail) | **Post** /marketing/v3/marketing-events/attendance/{externalEventId}/{subscriberState}/email-create | Record
 
 
 
-## AttendanceCreate
+## AttendanceCreateCreate
 
-> BatchResponseSubscriberVidResponse AttendanceCreate(ctx, externalEventId, subscriberState).BatchInputMarketingEventSubscriber(batchInputMarketingEventSubscriber).ExternalAccountId(externalAccountId).Execute()
+> BatchResponseSubscriberVidResponse AttendanceCreateCreate(ctx, externalEventId, subscriberState).BatchInputMarketingEventSubscriber(batchInputMarketingEventSubscriber).ExternalAccountId(externalAccountId).Execute()
 
 Record
 
@@ -31,19 +31,19 @@ import (
 
 func main() {
     externalEventId := "externalEventId_example" // string | The id of the marketing event
-    subscriberState := "subscriberState_example" // string | The new subscriber state for the HubSpot contacts and the specified marketing event
+    subscriberState := "subscriberState_example" // string | The new subscriber state for the HubSpot contacts and the specified marketing event. For example: 'register', 'attend' or 'cancel'.
     batchInputMarketingEventSubscriber := *openapiclient.NewBatchInputMarketingEventSubscriber([]openapiclient.MarketingEventSubscriber{*openapiclient.NewMarketingEventSubscriber(int64(123))}) // BatchInputMarketingEventSubscriber | The details of the contacts to subscribe to the event. Parameters of join and left time if state is Attended.
     externalAccountId := "externalAccountId_example" // string | The account id associated with the marketing event (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AttendanceSubscriberStateChangesApi.AttendanceCreate(context.Background(), externalEventId, subscriberState).BatchInputMarketingEventSubscriber(batchInputMarketingEventSubscriber).ExternalAccountId(externalAccountId).Execute()
+    resp, r, err := apiClient.AttendanceSubscriberStateChangesApi.AttendanceCreateCreate(context.Background(), externalEventId, subscriberState).BatchInputMarketingEventSubscriber(batchInputMarketingEventSubscriber).ExternalAccountId(externalAccountId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AttendanceSubscriberStateChangesApi.AttendanceCreate``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `AttendanceSubscriberStateChangesApi.AttendanceCreateCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AttendanceCreate`: BatchResponseSubscriberVidResponse
-    fmt.Fprintf(os.Stdout, "Response from `AttendanceSubscriberStateChangesApi.AttendanceCreate`: %v\n", resp)
+    // response from `AttendanceCreateCreate`: BatchResponseSubscriberVidResponse
+    fmt.Fprintf(os.Stdout, "Response from `AttendanceSubscriberStateChangesApi.AttendanceCreateCreate`: %v\n", resp)
 }
 ```
 
@@ -54,11 +54,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **externalEventId** | **string** | The id of the marketing event | 
-**subscriberState** | **string** | The new subscriber state for the HubSpot contacts and the specified marketing event | 
+**subscriberState** | **string** | The new subscriber state for the HubSpot contacts and the specified marketing event. For example: &#39;register&#39;, &#39;attend&#39; or &#39;cancel&#39;. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAttendanceCreateRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiAttendanceCreateCreateRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -74,7 +74,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -86,9 +86,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## AttendanceEmailCreate
+## AttendanceEmailCreateCreateByEmail
 
-> BatchResponseSubscriberEmailResponse AttendanceEmailCreate(ctx, externalEventId, subscriberState).BatchInputMarketingEventEmailSubscriber(batchInputMarketingEventEmailSubscriber).ExternalAccountId(externalAccountId).Execute()
+> BatchResponseSubscriberEmailResponse AttendanceEmailCreateCreateByEmail(ctx, externalEventId, subscriberState).BatchInputMarketingEventEmailSubscriber(batchInputMarketingEventEmailSubscriber).ExternalAccountId(externalAccountId).Execute()
 
 Record
 
@@ -108,19 +108,19 @@ import (
 
 func main() {
     externalEventId := "externalEventId_example" // string | The id of the marketing event
-    subscriberState := "subscriberState_example" // string | The new subscriber state for the HubSpot contacts and the specified marketing event
-    batchInputMarketingEventEmailSubscriber := *openapiclient.NewBatchInputMarketingEventEmailSubscriber([]openapiclient.MarketingEventEmailSubscriber{*openapiclient.NewMarketingEventEmailSubscriber(int64(123), "Email_example")}) // BatchInputMarketingEventEmailSubscriber | The details of the contacts to subscribe to the event. Parameters of join and left time if state is Attended.
+    subscriberState := "subscriberState_example" // string | The new subscriber state for the HubSpot contacts and the specified marketing event. For example: 'register', 'attend' or 'cancel'.
+    batchInputMarketingEventEmailSubscriber := *openapiclient.NewBatchInputMarketingEventEmailSubscriber([]openapiclient.MarketingEventEmailSubscriber{*openapiclient.NewMarketingEventEmailSubscriber("Email_example", int64(123))}) // BatchInputMarketingEventEmailSubscriber | The details of the contacts to subscribe to the event. Parameters of join and left time if state is Attended.
     externalAccountId := "externalAccountId_example" // string | The account id associated with the marketing event (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AttendanceSubscriberStateChangesApi.AttendanceEmailCreate(context.Background(), externalEventId, subscriberState).BatchInputMarketingEventEmailSubscriber(batchInputMarketingEventEmailSubscriber).ExternalAccountId(externalAccountId).Execute()
+    resp, r, err := apiClient.AttendanceSubscriberStateChangesApi.AttendanceEmailCreateCreateByEmail(context.Background(), externalEventId, subscriberState).BatchInputMarketingEventEmailSubscriber(batchInputMarketingEventEmailSubscriber).ExternalAccountId(externalAccountId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AttendanceSubscriberStateChangesApi.AttendanceEmailCreate``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `AttendanceSubscriberStateChangesApi.AttendanceEmailCreateCreateByEmail``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AttendanceEmailCreate`: BatchResponseSubscriberEmailResponse
-    fmt.Fprintf(os.Stdout, "Response from `AttendanceSubscriberStateChangesApi.AttendanceEmailCreate`: %v\n", resp)
+    // response from `AttendanceEmailCreateCreateByEmail`: BatchResponseSubscriberEmailResponse
+    fmt.Fprintf(os.Stdout, "Response from `AttendanceSubscriberStateChangesApi.AttendanceEmailCreateCreateByEmail`: %v\n", resp)
 }
 ```
 
@@ -131,11 +131,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **externalEventId** | **string** | The id of the marketing event | 
-**subscriberState** | **string** | The new subscriber state for the HubSpot contacts and the specified marketing event | 
+**subscriberState** | **string** | The new subscriber state for the HubSpot contacts and the specified marketing event. For example: &#39;register&#39;, &#39;attend&#39; or &#39;cancel&#39;. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAttendanceEmailCreateRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiAttendanceEmailCreateCreateByEmailRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -151,7 +151,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 

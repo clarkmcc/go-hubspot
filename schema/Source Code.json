@@ -6,106 +6,30 @@
     "version" : "v3"
   },
   "servers" : [ {
-    "url" : "https://api.hubapi.com/"
+    "url" : "https://api.hubapi.com"
   } ],
   "tags" : [ {
-    "name" : "Content",
-    "description" : "Endpoints which interact with actual file contents."
+    "name" : "Content"
   }, {
-    "name" : "Metadata",
-    "description" : "Endpoints which interact with the object metadata for files."
+    "name" : "Metadata"
   }, {
-    "name" : "Validation",
-    "description" : "Endpoints used to validate developer asset files."
-  }, {
-    "name" : "Source_Code_Extract"
+    "name" : "Validation"
   }, {
     "name" : "Extract"
+  }, {
+    "name" : "Source_Code_Extract"
   } ],
   "paths" : {
-    "/cms/v3/source-code/extract/async" : {
+    "/cms/v3/source-code/{environment}/validate/{path}" : {
       "post" : {
-        "tags" : [ "Source_Code_Extract" ],
-        "operationId" : "ExtractAsync",
-        "requestBody" : {
-          "content" : {
-            "*/*" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/FileExtractRequest"
-              }
-            }
-          },
-          "required" : true
-        },
-        "responses" : {
-          "202" : {
-            "description" : "accepted",
-            "content" : {
-              "*/*" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/TaskLocator"
-                }
-              }
-            }
-          },
-          "default" : {
-            "$ref" : "#/components/responses/Error"
-          }
-        },
-        "security" : [ {
-          "hapikey" : [ ]
-        }, {
-          "oauth2_legacy" : [ "content" ]
-        } ]
-      }
-    },
-    "/cms/v3/source-code/extract/async/tasks/{taskId}/status" : {
-      "get" : {
-        "tags" : [ "Source_Code_Extract" ],
-        "operationId" : "ExtractGetAsyncStatus",
-        "parameters" : [ {
-          "name" : "taskId",
-          "in" : "path",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "integer",
-            "format" : "int32"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "content" : {
-              "*/*" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ActionResponse"
-                }
-              }
-            }
-          },
-          "default" : {
-            "$ref" : "#/components/responses/Error"
-          }
-        },
-        "security" : [ {
-          "hapikey" : [ ]
-        }, {
-          "oauth2_legacy" : [ "content" ]
-        } ]
-      }
-    },
-    "/cms/v3/source-code/extract/{path}" : {
-      "post" : {
-        "tags" : [ "Extract" ],
-        "summary" : "Extracts a zip file",
-        "description" : "Extracts a zip file in the file system. The zip file will be extracted in-place and not be deleted automatically.",
-        "operationId" : "ExtractByPath",
+        "tags" : [ "Validation" ],
+        "summary" : "Validate the contents of a file",
+        "description" : "Validates the file contents passed to the endpoint given a specified path and environment. Accepts multipart/form-data content type.",
+        "operationId" : "Validate",
         "parameters" : [ {
           "name" : "path",
           "in" : "path",
-          "description" : "The file system location of the zip file.",
+          "description" : "The file system location of the file.",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -114,18 +38,97 @@
             "type" : "string"
           }
         } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "file" : {
+                    "type" : "string",
+                    "description" : "The file to validate.",
+                    "format" : "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses" : {
-          "204" : {
-            "description" : "No content",
-            "content" : { }
+          "default" : {
+            "$ref" : "#/components/responses/Error"
+          }
+        },
+        "security" : [ {
+          "private_apps_legacy" : [ "content" ]
+        }, {
+          "oauth2_legacy" : [ "content" ]
+        } ]
+      }
+    },
+    "/cms/v3/source-code/{environment}/metadata/{path}" : {
+      "get" : {
+        "tags" : [ "Metadata" ],
+        "summary" : "Get the metadata for a file",
+        "description" : "Gets the metadata object for the file at the specified path in the specified environment.",
+        "operationId" : "MetadataGet",
+        "parameters" : [ {
+          "name" : "environment",
+          "in" : "path",
+          "description" : "The environment of the file (\"draft\" or \"published\").",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "path",
+          "in" : "path",
+          "description" : "The file system location of the file.",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "pattern" : ".+",
+            "type" : "string"
+          }
+        }, {
+          "name" : "properties",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AssetFileMetadata"
+                },
+                "example" : {
+                  "id" : "/example.json",
+                  "name" : "example.json",
+                  "folder" : false,
+                  "children" : [ ],
+                  "updatedAt" : 1608049506,
+                  "createdAt" : 1608049506,
+                  "archivedAt" : 0
+                }
+              }
+            }
           },
           "default" : {
             "$ref" : "#/components/responses/Error"
           }
         },
-        "deprecated" : true,
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "content" ]
         }, {
           "oauth2_legacy" : [ "content" ]
         } ]
@@ -165,11 +168,10 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "content" ]
         }, {
           "oauth2_legacy" : [ "content" ]
-        } ],
-        "x-hubspot-rate-limit-exemptions" : [ "ten-secondly" ]
+        } ]
       },
       "put" : {
         "tags" : [ "Content" ],
@@ -202,6 +204,7 @@
           "content" : {
             "multipart/form-data" : {
               "schema" : {
+                "type" : "object",
                 "properties" : {
                   "file" : {
                     "type" : "string",
@@ -238,11 +241,10 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "content" ]
         }, {
           "oauth2_legacy" : [ "content" ]
-        } ],
-        "x-hubspot-rate-limit-exemptions" : [ "ten-secondly" ]
+        } ]
       },
       "post" : {
         "tags" : [ "Content" ],
@@ -275,6 +277,7 @@
           "content" : {
             "multipart/form-data" : {
               "schema" : {
+                "type" : "object",
                 "properties" : {
                   "file" : {
                     "type" : "string",
@@ -312,11 +315,10 @@
         },
         "deprecated" : true,
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "content" ]
         }, {
           "oauth2_legacy" : [ "content" ]
-        } ],
-        "x-hubspot-rate-limit-exemptions" : [ "ten-secondly" ]
+        } ]
       },
       "delete" : {
         "tags" : [ "Content" ],
@@ -355,33 +357,22 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "content" ]
         }, {
           "oauth2_legacy" : [ "content" ]
-        } ],
-        "x-hubspot-rate-limit-exemptions" : [ "ten-secondly" ]
+        } ]
       }
     },
-    "/cms/v3/source-code/{environment}/metadata/{path}" : {
-      "get" : {
-        "tags" : [ "Metadata" ],
-        "summary" : "Get the metadata for a file",
-        "description" : "Gets the metadata object for the file at the specified path in the specified environment.",
-        "operationId" : "MetadataGet",
+    "/cms/v3/source-code/extract/{path}" : {
+      "post" : {
+        "tags" : [ "Extract" ],
+        "summary" : "Extracts a zip file",
+        "description" : "Extracts a zip file in the file system. The zip file will be extracted in-place and not be deleted automatically.",
+        "operationId" : "ExtractByPath",
         "parameters" : [ {
-          "name" : "environment",
-          "in" : "path",
-          "description" : "The environment of the file (\"draft\" or \"published\").",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
           "name" : "path",
           "in" : "path",
-          "description" : "The file system location of the file.",
+          "description" : "The file system location of the zip file.",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -391,21 +382,44 @@
           }
         } ],
         "responses" : {
-          "200" : {
-            "description" : "successful operation",
+          "204" : {
+            "description" : "No content",
+            "content" : { }
+          },
+          "default" : {
+            "$ref" : "#/components/responses/Error"
+          }
+        },
+        "deprecated" : true,
+        "security" : [ {
+          "private_apps_legacy" : [ "content" ]
+        }, {
+          "oauth2_legacy" : [ "content" ]
+        } ]
+      }
+    },
+    "/cms/v3/source-code/extract/async" : {
+      "post" : {
+        "tags" : [ "Source_Code_Extract" ],
+        "operationId" : "ExtractAsync",
+        "parameters" : [ ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/FileExtractRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "202" : {
+            "description" : "accepted",
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/AssetFileMetadata"
-                },
-                "example" : {
-                  "id" : "/example.json",
-                  "name" : "example.json",
-                  "folder" : false,
-                  "children" : [ ],
-                  "updatedAt" : 1608049506,
-                  "createdAt" : 1608049506,
-                  "archivedAt" : 0
+                  "$ref" : "#/components/schemas/TaskLocator"
                 }
               }
             }
@@ -415,57 +429,47 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "content" ]
         }, {
           "oauth2_legacy" : [ "content" ]
-        } ],
-        "x-hubspot-rate-limit-exemptions" : [ "ten-secondly" ]
+        } ]
       }
     },
-    "/cms/v3/source-code/{environment}/validate/{path}" : {
-      "post" : {
-        "tags" : [ "Validation" ],
-        "summary" : "Validate the contents of a file",
-        "description" : "Validates the file contents passed to the endpoint given a specified path and environment. Accepts multipart/form-data content type.",
-        "operationId" : "Validate",
+    "/cms/v3/source-code/extract/async/tasks/{taskId}/status" : {
+      "get" : {
+        "tags" : [ "Source_Code_Extract" ],
+        "operationId" : "ExtractGetAsyncStatus",
         "parameters" : [ {
-          "name" : "path",
+          "name" : "taskId",
           "in" : "path",
-          "description" : "The file system location of the file.",
           "required" : true,
           "style" : "simple",
           "explode" : false,
           "schema" : {
-            "pattern" : ".+",
-            "type" : "string"
+            "type" : "integer",
+            "format" : "int32"
           }
         } ],
-        "requestBody" : {
-          "content" : {
-            "multipart/form-data" : {
-              "schema" : {
-                "properties" : {
-                  "file" : {
-                    "type" : "string",
-                    "description" : "The file to validate.",
-                    "format" : "binary"
-                  }
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ActionResponse"
                 }
               }
             }
-          }
-        },
-        "responses" : {
+          },
           "default" : {
             "$ref" : "#/components/responses/Error"
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "content" ]
         }, {
           "oauth2_legacy" : [ "content" ]
-        } ],
-        "x-hubspot-rate-limit-exemptions" : [ "ten-secondly" ]
+        } ]
       }
     }
   },
@@ -506,6 +510,15 @@
           }
         }
       },
+      "FileExtractRequest" : {
+        "required" : [ "path" ],
+        "type" : "object",
+        "properties" : {
+          "path" : {
+            "type" : "string"
+          }
+        }
+      },
       "AssetFileMetadata" : {
         "required" : [ "createdAt", "folder", "id", "name", "updatedAt" ],
         "type" : "object",
@@ -543,18 +556,12 @@
             "type" : "integer",
             "description" : "Timestamp of when the object was archived (deleted).",
             "format" : "int64"
+          },
+          "hash" : {
+            "type" : "string"
           }
         },
         "description" : "The object metadata of a file."
-      },
-      "FileExtractRequest" : {
-        "required" : [ "path" ],
-        "type" : "object",
-        "properties" : {
-          "path" : {
-            "type" : "string"
-          }
-        }
       },
       "Error" : {
         "required" : [ "category", "correlationId", "message" ],
@@ -686,11 +693,19 @@
           }
         }
       },
-      "hapikey" : {
+      "private_apps_legacy" : {
         "type" : "apiKey",
-        "name" : "hapikey",
-        "in" : "query"
+        "name" : "private-app-legacy",
+        "in" : "header"
       }
     }
-  }
+  },
+  "x-hubspot-available-client-libraries" : [ "PHP", "Node", "Ruby", "Python" ],
+  "x-hubspot-product-tier-requirements" : {
+    "marketing" : "FREE",
+    "sales" : "FREE",
+    "service" : "FREE",
+    "cms" : "FREE"
+  },
+  "x-hubspot-documentation-banner" : "NONE"
 }

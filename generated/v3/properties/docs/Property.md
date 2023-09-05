@@ -27,6 +27,7 @@ Name | Type | Description | Notes
 **ShowCurrencySymbol** | Pointer to **bool** | Whether or not the property will display the currency symbol set in the account settings. | [optional] 
 **ModificationMetadata** | Pointer to [**PropertyModificationMetadata**](PropertyModificationMetadata.md) |  | [optional] 
 **FormField** | Pointer to **bool** | Whether or not the property can be used in a HubSpot form. | [optional] 
+**CalculationFormula** | Pointer to **string** | Represents a formula that is used to compute a calculated property. | [optional] 
 
 ## Methods
 
@@ -586,6 +587,31 @@ SetFormField sets FormField field to given value.
 `func (o *Property) HasFormField() bool`
 
 HasFormField returns a boolean if a field has been set.
+
+### GetCalculationFormula
+
+`func (o *Property) GetCalculationFormula() string`
+
+GetCalculationFormula returns the CalculationFormula field if non-nil, zero value otherwise.
+
+### GetCalculationFormulaOk
+
+`func (o *Property) GetCalculationFormulaOk() (*string, bool)`
+
+GetCalculationFormulaOk returns a tuple with the CalculationFormula field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCalculationFormula
+
+`func (o *Property) SetCalculationFormula(v string)`
+
+SetCalculationFormula sets CalculationFormula field to given value.
+
+### HasCalculationFormula
+
+`func (o *Property) HasCalculationFormula() bool`
+
+HasCalculationFormula returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

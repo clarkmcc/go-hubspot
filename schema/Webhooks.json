@@ -420,7 +420,7 @@
             "type" : "string"
           },
           "category" : {
-            "$ref" : "#/components/schemas/ErrorCategory"
+            "type" : "string"
           },
           "subCategory" : {
             "type" : "object",
@@ -500,6 +500,27 @@
         },
         "description" : "List of event subscriptions for your app"
       },
+      "SettingsChangeRequest" : {
+        "required" : [ "targetUrl", "throttling" ],
+        "type" : "object",
+        "properties" : {
+          "targetUrl" : {
+            "type" : "string",
+            "description" : "A publicly available URL for Hubspot to call where event payloads will be delivered. See [link-so-some-doc](#) for details about the format of these event payloads."
+          },
+          "throttling" : {
+            "$ref" : "#/components/schemas/ThrottlingSettings"
+          }
+        },
+        "description" : "New or updated webhook settings for an app.",
+        "example" : {
+          "targetUrl" : "https://www.example.com/hubspot/target",
+          "throttling" : {
+            "maxConcurrentRequests" : 10,
+            "period" : "SECONDLY"
+          }
+        }
+      },
       "Error" : {
         "required" : [ "category", "correlationId", "message" ],
         "type" : "object",
@@ -558,27 +579,6 @@
           "category" : "VALIDATION_ERROR",
           "links" : {
             "knowledge-base" : "https://www.hubspot.com/products/service/knowledge-base"
-          }
-        }
-      },
-      "SettingsChangeRequest" : {
-        "required" : [ "targetUrl", "throttling" ],
-        "type" : "object",
-        "properties" : {
-          "targetUrl" : {
-            "type" : "string",
-            "description" : "A publicly available URL for Hubspot to call where event payloads will be delivered. See [link-so-some-doc](#) for details about the format of these event payloads."
-          },
-          "throttling" : {
-            "$ref" : "#/components/schemas/ThrottlingSettings"
-          }
-        },
-        "description" : "New or updated webhook settings for an app.",
-        "example" : {
-          "targetUrl" : "https://www.example.com/hubspot/target",
-          "throttling" : {
-            "maxConcurrentRequests" : 10,
-            "period" : "SECONDLY"
           }
         }
       },
@@ -707,19 +707,6 @@
           "updatedAt" : "2020-01-24T16:32:43Z"
         }
       },
-      "ErrorCategory" : {
-        "required" : [ "httpStatus", "name" ],
-        "type" : "object",
-        "properties" : {
-          "httpStatus" : {
-            "type" : "string",
-            "enum" : [ "CONTINUE", "SWITCHING_PROTOCOLS", "PROCESSING", "OK", "CREATED", "ACCEPTED", "NON_AUTHORITATIVE_INFORMATION", "NO_CONTENT", "RESET_CONTENT", "PARTIAL_CONTENT", "MULTI_STATUS", "ALREADY_REPORTED", "IM_USED", "MULTIPLE_CHOICES", "MOVED_PERMANENTLY", "FOUND", "SEE_OTHER", "NOT_MODIFIED", "USE_PROXY", "TEMPORARY_REDIRECT", "PERMANENT_REDIRECT", "BAD_REQUEST", "UNAUTHORIZED", "PAYMENT_REQUIRED", "FORBIDDEN", "NOT_FOUND", "METHOD_NOT_ALLOWED", "NOT_ACCEPTABLE", "PROXY_AUTHENTICATION_REQUIRED", "REQUEST_TIMEOUT", "CONFLICT", "GONE", "LENGTH_REQUIRED", "PRECONDITION_FAILED", "REQUEST_ENTITY_TOO_LARGE", "REQUEST_URI_TOO_LONG", "UNSUPPORTED_MEDIA_TYPE", "REQUESTED_RANGE_NOT_SATISFIABLE", "EXPECTATION_FAILED", "IM_A_TEAPOT", "MISDIRECTED_REQUEST", "UNPROCESSABLE_ENTITY", "LOCKED", "FAILED_DEPENDENCY", "UPGRADE_REQUIRED", "PRECONDITION_REQUIRED", "TOO_MANY_REQUESTS", "REQUEST_HEADERS_FIELDS_TOO_LARGE", "INTERNAL_STALE_SERVICE_DISCOVERY", "UNAVAILABLE_FOR_LEGAL_REASONS", "MIGRATION_IN_PROGRESS", "INTERNAL_SERVER_ERROR", "NOT_IMPLEMENTED", "BAD_GATEWAY", "SERVICE_UNAVAILABLE", "GATEWAY_TIMEOUT", "HTTP_VERSION_NOT_SUPPORTED", "VARIANT_ALSO_NEGOTIATES", "INSUFFICIENT_STORAGE", "LOOP_DETECTED", "NOT_EXTENDED", "NETWORK_AUTHENTICATION_REQUIRED" ]
-          },
-          "name" : {
-            "type" : "string"
-          }
-        }
-      },
       "BatchInputSubscriptionBatchUpdateRequest" : {
         "required" : [ "inputs" ],
         "type" : "object",
@@ -732,19 +719,6 @@
           }
         }
       },
-      "SubscriptionBatchUpdateRequest" : {
-        "required" : [ "active", "id" ],
-        "type" : "object",
-        "properties" : {
-          "id" : {
-            "type" : "integer",
-            "format" : "int32"
-          },
-          "active" : {
-            "type" : "boolean"
-          }
-        }
-      },
       "SubscriptionResponse" : {
         "required" : [ "active", "createdAt", "eventType", "id" ],
         "type" : "object",
@@ -752,7 +726,7 @@
           "eventType" : {
             "type" : "string",
             "description" : "Type of event to listen for. Can be one of `create`, `delete`, `deletedForPrivacy`, or `propertyChange`.",
-            "enum" : [ "contact.propertyChange", "company.propertyChange", "deal.propertyChange", "ticket.propertyChange", "product.propertyChange", "line_item.propertyChange", "contact.creation", "contact.deletion", "contact.privacyDeletion", "company.creation", "company.deletion", "deal.creation", "deal.deletion", "ticket.creation", "ticket.deletion", "product.creation", "product.deletion", "line_item.creation", "line_item.deletion", "conversation.creation", "conversation.deletion", "conversation.newMessage", "conversation.privacyDeletion", "conversation.propertyChange" ]
+            "enum" : [ "contact.propertyChange", "company.propertyChange", "deal.propertyChange", "ticket.propertyChange", "product.propertyChange", "line_item.propertyChange", "contact.creation", "contact.deletion", "contact.privacyDeletion", "company.creation", "company.deletion", "deal.creation", "deal.deletion", "ticket.creation", "ticket.deletion", "product.creation", "product.deletion", "line_item.creation", "line_item.deletion", "conversation.creation", "conversation.deletion", "conversation.newMessage", "conversation.privacyDeletion", "conversation.propertyChange", "contact.merge", "company.merge", "deal.merge", "ticket.merge", "product.merge", "line_item.merge", "contact.restore", "company.restore", "deal.restore", "ticket.restore", "product.restore", "line_item.restore", "contact.associationChange", "company.associationChange", "deal.associationChange", "ticket.associationChange", "line_item.associationChange" ]
           },
           "propertyName" : {
             "type" : "string",
@@ -779,6 +753,19 @@
         },
         "description" : "Complete details for an event subscription."
       },
+      "SubscriptionBatchUpdateRequest" : {
+        "required" : [ "active", "id" ],
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "active" : {
+            "type" : "boolean"
+          }
+        }
+      },
       "SubscriptionCreateRequest" : {
         "required" : [ "eventType" ],
         "type" : "object",
@@ -786,7 +773,7 @@
           "eventType" : {
             "type" : "string",
             "description" : "Type of event to listen for. Can be one of `create`, `delete`, `deletedForPrivacy`, or `propertyChange`.",
-            "enum" : [ "contact.propertyChange", "company.propertyChange", "deal.propertyChange", "ticket.propertyChange", "product.propertyChange", "line_item.propertyChange", "contact.creation", "contact.deletion", "contact.privacyDeletion", "company.creation", "company.deletion", "deal.creation", "deal.deletion", "ticket.creation", "ticket.deletion", "product.creation", "product.deletion", "line_item.creation", "line_item.deletion", "conversation.creation", "conversation.deletion", "conversation.newMessage", "conversation.privacyDeletion", "conversation.propertyChange" ]
+            "enum" : [ "contact.propertyChange", "company.propertyChange", "deal.propertyChange", "ticket.propertyChange", "product.propertyChange", "line_item.propertyChange", "contact.creation", "contact.deletion", "contact.privacyDeletion", "company.creation", "company.deletion", "deal.creation", "deal.deletion", "ticket.creation", "ticket.deletion", "product.creation", "product.deletion", "line_item.creation", "line_item.deletion", "conversation.creation", "conversation.deletion", "conversation.newMessage", "conversation.privacyDeletion", "conversation.propertyChange", "contact.merge", "company.merge", "deal.merge", "ticket.merge", "product.merge", "line_item.merge", "contact.restore", "company.restore", "deal.restore", "ticket.restore", "product.restore", "line_item.restore", "contact.associationChange", "company.associationChange", "deal.associationChange", "ticket.associationChange", "line_item.associationChange" ]
           },
           "propertyName" : {
             "type" : "string",

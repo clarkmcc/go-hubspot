@@ -61,7 +61,7 @@ Each operation can use different server URL defined using `OperationServers` map
 An operation is uniquely identified by `"{classname}Service.{nickname}"` string.
 Similar rules for overriding default operation server index and variables applies by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
 
-```golang
+```
 ctx := context.WithValue(context.Background(), authors.ContextOperationServerIndices, map[string]int{
 	"{classname}Service.{nickname}": 2,
 })
@@ -96,36 +96,56 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [Angle](docs/Angle.md)
  - [AttachToLangPrimaryRequestVNext](docs/AttachToLangPrimaryRequestVNext.md)
+ - [BackgroundImage](docs/BackgroundImage.md)
  - [BatchInputBlogAuthor](docs/BatchInputBlogAuthor.md)
+ - [BatchInputBlogPost](docs/BatchInputBlogPost.md)
  - [BatchInputJsonNode](docs/BatchInputJsonNode.md)
  - [BatchInputString](docs/BatchInputString.md)
+ - [BatchInputTag](docs/BatchInputTag.md)
  - [BatchResponseBlogAuthor](docs/BatchResponseBlogAuthor.md)
  - [BatchResponseBlogAuthorWithErrors](docs/BatchResponseBlogAuthorWithErrors.md)
+ - [BatchResponseBlogPost](docs/BatchResponseBlogPost.md)
+ - [BatchResponseBlogPostWithErrors](docs/BatchResponseBlogPostWithErrors.md)
+ - [BatchResponseTag](docs/BatchResponseTag.md)
+ - [BatchResponseTagWithErrors](docs/BatchResponseTagWithErrors.md)
  - [BlogAuthor](docs/BlogAuthor.md)
  - [BlogAuthorCloneRequestVNext](docs/BlogAuthorCloneRequestVNext.md)
+ - [BlogPost](docs/BlogPost.md)
+ - [BlogPostLanguageCloneRequestVNext](docs/BlogPostLanguageCloneRequestVNext.md)
  - [CollectionResponseWithTotalBlogAuthorForwardPaging](docs/CollectionResponseWithTotalBlogAuthorForwardPaging.md)
+ - [CollectionResponseWithTotalBlogPostForwardPaging](docs/CollectionResponseWithTotalBlogPostForwardPaging.md)
+ - [CollectionResponseWithTotalTagForwardPaging](docs/CollectionResponseWithTotalTagForwardPaging.md)
+ - [CollectionResponseWithTotalVersionBlogPost](docs/CollectionResponseWithTotalVersionBlogPost.md)
+ - [ColorStop](docs/ColorStop.md)
+ - [ContentCloneRequestVNext](docs/ContentCloneRequestVNext.md)
+ - [ContentLanguageVariation](docs/ContentLanguageVariation.md)
+ - [ContentScheduleRequestVNext](docs/ContentScheduleRequestVNext.md)
  - [DetachFromLangGroupRequestVNext](docs/DetachFromLangGroupRequestVNext.md)
  - [Error](docs/Error.md)
  - [ErrorDetail](docs/ErrorDetail.md)
  - [ForwardPaging](docs/ForwardPaging.md)
+ - [Gradient](docs/Gradient.md)
+ - [LayoutSection](docs/LayoutSection.md)
  - [NextPage](docs/NextPage.md)
+ - [Paging](docs/Paging.md)
+ - [PreviousPage](docs/PreviousPage.md)
+ - [RGBAColor](docs/RGBAColor.md)
+ - [RowMetaData](docs/RowMetaData.md)
  - [SetNewLanguagePrimaryRequestVNext](docs/SetNewLanguagePrimaryRequestVNext.md)
+ - [SideOrCorner](docs/SideOrCorner.md)
  - [StandardError](docs/StandardError.md)
+ - [Styles](docs/Styles.md)
+ - [Tag](docs/Tag.md)
+ - [TagCloneRequestVNext](docs/TagCloneRequestVNext.md)
  - [UpdateLanguagesRequestVNext](docs/UpdateLanguagesRequestVNext.md)
+ - [VersionBlogPost](docs/VersionBlogPost.md)
+ - [VersionUser](docs/VersionUser.md)
 
 
 ## Documentation For Authorization
 
-
-
-### hapikey
-
-- **Type**: API key
-- **API key parameter name**: hapikey
-- **Location**: URL query string
-
-Note, each API key must be added to a map of `map[string]APIKey` where the key is: hapikey and passed in as the auth context for each request.
 
 
 ### oauth2_legacy
@@ -155,6 +175,15 @@ tokenSource := oauth2cfg.TokenSource(createContext(httpClient), &token)
 auth := context.WithValue(oauth2.NoContext, sw.ContextOAuth2, tokenSource)
 r, err := client.Service.Operation(auth, args)
 ```
+
+
+### private_apps_legacy
+
+- **Type**: API key
+- **API key parameter name**: private-app-legacy
+- **Location**: HTTP header
+
+Note, each API key must be added to a map of `map[string]APIKey` where the key is: private-app-legacy and passed in as the auth context for each request.
 
 
 ## Documentation for Utility Methods

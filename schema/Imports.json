@@ -5,7 +5,7 @@
     "version" : "v3"
   },
   "servers" : [ {
-    "url" : "https://api.hubapi.com/"
+    "url" : "https://api.hubapi.com"
   } ],
   "tags" : [ {
     "name" : "Core"
@@ -13,6 +13,142 @@
     "name" : "Public_Imports"
   } ],
   "paths" : {
+    "/crm/v3/imports/{importId}/errors" : {
+      "get" : {
+        "tags" : [ "Public_Imports" ],
+        "operationId" : "GetErrors",
+        "parameters" : [ {
+          "name" : "after",
+          "in" : "query",
+          "description" : "The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "The maximum number of results to display per page.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "importId",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CollectionResponsePublicImportErrorForwardPaging"
+                }
+              }
+            }
+          },
+          "default" : {
+            "$ref" : "#/components/responses/Error"
+          }
+        },
+        "security" : [ {
+          "oauth2_legacy" : [ "crm.import" ]
+        }, {
+          "private_apps_legacy" : [ "crm.import" ]
+        } ]
+      }
+    },
+    "/crm/v3/imports/{importId}" : {
+      "get" : {
+        "tags" : [ "Core" ],
+        "summary" : "Get the information on any import",
+        "description" : "A complete summary of an import record, including any updates.",
+        "operationId" : "GetByID",
+        "parameters" : [ {
+          "name" : "importId",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PublicImportResponse"
+                }
+              }
+            }
+          },
+          "default" : {
+            "$ref" : "#/components/responses/Error"
+          }
+        },
+        "security" : [ {
+          "oauth2_legacy" : [ "crm.import" ]
+        }, {
+          "private_apps_legacy" : [ "crm.import" ]
+        } ]
+      }
+    },
+    "/crm/v3/imports/{importId}/cancel" : {
+      "post" : {
+        "tags" : [ "Core" ],
+        "summary" : "Cancel an active import",
+        "description" : "This allows a developer to cancel an active import.",
+        "operationId" : "Cancel",
+        "parameters" : [ {
+          "name" : "importId",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ActionResponse"
+                }
+              }
+            }
+          },
+          "default" : {
+            "$ref" : "#/components/responses/Error"
+          }
+        },
+        "security" : [ {
+          "oauth2_legacy" : [ "crm.import" ]
+        }, {
+          "private_apps_legacy" : [ "crm.import" ]
+        } ]
+      }
+    },
     "/crm/v3/imports/" : {
       "get" : {
         "tags" : [ "Core" ],
@@ -66,7 +202,9 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "oauth2_legacy" : [ "crm.import" ]
+        }, {
+          "private_apps_legacy" : [ "crm.import" ]
         } ]
       },
       "post" : {
@@ -74,10 +212,12 @@
         "summary" : "Start a new import",
         "description" : "Begins importing data from the specified file resources. This uploads the corresponding file and uses the import request object to convert rows in the files to objects.",
         "operationId" : "Create",
+        "parameters" : [ ],
         "requestBody" : {
           "content" : {
             "multipart/form-data" : {
               "schema" : {
+                "type" : "object",
                 "properties" : {
                   "files" : {
                     "type" : "string",
@@ -109,141 +249,9 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
-        }, {
           "oauth2_legacy" : [ "crm.import" ]
-        } ]
-      }
-    },
-    "/crm/v3/imports/{importId}" : {
-      "get" : {
-        "tags" : [ "Core" ],
-        "summary" : "Get the information on any import",
-        "description" : "A complete summary of an import record, including any updates.",
-        "operationId" : "GetByID",
-        "parameters" : [ {
-          "name" : "importId",
-          "in" : "path",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "integer",
-            "format" : "int64"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/PublicImportResponse"
-                }
-              }
-            }
-          },
-          "default" : {
-            "$ref" : "#/components/responses/Error"
-          }
-        },
-        "security" : [ {
-          "hapikey" : [ ]
-        } ]
-      }
-    },
-    "/crm/v3/imports/{importId}/cancel" : {
-      "post" : {
-        "tags" : [ "Core" ],
-        "summary" : "Cancel an active import",
-        "description" : "This allows a developer to cancel an active import.",
-        "operationId" : "Cancel",
-        "parameters" : [ {
-          "name" : "importId",
-          "in" : "path",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "integer",
-            "format" : "int64"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ActionResponse"
-                }
-              }
-            }
-          },
-          "default" : {
-            "$ref" : "#/components/responses/Error"
-          }
-        },
-        "security" : [ {
-          "hapikey" : [ ]
         }, {
-          "oauth2_legacy" : [ "crm.import" ]
-        } ]
-      }
-    },
-    "/crm/v3/imports/{importId}/errors" : {
-      "get" : {
-        "tags" : [ "Public_Imports" ],
-        "operationId" : "GetErrors",
-        "parameters" : [ {
-          "name" : "after",
-          "in" : "query",
-          "description" : "The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results.",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "limit",
-          "in" : "query",
-          "description" : "The maximum number of results to display per page.",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "integer",
-            "format" : "int32"
-          }
-        }, {
-          "name" : "importId",
-          "in" : "path",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "integer",
-            "format" : "int64"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/CollectionResponsePublicImportErrorForwardPaging"
-                }
-              }
-            }
-          },
-          "default" : {
-            "$ref" : "#/components/responses/Error"
-          }
-        },
-        "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "crm.import" ]
         } ]
       }
     }
@@ -265,17 +273,6 @@
           }
         }
       },
-      "Paging" : {
-        "type" : "object",
-        "properties" : {
-          "next" : {
-            "$ref" : "#/components/schemas/NextPage"
-          },
-          "prev" : {
-            "$ref" : "#/components/schemas/PreviousPage"
-          }
-        }
-      },
       "PublicObjectListRecord" : {
         "required" : [ "listId", "objectType" ],
         "type" : "object",
@@ -291,8 +288,19 @@
         },
         "description" : "A summary detailing which list contains the imported objects.",
         "example" : {
-          "listId" : "3",
-          "objectType" : "contacts"
+          "objectType" : "contacts",
+          "listId" : "3"
+        }
+      },
+      "Paging" : {
+        "type" : "object",
+        "properties" : {
+          "next" : {
+            "$ref" : "#/components/schemas/NextPage"
+          },
+          "prev" : {
+            "$ref" : "#/components/schemas/PreviousPage"
+          }
         }
       },
       "Error" : {
@@ -356,20 +364,40 @@
           }
         }
       },
-      "ImportRowCore" : {
-        "required" : [ "fileId", "lineNumber" ],
+      "ImportTemplate" : {
+        "required" : [ "templateId", "templateType" ],
         "type" : "object",
         "properties" : {
+          "templateType" : {
+            "type" : "string",
+            "enum" : [ "admin_defined", "previous_import", "user_file" ]
+          },
+          "templateId" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
+      },
+      "ImportRowCore" : {
+        "required" : [ "fileId", "lineNumber", "rowData" ],
+        "type" : "object",
+        "properties" : {
+          "lineNumber" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
           "fileId" : {
             "type" : "integer",
             "format" : "int32"
           },
+          "rowData" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
           "pageName" : {
             "type" : "string"
-          },
-          "lineNumber" : {
-            "type" : "integer",
-            "format" : "int32"
           }
         }
       },
@@ -445,16 +473,19 @@
         }
       },
       "PublicImportError" : {
-        "required" : [ "createdAt", "errorType", "id", "knownColumnNumber", "sourceData" ],
+        "required" : [ "createdAt", "errorType", "id", "sourceData" ],
         "type" : "object",
         "properties" : {
           "errorType" : {
             "type" : "string",
-            "enum" : [ "INCORRECT_NUMBER_OF_COLUMNS", "INVALID_OBJECT_ID", "INVALID_ASSOCIATION_IDENTIFIER", "NO_OBJECT_ID_FROM_ASSOCIATION_IDENTIFIER", "MULTIPLE_COMPANIES_WITH_THIS_DOMAIN", "PROPERTY_DEFINITION_NOT_FOUND", "PROPERTY_VALUE_NOT_FOUND", "COULD_NOT_FIND_OWNER", "MULTIPLE_OWNERS_FOUND", "COULD_NOT_PARSE_NUMBER", "COULD_NOT_PARSE_DATE", "COULD_NOT_PARSE_TERM", "OUTSIDE_VALID_TIME_RANGE", "OUTSIDE_VALID_TERM_RANGE", "COULD_NOT_PARSE_ROW", "INVALID_ENUMERATION_OPTION", "AMBIGUOUS_ENUMERATION_OPTION", "FAILED_VALIDATION", "FAILED_TO_CREATE_ASSOCIATION", "FILE_NOT_FOUND", "INVALID_COLUMN_CONFIGURATION", "INVALID_FILE_TYPE", "INVALID_SPREADSHEET", "INVALID_SHEET_COUNT", "FAILED_TO_PROCESS_OBJECT_WITH_EMPTY_PROPERTY_VALUES", "UNKNOWN_BAD_REQUEST", "GDPR_BLACKLISTED_EMAIL", "DUPLICATE_ASSOCIATION_ID", "LIMIT_EXCEEDED", "INVALID_ALTERNATE_ID", "INVALID_EMAIL", "INVALID_DOMAIN", "DUPLICATE_ROW_CONTENT", "INVALID_NUMBER_SIZE", "UNKNOWN_ERROR", "FAILED_TO_OPT_OUT_CONTACT", "INVALID_REQUIRED_PROPERTY", "DUPLICATE_ALTERNATE_ID", "DUPLICATE_OBJECT_ID", "DUPLICATE_UNIQUE_PROPERTY_VALUE" ]
+            "enum" : [ "INCORRECT_NUMBER_OF_COLUMNS", "INVALID_OBJECT_ID", "INVALID_ASSOCIATION_IDENTIFIER", "NO_OBJECT_ID_FROM_ASSOCIATION_IDENTIFIER", "MULTIPLE_COMPANIES_WITH_THIS_DOMAIN", "PROPERTY_DEFINITION_NOT_FOUND", "PROPERTY_VALUE_NOT_FOUND", "COULD_NOT_FIND_OWNER", "MULTIPLE_OWNERS_FOUND", "COULD_NOT_FIND_BUSINESS_UNIT", "COULD_NOT_PARSE_NUMBER", "COULD_NOT_PARSE_DATE", "COULD_NOT_PARSE_TERM", "OUTSIDE_VALID_TIME_RANGE", "OUTSIDE_VALID_TERM_RANGE", "COULD_NOT_PARSE_ROW", "INVALID_ENUMERATION_OPTION", "AMBIGUOUS_ENUMERATION_OPTION", "FAILED_VALIDATION", "FAILED_TO_CREATE_ASSOCIATION", "FILE_NOT_FOUND", "INVALID_COLUMN_CONFIGURATION", "INVALID_FILE_TYPE", "INVALID_SPREADSHEET", "INVALID_SHEET_COUNT", "FAILED_TO_PROCESS_OBJECT_WITH_EMPTY_PROPERTY_VALUES", "UNKNOWN_BAD_REQUEST", "GDPR_BLACKLISTED_EMAIL", "DUPLICATE_ASSOCIATION_ID", "LIMIT_EXCEEDED", "PORTAL_WIDE_CUSTOM_OBJECT_LIMIT_EXCEEDED", "INVALID_ALTERNATE_ID", "INVALID_EMAIL", "INVALID_DOMAIN", "DUPLICATE_ROW_CONTENT", "INVALID_NUMBER_SIZE", "UNKNOWN_ERROR", "FAILED_TO_OPT_OUT_CONTACT", "INVALID_REQUIRED_PROPERTY", "MISSING_REQUIRED_PROPERTY", "DUPLICATE_ALTERNATE_ID", "DUPLICATE_OBJECT_ID", "DUPLICATE_UNIQUE_PROPERTY_VALUE", "BLANK_VALUE_PROVIDED", "UNKNOWN_ASSOCIATION_RECORD_ID", "INVALID_RECORD_ID", "DUPLICATE_RECORD_ID", "INVALID_CUSTOM_PROPERTY_VALIDATION", "CREATE_ONLY_IMPORT", "UPDATE_ONLY_IMPORT", "COLUMN_TOO_LARGE", "ROW_DATA_TOO_LARGE", "INVALID_EVENT_TIMESTAMP", "INVALID_EVENT", "DUPLICATE_EVENT", "MISSING_EVENT_DEFINITION" ]
+          },
+          "sourceData" : {
+            "$ref" : "#/components/schemas/ImportRowCore"
           },
           "objectType" : {
             "type" : "string",
-            "enum" : [ "CONTACT", "COMPANY", "DEAL", "ENGAGEMENT", "TICKET", "OWNER", "PRODUCT", "LINE_ITEM", "BET_DELIVERABLE_SERVICE", "CONTENT", "CONVERSATION", "BET_ALERT", "PORTAL", "QUOTE", "FORM_SUBMISSION_INBOUNDDB", "QUOTA", "UNSUBSCRIBE", "COMMUNICATION", "FEEDBACK_SUBMISSION", "ATTRIBUTION", "SALESFORCE_SYNC_ERROR", "RESTORABLE_CRM_OBJECT", "HUB", "LANDING_PAGE", "PRODUCT_OR_FOLDER", "TASK", "FORM", "MARKETING_EMAIL", "AD_ACCOUNT", "AD_CAMPAIGN", "AD_GROUP", "AD", "KEYWORD", "CAMPAIGN", "SOCIAL_CHANNEL", "SOCIAL_POST", "SITE_PAGE", "BLOG_POST", "IMPORT", "EXPORT", "CTA", "TASK_TEMPLATE", "AUTOMATION_PLATFORM_FLOW", "OBJECT_LIST", "NOTE", "MEETING_EVENT", "CALL", "EMAIL", "PUBLISHING_TASK", "CONVERSATION_SESSION", "CONTACT_CREATE_ATTRIBUTION", "INVOICE", "MARKETING_EVENT", "CONVERSATION_INBOX", "CHATFLOW", "MEDIA_BRIDGE", "SEQUENCE", "SEQUENCE_STEP", "FORECAST", "SNIPPET", "TEMPLATE", "DEAL_CREATE_ATTRIBUTION", "QUOTE_TEMPLATE", "QUOTE_MODULE", "QUOTE_MODULE_FIELD", "QUOTE_FIELD", "SEQUENCE_ENROLLMENT", "SUBSCRIPTION", "ACCEPTANCE_TEST", "SOCIAL_BROADCAST", "DEAL_SPLIT", "DEAL_REGISTRATION", "GOAL_TARGET", "GOAL_TARGET_GROUP", "PORTAL_OBJECT_SYNC_MESSAGE", "FILE_MANAGER_FILE", "FILE_MANAGER_FOLDER", "SEQUENCE_STEP_ENROLLMENT", "APPROVAL", "APPROVAL_STEP", "CTA_VARIANT", "UNKNOWN" ]
+            "enum" : [ "CONTACT", "COMPANY", "DEAL", "ENGAGEMENT", "TICKET", "OWNER", "PRODUCT", "LINE_ITEM", "BET_DELIVERABLE_SERVICE", "CONTENT", "CONVERSATION", "BET_ALERT", "PORTAL", "QUOTE", "FORM_SUBMISSION_INBOUNDDB", "QUOTA", "UNSUBSCRIBE", "COMMUNICATION", "FEEDBACK_SUBMISSION", "ATTRIBUTION", "SALESFORCE_SYNC_ERROR", "RESTORABLE_CRM_OBJECT", "HUB", "LANDING_PAGE", "PRODUCT_OR_FOLDER", "TASK", "FORM", "MARKETING_EMAIL", "AD_ACCOUNT", "AD_CAMPAIGN", "AD_GROUP", "AD", "KEYWORD", "CAMPAIGN", "SOCIAL_CHANNEL", "SOCIAL_POST", "SITE_PAGE", "BLOG_POST", "IMPORT", "EXPORT", "CTA", "TASK_TEMPLATE", "AUTOMATION_PLATFORM_FLOW", "OBJECT_LIST", "NOTE", "MEETING_EVENT", "CALL", "EMAIL", "PUBLISHING_TASK", "CONVERSATION_SESSION", "CONTACT_CREATE_ATTRIBUTION", "INVOICE", "MARKETING_EVENT", "CONVERSATION_INBOX", "CHATFLOW", "MEDIA_BRIDGE", "SEQUENCE", "SEQUENCE_STEP", "FORECAST", "SNIPPET", "TEMPLATE", "DEAL_CREATE_ATTRIBUTION", "QUOTE_TEMPLATE", "QUOTE_MODULE", "QUOTE_MODULE_FIELD", "QUOTE_FIELD", "SEQUENCE_ENROLLMENT", "SUBSCRIPTION", "ACCEPTANCE_TEST", "SOCIAL_BROADCAST", "DEAL_SPLIT", "DEAL_REGISTRATION", "GOAL_TARGET", "GOAL_TARGET_GROUP", "PORTAL_OBJECT_SYNC_MESSAGE", "FILE_MANAGER_FILE", "FILE_MANAGER_FOLDER", "SEQUENCE_STEP_ENROLLMENT", "APPROVAL", "APPROVAL_STEP", "CTA_VARIANT", "SALES_DOCUMENT", "DISCOUNT", "FEE", "TAX", "MARKETING_CALENDAR", "PERMISSIONS_TESTING", "PRIVACY_SCANNER_COOKIE", "DATA_SYNC_STATE", "WEB_INTERACTIVE", "PLAYBOOK", "FOLDER", "PLAYBOOK_QUESTION", "PLAYBOOK_SUBMISSION", "PLAYBOOK_SUBMISSION_ANSWER", "COMMERCE_PAYMENT", "GSC_PROPERTY", "SOX_PROTECTED_DUMMY_TYPE", "BLOG_LISTING_PAGE", "QUARANTINED_SUBMISSION", "PAYMENT_SCHEDULE", "PAYMENT_SCHEDULE_INSTALLMENT", "MARKETING_CAMPAIGN_UTM", "DISCOUNT_TEMPLATE", "DISCOUNT_CODE", "FEEDBACK_SURVEY", "CMS_URL", "SALES_TASK", "SALES_WORKLOAD", "USER", "POSTAL_MAIL", "SCHEMAS_BACKEND_TEST", "PAYMENT_LINK", "SUBMISSION_TAG", "CAMPAIGN_STEP", "SCHEDULING_PAGE", "SOX_PROTECTED_TEST_TYPE", "ORDER", "MARKETING_SMS", "PARTNER_ACCOUNT", "CAMPAIGN_TEMPLATE", "CAMPAIGN_TEMPLATE_STEP", "PLAYLIST", "CLIP", "CAMPAIGN_BUDGET_ITEM", "CAMPAIGN_SPEND_ITEM", "MIC", "CONTENT_AUDIT", "CONTENT_AUDIT_PAGE", "PLAYLIST_FOLDER", "LEAD", "ABANDONED_CART", "EXTERNAL_WEB_URL", "VIEW", "VIEW_BLOCK", "ROSTER", "CART", "AUTOMATION_PLATFORM_FLOW_ACTION", "SOCIAL_PROFILE", "PARTNER_CLIENT", "ROSTER_MEMBER", "MARKETING_EVENT_ATTENDANCE", "ALL_PAGES", "AI_FORECAST", "CRM_PIPELINES_DUMMY_TYPE", "UNKNOWN" ]
           },
           "invalidValue" : {
             "type" : "string"
@@ -468,9 +499,6 @@
           "knownColumnNumber" : {
             "type" : "integer",
             "format" : "int32"
-          },
-          "sourceData" : {
-            "$ref" : "#/components/schemas/ImportRowCore"
           },
           "createdAt" : {
             "type" : "integer",
@@ -522,18 +550,18 @@
         },
         "description" : "An object detailing a summary of the import record outputs",
         "example" : {
-          "counters" : {
-            "PROPERTY_VALUES_EMITTED" : 2,
-            "TOTAL_ROWS" : 2,
-            "UPDATED_OBJECTS" : 1,
-            "UNIQUE_OBJECTS_WRITTEN" : 2,
-            "CREATED_OBJECTS" : 1
-          },
-          "fileIds" : [ "3579849" ],
           "objectLists" : [ {
             "objectType" : "contacts",
             "listId" : "3"
-          } ]
+          } ],
+          "counters" : {
+            "TOTAL_ROWS" : 2,
+            "PROPERTY_VALUES_EMITTED" : 2,
+            "CREATED_OBJECTS" : 1,
+            "UPDATED_OBJECTS" : 1,
+            "UNIQUE_OBJECTS_WRITTEN" : 2
+          },
+          "fileIds" : [ "3579849" ]
         }
       },
       "CollectionResponsePublicImportErrorForwardPaging" : {
@@ -558,11 +586,18 @@
           "state" : {
             "type" : "string",
             "description" : "The status of the import.",
-            "enum" : [ "STARTED", "PROCESSING", "DONE", "FAILED", "CANCELED", "DEFERRED" ]
+            "enum" : [ "STARTED", "PROCESSING", "DONE", "FAILED", "CANCELED", "DEFERRED", "REVERTED" ]
+          },
+          "importTemplate" : {
+            "$ref" : "#/components/schemas/ImportTemplate"
           },
           "importRequestJson" : {
             "type" : "object",
             "properties" : { }
+          },
+          "importSource" : {
+            "type" : "string",
+            "enum" : [ "API", "CRM_UI", "IMPORT", "MOBILE_ANDROID", "MOBILE_IOS", "SALESFORCE" ]
           },
           "createdAt" : {
             "type" : "string",
@@ -588,24 +623,24 @@
         },
         "description" : "A current summary of the import, whether complete or not.",
         "example" : {
+          "id" : "1471",
           "createdAt" : "2020-01-14T22:45:00.153Z",
+          "updatedAt" : "2020-01-14T22:45:00.153Z",
+          "state" : "DONE",
+          "optOutImport" : false,
           "metadata" : {
-            "counters" : {
-              "PROPERTY_VALUES_EMITTED" : 1000,
-              "TOTAL_ROWS" : 1000,
-              "UNIQUE_OBJECTS_WRITTEN" : 1000,
-              "CREATED_OBJECTS" : 1000
-            },
-            "fileIds" : [ "32938649" ],
             "objectLists" : [ {
               "objectType" : "contacts",
               "listId" : "3"
-            } ]
-          },
-          "id" : "1471",
-          "state" : "DONE",
-          "optOutImport" : false,
-          "updatedAt" : "2020-01-14T22:45:00.153Z"
+            } ],
+            "counters" : {
+              "TOTAL_ROWS" : 1000,
+              "PROPERTY_VALUES_EMITTED" : 1000,
+              "CREATED_OBJECTS" : 1000,
+              "UNIQUE_OBJECTS_WRITTEN" : 1000
+            },
+            "fileIds" : [ "32938649" ]
+          }
         }
       },
       "NextPage" : {
@@ -646,12 +681,19 @@
           }
         }
       },
-      "hapikey" : {
+      "private_apps_legacy" : {
         "type" : "apiKey",
-        "name" : "hapikey",
-        "in" : "query"
+        "name" : "private-app-legacy",
+        "in" : "header"
       }
     }
   },
-  "x-hubspot-available-client-libraries" : [ "PHP", "Node", "Python", "Ruby" ]
+  "x-hubspot-available-client-libraries" : [ "PHP", "Node", "Ruby", "Python" ],
+  "x-hubspot-product-tier-requirements" : {
+    "marketing" : "FREE",
+    "sales" : "FREE",
+    "service" : "FREE",
+    "cms" : "FREE"
+  },
+  "x-hubspot-documentation-banner" : "NONE"
 }

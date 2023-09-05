@@ -6,19 +6,19 @@
     "version" : "v3"
   },
   "servers" : [ {
-    "url" : "https://api.hubapi.com/"
+    "url" : "https://api.hubapi.com"
   } ],
   "tags" : [ {
-    "name" : "Generate",
-    "description" : "Operations to generate a token"
+    "name" : "Generate"
   } ],
   "paths" : {
-    "/conversations/v3/visitor-identification/tokens/create" : {
+    "/visitor-identification/v3/tokens/create" : {
       "post" : {
         "tags" : [ "Generate" ],
         "summary" : "Generate a token",
         "description" : "Generates a new visitor identification token. This token will be unique every time this endpoint is called, even if called with the same email address. This token is temporary and will expire after 12 hours",
         "operationId" : "GenerateToken",
+        "parameters" : [ ],
         "requestBody" : {
           "content" : {
             "application/json" : {
@@ -45,9 +45,9 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
-        }, {
           "oauth2_legacy" : [ "conversations.visitor_identification.tokens.create" ]
+        }, {
+          "private_apps_legacy" : [ "conversations.visitor_identification.tokens.create" ]
         } ]
       }
     }
@@ -213,12 +213,19 @@
           }
         }
       },
-      "hapikey" : {
+      "private_apps_legacy" : {
         "type" : "apiKey",
-        "name" : "hapikey",
-        "in" : "query"
+        "name" : "private-app-legacy",
+        "in" : "header"
       }
     }
   },
-  "x-hubspot-available-client-libraries" : [ "PHP", "Node", "Python", "Ruby" ]
+  "x-hubspot-available-client-libraries" : [ "PHP", "Node", "Ruby", "Python" ],
+  "x-hubspot-product-tier-requirements" : {
+    "marketing" : "FREE",
+    "sales" : "FREE",
+    "service" : "FREE",
+    "cms" : "FREE"
+  },
+  "x-hubspot-documentation-banner" : "NONE"
 }

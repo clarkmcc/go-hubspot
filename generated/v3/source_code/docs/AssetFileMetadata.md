@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **UpdatedAt** | **int32** | Timestamp of when the object was last updated. | 
 **CreatedAt** | **int32** | Timestamp of when the object was first created. | 
 **ArchivedAt** | Pointer to **int64** | Timestamp of when the object was archived (deleted). | [optional] 
+**Hash** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -180,6 +181,31 @@ SetArchivedAt sets ArchivedAt field to given value.
 `func (o *AssetFileMetadata) HasArchivedAt() bool`
 
 HasArchivedAt returns a boolean if a field has been set.
+
+### GetHash
+
+`func (o *AssetFileMetadata) GetHash() string`
+
+GetHash returns the Hash field if non-nil, zero value otherwise.
+
+### GetHashOk
+
+`func (o *AssetFileMetadata) GetHashOk() (*string, bool)`
+
+GetHashOk returns a tuple with the Hash field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHash
+
+`func (o *AssetFileMetadata) SetHash(v string)`
+
+SetHash sets Hash field to given value.
+
+### HasHash
+
+`func (o *AssetFileMetadata) HasHash() bool`
+
+HasHash returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

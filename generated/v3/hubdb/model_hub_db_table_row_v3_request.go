@@ -23,7 +23,8 @@ type HubDbTableRowV3Request struct {
 	// Specifies the value for the column child table id
 	ChildTableId *int32 `json:"childTableId,omitempty"`
 	// List of key value pairs with the column name and column value
-	Values map[string]map[string]interface{} `json:"values"`
+	Values       map[string]map[string]interface{} `json:"values"`
+	DisplayIndex *int32                            `json:"displayIndex,omitempty"`
 }
 
 // NewHubDbTableRowV3Request instantiates a new HubDbTableRowV3Request object
@@ -164,6 +165,38 @@ func (o *HubDbTableRowV3Request) SetValues(v map[string]map[string]interface{}) 
 	o.Values = v
 }
 
+// GetDisplayIndex returns the DisplayIndex field value if set, zero value otherwise.
+func (o *HubDbTableRowV3Request) GetDisplayIndex() int32 {
+	if o == nil || o.DisplayIndex == nil {
+		var ret int32
+		return ret
+	}
+	return *o.DisplayIndex
+}
+
+// GetDisplayIndexOk returns a tuple with the DisplayIndex field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *HubDbTableRowV3Request) GetDisplayIndexOk() (*int32, bool) {
+	if o == nil || o.DisplayIndex == nil {
+		return nil, false
+	}
+	return o.DisplayIndex, true
+}
+
+// HasDisplayIndex returns a boolean if a field has been set.
+func (o *HubDbTableRowV3Request) HasDisplayIndex() bool {
+	if o != nil && o.DisplayIndex != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDisplayIndex gets a reference to the given int32 and assigns it to the DisplayIndex field.
+func (o *HubDbTableRowV3Request) SetDisplayIndex(v int32) {
+	o.DisplayIndex = &v
+}
+
 func (o HubDbTableRowV3Request) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Path != nil {
@@ -177,6 +210,9 @@ func (o HubDbTableRowV3Request) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["values"] = o.Values
+	}
+	if o.DisplayIndex != nil {
+		toSerialize["displayIndex"] = o.DisplayIndex
 	}
 	return json.Marshal(toSerialize)
 }

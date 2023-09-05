@@ -26,28 +26,28 @@ type HubDbTableV3 struct {
 	// List of columns in the table
 	Columns   []Column `json:"columns,omitempty"`
 	Published *bool    `json:"published,omitempty"`
+	Deleted   *bool    `json:"deleted,omitempty"`
 	// Number of columns including deleted
 	ColumnCount *int32 `json:"columnCount,omitempty"`
 	// Number of rows in the table
 	RowCount  *int32      `json:"rowCount,omitempty"`
 	CreatedBy *SimpleUser `json:"createdBy,omitempty"`
 	UpdatedBy *SimpleUser `json:"updatedBy,omitempty"`
-	// Timestamp at which the table is published recently
-	PublishedAt *time.Time `json:"publishedAt,omitempty"`
-	// Specifies the key value pairs of the metadata fields with the associated column ids
-	DynamicMetaTags *map[string]int32 `json:"dynamicMetaTags,omitempty"`
-	// Timestamp at which the table is created
-	CreatedAt *time.Time `json:"createdAt,omitempty"`
-	// Specifies whether table is archived or not
-	Archived *bool `json:"archived,omitempty"`
-	// Specifies whether the table can be read by public without authorization
-	AllowPublicApiAccess *bool `json:"allowPublicApiAccess,omitempty"`
 	// Specifies whether the table can be used for creation of dynamic pages
 	UseForPages *bool `json:"useForPages,omitempty"`
-	// Specifies creation of multi-level dynamic pages using child tables
-	EnableChildTablePages *bool `json:"enableChildTablePages,omitempty"`
 	// Specifies whether child tables can be created
 	AllowChildTables *bool `json:"allowChildTables,omitempty"`
+	// Specifies creation of multi-level dynamic pages using child tables
+	EnableChildTablePages *bool `json:"enableChildTablePages,omitempty"`
+	IsOrderedManually     *bool `json:"isOrderedManually,omitempty"`
+	// Specifies the key value pairs of the metadata fields with the associated column ids
+	DynamicMetaTags *map[string]int32 `json:"dynamicMetaTags,omitempty"`
+	// Specifies whether the table can be read by public without authorization
+	AllowPublicApiAccess *bool `json:"allowPublicApiAccess,omitempty"`
+	// Timestamp at which the table is created
+	CreatedAt *time.Time `json:"createdAt,omitempty"`
+	// Timestamp at which the table is published recently
+	PublishedAt *time.Time `json:"publishedAt,omitempty"`
 	// Timestamp at which the table is updated recently
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 }
@@ -215,6 +215,38 @@ func (o *HubDbTableV3) SetPublished(v bool) {
 	o.Published = &v
 }
 
+// GetDeleted returns the Deleted field value if set, zero value otherwise.
+func (o *HubDbTableV3) GetDeleted() bool {
+	if o == nil || o.Deleted == nil {
+		var ret bool
+		return ret
+	}
+	return *o.Deleted
+}
+
+// GetDeletedOk returns a tuple with the Deleted field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *HubDbTableV3) GetDeletedOk() (*bool, bool) {
+	if o == nil || o.Deleted == nil {
+		return nil, false
+	}
+	return o.Deleted, true
+}
+
+// HasDeleted returns a boolean if a field has been set.
+func (o *HubDbTableV3) HasDeleted() bool {
+	if o != nil && o.Deleted != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDeleted gets a reference to the given bool and assigns it to the Deleted field.
+func (o *HubDbTableV3) SetDeleted(v bool) {
+	o.Deleted = &v
+}
+
 // GetColumnCount returns the ColumnCount field value if set, zero value otherwise.
 func (o *HubDbTableV3) GetColumnCount() int32 {
 	if o == nil || o.ColumnCount == nil {
@@ -343,166 +375,6 @@ func (o *HubDbTableV3) SetUpdatedBy(v SimpleUser) {
 	o.UpdatedBy = &v
 }
 
-// GetPublishedAt returns the PublishedAt field value if set, zero value otherwise.
-func (o *HubDbTableV3) GetPublishedAt() time.Time {
-	if o == nil || o.PublishedAt == nil {
-		var ret time.Time
-		return ret
-	}
-	return *o.PublishedAt
-}
-
-// GetPublishedAtOk returns a tuple with the PublishedAt field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *HubDbTableV3) GetPublishedAtOk() (*time.Time, bool) {
-	if o == nil || o.PublishedAt == nil {
-		return nil, false
-	}
-	return o.PublishedAt, true
-}
-
-// HasPublishedAt returns a boolean if a field has been set.
-func (o *HubDbTableV3) HasPublishedAt() bool {
-	if o != nil && o.PublishedAt != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetPublishedAt gets a reference to the given time.Time and assigns it to the PublishedAt field.
-func (o *HubDbTableV3) SetPublishedAt(v time.Time) {
-	o.PublishedAt = &v
-}
-
-// GetDynamicMetaTags returns the DynamicMetaTags field value if set, zero value otherwise.
-func (o *HubDbTableV3) GetDynamicMetaTags() map[string]int32 {
-	if o == nil || o.DynamicMetaTags == nil {
-		var ret map[string]int32
-		return ret
-	}
-	return *o.DynamicMetaTags
-}
-
-// GetDynamicMetaTagsOk returns a tuple with the DynamicMetaTags field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *HubDbTableV3) GetDynamicMetaTagsOk() (*map[string]int32, bool) {
-	if o == nil || o.DynamicMetaTags == nil {
-		return nil, false
-	}
-	return o.DynamicMetaTags, true
-}
-
-// HasDynamicMetaTags returns a boolean if a field has been set.
-func (o *HubDbTableV3) HasDynamicMetaTags() bool {
-	if o != nil && o.DynamicMetaTags != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetDynamicMetaTags gets a reference to the given map[string]int32 and assigns it to the DynamicMetaTags field.
-func (o *HubDbTableV3) SetDynamicMetaTags(v map[string]int32) {
-	o.DynamicMetaTags = &v
-}
-
-// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *HubDbTableV3) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
-		var ret time.Time
-		return ret
-	}
-	return *o.CreatedAt
-}
-
-// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *HubDbTableV3) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
-		return nil, false
-	}
-	return o.CreatedAt, true
-}
-
-// HasCreatedAt returns a boolean if a field has been set.
-func (o *HubDbTableV3) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
-func (o *HubDbTableV3) SetCreatedAt(v time.Time) {
-	o.CreatedAt = &v
-}
-
-// GetArchived returns the Archived field value if set, zero value otherwise.
-func (o *HubDbTableV3) GetArchived() bool {
-	if o == nil || o.Archived == nil {
-		var ret bool
-		return ret
-	}
-	return *o.Archived
-}
-
-// GetArchivedOk returns a tuple with the Archived field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *HubDbTableV3) GetArchivedOk() (*bool, bool) {
-	if o == nil || o.Archived == nil {
-		return nil, false
-	}
-	return o.Archived, true
-}
-
-// HasArchived returns a boolean if a field has been set.
-func (o *HubDbTableV3) HasArchived() bool {
-	if o != nil && o.Archived != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetArchived gets a reference to the given bool and assigns it to the Archived field.
-func (o *HubDbTableV3) SetArchived(v bool) {
-	o.Archived = &v
-}
-
-// GetAllowPublicApiAccess returns the AllowPublicApiAccess field value if set, zero value otherwise.
-func (o *HubDbTableV3) GetAllowPublicApiAccess() bool {
-	if o == nil || o.AllowPublicApiAccess == nil {
-		var ret bool
-		return ret
-	}
-	return *o.AllowPublicApiAccess
-}
-
-// GetAllowPublicApiAccessOk returns a tuple with the AllowPublicApiAccess field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *HubDbTableV3) GetAllowPublicApiAccessOk() (*bool, bool) {
-	if o == nil || o.AllowPublicApiAccess == nil {
-		return nil, false
-	}
-	return o.AllowPublicApiAccess, true
-}
-
-// HasAllowPublicApiAccess returns a boolean if a field has been set.
-func (o *HubDbTableV3) HasAllowPublicApiAccess() bool {
-	if o != nil && o.AllowPublicApiAccess != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAllowPublicApiAccess gets a reference to the given bool and assigns it to the AllowPublicApiAccess field.
-func (o *HubDbTableV3) SetAllowPublicApiAccess(v bool) {
-	o.AllowPublicApiAccess = &v
-}
-
 // GetUseForPages returns the UseForPages field value if set, zero value otherwise.
 func (o *HubDbTableV3) GetUseForPages() bool {
 	if o == nil || o.UseForPages == nil {
@@ -533,6 +405,38 @@ func (o *HubDbTableV3) HasUseForPages() bool {
 // SetUseForPages gets a reference to the given bool and assigns it to the UseForPages field.
 func (o *HubDbTableV3) SetUseForPages(v bool) {
 	o.UseForPages = &v
+}
+
+// GetAllowChildTables returns the AllowChildTables field value if set, zero value otherwise.
+func (o *HubDbTableV3) GetAllowChildTables() bool {
+	if o == nil || o.AllowChildTables == nil {
+		var ret bool
+		return ret
+	}
+	return *o.AllowChildTables
+}
+
+// GetAllowChildTablesOk returns a tuple with the AllowChildTables field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *HubDbTableV3) GetAllowChildTablesOk() (*bool, bool) {
+	if o == nil || o.AllowChildTables == nil {
+		return nil, false
+	}
+	return o.AllowChildTables, true
+}
+
+// HasAllowChildTables returns a boolean if a field has been set.
+func (o *HubDbTableV3) HasAllowChildTables() bool {
+	if o != nil && o.AllowChildTables != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAllowChildTables gets a reference to the given bool and assigns it to the AllowChildTables field.
+func (o *HubDbTableV3) SetAllowChildTables(v bool) {
+	o.AllowChildTables = &v
 }
 
 // GetEnableChildTablePages returns the EnableChildTablePages field value if set, zero value otherwise.
@@ -567,36 +471,164 @@ func (o *HubDbTableV3) SetEnableChildTablePages(v bool) {
 	o.EnableChildTablePages = &v
 }
 
-// GetAllowChildTables returns the AllowChildTables field value if set, zero value otherwise.
-func (o *HubDbTableV3) GetAllowChildTables() bool {
-	if o == nil || o.AllowChildTables == nil {
+// GetIsOrderedManually returns the IsOrderedManually field value if set, zero value otherwise.
+func (o *HubDbTableV3) GetIsOrderedManually() bool {
+	if o == nil || o.IsOrderedManually == nil {
 		var ret bool
 		return ret
 	}
-	return *o.AllowChildTables
+	return *o.IsOrderedManually
 }
 
-// GetAllowChildTablesOk returns a tuple with the AllowChildTables field value if set, nil otherwise
+// GetIsOrderedManuallyOk returns a tuple with the IsOrderedManually field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *HubDbTableV3) GetAllowChildTablesOk() (*bool, bool) {
-	if o == nil || o.AllowChildTables == nil {
+func (o *HubDbTableV3) GetIsOrderedManuallyOk() (*bool, bool) {
+	if o == nil || o.IsOrderedManually == nil {
 		return nil, false
 	}
-	return o.AllowChildTables, true
+	return o.IsOrderedManually, true
 }
 
-// HasAllowChildTables returns a boolean if a field has been set.
-func (o *HubDbTableV3) HasAllowChildTables() bool {
-	if o != nil && o.AllowChildTables != nil {
+// HasIsOrderedManually returns a boolean if a field has been set.
+func (o *HubDbTableV3) HasIsOrderedManually() bool {
+	if o != nil && o.IsOrderedManually != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetAllowChildTables gets a reference to the given bool and assigns it to the AllowChildTables field.
-func (o *HubDbTableV3) SetAllowChildTables(v bool) {
-	o.AllowChildTables = &v
+// SetIsOrderedManually gets a reference to the given bool and assigns it to the IsOrderedManually field.
+func (o *HubDbTableV3) SetIsOrderedManually(v bool) {
+	o.IsOrderedManually = &v
+}
+
+// GetDynamicMetaTags returns the DynamicMetaTags field value if set, zero value otherwise.
+func (o *HubDbTableV3) GetDynamicMetaTags() map[string]int32 {
+	if o == nil || o.DynamicMetaTags == nil {
+		var ret map[string]int32
+		return ret
+	}
+	return *o.DynamicMetaTags
+}
+
+// GetDynamicMetaTagsOk returns a tuple with the DynamicMetaTags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *HubDbTableV3) GetDynamicMetaTagsOk() (*map[string]int32, bool) {
+	if o == nil || o.DynamicMetaTags == nil {
+		return nil, false
+	}
+	return o.DynamicMetaTags, true
+}
+
+// HasDynamicMetaTags returns a boolean if a field has been set.
+func (o *HubDbTableV3) HasDynamicMetaTags() bool {
+	if o != nil && o.DynamicMetaTags != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDynamicMetaTags gets a reference to the given map[string]int32 and assigns it to the DynamicMetaTags field.
+func (o *HubDbTableV3) SetDynamicMetaTags(v map[string]int32) {
+	o.DynamicMetaTags = &v
+}
+
+// GetAllowPublicApiAccess returns the AllowPublicApiAccess field value if set, zero value otherwise.
+func (o *HubDbTableV3) GetAllowPublicApiAccess() bool {
+	if o == nil || o.AllowPublicApiAccess == nil {
+		var ret bool
+		return ret
+	}
+	return *o.AllowPublicApiAccess
+}
+
+// GetAllowPublicApiAccessOk returns a tuple with the AllowPublicApiAccess field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *HubDbTableV3) GetAllowPublicApiAccessOk() (*bool, bool) {
+	if o == nil || o.AllowPublicApiAccess == nil {
+		return nil, false
+	}
+	return o.AllowPublicApiAccess, true
+}
+
+// HasAllowPublicApiAccess returns a boolean if a field has been set.
+func (o *HubDbTableV3) HasAllowPublicApiAccess() bool {
+	if o != nil && o.AllowPublicApiAccess != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAllowPublicApiAccess gets a reference to the given bool and assigns it to the AllowPublicApiAccess field.
+func (o *HubDbTableV3) SetAllowPublicApiAccess(v bool) {
+	o.AllowPublicApiAccess = &v
+}
+
+// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
+func (o *HubDbTableV3) GetCreatedAt() time.Time {
+	if o == nil || o.CreatedAt == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.CreatedAt
+}
+
+// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *HubDbTableV3) GetCreatedAtOk() (*time.Time, bool) {
+	if o == nil || o.CreatedAt == nil {
+		return nil, false
+	}
+	return o.CreatedAt, true
+}
+
+// HasCreatedAt returns a boolean if a field has been set.
+func (o *HubDbTableV3) HasCreatedAt() bool {
+	if o != nil && o.CreatedAt != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
+func (o *HubDbTableV3) SetCreatedAt(v time.Time) {
+	o.CreatedAt = &v
+}
+
+// GetPublishedAt returns the PublishedAt field value if set, zero value otherwise.
+func (o *HubDbTableV3) GetPublishedAt() time.Time {
+	if o == nil || o.PublishedAt == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.PublishedAt
+}
+
+// GetPublishedAtOk returns a tuple with the PublishedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *HubDbTableV3) GetPublishedAtOk() (*time.Time, bool) {
+	if o == nil || o.PublishedAt == nil {
+		return nil, false
+	}
+	return o.PublishedAt, true
+}
+
+// HasPublishedAt returns a boolean if a field has been set.
+func (o *HubDbTableV3) HasPublishedAt() bool {
+	if o != nil && o.PublishedAt != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPublishedAt gets a reference to the given time.Time and assigns it to the PublishedAt field.
+func (o *HubDbTableV3) SetPublishedAt(v time.Time) {
+	o.PublishedAt = &v
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
@@ -648,6 +680,9 @@ func (o HubDbTableV3) MarshalJSON() ([]byte, error) {
 	if o.Published != nil {
 		toSerialize["published"] = o.Published
 	}
+	if o.Deleted != nil {
+		toSerialize["deleted"] = o.Deleted
+	}
 	if o.ColumnCount != nil {
 		toSerialize["columnCount"] = o.ColumnCount
 	}
@@ -660,29 +695,29 @@ func (o HubDbTableV3) MarshalJSON() ([]byte, error) {
 	if o.UpdatedBy != nil {
 		toSerialize["updatedBy"] = o.UpdatedBy
 	}
-	if o.PublishedAt != nil {
-		toSerialize["publishedAt"] = o.PublishedAt
-	}
-	if o.DynamicMetaTags != nil {
-		toSerialize["dynamicMetaTags"] = o.DynamicMetaTags
-	}
-	if o.CreatedAt != nil {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
-	if o.Archived != nil {
-		toSerialize["archived"] = o.Archived
-	}
-	if o.AllowPublicApiAccess != nil {
-		toSerialize["allowPublicApiAccess"] = o.AllowPublicApiAccess
-	}
 	if o.UseForPages != nil {
 		toSerialize["useForPages"] = o.UseForPages
+	}
+	if o.AllowChildTables != nil {
+		toSerialize["allowChildTables"] = o.AllowChildTables
 	}
 	if o.EnableChildTablePages != nil {
 		toSerialize["enableChildTablePages"] = o.EnableChildTablePages
 	}
-	if o.AllowChildTables != nil {
-		toSerialize["allowChildTables"] = o.AllowChildTables
+	if o.IsOrderedManually != nil {
+		toSerialize["isOrderedManually"] = o.IsOrderedManually
+	}
+	if o.DynamicMetaTags != nil {
+		toSerialize["dynamicMetaTags"] = o.DynamicMetaTags
+	}
+	if o.AllowPublicApiAccess != nil {
+		toSerialize["allowPublicApiAccess"] = o.AllowPublicApiAccess
+	}
+	if o.CreatedAt != nil {
+		toSerialize["createdAt"] = o.CreatedAt
+	}
+	if o.PublishedAt != nil {
+		toSerialize["publishedAt"] = o.PublishedAt
 	}
 	if o.UpdatedAt != nil {
 		toSerialize["updatedAt"] = o.UpdatedAt

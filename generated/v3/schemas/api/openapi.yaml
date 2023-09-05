@@ -40,7 +40,10 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
+      - private_apps_legacy:
+        - crm.objects.custom.read
+      - private_apps_legacy:
+        - crm.schemas.custom.read
       - oauth2_legacy:
         - crm.objects.custom.read
       - oauth2_legacy:
@@ -74,7 +77,11 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
+      - private_apps_legacy:
+        - crm.schemas.custom.write
+        - crm.objects.custom.write
+      - private_apps_legacy:
+        - crm.schemas.custom.write
       summary: Create a new schema
       tags:
       - Core
@@ -112,7 +119,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
+      - private_apps_legacy:
+        - crm.schemas.custom.write
       summary: Delete a schema
       tags:
       - Core
@@ -142,7 +150,10 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
+      - private_apps_legacy:
+        - crm.objects.custom.read
+      - private_apps_legacy:
+        - crm.schemas.custom.read
       - oauth2_legacy:
         - crm.objects.custom.read
       - oauth2_legacy:
@@ -183,7 +194,11 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
+      - private_apps_legacy:
+        - crm.schemas.custom.write
+        - crm.objects.custom.write
+      - private_apps_legacy:
+        - crm.schemas.custom.write
       summary: Update a schema
       tags:
       - Core
@@ -222,7 +237,11 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
+      - private_apps_legacy:
+        - crm.schemas.custom.write
+        - crm.objects.custom.write
+      - private_apps_legacy:
+        - crm.schemas.custom.write
       summary: Create an association
       tags:
       - Core
@@ -258,7 +277,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
+      - private_apps_legacy:
+        - crm.schemas.custom.write
       summary: Remove an association
       tags:
       - Core
@@ -285,7 +305,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
+      - private_apps_legacy:
+        - crm.schemas.custom.write
       tags:
       - Public_Object_Schemas
 components:
@@ -332,81 +353,6 @@ components:
           type: array
         restorable:
           type: boolean
-      type: object
-    CollectionResponseObjectSchemaNoPaging:
-      example:
-        results:
-        - id: "123456"
-          createdAt: 2020-02-20T18:07:11.390Z
-          updatedAt: 2020-02-20T18:09:07.555Z
-          properties:
-          - updatedAt: 2020-02-20T18:07:11.802Z
-            createdAt: 2020-02-20T18:07:11.802Z
-            name: my_object_property
-            label: My object property
-            type: string
-            fieldType: text
-            groupName: my_object_information
-            displayOrder: -1
-            calculated: false
-            externalOptions: false
-            archived: false
-            hasUniqueValue: false
-          associations:
-          - id: "123"
-            fromObjectTypeId: 2-123456
-            toObjectTypeId: 0-1
-            name: my_object_to_contact
-          labels:
-            singular: My object
-            plural: My objects
-          requiredProperties:
-          - my_object_property
-          searchableProperties:
-          - my_object_property
-          primaryDisplayProperty: my_object_property
-          metaType: PORTAL_SPECIFIC
-          fullyQualifiedName: p7878787_my_object"
-          name: my_object
-        - id: "123456"
-          createdAt: 2020-02-20T18:07:11.390Z
-          updatedAt: 2020-02-20T18:09:07.555Z
-          properties:
-          - updatedAt: 2020-02-20T18:07:11.802Z
-            createdAt: 2020-02-20T18:07:11.802Z
-            name: my_object_property
-            label: My object property
-            type: string
-            fieldType: text
-            groupName: my_object_information
-            displayOrder: -1
-            calculated: false
-            externalOptions: false
-            archived: false
-            hasUniqueValue: false
-          associations:
-          - id: "123"
-            fromObjectTypeId: 2-123456
-            toObjectTypeId: 0-1
-            name: my_object_to_contact
-          labels:
-            singular: My object
-            plural: My objects
-          requiredProperties:
-          - my_object_property
-          searchableProperties:
-          - my_object_property
-          primaryDisplayProperty: my_object_property
-          metaType: PORTAL_SPECIFIC
-          fullyQualifiedName: p7878787_my_object"
-          name: my_object
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/ObjectSchema'
-          type: array
-      required:
-      - results
       type: object
     ObjectTypeDefinition:
       description: Defines an object type.
@@ -485,6 +431,81 @@ components:
       - requiredProperties
       - searchableProperties
       - secondaryDisplayProperties
+      type: object
+    CollectionResponseObjectSchemaNoPaging:
+      example:
+        results:
+        - id: "123456"
+          createdAt: 2020-02-20T18:07:11.390Z
+          updatedAt: 2020-02-20T18:09:07.555Z
+          properties:
+          - updatedAt: 2020-02-20T18:07:11.802Z
+            createdAt: 2020-02-20T18:07:11.802Z
+            name: my_object_property
+            label: My object property
+            type: string
+            fieldType: text
+            groupName: my_object_information
+            displayOrder: -1
+            calculated: false
+            externalOptions: false
+            archived: false
+            hasUniqueValue: false
+          associations:
+          - id: "123"
+            fromObjectTypeId: 2-123456
+            toObjectTypeId: 0-1
+            name: my_object_to_contact
+          labels:
+            singular: My object
+            plural: My objects
+          requiredProperties:
+          - my_object_property
+          searchableProperties:
+          - my_object_property
+          primaryDisplayProperty: my_object_property
+          metaType: PORTAL_SPECIFIC
+          fullyQualifiedName: p7878787_my_object"
+          name: my_object
+        - id: "123456"
+          createdAt: 2020-02-20T18:07:11.390Z
+          updatedAt: 2020-02-20T18:09:07.555Z
+          properties:
+          - updatedAt: 2020-02-20T18:07:11.802Z
+            createdAt: 2020-02-20T18:07:11.802Z
+            name: my_object_property
+            label: My object property
+            type: string
+            fieldType: text
+            groupName: my_object_information
+            displayOrder: -1
+            calculated: false
+            externalOptions: false
+            archived: false
+            hasUniqueValue: false
+          associations:
+          - id: "123"
+            fromObjectTypeId: 2-123456
+            toObjectTypeId: 0-1
+            name: my_object_to_contact
+          labels:
+            singular: My object
+            plural: My objects
+          requiredProperties:
+          - my_object_property
+          searchableProperties:
+          - my_object_property
+          primaryDisplayProperty: my_object_property
+          metaType: PORTAL_SPECIFIC
+          fullyQualifiedName: p7878787_my_object"
+          name: my_object
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/ObjectSchema'
+          type: array
+      required:
+      - results
       type: object
     OptionInput:
       description: Defines a enumeration property option
@@ -605,6 +626,21 @@ components:
       required:
       - message
       type: object
+    PropertyModificationMetadata:
+      properties:
+        archivable:
+          type: boolean
+        readOnlyDefinition:
+          type: boolean
+        readOnlyOptions:
+          type: boolean
+        readOnlyValue:
+          type: boolean
+      required:
+      - archivable
+      - readOnlyDefinition
+      - readOnlyValue
+      type: object
     ObjectTypePropertyCreate:
       description: Defines a property to create.
       example:
@@ -676,21 +712,6 @@ components:
       - name
       - type
       type: object
-    PropertyModificationMetadata:
-      properties:
-        archivable:
-          type: boolean
-        readOnlyDefinition:
-          type: boolean
-        readOnlyOptions:
-          type: boolean
-        readOnlyValue:
-          type: boolean
-      required:
-      - archivable
-      - readOnlyDefinition
-      - readOnlyValue
-      type: object
     AssociationDefinitionEgg:
       description: Defines an association between two object types.
       example:
@@ -709,39 +730,6 @@ components:
           type: string
       required:
       - fromObjectTypeId
-      - toObjectTypeId
-      type: object
-    AssociationDefinition:
-      description: Defines an association between two object types.
-      example:
-        id: "105"
-        fromObjectTypeId: 2-123456
-        toObjectTypeId: 0-1
-        name: my_object_to_contact
-      properties:
-        fromObjectTypeId:
-          description: ID of the primary object type to link from.
-          type: string
-        toObjectTypeId:
-          description: ID of the target object type ID to link to.
-          type: string
-        name:
-          description: A unique name for this association.
-          type: string
-        id:
-          description: A unique ID for this association.
-          type: string
-        createdAt:
-          description: When the association was defined.
-          format: date-time
-          type: string
-        updatedAt:
-          description: When the association was last updated.
-          format: date-time
-          type: string
-      required:
-      - fromObjectTypeId
-      - id
       - toObjectTypeId
       type: object
     ObjectSchema:
@@ -850,6 +838,86 @@ components:
       - searchableProperties
       - secondaryDisplayProperties
       type: object
+    AssociationDefinition:
+      description: Defines an association between two object types.
+      example:
+        id: "105"
+        fromObjectTypeId: 2-123456
+        toObjectTypeId: 0-1
+        name: my_object_to_contact
+      properties:
+        fromObjectTypeId:
+          description: ID of the primary object type to link from.
+          type: string
+        toObjectTypeId:
+          description: ID of the target object type ID to link to.
+          type: string
+        name:
+          description: A unique name for this association.
+          type: string
+        id:
+          description: A unique ID for this association.
+          type: string
+        createdAt:
+          description: When the association was defined.
+          format: date-time
+          type: string
+        updatedAt:
+          description: When the association was last updated.
+          format: date-time
+          type: string
+      required:
+      - fromObjectTypeId
+      - id
+      - toObjectTypeId
+      type: object
+    Option:
+      description: The options available when a property is an enumeration
+      example:
+        label: Option A
+        description: Choice number one
+        value: A
+        displayOrder: 1
+        hidden: false
+      properties:
+        label:
+          description: A human-readable option label that will be shown in HubSpot.
+          type: string
+        value:
+          description: "The internal value of the option, which must be used when\
+            \ setting the property value through the API."
+          type: string
+        description:
+          description: A description of the option.
+          type: string
+        displayOrder:
+          description: Options are displayed in order starting with the lowest positive
+            integer value. Values of -1 will cause the option to be displayed after
+            any positive values.
+          format: int32
+          type: integer
+        hidden:
+          description: Hidden options will not be displayed in HubSpot.
+          type: boolean
+      required:
+      - hidden
+      - label
+      - value
+      type: object
+    ObjectTypeDefinitionLabels:
+      description: Singular and plural labels for the object. Used in CRM display.
+      example:
+        singular: My object
+        plural: My objects
+      properties:
+        singular:
+          description: The word for one object. (There’s no way to change this later.)
+          type: string
+        plural:
+          description: The word for multiple objects. (There’s no way to change this
+            later.)
+          type: string
+      type: object
     ObjectSchemaEgg:
       description: "Defines a new object type, its properties, and associations."
       example:
@@ -913,53 +981,6 @@ components:
       - requiredProperties
       - searchableProperties
       - secondaryDisplayProperties
-      type: object
-    ObjectTypeDefinitionLabels:
-      description: Singular and plural labels for the object. Used in CRM display.
-      example:
-        singular: My object
-        plural: My objects
-      properties:
-        singular:
-          description: The word for one object. (There’s no way to change this later.)
-          type: string
-        plural:
-          description: The word for multiple objects. (There’s no way to change this
-            later.)
-          type: string
-      type: object
-    Option:
-      description: The options available when a property is an enumeration
-      example:
-        label: Option A
-        description: Choice number one
-        value: A
-        displayOrder: 1
-        hidden: false
-      properties:
-        label:
-          description: A human-readable option label that will be shown in HubSpot.
-          type: string
-        value:
-          description: "The internal value of the option, which must be used when\
-            \ setting the property value through the API."
-          type: string
-        description:
-          description: A description of the option.
-          type: string
-        displayOrder:
-          description: Options are displayed in order starting with the lowest positive
-            integer value. Values of -1 will cause the option to be displayed after
-            any positive values.
-          format: int32
-          type: integer
-        hidden:
-          description: Hidden options will not be displayed in HubSpot.
-          type: boolean
-      required:
-      - hidden
-      - label
-      - value
       type: object
     Property:
       description: Defines a property
@@ -1094,9 +1115,9 @@ components:
             crm.objects.custom.read: View custom object records
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
-    hapikey:
-      in: query
-      name: hapikey
+    private_apps_legacy:
+      in: header
+      name: private-app-legacy
       type: apiKey
 x-hubspot-available-client-libraries:
 - PHP
