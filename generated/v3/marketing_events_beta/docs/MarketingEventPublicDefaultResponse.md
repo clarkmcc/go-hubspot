@@ -4,24 +4,24 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**CreatedAt** | **time.Time** |  | 
+**StartDateTime** | Pointer to **time.Time** | The start date and time of the marketing event. | [optional] 
+**CustomProperties** | Pointer to [**[]PropertyValue**](PropertyValue.md) | A list of PropertyValues. These can be whatever kind of property names and values you want. However, they must already exist on the HubSpot account&#39;s definition of the MarketingEvent Object. If they don&#39;t they will be filtered out and not set. In order to do this you&#39;ll need to create a new PropertyGroup on the HubSpot account&#39;s MarketingEvent object for your specific app and create the Custom Property you want to track on that HubSpot account. Do not create any new default properties on the MarketingEvent object as that will apply to all HubSpot accounts.  | [optional] 
+**EventCancelled** | Pointer to **bool** | Indicates if the marketing event has been cancelled. | [optional] 
+**EventOrganizer** | **string** | The name of the organizer of the marketing event. | 
+**EventUrl** | Pointer to **string** | A URL in the external event application where the marketing event can be managed. | [optional] 
+**EventDescription** | Pointer to **string** | The description of the marketing event. | [optional] 
 **EventName** | **string** | The name of the marketing event. | 
 **EventType** | Pointer to **string** | The type of the marketing event. | [optional] 
-**StartDateTime** | Pointer to **time.Time** | The start date and time of the marketing event. | [optional] 
-**EndDateTime** | Pointer to **time.Time** | The end date and time of the marketing event. | [optional] 
-**EventOrganizer** | **string** | The name of the organizer of the marketing event. | 
-**EventDescription** | Pointer to **string** | The description of the marketing event. | [optional] 
-**EventUrl** | Pointer to **string** | A URL in the external event application where the marketing event can be managed. | [optional] 
-**EventCancelled** | Pointer to **bool** | Indicates if the marketing event has been cancelled. | [optional] 
-**CustomProperties** | Pointer to [**[]PropertyValue**](PropertyValue.md) | A list of PropertyValues. These can be whatever kind of property names and values you want. However, they must already exist on the HubSpot account&#39;s definition of the MarketingEvent Object. If they don&#39;t they will be filtered out and not set. In order to do this you&#39;ll need to create a new PropertyGroup on the HubSpot account&#39;s MarketingEvent object for your specific app and create the Custom Property you want to track on that HubSpot account. Do not create any new default properties on the MarketingEvent object as that will apply to all HubSpot accounts.  | [optional] 
 **Id** | **string** |  | 
-**CreatedAt** | **time.Time** |  | 
+**EndDateTime** | Pointer to **time.Time** | The end date and time of the marketing event. | [optional] 
 **UpdatedAt** | **time.Time** |  | 
 
 ## Methods
 
 ### NewMarketingEventPublicDefaultResponse
 
-`func NewMarketingEventPublicDefaultResponse(eventName string, eventOrganizer string, id string, createdAt time.Time, updatedAt time.Time, ) *MarketingEventPublicDefaultResponse`
+`func NewMarketingEventPublicDefaultResponse(createdAt time.Time, eventOrganizer string, eventName string, id string, updatedAt time.Time, ) *MarketingEventPublicDefaultResponse`
 
 NewMarketingEventPublicDefaultResponse instantiates a new MarketingEventPublicDefaultResponse object
 This constructor will assign default values to properties that have it defined,
@@ -35,6 +35,171 @@ will change when the set of required properties is changed
 NewMarketingEventPublicDefaultResponseWithDefaults instantiates a new MarketingEventPublicDefaultResponse object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetCreatedAt
+
+`func (o *MarketingEventPublicDefaultResponse) GetCreatedAt() time.Time`
+
+GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
+
+### GetCreatedAtOk
+
+`func (o *MarketingEventPublicDefaultResponse) GetCreatedAtOk() (*time.Time, bool)`
+
+GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedAt
+
+`func (o *MarketingEventPublicDefaultResponse) SetCreatedAt(v time.Time)`
+
+SetCreatedAt sets CreatedAt field to given value.
+
+
+### GetStartDateTime
+
+`func (o *MarketingEventPublicDefaultResponse) GetStartDateTime() time.Time`
+
+GetStartDateTime returns the StartDateTime field if non-nil, zero value otherwise.
+
+### GetStartDateTimeOk
+
+`func (o *MarketingEventPublicDefaultResponse) GetStartDateTimeOk() (*time.Time, bool)`
+
+GetStartDateTimeOk returns a tuple with the StartDateTime field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStartDateTime
+
+`func (o *MarketingEventPublicDefaultResponse) SetStartDateTime(v time.Time)`
+
+SetStartDateTime sets StartDateTime field to given value.
+
+### HasStartDateTime
+
+`func (o *MarketingEventPublicDefaultResponse) HasStartDateTime() bool`
+
+HasStartDateTime returns a boolean if a field has been set.
+
+### GetCustomProperties
+
+`func (o *MarketingEventPublicDefaultResponse) GetCustomProperties() []PropertyValue`
+
+GetCustomProperties returns the CustomProperties field if non-nil, zero value otherwise.
+
+### GetCustomPropertiesOk
+
+`func (o *MarketingEventPublicDefaultResponse) GetCustomPropertiesOk() (*[]PropertyValue, bool)`
+
+GetCustomPropertiesOk returns a tuple with the CustomProperties field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCustomProperties
+
+`func (o *MarketingEventPublicDefaultResponse) SetCustomProperties(v []PropertyValue)`
+
+SetCustomProperties sets CustomProperties field to given value.
+
+### HasCustomProperties
+
+`func (o *MarketingEventPublicDefaultResponse) HasCustomProperties() bool`
+
+HasCustomProperties returns a boolean if a field has been set.
+
+### GetEventCancelled
+
+`func (o *MarketingEventPublicDefaultResponse) GetEventCancelled() bool`
+
+GetEventCancelled returns the EventCancelled field if non-nil, zero value otherwise.
+
+### GetEventCancelledOk
+
+`func (o *MarketingEventPublicDefaultResponse) GetEventCancelledOk() (*bool, bool)`
+
+GetEventCancelledOk returns a tuple with the EventCancelled field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEventCancelled
+
+`func (o *MarketingEventPublicDefaultResponse) SetEventCancelled(v bool)`
+
+SetEventCancelled sets EventCancelled field to given value.
+
+### HasEventCancelled
+
+`func (o *MarketingEventPublicDefaultResponse) HasEventCancelled() bool`
+
+HasEventCancelled returns a boolean if a field has been set.
+
+### GetEventOrganizer
+
+`func (o *MarketingEventPublicDefaultResponse) GetEventOrganizer() string`
+
+GetEventOrganizer returns the EventOrganizer field if non-nil, zero value otherwise.
+
+### GetEventOrganizerOk
+
+`func (o *MarketingEventPublicDefaultResponse) GetEventOrganizerOk() (*string, bool)`
+
+GetEventOrganizerOk returns a tuple with the EventOrganizer field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEventOrganizer
+
+`func (o *MarketingEventPublicDefaultResponse) SetEventOrganizer(v string)`
+
+SetEventOrganizer sets EventOrganizer field to given value.
+
+
+### GetEventUrl
+
+`func (o *MarketingEventPublicDefaultResponse) GetEventUrl() string`
+
+GetEventUrl returns the EventUrl field if non-nil, zero value otherwise.
+
+### GetEventUrlOk
+
+`func (o *MarketingEventPublicDefaultResponse) GetEventUrlOk() (*string, bool)`
+
+GetEventUrlOk returns a tuple with the EventUrl field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEventUrl
+
+`func (o *MarketingEventPublicDefaultResponse) SetEventUrl(v string)`
+
+SetEventUrl sets EventUrl field to given value.
+
+### HasEventUrl
+
+`func (o *MarketingEventPublicDefaultResponse) HasEventUrl() bool`
+
+HasEventUrl returns a boolean if a field has been set.
+
+### GetEventDescription
+
+`func (o *MarketingEventPublicDefaultResponse) GetEventDescription() string`
+
+GetEventDescription returns the EventDescription field if non-nil, zero value otherwise.
+
+### GetEventDescriptionOk
+
+`func (o *MarketingEventPublicDefaultResponse) GetEventDescriptionOk() (*string, bool)`
+
+GetEventDescriptionOk returns a tuple with the EventDescription field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEventDescription
+
+`func (o *MarketingEventPublicDefaultResponse) SetEventDescription(v string)`
+
+SetEventDescription sets EventDescription field to given value.
+
+### HasEventDescription
+
+`func (o *MarketingEventPublicDefaultResponse) HasEventDescription() bool`
+
+HasEventDescription returns a boolean if a field has been set.
 
 ### GetEventName
 
@@ -81,30 +246,25 @@ SetEventType sets EventType field to given value.
 
 HasEventType returns a boolean if a field has been set.
 
-### GetStartDateTime
+### GetId
 
-`func (o *MarketingEventPublicDefaultResponse) GetStartDateTime() time.Time`
+`func (o *MarketingEventPublicDefaultResponse) GetId() string`
 
-GetStartDateTime returns the StartDateTime field if non-nil, zero value otherwise.
+GetId returns the Id field if non-nil, zero value otherwise.
 
-### GetStartDateTimeOk
+### GetIdOk
 
-`func (o *MarketingEventPublicDefaultResponse) GetStartDateTimeOk() (*time.Time, bool)`
+`func (o *MarketingEventPublicDefaultResponse) GetIdOk() (*string, bool)`
 
-GetStartDateTimeOk returns a tuple with the StartDateTime field if it's non-nil, zero value otherwise
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetStartDateTime
+### SetId
 
-`func (o *MarketingEventPublicDefaultResponse) SetStartDateTime(v time.Time)`
+`func (o *MarketingEventPublicDefaultResponse) SetId(v string)`
 
-SetStartDateTime sets StartDateTime field to given value.
+SetId sets Id field to given value.
 
-### HasStartDateTime
-
-`func (o *MarketingEventPublicDefaultResponse) HasStartDateTime() bool`
-
-HasStartDateTime returns a boolean if a field has been set.
 
 ### GetEndDateTime
 
@@ -130,166 +290,6 @@ SetEndDateTime sets EndDateTime field to given value.
 `func (o *MarketingEventPublicDefaultResponse) HasEndDateTime() bool`
 
 HasEndDateTime returns a boolean if a field has been set.
-
-### GetEventOrganizer
-
-`func (o *MarketingEventPublicDefaultResponse) GetEventOrganizer() string`
-
-GetEventOrganizer returns the EventOrganizer field if non-nil, zero value otherwise.
-
-### GetEventOrganizerOk
-
-`func (o *MarketingEventPublicDefaultResponse) GetEventOrganizerOk() (*string, bool)`
-
-GetEventOrganizerOk returns a tuple with the EventOrganizer field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetEventOrganizer
-
-`func (o *MarketingEventPublicDefaultResponse) SetEventOrganizer(v string)`
-
-SetEventOrganizer sets EventOrganizer field to given value.
-
-
-### GetEventDescription
-
-`func (o *MarketingEventPublicDefaultResponse) GetEventDescription() string`
-
-GetEventDescription returns the EventDescription field if non-nil, zero value otherwise.
-
-### GetEventDescriptionOk
-
-`func (o *MarketingEventPublicDefaultResponse) GetEventDescriptionOk() (*string, bool)`
-
-GetEventDescriptionOk returns a tuple with the EventDescription field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetEventDescription
-
-`func (o *MarketingEventPublicDefaultResponse) SetEventDescription(v string)`
-
-SetEventDescription sets EventDescription field to given value.
-
-### HasEventDescription
-
-`func (o *MarketingEventPublicDefaultResponse) HasEventDescription() bool`
-
-HasEventDescription returns a boolean if a field has been set.
-
-### GetEventUrl
-
-`func (o *MarketingEventPublicDefaultResponse) GetEventUrl() string`
-
-GetEventUrl returns the EventUrl field if non-nil, zero value otherwise.
-
-### GetEventUrlOk
-
-`func (o *MarketingEventPublicDefaultResponse) GetEventUrlOk() (*string, bool)`
-
-GetEventUrlOk returns a tuple with the EventUrl field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetEventUrl
-
-`func (o *MarketingEventPublicDefaultResponse) SetEventUrl(v string)`
-
-SetEventUrl sets EventUrl field to given value.
-
-### HasEventUrl
-
-`func (o *MarketingEventPublicDefaultResponse) HasEventUrl() bool`
-
-HasEventUrl returns a boolean if a field has been set.
-
-### GetEventCancelled
-
-`func (o *MarketingEventPublicDefaultResponse) GetEventCancelled() bool`
-
-GetEventCancelled returns the EventCancelled field if non-nil, zero value otherwise.
-
-### GetEventCancelledOk
-
-`func (o *MarketingEventPublicDefaultResponse) GetEventCancelledOk() (*bool, bool)`
-
-GetEventCancelledOk returns a tuple with the EventCancelled field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetEventCancelled
-
-`func (o *MarketingEventPublicDefaultResponse) SetEventCancelled(v bool)`
-
-SetEventCancelled sets EventCancelled field to given value.
-
-### HasEventCancelled
-
-`func (o *MarketingEventPublicDefaultResponse) HasEventCancelled() bool`
-
-HasEventCancelled returns a boolean if a field has been set.
-
-### GetCustomProperties
-
-`func (o *MarketingEventPublicDefaultResponse) GetCustomProperties() []PropertyValue`
-
-GetCustomProperties returns the CustomProperties field if non-nil, zero value otherwise.
-
-### GetCustomPropertiesOk
-
-`func (o *MarketingEventPublicDefaultResponse) GetCustomPropertiesOk() (*[]PropertyValue, bool)`
-
-GetCustomPropertiesOk returns a tuple with the CustomProperties field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCustomProperties
-
-`func (o *MarketingEventPublicDefaultResponse) SetCustomProperties(v []PropertyValue)`
-
-SetCustomProperties sets CustomProperties field to given value.
-
-### HasCustomProperties
-
-`func (o *MarketingEventPublicDefaultResponse) HasCustomProperties() bool`
-
-HasCustomProperties returns a boolean if a field has been set.
-
-### GetId
-
-`func (o *MarketingEventPublicDefaultResponse) GetId() string`
-
-GetId returns the Id field if non-nil, zero value otherwise.
-
-### GetIdOk
-
-`func (o *MarketingEventPublicDefaultResponse) GetIdOk() (*string, bool)`
-
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetId
-
-`func (o *MarketingEventPublicDefaultResponse) SetId(v string)`
-
-SetId sets Id field to given value.
-
-
-### GetCreatedAt
-
-`func (o *MarketingEventPublicDefaultResponse) GetCreatedAt() time.Time`
-
-GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
-
-### GetCreatedAtOk
-
-`func (o *MarketingEventPublicDefaultResponse) GetCreatedAtOk() (*time.Time, bool)`
-
-GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCreatedAt
-
-`func (o *MarketingEventPublicDefaultResponse) SetCreatedAt(v time.Time)`
-
-SetCreatedAt sets CreatedAt field to given value.
-
 
 ### GetUpdatedAt
 

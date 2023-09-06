@@ -89,7 +89,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -103,7 +103,7 @@ Name | Type | Description  | Notes
 
 ## AttachToLanguageGroup
 
-> Error AttachToLanguageGroup(ctx).AttachToLangPrimaryRequestVNext(attachToLangPrimaryRequestVNext).Execute()
+> AttachToLanguageGroup(ctx).AttachToLangPrimaryRequestVNext(attachToLangPrimaryRequestVNext).Execute()
 
 Attach a Blog Post to a multi-language group
 
@@ -131,8 +131,6 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsApi.AttachToLanguageGroup``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AttachToLanguageGroup`: Error
-    fmt.Fprintf(os.Stdout, "Response from `BlogPostsApi.AttachToLanguageGroup`: %v\n", resp)
 }
 ```
 
@@ -151,11 +149,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Error**](Error.md)
+ (empty response body)
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -219,7 +217,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -253,7 +251,7 @@ import (
 )
 
 func main() {
-    batchInputBlogPost := *openapiclient.NewBatchInputBlogPost([]openapiclient.BlogPost{*openapiclient.NewBlogPost("Id_example", "Slug_example", "ContentGroupId_example", "Campaign_example", int32(123), "State_example", "Name_example", "MabExperimentId_example", false, "AuthorName_example", "AbTestId_example", "CreatedById_example", "UpdatedById_example", "Domain_example", "AbStatus_example", "FolderId_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, map[string]map[string]interface{}{"key": map[string]interface{}(123)}, "Language_example", "TranslatedFromId_example", map[string]ContentLanguageVariation{"key": *openapiclient.NewContentLanguageVariation(int64(123), "Name_example", "Slug_example", "State_example", "AuthorName_example", "Password_example", false, []map[string]interface{}{map[string]interface{}(123)}, "Campaign_example", false, time.Now(), time.Now(), time.Now())}, int32(123), "DynamicPageDataSourceId_example", "BlogAuthorId_example", []int64{int64(123)}, "HtmlTitle_example", false, false, "PostBody_example", "PostSummary_example", "RssBody_example", "RssSummary_example", false, false, int64(123), "PageExpiryRedirectUrl_example", int64(123), false, false, false, false, "FeaturedImage_example", "FeaturedImageAltText_example", "LinkRelCanonicalUrl_example", "ContentTypeCategory_example", []map[string]map[string]interface{}{map[string]map[string]interface{}{"key": map[string]interface{}(123)}}, "MetaDescription_example", "HeadHtml_example", "FooterHtml_example", false, false, []map[string]interface{}{map[string]interface{}(123)}, map[string]LayoutSection{"key": *openapiclient.NewLayoutSection(int32(123), int32(123), "Name_example", "Label_example", "Type_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, []map[string]LayoutSection{map[string]LayoutSection{"key": *openapiclient.NewLayoutSection(int32(123), int32(123), "Name_example", "Label_example", "Type_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, []map[string]LayoutSection{map[string]LayoutSection{"key": }}, []openapiclient.RowMetaData{*openapiclient.NewRowMetaData(*openapiclient.NewStyles("VerticalAlignment_example", *openapiclient.NewRGBAColor(int32(123), int32(123), int32(123), float32(123)), *openapiclient.NewBackgroundImage("ImageUrl_example", "BackgroundSize_example", "BackgroundPosition_example"), *openapiclient.NewGradient(*openapiclient.NewSideOrCorner("VerticalSide_example", "HorizontalSide_example"), *openapiclient.NewAngle(float32(123), "Units_example"), []openapiclient.ColorStop{*openapiclient.NewColorStop(*openapiclient.NewRGBAColor(int32(123), int32(123), int32(123), float32(123)))}), int32(123), false, "FlexboxPositioning_example"), "CssClass_example")}, []openapiclient.LayoutSection{}, "CssClass_example", "CssStyle_example", "CssId_example", *openapiclient.NewStyles("VerticalAlignment_example", , *openapiclient.NewBackgroundImage("ImageUrl_example", "BackgroundSize_example", "BackgroundPosition_example"), *openapiclient.NewGradient(*openapiclient.NewSideOrCorner("VerticalSide_example", "HorizontalSide_example"), *openapiclient.NewAngle(float32(123), "Units_example"), []openapiclient.ColorStop{*openapiclient.NewColorStop()}), int32(123), false, "FlexboxPositioning_example"))}}, []openapiclient.RowMetaData{*openapiclient.NewRowMetaData(, "CssClass_example")}, []openapiclient.LayoutSection{}, "CssClass_example", "CssStyle_example", "CssId_example", )}, map[string]map[string]interface{}{"key": map[string]interface{}(123)}, "Url_example", "Password_example", "CurrentState_example", time.Now(), time.Now(), time.Now(), time.Now())}) // BatchInputBlogPost | The JSON array of new Blog Posts to create.
+    batchInputBlogPost := *openapiclient.NewBatchInputBlogPost([]openapiclient.BlogPost{*openapiclient.NewBlogPost("Id_example", "Slug_example", "ContentGroupId_example", "Campaign_example", int32(123), "State_example", "Name_example", "MabExperimentId_example", "AuthorName_example", "AbTestId_example", "CreatedById_example", "UpdatedById_example", "Domain_example", "AbStatus_example", "FolderId_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, map[string]map[string]interface{}{"key": map[string]interface{}(123)}, "Language_example", "TranslatedFromId_example", map[string]ContentLanguageVariation{"key": *openapiclient.NewContentLanguageVariation(int64(123), "Name_example", "Slug_example", "State_example", "AuthorName_example", "Password_example", false, []map[string]interface{}{map[string]interface{}(123)}, "Campaign_example", false, time.Now(), time.Now(), time.Now())}, "DynamicPageHubDbTableId_example", int32(123), "DynamicPageDataSourceId_example", "BlogAuthorId_example", []int64{int64(123)}, "HtmlTitle_example", false, []map[string]interface{}{map[string]interface{}(123)}, false, "PostSummary_example", "PostBody_example", "RssSummary_example", "RssBody_example", false, false, int64(123), "LinkRelCanonicalUrl_example", false, false, int64(123), "PageExpiryRedirectUrl_example", int64(123), false, false, false, map[string]LayoutSection{"key": *openapiclient.NewLayoutSection(int32(123), int32(123), "Name_example", "Label_example", "Type_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, []map[string]LayoutSection{map[string]LayoutSection{"key": *openapiclient.NewLayoutSection(int32(123), int32(123), "Name_example", "Label_example", "Type_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, []map[string]LayoutSection{map[string]LayoutSection{"key": }}, []openapiclient.RowMetaData{*openapiclient.NewRowMetaData(*openapiclient.NewStyles("VerticalAlignment_example", *openapiclient.NewRGBAColor(int32(123), int32(123), int32(123), float32(123)), *openapiclient.NewBackgroundImage("ImageUrl_example", "BackgroundSize_example", "BackgroundPosition_example"), *openapiclient.NewGradient(*openapiclient.NewSideOrCorner("VerticalSide_example", "HorizontalSide_example"), *openapiclient.NewAngle(float32(123), "Units_example"), []openapiclient.ColorStop{*openapiclient.NewColorStop(*openapiclient.NewRGBAColor(int32(123), int32(123), int32(123), float32(123)))}), int32(123), false, "FlexboxPositioning_example"), "CssClass_example")}, []openapiclient.LayoutSection{}, "CssClass_example", "CssStyle_example", "CssId_example", *openapiclient.NewStyles("VerticalAlignment_example", , *openapiclient.NewBackgroundImage("ImageUrl_example", "BackgroundSize_example", "BackgroundPosition_example"), *openapiclient.NewGradient(*openapiclient.NewSideOrCorner("VerticalSide_example", "HorizontalSide_example"), *openapiclient.NewAngle(float32(123), "Units_example"), []openapiclient.ColorStop{*openapiclient.NewColorStop()}), int32(123), false, "FlexboxPositioning_example"))}}, []openapiclient.RowMetaData{*openapiclient.NewRowMetaData(, "CssClass_example")}, []openapiclient.LayoutSection{}, "CssClass_example", "CssStyle_example", "CssId_example", )}, "FeaturedImageAltText_example", []map[string]map[string]interface{}{map[string]map[string]interface{}{"key": map[string]interface{}(123)}}, "MetaDescription_example", "HeadHtml_example", "FooterHtml_example", "FeaturedImage_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, "Url_example", "Password_example", "CurrentState_example", false, "ContentTypeCategory_example", time.Now(), time.Now(), time.Now())}) // BatchInputBlogPost | The JSON array of new Blog Posts to create.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -286,7 +284,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -354,7 +352,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -422,7 +420,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -488,7 +486,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -522,7 +520,7 @@ import (
 )
 
 func main() {
-    blogPost := *openapiclient.NewBlogPost("Id_example", "Slug_example", "ContentGroupId_example", "Campaign_example", int32(123), "State_example", "Name_example", "MabExperimentId_example", false, "AuthorName_example", "AbTestId_example", "CreatedById_example", "UpdatedById_example", "Domain_example", "AbStatus_example", "FolderId_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, map[string]map[string]interface{}{"key": map[string]interface{}(123)}, "Language_example", "TranslatedFromId_example", map[string]ContentLanguageVariation{"key": *openapiclient.NewContentLanguageVariation(int64(123), "Name_example", "Slug_example", "State_example", "AuthorName_example", "Password_example", false, []map[string]interface{}{map[string]interface{}(123)}, "Campaign_example", false, time.Now(), time.Now(), time.Now())}, int32(123), "DynamicPageDataSourceId_example", "BlogAuthorId_example", []int64{int64(123)}, "HtmlTitle_example", false, false, "PostBody_example", "PostSummary_example", "RssBody_example", "RssSummary_example", false, false, int64(123), "PageExpiryRedirectUrl_example", int64(123), false, false, false, false, "FeaturedImage_example", "FeaturedImageAltText_example", "LinkRelCanonicalUrl_example", "ContentTypeCategory_example", []map[string]map[string]interface{}{map[string]map[string]interface{}{"key": map[string]interface{}(123)}}, "MetaDescription_example", "HeadHtml_example", "FooterHtml_example", false, false, []map[string]interface{}{map[string]interface{}(123)}, map[string]LayoutSection{"key": *openapiclient.NewLayoutSection(int32(123), int32(123), "Name_example", "Label_example", "Type_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, []map[string]LayoutSection{map[string]LayoutSection{"key": *openapiclient.NewLayoutSection(int32(123), int32(123), "Name_example", "Label_example", "Type_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, []map[string]LayoutSection{map[string]LayoutSection{"key": }}, []openapiclient.RowMetaData{*openapiclient.NewRowMetaData(*openapiclient.NewStyles("VerticalAlignment_example", *openapiclient.NewRGBAColor(int32(123), int32(123), int32(123), float32(123)), *openapiclient.NewBackgroundImage("ImageUrl_example", "BackgroundSize_example", "BackgroundPosition_example"), *openapiclient.NewGradient(*openapiclient.NewSideOrCorner("VerticalSide_example", "HorizontalSide_example"), *openapiclient.NewAngle(float32(123), "Units_example"), []openapiclient.ColorStop{*openapiclient.NewColorStop(*openapiclient.NewRGBAColor(int32(123), int32(123), int32(123), float32(123)))}), int32(123), false, "FlexboxPositioning_example"), "CssClass_example")}, []openapiclient.LayoutSection{}, "CssClass_example", "CssStyle_example", "CssId_example", *openapiclient.NewStyles("VerticalAlignment_example", , *openapiclient.NewBackgroundImage("ImageUrl_example", "BackgroundSize_example", "BackgroundPosition_example"), *openapiclient.NewGradient(*openapiclient.NewSideOrCorner("VerticalSide_example", "HorizontalSide_example"), *openapiclient.NewAngle(float32(123), "Units_example"), []openapiclient.ColorStop{*openapiclient.NewColorStop()}), int32(123), false, "FlexboxPositioning_example"))}}, []openapiclient.RowMetaData{*openapiclient.NewRowMetaData(, "CssClass_example")}, []openapiclient.LayoutSection{}, "CssClass_example", "CssStyle_example", "CssId_example", )}, map[string]map[string]interface{}{"key": map[string]interface{}(123)}, "Url_example", "Password_example", "CurrentState_example", time.Now(), time.Now(), time.Now(), time.Now()) // BlogPost | The JSON representation of a new Blog Post.
+    blogPost := *openapiclient.NewBlogPost("Id_example", "Slug_example", "ContentGroupId_example", "Campaign_example", int32(123), "State_example", "Name_example", "MabExperimentId_example", "AuthorName_example", "AbTestId_example", "CreatedById_example", "UpdatedById_example", "Domain_example", "AbStatus_example", "FolderId_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, map[string]map[string]interface{}{"key": map[string]interface{}(123)}, "Language_example", "TranslatedFromId_example", map[string]ContentLanguageVariation{"key": *openapiclient.NewContentLanguageVariation(int64(123), "Name_example", "Slug_example", "State_example", "AuthorName_example", "Password_example", false, []map[string]interface{}{map[string]interface{}(123)}, "Campaign_example", false, time.Now(), time.Now(), time.Now())}, "DynamicPageHubDbTableId_example", int32(123), "DynamicPageDataSourceId_example", "BlogAuthorId_example", []int64{int64(123)}, "HtmlTitle_example", false, []map[string]interface{}{map[string]interface{}(123)}, false, "PostSummary_example", "PostBody_example", "RssSummary_example", "RssBody_example", false, false, int64(123), "LinkRelCanonicalUrl_example", false, false, int64(123), "PageExpiryRedirectUrl_example", int64(123), false, false, false, map[string]LayoutSection{"key": *openapiclient.NewLayoutSection(int32(123), int32(123), "Name_example", "Label_example", "Type_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, []map[string]LayoutSection{map[string]LayoutSection{"key": *openapiclient.NewLayoutSection(int32(123), int32(123), "Name_example", "Label_example", "Type_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, []map[string]LayoutSection{map[string]LayoutSection{"key": }}, []openapiclient.RowMetaData{*openapiclient.NewRowMetaData(*openapiclient.NewStyles("VerticalAlignment_example", *openapiclient.NewRGBAColor(int32(123), int32(123), int32(123), float32(123)), *openapiclient.NewBackgroundImage("ImageUrl_example", "BackgroundSize_example", "BackgroundPosition_example"), *openapiclient.NewGradient(*openapiclient.NewSideOrCorner("VerticalSide_example", "HorizontalSide_example"), *openapiclient.NewAngle(float32(123), "Units_example"), []openapiclient.ColorStop{*openapiclient.NewColorStop(*openapiclient.NewRGBAColor(int32(123), int32(123), int32(123), float32(123)))}), int32(123), false, "FlexboxPositioning_example"), "CssClass_example")}, []openapiclient.LayoutSection{}, "CssClass_example", "CssStyle_example", "CssId_example", *openapiclient.NewStyles("VerticalAlignment_example", , *openapiclient.NewBackgroundImage("ImageUrl_example", "BackgroundSize_example", "BackgroundPosition_example"), *openapiclient.NewGradient(*openapiclient.NewSideOrCorner("VerticalSide_example", "HorizontalSide_example"), *openapiclient.NewAngle(float32(123), "Units_example"), []openapiclient.ColorStop{*openapiclient.NewColorStop()}), int32(123), false, "FlexboxPositioning_example"))}}, []openapiclient.RowMetaData{*openapiclient.NewRowMetaData(, "CssClass_example")}, []openapiclient.LayoutSection{}, "CssClass_example", "CssStyle_example", "CssId_example", )}, "FeaturedImageAltText_example", []map[string]map[string]interface{}{map[string]map[string]interface{}{"key": map[string]interface{}(123)}}, "MetaDescription_example", "HeadHtml_example", "FooterHtml_example", "FeaturedImage_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, "Url_example", "Password_example", "CurrentState_example", false, "ContentTypeCategory_example", time.Now(), time.Now(), time.Now()) // BlogPost | The JSON representation of a new Blog Post.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -555,7 +553,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -621,7 +619,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -635,7 +633,7 @@ Name | Type | Description  | Notes
 
 ## DetachFromLanguageGroup
 
-> Error DetachFromLanguageGroup(ctx).DetachFromLangGroupRequestVNext(detachFromLangGroupRequestVNext).Execute()
+> DetachFromLanguageGroup(ctx).DetachFromLangGroupRequestVNext(detachFromLangGroupRequestVNext).Execute()
 
 Detach a Blog Post from a multi-language group
 
@@ -663,8 +661,6 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsApi.DetachFromLanguageGroup``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `DetachFromLanguageGroup`: Error
-    fmt.Fprintf(os.Stdout, "Response from `BlogPostsApi.DetachFromLanguageGroup`: %v\n", resp)
 }
 ```
 
@@ -683,11 +679,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Error**](Error.md)
+ (empty response body)
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -701,7 +697,7 @@ Name | Type | Description  | Notes
 
 ## GetByID
 
-> BlogPost GetByID(ctx, objectId).Archived(archived).Execute()
+> BlogPost GetByID(ctx, objectId).Archived(archived).Property(property).Execute()
 
 Retrieve a Blog Post
 
@@ -722,10 +718,11 @@ import (
 func main() {
     objectId := "objectId_example" // string | The Blog Post id.
     archived := true // bool | Specifies whether to return deleted Blog Posts. Defaults to `false`. (optional)
+    property := "property_example" // string |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogPostsApi.GetByID(context.Background(), objectId).Archived(archived).Execute()
+    resp, r, err := apiClient.BlogPostsApi.GetByID(context.Background(), objectId).Archived(archived).Property(property).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsApi.GetByID``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -752,6 +749,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **archived** | **bool** | Specifies whether to return deleted Blog Posts. Defaults to &#x60;false&#x60;. | 
+ **property** | **string** |  | 
 
 ### Return type
 
@@ -759,7 +757,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -829,7 +827,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -843,7 +841,7 @@ Name | Type | Description  | Notes
 
 ## GetPage
 
-> CollectionResponseWithTotalBlogPostForwardPaging GetPage(ctx).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Sort(sort).After(after).Limit(limit).Archived(archived).Execute()
+> CollectionResponseWithTotalBlogPostForwardPaging GetPage(ctx).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Sort(sort).After(after).Limit(limit).Archived(archived).Property(property).Execute()
 
 Get all Blog Posts
 
@@ -873,10 +871,11 @@ func main() {
     after := "after_example" // string | The cursor token value to get the next set of results. You can get this from the `paging.next.after` JSON property of a paged response containing more results. (optional)
     limit := int32(56) // int32 | The maximum number of results to return. Default is 20. (optional)
     archived := true // bool | Specifies whether to return deleted Blog Posts. Defaults to `false`. (optional)
+    property := "property_example" // string |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogPostsApi.GetPage(context.Background()).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Sort(sort).After(after).Limit(limit).Archived(archived).Execute()
+    resp, r, err := apiClient.BlogPostsApi.GetPage(context.Background()).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Sort(sort).After(after).Limit(limit).Archived(archived).Property(property).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsApi.GetPage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -907,6 +906,7 @@ Name | Type | Description  | Notes
  **after** | **string** | The cursor token value to get the next set of results. You can get this from the &#x60;paging.next.after&#x60; JSON property of a paged response containing more results. | 
  **limit** | **int32** | The maximum number of results to return. Default is 20. | 
  **archived** | **bool** | Specifies whether to return deleted Blog Posts. Defaults to &#x60;false&#x60;. | 
+ **property** | **string** |  | 
 
 ### Return type
 
@@ -914,7 +914,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -987,7 +987,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -1063,7 +1063,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -1131,7 +1131,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -1199,7 +1199,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -1272,7 +1272,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -1345,7 +1345,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -1410,7 +1410,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -1474,7 +1474,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -1509,7 +1509,7 @@ import (
 
 func main() {
     objectId := "objectId_example" // string | The Blog Post id.
-    blogPost := *openapiclient.NewBlogPost("Id_example", "Slug_example", "ContentGroupId_example", "Campaign_example", int32(123), "State_example", "Name_example", "MabExperimentId_example", false, "AuthorName_example", "AbTestId_example", "CreatedById_example", "UpdatedById_example", "Domain_example", "AbStatus_example", "FolderId_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, map[string]map[string]interface{}{"key": map[string]interface{}(123)}, "Language_example", "TranslatedFromId_example", map[string]ContentLanguageVariation{"key": *openapiclient.NewContentLanguageVariation(int64(123), "Name_example", "Slug_example", "State_example", "AuthorName_example", "Password_example", false, []map[string]interface{}{map[string]interface{}(123)}, "Campaign_example", false, time.Now(), time.Now(), time.Now())}, int32(123), "DynamicPageDataSourceId_example", "BlogAuthorId_example", []int64{int64(123)}, "HtmlTitle_example", false, false, "PostBody_example", "PostSummary_example", "RssBody_example", "RssSummary_example", false, false, int64(123), "PageExpiryRedirectUrl_example", int64(123), false, false, false, false, "FeaturedImage_example", "FeaturedImageAltText_example", "LinkRelCanonicalUrl_example", "ContentTypeCategory_example", []map[string]map[string]interface{}{map[string]map[string]interface{}{"key": map[string]interface{}(123)}}, "MetaDescription_example", "HeadHtml_example", "FooterHtml_example", false, false, []map[string]interface{}{map[string]interface{}(123)}, map[string]LayoutSection{"key": *openapiclient.NewLayoutSection(int32(123), int32(123), "Name_example", "Label_example", "Type_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, []map[string]LayoutSection{map[string]LayoutSection{"key": *openapiclient.NewLayoutSection(int32(123), int32(123), "Name_example", "Label_example", "Type_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, []map[string]LayoutSection{map[string]LayoutSection{"key": }}, []openapiclient.RowMetaData{*openapiclient.NewRowMetaData(*openapiclient.NewStyles("VerticalAlignment_example", *openapiclient.NewRGBAColor(int32(123), int32(123), int32(123), float32(123)), *openapiclient.NewBackgroundImage("ImageUrl_example", "BackgroundSize_example", "BackgroundPosition_example"), *openapiclient.NewGradient(*openapiclient.NewSideOrCorner("VerticalSide_example", "HorizontalSide_example"), *openapiclient.NewAngle(float32(123), "Units_example"), []openapiclient.ColorStop{*openapiclient.NewColorStop(*openapiclient.NewRGBAColor(int32(123), int32(123), int32(123), float32(123)))}), int32(123), false, "FlexboxPositioning_example"), "CssClass_example")}, []openapiclient.LayoutSection{}, "CssClass_example", "CssStyle_example", "CssId_example", *openapiclient.NewStyles("VerticalAlignment_example", , *openapiclient.NewBackgroundImage("ImageUrl_example", "BackgroundSize_example", "BackgroundPosition_example"), *openapiclient.NewGradient(*openapiclient.NewSideOrCorner("VerticalSide_example", "HorizontalSide_example"), *openapiclient.NewAngle(float32(123), "Units_example"), []openapiclient.ColorStop{*openapiclient.NewColorStop()}), int32(123), false, "FlexboxPositioning_example"))}}, []openapiclient.RowMetaData{*openapiclient.NewRowMetaData(, "CssClass_example")}, []openapiclient.LayoutSection{}, "CssClass_example", "CssStyle_example", "CssId_example", )}, map[string]map[string]interface{}{"key": map[string]interface{}(123)}, "Url_example", "Password_example", "CurrentState_example", time.Now(), time.Now(), time.Now(), time.Now()) // BlogPost | The JSON representation of the updated Blog Post.
+    blogPost := *openapiclient.NewBlogPost("Id_example", "Slug_example", "ContentGroupId_example", "Campaign_example", int32(123), "State_example", "Name_example", "MabExperimentId_example", "AuthorName_example", "AbTestId_example", "CreatedById_example", "UpdatedById_example", "Domain_example", "AbStatus_example", "FolderId_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, map[string]map[string]interface{}{"key": map[string]interface{}(123)}, "Language_example", "TranslatedFromId_example", map[string]ContentLanguageVariation{"key": *openapiclient.NewContentLanguageVariation(int64(123), "Name_example", "Slug_example", "State_example", "AuthorName_example", "Password_example", false, []map[string]interface{}{map[string]interface{}(123)}, "Campaign_example", false, time.Now(), time.Now(), time.Now())}, "DynamicPageHubDbTableId_example", int32(123), "DynamicPageDataSourceId_example", "BlogAuthorId_example", []int64{int64(123)}, "HtmlTitle_example", false, []map[string]interface{}{map[string]interface{}(123)}, false, "PostSummary_example", "PostBody_example", "RssSummary_example", "RssBody_example", false, false, int64(123), "LinkRelCanonicalUrl_example", false, false, int64(123), "PageExpiryRedirectUrl_example", int64(123), false, false, false, map[string]LayoutSection{"key": *openapiclient.NewLayoutSection(int32(123), int32(123), "Name_example", "Label_example", "Type_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, []map[string]LayoutSection{map[string]LayoutSection{"key": *openapiclient.NewLayoutSection(int32(123), int32(123), "Name_example", "Label_example", "Type_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, []map[string]LayoutSection{map[string]LayoutSection{"key": }}, []openapiclient.RowMetaData{*openapiclient.NewRowMetaData(*openapiclient.NewStyles("VerticalAlignment_example", *openapiclient.NewRGBAColor(int32(123), int32(123), int32(123), float32(123)), *openapiclient.NewBackgroundImage("ImageUrl_example", "BackgroundSize_example", "BackgroundPosition_example"), *openapiclient.NewGradient(*openapiclient.NewSideOrCorner("VerticalSide_example", "HorizontalSide_example"), *openapiclient.NewAngle(float32(123), "Units_example"), []openapiclient.ColorStop{*openapiclient.NewColorStop(*openapiclient.NewRGBAColor(int32(123), int32(123), int32(123), float32(123)))}), int32(123), false, "FlexboxPositioning_example"), "CssClass_example")}, []openapiclient.LayoutSection{}, "CssClass_example", "CssStyle_example", "CssId_example", *openapiclient.NewStyles("VerticalAlignment_example", , *openapiclient.NewBackgroundImage("ImageUrl_example", "BackgroundSize_example", "BackgroundPosition_example"), *openapiclient.NewGradient(*openapiclient.NewSideOrCorner("VerticalSide_example", "HorizontalSide_example"), *openapiclient.NewAngle(float32(123), "Units_example"), []openapiclient.ColorStop{*openapiclient.NewColorStop()}), int32(123), false, "FlexboxPositioning_example"))}}, []openapiclient.RowMetaData{*openapiclient.NewRowMetaData(, "CssClass_example")}, []openapiclient.LayoutSection{}, "CssClass_example", "CssStyle_example", "CssId_example", )}, "FeaturedImageAltText_example", []map[string]map[string]interface{}{map[string]map[string]interface{}{"key": map[string]interface{}(123)}}, "MetaDescription_example", "HeadHtml_example", "FooterHtml_example", "FeaturedImage_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, "Url_example", "Password_example", "CurrentState_example", false, "ContentTypeCategory_example", time.Now(), time.Now(), time.Now()) // BlogPost | The JSON representation of the updated Blog Post.
     archived := true // bool | Specifies whether to update deleted Blog Posts. Defaults to `false`. (optional)
 
     configuration := openapiclient.NewConfiguration()
@@ -1549,7 +1549,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -1584,7 +1584,7 @@ import (
 
 func main() {
     objectId := "objectId_example" // string | The Blog Post id.
-    blogPost := *openapiclient.NewBlogPost("Id_example", "Slug_example", "ContentGroupId_example", "Campaign_example", int32(123), "State_example", "Name_example", "MabExperimentId_example", false, "AuthorName_example", "AbTestId_example", "CreatedById_example", "UpdatedById_example", "Domain_example", "AbStatus_example", "FolderId_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, map[string]map[string]interface{}{"key": map[string]interface{}(123)}, "Language_example", "TranslatedFromId_example", map[string]ContentLanguageVariation{"key": *openapiclient.NewContentLanguageVariation(int64(123), "Name_example", "Slug_example", "State_example", "AuthorName_example", "Password_example", false, []map[string]interface{}{map[string]interface{}(123)}, "Campaign_example", false, time.Now(), time.Now(), time.Now())}, int32(123), "DynamicPageDataSourceId_example", "BlogAuthorId_example", []int64{int64(123)}, "HtmlTitle_example", false, false, "PostBody_example", "PostSummary_example", "RssBody_example", "RssSummary_example", false, false, int64(123), "PageExpiryRedirectUrl_example", int64(123), false, false, false, false, "FeaturedImage_example", "FeaturedImageAltText_example", "LinkRelCanonicalUrl_example", "ContentTypeCategory_example", []map[string]map[string]interface{}{map[string]map[string]interface{}{"key": map[string]interface{}(123)}}, "MetaDescription_example", "HeadHtml_example", "FooterHtml_example", false, false, []map[string]interface{}{map[string]interface{}(123)}, map[string]LayoutSection{"key": *openapiclient.NewLayoutSection(int32(123), int32(123), "Name_example", "Label_example", "Type_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, []map[string]LayoutSection{map[string]LayoutSection{"key": *openapiclient.NewLayoutSection(int32(123), int32(123), "Name_example", "Label_example", "Type_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, []map[string]LayoutSection{map[string]LayoutSection{"key": }}, []openapiclient.RowMetaData{*openapiclient.NewRowMetaData(*openapiclient.NewStyles("VerticalAlignment_example", *openapiclient.NewRGBAColor(int32(123), int32(123), int32(123), float32(123)), *openapiclient.NewBackgroundImage("ImageUrl_example", "BackgroundSize_example", "BackgroundPosition_example"), *openapiclient.NewGradient(*openapiclient.NewSideOrCorner("VerticalSide_example", "HorizontalSide_example"), *openapiclient.NewAngle(float32(123), "Units_example"), []openapiclient.ColorStop{*openapiclient.NewColorStop(*openapiclient.NewRGBAColor(int32(123), int32(123), int32(123), float32(123)))}), int32(123), false, "FlexboxPositioning_example"), "CssClass_example")}, []openapiclient.LayoutSection{}, "CssClass_example", "CssStyle_example", "CssId_example", *openapiclient.NewStyles("VerticalAlignment_example", , *openapiclient.NewBackgroundImage("ImageUrl_example", "BackgroundSize_example", "BackgroundPosition_example"), *openapiclient.NewGradient(*openapiclient.NewSideOrCorner("VerticalSide_example", "HorizontalSide_example"), *openapiclient.NewAngle(float32(123), "Units_example"), []openapiclient.ColorStop{*openapiclient.NewColorStop()}), int32(123), false, "FlexboxPositioning_example"))}}, []openapiclient.RowMetaData{*openapiclient.NewRowMetaData(, "CssClass_example")}, []openapiclient.LayoutSection{}, "CssClass_example", "CssStyle_example", "CssId_example", )}, map[string]map[string]interface{}{"key": map[string]interface{}(123)}, "Url_example", "Password_example", "CurrentState_example", time.Now(), time.Now(), time.Now(), time.Now()) // BlogPost | The JSON representation of the updated Blog Post to be applied to the draft.
+    blogPost := *openapiclient.NewBlogPost("Id_example", "Slug_example", "ContentGroupId_example", "Campaign_example", int32(123), "State_example", "Name_example", "MabExperimentId_example", "AuthorName_example", "AbTestId_example", "CreatedById_example", "UpdatedById_example", "Domain_example", "AbStatus_example", "FolderId_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, map[string]map[string]interface{}{"key": map[string]interface{}(123)}, "Language_example", "TranslatedFromId_example", map[string]ContentLanguageVariation{"key": *openapiclient.NewContentLanguageVariation(int64(123), "Name_example", "Slug_example", "State_example", "AuthorName_example", "Password_example", false, []map[string]interface{}{map[string]interface{}(123)}, "Campaign_example", false, time.Now(), time.Now(), time.Now())}, "DynamicPageHubDbTableId_example", int32(123), "DynamicPageDataSourceId_example", "BlogAuthorId_example", []int64{int64(123)}, "HtmlTitle_example", false, []map[string]interface{}{map[string]interface{}(123)}, false, "PostSummary_example", "PostBody_example", "RssSummary_example", "RssBody_example", false, false, int64(123), "LinkRelCanonicalUrl_example", false, false, int64(123), "PageExpiryRedirectUrl_example", int64(123), false, false, false, map[string]LayoutSection{"key": *openapiclient.NewLayoutSection(int32(123), int32(123), "Name_example", "Label_example", "Type_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, []map[string]LayoutSection{map[string]LayoutSection{"key": *openapiclient.NewLayoutSection(int32(123), int32(123), "Name_example", "Label_example", "Type_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, []map[string]LayoutSection{map[string]LayoutSection{"key": }}, []openapiclient.RowMetaData{*openapiclient.NewRowMetaData(*openapiclient.NewStyles("VerticalAlignment_example", *openapiclient.NewRGBAColor(int32(123), int32(123), int32(123), float32(123)), *openapiclient.NewBackgroundImage("ImageUrl_example", "BackgroundSize_example", "BackgroundPosition_example"), *openapiclient.NewGradient(*openapiclient.NewSideOrCorner("VerticalSide_example", "HorizontalSide_example"), *openapiclient.NewAngle(float32(123), "Units_example"), []openapiclient.ColorStop{*openapiclient.NewColorStop(*openapiclient.NewRGBAColor(int32(123), int32(123), int32(123), float32(123)))}), int32(123), false, "FlexboxPositioning_example"), "CssClass_example")}, []openapiclient.LayoutSection{}, "CssClass_example", "CssStyle_example", "CssId_example", *openapiclient.NewStyles("VerticalAlignment_example", , *openapiclient.NewBackgroundImage("ImageUrl_example", "BackgroundSize_example", "BackgroundPosition_example"), *openapiclient.NewGradient(*openapiclient.NewSideOrCorner("VerticalSide_example", "HorizontalSide_example"), *openapiclient.NewAngle(float32(123), "Units_example"), []openapiclient.ColorStop{*openapiclient.NewColorStop()}), int32(123), false, "FlexboxPositioning_example"))}}, []openapiclient.RowMetaData{*openapiclient.NewRowMetaData(, "CssClass_example")}, []openapiclient.LayoutSection{}, "CssClass_example", "CssStyle_example", "CssId_example", )}, "FeaturedImageAltText_example", []map[string]map[string]interface{}{map[string]map[string]interface{}{"key": map[string]interface{}(123)}}, "MetaDescription_example", "HeadHtml_example", "FooterHtml_example", "FeaturedImage_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, "Url_example", "Password_example", "CurrentState_example", false, "ContentTypeCategory_example", time.Now(), time.Now(), time.Now()) // BlogPost | The JSON representation of the updated Blog Post to be applied to the draft.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -1622,7 +1622,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -1636,7 +1636,7 @@ Name | Type | Description  | Notes
 
 ## UpdateLanguages
 
-> Error UpdateLanguages(ctx).UpdateLanguagesRequestVNext(updateLanguagesRequestVNext).Execute()
+> UpdateLanguages(ctx).UpdateLanguagesRequestVNext(updateLanguagesRequestVNext).Execute()
 
 Update languages of multi-language group
 
@@ -1664,8 +1664,6 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsApi.UpdateLanguages``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `UpdateLanguages`: Error
-    fmt.Fprintf(os.Stdout, "Response from `BlogPostsApi.UpdateLanguages`: %v\n", resp)
 }
 ```
 
@@ -1684,11 +1682,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Error**](Error.md)
+ (empty response body)
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 

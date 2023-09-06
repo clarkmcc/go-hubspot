@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** | Specifies the value for &#x60;hs_name&#x60; column, which will be used as title in the dynamic pages | [optional] 
 **ChildTableId** | Pointer to **int32** | Specifies the value for the column child table id | [optional] 
 **Values** | **map[string]map[string]interface{}** | List of key value pairs with the column name and column value | 
+**DisplayIndex** | Pointer to **int32** |  | [optional] 
 
 ## Methods
 
@@ -122,6 +123,31 @@ and a boolean to check if the value has been set.
 
 SetValues sets Values field to given value.
 
+
+### GetDisplayIndex
+
+`func (o *HubDbTableRowV3Request) GetDisplayIndex() int32`
+
+GetDisplayIndex returns the DisplayIndex field if non-nil, zero value otherwise.
+
+### GetDisplayIndexOk
+
+`func (o *HubDbTableRowV3Request) GetDisplayIndexOk() (*int32, bool)`
+
+GetDisplayIndexOk returns a tuple with the DisplayIndex field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDisplayIndex
+
+`func (o *HubDbTableRowV3Request) SetDisplayIndex(v int32)`
+
+SetDisplayIndex sets DisplayIndex field to given value.
+
+### HasDisplayIndex
+
+`func (o *HubDbTableRowV3Request) HasDisplayIndex() bool`
+
+HasDisplayIndex returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

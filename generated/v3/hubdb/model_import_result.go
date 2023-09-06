@@ -18,24 +18,24 @@ import (
 type ImportResult struct {
 	// List of errors during import
 	Errors []Error `json:"errors"`
-	// Specifies number of rows imported
-	RowsImported int32 `json:"rowsImported"`
 	// Specifies number of duplicate rows
 	DuplicateRows int32 `json:"duplicateRows"`
 	// Specifies whether row limit exceeded during import
 	RowLimitExceeded bool `json:"rowLimitExceeded"`
+	// Specifies number of rows imported
+	RowsImported int32 `json:"rowsImported"`
 }
 
 // NewImportResult instantiates a new ImportResult object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewImportResult(errors []Error, rowsImported int32, duplicateRows int32, rowLimitExceeded bool) *ImportResult {
+func NewImportResult(errors []Error, duplicateRows int32, rowLimitExceeded bool, rowsImported int32) *ImportResult {
 	this := ImportResult{}
 	this.Errors = errors
-	this.RowsImported = rowsImported
 	this.DuplicateRows = duplicateRows
 	this.RowLimitExceeded = rowLimitExceeded
+	this.RowsImported = rowsImported
 	return &this
 }
 
@@ -69,30 +69,6 @@ func (o *ImportResult) GetErrorsOk() ([]Error, bool) {
 // SetErrors sets field value
 func (o *ImportResult) SetErrors(v []Error) {
 	o.Errors = v
-}
-
-// GetRowsImported returns the RowsImported field value
-func (o *ImportResult) GetRowsImported() int32 {
-	if o == nil {
-		var ret int32
-		return ret
-	}
-
-	return o.RowsImported
-}
-
-// GetRowsImportedOk returns a tuple with the RowsImported field value
-// and a boolean to check if the value has been set.
-func (o *ImportResult) GetRowsImportedOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.RowsImported, true
-}
-
-// SetRowsImported sets field value
-func (o *ImportResult) SetRowsImported(v int32) {
-	o.RowsImported = v
 }
 
 // GetDuplicateRows returns the DuplicateRows field value
@@ -143,19 +119,43 @@ func (o *ImportResult) SetRowLimitExceeded(v bool) {
 	o.RowLimitExceeded = v
 }
 
+// GetRowsImported returns the RowsImported field value
+func (o *ImportResult) GetRowsImported() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.RowsImported
+}
+
+// GetRowsImportedOk returns a tuple with the RowsImported field value
+// and a boolean to check if the value has been set.
+func (o *ImportResult) GetRowsImportedOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.RowsImported, true
+}
+
+// SetRowsImported sets field value
+func (o *ImportResult) SetRowsImported(v int32) {
+	o.RowsImported = v
+}
+
 func (o ImportResult) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
 		toSerialize["errors"] = o.Errors
 	}
 	if true {
-		toSerialize["rowsImported"] = o.RowsImported
-	}
-	if true {
 		toSerialize["duplicateRows"] = o.DuplicateRows
 	}
 	if true {
 		toSerialize["rowLimitExceeded"] = o.RowLimitExceeded
+	}
+	if true {
+		toSerialize["rowsImported"] = o.RowsImported
 	}
 	return json.Marshal(toSerialize)
 }

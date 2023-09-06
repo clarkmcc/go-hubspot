@@ -243,6 +243,79 @@
           }
         }
       },
+      "SettingsRequest" : {
+        "required" : [ "name", "url" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "description" : "The name of your calling service to display to users."
+          },
+          "url" : {
+            "type" : "string",
+            "description" : "The URL to your phone/calling UI, built with the [Calling SDK](#)."
+          },
+          "height" : {
+            "type" : "integer",
+            "description" : "The target height of the iframe that will contain your phone/calling UI.",
+            "format" : "int32"
+          },
+          "width" : {
+            "type" : "integer",
+            "description" : "The target width of the iframe that will contain your phone/calling UI.",
+            "format" : "int32"
+          },
+          "isReady" : {
+            "type" : "boolean",
+            "description" : "When true, your service will appear as an option under the *Call* action in contact records of connected accounts."
+          },
+          "supportsCustomObjects" : {
+            "type" : "boolean",
+            "description" : "When true, you are indicating that your service is compatible with engagement v2 service and can be used with custom objects."
+          }
+        },
+        "description" : "Settings create request",
+        "example" : {
+          "supportsCustomObjects" : true,
+          "isReady" : true,
+          "name" : "HubPhone",
+          "width" : 200,
+          "url" : "https://www.example.com/hubspot/iframe",
+          "height" : 350
+        }
+      },
+      "SettingsPatchRequest" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "description" : "The name of your calling service to display to users."
+          },
+          "url" : {
+            "type" : "string",
+            "description" : "The URL to your phone/calling UI, built with the [Calling SDK](#)."
+          },
+          "height" : {
+            "type" : "integer",
+            "description" : "The target height of the iframe that will contain your phone/calling UI.",
+            "format" : "int32"
+          },
+          "width" : {
+            "type" : "integer",
+            "description" : "The target width of the iframe that will contain your phone/calling UI.",
+            "format" : "int32"
+          },
+          "isReady" : {
+            "type" : "boolean",
+            "description" : "When true, your service will appear as an option under the *Call* action in contact records of connected accounts."
+          },
+          "supportsCustomObjects" : {
+            "type" : "boolean",
+            "description" : "When true, you are indicating that your service is compatible with engagement v2 service and can be used with custom objects."
+          }
+        },
+        "description" : "Settings update request"
+      },
       "Error" : {
         "required" : [ "category", "correlationId", "message" ],
         "type" : "object",
@@ -302,79 +375,6 @@
           "links" : {
             "knowledge-base" : "https://www.hubspot.com/products/service/knowledge-base"
           }
-        }
-      },
-      "SettingsPatchRequest" : {
-        "type" : "object",
-        "properties" : {
-          "name" : {
-            "type" : "string",
-            "description" : "The name of your calling service to display to users."
-          },
-          "url" : {
-            "type" : "string",
-            "description" : "The URL to your phone/calling UI, built with the [Calling SDK](#)."
-          },
-          "height" : {
-            "type" : "integer",
-            "description" : "The target height of the iframe that will contain your phone/calling UI.",
-            "format" : "int32"
-          },
-          "width" : {
-            "type" : "integer",
-            "description" : "The target width of the iframe that will contain your phone/calling UI.",
-            "format" : "int32"
-          },
-          "isReady" : {
-            "type" : "boolean",
-            "description" : "When true, your service will appear as an option under the *Call* action in contact records of connected accounts."
-          },
-          "supportsCustomObjects" : {
-            "type" : "boolean",
-            "description" : "When true, you are indicating that your service is compatible with engagement v2 service and can be used with custom objects."
-          }
-        },
-        "description" : "Settings update request"
-      },
-      "SettingsRequest" : {
-        "required" : [ "name", "url" ],
-        "type" : "object",
-        "properties" : {
-          "name" : {
-            "type" : "string",
-            "description" : "The name of your calling service to display to users."
-          },
-          "url" : {
-            "type" : "string",
-            "description" : "The URL to your phone/calling UI, built with the [Calling SDK](#)."
-          },
-          "height" : {
-            "type" : "integer",
-            "description" : "The target height of the iframe that will contain your phone/calling UI.",
-            "format" : "int32"
-          },
-          "width" : {
-            "type" : "integer",
-            "description" : "The target width of the iframe that will contain your phone/calling UI.",
-            "format" : "int32"
-          },
-          "isReady" : {
-            "type" : "boolean",
-            "description" : "When true, your service will appear as an option under the *Call* action in contact records of connected accounts."
-          },
-          "supportsCustomObjects" : {
-            "type" : "boolean",
-            "description" : "When true, you are indicating that your service is compatible with engagement v2 service and can be used with custom objects."
-          }
-        },
-        "description" : "Settings create request",
-        "example" : {
-          "supportsCustomObjects" : true,
-          "isReady" : true,
-          "name" : "HubPhone",
-          "width" : 200,
-          "url" : "https://www.example.com/hubspot/iframe",
-          "height" : 350
         }
       },
       "SettingsResponse" : {

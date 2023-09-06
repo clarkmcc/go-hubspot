@@ -48,7 +48,9 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "crm.objects.custom.read" ]
+        }, {
+          "private_apps_legacy" : [ "crm.schemas.custom.read" ]
         }, {
           "oauth2_legacy" : [ "crm.objects.custom.read" ]
         }, {
@@ -87,7 +89,9 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "crm.schemas.custom.write", "crm.objects.custom.write" ]
+        }, {
+          "private_apps_legacy" : [ "crm.schemas.custom.write" ]
         } ]
       }
     },
@@ -124,7 +128,9 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "crm.objects.custom.read" ]
+        }, {
+          "private_apps_legacy" : [ "crm.schemas.custom.read" ]
         }, {
           "oauth2_legacy" : [ "crm.objects.custom.read" ]
         }, {
@@ -168,7 +174,7 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "crm.schemas.custom.write" ]
         } ]
       },
       "patch" : {
@@ -214,7 +220,9 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "crm.schemas.custom.write", "crm.objects.custom.write" ]
+        }, {
+          "private_apps_legacy" : [ "crm.schemas.custom.write" ]
         } ]
       }
     },
@@ -262,7 +270,9 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "crm.schemas.custom.write", "crm.objects.custom.write" ]
+        }, {
+          "private_apps_legacy" : [ "crm.schemas.custom.write" ]
         } ]
       }
     },
@@ -303,7 +313,7 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "crm.schemas.custom.write" ]
         } ]
       }
     },
@@ -332,7 +342,7 @@
         },
         "deprecated" : true,
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "crm.schemas.custom.write" ]
         } ]
       }
     }
@@ -379,18 +389,6 @@
           "primaryDisplayProperty" : "my_object_property",
           "requiredProperties" : [ "my_object_property" ],
           "searchableProperties" : [ "my_object_property" ]
-        }
-      },
-      "CollectionResponseObjectSchemaNoPaging" : {
-        "required" : [ "results" ],
-        "type" : "object",
-        "properties" : {
-          "results" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/ObjectSchema"
-            }
-          }
         }
       },
       "ObjectTypeDefinition" : {
@@ -473,6 +471,18 @@
           "portalId" : 12345678,
           "metaType" : "PORTAL_SPECIFIC",
           "name" : "my_object"
+        }
+      },
+      "CollectionResponseObjectSchemaNoPaging" : {
+        "required" : [ "results" ],
+        "type" : "object",
+        "properties" : {
+          "results" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ObjectSchema"
+            }
+          }
         }
       },
       "OptionInput" : {
@@ -606,6 +616,24 @@
           }
         }
       },
+      "PropertyModificationMetadata" : {
+        "required" : [ "archivable", "readOnlyDefinition", "readOnlyValue" ],
+        "type" : "object",
+        "properties" : {
+          "archivable" : {
+            "type" : "boolean"
+          },
+          "readOnlyDefinition" : {
+            "type" : "boolean"
+          },
+          "readOnlyOptions" : {
+            "type" : "boolean"
+          },
+          "readOnlyValue" : {
+            "type" : "boolean"
+          }
+        }
+      },
       "ObjectTypePropertyCreate" : {
         "required" : [ "fieldType", "label", "name", "type" ],
         "type" : "object",
@@ -676,24 +704,6 @@
           } ]
         }
       },
-      "PropertyModificationMetadata" : {
-        "required" : [ "archivable", "readOnlyDefinition", "readOnlyValue" ],
-        "type" : "object",
-        "properties" : {
-          "archivable" : {
-            "type" : "boolean"
-          },
-          "readOnlyDefinition" : {
-            "type" : "boolean"
-          },
-          "readOnlyOptions" : {
-            "type" : "boolean"
-          },
-          "readOnlyValue" : {
-            "type" : "boolean"
-          }
-        }
-      },
       "AssociationDefinitionEgg" : {
         "required" : [ "fromObjectTypeId", "toObjectTypeId" ],
         "type" : "object",
@@ -715,45 +725,6 @@
         "example" : {
           "fromObjectTypeId" : "2-123456",
           "toObjectTypeId" : "contact",
-          "name" : "my_object_to_contact"
-        }
-      },
-      "AssociationDefinition" : {
-        "required" : [ "fromObjectTypeId", "id", "toObjectTypeId" ],
-        "type" : "object",
-        "properties" : {
-          "fromObjectTypeId" : {
-            "type" : "string",
-            "description" : "ID of the primary object type to link from."
-          },
-          "toObjectTypeId" : {
-            "type" : "string",
-            "description" : "ID of the target object type ID to link to."
-          },
-          "name" : {
-            "type" : "string",
-            "description" : "A unique name for this association."
-          },
-          "id" : {
-            "type" : "string",
-            "description" : "A unique ID for this association."
-          },
-          "createdAt" : {
-            "type" : "string",
-            "description" : "When the association was defined.",
-            "format" : "date-time"
-          },
-          "updatedAt" : {
-            "type" : "string",
-            "description" : "When the association was last updated.",
-            "format" : "date-time"
-          }
-        },
-        "description" : "Defines an association between two object types.",
-        "example" : {
-          "id" : "105",
-          "fromObjectTypeId" : "2-123456",
-          "toObjectTypeId" : "0-1",
           "name" : "my_object_to_contact"
         }
       },
@@ -869,6 +840,98 @@
           "name" : "my_object"
         }
       },
+      "AssociationDefinition" : {
+        "required" : [ "fromObjectTypeId", "id", "toObjectTypeId" ],
+        "type" : "object",
+        "properties" : {
+          "fromObjectTypeId" : {
+            "type" : "string",
+            "description" : "ID of the primary object type to link from."
+          },
+          "toObjectTypeId" : {
+            "type" : "string",
+            "description" : "ID of the target object type ID to link to."
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "A unique name for this association."
+          },
+          "id" : {
+            "type" : "string",
+            "description" : "A unique ID for this association."
+          },
+          "createdAt" : {
+            "type" : "string",
+            "description" : "When the association was defined.",
+            "format" : "date-time"
+          },
+          "updatedAt" : {
+            "type" : "string",
+            "description" : "When the association was last updated.",
+            "format" : "date-time"
+          }
+        },
+        "description" : "Defines an association between two object types.",
+        "example" : {
+          "id" : "105",
+          "fromObjectTypeId" : "2-123456",
+          "toObjectTypeId" : "0-1",
+          "name" : "my_object_to_contact"
+        }
+      },
+      "Option" : {
+        "required" : [ "hidden", "label", "value" ],
+        "type" : "object",
+        "properties" : {
+          "label" : {
+            "type" : "string",
+            "description" : "A human-readable option label that will be shown in HubSpot."
+          },
+          "value" : {
+            "type" : "string",
+            "description" : "The internal value of the option, which must be used when setting the property value through the API."
+          },
+          "description" : {
+            "type" : "string",
+            "description" : "A description of the option."
+          },
+          "displayOrder" : {
+            "type" : "integer",
+            "description" : "Options are displayed in order starting with the lowest positive integer value. Values of -1 will cause the option to be displayed after any positive values.",
+            "format" : "int32"
+          },
+          "hidden" : {
+            "type" : "boolean",
+            "description" : "Hidden options will not be displayed in HubSpot."
+          }
+        },
+        "description" : "The options available when a property is an enumeration",
+        "example" : {
+          "label" : "Option A",
+          "description" : "Choice number one",
+          "value" : "A",
+          "displayOrder" : 1,
+          "hidden" : false
+        }
+      },
+      "ObjectTypeDefinitionLabels" : {
+        "type" : "object",
+        "properties" : {
+          "singular" : {
+            "type" : "string",
+            "description" : "The word for one object. (There’s no way to change this later.)"
+          },
+          "plural" : {
+            "type" : "string",
+            "description" : "The word for multiple objects. (There’s no way to change this later.)"
+          }
+        },
+        "description" : "Singular and plural labels for the object. Used in CRM display.",
+        "example" : {
+          "singular" : "My object",
+          "plural" : "My objects"
+        }
+      },
       "ObjectSchemaEgg" : {
         "required" : [ "associatedObjects", "labels", "name", "properties", "requiredProperties", "searchableProperties", "secondaryDisplayProperties" ],
         "type" : "object",
@@ -936,59 +999,6 @@
           } ],
           "associatedObjects" : [ "CONTACT" ],
           "metaType" : "PORTAL_SPECIFIC"
-        }
-      },
-      "ObjectTypeDefinitionLabels" : {
-        "type" : "object",
-        "properties" : {
-          "singular" : {
-            "type" : "string",
-            "description" : "The word for one object. (There’s no way to change this later.)"
-          },
-          "plural" : {
-            "type" : "string",
-            "description" : "The word for multiple objects. (There’s no way to change this later.)"
-          }
-        },
-        "description" : "Singular and plural labels for the object. Used in CRM display.",
-        "example" : {
-          "singular" : "My object",
-          "plural" : "My objects"
-        }
-      },
-      "Option" : {
-        "required" : [ "hidden", "label", "value" ],
-        "type" : "object",
-        "properties" : {
-          "label" : {
-            "type" : "string",
-            "description" : "A human-readable option label that will be shown in HubSpot."
-          },
-          "value" : {
-            "type" : "string",
-            "description" : "The internal value of the option, which must be used when setting the property value through the API."
-          },
-          "description" : {
-            "type" : "string",
-            "description" : "A description of the option."
-          },
-          "displayOrder" : {
-            "type" : "integer",
-            "description" : "Options are displayed in order starting with the lowest positive integer value. Values of -1 will cause the option to be displayed after any positive values.",
-            "format" : "int32"
-          },
-          "hidden" : {
-            "type" : "boolean",
-            "description" : "Hidden options will not be displayed in HubSpot."
-          }
-        },
-        "description" : "The options available when a property is an enumeration",
-        "example" : {
-          "label" : "Option A",
-          "description" : "Choice number one",
-          "value" : "A",
-          "displayOrder" : 1,
-          "hidden" : false
         }
       },
       "Property" : {
@@ -1149,10 +1159,10 @@
           }
         }
       },
-      "hapikey" : {
+      "private_apps_legacy" : {
         "type" : "apiKey",
-        "name" : "hapikey",
-        "in" : "query"
+        "name" : "private-app-legacy",
+        "in" : "header"
       }
     }
   },

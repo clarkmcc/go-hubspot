@@ -62,7 +62,7 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "accounting" ]
         }, {
           "oauth2_legacy" : [ "accounting" ]
         } ]
@@ -106,7 +106,7 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "accounting" ]
         }, {
           "oauth2_legacy" : [ "accounting" ]
         } ]
@@ -150,7 +150,7 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "accounting" ]
         }, {
           "oauth2_legacy" : [ "accounting" ]
         } ]
@@ -194,7 +194,7 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "accounting" ]
         }, {
           "oauth2_legacy" : [ "accounting" ]
         } ]
@@ -238,7 +238,7 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "accounting" ]
         }, {
           "oauth2_legacy" : [ "accounting" ]
         } ]
@@ -282,7 +282,7 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "accounting" ]
         }, {
           "oauth2_legacy" : [ "accounting" ]
         } ]
@@ -326,7 +326,7 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "accounting" ]
         }, {
           "oauth2_legacy" : [ "accounting" ]
         } ]
@@ -370,7 +370,7 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "accounting" ]
         }, {
           "oauth2_legacy" : [ "accounting" ]
         } ]
@@ -414,7 +414,7 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "accounting" ]
         }, {
           "oauth2_legacy" : [ "accounting" ]
         } ]
@@ -458,7 +458,7 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "accounting" ]
         }, {
           "oauth2_legacy" : [ "accounting" ]
         } ]
@@ -507,7 +507,7 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "accounting" ]
         }, {
           "oauth2_legacy" : [ "accounting" ]
         } ]
@@ -565,7 +565,7 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "accounting" ]
         }, {
           "oauth2_legacy" : [ "accounting" ]
         } ]
@@ -625,7 +625,7 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "accounting" ]
         }, {
           "oauth2_legacy" : [ "accounting" ]
         } ]
@@ -664,9 +664,7 @@
             "$ref" : "#/components/responses/Error"
           }
         },
-        "security" : [ {
-          "hapikey" : [ ]
-        } ]
+        "security" : [ ]
       },
       "put" : {
         "tags" : [ "Settings" ],
@@ -704,9 +702,7 @@
             "$ref" : "#/components/responses/Error"
           }
         },
-        "security" : [ {
-          "hapikey" : [ ]
-        } ]
+        "security" : [ ]
       }
     },
     "/crm/v3/extensions/accounting/sync/{appId}/contacts" : {
@@ -753,7 +749,7 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "accounting" ]
         }, {
           "oauth2_legacy" : [ "accounting" ]
         } ]
@@ -803,7 +799,7 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "accounting" ]
         }, {
           "oauth2_legacy" : [ "accounting" ]
         } ]
@@ -836,7 +832,7 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "accounting" ]
         }, {
           "oauth2_legacy" : [ "accounting" ]
         } ]
@@ -869,7 +865,7 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "accounting" ]
         }, {
           "oauth2_legacy" : [ "accounting" ]
         } ]
@@ -950,6 +946,26 @@
           }
         }
       },
+      "TermsResponse" : {
+        "required" : [ "terms" ],
+        "type" : "object",
+        "properties" : {
+          "@result" : {
+            "type" : "string",
+            "description" : "Designates if the response is a success ('OK') or failure ('ERR').",
+            "example" : "OK",
+            "enum" : [ "OK", "ERR" ]
+          },
+          "terms" : {
+            "type" : "array",
+            "description" : "The list of payment terms that matched the search criteria.",
+            "items" : {
+              "$ref" : "#/components/schemas/AccountingExtensionTerm"
+            }
+          }
+        },
+        "description" : "A response to a search for payment terms."
+      },
       "CreateInvoiceSubFeatures" : {
         "required" : [ "createCustomer", "exchangeRates", "invoiceComments", "invoiceDiscounts", "taxes", "terms" ],
         "type" : "object",
@@ -980,46 +996,6 @@
           }
         },
         "description" : "Lists the individual aspects of creating invoices that are enabled for the integration, as part of the create invoice flow in HubSpot."
-      },
-      "TermsResponse" : {
-        "required" : [ "terms" ],
-        "type" : "object",
-        "properties" : {
-          "@result" : {
-            "type" : "string",
-            "description" : "Designates if the response is a success ('OK') or failure ('ERR').",
-            "example" : "OK",
-            "enum" : [ "OK", "ERR" ]
-          },
-          "terms" : {
-            "type" : "array",
-            "description" : "The list of payment terms that matched the search criteria.",
-            "items" : {
-              "$ref" : "#/components/schemas/AccountingExtensionTerm"
-            }
-          }
-        },
-        "description" : "A response to a search for payment terms."
-      },
-      "AccountingFeatures" : {
-        "required" : [ "createInvoice", "importInvoice", "sync" ],
-        "type" : "object",
-        "properties" : {
-          "createInvoice" : {
-            "$ref" : "#/components/schemas/CreateInvoiceFeature"
-          },
-          "importInvoice" : {
-            "$ref" : "#/components/schemas/ImportInvoiceFeature"
-          },
-          "sync" : {
-            "type" : "object",
-            "additionalProperties" : {
-              "$ref" : "#/components/schemas/ObjectSyncFeature"
-            },
-            "description" : "Indicates if syncing objects from the external account system into HubSpot is supported for the integration.\nThis is a map, where the key is one of `CONTACT` or `PRODUCT`, to indicate which type of object you do or don't support syncing.\nFor example:\n```\n  \"sync\": {\n    \"CONTACT\": {\n      \"toHubSpot\": true\n    },\n    \"PRODUCT\": {\n      \"toHubSpot\": true\n    }\n  }\n```\n"
-          }
-        },
-        "description" : "Outlines the features that are supported by the external accounting system."
       },
       "Product" : {
         "required" : [ "id", "name", "taxExempt", "unitPrice" ],
@@ -1052,6 +1028,48 @@
           }
         },
         "description" : "Representation of a product in the external accounting system."
+      },
+      "AccountingFeatures" : {
+        "required" : [ "createInvoice", "importInvoice", "sync" ],
+        "type" : "object",
+        "properties" : {
+          "createInvoice" : {
+            "$ref" : "#/components/schemas/CreateInvoiceFeature"
+          },
+          "importInvoice" : {
+            "$ref" : "#/components/schemas/ImportInvoiceFeature"
+          },
+          "sync" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "$ref" : "#/components/schemas/ObjectSyncFeature"
+            },
+            "description" : "Indicates if syncing objects from the external account system into HubSpot is supported for the integration.\nThis is a map, where the key is one of `CONTACT` or `PRODUCT`, to indicate which type of object you do or don't support syncing.\nFor example:\n```\n  \"sync\": {\n    \"CONTACT\": {\n      \"toHubSpot\": true\n    },\n    \"PRODUCT\": {\n      \"toHubSpot\": true\n    }\n  }\n```\n"
+          }
+        },
+        "description" : "Outlines the features that are supported by the external accounting system."
+      },
+      "Tax" : {
+        "required" : [ "code", "name", "percentage" ],
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "type" : "string",
+            "description" : "The code/ID of the tax in the external accounting system.",
+            "example" : "tax-1"
+          },
+          "percentage" : {
+            "type" : "number",
+            "description" : "The tax percentage.  For example, 8.05 represents a 8.05% tax rate.",
+            "example" : 8.05
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "The display name of the tax.",
+            "example" : "Local Sales Tax"
+          }
+        },
+        "description" : "Representation of a tax defined in the external accounting system."
       },
       "InvoiceUpdateRequest" : {
         "type" : "object",
@@ -1094,28 +1112,6 @@
           }
         },
         "description" : "The invoice data to update in HubSpot"
-      },
-      "Tax" : {
-        "required" : [ "code", "name", "percentage" ],
-        "type" : "object",
-        "properties" : {
-          "code" : {
-            "type" : "string",
-            "description" : "The code/ID of the tax in the external accounting system.",
-            "example" : "tax-1"
-          },
-          "percentage" : {
-            "type" : "number",
-            "description" : "The tax percentage.  For example, 8.05 represents a 8.05% tax rate.",
-            "example" : 8.05
-          },
-          "name" : {
-            "type" : "string",
-            "description" : "The display name of the tax.",
-            "example" : "Local Sales Tax"
-          }
-        },
-        "description" : "Representation of a tax defined in the external accounting system."
       },
       "ErrorDetail" : {
         "required" : [ "message" ],
@@ -1279,24 +1275,25 @@
         },
         "description" : "Representation of an invoice in the external accounting system."
       },
-      "CreateUserAccountRequestExternal" : {
-        "required" : [ "accountId", "accountName", "currencyCode" ],
+      "TaxSearchResponse" : {
+        "required" : [ "taxes" ],
         "type" : "object",
         "properties" : {
-          "accountId" : {
+          "@result" : {
             "type" : "string",
-            "description" : "The id of the account in your system."
+            "description" : "Designates if the response is a success ('OK') or failure ('ERR').",
+            "example" : "OK",
+            "enum" : [ "OK", "ERR" ]
           },
-          "accountName" : {
-            "type" : "string",
-            "description" : "The name of the account in your system. This is normally the name visible to your users."
-          },
-          "currencyCode" : {
-            "type" : "string",
-            "description" : "The default currency that this account uses."
+          "taxes" : {
+            "type" : "array",
+            "description" : "The list of taxes that matched the search criteria",
+            "items" : {
+              "$ref" : "#/components/schemas/Tax"
+            }
           }
         },
-        "description" : "Information about the account in your external account system."
+        "description" : "A response to a search for taxes."
       },
       "InvoiceCreatePaymentRequest" : {
         "required" : [ "amountPaid", "currencyCode", "externalPaymentId", "paymentDateTime" ],
@@ -1321,25 +1318,24 @@
           }
         }
       },
-      "TaxSearchResponse" : {
-        "required" : [ "taxes" ],
+      "CreateUserAccountRequestExternal" : {
+        "required" : [ "accountId", "accountName", "currencyCode" ],
         "type" : "object",
         "properties" : {
-          "@result" : {
+          "accountId" : {
             "type" : "string",
-            "description" : "Designates if the response is a success ('OK') or failure ('ERR').",
-            "example" : "OK",
-            "enum" : [ "OK", "ERR" ]
+            "description" : "The id of the account in your system."
           },
-          "taxes" : {
-            "type" : "array",
-            "description" : "The list of taxes that matched the search criteria",
-            "items" : {
-              "$ref" : "#/components/schemas/Tax"
-            }
+          "accountName" : {
+            "type" : "string",
+            "description" : "The name of the account in your system. This is normally the name visible to your users."
+          },
+          "currencyCode" : {
+            "type" : "string",
+            "description" : "The default currency that this account uses."
           }
         },
-        "description" : "A response to a search for taxes."
+        "description" : "Information about the account in your external account system."
       },
       "AccountingExtensionTerm" : {
         "required" : [ "id", "name" ],
@@ -1510,24 +1506,6 @@
         },
         "description" : "The invoice data stored in HubSpot"
       },
-      "AccountingAppSettings" : {
-        "required" : [ "appId", "urls" ],
-        "type" : "object",
-        "properties" : {
-          "appId" : {
-            "type" : "integer",
-            "description" : "The ID of the accounting app. This is the identifier of the application created in your HubSpot developer portal.",
-            "format" : "int32"
-          },
-          "urls" : {
-            "$ref" : "#/components/schemas/AccountingAppUrls"
-          },
-          "features" : {
-            "$ref" : "#/components/schemas/AccountingFeatures"
-          }
-        },
-        "description" : "The URL Settings, which defines the URL endpoints that HubSpot will send requests to an external accounting application for certain actions."
-      },
       "InvoiceUpdateResponse" : {
         "required" : [ "archived", "balanceDue", "createdAt", "currencyCode", "dueDate", "externalAccountId", "externalRecipientId", "id", "invoiceStatus", "isVoided", "totalAmountBilled", "updatedAt" ],
         "type" : "object",
@@ -1588,6 +1566,24 @@
             "type" : "string"
           }
         }
+      },
+      "AccountingAppSettings" : {
+        "required" : [ "appId", "urls" ],
+        "type" : "object",
+        "properties" : {
+          "appId" : {
+            "type" : "integer",
+            "description" : "The ID of the accounting app. This is the identifier of the application created in your HubSpot developer portal.",
+            "format" : "int32"
+          },
+          "urls" : {
+            "$ref" : "#/components/schemas/AccountingAppUrls"
+          },
+          "features" : {
+            "$ref" : "#/components/schemas/AccountingFeatures"
+          }
+        },
+        "description" : "The URL Settings, which defines the URL endpoints that HubSpot will send requests to an external accounting application for certain actions."
       },
       "AccountingExtensionCustomer" : {
         "required" : [ "id", "name" ],
@@ -1754,20 +1750,6 @@
         },
         "description" : "A request to import external accounting contact properties in HubSpot"
       },
-      "CreateInvoiceFeature" : {
-        "required" : [ "enabled", "subFeatures" ],
-        "type" : "object",
-        "properties" : {
-          "enabled" : {
-            "type" : "boolean",
-            "description" : "Indicates if creating invoices in HubSpot is supported for the integration."
-          },
-          "subFeatures" : {
-            "$ref" : "#/components/schemas/CreateInvoiceSubFeatures"
-          }
-        },
-        "description" : "Indicates what elements of creating invoices in HubSpot is supported for the integration."
-      },
       "InvoicePdfResponse" : {
         "required" : [ "invoice" ],
         "type" : "object",
@@ -1787,33 +1769,37 @@
         },
         "description" : "A response that contains the PDF of an invoice"
       },
-      "ActionResponse" : {
-        "required" : [ "completedAt", "startedAt", "status" ],
+      "CreateInvoiceFeature" : {
+        "required" : [ "enabled", "subFeatures" ],
         "type" : "object",
         "properties" : {
-          "status" : {
-            "type" : "string",
-            "enum" : [ "PENDING", "PROCESSING", "CANCELED", "COMPLETE" ]
+          "enabled" : {
+            "type" : "boolean",
+            "description" : "Indicates if creating invoices in HubSpot is supported for the integration."
           },
-          "requestedAt" : {
+          "subFeatures" : {
+            "$ref" : "#/components/schemas/CreateInvoiceSubFeatures"
+          }
+        },
+        "description" : "Indicates what elements of creating invoices in HubSpot is supported for the integration."
+      },
+      "SyncProductsRequest" : {
+        "required" : [ "accountId", "products" ],
+        "type" : "object",
+        "properties" : {
+          "accountId" : {
             "type" : "string",
-            "format" : "date-time"
+            "description" : "The ID of the account in the external accounting system. This is the value that will be passed as `accountId` for all outbound calls for the user from HubSpot to the external accounting system."
           },
-          "startedAt" : {
-            "type" : "string",
-            "format" : "date-time"
-          },
-          "completedAt" : {
-            "type" : "string",
-            "format" : "date-time"
-          },
-          "links" : {
-            "type" : "object",
-            "additionalProperties" : {
-              "type" : "string"
+          "products" : {
+            "type" : "array",
+            "description" : "A list of products to be imported.",
+            "items" : {
+              "$ref" : "#/components/schemas/UpdatedProduct"
             }
           }
-        }
+        },
+        "description" : "A request to import external accounting product properties in HubSpot"
       },
       "ExchangeRateResponse" : {
         "required" : [ "@result", "exchangeRate", "sourceCurrencyCode", "targetCurrencyCode" ],
@@ -1843,23 +1829,33 @@
         },
         "description" : "A response to the request for an exchange rate value. It represents the exchange rate from the source currency to the target currency."
       },
-      "SyncProductsRequest" : {
-        "required" : [ "accountId", "products" ],
+      "ActionResponse" : {
+        "required" : [ "completedAt", "startedAt", "status" ],
         "type" : "object",
         "properties" : {
-          "accountId" : {
+          "status" : {
             "type" : "string",
-            "description" : "The ID of the account in the external accounting system. This is the value that will be passed as `accountId` for all outbound calls for the user from HubSpot to the external accounting system."
+            "enum" : [ "PENDING", "PROCESSING", "CANCELED", "COMPLETE" ]
           },
-          "products" : {
-            "type" : "array",
-            "description" : "A list of products to be imported.",
-            "items" : {
-              "$ref" : "#/components/schemas/UpdatedProduct"
+          "requestedAt" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "startedAt" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "completedAt" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "links" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
             }
           }
-        },
-        "description" : "A request to import external accounting product properties in HubSpot"
+        }
       },
       "TaxType" : {
         "required" : [ "code" ],
@@ -1939,10 +1935,10 @@
           }
         }
       },
-      "hapikey" : {
+      "private_apps_legacy" : {
         "type" : "apiKey",
-        "name" : "hapikey",
-        "in" : "query"
+        "name" : "private-app-legacy",
+        "in" : "header"
       }
     }
   },

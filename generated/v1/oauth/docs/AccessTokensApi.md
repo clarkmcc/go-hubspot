@@ -4,13 +4,13 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetAccessToken**](AccessTokensApi.md#GetAccessToken) | **Get** /oauth/v1/access-tokens/{token} | 
+[**GetOauthV1AccessTokensTokenGet**](AccessTokensApi.md#GetOauthV1AccessTokensTokenGet) | **Get** /oauth/v1/access-tokens/{token} | 
 
 
 
-## GetAccessToken
+## GetOauthV1AccessTokensTokenGet
 
-> AccessTokenInfoResponse GetAccessToken(ctx, token).Execute()
+> AccessTokenInfoResponse GetOauthV1AccessTokensTokenGet(ctx, token).Execute()
 
 
 
@@ -31,13 +31,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccessTokensApi.GetAccessToken(context.Background(), token).Execute()
+    resp, r, err := apiClient.AccessTokensApi.GetOauthV1AccessTokensTokenGet(context.Background(), token).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AccessTokensApi.GetAccessToken``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `AccessTokensApi.GetOauthV1AccessTokensTokenGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetAccessToken`: AccessTokenInfoResponse
-    fmt.Fprintf(os.Stdout, "Response from `AccessTokensApi.GetAccessToken`: %v\n", resp)
+    // response from `GetOauthV1AccessTokensTokenGet`: AccessTokenInfoResponse
+    fmt.Fprintf(os.Stdout, "Response from `AccessTokensApi.GetOauthV1AccessTokensTokenGet`: %v\n", resp)
 }
 ```
 
@@ -51,7 +51,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetAccessTokenRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetOauthV1AccessTokensTokenGetRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

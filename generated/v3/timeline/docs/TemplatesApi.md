@@ -34,7 +34,7 @@ import (
 
 func main() {
     appId := int32(56) // int32 | The ID of the target app.
-    timelineEventTemplateCreateRequest := *openapiclient.NewTimelineEventTemplateCreateRequest("Name_example", []openapiclient.TimelineEventTemplateToken{*openapiclient.NewTimelineEventTemplateToken("Label_example", []openapiclient.TimelineEventTemplateTokenOption{*openapiclient.NewTimelineEventTemplateTokenOption("Value_example", "Label_example")}, "Name_example", "Type_example")}, "ObjectType_example") // TimelineEventTemplateCreateRequest | The new event template definition.
+    timelineEventTemplateCreateRequest := *openapiclient.NewTimelineEventTemplateCreateRequest("Name_example", []openapiclient.TimelineEventTemplateToken{*openapiclient.NewTimelineEventTemplateToken("Label_example", "Name_example", "Type_example")}, "ObjectType_example") // TimelineEventTemplateCreateRequest | The new event template definition.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -321,7 +321,7 @@ import (
 func main() {
     eventTemplateId := "eventTemplateId_example" // string | The event template ID.
     appId := int32(56) // int32 | The ID of the target app.
-    timelineEventTemplateUpdateRequest := *openapiclient.NewTimelineEventTemplateUpdateRequest("Name_example", []openapiclient.TimelineEventTemplateToken{*openapiclient.NewTimelineEventTemplateToken("Label_example", []openapiclient.TimelineEventTemplateTokenOption{*openapiclient.NewTimelineEventTemplateTokenOption("Value_example", "Label_example")}, "Name_example", "Type_example")}, "Id_example") // TimelineEventTemplateUpdateRequest | The updated event template definition.
+    timelineEventTemplateUpdateRequest := *openapiclient.NewTimelineEventTemplateUpdateRequest("Name_example", []openapiclient.TimelineEventTemplateToken{*openapiclient.NewTimelineEventTemplateToken("Label_example", "Name_example", "Type_example")}, "Id_example") // TimelineEventTemplateUpdateRequest | The updated event template definition.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)

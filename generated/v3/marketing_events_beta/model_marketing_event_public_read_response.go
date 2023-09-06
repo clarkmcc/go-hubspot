@@ -17,55 +17,55 @@ import (
 
 // MarketingEventPublicReadResponse struct for MarketingEventPublicReadResponse
 type MarketingEventPublicReadResponse struct {
-	// The name of the marketing event.
-	EventName string `json:"eventName"`
-	// The type of the marketing event.
-	EventType *string `json:"eventType,omitempty"`
-	// The start date and time of the marketing event.
-	StartDateTime *time.Time `json:"startDateTime,omitempty"`
-	// The end date and time of the marketing event.
-	EndDateTime *time.Time `json:"endDateTime,omitempty"`
-	// The name of the organizer of the marketing event.
-	EventOrganizer string `json:"eventOrganizer"`
-	// The description of the marketing event.
-	EventDescription *string `json:"eventDescription,omitempty"`
-	// A URL in the external event application where the marketing event can be managed.
-	EventUrl *string `json:"eventUrl,omitempty"`
-	// Indicates if the marketing event has been cancelled.
-	EventCancelled *bool `json:"eventCancelled,omitempty"`
-	// A list of PropertyValues. These can be whatever kind of property names and values you want. However, they must already exist on the HubSpot account's definition of the MarketingEvent Object. If they don't they will be filtered out and not set. In order to do this you'll need to create a new PropertyGroup on the HubSpot account's MarketingEvent object for your specific app and create the Custom Property you want to track on that HubSpot account. Do not create any new default properties on the MarketingEvent object as that will apply to all HubSpot accounts.
-	CustomProperties []PropertyValue `json:"customProperties,omitempty"`
-	// The id of the marketing event in the external event application.
-	ExternalEventId string `json:"externalEventId"`
 	// The number of HubSpot contacts that registered for this marketing event.
 	Registrants int32 `json:"registrants"`
+	// The name of the organizer of the marketing event.
+	EventOrganizer string `json:"eventOrganizer"`
+	// A URL in the external event application where the marketing event can be managed.
+	EventUrl *string `json:"eventUrl,omitempty"`
 	// The number of HubSpot contacts that attended this marketing event.
 	Attendees int32 `json:"attendees"`
-	// The number of HubSpot contacts that registered for this marketing event, but later cancelled their registration.
-	Cancellations int32 `json:"cancellations"`
+	// The type of the marketing event.
+	EventType *string `json:"eventType,omitempty"`
+	// The end date and time of the marketing event.
+	EndDateTime *time.Time `json:"endDateTime,omitempty"`
 	// The number of HubSpot contacts that registered for this marketing event, but did not attend. This field only had a value when the event is over.
-	NoShows   int32     `json:"noShows"`
-	CreatedAt time.Time `json:"createdAt"`
-	UpdatedAt time.Time `json:"updatedAt"`
+	NoShows int32 `json:"noShows"`
+	// The number of HubSpot contacts that registered for this marketing event, but later cancelled their registration.
+	Cancellations int32     `json:"cancellations"`
+	CreatedAt     time.Time `json:"createdAt"`
+	// The start date and time of the marketing event.
+	StartDateTime *time.Time `json:"startDateTime,omitempty"`
+	// A list of PropertyValues. These can be whatever kind of property names and values you want. However, they must already exist on the HubSpot account's definition of the MarketingEvent Object. If they don't they will be filtered out and not set. In order to do this you'll need to create a new PropertyGroup on the HubSpot account's MarketingEvent object for your specific app and create the Custom Property you want to track on that HubSpot account. Do not create any new default properties on the MarketingEvent object as that will apply to all HubSpot accounts.
+	CustomProperties []PropertyValue `json:"customProperties,omitempty"`
+	// Indicates if the marketing event has been cancelled.
+	EventCancelled *bool `json:"eventCancelled,omitempty"`
+	// The id of the marketing event in the external event application.
+	ExternalEventId string `json:"externalEventId"`
+	// The description of the marketing event.
+	EventDescription *string `json:"eventDescription,omitempty"`
+	// The name of the marketing event.
+	EventName string    `json:"eventName"`
 	Id        string    `json:"id"`
+	UpdatedAt time.Time `json:"updatedAt"`
 }
 
 // NewMarketingEventPublicReadResponse instantiates a new MarketingEventPublicReadResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMarketingEventPublicReadResponse(eventName string, eventOrganizer string, externalEventId string, registrants int32, attendees int32, cancellations int32, noShows int32, createdAt time.Time, updatedAt time.Time, id string) *MarketingEventPublicReadResponse {
+func NewMarketingEventPublicReadResponse(registrants int32, eventOrganizer string, attendees int32, noShows int32, cancellations int32, createdAt time.Time, externalEventId string, eventName string, id string, updatedAt time.Time) *MarketingEventPublicReadResponse {
 	this := MarketingEventPublicReadResponse{}
-	this.EventName = eventName
-	this.EventOrganizer = eventOrganizer
-	this.ExternalEventId = externalEventId
 	this.Registrants = registrants
+	this.EventOrganizer = eventOrganizer
 	this.Attendees = attendees
-	this.Cancellations = cancellations
 	this.NoShows = noShows
+	this.Cancellations = cancellations
 	this.CreatedAt = createdAt
-	this.UpdatedAt = updatedAt
+	this.ExternalEventId = externalEventId
+	this.EventName = eventName
 	this.Id = id
+	this.UpdatedAt = updatedAt
 	return &this
 }
 
@@ -77,124 +77,28 @@ func NewMarketingEventPublicReadResponseWithDefaults() *MarketingEventPublicRead
 	return &this
 }
 
-// GetEventName returns the EventName field value
-func (o *MarketingEventPublicReadResponse) GetEventName() string {
+// GetRegistrants returns the Registrants field value
+func (o *MarketingEventPublicReadResponse) GetRegistrants() int32 {
 	if o == nil {
-		var ret string
+		var ret int32
 		return ret
 	}
 
-	return o.EventName
+	return o.Registrants
 }
 
-// GetEventNameOk returns a tuple with the EventName field value
+// GetRegistrantsOk returns a tuple with the Registrants field value
 // and a boolean to check if the value has been set.
-func (o *MarketingEventPublicReadResponse) GetEventNameOk() (*string, bool) {
+func (o *MarketingEventPublicReadResponse) GetRegistrantsOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.EventName, true
+	return &o.Registrants, true
 }
 
-// SetEventName sets field value
-func (o *MarketingEventPublicReadResponse) SetEventName(v string) {
-	o.EventName = v
-}
-
-// GetEventType returns the EventType field value if set, zero value otherwise.
-func (o *MarketingEventPublicReadResponse) GetEventType() string {
-	if o == nil || o.EventType == nil {
-		var ret string
-		return ret
-	}
-	return *o.EventType
-}
-
-// GetEventTypeOk returns a tuple with the EventType field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *MarketingEventPublicReadResponse) GetEventTypeOk() (*string, bool) {
-	if o == nil || o.EventType == nil {
-		return nil, false
-	}
-	return o.EventType, true
-}
-
-// HasEventType returns a boolean if a field has been set.
-func (o *MarketingEventPublicReadResponse) HasEventType() bool {
-	if o != nil && o.EventType != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetEventType gets a reference to the given string and assigns it to the EventType field.
-func (o *MarketingEventPublicReadResponse) SetEventType(v string) {
-	o.EventType = &v
-}
-
-// GetStartDateTime returns the StartDateTime field value if set, zero value otherwise.
-func (o *MarketingEventPublicReadResponse) GetStartDateTime() time.Time {
-	if o == nil || o.StartDateTime == nil {
-		var ret time.Time
-		return ret
-	}
-	return *o.StartDateTime
-}
-
-// GetStartDateTimeOk returns a tuple with the StartDateTime field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *MarketingEventPublicReadResponse) GetStartDateTimeOk() (*time.Time, bool) {
-	if o == nil || o.StartDateTime == nil {
-		return nil, false
-	}
-	return o.StartDateTime, true
-}
-
-// HasStartDateTime returns a boolean if a field has been set.
-func (o *MarketingEventPublicReadResponse) HasStartDateTime() bool {
-	if o != nil && o.StartDateTime != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetStartDateTime gets a reference to the given time.Time and assigns it to the StartDateTime field.
-func (o *MarketingEventPublicReadResponse) SetStartDateTime(v time.Time) {
-	o.StartDateTime = &v
-}
-
-// GetEndDateTime returns the EndDateTime field value if set, zero value otherwise.
-func (o *MarketingEventPublicReadResponse) GetEndDateTime() time.Time {
-	if o == nil || o.EndDateTime == nil {
-		var ret time.Time
-		return ret
-	}
-	return *o.EndDateTime
-}
-
-// GetEndDateTimeOk returns a tuple with the EndDateTime field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *MarketingEventPublicReadResponse) GetEndDateTimeOk() (*time.Time, bool) {
-	if o == nil || o.EndDateTime == nil {
-		return nil, false
-	}
-	return o.EndDateTime, true
-}
-
-// HasEndDateTime returns a boolean if a field has been set.
-func (o *MarketingEventPublicReadResponse) HasEndDateTime() bool {
-	if o != nil && o.EndDateTime != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetEndDateTime gets a reference to the given time.Time and assigns it to the EndDateTime field.
-func (o *MarketingEventPublicReadResponse) SetEndDateTime(v time.Time) {
-	o.EndDateTime = &v
+// SetRegistrants sets field value
+func (o *MarketingEventPublicReadResponse) SetRegistrants(v int32) {
+	o.Registrants = v
 }
 
 // GetEventOrganizer returns the EventOrganizer field value
@@ -219,38 +123,6 @@ func (o *MarketingEventPublicReadResponse) GetEventOrganizerOk() (*string, bool)
 // SetEventOrganizer sets field value
 func (o *MarketingEventPublicReadResponse) SetEventOrganizer(v string) {
 	o.EventOrganizer = v
-}
-
-// GetEventDescription returns the EventDescription field value if set, zero value otherwise.
-func (o *MarketingEventPublicReadResponse) GetEventDescription() string {
-	if o == nil || o.EventDescription == nil {
-		var ret string
-		return ret
-	}
-	return *o.EventDescription
-}
-
-// GetEventDescriptionOk returns a tuple with the EventDescription field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *MarketingEventPublicReadResponse) GetEventDescriptionOk() (*string, bool) {
-	if o == nil || o.EventDescription == nil {
-		return nil, false
-	}
-	return o.EventDescription, true
-}
-
-// HasEventDescription returns a boolean if a field has been set.
-func (o *MarketingEventPublicReadResponse) HasEventDescription() bool {
-	if o != nil && o.EventDescription != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetEventDescription gets a reference to the given string and assigns it to the EventDescription field.
-func (o *MarketingEventPublicReadResponse) SetEventDescription(v string) {
-	o.EventDescription = &v
 }
 
 // GetEventUrl returns the EventUrl field value if set, zero value otherwise.
@@ -285,36 +157,196 @@ func (o *MarketingEventPublicReadResponse) SetEventUrl(v string) {
 	o.EventUrl = &v
 }
 
-// GetEventCancelled returns the EventCancelled field value if set, zero value otherwise.
-func (o *MarketingEventPublicReadResponse) GetEventCancelled() bool {
-	if o == nil || o.EventCancelled == nil {
-		var ret bool
+// GetAttendees returns the Attendees field value
+func (o *MarketingEventPublicReadResponse) GetAttendees() int32 {
+	if o == nil {
+		var ret int32
 		return ret
 	}
-	return *o.EventCancelled
+
+	return o.Attendees
 }
 
-// GetEventCancelledOk returns a tuple with the EventCancelled field value if set, nil otherwise
+// GetAttendeesOk returns a tuple with the Attendees field value
 // and a boolean to check if the value has been set.
-func (o *MarketingEventPublicReadResponse) GetEventCancelledOk() (*bool, bool) {
-	if o == nil || o.EventCancelled == nil {
+func (o *MarketingEventPublicReadResponse) GetAttendeesOk() (*int32, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.EventCancelled, true
+	return &o.Attendees, true
 }
 
-// HasEventCancelled returns a boolean if a field has been set.
-func (o *MarketingEventPublicReadResponse) HasEventCancelled() bool {
-	if o != nil && o.EventCancelled != nil {
+// SetAttendees sets field value
+func (o *MarketingEventPublicReadResponse) SetAttendees(v int32) {
+	o.Attendees = v
+}
+
+// GetEventType returns the EventType field value if set, zero value otherwise.
+func (o *MarketingEventPublicReadResponse) GetEventType() string {
+	if o == nil || o.EventType == nil {
+		var ret string
+		return ret
+	}
+	return *o.EventType
+}
+
+// GetEventTypeOk returns a tuple with the EventType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MarketingEventPublicReadResponse) GetEventTypeOk() (*string, bool) {
+	if o == nil || o.EventType == nil {
+		return nil, false
+	}
+	return o.EventType, true
+}
+
+// HasEventType returns a boolean if a field has been set.
+func (o *MarketingEventPublicReadResponse) HasEventType() bool {
+	if o != nil && o.EventType != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetEventCancelled gets a reference to the given bool and assigns it to the EventCancelled field.
-func (o *MarketingEventPublicReadResponse) SetEventCancelled(v bool) {
-	o.EventCancelled = &v
+// SetEventType gets a reference to the given string and assigns it to the EventType field.
+func (o *MarketingEventPublicReadResponse) SetEventType(v string) {
+	o.EventType = &v
+}
+
+// GetEndDateTime returns the EndDateTime field value if set, zero value otherwise.
+func (o *MarketingEventPublicReadResponse) GetEndDateTime() time.Time {
+	if o == nil || o.EndDateTime == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.EndDateTime
+}
+
+// GetEndDateTimeOk returns a tuple with the EndDateTime field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MarketingEventPublicReadResponse) GetEndDateTimeOk() (*time.Time, bool) {
+	if o == nil || o.EndDateTime == nil {
+		return nil, false
+	}
+	return o.EndDateTime, true
+}
+
+// HasEndDateTime returns a boolean if a field has been set.
+func (o *MarketingEventPublicReadResponse) HasEndDateTime() bool {
+	if o != nil && o.EndDateTime != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetEndDateTime gets a reference to the given time.Time and assigns it to the EndDateTime field.
+func (o *MarketingEventPublicReadResponse) SetEndDateTime(v time.Time) {
+	o.EndDateTime = &v
+}
+
+// GetNoShows returns the NoShows field value
+func (o *MarketingEventPublicReadResponse) GetNoShows() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.NoShows
+}
+
+// GetNoShowsOk returns a tuple with the NoShows field value
+// and a boolean to check if the value has been set.
+func (o *MarketingEventPublicReadResponse) GetNoShowsOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.NoShows, true
+}
+
+// SetNoShows sets field value
+func (o *MarketingEventPublicReadResponse) SetNoShows(v int32) {
+	o.NoShows = v
+}
+
+// GetCancellations returns the Cancellations field value
+func (o *MarketingEventPublicReadResponse) GetCancellations() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.Cancellations
+}
+
+// GetCancellationsOk returns a tuple with the Cancellations field value
+// and a boolean to check if the value has been set.
+func (o *MarketingEventPublicReadResponse) GetCancellationsOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Cancellations, true
+}
+
+// SetCancellations sets field value
+func (o *MarketingEventPublicReadResponse) SetCancellations(v int32) {
+	o.Cancellations = v
+}
+
+// GetCreatedAt returns the CreatedAt field value
+func (o *MarketingEventPublicReadResponse) GetCreatedAt() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.CreatedAt
+}
+
+// GetCreatedAtOk returns a tuple with the CreatedAt field value
+// and a boolean to check if the value has been set.
+func (o *MarketingEventPublicReadResponse) GetCreatedAtOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.CreatedAt, true
+}
+
+// SetCreatedAt sets field value
+func (o *MarketingEventPublicReadResponse) SetCreatedAt(v time.Time) {
+	o.CreatedAt = v
+}
+
+// GetStartDateTime returns the StartDateTime field value if set, zero value otherwise.
+func (o *MarketingEventPublicReadResponse) GetStartDateTime() time.Time {
+	if o == nil || o.StartDateTime == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.StartDateTime
+}
+
+// GetStartDateTimeOk returns a tuple with the StartDateTime field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MarketingEventPublicReadResponse) GetStartDateTimeOk() (*time.Time, bool) {
+	if o == nil || o.StartDateTime == nil {
+		return nil, false
+	}
+	return o.StartDateTime, true
+}
+
+// HasStartDateTime returns a boolean if a field has been set.
+func (o *MarketingEventPublicReadResponse) HasStartDateTime() bool {
+	if o != nil && o.StartDateTime != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetStartDateTime gets a reference to the given time.Time and assigns it to the StartDateTime field.
+func (o *MarketingEventPublicReadResponse) SetStartDateTime(v time.Time) {
+	o.StartDateTime = &v
 }
 
 // GetCustomProperties returns the CustomProperties field value if set, zero value otherwise.
@@ -349,6 +381,38 @@ func (o *MarketingEventPublicReadResponse) SetCustomProperties(v []PropertyValue
 	o.CustomProperties = v
 }
 
+// GetEventCancelled returns the EventCancelled field value if set, zero value otherwise.
+func (o *MarketingEventPublicReadResponse) GetEventCancelled() bool {
+	if o == nil || o.EventCancelled == nil {
+		var ret bool
+		return ret
+	}
+	return *o.EventCancelled
+}
+
+// GetEventCancelledOk returns a tuple with the EventCancelled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MarketingEventPublicReadResponse) GetEventCancelledOk() (*bool, bool) {
+	if o == nil || o.EventCancelled == nil {
+		return nil, false
+	}
+	return o.EventCancelled, true
+}
+
+// HasEventCancelled returns a boolean if a field has been set.
+func (o *MarketingEventPublicReadResponse) HasEventCancelled() bool {
+	if o != nil && o.EventCancelled != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetEventCancelled gets a reference to the given bool and assigns it to the EventCancelled field.
+func (o *MarketingEventPublicReadResponse) SetEventCancelled(v bool) {
+	o.EventCancelled = &v
+}
+
 // GetExternalEventId returns the ExternalEventId field value
 func (o *MarketingEventPublicReadResponse) GetExternalEventId() string {
 	if o == nil {
@@ -373,148 +437,60 @@ func (o *MarketingEventPublicReadResponse) SetExternalEventId(v string) {
 	o.ExternalEventId = v
 }
 
-// GetRegistrants returns the Registrants field value
-func (o *MarketingEventPublicReadResponse) GetRegistrants() int32 {
+// GetEventDescription returns the EventDescription field value if set, zero value otherwise.
+func (o *MarketingEventPublicReadResponse) GetEventDescription() string {
+	if o == nil || o.EventDescription == nil {
+		var ret string
+		return ret
+	}
+	return *o.EventDescription
+}
+
+// GetEventDescriptionOk returns a tuple with the EventDescription field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MarketingEventPublicReadResponse) GetEventDescriptionOk() (*string, bool) {
+	if o == nil || o.EventDescription == nil {
+		return nil, false
+	}
+	return o.EventDescription, true
+}
+
+// HasEventDescription returns a boolean if a field has been set.
+func (o *MarketingEventPublicReadResponse) HasEventDescription() bool {
+	if o != nil && o.EventDescription != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetEventDescription gets a reference to the given string and assigns it to the EventDescription field.
+func (o *MarketingEventPublicReadResponse) SetEventDescription(v string) {
+	o.EventDescription = &v
+}
+
+// GetEventName returns the EventName field value
+func (o *MarketingEventPublicReadResponse) GetEventName() string {
 	if o == nil {
-		var ret int32
+		var ret string
 		return ret
 	}
 
-	return o.Registrants
+	return o.EventName
 }
 
-// GetRegistrantsOk returns a tuple with the Registrants field value
+// GetEventNameOk returns a tuple with the EventName field value
 // and a boolean to check if the value has been set.
-func (o *MarketingEventPublicReadResponse) GetRegistrantsOk() (*int32, bool) {
+func (o *MarketingEventPublicReadResponse) GetEventNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Registrants, true
+	return &o.EventName, true
 }
 
-// SetRegistrants sets field value
-func (o *MarketingEventPublicReadResponse) SetRegistrants(v int32) {
-	o.Registrants = v
-}
-
-// GetAttendees returns the Attendees field value
-func (o *MarketingEventPublicReadResponse) GetAttendees() int32 {
-	if o == nil {
-		var ret int32
-		return ret
-	}
-
-	return o.Attendees
-}
-
-// GetAttendeesOk returns a tuple with the Attendees field value
-// and a boolean to check if the value has been set.
-func (o *MarketingEventPublicReadResponse) GetAttendeesOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Attendees, true
-}
-
-// SetAttendees sets field value
-func (o *MarketingEventPublicReadResponse) SetAttendees(v int32) {
-	o.Attendees = v
-}
-
-// GetCancellations returns the Cancellations field value
-func (o *MarketingEventPublicReadResponse) GetCancellations() int32 {
-	if o == nil {
-		var ret int32
-		return ret
-	}
-
-	return o.Cancellations
-}
-
-// GetCancellationsOk returns a tuple with the Cancellations field value
-// and a boolean to check if the value has been set.
-func (o *MarketingEventPublicReadResponse) GetCancellationsOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Cancellations, true
-}
-
-// SetCancellations sets field value
-func (o *MarketingEventPublicReadResponse) SetCancellations(v int32) {
-	o.Cancellations = v
-}
-
-// GetNoShows returns the NoShows field value
-func (o *MarketingEventPublicReadResponse) GetNoShows() int32 {
-	if o == nil {
-		var ret int32
-		return ret
-	}
-
-	return o.NoShows
-}
-
-// GetNoShowsOk returns a tuple with the NoShows field value
-// and a boolean to check if the value has been set.
-func (o *MarketingEventPublicReadResponse) GetNoShowsOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.NoShows, true
-}
-
-// SetNoShows sets field value
-func (o *MarketingEventPublicReadResponse) SetNoShows(v int32) {
-	o.NoShows = v
-}
-
-// GetCreatedAt returns the CreatedAt field value
-func (o *MarketingEventPublicReadResponse) GetCreatedAt() time.Time {
-	if o == nil {
-		var ret time.Time
-		return ret
-	}
-
-	return o.CreatedAt
-}
-
-// GetCreatedAtOk returns a tuple with the CreatedAt field value
-// and a boolean to check if the value has been set.
-func (o *MarketingEventPublicReadResponse) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.CreatedAt, true
-}
-
-// SetCreatedAt sets field value
-func (o *MarketingEventPublicReadResponse) SetCreatedAt(v time.Time) {
-	o.CreatedAt = v
-}
-
-// GetUpdatedAt returns the UpdatedAt field value
-func (o *MarketingEventPublicReadResponse) GetUpdatedAt() time.Time {
-	if o == nil {
-		var ret time.Time
-		return ret
-	}
-
-	return o.UpdatedAt
-}
-
-// GetUpdatedAtOk returns a tuple with the UpdatedAt field value
-// and a boolean to check if the value has been set.
-func (o *MarketingEventPublicReadResponse) GetUpdatedAtOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.UpdatedAt, true
-}
-
-// SetUpdatedAt sets field value
-func (o *MarketingEventPublicReadResponse) SetUpdatedAt(v time.Time) {
-	o.UpdatedAt = v
+// SetEventName sets field value
+func (o *MarketingEventPublicReadResponse) SetEventName(v string) {
+	o.EventName = v
 }
 
 // GetId returns the Id field value
@@ -541,58 +517,82 @@ func (o *MarketingEventPublicReadResponse) SetId(v string) {
 	o.Id = v
 }
 
+// GetUpdatedAt returns the UpdatedAt field value
+func (o *MarketingEventPublicReadResponse) GetUpdatedAt() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.UpdatedAt
+}
+
+// GetUpdatedAtOk returns a tuple with the UpdatedAt field value
+// and a boolean to check if the value has been set.
+func (o *MarketingEventPublicReadResponse) GetUpdatedAtOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.UpdatedAt, true
+}
+
+// SetUpdatedAt sets field value
+func (o *MarketingEventPublicReadResponse) SetUpdatedAt(v time.Time) {
+	o.UpdatedAt = v
+}
+
 func (o MarketingEventPublicReadResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["eventName"] = o.EventName
+		toSerialize["registrants"] = o.Registrants
+	}
+	if true {
+		toSerialize["eventOrganizer"] = o.EventOrganizer
+	}
+	if o.EventUrl != nil {
+		toSerialize["eventUrl"] = o.EventUrl
+	}
+	if true {
+		toSerialize["attendees"] = o.Attendees
 	}
 	if o.EventType != nil {
 		toSerialize["eventType"] = o.EventType
-	}
-	if o.StartDateTime != nil {
-		toSerialize["startDateTime"] = o.StartDateTime
 	}
 	if o.EndDateTime != nil {
 		toSerialize["endDateTime"] = o.EndDateTime
 	}
 	if true {
-		toSerialize["eventOrganizer"] = o.EventOrganizer
-	}
-	if o.EventDescription != nil {
-		toSerialize["eventDescription"] = o.EventDescription
-	}
-	if o.EventUrl != nil {
-		toSerialize["eventUrl"] = o.EventUrl
-	}
-	if o.EventCancelled != nil {
-		toSerialize["eventCancelled"] = o.EventCancelled
-	}
-	if o.CustomProperties != nil {
-		toSerialize["customProperties"] = o.CustomProperties
-	}
-	if true {
-		toSerialize["externalEventId"] = o.ExternalEventId
-	}
-	if true {
-		toSerialize["registrants"] = o.Registrants
-	}
-	if true {
-		toSerialize["attendees"] = o.Attendees
+		toSerialize["noShows"] = o.NoShows
 	}
 	if true {
 		toSerialize["cancellations"] = o.Cancellations
 	}
 	if true {
-		toSerialize["noShows"] = o.NoShows
-	}
-	if true {
 		toSerialize["createdAt"] = o.CreatedAt
 	}
+	if o.StartDateTime != nil {
+		toSerialize["startDateTime"] = o.StartDateTime
+	}
+	if o.CustomProperties != nil {
+		toSerialize["customProperties"] = o.CustomProperties
+	}
+	if o.EventCancelled != nil {
+		toSerialize["eventCancelled"] = o.EventCancelled
+	}
 	if true {
-		toSerialize["updatedAt"] = o.UpdatedAt
+		toSerialize["externalEventId"] = o.ExternalEventId
+	}
+	if o.EventDescription != nil {
+		toSerialize["eventDescription"] = o.EventDescription
+	}
+	if true {
+		toSerialize["eventName"] = o.EventName
 	}
 	if true {
 		toSerialize["id"] = o.Id
+	}
+	if true {
+		toSerialize["updatedAt"] = o.UpdatedAt
 	}
 	return json.Marshal(toSerialize)
 }

@@ -15,8 +15,6 @@ import (
 	"context"
 	"io/ioutil"
 	"net/http"
-
-	"github.com/clarkmcc/go-hubspot"
 	"net/url"
 	"strings"
 )
@@ -114,12 +112,16 @@ func (a *InvoiceApiService) InvoiceCreatePaymentExecute(r ApiInvoiceCreatePaymen
 	localVarPostBody = r.invoiceCreatePaymentRequest
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["private_apps_legacy"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["private-app-legacy"] = key
+			}
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
@@ -245,12 +247,16 @@ func (a *InvoiceApiService) InvoiceGetByIDExecute(r ApiInvoiceGetByIDRequest) (*
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["private_apps_legacy"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["private-app-legacy"] = key
+			}
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
@@ -388,12 +394,16 @@ func (a *InvoiceApiService) InvoiceUpdateExecute(r ApiInvoiceUpdateRequest) (*In
 	localVarPostBody = r.invoiceUpdateRequest
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["private_apps_legacy"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["private-app-legacy"] = key
+			}
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)

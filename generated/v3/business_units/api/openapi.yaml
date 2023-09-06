@@ -1,0 +1,238 @@
+openapi: 3.0.1
+info:
+  description: Retrieve Business Unit information.
+  title: Business Unit
+  version: v3
+servers:
+- url: https://api.hubapi.com
+tags:
+- name: Business Unit
+paths:
+  /business-units/v3/business-units/user/{userId}:
+    get:
+      description: Get Business Units identified by `userId`. The `userId` refers
+        to the user’s ID.
+      operationId: "get-/business-units/v3/business-units/user/{userId}"
+      parameters:
+      - description: Identifier of user to retrieve.
+        explode: false
+        in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The names of properties to optionally include in the response
+          body. The only valid value is `logoMetadata`.
+        explode: true
+        in: query
+        name: properties
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: "The names of Business Units to retrieve. If empty or not provided,\
+          \ then all associated Business Units will be returned."
+        explode: true
+        in: query
+        name: name
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionResponsePublicBusinessUnitNoPaging'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - private_apps_legacy:
+        - business_units_view.read
+      - oauth2_legacy:
+        - business_units_view.read
+      summary: Get Business Units for a user
+      tags:
+      - Business Unit
+components:
+  responses:
+    Error:
+      content:
+        '*/*':
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An error occurred.
+  schemas:
+    ErrorDetail:
+      properties:
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          type: string
+        in:
+          description: The name of the field or parameter in which the error was found.
+          type: string
+        code:
+          description: The status code associated with the error detail
+          type: string
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
+          type: string
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: Context about the error condition
+          example:
+            missingScopes:
+            - scope1
+            - scope2
+          type: object
+      required:
+      - message
+      type: object
+    Error:
+      example:
+        message: Invalid input (details will vary based on the error)
+        correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
+        category: VALIDATION_ERROR
+        links:
+          knowledge-base: https://www.hubspot.com/products/service/knowledge-base
+      properties:
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          example: An error occurred
+          type: string
+        correlationId:
+          description: A unique identifier for the request. Include this value with
+            any error reports or support tickets
+          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
+          format: uuid
+          type: string
+        category:
+          description: The error category
+          type: string
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
+          type: string
+        errors:
+          description: further information about the error
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: Context about the error condition
+          example:
+            invalidPropertyName:
+            - propertyValue
+            missingScopes:
+            - scope1
+            - scope2
+          type: object
+        links:
+          additionalProperties:
+            type: string
+          description: A map of link names to associated URIs containing documentation
+            about the error or recommended remediation steps
+          type: object
+      required:
+      - category
+      - correlationId
+      - message
+      type: object
+    PublicBusinessUnit:
+      description: A Business Unit
+      example:
+        logoMetadata:
+          logoAltText: logo sample text
+          resizedUrl: sillystring
+          logoUrl: examplelogourl.com
+        name: sample business unit name
+        id: "101"
+      properties:
+        id:
+          description: The Business Unit's unique ID
+          type: string
+        name:
+          description: The Business Unit's name
+          type: string
+        logoMetadata:
+          $ref: '#/components/schemas/PublicBusinessUnitLogoMetadata'
+      required:
+      - id
+      - name
+      type: object
+    PublicBusinessUnitLogoMetadata:
+      description: A Business Unit's logo metadata
+      example:
+        logoAltText: logo sample text
+        resizedUrl: sillystring
+        logoUrl: examplelogourl.com
+      properties:
+        logoUrl:
+          description: The logo's url
+          type: string
+        logoAltText:
+          description: The logo's alt text
+          type: string
+        resizedUrl:
+          description: The logo's resized url
+          type: string
+      type: object
+    CollectionResponsePublicBusinessUnitNoPaging:
+      description: A response object containing a collection of Business Units
+      example:
+        results:
+        - logoMetadata:
+            logoAltText: logo sample text
+            resizedUrl: sillystring
+            logoUrl: examplelogourl.com
+          name: sample business unit name
+          id: "101"
+        - logoMetadata:
+            logoAltText: logo sample text
+            resizedUrl: sillystring
+            logoUrl: examplelogourl.com
+          name: sample business unit name
+          id: "101"
+      properties:
+        results:
+          description: The collection of Business Units
+          items:
+            $ref: '#/components/schemas/PublicBusinessUnit'
+          type: array
+      required:
+      - results
+      type: object
+  securitySchemes:
+    oauth2_legacy:
+      flows:
+        authorizationCode:
+          authorizationUrl: https://app.hubspot.com/oauth/authorize
+          scopes:
+            business_units_view.read: Read business unit resources
+          tokenUrl: https://api.hubapi.com/oauth/v1/token
+      type: oauth2
+    private_apps_legacy:
+      in: header
+      name: private-app-legacy
+      type: apiKey

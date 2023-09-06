@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | [**[]PerformanceView**](PerformanceView.md) |  | 
 **Domain** | Pointer to **string** |  | [optional] 
 **Path** | Pointer to **string** |  | [optional] 
 **StartInterval** | **int64** |  | 
 **EndInterval** | **int64** |  | 
+**Data** | [**[]PerformanceView**](PerformanceView.md) |  | 
 **Interval** | **string** |  | 
 **Period** | Pointer to **string** |  | [optional] 
 
@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 
 ### NewPublicPerformanceResponse
 
-`func NewPublicPerformanceResponse(data []PerformanceView, startInterval int64, endInterval int64, interval string, ) *PublicPerformanceResponse`
+`func NewPublicPerformanceResponse(startInterval int64, endInterval int64, data []PerformanceView, interval string, ) *PublicPerformanceResponse`
 
 NewPublicPerformanceResponse instantiates a new PublicPerformanceResponse object
 This constructor will assign default values to properties that have it defined,
@@ -30,26 +30,6 @@ will change when the set of required properties is changed
 NewPublicPerformanceResponseWithDefaults instantiates a new PublicPerformanceResponse object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetData
-
-`func (o *PublicPerformanceResponse) GetData() []PerformanceView`
-
-GetData returns the Data field if non-nil, zero value otherwise.
-
-### GetDataOk
-
-`func (o *PublicPerformanceResponse) GetDataOk() (*[]PerformanceView, bool)`
-
-GetDataOk returns a tuple with the Data field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetData
-
-`func (o *PublicPerformanceResponse) SetData(v []PerformanceView)`
-
-SetData sets Data field to given value.
-
 
 ### GetDomain
 
@@ -139,6 +119,26 @@ and a boolean to check if the value has been set.
 `func (o *PublicPerformanceResponse) SetEndInterval(v int64)`
 
 SetEndInterval sets EndInterval field to given value.
+
+
+### GetData
+
+`func (o *PublicPerformanceResponse) GetData() []PerformanceView`
+
+GetData returns the Data field if non-nil, zero value otherwise.
+
+### GetDataOk
+
+`func (o *PublicPerformanceResponse) GetDataOk() (*[]PerformanceView, bool)`
+
+GetDataOk returns a tuple with the Data field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetData
+
+`func (o *PublicPerformanceResponse) SetData(v []PerformanceView)`
+
+SetData sets Data field to given value.
 
 
 ### GetInterval

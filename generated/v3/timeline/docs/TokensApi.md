@@ -107,7 +107,7 @@ import (
 func main() {
     eventTemplateId := "eventTemplateId_example" // string | The event template ID.
     appId := int32(56) // int32 | The ID of the target app.
-    timelineEventTemplateToken := *openapiclient.NewTimelineEventTemplateToken("Label_example", []openapiclient.TimelineEventTemplateTokenOption{*openapiclient.NewTimelineEventTemplateTokenOption("Value_example", "Label_example")}, "Name_example", "Type_example") // TimelineEventTemplateToken | The new token definition.
+    timelineEventTemplateToken := *openapiclient.NewTimelineEventTemplateToken("Label_example", "Name_example", "Type_example") // TimelineEventTemplateToken | The new token definition.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -183,7 +183,7 @@ func main() {
     eventTemplateId := "eventTemplateId_example" // string | The event template ID.
     tokenName := "tokenName_example" // string | The token name.
     appId := int32(56) // int32 | The ID of the target app.
-    timelineEventTemplateTokenUpdateRequest := *openapiclient.NewTimelineEventTemplateTokenUpdateRequest("Label_example", []openapiclient.TimelineEventTemplateTokenOption{*openapiclient.NewTimelineEventTemplateTokenOption("Value_example", "Label_example")}) // TimelineEventTemplateTokenUpdateRequest | The updated token definition.
+    timelineEventTemplateTokenUpdateRequest := *openapiclient.NewTimelineEventTemplateTokenUpdateRequest("Label_example") // TimelineEventTemplateTokenUpdateRequest | The updated token definition.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)

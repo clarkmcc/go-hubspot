@@ -6,26 +6,35 @@
     "version" : "v3"
   },
   "servers" : [ {
-    "url" : "https://api.hubapi.com/"
+    "url" : "https://api.hubapi.com"
   } ],
   "tags" : [ {
-    "name" : "Pipeline Stages"
+    "name" : "Pipeline Stage Audits"
   }, {
     "name" : "Pipelines"
   }, {
-    "name" : "Pipeline Audits"
+    "name" : "Pipeline Stages"
   }, {
-    "name" : "Pipeline Stage Audits"
+    "name" : "Pipeline Audits"
   } ],
   "paths" : {
-    "/crm/v3/pipelines/{objectType}" : {
+    "/crm/v3/pipelines/{objectType}/{pipelineId}/stages/{stageId}/audit" : {
       "get" : {
-        "tags" : [ "Pipelines" ],
-        "summary" : "Retrieve all pipelines",
-        "description" : "Return all pipelines for the object type specified by `{objectType}`.",
-        "operationId" : "GetAll",
+        "tags" : [ "Pipeline Stage Audits" ],
+        "summary" : "Return an audit of all changes to the pipeline stage",
+        "description" : "Return a reverse chronological list of all mutations that have occurred on the pipeline stage identified by `{stageId}`.",
+        "operationId" : "StagesGetAudit",
         "parameters" : [ {
           "name" : "objectType",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "stageId",
           "in" : "path",
           "required" : true,
           "style" : "simple",
@@ -40,7 +49,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/CollectionResponsePipelineNoPaging"
+                  "$ref" : "#/components/schemas/CollectionResponsePublicAuditInfoNoPaging"
                 }
               }
             }
@@ -50,97 +59,75 @@
           }
         },
         "security" : [ {
-          "oauth2" : [ "crm.schemas.contacts.read" ]
-        }, {
           "oauth2_legacy" : [ "media_bridge.read" ]
-        }, {
-          "oauth2_legacy" : [ "tickets" ]
         }, {
           "oauth2" : [ "crm.objects.contacts.read" ]
         }, {
-          "hapikey" : [ ]
+          "private_apps" : [ "crm.objects.deals.read" ]
         }, {
-          "oauth2" : [ "crm.objects.contacts.write" ]
+          "private_apps_legacy" : [ "timeline" ]
         }, {
           "oauth2" : [ "crm.objects.deals.read" ]
         }, {
+          "private_apps_legacy" : [ "contacts" ]
+        }, {
+          "private_apps" : [ "crm.objects.contacts.read" ]
+        }, {
           "oauth2_legacy" : [ "crm.schemas.custom.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.companies.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.deals.write" ]
         }, {
           "oauth2" : [ "crm.schemas.quotes.read" ]
         }, {
-          "oauth2" : [ "crm.objects.deals.write" ]
+          "private_apps" : [ "crm.schemas.quotes.read" ]
         }, {
           "oauth2" : [ "crm.objects.companies.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.deals.write" ]
+        }, {
+          "private_apps_legacy" : [ "crm.schemas.custom.read" ]
+        }, {
+          "private_apps_legacy" : [ "crm.objects.goals.read" ]
+        }, {
+          "private_apps" : [ "crm.schemas.deals.read" ]
+        }, {
+          "oauth2" : [ "crm.schemas.deals.read" ]
+        }, {
+          "oauth2_legacy" : [ "timeline" ]
+        }, {
+          "private_apps_legacy" : [ "media_bridge.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.companies.write" ]
+        }, {
+          "oauth2" : [ "crm.objects.companies.write" ]
+        }, {
+          "oauth2" : [ "crm.schemas.contacts.read" ]
+        }, {
+          "private_apps" : [ "crm.schemas.contacts.read" ]
+        }, {
+          "oauth2_legacy" : [ "tickets" ]
+        }, {
+          "private_apps_legacy" : [ "e-commerce" ]
+        }, {
+          "oauth2" : [ "crm.objects.contacts.write" ]
+        }, {
+          "private_apps" : [ "crm.objects.contacts.write" ]
+        }, {
+          "private_apps" : [ "crm.schemas.companies.read" ]
         }, {
           "oauth2" : [ "crm.schemas.companies.read" ]
         }, {
           "oauth2_legacy" : [ "e-commerce" ]
         }, {
-          "oauth2_legacy" : [ "timeline" ]
+          "private_apps_legacy" : [ "tickets" ]
         }, {
-          "oauth2" : [ "crm.schemas.deals.read" ]
+          "oauth2_legacy" : [ "crm.objects.goals.read" ]
         }, {
-          "oauth2_legacy" : [ "contacts" ]
+          "private_apps" : [ "crm.schemas.line_items.read" ]
         }, {
           "oauth2" : [ "crm.schemas.line_items.read" ]
-        }, {
-          "oauth2" : [ "crm.objects.companies.write" ]
-        } ]
-      },
-      "post" : {
-        "tags" : [ "Pipelines" ],
-        "summary" : "Create a pipeline",
-        "description" : "Create a new pipeline with the provided property values. The entire pipeline object, including its unique ID, will be returned in the response.",
-        "operationId" : "Create",
-        "parameters" : [ {
-          "name" : "objectType",
-          "in" : "path",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/PipelineInput"
-              }
-            }
-          },
-          "required" : true
-        },
-        "responses" : {
-          "201" : {
-            "description" : "successful operation",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Pipeline"
-                }
-              }
-            }
-          },
-          "default" : {
-            "$ref" : "#/components/responses/Error"
-          }
-        },
-        "security" : [ {
-          "oauth2_legacy" : [ "tickets" ]
-        }, {
-          "hapikey" : [ ]
-        }, {
-          "oauth2" : [ "crm.schemas.deals.write" ]
-        }, {
-          "oauth2_legacy" : [ "e-commerce" ]
-        }, {
-          "oauth2" : [ "crm.schemas.contacts.write" ]
-        }, {
-          "oauth2" : [ "crm.schemas.companies.write" ]
-        }, {
-          "oauth2_legacy" : [ "contacts" ]
         } ]
       }
     },
@@ -185,41 +172,75 @@
           }
         },
         "security" : [ {
-          "oauth2" : [ "crm.schemas.contacts.read" ]
-        }, {
           "oauth2_legacy" : [ "media_bridge.read" ]
-        }, {
-          "oauth2_legacy" : [ "tickets" ]
         }, {
           "oauth2" : [ "crm.objects.contacts.read" ]
         }, {
-          "hapikey" : [ ]
+          "private_apps" : [ "crm.objects.deals.read" ]
         }, {
-          "oauth2" : [ "crm.objects.contacts.write" ]
+          "private_apps_legacy" : [ "timeline" ]
         }, {
           "oauth2" : [ "crm.objects.deals.read" ]
         }, {
+          "private_apps_legacy" : [ "contacts" ]
+        }, {
+          "private_apps" : [ "crm.objects.contacts.read" ]
+        }, {
           "oauth2_legacy" : [ "crm.schemas.custom.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.companies.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.deals.write" ]
         }, {
           "oauth2" : [ "crm.schemas.quotes.read" ]
         }, {
-          "oauth2" : [ "crm.objects.deals.write" ]
+          "private_apps" : [ "crm.schemas.quotes.read" ]
         }, {
           "oauth2" : [ "crm.objects.companies.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.deals.write" ]
+        }, {
+          "private_apps_legacy" : [ "crm.schemas.custom.read" ]
+        }, {
+          "private_apps_legacy" : [ "crm.objects.goals.read" ]
+        }, {
+          "private_apps" : [ "crm.schemas.deals.read" ]
+        }, {
+          "oauth2" : [ "crm.schemas.deals.read" ]
+        }, {
+          "oauth2_legacy" : [ "timeline" ]
+        }, {
+          "private_apps_legacy" : [ "media_bridge.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.companies.write" ]
+        }, {
+          "oauth2" : [ "crm.objects.companies.write" ]
+        }, {
+          "oauth2" : [ "crm.schemas.contacts.read" ]
+        }, {
+          "private_apps" : [ "crm.schemas.contacts.read" ]
+        }, {
+          "oauth2_legacy" : [ "tickets" ]
+        }, {
+          "private_apps_legacy" : [ "e-commerce" ]
+        }, {
+          "oauth2" : [ "crm.objects.contacts.write" ]
+        }, {
+          "private_apps" : [ "crm.objects.contacts.write" ]
+        }, {
+          "private_apps" : [ "crm.schemas.companies.read" ]
         }, {
           "oauth2" : [ "crm.schemas.companies.read" ]
         }, {
           "oauth2_legacy" : [ "e-commerce" ]
         }, {
-          "oauth2_legacy" : [ "timeline" ]
+          "private_apps_legacy" : [ "tickets" ]
         }, {
-          "oauth2" : [ "crm.schemas.deals.read" ]
+          "oauth2_legacy" : [ "crm.objects.goals.read" ]
         }, {
-          "oauth2_legacy" : [ "contacts" ]
+          "private_apps" : [ "crm.schemas.line_items.read" ]
         }, {
           "oauth2" : [ "crm.schemas.line_items.read" ]
-        }, {
-          "oauth2" : [ "crm.objects.companies.write" ]
         } ]
       },
       "put" : {
@@ -247,6 +268,16 @@
           }
         }, {
           "name" : "validateReferencesBeforeDelete",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "boolean",
+            "default" : false
+          }
+        }, {
+          "name" : "validateDealStageUsagesBeforeDelete",
           "in" : "query",
           "required" : false,
           "style" : "form",
@@ -284,17 +315,27 @@
         "security" : [ {
           "oauth2_legacy" : [ "tickets" ]
         }, {
-          "hapikey" : [ ]
-        }, {
           "oauth2" : [ "crm.schemas.deals.write" ]
         }, {
-          "oauth2_legacy" : [ "e-commerce" ]
+          "private_apps_legacy" : [ "e-commerce" ]
         }, {
           "oauth2" : [ "crm.schemas.contacts.write" ]
         }, {
           "oauth2" : [ "crm.schemas.companies.write" ]
         }, {
-          "oauth2_legacy" : [ "contacts" ]
+          "private_apps_legacy" : [ "contacts" ]
+        }, {
+          "private_apps" : [ "crm.schemas.contacts.write" ]
+        }, {
+          "private_apps" : [ "crm.schemas.companies.write" ]
+        }, {
+          "oauth2_legacy" : [ "e-commerce" ]
+        }, {
+          "private_apps_legacy" : [ "tickets" ]
+        }, {
+          "private_apps_legacy" : [ "crm.schemas.custom.write" ]
+        }, {
+          "private_apps" : [ "crm.schemas.deals.write" ]
         } ]
       },
       "delete" : {
@@ -330,6 +371,16 @@
             "type" : "boolean",
             "default" : false
           }
+        }, {
+          "name" : "validateDealStageUsagesBeforeDelete",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "boolean",
+            "default" : false
+          }
         } ],
         "responses" : {
           "204" : {
@@ -343,17 +394,27 @@
         "security" : [ {
           "oauth2_legacy" : [ "tickets" ]
         }, {
-          "hapikey" : [ ]
-        }, {
           "oauth2" : [ "crm.schemas.deals.write" ]
         }, {
-          "oauth2_legacy" : [ "e-commerce" ]
+          "private_apps_legacy" : [ "e-commerce" ]
         }, {
           "oauth2" : [ "crm.schemas.contacts.write" ]
         }, {
           "oauth2" : [ "crm.schemas.companies.write" ]
         }, {
-          "oauth2_legacy" : [ "contacts" ]
+          "private_apps_legacy" : [ "contacts" ]
+        }, {
+          "private_apps" : [ "crm.schemas.contacts.write" ]
+        }, {
+          "private_apps" : [ "crm.schemas.companies.write" ]
+        }, {
+          "oauth2_legacy" : [ "e-commerce" ]
+        }, {
+          "private_apps_legacy" : [ "tickets" ]
+        }, {
+          "private_apps_legacy" : [ "crm.schemas.custom.write" ]
+        }, {
+          "private_apps" : [ "crm.schemas.deals.write" ]
         } ]
       },
       "patch" : {
@@ -381,6 +442,16 @@
           }
         }, {
           "name" : "validateReferencesBeforeDelete",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "boolean",
+            "default" : false
+          }
+        }, {
+          "name" : "validateDealStageUsagesBeforeDelete",
           "in" : "query",
           "required" : false,
           "style" : "form",
@@ -418,17 +489,27 @@
         "security" : [ {
           "oauth2_legacy" : [ "tickets" ]
         }, {
-          "hapikey" : [ ]
-        }, {
           "oauth2" : [ "crm.schemas.deals.write" ]
         }, {
-          "oauth2_legacy" : [ "e-commerce" ]
+          "private_apps_legacy" : [ "e-commerce" ]
         }, {
           "oauth2" : [ "crm.schemas.contacts.write" ]
         }, {
           "oauth2" : [ "crm.schemas.companies.write" ]
         }, {
-          "oauth2_legacy" : [ "contacts" ]
+          "private_apps_legacy" : [ "contacts" ]
+        }, {
+          "private_apps" : [ "crm.schemas.contacts.write" ]
+        }, {
+          "private_apps" : [ "crm.schemas.companies.write" ]
+        }, {
+          "oauth2_legacy" : [ "e-commerce" ]
+        }, {
+          "private_apps_legacy" : [ "tickets" ]
+        }, {
+          "private_apps_legacy" : [ "crm.schemas.custom.write" ]
+        }, {
+          "private_apps" : [ "crm.schemas.deals.write" ]
         } ]
       }
     },
@@ -473,41 +554,75 @@
           }
         },
         "security" : [ {
-          "oauth2" : [ "crm.schemas.contacts.read" ]
-        }, {
           "oauth2_legacy" : [ "media_bridge.read" ]
-        }, {
-          "oauth2_legacy" : [ "tickets" ]
         }, {
           "oauth2" : [ "crm.objects.contacts.read" ]
         }, {
-          "hapikey" : [ ]
+          "private_apps" : [ "crm.objects.deals.read" ]
         }, {
-          "oauth2" : [ "crm.objects.contacts.write" ]
+          "private_apps_legacy" : [ "timeline" ]
         }, {
           "oauth2" : [ "crm.objects.deals.read" ]
         }, {
+          "private_apps_legacy" : [ "contacts" ]
+        }, {
+          "private_apps" : [ "crm.objects.contacts.read" ]
+        }, {
           "oauth2_legacy" : [ "crm.schemas.custom.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.companies.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.deals.write" ]
         }, {
           "oauth2" : [ "crm.schemas.quotes.read" ]
         }, {
-          "oauth2" : [ "crm.objects.deals.write" ]
+          "private_apps" : [ "crm.schemas.quotes.read" ]
         }, {
           "oauth2" : [ "crm.objects.companies.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.deals.write" ]
+        }, {
+          "private_apps_legacy" : [ "crm.schemas.custom.read" ]
+        }, {
+          "private_apps_legacy" : [ "crm.objects.goals.read" ]
+        }, {
+          "private_apps" : [ "crm.schemas.deals.read" ]
+        }, {
+          "oauth2" : [ "crm.schemas.deals.read" ]
+        }, {
+          "oauth2_legacy" : [ "timeline" ]
+        }, {
+          "private_apps_legacy" : [ "media_bridge.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.companies.write" ]
+        }, {
+          "oauth2" : [ "crm.objects.companies.write" ]
+        }, {
+          "oauth2" : [ "crm.schemas.contacts.read" ]
+        }, {
+          "private_apps" : [ "crm.schemas.contacts.read" ]
+        }, {
+          "oauth2_legacy" : [ "tickets" ]
+        }, {
+          "private_apps_legacy" : [ "e-commerce" ]
+        }, {
+          "oauth2" : [ "crm.objects.contacts.write" ]
+        }, {
+          "private_apps" : [ "crm.objects.contacts.write" ]
+        }, {
+          "private_apps" : [ "crm.schemas.companies.read" ]
         }, {
           "oauth2" : [ "crm.schemas.companies.read" ]
         }, {
           "oauth2_legacy" : [ "e-commerce" ]
         }, {
-          "oauth2_legacy" : [ "timeline" ]
+          "private_apps_legacy" : [ "tickets" ]
         }, {
-          "oauth2" : [ "crm.schemas.deals.read" ]
+          "oauth2_legacy" : [ "crm.objects.goals.read" ]
         }, {
-          "oauth2_legacy" : [ "contacts" ]
+          "private_apps" : [ "crm.schemas.line_items.read" ]
         }, {
           "oauth2" : [ "crm.schemas.line_items.read" ]
-        }, {
-          "oauth2" : [ "crm.objects.companies.write" ]
         } ]
       }
     },
@@ -552,41 +667,75 @@
           }
         },
         "security" : [ {
-          "oauth2" : [ "crm.schemas.contacts.read" ]
-        }, {
           "oauth2_legacy" : [ "media_bridge.read" ]
-        }, {
-          "oauth2_legacy" : [ "tickets" ]
         }, {
           "oauth2" : [ "crm.objects.contacts.read" ]
         }, {
-          "hapikey" : [ ]
+          "private_apps" : [ "crm.objects.deals.read" ]
         }, {
-          "oauth2" : [ "crm.objects.contacts.write" ]
+          "private_apps_legacy" : [ "timeline" ]
         }, {
           "oauth2" : [ "crm.objects.deals.read" ]
         }, {
+          "private_apps_legacy" : [ "contacts" ]
+        }, {
+          "private_apps" : [ "crm.objects.contacts.read" ]
+        }, {
           "oauth2_legacy" : [ "crm.schemas.custom.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.companies.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.deals.write" ]
         }, {
           "oauth2" : [ "crm.schemas.quotes.read" ]
         }, {
-          "oauth2" : [ "crm.objects.deals.write" ]
+          "private_apps" : [ "crm.schemas.quotes.read" ]
         }, {
           "oauth2" : [ "crm.objects.companies.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.deals.write" ]
+        }, {
+          "private_apps_legacy" : [ "crm.schemas.custom.read" ]
+        }, {
+          "private_apps_legacy" : [ "crm.objects.goals.read" ]
+        }, {
+          "private_apps" : [ "crm.schemas.deals.read" ]
+        }, {
+          "oauth2" : [ "crm.schemas.deals.read" ]
+        }, {
+          "oauth2_legacy" : [ "timeline" ]
+        }, {
+          "private_apps_legacy" : [ "media_bridge.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.companies.write" ]
+        }, {
+          "oauth2" : [ "crm.objects.companies.write" ]
+        }, {
+          "oauth2" : [ "crm.schemas.contacts.read" ]
+        }, {
+          "private_apps" : [ "crm.schemas.contacts.read" ]
+        }, {
+          "oauth2_legacy" : [ "tickets" ]
+        }, {
+          "private_apps_legacy" : [ "e-commerce" ]
+        }, {
+          "oauth2" : [ "crm.objects.contacts.write" ]
+        }, {
+          "private_apps" : [ "crm.objects.contacts.write" ]
+        }, {
+          "private_apps" : [ "crm.schemas.companies.read" ]
         }, {
           "oauth2" : [ "crm.schemas.companies.read" ]
         }, {
           "oauth2_legacy" : [ "e-commerce" ]
         }, {
-          "oauth2_legacy" : [ "timeline" ]
+          "private_apps_legacy" : [ "tickets" ]
         }, {
-          "oauth2" : [ "crm.schemas.deals.read" ]
+          "oauth2_legacy" : [ "crm.objects.goals.read" ]
         }, {
-          "oauth2_legacy" : [ "contacts" ]
+          "private_apps" : [ "crm.schemas.line_items.read" ]
         }, {
           "oauth2" : [ "crm.schemas.line_items.read" ]
-        }, {
-          "oauth2" : [ "crm.objects.companies.write" ]
         } ]
       },
       "post" : {
@@ -641,17 +790,197 @@
         "security" : [ {
           "oauth2_legacy" : [ "tickets" ]
         }, {
-          "hapikey" : [ ]
-        }, {
           "oauth2" : [ "crm.schemas.deals.write" ]
         }, {
-          "oauth2_legacy" : [ "e-commerce" ]
+          "private_apps_legacy" : [ "e-commerce" ]
         }, {
           "oauth2" : [ "crm.schemas.contacts.write" ]
         }, {
           "oauth2" : [ "crm.schemas.companies.write" ]
         }, {
-          "oauth2_legacy" : [ "contacts" ]
+          "private_apps_legacy" : [ "contacts" ]
+        }, {
+          "private_apps" : [ "crm.schemas.contacts.write" ]
+        }, {
+          "private_apps" : [ "crm.schemas.companies.write" ]
+        }, {
+          "oauth2_legacy" : [ "e-commerce" ]
+        }, {
+          "private_apps_legacy" : [ "tickets" ]
+        }, {
+          "private_apps_legacy" : [ "crm.schemas.custom.write" ]
+        }, {
+          "private_apps" : [ "crm.schemas.deals.write" ]
+        } ]
+      }
+    },
+    "/crm/v3/pipelines/{objectType}" : {
+      "get" : {
+        "tags" : [ "Pipelines" ],
+        "summary" : "Retrieve all pipelines",
+        "description" : "Return all pipelines for the object type specified by `{objectType}`.",
+        "operationId" : "GetAll",
+        "parameters" : [ {
+          "name" : "objectType",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CollectionResponsePipelineNoPaging"
+                }
+              }
+            }
+          },
+          "default" : {
+            "$ref" : "#/components/responses/Error"
+          }
+        },
+        "security" : [ {
+          "oauth2_legacy" : [ "media_bridge.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.contacts.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.deals.read" ]
+        }, {
+          "private_apps_legacy" : [ "timeline" ]
+        }, {
+          "oauth2" : [ "crm.objects.deals.read" ]
+        }, {
+          "private_apps_legacy" : [ "contacts" ]
+        }, {
+          "private_apps" : [ "crm.objects.contacts.read" ]
+        }, {
+          "oauth2_legacy" : [ "crm.schemas.custom.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.companies.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.deals.write" ]
+        }, {
+          "oauth2" : [ "crm.schemas.quotes.read" ]
+        }, {
+          "private_apps" : [ "crm.schemas.quotes.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.companies.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.deals.write" ]
+        }, {
+          "private_apps_legacy" : [ "crm.schemas.custom.read" ]
+        }, {
+          "private_apps_legacy" : [ "crm.objects.goals.read" ]
+        }, {
+          "private_apps" : [ "crm.schemas.deals.read" ]
+        }, {
+          "oauth2" : [ "crm.schemas.deals.read" ]
+        }, {
+          "oauth2_legacy" : [ "timeline" ]
+        }, {
+          "private_apps_legacy" : [ "media_bridge.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.companies.write" ]
+        }, {
+          "oauth2" : [ "crm.objects.companies.write" ]
+        }, {
+          "oauth2" : [ "crm.schemas.contacts.read" ]
+        }, {
+          "private_apps" : [ "crm.schemas.contacts.read" ]
+        }, {
+          "oauth2_legacy" : [ "tickets" ]
+        }, {
+          "private_apps_legacy" : [ "e-commerce" ]
+        }, {
+          "oauth2" : [ "crm.objects.contacts.write" ]
+        }, {
+          "private_apps" : [ "crm.objects.contacts.write" ]
+        }, {
+          "private_apps" : [ "crm.schemas.companies.read" ]
+        }, {
+          "oauth2" : [ "crm.schemas.companies.read" ]
+        }, {
+          "oauth2_legacy" : [ "e-commerce" ]
+        }, {
+          "private_apps_legacy" : [ "tickets" ]
+        }, {
+          "oauth2_legacy" : [ "crm.objects.goals.read" ]
+        }, {
+          "private_apps" : [ "crm.schemas.line_items.read" ]
+        }, {
+          "oauth2" : [ "crm.schemas.line_items.read" ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "Pipelines" ],
+        "summary" : "Create a pipeline",
+        "description" : "Create a new pipeline with the provided property values. The entire pipeline object, including its unique ID, will be returned in the response.",
+        "operationId" : "Create",
+        "parameters" : [ {
+          "name" : "objectType",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/PipelineInput"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Pipeline"
+                }
+              }
+            }
+          },
+          "default" : {
+            "$ref" : "#/components/responses/Error"
+          }
+        },
+        "security" : [ {
+          "oauth2_legacy" : [ "tickets" ]
+        }, {
+          "oauth2" : [ "crm.schemas.deals.write" ]
+        }, {
+          "private_apps_legacy" : [ "e-commerce" ]
+        }, {
+          "oauth2" : [ "crm.schemas.contacts.write" ]
+        }, {
+          "oauth2" : [ "crm.schemas.companies.write" ]
+        }, {
+          "private_apps_legacy" : [ "contacts" ]
+        }, {
+          "private_apps" : [ "crm.schemas.contacts.write" ]
+        }, {
+          "private_apps" : [ "crm.schemas.companies.write" ]
+        }, {
+          "oauth2_legacy" : [ "e-commerce" ]
+        }, {
+          "private_apps_legacy" : [ "tickets" ]
+        }, {
+          "private_apps_legacy" : [ "crm.schemas.custom.write" ]
+        }, {
+          "private_apps" : [ "crm.schemas.deals.write" ]
         } ]
       }
     },
@@ -705,41 +1034,75 @@
           }
         },
         "security" : [ {
-          "oauth2" : [ "crm.schemas.contacts.read" ]
-        }, {
           "oauth2_legacy" : [ "media_bridge.read" ]
-        }, {
-          "oauth2_legacy" : [ "tickets" ]
         }, {
           "oauth2" : [ "crm.objects.contacts.read" ]
         }, {
-          "hapikey" : [ ]
+          "private_apps" : [ "crm.objects.deals.read" ]
         }, {
-          "oauth2" : [ "crm.objects.contacts.write" ]
+          "private_apps_legacy" : [ "timeline" ]
         }, {
           "oauth2" : [ "crm.objects.deals.read" ]
         }, {
+          "private_apps_legacy" : [ "contacts" ]
+        }, {
+          "private_apps" : [ "crm.objects.contacts.read" ]
+        }, {
           "oauth2_legacy" : [ "crm.schemas.custom.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.companies.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.deals.write" ]
         }, {
           "oauth2" : [ "crm.schemas.quotes.read" ]
         }, {
-          "oauth2" : [ "crm.objects.deals.write" ]
+          "private_apps" : [ "crm.schemas.quotes.read" ]
         }, {
           "oauth2" : [ "crm.objects.companies.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.deals.write" ]
+        }, {
+          "private_apps_legacy" : [ "crm.schemas.custom.read" ]
+        }, {
+          "private_apps_legacy" : [ "crm.objects.goals.read" ]
+        }, {
+          "private_apps" : [ "crm.schemas.deals.read" ]
+        }, {
+          "oauth2" : [ "crm.schemas.deals.read" ]
+        }, {
+          "oauth2_legacy" : [ "timeline" ]
+        }, {
+          "private_apps_legacy" : [ "media_bridge.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.companies.write" ]
+        }, {
+          "oauth2" : [ "crm.objects.companies.write" ]
+        }, {
+          "oauth2" : [ "crm.schemas.contacts.read" ]
+        }, {
+          "private_apps" : [ "crm.schemas.contacts.read" ]
+        }, {
+          "oauth2_legacy" : [ "tickets" ]
+        }, {
+          "private_apps_legacy" : [ "e-commerce" ]
+        }, {
+          "oauth2" : [ "crm.objects.contacts.write" ]
+        }, {
+          "private_apps" : [ "crm.objects.contacts.write" ]
+        }, {
+          "private_apps" : [ "crm.schemas.companies.read" ]
         }, {
           "oauth2" : [ "crm.schemas.companies.read" ]
         }, {
           "oauth2_legacy" : [ "e-commerce" ]
         }, {
-          "oauth2_legacy" : [ "timeline" ]
+          "private_apps_legacy" : [ "tickets" ]
         }, {
-          "oauth2" : [ "crm.schemas.deals.read" ]
+          "oauth2_legacy" : [ "crm.objects.goals.read" ]
         }, {
-          "oauth2_legacy" : [ "contacts" ]
+          "private_apps" : [ "crm.schemas.line_items.read" ]
         }, {
           "oauth2" : [ "crm.schemas.line_items.read" ]
-        }, {
-          "oauth2" : [ "crm.objects.companies.write" ]
         } ]
       },
       "put" : {
@@ -803,17 +1166,27 @@
         "security" : [ {
           "oauth2_legacy" : [ "tickets" ]
         }, {
-          "hapikey" : [ ]
-        }, {
           "oauth2" : [ "crm.schemas.deals.write" ]
         }, {
-          "oauth2_legacy" : [ "e-commerce" ]
+          "private_apps_legacy" : [ "e-commerce" ]
         }, {
           "oauth2" : [ "crm.schemas.contacts.write" ]
         }, {
           "oauth2" : [ "crm.schemas.companies.write" ]
         }, {
-          "oauth2_legacy" : [ "contacts" ]
+          "private_apps_legacy" : [ "contacts" ]
+        }, {
+          "private_apps" : [ "crm.schemas.contacts.write" ]
+        }, {
+          "private_apps" : [ "crm.schemas.companies.write" ]
+        }, {
+          "oauth2_legacy" : [ "e-commerce" ]
+        }, {
+          "private_apps_legacy" : [ "tickets" ]
+        }, {
+          "private_apps_legacy" : [ "crm.schemas.custom.write" ]
+        }, {
+          "private_apps" : [ "crm.schemas.deals.write" ]
         } ]
       },
       "delete" : {
@@ -861,17 +1234,27 @@
         "security" : [ {
           "oauth2_legacy" : [ "tickets" ]
         }, {
-          "hapikey" : [ ]
-        }, {
           "oauth2" : [ "crm.schemas.deals.write" ]
         }, {
-          "oauth2_legacy" : [ "e-commerce" ]
+          "private_apps_legacy" : [ "e-commerce" ]
         }, {
           "oauth2" : [ "crm.schemas.contacts.write" ]
         }, {
           "oauth2" : [ "crm.schemas.companies.write" ]
         }, {
-          "oauth2_legacy" : [ "contacts" ]
+          "private_apps_legacy" : [ "contacts" ]
+        }, {
+          "private_apps" : [ "crm.schemas.contacts.write" ]
+        }, {
+          "private_apps" : [ "crm.schemas.companies.write" ]
+        }, {
+          "oauth2_legacy" : [ "e-commerce" ]
+        }, {
+          "private_apps_legacy" : [ "tickets" ]
+        }, {
+          "private_apps_legacy" : [ "crm.schemas.custom.write" ]
+        }, {
+          "private_apps" : [ "crm.schemas.deals.write" ]
         } ]
       },
       "patch" : {
@@ -935,96 +1318,27 @@
         "security" : [ {
           "oauth2_legacy" : [ "tickets" ]
         }, {
-          "hapikey" : [ ]
-        }, {
           "oauth2" : [ "crm.schemas.deals.write" ]
         }, {
-          "oauth2_legacy" : [ "e-commerce" ]
+          "private_apps_legacy" : [ "e-commerce" ]
         }, {
           "oauth2" : [ "crm.schemas.contacts.write" ]
         }, {
           "oauth2" : [ "crm.schemas.companies.write" ]
         }, {
-          "oauth2_legacy" : [ "contacts" ]
-        } ]
-      }
-    },
-    "/crm/v3/pipelines/{objectType}/{pipelineId}/stages/{stageId}/audit" : {
-      "get" : {
-        "tags" : [ "Pipeline Stage Audits" ],
-        "summary" : "Return an audit of all changes to the pipeline stage",
-        "description" : "Return a reverse chronological list of all mutations that have occurred on the pipeline stage identified by `{stageId}`.",
-        "operationId" : "StagesGetAudit",
-        "parameters" : [ {
-          "name" : "objectType",
-          "in" : "path",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
+          "private_apps_legacy" : [ "contacts" ]
         }, {
-          "name" : "stageId",
-          "in" : "path",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/CollectionResponsePublicAuditInfoNoPaging"
-                }
-              }
-            }
-          },
-          "default" : {
-            "$ref" : "#/components/responses/Error"
-          }
-        },
-        "security" : [ {
-          "oauth2" : [ "crm.schemas.contacts.read" ]
+          "private_apps" : [ "crm.schemas.contacts.write" ]
         }, {
-          "oauth2_legacy" : [ "media_bridge.read" ]
-        }, {
-          "oauth2_legacy" : [ "tickets" ]
-        }, {
-          "oauth2" : [ "crm.objects.contacts.read" ]
-        }, {
-          "hapikey" : [ ]
-        }, {
-          "oauth2" : [ "crm.objects.contacts.write" ]
-        }, {
-          "oauth2" : [ "crm.objects.deals.read" ]
-        }, {
-          "oauth2_legacy" : [ "crm.schemas.custom.read" ]
-        }, {
-          "oauth2" : [ "crm.schemas.quotes.read" ]
-        }, {
-          "oauth2" : [ "crm.objects.deals.write" ]
-        }, {
-          "oauth2" : [ "crm.objects.companies.read" ]
-        }, {
-          "oauth2" : [ "crm.schemas.companies.read" ]
+          "private_apps" : [ "crm.schemas.companies.write" ]
         }, {
           "oauth2_legacy" : [ "e-commerce" ]
         }, {
-          "oauth2_legacy" : [ "timeline" ]
+          "private_apps_legacy" : [ "tickets" ]
         }, {
-          "oauth2" : [ "crm.schemas.deals.read" ]
+          "private_apps_legacy" : [ "crm.schemas.custom.write" ]
         }, {
-          "oauth2_legacy" : [ "contacts" ]
-        }, {
-          "oauth2" : [ "crm.schemas.line_items.read" ]
-        }, {
-          "oauth2" : [ "crm.objects.companies.write" ]
+          "private_apps" : [ "crm.schemas.deals.write" ]
         } ]
       }
     }
@@ -1130,6 +1444,10 @@
           "archived" : {
             "type" : "boolean",
             "description" : "Whether the pipeline is archived."
+          },
+          "writePermissions" : {
+            "type" : "string",
+            "enum" : [ "CRM_PERMISSIONS_ENFORCEMENT", "READ_ONLY", "INTERNAL_ONLY" ]
           }
         },
         "description" : "A pipeline stage definition.",
@@ -1401,18 +1719,6 @@
           }
         }
       },
-      "CollectionResponsePipelineNoPaging" : {
-        "required" : [ "results" ],
-        "type" : "object",
-        "properties" : {
-          "results" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/Pipeline"
-            }
-          }
-        }
-      },
       "PipelineInput" : {
         "required" : [ "displayOrder", "label", "stages" ],
         "type" : "object",
@@ -1452,6 +1758,18 @@
             }
           } ]
         }
+      },
+      "CollectionResponsePipelineNoPaging" : {
+        "required" : [ "results" ],
+        "type" : "object",
+        "properties" : {
+          "results" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Pipeline"
+            }
+          }
+        }
       }
     },
     "responses" : {
@@ -1474,20 +1792,15 @@
             "authorizationUrl" : "https://app.hubspot.com/oauth/authorize",
             "tokenUrl" : "https://api.hubapi.com/oauth/v1/token",
             "scopes" : {
-              "media_bridge.read" : "Read media and media events",
-              "contacts" : "Read from and write to my Contacts",
-              "e-commerce" : "e-commerce",
               "timeline" : "Create timeline events",
-              "crm.schemas.custom.read" : "View custom object definitions",
-              "tickets" : "Read and write tickets"
+              "e-commerce" : "e-commerce",
+              "media_bridge.read" : "Read media and media events",
+              "crm.objects.goals.read" : "Read goals",
+              "tickets" : "Read and write tickets",
+              "crm.schemas.custom.read" : "View custom object definitions"
             }
           }
         }
-      },
-      "hapikey" : {
-        "type" : "apiKey",
-        "name" : "hapikey",
-        "in" : "query"
       },
       "oauth2" : {
         "type" : "oauth2",
@@ -1496,25 +1809,42 @@
             "authorizationUrl" : "https://app.hubspot.com/oauth/authorize",
             "tokenUrl" : "https://api.hubapi.com/oauth/v1/token",
             "scopes" : {
-              "crm.schemas.companies.read" : " ",
-              "crm.objects.deals.read" : " ",
-              "crm.schemas.line_items.read" : "Line Items schemas",
-              "crm.objects.deals.write" : " ",
-              "crm.schemas.deals.read" : " ",
-              "crm.objects.contacts.read" : " ",
-              "crm.schemas.quotes.read" : "Quotes schemas",
-              "crm.objects.contacts.write" : " ",
-              "crm.schemas.contacts.read" : " ",
-              "crm.objects.companies.write" : " ",
               "crm.objects.companies.read" : " ",
-              "crm.schemas.deals.write" : " ",
+              "crm.objects.companies.write" : " ",
+              "crm.schemas.contacts.read" : " ",
+              "crm.objects.contacts.write" : " ",
+              "crm.schemas.quotes.read" : "Quotes schemas",
+              "crm.objects.contacts.read" : " ",
+              "crm.schemas.deals.read" : " ",
+              "crm.objects.deals.write" : " ",
+              "crm.schemas.line_items.read" : "Line Items schemas",
+              "crm.objects.deals.read" : " ",
+              "crm.schemas.companies.read" : " ",
               "crm.schemas.contacts.write" : " ",
+              "crm.schemas.deals.write" : " ",
               "crm.schemas.companies.write" : " "
             }
           }
         }
+      },
+      "private_apps_legacy" : {
+        "type" : "apiKey",
+        "name" : "private-app-legacy",
+        "in" : "header"
+      },
+      "private_apps" : {
+        "type" : "apiKey",
+        "name" : "private-app",
+        "in" : "header"
       }
     }
   },
-  "x-hubspot-available-client-libraries" : [ "PHP", "Node", "Python", "Ruby" ]
+  "x-hubspot-available-client-libraries" : [ "PHP", "Node", "Ruby", "Python" ],
+  "x-hubspot-product-tier-requirements" : {
+    "marketing" : "FREE",
+    "sales" : "FREE",
+    "service" : "FREE",
+    "cms" : "FREE"
+  },
+  "x-hubspot-documentation-banner" : "NONE"
 }

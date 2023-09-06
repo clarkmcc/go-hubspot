@@ -135,13 +135,13 @@ func (a *BasicApiService) ArchiveExecute(r ApiArchiveRequest) (*http.Response, e
 }
 
 type ApiCreateRequest struct {
-	ctx                     context.Context
-	ApiService              *BasicApiService
-	simplePublicObjectInput *SimplePublicObjectInput
+	ctx                              context.Context
+	ApiService                       *BasicApiService
+	simplePublicObjectInputForCreate *SimplePublicObjectInputForCreate
 }
 
-func (r ApiCreateRequest) SimplePublicObjectInput(simplePublicObjectInput SimplePublicObjectInput) ApiCreateRequest {
-	r.simplePublicObjectInput = &simplePublicObjectInput
+func (r ApiCreateRequest) SimplePublicObjectInputForCreate(simplePublicObjectInputForCreate SimplePublicObjectInputForCreate) ApiCreateRequest {
+	r.simplePublicObjectInputForCreate = &simplePublicObjectInputForCreate
 	return r
 }
 
@@ -184,8 +184,8 @@ func (a *BasicApiService) CreateExecute(r ApiCreateRequest) (*SimplePublicObject
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.simplePublicObjectInput == nil {
-		return localVarReturnValue, nil, reportError("simplePublicObjectInput is required and must be specified")
+	if r.simplePublicObjectInputForCreate == nil {
+		return localVarReturnValue, nil, reportError("simplePublicObjectInputForCreate is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -206,7 +206,7 @@ func (a *BasicApiService) CreateExecute(r ApiCreateRequest) (*SimplePublicObject
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.simplePublicObjectInput
+	localVarPostBody = r.simplePublicObjectInputForCreate
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {

@@ -382,6 +382,24 @@ components:
             $ref: '#/components/schemas/Error'
       description: An error occurred.
   schemas:
+    CardFetchBodyPatch:
+      description: Variant of CardFetchBody with fields as optional for patches
+      properties:
+        targetUrl:
+          description: URL to a service endpoint that will respond with details for
+            this card. HubSpot will call this endpoint each time a user visits a CRM
+            record page where this card should be displayed.
+          type: string
+        objectTypes:
+          description: An array of CRM object types where this card should be displayed.
+            HubSpot will call your target URL whenever a user visits a record page
+            of the types defined here.
+          items:
+            $ref: '#/components/schemas/CardObjectTypeBody'
+          type: array
+      required:
+      - objectTypes
+      type: object
     CardCreateRequest:
       description: State of card definition to be created
       example:
@@ -418,23 +436,43 @@ components:
       - fetch
       - title
       type: object
-    CardFetchBodyPatch:
-      description: Variant of CardFetchBody with fields as optional for patches
+    IntegratorObjectResult:
+      example:
+        linkUrl: linkUrl
+        tokens:
+        - dataType: BOOLEAN
+          name: name
+          label: label
+          value: value
+        - dataType: BOOLEAN
+          name: name
+          label: label
+          value: value
+        id: id
+        title: title
+        actions:
+        - null
+        - null
       properties:
-        targetUrl:
-          description: URL to a service endpoint that will respond with details for
-            this card. HubSpot will call this endpoint each time a user visits a CRM
-            record page where this card should be displayed.
+        id:
           type: string
-        objectTypes:
-          description: An array of CRM object types where this card should be displayed.
-            HubSpot will call your target URL whenever a user visits a record page
-            of the types defined here.
+        title:
+          type: string
+        linkUrl:
+          type: string
+        tokens:
           items:
-            $ref: '#/components/schemas/CardObjectTypeBody'
+            $ref: '#/components/schemas/ObjectToken'
+          type: array
+        actions:
+          items:
+            $ref: '#/components/schemas/IntegratorObjectResult_actions_inner'
           type: array
       required:
-      - objectTypes
+      - actions
+      - id
+      - title
+      - tokens
       type: object
     CardDisplayProperty:
       description: Definition for a card display property.
@@ -481,44 +519,6 @@ components:
       - label
       - name
       - options
-      type: object
-    IntegratorObjectResult:
-      example:
-        linkUrl: linkUrl
-        tokens:
-        - dataType: BOOLEAN
-          name: name
-          label: label
-          value: value
-        - dataType: BOOLEAN
-          name: name
-          label: label
-          value: value
-        id: id
-        title: title
-        actions:
-        - null
-        - null
-      properties:
-        id:
-          type: string
-        title:
-          type: string
-        linkUrl:
-          type: string
-        tokens:
-          items:
-            $ref: '#/components/schemas/ObjectToken'
-          type: array
-        actions:
-          items:
-            $ref: '#/components/schemas/IntegratorObjectResult_actions_inner'
-          type: array
-      required:
-      - actions
-      - id
-      - title
-      - tokens
       type: object
     CardFetchBody:
       description: Configuration for this card's data fetch request.
@@ -685,6 +685,36 @@ components:
       - name
       - type
       type: object
+    ErrorDetail:
+      properties:
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          type: string
+        in:
+          description: The name of the field or parameter in which the error was found.
+          type: string
+        code:
+          description: The status code associated with the error detail
+          type: string
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
+          type: string
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: Context about the error condition
+          example:
+            missingScopes:
+            - scope1
+            - scope2
+          type: object
+      required:
+      - message
+      type: object
     ActionHookActionBody:
       properties:
         type:
@@ -721,35 +751,33 @@ components:
       - url
       title: ACTION_HOOK
       type: object
-    ErrorDetail:
+    ObjectToken:
+      example:
+        dataType: BOOLEAN
+        name: name
+        label: label
+        value: value
       properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
+        name:
           type: string
-        in:
-          description: The name of the field or parameter in which the error was found.
+        label:
           type: string
-        code:
-          description: The status code associated with the error detail
+        dataType:
+          enum:
+          - BOOLEAN
+          - CURRENCY
+          - DATE
+          - DATETIME
+          - EMAIL
+          - LINK
+          - NUMERIC
+          - STRING
+          - STATUS
           type: string
-        subCategory:
-          description: A specific category that contains more specific detail about
-            the error
+        value:
           type: string
-        context:
-          additionalProperties:
-            items:
-              type: string
-            type: array
-          description: Context about the error condition
-          example:
-            missingScopes:
-            - scope1
-            - scope2
-          type: object
       required:
-      - message
+      - value
       type: object
     CardListResponse:
       description: List of card definitions
@@ -844,85 +872,6 @@ components:
       required:
       - results
       type: object
-    ObjectToken:
-      example:
-        dataType: BOOLEAN
-        name: name
-        label: label
-        value: value
-      properties:
-        name:
-          type: string
-        label:
-          type: string
-        dataType:
-          enum:
-          - BOOLEAN
-          - CURRENCY
-          - DATE
-          - DATETIME
-          - EMAIL
-          - LINK
-          - NUMERIC
-          - STRING
-          - STATUS
-          type: string
-        value:
-          type: string
-      required:
-      - value
-      type: object
-    ActionConfirmationBody:
-      properties:
-        prompt:
-          type: string
-        confirmButtonLabel:
-          type: string
-        cancelButtonLabel:
-          type: string
-      required:
-      - cancelButtonLabel
-      - confirmButtonLabel
-      - prompt
-      type: object
-    IFrameActionBody:
-      example:
-        propertyNamesIncluded:
-        - propertyNamesIncluded
-        - propertyNamesIncluded
-        width: 6
-        label: label
-        type: IFRAME
-        url: url
-        height: 1
-      properties:
-        type:
-          default: IFRAME
-          enum:
-          - IFRAME
-          type: string
-        width:
-          format: int32
-          type: integer
-        height:
-          format: int32
-          type: integer
-        url:
-          type: string
-        label:
-          type: string
-        propertyNamesIncluded:
-          items:
-            type: string
-          type: array
-      required:
-      - height
-      - propertyNamesIncluded
-      - type
-      - url
-      - width
-      title: IFRAME
-      type: object
     IntegratorCardPayloadResponse:
       description: "The card details payload, sent to HubSpot by an app in response\
         \ to a data fetch request when a user visits a CRM record page."
@@ -1007,6 +956,57 @@ components:
           type: string
       required:
       - totalCount
+      type: object
+    IFrameActionBody:
+      example:
+        propertyNamesIncluded:
+        - propertyNamesIncluded
+        - propertyNamesIncluded
+        width: 6
+        label: label
+        type: IFRAME
+        url: url
+        height: 1
+      properties:
+        type:
+          default: IFRAME
+          enum:
+          - IFRAME
+          type: string
+        width:
+          format: int32
+          type: integer
+        height:
+          format: int32
+          type: integer
+        url:
+          type: string
+        label:
+          type: string
+        propertyNamesIncluded:
+          items:
+            type: string
+          type: array
+      required:
+      - height
+      - propertyNamesIncluded
+      - type
+      - url
+      - width
+      title: IFRAME
+      type: object
+    ActionConfirmationBody:
+      properties:
+        prompt:
+          type: string
+        confirmButtonLabel:
+          type: string
+        cancelButtonLabel:
+          type: string
+      required:
+      - cancelButtonLabel
+      - confirmButtonLabel
+      - prompt
       type: object
     CardResponse:
       description: Current state of Card Definition

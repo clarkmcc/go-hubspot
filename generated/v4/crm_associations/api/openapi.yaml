@@ -1,0 +1,2017 @@
+openapi: 3.0.1
+info:
+  title: CrmPublicAssociationsServiceV4
+  version: v4
+servers:
+- url: https://api.hubapi.com/
+tags:
+- name: Batch
+- name: Definitions
+paths:
+  /crm/v4/associations/{fromObjectType}/{toObjectType}/batch/archive:
+    post:
+      description: Batch delete associations for objects
+      operationId: "post-/crm/v4/associations/{fromObjectType}/{toObjectType}/batch/archive_archive"
+      parameters:
+      - explode: false
+        in: path
+        name: fromObjectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: toObjectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchInputPublicAssociationMultiArchive'
+        required: true
+      responses:
+        "204":
+          content: {}
+          description: No content
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - oauth2_legacy:
+        - media_bridge.read
+      - oauth2:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.deals.read
+      - private_apps_legacy:
+        - contacts
+      - private_apps:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.companies.read
+      - private_apps:
+        - crm.objects.deals.write
+      - oauth2:
+        - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.deals.write
+      - private_apps_legacy:
+        - crm.objects.goals.read
+      - private_apps_legacy:
+        - media_bridge.read
+      - private_apps:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.quotes.write
+      - private_apps:
+        - crm.objects.quotes.write
+      - oauth2_legacy:
+        - tickets
+      - private_apps_legacy:
+        - crm.objects.custom.write
+      - private_apps_legacy:
+        - e-commerce
+      - private_apps:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2_legacy:
+        - crm.objects.custom.read
+      - private_apps_legacy:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
+      - private_apps:
+        - crm.objects.line_items.write
+      - oauth2_legacy:
+        - e-commerce
+      - private_apps_legacy:
+        - tickets
+      - oauth2_legacy:
+        - crm.objects.goals.read
+      - oauth2:
+        - crm.objects.quotes.read
+      - oauth2_legacy:
+        - crm.objects.custom.write
+      - private_apps:
+        - crm.objects.quotes.read
+      summary: Delete
+      tags:
+      - Batch
+  /crm/v4/associations/{fromObjectType}/{toObjectType}/batch/associate/default:
+    post:
+      description: Create the default (most generic) association type between two
+        object types
+      operationId: "post-/crm/v4/associations/{fromObjectType}/{toObjectType}/batch/associate/default_createDefault"
+      parameters:
+      - explode: false
+        in: path
+        name: fromObjectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: toObjectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchInputPublicDefaultAssociationMultiPost'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchResponsePublicDefaultAssociation'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - oauth2_legacy:
+        - media_bridge.read
+      - oauth2:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.deals.read
+      - private_apps_legacy:
+        - contacts
+      - private_apps:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.companies.read
+      - private_apps:
+        - crm.objects.deals.write
+      - oauth2:
+        - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.deals.write
+      - private_apps_legacy:
+        - crm.objects.goals.read
+      - private_apps_legacy:
+        - media_bridge.read
+      - private_apps:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.quotes.write
+      - private_apps:
+        - crm.objects.quotes.write
+      - oauth2_legacy:
+        - tickets
+      - private_apps_legacy:
+        - crm.objects.custom.write
+      - private_apps_legacy:
+        - e-commerce
+      - private_apps:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2_legacy:
+        - crm.objects.custom.read
+      - private_apps_legacy:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
+      - private_apps:
+        - crm.objects.line_items.write
+      - oauth2_legacy:
+        - e-commerce
+      - private_apps_legacy:
+        - tickets
+      - oauth2_legacy:
+        - crm.objects.goals.read
+      - oauth2:
+        - crm.objects.quotes.read
+      - oauth2_legacy:
+        - crm.objects.custom.write
+      - private_apps:
+        - crm.objects.quotes.read
+      summary: ' Create Default Associations'
+      tags:
+      - Batch
+  /crm/v4/associations/{fromObjectType}/{toObjectType}/batch/create:
+    post:
+      description: Batch create associations for objects
+      operationId: "post-/crm/v4/associations/{fromObjectType}/{toObjectType}/batch/create_create"
+      parameters:
+      - explode: false
+        in: path
+        name: fromObjectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: toObjectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchInputPublicAssociationMultiPost'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchResponseLabelsBetweenObjectPair'
+          description: successful operation
+        "207":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchResponseLabelsBetweenObjectPairWithErrors'
+          description: multiple statuses
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - oauth2_legacy:
+        - media_bridge.read
+      - oauth2:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.deals.read
+      - private_apps_legacy:
+        - contacts
+      - private_apps:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.companies.read
+      - private_apps:
+        - crm.objects.deals.write
+      - oauth2:
+        - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.deals.write
+      - private_apps_legacy:
+        - crm.objects.goals.read
+      - private_apps_legacy:
+        - media_bridge.read
+      - private_apps:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.quotes.write
+      - private_apps:
+        - crm.objects.quotes.write
+      - oauth2_legacy:
+        - tickets
+      - private_apps_legacy:
+        - crm.objects.custom.write
+      - private_apps_legacy:
+        - e-commerce
+      - private_apps:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2_legacy:
+        - crm.objects.custom.read
+      - private_apps_legacy:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
+      - private_apps:
+        - crm.objects.line_items.write
+      - oauth2_legacy:
+        - e-commerce
+      - private_apps_legacy:
+        - tickets
+      - oauth2_legacy:
+        - crm.objects.goals.read
+      - oauth2:
+        - crm.objects.quotes.read
+      - oauth2_legacy:
+        - crm.objects.custom.write
+      - private_apps:
+        - crm.objects.quotes.read
+      summary: Create
+      tags:
+      - Batch
+  /crm/v4/associations/{fromObjectType}/{toObjectType}/batch/labels/archive:
+    post:
+      description: Batch delete specific association labels for objects. Deleting
+        an unlabeled association will also delete all labeled associations between
+        those two objects
+      operationId: "post-/crm/v4/associations/{fromObjectType}/{toObjectType}/batch/labels/archive_archiveLabels"
+      parameters:
+      - explode: false
+        in: path
+        name: fromObjectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: toObjectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchInputPublicAssociationMultiPost'
+        required: true
+      responses:
+        "204":
+          content: {}
+          description: No content
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - oauth2_legacy:
+        - media_bridge.read
+      - oauth2:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.deals.read
+      - private_apps_legacy:
+        - contacts
+      - private_apps:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.companies.read
+      - private_apps:
+        - crm.objects.deals.write
+      - oauth2:
+        - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.deals.write
+      - private_apps_legacy:
+        - crm.objects.goals.read
+      - private_apps_legacy:
+        - media_bridge.read
+      - private_apps:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.quotes.write
+      - private_apps:
+        - crm.objects.quotes.write
+      - oauth2_legacy:
+        - tickets
+      - private_apps_legacy:
+        - crm.objects.custom.write
+      - private_apps_legacy:
+        - e-commerce
+      - private_apps:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2_legacy:
+        - crm.objects.custom.read
+      - private_apps_legacy:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
+      - private_apps:
+        - crm.objects.line_items.write
+      - oauth2_legacy:
+        - e-commerce
+      - private_apps_legacy:
+        - tickets
+      - oauth2_legacy:
+        - crm.objects.goals.read
+      - oauth2:
+        - crm.objects.quotes.read
+      - oauth2_legacy:
+        - crm.objects.custom.write
+      - private_apps:
+        - crm.objects.quotes.read
+      summary: Delete Specific Labels
+      tags:
+      - Batch
+  /crm/v4/associations/{fromObjectType}/{toObjectType}/batch/read:
+    post:
+      description: 'Batch read associations for objects to specific object type. The
+        ''after'' field in a returned paging object  can be added alongside the ''id''
+        to retrieve the next page of associations from that objectId. The ''link''
+        field is deprecated and should be ignored. '
+      operationId: "post-/crm/v4/associations/{fromObjectType}/{toObjectType}/batch/read_getPage"
+      parameters:
+      - explode: false
+        in: path
+        name: fromObjectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: toObjectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchInputPublicFetchAssociationsBatchRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchResponsePublicAssociationMultiWithLabel'
+          description: successful operation
+        "207":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchResponsePublicAssociationMultiWithLabelWithErrors'
+          description: multiple statuses
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - oauth2_legacy:
+        - media_bridge.read
+      - oauth2:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.deals.read
+      - private_apps_legacy:
+        - contacts
+      - private_apps:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.companies.read
+      - private_apps:
+        - crm.objects.deals.write
+      - oauth2:
+        - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.deals.write
+      - private_apps_legacy:
+        - crm.objects.goals.read
+      - private_apps_legacy:
+        - media_bridge.read
+      - private_apps:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.quotes.write
+      - private_apps:
+        - crm.objects.quotes.write
+      - oauth2_legacy:
+        - tickets
+      - private_apps_legacy:
+        - crm.objects.custom.write
+      - private_apps_legacy:
+        - e-commerce
+      - private_apps:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2_legacy:
+        - crm.objects.custom.read
+      - private_apps_legacy:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
+      - private_apps:
+        - crm.objects.line_items.write
+      - oauth2_legacy:
+        - e-commerce
+      - private_apps_legacy:
+        - tickets
+      - oauth2_legacy:
+        - crm.objects.goals.read
+      - oauth2:
+        - crm.objects.quotes.read
+      - oauth2_legacy:
+        - crm.objects.custom.write
+      - private_apps:
+        - crm.objects.quotes.read
+      summary: Read
+      tags:
+      - Batch
+  /crm/v4/associations/{fromObjectType}/{toObjectType}/labels:
+    get:
+      description: Returns all association types between two object types
+      operationId: "get-/crm/v4/associations/{fromObjectType}/{toObjectType}/labels_getAll"
+      parameters:
+      - explode: false
+        in: path
+        name: fromObjectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: toObjectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionResponseAssociationSpecWithLabelNoPaging'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - oauth2_legacy:
+        - media_bridge.read
+      - oauth2:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.deals.read
+      - private_apps_legacy:
+        - contacts
+      - private_apps:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.companies.read
+      - private_apps:
+        - crm.objects.deals.write
+      - oauth2:
+        - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.deals.write
+      - private_apps_legacy:
+        - crm.objects.goals.read
+      - private_apps_legacy:
+        - media_bridge.read
+      - private_apps:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.quotes.write
+      - private_apps:
+        - crm.objects.quotes.write
+      - oauth2_legacy:
+        - tickets
+      - private_apps_legacy:
+        - crm.objects.custom.write
+      - private_apps_legacy:
+        - e-commerce
+      - private_apps:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2_legacy:
+        - crm.objects.custom.read
+      - private_apps_legacy:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
+      - private_apps:
+        - crm.objects.line_items.write
+      - oauth2_legacy:
+        - e-commerce
+      - private_apps_legacy:
+        - tickets
+      - oauth2_legacy:
+        - crm.objects.goals.read
+      - oauth2:
+        - crm.objects.quotes.read
+      - oauth2_legacy:
+        - crm.objects.custom.write
+      - private_apps:
+        - crm.objects.quotes.read
+      summary: Read
+      tags:
+      - Definitions
+    post:
+      description: Create a user defined association definition
+      operationId: "post-/crm/v4/associations/{fromObjectType}/{toObjectType}/labels_create"
+      parameters:
+      - explode: false
+        in: path
+        name: fromObjectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: toObjectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicAssociationDefinitionCreateRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionResponseAssociationSpecWithLabelNoPaging'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - oauth2_legacy:
+        - media_bridge.read
+      - oauth2:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.deals.read
+      - private_apps_legacy:
+        - contacts
+      - private_apps:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.companies.read
+      - private_apps:
+        - crm.objects.deals.write
+      - oauth2:
+        - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.deals.write
+      - private_apps_legacy:
+        - crm.objects.goals.read
+      - private_apps_legacy:
+        - media_bridge.read
+      - private_apps:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.quotes.write
+      - private_apps:
+        - crm.objects.quotes.write
+      - oauth2_legacy:
+        - tickets
+      - private_apps_legacy:
+        - crm.objects.custom.write
+      - private_apps_legacy:
+        - e-commerce
+      - private_apps:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2_legacy:
+        - crm.objects.custom.read
+      - private_apps_legacy:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
+      - private_apps:
+        - crm.objects.line_items.write
+      - oauth2_legacy:
+        - e-commerce
+      - private_apps_legacy:
+        - tickets
+      - oauth2_legacy:
+        - crm.objects.goals.read
+      - oauth2:
+        - crm.objects.quotes.read
+      - oauth2_legacy:
+        - crm.objects.custom.write
+      - private_apps:
+        - crm.objects.quotes.read
+      summary: Create
+      tags:
+      - Definitions
+    put:
+      description: Update a user defined association definition
+      operationId: "put-/crm/v4/associations/{fromObjectType}/{toObjectType}/labels_update"
+      parameters:
+      - explode: false
+        in: path
+        name: fromObjectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: toObjectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicAssociationDefinitionUpdateRequest'
+        required: true
+      responses:
+        "204":
+          content: {}
+          description: No content
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - oauth2_legacy:
+        - media_bridge.read
+      - oauth2:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.deals.read
+      - private_apps_legacy:
+        - contacts
+      - private_apps:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.companies.read
+      - private_apps:
+        - crm.objects.deals.write
+      - oauth2:
+        - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.deals.write
+      - private_apps_legacy:
+        - crm.objects.goals.read
+      - private_apps_legacy:
+        - media_bridge.read
+      - private_apps:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.quotes.write
+      - private_apps:
+        - crm.objects.quotes.write
+      - oauth2_legacy:
+        - tickets
+      - private_apps_legacy:
+        - crm.objects.custom.write
+      - private_apps_legacy:
+        - e-commerce
+      - private_apps:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2_legacy:
+        - crm.objects.custom.read
+      - private_apps_legacy:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
+      - private_apps:
+        - crm.objects.line_items.write
+      - oauth2_legacy:
+        - e-commerce
+      - private_apps_legacy:
+        - tickets
+      - oauth2_legacy:
+        - crm.objects.goals.read
+      - oauth2:
+        - crm.objects.quotes.read
+      - oauth2_legacy:
+        - crm.objects.custom.write
+      - private_apps:
+        - crm.objects.quotes.read
+      summary: Update
+      tags:
+      - Definitions
+  /crm/v4/associations/{fromObjectType}/{toObjectType}/labels/{associationTypeId}:
+    delete:
+      description: Deletes an association definition
+      operationId: "delete-/crm/v4/associations/{fromObjectType}/{toObjectType}/labels/{associationTypeId}_archive"
+      parameters:
+      - explode: false
+        in: path
+        name: fromObjectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: toObjectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: associationTypeId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "204":
+          content: {}
+          description: No content
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - oauth2_legacy:
+        - media_bridge.read
+      - oauth2:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.deals.read
+      - private_apps_legacy:
+        - contacts
+      - private_apps:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.companies.read
+      - private_apps:
+        - crm.objects.deals.write
+      - oauth2:
+        - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.deals.write
+      - private_apps_legacy:
+        - crm.objects.goals.read
+      - private_apps_legacy:
+        - media_bridge.read
+      - private_apps:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.quotes.write
+      - private_apps:
+        - crm.objects.quotes.write
+      - oauth2_legacy:
+        - tickets
+      - private_apps_legacy:
+        - crm.objects.custom.write
+      - private_apps_legacy:
+        - e-commerce
+      - private_apps:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2_legacy:
+        - crm.objects.custom.read
+      - private_apps_legacy:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
+      - private_apps:
+        - crm.objects.line_items.write
+      - oauth2_legacy:
+        - e-commerce
+      - private_apps_legacy:
+        - tickets
+      - oauth2_legacy:
+        - crm.objects.goals.read
+      - oauth2:
+        - crm.objects.quotes.read
+      - oauth2_legacy:
+        - crm.objects.custom.write
+      - private_apps:
+        - crm.objects.quotes.read
+      summary: Delete
+      tags:
+      - Definitions
+components:
+  responses:
+    Error:
+      content:
+        '*/*':
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An error occurred.
+  schemas:
+    StandardError:
+      example:
+        subCategory: "{}"
+        context:
+          key:
+          - context
+          - context
+        links:
+          key: links
+        id: id
+        category:
+          httpStatus: CONTINUE
+          name: name
+        message: message
+        errors:
+        - subCategory: subCategory
+          code: code
+          in: in
+          context:
+            missingScopes:
+            - scope1
+            - scope2
+          message: message
+        - subCategory: subCategory
+          code: code
+          in: in
+          context:
+            missingScopes:
+            - scope1
+            - scope2
+          message: message
+        status: status
+      properties:
+        status:
+          type: string
+        id:
+          type: string
+        category:
+          $ref: '#/components/schemas/ErrorCategory'
+        subCategory:
+          properties: {}
+          type: object
+        message:
+          type: string
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          type: object
+        links:
+          additionalProperties:
+            type: string
+          type: object
+      required:
+      - category
+      - context
+      - errors
+      - links
+      - message
+      - status
+      type: object
+    LabelsBetweenObjectPair:
+      example:
+        fromObjectTypeId: fromObjectTypeId
+        toObjectId: 6
+        toObjectTypeId: toObjectTypeId
+        fromObjectId: 0
+        labels:
+        - labels
+        - labels
+      properties:
+        fromObjectTypeId:
+          type: string
+        fromObjectId:
+          format: int32
+          type: integer
+        toObjectTypeId:
+          type: string
+        toObjectId:
+          format: int32
+          type: integer
+        labels:
+          items:
+            type: string
+          type: array
+      required:
+      - fromObjectId
+      - fromObjectTypeId
+      - labels
+      - toObjectId
+      - toObjectTypeId
+      type: object
+    PublicAssociationMultiWithLabel:
+      example:
+        from:
+          id: id
+        paging:
+          next:
+            link: link
+            after: after
+          prev:
+            before: before
+            link: link
+        to:
+        - associationTypes:
+          - typeId: 6
+            label: label
+            category: HUBSPOT_DEFINED
+          - typeId: 6
+            label: label
+            category: HUBSPOT_DEFINED
+          toObjectId: 0
+        - associationTypes:
+          - typeId: 6
+            label: label
+            category: HUBSPOT_DEFINED
+          - typeId: 6
+            label: label
+            category: HUBSPOT_DEFINED
+          toObjectId: 0
+      properties:
+        from:
+          $ref: '#/components/schemas/PublicObjectId'
+        to:
+          items:
+            $ref: '#/components/schemas/MultiAssociatedObjectWithLabel'
+          type: array
+        paging:
+          $ref: '#/components/schemas/Paging'
+      required:
+      - from
+      - to
+      type: object
+    BatchInputPublicDefaultAssociationMultiPost:
+      example:
+        inputs:
+        - from:
+            id: id
+          to:
+            id: id
+        - from:
+            id: id
+          to:
+            id: id
+      properties:
+        inputs:
+          items:
+            $ref: '#/components/schemas/PublicDefaultAssociationMultiPost'
+          type: array
+      required:
+      - inputs
+      type: object
+    BatchInputPublicAssociationMultiArchive:
+      example:
+        inputs:
+        - from:
+            id: id
+          to:
+          - id: id
+          - id: id
+        - from:
+            id: id
+          to:
+          - id: id
+          - id: id
+      properties:
+        inputs:
+          items:
+            $ref: '#/components/schemas/PublicAssociationMultiArchive'
+          type: array
+      required:
+      - inputs
+      type: object
+    PublicAssociationDefinitionUpdateRequest:
+      example:
+        associationTypeId: 0
+        label: label
+      properties:
+        label:
+          type: string
+        associationTypeId:
+          format: int32
+          type: integer
+      required:
+      - associationTypeId
+      - label
+      type: object
+    MultiAssociatedObjectWithLabel:
+      example:
+        associationTypes:
+        - typeId: 6
+          label: label
+          category: HUBSPOT_DEFINED
+        - typeId: 6
+          label: label
+          category: HUBSPOT_DEFINED
+        toObjectId: 0
+      properties:
+        toObjectId:
+          format: int32
+          type: integer
+        associationTypes:
+          items:
+            $ref: '#/components/schemas/AssociationSpecWithLabel'
+          type: array
+      required:
+      - associationTypes
+      - toObjectId
+      type: object
+    ErrorDetail:
+      example:
+        subCategory: subCategory
+        code: code
+        in: in
+        context:
+          missingScopes:
+          - scope1
+          - scope2
+        message: message
+      properties:
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          type: string
+        in:
+          description: The name of the field or parameter in which the error was found.
+          type: string
+        code:
+          description: The status code associated with the error detail
+          type: string
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
+          type: string
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: Context about the error condition
+          example:
+            missingScopes:
+            - scope1
+            - scope2
+          type: object
+      required:
+      - message
+      type: object
+    AssociationSpecWithLabel:
+      example:
+        typeId: 6
+        label: label
+        category: HUBSPOT_DEFINED
+      properties:
+        category:
+          enum:
+          - HUBSPOT_DEFINED
+          - USER_DEFINED
+          - INTEGRATOR_DEFINED
+          type: string
+        typeId:
+          format: int32
+          type: integer
+        label:
+          type: string
+      required:
+      - category
+      - typeId
+      type: object
+    PublicAssociationMultiPost:
+      example:
+        types:
+        - associationCategory: HUBSPOT_DEFINED
+          associationTypeId: 0
+        - associationCategory: HUBSPOT_DEFINED
+          associationTypeId: 0
+        from:
+          id: id
+        to:
+          id: id
+      properties:
+        from:
+          $ref: '#/components/schemas/PublicObjectId'
+        to:
+          $ref: '#/components/schemas/PublicObjectId'
+        types:
+          items:
+            $ref: '#/components/schemas/AssociationSpec'
+          type: array
+      required:
+      - from
+      - to
+      - types
+      type: object
+    BatchResponseLabelsBetweenObjectPair:
+      example:
+        completedAt: 2000-01-23T04:56:07.000+00:00
+        requestedAt: 2000-01-23T04:56:07.000+00:00
+        startedAt: 2000-01-23T04:56:07.000+00:00
+        links:
+          key: links
+        results:
+        - fromObjectTypeId: fromObjectTypeId
+          toObjectId: 6
+          toObjectTypeId: toObjectTypeId
+          fromObjectId: 0
+          labels:
+          - labels
+          - labels
+        - fromObjectTypeId: fromObjectTypeId
+          toObjectId: 6
+          toObjectTypeId: toObjectTypeId
+          fromObjectId: 0
+          labels:
+          - labels
+          - labels
+        status: PENDING
+      properties:
+        status:
+          enum:
+          - PENDING
+          - PROCESSING
+          - CANCELED
+          - COMPLETE
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/LabelsBetweenObjectPair'
+          type: array
+        requestedAt:
+          format: date-time
+          type: string
+        startedAt:
+          format: date-time
+          type: string
+        completedAt:
+          format: date-time
+          type: string
+        links:
+          additionalProperties:
+            type: string
+          type: object
+      required:
+      - completedAt
+      - results
+      - startedAt
+      - status
+      type: object
+    PublicObjectId:
+      example:
+        id: id
+      properties:
+        id:
+          type: string
+      required:
+      - id
+      type: object
+    PublicAssociationDefinitionCreateRequest:
+      example:
+        name: name
+        label: label
+      properties:
+        label:
+          type: string
+        name:
+          type: string
+      required:
+      - label
+      - name
+      type: object
+    PublicAssociationMultiArchive:
+      example:
+        from:
+          id: id
+        to:
+        - id: id
+        - id: id
+      properties:
+        from:
+          $ref: '#/components/schemas/PublicObjectId'
+        to:
+          items:
+            $ref: '#/components/schemas/PublicObjectId'
+          type: array
+      required:
+      - from
+      - to
+      type: object
+    BatchResponsePublicAssociationMultiWithLabelWithErrors:
+      properties:
+        status:
+          enum:
+          - PENDING
+          - PROCESSING
+          - CANCELED
+          - COMPLETE
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/PublicAssociationMultiWithLabel'
+          type: array
+        numErrors:
+          format: int32
+          type: integer
+        errors:
+          items:
+            $ref: '#/components/schemas/StandardError'
+          type: array
+        requestedAt:
+          format: date-time
+          type: string
+        startedAt:
+          format: date-time
+          type: string
+        completedAt:
+          format: date-time
+          type: string
+        links:
+          additionalProperties:
+            type: string
+          type: object
+      required:
+      - completedAt
+      - results
+      - startedAt
+      - status
+      type: object
+    Paging:
+      example:
+        next:
+          link: link
+          after: after
+        prev:
+          before: before
+          link: link
+      properties:
+        next:
+          $ref: '#/components/schemas/NextPage'
+        prev:
+          $ref: '#/components/schemas/PreviousPage'
+      type: object
+    PublicDefaultAssociation:
+      example:
+        associationSpec:
+          associationCategory: HUBSPOT_DEFINED
+          associationTypeId: 0
+        from:
+          id: id
+        to:
+          id: id
+      properties:
+        from:
+          $ref: '#/components/schemas/PublicObjectId'
+        to:
+          $ref: '#/components/schemas/PublicObjectId'
+        associationSpec:
+          $ref: '#/components/schemas/AssociationSpec'
+      required:
+      - associationSpec
+      - from
+      - to
+      type: object
+    Error:
+      example:
+        message: Invalid input (details will vary based on the error)
+        correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
+        category: VALIDATION_ERROR
+        links:
+          knowledge-base: https://www.hubspot.com/products/service/knowledge-base
+      properties:
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          example: An error occurred
+          type: string
+        correlationId:
+          description: A unique identifier for the request. Include this value with
+            any error reports or support tickets
+          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
+          format: uuid
+          type: string
+        category:
+          description: The error category
+          type: string
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
+          type: string
+        errors:
+          description: further information about the error
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: Context about the error condition
+          example:
+            invalidPropertyName:
+            - propertyValue
+            missingScopes:
+            - scope1
+            - scope2
+          type: object
+        links:
+          additionalProperties:
+            type: string
+          description: A map of link names to associated URIs containing documentation
+            about the error or recommended remediation steps
+          type: object
+      required:
+      - category
+      - correlationId
+      - message
+      type: object
+    BatchInputPublicAssociationMultiPost:
+      example:
+        inputs:
+        - types:
+          - associationCategory: HUBSPOT_DEFINED
+            associationTypeId: 0
+          - associationCategory: HUBSPOT_DEFINED
+            associationTypeId: 0
+          from:
+            id: id
+          to:
+            id: id
+        - types:
+          - associationCategory: HUBSPOT_DEFINED
+            associationTypeId: 0
+          - associationCategory: HUBSPOT_DEFINED
+            associationTypeId: 0
+          from:
+            id: id
+          to:
+            id: id
+      properties:
+        inputs:
+          items:
+            $ref: '#/components/schemas/PublicAssociationMultiPost'
+          type: array
+      required:
+      - inputs
+      type: object
+    PublicDefaultAssociationMultiPost:
+      example:
+        from:
+          id: id
+        to:
+          id: id
+      properties:
+        from:
+          $ref: '#/components/schemas/PublicObjectId'
+        to:
+          $ref: '#/components/schemas/PublicObjectId'
+      required:
+      - from
+      - to
+      type: object
+    BatchResponsePublicDefaultAssociation:
+      example:
+        completedAt: 2000-01-23T04:56:07.000+00:00
+        numErrors: 6
+        requestedAt: 2000-01-23T04:56:07.000+00:00
+        startedAt: 2000-01-23T04:56:07.000+00:00
+        links:
+          key: links
+        results:
+        - associationSpec:
+            associationCategory: HUBSPOT_DEFINED
+            associationTypeId: 0
+          from:
+            id: id
+          to:
+            id: id
+        - associationSpec:
+            associationCategory: HUBSPOT_DEFINED
+            associationTypeId: 0
+          from:
+            id: id
+          to:
+            id: id
+        errors:
+        - subCategory: "{}"
+          context:
+            key:
+            - context
+            - context
+          links:
+            key: links
+          id: id
+          category:
+            httpStatus: CONTINUE
+            name: name
+          message: message
+          errors:
+          - subCategory: subCategory
+            code: code
+            in: in
+            context:
+              missingScopes:
+              - scope1
+              - scope2
+            message: message
+          - subCategory: subCategory
+            code: code
+            in: in
+            context:
+              missingScopes:
+              - scope1
+              - scope2
+            message: message
+          status: status
+        - subCategory: "{}"
+          context:
+            key:
+            - context
+            - context
+          links:
+            key: links
+          id: id
+          category:
+            httpStatus: CONTINUE
+            name: name
+          message: message
+          errors:
+          - subCategory: subCategory
+            code: code
+            in: in
+            context:
+              missingScopes:
+              - scope1
+              - scope2
+            message: message
+          - subCategory: subCategory
+            code: code
+            in: in
+            context:
+              missingScopes:
+              - scope1
+              - scope2
+            message: message
+          status: status
+        status: PENDING
+      properties:
+        status:
+          enum:
+          - PENDING
+          - PROCESSING
+          - CANCELED
+          - COMPLETE
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/PublicDefaultAssociation'
+          type: array
+        numErrors:
+          format: int32
+          type: integer
+        errors:
+          items:
+            $ref: '#/components/schemas/StandardError'
+          type: array
+        requestedAt:
+          format: date-time
+          type: string
+        startedAt:
+          format: date-time
+          type: string
+        completedAt:
+          format: date-time
+          type: string
+        links:
+          additionalProperties:
+            type: string
+          type: object
+      required:
+      - completedAt
+      - results
+      - startedAt
+      - status
+      type: object
+    BatchResponsePublicAssociationMultiWithLabel:
+      example:
+        completedAt: 2000-01-23T04:56:07.000+00:00
+        requestedAt: 2000-01-23T04:56:07.000+00:00
+        startedAt: 2000-01-23T04:56:07.000+00:00
+        links:
+          key: links
+        results:
+        - from:
+            id: id
+          paging:
+            next:
+              link: link
+              after: after
+            prev:
+              before: before
+              link: link
+          to:
+          - associationTypes:
+            - typeId: 6
+              label: label
+              category: HUBSPOT_DEFINED
+            - typeId: 6
+              label: label
+              category: HUBSPOT_DEFINED
+            toObjectId: 0
+          - associationTypes:
+            - typeId: 6
+              label: label
+              category: HUBSPOT_DEFINED
+            - typeId: 6
+              label: label
+              category: HUBSPOT_DEFINED
+            toObjectId: 0
+        - from:
+            id: id
+          paging:
+            next:
+              link: link
+              after: after
+            prev:
+              before: before
+              link: link
+          to:
+          - associationTypes:
+            - typeId: 6
+              label: label
+              category: HUBSPOT_DEFINED
+            - typeId: 6
+              label: label
+              category: HUBSPOT_DEFINED
+            toObjectId: 0
+          - associationTypes:
+            - typeId: 6
+              label: label
+              category: HUBSPOT_DEFINED
+            - typeId: 6
+              label: label
+              category: HUBSPOT_DEFINED
+            toObjectId: 0
+        status: PENDING
+      properties:
+        status:
+          enum:
+          - PENDING
+          - PROCESSING
+          - CANCELED
+          - COMPLETE
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/PublicAssociationMultiWithLabel'
+          type: array
+        requestedAt:
+          format: date-time
+          type: string
+        startedAt:
+          format: date-time
+          type: string
+        completedAt:
+          format: date-time
+          type: string
+        links:
+          additionalProperties:
+            type: string
+          type: object
+      required:
+      - completedAt
+      - results
+      - startedAt
+      - status
+      type: object
+    BatchInputPublicFetchAssociationsBatchRequest:
+      example:
+        inputs:
+        - id: id
+          after: after
+        - id: id
+          after: after
+      properties:
+        inputs:
+          items:
+            $ref: '#/components/schemas/PublicFetchAssociationsBatchRequest'
+          type: array
+      required:
+      - inputs
+      type: object
+    AssociationSpec:
+      example:
+        associationCategory: HUBSPOT_DEFINED
+        associationTypeId: 0
+      properties:
+        associationCategory:
+          enum:
+          - HUBSPOT_DEFINED
+          - USER_DEFINED
+          - INTEGRATOR_DEFINED
+          type: string
+        associationTypeId:
+          format: int32
+          type: integer
+      required:
+      - associationCategory
+      - associationTypeId
+      type: object
+    ErrorCategory:
+      example:
+        httpStatus: CONTINUE
+        name: name
+      properties:
+        name:
+          type: string
+        httpStatus:
+          enum:
+          - CONTINUE
+          - SWITCHING_PROTOCOLS
+          - PROCESSING
+          - OK
+          - CREATED
+          - ACCEPTED
+          - NON_AUTHORITATIVE_INFORMATION
+          - NO_CONTENT
+          - RESET_CONTENT
+          - PARTIAL_CONTENT
+          - MULTI_STATUS
+          - ALREADY_REPORTED
+          - IM_USED
+          - MULTIPLE_CHOICES
+          - MOVED_PERMANENTLY
+          - FOUND
+          - SEE_OTHER
+          - NOT_MODIFIED
+          - USE_PROXY
+          - TEMPORARY_REDIRECT
+          - PERMANENT_REDIRECT
+          - BAD_REQUEST
+          - UNAUTHORIZED
+          - PAYMENT_REQUIRED
+          - FORBIDDEN
+          - NOT_FOUND
+          - METHOD_NOT_ALLOWED
+          - NOT_ACCEPTABLE
+          - PROXY_AUTHENTICATION_REQUIRED
+          - REQUEST_TIMEOUT
+          - CONFLICT
+          - GONE
+          - LENGTH_REQUIRED
+          - PRECONDITION_FAILED
+          - REQUEST_ENTITY_TOO_LARGE
+          - REQUEST_URI_TOO_LONG
+          - UNSUPPORTED_MEDIA_TYPE
+          - REQUESTED_RANGE_NOT_SATISFIABLE
+          - EXPECTATION_FAILED
+          - IM_A_TEAPOT
+          - MISDIRECTED_REQUEST
+          - UNPROCESSABLE_ENTITY
+          - LOCKED
+          - FAILED_DEPENDENCY
+          - UPGRADE_REQUIRED
+          - PRECONDITION_REQUIRED
+          - TOO_MANY_REQUESTS
+          - REQUEST_HEADERS_FIELDS_TOO_LARGE
+          - INTERNAL_STALE_SERVICE_DISCOVERY
+          - UNAVAILABLE_FOR_LEGAL_REASONS
+          - MIGRATION_IN_PROGRESS
+          - INTERNAL_SERVER_ERROR
+          - NOT_IMPLEMENTED
+          - BAD_GATEWAY
+          - SERVICE_UNAVAILABLE
+          - GATEWAY_TIMEOUT
+          - HTTP_VERSION_NOT_SUPPORTED
+          - VARIANT_ALSO_NEGOTIATES
+          - INSUFFICIENT_STORAGE
+          - LOOP_DETECTED
+          - NOT_EXTENDED
+          - NETWORK_AUTHENTICATION_REQUIRED
+          type: string
+      required:
+      - httpStatus
+      - name
+      type: object
+    CollectionResponseAssociationSpecWithLabelNoPaging:
+      example:
+        results:
+        - typeId: 6
+          label: label
+          category: HUBSPOT_DEFINED
+        - typeId: 6
+          label: label
+          category: HUBSPOT_DEFINED
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/AssociationSpecWithLabel'
+          type: array
+      required:
+      - results
+      type: object
+    BatchResponseLabelsBetweenObjectPairWithErrors:
+      properties:
+        status:
+          enum:
+          - PENDING
+          - PROCESSING
+          - CANCELED
+          - COMPLETE
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/LabelsBetweenObjectPair'
+          type: array
+        numErrors:
+          format: int32
+          type: integer
+        errors:
+          items:
+            $ref: '#/components/schemas/StandardError'
+          type: array
+        requestedAt:
+          format: date-time
+          type: string
+        startedAt:
+          format: date-time
+          type: string
+        completedAt:
+          format: date-time
+          type: string
+        links:
+          additionalProperties:
+            type: string
+          type: object
+      required:
+      - completedAt
+      - results
+      - startedAt
+      - status
+      type: object
+    PreviousPage:
+      example:
+        before: before
+        link: link
+      properties:
+        before:
+          type: string
+        link:
+          type: string
+      required:
+      - before
+      type: object
+    NextPage:
+      example:
+        link: link
+        after: after
+      properties:
+        after:
+          type: string
+        link:
+          type: string
+      required:
+      - after
+      type: object
+    PublicFetchAssociationsBatchRequest:
+      example:
+        id: id
+        after: after
+      properties:
+        id:
+          type: string
+        after:
+          type: string
+      required:
+      - id
+      type: object
+  securitySchemes:
+    oauth2_legacy:
+      flows:
+        authorizationCode:
+          authorizationUrl: https://app.hubspot.com/oauth/authorize
+          scopes:
+            e-commerce: e-commerce
+            crm.objects.custom.write: Change custom object records
+            crm.objects.custom.read: View custom object records
+            crm.objects.goals.read: Read goals
+            tickets: Read and write tickets
+            media_bridge.read: Read media and media events
+          tokenUrl: https://api.hubapi.com/oauth/v1/token
+      type: oauth2
+    oauth2:
+      flows:
+        authorizationCode:
+          authorizationUrl: https://app.hubspot.com/oauth/authorize
+          scopes:
+            crm.objects.quotes.read: Quotes
+            crm.objects.line_items.write: Line Items
+            crm.objects.companies.read: ' '
+            crm.objects.companies.write: ' '
+            crm.objects.contacts.write: ' '
+            crm.objects.contacts.read: ' '
+            crm.objects.quotes.write: Quotes
+            crm.objects.deals.read: ' '
+            crm.objects.line_items.read: Line Items
+            crm.objects.deals.write: ' '
+          tokenUrl: https://api.hubapi.com/oauth/v1/token
+      type: oauth2
+    private_apps_legacy:
+      in: header
+      name: private-app-legacy
+      type: apiKey
+    private_apps:
+      in: header
+      name: private-app
+      type: apiKey
+x-hubspot-available-client-libraries:
+- PHP
+- Node
+- Python
+- Ruby

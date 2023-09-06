@@ -19,8 +19,6 @@ import (
 type BatchResponseProperty struct {
 	Status      string             `json:"status"`
 	Results     []Property         `json:"results"`
-	NumErrors   *int32             `json:"numErrors,omitempty"`
-	Errors      []StandardError    `json:"errors,omitempty"`
 	RequestedAt *time.Time         `json:"requestedAt,omitempty"`
 	StartedAt   time.Time          `json:"startedAt"`
 	CompletedAt time.Time          `json:"completedAt"`
@@ -94,70 +92,6 @@ func (o *BatchResponseProperty) GetResultsOk() ([]Property, bool) {
 // SetResults sets field value
 func (o *BatchResponseProperty) SetResults(v []Property) {
 	o.Results = v
-}
-
-// GetNumErrors returns the NumErrors field value if set, zero value otherwise.
-func (o *BatchResponseProperty) GetNumErrors() int32 {
-	if o == nil || o.NumErrors == nil {
-		var ret int32
-		return ret
-	}
-	return *o.NumErrors
-}
-
-// GetNumErrorsOk returns a tuple with the NumErrors field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BatchResponseProperty) GetNumErrorsOk() (*int32, bool) {
-	if o == nil || o.NumErrors == nil {
-		return nil, false
-	}
-	return o.NumErrors, true
-}
-
-// HasNumErrors returns a boolean if a field has been set.
-func (o *BatchResponseProperty) HasNumErrors() bool {
-	if o != nil && o.NumErrors != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetNumErrors gets a reference to the given int32 and assigns it to the NumErrors field.
-func (o *BatchResponseProperty) SetNumErrors(v int32) {
-	o.NumErrors = &v
-}
-
-// GetErrors returns the Errors field value if set, zero value otherwise.
-func (o *BatchResponseProperty) GetErrors() []StandardError {
-	if o == nil || o.Errors == nil {
-		var ret []StandardError
-		return ret
-	}
-	return o.Errors
-}
-
-// GetErrorsOk returns a tuple with the Errors field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BatchResponseProperty) GetErrorsOk() ([]StandardError, bool) {
-	if o == nil || o.Errors == nil {
-		return nil, false
-	}
-	return o.Errors, true
-}
-
-// HasErrors returns a boolean if a field has been set.
-func (o *BatchResponseProperty) HasErrors() bool {
-	if o != nil && o.Errors != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetErrors gets a reference to the given []StandardError and assigns it to the Errors field.
-func (o *BatchResponseProperty) SetErrors(v []StandardError) {
-	o.Errors = v
 }
 
 // GetRequestedAt returns the RequestedAt field value if set, zero value otherwise.
@@ -279,12 +213,6 @@ func (o BatchResponseProperty) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["results"] = o.Results
-	}
-	if o.NumErrors != nil {
-		toSerialize["numErrors"] = o.NumErrors
-	}
-	if o.Errors != nil {
-		toSerialize["errors"] = o.Errors
 	}
 	if o.RequestedAt != nil {
 		toSerialize["requestedAt"] = o.RequestedAt

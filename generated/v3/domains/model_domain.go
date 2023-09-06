@@ -12,138 +12,55 @@ package domains
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // Domain struct for Domain
 type Domain struct {
-	PortalId                                     int32           `json:"portalId"`
-	Id                                           int64           `json:"id"`
-	Created                                      int64           `json:"created"`
-	Updated                                      int64           `json:"updated"`
-	Domain                                       string          `json:"domain"`
-	PrimaryLandingPage                           bool            `json:"primaryLandingPage"`
-	PrimaryEmail                                 bool            `json:"primaryEmail"`
-	PrimaryBlog                                  bool            `json:"primaryBlog"`
-	PrimaryBlogPost                              bool            `json:"primaryBlogPost"`
-	PrimarySitePage                              bool            `json:"primarySitePage"`
-	PrimaryKnowledge                             bool            `json:"primaryKnowledge"`
-	PrimaryLegacyPage                            bool            `json:"primaryLegacyPage"`
-	PrimaryClickTracking                         bool            `json:"primaryClickTracking"`
-	FullCategoryKey                              string          `json:"fullCategoryKey"`
-	SecondaryToDomain                            string          `json:"secondaryToDomain"`
-	IsResolving                                  bool            `json:"isResolving"`
-	IsDnsCorrect                                 bool            `json:"isDnsCorrect"`
-	ManuallyMarkedAsResolving                    bool            `json:"manuallyMarkedAsResolving"`
-	ConsecutiveNonResolvingCount                 int32           `json:"consecutiveNonResolvingCount"`
-	SslCname                                     string          `json:"sslCname"`
-	IsSslEnabled                                 bool            `json:"isSslEnabled"`
-	IsSslOnly                                    bool            `json:"isSslOnly"`
-	CertificateId                                int64           `json:"certificateId"`
-	SslRequestId                                 int64           `json:"sslRequestId"`
-	IsUsedForBlogPost                            bool            `json:"isUsedForBlogPost"`
-	IsUsedForSitePage                            bool            `json:"isUsedForSitePage"`
-	IsUsedForLandingPage                         bool            `json:"isUsedForLandingPage"`
-	IsUsedForEmail                               bool            `json:"isUsedForEmail"`
-	IsUsedForKnowledge                           bool            `json:"isUsedForKnowledge"`
-	SetupTaskId                                  int64           `json:"setupTaskId"`
-	IsSetupComplete                              bool            `json:"isSetupComplete"`
-	SetUpLanguage                                string          `json:"setUpLanguage"`
-	TeamIds                                      []int64         `json:"teamIds"`
-	ActualCname                                  string          `json:"actualCname"`
-	CorrectCname                                 string          `json:"correctCname"`
-	ActualIp                                     string          `json:"actualIp"`
-	ApexResolutionStatus                         string          `json:"apexResolutionStatus"`
-	ApexDomain                                   string          `json:"apexDomain"`
-	PublicSuffix                                 string          `json:"publicSuffix"`
-	ApexIpAddresses                              []string        `json:"apexIpAddresses"`
-	SiteId                                       int64           `json:"siteId"`
-	BrandId                                      int64           `json:"brandId"`
-	Deletable                                    bool            `json:"deletable"`
-	DomainCdnConfig                              DomainCdnConfig `json:"domainCdnConfig"`
-	SetupInfo                                    DomainSetupInfo `json:"setupInfo"`
-	DerivedBrandName                             string          `json:"derivedBrandName"`
-	CreatedById                                  int32           `json:"createdById"`
-	UpdatedById                                  int32           `json:"updatedById"`
-	Label                                        string          `json:"label"`
-	IsAnyPrimary                                 bool            `json:"isAnyPrimary"`
-	IsLegacyDomain                               bool            `json:"isLegacyDomain"`
-	IsInternalDomain                             bool            `json:"isInternalDomain"`
-	IsResolvingInternalProperty                  bool            `json:"isResolvingInternalProperty"`
-	IsResolvingIgnoringManuallyMarkedAsResolving bool            `json:"isResolvingIgnoringManuallyMarkedAsResolving"`
-	IsUsedForAnyContentType                      bool            `json:"isUsedForAnyContentType"`
-	IsLegacy                                     bool            `json:"isLegacy"`
-	AuthorAt                                     int64           `json:"authorAt"`
-	CosObjectType                                string          `json:"cosObjectType"`
-	CdnPurgeEmbargoTime                          int64           `json:"cdnPurgeEmbargoTime"`
-	IsStagingDomain                              bool            `json:"isStagingDomain"`
+	// The unique ID of this domain.
+	Id string `json:"id"`
+	// The actual domain or sub-domain. e.g. www.hubspot.com
+	Domain             string  `json:"domain"`
+	PrimaryLandingPage *bool   `json:"primaryLandingPage,omitempty"`
+	PrimaryEmail       *bool   `json:"primaryEmail,omitempty"`
+	PrimaryBlogPost    *bool   `json:"primaryBlogPost,omitempty"`
+	PrimarySitePage    *bool   `json:"primarySitePage,omitempty"`
+	PrimaryKnowledge   *bool   `json:"primaryKnowledge,omitempty"`
+	SecondaryToDomain  *string `json:"secondaryToDomain,omitempty"`
+	// Whether the DNS for this domain is optimally configured for use with HubSpot.
+	IsResolving               bool  `json:"isResolving"`
+	ManuallyMarkedAsResolving *bool `json:"manuallyMarkedAsResolving,omitempty"`
+	IsSslEnabled              *bool `json:"isSslEnabled,omitempty"`
+	IsSslOnly                 *bool `json:"isSslOnly,omitempty"`
+	// Whether the domain is used for CMS blog posts.
+	IsUsedForBlogPost bool `json:"isUsedForBlogPost"`
+	// Whether the domain is used for CMS site pages.
+	IsUsedForSitePage bool `json:"isUsedForSitePage"`
+	// Whether the domain is used for CMS landing pages.
+	IsUsedForLandingPage bool `json:"isUsedForLandingPage"`
+	// Whether the domain is used for CMS email web pages.
+	IsUsedForEmail bool `json:"isUsedForEmail"`
+	// Whether the domain is used for CMS knowledge pages.
+	IsUsedForKnowledge bool       `json:"isUsedForKnowledge"`
+	CorrectCname       *string    `json:"correctCname,omitempty"`
+	Created            *time.Time `json:"created,omitempty"`
+	Updated            *time.Time `json:"updated,omitempty"`
 }
 
 // NewDomain instantiates a new Domain object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDomain(portalId int32, id int64, created int64, updated int64, domain string, primaryLandingPage bool, primaryEmail bool, primaryBlog bool, primaryBlogPost bool, primarySitePage bool, primaryKnowledge bool, primaryLegacyPage bool, primaryClickTracking bool, fullCategoryKey string, secondaryToDomain string, isResolving bool, isDnsCorrect bool, manuallyMarkedAsResolving bool, consecutiveNonResolvingCount int32, sslCname string, isSslEnabled bool, isSslOnly bool, certificateId int64, sslRequestId int64, isUsedForBlogPost bool, isUsedForSitePage bool, isUsedForLandingPage bool, isUsedForEmail bool, isUsedForKnowledge bool, setupTaskId int64, isSetupComplete bool, setUpLanguage string, teamIds []int64, actualCname string, correctCname string, actualIp string, apexResolutionStatus string, apexDomain string, publicSuffix string, apexIpAddresses []string, siteId int64, brandId int64, deletable bool, domainCdnConfig DomainCdnConfig, setupInfo DomainSetupInfo, derivedBrandName string, createdById int32, updatedById int32, label string, isAnyPrimary bool, isLegacyDomain bool, isInternalDomain bool, isResolvingInternalProperty bool, isResolvingIgnoringManuallyMarkedAsResolving bool, isUsedForAnyContentType bool, isLegacy bool, authorAt int64, cosObjectType string, cdnPurgeEmbargoTime int64, isStagingDomain bool) *Domain {
+func NewDomain(id string, domain string, isResolving bool, isUsedForBlogPost bool, isUsedForSitePage bool, isUsedForLandingPage bool, isUsedForEmail bool, isUsedForKnowledge bool) *Domain {
 	this := Domain{}
-	this.PortalId = portalId
 	this.Id = id
-	this.Created = created
-	this.Updated = updated
 	this.Domain = domain
-	this.PrimaryLandingPage = primaryLandingPage
-	this.PrimaryEmail = primaryEmail
-	this.PrimaryBlog = primaryBlog
-	this.PrimaryBlogPost = primaryBlogPost
-	this.PrimarySitePage = primarySitePage
-	this.PrimaryKnowledge = primaryKnowledge
-	this.PrimaryLegacyPage = primaryLegacyPage
-	this.PrimaryClickTracking = primaryClickTracking
-	this.FullCategoryKey = fullCategoryKey
-	this.SecondaryToDomain = secondaryToDomain
 	this.IsResolving = isResolving
-	this.IsDnsCorrect = isDnsCorrect
-	this.ManuallyMarkedAsResolving = manuallyMarkedAsResolving
-	this.ConsecutiveNonResolvingCount = consecutiveNonResolvingCount
-	this.SslCname = sslCname
-	this.IsSslEnabled = isSslEnabled
-	this.IsSslOnly = isSslOnly
-	this.CertificateId = certificateId
-	this.SslRequestId = sslRequestId
 	this.IsUsedForBlogPost = isUsedForBlogPost
 	this.IsUsedForSitePage = isUsedForSitePage
 	this.IsUsedForLandingPage = isUsedForLandingPage
 	this.IsUsedForEmail = isUsedForEmail
 	this.IsUsedForKnowledge = isUsedForKnowledge
-	this.SetupTaskId = setupTaskId
-	this.IsSetupComplete = isSetupComplete
-	this.SetUpLanguage = setUpLanguage
-	this.TeamIds = teamIds
-	this.ActualCname = actualCname
-	this.CorrectCname = correctCname
-	this.ActualIp = actualIp
-	this.ApexResolutionStatus = apexResolutionStatus
-	this.ApexDomain = apexDomain
-	this.PublicSuffix = publicSuffix
-	this.ApexIpAddresses = apexIpAddresses
-	this.SiteId = siteId
-	this.BrandId = brandId
-	this.Deletable = deletable
-	this.DomainCdnConfig = domainCdnConfig
-	this.SetupInfo = setupInfo
-	this.DerivedBrandName = derivedBrandName
-	this.CreatedById = createdById
-	this.UpdatedById = updatedById
-	this.Label = label
-	this.IsAnyPrimary = isAnyPrimary
-	this.IsLegacyDomain = isLegacyDomain
-	this.IsInternalDomain = isInternalDomain
-	this.IsResolvingInternalProperty = isResolvingInternalProperty
-	this.IsResolvingIgnoringManuallyMarkedAsResolving = isResolvingIgnoringManuallyMarkedAsResolving
-	this.IsUsedForAnyContentType = isUsedForAnyContentType
-	this.IsLegacy = isLegacy
-	this.AuthorAt = authorAt
-	this.CosObjectType = cosObjectType
-	this.CdnPurgeEmbargoTime = cdnPurgeEmbargoTime
-	this.IsStagingDomain = isStagingDomain
 	return &this
 }
 
@@ -155,34 +72,10 @@ func NewDomainWithDefaults() *Domain {
 	return &this
 }
 
-// GetPortalId returns the PortalId field value
-func (o *Domain) GetPortalId() int32 {
-	if o == nil {
-		var ret int32
-		return ret
-	}
-
-	return o.PortalId
-}
-
-// GetPortalIdOk returns a tuple with the PortalId field value
-// and a boolean to check if the value has been set.
-func (o *Domain) GetPortalIdOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.PortalId, true
-}
-
-// SetPortalId sets field value
-func (o *Domain) SetPortalId(v int32) {
-	o.PortalId = v
-}
-
 // GetId returns the Id field value
-func (o *Domain) GetId() int64 {
+func (o *Domain) GetId() string {
 	if o == nil {
-		var ret int64
+		var ret string
 		return ret
 	}
 
@@ -191,7 +84,7 @@ func (o *Domain) GetId() int64 {
 
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
-func (o *Domain) GetIdOk() (*int64, bool) {
+func (o *Domain) GetIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -199,56 +92,8 @@ func (o *Domain) GetIdOk() (*int64, bool) {
 }
 
 // SetId sets field value
-func (o *Domain) SetId(v int64) {
+func (o *Domain) SetId(v string) {
 	o.Id = v
-}
-
-// GetCreated returns the Created field value
-func (o *Domain) GetCreated() int64 {
-	if o == nil {
-		var ret int64
-		return ret
-	}
-
-	return o.Created
-}
-
-// GetCreatedOk returns a tuple with the Created field value
-// and a boolean to check if the value has been set.
-func (o *Domain) GetCreatedOk() (*int64, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Created, true
-}
-
-// SetCreated sets field value
-func (o *Domain) SetCreated(v int64) {
-	o.Created = v
-}
-
-// GetUpdated returns the Updated field value
-func (o *Domain) GetUpdated() int64 {
-	if o == nil {
-		var ret int64
-		return ret
-	}
-
-	return o.Updated
-}
-
-// GetUpdatedOk returns a tuple with the Updated field value
-// and a boolean to check if the value has been set.
-func (o *Domain) GetUpdatedOk() (*int64, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Updated, true
-}
-
-// SetUpdated sets field value
-func (o *Domain) SetUpdated(v int64) {
-	o.Updated = v
 }
 
 // GetDomain returns the Domain field value
@@ -275,244 +120,196 @@ func (o *Domain) SetDomain(v string) {
 	o.Domain = v
 }
 
-// GetPrimaryLandingPage returns the PrimaryLandingPage field value
+// GetPrimaryLandingPage returns the PrimaryLandingPage field value if set, zero value otherwise.
 func (o *Domain) GetPrimaryLandingPage() bool {
-	if o == nil {
+	if o == nil || o.PrimaryLandingPage == nil {
 		var ret bool
 		return ret
 	}
-
-	return o.PrimaryLandingPage
+	return *o.PrimaryLandingPage
 }
 
-// GetPrimaryLandingPageOk returns a tuple with the PrimaryLandingPage field value
+// GetPrimaryLandingPageOk returns a tuple with the PrimaryLandingPage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Domain) GetPrimaryLandingPageOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || o.PrimaryLandingPage == nil {
 		return nil, false
 	}
-	return &o.PrimaryLandingPage, true
+	return o.PrimaryLandingPage, true
 }
 
-// SetPrimaryLandingPage sets field value
+// HasPrimaryLandingPage returns a boolean if a field has been set.
+func (o *Domain) HasPrimaryLandingPage() bool {
+	if o != nil && o.PrimaryLandingPage != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPrimaryLandingPage gets a reference to the given bool and assigns it to the PrimaryLandingPage field.
 func (o *Domain) SetPrimaryLandingPage(v bool) {
-	o.PrimaryLandingPage = v
+	o.PrimaryLandingPage = &v
 }
 
-// GetPrimaryEmail returns the PrimaryEmail field value
+// GetPrimaryEmail returns the PrimaryEmail field value if set, zero value otherwise.
 func (o *Domain) GetPrimaryEmail() bool {
-	if o == nil {
+	if o == nil || o.PrimaryEmail == nil {
 		var ret bool
 		return ret
 	}
-
-	return o.PrimaryEmail
+	return *o.PrimaryEmail
 }
 
-// GetPrimaryEmailOk returns a tuple with the PrimaryEmail field value
+// GetPrimaryEmailOk returns a tuple with the PrimaryEmail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Domain) GetPrimaryEmailOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || o.PrimaryEmail == nil {
 		return nil, false
 	}
-	return &o.PrimaryEmail, true
+	return o.PrimaryEmail, true
 }
 
-// SetPrimaryEmail sets field value
+// HasPrimaryEmail returns a boolean if a field has been set.
+func (o *Domain) HasPrimaryEmail() bool {
+	if o != nil && o.PrimaryEmail != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPrimaryEmail gets a reference to the given bool and assigns it to the PrimaryEmail field.
 func (o *Domain) SetPrimaryEmail(v bool) {
-	o.PrimaryEmail = v
+	o.PrimaryEmail = &v
 }
 
-// GetPrimaryBlog returns the PrimaryBlog field value
-func (o *Domain) GetPrimaryBlog() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.PrimaryBlog
-}
-
-// GetPrimaryBlogOk returns a tuple with the PrimaryBlog field value
-// and a boolean to check if the value has been set.
-func (o *Domain) GetPrimaryBlogOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.PrimaryBlog, true
-}
-
-// SetPrimaryBlog sets field value
-func (o *Domain) SetPrimaryBlog(v bool) {
-	o.PrimaryBlog = v
-}
-
-// GetPrimaryBlogPost returns the PrimaryBlogPost field value
+// GetPrimaryBlogPost returns the PrimaryBlogPost field value if set, zero value otherwise.
 func (o *Domain) GetPrimaryBlogPost() bool {
-	if o == nil {
+	if o == nil || o.PrimaryBlogPost == nil {
 		var ret bool
 		return ret
 	}
-
-	return o.PrimaryBlogPost
+	return *o.PrimaryBlogPost
 }
 
-// GetPrimaryBlogPostOk returns a tuple with the PrimaryBlogPost field value
+// GetPrimaryBlogPostOk returns a tuple with the PrimaryBlogPost field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Domain) GetPrimaryBlogPostOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || o.PrimaryBlogPost == nil {
 		return nil, false
 	}
-	return &o.PrimaryBlogPost, true
+	return o.PrimaryBlogPost, true
 }
 
-// SetPrimaryBlogPost sets field value
+// HasPrimaryBlogPost returns a boolean if a field has been set.
+func (o *Domain) HasPrimaryBlogPost() bool {
+	if o != nil && o.PrimaryBlogPost != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPrimaryBlogPost gets a reference to the given bool and assigns it to the PrimaryBlogPost field.
 func (o *Domain) SetPrimaryBlogPost(v bool) {
-	o.PrimaryBlogPost = v
+	o.PrimaryBlogPost = &v
 }
 
-// GetPrimarySitePage returns the PrimarySitePage field value
+// GetPrimarySitePage returns the PrimarySitePage field value if set, zero value otherwise.
 func (o *Domain) GetPrimarySitePage() bool {
-	if o == nil {
+	if o == nil || o.PrimarySitePage == nil {
 		var ret bool
 		return ret
 	}
-
-	return o.PrimarySitePage
+	return *o.PrimarySitePage
 }
 
-// GetPrimarySitePageOk returns a tuple with the PrimarySitePage field value
+// GetPrimarySitePageOk returns a tuple with the PrimarySitePage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Domain) GetPrimarySitePageOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || o.PrimarySitePage == nil {
 		return nil, false
 	}
-	return &o.PrimarySitePage, true
+	return o.PrimarySitePage, true
 }
 
-// SetPrimarySitePage sets field value
+// HasPrimarySitePage returns a boolean if a field has been set.
+func (o *Domain) HasPrimarySitePage() bool {
+	if o != nil && o.PrimarySitePage != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPrimarySitePage gets a reference to the given bool and assigns it to the PrimarySitePage field.
 func (o *Domain) SetPrimarySitePage(v bool) {
-	o.PrimarySitePage = v
+	o.PrimarySitePage = &v
 }
 
-// GetPrimaryKnowledge returns the PrimaryKnowledge field value
+// GetPrimaryKnowledge returns the PrimaryKnowledge field value if set, zero value otherwise.
 func (o *Domain) GetPrimaryKnowledge() bool {
-	if o == nil {
+	if o == nil || o.PrimaryKnowledge == nil {
 		var ret bool
 		return ret
 	}
-
-	return o.PrimaryKnowledge
+	return *o.PrimaryKnowledge
 }
 
-// GetPrimaryKnowledgeOk returns a tuple with the PrimaryKnowledge field value
+// GetPrimaryKnowledgeOk returns a tuple with the PrimaryKnowledge field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Domain) GetPrimaryKnowledgeOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || o.PrimaryKnowledge == nil {
 		return nil, false
 	}
-	return &o.PrimaryKnowledge, true
+	return o.PrimaryKnowledge, true
 }
 
-// SetPrimaryKnowledge sets field value
+// HasPrimaryKnowledge returns a boolean if a field has been set.
+func (o *Domain) HasPrimaryKnowledge() bool {
+	if o != nil && o.PrimaryKnowledge != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPrimaryKnowledge gets a reference to the given bool and assigns it to the PrimaryKnowledge field.
 func (o *Domain) SetPrimaryKnowledge(v bool) {
-	o.PrimaryKnowledge = v
+	o.PrimaryKnowledge = &v
 }
 
-// GetPrimaryLegacyPage returns the PrimaryLegacyPage field value
-func (o *Domain) GetPrimaryLegacyPage() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.PrimaryLegacyPage
-}
-
-// GetPrimaryLegacyPageOk returns a tuple with the PrimaryLegacyPage field value
-// and a boolean to check if the value has been set.
-func (o *Domain) GetPrimaryLegacyPageOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.PrimaryLegacyPage, true
-}
-
-// SetPrimaryLegacyPage sets field value
-func (o *Domain) SetPrimaryLegacyPage(v bool) {
-	o.PrimaryLegacyPage = v
-}
-
-// GetPrimaryClickTracking returns the PrimaryClickTracking field value
-func (o *Domain) GetPrimaryClickTracking() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.PrimaryClickTracking
-}
-
-// GetPrimaryClickTrackingOk returns a tuple with the PrimaryClickTracking field value
-// and a boolean to check if the value has been set.
-func (o *Domain) GetPrimaryClickTrackingOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.PrimaryClickTracking, true
-}
-
-// SetPrimaryClickTracking sets field value
-func (o *Domain) SetPrimaryClickTracking(v bool) {
-	o.PrimaryClickTracking = v
-}
-
-// GetFullCategoryKey returns the FullCategoryKey field value
-func (o *Domain) GetFullCategoryKey() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.FullCategoryKey
-}
-
-// GetFullCategoryKeyOk returns a tuple with the FullCategoryKey field value
-// and a boolean to check if the value has been set.
-func (o *Domain) GetFullCategoryKeyOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.FullCategoryKey, true
-}
-
-// SetFullCategoryKey sets field value
-func (o *Domain) SetFullCategoryKey(v string) {
-	o.FullCategoryKey = v
-}
-
-// GetSecondaryToDomain returns the SecondaryToDomain field value
+// GetSecondaryToDomain returns the SecondaryToDomain field value if set, zero value otherwise.
 func (o *Domain) GetSecondaryToDomain() string {
-	if o == nil {
+	if o == nil || o.SecondaryToDomain == nil {
 		var ret string
 		return ret
 	}
-
-	return o.SecondaryToDomain
+	return *o.SecondaryToDomain
 }
 
-// GetSecondaryToDomainOk returns a tuple with the SecondaryToDomain field value
+// GetSecondaryToDomainOk returns a tuple with the SecondaryToDomain field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Domain) GetSecondaryToDomainOk() (*string, bool) {
-	if o == nil {
+	if o == nil || o.SecondaryToDomain == nil {
 		return nil, false
 	}
-	return &o.SecondaryToDomain, true
+	return o.SecondaryToDomain, true
 }
 
-// SetSecondaryToDomain sets field value
+// HasSecondaryToDomain returns a boolean if a field has been set.
+func (o *Domain) HasSecondaryToDomain() bool {
+	if o != nil && o.SecondaryToDomain != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSecondaryToDomain gets a reference to the given string and assigns it to the SecondaryToDomain field.
 func (o *Domain) SetSecondaryToDomain(v string) {
-	o.SecondaryToDomain = v
+	o.SecondaryToDomain = &v
 }
 
 // GetIsResolving returns the IsResolving field value
@@ -539,196 +336,100 @@ func (o *Domain) SetIsResolving(v bool) {
 	o.IsResolving = v
 }
 
-// GetIsDnsCorrect returns the IsDnsCorrect field value
-func (o *Domain) GetIsDnsCorrect() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.IsDnsCorrect
-}
-
-// GetIsDnsCorrectOk returns a tuple with the IsDnsCorrect field value
-// and a boolean to check if the value has been set.
-func (o *Domain) GetIsDnsCorrectOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.IsDnsCorrect, true
-}
-
-// SetIsDnsCorrect sets field value
-func (o *Domain) SetIsDnsCorrect(v bool) {
-	o.IsDnsCorrect = v
-}
-
-// GetManuallyMarkedAsResolving returns the ManuallyMarkedAsResolving field value
+// GetManuallyMarkedAsResolving returns the ManuallyMarkedAsResolving field value if set, zero value otherwise.
 func (o *Domain) GetManuallyMarkedAsResolving() bool {
-	if o == nil {
+	if o == nil || o.ManuallyMarkedAsResolving == nil {
 		var ret bool
 		return ret
 	}
-
-	return o.ManuallyMarkedAsResolving
+	return *o.ManuallyMarkedAsResolving
 }
 
-// GetManuallyMarkedAsResolvingOk returns a tuple with the ManuallyMarkedAsResolving field value
+// GetManuallyMarkedAsResolvingOk returns a tuple with the ManuallyMarkedAsResolving field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Domain) GetManuallyMarkedAsResolvingOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || o.ManuallyMarkedAsResolving == nil {
 		return nil, false
 	}
-	return &o.ManuallyMarkedAsResolving, true
+	return o.ManuallyMarkedAsResolving, true
 }
 
-// SetManuallyMarkedAsResolving sets field value
+// HasManuallyMarkedAsResolving returns a boolean if a field has been set.
+func (o *Domain) HasManuallyMarkedAsResolving() bool {
+	if o != nil && o.ManuallyMarkedAsResolving != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetManuallyMarkedAsResolving gets a reference to the given bool and assigns it to the ManuallyMarkedAsResolving field.
 func (o *Domain) SetManuallyMarkedAsResolving(v bool) {
-	o.ManuallyMarkedAsResolving = v
+	o.ManuallyMarkedAsResolving = &v
 }
 
-// GetConsecutiveNonResolvingCount returns the ConsecutiveNonResolvingCount field value
-func (o *Domain) GetConsecutiveNonResolvingCount() int32 {
-	if o == nil {
-		var ret int32
-		return ret
-	}
-
-	return o.ConsecutiveNonResolvingCount
-}
-
-// GetConsecutiveNonResolvingCountOk returns a tuple with the ConsecutiveNonResolvingCount field value
-// and a boolean to check if the value has been set.
-func (o *Domain) GetConsecutiveNonResolvingCountOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.ConsecutiveNonResolvingCount, true
-}
-
-// SetConsecutiveNonResolvingCount sets field value
-func (o *Domain) SetConsecutiveNonResolvingCount(v int32) {
-	o.ConsecutiveNonResolvingCount = v
-}
-
-// GetSslCname returns the SslCname field value
-func (o *Domain) GetSslCname() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.SslCname
-}
-
-// GetSslCnameOk returns a tuple with the SslCname field value
-// and a boolean to check if the value has been set.
-func (o *Domain) GetSslCnameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.SslCname, true
-}
-
-// SetSslCname sets field value
-func (o *Domain) SetSslCname(v string) {
-	o.SslCname = v
-}
-
-// GetIsSslEnabled returns the IsSslEnabled field value
+// GetIsSslEnabled returns the IsSslEnabled field value if set, zero value otherwise.
 func (o *Domain) GetIsSslEnabled() bool {
-	if o == nil {
+	if o == nil || o.IsSslEnabled == nil {
 		var ret bool
 		return ret
 	}
-
-	return o.IsSslEnabled
+	return *o.IsSslEnabled
 }
 
-// GetIsSslEnabledOk returns a tuple with the IsSslEnabled field value
+// GetIsSslEnabledOk returns a tuple with the IsSslEnabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Domain) GetIsSslEnabledOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || o.IsSslEnabled == nil {
 		return nil, false
 	}
-	return &o.IsSslEnabled, true
+	return o.IsSslEnabled, true
 }
 
-// SetIsSslEnabled sets field value
+// HasIsSslEnabled returns a boolean if a field has been set.
+func (o *Domain) HasIsSslEnabled() bool {
+	if o != nil && o.IsSslEnabled != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIsSslEnabled gets a reference to the given bool and assigns it to the IsSslEnabled field.
 func (o *Domain) SetIsSslEnabled(v bool) {
-	o.IsSslEnabled = v
+	o.IsSslEnabled = &v
 }
 
-// GetIsSslOnly returns the IsSslOnly field value
+// GetIsSslOnly returns the IsSslOnly field value if set, zero value otherwise.
 func (o *Domain) GetIsSslOnly() bool {
-	if o == nil {
+	if o == nil || o.IsSslOnly == nil {
 		var ret bool
 		return ret
 	}
-
-	return o.IsSslOnly
+	return *o.IsSslOnly
 }
 
-// GetIsSslOnlyOk returns a tuple with the IsSslOnly field value
+// GetIsSslOnlyOk returns a tuple with the IsSslOnly field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Domain) GetIsSslOnlyOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || o.IsSslOnly == nil {
 		return nil, false
 	}
-	return &o.IsSslOnly, true
+	return o.IsSslOnly, true
 }
 
-// SetIsSslOnly sets field value
+// HasIsSslOnly returns a boolean if a field has been set.
+func (o *Domain) HasIsSslOnly() bool {
+	if o != nil && o.IsSslOnly != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIsSslOnly gets a reference to the given bool and assigns it to the IsSslOnly field.
 func (o *Domain) SetIsSslOnly(v bool) {
-	o.IsSslOnly = v
-}
-
-// GetCertificateId returns the CertificateId field value
-func (o *Domain) GetCertificateId() int64 {
-	if o == nil {
-		var ret int64
-		return ret
-	}
-
-	return o.CertificateId
-}
-
-// GetCertificateIdOk returns a tuple with the CertificateId field value
-// and a boolean to check if the value has been set.
-func (o *Domain) GetCertificateIdOk() (*int64, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.CertificateId, true
-}
-
-// SetCertificateId sets field value
-func (o *Domain) SetCertificateId(v int64) {
-	o.CertificateId = v
-}
-
-// GetSslRequestId returns the SslRequestId field value
-func (o *Domain) GetSslRequestId() int64 {
-	if o == nil {
-		var ret int64
-		return ret
-	}
-
-	return o.SslRequestId
-}
-
-// GetSslRequestIdOk returns a tuple with the SslRequestId field value
-// and a boolean to check if the value has been set.
-func (o *Domain) GetSslRequestIdOk() (*int64, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.SslRequestId, true
-}
-
-// SetSslRequestId sets field value
-func (o *Domain) SetSslRequestId(v int64) {
-	o.SslRequestId = v
+	o.IsSslOnly = &v
 }
 
 // GetIsUsedForBlogPost returns the IsUsedForBlogPost field value
@@ -851,823 +552,139 @@ func (o *Domain) SetIsUsedForKnowledge(v bool) {
 	o.IsUsedForKnowledge = v
 }
 
-// GetSetupTaskId returns the SetupTaskId field value
-func (o *Domain) GetSetupTaskId() int64 {
-	if o == nil {
-		var ret int64
-		return ret
-	}
-
-	return o.SetupTaskId
-}
-
-// GetSetupTaskIdOk returns a tuple with the SetupTaskId field value
-// and a boolean to check if the value has been set.
-func (o *Domain) GetSetupTaskIdOk() (*int64, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.SetupTaskId, true
-}
-
-// SetSetupTaskId sets field value
-func (o *Domain) SetSetupTaskId(v int64) {
-	o.SetupTaskId = v
-}
-
-// GetIsSetupComplete returns the IsSetupComplete field value
-func (o *Domain) GetIsSetupComplete() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.IsSetupComplete
-}
-
-// GetIsSetupCompleteOk returns a tuple with the IsSetupComplete field value
-// and a boolean to check if the value has been set.
-func (o *Domain) GetIsSetupCompleteOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.IsSetupComplete, true
-}
-
-// SetIsSetupComplete sets field value
-func (o *Domain) SetIsSetupComplete(v bool) {
-	o.IsSetupComplete = v
-}
-
-// GetSetUpLanguage returns the SetUpLanguage field value
-func (o *Domain) GetSetUpLanguage() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.SetUpLanguage
-}
-
-// GetSetUpLanguageOk returns a tuple with the SetUpLanguage field value
-// and a boolean to check if the value has been set.
-func (o *Domain) GetSetUpLanguageOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.SetUpLanguage, true
-}
-
-// SetSetUpLanguage sets field value
-func (o *Domain) SetSetUpLanguage(v string) {
-	o.SetUpLanguage = v
-}
-
-// GetTeamIds returns the TeamIds field value
-func (o *Domain) GetTeamIds() []int64 {
-	if o == nil {
-		var ret []int64
-		return ret
-	}
-
-	return o.TeamIds
-}
-
-// GetTeamIdsOk returns a tuple with the TeamIds field value
-// and a boolean to check if the value has been set.
-func (o *Domain) GetTeamIdsOk() ([]int64, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.TeamIds, true
-}
-
-// SetTeamIds sets field value
-func (o *Domain) SetTeamIds(v []int64) {
-	o.TeamIds = v
-}
-
-// GetActualCname returns the ActualCname field value
-func (o *Domain) GetActualCname() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.ActualCname
-}
-
-// GetActualCnameOk returns a tuple with the ActualCname field value
-// and a boolean to check if the value has been set.
-func (o *Domain) GetActualCnameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.ActualCname, true
-}
-
-// SetActualCname sets field value
-func (o *Domain) SetActualCname(v string) {
-	o.ActualCname = v
-}
-
-// GetCorrectCname returns the CorrectCname field value
+// GetCorrectCname returns the CorrectCname field value if set, zero value otherwise.
 func (o *Domain) GetCorrectCname() string {
-	if o == nil {
+	if o == nil || o.CorrectCname == nil {
 		var ret string
 		return ret
 	}
-
-	return o.CorrectCname
+	return *o.CorrectCname
 }
 
-// GetCorrectCnameOk returns a tuple with the CorrectCname field value
+// GetCorrectCnameOk returns a tuple with the CorrectCname field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Domain) GetCorrectCnameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || o.CorrectCname == nil {
 		return nil, false
 	}
-	return &o.CorrectCname, true
+	return o.CorrectCname, true
 }
 
-// SetCorrectCname sets field value
+// HasCorrectCname returns a boolean if a field has been set.
+func (o *Domain) HasCorrectCname() bool {
+	if o != nil && o.CorrectCname != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCorrectCname gets a reference to the given string and assigns it to the CorrectCname field.
 func (o *Domain) SetCorrectCname(v string) {
-	o.CorrectCname = v
+	o.CorrectCname = &v
 }
 
-// GetActualIp returns the ActualIp field value
-func (o *Domain) GetActualIp() string {
-	if o == nil {
-		var ret string
+// GetCreated returns the Created field value if set, zero value otherwise.
+func (o *Domain) GetCreated() time.Time {
+	if o == nil || o.Created == nil {
+		var ret time.Time
 		return ret
 	}
-
-	return o.ActualIp
+	return *o.Created
 }
 
-// GetActualIpOk returns a tuple with the ActualIp field value
+// GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Domain) GetActualIpOk() (*string, bool) {
-	if o == nil {
+func (o *Domain) GetCreatedOk() (*time.Time, bool) {
+	if o == nil || o.Created == nil {
 		return nil, false
 	}
-	return &o.ActualIp, true
+	return o.Created, true
 }
 
-// SetActualIp sets field value
-func (o *Domain) SetActualIp(v string) {
-	o.ActualIp = v
+// HasCreated returns a boolean if a field has been set.
+func (o *Domain) HasCreated() bool {
+	if o != nil && o.Created != nil {
+		return true
+	}
+
+	return false
 }
 
-// GetApexResolutionStatus returns the ApexResolutionStatus field value
-func (o *Domain) GetApexResolutionStatus() string {
-	if o == nil {
-		var ret string
+// SetCreated gets a reference to the given time.Time and assigns it to the Created field.
+func (o *Domain) SetCreated(v time.Time) {
+	o.Created = &v
+}
+
+// GetUpdated returns the Updated field value if set, zero value otherwise.
+func (o *Domain) GetUpdated() time.Time {
+	if o == nil || o.Updated == nil {
+		var ret time.Time
 		return ret
 	}
-
-	return o.ApexResolutionStatus
+	return *o.Updated
 }
 
-// GetApexResolutionStatusOk returns a tuple with the ApexResolutionStatus field value
+// GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Domain) GetApexResolutionStatusOk() (*string, bool) {
-	if o == nil {
+func (o *Domain) GetUpdatedOk() (*time.Time, bool) {
+	if o == nil || o.Updated == nil {
 		return nil, false
 	}
-	return &o.ApexResolutionStatus, true
+	return o.Updated, true
 }
 
-// SetApexResolutionStatus sets field value
-func (o *Domain) SetApexResolutionStatus(v string) {
-	o.ApexResolutionStatus = v
-}
-
-// GetApexDomain returns the ApexDomain field value
-func (o *Domain) GetApexDomain() string {
-	if o == nil {
-		var ret string
-		return ret
+// HasUpdated returns a boolean if a field has been set.
+func (o *Domain) HasUpdated() bool {
+	if o != nil && o.Updated != nil {
+		return true
 	}
 
-	return o.ApexDomain
+	return false
 }
 
-// GetApexDomainOk returns a tuple with the ApexDomain field value
-// and a boolean to check if the value has been set.
-func (o *Domain) GetApexDomainOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.ApexDomain, true
-}
-
-// SetApexDomain sets field value
-func (o *Domain) SetApexDomain(v string) {
-	o.ApexDomain = v
-}
-
-// GetPublicSuffix returns the PublicSuffix field value
-func (o *Domain) GetPublicSuffix() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.PublicSuffix
-}
-
-// GetPublicSuffixOk returns a tuple with the PublicSuffix field value
-// and a boolean to check if the value has been set.
-func (o *Domain) GetPublicSuffixOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.PublicSuffix, true
-}
-
-// SetPublicSuffix sets field value
-func (o *Domain) SetPublicSuffix(v string) {
-	o.PublicSuffix = v
-}
-
-// GetApexIpAddresses returns the ApexIpAddresses field value
-func (o *Domain) GetApexIpAddresses() []string {
-	if o == nil {
-		var ret []string
-		return ret
-	}
-
-	return o.ApexIpAddresses
-}
-
-// GetApexIpAddressesOk returns a tuple with the ApexIpAddresses field value
-// and a boolean to check if the value has been set.
-func (o *Domain) GetApexIpAddressesOk() ([]string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.ApexIpAddresses, true
-}
-
-// SetApexIpAddresses sets field value
-func (o *Domain) SetApexIpAddresses(v []string) {
-	o.ApexIpAddresses = v
-}
-
-// GetSiteId returns the SiteId field value
-func (o *Domain) GetSiteId() int64 {
-	if o == nil {
-		var ret int64
-		return ret
-	}
-
-	return o.SiteId
-}
-
-// GetSiteIdOk returns a tuple with the SiteId field value
-// and a boolean to check if the value has been set.
-func (o *Domain) GetSiteIdOk() (*int64, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.SiteId, true
-}
-
-// SetSiteId sets field value
-func (o *Domain) SetSiteId(v int64) {
-	o.SiteId = v
-}
-
-// GetBrandId returns the BrandId field value
-func (o *Domain) GetBrandId() int64 {
-	if o == nil {
-		var ret int64
-		return ret
-	}
-
-	return o.BrandId
-}
-
-// GetBrandIdOk returns a tuple with the BrandId field value
-// and a boolean to check if the value has been set.
-func (o *Domain) GetBrandIdOk() (*int64, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.BrandId, true
-}
-
-// SetBrandId sets field value
-func (o *Domain) SetBrandId(v int64) {
-	o.BrandId = v
-}
-
-// GetDeletable returns the Deletable field value
-func (o *Domain) GetDeletable() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.Deletable
-}
-
-// GetDeletableOk returns a tuple with the Deletable field value
-// and a boolean to check if the value has been set.
-func (o *Domain) GetDeletableOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Deletable, true
-}
-
-// SetDeletable sets field value
-func (o *Domain) SetDeletable(v bool) {
-	o.Deletable = v
-}
-
-// GetDomainCdnConfig returns the DomainCdnConfig field value
-func (o *Domain) GetDomainCdnConfig() DomainCdnConfig {
-	if o == nil {
-		var ret DomainCdnConfig
-		return ret
-	}
-
-	return o.DomainCdnConfig
-}
-
-// GetDomainCdnConfigOk returns a tuple with the DomainCdnConfig field value
-// and a boolean to check if the value has been set.
-func (o *Domain) GetDomainCdnConfigOk() (*DomainCdnConfig, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.DomainCdnConfig, true
-}
-
-// SetDomainCdnConfig sets field value
-func (o *Domain) SetDomainCdnConfig(v DomainCdnConfig) {
-	o.DomainCdnConfig = v
-}
-
-// GetSetupInfo returns the SetupInfo field value
-func (o *Domain) GetSetupInfo() DomainSetupInfo {
-	if o == nil {
-		var ret DomainSetupInfo
-		return ret
-	}
-
-	return o.SetupInfo
-}
-
-// GetSetupInfoOk returns a tuple with the SetupInfo field value
-// and a boolean to check if the value has been set.
-func (o *Domain) GetSetupInfoOk() (*DomainSetupInfo, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.SetupInfo, true
-}
-
-// SetSetupInfo sets field value
-func (o *Domain) SetSetupInfo(v DomainSetupInfo) {
-	o.SetupInfo = v
-}
-
-// GetDerivedBrandName returns the DerivedBrandName field value
-func (o *Domain) GetDerivedBrandName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.DerivedBrandName
-}
-
-// GetDerivedBrandNameOk returns a tuple with the DerivedBrandName field value
-// and a boolean to check if the value has been set.
-func (o *Domain) GetDerivedBrandNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.DerivedBrandName, true
-}
-
-// SetDerivedBrandName sets field value
-func (o *Domain) SetDerivedBrandName(v string) {
-	o.DerivedBrandName = v
-}
-
-// GetCreatedById returns the CreatedById field value
-func (o *Domain) GetCreatedById() int32 {
-	if o == nil {
-		var ret int32
-		return ret
-	}
-
-	return o.CreatedById
-}
-
-// GetCreatedByIdOk returns a tuple with the CreatedById field value
-// and a boolean to check if the value has been set.
-func (o *Domain) GetCreatedByIdOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.CreatedById, true
-}
-
-// SetCreatedById sets field value
-func (o *Domain) SetCreatedById(v int32) {
-	o.CreatedById = v
-}
-
-// GetUpdatedById returns the UpdatedById field value
-func (o *Domain) GetUpdatedById() int32 {
-	if o == nil {
-		var ret int32
-		return ret
-	}
-
-	return o.UpdatedById
-}
-
-// GetUpdatedByIdOk returns a tuple with the UpdatedById field value
-// and a boolean to check if the value has been set.
-func (o *Domain) GetUpdatedByIdOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.UpdatedById, true
-}
-
-// SetUpdatedById sets field value
-func (o *Domain) SetUpdatedById(v int32) {
-	o.UpdatedById = v
-}
-
-// GetLabel returns the Label field value
-func (o *Domain) GetLabel() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Label
-}
-
-// GetLabelOk returns a tuple with the Label field value
-// and a boolean to check if the value has been set.
-func (o *Domain) GetLabelOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Label, true
-}
-
-// SetLabel sets field value
-func (o *Domain) SetLabel(v string) {
-	o.Label = v
-}
-
-// GetIsAnyPrimary returns the IsAnyPrimary field value
-func (o *Domain) GetIsAnyPrimary() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.IsAnyPrimary
-}
-
-// GetIsAnyPrimaryOk returns a tuple with the IsAnyPrimary field value
-// and a boolean to check if the value has been set.
-func (o *Domain) GetIsAnyPrimaryOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.IsAnyPrimary, true
-}
-
-// SetIsAnyPrimary sets field value
-func (o *Domain) SetIsAnyPrimary(v bool) {
-	o.IsAnyPrimary = v
-}
-
-// GetIsLegacyDomain returns the IsLegacyDomain field value
-func (o *Domain) GetIsLegacyDomain() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.IsLegacyDomain
-}
-
-// GetIsLegacyDomainOk returns a tuple with the IsLegacyDomain field value
-// and a boolean to check if the value has been set.
-func (o *Domain) GetIsLegacyDomainOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.IsLegacyDomain, true
-}
-
-// SetIsLegacyDomain sets field value
-func (o *Domain) SetIsLegacyDomain(v bool) {
-	o.IsLegacyDomain = v
-}
-
-// GetIsInternalDomain returns the IsInternalDomain field value
-func (o *Domain) GetIsInternalDomain() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.IsInternalDomain
-}
-
-// GetIsInternalDomainOk returns a tuple with the IsInternalDomain field value
-// and a boolean to check if the value has been set.
-func (o *Domain) GetIsInternalDomainOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.IsInternalDomain, true
-}
-
-// SetIsInternalDomain sets field value
-func (o *Domain) SetIsInternalDomain(v bool) {
-	o.IsInternalDomain = v
-}
-
-// GetIsResolvingInternalProperty returns the IsResolvingInternalProperty field value
-func (o *Domain) GetIsResolvingInternalProperty() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.IsResolvingInternalProperty
-}
-
-// GetIsResolvingInternalPropertyOk returns a tuple with the IsResolvingInternalProperty field value
-// and a boolean to check if the value has been set.
-func (o *Domain) GetIsResolvingInternalPropertyOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.IsResolvingInternalProperty, true
-}
-
-// SetIsResolvingInternalProperty sets field value
-func (o *Domain) SetIsResolvingInternalProperty(v bool) {
-	o.IsResolvingInternalProperty = v
-}
-
-// GetIsResolvingIgnoringManuallyMarkedAsResolving returns the IsResolvingIgnoringManuallyMarkedAsResolving field value
-func (o *Domain) GetIsResolvingIgnoringManuallyMarkedAsResolving() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.IsResolvingIgnoringManuallyMarkedAsResolving
-}
-
-// GetIsResolvingIgnoringManuallyMarkedAsResolvingOk returns a tuple with the IsResolvingIgnoringManuallyMarkedAsResolving field value
-// and a boolean to check if the value has been set.
-func (o *Domain) GetIsResolvingIgnoringManuallyMarkedAsResolvingOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.IsResolvingIgnoringManuallyMarkedAsResolving, true
-}
-
-// SetIsResolvingIgnoringManuallyMarkedAsResolving sets field value
-func (o *Domain) SetIsResolvingIgnoringManuallyMarkedAsResolving(v bool) {
-	o.IsResolvingIgnoringManuallyMarkedAsResolving = v
-}
-
-// GetIsUsedForAnyContentType returns the IsUsedForAnyContentType field value
-func (o *Domain) GetIsUsedForAnyContentType() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.IsUsedForAnyContentType
-}
-
-// GetIsUsedForAnyContentTypeOk returns a tuple with the IsUsedForAnyContentType field value
-// and a boolean to check if the value has been set.
-func (o *Domain) GetIsUsedForAnyContentTypeOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.IsUsedForAnyContentType, true
-}
-
-// SetIsUsedForAnyContentType sets field value
-func (o *Domain) SetIsUsedForAnyContentType(v bool) {
-	o.IsUsedForAnyContentType = v
-}
-
-// GetIsLegacy returns the IsLegacy field value
-func (o *Domain) GetIsLegacy() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.IsLegacy
-}
-
-// GetIsLegacyOk returns a tuple with the IsLegacy field value
-// and a boolean to check if the value has been set.
-func (o *Domain) GetIsLegacyOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.IsLegacy, true
-}
-
-// SetIsLegacy sets field value
-func (o *Domain) SetIsLegacy(v bool) {
-	o.IsLegacy = v
-}
-
-// GetAuthorAt returns the AuthorAt field value
-func (o *Domain) GetAuthorAt() int64 {
-	if o == nil {
-		var ret int64
-		return ret
-	}
-
-	return o.AuthorAt
-}
-
-// GetAuthorAtOk returns a tuple with the AuthorAt field value
-// and a boolean to check if the value has been set.
-func (o *Domain) GetAuthorAtOk() (*int64, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.AuthorAt, true
-}
-
-// SetAuthorAt sets field value
-func (o *Domain) SetAuthorAt(v int64) {
-	o.AuthorAt = v
-}
-
-// GetCosObjectType returns the CosObjectType field value
-func (o *Domain) GetCosObjectType() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.CosObjectType
-}
-
-// GetCosObjectTypeOk returns a tuple with the CosObjectType field value
-// and a boolean to check if the value has been set.
-func (o *Domain) GetCosObjectTypeOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.CosObjectType, true
-}
-
-// SetCosObjectType sets field value
-func (o *Domain) SetCosObjectType(v string) {
-	o.CosObjectType = v
-}
-
-// GetCdnPurgeEmbargoTime returns the CdnPurgeEmbargoTime field value
-func (o *Domain) GetCdnPurgeEmbargoTime() int64 {
-	if o == nil {
-		var ret int64
-		return ret
-	}
-
-	return o.CdnPurgeEmbargoTime
-}
-
-// GetCdnPurgeEmbargoTimeOk returns a tuple with the CdnPurgeEmbargoTime field value
-// and a boolean to check if the value has been set.
-func (o *Domain) GetCdnPurgeEmbargoTimeOk() (*int64, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.CdnPurgeEmbargoTime, true
-}
-
-// SetCdnPurgeEmbargoTime sets field value
-func (o *Domain) SetCdnPurgeEmbargoTime(v int64) {
-	o.CdnPurgeEmbargoTime = v
-}
-
-// GetIsStagingDomain returns the IsStagingDomain field value
-func (o *Domain) GetIsStagingDomain() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.IsStagingDomain
-}
-
-// GetIsStagingDomainOk returns a tuple with the IsStagingDomain field value
-// and a boolean to check if the value has been set.
-func (o *Domain) GetIsStagingDomainOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.IsStagingDomain, true
-}
-
-// SetIsStagingDomain sets field value
-func (o *Domain) SetIsStagingDomain(v bool) {
-	o.IsStagingDomain = v
+// SetUpdated gets a reference to the given time.Time and assigns it to the Updated field.
+func (o *Domain) SetUpdated(v time.Time) {
+	o.Updated = &v
 }
 
 func (o Domain) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["portalId"] = o.PortalId
-	}
-	if true {
 		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["created"] = o.Created
-	}
-	if true {
-		toSerialize["updated"] = o.Updated
 	}
 	if true {
 		toSerialize["domain"] = o.Domain
 	}
-	if true {
+	if o.PrimaryLandingPage != nil {
 		toSerialize["primaryLandingPage"] = o.PrimaryLandingPage
 	}
-	if true {
+	if o.PrimaryEmail != nil {
 		toSerialize["primaryEmail"] = o.PrimaryEmail
 	}
-	if true {
-		toSerialize["primaryBlog"] = o.PrimaryBlog
-	}
-	if true {
+	if o.PrimaryBlogPost != nil {
 		toSerialize["primaryBlogPost"] = o.PrimaryBlogPost
 	}
-	if true {
+	if o.PrimarySitePage != nil {
 		toSerialize["primarySitePage"] = o.PrimarySitePage
 	}
-	if true {
+	if o.PrimaryKnowledge != nil {
 		toSerialize["primaryKnowledge"] = o.PrimaryKnowledge
 	}
-	if true {
-		toSerialize["primaryLegacyPage"] = o.PrimaryLegacyPage
-	}
-	if true {
-		toSerialize["primaryClickTracking"] = o.PrimaryClickTracking
-	}
-	if true {
-		toSerialize["fullCategoryKey"] = o.FullCategoryKey
-	}
-	if true {
+	if o.SecondaryToDomain != nil {
 		toSerialize["secondaryToDomain"] = o.SecondaryToDomain
 	}
 	if true {
 		toSerialize["isResolving"] = o.IsResolving
 	}
-	if true {
-		toSerialize["isDnsCorrect"] = o.IsDnsCorrect
-	}
-	if true {
+	if o.ManuallyMarkedAsResolving != nil {
 		toSerialize["manuallyMarkedAsResolving"] = o.ManuallyMarkedAsResolving
 	}
-	if true {
-		toSerialize["consecutiveNonResolvingCount"] = o.ConsecutiveNonResolvingCount
-	}
-	if true {
-		toSerialize["sslCname"] = o.SslCname
-	}
-	if true {
+	if o.IsSslEnabled != nil {
 		toSerialize["isSslEnabled"] = o.IsSslEnabled
 	}
-	if true {
+	if o.IsSslOnly != nil {
 		toSerialize["isSslOnly"] = o.IsSslOnly
-	}
-	if true {
-		toSerialize["certificateId"] = o.CertificateId
-	}
-	if true {
-		toSerialize["sslRequestId"] = o.SslRequestId
 	}
 	if true {
 		toSerialize["isUsedForBlogPost"] = o.IsUsedForBlogPost
@@ -1684,98 +701,14 @@ func (o Domain) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["isUsedForKnowledge"] = o.IsUsedForKnowledge
 	}
-	if true {
-		toSerialize["setupTaskId"] = o.SetupTaskId
-	}
-	if true {
-		toSerialize["isSetupComplete"] = o.IsSetupComplete
-	}
-	if true {
-		toSerialize["setUpLanguage"] = o.SetUpLanguage
-	}
-	if true {
-		toSerialize["teamIds"] = o.TeamIds
-	}
-	if true {
-		toSerialize["actualCname"] = o.ActualCname
-	}
-	if true {
+	if o.CorrectCname != nil {
 		toSerialize["correctCname"] = o.CorrectCname
 	}
-	if true {
-		toSerialize["actualIp"] = o.ActualIp
+	if o.Created != nil {
+		toSerialize["created"] = o.Created
 	}
-	if true {
-		toSerialize["apexResolutionStatus"] = o.ApexResolutionStatus
-	}
-	if true {
-		toSerialize["apexDomain"] = o.ApexDomain
-	}
-	if true {
-		toSerialize["publicSuffix"] = o.PublicSuffix
-	}
-	if true {
-		toSerialize["apexIpAddresses"] = o.ApexIpAddresses
-	}
-	if true {
-		toSerialize["siteId"] = o.SiteId
-	}
-	if true {
-		toSerialize["brandId"] = o.BrandId
-	}
-	if true {
-		toSerialize["deletable"] = o.Deletable
-	}
-	if true {
-		toSerialize["domainCdnConfig"] = o.DomainCdnConfig
-	}
-	if true {
-		toSerialize["setupInfo"] = o.SetupInfo
-	}
-	if true {
-		toSerialize["derivedBrandName"] = o.DerivedBrandName
-	}
-	if true {
-		toSerialize["createdById"] = o.CreatedById
-	}
-	if true {
-		toSerialize["updatedById"] = o.UpdatedById
-	}
-	if true {
-		toSerialize["label"] = o.Label
-	}
-	if true {
-		toSerialize["isAnyPrimary"] = o.IsAnyPrimary
-	}
-	if true {
-		toSerialize["isLegacyDomain"] = o.IsLegacyDomain
-	}
-	if true {
-		toSerialize["isInternalDomain"] = o.IsInternalDomain
-	}
-	if true {
-		toSerialize["isResolvingInternalProperty"] = o.IsResolvingInternalProperty
-	}
-	if true {
-		toSerialize["isResolvingIgnoringManuallyMarkedAsResolving"] = o.IsResolvingIgnoringManuallyMarkedAsResolving
-	}
-	if true {
-		toSerialize["isUsedForAnyContentType"] = o.IsUsedForAnyContentType
-	}
-	if true {
-		toSerialize["isLegacy"] = o.IsLegacy
-	}
-	if true {
-		toSerialize["authorAt"] = o.AuthorAt
-	}
-	if true {
-		toSerialize["cosObjectType"] = o.CosObjectType
-	}
-	if true {
-		toSerialize["cdnPurgeEmbargoTime"] = o.CdnPurgeEmbargoTime
-	}
-	if true {
-		toSerialize["isStagingDomain"] = o.IsStagingDomain
+	if o.Updated != nil {
+		toSerialize["updated"] = o.Updated
 	}
 	return json.Marshal(toSerialize)
 }

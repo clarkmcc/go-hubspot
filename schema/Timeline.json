@@ -81,7 +81,39 @@
           }
         },
         "security" : [ {
-          "oauth2_legacy" : [ "contacts", "timeline", "tickets" ]
+          "oauth2_legacy" : [ "tickets" ]
+        }, {
+          "oauth2" : [ "crm.schemas.deals.write" ]
+        }, {
+          "private_apps_legacy" : [ "timeline" ]
+        }, {
+          "oauth2" : [ "crm.schemas.contacts.write" ]
+        }, {
+          "oauth2" : [ "crm.objects.contacts.write" ]
+        }, {
+          "private_apps" : [ "crm.objects.contacts.write" ]
+        }, {
+          "oauth2" : [ "crm.schemas.companies.write" ]
+        }, {
+          "private_apps_legacy" : [ "contacts" ]
+        }, {
+          "private_apps" : [ "crm.schemas.contacts.write" ]
+        }, {
+          "private_apps" : [ "crm.schemas.companies.write" ]
+        }, {
+          "private_apps" : [ "crm.objects.deals.write" ]
+        }, {
+          "oauth2" : [ "crm.objects.deals.write" ]
+        }, {
+          "private_apps_legacy" : [ "tickets" ]
+        }, {
+          "oauth2_legacy" : [ "timeline" ]
+        }, {
+          "private_apps" : [ "crm.objects.companies.write" ]
+        }, {
+          "private_apps" : [ "crm.schemas.deals.write" ]
+        }, {
+          "oauth2" : [ "crm.objects.companies.write" ]
         } ]
       }
     },
@@ -123,12 +155,112 @@
               }
             }
           },
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "example" : {
+                  "results" : [ {
+                    "objectType" : "contacts",
+                    "id" : "petspot:1001298:art3mis-pup@petspot.com-b9d73144-41bb-46c8-9a3f-f0849c1ad7e6",
+                    "eventTemplateId" : "1001298",
+                    "email" : "art3mis-pup@petspot.com",
+                    "objectId" : "28001",
+                    "timestamp" : "2020-01-30T18:10:17.057Z",
+                    "tokens" : {
+                      "petName" : "Art3mis",
+                      "petColor" : "black",
+                      "petAge" : "3"
+                    },
+                    "extraData" : {
+                      "questions" : [ {
+                        "question" : "Who's a good girl?",
+                        "answer" : "Bark!"
+                      }, {
+                        "question" : "Do you wanna go on a walk?",
+                        "answer" : "Woof!"
+                      } ]
+                    },
+                    "timelineIFrame" : {
+                      "linkLabel" : "View Art3mis",
+                      "headerLabel" : "Art3mis dog",
+                      "url" : "https://my.petspot.com/pets/Art3mis",
+                      "width" : 600,
+                      "height" : 400
+                    }
+                  }, {
+                    "objectType" : "contacts",
+                    "id" : "petspot:1001298:pocket-tiger@petspot.com-c09a620f-60a4-46a8-be9f-fe0609fc3f0e",
+                    "eventTemplateId" : "1001298",
+                    "email" : "pocket-tiger@petspot.com",
+                    "objectId" : "28651",
+                    "timestamp" : "2020-01-30T18:10:17.057Z",
+                    "tokens" : {
+                      "petName" : "Pocket",
+                      "petColor" : "yellow",
+                      "petAge" : "3"
+                    },
+                    "extraData" : {
+                      "questions" : [ {
+                        "question" : "Who's a good kitty?",
+                        "answer" : "Purr..."
+                      }, {
+                        "question" : "Will you stop playing with that?",
+                        "answer" : "Meow!"
+                      } ]
+                    },
+                    "timelineIFrame" : {
+                      "linkLabel" : "View Pocket",
+                      "headerLabel" : "Pocket Tiger",
+                      "url" : "https://my.petspot.com/pets/Pocket",
+                      "width" : 600,
+                      "height" : 400
+                    }
+                  } ],
+                  "status" : "COMPLETE",
+                  "startedAt" : "2020-01-30T18:10:16.478734Z",
+                  "completedAt" : "2020-01-30T18:10:17.793206Z"
+                }
+              }
+            }
+          },
           "default" : {
             "$ref" : "#/components/responses/Error"
           }
         },
         "security" : [ {
-          "oauth2_legacy" : [ "contacts", "timeline", "tickets" ]
+          "oauth2_legacy" : [ "tickets" ]
+        }, {
+          "oauth2" : [ "crm.schemas.deals.write" ]
+        }, {
+          "private_apps_legacy" : [ "timeline" ]
+        }, {
+          "oauth2" : [ "crm.schemas.contacts.write" ]
+        }, {
+          "oauth2" : [ "crm.objects.contacts.write" ]
+        }, {
+          "private_apps" : [ "crm.objects.contacts.write" ]
+        }, {
+          "oauth2" : [ "crm.schemas.companies.write" ]
+        }, {
+          "private_apps_legacy" : [ "contacts" ]
+        }, {
+          "private_apps" : [ "crm.schemas.contacts.write" ]
+        }, {
+          "private_apps" : [ "crm.schemas.companies.write" ]
+        }, {
+          "private_apps" : [ "crm.objects.deals.write" ]
+        }, {
+          "oauth2" : [ "crm.objects.deals.write" ]
+        }, {
+          "private_apps_legacy" : [ "tickets" ]
+        }, {
+          "oauth2_legacy" : [ "timeline" ]
+        }, {
+          "private_apps" : [ "crm.objects.companies.write" ]
+        }, {
+          "private_apps" : [ "crm.schemas.deals.write" ]
+        }, {
+          "oauth2" : [ "crm.objects.companies.write" ]
         } ]
       }
     },
@@ -175,7 +307,39 @@
           }
         },
         "security" : [ {
-          "oauth2_legacy" : [ "contacts", "timeline", "tickets" ]
+          "oauth2" : [ "crm.schemas.contacts.read" ]
+        }, {
+          "private_apps" : [ "crm.schemas.contacts.read" ]
+        }, {
+          "oauth2_legacy" : [ "tickets" ]
+        }, {
+          "oauth2" : [ "crm.objects.contacts.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.deals.read" ]
+        }, {
+          "private_apps_legacy" : [ "timeline" ]
+        }, {
+          "oauth2" : [ "crm.objects.deals.read" ]
+        }, {
+          "private_apps_legacy" : [ "contacts" ]
+        }, {
+          "private_apps" : [ "crm.objects.contacts.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.companies.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.companies.read" ]
+        }, {
+          "private_apps" : [ "crm.schemas.companies.read" ]
+        }, {
+          "oauth2" : [ "crm.schemas.companies.read" ]
+        }, {
+          "private_apps_legacy" : [ "tickets" ]
+        }, {
+          "private_apps" : [ "crm.schemas.deals.read" ]
+        }, {
+          "oauth2" : [ "crm.schemas.deals.read" ]
+        }, {
+          "oauth2_legacy" : [ "timeline" ]
         } ]
       }
     },
@@ -222,7 +386,39 @@
           }
         },
         "security" : [ {
-          "oauth2_legacy" : [ "contacts", "timeline", "tickets" ]
+          "oauth2" : [ "crm.schemas.contacts.read" ]
+        }, {
+          "private_apps" : [ "crm.schemas.contacts.read" ]
+        }, {
+          "oauth2_legacy" : [ "tickets" ]
+        }, {
+          "oauth2" : [ "crm.objects.contacts.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.deals.read" ]
+        }, {
+          "private_apps_legacy" : [ "timeline" ]
+        }, {
+          "oauth2" : [ "crm.objects.deals.read" ]
+        }, {
+          "private_apps_legacy" : [ "contacts" ]
+        }, {
+          "private_apps" : [ "crm.objects.contacts.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.companies.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.companies.read" ]
+        }, {
+          "private_apps" : [ "crm.schemas.companies.read" ]
+        }, {
+          "oauth2" : [ "crm.schemas.companies.read" ]
+        }, {
+          "private_apps_legacy" : [ "tickets" ]
+        }, {
+          "private_apps" : [ "crm.schemas.deals.read" ]
+        }, {
+          "oauth2" : [ "crm.schemas.deals.read" ]
+        }, {
+          "oauth2_legacy" : [ "timeline" ]
         } ]
       }
     },
@@ -279,7 +475,39 @@
           }
         },
         "security" : [ {
-          "oauth2_legacy" : [ "contacts", "timeline", "tickets" ]
+          "oauth2" : [ "crm.schemas.contacts.read" ]
+        }, {
+          "private_apps" : [ "crm.schemas.contacts.read" ]
+        }, {
+          "oauth2_legacy" : [ "tickets" ]
+        }, {
+          "oauth2" : [ "crm.objects.contacts.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.deals.read" ]
+        }, {
+          "private_apps_legacy" : [ "timeline" ]
+        }, {
+          "oauth2" : [ "crm.objects.deals.read" ]
+        }, {
+          "private_apps_legacy" : [ "contacts" ]
+        }, {
+          "private_apps" : [ "crm.objects.contacts.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.companies.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.companies.read" ]
+        }, {
+          "private_apps" : [ "crm.schemas.companies.read" ]
+        }, {
+          "oauth2" : [ "crm.schemas.companies.read" ]
+        }, {
+          "private_apps_legacy" : [ "tickets" ]
+        }, {
+          "private_apps" : [ "crm.schemas.deals.read" ]
+        }, {
+          "oauth2" : [ "crm.schemas.deals.read" ]
+        }, {
+          "oauth2_legacy" : [ "timeline" ]
         } ]
       }
     },
@@ -932,6 +1160,41 @@
   },
   "components" : {
     "schemas" : {
+      "TimelineEventIFrame" : {
+        "required" : [ "headerLabel", "height", "linkLabel", "url", "width" ],
+        "type" : "object",
+        "properties" : {
+          "linkLabel" : {
+            "type" : "string",
+            "description" : "The text displaying the link that will display the iframe."
+          },
+          "headerLabel" : {
+            "type" : "string",
+            "description" : "The label of the modal window that displays the iframe contents."
+          },
+          "url" : {
+            "type" : "string",
+            "description" : "The URI of the iframe contents."
+          },
+          "width" : {
+            "type" : "integer",
+            "description" : "The width of the modal window in pixels.",
+            "format" : "int32"
+          },
+          "height" : {
+            "type" : "integer",
+            "description" : "The height of the modal window in pixels.",
+            "format" : "int32"
+          }
+        },
+        "example" : {
+          "linkLabel" : "View Art3mis",
+          "headerLabel" : "Art3mis dog",
+          "url" : "https://my.petspot.com/pets/Art3mis",
+          "width" : 600,
+          "height" : 400
+        }
+      },
       "TimelineEvent" : {
         "required" : [ "eventTemplateId", "tokens" ],
         "type" : "object",
@@ -1008,41 +1271,6 @@
           }
         }
       },
-      "TimelineEventIFrame" : {
-        "required" : [ "headerLabel", "height", "linkLabel", "url", "width" ],
-        "type" : "object",
-        "properties" : {
-          "linkLabel" : {
-            "type" : "string",
-            "description" : "The text displaying the link that will display the iframe."
-          },
-          "headerLabel" : {
-            "type" : "string",
-            "description" : "The label of the modal window that displays the iframe contents."
-          },
-          "url" : {
-            "type" : "string",
-            "description" : "The URI of the iframe contents."
-          },
-          "width" : {
-            "type" : "integer",
-            "description" : "The width of the modal window in pixels.",
-            "format" : "int32"
-          },
-          "height" : {
-            "type" : "integer",
-            "description" : "The height of the modal window in pixels.",
-            "format" : "int32"
-          }
-        },
-        "example" : {
-          "linkLabel" : "View Art3mis",
-          "headerLabel" : "Art3mis dog",
-          "url" : "https://my.petspot.com/pets/Art3mis",
-          "width" : 600,
-          "height" : 400
-        }
-      },
       "StandardError" : {
         "required" : [ "category", "context", "errors", "links", "message", "status" ],
         "type" : "object",
@@ -1054,7 +1282,7 @@
             "type" : "string"
           },
           "category" : {
-            "$ref" : "#/components/schemas/ErrorCategory"
+            "type" : "string"
           },
           "subCategory" : {
             "type" : "object",
@@ -1147,82 +1375,6 @@
           }
         }
       },
-      "EventDetail" : {
-        "required" : [ "details" ],
-        "type" : "object",
-        "properties" : {
-          "details" : {
-            "type" : "string",
-            "description" : "The details Markdown rendered as HTML."
-          }
-        },
-        "description" : "The details Markdown rendered as HTML.",
-        "example" : {
-          "details" : "<p>Registration occurred at Jan 30, 2020, 1:13:25 PM</p><h4>Questions</h4><p><strong>Who&#x27;s a good kitty?</strong>: Purr...</p><p><strong>Will you stop playing with that?</strong>: Meow!</p><p>EDIT</p>"
-        }
-      },
-      "TimelineEventTemplateCreateRequest" : {
-        "required" : [ "name", "objectType", "tokens" ],
-        "type" : "object",
-        "properties" : {
-          "name" : {
-            "type" : "string",
-            "description" : "The template name."
-          },
-          "headerTemplate" : {
-            "type" : "string",
-            "description" : "This uses Markdown syntax with Handlebars and event-specific data to render HTML on a timeline as a header."
-          },
-          "detailTemplate" : {
-            "type" : "string",
-            "description" : "This uses Markdown syntax with Handlebars and event-specific data to render HTML on a timeline when you expand the details."
-          },
-          "tokens" : {
-            "type" : "array",
-            "description" : "A collection of tokens that can be used as custom properties on the event and to create fully fledged CRM objects.",
-            "items" : {
-              "$ref" : "#/components/schemas/TimelineEventTemplateToken"
-            }
-          },
-          "objectType" : {
-            "type" : "string",
-            "description" : "The type of CRM object this template is for. [Contacts, companies, tickets, and deals] are supported."
-          }
-        },
-        "description" : "State of the template definition being created.",
-        "example" : {
-          "name" : "PetSpot Registration",
-          "objectType" : "contacts",
-          "headerTemplate" : "Registered for [{{petName}}](https://my.petspot.com/pets/{{petName}})",
-          "detailTemplate" : "Registration occurred at {{#formatDate timestamp}}{{/formatDate}}\n\n#### Questions\n{{#each extraData.questions}}\n  **{{question}}**: {{answer}}\n{{/each}}",
-          "tokens" : [ {
-            "name" : "petName",
-            "label" : "Pet Name",
-            "type" : "string"
-          }, {
-            "name" : "petAge",
-            "label" : "Pet Age",
-            "type" : "number"
-          }, {
-            "name" : "petColor",
-            "label" : "Pet Color",
-            "type" : "enumeration",
-            "options" : [ {
-              "value" : "white",
-              "label" : "White"
-            }, {
-              "value" : "black",
-              "label" : "Black"
-            }, {
-              "value" : "brown",
-              "label" : "Brown"
-            }, {
-              "value" : "other",
-              "label" : "Other"
-            } ]
-          } ]
-        }
-      },
       "TimelineEventTemplateUpdateRequest" : {
         "required" : [ "id", "name", "tokens" ],
         "type" : "object",
@@ -1287,6 +1439,82 @@
               "label" : "Other"
             } ]
           } ]
+        }
+      },
+      "TimelineEventTemplateCreateRequest" : {
+        "required" : [ "name", "objectType", "tokens" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "description" : "The template name."
+          },
+          "headerTemplate" : {
+            "type" : "string",
+            "description" : "This uses Markdown syntax with Handlebars and event-specific data to render HTML on a timeline as a header."
+          },
+          "detailTemplate" : {
+            "type" : "string",
+            "description" : "This uses Markdown syntax with Handlebars and event-specific data to render HTML on a timeline when you expand the details."
+          },
+          "tokens" : {
+            "type" : "array",
+            "description" : "A collection of tokens that can be used as custom properties on the event and to create fully fledged CRM objects.",
+            "items" : {
+              "$ref" : "#/components/schemas/TimelineEventTemplateToken"
+            }
+          },
+          "objectType" : {
+            "type" : "string",
+            "description" : "The type of CRM object this template is for. [Contacts, companies, tickets, and deals] are supported."
+          }
+        },
+        "description" : "State of the template definition being created.",
+        "example" : {
+          "name" : "PetSpot Registration",
+          "objectType" : "contacts",
+          "headerTemplate" : "Registered for [{{petName}}](https://my.petspot.com/pets/{{petName}})",
+          "detailTemplate" : "Registration occurred at {{#formatDate timestamp}}{{/formatDate}}\n\n#### Questions\n{{#each extraData.questions}}\n  **{{question}}**: {{answer}}\n{{/each}}",
+          "tokens" : [ {
+            "name" : "petName",
+            "label" : "Pet Name",
+            "type" : "string"
+          }, {
+            "name" : "petAge",
+            "label" : "Pet Age",
+            "type" : "number"
+          }, {
+            "name" : "petColor",
+            "label" : "Pet Color",
+            "type" : "enumeration",
+            "options" : [ {
+              "value" : "white",
+              "label" : "White"
+            }, {
+              "value" : "black",
+              "label" : "Black"
+            }, {
+              "value" : "brown",
+              "label" : "Brown"
+            }, {
+              "value" : "other",
+              "label" : "Other"
+            } ]
+          } ]
+        }
+      },
+      "EventDetail" : {
+        "required" : [ "details" ],
+        "type" : "object",
+        "properties" : {
+          "details" : {
+            "type" : "string",
+            "description" : "The details Markdown rendered as HTML."
+          }
+        },
+        "description" : "The details Markdown rendered as HTML.",
+        "example" : {
+          "details" : "<p>Registration occurred at Jan 30, 2020, 1:13:25 PM</p><h4>Questions</h4><p><strong>Who&#x27;s a good kitty?</strong>: Purr...</p><p><strong>Will you stop playing with that?</strong>: Meow!</p><p>EDIT</p>"
         }
       },
       "CollectionResponseTimelineEventTemplateNoPaging" : {
@@ -1503,15 +1731,14 @@
           } ]
         }
       },
-      "ErrorCategory" : {
-        "required" : [ "httpStatus", "name" ],
+      "TimelineEventTemplateTokenOption" : {
+        "required" : [ "label", "value" ],
         "type" : "object",
         "properties" : {
-          "httpStatus" : {
-            "type" : "string",
-            "enum" : [ "CONTINUE", "SWITCHING_PROTOCOLS", "PROCESSING", "OK", "CREATED", "ACCEPTED", "NON_AUTHORITATIVE_INFORMATION", "NO_CONTENT", "RESET_CONTENT", "PARTIAL_CONTENT", "MULTI_STATUS", "ALREADY_REPORTED", "IM_USED", "MULTIPLE_CHOICES", "MOVED_PERMANENTLY", "FOUND", "SEE_OTHER", "NOT_MODIFIED", "USE_PROXY", "TEMPORARY_REDIRECT", "PERMANENT_REDIRECT", "BAD_REQUEST", "UNAUTHORIZED", "PAYMENT_REQUIRED", "FORBIDDEN", "NOT_FOUND", "METHOD_NOT_ALLOWED", "NOT_ACCEPTABLE", "PROXY_AUTHENTICATION_REQUIRED", "REQUEST_TIMEOUT", "CONFLICT", "GONE", "LENGTH_REQUIRED", "PRECONDITION_FAILED", "REQUEST_ENTITY_TOO_LARGE", "REQUEST_URI_TOO_LONG", "UNSUPPORTED_MEDIA_TYPE", "REQUESTED_RANGE_NOT_SATISFIABLE", "EXPECTATION_FAILED", "IM_A_TEAPOT", "MISDIRECTED_REQUEST", "UNPROCESSABLE_ENTITY", "LOCKED", "FAILED_DEPENDENCY", "UPGRADE_REQUIRED", "PRECONDITION_REQUIRED", "TOO_MANY_REQUESTS", "REQUEST_HEADERS_FIELDS_TOO_LARGE", "INTERNAL_STALE_SERVICE_DISCOVERY", "UNAVAILABLE_FOR_LEGAL_REASONS", "MIGRATION_IN_PROGRESS", "INTERNAL_SERVER_ERROR", "NOT_IMPLEMENTED", "BAD_GATEWAY", "SERVICE_UNAVAILABLE", "GATEWAY_TIMEOUT", "HTTP_VERSION_NOT_SUPPORTED", "VARIANT_ALSO_NEGOTIATES", "INSUFFICIENT_STORAGE", "LOOP_DETECTED", "NOT_EXTENDED", "NETWORK_AUTHENTICATION_REQUIRED" ]
+          "value" : {
+            "type" : "string"
           },
-          "name" : {
+          "label" : {
             "type" : "string"
           }
         }
@@ -1560,20 +1787,8 @@
         },
         "description" : "The current state of the template definition."
       },
-      "TimelineEventTemplateTokenOption" : {
-        "required" : [ "label", "value" ],
-        "type" : "object",
-        "properties" : {
-          "value" : {
-            "type" : "string"
-          },
-          "label" : {
-            "type" : "string"
-          }
-        }
-      },
       "TimelineEventTemplateToken" : {
-        "required" : [ "label", "name", "options", "type" ],
+        "required" : [ "label", "name", "type" ],
         "type" : "object",
         "properties" : {
           "label" : {
@@ -1625,6 +1840,41 @@
           }, {
             "value" : "cat",
             "label" : "Cat"
+          } ]
+        }
+      },
+      "TimelineEventTemplateTokenUpdateRequest" : {
+        "required" : [ "label" ],
+        "type" : "object",
+        "properties" : {
+          "label" : {
+            "type" : "string",
+            "description" : "Used for list segmentation and reporting."
+          },
+          "objectPropertyName" : {
+            "type" : "string",
+            "description" : "The name of the CRM object property. This will populate the CRM object property associated with the event. With enough of these, you can fully build CRM objects via the Timeline API."
+          },
+          "options" : {
+            "type" : "array",
+            "description" : "If type is `enumeration`, we should have a list of options to choose from.",
+            "items" : {
+              "$ref" : "#/components/schemas/TimelineEventTemplateTokenOption"
+            }
+          }
+        },
+        "description" : "State of the token definition for update requests.",
+        "example" : {
+          "label" : "petType edit",
+          "options" : [ {
+            "value" : "dog",
+            "label" : "Dog"
+          }, {
+            "value" : "cat",
+            "label" : "Cat"
+          }, {
+            "value" : "bird",
+            "label" : "Bird"
           } ]
         }
       },
@@ -1716,41 +1966,6 @@
           }
         }
       },
-      "TimelineEventTemplateTokenUpdateRequest" : {
-        "required" : [ "label", "options" ],
-        "type" : "object",
-        "properties" : {
-          "label" : {
-            "type" : "string",
-            "description" : "Used for list segmentation and reporting."
-          },
-          "objectPropertyName" : {
-            "type" : "string",
-            "description" : "The name of the CRM object property. This will populate the CRM object property associated with the event. With enough of these, you can fully build CRM objects via the Timeline API."
-          },
-          "options" : {
-            "type" : "array",
-            "description" : "If type is `enumeration`, we should have a list of options to choose from.",
-            "items" : {
-              "$ref" : "#/components/schemas/TimelineEventTemplateTokenOption"
-            }
-          }
-        },
-        "description" : "State of the token definition for update requests.",
-        "example" : {
-          "label" : "petType edit",
-          "options" : [ {
-            "value" : "dog",
-            "label" : "Dog"
-          }, {
-            "value" : "cat",
-            "label" : "Cat"
-          }, {
-            "value" : "bird",
-            "label" : "Bird"
-          } ]
-        }
-      },
       "BatchResponseTimelineEventResponseWithErrors" : {
         "required" : [ "completedAt", "results", "startedAt", "status" ],
         "type" : "object",
@@ -1816,9 +2031,8 @@
             "authorizationUrl" : "https://app.hubspot.com/oauth/authorize",
             "tokenUrl" : "https://api.hubapi.com/oauth/v1/token",
             "scopes" : {
-              "contacts" : "Read from and write to my Contacts",
-              "timeline" : "Create timeline events",
-              "tickets" : "Read and write tickets"
+              "tickets" : "Read and write tickets",
+              "timeline" : "Create timeline events"
             }
           }
         }
@@ -1827,6 +2041,39 @@
         "type" : "apiKey",
         "name" : "hapikey",
         "in" : "query"
+      },
+      "oauth2" : {
+        "type" : "oauth2",
+        "flows" : {
+          "authorizationCode" : {
+            "authorizationUrl" : "https://app.hubspot.com/oauth/authorize",
+            "tokenUrl" : "https://api.hubapi.com/oauth/v1/token",
+            "scopes" : {
+              "crm.schemas.contacts.write" : " ",
+              "crm.objects.contacts.write" : " ",
+              "crm.schemas.companies.write" : " ",
+              "crm.objects.companies.write" : " ",
+              "crm.objects.deals.write" : " ",
+              "crm.schemas.deals.write" : " ",
+              "crm.objects.contacts.read" : " ",
+              "crm.schemas.contacts.read" : " ",
+              "crm.schemas.companies.read" : " ",
+              "crm.objects.companies.read" : " ",
+              "crm.objects.deals.read" : " ",
+              "crm.schemas.deals.read" : " "
+            }
+          }
+        }
+      },
+      "private_apps_legacy" : {
+        "type" : "apiKey",
+        "name" : "private-app-legacy",
+        "in" : "header"
+      },
+      "private_apps" : {
+        "type" : "apiKey",
+        "name" : "private-app",
+        "in" : "header"
       }
     }
   },

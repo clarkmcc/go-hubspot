@@ -5,15 +5,15 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Errors** | [**[]Error**](Error.md) | List of errors during import | 
-**RowsImported** | **int32** | Specifies number of rows imported | 
 **DuplicateRows** | **int32** | Specifies number of duplicate rows | 
 **RowLimitExceeded** | **bool** | Specifies whether row limit exceeded during import | 
+**RowsImported** | **int32** | Specifies number of rows imported | 
 
 ## Methods
 
 ### NewImportResult
 
-`func NewImportResult(errors []Error, rowsImported int32, duplicateRows int32, rowLimitExceeded bool, ) *ImportResult`
+`func NewImportResult(errors []Error, duplicateRows int32, rowLimitExceeded bool, rowsImported int32, ) *ImportResult`
 
 NewImportResult instantiates a new ImportResult object
 This constructor will assign default values to properties that have it defined,
@@ -46,26 +46,6 @@ and a boolean to check if the value has been set.
 `func (o *ImportResult) SetErrors(v []Error)`
 
 SetErrors sets Errors field to given value.
-
-
-### GetRowsImported
-
-`func (o *ImportResult) GetRowsImported() int32`
-
-GetRowsImported returns the RowsImported field if non-nil, zero value otherwise.
-
-### GetRowsImportedOk
-
-`func (o *ImportResult) GetRowsImportedOk() (*int32, bool)`
-
-GetRowsImportedOk returns a tuple with the RowsImported field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRowsImported
-
-`func (o *ImportResult) SetRowsImported(v int32)`
-
-SetRowsImported sets RowsImported field to given value.
 
 
 ### GetDuplicateRows
@@ -106,6 +86,26 @@ and a boolean to check if the value has been set.
 `func (o *ImportResult) SetRowLimitExceeded(v bool)`
 
 SetRowLimitExceeded sets RowLimitExceeded field to given value.
+
+
+### GetRowsImported
+
+`func (o *ImportResult) GetRowsImported() int32`
+
+GetRowsImported returns the RowsImported field if non-nil, zero value otherwise.
+
+### GetRowsImportedOk
+
+`func (o *ImportResult) GetRowsImportedOk() (*int32, bool)`
+
+GetRowsImportedOk returns a tuple with the RowsImported field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRowsImported
+
+`func (o *ImportResult) SetRowsImported(v int32)`
+
+SetRowsImported sets RowsImported field to given value.
 
 
 

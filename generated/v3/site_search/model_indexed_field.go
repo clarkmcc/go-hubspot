@@ -16,9 +16,9 @@ import (
 
 // IndexedField struct for IndexedField
 type IndexedField struct {
+	Values        []map[string]interface{} `json:"values"`
 	Name          string                   `json:"name"`
 	Value         map[string]interface{}   `json:"value"`
-	Values        []map[string]interface{} `json:"values"`
 	MetadataField bool                     `json:"metadataField"`
 }
 
@@ -26,11 +26,11 @@ type IndexedField struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIndexedField(name string, value map[string]interface{}, values []map[string]interface{}, metadataField bool) *IndexedField {
+func NewIndexedField(values []map[string]interface{}, name string, value map[string]interface{}, metadataField bool) *IndexedField {
 	this := IndexedField{}
+	this.Values = values
 	this.Name = name
 	this.Value = value
-	this.Values = values
 	this.MetadataField = metadataField
 	return &this
 }
@@ -41,6 +41,30 @@ func NewIndexedField(name string, value map[string]interface{}, values []map[str
 func NewIndexedFieldWithDefaults() *IndexedField {
 	this := IndexedField{}
 	return &this
+}
+
+// GetValues returns the Values field value
+func (o *IndexedField) GetValues() []map[string]interface{} {
+	if o == nil {
+		var ret []map[string]interface{}
+		return ret
+	}
+
+	return o.Values
+}
+
+// GetValuesOk returns a tuple with the Values field value
+// and a boolean to check if the value has been set.
+func (o *IndexedField) GetValuesOk() ([]map[string]interface{}, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Values, true
+}
+
+// SetValues sets field value
+func (o *IndexedField) SetValues(v []map[string]interface{}) {
+	o.Values = v
 }
 
 // GetName returns the Name field value
@@ -91,30 +115,6 @@ func (o *IndexedField) SetValue(v map[string]interface{}) {
 	o.Value = v
 }
 
-// GetValues returns the Values field value
-func (o *IndexedField) GetValues() []map[string]interface{} {
-	if o == nil {
-		var ret []map[string]interface{}
-		return ret
-	}
-
-	return o.Values
-}
-
-// GetValuesOk returns a tuple with the Values field value
-// and a boolean to check if the value has been set.
-func (o *IndexedField) GetValuesOk() ([]map[string]interface{}, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Values, true
-}
-
-// SetValues sets field value
-func (o *IndexedField) SetValues(v []map[string]interface{}) {
-	o.Values = v
-}
-
 // GetMetadataField returns the MetadataField field value
 func (o *IndexedField) GetMetadataField() bool {
 	if o == nil {
@@ -142,13 +142,13 @@ func (o *IndexedField) SetMetadataField(v bool) {
 func (o IndexedField) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
+		toSerialize["values"] = o.Values
+	}
+	if true {
 		toSerialize["name"] = o.Name
 	}
 	if true {
 		toSerialize["value"] = o.Value
-	}
-	if true {
-		toSerialize["values"] = o.Values
 	}
 	if true {
 		toSerialize["metadataField"] = o.MetadataField

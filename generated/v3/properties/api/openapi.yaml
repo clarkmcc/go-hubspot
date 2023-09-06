@@ -5,134 +5,12 @@ info:
   title: Properties
   version: v3
 servers:
-- url: https://api.hubapi.com/
+- url: https://api.hubapi.com
 tags:
-- name: Core
 - name: Batch
 - name: Groups
+- name: Core
 paths:
-  /crm/v3/properties/{objectType}:
-    get:
-      description: Read all existing properties for the specified object type and
-        HubSpot account.
-      operationId: GetAll
-      parameters:
-      - explode: false
-        in: path
-        name: objectType
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: Whether to return only results that have been archived.
-        explode: true
-        in: query
-        name: archived
-        required: false
-        schema:
-          default: false
-          type: boolean
-        style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CollectionResponseProperty'
-          description: successful operation
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - oauth2:
-        - crm.schemas.contacts.read
-      - oauth2_legacy:
-        - media_bridge.read
-      - oauth2_legacy:
-        - tickets
-      - oauth2:
-        - crm.objects.contacts.read
-      - hapikey: []
-      - oauth2:
-        - crm.objects.contacts.write
-      - oauth2:
-        - crm.objects.deals.read
-      - oauth2_legacy:
-        - crm.schemas.custom.read
-      - oauth2:
-        - crm.schemas.quotes.read
-      - oauth2:
-        - crm.objects.deals.write
-      - oauth2:
-        - crm.objects.companies.read
-      - oauth2:
-        - crm.schemas.companies.read
-      - oauth2_legacy:
-        - e-commerce
-      - oauth2_legacy:
-        - timeline
-      - oauth2:
-        - crm.schemas.deals.read
-      - oauth2_legacy:
-        - contacts
-      - oauth2:
-        - crm.schemas.line_items.read
-      - oauth2:
-        - crm.objects.companies.write
-      summary: Read all properties
-      tags:
-      - Core
-    post:
-      description: Create and return a copy of a new property for the specified object
-        type.
-      operationId: Create
-      parameters:
-      - explode: false
-        in: path
-        name: objectType
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PropertyCreate'
-        required: true
-      responses:
-        "201":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Property'
-          description: successful operation
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - oauth2_legacy:
-        - tickets
-      - hapikey: []
-      - oauth2:
-        - crm.schemas.deals.write
-      - oauth2_legacy:
-        - e-commerce
-      - oauth2:
-        - crm.schemas.contacts.write
-      - oauth2:
-        - crm.schemas.companies.write
-      - oauth2_legacy:
-        - contacts
-      summary: Create a property
-      tags:
-      - Core
   /crm/v3/properties/{objectType}/batch/archive:
     post:
       description: "Archive a provided list of properties. This method will return\
@@ -166,263 +44,31 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
       - oauth2:
         - crm.schemas.deals.write
-      - oauth2_legacy:
+      - private_apps_legacy:
         - e-commerce
       - oauth2:
         - crm.schemas.contacts.write
       - oauth2:
         - crm.schemas.companies.write
-      - oauth2_legacy:
+      - private_apps_legacy:
         - contacts
+      - private_apps:
+        - crm.schemas.contacts.write
+      - private_apps:
+        - crm.schemas.companies.write
+      - oauth2_legacy:
+        - e-commerce
+      - private_apps_legacy:
+        - tickets
+      - private_apps_legacy:
+        - crm.schemas.custom.write
+      - private_apps:
+        - crm.schemas.deals.write
       summary: Archive a batch of properties
       tags:
       - Batch
-  /crm/v3/properties/{objectType}/batch/create:
-    post:
-      description: Create a batch of properties using the same rules as when creating
-        an individual property.
-      operationId: BatchCreate
-      parameters:
-      - explode: false
-        in: path
-        name: objectType
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/BatchInputPropertyCreate'
-        required: true
-      responses:
-        "201":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BatchResponseProperty'
-          description: successful operation
-        "207":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BatchResponseProperty'
-          description: multiple statuses
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - oauth2_legacy:
-        - tickets
-      - hapikey: []
-      - oauth2:
-        - crm.schemas.deals.write
-      - oauth2_legacy:
-        - e-commerce
-      - oauth2:
-        - crm.schemas.contacts.write
-      - oauth2:
-        - crm.schemas.companies.write
-      - oauth2_legacy:
-        - contacts
-      summary: Create a batch of properties
-      tags:
-      - Batch
-  /crm/v3/properties/{objectType}/batch/read:
-    post:
-      description: Read a provided list of properties.
-      operationId: BatchRead
-      parameters:
-      - explode: false
-        in: path
-        name: objectType
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/BatchReadInputPropertyName'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BatchResponseProperty'
-          description: successful operation
-        "207":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BatchResponseProperty'
-          description: multiple statuses
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - oauth2:
-        - crm.schemas.contacts.read
-      - oauth2_legacy:
-        - media_bridge.read
-      - oauth2_legacy:
-        - tickets
-      - oauth2:
-        - crm.objects.contacts.read
-      - hapikey: []
-      - oauth2:
-        - crm.objects.contacts.write
-      - oauth2:
-        - crm.objects.deals.read
-      - oauth2_legacy:
-        - crm.schemas.custom.read
-      - oauth2:
-        - crm.schemas.quotes.read
-      - oauth2:
-        - crm.objects.deals.write
-      - oauth2:
-        - crm.objects.companies.read
-      - oauth2:
-        - crm.schemas.companies.read
-      - oauth2_legacy:
-        - e-commerce
-      - oauth2_legacy:
-        - timeline
-      - oauth2:
-        - crm.schemas.deals.read
-      - oauth2_legacy:
-        - contacts
-      - oauth2:
-        - crm.schemas.line_items.read
-      - oauth2:
-        - crm.objects.companies.write
-      summary: Read a batch of properties
-      tags:
-      - Batch
-  /crm/v3/properties/{objectType}/groups:
-    get:
-      description: Read all existing property groups for the specified object type
-        and HubSpot account.
-      operationId: GroupsGetAll
-      parameters:
-      - explode: false
-        in: path
-        name: objectType
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CollectionResponsePropertyGroup'
-          description: successful operation
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - oauth2:
-        - crm.schemas.contacts.read
-      - oauth2_legacy:
-        - media_bridge.read
-      - oauth2_legacy:
-        - tickets
-      - oauth2:
-        - crm.objects.contacts.read
-      - hapikey: []
-      - oauth2:
-        - crm.objects.contacts.write
-      - oauth2:
-        - crm.objects.deals.read
-      - oauth2_legacy:
-        - crm.schemas.custom.read
-      - oauth2:
-        - crm.schemas.quotes.read
-      - oauth2:
-        - crm.objects.deals.write
-      - oauth2:
-        - crm.objects.companies.read
-      - oauth2:
-        - crm.schemas.companies.read
-      - oauth2_legacy:
-        - e-commerce
-      - oauth2_legacy:
-        - timeline
-      - oauth2:
-        - crm.schemas.deals.read
-      - oauth2_legacy:
-        - contacts
-      - oauth2:
-        - crm.schemas.line_items.read
-      - oauth2:
-        - crm.objects.companies.write
-      summary: Read all property groups
-      tags:
-      - Groups
-    post:
-      description: Create and return a copy of a new property group.
-      operationId: GroupsCreate
-      parameters:
-      - explode: false
-        in: path
-        name: objectType
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PropertyGroupCreate'
-        required: true
-      responses:
-        "201":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PropertyGroup'
-          description: successful operation
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - oauth2_legacy:
-        - tickets
-      - hapikey: []
-      - oauth2:
-        - crm.schemas.deals.write
-      - oauth2_legacy:
-        - e-commerce
-      - oauth2:
-        - crm.schemas.contacts.write
-      - oauth2:
-        - crm.schemas.companies.write
-      - oauth2_legacy:
-        - contacts
-      summary: Create a property group
-      tags:
-      - Groups
   /crm/v3/properties/{objectType}/groups/{groupName}:
     delete:
       description: "Move a property group identified by {groupName} to the recycling\
@@ -456,17 +102,28 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
       - oauth2:
         - crm.schemas.deals.write
-      - oauth2_legacy:
+      - private_apps_legacy:
         - e-commerce
       - oauth2:
         - crm.schemas.contacts.write
       - oauth2:
         - crm.schemas.companies.write
-      - oauth2_legacy:
+      - private_apps_legacy:
         - contacts
+      - private_apps:
+        - crm.schemas.contacts.write
+      - private_apps:
+        - crm.schemas.companies.write
+      - oauth2_legacy:
+        - e-commerce
+      - private_apps_legacy:
+        - tickets
+      - private_apps_legacy:
+        - crm.schemas.custom.write
+      - private_apps:
+        - crm.schemas.deals.write
       summary: Archive a property group
       tags:
       - Groups
@@ -502,41 +159,76 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - oauth2:
-        - crm.schemas.contacts.read
       - oauth2_legacy:
         - media_bridge.read
-      - oauth2_legacy:
-        - tickets
       - oauth2:
         - crm.objects.contacts.read
-      - hapikey: []
-      - oauth2:
-        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.deals.read
+      - private_apps_legacy:
+        - timeline
       - oauth2:
         - crm.objects.deals.read
+      - private_apps_legacy:
+        - contacts
+      - private_apps:
+        - crm.objects.contacts.read
       - oauth2_legacy:
         - crm.schemas.custom.read
-      - oauth2:
-        - crm.schemas.quotes.read
-      - oauth2:
+      - private_apps:
+        - crm.objects.companies.read
+      - private_apps:
         - crm.objects.deals.write
       - oauth2:
+        - crm.schemas.quotes.read
+      - private_apps:
+        - crm.schemas.quotes.read
+      - oauth2:
         - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.deals.write
+      - private_apps_legacy:
+        - crm.schemas.custom.read
+      - private_apps_legacy:
+        - crm.objects.goals.read
+      - private_apps:
+        - crm.schemas.deals.read
+      - oauth2:
+        - crm.schemas.deals.read
+      - oauth2_legacy:
+        - timeline
+      - private_apps_legacy:
+        - media_bridge.read
+      - private_apps:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.schemas.contacts.read
+      - private_apps:
+        - crm.schemas.contacts.read
+      - oauth2_legacy:
+        - tickets
+      - private_apps_legacy:
+        - e-commerce
+      - oauth2:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.schemas.companies.read
       - oauth2:
         - crm.schemas.companies.read
       - oauth2_legacy:
         - e-commerce
+      - private_apps_legacy:
+        - tickets
       - oauth2_legacy:
-        - timeline
-      - oauth2:
-        - crm.schemas.deals.read
-      - oauth2_legacy:
-        - contacts
-      - oauth2:
+        - crm.objects.goals.read
+      - private_apps:
         - crm.schemas.line_items.read
       - oauth2:
-        - crm.objects.companies.write
+        - crm.schemas.line_items.read
       summary: Read a property group
       tags:
       - Groups
@@ -581,17 +273,28 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
       - oauth2:
         - crm.schemas.deals.write
-      - oauth2_legacy:
+      - private_apps_legacy:
         - e-commerce
       - oauth2:
         - crm.schemas.contacts.write
       - oauth2:
         - crm.schemas.companies.write
-      - oauth2_legacy:
+      - private_apps_legacy:
         - contacts
+      - private_apps:
+        - crm.schemas.contacts.write
+      - private_apps:
+        - crm.schemas.companies.write
+      - oauth2_legacy:
+        - e-commerce
+      - private_apps_legacy:
+        - tickets
+      - private_apps_legacy:
+        - crm.schemas.custom.write
+      - private_apps:
+        - crm.schemas.deals.write
       summary: Update a property group
       tags:
       - Groups
@@ -628,17 +331,28 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
       - oauth2:
         - crm.schemas.deals.write
-      - oauth2_legacy:
+      - private_apps_legacy:
         - e-commerce
       - oauth2:
         - crm.schemas.contacts.write
       - oauth2:
         - crm.schemas.companies.write
-      - oauth2_legacy:
+      - private_apps_legacy:
         - contacts
+      - private_apps:
+        - crm.schemas.contacts.write
+      - private_apps:
+        - crm.schemas.companies.write
+      - oauth2_legacy:
+        - e-commerce
+      - private_apps_legacy:
+        - tickets
+      - private_apps_legacy:
+        - crm.schemas.custom.write
+      - private_apps:
+        - crm.schemas.deals.write
       summary: Archive a property
       tags:
       - Core
@@ -669,6 +383,13 @@ paths:
           default: false
           type: boolean
         style: form
+      - explode: true
+        in: query
+        name: properties
+        required: false
+        schema:
+          type: string
+        style: form
       responses:
         "200":
           content:
@@ -683,41 +404,76 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - oauth2:
-        - crm.schemas.contacts.read
       - oauth2_legacy:
         - media_bridge.read
-      - oauth2_legacy:
-        - tickets
       - oauth2:
         - crm.objects.contacts.read
-      - hapikey: []
-      - oauth2:
-        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.deals.read
+      - private_apps_legacy:
+        - timeline
       - oauth2:
         - crm.objects.deals.read
+      - private_apps_legacy:
+        - contacts
+      - private_apps:
+        - crm.objects.contacts.read
       - oauth2_legacy:
         - crm.schemas.custom.read
-      - oauth2:
-        - crm.schemas.quotes.read
-      - oauth2:
+      - private_apps:
+        - crm.objects.companies.read
+      - private_apps:
         - crm.objects.deals.write
       - oauth2:
+        - crm.schemas.quotes.read
+      - private_apps:
+        - crm.schemas.quotes.read
+      - oauth2:
         - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.deals.write
+      - private_apps_legacy:
+        - crm.schemas.custom.read
+      - private_apps_legacy:
+        - crm.objects.goals.read
+      - private_apps:
+        - crm.schemas.deals.read
+      - oauth2:
+        - crm.schemas.deals.read
+      - oauth2_legacy:
+        - timeline
+      - private_apps_legacy:
+        - media_bridge.read
+      - private_apps:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.schemas.contacts.read
+      - private_apps:
+        - crm.schemas.contacts.read
+      - oauth2_legacy:
+        - tickets
+      - private_apps_legacy:
+        - e-commerce
+      - oauth2:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.schemas.companies.read
       - oauth2:
         - crm.schemas.companies.read
       - oauth2_legacy:
         - e-commerce
+      - private_apps_legacy:
+        - tickets
       - oauth2_legacy:
-        - timeline
-      - oauth2:
-        - crm.schemas.deals.read
-      - oauth2_legacy:
-        - contacts
-      - oauth2:
+        - crm.objects.goals.read
+      - private_apps:
         - crm.schemas.line_items.read
       - oauth2:
-        - crm.objects.companies.write
+        - crm.schemas.line_items.read
       summary: Read a property
       tags:
       - Core
@@ -762,18 +518,539 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
-      - hapikey: []
       - oauth2:
         - crm.schemas.deals.write
-      - oauth2_legacy:
+      - private_apps_legacy:
         - e-commerce
       - oauth2:
         - crm.schemas.contacts.write
       - oauth2:
         - crm.schemas.companies.write
-      - oauth2_legacy:
+      - private_apps_legacy:
         - contacts
+      - private_apps:
+        - crm.schemas.contacts.write
+      - private_apps:
+        - crm.schemas.companies.write
+      - oauth2_legacy:
+        - e-commerce
+      - private_apps_legacy:
+        - tickets
+      - private_apps_legacy:
+        - crm.schemas.custom.write
+      - private_apps:
+        - crm.schemas.deals.write
       summary: Update a property
+      tags:
+      - Core
+  /crm/v3/properties/{objectType}/batch/read:
+    post:
+      description: Read a provided list of properties.
+      operationId: BatchRead
+      parameters:
+      - explode: false
+        in: path
+        name: objectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchReadInputPropertyName'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchResponseProperty'
+          description: successful operation
+        "207":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchResponsePropertyWithErrors'
+          description: multiple statuses
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - oauth2_legacy:
+        - media_bridge.read
+      - oauth2:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.deals.read
+      - private_apps_legacy:
+        - timeline
+      - oauth2:
+        - crm.objects.deals.read
+      - private_apps_legacy:
+        - contacts
+      - private_apps:
+        - crm.objects.contacts.read
+      - oauth2_legacy:
+        - crm.schemas.custom.read
+      - private_apps:
+        - crm.objects.companies.read
+      - private_apps:
+        - crm.objects.deals.write
+      - oauth2:
+        - crm.schemas.quotes.read
+      - private_apps:
+        - crm.schemas.quotes.read
+      - oauth2:
+        - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.deals.write
+      - private_apps_legacy:
+        - crm.schemas.custom.read
+      - private_apps_legacy:
+        - crm.objects.goals.read
+      - private_apps:
+        - crm.schemas.deals.read
+      - oauth2:
+        - crm.schemas.deals.read
+      - oauth2_legacy:
+        - timeline
+      - private_apps_legacy:
+        - media_bridge.read
+      - private_apps:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.schemas.contacts.read
+      - private_apps:
+        - crm.schemas.contacts.read
+      - oauth2_legacy:
+        - tickets
+      - private_apps_legacy:
+        - e-commerce
+      - oauth2:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.schemas.companies.read
+      - oauth2:
+        - crm.schemas.companies.read
+      - oauth2_legacy:
+        - e-commerce
+      - private_apps_legacy:
+        - tickets
+      - oauth2_legacy:
+        - crm.objects.goals.read
+      - private_apps:
+        - crm.schemas.line_items.read
+      - oauth2:
+        - crm.schemas.line_items.read
+      summary: Read a batch of properties
+      tags:
+      - Batch
+  /crm/v3/properties/{objectType}/batch/create:
+    post:
+      description: Create a batch of properties using the same rules as when creating
+        an individual property.
+      operationId: BatchCreate
+      parameters:
+      - explode: false
+        in: path
+        name: objectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchInputPropertyCreate'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchResponseProperty'
+          description: successful operation
+        "207":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchResponsePropertyWithErrors'
+          description: multiple statuses
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - oauth2_legacy:
+        - tickets
+      - oauth2:
+        - crm.schemas.deals.write
+      - private_apps_legacy:
+        - e-commerce
+      - oauth2:
+        - crm.schemas.contacts.write
+      - oauth2:
+        - crm.schemas.companies.write
+      - private_apps_legacy:
+        - contacts
+      - private_apps:
+        - crm.schemas.contacts.write
+      - private_apps:
+        - crm.schemas.companies.write
+      - oauth2_legacy:
+        - e-commerce
+      - private_apps_legacy:
+        - tickets
+      - private_apps_legacy:
+        - crm.schemas.custom.write
+      - private_apps:
+        - crm.schemas.deals.write
+      summary: Create a batch of properties
+      tags:
+      - Batch
+  /crm/v3/properties/{objectType}/groups:
+    get:
+      description: Read all existing property groups for the specified object type
+        and HubSpot account.
+      operationId: GroupsGetAll
+      parameters:
+      - explode: false
+        in: path
+        name: objectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionResponsePropertyGroupNoPaging'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - oauth2_legacy:
+        - media_bridge.read
+      - oauth2:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.deals.read
+      - private_apps_legacy:
+        - timeline
+      - oauth2:
+        - crm.objects.deals.read
+      - private_apps_legacy:
+        - contacts
+      - private_apps:
+        - crm.objects.contacts.read
+      - oauth2_legacy:
+        - crm.schemas.custom.read
+      - private_apps:
+        - crm.objects.companies.read
+      - private_apps:
+        - crm.objects.deals.write
+      - oauth2:
+        - crm.schemas.quotes.read
+      - private_apps:
+        - crm.schemas.quotes.read
+      - oauth2:
+        - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.deals.write
+      - private_apps_legacy:
+        - crm.schemas.custom.read
+      - private_apps_legacy:
+        - crm.objects.goals.read
+      - private_apps:
+        - crm.schemas.deals.read
+      - oauth2:
+        - crm.schemas.deals.read
+      - oauth2_legacy:
+        - timeline
+      - private_apps_legacy:
+        - media_bridge.read
+      - private_apps:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.schemas.contacts.read
+      - private_apps:
+        - crm.schemas.contacts.read
+      - oauth2_legacy:
+        - tickets
+      - private_apps_legacy:
+        - e-commerce
+      - oauth2:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.schemas.companies.read
+      - oauth2:
+        - crm.schemas.companies.read
+      - oauth2_legacy:
+        - e-commerce
+      - private_apps_legacy:
+        - tickets
+      - oauth2_legacy:
+        - crm.objects.goals.read
+      - private_apps:
+        - crm.schemas.line_items.read
+      - oauth2:
+        - crm.schemas.line_items.read
+      summary: Read all property groups
+      tags:
+      - Groups
+    post:
+      description: Create and return a copy of a new property group.
+      operationId: GroupsCreate
+      parameters:
+      - explode: false
+        in: path
+        name: objectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PropertyGroupCreate'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PropertyGroup'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - oauth2_legacy:
+        - tickets
+      - oauth2:
+        - crm.schemas.deals.write
+      - private_apps_legacy:
+        - e-commerce
+      - oauth2:
+        - crm.schemas.contacts.write
+      - oauth2:
+        - crm.schemas.companies.write
+      - private_apps_legacy:
+        - contacts
+      - private_apps:
+        - crm.schemas.contacts.write
+      - private_apps:
+        - crm.schemas.companies.write
+      - oauth2_legacy:
+        - e-commerce
+      - private_apps_legacy:
+        - tickets
+      - private_apps_legacy:
+        - crm.schemas.custom.write
+      - private_apps:
+        - crm.schemas.deals.write
+      summary: Create a property group
+      tags:
+      - Groups
+  /crm/v3/properties/{objectType}:
+    get:
+      description: Read all existing properties for the specified object type and
+        HubSpot account.
+      operationId: GetAll
+      parameters:
+      - explode: false
+        in: path
+        name: objectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Whether to return only results that have been archived.
+        explode: true
+        in: query
+        name: archived
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
+      - explode: true
+        in: query
+        name: properties
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionResponsePropertyNoPaging'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - oauth2_legacy:
+        - media_bridge.read
+      - oauth2:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.deals.read
+      - private_apps_legacy:
+        - timeline
+      - oauth2:
+        - crm.objects.deals.read
+      - private_apps_legacy:
+        - contacts
+      - private_apps:
+        - crm.objects.contacts.read
+      - oauth2_legacy:
+        - crm.schemas.custom.read
+      - private_apps:
+        - crm.objects.companies.read
+      - private_apps:
+        - crm.objects.deals.write
+      - oauth2:
+        - crm.schemas.quotes.read
+      - private_apps:
+        - crm.schemas.quotes.read
+      - oauth2:
+        - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.deals.write
+      - private_apps_legacy:
+        - crm.schemas.custom.read
+      - private_apps_legacy:
+        - crm.objects.goals.read
+      - private_apps:
+        - crm.schemas.deals.read
+      - oauth2:
+        - crm.schemas.deals.read
+      - oauth2_legacy:
+        - timeline
+      - private_apps_legacy:
+        - media_bridge.read
+      - private_apps:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.schemas.contacts.read
+      - private_apps:
+        - crm.schemas.contacts.read
+      - oauth2_legacy:
+        - tickets
+      - private_apps_legacy:
+        - e-commerce
+      - oauth2:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.schemas.companies.read
+      - oauth2:
+        - crm.schemas.companies.read
+      - oauth2_legacy:
+        - e-commerce
+      - private_apps_legacy:
+        - tickets
+      - oauth2_legacy:
+        - crm.objects.goals.read
+      - private_apps:
+        - crm.schemas.line_items.read
+      - oauth2:
+        - crm.schemas.line_items.read
+      summary: Read all properties
+      tags:
+      - Core
+    post:
+      description: Create and return a copy of a new property for the specified object
+        type.
+      operationId: Create
+      parameters:
+      - explode: false
+        in: path
+        name: objectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PropertyCreate'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Property'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - oauth2_legacy:
+        - tickets
+      - oauth2:
+        - crm.schemas.deals.write
+      - private_apps_legacy:
+        - e-commerce
+      - oauth2:
+        - crm.schemas.contacts.write
+      - oauth2:
+        - crm.schemas.companies.write
+      - private_apps_legacy:
+        - contacts
+      - private_apps:
+        - crm.schemas.contacts.write
+      - private_apps:
+        - crm.schemas.companies.write
+      - oauth2_legacy:
+        - e-commerce
+      - private_apps_legacy:
+        - tickets
+      - private_apps_legacy:
+        - crm.schemas.custom.write
+      - private_apps:
+        - crm.schemas.deals.write
+      summary: Create a property
       tags:
       - Core
 components:
@@ -785,55 +1062,14 @@ components:
             $ref: '#/components/schemas/Error'
       description: An error occurred.
   schemas:
-    PropertyName:
-      example:
-        name: my_custom_property
-      properties:
-        name:
-          description: The name of the property to read or modify.
-          type: string
-      required:
-      - name
-      type: object
     StandardError:
-      example:
-        subCategory: "{}"
-        context:
-          key:
-          - context
-          - context
-        links:
-          key: links
-        id: id
-        category:
-          httpStatus: CONTINUE
-          name: name
-        message: message
-        errors:
-        - subCategory: subCategory
-          code: code
-          in: in
-          context:
-            missingScopes:
-            - scope1
-            - scope2
-          message: message
-        - subCategory: subCategory
-          code: code
-          in: in
-          context:
-            missingScopes:
-            - scope1
-            - scope2
-          message: message
-        status: status
       properties:
         status:
           type: string
         id:
           type: string
         category:
-          $ref: '#/components/schemas/ErrorCategory'
+          type: string
         subCategory:
           properties: {}
           type: object
@@ -861,24 +1097,38 @@ components:
       - message
       - status
       type: object
+    PropertyName:
+      example:
+        name: my_custom_property
+      properties:
+        name:
+          description: The name of the property to read or modify.
+          type: string
+      required:
+      - name
+      type: object
     BatchResponseProperty:
       example:
         completedAt: 2000-01-23T04:56:07.000+00:00
-        numErrors: 0
         requestedAt: 2000-01-23T04:56:07.000+00:00
         startedAt: 2000-01-23T04:56:07.000+00:00
         links:
           key: links
         results:
-        - groupName: contactinformation
+        - name: my_contact_property
+          label: My Contact Property
+          type: enumeration
+          fieldType: select
+          groupName: contactinformation
           hidden: false
+          displayOrder: 2
+          hasUniqueValue: false
+          formField: true
           modificationMetadata:
             readOnlyOptions: false
             readOnlyValue: false
             readOnlyDefinition: false
             archivable: true
-          name: my_contact_property
-          displayOrder: 2
           options:
           - label: Option A
             description: Choice number one
@@ -890,20 +1140,20 @@ components:
             value: B
             displayOrder: 2
             hidden: false
+        - name: my_contact_property
           label: My Contact Property
-          hasUniqueValue: false
           type: enumeration
           fieldType: select
-          formField: true
-        - groupName: contactinformation
+          groupName: contactinformation
           hidden: false
+          displayOrder: 2
+          hasUniqueValue: false
+          formField: true
           modificationMetadata:
             readOnlyOptions: false
             readOnlyValue: false
             readOnlyDefinition: false
             archivable: true
-          name: my_contact_property
-          displayOrder: 2
           options:
           - label: Option A
             description: Choice number one
@@ -915,72 +1165,6 @@ components:
             value: B
             displayOrder: 2
             hidden: false
-          label: My Contact Property
-          hasUniqueValue: false
-          type: enumeration
-          fieldType: select
-          formField: true
-        errors:
-        - subCategory: "{}"
-          context:
-            key:
-            - context
-            - context
-          links:
-            key: links
-          id: id
-          category:
-            httpStatus: CONTINUE
-            name: name
-          message: message
-          errors:
-          - subCategory: subCategory
-            code: code
-            in: in
-            context:
-              missingScopes:
-              - scope1
-              - scope2
-            message: message
-          - subCategory: subCategory
-            code: code
-            in: in
-            context:
-              missingScopes:
-              - scope1
-              - scope2
-            message: message
-          status: status
-        - subCategory: "{}"
-          context:
-            key:
-            - context
-            - context
-          links:
-            key: links
-          id: id
-          category:
-            httpStatus: CONTINUE
-            name: name
-          message: message
-          errors:
-          - subCategory: subCategory
-            code: code
-            in: in
-            context:
-              missingScopes:
-              - scope1
-              - scope2
-            message: message
-          - subCategory: subCategory
-            code: code
-            in: in
-            context:
-              missingScopes:
-              - scope1
-              - scope2
-            message: message
-          status: status
         status: PENDING
       properties:
         status:
@@ -993,13 +1177,6 @@ components:
         results:
           items:
             $ref: '#/components/schemas/Property'
-          type: array
-        numErrors:
-          format: int32
-          type: integer
-        errors:
-          items:
-            $ref: '#/components/schemas/StandardError'
           type: array
         requestedAt:
           format: date-time
@@ -1020,79 +1197,12 @@ components:
       - startedAt
       - status
       type: object
-    CollectionResponseProperty:
-      example:
-        paging:
-          next:
-            link: link
-            after: after
-        results:
-        - groupName: contactinformation
-          hidden: false
-          modificationMetadata:
-            readOnlyOptions: false
-            readOnlyValue: false
-            readOnlyDefinition: false
-            archivable: true
-          name: my_contact_property
-          displayOrder: 2
-          options:
-          - label: Option A
-            description: Choice number one
-            value: A
-            displayOrder: 1
-            hidden: false
-          - label: Option B
-            description: Choice number two
-            value: B
-            displayOrder: 2
-            hidden: false
-          label: My Contact Property
-          hasUniqueValue: false
-          type: enumeration
-          fieldType: select
-          formField: true
-        - groupName: contactinformation
-          hidden: false
-          modificationMetadata:
-            readOnlyOptions: false
-            readOnlyValue: false
-            readOnlyDefinition: false
-            archivable: true
-          name: my_contact_property
-          displayOrder: 2
-          options:
-          - label: Option A
-            description: Choice number one
-            value: A
-            displayOrder: 1
-            hidden: false
-          - label: Option B
-            description: Choice number two
-            value: B
-            displayOrder: 2
-            hidden: false
-          label: My Contact Property
-          hasUniqueValue: false
-          type: enumeration
-          fieldType: select
-          formField: true
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/Property'
-          type: array
-        paging:
-          $ref: '#/components/schemas/Paging'
-      required:
-      - results
-      type: object
     PropertyGroup:
       description: An ID for a group of properties
       example:
         name: mypropertygroup
-        displayOrder: -1
         label: My Property Group
+        displayOrder: -1
       properties:
         name:
           description: "The internal property group name, which must be used when\
@@ -1115,11 +1225,33 @@ components:
       - label
       - name
       type: object
+    CollectionResponsePropertyGroupNoPaging:
+      example:
+        results:
+        - name: mypropertygroup
+          label: My Property Group
+          displayOrder: -1
+        - name: mypropertygroup
+          label: My Property Group
+          displayOrder: -1
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/PropertyGroup'
+          type: array
+      required:
+      - results
+      type: object
     PropertyCreate:
       example:
+        label: My Contact Property
+        type: enumeration
+        fieldType: select
         groupName: contactinformation
         hidden: false
         displayOrder: 2
+        hasUniqueValue: false
+        formField: true
         options:
         - label: Option A
           description: Choice number one
@@ -1131,11 +1263,6 @@ components:
           value: B
           displayOrder: 2
           hidden: false
-        label: My Contact Property
-        hasUniqueValue: false
-        type: enumeration
-        fieldType: select
-        formField: true
       properties:
         name:
           description: "The internal property name, which must be used when referencing\
@@ -1152,6 +1279,7 @@ components:
           - date
           - datetime
           - enumeration
+          - bool
           type: string
         fieldType:
           description: Controls how the property appears in HubSpot.
@@ -1165,6 +1293,7 @@ components:
           - radio
           - checkbox
           - booleancheckbox
+          - calculation_equation
           type: string
         groupName:
           description: The name of the property group the property belongs to.
@@ -1196,6 +1325,19 @@ components:
         formField:
           description: Whether or not the property can be used in a HubSpot form.
           type: boolean
+        externalOptions:
+          description: Applicable only for 'enumeration' type properties.  Should
+            be set to true in conjunction with a 'referencedObjectType' of 'OWNER'.  Otherwise
+            false.
+          type: boolean
+        referencedObjectType:
+          description: "Should be set to 'OWNER' when 'externalOptions' is true, which\
+            \ causes the property to dynamically pull option values from the current\
+            \ HubSpot users."
+          type: string
+        calculationFormula:
+          description: Represents a formula that is used to compute a calculated property.
+          type: string
       required:
       - fieldType
       - groupName
@@ -1205,11 +1347,11 @@ components:
       type: object
     OptionInput:
       example:
-        hidden: false
-        displayOrder: 1
-        description: Choice number one
         label: Option A
+        description: Choice number one
         value: A
+        displayOrder: 1
+        hidden: false
       properties:
         label:
           description: A human-readable option label that will be shown in HubSpot.
@@ -1234,15 +1376,6 @@ components:
       - hidden
       - label
       - value
-      type: object
-    Paging:
-      example:
-        next:
-          link: link
-          after: after
-      properties:
-        next:
-          $ref: '#/components/schemas/NextPage'
       type: object
     Error:
       example:
@@ -1299,65 +1432,7 @@ components:
       - correlationId
       - message
       type: object
-    BatchInputPropertyCreate:
-      example:
-        inputs:
-        - groupName: contactinformation
-          hidden: false
-          displayOrder: 2
-          options:
-          - label: Option A
-            description: Choice number one
-            value: A
-            displayOrder: 1
-            hidden: false
-          - label: Option B
-            description: Choice number two
-            value: B
-            displayOrder: 2
-            hidden: false
-          label: My Contact Property
-          hasUniqueValue: false
-          type: enumeration
-          fieldType: select
-          formField: true
-        - groupName: contactinformation
-          hidden: false
-          displayOrder: 2
-          options:
-          - label: Option A
-            description: Choice number one
-            value: A
-            displayOrder: 1
-            hidden: false
-          - label: Option B
-            description: Choice number two
-            value: B
-            displayOrder: 2
-            hidden: false
-          label: My Contact Property
-          hasUniqueValue: false
-          type: enumeration
-          fieldType: select
-          formField: true
-      properties:
-        inputs:
-          items:
-            $ref: '#/components/schemas/PropertyCreate'
-          type: array
-      required:
-      - inputs
-      type: object
     ErrorDetail:
-      example:
-        subCategory: subCategory
-        code: code
-        in: in
-        context:
-          missingScopes:
-          - scope1
-          - scope2
-        message: message
       properties:
         message:
           description: A human readable message describing the error along with remediation
@@ -1387,11 +1462,125 @@ components:
       required:
       - message
       type: object
+    CollectionResponsePropertyNoPaging:
+      example:
+        results:
+        - name: my_contact_property
+          label: My Contact Property
+          type: enumeration
+          fieldType: select
+          groupName: contactinformation
+          hidden: false
+          displayOrder: 2
+          hasUniqueValue: false
+          formField: true
+          modificationMetadata:
+            readOnlyOptions: false
+            readOnlyValue: false
+            readOnlyDefinition: false
+            archivable: true
+          options:
+          - label: Option A
+            description: Choice number one
+            value: A
+            displayOrder: 1
+            hidden: false
+          - label: Option B
+            description: Choice number two
+            value: B
+            displayOrder: 2
+            hidden: false
+        - name: my_contact_property
+          label: My Contact Property
+          type: enumeration
+          fieldType: select
+          groupName: contactinformation
+          hidden: false
+          displayOrder: 2
+          hasUniqueValue: false
+          formField: true
+          modificationMetadata:
+            readOnlyOptions: false
+            readOnlyValue: false
+            readOnlyDefinition: false
+            archivable: true
+          options:
+          - label: Option A
+            description: Choice number one
+            value: A
+            displayOrder: 1
+            hidden: false
+          - label: Option B
+            description: Choice number two
+            value: B
+            displayOrder: 2
+            hidden: false
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/Property'
+          type: array
+      required:
+      - results
+      type: object
+    BatchInputPropertyCreate:
+      example:
+        inputs:
+        - label: My Contact Property
+          type: enumeration
+          fieldType: select
+          groupName: contactinformation
+          hidden: false
+          displayOrder: 2
+          hasUniqueValue: false
+          formField: true
+          options:
+          - label: Option A
+            description: Choice number one
+            value: A
+            displayOrder: 1
+            hidden: false
+          - label: Option B
+            description: Choice number two
+            value: B
+            displayOrder: 2
+            hidden: false
+        - label: My Contact Property
+          type: enumeration
+          fieldType: select
+          groupName: contactinformation
+          hidden: false
+          displayOrder: 2
+          hasUniqueValue: false
+          formField: true
+          options:
+          - label: Option A
+            description: Choice number one
+            value: A
+            displayOrder: 1
+            hidden: false
+          - label: Option B
+            description: Choice number two
+            value: B
+            displayOrder: 2
+            hidden: false
+      properties:
+        inputs:
+          items:
+            $ref: '#/components/schemas/PropertyCreate'
+          type: array
+      required:
+      - inputs
+      type: object
     PropertyUpdate:
       example:
+        label: My Contact Property
+        type: enumeration
+        fieldType: select
         groupName: contactinformation
         hidden: false
         displayOrder: 2
+        formField: true
         options:
         - label: Option A
           description: Choice number one
@@ -1403,10 +1592,6 @@ components:
           value: B
           displayOrder: 2
           hidden: false
-        label: My Contact Property
-        type: enumeration
-        fieldType: select
-        formField: true
       properties:
         label:
           description: A human-readable property label that will be shown in HubSpot.
@@ -1419,6 +1604,7 @@ components:
           - date
           - datetime
           - enumeration
+          - bool
           type: string
         fieldType:
           description: Controls how the property appears in HubSpot.
@@ -1432,6 +1618,7 @@ components:
           - radio
           - checkbox
           - booleancheckbox
+          - calculation_equation
           type: string
         groupName:
           description: The name of the property group the property belongs to.
@@ -1458,29 +1645,30 @@ components:
         formField:
           description: Whether or not the property can be used in a HubSpot form.
           type: boolean
+        calculationFormula:
+          description: Represents a formula that is used to compute a calculated property.
+          type: string
       type: object
-    BatchReadInputPropertyName:
-      example:
-        archived: true
-        inputs:
-        - name: my_custom_property
-        - name: my_custom_property
+    PropertyModificationMetadata:
       properties:
-        inputs:
-          items:
-            $ref: '#/components/schemas/PropertyName'
-          type: array
-        archived:
+        archivable:
+          type: boolean
+        readOnlyDefinition:
+          type: boolean
+        readOnlyOptions:
+          type: boolean
+        readOnlyValue:
           type: boolean
       required:
-      - archived
-      - inputs
+      - archivable
+      - readOnlyDefinition
+      - readOnlyValue
       type: object
     PropertyGroupCreate:
       example:
         name: mypropertygroup
-        displayOrder: -1
         label: My Property Group
+        displayOrder: -1
       properties:
         name:
           description: "The internal property group name, which must be used when\
@@ -1499,95 +1687,22 @@ components:
       - label
       - name
       type: object
-    PropertyModificationMetadata:
-      properties:
-        archivable:
-          type: boolean
-        readOnlyDefinition:
-          type: boolean
-        readOnlyOptions:
-          type: boolean
-        readOnlyValue:
-          type: boolean
-      required:
-      - archivable
-      - readOnlyDefinition
-      - readOnlyValue
-      type: object
-    ErrorCategory:
+    BatchReadInputPropertyName:
       example:
-        httpStatus: CONTINUE
-        name: name
+        archived: true
+        inputs:
+        - name: my_custom_property
+        - name: my_custom_property
       properties:
-        httpStatus:
-          enum:
-          - CONTINUE
-          - SWITCHING_PROTOCOLS
-          - PROCESSING
-          - OK
-          - CREATED
-          - ACCEPTED
-          - NON_AUTHORITATIVE_INFORMATION
-          - NO_CONTENT
-          - RESET_CONTENT
-          - PARTIAL_CONTENT
-          - MULTI_STATUS
-          - ALREADY_REPORTED
-          - IM_USED
-          - MULTIPLE_CHOICES
-          - MOVED_PERMANENTLY
-          - FOUND
-          - SEE_OTHER
-          - NOT_MODIFIED
-          - USE_PROXY
-          - TEMPORARY_REDIRECT
-          - PERMANENT_REDIRECT
-          - BAD_REQUEST
-          - UNAUTHORIZED
-          - PAYMENT_REQUIRED
-          - FORBIDDEN
-          - NOT_FOUND
-          - METHOD_NOT_ALLOWED
-          - NOT_ACCEPTABLE
-          - PROXY_AUTHENTICATION_REQUIRED
-          - REQUEST_TIMEOUT
-          - CONFLICT
-          - GONE
-          - LENGTH_REQUIRED
-          - PRECONDITION_FAILED
-          - REQUEST_ENTITY_TOO_LARGE
-          - REQUEST_URI_TOO_LONG
-          - UNSUPPORTED_MEDIA_TYPE
-          - REQUESTED_RANGE_NOT_SATISFIABLE
-          - EXPECTATION_FAILED
-          - IM_A_TEAPOT
-          - MISDIRECTED_REQUEST
-          - UNPROCESSABLE_ENTITY
-          - LOCKED
-          - FAILED_DEPENDENCY
-          - UPGRADE_REQUIRED
-          - PRECONDITION_REQUIRED
-          - TOO_MANY_REQUESTS
-          - REQUEST_HEADERS_FIELDS_TOO_LARGE
-          - INTERNAL_STALE_SERVICE_DISCOVERY
-          - UNAVAILABLE_FOR_LEGAL_REASONS
-          - INTERNAL_SERVER_ERROR
-          - NOT_IMPLEMENTED
-          - BAD_GATEWAY
-          - SERVICE_UNAVAILABLE
-          - GATEWAY_TIMEOUT
-          - HTTP_VERSION_NOT_SUPPORTED
-          - VARIANT_ALSO_NEGOTIATES
-          - INSUFFICIENT_STORAGE
-          - LOOP_DETECTED
-          - NOT_EXTENDED
-          - NETWORK_AUTHENTICATION_REQUIRED
-          type: string
-        name:
-          type: string
+        archived:
+          type: boolean
+        inputs:
+          items:
+            $ref: '#/components/schemas/PropertyName'
+          type: array
       required:
-      - httpStatus
-      - name
+      - archived
+      - inputs
       type: object
     BatchInputPropertyName:
       example:
@@ -1602,13 +1717,52 @@ components:
       required:
       - inputs
       type: object
+    BatchResponsePropertyWithErrors:
+      properties:
+        status:
+          enum:
+          - PENDING
+          - PROCESSING
+          - CANCELED
+          - COMPLETE
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/Property'
+          type: array
+        numErrors:
+          format: int32
+          type: integer
+        errors:
+          items:
+            $ref: '#/components/schemas/StandardError'
+          type: array
+        requestedAt:
+          format: date-time
+          type: string
+        startedAt:
+          format: date-time
+          type: string
+        completedAt:
+          format: date-time
+          type: string
+        links:
+          additionalProperties:
+            type: string
+          type: object
+      required:
+      - completedAt
+      - results
+      - startedAt
+      - status
+      type: object
     Option:
       example:
-        hidden: false
-        displayOrder: 1
-        description: Choice number one
         label: Option A
+        description: Choice number one
         value: A
+        displayOrder: 1
+        hidden: false
       properties:
         label:
           description: A human-readable option label that will be shown in HubSpot.
@@ -1634,33 +1788,10 @@ components:
       - label
       - value
       type: object
-    CollectionResponsePropertyGroup:
-      example:
-        paging:
-          next:
-            link: link
-            after: after
-        results:
-        - name: mypropertygroup
-          displayOrder: -1
-          label: My Property Group
-        - name: mypropertygroup
-          displayOrder: -1
-          label: My Property Group
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/PropertyGroup'
-          type: array
-        paging:
-          $ref: '#/components/schemas/Paging'
-      required:
-      - results
-      type: object
     PropertyGroupUpdate:
       example:
-        displayOrder: -1
         label: My Property Group
+        displayOrder: -1
       properties:
         label:
           description: A human-readable label that will be shown in HubSpot.
@@ -1672,29 +1803,22 @@ components:
           format: int32
           type: integer
       type: object
-    NextPage:
-      example:
-        link: link
-        after: after
-      properties:
-        after:
-          type: string
-        link:
-          type: string
-      required:
-      - after
-      type: object
     Property:
       example:
+        name: my_contact_property
+        label: My Contact Property
+        type: enumeration
+        fieldType: select
         groupName: contactinformation
         hidden: false
+        displayOrder: 2
+        hasUniqueValue: false
+        formField: true
         modificationMetadata:
           readOnlyOptions: false
           readOnlyValue: false
           readOnlyDefinition: false
           archivable: true
-        name: my_contact_property
-        displayOrder: 2
         options:
         - label: Option A
           description: Choice number one
@@ -1706,11 +1830,6 @@ components:
           value: B
           displayOrder: 2
           hidden: false
-        label: My Contact Property
-        hasUniqueValue: false
-        type: enumeration
-        fieldType: select
-        formField: true
       properties:
         updatedAt:
           format: date-time
@@ -1799,6 +1918,9 @@ components:
         formField:
           description: Whether or not the property can be used in a HubSpot form.
           type: boolean
+        calculationFormula:
+          description: Represents a formula that is used to compute a calculated property.
+          type: string
       required:
       - description
       - fieldType
@@ -1814,23 +1936,20 @@ components:
         authorizationCode:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
-            media_bridge.read: Read media and media events
-            contacts: Read from and write to my Contacts
-            e-commerce: e-commerce
-            timeline: Create timeline events
             crm.schemas.custom.read: View custom object definitions
             tickets: Read and write tickets
+            crm.objects.goals.read: Read goals
+            media_bridge.read: Read media and media events
+            e-commerce: e-commerce
+            timeline: Create timeline events
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
-    hapikey:
-      in: query
-      name: hapikey
-      type: apiKey
     oauth2:
       flows:
         authorizationCode:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
+            crm.objects.companies.read: ' '
             crm.schemas.companies.read: ' '
             crm.objects.deals.read: ' '
             crm.schemas.line_items.read: Line Items schemas
@@ -1841,14 +1960,27 @@ components:
             crm.objects.contacts.write: ' '
             crm.schemas.contacts.read: ' '
             crm.objects.companies.write: ' '
-            crm.objects.companies.read: ' '
+            crm.schemas.companies.write: ' '
             crm.schemas.deals.write: ' '
             crm.schemas.contacts.write: ' '
-            crm.schemas.companies.write: ' '
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
+    private_apps_legacy:
+      in: header
+      name: private-app-legacy
+      type: apiKey
+    private_apps:
+      in: header
+      name: private-app
+      type: apiKey
 x-hubspot-available-client-libraries:
 - PHP
 - Node
-- Python
 - Ruby
+- Python
+x-hubspot-product-tier-requirements:
+  marketing: FREE
+  sales: FREE
+  service: FREE
+  cms: FREE
+x-hubspot-documentation-banner: NONE

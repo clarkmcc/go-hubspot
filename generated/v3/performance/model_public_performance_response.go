@@ -16,11 +16,11 @@ import (
 
 // PublicPerformanceResponse struct for PublicPerformanceResponse
 type PublicPerformanceResponse struct {
-	Data          []PerformanceView `json:"data"`
 	Domain        *string           `json:"domain,omitempty"`
 	Path          *string           `json:"path,omitempty"`
 	StartInterval int64             `json:"startInterval"`
 	EndInterval   int64             `json:"endInterval"`
+	Data          []PerformanceView `json:"data"`
 	Interval      string            `json:"interval"`
 	Period        *string           `json:"period,omitempty"`
 }
@@ -29,11 +29,11 @@ type PublicPerformanceResponse struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPublicPerformanceResponse(data []PerformanceView, startInterval int64, endInterval int64, interval string) *PublicPerformanceResponse {
+func NewPublicPerformanceResponse(startInterval int64, endInterval int64, data []PerformanceView, interval string) *PublicPerformanceResponse {
 	this := PublicPerformanceResponse{}
-	this.Data = data
 	this.StartInterval = startInterval
 	this.EndInterval = endInterval
+	this.Data = data
 	this.Interval = interval
 	return &this
 }
@@ -44,30 +44,6 @@ func NewPublicPerformanceResponse(data []PerformanceView, startInterval int64, e
 func NewPublicPerformanceResponseWithDefaults() *PublicPerformanceResponse {
 	this := PublicPerformanceResponse{}
 	return &this
-}
-
-// GetData returns the Data field value
-func (o *PublicPerformanceResponse) GetData() []PerformanceView {
-	if o == nil {
-		var ret []PerformanceView
-		return ret
-	}
-
-	return o.Data
-}
-
-// GetDataOk returns a tuple with the Data field value
-// and a boolean to check if the value has been set.
-func (o *PublicPerformanceResponse) GetDataOk() ([]PerformanceView, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Data, true
-}
-
-// SetData sets field value
-func (o *PublicPerformanceResponse) SetData(v []PerformanceView) {
-	o.Data = v
 }
 
 // GetDomain returns the Domain field value if set, zero value otherwise.
@@ -182,6 +158,30 @@ func (o *PublicPerformanceResponse) SetEndInterval(v int64) {
 	o.EndInterval = v
 }
 
+// GetData returns the Data field value
+func (o *PublicPerformanceResponse) GetData() []PerformanceView {
+	if o == nil {
+		var ret []PerformanceView
+		return ret
+	}
+
+	return o.Data
+}
+
+// GetDataOk returns a tuple with the Data field value
+// and a boolean to check if the value has been set.
+func (o *PublicPerformanceResponse) GetDataOk() ([]PerformanceView, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Data, true
+}
+
+// SetData sets field value
+func (o *PublicPerformanceResponse) SetData(v []PerformanceView) {
+	o.Data = v
+}
+
 // GetInterval returns the Interval field value
 func (o *PublicPerformanceResponse) GetInterval() string {
 	if o == nil {
@@ -240,9 +240,6 @@ func (o *PublicPerformanceResponse) SetPeriod(v string) {
 
 func (o PublicPerformanceResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["data"] = o.Data
-	}
 	if o.Domain != nil {
 		toSerialize["domain"] = o.Domain
 	}
@@ -254,6 +251,9 @@ func (o PublicPerformanceResponse) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["endInterval"] = o.EndInterval
+	}
+	if true {
+		toSerialize["data"] = o.Data
 	}
 	if true {
 		toSerialize["interval"] = o.Interval

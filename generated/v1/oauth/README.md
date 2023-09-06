@@ -61,7 +61,7 @@ Each operation can use different server URL defined using `OperationServers` map
 An operation is uniquely identified by `"{classname}Service.{nickname}"` string.
 Similar rules for overriding default operation server index and variables applies by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
 
-```golang
+```
 ctx := context.WithValue(context.Background(), oauth.ContextOperationServerIndices, map[string]int{
 	"{classname}Service.{nickname}": 2,
 })
@@ -78,10 +78,10 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*AccessTokensApi* | [**GetAccessToken**](docs/AccessTokensApi.md#getaccesstoken) | **Get** /oauth/v1/access-tokens/{token} | 
-*RefreshTokensApi* | [**ArchiveRefreshToken**](docs/RefreshTokensApi.md#archiverefreshtoken) | **Delete** /oauth/v1/refresh-tokens/{token} | 
-*RefreshTokensApi* | [**GetRefreshToken**](docs/RefreshTokensApi.md#getrefreshtoken) | **Get** /oauth/v1/refresh-tokens/{token} | 
-*TokensApi* | [**CreateToken**](docs/TokensApi.md#createtoken) | **Post** /oauth/v1/token | 
+*AccessTokensApi* | [**GetOauthV1AccessTokensTokenGet**](docs/AccessTokensApi.md#getoauthv1accesstokenstokenget) | **Get** /oauth/v1/access-tokens/{token} | 
+*RefreshTokensApi* | [**DeleteOauthV1RefreshTokensTokenArchive**](docs/RefreshTokensApi.md#deleteoauthv1refreshtokenstokenarchive) | **Delete** /oauth/v1/refresh-tokens/{token} | 
+*RefreshTokensApi* | [**GetOauthV1RefreshTokensTokenGet**](docs/RefreshTokensApi.md#getoauthv1refreshtokenstokenget) | **Get** /oauth/v1/refresh-tokens/{token} | 
+*TokensApi* | [**PostOauthV1TokenCreate**](docs/TokensApi.md#postoauthv1tokencreate) | **Post** /oauth/v1/token | 
 
 
 ## Documentation For Models

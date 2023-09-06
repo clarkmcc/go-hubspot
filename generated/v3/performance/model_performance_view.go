@@ -19,16 +19,16 @@ type PerformanceView struct {
 	// The timestamp in milliseconds of the start of this interval.
 	StartTimestamp int64 `json:"startTimestamp"`
 	// The timestamp in milliseconds of the end of this interval.
-	EndTimestamp  int64  `json:"endTimestamp"`
-	StartDatetime string `json:"startDatetime"`
-	EndDatetime   string `json:"endDatetime"`
+	EndTimestamp  int64   `json:"endTimestamp"`
+	StartDatetime *string `json:"startDatetime,omitempty"`
+	EndDatetime   *string `json:"endDatetime,omitempty"`
 	// The total number of requests received in this period.
 	TotalRequests int32 `json:"totalRequests"`
 	// The total number of requests that were served cached responses.
 	CacheHits int32 `json:"cacheHits"`
 	// The percentage of requests that were served cached responses.
 	CacheHitRate     float32 `json:"cacheHitRate"`
-	TotalRequestTime int32   `json:"totalRequestTime"`
+	TotalRequestTime *int32  `json:"totalRequestTime,omitempty"`
 	// The average response time in milliseconds from the origin to the edge.
 	AvgOriginResponseTime int32 `json:"avgOriginResponseTime"`
 	// The average response time in milliseconds.
@@ -63,16 +63,13 @@ type PerformanceView struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPerformanceView(startTimestamp int64, endTimestamp int64, startDatetime string, endDatetime string, totalRequests int32, cacheHits int32, cacheHitRate float32, totalRequestTime int32, avgOriginResponseTime int32, responseTimeMs int32, var100X int32, var20X int32, var30X int32, var40X int32, var50X int32, var403 int32, var404 int32, var500 int32, var504 int32, var50th int32, var95th int32, var99th int32) *PerformanceView {
+func NewPerformanceView(startTimestamp int64, endTimestamp int64, totalRequests int32, cacheHits int32, cacheHitRate float32, avgOriginResponseTime int32, responseTimeMs int32, var100X int32, var20X int32, var30X int32, var40X int32, var50X int32, var403 int32, var404 int32, var500 int32, var504 int32, var50th int32, var95th int32, var99th int32) *PerformanceView {
 	this := PerformanceView{}
 	this.StartTimestamp = startTimestamp
 	this.EndTimestamp = endTimestamp
-	this.StartDatetime = startDatetime
-	this.EndDatetime = endDatetime
 	this.TotalRequests = totalRequests
 	this.CacheHits = cacheHits
 	this.CacheHitRate = cacheHitRate
-	this.TotalRequestTime = totalRequestTime
 	this.AvgOriginResponseTime = avgOriginResponseTime
 	this.ResponseTimeMs = responseTimeMs
 	this.Var100X = var100X
@@ -146,52 +143,68 @@ func (o *PerformanceView) SetEndTimestamp(v int64) {
 	o.EndTimestamp = v
 }
 
-// GetStartDatetime returns the StartDatetime field value
+// GetStartDatetime returns the StartDatetime field value if set, zero value otherwise.
 func (o *PerformanceView) GetStartDatetime() string {
-	if o == nil {
+	if o == nil || o.StartDatetime == nil {
 		var ret string
 		return ret
 	}
-
-	return o.StartDatetime
+	return *o.StartDatetime
 }
 
-// GetStartDatetimeOk returns a tuple with the StartDatetime field value
+// GetStartDatetimeOk returns a tuple with the StartDatetime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PerformanceView) GetStartDatetimeOk() (*string, bool) {
-	if o == nil {
+	if o == nil || o.StartDatetime == nil {
 		return nil, false
 	}
-	return &o.StartDatetime, true
+	return o.StartDatetime, true
 }
 
-// SetStartDatetime sets field value
+// HasStartDatetime returns a boolean if a field has been set.
+func (o *PerformanceView) HasStartDatetime() bool {
+	if o != nil && o.StartDatetime != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetStartDatetime gets a reference to the given string and assigns it to the StartDatetime field.
 func (o *PerformanceView) SetStartDatetime(v string) {
-	o.StartDatetime = v
+	o.StartDatetime = &v
 }
 
-// GetEndDatetime returns the EndDatetime field value
+// GetEndDatetime returns the EndDatetime field value if set, zero value otherwise.
 func (o *PerformanceView) GetEndDatetime() string {
-	if o == nil {
+	if o == nil || o.EndDatetime == nil {
 		var ret string
 		return ret
 	}
-
-	return o.EndDatetime
+	return *o.EndDatetime
 }
 
-// GetEndDatetimeOk returns a tuple with the EndDatetime field value
+// GetEndDatetimeOk returns a tuple with the EndDatetime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PerformanceView) GetEndDatetimeOk() (*string, bool) {
-	if o == nil {
+	if o == nil || o.EndDatetime == nil {
 		return nil, false
 	}
-	return &o.EndDatetime, true
+	return o.EndDatetime, true
 }
 
-// SetEndDatetime sets field value
+// HasEndDatetime returns a boolean if a field has been set.
+func (o *PerformanceView) HasEndDatetime() bool {
+	if o != nil && o.EndDatetime != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetEndDatetime gets a reference to the given string and assigns it to the EndDatetime field.
 func (o *PerformanceView) SetEndDatetime(v string) {
-	o.EndDatetime = v
+	o.EndDatetime = &v
 }
 
 // GetTotalRequests returns the TotalRequests field value
@@ -266,28 +279,36 @@ func (o *PerformanceView) SetCacheHitRate(v float32) {
 	o.CacheHitRate = v
 }
 
-// GetTotalRequestTime returns the TotalRequestTime field value
+// GetTotalRequestTime returns the TotalRequestTime field value if set, zero value otherwise.
 func (o *PerformanceView) GetTotalRequestTime() int32 {
-	if o == nil {
+	if o == nil || o.TotalRequestTime == nil {
 		var ret int32
 		return ret
 	}
-
-	return o.TotalRequestTime
+	return *o.TotalRequestTime
 }
 
-// GetTotalRequestTimeOk returns a tuple with the TotalRequestTime field value
+// GetTotalRequestTimeOk returns a tuple with the TotalRequestTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PerformanceView) GetTotalRequestTimeOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || o.TotalRequestTime == nil {
 		return nil, false
 	}
-	return &o.TotalRequestTime, true
+	return o.TotalRequestTime, true
 }
 
-// SetTotalRequestTime sets field value
+// HasTotalRequestTime returns a boolean if a field has been set.
+func (o *PerformanceView) HasTotalRequestTime() bool {
+	if o != nil && o.TotalRequestTime != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTotalRequestTime gets a reference to the given int32 and assigns it to the TotalRequestTime field.
 func (o *PerformanceView) SetTotalRequestTime(v int32) {
-	o.TotalRequestTime = v
+	o.TotalRequestTime = &v
 }
 
 // GetAvgOriginResponseTime returns the AvgOriginResponseTime field value
@@ -634,10 +655,10 @@ func (o PerformanceView) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["endTimestamp"] = o.EndTimestamp
 	}
-	if true {
+	if o.StartDatetime != nil {
 		toSerialize["startDatetime"] = o.StartDatetime
 	}
-	if true {
+	if o.EndDatetime != nil {
 		toSerialize["endDatetime"] = o.EndDatetime
 	}
 	if true {
@@ -649,7 +670,7 @@ func (o PerformanceView) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["cacheHitRate"] = o.CacheHitRate
 	}
-	if true {
+	if o.TotalRequestTime != nil {
 		toSerialize["totalRequestTime"] = o.TotalRequestTime
 	}
 	if true {

@@ -51,7 +51,7 @@
         "security" : [ {
           "oauth2_legacy" : [ "automation" ]
         }, {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "automation" ]
         } ]
       }
     },
@@ -95,7 +95,7 @@
         "security" : [ {
           "oauth2_legacy" : [ "automation" ]
         }, {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "automation" ]
         } ]
       }
     },
@@ -1564,21 +1564,6 @@
           }
         }
       },
-      "CollectionResponseActionRevisionForwardPaging" : {
-        "required" : [ "results" ],
-        "type" : "object",
-        "properties" : {
-          "results" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/ActionRevision"
-            }
-          },
-          "paging" : {
-            "$ref" : "#/components/schemas/ForwardPaging"
-          }
-        }
-      },
       "ExtensionActionDefinitionInput" : {
         "required" : [ "actionUrl", "functions", "inputFields", "labels", "objectTypes", "published" ],
         "type" : "object",
@@ -1641,6 +1626,21 @@
         },
         "description" : "State of custom workflow action to be created."
       },
+      "CollectionResponseActionRevisionForwardPaging" : {
+        "required" : [ "results" ],
+        "type" : "object",
+        "properties" : {
+          "results" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ActionRevision"
+            }
+          },
+          "paging" : {
+            "$ref" : "#/components/schemas/ForwardPaging"
+          }
+        }
+      },
       "ActionFunctionIdentifier" : {
         "required" : [ "functionType" ],
         "type" : "object",
@@ -1692,6 +1692,14 @@
           }
         }
       },
+      "ForwardPaging" : {
+        "type" : "object",
+        "properties" : {
+          "next" : {
+            "$ref" : "#/components/schemas/NextPage"
+          }
+        }
+      },
       "CallbackCompletionBatchRequest" : {
         "required" : [ "callbackId", "outputFields" ],
         "type" : "object",
@@ -1714,14 +1722,6 @@
             "hs_execution_state" : "SUCCESS"
           },
           "callbackId" : "ap-123-123-123-0"
-        }
-      },
-      "ForwardPaging" : {
-        "type" : "object",
-        "properties" : {
-          "next" : {
-            "$ref" : "#/components/schemas/NextPage"
-          }
         }
       },
       "FieldTypeDefinition" : {
@@ -1761,21 +1761,6 @@
         },
         "description" : "The data type expected by an input field."
       },
-      "CollectionResponseExtensionActionDefinitionForwardPaging" : {
-        "required" : [ "results" ],
-        "type" : "object",
-        "properties" : {
-          "results" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/ExtensionActionDefinition"
-            }
-          },
-          "paging" : {
-            "$ref" : "#/components/schemas/ForwardPaging"
-          }
-        }
-      },
       "InputFieldDefinition" : {
         "required" : [ "isRequired", "typeDefinition" ],
         "type" : "object",
@@ -1798,17 +1783,34 @@
         },
         "description" : "Configuration for an input field on the custom action"
       },
-      "BatchInputCallbackCompletionBatchRequest" : {
-        "required" : [ "inputs" ],
+      "CollectionResponseExtensionActionDefinitionForwardPaging" : {
+        "required" : [ "results" ],
         "type" : "object",
         "properties" : {
-          "inputs" : {
+          "results" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/components/schemas/CallbackCompletionBatchRequest"
+              "$ref" : "#/components/schemas/ExtensionActionDefinition"
             }
+          },
+          "paging" : {
+            "$ref" : "#/components/schemas/ForwardPaging"
           }
         }
+      },
+      "ObjectRequestOptions" : {
+        "required" : [ "properties" ],
+        "type" : "object",
+        "properties" : {
+          "properties" : {
+            "type" : "array",
+            "description" : "A list of properties of the CRM object to include with the request to the `actionUrl`.",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        },
+        "description" : "Configures what properties of the enrolled CRM object are included in the action execution request"
       },
       "ExtensionActionDefinition" : {
         "required" : [ "actionUrl", "functions", "id", "inputFields", "labels", "objectTypes", "published", "revisionId" ],
@@ -1879,19 +1881,38 @@
         },
         "description" : "Configuration for custom workflow action."
       },
-      "ObjectRequestOptions" : {
-        "required" : [ "properties" ],
+      "BatchInputCallbackCompletionBatchRequest" : {
+        "required" : [ "inputs" ],
         "type" : "object",
         "properties" : {
-          "properties" : {
+          "inputs" : {
             "type" : "array",
-            "description" : "A list of properties of the CRM object to include with the request to the `actionUrl`.",
+            "items" : {
+              "$ref" : "#/components/schemas/CallbackCompletionBatchRequest"
+            }
+          }
+        }
+      },
+      "SingleFieldDependency" : {
+        "title" : "SINGLE_FIELD",
+        "required" : [ "controllingFieldName", "dependencyType", "dependentFieldNames" ],
+        "type" : "object",
+        "properties" : {
+          "dependencyType" : {
+            "type" : "string",
+            "default" : "SINGLE_FIELD",
+            "enum" : [ "SINGLE_FIELD" ]
+          },
+          "dependentFieldNames" : {
+            "type" : "array",
             "items" : {
               "type" : "string"
             }
+          },
+          "controllingFieldName" : {
+            "type" : "string"
           }
-        },
-        "description" : "Configures what properties of the enrolled CRM object are included in the action execution request"
+        }
       },
       "Option" : {
         "required" : [ "description", "displayOrder", "doubleData", "hidden", "label", "readOnly", "value" ],
@@ -1924,27 +1945,6 @@
         },
         "description" : "An option for a field value."
       },
-      "SingleFieldDependency" : {
-        "title" : "SINGLE_FIELD",
-        "required" : [ "controllingFieldName", "dependencyType", "dependentFieldNames" ],
-        "type" : "object",
-        "properties" : {
-          "dependencyType" : {
-            "type" : "string",
-            "enum" : [ "SINGLE_FIELD" ],
-            "default" : "SINGLE_FIELD"
-          },
-          "dependentFieldNames" : {
-            "type" : "array",
-            "items" : {
-              "type" : "string"
-            }
-          },
-          "controllingFieldName" : {
-            "type" : "string"
-          }
-        }
-      },
       "ConditionalSingleFieldDependency" : {
         "title" : "CONDITIONAL_SINGLE_FIELD",
         "required" : [ "controllingFieldName", "controllingFieldValue", "dependencyType", "dependentFieldNames" ],
@@ -1952,8 +1952,8 @@
         "properties" : {
           "dependencyType" : {
             "type" : "string",
-            "enum" : [ "CONDITIONAL_SINGLE_FIELD" ],
-            "default" : "CONDITIONAL_SINGLE_FIELD"
+            "default" : "CONDITIONAL_SINGLE_FIELD",
+            "enum" : [ "CONDITIONAL_SINGLE_FIELD" ]
           },
           "dependentFieldNames" : {
             "type" : "array",
@@ -1993,26 +1993,6 @@
           }
         }
       },
-      "ActionFunction" : {
-        "required" : [ "functionSource", "functionType" ],
-        "type" : "object",
-        "properties" : {
-          "functionSource" : {
-            "type" : "string",
-            "description" : "The function source code."
-          },
-          "functionType" : {
-            "type" : "string",
-            "description" : "The type of function. This determines when the function will be called.",
-            "enum" : [ "PRE_ACTION_EXECUTION", "PRE_FETCH_OPTIONS", "POST_FETCH_OPTIONS" ]
-          },
-          "id" : {
-            "type" : "string",
-            "description" : "The ID qualifier for the function. This is used to specify which input field a function is associated with for `PRE_FETCH_OPTIONS` and `POST_FETCH_OPTIONS` function types."
-          }
-        },
-        "description" : "A serverless function associated with this custom workflow action."
-      },
       "ActionLabels" : {
         "required" : [ "actionName" ],
         "type" : "object",
@@ -2049,6 +2029,26 @@
           }
         },
         "description" : "User-facing labels for this custom workflow action."
+      },
+      "ActionFunction" : {
+        "required" : [ "functionSource", "functionType" ],
+        "type" : "object",
+        "properties" : {
+          "functionSource" : {
+            "type" : "string",
+            "description" : "The function source code."
+          },
+          "functionType" : {
+            "type" : "string",
+            "description" : "The type of function. This determines when the function will be called.",
+            "enum" : [ "PRE_ACTION_EXECUTION", "PRE_FETCH_OPTIONS", "POST_FETCH_OPTIONS" ]
+          },
+          "id" : {
+            "type" : "string",
+            "description" : "The ID qualifier for the function. This is used to specify which input field a function is associated with for `PRE_FETCH_OPTIONS` and `POST_FETCH_OPTIONS` function types."
+          }
+        },
+        "description" : "A serverless function associated with this custom workflow action."
       }
     },
     "responses" : {
@@ -2076,15 +2076,15 @@
           }
         }
       },
-      "hapikey" : {
-        "type" : "apiKey",
-        "name" : "hapikey",
-        "in" : "query"
-      },
       "developer_hapikey" : {
         "type" : "apiKey",
         "name" : "hapikey",
         "in" : "query"
+      },
+      "private_apps_legacy" : {
+        "type" : "apiKey",
+        "name" : "private-app-legacy",
+        "in" : "header"
       }
     }
   },

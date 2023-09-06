@@ -4,10 +4,109 @@ info:
   title: CMS Performance API
   version: v3
 servers:
-- url: https://api.hubapi.com/
+- url: https://api.hubapi.com
 tags:
 - name: Public_Performance
 paths:
+  /cms/v3/performance/uptime:
+    get:
+      description: Returns uptime time series website performance data for the given
+        domain.
+      operationId: GetUptime
+      parameters:
+      - description: The domain to search return data for.
+        explode: true
+        in: query
+        name: domain
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: path
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Specifies whether the time series data should have empty intervals
+          if performance data is not present to create a continuous set.
+        explode: true
+        in: query
+        name: pad
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: Specifies whether the time series data should be summated for
+          the given period. Defaults to false.
+        explode: true
+        in: query
+        name: sum
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: "A relative period to return time series data for. This value\
+          \ is ignored if start and/or end are provided. Valid periods: [15m, 30m,\
+          \ 1h, 4h, 12h, 1d, 1w]"
+        explode: true
+        in: query
+        name: period
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "The time series interval to group data by. Valid intervals:\
+          \ [1m, 5m, 15m, 30m, 1h, 4h, 12h, 1d, 1w]"
+        explode: true
+        in: query
+        name: interval
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: A timestamp in milliseconds that indicates the start of the time
+          period.
+        explode: true
+        in: query
+        name: start
+        required: false
+        schema:
+          format: int64
+          type: integer
+        style: form
+      - description: A timestamp in milliseconds that indicates the end of the time
+          period.
+        explode: true
+        in: query
+        name: end
+        required: false
+        schema:
+          format: int64
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicPerformanceResponse'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - oauth2_legacy:
+        - cms.performance.read
+      - private_apps_legacy:
+        - cms.performance.read
+      summary: View your website's uptime.
+      tags:
+      - Public_Performance
   /cms/v3/performance/:
     get:
       description: Returns time series data website performance data for the given
@@ -101,104 +200,11 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
+      - oauth2_legacy:
+        - cms.performance.read
+      - private_apps_legacy:
+        - cms.performance.read
       summary: View your website's performance.
-      tags:
-      - Public_Performance
-  /cms/v3/performance/uptime:
-    get:
-      description: Returns uptime time series website performance data for the given
-        domain.
-      operationId: GetUptime
-      parameters:
-      - description: The domain to search return data for.
-        explode: true
-        in: query
-        name: domain
-        required: false
-        schema:
-          type: string
-        style: form
-      - explode: true
-        in: query
-        name: path
-        required: false
-        schema:
-          type: string
-        style: form
-      - description: Specifies whether the time series data should have empty intervals
-          if performance data is not present to create a continuous set.
-        explode: true
-        in: query
-        name: pad
-        required: false
-        schema:
-          type: boolean
-        style: form
-      - description: Specifies whether the time series data should be summated for
-          the given period. Defaults to false.
-        explode: true
-        in: query
-        name: sum
-        required: false
-        schema:
-          type: boolean
-        style: form
-      - description: "A relative period to return time series data for. This value\
-          \ is ignored if start and/or end are provided. Valid periods: [15m, 30m,\
-          \ 1h, 4h, 12h, 1d, 1w]"
-        explode: true
-        in: query
-        name: period
-        required: false
-        schema:
-          type: string
-        style: form
-      - description: "The time series interval to group data by. Valid intervals:\
-          \ [1m, 5m, 15m, 30m, 1h, 4h, 12h, 1d, 1w]"
-        explode: true
-        in: query
-        name: interval
-        required: false
-        schema:
-          type: string
-        style: form
-      - description: A timestamp in milliseconds that indicates the start of the time
-          period.
-        explode: true
-        in: query
-        name: start
-        required: false
-        schema:
-          format: int64
-          type: integer
-        style: form
-      - description: A timestamp in milliseconds that indicates the end of the time
-          period.
-        explode: true
-        in: query
-        name: end
-        required: false
-        schema:
-          format: int64
-          type: integer
-        style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PublicPerformanceResponse'
-          description: successful operation
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - hapikey: []
-      summary: View your website's uptime.
       tags:
       - Public_Performance
 components:
@@ -299,60 +305,56 @@ components:
       example:
         path: path
         period: ONE_MINUTE
+        startInterval: 0
         data:
         - startDatetime: startDatetime
-          responseTimeMs: 9
-          "95th": 4
-          totalRequests: 1
-          cacheHitRate: 5.637376656633329
-          "99th": 5
-          totalRequestTime: 2
-          "100X": 3
-          "500": 6
-          "403": 1
-          "50th": 1
-          "404": 1
-          cacheHits: 5
-          "504": 7
-          "20X": 2
-          "30X": 4
-          "40X": 7
-          endTimestamp: 6
+          responseTimeMs: 2
+          "95th": 9
+          totalRequests: 5
+          cacheHitRate: 7.061401241503109
+          "99th": 9
+          totalRequestTime: 9
+          "100X": 4
+          "500": 1
+          "403": 6
+          "50th": 5
+          "404": 7
+          cacheHits: 2
+          "504": 4
+          "20X": 7
+          "30X": 1
+          "40X": 1
+          endTimestamp: 5
           "50X": 1
-          startTimestamp: 0
+          startTimestamp: 1
           endDatetime: endDatetime
-          avgOriginResponseTime: 7
+          avgOriginResponseTime: 3
         - startDatetime: startDatetime
-          responseTimeMs: 9
-          "95th": 4
-          totalRequests: 1
-          cacheHitRate: 5.637376656633329
-          "99th": 5
-          totalRequestTime: 2
-          "100X": 3
-          "500": 6
-          "403": 1
-          "50th": 1
-          "404": 1
-          cacheHits: 5
-          "504": 7
-          "20X": 2
-          "30X": 4
-          "40X": 7
-          endTimestamp: 6
+          responseTimeMs: 2
+          "95th": 9
+          totalRequests: 5
+          cacheHitRate: 7.061401241503109
+          "99th": 9
+          totalRequestTime: 9
+          "100X": 4
+          "500": 1
+          "403": 6
+          "50th": 5
+          "404": 7
+          cacheHits: 2
+          "504": 4
+          "20X": 7
+          "30X": 1
+          "40X": 1
+          endTimestamp: 5
           "50X": 1
-          startTimestamp: 0
+          startTimestamp: 1
           endDatetime: endDatetime
-          avgOriginResponseTime: 7
-        startInterval: 9
+          avgOriginResponseTime: 3
         domain: domain
         interval: ONE_MINUTE
-        endInterval: 9
+        endInterval: 6
       properties:
-        data:
-          items:
-            $ref: '#/components/schemas/PerformanceView'
-          type: array
         domain:
           type: string
         path:
@@ -363,6 +365,10 @@ components:
         endInterval:
           format: int64
           type: integer
+        data:
+          items:
+            $ref: '#/components/schemas/PerformanceView'
+          type: array
         interval:
           enum:
           - ONE_MINUTE
@@ -399,27 +405,27 @@ components:
       description: An individual time series performance data point.
       example:
         startDatetime: startDatetime
-        responseTimeMs: 9
-        "95th": 4
-        totalRequests: 1
-        cacheHitRate: 5.637376656633329
-        "99th": 5
-        totalRequestTime: 2
-        "100X": 3
-        "500": 6
-        "403": 1
-        "50th": 1
-        "404": 1
-        cacheHits: 5
-        "504": 7
-        "20X": 2
-        "30X": 4
-        "40X": 7
-        endTimestamp: 6
+        responseTimeMs: 2
+        "95th": 9
+        totalRequests: 5
+        cacheHitRate: 7.061401241503109
+        "99th": 9
+        totalRequestTime: 9
+        "100X": 4
+        "500": 1
+        "403": 6
+        "50th": 5
+        "404": 7
+        cacheHits: 2
+        "504": 4
+        "20X": 7
+        "30X": 1
+        "40X": 1
+        endTimestamp: 5
         "50X": 1
-        startTimestamp: 0
+        startTimestamp: 1
         endDatetime: endDatetime
-        avgOriginResponseTime: 7
+        avgOriginResponseTime: 3
       properties:
         startTimestamp:
           description: The timestamp in milliseconds of the start of this interval.
@@ -525,16 +531,32 @@ components:
       - avgOriginResponseTime
       - cacheHitRate
       - cacheHits
-      - endDatetime
       - endTimestamp
       - responseTimeMs
-      - startDatetime
       - startTimestamp
-      - totalRequestTime
       - totalRequests
       type: object
   securitySchemes:
-    hapikey:
-      in: query
-      name: hapikey
+    oauth2_legacy:
+      flows:
+        authorizationCode:
+          authorizationUrl: https://app.hubspot.com/oauth/authorize
+          scopes:
+            cms.performance.read: Access the CMS Performance API
+          tokenUrl: https://api.hubapi.com/oauth/v1/token
+      type: oauth2
+    private_apps_legacy:
+      in: header
+      name: private-app-legacy
       type: apiKey
+x-hubspot-available-client-libraries:
+- PHP
+- Node
+- Ruby
+- Python
+x-hubspot-product-tier-requirements:
+  marketing: FREE
+  sales: FREE
+  service: FREE
+  cms: FREE
+x-hubspot-documentation-banner: NONE

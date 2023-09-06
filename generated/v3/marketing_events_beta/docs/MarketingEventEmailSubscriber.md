@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**InteractionDateTime** | **int64** | The date and time at which the contact subscribed to the event. | 
-**Properties** | Pointer to **map[string]string** |  | [optional] 
-**Email** | **string** | The email address of the contact in HubSpot to associate with the event. Note that the contact must already exist in HubSpot; a contact will not be created. | 
 **ContactProperties** | Pointer to **map[string]string** |  | [optional] 
+**Properties** | Pointer to **map[string]string** |  | [optional] 
+**Email** | **string** | The email address of the contact in HubSpot to associate with the event. | 
+**InteractionDateTime** | **int64** | The date and time at which the contact subscribed to the event. | 
 
 ## Methods
 
 ### NewMarketingEventEmailSubscriber
 
-`func NewMarketingEventEmailSubscriber(interactionDateTime int64, email string, ) *MarketingEventEmailSubscriber`
+`func NewMarketingEventEmailSubscriber(email string, interactionDateTime int64, ) *MarketingEventEmailSubscriber`
 
 NewMarketingEventEmailSubscriber instantiates a new MarketingEventEmailSubscriber object
 This constructor will assign default values to properties that have it defined,
@@ -28,25 +28,30 @@ NewMarketingEventEmailSubscriberWithDefaults instantiates a new MarketingEventEm
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetInteractionDateTime
+### GetContactProperties
 
-`func (o *MarketingEventEmailSubscriber) GetInteractionDateTime() int64`
+`func (o *MarketingEventEmailSubscriber) GetContactProperties() map[string]string`
 
-GetInteractionDateTime returns the InteractionDateTime field if non-nil, zero value otherwise.
+GetContactProperties returns the ContactProperties field if non-nil, zero value otherwise.
 
-### GetInteractionDateTimeOk
+### GetContactPropertiesOk
 
-`func (o *MarketingEventEmailSubscriber) GetInteractionDateTimeOk() (*int64, bool)`
+`func (o *MarketingEventEmailSubscriber) GetContactPropertiesOk() (*map[string]string, bool)`
 
-GetInteractionDateTimeOk returns a tuple with the InteractionDateTime field if it's non-nil, zero value otherwise
+GetContactPropertiesOk returns a tuple with the ContactProperties field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetInteractionDateTime
+### SetContactProperties
 
-`func (o *MarketingEventEmailSubscriber) SetInteractionDateTime(v int64)`
+`func (o *MarketingEventEmailSubscriber) SetContactProperties(v map[string]string)`
 
-SetInteractionDateTime sets InteractionDateTime field to given value.
+SetContactProperties sets ContactProperties field to given value.
 
+### HasContactProperties
+
+`func (o *MarketingEventEmailSubscriber) HasContactProperties() bool`
+
+HasContactProperties returns a boolean if a field has been set.
 
 ### GetProperties
 
@@ -93,30 +98,25 @@ and a boolean to check if the value has been set.
 SetEmail sets Email field to given value.
 
 
-### GetContactProperties
+### GetInteractionDateTime
 
-`func (o *MarketingEventEmailSubscriber) GetContactProperties() map[string]string`
+`func (o *MarketingEventEmailSubscriber) GetInteractionDateTime() int64`
 
-GetContactProperties returns the ContactProperties field if non-nil, zero value otherwise.
+GetInteractionDateTime returns the InteractionDateTime field if non-nil, zero value otherwise.
 
-### GetContactPropertiesOk
+### GetInteractionDateTimeOk
 
-`func (o *MarketingEventEmailSubscriber) GetContactPropertiesOk() (*map[string]string, bool)`
+`func (o *MarketingEventEmailSubscriber) GetInteractionDateTimeOk() (*int64, bool)`
 
-GetContactPropertiesOk returns a tuple with the ContactProperties field if it's non-nil, zero value otherwise
+GetInteractionDateTimeOk returns a tuple with the InteractionDateTime field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetContactProperties
+### SetInteractionDateTime
 
-`func (o *MarketingEventEmailSubscriber) SetContactProperties(v map[string]string)`
+`func (o *MarketingEventEmailSubscriber) SetInteractionDateTime(v int64)`
 
-SetContactProperties sets ContactProperties field to given value.
+SetInteractionDateTime sets InteractionDateTime field to given value.
 
-### HasContactProperties
-
-`func (o *MarketingEventEmailSubscriber) HasContactProperties() bool`
-
-HasContactProperties returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

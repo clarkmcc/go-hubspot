@@ -38,7 +38,7 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "analytics.behavioral_events.send" ]
         }, {
           "oauth2_legacy" : [ "analytics.behavioral_events.send" ]
         } ]
@@ -79,40 +79,6 @@
             "example" : {
               "missingScopes" : [ "scope1", "scope2" ]
             }
-          }
-        }
-      },
-      "BehavioralEventHttpCompletionRequest" : {
-        "required" : [ "eventName", "properties" ],
-        "type" : "object",
-        "properties" : {
-          "utk" : {
-            "type" : "string",
-            "description" : "User token"
-          },
-          "email" : {
-            "type" : "string",
-            "description" : "Email of visitor"
-          },
-          "eventName" : {
-            "type" : "string",
-            "description" : "Internal name of the event-type to trigger"
-          },
-          "properties" : {
-            "type" : "object",
-            "additionalProperties" : {
-              "type" : "string"
-            },
-            "description" : "Map of properties for the event in the format property internal name - property value"
-          },
-          "occurredAt" : {
-            "type" : "string",
-            "description" : "The time when this event occurred (if any). If this isn't set, the current time will be used",
-            "format" : "date-time"
-          },
-          "objectId" : {
-            "type" : "string",
-            "description" : "The object id that this event occurred on. Could be a contact id or a visitor id."
           }
         }
       },
@@ -176,6 +142,40 @@
             "knowledge-base" : "https://www.hubspot.com/products/service/knowledge-base"
           }
         }
+      },
+      "BehavioralEventHttpCompletionRequest" : {
+        "required" : [ "eventName", "properties" ],
+        "type" : "object",
+        "properties" : {
+          "utk" : {
+            "type" : "string",
+            "description" : "User token"
+          },
+          "email" : {
+            "type" : "string",
+            "description" : "Email of visitor"
+          },
+          "eventName" : {
+            "type" : "string",
+            "description" : "Internal name of the event-type to trigger"
+          },
+          "properties" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            },
+            "description" : "Map of properties for the event in the format property internal name - property value"
+          },
+          "occurredAt" : {
+            "type" : "string",
+            "description" : "The time when this event occurred (if any). If this isn't set, the current time will be used",
+            "format" : "date-time"
+          },
+          "objectId" : {
+            "type" : "string",
+            "description" : "The object id that this event occurred on. Could be a contact id or a visitor id."
+          }
+        }
       }
     },
     "responses" : {
@@ -203,10 +203,10 @@
           }
         }
       },
-      "hapikey" : {
+      "private_apps_legacy" : {
         "type" : "apiKey",
-        "name" : "hapikey",
-        "in" : "query"
+        "name" : "private-app-legacy",
+        "in" : "header"
       }
     }
   }

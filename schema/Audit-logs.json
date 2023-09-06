@@ -6,7 +6,7 @@
     "version" : "v3"
   },
   "servers" : [ {
-    "url" : "https://api.hubapi.com/"
+    "url" : "https://api.hubapi.com"
   } ],
   "tags" : [ {
     "name" : "Audit_Logs"
@@ -19,9 +19,9 @@
         "description" : "Returns audit logs based on filters.",
         "operationId" : "GetPage",
         "parameters" : [ {
-          "name" : "objectId",
+          "name" : "userId",
           "in" : "query",
-          "description" : "Comma separated list of object ids to filter by.",
+          "description" : "Comma separated list of user ids to filter by.",
           "required" : false,
           "style" : "form",
           "explode" : true,
@@ -32,9 +32,35 @@
             }
           }
         }, {
-          "name" : "userId",
+          "name" : "eventType",
           "in" : "query",
-          "description" : "Comma separated list of user ids to filter by.",
+          "description" : "Comma separated list of event types to filter by (CREATED, UPDATED, PUBLISHED, DELETED, UNPUBLISHED).",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }, {
+          "name" : "objectType",
+          "in" : "query",
+          "description" : "Comma separated list of object types to filter by (BLOG, LANDING_PAGE, DOMAIN, HUBDB_TABLE etc.)",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }, {
+          "name" : "objectId",
+          "in" : "query",
+          "description" : "Comma separated list of object ids to filter by.",
           "required" : false,
           "style" : "form",
           "explode" : true,
@@ -65,32 +91,6 @@
             "type" : "string"
           }
         }, {
-          "name" : "sort",
-          "in" : "query",
-          "description" : "The sort direction for the audit logs. (Can only sort by timestamp).",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "array",
-            "items" : {
-              "type" : "string"
-            }
-          }
-        }, {
-          "name" : "eventType",
-          "in" : "query",
-          "description" : "Comma separated list of event types to filter by (CREATED, UPDATED, PUBLISHED, DELETED, UNPUBLISHED).",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "array",
-            "items" : {
-              "type" : "string"
-            }
-          }
-        }, {
           "name" : "limit",
           "in" : "query",
           "description" : "The number of logs to return.",
@@ -102,9 +102,9 @@
             "format" : "int32"
           }
         }, {
-          "name" : "objectType",
+          "name" : "sort",
           "in" : "query",
-          "description" : "Comma separated list of object types to filter by (BLOG, LANDING_PAGE, DOMAIN, HUBDB_TABLE etc.)",
+          "description" : "The sort direction for the audit logs. (Can only sort by timestamp).",
           "required" : false,
           "style" : "form",
           "explode" : true,
@@ -131,7 +131,7 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "content" ]
         }, {
           "oauth2_legacy" : [ "content" ]
         } ]
@@ -191,12 +191,77 @@
         },
         "description" : "The collection of audit logs."
       },
+      "PreviousPage" : {
+        "required" : [ "before" ],
+        "type" : "object",
+        "properties" : {
+          "before" : {
+            "type" : "string"
+          },
+          "link" : {
+            "type" : "string"
+          }
+        }
+      },
       "Paging" : {
         "type" : "object",
         "properties" : {
           "next" : {
             "$ref" : "#/components/schemas/NextPage"
+          },
+          "prev" : {
+            "$ref" : "#/components/schemas/PreviousPage"
           }
+        }
+      },
+      "PublicAuditLog" : {
+        "required" : [ "event", "fullName", "objectId", "objectName", "objectType", "timestamp", "userId" ],
+        "type" : "object",
+        "properties" : {
+          "event" : {
+            "type" : "string",
+            "description" : "The type of event that took place (CREATED, UPDATED, PUBLISHED, DELETED, UNPUBLISHED).",
+            "enum" : [ "CREATED", "UPDATED", "PUBLISHED", "DELETED", "UNPUBLISHED", "RESTORE" ]
+          },
+          "objectType" : {
+            "type" : "string",
+            "description" : "The type of the object (BLOG, LANDING_PAGE, DOMAIN, HUBDB_TABLE etc.)",
+            "enum" : [ "BLOG", "BLOG_POST", "LANDING_PAGE", "WEBSITE_PAGE", "TEMPLATE", "MODULE", "GLOBAL_MODULE", "SERVERLESS_FUNCTION", "DOMAIN", "URL_MAPPING", "EMAIL", "CONTENT_SETTINGS", "HUBDB_TABLE", "KNOWLEDGE_BASE_ARTICLE", "KNOWLEDGE_BASE", "THEME", "CSS", "JS", "CTA", "FILE" ]
+          },
+          "objectId" : {
+            "type" : "string",
+            "description" : "The ID of the object."
+          },
+          "userId" : {
+            "type" : "string",
+            "description" : "The ID of the user who caused the event."
+          },
+          "timestamp" : {
+            "type" : "string",
+            "description" : "The timestamp at which the event occurred.",
+            "format" : "date-time"
+          },
+          "objectName" : {
+            "type" : "string",
+            "description" : "The internal name of the object in HubSpot."
+          },
+          "fullName" : {
+            "type" : "string",
+            "description" : "The name of the user who caused the event."
+          },
+          "meta" : {
+            "type" : "object",
+            "properties" : { }
+          }
+        },
+        "example" : {
+          "objectId" : "4065364319",
+          "objectName" : "My Landing Page",
+          "fullName" : "John Doe",
+          "event" : "UPDATED",
+          "userId" : "1011561",
+          "timestamp" : "1583792674672",
+          "objectType" : "LANDING_PAGE"
         }
       },
       "Error" : {
@@ -260,52 +325,6 @@
           }
         }
       },
-      "PublicAuditLog" : {
-        "required" : [ "event", "fullName", "objectId", "objectName", "objectType", "timestamp", "userId" ],
-        "type" : "object",
-        "properties" : {
-          "objectId" : {
-            "type" : "string",
-            "description" : "The ID of the object."
-          },
-          "userId" : {
-            "type" : "string",
-            "description" : "The ID of the user who caused the event."
-          },
-          "timestamp" : {
-            "type" : "string",
-            "description" : "The timestamp at which the event occurred.",
-            "format" : "date-time"
-          },
-          "objectName" : {
-            "type" : "string",
-            "description" : "The internal name of the object in HubSpot."
-          },
-          "fullName" : {
-            "type" : "string",
-            "description" : "The name of the user who caused the event."
-          },
-          "event" : {
-            "type" : "string",
-            "description" : "The type of event that took place (CREATED, UPDATED, PUBLISHED, DELETED, UNPUBLISHED).",
-            "enum" : [ "CREATED", "UPDATED", "PUBLISHED", "DELETED", "UNPUBLISHED" ]
-          },
-          "objectType" : {
-            "type" : "string",
-            "description" : "The type of the object (BLOG, LANDING_PAGE, DOMAIN, HUBDB_TABLE etc.)",
-            "enum" : [ "BLOG", "BLOG_POST", "LANDING_PAGE", "WEBSITE_PAGE", "TEMPLATE", "MODULE", "GLOBAL_MODULE", "SERVERLESS_FUNCTION", "DOMAIN", "URL_MAPPING", "EMAIL", "CONTENT_SETTINGS", "HUBDB_TABLE", "KNOWLEDGE_BASE_ARTICLE", "KNOWLEDGE_BASE", "THEME", "CSS", "JS" ]
-          }
-        },
-        "example" : {
-          "objectName" : "My Landing Page",
-          "fullName" : "John Doe",
-          "event" : "UPDATED",
-          "userId" : "1011561",
-          "objectId" : "4065364319",
-          "timestamp" : "1583792674672",
-          "objectType" : "LANDING_PAGE"
-        }
-      },
       "NextPage" : {
         "required" : [ "after" ],
         "type" : "object",
@@ -344,12 +363,19 @@
           }
         }
       },
-      "hapikey" : {
+      "private_apps_legacy" : {
         "type" : "apiKey",
-        "name" : "hapikey",
-        "in" : "query"
+        "name" : "private-app-legacy",
+        "in" : "header"
       }
     }
   },
-  "x-hubspot-available-client-libraries" : [ "PHP", "Node", "Python", "Ruby" ]
+  "x-hubspot-available-client-libraries" : [ "PHP", "Node", "Ruby", "Python" ],
+  "x-hubspot-product-tier-requirements" : {
+    "marketing" : "FREE",
+    "sales" : "FREE",
+    "service" : "FREE",
+    "cms" : "FREE"
+  },
+  "x-hubspot-documentation-banner" : "NONE"
 }

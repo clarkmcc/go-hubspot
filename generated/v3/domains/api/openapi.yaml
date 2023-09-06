@@ -20,8 +20,8 @@ paths:
         name: createdAt
         required: false
         schema:
-          format: int64
-          type: integer
+          format: date-time
+          type: string
         style: form
       - description: Only return domains created after this date.
         explode: true
@@ -29,8 +29,8 @@ paths:
         name: createdAfter
         required: false
         schema:
-          format: int64
-          type: integer
+          format: date-time
+          type: string
         style: form
       - description: Only return domains created before this date.
         explode: true
@@ -38,8 +38,8 @@ paths:
         name: createdBefore
         required: false
         schema:
-          format: int64
-          type: integer
+          format: date-time
+          type: string
         style: form
       - description: Only return domains updated at this date.
         explode: true
@@ -47,8 +47,8 @@ paths:
         name: updatedAt
         required: false
         schema:
-          format: int64
-          type: integer
+          format: date-time
+          type: string
         style: form
       - description: Only return domains updated after this date.
         explode: true
@@ -56,8 +56,8 @@ paths:
         name: updatedAfter
         required: false
         schema:
-          format: int64
-          type: integer
+          format: date-time
+          type: string
         style: form
       - description: Only return domains updated before this date.
         explode: true
@@ -65,21 +65,12 @@ paths:
         name: updatedBefore
         required: false
         schema:
-          format: int64
-          type: integer
+          format: date-time
+          type: string
         style: form
       - explode: true
         in: query
         name: sort
-        required: false
-        schema:
-          items:
-            type: string
-          type: array
-        style: form
-      - explode: true
-        in: query
-        name: properties
         required: false
         schema:
           items:
@@ -92,13 +83,6 @@ paths:
         explode: true
         in: query
         name: after
-        required: false
-        schema:
-          type: string
-        style: form
-      - explode: true
-        in: query
-        name: before
         required: false
         schema:
           type: string
@@ -168,7 +152,7 @@ paths:
                   expectedCname: 234.group34.sites.hubspot.net
                   redirectTo: ""
               schema:
-                $ref: '#/components/schemas/CollectionResponseWithTotalDomain'
+                $ref: '#/components/schemas/CollectionResponseWithTotalDomainForwardPaging'
           description: successful operation
         default:
           content:
@@ -177,7 +161,22 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
+      - private_apps_legacy:
+        - content
+      - oauth2:
+        - cms.domains.read
+      - private_apps:
+        - cms.domains.read
+      - private_apps:
+        - cms.domains.write
+      - oauth2:
+        - cms.domains.write
+      - private_apps_legacy:
+        - cms.knowledge_base.settings.write
+      - oauth2_legacy:
+        - cms.knowledge_base.settings.write
+      - oauth2_legacy:
+        - content
       summary: Get current domains
       tags:
       - Domains
@@ -194,14 +193,6 @@ paths:
         schema:
           type: string
         style: simple
-      - description: Whether to return only results that have been archived.
-        explode: true
-        in: query
-        name: archived
-        required: false
-        schema:
-          type: boolean
-        style: form
       responses:
         "200":
           content:
@@ -237,7 +228,22 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
+      - private_apps_legacy:
+        - content
+      - oauth2:
+        - cms.domains.read
+      - private_apps:
+        - cms.domains.read
+      - private_apps:
+        - cms.domains.write
+      - oauth2:
+        - cms.domains.write
+      - private_apps_legacy:
+        - cms.knowledge_base.settings.write
+      - oauth2_legacy:
+        - cms.knowledge_base.settings.write
+      - oauth2_legacy:
+        - content
       summary: Get a single domain
       tags:
       - Domains
@@ -280,128 +286,7 @@ components:
       required:
       - message
       type: object
-    DomainSetupInfo:
-      example:
-        supportsSslExternally: true
-        whoIsEmailAddresses:
-        - whoIsEmailAddresses
-        - whoIsEmailAddresses
-      properties:
-        supportsSslExternally:
-          type: boolean
-        whoIsEmailAddresses:
-          items:
-            type: string
-          type: array
-      required:
-      - supportsSslExternally
-      - whoIsEmailAddresses
-      type: object
-    DomainCdnConfig:
-      example:
-        httpBody: httpBody
-        minimumTlsVersion: "1.0"
-        created: 1
-        sslStatus: "0"
-        cname: cname
-        cdnId: cdnId
-        certId: 7
-        httpUrlPath: httpUrlPath
-        domainId: 6
-        alternateOriginHostname: alternateOriginHostname
-        cdnGroupId: cdnGroupId
-        validationMethod: "0"
-        portalId: 1
-        certExpirationDate: 1
-        cnameTarget: cnameTarget
-        id: 4
-        updated: 1
-      properties:
-        portalId:
-          format: int32
-          type: integer
-        created:
-          format: int64
-          type: integer
-        updated:
-          format: int64
-          type: integer
-        domainId:
-          format: int64
-          type: integer
-        certId:
-          format: int64
-          type: integer
-        certExpirationDate:
-          format: int64
-          type: integer
-        cdnId:
-          type: string
-        cdnGroupId:
-          type: string
-        sslStatus:
-          enum:
-          - "0"
-          - "1"
-          - "2"
-          - "3"
-          - "4"
-          - "5"
-          - "6"
-          - "7"
-          - "8"
-          - "9"
-          - "10"
-          - "11"
-          type: string
-        validationMethod:
-          enum:
-          - "0"
-          - "1"
-          - "2"
-          type: string
-        httpBody:
-          type: string
-        httpUrlPath:
-          type: string
-        cname:
-          type: string
-        cnameTarget:
-          type: string
-        minimumTlsVersion:
-          enum:
-          - "1.0"
-          - "1.1"
-          - "1.2"
-          - "1.3"
-          - none
-          - "null"
-          type: string
-        alternateOriginHostname:
-          type: string
-        id:
-          format: int64
-          type: integer
-      required:
-      - alternateOriginHostname
-      - cdnGroupId
-      - cdnId
-      - certExpirationDate
-      - certId
-      - cname
-      - cnameTarget
-      - created
-      - domainId
-      - httpBody
-      - httpUrlPath
-      - id
-      - minimumTlsVersion
-      - portalId
-      - sslStatus
-      - updated
-      - validationMethod
-      type: object
-    Paging:
+    ForwardPaging:
       example:
         next:
           link: link
@@ -467,111 +352,36 @@ components:
       type: object
     Domain:
       example:
-        sslCname: sslCname
-        primaryBlog: true
-        setUpLanguage: setUpLanguage
-        certificateId: 7
-        sslRequestId: 9
-        setupInfo:
-          supportsSslExternally: true
-          whoIsEmailAddresses:
-          - whoIsEmailAddresses
-          - whoIsEmailAddresses
-        isResolving: true
-        isDnsCorrect: true
-        id: 1
-        correctCname: correctCname
-        isResolvingIgnoringManuallyMarkedAsResolving: true
-        primaryEmail: true
-        createdById: 5
         isUsedForLandingPage: true
-        isLegacy: true
-        created: 5
-        updatedById: 9
-        teamIds:
-        - 2
-        - 2
-        domainCdnConfig:
-          httpBody: httpBody
-          minimumTlsVersion: "1.0"
-          created: 1
-          sslStatus: "0"
-          cname: cname
-          cdnId: cdnId
-          certId: 7
-          httpUrlPath: httpUrlPath
-          domainId: 6
-          alternateOriginHostname: alternateOriginHostname
-          cdnGroupId: cdnGroupId
-          validationMethod: "0"
-          portalId: 1
-          certExpirationDate: 1
-          cnameTarget: cnameTarget
-          id: 4
-          updated: 1
-        isSslEnabled: true
-        isLegacyDomain: true
-        apexIpAddresses:
-        - apexIpAddresses
-        - apexIpAddresses
-        domain: domain
-        brandId: 7
-        primaryClickTracking: true
-        isInternalDomain: true
-        updated: 5
-        consecutiveNonResolvingCount: 2
-        actualIp: actualIp
-        isSetupComplete: true
         primaryBlogPost: true
-        deletable: true
-        derivedBrandName: derivedBrandName
-        isAnyPrimary: true
-        isUsedForKnowledge: true
-        isUsedForBlogPost: true
-        isStagingDomain: true
-        isUsedForEmail: true
-        portalId: 6
-        cosObjectType: CONTENT
-        apexResolutionStatus: INELIGIBLE
-        apexDomain: apexDomain
-        isResolvingInternalProperty: true
-        setupTaskId: 3
         primaryKnowledge: true
-        actualCname: actualCname
-        cdnPurgeEmbargoTime: 6
-        fullCategoryKey: fullCategoryKey
-        isUsedForAnyContentType: true
+        created: 2000-01-23T04:56:07.000+00:00
         secondaryToDomain: secondaryToDomain
         manuallyMarkedAsResolving: true
-        label: label
+        isUsedForKnowledge: true
+        isUsedForBlogPost: true
         isUsedForSitePage: true
-        primaryLegacyPage: true
-        authorAt: 9
+        isResolving: true
+        isSslEnabled: true
+        isUsedForEmail: true
+        domain: domain
         primarySitePage: true
         primaryLandingPage: true
-        siteId: 4
-        publicSuffix: publicSuffix
+        id: id
+        correctCname: correctCname
         isSslOnly: true
+        updated: 2000-01-23T04:56:07.000+00:00
+        primaryEmail: true
       properties:
-        portalId:
-          format: int32
-          type: integer
         id:
-          format: int64
-          type: integer
-        created:
-          format: int64
-          type: integer
-        updated:
-          format: int64
-          type: integer
+          description: The unique ID of this domain.
+          type: string
         domain:
+          description: The actual domain or sub-domain. e.g. www.hubspot.com
           type: string
         primaryLandingPage:
           type: boolean
         primaryEmail:
-          type: boolean
-        primaryBlog:
           type: boolean
         primaryBlogPost:
           type: boolean
@@ -579,228 +389,50 @@ components:
           type: boolean
         primaryKnowledge:
           type: boolean
-        primaryLegacyPage:
-          type: boolean
-        primaryClickTracking:
-          type: boolean
-        fullCategoryKey:
-          type: string
         secondaryToDomain:
           type: string
         isResolving:
-          type: boolean
-        isDnsCorrect:
+          description: Whether the DNS for this domain is optimally configured for
+            use with HubSpot.
           type: boolean
         manuallyMarkedAsResolving:
           type: boolean
-        consecutiveNonResolvingCount:
-          format: int32
-          type: integer
-        sslCname:
-          type: string
         isSslEnabled:
           type: boolean
         isSslOnly:
           type: boolean
-        certificateId:
-          format: int64
-          type: integer
-        sslRequestId:
-          format: int64
-          type: integer
         isUsedForBlogPost:
+          description: Whether the domain is used for CMS blog posts.
           type: boolean
         isUsedForSitePage:
+          description: Whether the domain is used for CMS site pages.
           type: boolean
         isUsedForLandingPage:
+          description: Whether the domain is used for CMS landing pages.
           type: boolean
         isUsedForEmail:
+          description: Whether the domain is used for CMS email web pages.
           type: boolean
         isUsedForKnowledge:
+          description: Whether the domain is used for CMS knowledge pages.
           type: boolean
-        setupTaskId:
-          format: int64
-          type: integer
-        isSetupComplete:
-          type: boolean
-        setUpLanguage:
-          type: string
-        teamIds:
-          items:
-            format: int64
-            type: integer
-          type: array
-        actualCname:
-          type: string
         correctCname:
           type: string
-        actualIp:
+        created:
+          format: date-time
           type: string
-        apexResolutionStatus:
-          enum:
-          - INELIGIBLE
-          - SUGGEST_RESOLVING
-          - ALREADY_RESOLVING
-          - ERROR
+        updated:
+          format: date-time
           type: string
-        apexDomain:
-          type: string
-        publicSuffix:
-          type: string
-        apexIpAddresses:
-          items:
-            type: string
-          type: array
-        siteId:
-          format: int64
-          type: integer
-        brandId:
-          format: int64
-          type: integer
-        deletable:
-          type: boolean
-        domainCdnConfig:
-          $ref: '#/components/schemas/DomainCdnConfig'
-        setupInfo:
-          $ref: '#/components/schemas/DomainSetupInfo'
-        derivedBrandName:
-          type: string
-        createdById:
-          format: int32
-          type: integer
-        updatedById:
-          format: int32
-          type: integer
-        label:
-          type: string
-        isAnyPrimary:
-          type: boolean
-        isLegacyDomain:
-          type: boolean
-        isInternalDomain:
-          type: boolean
-        isResolvingInternalProperty:
-          type: boolean
-        isResolvingIgnoringManuallyMarkedAsResolving:
-          type: boolean
-        isUsedForAnyContentType:
-          type: boolean
-        isLegacy:
-          type: boolean
-        authorAt:
-          format: int64
-          type: integer
-        cosObjectType:
-          enum:
-          - CONTENT
-          - EXTENSION_RESOURCE
-          - LAYOUT
-          - CUSTOM_WIDGET
-          - WIDGET
-          - FORM
-          - PLACEMENT
-          - IMAGE
-          - DOMAIN_SETTINGS
-          - SITE_SETTINGS
-          - EMAIL_ADDRESS
-          - WORKFLOW
-          - HUBDB_TABLE
-          - REDIRECT_URL
-          - DESIGN_FOLDER
-          - SITE_MAP
-          - DOMAIN
-          - BLOG
-          - FILE
-          - FOLDER
-          - SITE_MENU
-          - THEME
-          - CONTENT_GROUP
-          - FOLLOW_ME
-          - KNOWLEDGE_BASE
-          - LIST_MEMBERSHIP
-          - CONTACT_MEMBERSHIP
-          - PASSWORD_PROTECTED
-          - UNRESTRICTED_ACCESS
-          - MARKETPLACE_LISTING
-          - LAYOUT_SECTION
-          - THEME_SETTINGS
-          - VIDEO_PLAYER
-          - URL_MAPPING
-          - KNOWLEDGE_CATEGORY
-          - KNOWLEDGE_HOMEPAGE_CATEGORY
-          - RAW_ASSET
-          - GLOBAL_CONTENT
-          - HUBDB_TABLE_ROW
-          - BLOG_AUTHOR
-          - SERVERLESS_FUNCTION
-          - KNOWLEDGE_CATEGORY_TRANSLATION
-          type: string
-        cdnPurgeEmbargoTime:
-          format: int64
-          type: integer
-        isStagingDomain:
-          type: boolean
       required:
-      - actualCname
-      - actualIp
-      - apexDomain
-      - apexIpAddresses
-      - apexResolutionStatus
-      - authorAt
-      - brandId
-      - cdnPurgeEmbargoTime
-      - certificateId
-      - consecutiveNonResolvingCount
-      - correctCname
-      - cosObjectType
-      - created
-      - createdById
-      - deletable
-      - derivedBrandName
       - domain
-      - domainCdnConfig
-      - fullCategoryKey
       - id
-      - isAnyPrimary
-      - isDnsCorrect
-      - isInternalDomain
-      - isLegacy
-      - isLegacyDomain
       - isResolving
-      - isResolvingIgnoringManuallyMarkedAsResolving
-      - isResolvingInternalProperty
-      - isSetupComplete
-      - isSslEnabled
-      - isSslOnly
-      - isStagingDomain
-      - isUsedForAnyContentType
       - isUsedForBlogPost
       - isUsedForEmail
       - isUsedForKnowledge
       - isUsedForLandingPage
       - isUsedForSitePage
-      - label
-      - manuallyMarkedAsResolving
-      - portalId
-      - primaryBlog
-      - primaryBlogPost
-      - primaryClickTracking
-      - primaryEmail
-      - primaryKnowledge
-      - primaryLandingPage
-      - primaryLegacyPage
-      - primarySitePage
-      - publicSuffix
-      - secondaryToDomain
-      - setUpLanguage
-      - setupInfo
-      - setupTaskId
-      - siteId
-      - sslCname
-      - sslRequestId
-      - teamIds
-      - updated
-      - updatedById
       type: object
     NextPage:
       example:
@@ -814,7 +446,7 @@ components:
       required:
       - after
       type: object
-    CollectionResponseWithTotalDomain:
+    CollectionResponseWithTotalDomainForwardPaging:
       example:
         total: 0
         paging:
@@ -822,176 +454,46 @@ components:
             link: link
             after: after
         results:
-        - sslCname: sslCname
-          primaryBlog: true
-          setUpLanguage: setUpLanguage
-          certificateId: 7
-          sslRequestId: 9
-          setupInfo:
-            supportsSslExternally: true
-            whoIsEmailAddresses:
-            - whoIsEmailAddresses
-            - whoIsEmailAddresses
-          isResolving: true
-          isDnsCorrect: true
-          id: 1
-          correctCname: correctCname
-          isResolvingIgnoringManuallyMarkedAsResolving: true
-          primaryEmail: true
-          createdById: 5
-          isUsedForLandingPage: true
-          isLegacy: true
-          created: 5
-          updatedById: 9
-          teamIds:
-          - 2
-          - 2
-          domainCdnConfig:
-            httpBody: httpBody
-            minimumTlsVersion: "1.0"
-            created: 1
-            sslStatus: "0"
-            cname: cname
-            cdnId: cdnId
-            certId: 7
-            httpUrlPath: httpUrlPath
-            domainId: 6
-            alternateOriginHostname: alternateOriginHostname
-            cdnGroupId: cdnGroupId
-            validationMethod: "0"
-            portalId: 1
-            certExpirationDate: 1
-            cnameTarget: cnameTarget
-            id: 4
-            updated: 1
-          isSslEnabled: true
-          isLegacyDomain: true
-          apexIpAddresses:
-          - apexIpAddresses
-          - apexIpAddresses
-          domain: domain
-          brandId: 7
-          primaryClickTracking: true
-          isInternalDomain: true
-          updated: 5
-          consecutiveNonResolvingCount: 2
-          actualIp: actualIp
-          isSetupComplete: true
+        - isUsedForLandingPage: true
           primaryBlogPost: true
-          deletable: true
-          derivedBrandName: derivedBrandName
-          isAnyPrimary: true
-          isUsedForKnowledge: true
-          isUsedForBlogPost: true
-          isStagingDomain: true
-          isUsedForEmail: true
-          portalId: 6
-          cosObjectType: CONTENT
-          apexResolutionStatus: INELIGIBLE
-          apexDomain: apexDomain
-          isResolvingInternalProperty: true
-          setupTaskId: 3
           primaryKnowledge: true
-          actualCname: actualCname
-          cdnPurgeEmbargoTime: 6
-          fullCategoryKey: fullCategoryKey
-          isUsedForAnyContentType: true
+          created: 2000-01-23T04:56:07.000+00:00
           secondaryToDomain: secondaryToDomain
           manuallyMarkedAsResolving: true
-          label: label
-          isUsedForSitePage: true
-          primaryLegacyPage: true
-          authorAt: 9
-          primarySitePage: true
-          primaryLandingPage: true
-          siteId: 4
-          publicSuffix: publicSuffix
-          isSslOnly: true
-        - sslCname: sslCname
-          primaryBlog: true
-          setUpLanguage: setUpLanguage
-          certificateId: 7
-          sslRequestId: 9
-          setupInfo:
-            supportsSslExternally: true
-            whoIsEmailAddresses:
-            - whoIsEmailAddresses
-            - whoIsEmailAddresses
-          isResolving: true
-          isDnsCorrect: true
-          id: 1
-          correctCname: correctCname
-          isResolvingIgnoringManuallyMarkedAsResolving: true
-          primaryEmail: true
-          createdById: 5
-          isUsedForLandingPage: true
-          isLegacy: true
-          created: 5
-          updatedById: 9
-          teamIds:
-          - 2
-          - 2
-          domainCdnConfig:
-            httpBody: httpBody
-            minimumTlsVersion: "1.0"
-            created: 1
-            sslStatus: "0"
-            cname: cname
-            cdnId: cdnId
-            certId: 7
-            httpUrlPath: httpUrlPath
-            domainId: 6
-            alternateOriginHostname: alternateOriginHostname
-            cdnGroupId: cdnGroupId
-            validationMethod: "0"
-            portalId: 1
-            certExpirationDate: 1
-            cnameTarget: cnameTarget
-            id: 4
-            updated: 1
-          isSslEnabled: true
-          isLegacyDomain: true
-          apexIpAddresses:
-          - apexIpAddresses
-          - apexIpAddresses
-          domain: domain
-          brandId: 7
-          primaryClickTracking: true
-          isInternalDomain: true
-          updated: 5
-          consecutiveNonResolvingCount: 2
-          actualIp: actualIp
-          isSetupComplete: true
-          primaryBlogPost: true
-          deletable: true
-          derivedBrandName: derivedBrandName
-          isAnyPrimary: true
           isUsedForKnowledge: true
           isUsedForBlogPost: true
-          isStagingDomain: true
-          isUsedForEmail: true
-          portalId: 6
-          cosObjectType: CONTENT
-          apexResolutionStatus: INELIGIBLE
-          apexDomain: apexDomain
-          isResolvingInternalProperty: true
-          setupTaskId: 3
-          primaryKnowledge: true
-          actualCname: actualCname
-          cdnPurgeEmbargoTime: 6
-          fullCategoryKey: fullCategoryKey
-          isUsedForAnyContentType: true
-          secondaryToDomain: secondaryToDomain
-          manuallyMarkedAsResolving: true
-          label: label
           isUsedForSitePage: true
-          primaryLegacyPage: true
-          authorAt: 9
+          isResolving: true
+          isSslEnabled: true
+          isUsedForEmail: true
+          domain: domain
           primarySitePage: true
           primaryLandingPage: true
-          siteId: 4
-          publicSuffix: publicSuffix
+          id: id
+          correctCname: correctCname
           isSslOnly: true
+          updated: 2000-01-23T04:56:07.000+00:00
+          primaryEmail: true
+        - isUsedForLandingPage: true
+          primaryBlogPost: true
+          primaryKnowledge: true
+          created: 2000-01-23T04:56:07.000+00:00
+          secondaryToDomain: secondaryToDomain
+          manuallyMarkedAsResolving: true
+          isUsedForKnowledge: true
+          isUsedForBlogPost: true
+          isUsedForSitePage: true
+          isResolving: true
+          isSslEnabled: true
+          isUsedForEmail: true
+          domain: domain
+          primarySitePage: true
+          primaryLandingPage: true
+          id: id
+          correctCname: correctCname
+          isSslOnly: true
+          updated: 2000-01-23T04:56:07.000+00:00
+          primaryEmail: true
       properties:
         total:
           format: int32
@@ -1001,15 +503,37 @@ components:
             $ref: '#/components/schemas/Domain'
           type: array
         paging:
-          $ref: '#/components/schemas/Paging'
+          $ref: '#/components/schemas/ForwardPaging'
       required:
       - results
       - total
       type: object
   securitySchemes:
-    hapikey:
-      in: query
-      name: hapikey
+    oauth2_legacy:
+      flows:
+        authorizationCode:
+          authorizationUrl: https://app.hubspot.com/oauth/authorize
+          scopes:
+            cms.knowledge_base.settings.write: Update knowledge base settings
+            content: Read from and write to my Content
+          tokenUrl: https://api.hubapi.com/oauth/v1/token
+      type: oauth2
+    oauth2:
+      flows:
+        authorizationCode:
+          authorizationUrl: https://app.hubspot.com/oauth/authorize
+          scopes:
+            cms.domains.write: Create or update domains.
+            cms.domains.read: Read domains.
+          tokenUrl: https://api.hubapi.com/oauth/v1/token
+      type: oauth2
+    private_apps_legacy:
+      in: header
+      name: private-app-legacy
+      type: apiKey
+    private_apps:
+      in: header
+      name: private-app
       type: apiKey
 x-hubspot-available-client-libraries:
 - PHP

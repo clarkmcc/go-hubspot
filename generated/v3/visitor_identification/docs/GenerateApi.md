@@ -4,7 +4,7 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GenerateToken**](GenerateApi.md#GenerateToken) | **Post** /conversations/v3/visitor-identification/tokens/create | Generate a token
+[**GenerateToken**](GenerateApi.md#GenerateToken) | **Post** /visitor-identification/v3/tokens/create | Generate a token
 
 
 
@@ -62,7 +62,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 

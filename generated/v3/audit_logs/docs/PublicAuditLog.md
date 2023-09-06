@@ -4,19 +4,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Event** | **string** | The type of event that took place (CREATED, UPDATED, PUBLISHED, DELETED, UNPUBLISHED). | 
+**ObjectType** | **string** | The type of the object (BLOG, LANDING_PAGE, DOMAIN, HUBDB_TABLE etc.) | 
 **ObjectId** | **string** | The ID of the object. | 
 **UserId** | **string** | The ID of the user who caused the event. | 
 **Timestamp** | **time.Time** | The timestamp at which the event occurred. | 
 **ObjectName** | **string** | The internal name of the object in HubSpot. | 
 **FullName** | **string** | The name of the user who caused the event. | 
-**Event** | **string** | The type of event that took place (CREATED, UPDATED, PUBLISHED, DELETED, UNPUBLISHED). | 
-**ObjectType** | **string** | The type of the object (BLOG, LANDING_PAGE, DOMAIN, HUBDB_TABLE etc.) | 
+**Meta** | Pointer to **map[string]interface{}** |  | [optional] 
 
 ## Methods
 
 ### NewPublicAuditLog
 
-`func NewPublicAuditLog(objectId string, userId string, timestamp time.Time, objectName string, fullName string, event string, objectType string, ) *PublicAuditLog`
+`func NewPublicAuditLog(event string, objectType string, objectId string, userId string, timestamp time.Time, objectName string, fullName string, ) *PublicAuditLog`
 
 NewPublicAuditLog instantiates a new PublicAuditLog object
 This constructor will assign default values to properties that have it defined,
@@ -30,6 +31,46 @@ will change when the set of required properties is changed
 NewPublicAuditLogWithDefaults instantiates a new PublicAuditLog object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetEvent
+
+`func (o *PublicAuditLog) GetEvent() string`
+
+GetEvent returns the Event field if non-nil, zero value otherwise.
+
+### GetEventOk
+
+`func (o *PublicAuditLog) GetEventOk() (*string, bool)`
+
+GetEventOk returns a tuple with the Event field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEvent
+
+`func (o *PublicAuditLog) SetEvent(v string)`
+
+SetEvent sets Event field to given value.
+
+
+### GetObjectType
+
+`func (o *PublicAuditLog) GetObjectType() string`
+
+GetObjectType returns the ObjectType field if non-nil, zero value otherwise.
+
+### GetObjectTypeOk
+
+`func (o *PublicAuditLog) GetObjectTypeOk() (*string, bool)`
+
+GetObjectTypeOk returns a tuple with the ObjectType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetObjectType
+
+`func (o *PublicAuditLog) SetObjectType(v string)`
+
+SetObjectType sets ObjectType field to given value.
+
 
 ### GetObjectId
 
@@ -131,45 +172,30 @@ and a boolean to check if the value has been set.
 SetFullName sets FullName field to given value.
 
 
-### GetEvent
+### GetMeta
 
-`func (o *PublicAuditLog) GetEvent() string`
+`func (o *PublicAuditLog) GetMeta() map[string]interface{}`
 
-GetEvent returns the Event field if non-nil, zero value otherwise.
+GetMeta returns the Meta field if non-nil, zero value otherwise.
 
-### GetEventOk
+### GetMetaOk
 
-`func (o *PublicAuditLog) GetEventOk() (*string, bool)`
+`func (o *PublicAuditLog) GetMetaOk() (*map[string]interface{}, bool)`
 
-GetEventOk returns a tuple with the Event field if it's non-nil, zero value otherwise
+GetMetaOk returns a tuple with the Meta field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetEvent
+### SetMeta
 
-`func (o *PublicAuditLog) SetEvent(v string)`
+`func (o *PublicAuditLog) SetMeta(v map[string]interface{})`
 
-SetEvent sets Event field to given value.
+SetMeta sets Meta field to given value.
 
+### HasMeta
 
-### GetObjectType
+`func (o *PublicAuditLog) HasMeta() bool`
 
-`func (o *PublicAuditLog) GetObjectType() string`
-
-GetObjectType returns the ObjectType field if non-nil, zero value otherwise.
-
-### GetObjectTypeOk
-
-`func (o *PublicAuditLog) GetObjectTypeOk() (*string, bool)`
-
-GetObjectTypeOk returns a tuple with the ObjectType field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetObjectType
-
-`func (o *PublicAuditLog) SetObjectType(v string)`
-
-SetObjectType sets ObjectType field to given value.
-
+HasMeta returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

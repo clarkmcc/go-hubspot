@@ -5,7 +5,7 @@ info:
   title: CMS Audit Logs
   version: v3
 servers:
-- url: https://api.hubapi.com/
+- url: https://api.hubapi.com
 tags:
 - name: Audit_Logs
 paths:
@@ -14,20 +14,42 @@ paths:
       description: Returns audit logs based on filters.
       operationId: GetPage
       parameters:
-      - description: Comma separated list of object ids to filter by.
+      - description: Comma separated list of user ids to filter by.
         explode: true
         in: query
-        name: objectId
+        name: userId
         required: false
         schema:
           items:
             type: string
           type: array
         style: form
-      - description: Comma separated list of user ids to filter by.
+      - description: "Comma separated list of event types to filter by (CREATED, UPDATED,\
+          \ PUBLISHED, DELETED, UNPUBLISHED)."
         explode: true
         in: query
-        name: userId
+        name: eventType
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: "Comma separated list of object types to filter by (BLOG, LANDING_PAGE,\
+          \ DOMAIN, HUBDB_TABLE etc.)"
+        explode: true
+        in: query
+        name: objectType
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: Comma separated list of object ids to filter by.
+        explode: true
+        in: query
+        name: objectId
         required: false
         schema:
           items:
@@ -50,27 +72,6 @@ paths:
         schema:
           type: string
         style: form
-      - description: The sort direction for the audit logs. (Can only sort by timestamp).
-        explode: true
-        in: query
-        name: sort
-        required: false
-        schema:
-          items:
-            type: string
-          type: array
-        style: form
-      - description: "Comma separated list of event types to filter by (CREATED, UPDATED,\
-          \ PUBLISHED, DELETED, UNPUBLISHED)."
-        explode: true
-        in: query
-        name: eventType
-        required: false
-        schema:
-          items:
-            type: string
-          type: array
-        style: form
       - description: The number of logs to return.
         explode: true
         in: query
@@ -80,11 +81,10 @@ paths:
           format: int32
           type: integer
         style: form
-      - description: "Comma separated list of object types to filter by (BLOG, LANDING_PAGE,\
-          \ DOMAIN, HUBDB_TABLE etc.)"
+      - description: The sort direction for the audit logs. (Can only sort by timestamp).
         explode: true
         in: query
-        name: objectType
+        name: sort
         required: false
         schema:
           items:
@@ -105,7 +105,8 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
+      - private_apps_legacy:
+        - content
       - oauth2_legacy:
         - content
       summary: Query audit logs
@@ -157,19 +158,22 @@ components:
           next:
             link: link
             after: after
+          prev:
+            before: before
+            link: link
         results:
-        - objectName: My Landing Page
+        - objectId: "4065364319"
+          objectName: My Landing Page
           fullName: John Doe
           event: UPDATED
           userId: "1011561"
-          objectId: "4065364319"
           timestamp: "1583792674672"
           objectType: LANDING_PAGE
-        - objectName: My Landing Page
+        - objectId: "4065364319"
+          objectName: My Landing Page
           fullName: John Doe
           event: UPDATED
           userId: "1011561"
-          objectId: "4065364319"
           timestamp: "1583792674672"
           objectType: LANDING_PAGE
       properties:
@@ -182,14 +186,105 @@ components:
       required:
       - results
       type: object
+    PreviousPage:
+      example:
+        before: before
+        link: link
+      properties:
+        before:
+          type: string
+        link:
+          type: string
+      required:
+      - before
+      type: object
     Paging:
       example:
         next:
           link: link
           after: after
+        prev:
+          before: before
+          link: link
       properties:
         next:
           $ref: '#/components/schemas/NextPage'
+        prev:
+          $ref: '#/components/schemas/PreviousPage'
+      type: object
+    PublicAuditLog:
+      example:
+        objectId: "4065364319"
+        objectName: My Landing Page
+        fullName: John Doe
+        event: UPDATED
+        userId: "1011561"
+        timestamp: "1583792674672"
+        objectType: LANDING_PAGE
+      properties:
+        event:
+          description: "The type of event that took place (CREATED, UPDATED, PUBLISHED,\
+            \ DELETED, UNPUBLISHED)."
+          enum:
+          - CREATED
+          - UPDATED
+          - PUBLISHED
+          - DELETED
+          - UNPUBLISHED
+          - RESTORE
+          type: string
+        objectType:
+          description: "The type of the object (BLOG, LANDING_PAGE, DOMAIN, HUBDB_TABLE\
+            \ etc.)"
+          enum:
+          - BLOG
+          - BLOG_POST
+          - LANDING_PAGE
+          - WEBSITE_PAGE
+          - TEMPLATE
+          - MODULE
+          - GLOBAL_MODULE
+          - SERVERLESS_FUNCTION
+          - DOMAIN
+          - URL_MAPPING
+          - EMAIL
+          - CONTENT_SETTINGS
+          - HUBDB_TABLE
+          - KNOWLEDGE_BASE_ARTICLE
+          - KNOWLEDGE_BASE
+          - THEME
+          - CSS
+          - JS
+          - CTA
+          - FILE
+          type: string
+        objectId:
+          description: The ID of the object.
+          type: string
+        userId:
+          description: The ID of the user who caused the event.
+          type: string
+        timestamp:
+          description: The timestamp at which the event occurred.
+          format: date-time
+          type: string
+        objectName:
+          description: The internal name of the object in HubSpot.
+          type: string
+        fullName:
+          description: The name of the user who caused the event.
+          type: string
+        meta:
+          properties: {}
+          type: object
+      required:
+      - event
+      - fullName
+      - objectId
+      - objectName
+      - objectType
+      - timestamp
+      - userId
       type: object
     Error:
       example:
@@ -246,74 +341,6 @@ components:
       - correlationId
       - message
       type: object
-    PublicAuditLog:
-      example:
-        objectName: My Landing Page
-        fullName: John Doe
-        event: UPDATED
-        userId: "1011561"
-        objectId: "4065364319"
-        timestamp: "1583792674672"
-        objectType: LANDING_PAGE
-      properties:
-        objectId:
-          description: The ID of the object.
-          type: string
-        userId:
-          description: The ID of the user who caused the event.
-          type: string
-        timestamp:
-          description: The timestamp at which the event occurred.
-          format: date-time
-          type: string
-        objectName:
-          description: The internal name of the object in HubSpot.
-          type: string
-        fullName:
-          description: The name of the user who caused the event.
-          type: string
-        event:
-          description: "The type of event that took place (CREATED, UPDATED, PUBLISHED,\
-            \ DELETED, UNPUBLISHED)."
-          enum:
-          - CREATED
-          - UPDATED
-          - PUBLISHED
-          - DELETED
-          - UNPUBLISHED
-          type: string
-        objectType:
-          description: "The type of the object (BLOG, LANDING_PAGE, DOMAIN, HUBDB_TABLE\
-            \ etc.)"
-          enum:
-          - BLOG
-          - BLOG_POST
-          - LANDING_PAGE
-          - WEBSITE_PAGE
-          - TEMPLATE
-          - MODULE
-          - GLOBAL_MODULE
-          - SERVERLESS_FUNCTION
-          - DOMAIN
-          - URL_MAPPING
-          - EMAIL
-          - CONTENT_SETTINGS
-          - HUBDB_TABLE
-          - KNOWLEDGE_BASE_ARTICLE
-          - KNOWLEDGE_BASE
-          - THEME
-          - CSS
-          - JS
-          type: string
-      required:
-      - event
-      - fullName
-      - objectId
-      - objectName
-      - objectType
-      - timestamp
-      - userId
-      type: object
     NextPage:
       example:
         link: link
@@ -335,12 +362,18 @@ components:
             content: Read from and write to my Content
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
-    hapikey:
-      in: query
-      name: hapikey
+    private_apps_legacy:
+      in: header
+      name: private-app-legacy
       type: apiKey
 x-hubspot-available-client-libraries:
 - PHP
 - Node
-- Python
 - Ruby
+- Python
+x-hubspot-product-tier-requirements:
+  marketing: FREE
+  sales: FREE
+  service: FREE
+  cms: FREE
+x-hubspot-documentation-banner: NONE

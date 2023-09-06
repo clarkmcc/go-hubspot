@@ -15,8 +15,6 @@ import (
 	"context"
 	"io/ioutil"
 	"net/http"
-
-	"github.com/clarkmcc/go-hubspot"
 	"net/url"
 	"reflect"
 	"strings"
@@ -97,12 +95,16 @@ func (a *RowsApiService) CloneDraftTableRowExecute(r ApiCloneDraftTableRowReques
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["private_apps_legacy"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["private-app-legacy"] = key
+			}
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
@@ -229,12 +231,16 @@ func (a *RowsApiService) CreateTableRowExecute(r ApiCreateTableRowRequest) (*Hub
 	localVarPostBody = r.hubDbTableRowV3Request
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["private_apps_legacy"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["private-app-legacy"] = key
+			}
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
@@ -353,12 +359,16 @@ func (a *RowsApiService) GetDraftTableRowByIDExecute(r ApiGetDraftTableRowByIDRe
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["private_apps_legacy"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["private-app-legacy"] = key
+			}
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
@@ -478,12 +488,16 @@ func (a *RowsApiService) GetTableRowExecute(r ApiGetTableRowRequest) (*HubDbTabl
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["private_apps_legacy"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["private-app-legacy"] = key
+			}
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
@@ -655,12 +669,16 @@ func (a *RowsApiService) GetTableRowsExecute(r ApiGetTableRowsRequest) (*Collect
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["private_apps_legacy"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["private-app-legacy"] = key
+			}
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
@@ -777,12 +795,16 @@ func (a *RowsApiService) PurgeDraftTableRowExecute(r ApiPurgeDraftTableRowReques
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["private_apps_legacy"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["private-app-legacy"] = key
+			}
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
@@ -944,12 +966,16 @@ func (a *RowsApiService) ReadDraftTableRowsExecute(r ApiReadDraftTableRowsReques
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["private_apps_legacy"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["private-app-legacy"] = key
+			}
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
@@ -1082,12 +1108,16 @@ func (a *RowsApiService) ReplaceDraftTableRowExecute(r ApiReplaceDraftTableRowRe
 	localVarPostBody = r.hubDbTableRowV3Request
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["private_apps_legacy"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["private-app-legacy"] = key
+			}
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
@@ -1220,12 +1250,16 @@ func (a *RowsApiService) UpdateDraftTableRowExecute(r ApiUpdateDraftTableRowRequ
 	localVarPostBody = r.hubDbTableRowV3Request
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["private_apps_legacy"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["private-app-legacy"] = key
+			}
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)

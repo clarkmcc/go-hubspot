@@ -17,26 +17,26 @@ import (
 
 // BatchResponseSubscriberEmailResponse struct for BatchResponseSubscriberEmailResponse
 type BatchResponseSubscriberEmailResponse struct {
-	Status      string                    `json:"status"`
-	Results     []SubscriberEmailResponse `json:"results"`
+	CompletedAt time.Time                 `json:"completedAt"`
 	NumErrors   *int32                    `json:"numErrors,omitempty"`
-	Errors      []StandardError           `json:"errors,omitempty"`
 	RequestedAt *time.Time                `json:"requestedAt,omitempty"`
 	StartedAt   time.Time                 `json:"startedAt"`
-	CompletedAt time.Time                 `json:"completedAt"`
 	Links       *map[string]string        `json:"links,omitempty"`
+	Results     []SubscriberEmailResponse `json:"results"`
+	Errors      []StandardError           `json:"errors,omitempty"`
+	Status      string                    `json:"status"`
 }
 
 // NewBatchResponseSubscriberEmailResponse instantiates a new BatchResponseSubscriberEmailResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBatchResponseSubscriberEmailResponse(status string, results []SubscriberEmailResponse, startedAt time.Time, completedAt time.Time) *BatchResponseSubscriberEmailResponse {
+func NewBatchResponseSubscriberEmailResponse(completedAt time.Time, startedAt time.Time, results []SubscriberEmailResponse, status string) *BatchResponseSubscriberEmailResponse {
 	this := BatchResponseSubscriberEmailResponse{}
-	this.Status = status
-	this.Results = results
-	this.StartedAt = startedAt
 	this.CompletedAt = completedAt
+	this.StartedAt = startedAt
+	this.Results = results
+	this.Status = status
 	return &this
 }
 
@@ -48,52 +48,28 @@ func NewBatchResponseSubscriberEmailResponseWithDefaults() *BatchResponseSubscri
 	return &this
 }
 
-// GetStatus returns the Status field value
-func (o *BatchResponseSubscriberEmailResponse) GetStatus() string {
+// GetCompletedAt returns the CompletedAt field value
+func (o *BatchResponseSubscriberEmailResponse) GetCompletedAt() time.Time {
 	if o == nil {
-		var ret string
+		var ret time.Time
 		return ret
 	}
 
-	return o.Status
+	return o.CompletedAt
 }
 
-// GetStatusOk returns a tuple with the Status field value
+// GetCompletedAtOk returns a tuple with the CompletedAt field value
 // and a boolean to check if the value has been set.
-func (o *BatchResponseSubscriberEmailResponse) GetStatusOk() (*string, bool) {
+func (o *BatchResponseSubscriberEmailResponse) GetCompletedAtOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Status, true
+	return &o.CompletedAt, true
 }
 
-// SetStatus sets field value
-func (o *BatchResponseSubscriberEmailResponse) SetStatus(v string) {
-	o.Status = v
-}
-
-// GetResults returns the Results field value
-func (o *BatchResponseSubscriberEmailResponse) GetResults() []SubscriberEmailResponse {
-	if o == nil {
-		var ret []SubscriberEmailResponse
-		return ret
-	}
-
-	return o.Results
-}
-
-// GetResultsOk returns a tuple with the Results field value
-// and a boolean to check if the value has been set.
-func (o *BatchResponseSubscriberEmailResponse) GetResultsOk() ([]SubscriberEmailResponse, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Results, true
-}
-
-// SetResults sets field value
-func (o *BatchResponseSubscriberEmailResponse) SetResults(v []SubscriberEmailResponse) {
-	o.Results = v
+// SetCompletedAt sets field value
+func (o *BatchResponseSubscriberEmailResponse) SetCompletedAt(v time.Time) {
+	o.CompletedAt = v
 }
 
 // GetNumErrors returns the NumErrors field value if set, zero value otherwise.
@@ -126,38 +102,6 @@ func (o *BatchResponseSubscriberEmailResponse) HasNumErrors() bool {
 // SetNumErrors gets a reference to the given int32 and assigns it to the NumErrors field.
 func (o *BatchResponseSubscriberEmailResponse) SetNumErrors(v int32) {
 	o.NumErrors = &v
-}
-
-// GetErrors returns the Errors field value if set, zero value otherwise.
-func (o *BatchResponseSubscriberEmailResponse) GetErrors() []StandardError {
-	if o == nil || o.Errors == nil {
-		var ret []StandardError
-		return ret
-	}
-	return o.Errors
-}
-
-// GetErrorsOk returns a tuple with the Errors field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BatchResponseSubscriberEmailResponse) GetErrorsOk() ([]StandardError, bool) {
-	if o == nil || o.Errors == nil {
-		return nil, false
-	}
-	return o.Errors, true
-}
-
-// HasErrors returns a boolean if a field has been set.
-func (o *BatchResponseSubscriberEmailResponse) HasErrors() bool {
-	if o != nil && o.Errors != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetErrors gets a reference to the given []StandardError and assigns it to the Errors field.
-func (o *BatchResponseSubscriberEmailResponse) SetErrors(v []StandardError) {
-	o.Errors = v
 }
 
 // GetRequestedAt returns the RequestedAt field value if set, zero value otherwise.
@@ -216,30 +160,6 @@ func (o *BatchResponseSubscriberEmailResponse) SetStartedAt(v time.Time) {
 	o.StartedAt = v
 }
 
-// GetCompletedAt returns the CompletedAt field value
-func (o *BatchResponseSubscriberEmailResponse) GetCompletedAt() time.Time {
-	if o == nil {
-		var ret time.Time
-		return ret
-	}
-
-	return o.CompletedAt
-}
-
-// GetCompletedAtOk returns a tuple with the CompletedAt field value
-// and a boolean to check if the value has been set.
-func (o *BatchResponseSubscriberEmailResponse) GetCompletedAtOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.CompletedAt, true
-}
-
-// SetCompletedAt sets field value
-func (o *BatchResponseSubscriberEmailResponse) SetCompletedAt(v time.Time) {
-	o.CompletedAt = v
-}
-
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *BatchResponseSubscriberEmailResponse) GetLinks() map[string]string {
 	if o == nil || o.Links == nil {
@@ -272,19 +192,93 @@ func (o *BatchResponseSubscriberEmailResponse) SetLinks(v map[string]string) {
 	o.Links = &v
 }
 
+// GetResults returns the Results field value
+func (o *BatchResponseSubscriberEmailResponse) GetResults() []SubscriberEmailResponse {
+	if o == nil {
+		var ret []SubscriberEmailResponse
+		return ret
+	}
+
+	return o.Results
+}
+
+// GetResultsOk returns a tuple with the Results field value
+// and a boolean to check if the value has been set.
+func (o *BatchResponseSubscriberEmailResponse) GetResultsOk() ([]SubscriberEmailResponse, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Results, true
+}
+
+// SetResults sets field value
+func (o *BatchResponseSubscriberEmailResponse) SetResults(v []SubscriberEmailResponse) {
+	o.Results = v
+}
+
+// GetErrors returns the Errors field value if set, zero value otherwise.
+func (o *BatchResponseSubscriberEmailResponse) GetErrors() []StandardError {
+	if o == nil || o.Errors == nil {
+		var ret []StandardError
+		return ret
+	}
+	return o.Errors
+}
+
+// GetErrorsOk returns a tuple with the Errors field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BatchResponseSubscriberEmailResponse) GetErrorsOk() ([]StandardError, bool) {
+	if o == nil || o.Errors == nil {
+		return nil, false
+	}
+	return o.Errors, true
+}
+
+// HasErrors returns a boolean if a field has been set.
+func (o *BatchResponseSubscriberEmailResponse) HasErrors() bool {
+	if o != nil && o.Errors != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetErrors gets a reference to the given []StandardError and assigns it to the Errors field.
+func (o *BatchResponseSubscriberEmailResponse) SetErrors(v []StandardError) {
+	o.Errors = v
+}
+
+// GetStatus returns the Status field value
+func (o *BatchResponseSubscriberEmailResponse) GetStatus() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value
+// and a boolean to check if the value has been set.
+func (o *BatchResponseSubscriberEmailResponse) GetStatusOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Status, true
+}
+
+// SetStatus sets field value
+func (o *BatchResponseSubscriberEmailResponse) SetStatus(v string) {
+	o.Status = v
+}
+
 func (o BatchResponseSubscriberEmailResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["status"] = o.Status
-	}
-	if true {
-		toSerialize["results"] = o.Results
+		toSerialize["completedAt"] = o.CompletedAt
 	}
 	if o.NumErrors != nil {
 		toSerialize["numErrors"] = o.NumErrors
-	}
-	if o.Errors != nil {
-		toSerialize["errors"] = o.Errors
 	}
 	if o.RequestedAt != nil {
 		toSerialize["requestedAt"] = o.RequestedAt
@@ -292,11 +286,17 @@ func (o BatchResponseSubscriberEmailResponse) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["startedAt"] = o.StartedAt
 	}
-	if true {
-		toSerialize["completedAt"] = o.CompletedAt
-	}
 	if o.Links != nil {
 		toSerialize["links"] = o.Links
+	}
+	if true {
+		toSerialize["results"] = o.Results
+	}
+	if o.Errors != nil {
+		toSerialize["errors"] = o.Errors
+	}
+	if true {
+		toSerialize["status"] = o.Status
 	}
 	return json.Marshal(toSerialize)
 }

@@ -6,12 +6,12 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **StartTimestamp** | **int64** | The timestamp in milliseconds of the start of this interval. | 
 **EndTimestamp** | **int64** | The timestamp in milliseconds of the end of this interval. | 
-**StartDatetime** | **string** |  | 
-**EndDatetime** | **string** |  | 
+**StartDatetime** | Pointer to **string** |  | [optional] 
+**EndDatetime** | Pointer to **string** |  | [optional] 
 **TotalRequests** | **int32** | The total number of requests received in this period. | 
 **CacheHits** | **int32** | The total number of requests that were served cached responses. | 
 **CacheHitRate** | **float32** | The percentage of requests that were served cached responses. | 
-**TotalRequestTime** | **int32** |  | 
+**TotalRequestTime** | Pointer to **int32** |  | [optional] 
 **AvgOriginResponseTime** | **int32** | The average response time in milliseconds from the origin to the edge. | 
 **ResponseTimeMs** | **int32** | The average response time in milliseconds. | 
 **Var100X** | **int32** | The number of responses that had an http status code between 1000-1999. | 
@@ -31,7 +31,7 @@ Name | Type | Description | Notes
 
 ### NewPerformanceView
 
-`func NewPerformanceView(startTimestamp int64, endTimestamp int64, startDatetime string, endDatetime string, totalRequests int32, cacheHits int32, cacheHitRate float32, totalRequestTime int32, avgOriginResponseTime int32, responseTimeMs int32, var100X int32, var20X int32, var30X int32, var40X int32, var50X int32, var403 int32, var404 int32, var500 int32, var504 int32, var50th int32, var95th int32, var99th int32, ) *PerformanceView`
+`func NewPerformanceView(startTimestamp int64, endTimestamp int64, totalRequests int32, cacheHits int32, cacheHitRate float32, avgOriginResponseTime int32, responseTimeMs int32, var100X int32, var20X int32, var30X int32, var40X int32, var50X int32, var403 int32, var404 int32, var500 int32, var504 int32, var50th int32, var95th int32, var99th int32, ) *PerformanceView`
 
 NewPerformanceView instantiates a new PerformanceView object
 This constructor will assign default values to properties that have it defined,
@@ -105,6 +105,11 @@ and a boolean to check if the value has been set.
 
 SetStartDatetime sets StartDatetime field to given value.
 
+### HasStartDatetime
+
+`func (o *PerformanceView) HasStartDatetime() bool`
+
+HasStartDatetime returns a boolean if a field has been set.
 
 ### GetEndDatetime
 
@@ -125,6 +130,11 @@ and a boolean to check if the value has been set.
 
 SetEndDatetime sets EndDatetime field to given value.
 
+### HasEndDatetime
+
+`func (o *PerformanceView) HasEndDatetime() bool`
+
+HasEndDatetime returns a boolean if a field has been set.
 
 ### GetTotalRequests
 
@@ -205,6 +215,11 @@ and a boolean to check if the value has been set.
 
 SetTotalRequestTime sets TotalRequestTime field to given value.
 
+### HasTotalRequestTime
+
+`func (o *PerformanceView) HasTotalRequestTime() bool`
+
+HasTotalRequestTime returns a boolean if a field has been set.
 
 ### GetAvgOriginResponseTime
 

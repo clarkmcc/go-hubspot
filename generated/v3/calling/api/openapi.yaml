@@ -218,6 +218,81 @@ components:
       required:
       - message
       type: object
+    SettingsRequest:
+      description: Settings create request
+      example:
+        supportsCustomObjects: true
+        isReady: true
+        name: HubPhone
+        width: 200
+        url: https://www.example.com/hubspot/iframe
+        height: 350
+      properties:
+        name:
+          description: The name of your calling service to display to users.
+          type: string
+        url:
+          description: "The URL to your phone/calling UI, built with the [Calling\
+            \ SDK](#)."
+          type: string
+        height:
+          description: The target height of the iframe that will contain your phone/calling
+            UI.
+          format: int32
+          type: integer
+        width:
+          description: The target width of the iframe that will contain your phone/calling
+            UI.
+          format: int32
+          type: integer
+        isReady:
+          description: "When true, your service will appear as an option under the\
+            \ *Call* action in contact records of connected accounts."
+          type: boolean
+        supportsCustomObjects:
+          description: "When true, you are indicating that your service is compatible\
+            \ with engagement v2 service and can be used with custom objects."
+          type: boolean
+      required:
+      - name
+      - url
+      type: object
+    SettingsPatchRequest:
+      description: Settings update request
+      example:
+        supportsCustomObjects: true
+        isReady: true
+        name: name
+        width: 6
+        url: url
+        height: 0
+      properties:
+        name:
+          description: The name of your calling service to display to users.
+          type: string
+        url:
+          description: "The URL to your phone/calling UI, built with the [Calling\
+            \ SDK](#)."
+          type: string
+        height:
+          description: The target height of the iframe that will contain your phone/calling
+            UI.
+          format: int32
+          type: integer
+        width:
+          description: The target width of the iframe that will contain your phone/calling
+            UI.
+          format: int32
+          type: integer
+        isReady:
+          description: "When true, your service will appear as an option under the\
+            \ *Call* action in contact records of connected accounts."
+          type: boolean
+        supportsCustomObjects:
+          description: "When true, you are indicating that your service is compatible\
+            \ with engagement v2 service and can be used with custom objects."
+          type: boolean
+      type: object
     Error:
       example:
         message: Invalid input (details will vary based on the error)
@@ -272,81 +347,6 @@ components:
       - category
       - correlationId
       - message
-      type: object
-    SettingsPatchRequest:
-      description: Settings update request
-      example:
-        supportsCustomObjects: true
-        isReady: true
-        name: name
-        width: 6
-        url: url
-        height: 0
-      properties:
-        name:
-          description: The name of your calling service to display to users.
-          type: string
-        url:
-          description: "The URL to your phone/calling UI, built with the [Calling\
-            \ SDK](#)."
-          type: string
-        height:
-          description: The target height of the iframe that will contain your phone/calling
-            UI.
-          format: int32
-          type: integer
-        width:
-          description: The target width of the iframe that will contain your phone/calling
-            UI.
-          format: int32
-          type: integer
-        isReady:
-          description: "When true, your service will appear as an option under the\
-            \ *Call* action in contact records of connected accounts."
-          type: boolean
-        supportsCustomObjects:
-          description: "When true, you are indicating that your service is compatible\
-            \ with engagement v2 service and can be used with custom objects."
-          type: boolean
-      type: object
-    SettingsRequest:
-      description: Settings create request
-      example:
-        supportsCustomObjects: true
-        isReady: true
-        name: HubPhone
-        width: 200
-        url: https://www.example.com/hubspot/iframe
-        height: 350
-      properties:
-        name:
-          description: The name of your calling service to display to users.
-          type: string
-        url:
-          description: "The URL to your phone/calling UI, built with the [Calling\
-            \ SDK](#)."
-          type: string
-        height:
-          description: The target height of the iframe that will contain your phone/calling
-            UI.
-          format: int32
-          type: integer
-        width:
-          description: The target width of the iframe that will contain your phone/calling
-            UI.
-          format: int32
-          type: integer
-        isReady:
-          description: "When true, your service will appear as an option under the\
-            \ *Call* action in contact records of connected accounts."
-          type: boolean
-        supportsCustomObjects:
-          description: "When true, you are indicating that your service is compatible\
-            \ with engagement v2 service and can be used with custom objects."
-          type: boolean
-      required:
-      - name
-      - url
       type: object
     SettingsResponse:
       description: Current settings state

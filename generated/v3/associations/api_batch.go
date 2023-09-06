@@ -80,6 +80,9 @@ func (a *BatchApiService) BatchArchiveExecute(r ApiBatchArchiveRequest) (*http.R
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.batchInputPublicAssociation == nil {
+		return nil, reportError("batchInputPublicAssociation is required and must be specified")
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -203,6 +206,9 @@ func (a *BatchApiService) BatchCreateExecute(r ApiBatchCreateRequest) (*BatchRes
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.batchInputPublicAssociation == nil {
+		return localVarReturnValue, nil, reportError("batchInputPublicAssociation is required and must be specified")
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -335,6 +341,9 @@ func (a *BatchApiService) BatchReadExecute(r ApiBatchReadRequest) (*BatchRespons
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.batchInputPublicObjectId == nil {
+		return localVarReturnValue, nil, reportError("batchInputPublicObjectId is required and must be specified")
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}

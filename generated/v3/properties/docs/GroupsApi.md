@@ -71,7 +71,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -143,7 +143,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -157,7 +157,7 @@ Name | Type | Description  | Notes
 
 ## GroupsGetAll
 
-> CollectionResponsePropertyGroup GroupsGetAll(ctx, objectType).Execute()
+> CollectionResponsePropertyGroupNoPaging GroupsGetAll(ctx, objectType).Execute()
 
 Read all property groups
 
@@ -185,7 +185,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `GroupsApi.GroupsGetAll``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GroupsGetAll`: CollectionResponsePropertyGroup
+    // response from `GroupsGetAll`: CollectionResponsePropertyGroupNoPaging
     fmt.Fprintf(os.Stdout, "Response from `GroupsApi.GroupsGetAll`: %v\n", resp)
 }
 ```
@@ -209,11 +209,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CollectionResponsePropertyGroup**](CollectionResponsePropertyGroup.md)
+[**CollectionResponsePropertyGroupNoPaging**](CollectionResponsePropertyGroupNoPaging.md)
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -286,7 +286,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -361,7 +361,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 

@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## GetByID
 
-> Domain GetByID(ctx, domainId).Archived(archived).Execute()
+> Domain GetByID(ctx, domainId).Execute()
 
 Get a single domain
 
@@ -31,11 +31,10 @@ import (
 
 func main() {
     domainId := "domainId_example" // string | The unique ID of the domain.
-    archived := true // bool | Whether to return only results that have been archived. (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.DomainsApi.GetByID(context.Background(), domainId).Archived(archived).Execute()
+    resp, r, err := apiClient.DomainsApi.GetByID(context.Background(), domainId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DomainsApi.GetByID``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -61,7 +60,6 @@ Other parameters are passed through a pointer to a apiGetByIDRequest struct via 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **archived** | **bool** | Whether to return only results that have been archived. | 
 
 ### Return type
 
@@ -69,7 +67,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -83,7 +81,7 @@ Name | Type | Description  | Notes
 
 ## GetPage
 
-> CollectionResponseWithTotalDomain GetPage(ctx).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Sort(sort).Properties(properties).After(after).Before(before).Limit(limit).Archived(archived).Execute()
+> CollectionResponseWithTotalDomainForwardPaging GetPage(ctx).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Sort(sort).After(after).Limit(limit).Archived(archived).Execute()
 
 Get current domains
 
@@ -98,31 +96,30 @@ import (
     "context"
     "fmt"
     "os"
+    "time"
     openapiclient "./openapi"
 )
 
 func main() {
-    createdAt := int64(789) // int64 | Only return domains created at this date. (optional)
-    createdAfter := int64(789) // int64 | Only return domains created after this date. (optional)
-    createdBefore := int64(789) // int64 | Only return domains created before this date. (optional)
-    updatedAt := int64(789) // int64 | Only return domains updated at this date. (optional)
-    updatedAfter := int64(789) // int64 | Only return domains updated after this date. (optional)
-    updatedBefore := int64(789) // int64 | Only return domains updated before this date. (optional)
+    createdAt := time.Now() // time.Time | Only return domains created at this date. (optional)
+    createdAfter := time.Now() // time.Time | Only return domains created after this date. (optional)
+    createdBefore := time.Now() // time.Time | Only return domains created before this date. (optional)
+    updatedAt := time.Now() // time.Time | Only return domains updated at this date. (optional)
+    updatedAfter := time.Now() // time.Time | Only return domains updated after this date. (optional)
+    updatedBefore := time.Now() // time.Time | Only return domains updated before this date. (optional)
     sort := []string{"Inner_example"} // []string |  (optional)
-    properties := []string{"Inner_example"} // []string |  (optional)
     after := "after_example" // string | The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results. (optional)
-    before := "before_example" // string |  (optional)
     limit := int32(56) // int32 | Maximum number of results per page. (optional)
     archived := true // bool | Whether to return only results that have been archived. (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.DomainsApi.GetPage(context.Background()).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Sort(sort).Properties(properties).After(after).Before(before).Limit(limit).Archived(archived).Execute()
+    resp, r, err := apiClient.DomainsApi.GetPage(context.Background()).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Sort(sort).After(after).Limit(limit).Archived(archived).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DomainsApi.GetPage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetPage`: CollectionResponseWithTotalDomain
+    // response from `GetPage`: CollectionResponseWithTotalDomainForwardPaging
     fmt.Fprintf(os.Stdout, "Response from `DomainsApi.GetPage`: %v\n", resp)
 }
 ```
@@ -138,26 +135,24 @@ Other parameters are passed through a pointer to a apiGetPageRequest struct via 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createdAt** | **int64** | Only return domains created at this date. | 
- **createdAfter** | **int64** | Only return domains created after this date. | 
- **createdBefore** | **int64** | Only return domains created before this date. | 
- **updatedAt** | **int64** | Only return domains updated at this date. | 
- **updatedAfter** | **int64** | Only return domains updated after this date. | 
- **updatedBefore** | **int64** | Only return domains updated before this date. | 
+ **createdAt** | **time.Time** | Only return domains created at this date. | 
+ **createdAfter** | **time.Time** | Only return domains created after this date. | 
+ **createdBefore** | **time.Time** | Only return domains created before this date. | 
+ **updatedAt** | **time.Time** | Only return domains updated at this date. | 
+ **updatedAfter** | **time.Time** | Only return domains updated after this date. | 
+ **updatedBefore** | **time.Time** | Only return domains updated before this date. | 
  **sort** | **[]string** |  | 
- **properties** | **[]string** |  | 
  **after** | **string** | The paging cursor token of the last successfully read resource will be returned as the &#x60;paging.next.after&#x60; JSON property of a paged response containing more results. | 
- **before** | **string** |  | 
  **limit** | **int32** | Maximum number of results per page. | 
  **archived** | **bool** | Whether to return only results that have been archived. | 
 
 ### Return type
 
-[**CollectionResponseWithTotalDomain**](CollectionResponseWithTotalDomain.md)
+[**CollectionResponseWithTotalDomainForwardPaging**](CollectionResponseWithTotalDomainForwardPaging.md)
 
 ### Authorization
 
-[hapikey](../README.md#hapikey)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 

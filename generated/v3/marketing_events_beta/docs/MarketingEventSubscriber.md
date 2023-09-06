@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**InteractionDateTime** | **int64** | The date and time at which the contact subscribed to the event. | 
-**Properties** | Pointer to **map[string]string** |  | [optional] 
 **Vid** | Pointer to **int32** |  | [optional] 
+**Properties** | Pointer to **map[string]string** |  | [optional] 
+**InteractionDateTime** | **int64** | The date and time at which the contact subscribed to the event. | 
 
 ## Methods
 
@@ -27,25 +27,30 @@ NewMarketingEventSubscriberWithDefaults instantiates a new MarketingEventSubscri
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetInteractionDateTime
+### GetVid
 
-`func (o *MarketingEventSubscriber) GetInteractionDateTime() int64`
+`func (o *MarketingEventSubscriber) GetVid() int32`
 
-GetInteractionDateTime returns the InteractionDateTime field if non-nil, zero value otherwise.
+GetVid returns the Vid field if non-nil, zero value otherwise.
 
-### GetInteractionDateTimeOk
+### GetVidOk
 
-`func (o *MarketingEventSubscriber) GetInteractionDateTimeOk() (*int64, bool)`
+`func (o *MarketingEventSubscriber) GetVidOk() (*int32, bool)`
 
-GetInteractionDateTimeOk returns a tuple with the InteractionDateTime field if it's non-nil, zero value otherwise
+GetVidOk returns a tuple with the Vid field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetInteractionDateTime
+### SetVid
 
-`func (o *MarketingEventSubscriber) SetInteractionDateTime(v int64)`
+`func (o *MarketingEventSubscriber) SetVid(v int32)`
 
-SetInteractionDateTime sets InteractionDateTime field to given value.
+SetVid sets Vid field to given value.
 
+### HasVid
+
+`func (o *MarketingEventSubscriber) HasVid() bool`
+
+HasVid returns a boolean if a field has been set.
 
 ### GetProperties
 
@@ -72,30 +77,25 @@ SetProperties sets Properties field to given value.
 
 HasProperties returns a boolean if a field has been set.
 
-### GetVid
+### GetInteractionDateTime
 
-`func (o *MarketingEventSubscriber) GetVid() int32`
+`func (o *MarketingEventSubscriber) GetInteractionDateTime() int64`
 
-GetVid returns the Vid field if non-nil, zero value otherwise.
+GetInteractionDateTime returns the InteractionDateTime field if non-nil, zero value otherwise.
 
-### GetVidOk
+### GetInteractionDateTimeOk
 
-`func (o *MarketingEventSubscriber) GetVidOk() (*int32, bool)`
+`func (o *MarketingEventSubscriber) GetInteractionDateTimeOk() (*int64, bool)`
 
-GetVidOk returns a tuple with the Vid field if it's non-nil, zero value otherwise
+GetInteractionDateTimeOk returns a tuple with the InteractionDateTime field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetVid
+### SetInteractionDateTime
 
-`func (o *MarketingEventSubscriber) SetVid(v int32)`
+`func (o *MarketingEventSubscriber) SetInteractionDateTime(v int64)`
 
-SetVid sets Vid field to given value.
+SetInteractionDateTime sets InteractionDateTime field to given value.
 
-### HasVid
-
-`func (o *MarketingEventSubscriber) HasVid() bool`
-
-HasVid returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

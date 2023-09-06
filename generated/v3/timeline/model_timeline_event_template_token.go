@@ -22,7 +22,7 @@ type TimelineEventTemplateToken struct {
 	// The name of the CRM object property. This will populate the CRM object property associated with the event. With enough of these, you can fully build CRM objects via the Timeline API.
 	ObjectPropertyName *string `json:"objectPropertyName,omitempty"`
 	// If type is `enumeration`, we should have a list of options to choose from.
-	Options []TimelineEventTemplateTokenOption `json:"options"`
+	Options []TimelineEventTemplateTokenOption `json:"options,omitempty"`
 	// The name of the token referenced in the templates. This must be unique for the specific template. It may only contain alphanumeric characters, periods, dashes, or underscores (. - _).
 	Name string `json:"name"`
 	// The data type of the token. You can currently choose from [string, number, date, enumeration].
@@ -37,10 +37,9 @@ type TimelineEventTemplateToken struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTimelineEventTemplateToken(label string, options []TimelineEventTemplateTokenOption, name string, type_ string) *TimelineEventTemplateToken {
+func NewTimelineEventTemplateToken(label string, name string, type_ string) *TimelineEventTemplateToken {
 	this := TimelineEventTemplateToken{}
 	this.Label = label
-	this.Options = options
 	this.Name = name
 	this.Type = type_
 	return &this
@@ -110,26 +109,34 @@ func (o *TimelineEventTemplateToken) SetObjectPropertyName(v string) {
 	o.ObjectPropertyName = &v
 }
 
-// GetOptions returns the Options field value
+// GetOptions returns the Options field value if set, zero value otherwise.
 func (o *TimelineEventTemplateToken) GetOptions() []TimelineEventTemplateTokenOption {
-	if o == nil {
+	if o == nil || o.Options == nil {
 		var ret []TimelineEventTemplateTokenOption
 		return ret
 	}
-
 	return o.Options
 }
 
-// GetOptionsOk returns a tuple with the Options field value
+// GetOptionsOk returns a tuple with the Options field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TimelineEventTemplateToken) GetOptionsOk() ([]TimelineEventTemplateTokenOption, bool) {
-	if o == nil {
+	if o == nil || o.Options == nil {
 		return nil, false
 	}
 	return o.Options, true
 }
 
-// SetOptions sets field value
+// HasOptions returns a boolean if a field has been set.
+func (o *TimelineEventTemplateToken) HasOptions() bool {
+	if o != nil && o.Options != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetOptions gets a reference to the given []TimelineEventTemplateTokenOption and assigns it to the Options field.
 func (o *TimelineEventTemplateToken) SetOptions(v []TimelineEventTemplateTokenOption) {
 	o.Options = v
 }
@@ -254,7 +261,7 @@ func (o TimelineEventTemplateToken) MarshalJSON() ([]byte, error) {
 	if o.ObjectPropertyName != nil {
 		toSerialize["objectPropertyName"] = o.ObjectPropertyName
 	}
-	if true {
+	if o.Options != nil {
 		toSerialize["options"] = o.Options
 	}
 	if true {

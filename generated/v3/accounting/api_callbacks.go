@@ -15,8 +15,6 @@ import (
 	"context"
 	"io/ioutil"
 	"net/http"
-
-	"github.com/clarkmcc/go-hubspot"
 	"net/url"
 	"strings"
 )
@@ -102,12 +100,16 @@ func (a *CallbacksApiService) CallbackCreateCustomerExecute(r ApiCallbackCreateC
 	localVarPostBody = r.resultIdAccountingResponse
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["private_apps_legacy"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["private-app-legacy"] = key
+			}
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
@@ -223,12 +225,16 @@ func (a *CallbacksApiService) CallbackCreateExchangeRateExecute(r ApiCallbackCre
 	localVarPostBody = r.exchangeRateResponse
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["private_apps_legacy"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["private-app-legacy"] = key
+			}
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
@@ -344,12 +350,16 @@ func (a *CallbacksApiService) CallbackCreateInvoiceExecute(r ApiCallbackCreateIn
 	localVarPostBody = r.resultIdAccountingResponse
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["private_apps_legacy"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["private-app-legacy"] = key
+			}
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
@@ -465,12 +475,16 @@ func (a *CallbacksApiService) CallbackCreateTermExecute(r ApiCallbackCreateTermR
 	localVarPostBody = r.termsResponse
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["private_apps_legacy"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["private-app-legacy"] = key
+			}
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
@@ -586,12 +600,16 @@ func (a *CallbacksApiService) CallbackDoInvoiceSearchExecute(r ApiCallbackDoInvo
 	localVarPostBody = r.invoiceSearchResponse
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["private_apps_legacy"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["private-app-legacy"] = key
+			}
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
@@ -707,12 +725,16 @@ func (a *CallbacksApiService) CallbackDoProductSearchExecute(r ApiCallbackDoProd
 	localVarPostBody = r.productSearchResponse
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["private_apps_legacy"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["private-app-legacy"] = key
+			}
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
@@ -828,12 +850,16 @@ func (a *CallbacksApiService) CallbackDoSearchCustomerExecute(r ApiCallbackDoSea
 	localVarPostBody = r.customerSearchResponseExternal
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["private_apps_legacy"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["private-app-legacy"] = key
+			}
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
@@ -949,12 +975,16 @@ func (a *CallbacksApiService) CallbackDoTaxSearchExecute(r ApiCallbackDoTaxSearc
 	localVarPostBody = r.taxSearchResponse
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["private_apps_legacy"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["private-app-legacy"] = key
+			}
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
@@ -1070,12 +1100,16 @@ func (a *CallbacksApiService) CallbackGetByIDExecute(r ApiCallbackGetByIDRequest
 	localVarPostBody = r.invoicesResponseExternal
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["private_apps_legacy"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["private-app-legacy"] = key
+			}
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
@@ -1191,12 +1225,16 @@ func (a *CallbacksApiService) CallbackInvoicePDFExecute(r ApiCallbackInvoicePDFR
 	localVarPostBody = r.invoicePdfResponse
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["private_apps_legacy"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["private-app-legacy"] = key
+			}
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)

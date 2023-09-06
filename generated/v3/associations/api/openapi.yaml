@@ -35,7 +35,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/BatchInputPublicAssociation'
-        required: false
+        required: true
       responses:
         "204":
           content: {}
@@ -47,39 +47,72 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - oauth2:
-        - crm.objects.quotes.write
       - oauth2_legacy:
         - media_bridge.read
-      - oauth2_legacy:
-        - tickets
       - oauth2:
         - crm.objects.contacts.read
-      - hapikey: []
-      - oauth2:
-        - crm.objects.contacts.write
-      - oauth2:
-        - crm.objects.line_items.read
+      - private_apps:
+        - crm.objects.deals.read
       - oauth2:
         - crm.objects.deals.read
-      - oauth2_legacy:
-        - crm.objects.custom.read
-      - oauth2:
-        - crm.objects.line_items.write
+      - private_apps_legacy:
+        - contacts
+      - private_apps:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.companies.read
+      - private_apps:
+        - crm.objects.deals.write
       - oauth2:
         - crm.objects.companies.read
       - oauth2:
         - crm.objects.deals.write
+      - private_apps_legacy:
+        - crm.objects.goals.read
+      - private_apps_legacy:
+        - media_bridge.read
+      - private_apps:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.quotes.write
+      - private_apps:
+        - crm.objects.quotes.write
+      - oauth2_legacy:
+        - tickets
+      - private_apps_legacy:
+        - crm.objects.custom.write
+      - private_apps_legacy:
+        - e-commerce
+      - private_apps:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2_legacy:
+        - crm.objects.custom.read
+      - private_apps_legacy:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
+      - private_apps:
+        - crm.objects.line_items.write
       - oauth2_legacy:
         - e-commerce
+      - private_apps_legacy:
+        - tickets
+      - oauth2_legacy:
+        - crm.objects.goals.read
       - oauth2:
         - crm.objects.quotes.read
       - oauth2_legacy:
-        - contacts
-      - oauth2_legacy:
         - crm.objects.custom.write
-      - oauth2:
-        - crm.objects.companies.write
+      - private_apps:
+        - crm.objects.quotes.read
       summary: Archive a batch of associations
       tags:
       - Batch
@@ -107,7 +140,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/BatchInputPublicAssociation'
-        required: false
+        required: true
       responses:
         "201":
           content:
@@ -119,7 +152,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BatchResponsePublicAssociation'
+                $ref: '#/components/schemas/BatchResponsePublicAssociationWithErrors'
           description: multiple statuses
         default:
           content:
@@ -128,39 +161,72 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - oauth2:
-        - crm.objects.quotes.write
       - oauth2_legacy:
         - media_bridge.read
-      - oauth2_legacy:
-        - tickets
       - oauth2:
         - crm.objects.contacts.read
-      - hapikey: []
-      - oauth2:
-        - crm.objects.contacts.write
-      - oauth2:
-        - crm.objects.line_items.read
+      - private_apps:
+        - crm.objects.deals.read
       - oauth2:
         - crm.objects.deals.read
-      - oauth2_legacy:
-        - crm.objects.custom.read
-      - oauth2:
-        - crm.objects.line_items.write
+      - private_apps_legacy:
+        - contacts
+      - private_apps:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.companies.read
+      - private_apps:
+        - crm.objects.deals.write
       - oauth2:
         - crm.objects.companies.read
       - oauth2:
         - crm.objects.deals.write
+      - private_apps_legacy:
+        - crm.objects.goals.read
+      - private_apps_legacy:
+        - media_bridge.read
+      - private_apps:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.quotes.write
+      - private_apps:
+        - crm.objects.quotes.write
+      - oauth2_legacy:
+        - tickets
+      - private_apps_legacy:
+        - crm.objects.custom.write
+      - private_apps_legacy:
+        - e-commerce
+      - private_apps:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2_legacy:
+        - crm.objects.custom.read
+      - private_apps_legacy:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
+      - private_apps:
+        - crm.objects.line_items.write
       - oauth2_legacy:
         - e-commerce
+      - private_apps_legacy:
+        - tickets
+      - oauth2_legacy:
+        - crm.objects.goals.read
       - oauth2:
         - crm.objects.quotes.read
       - oauth2_legacy:
-        - contacts
-      - oauth2_legacy:
         - crm.objects.custom.write
-      - oauth2:
-        - crm.objects.companies.write
+      - private_apps:
+        - crm.objects.quotes.read
       summary: Create a batch of associations
       tags:
       - Batch
@@ -189,7 +255,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/BatchInputPublicObjectId'
-        required: false
+        required: true
       responses:
         "200":
           content:
@@ -201,7 +267,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BatchResponsePublicAssociationMulti'
+                $ref: '#/components/schemas/BatchResponsePublicAssociationMultiWithErrors'
           description: multiple statuses
         default:
           content:
@@ -210,39 +276,72 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - oauth2:
-        - crm.objects.quotes.write
       - oauth2_legacy:
         - media_bridge.read
-      - oauth2_legacy:
-        - tickets
       - oauth2:
         - crm.objects.contacts.read
-      - hapikey: []
-      - oauth2:
-        - crm.objects.contacts.write
-      - oauth2:
-        - crm.objects.line_items.read
+      - private_apps:
+        - crm.objects.deals.read
       - oauth2:
         - crm.objects.deals.read
-      - oauth2_legacy:
-        - crm.objects.custom.read
-      - oauth2:
-        - crm.objects.line_items.write
+      - private_apps_legacy:
+        - contacts
+      - private_apps:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.companies.read
+      - private_apps:
+        - crm.objects.deals.write
       - oauth2:
         - crm.objects.companies.read
       - oauth2:
         - crm.objects.deals.write
+      - private_apps_legacy:
+        - crm.objects.goals.read
+      - private_apps_legacy:
+        - media_bridge.read
+      - private_apps:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.quotes.write
+      - private_apps:
+        - crm.objects.quotes.write
+      - oauth2_legacy:
+        - tickets
+      - private_apps_legacy:
+        - crm.objects.custom.write
+      - private_apps_legacy:
+        - e-commerce
+      - private_apps:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2_legacy:
+        - crm.objects.custom.read
+      - private_apps_legacy:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
+      - private_apps:
+        - crm.objects.line_items.write
       - oauth2_legacy:
         - e-commerce
+      - private_apps_legacy:
+        - tickets
+      - oauth2_legacy:
+        - crm.objects.goals.read
       - oauth2:
         - crm.objects.quotes.read
       - oauth2_legacy:
-        - contacts
-      - oauth2_legacy:
         - crm.objects.custom.write
-      - oauth2:
-        - crm.objects.companies.write
+      - private_apps:
+        - crm.objects.quotes.read
       summary: Read a batch of associations
       tags:
       - Batch
@@ -271,7 +370,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CollectionResponsePublicAssociationDefiniton'
+                $ref: '#/components/schemas/CollectionResponsePublicAssociationDefinitionNoPaging'
           description: successful operation
         default:
           content:
@@ -280,39 +379,72 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - oauth2:
-        - crm.objects.quotes.write
       - oauth2_legacy:
         - media_bridge.read
-      - oauth2_legacy:
-        - tickets
       - oauth2:
         - crm.objects.contacts.read
-      - hapikey: []
-      - oauth2:
-        - crm.objects.contacts.write
-      - oauth2:
-        - crm.objects.line_items.read
+      - private_apps:
+        - crm.objects.deals.read
       - oauth2:
         - crm.objects.deals.read
-      - oauth2_legacy:
-        - crm.objects.custom.read
-      - oauth2:
-        - crm.objects.line_items.write
+      - private_apps_legacy:
+        - contacts
+      - private_apps:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.companies.read
+      - private_apps:
+        - crm.objects.deals.write
       - oauth2:
         - crm.objects.companies.read
       - oauth2:
         - crm.objects.deals.write
+      - private_apps_legacy:
+        - crm.objects.goals.read
+      - private_apps_legacy:
+        - media_bridge.read
+      - private_apps:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.quotes.write
+      - private_apps:
+        - crm.objects.quotes.write
+      - oauth2_legacy:
+        - tickets
+      - private_apps_legacy:
+        - crm.objects.custom.write
+      - private_apps_legacy:
+        - e-commerce
+      - private_apps:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2_legacy:
+        - crm.objects.custom.read
+      - private_apps_legacy:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
+      - private_apps:
+        - crm.objects.line_items.write
       - oauth2_legacy:
         - e-commerce
+      - private_apps_legacy:
+        - tickets
+      - oauth2_legacy:
+        - crm.objects.goals.read
       - oauth2:
         - crm.objects.quotes.read
       - oauth2_legacy:
-        - contacts
-      - oauth2_legacy:
         - crm.objects.custom.write
-      - oauth2:
-        - crm.objects.companies.write
+      - private_apps:
+        - crm.objects.quotes.read
       summary: List association types
       tags:
       - Types
@@ -335,38 +467,22 @@ components:
       required:
       - id
       type: object
-    StandardError:
+    CollectionResponsePublicAssociationDefinitionNoPaging:
       example:
-        subCategory: "{}"
-        context:
-          key:
-          - context
-          - context
-        links:
-          key: links
-        id: id
-        category:
-          httpStatus: CONTINUE
-          name: name
-        message: message
-        errors:
-        - subCategory: subCategory
-          code: code
-          in: in
-          context:
-            missingScopes:
-            - scope1
-            - scope2
-          message: message
-        - subCategory: subCategory
-          code: code
-          in: in
-          context:
-            missingScopes:
-            - scope1
-            - scope2
-          message: message
-        status: status
+        results:
+        - id: "1"
+          name: contact_to_company
+        - id: "1"
+          name: contact_to_company
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/PublicAssociationDefinition'
+          type: array
+      required:
+      - results
+      type: object
+    StandardError:
       properties:
         status:
           type: string
@@ -402,13 +518,35 @@ components:
       - status
       type: object
     Paging:
-      example:
-        next:
-          link: link
-          after: after
       properties:
         next:
           $ref: '#/components/schemas/NextPage'
+        prev:
+          $ref: '#/components/schemas/PreviousPage'
+      type: object
+    PublicAssociationMulti:
+      example:
+        from:
+          id: "53628"
+        to:
+        - id: "12726"
+          type: contact_to_company
+        - id: "61352"
+          type: contact_to_company
+      properties:
+        from:
+          $ref: '#/components/schemas/PublicObjectId'
+        to:
+          description: The IDs of objects that are associated with the object identified
+            by the ID in 'from'.
+          items:
+            $ref: '#/components/schemas/AssociatedId'
+          type: array
+        paging:
+          $ref: '#/components/schemas/Paging'
+      required:
+      - from
+      - to
       type: object
     Error:
       example:
@@ -465,28 +603,6 @@ components:
       - correlationId
       - message
       type: object
-    PublicAssociationMulti:
-      example:
-        from:
-          id: "53628"
-        to:
-        - id: "12726"
-          type: contact_to_company
-        - id: "61352"
-          type: contact_to_company
-      properties:
-        from:
-          $ref: '#/components/schemas/PublicObjectId'
-        to:
-          description: The IDs of objects that are associated with the object identified
-            by the ID in 'from'.
-          items:
-            $ref: '#/components/schemas/AssociatedId'
-          type: array
-      required:
-      - from
-      - to
-      type: object
     PublicAssociation:
       example:
         from:
@@ -506,37 +622,85 @@ components:
       - to
       - type
       type: object
-    CollectionResponsePublicAssociationDefiniton:
-      example:
-        paging:
-          next:
-            link: link
-            after: after
-        results:
-        - name: name
-          id: id
-        - name: name
-          id: id
+    BatchResponsePublicAssociationWithErrors:
       properties:
+        status:
+          enum:
+          - PENDING
+          - PROCESSING
+          - CANCELED
+          - COMPLETE
+          type: string
         results:
           items:
-            $ref: '#/components/schemas/PublicAssociationDefiniton'
+            $ref: '#/components/schemas/PublicAssociation'
           type: array
-        paging:
-          $ref: '#/components/schemas/Paging'
+        numErrors:
+          format: int32
+          type: integer
+        errors:
+          items:
+            $ref: '#/components/schemas/StandardError'
+          type: array
+        requestedAt:
+          format: date-time
+          type: string
+        startedAt:
+          format: date-time
+          type: string
+        completedAt:
+          format: date-time
+          type: string
+        links:
+          additionalProperties:
+            type: string
+          type: object
       required:
+      - completedAt
       - results
+      - startedAt
+      - status
+      type: object
+    BatchResponsePublicAssociationMultiWithErrors:
+      properties:
+        status:
+          enum:
+          - PENDING
+          - PROCESSING
+          - CANCELED
+          - COMPLETE
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/PublicAssociationMulti'
+          type: array
+        numErrors:
+          format: int32
+          type: integer
+        errors:
+          items:
+            $ref: '#/components/schemas/StandardError'
+          type: array
+        requestedAt:
+          format: date-time
+          type: string
+        startedAt:
+          format: date-time
+          type: string
+        completedAt:
+          format: date-time
+          type: string
+        links:
+          additionalProperties:
+            type: string
+          type: object
+      required:
+      - completedAt
+      - results
+      - startedAt
+      - status
       type: object
     ErrorDetail:
-      example:
-        subCategory: subCategory
-        code: code
-        in: in
-        context:
-          missingScopes:
-          - scope1
-          - scope2
-        message: message
       properties:
         message:
           description: A human readable message describing the error along with remediation
@@ -580,10 +744,9 @@ components:
       - inputs
       type: object
     ErrorCategory:
-      example:
-        httpStatus: CONTINUE
-        name: name
       properties:
+        name:
+          type: string
         httpStatus:
           enum:
           - CONTINUE
@@ -636,6 +799,7 @@ components:
           - REQUEST_HEADERS_FIELDS_TOO_LARGE
           - INTERNAL_STALE_SERVICE_DISCOVERY
           - UNAVAILABLE_FOR_LEGAL_REASONS
+          - MIGRATION_IN_PROGRESS
           - INTERNAL_SERVER_ERROR
           - NOT_IMPLEMENTED
           - BAD_GATEWAY
@@ -648,129 +812,14 @@ components:
           - NOT_EXTENDED
           - NETWORK_AUTHENTICATION_REQUIRED
           type: string
-        name:
-          type: string
       required:
       - httpStatus
       - name
       type: object
-    BatchResponsePublicAssociation:
+    PublicAssociationDefinition:
       example:
-        completedAt: 2000-01-23T04:56:07.000+00:00
-        numErrors: 0
-        requestedAt: 2000-01-23T04:56:07.000+00:00
-        startedAt: 2000-01-23T04:56:07.000+00:00
-        results:
-        - from:
-            id: "53628"
-          to:
-            id: "12726"
-          type: contact_to_company
-        - from:
-            id: "53628"
-          to:
-            id: "12726"
-          type: contact_to_company
-        errors:
-        - subCategory: "{}"
-          context:
-            key:
-            - context
-            - context
-          links:
-            key: links
-          id: id
-          category:
-            httpStatus: CONTINUE
-            name: name
-          message: message
-          errors:
-          - subCategory: subCategory
-            code: code
-            in: in
-            context:
-              missingScopes:
-              - scope1
-              - scope2
-            message: message
-          - subCategory: subCategory
-            code: code
-            in: in
-            context:
-              missingScopes:
-              - scope1
-              - scope2
-            message: message
-          status: status
-        - subCategory: "{}"
-          context:
-            key:
-            - context
-            - context
-          links:
-            key: links
-          id: id
-          category:
-            httpStatus: CONTINUE
-            name: name
-          message: message
-          errors:
-          - subCategory: subCategory
-            code: code
-            in: in
-            context:
-              missingScopes:
-              - scope1
-              - scope2
-            message: message
-          - subCategory: subCategory
-            code: code
-            in: in
-            context:
-              missingScopes:
-              - scope1
-              - scope2
-            message: message
-          status: status
-        status: PENDING
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/PublicAssociation'
-          type: array
-        numErrors:
-          format: int32
-          type: integer
-        errors:
-          items:
-            $ref: '#/components/schemas/StandardError'
-          type: array
-        status:
-          enum:
-          - PENDING
-          - PROCESSING
-          - CANCELED
-          - COMPLETE
-          type: string
-        requestedAt:
-          format: date-time
-          type: string
-        startedAt:
-          format: date-time
-          type: string
-        completedAt:
-          format: date-time
-          type: string
-      required:
-      - completedAt
-      - results
-      - startedAt
-      - status
-      type: object
-    PublicAssociationDefiniton:
-      example:
-        name: name
-        id: id
+        id: "1"
+        name: contact_to_company
       properties:
         id:
           type: string
@@ -780,101 +829,35 @@ components:
       - id
       - name
       type: object
-    BatchResponsePublicAssociationMulti:
+    PreviousPage:
+      properties:
+        before:
+          type: string
+        link:
+          type: string
+      required:
+      - before
+      type: object
+    BatchResponsePublicAssociation:
       example:
         completedAt: 2000-01-23T04:56:07.000+00:00
-        numErrors: 0
         requestedAt: 2000-01-23T04:56:07.000+00:00
         startedAt: 2000-01-23T04:56:07.000+00:00
+        links:
+          key: links
         results:
         - from:
             id: "53628"
           to:
-          - id: "12726"
-            type: contact_to_company
-          - id: "61352"
-            type: contact_to_company
+            id: "12726"
+          type: contact_to_company
         - from:
             id: "53628"
           to:
-          - id: "12726"
-            type: contact_to_company
-          - id: "61352"
-            type: contact_to_company
-        errors:
-        - subCategory: "{}"
-          context:
-            key:
-            - context
-            - context
-          links:
-            key: links
-          id: id
-          category:
-            httpStatus: CONTINUE
-            name: name
-          message: message
-          errors:
-          - subCategory: subCategory
-            code: code
-            in: in
-            context:
-              missingScopes:
-              - scope1
-              - scope2
-            message: message
-          - subCategory: subCategory
-            code: code
-            in: in
-            context:
-              missingScopes:
-              - scope1
-              - scope2
-            message: message
-          status: status
-        - subCategory: "{}"
-          context:
-            key:
-            - context
-            - context
-          links:
-            key: links
-          id: id
-          category:
-            httpStatus: CONTINUE
-            name: name
-          message: message
-          errors:
-          - subCategory: subCategory
-            code: code
-            in: in
-            context:
-              missingScopes:
-              - scope1
-              - scope2
-            message: message
-          - subCategory: subCategory
-            code: code
-            in: in
-            context:
-              missingScopes:
-              - scope1
-              - scope2
-            message: message
-          status: status
+            id: "12726"
+          type: contact_to_company
         status: PENDING
       properties:
-        results:
-          items:
-            $ref: '#/components/schemas/PublicAssociationMulti'
-          type: array
-        numErrors:
-          format: int32
-          type: integer
-        errors:
-          items:
-            $ref: '#/components/schemas/StandardError'
-          type: array
         status:
           enum:
           - PENDING
@@ -882,6 +865,10 @@ components:
           - CANCELED
           - COMPLETE
           type: string
+        results:
+          items:
+            $ref: '#/components/schemas/PublicAssociation'
+          type: array
         requestedAt:
           format: date-time
           type: string
@@ -891,11 +878,78 @@ components:
         completedAt:
           format: date-time
           type: string
+        links:
+          additionalProperties:
+            type: string
+          type: object
       required:
       - completedAt
       - results
       - startedAt
       - status
+      type: object
+    BatchResponsePublicAssociationMulti:
+      example:
+        completedAt: 2000-01-23T04:56:07.000+00:00
+        requestedAt: 2000-01-23T04:56:07.000+00:00
+        startedAt: 2000-01-23T04:56:07.000+00:00
+        links:
+          key: links
+        results:
+        - from:
+            id: "53628"
+          to:
+          - id: "12726"
+            type: contact_to_company
+          - id: "61352"
+            type: contact_to_company
+        - from:
+            id: "53628"
+          to:
+          - id: "12726"
+            type: contact_to_company
+          - id: "61352"
+            type: contact_to_company
+        status: PENDING
+      properties:
+        status:
+          enum:
+          - PENDING
+          - PROCESSING
+          - CANCELED
+          - COMPLETE
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/PublicAssociationMulti'
+          type: array
+        requestedAt:
+          format: date-time
+          type: string
+        startedAt:
+          format: date-time
+          type: string
+        completedAt:
+          format: date-time
+          type: string
+        links:
+          additionalProperties:
+            type: string
+          type: object
+      required:
+      - completedAt
+      - results
+      - startedAt
+      - status
+      type: object
+    NextPage:
+      properties:
+        after:
+          type: string
+        link:
+          type: string
+      required:
+      - after
       type: object
     AssociatedId:
       example:
@@ -909,18 +963,6 @@ components:
       required:
       - id
       - type
-      type: object
-    NextPage:
-      example:
-        link: link
-        after: after
-      properties:
-        after:
-          type: string
-        link:
-          type: string
-      required:
-      - after
       type: object
     BatchInputPublicAssociation:
       example:
@@ -949,35 +991,39 @@ components:
         authorizationCode:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
-            crm.objects.custom.read: View custom object records
-            contacts: Read from and write to my Contacts
-            crm.objects.custom.write: Change custom object records
             e-commerce: e-commerce
-            media_bridge.read: Read media and media events
+            crm.objects.custom.write: Change custom object records
+            crm.objects.custom.read: View custom object records
+            crm.objects.goals.read: Read goals
             tickets: Read and write tickets
+            media_bridge.read: Read media and media events
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
-    hapikey:
-      in: query
-      name: hapikey
-      type: apiKey
     oauth2:
       flows:
         authorizationCode:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
-            crm.objects.quotes.write: Quotes
-            crm.objects.contacts.read: ' '
-            crm.objects.contacts.write: ' '
-            crm.objects.companies.write: ' '
-            crm.objects.companies.read: ' '
-            crm.objects.line_items.write: Line Items
             crm.objects.quotes.read: Quotes
-            crm.objects.deals.write: ' '
-            crm.objects.line_items.read: Line Items
+            crm.objects.line_items.write: Line Items
+            crm.objects.companies.read: ' '
+            crm.objects.companies.write: ' '
+            crm.objects.contacts.write: ' '
+            crm.objects.contacts.read: ' '
+            crm.objects.quotes.write: Quotes
             crm.objects.deals.read: ' '
+            crm.objects.line_items.read: Line Items
+            crm.objects.deals.write: ' '
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
+    private_apps_legacy:
+      in: header
+      name: private-app-legacy
+      type: apiKey
+    private_apps:
+      in: header
+      name: private-app
+      type: apiKey
 x-hubspot-available-client-libraries:
 - PHP
 - Node

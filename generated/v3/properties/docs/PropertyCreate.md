@@ -15,6 +15,9 @@ Name | Type | Description | Notes
 **HasUniqueValue** | Pointer to **bool** | Whether or not the property&#39;s value must be unique. Once set, this can&#39;t be changed. | [optional] 
 **Hidden** | Pointer to **bool** | If true, the property won&#39;t be visible and can&#39;t be used in HubSpot. | [optional] 
 **FormField** | Pointer to **bool** | Whether or not the property can be used in a HubSpot form. | [optional] 
+**ExternalOptions** | Pointer to **bool** | Applicable only for &#39;enumeration&#39; type properties.  Should be set to true in conjunction with a &#39;referencedObjectType&#39; of &#39;OWNER&#39;.  Otherwise false. | [optional] 
+**ReferencedObjectType** | Pointer to **string** | Should be set to &#39;OWNER&#39; when &#39;externalOptions&#39; is true, which causes the property to dynamically pull option values from the current HubSpot users. | [optional] 
+**CalculationFormula** | Pointer to **string** | Represents a formula that is used to compute a calculated property. | [optional] 
 
 ## Methods
 
@@ -284,6 +287,81 @@ SetFormField sets FormField field to given value.
 `func (o *PropertyCreate) HasFormField() bool`
 
 HasFormField returns a boolean if a field has been set.
+
+### GetExternalOptions
+
+`func (o *PropertyCreate) GetExternalOptions() bool`
+
+GetExternalOptions returns the ExternalOptions field if non-nil, zero value otherwise.
+
+### GetExternalOptionsOk
+
+`func (o *PropertyCreate) GetExternalOptionsOk() (*bool, bool)`
+
+GetExternalOptionsOk returns a tuple with the ExternalOptions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExternalOptions
+
+`func (o *PropertyCreate) SetExternalOptions(v bool)`
+
+SetExternalOptions sets ExternalOptions field to given value.
+
+### HasExternalOptions
+
+`func (o *PropertyCreate) HasExternalOptions() bool`
+
+HasExternalOptions returns a boolean if a field has been set.
+
+### GetReferencedObjectType
+
+`func (o *PropertyCreate) GetReferencedObjectType() string`
+
+GetReferencedObjectType returns the ReferencedObjectType field if non-nil, zero value otherwise.
+
+### GetReferencedObjectTypeOk
+
+`func (o *PropertyCreate) GetReferencedObjectTypeOk() (*string, bool)`
+
+GetReferencedObjectTypeOk returns a tuple with the ReferencedObjectType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReferencedObjectType
+
+`func (o *PropertyCreate) SetReferencedObjectType(v string)`
+
+SetReferencedObjectType sets ReferencedObjectType field to given value.
+
+### HasReferencedObjectType
+
+`func (o *PropertyCreate) HasReferencedObjectType() bool`
+
+HasReferencedObjectType returns a boolean if a field has been set.
+
+### GetCalculationFormula
+
+`func (o *PropertyCreate) GetCalculationFormula() string`
+
+GetCalculationFormula returns the CalculationFormula field if non-nil, zero value otherwise.
+
+### GetCalculationFormulaOk
+
+`func (o *PropertyCreate) GetCalculationFormulaOk() (*string, bool)`
+
+GetCalculationFormulaOk returns a tuple with the CalculationFormula field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCalculationFormula
+
+`func (o *PropertyCreate) SetCalculationFormula(v string)`
+
+SetCalculationFormula sets CalculationFormula field to given value.
+
+### HasCalculationFormula
+
+`func (o *PropertyCreate) HasCalculationFormula() bool`
+
+HasCalculationFormula returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

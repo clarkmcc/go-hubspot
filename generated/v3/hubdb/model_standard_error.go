@@ -18,7 +18,7 @@ import (
 type StandardError struct {
 	Status      string                 `json:"status"`
 	Id          *string                `json:"id,omitempty"`
-	Category    map[string]interface{} `json:"category"`
+	Category    string                 `json:"category"`
 	SubCategory map[string]interface{} `json:"subCategory,omitempty"`
 	Message     string                 `json:"message"`
 	Errors      []ErrorDetail          `json:"errors"`
@@ -30,7 +30,7 @@ type StandardError struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewStandardError(status string, category map[string]interface{}, message string, errors []ErrorDetail, context map[string][]string, links map[string]string) *StandardError {
+func NewStandardError(status string, category string, message string, errors []ErrorDetail, context map[string][]string, links map[string]string) *StandardError {
 	this := StandardError{}
 	this.Status = status
 	this.Category = category
@@ -106,9 +106,9 @@ func (o *StandardError) SetId(v string) {
 }
 
 // GetCategory returns the Category field value
-func (o *StandardError) GetCategory() map[string]interface{} {
+func (o *StandardError) GetCategory() string {
 	if o == nil {
-		var ret map[string]interface{}
+		var ret string
 		return ret
 	}
 
@@ -117,15 +117,15 @@ func (o *StandardError) GetCategory() map[string]interface{} {
 
 // GetCategoryOk returns a tuple with the Category field value
 // and a boolean to check if the value has been set.
-func (o *StandardError) GetCategoryOk() (map[string]interface{}, bool) {
+func (o *StandardError) GetCategoryOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.Category, true
+	return &o.Category, true
 }
 
 // SetCategory sets field value
-func (o *StandardError) SetCategory(v map[string]interface{}) {
+func (o *StandardError) SetCategory(v string) {
 	o.Category = v
 }
 

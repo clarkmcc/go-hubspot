@@ -61,7 +61,7 @@ Each operation can use different server URL defined using `OperationServers` map
 An operation is uniquely identified by `"{classname}Service.{nickname}"` string.
 Similar rules for overriding default operation server index and variables applies by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
 
-```golang
+```
 ctx := context.WithValue(context.Background(), webhooks.ContextOperationServerIndices, map[string]int{
 	"{classname}Service.{nickname}": 2,
 })
@@ -95,7 +95,6 @@ Class | Method | HTTP request | Description
  - [BatchResponseSubscriptionResponse](docs/BatchResponseSubscriptionResponse.md)
  - [BatchResponseSubscriptionResponseWithErrors](docs/BatchResponseSubscriptionResponseWithErrors.md)
  - [Error](docs/Error.md)
- - [ErrorCategory](docs/ErrorCategory.md)
  - [ErrorDetail](docs/ErrorDetail.md)
  - [SettingsChangeRequest](docs/SettingsChangeRequest.md)
  - [SettingsResponse](docs/SettingsResponse.md)

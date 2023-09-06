@@ -5,7 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **State** | **string** | The status of the import. | 
+**ImportTemplate** | Pointer to [**ImportTemplate**](ImportTemplate.md) |  | [optional] 
 **ImportRequestJson** | Pointer to **map[string]interface{}** |  | [optional] 
+**ImportSource** | Pointer to **string** |  | [optional] 
 **CreatedAt** | **time.Time** |  | 
 **Metadata** | [**PublicImportMetadata**](PublicImportMetadata.md) |  | 
 **ImportName** | Pointer to **string** |  | [optional] 
@@ -52,6 +54,31 @@ and a boolean to check if the value has been set.
 SetState sets State field to given value.
 
 
+### GetImportTemplate
+
+`func (o *PublicImportResponse) GetImportTemplate() ImportTemplate`
+
+GetImportTemplate returns the ImportTemplate field if non-nil, zero value otherwise.
+
+### GetImportTemplateOk
+
+`func (o *PublicImportResponse) GetImportTemplateOk() (*ImportTemplate, bool)`
+
+GetImportTemplateOk returns a tuple with the ImportTemplate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetImportTemplate
+
+`func (o *PublicImportResponse) SetImportTemplate(v ImportTemplate)`
+
+SetImportTemplate sets ImportTemplate field to given value.
+
+### HasImportTemplate
+
+`func (o *PublicImportResponse) HasImportTemplate() bool`
+
+HasImportTemplate returns a boolean if a field has been set.
+
 ### GetImportRequestJson
 
 `func (o *PublicImportResponse) GetImportRequestJson() map[string]interface{}`
@@ -76,6 +103,31 @@ SetImportRequestJson sets ImportRequestJson field to given value.
 `func (o *PublicImportResponse) HasImportRequestJson() bool`
 
 HasImportRequestJson returns a boolean if a field has been set.
+
+### GetImportSource
+
+`func (o *PublicImportResponse) GetImportSource() string`
+
+GetImportSource returns the ImportSource field if non-nil, zero value otherwise.
+
+### GetImportSourceOk
+
+`func (o *PublicImportResponse) GetImportSourceOk() (*string, bool)`
+
+GetImportSourceOk returns a tuple with the ImportSource field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetImportSource
+
+`func (o *PublicImportResponse) SetImportSource(v string)`
+
+SetImportSource sets ImportSource field to given value.
+
+### HasImportSource
+
+`func (o *PublicImportResponse) HasImportSource() bool`
+
+HasImportSource returns a boolean if a field has been set.
 
 ### GetCreatedAt
 

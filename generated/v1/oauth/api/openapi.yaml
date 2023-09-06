@@ -1,6 +1,5 @@
 openapi: 3.0.1
 info:
-  title: OAuthService
   version: v1
 servers:
 - url: https://api.hubapi.com/
@@ -11,7 +10,7 @@ tags:
 paths:
   /oauth/v1/access-tokens/{token}:
     get:
-      operationId: GetAccessToken
+      operationId: "get-/oauth/v1/access-tokens/{token}_get"
       parameters:
       - explode: false
         in: path
@@ -38,7 +37,7 @@ paths:
       - Access_Tokens
   /oauth/v1/refresh-tokens/{token}:
     delete:
-      operationId: ArchiveRefreshToken
+      operationId: "delete-/oauth/v1/refresh-tokens/{token}_archive"
       parameters:
       - explode: false
         in: path
@@ -54,11 +53,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
+        "204":
+          content: {}
+          description: No content
       security: []
       tags:
       - Refresh_Tokens
     get:
-      operationId: GetRefreshToken
+      operationId: "get-/oauth/v1/refresh-tokens/{token}_get"
       parameters:
       - explode: false
         in: path
@@ -85,12 +87,12 @@ paths:
       - Refresh_Tokens
   /oauth/v1/token:
     post:
-      operationId: CreateToken
+      operationId: post-/oauth/v1/token_create
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/CreateToken_request'
+              $ref: '#/components/schemas/post__oauth_v1_token_create_request'
       responses:
         "200":
           content:
@@ -282,16 +284,16 @@ components:
         token_type: token_type
         expires_in: 0
       properties:
-        refresh_token:
+        access_token:
           type: string
         expires_in:
           format: int32
           type: integer
-        access_token:
-          type: string
-        id_token:
+        refresh_token:
           type: string
         token_type:
+          type: string
+        id_token:
           type: string
       required:
       - access_token
@@ -340,7 +342,7 @@ components:
       - token_type
       - user_id
       type: object
-    CreateToken_request:
+    post__oauth_v1_token_create_request:
       properties:
         grant_type:
           enum:
@@ -357,6 +359,7 @@ components:
           type: string
         refresh_token:
           type: string
+  securitySchemes: {}
 x-hubspot-available-client-libraries:
 - PHP
 - Node

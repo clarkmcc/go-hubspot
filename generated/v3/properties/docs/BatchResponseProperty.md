@@ -6,8 +6,6 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Status** | **string** |  | 
 **Results** | [**[]Property**](Property.md) |  | 
-**NumErrors** | Pointer to **int32** |  | [optional] 
-**Errors** | Pointer to [**[]StandardError**](StandardError.md) |  | [optional] 
 **RequestedAt** | Pointer to **time.Time** |  | [optional] 
 **StartedAt** | **time.Time** |  | 
 **CompletedAt** | **time.Time** |  | 
@@ -71,56 +69,6 @@ and a boolean to check if the value has been set.
 
 SetResults sets Results field to given value.
 
-
-### GetNumErrors
-
-`func (o *BatchResponseProperty) GetNumErrors() int32`
-
-GetNumErrors returns the NumErrors field if non-nil, zero value otherwise.
-
-### GetNumErrorsOk
-
-`func (o *BatchResponseProperty) GetNumErrorsOk() (*int32, bool)`
-
-GetNumErrorsOk returns a tuple with the NumErrors field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetNumErrors
-
-`func (o *BatchResponseProperty) SetNumErrors(v int32)`
-
-SetNumErrors sets NumErrors field to given value.
-
-### HasNumErrors
-
-`func (o *BatchResponseProperty) HasNumErrors() bool`
-
-HasNumErrors returns a boolean if a field has been set.
-
-### GetErrors
-
-`func (o *BatchResponseProperty) GetErrors() []StandardError`
-
-GetErrors returns the Errors field if non-nil, zero value otherwise.
-
-### GetErrorsOk
-
-`func (o *BatchResponseProperty) GetErrorsOk() (*[]StandardError, bool)`
-
-GetErrorsOk returns a tuple with the Errors field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetErrors
-
-`func (o *BatchResponseProperty) SetErrors(v []StandardError)`
-
-SetErrors sets Errors field to given value.
-
-### HasErrors
-
-`func (o *BatchResponseProperty) HasErrors() bool`
-
-HasErrors returns a boolean if a field has been set.
 
 ### GetRequestedAt
 

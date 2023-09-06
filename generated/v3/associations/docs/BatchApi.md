@@ -33,7 +33,7 @@ import (
 func main() {
     fromObjectType := "fromObjectType_example" // string | 
     toObjectType := "toObjectType_example" // string | 
-    batchInputPublicAssociation := *openapiclient.NewBatchInputPublicAssociation([]openapiclient.PublicAssociation{*openapiclient.NewPublicAssociation(*openapiclient.NewPublicObjectId("Id_example"), *openapiclient.NewPublicObjectId("Id_example"), "Type_example")}) // BatchInputPublicAssociation |  (optional)
+    batchInputPublicAssociation := *openapiclient.NewBatchInputPublicAssociation([]openapiclient.PublicAssociation{*openapiclient.NewPublicAssociation(*openapiclient.NewPublicObjectId("Id_example"), *openapiclient.NewPublicObjectId("Id_example"), "Type_example")}) // BatchInputPublicAssociation | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -71,7 +71,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -106,7 +106,7 @@ import (
 func main() {
     fromObjectType := "fromObjectType_example" // string | 
     toObjectType := "toObjectType_example" // string | 
-    batchInputPublicAssociation := *openapiclient.NewBatchInputPublicAssociation([]openapiclient.PublicAssociation{*openapiclient.NewPublicAssociation(*openapiclient.NewPublicObjectId("Id_example"), *openapiclient.NewPublicObjectId("Id_example"), "Type_example")}) // BatchInputPublicAssociation |  (optional)
+    batchInputPublicAssociation := *openapiclient.NewBatchInputPublicAssociation([]openapiclient.PublicAssociation{*openapiclient.NewPublicAssociation(*openapiclient.NewPublicObjectId("Id_example"), *openapiclient.NewPublicObjectId("Id_example"), "Type_example")}) // BatchInputPublicAssociation | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -146,7 +146,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -181,7 +181,7 @@ import (
 func main() {
     fromObjectType := "fromObjectType_example" // string | 
     toObjectType := "toObjectType_example" // string | 
-    batchInputPublicObjectId := *openapiclient.NewBatchInputPublicObjectId([]openapiclient.PublicObjectId{*openapiclient.NewPublicObjectId("Id_example")}) // BatchInputPublicObjectId |  (optional)
+    batchInputPublicObjectId := *openapiclient.NewBatchInputPublicObjectId([]openapiclient.PublicObjectId{*openapiclient.NewPublicObjectId("Id_example")}) // BatchInputPublicObjectId | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -221,7 +221,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[hapikey](../README.md#hapikey), [oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy)
+[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 

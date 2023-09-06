@@ -46,9 +46,7 @@
             "$ref" : "#/components/responses/Error"
           }
         },
-        "security" : [ {
-          "hapikey" : [ ]
-        } ]
+        "security" : [ ]
       },
       "put" : {
         "tags" : [ "Settings" ],
@@ -92,9 +90,7 @@
             "$ref" : "#/components/responses/Error"
           }
         },
-        "security" : [ {
-          "hapikey" : [ ]
-        } ]
+        "security" : [ ]
       },
       "delete" : {
         "tags" : [ "Settings" ],
@@ -122,9 +118,7 @@
             "$ref" : "#/components/responses/Error"
           }
         },
-        "security" : [ {
-          "hapikey" : [ ]
-        } ]
+        "security" : [ ]
       }
     }
   },
@@ -268,13 +262,7 @@
         }
       }
     },
-    "securitySchemes" : {
-      "hapikey" : {
-        "type" : "apiKey",
-        "name" : "hapikey",
-        "in" : "query"
-      }
-    }
+    "securitySchemes" : { }
   },
   "x-hubspot-available-client-libraries" : [ "PHP", "Node", "Python", "Ruby" ]
 }

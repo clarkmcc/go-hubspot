@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Values** | **[]map[string]interface{}** |  | 
 **Name** | **string** |  | 
 **Value** | **map[string]interface{}** |  | 
-**Values** | **[]map[string]interface{}** |  | 
 **MetadataField** | **bool** |  | 
 
 ## Methods
 
 ### NewIndexedField
 
-`func NewIndexedField(name string, value map[string]interface{}, values []map[string]interface{}, metadataField bool, ) *IndexedField`
+`func NewIndexedField(values []map[string]interface{}, name string, value map[string]interface{}, metadataField bool, ) *IndexedField`
 
 NewIndexedField instantiates a new IndexedField object
 This constructor will assign default values to properties that have it defined,
@@ -27,6 +27,26 @@ will change when the set of required properties is changed
 NewIndexedFieldWithDefaults instantiates a new IndexedField object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetValues
+
+`func (o *IndexedField) GetValues() []map[string]interface{}`
+
+GetValues returns the Values field if non-nil, zero value otherwise.
+
+### GetValuesOk
+
+`func (o *IndexedField) GetValuesOk() (*[]map[string]interface{}, bool)`
+
+GetValuesOk returns a tuple with the Values field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetValues
+
+`func (o *IndexedField) SetValues(v []map[string]interface{})`
+
+SetValues sets Values field to given value.
+
 
 ### GetName
 
@@ -66,26 +86,6 @@ and a boolean to check if the value has been set.
 `func (o *IndexedField) SetValue(v map[string]interface{})`
 
 SetValue sets Value field to given value.
-
-
-### GetValues
-
-`func (o *IndexedField) GetValues() []map[string]interface{}`
-
-GetValues returns the Values field if non-nil, zero value otherwise.
-
-### GetValuesOk
-
-`func (o *IndexedField) GetValuesOk() (*[]map[string]interface{}, bool)`
-
-GetValuesOk returns a tuple with the Values field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetValues
-
-`func (o *IndexedField) SetValues(v []map[string]interface{})`
-
-SetValues sets Values field to given value.
 
 
 ### GetMetadataField

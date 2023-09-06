@@ -16,23 +16,23 @@ import (
 
 // MarketingEventExternalUniqueIdentifier struct for MarketingEventExternalUniqueIdentifier
 type MarketingEventExternalUniqueIdentifier struct {
-	// The id of the application that created the marketing event in HubSpot.
-	AppId int32 `json:"appId"`
 	// The accountId that is associated with this marketing event in the external event application.
 	ExternalAccountId string `json:"externalAccountId"`
 	// The id of the marketing event in the external event application.
 	ExternalEventId string `json:"externalEventId"`
+	// The id of the application that created the marketing event in HubSpot.
+	AppId int32 `json:"appId"`
 }
 
 // NewMarketingEventExternalUniqueIdentifier instantiates a new MarketingEventExternalUniqueIdentifier object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMarketingEventExternalUniqueIdentifier(appId int32, externalAccountId string, externalEventId string) *MarketingEventExternalUniqueIdentifier {
+func NewMarketingEventExternalUniqueIdentifier(externalAccountId string, externalEventId string, appId int32) *MarketingEventExternalUniqueIdentifier {
 	this := MarketingEventExternalUniqueIdentifier{}
-	this.AppId = appId
 	this.ExternalAccountId = externalAccountId
 	this.ExternalEventId = externalEventId
+	this.AppId = appId
 	return &this
 }
 
@@ -42,30 +42,6 @@ func NewMarketingEventExternalUniqueIdentifier(appId int32, externalAccountId st
 func NewMarketingEventExternalUniqueIdentifierWithDefaults() *MarketingEventExternalUniqueIdentifier {
 	this := MarketingEventExternalUniqueIdentifier{}
 	return &this
-}
-
-// GetAppId returns the AppId field value
-func (o *MarketingEventExternalUniqueIdentifier) GetAppId() int32 {
-	if o == nil {
-		var ret int32
-		return ret
-	}
-
-	return o.AppId
-}
-
-// GetAppIdOk returns a tuple with the AppId field value
-// and a boolean to check if the value has been set.
-func (o *MarketingEventExternalUniqueIdentifier) GetAppIdOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.AppId, true
-}
-
-// SetAppId sets field value
-func (o *MarketingEventExternalUniqueIdentifier) SetAppId(v int32) {
-	o.AppId = v
 }
 
 // GetExternalAccountId returns the ExternalAccountId field value
@@ -116,16 +92,40 @@ func (o *MarketingEventExternalUniqueIdentifier) SetExternalEventId(v string) {
 	o.ExternalEventId = v
 }
 
+// GetAppId returns the AppId field value
+func (o *MarketingEventExternalUniqueIdentifier) GetAppId() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.AppId
+}
+
+// GetAppIdOk returns a tuple with the AppId field value
+// and a boolean to check if the value has been set.
+func (o *MarketingEventExternalUniqueIdentifier) GetAppIdOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.AppId, true
+}
+
+// SetAppId sets field value
+func (o *MarketingEventExternalUniqueIdentifier) SetAppId(v int32) {
+	o.AppId = v
+}
+
 func (o MarketingEventExternalUniqueIdentifier) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["appId"] = o.AppId
-	}
 	if true {
 		toSerialize["externalAccountId"] = o.ExternalAccountId
 	}
 	if true {
 		toSerialize["externalEventId"] = o.ExternalEventId
+	}
+	if true {
+		toSerialize["appId"] = o.AppId
 	}
 	return json.Marshal(toSerialize)
 }

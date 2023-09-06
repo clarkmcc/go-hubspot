@@ -19,7 +19,9 @@ import (
 type PublicImportResponse struct {
 	// The status of the import.
 	State             string                 `json:"state"`
+	ImportTemplate    *ImportTemplate        `json:"importTemplate,omitempty"`
 	ImportRequestJson map[string]interface{} `json:"importRequestJson,omitempty"`
+	ImportSource      *string                `json:"importSource,omitempty"`
 	CreatedAt         time.Time              `json:"createdAt"`
 	Metadata          PublicImportMetadata   `json:"metadata"`
 	ImportName        *string                `json:"importName,omitempty"`
@@ -76,6 +78,38 @@ func (o *PublicImportResponse) SetState(v string) {
 	o.State = v
 }
 
+// GetImportTemplate returns the ImportTemplate field value if set, zero value otherwise.
+func (o *PublicImportResponse) GetImportTemplate() ImportTemplate {
+	if o == nil || o.ImportTemplate == nil {
+		var ret ImportTemplate
+		return ret
+	}
+	return *o.ImportTemplate
+}
+
+// GetImportTemplateOk returns a tuple with the ImportTemplate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PublicImportResponse) GetImportTemplateOk() (*ImportTemplate, bool) {
+	if o == nil || o.ImportTemplate == nil {
+		return nil, false
+	}
+	return o.ImportTemplate, true
+}
+
+// HasImportTemplate returns a boolean if a field has been set.
+func (o *PublicImportResponse) HasImportTemplate() bool {
+	if o != nil && o.ImportTemplate != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetImportTemplate gets a reference to the given ImportTemplate and assigns it to the ImportTemplate field.
+func (o *PublicImportResponse) SetImportTemplate(v ImportTemplate) {
+	o.ImportTemplate = &v
+}
+
 // GetImportRequestJson returns the ImportRequestJson field value if set, zero value otherwise.
 func (o *PublicImportResponse) GetImportRequestJson() map[string]interface{} {
 	if o == nil || o.ImportRequestJson == nil {
@@ -106,6 +140,38 @@ func (o *PublicImportResponse) HasImportRequestJson() bool {
 // SetImportRequestJson gets a reference to the given map[string]interface{} and assigns it to the ImportRequestJson field.
 func (o *PublicImportResponse) SetImportRequestJson(v map[string]interface{}) {
 	o.ImportRequestJson = v
+}
+
+// GetImportSource returns the ImportSource field value if set, zero value otherwise.
+func (o *PublicImportResponse) GetImportSource() string {
+	if o == nil || o.ImportSource == nil {
+		var ret string
+		return ret
+	}
+	return *o.ImportSource
+}
+
+// GetImportSourceOk returns a tuple with the ImportSource field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PublicImportResponse) GetImportSourceOk() (*string, bool) {
+	if o == nil || o.ImportSource == nil {
+		return nil, false
+	}
+	return o.ImportSource, true
+}
+
+// HasImportSource returns a boolean if a field has been set.
+func (o *PublicImportResponse) HasImportSource() bool {
+	if o != nil && o.ImportSource != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetImportSource gets a reference to the given string and assigns it to the ImportSource field.
+func (o *PublicImportResponse) SetImportSource(v string) {
+	o.ImportSource = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value
@@ -265,8 +331,14 @@ func (o PublicImportResponse) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["state"] = o.State
 	}
+	if o.ImportTemplate != nil {
+		toSerialize["importTemplate"] = o.ImportTemplate
+	}
 	if o.ImportRequestJson != nil {
 		toSerialize["importRequestJson"] = o.ImportRequestJson
+	}
+	if o.ImportSource != nil {
+		toSerialize["importSource"] = o.ImportSource
 	}
 	if true {
 		toSerialize["createdAt"] = o.CreatedAt

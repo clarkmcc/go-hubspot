@@ -1,7 +1,6 @@
 {
   "openapi" : "3.0.1",
   "info" : {
-    "title" : "OAuthService",
     "version" : "v1"
   },
   "servers" : [ {
@@ -18,7 +17,7 @@
     "/oauth/v1/access-tokens/{token}" : {
       "get" : {
         "tags" : [ "Access_Tokens" ],
-        "operationId" : "GetAccessToken",
+        "operationId" : "get-/oauth/v1/access-tokens/{token}_get",
         "parameters" : [ {
           "name" : "token",
           "in" : "path",
@@ -50,7 +49,7 @@
     "/oauth/v1/refresh-tokens/{token}" : {
       "get" : {
         "tags" : [ "Refresh_Tokens" ],
-        "operationId" : "GetRefreshToken",
+        "operationId" : "get-/oauth/v1/refresh-tokens/{token}_get",
         "parameters" : [ {
           "name" : "token",
           "in" : "path",
@@ -80,7 +79,7 @@
       },
       "delete" : {
         "tags" : [ "Refresh_Tokens" ],
-        "operationId" : "ArchiveRefreshToken",
+        "operationId" : "delete-/oauth/v1/refresh-tokens/{token}_archive",
         "parameters" : [ {
           "name" : "token",
           "in" : "path",
@@ -94,6 +93,10 @@
         "responses" : {
           "default" : {
             "$ref" : "#/components/responses/Error"
+          },
+          "204" : {
+            "description" : "No content",
+            "content" : { }
           }
         },
         "security" : [ ]
@@ -102,7 +105,7 @@
     "/oauth/v1/token" : {
       "post" : {
         "tags" : [ "Tokens" ],
-        "operationId" : "CreateToken",
+        "operationId" : "post-/oauth/v1/token_create",
         "requestBody" : {
           "content" : {
             "application/x-www-form-urlencoded" : {
@@ -313,20 +316,20 @@
         "required" : [ "access_token", "expires_in", "refresh_token", "token_type" ],
         "type" : "object",
         "properties" : {
-          "refresh_token" : {
+          "access_token" : {
             "type" : "string"
           },
           "expires_in" : {
             "type" : "integer",
             "format" : "int32"
           },
-          "access_token" : {
-            "type" : "string"
-          },
-          "id_token" : {
+          "refresh_token" : {
             "type" : "string"
           },
           "token_type" : {
+            "type" : "string"
+          },
+          "id_token" : {
             "type" : "string"
           }
         }
@@ -378,7 +381,8 @@
           }
         }
       }
-    }
+    },
+    "securitySchemes" : { }
   },
   "x-hubspot-available-client-libraries" : [ "PHP", "Node", "Python", "Ruby" ]
 }

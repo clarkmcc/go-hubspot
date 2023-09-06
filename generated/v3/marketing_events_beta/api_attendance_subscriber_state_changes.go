@@ -15,8 +15,6 @@ import (
 	"context"
 	"io/ioutil"
 	"net/http"
-
-	"github.com/clarkmcc/go-hubspot"
 	"net/url"
 	"strings"
 )
@@ -24,7 +22,7 @@ import (
 // AttendanceSubscriberStateChangesApiService AttendanceSubscriberStateChangesApi service
 type AttendanceSubscriberStateChangesApiService service
 
-type ApiAttendanceCreateRequest struct {
+type ApiAttendanceCreateCreateRequest struct {
 	ctx                                context.Context
 	ApiService                         *AttendanceSubscriberStateChangesApiService
 	externalEventId                    string
@@ -34,33 +32,33 @@ type ApiAttendanceCreateRequest struct {
 }
 
 // The details of the contacts to subscribe to the event. Parameters of join and left time if state is Attended.
-func (r ApiAttendanceCreateRequest) BatchInputMarketingEventSubscriber(batchInputMarketingEventSubscriber BatchInputMarketingEventSubscriber) ApiAttendanceCreateRequest {
+func (r ApiAttendanceCreateCreateRequest) BatchInputMarketingEventSubscriber(batchInputMarketingEventSubscriber BatchInputMarketingEventSubscriber) ApiAttendanceCreateCreateRequest {
 	r.batchInputMarketingEventSubscriber = &batchInputMarketingEventSubscriber
 	return r
 }
 
 // The account id associated with the marketing event
-func (r ApiAttendanceCreateRequest) ExternalAccountId(externalAccountId string) ApiAttendanceCreateRequest {
+func (r ApiAttendanceCreateCreateRequest) ExternalAccountId(externalAccountId string) ApiAttendanceCreateCreateRequest {
 	r.externalAccountId = &externalAccountId
 	return r
 }
 
-func (r ApiAttendanceCreateRequest) Execute() (*BatchResponseSubscriberVidResponse, *http.Response, error) {
-	return r.ApiService.AttendanceCreateExecute(r)
+func (r ApiAttendanceCreateCreateRequest) Execute() (*BatchResponseSubscriberVidResponse, *http.Response, error) {
+	return r.ApiService.AttendanceCreateCreateExecute(r)
 }
 
 /*
-AttendanceCreate Record
+AttendanceCreateCreate Record
 
 Record a subscription state between multiple HubSpot contacts and a marketing event, using HubSpot contact ids.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param externalEventId The id of the marketing event
- @param subscriberState The new subscriber state for the HubSpot contacts and the specified marketing event
- @return ApiAttendanceCreateRequest
+ @param subscriberState The new subscriber state for the HubSpot contacts and the specified marketing event. For example: 'register', 'attend' or 'cancel'.
+ @return ApiAttendanceCreateCreateRequest
 */
-func (a *AttendanceSubscriberStateChangesApiService) AttendanceCreate(ctx context.Context, externalEventId string, subscriberState string) ApiAttendanceCreateRequest {
-	return ApiAttendanceCreateRequest{
+func (a *AttendanceSubscriberStateChangesApiService) AttendanceCreateCreate(ctx context.Context, externalEventId string, subscriberState string) ApiAttendanceCreateCreateRequest {
+	return ApiAttendanceCreateCreateRequest{
 		ApiService:      a,
 		ctx:             ctx,
 		externalEventId: externalEventId,
@@ -70,7 +68,7 @@ func (a *AttendanceSubscriberStateChangesApiService) AttendanceCreate(ctx contex
 
 // Execute executes the request
 //  @return BatchResponseSubscriberVidResponse
-func (a *AttendanceSubscriberStateChangesApiService) AttendanceCreateExecute(r ApiAttendanceCreateRequest) (*BatchResponseSubscriberVidResponse, *http.Response, error) {
+func (a *AttendanceSubscriberStateChangesApiService) AttendanceCreateCreateExecute(r ApiAttendanceCreateCreateRequest) (*BatchResponseSubscriberVidResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -78,7 +76,7 @@ func (a *AttendanceSubscriberStateChangesApiService) AttendanceCreateExecute(r A
 		localVarReturnValue *BatchResponseSubscriberVidResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AttendanceSubscriberStateChangesApiService.AttendanceCreate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AttendanceSubscriberStateChangesApiService.AttendanceCreateCreate")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -118,12 +116,16 @@ func (a *AttendanceSubscriberStateChangesApiService) AttendanceCreateExecute(r A
 	localVarPostBody = r.batchInputMarketingEventSubscriber
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["private_apps_legacy"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["private-app-legacy"] = key
+			}
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
@@ -170,7 +172,7 @@ func (a *AttendanceSubscriberStateChangesApiService) AttendanceCreateExecute(r A
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiAttendanceEmailCreateRequest struct {
+type ApiAttendanceEmailCreateCreateByEmailRequest struct {
 	ctx                                     context.Context
 	ApiService                              *AttendanceSubscriberStateChangesApiService
 	externalEventId                         string
@@ -180,33 +182,33 @@ type ApiAttendanceEmailCreateRequest struct {
 }
 
 // The details of the contacts to subscribe to the event. Parameters of join and left time if state is Attended.
-func (r ApiAttendanceEmailCreateRequest) BatchInputMarketingEventEmailSubscriber(batchInputMarketingEventEmailSubscriber BatchInputMarketingEventEmailSubscriber) ApiAttendanceEmailCreateRequest {
+func (r ApiAttendanceEmailCreateCreateByEmailRequest) BatchInputMarketingEventEmailSubscriber(batchInputMarketingEventEmailSubscriber BatchInputMarketingEventEmailSubscriber) ApiAttendanceEmailCreateCreateByEmailRequest {
 	r.batchInputMarketingEventEmailSubscriber = &batchInputMarketingEventEmailSubscriber
 	return r
 }
 
 // The account id associated with the marketing event
-func (r ApiAttendanceEmailCreateRequest) ExternalAccountId(externalAccountId string) ApiAttendanceEmailCreateRequest {
+func (r ApiAttendanceEmailCreateCreateByEmailRequest) ExternalAccountId(externalAccountId string) ApiAttendanceEmailCreateCreateByEmailRequest {
 	r.externalAccountId = &externalAccountId
 	return r
 }
 
-func (r ApiAttendanceEmailCreateRequest) Execute() (*BatchResponseSubscriberEmailResponse, *http.Response, error) {
-	return r.ApiService.AttendanceEmailCreateExecute(r)
+func (r ApiAttendanceEmailCreateCreateByEmailRequest) Execute() (*BatchResponseSubscriberEmailResponse, *http.Response, error) {
+	return r.ApiService.AttendanceEmailCreateCreateByEmailExecute(r)
 }
 
 /*
-AttendanceEmailCreate Record
+AttendanceEmailCreateCreateByEmail Record
 
-Record a subscription state between multiple HubSpot contacts and a marketing event, using contact email addresses. If contact is not present it will be automatically created. If you set params
+Record a subscription state between multiple HubSpot contacts and a marketing event, using contact email addresses. If contact is not present it will be automatically created.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param externalEventId The id of the marketing event
- @param subscriberState The new subscriber state for the HubSpot contacts and the specified marketing event
- @return ApiAttendanceEmailCreateRequest
+ @param subscriberState The new subscriber state for the HubSpot contacts and the specified marketing event. For example: 'register', 'attend' or 'cancel'.
+ @return ApiAttendanceEmailCreateCreateByEmailRequest
 */
-func (a *AttendanceSubscriberStateChangesApiService) AttendanceEmailCreate(ctx context.Context, externalEventId string, subscriberState string) ApiAttendanceEmailCreateRequest {
-	return ApiAttendanceEmailCreateRequest{
+func (a *AttendanceSubscriberStateChangesApiService) AttendanceEmailCreateCreateByEmail(ctx context.Context, externalEventId string, subscriberState string) ApiAttendanceEmailCreateCreateByEmailRequest {
+	return ApiAttendanceEmailCreateCreateByEmailRequest{
 		ApiService:      a,
 		ctx:             ctx,
 		externalEventId: externalEventId,
@@ -216,7 +218,7 @@ func (a *AttendanceSubscriberStateChangesApiService) AttendanceEmailCreate(ctx c
 
 // Execute executes the request
 //  @return BatchResponseSubscriberEmailResponse
-func (a *AttendanceSubscriberStateChangesApiService) AttendanceEmailCreateExecute(r ApiAttendanceEmailCreateRequest) (*BatchResponseSubscriberEmailResponse, *http.Response, error) {
+func (a *AttendanceSubscriberStateChangesApiService) AttendanceEmailCreateCreateByEmailExecute(r ApiAttendanceEmailCreateCreateByEmailRequest) (*BatchResponseSubscriberEmailResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -224,7 +226,7 @@ func (a *AttendanceSubscriberStateChangesApiService) AttendanceEmailCreateExecut
 		localVarReturnValue *BatchResponseSubscriberEmailResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AttendanceSubscriberStateChangesApiService.AttendanceEmailCreate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AttendanceSubscriberStateChangesApiService.AttendanceEmailCreateCreateByEmail")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -264,12 +266,16 @@ func (a *AttendanceSubscriberStateChangesApiService) AttendanceEmailCreateExecut
 	localVarPostBody = r.batchInputMarketingEventEmailSubscriber
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["private_apps_legacy"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["private-app-legacy"] = key
+			}
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)

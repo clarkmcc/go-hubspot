@@ -4,20 +4,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Status** | **string** |  | 
-**Results** | [**[]SubscriberEmailResponse**](SubscriberEmailResponse.md) |  | 
+**CompletedAt** | **time.Time** |  | 
 **NumErrors** | Pointer to **int32** |  | [optional] 
-**Errors** | Pointer to [**[]StandardError**](StandardError.md) |  | [optional] 
 **RequestedAt** | Pointer to **time.Time** |  | [optional] 
 **StartedAt** | **time.Time** |  | 
-**CompletedAt** | **time.Time** |  | 
 **Links** | Pointer to **map[string]string** |  | [optional] 
+**Results** | [**[]SubscriberEmailResponse**](SubscriberEmailResponse.md) |  | 
+**Errors** | Pointer to [**[]StandardError**](StandardError.md) |  | [optional] 
+**Status** | **string** |  | 
 
 ## Methods
 
 ### NewBatchResponseSubscriberEmailResponse
 
-`func NewBatchResponseSubscriberEmailResponse(status string, results []SubscriberEmailResponse, startedAt time.Time, completedAt time.Time, ) *BatchResponseSubscriberEmailResponse`
+`func NewBatchResponseSubscriberEmailResponse(completedAt time.Time, startedAt time.Time, results []SubscriberEmailResponse, status string, ) *BatchResponseSubscriberEmailResponse`
 
 NewBatchResponseSubscriberEmailResponse instantiates a new BatchResponseSubscriberEmailResponse object
 This constructor will assign default values to properties that have it defined,
@@ -32,44 +32,24 @@ NewBatchResponseSubscriberEmailResponseWithDefaults instantiates a new BatchResp
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetStatus
+### GetCompletedAt
 
-`func (o *BatchResponseSubscriberEmailResponse) GetStatus() string`
+`func (o *BatchResponseSubscriberEmailResponse) GetCompletedAt() time.Time`
 
-GetStatus returns the Status field if non-nil, zero value otherwise.
+GetCompletedAt returns the CompletedAt field if non-nil, zero value otherwise.
 
-### GetStatusOk
+### GetCompletedAtOk
 
-`func (o *BatchResponseSubscriberEmailResponse) GetStatusOk() (*string, bool)`
+`func (o *BatchResponseSubscriberEmailResponse) GetCompletedAtOk() (*time.Time, bool)`
 
-GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
+GetCompletedAtOk returns a tuple with the CompletedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetStatus
+### SetCompletedAt
 
-`func (o *BatchResponseSubscriberEmailResponse) SetStatus(v string)`
+`func (o *BatchResponseSubscriberEmailResponse) SetCompletedAt(v time.Time)`
 
-SetStatus sets Status field to given value.
-
-
-### GetResults
-
-`func (o *BatchResponseSubscriberEmailResponse) GetResults() []SubscriberEmailResponse`
-
-GetResults returns the Results field if non-nil, zero value otherwise.
-
-### GetResultsOk
-
-`func (o *BatchResponseSubscriberEmailResponse) GetResultsOk() (*[]SubscriberEmailResponse, bool)`
-
-GetResultsOk returns a tuple with the Results field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetResults
-
-`func (o *BatchResponseSubscriberEmailResponse) SetResults(v []SubscriberEmailResponse)`
-
-SetResults sets Results field to given value.
+SetCompletedAt sets CompletedAt field to given value.
 
 
 ### GetNumErrors
@@ -96,31 +76,6 @@ SetNumErrors sets NumErrors field to given value.
 `func (o *BatchResponseSubscriberEmailResponse) HasNumErrors() bool`
 
 HasNumErrors returns a boolean if a field has been set.
-
-### GetErrors
-
-`func (o *BatchResponseSubscriberEmailResponse) GetErrors() []StandardError`
-
-GetErrors returns the Errors field if non-nil, zero value otherwise.
-
-### GetErrorsOk
-
-`func (o *BatchResponseSubscriberEmailResponse) GetErrorsOk() (*[]StandardError, bool)`
-
-GetErrorsOk returns a tuple with the Errors field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetErrors
-
-`func (o *BatchResponseSubscriberEmailResponse) SetErrors(v []StandardError)`
-
-SetErrors sets Errors field to given value.
-
-### HasErrors
-
-`func (o *BatchResponseSubscriberEmailResponse) HasErrors() bool`
-
-HasErrors returns a boolean if a field has been set.
 
 ### GetRequestedAt
 
@@ -167,26 +122,6 @@ and a boolean to check if the value has been set.
 SetStartedAt sets StartedAt field to given value.
 
 
-### GetCompletedAt
-
-`func (o *BatchResponseSubscriberEmailResponse) GetCompletedAt() time.Time`
-
-GetCompletedAt returns the CompletedAt field if non-nil, zero value otherwise.
-
-### GetCompletedAtOk
-
-`func (o *BatchResponseSubscriberEmailResponse) GetCompletedAtOk() (*time.Time, bool)`
-
-GetCompletedAtOk returns a tuple with the CompletedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCompletedAt
-
-`func (o *BatchResponseSubscriberEmailResponse) SetCompletedAt(v time.Time)`
-
-SetCompletedAt sets CompletedAt field to given value.
-
-
 ### GetLinks
 
 `func (o *BatchResponseSubscriberEmailResponse) GetLinks() map[string]string`
@@ -211,6 +146,71 @@ SetLinks sets Links field to given value.
 `func (o *BatchResponseSubscriberEmailResponse) HasLinks() bool`
 
 HasLinks returns a boolean if a field has been set.
+
+### GetResults
+
+`func (o *BatchResponseSubscriberEmailResponse) GetResults() []SubscriberEmailResponse`
+
+GetResults returns the Results field if non-nil, zero value otherwise.
+
+### GetResultsOk
+
+`func (o *BatchResponseSubscriberEmailResponse) GetResultsOk() (*[]SubscriberEmailResponse, bool)`
+
+GetResultsOk returns a tuple with the Results field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetResults
+
+`func (o *BatchResponseSubscriberEmailResponse) SetResults(v []SubscriberEmailResponse)`
+
+SetResults sets Results field to given value.
+
+
+### GetErrors
+
+`func (o *BatchResponseSubscriberEmailResponse) GetErrors() []StandardError`
+
+GetErrors returns the Errors field if non-nil, zero value otherwise.
+
+### GetErrorsOk
+
+`func (o *BatchResponseSubscriberEmailResponse) GetErrorsOk() (*[]StandardError, bool)`
+
+GetErrorsOk returns a tuple with the Errors field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetErrors
+
+`func (o *BatchResponseSubscriberEmailResponse) SetErrors(v []StandardError)`
+
+SetErrors sets Errors field to given value.
+
+### HasErrors
+
+`func (o *BatchResponseSubscriberEmailResponse) HasErrors() bool`
+
+HasErrors returns a boolean if a field has been set.
+
+### GetStatus
+
+`func (o *BatchResponseSubscriberEmailResponse) GetStatus() string`
+
+GetStatus returns the Status field if non-nil, zero value otherwise.
+
+### GetStatusOk
+
+`func (o *BatchResponseSubscriberEmailResponse) GetStatusOk() (*string, bool)`
+
+GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStatus
+
+`func (o *BatchResponseSubscriberEmailResponse) SetStatus(v string)`
+
+SetStatus sets Status field to given value.
+
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

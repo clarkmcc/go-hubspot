@@ -25,15 +25,21 @@ import (
 type PipelinesApiService service
 
 type ApiArchiveRequest struct {
-	ctx                            context.Context
-	ApiService                     *PipelinesApiService
-	objectType                     string
-	pipelineId                     string
-	validateReferencesBeforeDelete *bool
+	ctx                                 context.Context
+	ApiService                          *PipelinesApiService
+	objectType                          string
+	pipelineId                          string
+	validateReferencesBeforeDelete      *bool
+	validateDealStageUsagesBeforeDelete *bool
 }
 
 func (r ApiArchiveRequest) ValidateReferencesBeforeDelete(validateReferencesBeforeDelete bool) ApiArchiveRequest {
 	r.validateReferencesBeforeDelete = &validateReferencesBeforeDelete
+	return r
+}
+
+func (r ApiArchiveRequest) ValidateDealStageUsagesBeforeDelete(validateDealStageUsagesBeforeDelete bool) ApiArchiveRequest {
+	r.validateDealStageUsagesBeforeDelete = &validateDealStageUsagesBeforeDelete
 	return r
 }
 
@@ -83,6 +89,9 @@ func (a *PipelinesApiService) ArchiveExecute(r ApiArchiveRequest) (*http.Respons
 
 	if r.validateReferencesBeforeDelete != nil {
 		localVarQueryParams.Add("validateReferencesBeforeDelete", parameterToString(*r.validateReferencesBeforeDelete, ""))
+	}
+	if r.validateDealStageUsagesBeforeDelete != nil {
+		localVarQueryParams.Add("validateDealStageUsagesBeforeDelete", parameterToString(*r.validateDealStageUsagesBeforeDelete, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -522,12 +531,13 @@ func (a *PipelinesApiService) GetByIDExecute(r ApiGetByIDRequest) (*Pipeline, *h
 }
 
 type ApiReplaceRequest struct {
-	ctx                            context.Context
-	ApiService                     *PipelinesApiService
-	objectType                     string
-	pipelineId                     string
-	pipelineInput                  *PipelineInput
-	validateReferencesBeforeDelete *bool
+	ctx                                 context.Context
+	ApiService                          *PipelinesApiService
+	objectType                          string
+	pipelineId                          string
+	pipelineInput                       *PipelineInput
+	validateReferencesBeforeDelete      *bool
+	validateDealStageUsagesBeforeDelete *bool
 }
 
 func (r ApiReplaceRequest) PipelineInput(pipelineInput PipelineInput) ApiReplaceRequest {
@@ -537,6 +547,11 @@ func (r ApiReplaceRequest) PipelineInput(pipelineInput PipelineInput) ApiReplace
 
 func (r ApiReplaceRequest) ValidateReferencesBeforeDelete(validateReferencesBeforeDelete bool) ApiReplaceRequest {
 	r.validateReferencesBeforeDelete = &validateReferencesBeforeDelete
+	return r
+}
+
+func (r ApiReplaceRequest) ValidateDealStageUsagesBeforeDelete(validateDealStageUsagesBeforeDelete bool) ApiReplaceRequest {
+	r.validateDealStageUsagesBeforeDelete = &validateDealStageUsagesBeforeDelete
 	return r
 }
 
@@ -591,6 +606,9 @@ func (a *PipelinesApiService) ReplaceExecute(r ApiReplaceRequest) (*Pipeline, *h
 
 	if r.validateReferencesBeforeDelete != nil {
 		localVarQueryParams.Add("validateReferencesBeforeDelete", parameterToString(*r.validateReferencesBeforeDelete, ""))
+	}
+	if r.validateDealStageUsagesBeforeDelete != nil {
+		localVarQueryParams.Add("validateDealStageUsagesBeforeDelete", parameterToString(*r.validateDealStageUsagesBeforeDelete, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -666,12 +684,13 @@ func (a *PipelinesApiService) ReplaceExecute(r ApiReplaceRequest) (*Pipeline, *h
 }
 
 type ApiUpdateRequest struct {
-	ctx                            context.Context
-	ApiService                     *PipelinesApiService
-	objectType                     string
-	pipelineId                     string
-	pipelinePatchInput             *PipelinePatchInput
-	validateReferencesBeforeDelete *bool
+	ctx                                 context.Context
+	ApiService                          *PipelinesApiService
+	objectType                          string
+	pipelineId                          string
+	pipelinePatchInput                  *PipelinePatchInput
+	validateReferencesBeforeDelete      *bool
+	validateDealStageUsagesBeforeDelete *bool
 }
 
 func (r ApiUpdateRequest) PipelinePatchInput(pipelinePatchInput PipelinePatchInput) ApiUpdateRequest {
@@ -681,6 +700,11 @@ func (r ApiUpdateRequest) PipelinePatchInput(pipelinePatchInput PipelinePatchInp
 
 func (r ApiUpdateRequest) ValidateReferencesBeforeDelete(validateReferencesBeforeDelete bool) ApiUpdateRequest {
 	r.validateReferencesBeforeDelete = &validateReferencesBeforeDelete
+	return r
+}
+
+func (r ApiUpdateRequest) ValidateDealStageUsagesBeforeDelete(validateDealStageUsagesBeforeDelete bool) ApiUpdateRequest {
+	r.validateDealStageUsagesBeforeDelete = &validateDealStageUsagesBeforeDelete
 	return r
 }
 
@@ -735,6 +759,9 @@ func (a *PipelinesApiService) UpdateExecute(r ApiUpdateRequest) (*Pipeline, *htt
 
 	if r.validateReferencesBeforeDelete != nil {
 		localVarQueryParams.Add("validateReferencesBeforeDelete", parameterToString(*r.validateReferencesBeforeDelete, ""))
+	}
+	if r.validateDealStageUsagesBeforeDelete != nil {
+		localVarQueryParams.Add("validateDealStageUsagesBeforeDelete", parameterToString(*r.validateDealStageUsagesBeforeDelete, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}

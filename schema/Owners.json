@@ -77,9 +77,9 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "contacts" ]
         }, {
-          "oauth2_legacy" : [ "contacts" ]
+          "private_apps" : [ "crm.objects.owners.read" ]
         }, {
           "oauth2" : [ "crm.objects.owners.read" ]
         } ]
@@ -108,8 +108,8 @@
           "explode" : true,
           "schema" : {
             "type" : "string",
-            "enum" : [ "id", "userId" ],
-            "default" : "id"
+            "default" : "id",
+            "enum" : [ "id", "userId" ]
           }
         }, {
           "name" : "archived",
@@ -139,9 +139,9 @@
           }
         },
         "security" : [ {
-          "hapikey" : [ ]
+          "private_apps_legacy" : [ "contacts" ]
         }, {
-          "oauth2_legacy" : [ "contacts" ]
+          "private_apps" : [ "crm.objects.owners.read" ]
         }, {
           "oauth2" : [ "crm.objects.owners.read" ]
         } ]
@@ -190,6 +190,21 @@
         "properties" : {
           "next" : {
             "$ref" : "#/components/schemas/NextPage"
+          }
+        }
+      },
+      "PublicTeam" : {
+        "required" : [ "id", "name", "primary" ],
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "primary" : {
+            "type" : "boolean"
           }
         }
       },
@@ -249,21 +264,6 @@
             "name" : "California Sales",
             "primary" : false
           } ]
-        }
-      },
-      "PublicTeam" : {
-        "required" : [ "id", "name", "primary" ],
-        "type" : "object",
-        "properties" : {
-          "id" : {
-            "type" : "string"
-          },
-          "name" : {
-            "type" : "string"
-          },
-          "primary" : {
-            "type" : "boolean"
-          }
         }
       },
       "Error" : {
@@ -368,23 +368,6 @@
       }
     },
     "securitySchemes" : {
-      "oauth2_legacy" : {
-        "type" : "oauth2",
-        "flows" : {
-          "authorizationCode" : {
-            "authorizationUrl" : "https://app.hubspot.com/oauth/authorize",
-            "tokenUrl" : "https://api.hubapi.com/oauth/v1/token",
-            "scopes" : {
-              "contacts" : "Read from and write to my Contacts"
-            }
-          }
-        }
-      },
-      "hapikey" : {
-        "type" : "apiKey",
-        "name" : "hapikey",
-        "in" : "query"
-      },
       "oauth2" : {
         "type" : "oauth2",
         "flows" : {
@@ -396,6 +379,16 @@
             }
           }
         }
+      },
+      "private_apps_legacy" : {
+        "type" : "apiKey",
+        "name" : "private-app-legacy",
+        "in" : "header"
+      },
+      "private_apps" : {
+        "type" : "apiKey",
+        "name" : "private-app",
+        "in" : "header"
       }
     }
   },

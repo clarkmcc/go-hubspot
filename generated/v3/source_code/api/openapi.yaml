@@ -6,84 +6,21 @@ info:
   title: CMS Source Code
   version: v3
 servers:
-- url: https://api.hubapi.com/
+- url: https://api.hubapi.com
 tags:
-- description: Endpoints which interact with actual file contents.
-  name: Content
-- description: Endpoints which interact with the object metadata for files.
-  name: Metadata
-- description: Endpoints used to validate developer asset files.
-  name: Validation
-- name: Source_Code_Extract
+- name: Content
+- name: Metadata
+- name: Validation
 - name: Extract
+- name: Source_Code_Extract
 paths:
-  /cms/v3/source-code/extract/async:
+  /cms/v3/source-code/{environment}/validate/{path}:
     post:
-      operationId: ExtractAsync
-      requestBody:
-        content:
-          '*/*':
-            schema:
-              $ref: '#/components/schemas/FileExtractRequest'
-        required: true
-      responses:
-        "202":
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/TaskLocator'
-          description: accepted
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - hapikey: []
-      - oauth2_legacy:
-        - content
-      tags:
-      - Source_Code_Extract
-  /cms/v3/source-code/extract/async/tasks/{taskId}/status:
-    get:
-      operationId: ExtractGetAsyncStatus
+      description: Validates the file contents passed to the endpoint given a specified
+        path and environment. Accepts multipart/form-data content type.
+      operationId: Validate
       parameters:
-      - explode: false
-        in: path
-        name: taskId
-        required: true
-        schema:
-          format: int32
-          type: integer
-        style: simple
-      responses:
-        "200":
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ActionResponse'
-          description: successful operation
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - hapikey: []
-      - oauth2_legacy:
-        - content
-      tags:
-      - Source_Code_Extract
-  /cms/v3/source-code/extract/{path}:
-    post:
-      deprecated: true
-      description: Extracts a zip file in the file system. The zip file will be extracted
-        in-place and not be deleted automatically.
-      operationId: ExtractByPath
-      parameters:
-      - description: The file system location of the zip file.
+      - description: The file system location of the file.
         explode: false
         in: path
         name: path
@@ -92,10 +29,12 @@ paths:
           pattern: .+
           type: string
         style: simple
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Validate_request'
       responses:
-        "204":
-          content: {}
-          description: No content
         default:
           content:
             '*/*':
@@ -103,12 +42,72 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
+      - private_apps_legacy:
+        - content
       - oauth2_legacy:
         - content
-      summary: Extracts a zip file
+      summary: Validate the contents of a file
       tags:
-      - Extract
+      - Validation
+  /cms/v3/source-code/{environment}/metadata/{path}:
+    get:
+      description: Gets the metadata object for the file at the specified path in
+        the specified environment.
+      operationId: MetadataGet
+      parameters:
+      - description: The environment of the file ("draft" or "published").
+        explode: false
+        in: path
+        name: environment
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The file system location of the file.
+        explode: false
+        in: path
+        name: path
+        required: true
+        schema:
+          pattern: .+
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: properties
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                id: /example.json
+                name: example.json
+                folder: false
+                children: []
+                updatedAt: 1608049506
+                createdAt: 1608049506
+                archivedAt: 0
+              schema:
+                $ref: '#/components/schemas/AssetFileMetadata'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - private_apps_legacy:
+        - content
+      - oauth2_legacy:
+        - content
+      summary: Get the metadata for a file
+      tags:
+      - Metadata
   /cms/v3/source-code/{environment}/content/{path}:
     delete:
       description: Deletes the file at the specified path in the specified environment.
@@ -142,14 +141,13 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
+      - private_apps_legacy:
+        - content
       - oauth2_legacy:
         - content
       summary: Delete a file
       tags:
       - Content
-      x-hubspot-rate-limit-exemptions:
-      - ten-secondly
     get:
       description: Downloads the byte contents of the file at the specified path in
         the specified environment.
@@ -180,14 +178,13 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
+      - private_apps_legacy:
+        - content
       - oauth2_legacy:
         - content
       summary: Download a file
       tags:
       - Content
-      x-hubspot-rate-limit-exemptions:
-      - ten-secondly
     post:
       deprecated: true
       description: Creates a file at the specified path in the specified environment.
@@ -239,14 +236,13 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
+      - private_apps_legacy:
+        - content
       - oauth2_legacy:
         - content
       summary: Create a file
       tags:
       - Content
-      x-hubspot-rate-limit-exemptions:
-      - ten-secondly
     put:
       description: Upserts a file at the specified path in the specified environment.
         Accepts multipart/form-data content type.
@@ -296,29 +292,21 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
+      - private_apps_legacy:
+        - content
       - oauth2_legacy:
         - content
       summary: Create or update a file
       tags:
       - Content
-      x-hubspot-rate-limit-exemptions:
-      - ten-secondly
-  /cms/v3/source-code/{environment}/metadata/{path}:
-    get:
-      description: Gets the metadata object for the file at the specified path in
-        the specified environment.
-      operationId: MetadataGet
+  /cms/v3/source-code/extract/{path}:
+    post:
+      deprecated: true
+      description: Extracts a zip file in the file system. The zip file will be extracted
+        in-place and not be deleted automatically.
+      operationId: ExtractByPath
       parameters:
-      - description: The environment of the file ("draft" or "published").
-        explode: false
-        in: path
-        name: environment
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: The file system location of the file.
+      - description: The file system location of the zip file.
         explode: false
         in: path
         name: path
@@ -328,19 +316,71 @@ paths:
           type: string
         style: simple
       responses:
+        "204":
+          content: {}
+          description: No content
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - private_apps_legacy:
+        - content
+      - oauth2_legacy:
+        - content
+      summary: Extracts a zip file
+      tags:
+      - Extract
+  /cms/v3/source-code/extract/async:
+    post:
+      operationId: ExtractAsync
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FileExtractRequest'
+        required: true
+      responses:
+        "202":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskLocator'
+          description: accepted
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - private_apps_legacy:
+        - content
+      - oauth2_legacy:
+        - content
+      tags:
+      - Source_Code_Extract
+  /cms/v3/source-code/extract/async/tasks/{taskId}/status:
+    get:
+      operationId: ExtractGetAsyncStatus
+      parameters:
+      - explode: false
+        in: path
+        name: taskId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
         "200":
           content:
             application/json:
-              example:
-                id: /example.json
-                name: example.json
-                folder: false
-                children: []
-                updatedAt: 1608049506
-                createdAt: 1608049506
-                archivedAt: 0
               schema:
-                $ref: '#/components/schemas/AssetFileMetadata'
+                $ref: '#/components/schemas/ActionResponse'
           description: successful operation
         default:
           content:
@@ -349,50 +389,12 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - hapikey: []
+      - private_apps_legacy:
+        - content
       - oauth2_legacy:
         - content
-      summary: Get the metadata for a file
       tags:
-      - Metadata
-      x-hubspot-rate-limit-exemptions:
-      - ten-secondly
-  /cms/v3/source-code/{environment}/validate/{path}:
-    post:
-      description: Validates the file contents passed to the endpoint given a specified
-        path and environment. Accepts multipart/form-data content type.
-      operationId: Validate
-      parameters:
-      - description: The file system location of the file.
-        explode: false
-        in: path
-        name: path
-        required: true
-        schema:
-          pattern: .+
-          type: string
-        style: simple
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/Validate_request'
-      responses:
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - hapikey: []
-      - oauth2_legacy:
-        - content
-      summary: Validate the contents of a file
-      tags:
-      - Validation
-      x-hubspot-rate-limit-exemptions:
-      - ten-secondly
+      - Source_Code_Extract
 components:
   responses:
     Error:
@@ -432,6 +434,15 @@ components:
       required:
       - message
       type: object
+    FileExtractRequest:
+      example:
+        path: path
+      properties:
+        path:
+          type: string
+      required:
+      - path
+      type: object
     AssetFileMetadata:
       description: The object metadata of a file.
       example:
@@ -443,6 +454,7 @@ components:
         - children
         name: name
         id: id
+        hash: hash
         updatedAt: 0
       properties:
         id:
@@ -472,21 +484,14 @@ components:
           description: Timestamp of when the object was archived (deleted).
           format: int64
           type: integer
+        hash:
+          type: string
       required:
       - createdAt
       - folder
       - id
       - name
       - updatedAt
-      type: object
-    FileExtractRequest:
-      example:
-        path: path
-      properties:
-        path:
-          type: string
-      required:
-      - path
       type: object
     Error:
       example:
@@ -592,18 +597,20 @@ components:
       required:
       - id
       type: object
-    ContentReplace_request:
-      properties:
-        file:
-          description: The file to upload.
-          format: binary
-          type: string
     Validate_request:
       properties:
         file:
           description: The file to validate.
           format: binary
           type: string
+      type: object
+    ContentReplace_request:
+      properties:
+        file:
+          description: The file to upload.
+          format: binary
+          type: string
+      type: object
   securitySchemes:
     oauth2_legacy:
       flows:
@@ -613,7 +620,18 @@ components:
             content: Read from and write to my Content
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
-    hapikey:
-      in: query
-      name: hapikey
+    private_apps_legacy:
+      in: header
+      name: private-app-legacy
       type: apiKey
+x-hubspot-available-client-libraries:
+- PHP
+- Node
+- Ruby
+- Python
+x-hubspot-product-tier-requirements:
+  marketing: FREE
+  sales: FREE
+  service: FREE
+  cms: FREE
+x-hubspot-documentation-banner: NONE

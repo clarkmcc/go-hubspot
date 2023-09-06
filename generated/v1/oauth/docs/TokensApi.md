@@ -4,13 +4,13 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateToken**](TokensApi.md#CreateToken) | **Post** /oauth/v1/token | 
+[**PostOauthV1TokenCreate**](TokensApi.md#PostOauthV1TokenCreate) | **Post** /oauth/v1/token | 
 
 
 
-## CreateToken
+## PostOauthV1TokenCreate
 
-> TokenResponseIF CreateToken(ctx).GrantType(grantType).Code(code).RedirectUri(redirectUri).ClientId(clientId).ClientSecret(clientSecret).RefreshToken(refreshToken).Execute()
+> TokenResponseIF PostOauthV1TokenCreate(ctx).GrantType(grantType).Code(code).RedirectUri(redirectUri).ClientId(clientId).ClientSecret(clientSecret).RefreshToken(refreshToken).Execute()
 
 
 
@@ -36,13 +36,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TokensApi.CreateToken(context.Background()).GrantType(grantType).Code(code).RedirectUri(redirectUri).ClientId(clientId).ClientSecret(clientSecret).RefreshToken(refreshToken).Execute()
+    resp, r, err := apiClient.TokensApi.PostOauthV1TokenCreate(context.Background()).GrantType(grantType).Code(code).RedirectUri(redirectUri).ClientId(clientId).ClientSecret(clientSecret).RefreshToken(refreshToken).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TokensApi.CreateToken``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `TokensApi.PostOauthV1TokenCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `CreateToken`: TokenResponseIF
-    fmt.Fprintf(os.Stdout, "Response from `TokensApi.CreateToken`: %v\n", resp)
+    // response from `PostOauthV1TokenCreate`: TokenResponseIF
+    fmt.Fprintf(os.Stdout, "Response from `TokensApi.PostOauthV1TokenCreate`: %v\n", resp)
 }
 ```
 
@@ -52,7 +52,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCreateTokenRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostOauthV1TokenCreateRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

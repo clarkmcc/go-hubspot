@@ -4,20 +4,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Status** | **string** |  | 
-**Results** | [**[]MarketingEventPublicDefaultResponse**](MarketingEventPublicDefaultResponse.md) |  | 
+**CompletedAt** | **time.Time** |  | 
 **NumErrors** | Pointer to **int32** |  | [optional] 
-**Errors** | Pointer to [**[]StandardError**](StandardError.md) |  | [optional] 
 **RequestedAt** | Pointer to **time.Time** |  | [optional] 
 **StartedAt** | **time.Time** |  | 
-**CompletedAt** | **time.Time** |  | 
 **Links** | Pointer to **map[string]string** |  | [optional] 
+**Results** | [**[]MarketingEventPublicDefaultResponse**](MarketingEventPublicDefaultResponse.md) |  | 
+**Errors** | Pointer to [**[]StandardError**](StandardError.md) |  | [optional] 
+**Status** | **string** |  | 
 
 ## Methods
 
 ### NewBatchResponseMarketingEventPublicDefaultResponse
 
-`func NewBatchResponseMarketingEventPublicDefaultResponse(status string, results []MarketingEventPublicDefaultResponse, startedAt time.Time, completedAt time.Time, ) *BatchResponseMarketingEventPublicDefaultResponse`
+`func NewBatchResponseMarketingEventPublicDefaultResponse(completedAt time.Time, startedAt time.Time, results []MarketingEventPublicDefaultResponse, status string, ) *BatchResponseMarketingEventPublicDefaultResponse`
 
 NewBatchResponseMarketingEventPublicDefaultResponse instantiates a new BatchResponseMarketingEventPublicDefaultResponse object
 This constructor will assign default values to properties that have it defined,
@@ -32,44 +32,24 @@ NewBatchResponseMarketingEventPublicDefaultResponseWithDefaults instantiates a n
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetStatus
+### GetCompletedAt
 
-`func (o *BatchResponseMarketingEventPublicDefaultResponse) GetStatus() string`
+`func (o *BatchResponseMarketingEventPublicDefaultResponse) GetCompletedAt() time.Time`
 
-GetStatus returns the Status field if non-nil, zero value otherwise.
+GetCompletedAt returns the CompletedAt field if non-nil, zero value otherwise.
 
-### GetStatusOk
+### GetCompletedAtOk
 
-`func (o *BatchResponseMarketingEventPublicDefaultResponse) GetStatusOk() (*string, bool)`
+`func (o *BatchResponseMarketingEventPublicDefaultResponse) GetCompletedAtOk() (*time.Time, bool)`
 
-GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
+GetCompletedAtOk returns a tuple with the CompletedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetStatus
+### SetCompletedAt
 
-`func (o *BatchResponseMarketingEventPublicDefaultResponse) SetStatus(v string)`
+`func (o *BatchResponseMarketingEventPublicDefaultResponse) SetCompletedAt(v time.Time)`
 
-SetStatus sets Status field to given value.
-
-
-### GetResults
-
-`func (o *BatchResponseMarketingEventPublicDefaultResponse) GetResults() []MarketingEventPublicDefaultResponse`
-
-GetResults returns the Results field if non-nil, zero value otherwise.
-
-### GetResultsOk
-
-`func (o *BatchResponseMarketingEventPublicDefaultResponse) GetResultsOk() (*[]MarketingEventPublicDefaultResponse, bool)`
-
-GetResultsOk returns a tuple with the Results field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetResults
-
-`func (o *BatchResponseMarketingEventPublicDefaultResponse) SetResults(v []MarketingEventPublicDefaultResponse)`
-
-SetResults sets Results field to given value.
+SetCompletedAt sets CompletedAt field to given value.
 
 
 ### GetNumErrors
@@ -96,31 +76,6 @@ SetNumErrors sets NumErrors field to given value.
 `func (o *BatchResponseMarketingEventPublicDefaultResponse) HasNumErrors() bool`
 
 HasNumErrors returns a boolean if a field has been set.
-
-### GetErrors
-
-`func (o *BatchResponseMarketingEventPublicDefaultResponse) GetErrors() []StandardError`
-
-GetErrors returns the Errors field if non-nil, zero value otherwise.
-
-### GetErrorsOk
-
-`func (o *BatchResponseMarketingEventPublicDefaultResponse) GetErrorsOk() (*[]StandardError, bool)`
-
-GetErrorsOk returns a tuple with the Errors field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetErrors
-
-`func (o *BatchResponseMarketingEventPublicDefaultResponse) SetErrors(v []StandardError)`
-
-SetErrors sets Errors field to given value.
-
-### HasErrors
-
-`func (o *BatchResponseMarketingEventPublicDefaultResponse) HasErrors() bool`
-
-HasErrors returns a boolean if a field has been set.
 
 ### GetRequestedAt
 
@@ -167,26 +122,6 @@ and a boolean to check if the value has been set.
 SetStartedAt sets StartedAt field to given value.
 
 
-### GetCompletedAt
-
-`func (o *BatchResponseMarketingEventPublicDefaultResponse) GetCompletedAt() time.Time`
-
-GetCompletedAt returns the CompletedAt field if non-nil, zero value otherwise.
-
-### GetCompletedAtOk
-
-`func (o *BatchResponseMarketingEventPublicDefaultResponse) GetCompletedAtOk() (*time.Time, bool)`
-
-GetCompletedAtOk returns a tuple with the CompletedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCompletedAt
-
-`func (o *BatchResponseMarketingEventPublicDefaultResponse) SetCompletedAt(v time.Time)`
-
-SetCompletedAt sets CompletedAt field to given value.
-
-
 ### GetLinks
 
 `func (o *BatchResponseMarketingEventPublicDefaultResponse) GetLinks() map[string]string`
@@ -211,6 +146,71 @@ SetLinks sets Links field to given value.
 `func (o *BatchResponseMarketingEventPublicDefaultResponse) HasLinks() bool`
 
 HasLinks returns a boolean if a field has been set.
+
+### GetResults
+
+`func (o *BatchResponseMarketingEventPublicDefaultResponse) GetResults() []MarketingEventPublicDefaultResponse`
+
+GetResults returns the Results field if non-nil, zero value otherwise.
+
+### GetResultsOk
+
+`func (o *BatchResponseMarketingEventPublicDefaultResponse) GetResultsOk() (*[]MarketingEventPublicDefaultResponse, bool)`
+
+GetResultsOk returns a tuple with the Results field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetResults
+
+`func (o *BatchResponseMarketingEventPublicDefaultResponse) SetResults(v []MarketingEventPublicDefaultResponse)`
+
+SetResults sets Results field to given value.
+
+
+### GetErrors
+
+`func (o *BatchResponseMarketingEventPublicDefaultResponse) GetErrors() []StandardError`
+
+GetErrors returns the Errors field if non-nil, zero value otherwise.
+
+### GetErrorsOk
+
+`func (o *BatchResponseMarketingEventPublicDefaultResponse) GetErrorsOk() (*[]StandardError, bool)`
+
+GetErrorsOk returns a tuple with the Errors field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetErrors
+
+`func (o *BatchResponseMarketingEventPublicDefaultResponse) SetErrors(v []StandardError)`
+
+SetErrors sets Errors field to given value.
+
+### HasErrors
+
+`func (o *BatchResponseMarketingEventPublicDefaultResponse) HasErrors() bool`
+
+HasErrors returns a boolean if a field has been set.
+
+### GetStatus
+
+`func (o *BatchResponseMarketingEventPublicDefaultResponse) GetStatus() string`
+
+GetStatus returns the Status field if non-nil, zero value otherwise.
+
+### GetStatusOk
+
+`func (o *BatchResponseMarketingEventPublicDefaultResponse) GetStatusOk() (*string, bool)`
+
+GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStatus
+
+`func (o *BatchResponseMarketingEventPublicDefaultResponse) SetStatus(v string)`
+
+SetStatus sets Status field to given value.
+
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

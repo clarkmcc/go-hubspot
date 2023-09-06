@@ -6,13 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Label** | **string** | Used for list segmentation and reporting. | 
 **ObjectPropertyName** | Pointer to **string** | The name of the CRM object property. This will populate the CRM object property associated with the event. With enough of these, you can fully build CRM objects via the Timeline API. | [optional] 
-**Options** | [**[]TimelineEventTemplateTokenOption**](TimelineEventTemplateTokenOption.md) | If type is &#x60;enumeration&#x60;, we should have a list of options to choose from. | 
+**Options** | Pointer to [**[]TimelineEventTemplateTokenOption**](TimelineEventTemplateTokenOption.md) | If type is &#x60;enumeration&#x60;, we should have a list of options to choose from. | [optional] 
 
 ## Methods
 
 ### NewTimelineEventTemplateTokenUpdateRequest
 
-`func NewTimelineEventTemplateTokenUpdateRequest(label string, options []TimelineEventTemplateTokenOption, ) *TimelineEventTemplateTokenUpdateRequest`
+`func NewTimelineEventTemplateTokenUpdateRequest(label string, ) *TimelineEventTemplateTokenUpdateRequest`
 
 NewTimelineEventTemplateTokenUpdateRequest instantiates a new TimelineEventTemplateTokenUpdateRequest object
 This constructor will assign default values to properties that have it defined,
@@ -91,6 +91,11 @@ and a boolean to check if the value has been set.
 
 SetOptions sets Options field to given value.
 
+### HasOptions
+
+`func (o *TimelineEventTemplateTokenUpdateRequest) HasOptions() bool`
+
+HasOptions returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
