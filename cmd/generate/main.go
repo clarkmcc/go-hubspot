@@ -655,11 +655,14 @@ func main() {
 			if err != nil {
 				return err
 			}
-			find := []byte("if r.ctx != nil {\n\t\t// API Key Authentication\n\t\tif auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {\n\t\t\tif apiKey, ok := auth[\"private_apps\"]; ok {\n\t\t\t\tvar key string\n\t\t\t\tif apiKey.Prefix != \"\" {\n\t\t\t\t\tkey = apiKey.Prefix + \" \" + apiKey.Key\n\t\t\t\t} else {\n\t\t\t\t\tkey = apiKey.Key\n\t\t\t\t}\n\t\t\t\tlocalVarHeaderParams[\"private-app\"] = key\n\t\t\t}\n\t\t}\n\t}\n\tif r.ctx != nil {\n\t\t// API Key Authentication\n\t\tif auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {\n\t\t\tif apiKey, ok := auth[\"private_apps_legacy\"]; ok {\n\t\t\t\tvar key string\n\t\t\t\tif apiKey.Prefix != \"\" {\n\t\t\t\t\tkey = apiKey.Prefix + \" \" + apiKey.Key\n\t\t\t\t} else {\n\t\t\t\t\tkey = apiKey.Key\n\t\t\t\t}\n\t\t\t\tlocalVarHeaderParams[\"private-app-legacy\"] = key\n\t\t\t}\n\t\t}\n\t}")
-			replace := []byte("if r.ctx != nil {\n\t\t// API Key Authentication\n\t\tif auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {\n\t\t\tauth.Apply(hubspot.AuthorizationRequest{\n\t\t\t\tQueryParams: localVarQueryParams,\n\t\t\t\tFormParams:  localVarFormParams,\n\t\t\t\tHeaders:     localVarHeaderParams,\n\t\t\t})\n\t\t}\n\t}")
-			if bytes.Contains(b, find) {
+
+			for _, method := range findMethods {
+				if !bytes.Contains(b, method) {
+					continue
+				}
+
 				// Replace generated API key auth with custom API key auth
-				b = bytes.ReplaceAll(b, find, replace)
+				b = bytes.ReplaceAll(b, method, replaceWith)
 
 				// Add imports for authorization package
 				idx := bytes.Index(b, []byte("\"net/url\""))
@@ -667,16 +670,11 @@ func main() {
 					b = bytes.Join([][]byte{b[:idx], []byte("\t\"github.com/clarkmcc/go-hubspot\""), b[idx:]}, []byte("\n"))
 				}
 
-				err = os.Remove(path)
-				file, err := os.Create(path)
+				err = os.WriteFile(path, b, 0666)
 				if err != nil {
 					return err
 				}
-				defer file.Close()
-				_, err = file.Write(b)
-				if err != nil {
-					return err
-				}
+				break
 			}
 		}
 		// The client configuration gets generated with a go module for each generated
@@ -690,4 +688,15 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+}
+
+var findPrivateAppsAuth = []byte("if r.ctx != nil {\n\t\t// API Key Authentication\n\t\tif auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {\n\t\t\tif apiKey, ok := auth[\"private_apps\"]; ok {\n\t\t\t\tvar key string\n\t\t\t\tif apiKey.Prefix != \"\" {\n\t\t\t\t\tkey = apiKey.Prefix + \" \" + apiKey.Key\n\t\t\t\t} else {\n\t\t\t\t\tkey = apiKey.Key\n\t\t\t\t}\n\t\t\t\tlocalVarHeaderParams[\"private-app\"] = key\n\t\t\t}\n\t\t}\n\t}")
+var findPrivateAppsLegacyAuth = []byte("if r.ctx != nil {\n\t\t// API Key Authentication\n\t\tif auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {\n\t\t\tif apiKey, ok := auth[\"private_apps_legacy\"]; ok {\n\t\t\t\tvar key string\n\t\t\t\tif apiKey.Prefix != \"\" {\n\t\t\t\t\tkey = apiKey.Prefix + \" \" + apiKey.Key\n\t\t\t\t} else {\n\t\t\t\t\tkey = apiKey.Key\n\t\t\t\t}\n\t\t\t\tlocalVarHeaderParams[\"private-app-legacy\"] = key\n\t\t\t}\n\t\t}\n\t}")
+var findDeveloperHapiKeyAuth = []byte("if r.ctx != nil {\n\t\t// API Key Authentication\n\t\tif auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {\n\t\t\tif apiKey, ok := auth[\"developer_hapikey\"]; ok {\n\t\t\t\tvar key string\n\t\t\t\tif apiKey.Prefix != \"\" {\n\t\t\t\t\tkey = apiKey.Prefix + \" \" + apiKey.Key\n\t\t\t\t} else {\n\t\t\t\t\tkey = apiKey.Key\n\t\t\t\t}\n\t\t\t\tlocalVarQueryParams.Add(\"hapikey\", key)\n\t\t\t}\n\t\t}\n\t}")
+var replaceWith = []byte("if r.ctx != nil {\n\t\t// API Key Authentication\n\t\tif auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {\n\t\t\tauth.Apply(hubspot.AuthorizationRequest{\n\t\t\t\tQueryParams: localVarQueryParams,\n\t\t\t\tFormParams:  localVarFormParams,\n\t\t\t\tHeaders:     localVarHeaderParams,\n\t\t\t})\n\t\t}\n\t}")
+
+var findMethods = [][]byte{
+	findPrivateAppsAuth,
+	findPrivateAppsLegacyAuth,
+	findDeveloperHapiKeyAuth,
 }
