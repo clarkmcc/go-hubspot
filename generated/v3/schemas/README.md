@@ -78,14 +78,14 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*CoreApi* | [**Archive**](docs/CoreApi.md#archive) | **Delete** /crm/v3/schemas/{objectType} | Delete a schema
-*CoreApi* | [**ArchiveAssociation**](docs/CoreApi.md#archiveassociation) | **Delete** /crm/v3/schemas/{objectType}/associations/{associationIdentifier} | Remove an association
-*CoreApi* | [**Create**](docs/CoreApi.md#create) | **Post** /crm/v3/schemas | Create a new schema
-*CoreApi* | [**CreateAssociation**](docs/CoreApi.md#createassociation) | **Post** /crm/v3/schemas/{objectType}/associations | Create an association
-*CoreApi* | [**GetAll**](docs/CoreApi.md#getall) | **Get** /crm/v3/schemas | Get all schemas
-*CoreApi* | [**GetByID**](docs/CoreApi.md#getbyid) | **Get** /crm/v3/schemas/{objectType} | Get an existing schema
-*CoreApi* | [**Update**](docs/CoreApi.md#update) | **Patch** /crm/v3/schemas/{objectType} | Update a schema
-*PublicObjectSchemasApi* | [**Purge**](docs/PublicObjectSchemasApi.md#purge) | **Delete** /crm/v3/schemas/{objectType}/purge | 
+*CoreApi* | [**DeleteCrmV3SchemasObjectTypeArchive**](docs/CoreApi.md#deletecrmv3schemasobjecttypearchive) | **Delete** /crm/v3/schemas/{objectType} | Delete a schema
+*CoreApi* | [**DeleteCrmV3SchemasObjectTypeAssociationsAssociationIdentifierArchiveAssociation**](docs/CoreApi.md#deletecrmv3schemasobjecttypeassociationsassociationidentifierarchiveassociation) | **Delete** /crm/v3/schemas/{objectType}/associations/{associationIdentifier} | Remove an association
+*CoreApi* | [**GetCrmV3SchemasGetAll**](docs/CoreApi.md#getcrmv3schemasgetall) | **Get** /crm/v3/schemas | Get all schemas
+*CoreApi* | [**GetCrmV3SchemasObjectTypeGetById**](docs/CoreApi.md#getcrmv3schemasobjecttypegetbyid) | **Get** /crm/v3/schemas/{objectType} | Get an existing schema
+*CoreApi* | [**PatchCrmV3SchemasObjectTypeUpdate**](docs/CoreApi.md#patchcrmv3schemasobjecttypeupdate) | **Patch** /crm/v3/schemas/{objectType} | Update a schema
+*CoreApi* | [**PostCrmV3SchemasCreate**](docs/CoreApi.md#postcrmv3schemascreate) | **Post** /crm/v3/schemas | Create a new schema
+*CoreApi* | [**PostCrmV3SchemasObjectTypeAssociationsCreateAssociation**](docs/CoreApi.md#postcrmv3schemasobjecttypeassociationscreateassociation) | **Post** /crm/v3/schemas/{objectType}/associations | Create an association
+*PublicObjectSchemasApi* | [**DeleteCrmV3SchemasObjectTypePurgePurge**](docs/PublicObjectSchemasApi.md#deletecrmv3schemasobjecttypepurgepurge) | **Delete** /crm/v3/schemas/{objectType}/purge | 
 
 
 ## Documentation For Models

@@ -4,15 +4,15 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**TemplatesTokensArchive**](TokensApi.md#TemplatesTokensArchive) | **Delete** /crm/v3/timeline/{appId}/event-templates/{eventTemplateId}/tokens/{tokenName} | Removes a token from the event template
-[**TemplatesTokensCreate**](TokensApi.md#TemplatesTokensCreate) | **Post** /crm/v3/timeline/{appId}/event-templates/{eventTemplateId}/tokens | Adds a token to an existing event template
-[**TemplatesTokensUpdate**](TokensApi.md#TemplatesTokensUpdate) | **Put** /crm/v3/timeline/{appId}/event-templates/{eventTemplateId}/tokens/{tokenName} | Updates an existing token on an event template
+[**DeleteCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameArchive**](TokensApi.md#DeleteCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameArchive) | **Delete** /crm/v3/timeline/{appId}/event-templates/{eventTemplateId}/tokens/{tokenName} | Removes a token from the event template
+[**PostCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensCreate**](TokensApi.md#PostCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensCreate) | **Post** /crm/v3/timeline/{appId}/event-templates/{eventTemplateId}/tokens | Adds a token to an existing event template
+[**PutCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameUpdate**](TokensApi.md#PutCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameUpdate) | **Put** /crm/v3/timeline/{appId}/event-templates/{eventTemplateId}/tokens/{tokenName} | Updates an existing token on an event template
 
 
 
-## TemplatesTokensArchive
+## DeleteCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameArchive
 
-> TemplatesTokensArchive(ctx, eventTemplateId, tokenName, appId).Execute()
+> DeleteCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameArchive(ctx, eventTemplateId, tokenName, appId).Execute()
 
 Removes a token from the event template
 
@@ -37,9 +37,9 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TokensApi.TemplatesTokensArchive(context.Background(), eventTemplateId, tokenName, appId).Execute()
+    resp, r, err := apiClient.TokensApi.DeleteCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameArchive(context.Background(), eventTemplateId, tokenName, appId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TokensApi.TemplatesTokensArchive``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `TokensApi.DeleteCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameArchive``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -57,7 +57,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiTemplatesTokensArchiveRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameArchiveRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -84,9 +84,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## TemplatesTokensCreate
+## PostCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensCreate
 
-> TimelineEventTemplateToken TemplatesTokensCreate(ctx, eventTemplateId, appId).TimelineEventTemplateToken(timelineEventTemplateToken).Execute()
+> TimelineEventTemplateToken PostCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensCreate(ctx, eventTemplateId, appId).TimelineEventTemplateToken(timelineEventTemplateToken).Execute()
 
 Adds a token to an existing event template
 
@@ -107,17 +107,17 @@ import (
 func main() {
     eventTemplateId := "eventTemplateId_example" // string | The event template ID.
     appId := int32(56) // int32 | The ID of the target app.
-    timelineEventTemplateToken := *openapiclient.NewTimelineEventTemplateToken("Label_example", "Name_example", "Type_example") // TimelineEventTemplateToken | The new token definition.
+    timelineEventTemplateToken := *openapiclient.NewTimelineEventTemplateToken("petType", "Pet Type", "enumeration") // TimelineEventTemplateToken | The new token definition.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TokensApi.TemplatesTokensCreate(context.Background(), eventTemplateId, appId).TimelineEventTemplateToken(timelineEventTemplateToken).Execute()
+    resp, r, err := apiClient.TokensApi.PostCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensCreate(context.Background(), eventTemplateId, appId).TimelineEventTemplateToken(timelineEventTemplateToken).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TokensApi.TemplatesTokensCreate``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `TokensApi.PostCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `TemplatesTokensCreate`: TimelineEventTemplateToken
-    fmt.Fprintf(os.Stdout, "Response from `TokensApi.TemplatesTokensCreate`: %v\n", resp)
+    // response from `PostCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensCreate`: TimelineEventTemplateToken
+    fmt.Fprintf(os.Stdout, "Response from `TokensApi.PostCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensCreate`: %v\n", resp)
 }
 ```
 
@@ -132,7 +132,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiTemplatesTokensCreateRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensCreateRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -159,9 +159,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## TemplatesTokensUpdate
+## PutCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameUpdate
 
-> TimelineEventTemplateToken TemplatesTokensUpdate(ctx, eventTemplateId, tokenName, appId).TimelineEventTemplateTokenUpdateRequest(timelineEventTemplateTokenUpdateRequest).Execute()
+> TimelineEventTemplateToken PutCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameUpdate(ctx, eventTemplateId, tokenName, appId).TimelineEventTemplateTokenUpdateRequest(timelineEventTemplateTokenUpdateRequest).Execute()
 
 Updates an existing token on an event template
 
@@ -183,17 +183,17 @@ func main() {
     eventTemplateId := "eventTemplateId_example" // string | The event template ID.
     tokenName := "tokenName_example" // string | The token name.
     appId := int32(56) // int32 | The ID of the target app.
-    timelineEventTemplateTokenUpdateRequest := *openapiclient.NewTimelineEventTemplateTokenUpdateRequest("Label_example") // TimelineEventTemplateTokenUpdateRequest | The updated token definition.
+    timelineEventTemplateTokenUpdateRequest := *openapiclient.NewTimelineEventTemplateTokenUpdateRequest("petType edit") // TimelineEventTemplateTokenUpdateRequest | The updated token definition.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TokensApi.TemplatesTokensUpdate(context.Background(), eventTemplateId, tokenName, appId).TimelineEventTemplateTokenUpdateRequest(timelineEventTemplateTokenUpdateRequest).Execute()
+    resp, r, err := apiClient.TokensApi.PutCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameUpdate(context.Background(), eventTemplateId, tokenName, appId).TimelineEventTemplateTokenUpdateRequest(timelineEventTemplateTokenUpdateRequest).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TokensApi.TemplatesTokensUpdate``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `TokensApi.PutCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameUpdate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `TemplatesTokensUpdate`: TimelineEventTemplateToken
-    fmt.Fprintf(os.Stdout, "Response from `TokensApi.TemplatesTokensUpdate`: %v\n", resp)
+    // response from `PutCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameUpdate`: TimelineEventTemplateToken
+    fmt.Fprintf(os.Stdout, "Response from `TokensApi.PutCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameUpdate`: %v\n", resp)
 }
 ```
 
@@ -209,7 +209,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiTemplatesTokensUpdateRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameUpdateRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

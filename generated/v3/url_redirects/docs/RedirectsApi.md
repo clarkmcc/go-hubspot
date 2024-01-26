@@ -101,7 +101,7 @@ import (
 )
 
 func main() {
-    urlMappingCreateRequestBody := *openapiclient.NewUrlMappingCreateRequestBody("RoutePrefix_example", "Destination_example", int32(123)) // UrlMappingCreateRequestBody | 
+    urlMappingCreateRequestBody := *openapiclient.NewUrlMappingCreateRequestBody(int32(123), "RoutePrefix_example", "Destination_example") // UrlMappingCreateRequestBody | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -323,7 +323,7 @@ import (
 
 func main() {
     urlRedirectId := "urlRedirectId_example" // string | 
-    urlMapping := *openapiclient.NewUrlMapping("Id_example", "RoutePrefix_example", "Destination_example", int32(123), false, false, false, false, false, false, int32(123)) // UrlMapping | 
+    urlMapping := *openapiclient.NewUrlMapping(false, int32(123), false, false, "Destination_example", false, false, int32(123), "RoutePrefix_example", false, "Id_example") // UrlMapping | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)

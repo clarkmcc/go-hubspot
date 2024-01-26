@@ -4,11 +4,11 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Archive**](DefinitionsApi.md#Archive) | **Delete** /automation/v4/actions/{appId}/{definitionId} | Archive a custom action
-[**Create**](DefinitionsApi.md#Create) | **Post** /automation/v4/actions/{appId} | Create new custom action
-[**GetByID**](DefinitionsApi.md#GetByID) | **Get** /automation/v4/actions/{appId}/{definitionId} | Get a custom action
-[**GetPage**](DefinitionsApi.md#GetPage) | **Get** /automation/v4/actions/{appId} | Get all custom actions
-[**Update**](DefinitionsApi.md#Update) | **Patch** /automation/v4/actions/{appId}/{definitionId} | Update a custom action
+[**Archive**](DefinitionsApi.md#Archive) | **Delete** /automation/v4/actions/{appId}/{definitionId} | Archive an extension definition
+[**Create**](DefinitionsApi.md#Create) | **Post** /automation/v4/actions/{appId} | Create a new extension definition
+[**GetByID**](DefinitionsApi.md#GetByID) | **Get** /automation/v4/actions/{appId}/{definitionId} | Get extension definition by Id
+[**GetPage**](DefinitionsApi.md#GetPage) | **Get** /automation/v4/actions/{appId} | Get paged extension definitions
+[**Update**](DefinitionsApi.md#Update) | **Patch** /automation/v4/actions/{appId}/{definitionId} | Patch an existing extension definition
 
 
 
@@ -16,9 +16,7 @@ Method | HTTP request | Description
 
 > Archive(ctx, definitionId, appId).Execute()
 
-Archive a custom action
-
-
+Archive an extension definition
 
 ### Example
 
@@ -33,7 +31,7 @@ import (
 )
 
 func main() {
-    definitionId := "definitionId_example" // string | The ID of the custom workflow action.
+    definitionId := "definitionId_example" // string | 
     appId := int32(56) // int32 | 
 
     configuration := openapiclient.NewConfiguration()
@@ -52,7 +50,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**definitionId** | **string** | The ID of the custom workflow action. | 
+**definitionId** | **string** |  | 
 **appId** | **int32** |  | 
 
 ### Other Parameters
@@ -71,7 +69,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[developer_hapikey](../README.md#developer_hapikey)
+No authorization required
 
 ### HTTP request headers
 
@@ -85,11 +83,9 @@ Name | Type | Description  | Notes
 
 ## Create
 
-> ExtensionActionDefinition Create(ctx, appId).ExtensionActionDefinitionInput(extensionActionDefinitionInput).Execute()
+> PublicActionDefinition Create(ctx, appId).PublicActionDefinitionEgg(publicActionDefinitionEgg).Execute()
 
-Create new custom action
-
-
+Create a new extension definition
 
 ### Example
 
@@ -105,16 +101,16 @@ import (
 
 func main() {
     appId := int32(56) // int32 | 
-    extensionActionDefinitionInput := *openapiclient.NewExtensionActionDefinitionInput([]openapiclient.ActionFunction{*openapiclient.NewActionFunction("FunctionSource_example", "FunctionType_example")}, "ActionUrl_example", false, []openapiclient.InputFieldDefinition{*openapiclient.NewInputFieldDefinition(*openapiclient.NewFieldTypeDefinition("Name_example", "Type_example", []openapiclient.Option{*openapiclient.NewOption("Label_example", "Value_example", int32(123), float32(123), false, "Description_example", false)}), false)}, map[string]ActionLabels{"key": *openapiclient.NewActionLabels("ActionName_example")}, []string{"ObjectTypes_example"}) // ExtensionActionDefinitionInput | The custom workflow action to create.
+    publicActionDefinitionEgg := *openapiclient.NewPublicActionDefinitionEgg([]openapiclient.InputFieldDefinition{*openapiclient.NewInputFieldDefinition(false, *openapiclient.NewFieldTypeDefinition("Name_example", []openapiclient.Option{*openapiclient.NewOption(false, int32(123), float32(123), "Description_example", false, "Label_example", "Value_example")}, "Type_example", false))}, []openapiclient.PublicActionFunction{*openapiclient.NewPublicActionFunction("FunctionSource_example", "FunctionType_example")}, "ActionUrl_example", false, []string{"ObjectTypes_example"}, map[string]PublicActionLabels{"key": *openapiclient.NewPublicActionLabels("ActionName_example")}) // PublicActionDefinitionEgg | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.DefinitionsApi.Create(context.Background(), appId).ExtensionActionDefinitionInput(extensionActionDefinitionInput).Execute()
+    resp, r, err := apiClient.DefinitionsApi.Create(context.Background(), appId).PublicActionDefinitionEgg(publicActionDefinitionEgg).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefinitionsApi.Create``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `Create`: ExtensionActionDefinition
+    // response from `Create`: PublicActionDefinition
     fmt.Fprintf(os.Stdout, "Response from `DefinitionsApi.Create`: %v\n", resp)
 }
 ```
@@ -135,15 +131,15 @@ Other parameters are passed through a pointer to a apiCreateRequest struct via t
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **extensionActionDefinitionInput** | [**ExtensionActionDefinitionInput**](ExtensionActionDefinitionInput.md) | The custom workflow action to create. | 
+ **publicActionDefinitionEgg** | [**PublicActionDefinitionEgg**](PublicActionDefinitionEgg.md) |  | 
 
 ### Return type
 
-[**ExtensionActionDefinition**](ExtensionActionDefinition.md)
+[**PublicActionDefinition**](PublicActionDefinition.md)
 
 ### Authorization
 
-[developer_hapikey](../README.md#developer_hapikey)
+No authorization required
 
 ### HTTP request headers
 
@@ -157,11 +153,9 @@ Name | Type | Description  | Notes
 
 ## GetByID
 
-> ExtensionActionDefinition GetByID(ctx, definitionId, appId).Archived(archived).Execute()
+> PublicActionDefinition GetByID(ctx, definitionId, appId).Archived(archived).Execute()
 
-Get a custom action
-
-
+Get extension definition by Id
 
 ### Example
 
@@ -176,9 +170,9 @@ import (
 )
 
 func main() {
-    definitionId := "definitionId_example" // string | The ID of the custom workflow action.
+    definitionId := "definitionId_example" // string | 
     appId := int32(56) // int32 | 
-    archived := true // bool | Whether to include archived custom actions. (optional) (default to false)
+    archived := true // bool | Whether to return only results that have been archived. (optional) (default to false)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -187,7 +181,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `DefinitionsApi.GetByID``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetByID`: ExtensionActionDefinition
+    // response from `GetByID`: PublicActionDefinition
     fmt.Fprintf(os.Stdout, "Response from `DefinitionsApi.GetByID`: %v\n", resp)
 }
 ```
@@ -198,7 +192,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**definitionId** | **string** | The ID of the custom workflow action. | 
+**definitionId** | **string** |  | 
 **appId** | **int32** |  | 
 
 ### Other Parameters
@@ -210,15 +204,15 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **archived** | **bool** | Whether to include archived custom actions. | [default to false]
+ **archived** | **bool** | Whether to return only results that have been archived. | [default to false]
 
 ### Return type
 
-[**ExtensionActionDefinition**](ExtensionActionDefinition.md)
+[**PublicActionDefinition**](PublicActionDefinition.md)
 
 ### Authorization
 
-[developer_hapikey](../README.md#developer_hapikey)
+No authorization required
 
 ### HTTP request headers
 
@@ -232,11 +226,9 @@ Name | Type | Description  | Notes
 
 ## GetPage
 
-> CollectionResponseExtensionActionDefinitionForwardPaging GetPage(ctx, appId).Limit(limit).After(after).Archived(archived).Execute()
+> CollectionResponsePublicActionDefinitionForwardPaging GetPage(ctx, appId).Limit(limit).After(after).Archived(archived).Execute()
 
-Get all custom actions
-
-
+Get paged extension definitions
 
 ### Example
 
@@ -252,9 +244,9 @@ import (
 
 func main() {
     appId := int32(56) // int32 | 
-    limit := int32(56) // int32 | Maximum number of results per page. (optional)
+    limit := int32(56) // int32 | The maximum number of results to display per page. (optional)
     after := "after_example" // string | The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results. (optional)
-    archived := true // bool | Whether to include archived custom actions. (optional) (default to false)
+    archived := true // bool | Whether to return only results that have been archived. (optional) (default to false)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -263,7 +255,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `DefinitionsApi.GetPage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetPage`: CollectionResponseExtensionActionDefinitionForwardPaging
+    // response from `GetPage`: CollectionResponsePublicActionDefinitionForwardPaging
     fmt.Fprintf(os.Stdout, "Response from `DefinitionsApi.GetPage`: %v\n", resp)
 }
 ```
@@ -284,17 +276,17 @@ Other parameters are passed through a pointer to a apiGetPageRequest struct via 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **limit** | **int32** | Maximum number of results per page. | 
+ **limit** | **int32** | The maximum number of results to display per page. | 
  **after** | **string** | The paging cursor token of the last successfully read resource will be returned as the &#x60;paging.next.after&#x60; JSON property of a paged response containing more results. | 
- **archived** | **bool** | Whether to include archived custom actions. | [default to false]
+ **archived** | **bool** | Whether to return only results that have been archived. | [default to false]
 
 ### Return type
 
-[**CollectionResponseExtensionActionDefinitionForwardPaging**](CollectionResponseExtensionActionDefinitionForwardPaging.md)
+[**CollectionResponsePublicActionDefinitionForwardPaging**](CollectionResponsePublicActionDefinitionForwardPaging.md)
 
 ### Authorization
 
-[developer_hapikey](../README.md#developer_hapikey)
+No authorization required
 
 ### HTTP request headers
 
@@ -308,11 +300,9 @@ Name | Type | Description  | Notes
 
 ## Update
 
-> ExtensionActionDefinition Update(ctx, definitionId, appId).ExtensionActionDefinitionPatch(extensionActionDefinitionPatch).Execute()
+> PublicActionDefinition Update(ctx, definitionId, appId).PublicActionDefinitionPatch(publicActionDefinitionPatch).Execute()
 
-Update a custom action
-
-
+Patch an existing extension definition
 
 ### Example
 
@@ -327,18 +317,18 @@ import (
 )
 
 func main() {
-    definitionId := "definitionId_example" // string | The ID of the custom workflow action.
+    definitionId := "definitionId_example" // string | 
     appId := int32(56) // int32 | 
-    extensionActionDefinitionPatch := *openapiclient.NewExtensionActionDefinitionPatch() // ExtensionActionDefinitionPatch | The custom workflow action fields to be updated.
+    publicActionDefinitionPatch := *openapiclient.NewPublicActionDefinitionPatch() // PublicActionDefinitionPatch | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.DefinitionsApi.Update(context.Background(), definitionId, appId).ExtensionActionDefinitionPatch(extensionActionDefinitionPatch).Execute()
+    resp, r, err := apiClient.DefinitionsApi.Update(context.Background(), definitionId, appId).PublicActionDefinitionPatch(publicActionDefinitionPatch).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefinitionsApi.Update``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `Update`: ExtensionActionDefinition
+    // response from `Update`: PublicActionDefinition
     fmt.Fprintf(os.Stdout, "Response from `DefinitionsApi.Update`: %v\n", resp)
 }
 ```
@@ -349,7 +339,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**definitionId** | **string** | The ID of the custom workflow action. | 
+**definitionId** | **string** |  | 
 **appId** | **int32** |  | 
 
 ### Other Parameters
@@ -361,15 +351,15 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **extensionActionDefinitionPatch** | [**ExtensionActionDefinitionPatch**](ExtensionActionDefinitionPatch.md) | The custom workflow action fields to be updated. | 
+ **publicActionDefinitionPatch** | [**PublicActionDefinitionPatch**](PublicActionDefinitionPatch.md) |  | 
 
 ### Return type
 
-[**ExtensionActionDefinition**](ExtensionActionDefinition.md)
+[**PublicActionDefinition**](PublicActionDefinition.md)
 
 ### Authorization
 
-[developer_hapikey](../README.md#developer_hapikey)
+No authorization required
 
 ### HTTP request headers
 

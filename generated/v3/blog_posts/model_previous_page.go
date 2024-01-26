@@ -1,5 +1,5 @@
 /*
-Blog Post endpoints
+Posts
 
 Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags
 
@@ -16,8 +16,10 @@ import (
 
 // PreviousPage Model definition for a previous page
 type PreviousPage struct {
-	Before string  `json:"before"`
-	Link   *string `json:"link,omitempty"`
+	//
+	Before string `json:"before"`
+	//
+	Link *string `json:"link,omitempty"`
 }
 
 // NewPreviousPage instantiates a new PreviousPage object

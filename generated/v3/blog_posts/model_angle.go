@@ -1,5 +1,5 @@
 /*
-Blog Post endpoints
+Posts
 
 Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags
 
@@ -16,18 +16,18 @@ import (
 
 // Angle struct for Angle
 type Angle struct {
-	Value float32 `json:"value"`
 	Units string  `json:"units"`
+	Value float32 `json:"value"`
 }
 
 // NewAngle instantiates a new Angle object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAngle(value float32, units string) *Angle {
+func NewAngle(units string, value float32) *Angle {
 	this := Angle{}
-	this.Value = value
 	this.Units = units
+	this.Value = value
 	return &this
 }
 
@@ -37,30 +37,6 @@ func NewAngle(value float32, units string) *Angle {
 func NewAngleWithDefaults() *Angle {
 	this := Angle{}
 	return &this
-}
-
-// GetValue returns the Value field value
-func (o *Angle) GetValue() float32 {
-	if o == nil {
-		var ret float32
-		return ret
-	}
-
-	return o.Value
-}
-
-// GetValueOk returns a tuple with the Value field value
-// and a boolean to check if the value has been set.
-func (o *Angle) GetValueOk() (*float32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Value, true
-}
-
-// SetValue sets field value
-func (o *Angle) SetValue(v float32) {
-	o.Value = v
 }
 
 // GetUnits returns the Units field value
@@ -87,13 +63,37 @@ func (o *Angle) SetUnits(v string) {
 	o.Units = v
 }
 
+// GetValue returns the Value field value
+func (o *Angle) GetValue() float32 {
+	if o == nil {
+		var ret float32
+		return ret
+	}
+
+	return o.Value
+}
+
+// GetValueOk returns a tuple with the Value field value
+// and a boolean to check if the value has been set.
+func (o *Angle) GetValueOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Value, true
+}
+
+// SetValue sets field value
+func (o *Angle) SetValue(v float32) {
+	o.Value = v
+}
+
 func (o Angle) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["value"] = o.Value
+		toSerialize["units"] = o.Units
 	}
 	if true {
-		toSerialize["units"] = o.Units
+		toSerialize["value"] = o.Value
 	}
 	return json.Marshal(toSerialize)
 }

@@ -4,26 +4,26 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** | Name of the column | 
+**ForeignTableId** | Pointer to **int64** | Foreign table id referenced | [optional] 
+**Description** | Pointer to **string** |  | [optional] 
 **Label** | **string** | Label of the column | 
-**Id** | Pointer to **string** | Column Id | [optional] 
+**Type** | **string** | Type of the column | 
+**OptionCount** | Pointer to **int32** | Number of options available | [optional] 
+**ForeignIds** | Pointer to [**[]ForeignId**](ForeignId.md) | Foreign Ids | [optional] 
 **Deleted** | Pointer to **bool** |  | [optional] 
+**Name** | **string** | Name of the column | 
 **Options** | Pointer to [**[]Option**](Option.md) | Options to choose for select and multi-select columns | [optional] 
 **Width** | Pointer to **int32** | Column width for HubDB UI | [optional] 
-**ForeignTableId** | Pointer to **int64** | Foreign table id referenced | [optional] 
-**ForeignColumnId** | Pointer to **int32** | Foreign Column id | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
-**ForeignIds** | Pointer to [**[]ForeignId**](ForeignId.md) | Foreign Ids | [optional] 
-**Type** | **string** | Type of the column | 
+**Id** | Pointer to **string** | Column Id | [optional] 
 **ForeignIdsById** | Pointer to [**map[string]ForeignId**](ForeignId.md) | Foreign ids | [optional] 
+**ForeignColumnId** | Pointer to **int32** | Foreign Column id | [optional] 
 **ForeignIdsByName** | Pointer to [**map[string]ForeignId**](ForeignId.md) | Foreign ids by name | [optional] 
-**OptionCount** | Pointer to **int32** | Number of options available | [optional] 
 
 ## Methods
 
 ### NewColumn
 
-`func NewColumn(name string, label string, type_ string, ) *Column`
+`func NewColumn(label string, type_ string, name string, ) *Column`
 
 NewColumn instantiates a new Column object
 This constructor will assign default values to properties that have it defined,
@@ -38,25 +38,55 @@ NewColumnWithDefaults instantiates a new Column object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetName
+### GetForeignTableId
 
-`func (o *Column) GetName() string`
+`func (o *Column) GetForeignTableId() int64`
 
-GetName returns the Name field if non-nil, zero value otherwise.
+GetForeignTableId returns the ForeignTableId field if non-nil, zero value otherwise.
 
-### GetNameOk
+### GetForeignTableIdOk
 
-`func (o *Column) GetNameOk() (*string, bool)`
+`func (o *Column) GetForeignTableIdOk() (*int64, bool)`
 
-GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+GetForeignTableIdOk returns a tuple with the ForeignTableId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetName
+### SetForeignTableId
 
-`func (o *Column) SetName(v string)`
+`func (o *Column) SetForeignTableId(v int64)`
 
-SetName sets Name field to given value.
+SetForeignTableId sets ForeignTableId field to given value.
 
+### HasForeignTableId
+
+`func (o *Column) HasForeignTableId() bool`
+
+HasForeignTableId returns a boolean if a field has been set.
+
+### GetDescription
+
+`func (o *Column) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *Column) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *Column) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *Column) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
 
 ### GetLabel
 
@@ -78,30 +108,75 @@ and a boolean to check if the value has been set.
 SetLabel sets Label field to given value.
 
 
-### GetId
+### GetType
 
-`func (o *Column) GetId() string`
+`func (o *Column) GetType() string`
 
-GetId returns the Id field if non-nil, zero value otherwise.
+GetType returns the Type field if non-nil, zero value otherwise.
 
-### GetIdOk
+### GetTypeOk
 
-`func (o *Column) GetIdOk() (*string, bool)`
+`func (o *Column) GetTypeOk() (*string, bool)`
 
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetId
+### SetType
 
-`func (o *Column) SetId(v string)`
+`func (o *Column) SetType(v string)`
 
-SetId sets Id field to given value.
+SetType sets Type field to given value.
 
-### HasId
 
-`func (o *Column) HasId() bool`
+### GetOptionCount
 
-HasId returns a boolean if a field has been set.
+`func (o *Column) GetOptionCount() int32`
+
+GetOptionCount returns the OptionCount field if non-nil, zero value otherwise.
+
+### GetOptionCountOk
+
+`func (o *Column) GetOptionCountOk() (*int32, bool)`
+
+GetOptionCountOk returns a tuple with the OptionCount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOptionCount
+
+`func (o *Column) SetOptionCount(v int32)`
+
+SetOptionCount sets OptionCount field to given value.
+
+### HasOptionCount
+
+`func (o *Column) HasOptionCount() bool`
+
+HasOptionCount returns a boolean if a field has been set.
+
+### GetForeignIds
+
+`func (o *Column) GetForeignIds() []ForeignId`
+
+GetForeignIds returns the ForeignIds field if non-nil, zero value otherwise.
+
+### GetForeignIdsOk
+
+`func (o *Column) GetForeignIdsOk() (*[]ForeignId, bool)`
+
+GetForeignIdsOk returns a tuple with the ForeignIds field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetForeignIds
+
+`func (o *Column) SetForeignIds(v []ForeignId)`
+
+SetForeignIds sets ForeignIds field to given value.
+
+### HasForeignIds
+
+`func (o *Column) HasForeignIds() bool`
+
+HasForeignIds returns a boolean if a field has been set.
 
 ### GetDeleted
 
@@ -127,6 +202,26 @@ SetDeleted sets Deleted field to given value.
 `func (o *Column) HasDeleted() bool`
 
 HasDeleted returns a boolean if a field has been set.
+
+### GetName
+
+`func (o *Column) GetName() string`
+
+GetName returns the Name field if non-nil, zero value otherwise.
+
+### GetNameOk
+
+`func (o *Column) GetNameOk() (*string, bool)`
+
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetName
+
+`func (o *Column) SetName(v string)`
+
+SetName sets Name field to given value.
+
 
 ### GetOptions
 
@@ -178,125 +273,30 @@ SetWidth sets Width field to given value.
 
 HasWidth returns a boolean if a field has been set.
 
-### GetForeignTableId
+### GetId
 
-`func (o *Column) GetForeignTableId() int64`
+`func (o *Column) GetId() string`
 
-GetForeignTableId returns the ForeignTableId field if non-nil, zero value otherwise.
+GetId returns the Id field if non-nil, zero value otherwise.
 
-### GetForeignTableIdOk
+### GetIdOk
 
-`func (o *Column) GetForeignTableIdOk() (*int64, bool)`
+`func (o *Column) GetIdOk() (*string, bool)`
 
-GetForeignTableIdOk returns a tuple with the ForeignTableId field if it's non-nil, zero value otherwise
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetForeignTableId
+### SetId
 
-`func (o *Column) SetForeignTableId(v int64)`
+`func (o *Column) SetId(v string)`
 
-SetForeignTableId sets ForeignTableId field to given value.
+SetId sets Id field to given value.
 
-### HasForeignTableId
+### HasId
 
-`func (o *Column) HasForeignTableId() bool`
+`func (o *Column) HasId() bool`
 
-HasForeignTableId returns a boolean if a field has been set.
-
-### GetForeignColumnId
-
-`func (o *Column) GetForeignColumnId() int32`
-
-GetForeignColumnId returns the ForeignColumnId field if non-nil, zero value otherwise.
-
-### GetForeignColumnIdOk
-
-`func (o *Column) GetForeignColumnIdOk() (*int32, bool)`
-
-GetForeignColumnIdOk returns a tuple with the ForeignColumnId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetForeignColumnId
-
-`func (o *Column) SetForeignColumnId(v int32)`
-
-SetForeignColumnId sets ForeignColumnId field to given value.
-
-### HasForeignColumnId
-
-`func (o *Column) HasForeignColumnId() bool`
-
-HasForeignColumnId returns a boolean if a field has been set.
-
-### GetDescription
-
-`func (o *Column) GetDescription() string`
-
-GetDescription returns the Description field if non-nil, zero value otherwise.
-
-### GetDescriptionOk
-
-`func (o *Column) GetDescriptionOk() (*string, bool)`
-
-GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDescription
-
-`func (o *Column) SetDescription(v string)`
-
-SetDescription sets Description field to given value.
-
-### HasDescription
-
-`func (o *Column) HasDescription() bool`
-
-HasDescription returns a boolean if a field has been set.
-
-### GetForeignIds
-
-`func (o *Column) GetForeignIds() []ForeignId`
-
-GetForeignIds returns the ForeignIds field if non-nil, zero value otherwise.
-
-### GetForeignIdsOk
-
-`func (o *Column) GetForeignIdsOk() (*[]ForeignId, bool)`
-
-GetForeignIdsOk returns a tuple with the ForeignIds field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetForeignIds
-
-`func (o *Column) SetForeignIds(v []ForeignId)`
-
-SetForeignIds sets ForeignIds field to given value.
-
-### HasForeignIds
-
-`func (o *Column) HasForeignIds() bool`
-
-HasForeignIds returns a boolean if a field has been set.
-
-### GetType
-
-`func (o *Column) GetType() string`
-
-GetType returns the Type field if non-nil, zero value otherwise.
-
-### GetTypeOk
-
-`func (o *Column) GetTypeOk() (*string, bool)`
-
-GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetType
-
-`func (o *Column) SetType(v string)`
-
-SetType sets Type field to given value.
-
+HasId returns a boolean if a field has been set.
 
 ### GetForeignIdsById
 
@@ -323,6 +323,31 @@ SetForeignIdsById sets ForeignIdsById field to given value.
 
 HasForeignIdsById returns a boolean if a field has been set.
 
+### GetForeignColumnId
+
+`func (o *Column) GetForeignColumnId() int32`
+
+GetForeignColumnId returns the ForeignColumnId field if non-nil, zero value otherwise.
+
+### GetForeignColumnIdOk
+
+`func (o *Column) GetForeignColumnIdOk() (*int32, bool)`
+
+GetForeignColumnIdOk returns a tuple with the ForeignColumnId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetForeignColumnId
+
+`func (o *Column) SetForeignColumnId(v int32)`
+
+SetForeignColumnId sets ForeignColumnId field to given value.
+
+### HasForeignColumnId
+
+`func (o *Column) HasForeignColumnId() bool`
+
+HasForeignColumnId returns a boolean if a field has been set.
+
 ### GetForeignIdsByName
 
 `func (o *Column) GetForeignIdsByName() map[string]ForeignId`
@@ -347,31 +372,6 @@ SetForeignIdsByName sets ForeignIdsByName field to given value.
 `func (o *Column) HasForeignIdsByName() bool`
 
 HasForeignIdsByName returns a boolean if a field has been set.
-
-### GetOptionCount
-
-`func (o *Column) GetOptionCount() int32`
-
-GetOptionCount returns the OptionCount field if non-nil, zero value otherwise.
-
-### GetOptionCountOk
-
-`func (o *Column) GetOptionCountOk() (*int32, bool)`
-
-GetOptionCountOk returns a tuple with the OptionCount field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetOptionCount
-
-`func (o *Column) SetOptionCount(v int32)`
-
-SetOptionCount sets OptionCount field to given value.
-
-### HasOptionCount
-
-`func (o *Column) HasOptionCount() bool`
-
-HasOptionCount returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

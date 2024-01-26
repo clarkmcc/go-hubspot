@@ -4,8 +4,8 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CallbackComplete**](CallbacksApi.md#CallbackComplete) | **Post** /automation/v4/actions/callbacks/{callbackId}/complete | Complete a callback
-[**CallbackCompleteBatch**](CallbacksApi.md#CallbackCompleteBatch) | **Post** /automation/v4/actions/callbacks/complete | Complete a batch of callbacks
+[**CallbackComplete**](CallbacksApi.md#CallbackComplete) | **Post** /automation/v4/actions/callbacks/{callbackId}/complete | Completes a single callback
+[**CallbackCompleteBatch**](CallbacksApi.md#CallbackCompleteBatch) | **Post** /automation/v4/actions/callbacks/complete | Completes a batch of callbacks
 
 
 
@@ -13,9 +13,7 @@ Method | HTTP request | Description
 
 > CallbackComplete(ctx, callbackId).CallbackCompletionRequest(callbackCompletionRequest).Execute()
 
-Complete a callback
-
-
+Completes a single callback
 
 ### Example
 
@@ -30,8 +28,8 @@ import (
 )
 
 func main() {
-    callbackId := "callbackId_example" // string | The ID of the target app.
-    callbackCompletionRequest := *openapiclient.NewCallbackCompletionRequest(map[string]string{"key": "Inner_example"}) // CallbackCompletionRequest | The result of the completed action.
+    callbackId := "callbackId_example" // string | 
+    callbackCompletionRequest := *openapiclient.NewCallbackCompletionRequest(map[string]string{"key": "Inner_example"}) // CallbackCompletionRequest | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -49,7 +47,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**callbackId** | **string** | The ID of the target app. | 
+**callbackId** | **string** |  | 
 
 ### Other Parameters
 
@@ -59,7 +57,7 @@ Other parameters are passed through a pointer to a apiCallbackCompleteRequest st
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **callbackCompletionRequest** | [**CallbackCompletionRequest**](CallbackCompletionRequest.md) | The result of the completed action. | 
+ **callbackCompletionRequest** | [**CallbackCompletionRequest**](CallbackCompletionRequest.md) |  | 
 
 ### Return type
 
@@ -83,9 +81,7 @@ Name | Type | Description  | Notes
 
 > CallbackCompleteBatch(ctx).BatchInputCallbackCompletionBatchRequest(batchInputCallbackCompletionBatchRequest).Execute()
 
-Complete a batch of callbacks
-
-
+Completes a batch of callbacks
 
 ### Example
 
@@ -100,7 +96,7 @@ import (
 )
 
 func main() {
-    batchInputCallbackCompletionBatchRequest := *openapiclient.NewBatchInputCallbackCompletionBatchRequest([]openapiclient.CallbackCompletionBatchRequest{*openapiclient.NewCallbackCompletionBatchRequest("CallbackId_example", map[string]string{"key": "Inner_example"})}) // BatchInputCallbackCompletionBatchRequest | The result of the completed action.
+    batchInputCallbackCompletionBatchRequest := *openapiclient.NewBatchInputCallbackCompletionBatchRequest([]openapiclient.CallbackCompletionBatchRequest{*openapiclient.NewCallbackCompletionBatchRequest(map[string]string{"key": "Inner_example"}, "CallbackId_example")}) // BatchInputCallbackCompletionBatchRequest | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -123,7 +119,7 @@ Other parameters are passed through a pointer to a apiCallbackCompleteBatchReque
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **batchInputCallbackCompletionBatchRequest** | [**BatchInputCallbackCompletionBatchRequest**](BatchInputCallbackCompletionBatchRequest.md) | The result of the completed action. | 
+ **batchInputCallbackCompletionBatchRequest** | [**BatchInputCallbackCompletionBatchRequest**](BatchInputCallbackCompletionBatchRequest.md) |  | 
 
 ### Return type
 

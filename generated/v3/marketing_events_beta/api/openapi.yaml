@@ -5,19 +5,82 @@ info:
     * Specify whether a HubSpot contact has registered, attended or cancelled a registration\
     \ to a Marketing Event.\n* Specify a URL that can be called to get the details\
     \ of a Marketing Event.\n"
-  title: Marketing Events Extension
+  title: Marketing Events
   version: v3
+  x-hubspot-product-tier-requirements:
+    marketing: FREE
+    cms: STARTER
+  x-hubspot-documentation-banner: NONE
+  x-hubspot-api-use-case: You have an external system that handles registration for
+    your webinars and you want to ensure that attendee data and behavior is synced
+    with your HubSpot CRM.
+  x-hubspot-related-documentation:
+  - name: Marketing Events Guide
+    url: https://hubspot.dev/guides/api/marketing/marketing-events
+  x-hubspot-introduction: The marketing events API allows you to build a custom integration
+    that will sync event and registration data with your HubSpot account.The marketing
+    events API allows you to build a custom integration that will sync event and registration
+    data with your HubSpot account.
 servers:
 - url: https://api.hubapi.com
 tags:
-- name: Batch
-- name: Attendance Subscriber State Changes
-- name: Subscriber State Changes
-- name: Marketing_Events_External
-- name: Basic
-- name: Settings
-- name: Search
+- description: ""
+  name: Batch
+  x-hubspot-tag-name-english-source: Batch
+- description: ""
+  name: Attendance Subscriber State Changes
+  x-hubspot-tag-name-english-source: Attendance Subscriber State Changes
+- description: ""
+  name: Subscriber State Changes
+  x-hubspot-tag-name-english-source: Subscriber State Changes
+- description: ""
+  name: Marketing_Events_External
+  x-hubspot-tag-name-english-source: Marketing_Events_External
+- description: ""
+  name: Basic
+  x-hubspot-tag-name-english-source: Basic
+- description: ""
+  name: Settings
+  x-hubspot-tag-name-english-source: Settings
+- description: ""
+  name: Search
+  x-hubspot-tag-name-english-source: Search
 paths:
+  /marketing/v3/marketing-events/events/upsert:
+    post:
+      description: "Upset multiple Marketing Event. If there is an existing Marketing\
+        \ event with the specified id, it will be updated; otherwise a new event will\
+        \ be created."
+      operationId: Upsert
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchInputMarketingEventCreateRequestParams'
+        description: The details of the marketing events to upsert
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchResponseMarketingEventPublicDefaultResponse'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - private_apps_legacy:
+        - crm.objects.marketing_events.write
+      - oauth2_legacy:
+        - crm.objects.marketing_events.write
+      summary: Create or update multiple marketing events
+      tags:
+      - Batch
   /marketing/v3/marketing-events/attendance/{externalEventId}/{subscriberState}/create:
     post:
       description: "Record a subscription state between multiple HubSpot contacts\
@@ -78,6 +141,165 @@ paths:
       summary: Record
       tags:
       - Attendance Subscriber State Changes
+  /marketing/v3/marketing-events/attendance/{externalEventId}/{subscriberState}/email-create:
+    post:
+      description: "Record a subscription state between multiple HubSpot contacts\
+        \ and a marketing event, using contact email addresses. If contact is not\
+        \ present it will be automatically created."
+      operationId: AttendanceEmailCreate_createByEmail
+      parameters:
+      - description: The id of the marketing event
+        explode: false
+        in: path
+        name: externalEventId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "The new subscriber state for the HubSpot contacts and the specified\
+          \ marketing event. For example: 'register', 'attend' or 'cancel'."
+        explode: false
+        in: path
+        name: subscriberState
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The account id associated with the marketing event
+        explode: true
+        in: query
+        name: externalAccountId
+        required: false
+        schema:
+          type: string
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchInputMarketingEventEmailSubscriber'
+        description: The details of the contacts to subscribe to the event. Parameters
+          of join and left time if state is Attended.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchResponseSubscriberEmailResponse'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - private_apps_legacy:
+        - crm.objects.marketing_events.write
+      - oauth2_legacy:
+        - crm.objects.marketing_events.write
+      summary: Record
+      tags:
+      - Attendance Subscriber State Changes
+  /marketing/v3/marketing-events/events/{externalEventId}/{subscriberState}/email-upsert:
+    post:
+      description: "Record a subscription state between multiple HubSpot contacts\
+        \ and a marketing event, using contact email addresses. Note that the contact\
+        \ must already exist in HubSpot; a contact will not be created."
+      operationId: ExternalEmailUpsertByID
+      parameters:
+      - description: The id of the marketing event
+        explode: false
+        in: path
+        name: externalEventId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The new subscriber state for the HubSpot contacts and the specified
+          marketing event
+        explode: false
+        in: path
+        name: subscriberState
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The account id associated with the marketing event
+        explode: true
+        in: query
+        name: externalAccountId
+        required: true
+        schema:
+          type: string
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchInputMarketingEventEmailSubscriber'
+        description: The details of the contacts to subscribe to the event
+        required: true
+      responses:
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - private_apps_legacy:
+        - crm.objects.marketing_events.write
+      - oauth2_legacy:
+        - crm.objects.marketing_events.write
+      summary: Record
+      tags:
+      - Subscriber State Changes
+  /marketing/v3/marketing-events/events/{externalEventId}/complete:
+    post:
+      operationId: ExternalComplete_complete
+      parameters:
+      - explode: false
+        in: path
+        name: externalEventId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: externalAccountId
+        required: true
+        schema:
+          type: string
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MarketingEventCompleteRequestParams'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketingEventDefaultResponse'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - private_apps_legacy:
+        - crm.objects.marketing_events.write
+      - oauth2_legacy:
+        - crm.objects.marketing_events.write
+      tags:
+      - Marketing_Events_External
   /marketing/v3/marketing-events/events/{externalEventId}/{subscriberState}/upsert:
     post:
       description: "Record a subscription state between multiple HubSpot contacts\
@@ -132,6 +354,39 @@ paths:
       summary: Record
       tags:
       - Subscriber State Changes
+  /marketing/v3/marketing-events/events:
+    post:
+      description: Creates a new marketing event in HubSpot
+      operationId: Create
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MarketingEventCreateRequestParams'
+        description: The details of the marketing event to create
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketingEventDefaultResponse'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - private_apps_legacy:
+        - crm.objects.marketing_events.write
+      - oauth2_legacy:
+        - crm.objects.marketing_events.write
+      summary: Create a marketing event
+      tags:
+      - Basic
   /marketing/v3/marketing-events/events/delete:
     post:
       description: Bulk delete a number of marketing events in HubSpot
@@ -201,6 +456,111 @@ paths:
       summary: Mark a marketing event as cancelled
       tags:
       - Basic
+  /marketing/v3/marketing-events/{appId}/settings:
+    get:
+      description: Retrieve the current settings for the application.
+      operationId: SettingsGetAll
+      parameters:
+      - description: The id of the application to retrieve the settings for.
+        explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventDetailSettings'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - developer_hapikey: []
+      summary: Retrieve the application settings
+      tags:
+      - Settings
+    post:
+      description: Create or update the current settings for the application.
+      operationId: SettingsCreate
+      parameters:
+      - description: The id of the application to update the settings for.
+        explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventDetailSettingsUrl'
+        description: The new application settings
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventDetailSettings'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - developer_hapikey: []
+      summary: Update the application settings
+      tags:
+      - Settings
+  /marketing/v3/marketing-events/events/search:
+    get:
+      description: Search for marketing events that have an event id that starts with
+        the query string
+      operationId: Search
+      parameters:
+      - description: The id of the marketing event in the external event application
+        explode: true
+        in: query
+        name: q
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionResponseMarketingEventExternalUniqueIdentifierNoPaging'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - oauth2_legacy:
+        - crm.objects.marketing_events.read
+      - private_apps_legacy:
+        - crm.objects.marketing_events.read
+      summary: Search for marketing events
+      tags:
+      - Search
   /marketing/v3/marketing-events/events/{externalEventId}:
     delete:
       description: "Deletes an existing Marketing Event with the specified id, if\
@@ -374,338 +734,6 @@ paths:
       summary: Create or update a marketing event
       tags:
       - Basic
-  /marketing/v3/marketing-events/events/upsert:
-    post:
-      description: "Upset multiple Marketing Event. If there is an existing Marketing\
-        \ event with the specified id, it will be updated; otherwise a new event will\
-        \ be created."
-      operationId: Upsert
-      parameters: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/BatchInputMarketingEventCreateRequestParams'
-        description: The details of the marketing events to upsert
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BatchResponseMarketingEventPublicDefaultResponse'
-          description: successful operation
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - private_apps_legacy:
-        - crm.objects.marketing_events.write
-      - oauth2_legacy:
-        - crm.objects.marketing_events.write
-      summary: Create or update multiple marketing events
-      tags:
-      - Batch
-  /marketing/v3/marketing-events/events/{externalEventId}/{subscriberState}/email-upsert:
-    post:
-      description: "Record a subscription state between multiple HubSpot contacts\
-        \ and a marketing event, using contact email addresses. Note that the contact\
-        \ must already exist in HubSpot; a contact will not be created."
-      operationId: ExternalEmailUpsertByID
-      parameters:
-      - description: The id of the marketing event
-        explode: false
-        in: path
-        name: externalEventId
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: The new subscriber state for the HubSpot contacts and the specified
-          marketing event
-        explode: false
-        in: path
-        name: subscriberState
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: The account id associated with the marketing event
-        explode: true
-        in: query
-        name: externalAccountId
-        required: true
-        schema:
-          type: string
-        style: form
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/BatchInputMarketingEventEmailSubscriber'
-        description: The details of the contacts to subscribe to the event
-        required: true
-      responses:
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - private_apps_legacy:
-        - crm.objects.marketing_events.write
-      - oauth2_legacy:
-        - crm.objects.marketing_events.write
-      summary: Record
-      tags:
-      - Subscriber State Changes
-  /marketing/v3/marketing-events/attendance/{externalEventId}/{subscriberState}/email-create:
-    post:
-      description: "Record a subscription state between multiple HubSpot contacts\
-        \ and a marketing event, using contact email addresses. If contact is not\
-        \ present it will be automatically created."
-      operationId: AttendanceEmailCreate_createByEmail
-      parameters:
-      - description: The id of the marketing event
-        explode: false
-        in: path
-        name: externalEventId
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: "The new subscriber state for the HubSpot contacts and the specified\
-          \ marketing event. For example: 'register', 'attend' or 'cancel'."
-        explode: false
-        in: path
-        name: subscriberState
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: The account id associated with the marketing event
-        explode: true
-        in: query
-        name: externalAccountId
-        required: false
-        schema:
-          type: string
-        style: form
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/BatchInputMarketingEventEmailSubscriber'
-        description: The details of the contacts to subscribe to the event. Parameters
-          of join and left time if state is Attended.
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BatchResponseSubscriberEmailResponse'
-          description: successful operation
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - private_apps_legacy:
-        - crm.objects.marketing_events.write
-      - oauth2_legacy:
-        - crm.objects.marketing_events.write
-      summary: Record
-      tags:
-      - Attendance Subscriber State Changes
-  /marketing/v3/marketing-events/events/{externalEventId}/complete:
-    post:
-      operationId: ExternalComplete_complete
-      parameters:
-      - explode: false
-        in: path
-        name: externalEventId
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: true
-        in: query
-        name: externalAccountId
-        required: true
-        schema:
-          type: string
-        style: form
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/MarketingEventCompleteRequestParams'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MarketingEventDefaultResponse'
-          description: successful operation
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - private_apps_legacy:
-        - crm.objects.marketing_events.write
-      - oauth2_legacy:
-        - crm.objects.marketing_events.write
-      tags:
-      - Marketing_Events_External
-  /marketing/v3/marketing-events/events:
-    post:
-      description: Creates a new marketing event in HubSpot
-      operationId: Create
-      parameters: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/MarketingEventCreateRequestParams'
-        description: The details of the marketing event to create
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MarketingEventDefaultResponse'
-          description: successful operation
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - private_apps_legacy:
-        - crm.objects.marketing_events.write
-      - oauth2_legacy:
-        - crm.objects.marketing_events.write
-      summary: Create a marketing event
-      tags:
-      - Basic
-  /marketing/v3/marketing-events/{appId}/settings:
-    get:
-      description: Retrieve the current settings for the application.
-      operationId: SettingsGetAll
-      parameters:
-      - description: The id of the application to retrieve the settings for.
-        explode: false
-        in: path
-        name: appId
-        required: true
-        schema:
-          format: int32
-          type: integer
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EventDetailSettings'
-          description: successful operation
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - developer_hapikey: []
-      summary: Retrieve the application settings
-      tags:
-      - Settings
-    post:
-      description: Create or update the current settings for the application.
-      operationId: SettingsCreate
-      parameters:
-      - description: The id of the application to update the settings for.
-        explode: false
-        in: path
-        name: appId
-        required: true
-        schema:
-          format: int32
-          type: integer
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/EventDetailSettingsUrl'
-        description: The new application settings
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EventDetailSettings'
-          description: successful operation
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - developer_hapikey: []
-      summary: Update the application settings
-      tags:
-      - Settings
-  /marketing/v3/marketing-events/events/search:
-    get:
-      description: Search for marketing events that have an event id that starts with
-        the query string
-      operationId: Search
-      parameters:
-      - description: The id of the marketing event in the external event application
-        explode: true
-        in: query
-        name: q
-        required: true
-        schema:
-          type: string
-        style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CollectionResponseMarketingEventExternalUniqueIdentifierNoPaging'
-          description: successful operation
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - oauth2_legacy:
-        - crm.objects.marketing_events.read
-      - private_apps_legacy:
-        - crm.objects.marketing_events.read
-      summary: Search for marketing events
-      tags:
-      - Search
 components:
   responses:
     Error:
@@ -764,6 +792,7 @@ components:
         status: status
       properties:
         subCategory:
+          description: ""
           properties: {}
           type: object
         context:
@@ -771,22 +800,29 @@ components:
             items:
               type: string
             type: array
+          description: ""
           type: object
         links:
           additionalProperties:
             type: string
+          description: ""
           type: object
         id:
+          description: ""
           type: string
         category:
+          description: ""
           type: string
         message:
+          description: ""
           type: string
         errors:
+          description: ""
           items:
             $ref: '#/components/schemas/ErrorDetail'
           type: array
         status:
+          description: ""
           type: string
       required:
       - category
@@ -804,35 +840,35 @@ components:
           selectedByUser: true
           sourceLabel: sourceLabel
           source: IMPORT
-          updatedByUserId: 0
-          persistenceTimestamp: 6
+          updatedByUserId: 6
+          persistenceTimestamp: 1
           sourceMetadata: sourceMetadata
           sourceVid:
-          - 1
-          - 1
+          - 5
+          - 5
           requestId: requestId
           name: name
           useTimestampAsPersistenceTimestamp: true
           value: value
           selectedByUserTimestamp: 5
-          timestamp: 5
+          timestamp: 2
           isLargeValue: true
         - sourceId: sourceId
           selectedByUser: true
           sourceLabel: sourceLabel
           source: IMPORT
-          updatedByUserId: 0
-          persistenceTimestamp: 6
+          updatedByUserId: 6
+          persistenceTimestamp: 1
           sourceMetadata: sourceMetadata
           sourceVid:
-          - 1
-          - 1
+          - 5
+          - 5
           requestId: requestId
           name: name
           useTimestampAsPersistenceTimestamp: true
           value: value
           selectedByUserTimestamp: 5
-          timestamp: 5
+          timestamp: 2
           isLargeValue: true
         externalAccountId: externalAccountId
         eventCancelled: true
@@ -961,35 +997,35 @@ components:
           selectedByUser: true
           sourceLabel: sourceLabel
           source: IMPORT
-          updatedByUserId: 0
-          persistenceTimestamp: 6
+          updatedByUserId: 6
+          persistenceTimestamp: 1
           sourceMetadata: sourceMetadata
           sourceVid:
-          - 1
-          - 1
+          - 5
+          - 5
           requestId: requestId
           name: name
           useTimestampAsPersistenceTimestamp: true
           value: value
           selectedByUserTimestamp: 5
-          timestamp: 5
+          timestamp: 2
           isLargeValue: true
         - sourceId: sourceId
           selectedByUser: true
           sourceLabel: sourceLabel
           source: IMPORT
-          updatedByUserId: 0
-          persistenceTimestamp: 6
+          updatedByUserId: 6
+          persistenceTimestamp: 1
           sourceMetadata: sourceMetadata
           sourceVid:
-          - 1
-          - 1
+          - 5
+          - 5
           requestId: requestId
           name: name
           useTimestampAsPersistenceTimestamp: true
           value: value
           selectedByUserTimestamp: 5
-          timestamp: 5
+          timestamp: 2
           isLargeValue: true
         eventCancelled: true
         externalEventId: externalEventId
@@ -1034,6 +1070,7 @@ components:
           format: int32
           type: integer
         createdAt:
+          description: ""
           format: date-time
           type: string
         startDateTime:
@@ -1065,8 +1102,10 @@ components:
           description: The name of the marketing event.
           type: string
         id:
+          description: ""
           type: string
         updatedAt:
+          description: ""
           format: date-time
           type: string
       required:
@@ -1100,35 +1139,6 @@ components:
           format: int64
           type: integer
       required:
-      - interactionDateTime
-      type: object
-    MarketingEventEmailSubscriber:
-      example:
-        contactProperties:
-          key: contactProperties
-        properties:
-          key: properties
-        email: email
-        interactionDateTime: 0
-      properties:
-        contactProperties:
-          additionalProperties:
-            type: string
-          type: object
-        properties:
-          additionalProperties:
-            type: string
-          type: object
-        email:
-          description: The email address of the contact in HubSpot to associate with
-            the event.
-          type: string
-        interactionDateTime:
-          description: The date and time at which the contact subscribed to the event.
-          format: int64
-          type: integer
-      required:
-      - email
       - interactionDateTime
       type: object
     ErrorDetail:
@@ -1169,6 +1179,35 @@ components:
           type: string
       required:
       - message
+      type: object
+    MarketingEventEmailSubscriber:
+      example:
+        contactProperties:
+          key: contactProperties
+        properties:
+          key: properties
+        email: email
+        interactionDateTime: 0
+      properties:
+        contactProperties:
+          additionalProperties:
+            type: string
+          type: object
+        properties:
+          additionalProperties:
+            type: string
+          type: object
+        email:
+          description: The email address of the contact in HubSpot to associate with
+            the event.
+          type: string
+        interactionDateTime:
+          description: The date and time at which the contact subscribed to the event.
+          format: int64
+          type: integer
+      required:
+      - email
+      - interactionDateTime
       type: object
     EventDetailSettingsUrl:
       example:
@@ -1249,35 +1288,35 @@ components:
             selectedByUser: true
             sourceLabel: sourceLabel
             source: IMPORT
-            updatedByUserId: 0
-            persistenceTimestamp: 6
+            updatedByUserId: 6
+            persistenceTimestamp: 1
             sourceMetadata: sourceMetadata
             sourceVid:
-            - 1
-            - 1
+            - 5
+            - 5
             requestId: requestId
             name: name
             useTimestampAsPersistenceTimestamp: true
             value: value
             selectedByUserTimestamp: 5
-            timestamp: 5
+            timestamp: 2
             isLargeValue: true
           - sourceId: sourceId
             selectedByUser: true
             sourceLabel: sourceLabel
             source: IMPORT
-            updatedByUserId: 0
-            persistenceTimestamp: 6
+            updatedByUserId: 6
+            persistenceTimestamp: 1
             sourceMetadata: sourceMetadata
             sourceVid:
-            - 1
-            - 1
+            - 5
+            - 5
             requestId: requestId
             name: name
             useTimestampAsPersistenceTimestamp: true
             value: value
             selectedByUserTimestamp: 5
-            timestamp: 5
+            timestamp: 2
             isLargeValue: true
           externalAccountId: externalAccountId
           eventCancelled: true
@@ -1294,35 +1333,35 @@ components:
             selectedByUser: true
             sourceLabel: sourceLabel
             source: IMPORT
-            updatedByUserId: 0
-            persistenceTimestamp: 6
+            updatedByUserId: 6
+            persistenceTimestamp: 1
             sourceMetadata: sourceMetadata
             sourceVid:
-            - 1
-            - 1
+            - 5
+            - 5
             requestId: requestId
             name: name
             useTimestampAsPersistenceTimestamp: true
             value: value
             selectedByUserTimestamp: 5
-            timestamp: 5
+            timestamp: 2
             isLargeValue: true
           - sourceId: sourceId
             selectedByUser: true
             sourceLabel: sourceLabel
             source: IMPORT
-            updatedByUserId: 0
-            persistenceTimestamp: 6
+            updatedByUserId: 6
+            persistenceTimestamp: 1
             sourceMetadata: sourceMetadata
             sourceVid:
-            - 1
-            - 1
+            - 5
+            - 5
             requestId: requestId
             name: name
             useTimestampAsPersistenceTimestamp: true
             value: value
             selectedByUserTimestamp: 5
-            timestamp: 5
+            timestamp: 2
             isLargeValue: true
           externalAccountId: externalAccountId
           eventCancelled: true
@@ -1335,11 +1374,70 @@ components:
           endDateTime: 2000-01-23T04:56:07.000+00:00
       properties:
         inputs:
+          description: ""
           items:
             $ref: '#/components/schemas/MarketingEventCreateRequestParams'
           type: array
       required:
       - inputs
+      type: object
+    Error:
+      example:
+        message: Invalid input (details will vary based on the error)
+        correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
+        category: VALIDATION_ERROR
+        links:
+          knowledge-base: https://www.hubspot.com/products/service/knowledge-base
+      properties:
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
+          type: string
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: Context about the error condition
+          example:
+            missingScopes:
+            - scope1
+            - scope2
+            invalidPropertyName:
+            - propertyValue
+          type: object
+        correlationId:
+          description: A unique identifier for the request. Include this value with
+            any error reports or support tickets
+          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
+          format: uuid
+          type: string
+        links:
+          additionalProperties:
+            type: string
+          description: A map of link names to associated URIs containing documentation
+            about the error or recommended remediation steps
+          example:
+            knowledge-base: https://www.hubspot.com/products/service/knowledge-base
+          type: object
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          example: Invalid input (details will vary based on the error)
+          type: string
+        category:
+          description: The error category
+          example: VALIDATION_ERROR
+          type: string
+        errors:
+          description: further information about the error
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
+      required:
+      - category
+      - correlationId
+      - message
       type: object
     PropertyValue:
       example:
@@ -1347,27 +1445,31 @@ components:
         selectedByUser: true
         sourceLabel: sourceLabel
         source: IMPORT
-        updatedByUserId: 0
-        persistenceTimestamp: 6
+        updatedByUserId: 6
+        persistenceTimestamp: 1
         sourceMetadata: sourceMetadata
         sourceVid:
-        - 1
-        - 1
+        - 5
+        - 5
         requestId: requestId
         name: name
         useTimestampAsPersistenceTimestamp: true
         value: value
         selectedByUserTimestamp: 5
-        timestamp: 5
+        timestamp: 2
         isLargeValue: true
       properties:
         sourceId:
+          description: ""
           type: string
         selectedByUser:
+          description: ""
           type: boolean
         sourceLabel:
+          description: ""
           type: string
         source:
+          description: ""
           enum:
           - IMPORT
           - API
@@ -1459,22 +1561,28 @@ components:
           description: "Source metadata encoded as a base64 string. For example: `ZXhhbXBsZSBzdHJpbmc=`"
           type: string
         sourceVid:
+          description: ""
           items:
             format: int64
             type: integer
           type: array
         requestId:
+          description: ""
           type: string
         name:
+          description: ""
           type: string
         useTimestampAsPersistenceTimestamp:
           type: boolean
         value:
+          description: ""
           type: string
         selectedByUserTimestamp:
+          description: ""
           format: int64
           type: integer
         timestamp:
+          description: ""
           format: int64
           type: integer
         isLargeValue:
@@ -1491,61 +1599,6 @@ components:
       - sourceVid
       - timestamp
       - value
-      type: object
-    Error:
-      example:
-        message: Invalid input (details will vary based on the error)
-        correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
-        category: VALIDATION_ERROR
-        links:
-          knowledge-base: https://www.hubspot.com/products/service/knowledge-base
-      properties:
-        subCategory:
-          description: A specific category that contains more specific detail about
-            the error
-          type: string
-        context:
-          additionalProperties:
-            items:
-              type: string
-            type: array
-          description: Context about the error condition
-          example:
-            invalidPropertyName:
-            - propertyValue
-            missingScopes:
-            - scope1
-            - scope2
-          type: object
-        correlationId:
-          description: A unique identifier for the request. Include this value with
-            any error reports or support tickets
-          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
-          format: uuid
-          type: string
-        links:
-          additionalProperties:
-            type: string
-          description: A map of link names to associated URIs containing documentation
-            about the error or recommended remediation steps
-          type: object
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          example: An error occurred
-          type: string
-        category:
-          description: The error category
-          type: string
-        errors:
-          description: further information about the error
-          items:
-            $ref: '#/components/schemas/ErrorDetail'
-          type: array
-      required:
-      - category
-      - correlationId
-      - message
       type: object
     BatchInputMarketingEventExternalUniqueIdentifier:
       example:
@@ -1572,35 +1625,35 @@ components:
           selectedByUser: true
           sourceLabel: sourceLabel
           source: IMPORT
-          updatedByUserId: 0
-          persistenceTimestamp: 6
+          updatedByUserId: 6
+          persistenceTimestamp: 1
           sourceMetadata: sourceMetadata
           sourceVid:
-          - 1
-          - 1
+          - 5
+          - 5
           requestId: requestId
           name: name
           useTimestampAsPersistenceTimestamp: true
           value: value
           selectedByUserTimestamp: 5
-          timestamp: 5
+          timestamp: 2
           isLargeValue: true
         - sourceId: sourceId
           selectedByUser: true
           sourceLabel: sourceLabel
           source: IMPORT
-          updatedByUserId: 0
-          persistenceTimestamp: 6
+          updatedByUserId: 6
+          persistenceTimestamp: 1
           sourceMetadata: sourceMetadata
           sourceVid:
-          - 1
-          - 1
+          - 5
+          - 5
           requestId: requestId
           name: name
           useTimestampAsPersistenceTimestamp: true
           value: value
           selectedByUserTimestamp: 5
-          timestamp: 5
+          timestamp: 2
           isLargeValue: true
         eventCancelled: true
         eventOrganizer: eventOrganizer
@@ -1770,35 +1823,35 @@ components:
           selectedByUser: true
           sourceLabel: sourceLabel
           source: IMPORT
-          updatedByUserId: 0
-          persistenceTimestamp: 6
+          updatedByUserId: 6
+          persistenceTimestamp: 1
           sourceMetadata: sourceMetadata
           sourceVid:
-          - 1
-          - 1
+          - 5
+          - 5
           requestId: requestId
           name: name
           useTimestampAsPersistenceTimestamp: true
           value: value
           selectedByUserTimestamp: 5
-          timestamp: 5
+          timestamp: 2
           isLargeValue: true
         - sourceId: sourceId
           selectedByUser: true
           sourceLabel: sourceLabel
           source: IMPORT
-          updatedByUserId: 0
-          persistenceTimestamp: 6
+          updatedByUserId: 6
+          persistenceTimestamp: 1
           sourceMetadata: sourceMetadata
           sourceVid:
-          - 1
-          - 1
+          - 5
+          - 5
           requestId: requestId
           name: name
           useTimestampAsPersistenceTimestamp: true
           value: value
           selectedByUserTimestamp: 5
-          timestamp: 5
+          timestamp: 2
           isLargeValue: true
         eventCancelled: true
         eventOrganizer: eventOrganizer
@@ -1811,6 +1864,7 @@ components:
         updatedAt: 2000-01-23T04:56:07.000+00:00
       properties:
         createdAt:
+          description: ""
           format: date-time
           type: string
         startDateTime:
@@ -1849,12 +1903,14 @@ components:
           description: The type of the marketing event.
           type: string
         id:
+          description: ""
           type: string
         endDateTime:
           description: The end date and time of the marketing event.
           format: date-time
           type: string
         updatedAt:
+          description: ""
           format: date-time
           type: string
       required:
@@ -1863,95 +1919,6 @@ components:
       - eventOrganizer
       - id
       - updatedAt
-      type: object
-    MarketingEventDefaultResponse:
-      example:
-        startDateTime: 2000-01-23T04:56:07.000+00:00
-        customProperties:
-        - sourceId: sourceId
-          selectedByUser: true
-          sourceLabel: sourceLabel
-          source: IMPORT
-          updatedByUserId: 0
-          persistenceTimestamp: 6
-          sourceMetadata: sourceMetadata
-          sourceVid:
-          - 1
-          - 1
-          requestId: requestId
-          name: name
-          useTimestampAsPersistenceTimestamp: true
-          value: value
-          selectedByUserTimestamp: 5
-          timestamp: 5
-          isLargeValue: true
-        - sourceId: sourceId
-          selectedByUser: true
-          sourceLabel: sourceLabel
-          source: IMPORT
-          updatedByUserId: 0
-          persistenceTimestamp: 6
-          sourceMetadata: sourceMetadata
-          sourceVid:
-          - 1
-          - 1
-          requestId: requestId
-          name: name
-          useTimestampAsPersistenceTimestamp: true
-          value: value
-          selectedByUserTimestamp: 5
-          timestamp: 5
-          isLargeValue: true
-        eventCancelled: true
-        eventOrganizer: eventOrganizer
-        eventUrl: eventUrl
-        eventDescription: eventDescription
-        eventName: eventName
-        eventType: eventType
-        endDateTime: 2000-01-23T04:56:07.000+00:00
-      properties:
-        startDateTime:
-          description: The start date and time of the marketing event.
-          format: date-time
-          type: string
-        customProperties:
-          description: "A list of PropertyValues. These can be whatever kind of property\
-            \ names and values you want. However, they must already exist on the HubSpot\
-            \ account's definition of the MarketingEvent Object. If they don't they\
-            \ will be filtered out and not set.\nIn order to do this you'll need to\
-            \ create a new PropertyGroup on the HubSpot account's MarketingEvent object\
-            \ for your specific app and create the Custom Property you want to track\
-            \ on that HubSpot account. Do not create any new default properties on\
-            \ the MarketingEvent object as that will apply to all HubSpot accounts.\n"
-          items:
-            $ref: '#/components/schemas/PropertyValue'
-          type: array
-        eventCancelled:
-          description: Indicates if the marketing event has been cancelled.
-          type: boolean
-        eventOrganizer:
-          description: The name of the organizer of the marketing event.
-          type: string
-        eventUrl:
-          description: The URL in the external event application where the marketing
-            event can be managed.
-          type: string
-        eventDescription:
-          description: The description of the marketing event.
-          type: string
-        eventName:
-          description: The name of the marketing event.
-          type: string
-        eventType:
-          description: The type of the marketing event.
-          type: string
-        endDateTime:
-          description: The end date and time of the marketing event.
-          format: date-time
-          type: string
-      required:
-      - eventName
-      - eventOrganizer
       type: object
     BatchResponseSubscriberVidResponse:
       example:
@@ -2060,6 +2027,95 @@ components:
       - startedAt
       - status
       type: object
+    MarketingEventDefaultResponse:
+      example:
+        startDateTime: 2000-01-23T04:56:07.000+00:00
+        customProperties:
+        - sourceId: sourceId
+          selectedByUser: true
+          sourceLabel: sourceLabel
+          source: IMPORT
+          updatedByUserId: 6
+          persistenceTimestamp: 1
+          sourceMetadata: sourceMetadata
+          sourceVid:
+          - 5
+          - 5
+          requestId: requestId
+          name: name
+          useTimestampAsPersistenceTimestamp: true
+          value: value
+          selectedByUserTimestamp: 5
+          timestamp: 2
+          isLargeValue: true
+        - sourceId: sourceId
+          selectedByUser: true
+          sourceLabel: sourceLabel
+          source: IMPORT
+          updatedByUserId: 6
+          persistenceTimestamp: 1
+          sourceMetadata: sourceMetadata
+          sourceVid:
+          - 5
+          - 5
+          requestId: requestId
+          name: name
+          useTimestampAsPersistenceTimestamp: true
+          value: value
+          selectedByUserTimestamp: 5
+          timestamp: 2
+          isLargeValue: true
+        eventCancelled: true
+        eventOrganizer: eventOrganizer
+        eventUrl: eventUrl
+        eventDescription: eventDescription
+        eventName: eventName
+        eventType: eventType
+        endDateTime: 2000-01-23T04:56:07.000+00:00
+      properties:
+        startDateTime:
+          description: The start date and time of the marketing event.
+          format: date-time
+          type: string
+        customProperties:
+          description: "A list of PropertyValues. These can be whatever kind of property\
+            \ names and values you want. However, they must already exist on the HubSpot\
+            \ account's definition of the MarketingEvent Object. If they don't they\
+            \ will be filtered out and not set.\nIn order to do this you'll need to\
+            \ create a new PropertyGroup on the HubSpot account's MarketingEvent object\
+            \ for your specific app and create the Custom Property you want to track\
+            \ on that HubSpot account. Do not create any new default properties on\
+            \ the MarketingEvent object as that will apply to all HubSpot accounts.\n"
+          items:
+            $ref: '#/components/schemas/PropertyValue'
+          type: array
+        eventCancelled:
+          description: Indicates if the marketing event has been cancelled.
+          type: boolean
+        eventOrganizer:
+          description: The name of the organizer of the marketing event.
+          type: string
+        eventUrl:
+          description: The URL in the external event application where the marketing
+            event can be managed.
+          type: string
+        eventDescription:
+          description: The description of the marketing event.
+          type: string
+        eventName:
+          description: The name of the marketing event.
+          type: string
+        eventType:
+          description: The type of the marketing event.
+          type: string
+        endDateTime:
+          description: The end date and time of the marketing event.
+          format: date-time
+          type: string
+      required:
+      - eventName
+      - eventOrganizer
+      type: object
     BatchInputMarketingEventSubscriber:
       description: List of HubSpot contacts to subscribe to the marketing event
       example:
@@ -2097,35 +2153,35 @@ components:
             selectedByUser: true
             sourceLabel: sourceLabel
             source: IMPORT
-            updatedByUserId: 0
-            persistenceTimestamp: 6
+            updatedByUserId: 6
+            persistenceTimestamp: 1
             sourceMetadata: sourceMetadata
             sourceVid:
-            - 1
-            - 1
+            - 5
+            - 5
             requestId: requestId
             name: name
             useTimestampAsPersistenceTimestamp: true
             value: value
             selectedByUserTimestamp: 5
-            timestamp: 5
+            timestamp: 2
             isLargeValue: true
           - sourceId: sourceId
             selectedByUser: true
             sourceLabel: sourceLabel
             source: IMPORT
-            updatedByUserId: 0
-            persistenceTimestamp: 6
+            updatedByUserId: 6
+            persistenceTimestamp: 1
             sourceMetadata: sourceMetadata
             sourceVid:
-            - 1
-            - 1
+            - 5
+            - 5
             requestId: requestId
             name: name
             useTimestampAsPersistenceTimestamp: true
             value: value
             selectedByUserTimestamp: 5
-            timestamp: 5
+            timestamp: 2
             isLargeValue: true
           eventCancelled: true
           eventOrganizer: eventOrganizer
@@ -2143,35 +2199,35 @@ components:
             selectedByUser: true
             sourceLabel: sourceLabel
             source: IMPORT
-            updatedByUserId: 0
-            persistenceTimestamp: 6
+            updatedByUserId: 6
+            persistenceTimestamp: 1
             sourceMetadata: sourceMetadata
             sourceVid:
-            - 1
-            - 1
+            - 5
+            - 5
             requestId: requestId
             name: name
             useTimestampAsPersistenceTimestamp: true
             value: value
             selectedByUserTimestamp: 5
-            timestamp: 5
+            timestamp: 2
             isLargeValue: true
           - sourceId: sourceId
             selectedByUser: true
             sourceLabel: sourceLabel
             source: IMPORT
-            updatedByUserId: 0
-            persistenceTimestamp: 6
+            updatedByUserId: 6
+            persistenceTimestamp: 1
             sourceMetadata: sourceMetadata
             sourceVid:
-            - 1
-            - 1
+            - 5
+            - 5
             requestId: requestId
             name: name
             useTimestampAsPersistenceTimestamp: true
             value: value
             selectedByUserTimestamp: 5
-            timestamp: 5
+            timestamp: 2
             isLargeValue: true
           eventCancelled: true
           eventOrganizer: eventOrganizer
@@ -2242,30 +2298,38 @@ components:
         status: PENDING
       properties:
         completedAt:
+          description: ""
           format: date-time
           type: string
         numErrors:
+          description: ""
           format: int32
           type: integer
         requestedAt:
+          description: ""
           format: date-time
           type: string
         startedAt:
+          description: ""
           format: date-time
           type: string
         links:
           additionalProperties:
             type: string
+          description: ""
           type: object
         results:
+          description: ""
           items:
             $ref: '#/components/schemas/MarketingEventPublicDefaultResponse'
           type: array
         errors:
+          description: ""
           items:
             $ref: '#/components/schemas/StandardError'
           type: array
         status:
+          description: ""
           enum:
           - PENDING
           - PROCESSING
@@ -2303,7 +2367,5 @@ x-hubspot-available-client-libraries:
 - Python
 x-hubspot-product-tier-requirements:
   marketing: FREE
-  sales: FREE
-  service: FREE
-  cms: FREE
+  cms: STARTER
 x-hubspot-documentation-banner: NONE

@@ -2,12 +2,26 @@ openapi: 3.0.1
 info:
   description: "Use these endpoints for interacting with Blog Posts, Blog Authors,\
     \ and Blog Tags"
-  title: Blog Post endpoints
+  title: Authors
   version: v3
+  x-hubspot-product-tier-requirements:
+    marketing: PROFESSIONAL
+    cms: STARTER
+  x-hubspot-documentation-banner: NONE
+  x-hubspot-api-use-case: "After hiring a new blog writer, you need to create a new\
+    \ blog author profile for them so that readers can learn more about the author\
+    \ on each of their posts."
+  x-hubspot-related-documentation:
+  - name: Blog Authors Guide
+    url: https://hubspot.dev/guides/api/cms/blog-authors
+  x-hubspot-introduction: Use the blog authors API to manage information about blog
+    post authors.
 servers:
 - url: https://api.hubapi.com
 tags:
-- name: Blog Authors
+- description: ""
+  name: Blog Authors
+  x-hubspot-tag-name-english-source: Blog Authors
 paths:
   /cms/v3/blogs/authors/{objectId}:
     delete:
@@ -148,36 +162,6 @@ paths:
       summary: Update a Blog Author
       tags:
       - Blog Authors
-  /cms/v3/blogs/authors/multi-language/detach-from-lang-group:
-    post:
-      description: Detach a Blog Author from a multi-language group.
-      operationId: DetachFromLanguageGroup
-      parameters: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/DetachFromLangGroupRequestVNext'
-        description: The JSON representation of the DetachFromLangGroupRequest object.
-        required: true
-      responses:
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-        "200":
-          content: {}
-          description: successful operation
-      security:
-      - private_apps_legacy:
-        - content
-      - oauth2_legacy:
-        - content
-      summary: Detach a Blog Author from a multi-language group
-      tags:
-      - Blog Authors
   /cms/v3/blogs/authors/batch/update:
     post:
       description: Update the Blog Author objects identified in the request body.
@@ -225,6 +209,36 @@ paths:
       - oauth2_legacy:
         - content
       summary: Update a batch of Blog Authors
+      tags:
+      - Blog Authors
+  /cms/v3/blogs/authors/multi-language/detach-from-lang-group:
+    post:
+      description: Detach a Blog Author from a multi-language group.
+      operationId: DetachFromLanguageGroup
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DetachFromLangGroupRequestVNext'
+        description: The JSON representation of the DetachFromLangGroupRequest object.
+        required: true
+      responses:
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+        "200":
+          content: {}
+          description: successful operation
+      security:
+      - private_apps_legacy:
+        - content
+      - oauth2_legacy:
+        - content
+      summary: Detach a Blog Author from a multi-language group
       tags:
       - Blog Authors
   /cms/v3/blogs/authors/multi-language/set-new-lang-primary:
@@ -535,6 +549,36 @@ paths:
       summary: Create a new Blog Author
       tags:
       - Blog Authors
+  /cms/v3/blogs/authors/multi-language/attach-to-lang-group:
+    post:
+      description: Attach a Blog Author to a multi-language group.
+      operationId: AttachToLanguageGroup
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AttachToLangPrimaryRequestVNext'
+        description: The JSON representation of the AttachToLangPrimaryRequest object.
+        required: true
+      responses:
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+        "200":
+          content: {}
+          description: successful operation
+      security:
+      - private_apps_legacy:
+        - content
+      - oauth2_legacy:
+        - content
+      summary: Attach a Blog Author to a multi-language group
+      tags:
+      - Blog Authors
   /cms/v3/blogs/authors/multi-language/create-language-variation:
     post:
       description: Create a new language variation from an existing Blog Author.
@@ -566,36 +610,6 @@ paths:
       - oauth2_legacy:
         - content
       summary: Create a new language variation
-      tags:
-      - Blog Authors
-  /cms/v3/blogs/authors/multi-language/attach-to-lang-group:
-    post:
-      description: Attach a Blog Author to a multi-language group.
-      operationId: AttachToLanguageGroup
-      parameters: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AttachToLangPrimaryRequestVNext'
-        description: The JSON representation of the AttachToLangPrimaryRequest object.
-        required: true
-      responses:
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-        "200":
-          content: {}
-          description: successful operation
-      security:
-      - private_apps_legacy:
-        - content
-      - oauth2_legacy:
-        - content
-      summary: Attach a Blog Author to a multi-language group
       tags:
       - Blog Authors
   /cms/v3/blogs/authors/multi-language/update-languages:
@@ -653,50 +667,6 @@ components:
       required:
       - inputs
       type: object
-    StandardError:
-      description: Model definition for a standard error.
-      properties:
-        status:
-          description: Error status.
-          type: string
-        id:
-          description: Error ID.
-          type: string
-        category:
-          description: Error category.
-          type: string
-        subCategory:
-          description: Error subcategory.
-          properties: {}
-          type: object
-        message:
-          description: Error message.
-          type: string
-        errors:
-          description: List of error details.
-          items:
-            $ref: '#/components/schemas/ErrorDetail'
-          type: array
-        context:
-          additionalProperties:
-            items:
-              type: string
-            type: array
-          description: Error context.
-          type: object
-        links:
-          additionalProperties:
-            type: string
-          description: Error links.
-          type: object
-      required:
-      - category
-      - context
-      - errors
-      - links
-      - message
-      - status
-      type: object
     BatchInputBlogAuthor:
       description: Wrapper for providing an array of blog authors as inputs.
       example:
@@ -744,43 +714,48 @@ components:
       required:
       - inputs
       type: object
-    BatchResponseTag:
-      description: Response object for batch operations on blog tags.
+    StandardError:
+      description: Model definition for a standard error.
       properties:
-        status:
-          description: Status of batch operation.
-          enum:
-          - PENDING
-          - PROCESSING
-          - CANCELED
-          - COMPLETE
-          type: string
-        results:
-          description: Results of batch operation.
-          items:
-            $ref: '#/components/schemas/Tag'
-          type: array
-        requestedAt:
-          description: Time of batch operation request.
-          format: date-time
-          type: string
-        startedAt:
-          description: Time of batch operation start.
-          format: date-time
-          type: string
-        completedAt:
-          description: Time of batch operation completion.
-          format: date-time
-          type: string
+        subCategory:
+          description: Error subcategory.
+          properties: {}
+          type: object
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: Error context.
+          type: object
         links:
           additionalProperties:
             type: string
-          description: Links associated with batch operation.
+          description: Error links.
           type: object
+        id:
+          description: Error ID.
+          type: string
+        category:
+          description: Error category.
+          type: string
+        message:
+          description: Error message.
+          type: string
+        errors:
+          description: List of error details.
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
+        status:
+          description: Error status.
+          type: string
       required:
-      - completedAt
-      - results
-      - startedAt
+      - category
+      - context
+      - errors
+      - links
+      - message
       - status
       type: object
     BatchInputJsonNode:
@@ -806,15 +781,15 @@ components:
           key: languages
         primaryId: primaryId
       properties:
-        primaryId:
-          description: ID of the primary object in the multi-language group.
-          type: string
         languages:
           additionalProperties:
             type: string
           description: Map of object IDs to associated languages of object in the
             multi-language group.
           type: object
+        primaryId:
+          description: ID of the primary object in the multi-language group.
+          type: string
       required:
       - languages
       - primaryId
@@ -829,49 +804,6 @@ components:
           type: string
       required:
       - id
-      type: object
-    CollectionResponseWithTotalVersionBlogPost:
-      description: Response object for collections of blog post versions with pagination
-        information.
-      properties:
-        total:
-          description: Total number of blog post versions.
-          format: int32
-          type: integer
-        results:
-          description: Collection of blog post versions.
-          items:
-            $ref: '#/components/schemas/VersionBlogPost'
-          type: array
-        paging:
-          $ref: '#/components/schemas/Paging'
-      required:
-      - results
-      - total
-      type: object
-    RGBAColor:
-      description: A color defined by RGB values.
-      properties:
-        r:
-          description: Red.
-          format: int32
-          type: integer
-        g:
-          description: Green.
-          format: int32
-          type: integer
-        b:
-          description: Blue.
-          format: int32
-          type: integer
-        a:
-          description: Alpha.
-          type: number
-      required:
-      - a
-      - b
-      - g
-      - r
       type: object
     BlogAuthorCloneRequestVNext:
       description: Request body object for cloning blog authors.
@@ -898,11 +830,11 @@ components:
           email: email
           slug: slug
       properties:
-        id:
-          description: ID of the object to be cloned.
-          type: string
         language:
           description: Language of newly cloned object.
+          type: string
+        id:
+          description: ID of the object to be cloned.
           type: string
         primaryLanguage:
           description: Primary language in multi-language group.
@@ -923,24 +855,6 @@ components:
           type: string
       required:
       - id
-      type: object
-    CollectionResponseWithTotalTagForwardPaging:
-      description: Response object for collections of blog tags with pagination information.
-      properties:
-        total:
-          description: Total number of blog tags.
-          format: int32
-          type: integer
-        results:
-          description: Collection of blog tags.
-          items:
-            $ref: '#/components/schemas/Tag'
-          type: array
-        paging:
-          $ref: '#/components/schemas/ForwardPaging'
-      required:
-      - results
-      - total
       type: object
     BlogAuthor:
       description: Model definition for a Blog Author.
@@ -963,15 +877,22 @@ components:
         email: email
         slug: slug
       properties:
-        id:
-          description: The unique ID of the Blog Author.
+        website:
+          description: URL to the website of the Blog Author.
+          type: string
+        displayName:
+          description: The full name of the Blog Author to be displayed.
+          type: string
+        created:
+          format: date-time
+          type: string
+        facebook:
+          description: URL to the Blog Author's Facebook page.
           type: string
         fullName:
           type: string
-        email:
-          description: Email address of the Blog Author.
-          type: string
-        slug:
+        bio:
+          description: A short biography of the blog author.
           type: string
         language:
           description: The explicitly defined ISO 639 language code of the blog author.
@@ -1731,43 +1652,36 @@ components:
           - zu
           - zu-za
           type: string
-        translatedFromId:
-          description: ID of the primary blog author this object was translated from.
-          format: int64
-          type: integer
-        name:
-          type: string
-        displayName:
-          description: The full name of the Blog Author to be displayed.
-          type: string
-        bio:
-          description: A short biography of the blog author.
-          type: string
-        website:
-          description: URL to the website of the Blog Author.
-          type: string
-        twitter:
-          description: URL or username of the Twitter account associated with the
-            Blog Author. This will be normalized into the Twitter url for said user.
-          type: string
-        facebook:
-          description: URL to the Blog Author's Facebook page.
-          type: string
         linkedin:
           description: URL to the blog author's LinkedIn page.
           type: string
         avatar:
           description: "URL to the blog author's avatar, if supplying a custom one."
           type: string
-        created:
-          format: date-time
-          type: string
-        updated:
-          format: date-time
+        translatedFromId:
+          description: ID of the primary blog author this object was translated from.
+          format: int64
+          type: integer
+        twitter:
+          description: URL or username of the Twitter account associated with the
+            Blog Author. This will be normalized into the Twitter url for said user.
           type: string
         deletedAt:
           description: The timestamp (ISO8601 format) when this Blog Author was deleted.
           format: date-time
+          type: string
+        name:
+          type: string
+        id:
+          description: The unique ID of the Blog Author.
+          type: string
+        updated:
+          format: date-time
+          type: string
+        email:
+          description: Email address of the Blog Author.
+          type: string
+        slug:
           type: string
       required:
       - avatar
@@ -1788,118 +1702,14 @@ components:
       - updated
       - website
       type: object
-    RowMetaData:
-      properties:
-        styles:
-          $ref: '#/components/schemas/Styles'
-        cssClass:
-          type: string
-      required:
-      - cssClass
-      - styles
-      type: object
-    ContentLanguageVariation:
-      properties:
-        id:
-          format: int64
-          type: integer
-        name:
-          type: string
-        slug:
-          type: string
-        state:
-          type: string
-        authorName:
-          type: string
-        password:
-          type: string
-        publicAccessRulesEnabled:
-          type: boolean
-        publicAccessRules:
-          items:
-            $ref: '#/components/schemas/PublicAccessRule'
-          type: array
-        campaign:
-          type: string
-        tagIds:
-          items:
-            format: int64
-            type: integer
-          type: array
-        archivedInDashboard:
-          type: boolean
-        created:
-          format: date-time
-          type: string
-        updated:
-          format: date-time
-          type: string
-        publishDate:
-          format: date-time
-          type: string
-      required:
-      - archivedInDashboard
-      - authorName
-      - campaign
-      - created
-      - id
-      - name
-      - password
-      - publicAccessRules
-      - publicAccessRulesEnabled
-      - publishDate
-      - slug
-      - state
-      - updated
-      type: object
-    AttachToLangPrimaryRequestVNext:
-      description: Request body object for attaching objects to multi-language groups.
+    Error:
       example:
-        language: language
-        id: id
-        primaryId: primaryId
-        primaryLanguage: primaryLanguage
+        message: Invalid input (details will vary based on the error)
+        correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
+        category: VALIDATION_ERROR
+        links:
+          knowledge-base: https://www.hubspot.com/products/service/knowledge-base
       properties:
-        id:
-          description: ID of the object to add to a multi-language group.
-          type: string
-        language:
-          description: Designated language of the object to add to a multi-language
-            group.
-          type: string
-        primaryId:
-          description: ID of primary language object in multi-language group.
-          type: string
-        primaryLanguage:
-          description: Primary language of the multi-language group.
-          type: string
-      required:
-      - id
-      - language
-      - primaryId
-      type: object
-    SideOrCorner:
-      properties:
-        verticalSide:
-          type: string
-        horizontalSide:
-          type: string
-      required:
-      - horizontalSide
-      - verticalSide
-      type: object
-    ErrorDetail:
-      properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          type: string
-        in:
-          description: The name of the field or parameter in which the error was found.
-          type: string
-        code:
-          description: The status code associated with the error detail
-          type: string
         subCategory:
           description: A specific category that contains more specific detail about
             the error
@@ -1914,7 +1724,95 @@ components:
             missingScopes:
             - scope1
             - scope2
+            invalidPropertyName:
+            - propertyValue
           type: object
+        correlationId:
+          description: A unique identifier for the request. Include this value with
+            any error reports or support tickets
+          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
+          format: uuid
+          type: string
+        links:
+          additionalProperties:
+            type: string
+          description: A map of link names to associated URIs containing documentation
+            about the error or recommended remediation steps
+          example:
+            knowledge-base: https://www.hubspot.com/products/service/knowledge-base
+          type: object
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          example: Invalid input (details will vary based on the error)
+          type: string
+        category:
+          description: The error category
+          example: VALIDATION_ERROR
+          type: string
+        errors:
+          description: further information about the error
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
+      required:
+      - category
+      - correlationId
+      - message
+      type: object
+    AttachToLangPrimaryRequestVNext:
+      description: Request body object for attaching objects to multi-language groups.
+      example:
+        language: language
+        id: id
+        primaryId: primaryId
+        primaryLanguage: primaryLanguage
+      properties:
+        language:
+          description: Designated language of the object to add to a multi-language
+            group.
+          type: string
+        id:
+          description: ID of the object to add to a multi-language group.
+          type: string
+        primaryId:
+          description: ID of primary language object in multi-language group.
+          type: string
+        primaryLanguage:
+          description: Primary language of the multi-language group.
+          type: string
+      required:
+      - id
+      - language
+      - primaryId
+      type: object
+    ErrorDetail:
+      properties:
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
+          type: string
+        code:
+          description: The status code associated with the error detail
+          type: string
+        in:
+          description: The name of the field or parameter in which the error was found.
+          type: string
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: Context about the error condition
+          example:
+            missingScopes:
+            - scope1
+            - scope2
+          type: object
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          type: string
       required:
       - message
       type: object
@@ -1963,19 +1861,10 @@ components:
           slug: slug
         status: PENDING
       properties:
-        status:
-          description: Status of batch operation.
-          enum:
-          - PENDING
-          - PROCESSING
-          - CANCELED
-          - COMPLETE
+        completedAt:
+          description: Time of batch operation completion.
+          format: date-time
           type: string
-        results:
-          description: Results of batch operation.
-          items:
-            $ref: '#/components/schemas/BlogAuthor'
-          type: array
         requestedAt:
           description: Time of batch operation request.
           format: date-time
@@ -1984,31 +1873,29 @@ components:
           description: Time of batch operation start.
           format: date-time
           type: string
-        completedAt:
-          description: Time of batch operation completion.
-          format: date-time
-          type: string
         links:
           additionalProperties:
             type: string
           description: Links associated with batch operation.
           type: object
+        results:
+          description: Results of batch operation.
+          items:
+            $ref: '#/components/schemas/BlogAuthor'
+          type: array
+        status:
+          description: Status of batch operation.
+          enum:
+          - PENDING
+          - PROCESSING
+          - CANCELED
+          - COMPLETE
+          type: string
       required:
       - completedAt
       - results
       - startedAt
       - status
-      type: object
-    BatchInputBlogPost:
-      description: Wrapper for providing an array of blog posts as inputs.
-      properties:
-        inputs:
-          description: Blog posts to input.
-          items:
-            $ref: '#/components/schemas/BlogPost'
-          type: array
-      required:
-      - inputs
       type: object
     ForwardPaging:
       description: Model definition for forward paging.
@@ -2020,43 +1907,17 @@ components:
         next:
           $ref: '#/components/schemas/NextPage'
       type: object
-    BlogPostLanguageCloneRequestVNext:
-      description: Request body object for creating new blog post language variant.
+    BatchResponseBlogAuthorWithErrors:
+      description: Response object for batch operations on blog authors with errors.
       properties:
-        id:
-          description: ID of blog post to clone.
+        completedAt:
+          description: Time of batch operation completion.
+          format: date-time
           type: string
-        language:
-          description: Target language of new variant.
-          type: string
-      required:
-      - id
-      type: object
-    BatchResponseTagWithErrors:
-      description: Response object for batch operations on blog tags with errors.
-      properties:
-        status:
-          description: Status of batch operation.
-          enum:
-          - PENDING
-          - PROCESSING
-          - CANCELED
-          - COMPLETE
-          type: string
-        results:
-          description: Results of batch operation.
-          items:
-            $ref: '#/components/schemas/Tag'
-          type: array
         numErrors:
           description: Number of errors.
           format: int32
           type: integer
-        errors:
-          description: Errors in batch operation.
-          items:
-            $ref: '#/components/schemas/StandardError'
-          type: array
         requestedAt:
           description: Time of batch operation request.
           format: date-time
@@ -2065,20 +1926,49 @@ components:
           description: Time of batch operation start.
           format: date-time
           type: string
-        completedAt:
-          description: Time of batch operation completion.
-          format: date-time
-          type: string
         links:
           additionalProperties:
             type: string
           description: Links associated with batch operation.
           type: object
+        results:
+          description: Results of batch operation.
+          items:
+            $ref: '#/components/schemas/BlogAuthor'
+          type: array
+        errors:
+          description: Errors in batch operation.
+          items:
+            $ref: '#/components/schemas/StandardError'
+          type: array
+        status:
+          description: Status of batch operation.
+          enum:
+          - PENDING
+          - PROCESSING
+          - CANCELED
+          - COMPLETE
+          type: string
       required:
       - completedAt
       - results
       - startedAt
       - status
+      type: object
+    NextPage:
+      description: Model definition for a next page.
+      example:
+        link: link
+        after: after
+      properties:
+        link:
+          description: ""
+          type: string
+        after:
+          description: ""
+          type: string
+      required:
+      - after
       type: object
     CollectionResponseWithTotalBlogAuthorForwardPaging:
       description: Response object for collections of blog authors with pagination
@@ -2129,2366 +2019,16 @@ components:
           description: Total number of blog authors.
           format: int32
           type: integer
+        paging:
+          $ref: '#/components/schemas/ForwardPaging'
         results:
           description: Collection of blog authors.
           items:
             $ref: '#/components/schemas/BlogAuthor'
           type: array
-        paging:
-          $ref: '#/components/schemas/ForwardPaging'
       required:
       - results
       - total
-      type: object
-    VersionUser:
-      description: Model definition for a version user. Contains addition information
-        about the user who created a version.
-      properties:
-        id:
-          description: The unique ID of the User.
-          type: string
-        email:
-          description: The email address of the user.
-          type: string
-        fullName:
-          description: The first and last name of the User.
-          type: string
-      required:
-      - email
-      - fullName
-      - id
-      type: object
-    ColorStop:
-      properties:
-        color:
-          $ref: '#/components/schemas/RGBAColor'
-      required:
-      - color
-      type: object
-    Gradient:
-      properties:
-        sideOrCorner:
-          $ref: '#/components/schemas/SideOrCorner'
-        angle:
-          $ref: '#/components/schemas/Angle'
-        colors:
-          items:
-            $ref: '#/components/schemas/ColorStop'
-          type: array
-      required:
-      - angle
-      - colors
-      - sideOrCorner
-      type: object
-    LayoutSection:
-      properties:
-        x:
-          format: int32
-          type: integer
-        w:
-          format: int32
-          type: integer
-        name:
-          type: string
-        label:
-          type: string
-        type:
-          type: string
-        params:
-          additionalProperties:
-            properties: {}
-            type: object
-          description: "null"
-          type: object
-        rows:
-          items:
-            additionalProperties:
-              $ref: '#/components/schemas/LayoutSection'
-            type: object
-          type: array
-        rowMetaData:
-          items:
-            $ref: '#/components/schemas/RowMetaData'
-          type: array
-        cells:
-          items:
-            $ref: '#/components/schemas/LayoutSection'
-          type: array
-        cssClass:
-          type: string
-        cssStyle:
-          type: string
-        cssId:
-          type: string
-        styles:
-          $ref: '#/components/schemas/Styles'
-      required:
-      - cells
-      - cssClass
-      - cssId
-      - cssStyle
-      - label
-      - name
-      - params
-      - rowMetaData
-      - rows
-      - styles
-      - type
-      - w
-      - x
-      type: object
-    Paging:
-      description: Model definition for paging.
-      properties:
-        next:
-          $ref: '#/components/schemas/NextPage'
-        prev:
-          $ref: '#/components/schemas/PreviousPage'
-      type: object
-    VersionBlogPost:
-      description: Model definition of a version of a blog post.
-      properties:
-        object:
-          $ref: '#/components/schemas/BlogPost'
-        user:
-          $ref: '#/components/schemas/VersionUser'
-        id:
-          description: The id of the version.
-          type: string
-        updatedAt:
-          format: date-time
-          type: string
-      required:
-      - id
-      - object
-      - updatedAt
-      - user
-      type: object
-    Error:
-      example:
-        message: Invalid input (details will vary based on the error)
-        correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
-        category: VALIDATION_ERROR
-        links:
-          knowledge-base: https://www.hubspot.com/products/service/knowledge-base
-      properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          example: An error occurred
-          type: string
-        correlationId:
-          description: A unique identifier for the request. Include this value with
-            any error reports or support tickets
-          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
-          format: uuid
-          type: string
-        category:
-          description: The error category
-          type: string
-        subCategory:
-          description: A specific category that contains more specific detail about
-            the error
-          type: string
-        errors:
-          description: further information about the error
-          items:
-            $ref: '#/components/schemas/ErrorDetail'
-          type: array
-        context:
-          additionalProperties:
-            items:
-              type: string
-            type: array
-          description: Context about the error condition
-          example:
-            invalidPropertyName:
-            - propertyValue
-            missingScopes:
-            - scope1
-            - scope2
-          type: object
-        links:
-          additionalProperties:
-            type: string
-          description: A map of link names to associated URIs containing documentation
-            about the error or recommended remediation steps
-          type: object
-      required:
-      - category
-      - correlationId
-      - message
-      type: object
-    BatchResponseBlogPostWithErrors:
-      description: Response object for batch operations on blog posts with errors.
-      properties:
-        status:
-          description: Status of batch operation.
-          enum:
-          - PENDING
-          - PROCESSING
-          - CANCELED
-          - COMPLETE
-          type: string
-        results:
-          description: Results of batch operation.
-          items:
-            $ref: '#/components/schemas/BlogPost'
-          type: array
-        numErrors:
-          description: Number of errors.
-          format: int32
-          type: integer
-        errors:
-          description: Errors in batch operation.
-          items:
-            $ref: '#/components/schemas/StandardError'
-          type: array
-        requestedAt:
-          description: Time of batch operation request.
-          format: date-time
-          type: string
-        startedAt:
-          description: Time of batch operation start.
-          format: date-time
-          type: string
-        completedAt:
-          description: Time of batch operation completion.
-          format: date-time
-          type: string
-        links:
-          additionalProperties:
-            type: string
-          description: Links associated with batch operation.
-          type: object
-      required:
-      - completedAt
-      - results
-      - startedAt
-      - status
-      type: object
-    BlogPost:
-      description: Model definition for a Blog Post.
-      properties:
-        id:
-          description: The unique ID of the Blog Post.
-          type: string
-        slug:
-          description: The path of the this blog post. This field is appended to the
-            domain to construct the url of this post.
-          type: string
-        contentGroupId:
-          description: The ID of the parent Blog this Blog Post is associated with.
-          type: string
-        campaign:
-          description: The GUID of the marketing campaign this Blog Post is a part
-            of.
-          type: string
-        categoryId:
-          description: ID of the type of object this is. Should always .
-          format: int32
-          type: integer
-        state:
-          description: An ENUM descibing the current state of this Blog Post.
-          maxLength: 25
-          type: string
-        name:
-          description: The internal name of the Blog Post.
-          type: string
-        mabExperimentId:
-          type: string
-        authorName:
-          description: The name of the user that updated this Blog Post.
-          type: string
-        abTestId:
-          type: string
-        createdById:
-          description: The ID of the user that created this Blog Post.
-          type: string
-        updatedById:
-          description: The ID of the user that updated this Blog Post.
-          type: string
-        domain:
-          description: "The domain this Blog Post will resolve to. If null, the Blog\
-            \ Post will default to the domain of the ParentBlog."
-          type: string
-        abStatus:
-          enum:
-          - master
-          - variant
-          - loser_variant
-          - mab_master
-          - mab_variant
-          - automated_master
-          - automated_variant
-          - automated_loser_variant
-          type: string
-        folderId:
-          type: string
-        widgetContainers:
-          additionalProperties:
-            properties: {}
-            type: object
-          description: A data structure containing the data for all the modules inside
-            the containers for this post. This will only be populated if the page
-            has widget containers.
-          type: object
-        widgets:
-          additionalProperties:
-            properties: {}
-            type: object
-          description: A data structure containing the data for all the modules for
-            this page.
-          type: object
-        language:
-          description: "The explicitly defined ISO 639 language code of the Blog Post.\
-            \ If null, the Blog Post will default to the language of the ParentBlog."
-          enum:
-          - af
-          - af-na
-          - af-za
-          - agq
-          - agq-cm
-          - ak
-          - ak-gh
-          - am
-          - am-et
-          - ar
-          - ar-001
-          - ar-ae
-          - ar-bh
-          - ar-dj
-          - ar-dz
-          - ar-eg
-          - ar-eh
-          - ar-er
-          - ar-il
-          - ar-iq
-          - ar-jo
-          - ar-km
-          - ar-kw
-          - ar-lb
-          - ar-ly
-          - ar-ma
-          - ar-mr
-          - ar-om
-          - ar-ps
-          - ar-qa
-          - ar-sa
-          - ar-sd
-          - ar-so
-          - ar-ss
-          - ar-sy
-          - ar-td
-          - ar-tn
-          - ar-ye
-          - as
-          - as-in
-          - asa
-          - asa-tz
-          - ast
-          - ast-es
-          - az
-          - az-az
-          - bas
-          - bas-cm
-          - be
-          - be-by
-          - bem
-          - bem-zm
-          - bez
-          - bez-tz
-          - bg
-          - bg-bg
-          - bm
-          - bm-ml
-          - bn
-          - bn-bd
-          - bn-in
-          - bo
-          - bo-cn
-          - bo-in
-          - br
-          - br-fr
-          - brx
-          - brx-in
-          - bs
-          - bs-ba
-          - ca
-          - ca-ad
-          - ca-es
-          - ca-fr
-          - ca-it
-          - ccp
-          - ccp-bd
-          - ccp-in
-          - ce
-          - ce-ru
-          - ceb
-          - ceb-ph
-          - cgg
-          - cgg-ug
-          - chr
-          - chr-us
-          - ckb
-          - ckb-iq
-          - ckb-ir
-          - cs
-          - cs-cz
-          - cu
-          - cu-ru
-          - cy
-          - cy-gb
-          - da
-          - da-dk
-          - da-gl
-          - dav
-          - dav-ke
-          - de
-          - de-at
-          - de-be
-          - de-ch
-          - de-de
-          - de-gr
-          - de-it
-          - de-li
-          - de-lu
-          - dje
-          - dje-ne
-          - doi
-          - doi-in
-          - dsb
-          - dsb-de
-          - dua
-          - dua-cm
-          - dyo
-          - dyo-sn
-          - dz
-          - dz-bt
-          - ebu
-          - ebu-ke
-          - ee
-          - ee-gh
-          - ee-tg
-          - el
-          - el-cy
-          - el-gr
-          - en
-          - en-001
-          - en-150
-          - en-ae
-          - en-ag
-          - en-ai
-          - en-as
-          - en-at
-          - en-au
-          - en-bb
-          - en-be
-          - en-bi
-          - en-bm
-          - en-bs
-          - en-bw
-          - en-bz
-          - en-ca
-          - en-cc
-          - en-ch
-          - en-ck
-          - en-cm
-          - en-cn
-          - en-cx
-          - en-cy
-          - en-de
-          - en-dg
-          - en-dk
-          - en-dm
-          - en-er
-          - en-fi
-          - en-fj
-          - en-fk
-          - en-fm
-          - en-gb
-          - en-gd
-          - en-gg
-          - en-gh
-          - en-gi
-          - en-gm
-          - en-gu
-          - en-gy
-          - en-hk
-          - en-ie
-          - en-il
-          - en-im
-          - en-in
-          - en-io
-          - en-je
-          - en-jm
-          - en-ke
-          - en-ki
-          - en-kn
-          - en-ky
-          - en-lc
-          - en-lr
-          - en-ls
-          - en-lu
-          - en-mg
-          - en-mh
-          - en-mo
-          - en-mp
-          - en-ms
-          - en-mt
-          - en-mu
-          - en-mw
-          - en-mx
-          - en-my
-          - en-na
-          - en-nf
-          - en-ng
-          - en-nl
-          - en-nr
-          - en-nu
-          - en-nz
-          - en-pg
-          - en-ph
-          - en-pk
-          - en-pn
-          - en-pr
-          - en-pw
-          - en-rw
-          - en-sb
-          - en-sc
-          - en-sd
-          - en-se
-          - en-sg
-          - en-sh
-          - en-si
-          - en-sl
-          - en-ss
-          - en-sx
-          - en-sz
-          - en-tc
-          - en-tk
-          - en-to
-          - en-tt
-          - en-tv
-          - en-tz
-          - en-ug
-          - en-um
-          - en-us
-          - en-vc
-          - en-vg
-          - en-vi
-          - en-vu
-          - en-ws
-          - en-za
-          - en-zm
-          - en-zw
-          - eo
-          - eo-001
-          - es
-          - es-419
-          - es-ar
-          - es-bo
-          - es-br
-          - es-bz
-          - es-cl
-          - es-co
-          - es-cr
-          - es-cu
-          - es-do
-          - es-ea
-          - es-ec
-          - es-es
-          - es-gq
-          - es-gt
-          - es-hn
-          - es-ic
-          - es-mx
-          - es-ni
-          - es-pa
-          - es-pe
-          - es-ph
-          - es-pr
-          - es-py
-          - es-sv
-          - es-us
-          - es-uy
-          - es-ve
-          - et
-          - et-ee
-          - eu
-          - eu-es
-          - ewo
-          - ewo-cm
-          - fa
-          - fa-af
-          - fa-ir
-          - ff
-          - ff-bf
-          - ff-cm
-          - ff-gh
-          - ff-gm
-          - ff-gn
-          - ff-gw
-          - ff-lr
-          - ff-mr
-          - ff-ne
-          - ff-ng
-          - ff-sl
-          - ff-sn
-          - fi
-          - fi-fi
-          - fil
-          - fil-ph
-          - fo
-          - fo-dk
-          - fo-fo
-          - fr
-          - fr-be
-          - fr-bf
-          - fr-bi
-          - fr-bj
-          - fr-bl
-          - fr-ca
-          - fr-cd
-          - fr-cf
-          - fr-cg
-          - fr-ch
-          - fr-ci
-          - fr-cm
-          - fr-dj
-          - fr-dz
-          - fr-fr
-          - fr-ga
-          - fr-gf
-          - fr-gn
-          - fr-gp
-          - fr-gq
-          - fr-ht
-          - fr-km
-          - fr-lu
-          - fr-ma
-          - fr-mc
-          - fr-mf
-          - fr-mg
-          - fr-ml
-          - fr-mq
-          - fr-mr
-          - fr-mu
-          - fr-nc
-          - fr-ne
-          - fr-pf
-          - fr-pm
-          - fr-re
-          - fr-rw
-          - fr-sc
-          - fr-sn
-          - fr-sy
-          - fr-td
-          - fr-tg
-          - fr-tn
-          - fr-vu
-          - fr-wf
-          - fr-yt
-          - fur
-          - fur-it
-          - fy
-          - fy-nl
-          - ga
-          - ga-gb
-          - ga-ie
-          - gd
-          - gd-gb
-          - gl
-          - gl-es
-          - gsw
-          - gsw-ch
-          - gsw-fr
-          - gsw-li
-          - gu
-          - gu-in
-          - guz
-          - guz-ke
-          - gv
-          - gv-im
-          - ha
-          - ha-gh
-          - ha-ne
-          - ha-ng
-          - haw
-          - haw-us
-          - he
-          - hi
-          - hi-in
-          - hr
-          - hr-ba
-          - hr-hr
-          - hsb
-          - hsb-de
-          - hu
-          - hu-hu
-          - hy
-          - hy-am
-          - ia
-          - ia-001
-          - id
-          - ig
-          - ig-ng
-          - ii
-          - ii-cn
-          - id-id
-          - is
-          - is-is
-          - it
-          - it-ch
-          - it-it
-          - it-sm
-          - it-va
-          - he-il
-          - ja
-          - ja-jp
-          - jgo
-          - jgo-cm
-          - yi
-          - yi-001
-          - jmc
-          - jmc-tz
-          - jv
-          - jv-id
-          - ka
-          - ka-ge
-          - kab
-          - kab-dz
-          - kam
-          - kam-ke
-          - kde
-          - kde-tz
-          - kea
-          - kea-cv
-          - khq
-          - khq-ml
-          - ki
-          - ki-ke
-          - kk
-          - kk-kz
-          - kkj
-          - kkj-cm
-          - kl
-          - kl-gl
-          - kln
-          - kln-ke
-          - km
-          - km-kh
-          - kn
-          - kn-in
-          - ko
-          - ko-kp
-          - ko-kr
-          - kok
-          - kok-in
-          - ks
-          - ks-in
-          - ksb
-          - ksb-tz
-          - ksf
-          - ksf-cm
-          - ksh
-          - ksh-de
-          - kw
-          - kw-gb
-          - ku
-          - ku-tr
-          - ky
-          - ky-kg
-          - lag
-          - lag-tz
-          - lb
-          - lb-lu
-          - lg
-          - lg-ug
-          - lkt
-          - lkt-us
-          - ln
-          - ln-ao
-          - ln-cd
-          - ln-cf
-          - ln-cg
-          - lo
-          - lo-la
-          - lrc
-          - lrc-iq
-          - lrc-ir
-          - lt
-          - lt-lt
-          - lu
-          - lu-cd
-          - luo
-          - luo-ke
-          - luy
-          - luy-ke
-          - lv
-          - lv-lv
-          - mai
-          - mai-in
-          - mas
-          - mas-ke
-          - mas-tz
-          - mer
-          - mer-ke
-          - mfe
-          - mfe-mu
-          - mg
-          - mg-mg
-          - mgh
-          - mgh-mz
-          - mgo
-          - mgo-cm
-          - mi
-          - mi-nz
-          - mk
-          - mk-mk
-          - ml
-          - ml-in
-          - mn
-          - mn-mn
-          - mni
-          - mni-in
-          - mr
-          - mr-in
-          - ms
-          - ms-bn
-          - ms-id
-          - ms-my
-          - ms-sg
-          - mt
-          - mt-mt
-          - mua
-          - mua-cm
-          - my
-          - my-mm
-          - mzn
-          - mzn-ir
-          - naq
-          - naq-na
-          - nb
-          - nb-no
-          - nb-sj
-          - nd
-          - nd-zw
-          - nds
-          - nds-de
-          - nds-nl
-          - ne
-          - ne-in
-          - ne-np
-          - nl
-          - nl-aw
-          - nl-be
-          - nl-ch
-          - nl-bq
-          - nl-cw
-          - nl-lu
-          - nl-nl
-          - nl-sr
-          - nl-sx
-          - nmg
-          - nmg-cm
-          - nn
-          - nn-no
-          - nnh
-          - nnh-cm
-          - "no"
-          - no-no
-          - nus
-          - nus-ss
-          - nyn
-          - nyn-ug
-          - om
-          - om-et
-          - om-ke
-          - or
-          - or-in
-          - os
-          - os-ge
-          - os-ru
-          - pa
-          - pa-in
-          - pa-pk
-          - pcm
-          - pcm-ng
-          - pl
-          - pl-pl
-          - prg
-          - prg-001
-          - ps
-          - ps-af
-          - ps-pk
-          - pt
-          - pt-ao
-          - pt-br
-          - pt-ch
-          - pt-cv
-          - pt-gq
-          - pt-gw
-          - pt-lu
-          - pt-mo
-          - pt-mz
-          - pt-pt
-          - pt-st
-          - pt-tl
-          - qu
-          - qu-bo
-          - qu-ec
-          - qu-pe
-          - rm
-          - rm-ch
-          - rn
-          - rn-bi
-          - ro
-          - ro-md
-          - ro-ro
-          - rof
-          - rof-tz
-          - ru
-          - ru-by
-          - ru-kg
-          - ru-kz
-          - ru-md
-          - ru-ru
-          - ru-ua
-          - rw
-          - rw-rw
-          - rwk
-          - rwk-tz
-          - sa
-          - sa-in
-          - sah
-          - sah-ru
-          - saq
-          - saq-ke
-          - sat
-          - sat-in
-          - sbp
-          - sbp-tz
-          - sd
-          - sd-in
-          - sd-pk
-          - se
-          - se-fi
-          - se-no
-          - se-se
-          - seh
-          - seh-mz
-          - ses
-          - ses-ml
-          - sg
-          - sg-cf
-          - shi
-          - shi-ma
-          - si
-          - si-lk
-          - sk
-          - sk-sk
-          - sl
-          - sl-si
-          - smn
-          - smn-fi
-          - sn
-          - sn-zw
-          - so
-          - so-dj
-          - so-et
-          - so-ke
-          - so-so
-          - sq
-          - sq-al
-          - sq-mk
-          - sq-xk
-          - sr
-          - sr-ba
-          - sr-cs
-          - sr-me
-          - sr-rs
-          - sr-xk
-          - su
-          - su-id
-          - sv
-          - sv-ax
-          - sv-fi
-          - sv-se
-          - sw
-          - sw-cd
-          - sw-ke
-          - sw-tz
-          - sw-ug
-          - sy
-          - ta
-          - ta-in
-          - ta-lk
-          - ta-my
-          - ta-sg
-          - te
-          - te-in
-          - teo
-          - teo-ke
-          - teo-ug
-          - tg
-          - tg-tj
-          - th
-          - th-th
-          - ti
-          - ti-er
-          - ti-et
-          - tk
-          - tk-tm
-          - tl
-          - to
-          - to-to
-          - tr
-          - tr-cy
-          - tr-tr
-          - tt
-          - tt-ru
-          - twq
-          - twq-ne
-          - tzm
-          - tzm-ma
-          - ug
-          - ug-cn
-          - uk
-          - uk-ua
-          - ur
-          - ur-in
-          - ur-pk
-          - uz
-          - uz-af
-          - uz-uz
-          - vai
-          - vai-lr
-          - vi
-          - vi-vn
-          - vo
-          - vo-001
-          - vun
-          - vun-tz
-          - wae
-          - wae-ch
-          - wo
-          - wo-sn
-          - xh
-          - xh-za
-          - xog
-          - xog-ug
-          - yav
-          - yav-cm
-          - yo
-          - yo-bj
-          - yo-ng
-          - yue
-          - yue-cn
-          - yue-hk
-          - zgh
-          - zgh-ma
-          - zh
-          - zh-cn
-          - zh-hk
-          - zh-mo
-          - zh-sg
-          - zh-tw
-          - zh-hans
-          - zh-hant
-          - zu
-          - zu-za
-          type: string
-        translatedFromId:
-          description: ID of the primary blog post this object was translated from.
-          type: string
-        translations:
-          additionalProperties:
-            $ref: '#/components/schemas/ContentLanguageVariation'
-          type: object
-        dynamicPageHubDbTableId:
-          description: "The ID of the HubDB table this Blog Post references, if applicable"
-          type: string
-        dynamicPageDataSourceType:
-          format: int32
-          type: integer
-        dynamicPageDataSourceId:
-          type: string
-        blogAuthorId:
-          description: The ID of the Blog Author associated with this Blog Post.
-          type: string
-        tagIds:
-          description: List of IDs for the tags associated with this Blog Post.
-          items:
-            format: int64
-            type: integer
-          type: array
-        htmlTitle:
-          description: The html title of this Blog Post.
-          type: string
-        publicAccessRulesEnabled:
-          description: Boolean to determine whether or not to respect publicAccessRules.
-          type: boolean
-        publicAccessRules:
-          description: Rules for require member registration to access private content.
-          items:
-            $ref: '#/components/schemas/PublicAccessRule'
-          type: array
-        useFeaturedImage:
-          description: Boolean to determine if this post should use a featuredImage.
-          type: boolean
-        postSummary:
-          description: The summary of the blog post that will appear on the main listing
-            page.
-          type: string
-        postBody:
-          description: The HTML of the main post body.
-          type: string
-        rssSummary:
-          description: The contents of the RSS summary for this Blog Post.
-          type: string
-        rssBody:
-          description: The contents of the RSS body for this Blog Post.
-          type: string
-        enableGoogleAmpOutputOverride:
-          description: Boolean to allow overriding the AMP settings for the blog.
-          type: boolean
-        publishImmediately:
-          description: "Set this to true if you want to be published immediately when\
-            \ the schedule publish endpoint is called, and to ignore the publish_date\
-            \ setting."
-          type: boolean
-        archivedAt:
-          description: The timestamp (ISO8601 format) when this Blog Post was deleted.
-          format: int64
-          type: integer
-        linkRelCanonicalUrl:
-          description: Optional override to set the URL to be used in the rel=canonical
-            link tag on the page.
-          type: string
-        archivedInDashboard:
-          description: "If True, the post will not show up in your dashboard, although\
-            \ the post could still be live."
-          type: boolean
-        pageExpiryEnabled:
-          type: boolean
-        pageExpiryRedirectId:
-          format: int64
-          type: integer
-        pageExpiryRedirectUrl:
-          type: string
-        pageExpiryDate:
-          format: int64
-          type: integer
-        includeDefaultCustomCss:
-          description: Boolean to determine whether or not the Primary CSS Files should
-            be applied.
-          type: boolean
-        enableLayoutStylesheets:
-          description: Boolean to determine whether or not the styles from the template
-            should be applied.
-          type: boolean
-        enableDomainStylesheets:
-          description: Boolean to determine whether or not the styles from the template
-            should be applied.
-          type: boolean
-        layoutSections:
-          additionalProperties:
-            $ref: '#/components/schemas/LayoutSection'
-          type: object
-        featuredImageAltText:
-          description: Alt Text of the featuredImage.
-          type: string
-        attachedStylesheets:
-          description: "List of stylesheets to attach to this blog post. These stylesheets\
-            \ are attached to just this page. Order of precedence is bottom to top,\
-            \ just like in the HTML."
-          items:
-            additionalProperties:
-              properties: {}
-              type: object
-            type: object
-          type: array
-        metaDescription:
-          description: A description that goes in <meta> tag on the page.
-          type: string
-        headHtml:
-          description: "Custom HTML for embed codes, javascript, etc. that goes in\
-            \ the <head> tag of the page."
-          type: string
-        footerHtml:
-          description: "Custom HTML for embed codes, javascript that should be placed\
-            \ before the </body> tag of the page."
-          type: string
-        featuredImage:
-          description: The featuredImage of this Blog Post.
-          type: string
-        themeSettingsValues:
-          additionalProperties:
-            properties: {}
-            type: object
-          type: object
-        url:
-          description: A generated field representing the URL of this blog post.
-          type: string
-        password:
-          description: Set this to create a password protected page. Entering the
-            password will be required to view the page.
-          type: string
-        currentState:
-          description: A generated ENUM descibing the current state of this Blog Post.
-            Should always match state.
-          enum:
-          - AUTOMATED
-          - AUTOMATED_DRAFT
-          - AUTOMATED_SENDING
-          - AUTOMATED_FOR_FORM
-          - AUTOMATED_FOR_FORM_BUFFER
-          - AUTOMATED_FOR_FORM_DRAFT
-          - AUTOMATED_FOR_FORM_LEGACY
-          - BLOG_EMAIL_DRAFT
-          - BLOG_EMAIL_PUBLISHED
-          - DRAFT
-          - DRAFT_AB
-          - DRAFT_AB_VARIANT
-          - ERROR
-          - LOSER_AB_VARIANT
-          - PAGE_STUB
-          - PRE_PROCESSING
-          - PROCESSING
-          - PUBLISHED
-          - PUBLISHED_AB
-          - PUBLISHED_AB_VARIANT
-          - PUBLISHED_OR_SCHEDULED
-          - RSS_TO_EMAIL_DRAFT
-          - RSS_TO_EMAIL_PUBLISHED
-          - SCHEDULED
-          - SCHEDULED_AB
-          - SCHEDULED_OR_PUBLISHED
-          - AUTOMATED_AB
-          - AUTOMATED_AB_VARIANT
-          - AUTOMATED_DRAFT_AB
-          - AUTOMATED_DRAFT_ABVARIANT
-          - AUTOMATED_LOSER_ABVARIANT
-          type: string
-        currentlyPublished:
-          type: boolean
-        contentTypeCategory:
-          description: An ENUM descibing the type of this object. Should always be
-            BLOG_POST.
-          enum:
-          - "0"
-          - "1"
-          - "2"
-          - "3"
-          - "4"
-          - "5"
-          - "6"
-          - "7"
-          - "8"
-          - "9"
-          - "10"
-          - "11"
-          - "12"
-          type: string
-        publishDate:
-          description: The date (ISO8601 format) the blog post is to be published
-            at.
-          format: date-time
-          type: string
-        created:
-          format: date-time
-          type: string
-        updated:
-          format: date-time
-          type: string
-      required:
-      - abStatus
-      - abTestId
-      - archivedAt
-      - archivedInDashboard
-      - attachedStylesheets
-      - authorName
-      - blogAuthorId
-      - campaign
-      - categoryId
-      - contentGroupId
-      - contentTypeCategory
-      - created
-      - createdById
-      - currentState
-      - currentlyPublished
-      - domain
-      - dynamicPageDataSourceId
-      - dynamicPageDataSourceType
-      - dynamicPageHubDbTableId
-      - enableDomainStylesheets
-      - enableGoogleAmpOutputOverride
-      - enableLayoutStylesheets
-      - featuredImage
-      - featuredImageAltText
-      - folderId
-      - footerHtml
-      - headHtml
-      - htmlTitle
-      - id
-      - includeDefaultCustomCss
-      - language
-      - layoutSections
-      - linkRelCanonicalUrl
-      - mabExperimentId
-      - metaDescription
-      - name
-      - pageExpiryDate
-      - pageExpiryEnabled
-      - pageExpiryRedirectId
-      - pageExpiryRedirectUrl
-      - password
-      - postBody
-      - postSummary
-      - publicAccessRules
-      - publicAccessRulesEnabled
-      - publishDate
-      - publishImmediately
-      - rssBody
-      - rssSummary
-      - slug
-      - state
-      - tagIds
-      - themeSettingsValues
-      - translatedFromId
-      - translations
-      - updated
-      - updatedById
-      - url
-      - useFeaturedImage
-      - widgetContainers
-      - widgets
-      type: object
-    BatchResponseBlogPost:
-      description: Response object for batch operations on blog posts.
-      properties:
-        status:
-          description: Status of batch operation.
-          enum:
-          - PENDING
-          - PROCESSING
-          - CANCELED
-          - COMPLETE
-          type: string
-        results:
-          description: Results of batch operation.
-          items:
-            $ref: '#/components/schemas/BlogPost'
-          type: array
-        requestedAt:
-          description: Time of batch operation request.
-          format: date-time
-          type: string
-        startedAt:
-          description: Time of batch operation start.
-          format: date-time
-          type: string
-        completedAt:
-          description: Time of batch operation completion.
-          format: date-time
-          type: string
-        links:
-          additionalProperties:
-            type: string
-          description: Links associated with batch operation.
-          type: object
-      required:
-      - completedAt
-      - results
-      - startedAt
-      - status
-      type: object
-    CollectionResponseWithTotalBlogPostForwardPaging:
-      description: Response object for collections of blog posts with pagination information.
-      properties:
-        total:
-          description: Total number of blog posts.
-          format: int32
-          type: integer
-        results:
-          description: Collection of blog posts.
-          items:
-            $ref: '#/components/schemas/BlogPost'
-          type: array
-        paging:
-          $ref: '#/components/schemas/ForwardPaging'
-      required:
-      - results
-      - total
-      type: object
-    PublicAccessRule:
-      type: object
-    BackgroundImage:
-      properties:
-        imageUrl:
-          type: string
-        backgroundSize:
-          type: string
-        backgroundPosition:
-          type: string
-      required:
-      - backgroundPosition
-      - backgroundSize
-      - imageUrl
-      type: object
-    Angle:
-      properties:
-        value:
-          type: number
-        units:
-          type: string
-      required:
-      - units
-      - value
-      type: object
-    PreviousPage:
-      description: Model definition for a previous page
-      properties:
-        before:
-          type: string
-        link:
-          type: string
-      required:
-      - before
-      type: object
-    ContentScheduleRequestVNext:
-      description: Request body object for scheduling the publish of content
-      properties:
-        id:
-          description: The ID of the object to be scheduled.
-          type: string
-        publishDate:
-          description: The date the object should transition from scheduled to published.
-          format: date-time
-          type: string
-      required:
-      - id
-      - publishDate
-      type: object
-    TagCloneRequestVNext:
-      description: Request body object for cloning blog tags.
-      properties:
-        id:
-          description: ID of the object to be cloned.
-          type: string
-        language:
-          description: Target language of new variant.
-          type: string
-        primaryLanguage:
-          description: Language of primary blog tag to clone.
-          type: string
-        name:
-          description: Name of newly cloned blog tag.
-          type: string
-      required:
-      - id
-      - name
-      type: object
-    Tag:
-      description: Model definition for a Tag.
-      properties:
-        id:
-          description: The unique ID of the Blog Tag.
-          type: string
-        name:
-          description: The name of the tag.
-          type: string
-        language:
-          description: The explicitly defined ISO 639 language code of the tag.
-          enum:
-          - af
-          - af-na
-          - af-za
-          - agq
-          - agq-cm
-          - ak
-          - ak-gh
-          - am
-          - am-et
-          - ar
-          - ar-001
-          - ar-ae
-          - ar-bh
-          - ar-dj
-          - ar-dz
-          - ar-eg
-          - ar-eh
-          - ar-er
-          - ar-il
-          - ar-iq
-          - ar-jo
-          - ar-km
-          - ar-kw
-          - ar-lb
-          - ar-ly
-          - ar-ma
-          - ar-mr
-          - ar-om
-          - ar-ps
-          - ar-qa
-          - ar-sa
-          - ar-sd
-          - ar-so
-          - ar-ss
-          - ar-sy
-          - ar-td
-          - ar-tn
-          - ar-ye
-          - as
-          - as-in
-          - asa
-          - asa-tz
-          - ast
-          - ast-es
-          - az
-          - az-az
-          - bas
-          - bas-cm
-          - be
-          - be-by
-          - bem
-          - bem-zm
-          - bez
-          - bez-tz
-          - bg
-          - bg-bg
-          - bm
-          - bm-ml
-          - bn
-          - bn-bd
-          - bn-in
-          - bo
-          - bo-cn
-          - bo-in
-          - br
-          - br-fr
-          - brx
-          - brx-in
-          - bs
-          - bs-ba
-          - ca
-          - ca-ad
-          - ca-es
-          - ca-fr
-          - ca-it
-          - ccp
-          - ccp-bd
-          - ccp-in
-          - ce
-          - ce-ru
-          - ceb
-          - ceb-ph
-          - cgg
-          - cgg-ug
-          - chr
-          - chr-us
-          - ckb
-          - ckb-iq
-          - ckb-ir
-          - cs
-          - cs-cz
-          - cu
-          - cu-ru
-          - cy
-          - cy-gb
-          - da
-          - da-dk
-          - da-gl
-          - dav
-          - dav-ke
-          - de
-          - de-at
-          - de-be
-          - de-ch
-          - de-de
-          - de-gr
-          - de-it
-          - de-li
-          - de-lu
-          - dje
-          - dje-ne
-          - doi
-          - doi-in
-          - dsb
-          - dsb-de
-          - dua
-          - dua-cm
-          - dyo
-          - dyo-sn
-          - dz
-          - dz-bt
-          - ebu
-          - ebu-ke
-          - ee
-          - ee-gh
-          - ee-tg
-          - el
-          - el-cy
-          - el-gr
-          - en
-          - en-001
-          - en-150
-          - en-ae
-          - en-ag
-          - en-ai
-          - en-as
-          - en-at
-          - en-au
-          - en-bb
-          - en-be
-          - en-bi
-          - en-bm
-          - en-bs
-          - en-bw
-          - en-bz
-          - en-ca
-          - en-cc
-          - en-ch
-          - en-ck
-          - en-cm
-          - en-cn
-          - en-cx
-          - en-cy
-          - en-de
-          - en-dg
-          - en-dk
-          - en-dm
-          - en-er
-          - en-fi
-          - en-fj
-          - en-fk
-          - en-fm
-          - en-gb
-          - en-gd
-          - en-gg
-          - en-gh
-          - en-gi
-          - en-gm
-          - en-gu
-          - en-gy
-          - en-hk
-          - en-ie
-          - en-il
-          - en-im
-          - en-in
-          - en-io
-          - en-je
-          - en-jm
-          - en-ke
-          - en-ki
-          - en-kn
-          - en-ky
-          - en-lc
-          - en-lr
-          - en-ls
-          - en-lu
-          - en-mg
-          - en-mh
-          - en-mo
-          - en-mp
-          - en-ms
-          - en-mt
-          - en-mu
-          - en-mw
-          - en-mx
-          - en-my
-          - en-na
-          - en-nf
-          - en-ng
-          - en-nl
-          - en-nr
-          - en-nu
-          - en-nz
-          - en-pg
-          - en-ph
-          - en-pk
-          - en-pn
-          - en-pr
-          - en-pw
-          - en-rw
-          - en-sb
-          - en-sc
-          - en-sd
-          - en-se
-          - en-sg
-          - en-sh
-          - en-si
-          - en-sl
-          - en-ss
-          - en-sx
-          - en-sz
-          - en-tc
-          - en-tk
-          - en-to
-          - en-tt
-          - en-tv
-          - en-tz
-          - en-ug
-          - en-um
-          - en-us
-          - en-vc
-          - en-vg
-          - en-vi
-          - en-vu
-          - en-ws
-          - en-za
-          - en-zm
-          - en-zw
-          - eo
-          - eo-001
-          - es
-          - es-419
-          - es-ar
-          - es-bo
-          - es-br
-          - es-bz
-          - es-cl
-          - es-co
-          - es-cr
-          - es-cu
-          - es-do
-          - es-ea
-          - es-ec
-          - es-es
-          - es-gq
-          - es-gt
-          - es-hn
-          - es-ic
-          - es-mx
-          - es-ni
-          - es-pa
-          - es-pe
-          - es-ph
-          - es-pr
-          - es-py
-          - es-sv
-          - es-us
-          - es-uy
-          - es-ve
-          - et
-          - et-ee
-          - eu
-          - eu-es
-          - ewo
-          - ewo-cm
-          - fa
-          - fa-af
-          - fa-ir
-          - ff
-          - ff-bf
-          - ff-cm
-          - ff-gh
-          - ff-gm
-          - ff-gn
-          - ff-gw
-          - ff-lr
-          - ff-mr
-          - ff-ne
-          - ff-ng
-          - ff-sl
-          - ff-sn
-          - fi
-          - fi-fi
-          - fil
-          - fil-ph
-          - fo
-          - fo-dk
-          - fo-fo
-          - fr
-          - fr-be
-          - fr-bf
-          - fr-bi
-          - fr-bj
-          - fr-bl
-          - fr-ca
-          - fr-cd
-          - fr-cf
-          - fr-cg
-          - fr-ch
-          - fr-ci
-          - fr-cm
-          - fr-dj
-          - fr-dz
-          - fr-fr
-          - fr-ga
-          - fr-gf
-          - fr-gn
-          - fr-gp
-          - fr-gq
-          - fr-ht
-          - fr-km
-          - fr-lu
-          - fr-ma
-          - fr-mc
-          - fr-mf
-          - fr-mg
-          - fr-ml
-          - fr-mq
-          - fr-mr
-          - fr-mu
-          - fr-nc
-          - fr-ne
-          - fr-pf
-          - fr-pm
-          - fr-re
-          - fr-rw
-          - fr-sc
-          - fr-sn
-          - fr-sy
-          - fr-td
-          - fr-tg
-          - fr-tn
-          - fr-vu
-          - fr-wf
-          - fr-yt
-          - fur
-          - fur-it
-          - fy
-          - fy-nl
-          - ga
-          - ga-gb
-          - ga-ie
-          - gd
-          - gd-gb
-          - gl
-          - gl-es
-          - gsw
-          - gsw-ch
-          - gsw-fr
-          - gsw-li
-          - gu
-          - gu-in
-          - guz
-          - guz-ke
-          - gv
-          - gv-im
-          - ha
-          - ha-gh
-          - ha-ne
-          - ha-ng
-          - haw
-          - haw-us
-          - he
-          - hi
-          - hi-in
-          - hr
-          - hr-ba
-          - hr-hr
-          - hsb
-          - hsb-de
-          - hu
-          - hu-hu
-          - hy
-          - hy-am
-          - ia
-          - ia-001
-          - id
-          - ig
-          - ig-ng
-          - ii
-          - ii-cn
-          - id-id
-          - is
-          - is-is
-          - it
-          - it-ch
-          - it-it
-          - it-sm
-          - it-va
-          - he-il
-          - ja
-          - ja-jp
-          - jgo
-          - jgo-cm
-          - yi
-          - yi-001
-          - jmc
-          - jmc-tz
-          - jv
-          - jv-id
-          - ka
-          - ka-ge
-          - kab
-          - kab-dz
-          - kam
-          - kam-ke
-          - kde
-          - kde-tz
-          - kea
-          - kea-cv
-          - khq
-          - khq-ml
-          - ki
-          - ki-ke
-          - kk
-          - kk-kz
-          - kkj
-          - kkj-cm
-          - kl
-          - kl-gl
-          - kln
-          - kln-ke
-          - km
-          - km-kh
-          - kn
-          - kn-in
-          - ko
-          - ko-kp
-          - ko-kr
-          - kok
-          - kok-in
-          - ks
-          - ks-in
-          - ksb
-          - ksb-tz
-          - ksf
-          - ksf-cm
-          - ksh
-          - ksh-de
-          - kw
-          - kw-gb
-          - ku
-          - ku-tr
-          - ky
-          - ky-kg
-          - lag
-          - lag-tz
-          - lb
-          - lb-lu
-          - lg
-          - lg-ug
-          - lkt
-          - lkt-us
-          - ln
-          - ln-ao
-          - ln-cd
-          - ln-cf
-          - ln-cg
-          - lo
-          - lo-la
-          - lrc
-          - lrc-iq
-          - lrc-ir
-          - lt
-          - lt-lt
-          - lu
-          - lu-cd
-          - luo
-          - luo-ke
-          - luy
-          - luy-ke
-          - lv
-          - lv-lv
-          - mai
-          - mai-in
-          - mas
-          - mas-ke
-          - mas-tz
-          - mer
-          - mer-ke
-          - mfe
-          - mfe-mu
-          - mg
-          - mg-mg
-          - mgh
-          - mgh-mz
-          - mgo
-          - mgo-cm
-          - mi
-          - mi-nz
-          - mk
-          - mk-mk
-          - ml
-          - ml-in
-          - mn
-          - mn-mn
-          - mni
-          - mni-in
-          - mr
-          - mr-in
-          - ms
-          - ms-bn
-          - ms-id
-          - ms-my
-          - ms-sg
-          - mt
-          - mt-mt
-          - mua
-          - mua-cm
-          - my
-          - my-mm
-          - mzn
-          - mzn-ir
-          - naq
-          - naq-na
-          - nb
-          - nb-no
-          - nb-sj
-          - nd
-          - nd-zw
-          - nds
-          - nds-de
-          - nds-nl
-          - ne
-          - ne-in
-          - ne-np
-          - nl
-          - nl-aw
-          - nl-be
-          - nl-ch
-          - nl-bq
-          - nl-cw
-          - nl-lu
-          - nl-nl
-          - nl-sr
-          - nl-sx
-          - nmg
-          - nmg-cm
-          - nn
-          - nn-no
-          - nnh
-          - nnh-cm
-          - "no"
-          - no-no
-          - nus
-          - nus-ss
-          - nyn
-          - nyn-ug
-          - om
-          - om-et
-          - om-ke
-          - or
-          - or-in
-          - os
-          - os-ge
-          - os-ru
-          - pa
-          - pa-in
-          - pa-pk
-          - pcm
-          - pcm-ng
-          - pl
-          - pl-pl
-          - prg
-          - prg-001
-          - ps
-          - ps-af
-          - ps-pk
-          - pt
-          - pt-ao
-          - pt-br
-          - pt-ch
-          - pt-cv
-          - pt-gq
-          - pt-gw
-          - pt-lu
-          - pt-mo
-          - pt-mz
-          - pt-pt
-          - pt-st
-          - pt-tl
-          - qu
-          - qu-bo
-          - qu-ec
-          - qu-pe
-          - rm
-          - rm-ch
-          - rn
-          - rn-bi
-          - ro
-          - ro-md
-          - ro-ro
-          - rof
-          - rof-tz
-          - ru
-          - ru-by
-          - ru-kg
-          - ru-kz
-          - ru-md
-          - ru-ru
-          - ru-ua
-          - rw
-          - rw-rw
-          - rwk
-          - rwk-tz
-          - sa
-          - sa-in
-          - sah
-          - sah-ru
-          - saq
-          - saq-ke
-          - sat
-          - sat-in
-          - sbp
-          - sbp-tz
-          - sd
-          - sd-in
-          - sd-pk
-          - se
-          - se-fi
-          - se-no
-          - se-se
-          - seh
-          - seh-mz
-          - ses
-          - ses-ml
-          - sg
-          - sg-cf
-          - shi
-          - shi-ma
-          - si
-          - si-lk
-          - sk
-          - sk-sk
-          - sl
-          - sl-si
-          - smn
-          - smn-fi
-          - sn
-          - sn-zw
-          - so
-          - so-dj
-          - so-et
-          - so-ke
-          - so-so
-          - sq
-          - sq-al
-          - sq-mk
-          - sq-xk
-          - sr
-          - sr-ba
-          - sr-cs
-          - sr-me
-          - sr-rs
-          - sr-xk
-          - su
-          - su-id
-          - sv
-          - sv-ax
-          - sv-fi
-          - sv-se
-          - sw
-          - sw-cd
-          - sw-ke
-          - sw-tz
-          - sw-ug
-          - sy
-          - ta
-          - ta-in
-          - ta-lk
-          - ta-my
-          - ta-sg
-          - te
-          - te-in
-          - teo
-          - teo-ke
-          - teo-ug
-          - tg
-          - tg-tj
-          - th
-          - th-th
-          - ti
-          - ti-er
-          - ti-et
-          - tk
-          - tk-tm
-          - tl
-          - to
-          - to-to
-          - tr
-          - tr-cy
-          - tr-tr
-          - tt
-          - tt-ru
-          - twq
-          - twq-ne
-          - tzm
-          - tzm-ma
-          - ug
-          - ug-cn
-          - uk
-          - uk-ua
-          - ur
-          - ur-in
-          - ur-pk
-          - uz
-          - uz-af
-          - uz-uz
-          - vai
-          - vai-lr
-          - vi
-          - vi-vn
-          - vo
-          - vo-001
-          - vun
-          - vun-tz
-          - wae
-          - wae-ch
-          - wo
-          - wo-sn
-          - xh
-          - xh-za
-          - xog
-          - xog-ug
-          - yav
-          - yav-cm
-          - yo
-          - yo-bj
-          - yo-ng
-          - yue
-          - yue-cn
-          - yue-hk
-          - zgh
-          - zgh-ma
-          - zh
-          - zh-cn
-          - zh-hk
-          - zh-mo
-          - zh-sg
-          - zh-tw
-          - zh-hans
-          - zh-hant
-          - zu
-          - zu-za
-          type: string
-        translatedFromId:
-          description: ID of the primary tag this object was translated from.
-          format: int64
-          type: integer
-        created:
-          format: date-time
-          type: string
-        updated:
-          format: date-time
-          type: string
-        deletedAt:
-          description: The timestamp (ISO8601 format) when this Blog Tag was deleted.
-          format: date-time
-          type: string
-      required:
-      - created
-      - deletedAt
-      - id
-      - language
-      - name
-      - translatedFromId
-      - updated
-      type: object
-    ContentCloneRequestVNext:
-      description: Request body object for cloning content.
-      properties:
-        id:
-          description: ID of the object to be cloned.
-          type: string
-        cloneName:
-          description: Name of the cloned object.
-          type: string
-      required:
-      - id
-      type: object
-    BatchResponseBlogAuthorWithErrors:
-      description: Response object for batch operations on blog authors with errors.
-      properties:
-        status:
-          description: Status of batch operation.
-          enum:
-          - PENDING
-          - PROCESSING
-          - CANCELED
-          - COMPLETE
-          type: string
-        results:
-          description: Results of batch operation.
-          items:
-            $ref: '#/components/schemas/BlogAuthor'
-          type: array
-        numErrors:
-          description: Number of errors.
-          format: int32
-          type: integer
-        errors:
-          description: Errors in batch operation.
-          items:
-            $ref: '#/components/schemas/StandardError'
-          type: array
-        requestedAt:
-          description: Time of batch operation request.
-          format: date-time
-          type: string
-        startedAt:
-          description: Time of batch operation start.
-          format: date-time
-          type: string
-        completedAt:
-          description: Time of batch operation completion.
-          format: date-time
-          type: string
-        links:
-          additionalProperties:
-            type: string
-          description: Links associated with batch operation.
-          type: object
-      required:
-      - completedAt
-      - results
-      - startedAt
-      - status
-      type: object
-    NextPage:
-      description: Model definition for a next page.
-      example:
-        link: link
-        after: after
-      properties:
-        after:
-          type: string
-        link:
-          type: string
-      required:
-      - after
-      type: object
-    BatchInputTag:
-      description: Wrapper for providing an array of blog tags as inputs.
-      properties:
-        inputs:
-          description: Blog tags to input.
-          items:
-            $ref: '#/components/schemas/Tag'
-          type: array
-      required:
-      - inputs
-      type: object
-    Styles:
-      properties:
-        verticalAlignment:
-          type: string
-        backgroundColor:
-          $ref: '#/components/schemas/RGBAColor'
-        backgroundImage:
-          $ref: '#/components/schemas/BackgroundImage'
-        backgroundGradient:
-          $ref: '#/components/schemas/Gradient'
-        maxWidthSectionCentering:
-          format: int32
-          type: integer
-        forceFullWidthSection:
-          type: boolean
-        flexboxPositioning:
-          type: string
-      required:
-      - backgroundColor
-      - backgroundGradient
-      - backgroundImage
-      - flexboxPositioning
-      - forceFullWidthSection
-      - maxWidthSectionCentering
-      - verticalAlignment
       type: object
   securitySchemes:
     oauth2_legacy:
@@ -4509,8 +2049,6 @@ x-hubspot-available-client-libraries:
 - Ruby
 - Python
 x-hubspot-product-tier-requirements:
-  marketing: FREE
-  sales: FREE
-  service: FREE
-  cms: FREE
+  marketing: PROFESSIONAL
+  cms: STARTER
 x-hubspot-documentation-banner: NONE

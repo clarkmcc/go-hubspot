@@ -1,9 +1,19 @@
 {
   "openapi" : "3.0.1",
   "info" : {
-    "title" : "CMS Performance API",
+    "title" : "CMS Performance",
     "description" : "Use these endpoints to get a time series view of your website's performance.",
-    "version" : "v3"
+    "version" : "v3",
+    "x-hubspot-product-tier-requirements" : {
+      "cms" : "ENTERPRISE"
+    },
+    "x-hubspot-documentation-banner" : "NONE",
+    "x-hubspot-api-use-case" : "View how many requests a connect domain has received for a given time period, along with how many of those requests have resulted in 4xx errors.",
+    "x-hubspot-related-documentation" : [ {
+      "name" : "CMS Performance Guide",
+      "url" : "https://hubspot.dev/guides/api/cms/performance"
+    } ],
+    "x-hubspot-introduction" : "Use the CMS performance API to monitor the status of HubSpot-hosted pages, including uptime, 1xx-5xx errors, cache hits, total requests, and median response time. Data is typically updated within 30 minutes, and is purged over time dependent on resolution. (link to guide). Pages must be enabled for site performance data collection to use this API."
   },
   "servers" : [ {
     "url" : "https://api.hubapi.com"
@@ -12,116 +22,6 @@
     "name" : "Public_Performance"
   } ],
   "paths" : {
-    "/cms/v3/performance/uptime" : {
-      "get" : {
-        "tags" : [ "Public_Performance" ],
-        "summary" : "View your website's uptime.",
-        "description" : "Returns uptime time series website performance data for the given domain.",
-        "operationId" : "GetUptime",
-        "parameters" : [ {
-          "name" : "domain",
-          "in" : "query",
-          "description" : "The domain to search return data for.",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "path",
-          "in" : "query",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "pad",
-          "in" : "query",
-          "description" : "Specifies whether the time series data should have empty intervals if performance data is not present to create a continuous set.",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "boolean"
-          }
-        }, {
-          "name" : "sum",
-          "in" : "query",
-          "description" : "Specifies whether the time series data should be summated for the given period. Defaults to false.",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "boolean"
-          }
-        }, {
-          "name" : "period",
-          "in" : "query",
-          "description" : "A relative period to return time series data for. This value is ignored if start and/or end are provided. Valid periods: [15m, 30m, 1h, 4h, 12h, 1d, 1w]",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "interval",
-          "in" : "query",
-          "description" : "The time series interval to group data by. Valid intervals: [1m, 5m, 15m, 30m, 1h, 4h, 12h, 1d, 1w]",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "start",
-          "in" : "query",
-          "description" : "A timestamp in milliseconds that indicates the start of the time period.",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "integer",
-            "format" : "int64"
-          }
-        }, {
-          "name" : "end",
-          "in" : "query",
-          "description" : "A timestamp in milliseconds that indicates the end of the time period.",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "integer",
-            "format" : "int64"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/PublicPerformanceResponse"
-                }
-              }
-            }
-          },
-          "default" : {
-            "$ref" : "#/components/responses/Error"
-          }
-        },
-        "security" : [ {
-          "oauth2_legacy" : [ "cms.performance.read" ]
-        }, {
-          "private_apps_legacy" : [ "cms.performance.read" ]
-        } ]
-      }
-    },
     "/cms/v3/performance/" : {
       "get" : {
         "tags" : [ "Public_Performance" ],
@@ -232,6 +132,116 @@
           "private_apps_legacy" : [ "cms.performance.read" ]
         } ]
       }
+    },
+    "/cms/v3/performance/uptime" : {
+      "get" : {
+        "tags" : [ "Public_Performance" ],
+        "summary" : "View your website's uptime.",
+        "description" : "Returns uptime time series website performance data for the given domain.",
+        "operationId" : "GetUptime",
+        "parameters" : [ {
+          "name" : "domain",
+          "in" : "query",
+          "description" : "The domain to search return data for.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "path",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "pad",
+          "in" : "query",
+          "description" : "Specifies whether the time series data should have empty intervals if performance data is not present to create a continuous set.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "boolean"
+          }
+        }, {
+          "name" : "sum",
+          "in" : "query",
+          "description" : "Specifies whether the time series data should be summated for the given period. Defaults to false.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "boolean"
+          }
+        }, {
+          "name" : "period",
+          "in" : "query",
+          "description" : "A relative period to return time series data for. This value is ignored if start and/or end are provided. Valid periods: [15m, 30m, 1h, 4h, 12h, 1d, 1w]",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "interval",
+          "in" : "query",
+          "description" : "The time series interval to group data by. Valid intervals: [1m, 5m, 15m, 30m, 1h, 4h, 12h, 1d, 1w]",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "start",
+          "in" : "query",
+          "description" : "A timestamp in milliseconds that indicates the start of the time period.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "end",
+          "in" : "query",
+          "description" : "A timestamp in milliseconds that indicates the end of the time period.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PublicPerformanceResponse"
+                }
+              }
+            }
+          },
+          "default" : {
+            "$ref" : "#/components/responses/Error"
+          }
+        },
+        "security" : [ {
+          "oauth2_legacy" : [ "cms.performance.read" ]
+        }, {
+          "private_apps_legacy" : [ "cms.performance.read" ]
+        } ]
+      }
     }
   },
   "components" : {
@@ -240,21 +250,17 @@
         "required" : [ "message" ],
         "type" : "object",
         "properties" : {
-          "message" : {
+          "subCategory" : {
             "type" : "string",
-            "description" : "A human readable message describing the error along with remediation steps where appropriate"
-          },
-          "in" : {
-            "type" : "string",
-            "description" : "The name of the field or parameter in which the error was found."
+            "description" : "A specific category that contains more specific detail about the error"
           },
           "code" : {
             "type" : "string",
             "description" : "The status code associated with the error detail"
           },
-          "subCategory" : {
+          "in" : {
             "type" : "string",
-            "description" : "A specific category that contains more specific detail about the error"
+            "description" : "The name of the field or parameter in which the error was found."
           },
           "context" : {
             "type" : "object",
@@ -268,6 +274,10 @@
             "example" : {
               "missingScopes" : [ "scope1", "scope2" ]
             }
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "A human readable message describing the error along with remediation steps where appropriate"
           }
         }
       },
@@ -275,31 +285,9 @@
         "required" : [ "category", "correlationId", "message" ],
         "type" : "object",
         "properties" : {
-          "message" : {
-            "type" : "string",
-            "description" : "A human readable message describing the error along with remediation steps where appropriate",
-            "example" : "An error occurred"
-          },
-          "correlationId" : {
-            "type" : "string",
-            "description" : "A unique identifier for the request. Include this value with any error reports or support tickets",
-            "format" : "uuid",
-            "example" : "aeb5f871-7f07-4993-9211-075dc63e7cbf"
-          },
-          "category" : {
-            "type" : "string",
-            "description" : "The error category"
-          },
           "subCategory" : {
             "type" : "string",
             "description" : "A specific category that contains more specific detail about the error"
-          },
-          "errors" : {
-            "type" : "array",
-            "description" : "further information about the error",
-            "items" : {
-              "$ref" : "#/components/schemas/ErrorDetail"
-            }
           },
           "context" : {
             "type" : "object",
@@ -311,16 +299,42 @@
             },
             "description" : "Context about the error condition",
             "example" : {
-              "invalidPropertyName" : [ "propertyValue" ],
-              "missingScopes" : [ "scope1", "scope2" ]
+              "missingScopes" : [ "scope1", "scope2" ],
+              "invalidPropertyName" : [ "propertyValue" ]
             }
+          },
+          "correlationId" : {
+            "type" : "string",
+            "description" : "A unique identifier for the request. Include this value with any error reports or support tickets",
+            "format" : "uuid",
+            "example" : "aeb5f871-7f07-4993-9211-075dc63e7cbf"
           },
           "links" : {
             "type" : "object",
             "additionalProperties" : {
               "type" : "string"
             },
-            "description" : "A map of link names to associated URIs containing documentation about the error or recommended remediation steps"
+            "description" : "A map of link names to associated URIs containing documentation about the error or recommended remediation steps",
+            "example" : {
+              "knowledge-base" : "https://www.hubspot.com/products/service/knowledge-base"
+            }
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "A human readable message describing the error along with remediation steps where appropriate",
+            "example" : "Invalid input (details will vary based on the error)"
+          },
+          "category" : {
+            "type" : "string",
+            "description" : "The error category",
+            "example" : "VALIDATION_ERROR"
+          },
+          "errors" : {
+            "type" : "array",
+            "description" : "further information about the error",
+            "items" : {
+              "$ref" : "#/components/schemas/ErrorDetail"
+            }
           }
         },
         "example" : {
@@ -336,17 +350,14 @@
         "required" : [ "data", "endInterval", "interval", "startInterval" ],
         "type" : "object",
         "properties" : {
-          "domain" : {
-            "type" : "string"
-          },
           "path" : {
             "type" : "string"
           },
-          "startInterval" : {
-            "type" : "integer",
-            "format" : "int64"
+          "period" : {
+            "type" : "string",
+            "enum" : [ "ONE_MINUTE", "FIVE_MINUTES", "TEN_MINUTES", "FIFTEEN_MINUTES", "THIRTY_MINUTES", "ONE_HOUR", "FOUR_HOURS", "TWELVE_HOURS", "ONE_DAY", "ONE_WEEK" ]
           },
-          "endInterval" : {
+          "startInterval" : {
             "type" : "integer",
             "format" : "int64"
           },
@@ -356,13 +367,16 @@
               "$ref" : "#/components/schemas/PerformanceView"
             }
           },
+          "domain" : {
+            "type" : "string"
+          },
           "interval" : {
             "type" : "string",
             "enum" : [ "ONE_MINUTE", "FIVE_MINUTES", "TEN_MINUTES", "FIFTEEN_MINUTES", "THIRTY_MINUTES", "ONE_HOUR", "FOUR_HOURS", "TWELVE_HOURS", "ONE_DAY", "ONE_WEEK" ]
           },
-          "period" : {
-            "type" : "string",
-            "enum" : [ "ONE_MINUTE", "FIVE_MINUTES", "TEN_MINUTES", "FIFTEEN_MINUTES", "THIRTY_MINUTES", "ONE_HOUR", "FOUR_HOURS", "TWELVE_HOURS", "ONE_DAY", "ONE_WEEK" ]
+          "endInterval" : {
+            "type" : "integer",
+            "format" : "int64"
           }
         }
       },
@@ -370,25 +384,60 @@
         "required" : [ "100X", "20X", "30X", "403", "404", "40X", "500", "504", "50X", "50th", "95th", "99th", "avgOriginResponseTime", "cacheHitRate", "cacheHits", "endTimestamp", "responseTimeMs", "startTimestamp", "totalRequests" ],
         "type" : "object",
         "properties" : {
-          "startTimestamp" : {
-            "type" : "integer",
-            "description" : "The timestamp in milliseconds of the start of this interval.",
-            "format" : "int64"
-          },
-          "endTimestamp" : {
-            "type" : "integer",
-            "description" : "The timestamp in milliseconds of the end of this interval.",
-            "format" : "int64"
-          },
           "startDatetime" : {
             "type" : "string"
           },
-          "endDatetime" : {
-            "type" : "string"
+          "responseTimeMs" : {
+            "type" : "integer",
+            "description" : "The average response time in milliseconds.",
+            "format" : "int32"
+          },
+          "95th" : {
+            "type" : "integer",
+            "description" : "The 95th percentile response time.",
+            "format" : "int32"
           },
           "totalRequests" : {
             "type" : "integer",
             "description" : "The total number of requests received in this period.",
+            "format" : "int32"
+          },
+          "cacheHitRate" : {
+            "type" : "number",
+            "description" : "The percentage of requests that were served cached responses."
+          },
+          "99th" : {
+            "type" : "integer",
+            "description" : "The 99th percentile response time.",
+            "format" : "int32"
+          },
+          "totalRequestTime" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "100X" : {
+            "type" : "integer",
+            "description" : "The number of responses that had an http status code between 1000-1999.",
+            "format" : "int32"
+          },
+          "500" : {
+            "type" : "integer",
+            "description" : "The number of responses that had an http status code of 500.",
+            "format" : "int32"
+          },
+          "403" : {
+            "type" : "integer",
+            "description" : "The number of responses that had an http status code of 403.",
+            "format" : "int32"
+          },
+          "50th" : {
+            "type" : "integer",
+            "description" : "The 50th percentile response time.",
+            "format" : "int32"
+          },
+          "404" : {
+            "type" : "integer",
+            "description" : "The number of responses that had an http status code of 404.",
             "format" : "int32"
           },
           "cacheHits" : {
@@ -396,27 +445,9 @@
             "description" : "The total number of requests that were served cached responses.",
             "format" : "int32"
           },
-          "cacheHitRate" : {
-            "type" : "number",
-            "description" : "The percentage of requests that were served cached responses."
-          },
-          "totalRequestTime" : {
+          "504" : {
             "type" : "integer",
-            "format" : "int32"
-          },
-          "avgOriginResponseTime" : {
-            "type" : "integer",
-            "description" : "The average response time in milliseconds from the origin to the edge.",
-            "format" : "int32"
-          },
-          "responseTimeMs" : {
-            "type" : "integer",
-            "description" : "The average response time in milliseconds.",
-            "format" : "int32"
-          },
-          "100X" : {
-            "type" : "integer",
-            "description" : "The number of responses that had an http status code between 1000-1999.",
+            "description" : "The number of responses that had an http status code of 504.",
             "format" : "int32"
           },
           "20X" : {
@@ -434,44 +465,27 @@
             "description" : "The number of responses that had an http status code between 400-499.",
             "format" : "int32"
           },
+          "endTimestamp" : {
+            "type" : "integer",
+            "description" : "The timestamp in milliseconds of the end of this interval.",
+            "format" : "int64"
+          },
           "50X" : {
             "type" : "integer",
             "description" : "The number of responses that had an http status code between 500-599.",
             "format" : "int32"
           },
-          "403" : {
+          "startTimestamp" : {
             "type" : "integer",
-            "description" : "The number of responses that had an http status code of 403.",
-            "format" : "int32"
+            "description" : "The timestamp in milliseconds of the start of this interval.",
+            "format" : "int64"
           },
-          "404" : {
-            "type" : "integer",
-            "description" : "The number of responses that had an http status code of 404.",
-            "format" : "int32"
+          "endDatetime" : {
+            "type" : "string"
           },
-          "500" : {
+          "avgOriginResponseTime" : {
             "type" : "integer",
-            "description" : "The number of responses that had an http status code of 500.",
-            "format" : "int32"
-          },
-          "504" : {
-            "type" : "integer",
-            "description" : "The number of responses that had an http status code of 504.",
-            "format" : "int32"
-          },
-          "50th" : {
-            "type" : "integer",
-            "description" : "The 50th percentile response time.",
-            "format" : "int32"
-          },
-          "95th" : {
-            "type" : "integer",
-            "description" : "The 95th percentile response time.",
-            "format" : "int32"
-          },
-          "99th" : {
-            "type" : "integer",
-            "description" : "The 99th percentile response time.",
+            "description" : "The average response time in milliseconds from the origin to the edge.",
             "format" : "int32"
           }
         },
@@ -512,10 +526,7 @@
   },
   "x-hubspot-available-client-libraries" : [ "PHP", "Node", "Ruby", "Python" ],
   "x-hubspot-product-tier-requirements" : {
-    "marketing" : "FREE",
-    "sales" : "FREE",
-    "service" : "FREE",
-    "cms" : "FREE"
+    "cms" : "ENTERPRISE"
   },
   "x-hubspot-documentation-banner" : "NONE"
 }

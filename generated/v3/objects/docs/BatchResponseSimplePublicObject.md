@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Status** | **string** |  | 
-**Results** | [**[]SimplePublicObject**](SimplePublicObject.md) |  | 
+**CompletedAt** | **time.Time** |  | 
 **RequestedAt** | Pointer to **time.Time** |  | [optional] 
 **StartedAt** | **time.Time** |  | 
-**CompletedAt** | **time.Time** |  | 
 **Links** | Pointer to **map[string]string** |  | [optional] 
+**Results** | [**[]SimplePublicObject**](SimplePublicObject.md) |  | 
+**Status** | **string** |  | 
 
 ## Methods
 
 ### NewBatchResponseSimplePublicObject
 
-`func NewBatchResponseSimplePublicObject(status string, results []SimplePublicObject, startedAt time.Time, completedAt time.Time, ) *BatchResponseSimplePublicObject`
+`func NewBatchResponseSimplePublicObject(completedAt time.Time, startedAt time.Time, results []SimplePublicObject, status string, ) *BatchResponseSimplePublicObject`
 
 NewBatchResponseSimplePublicObject instantiates a new BatchResponseSimplePublicObject object
 This constructor will assign default values to properties that have it defined,
@@ -30,44 +30,24 @@ NewBatchResponseSimplePublicObjectWithDefaults instantiates a new BatchResponseS
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetStatus
+### GetCompletedAt
 
-`func (o *BatchResponseSimplePublicObject) GetStatus() string`
+`func (o *BatchResponseSimplePublicObject) GetCompletedAt() time.Time`
 
-GetStatus returns the Status field if non-nil, zero value otherwise.
+GetCompletedAt returns the CompletedAt field if non-nil, zero value otherwise.
 
-### GetStatusOk
+### GetCompletedAtOk
 
-`func (o *BatchResponseSimplePublicObject) GetStatusOk() (*string, bool)`
+`func (o *BatchResponseSimplePublicObject) GetCompletedAtOk() (*time.Time, bool)`
 
-GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
+GetCompletedAtOk returns a tuple with the CompletedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetStatus
+### SetCompletedAt
 
-`func (o *BatchResponseSimplePublicObject) SetStatus(v string)`
+`func (o *BatchResponseSimplePublicObject) SetCompletedAt(v time.Time)`
 
-SetStatus sets Status field to given value.
-
-
-### GetResults
-
-`func (o *BatchResponseSimplePublicObject) GetResults() []SimplePublicObject`
-
-GetResults returns the Results field if non-nil, zero value otherwise.
-
-### GetResultsOk
-
-`func (o *BatchResponseSimplePublicObject) GetResultsOk() (*[]SimplePublicObject, bool)`
-
-GetResultsOk returns a tuple with the Results field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetResults
-
-`func (o *BatchResponseSimplePublicObject) SetResults(v []SimplePublicObject)`
-
-SetResults sets Results field to given value.
+SetCompletedAt sets CompletedAt field to given value.
 
 
 ### GetRequestedAt
@@ -115,26 +95,6 @@ and a boolean to check if the value has been set.
 SetStartedAt sets StartedAt field to given value.
 
 
-### GetCompletedAt
-
-`func (o *BatchResponseSimplePublicObject) GetCompletedAt() time.Time`
-
-GetCompletedAt returns the CompletedAt field if non-nil, zero value otherwise.
-
-### GetCompletedAtOk
-
-`func (o *BatchResponseSimplePublicObject) GetCompletedAtOk() (*time.Time, bool)`
-
-GetCompletedAtOk returns a tuple with the CompletedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCompletedAt
-
-`func (o *BatchResponseSimplePublicObject) SetCompletedAt(v time.Time)`
-
-SetCompletedAt sets CompletedAt field to given value.
-
-
 ### GetLinks
 
 `func (o *BatchResponseSimplePublicObject) GetLinks() map[string]string`
@@ -159,6 +119,46 @@ SetLinks sets Links field to given value.
 `func (o *BatchResponseSimplePublicObject) HasLinks() bool`
 
 HasLinks returns a boolean if a field has been set.
+
+### GetResults
+
+`func (o *BatchResponseSimplePublicObject) GetResults() []SimplePublicObject`
+
+GetResults returns the Results field if non-nil, zero value otherwise.
+
+### GetResultsOk
+
+`func (o *BatchResponseSimplePublicObject) GetResultsOk() (*[]SimplePublicObject, bool)`
+
+GetResultsOk returns a tuple with the Results field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetResults
+
+`func (o *BatchResponseSimplePublicObject) SetResults(v []SimplePublicObject)`
+
+SetResults sets Results field to given value.
+
+
+### GetStatus
+
+`func (o *BatchResponseSimplePublicObject) GetStatus() string`
+
+GetStatus returns the Status field if non-nil, zero value otherwise.
+
+### GetStatusOk
+
+`func (o *BatchResponseSimplePublicObject) GetStatusOk() (*string, bool)`
+
+GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStatus
+
+`func (o *BatchResponseSimplePublicObject) SetStatus(v string)`
+
+SetStatus sets Status field to given value.
+
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

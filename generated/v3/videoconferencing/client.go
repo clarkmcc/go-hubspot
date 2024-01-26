@@ -1,5 +1,5 @@
 /*
-Video Conference Extension
+Video Conferencing Extension
 
 These APIs allow you to specify URLs that can be used to interact with a video conferencing application, to allow HubSpot to add video conference links to meeting requests with contacts.
 
@@ -41,7 +41,7 @@ var (
 	xmlCheck  = regexp.MustCompile(`(?i:(?:application|text)/xml)`)
 )
 
-// APIClient manages communication with the Video Conference Extension API vv3
+// APIClient manages communication with the Video Conferencing Extension API vv3
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration

@@ -3,17 +3,36 @@
   "info" : {
     "title" : "Properties",
     "description" : "All HubSpot objects store data in default and custom properties. These endpoints provide access to read and modify object properties in HubSpot.",
-    "version" : "v3"
+    "version" : "v3",
+    "x-hubspot-product-tier-requirements" : {
+      "marketing" : "FREE",
+      "sales" : "FREE",
+      "service" : "FREE",
+      "cms" : "STARTER"
+    },
+    "x-hubspot-documentation-banner" : "NONE",
+    "x-hubspot-api-use-case" : "Create a set of new custom multi-select properties for storing contract data on company records.",
+    "x-hubspot-related-documentation" : [ {
+      "name" : "Properties Guide",
+      "url" : "https://hubspot.dev/guides/api/crm/properties"
+    } ],
+    "x-hubspot-introduction" : "Use the properties API to store information in fields on individual contact records. You can use this API to manage existing default and custom properties, create new custom properties, and more."
   },
   "servers" : [ {
     "url" : "https://api.hubapi.com"
   } ],
   "tags" : [ {
-    "name" : "Batch"
+    "name" : "Batch",
+    "description" : "",
+    "x-hubspot-tag-name-english-source" : "Batch"
   }, {
-    "name" : "Groups"
+    "name" : "Groups",
+    "description" : "",
+    "x-hubspot-tag-name-english-source" : "Groups"
   }, {
-    "name" : "Core"
+    "name" : "Core",
+    "description" : "",
+    "x-hubspot-tag-name-english-source" : "Core"
   } ],
   "paths" : {
     "/crm/v3/properties/{objectType}/batch/archive" : {
@@ -143,9 +162,9 @@
         }, {
           "private_apps" : [ "crm.schemas.quotes.read" ]
         }, {
-          "oauth2" : [ "crm.objects.companies.read" ]
-        }, {
           "oauth2" : [ "crm.objects.deals.write" ]
+        }, {
+          "oauth2" : [ "crm.objects.companies.read" ]
         }, {
           "private_apps_legacy" : [ "crm.schemas.custom.read" ]
         }, {
@@ -410,9 +429,9 @@
         }, {
           "private_apps" : [ "crm.schemas.quotes.read" ]
         }, {
-          "oauth2" : [ "crm.objects.companies.read" ]
-        }, {
           "oauth2" : [ "crm.objects.deals.write" ]
+        }, {
+          "oauth2" : [ "crm.objects.companies.read" ]
         }, {
           "private_apps_legacy" : [ "crm.schemas.custom.read" ]
         }, {
@@ -668,9 +687,9 @@
         }, {
           "private_apps" : [ "crm.schemas.quotes.read" ]
         }, {
-          "oauth2" : [ "crm.objects.companies.read" ]
-        }, {
           "oauth2" : [ "crm.objects.deals.write" ]
+        }, {
+          "oauth2" : [ "crm.objects.companies.read" ]
         }, {
           "private_apps_legacy" : [ "crm.schemas.custom.read" ]
         }, {
@@ -794,176 +813,6 @@
         } ]
       }
     },
-    "/crm/v3/properties/{objectType}/groups" : {
-      "get" : {
-        "tags" : [ "Groups" ],
-        "summary" : "Read all property groups",
-        "description" : "Read all existing property groups for the specified object type and HubSpot account.",
-        "operationId" : "GroupsGetAll",
-        "parameters" : [ {
-          "name" : "objectType",
-          "in" : "path",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/CollectionResponsePropertyGroupNoPaging"
-                }
-              }
-            }
-          },
-          "default" : {
-            "$ref" : "#/components/responses/Error"
-          }
-        },
-        "security" : [ {
-          "oauth2_legacy" : [ "media_bridge.read" ]
-        }, {
-          "oauth2" : [ "crm.objects.contacts.read" ]
-        }, {
-          "private_apps" : [ "crm.objects.deals.read" ]
-        }, {
-          "private_apps_legacy" : [ "timeline" ]
-        }, {
-          "oauth2" : [ "crm.objects.deals.read" ]
-        }, {
-          "private_apps_legacy" : [ "contacts" ]
-        }, {
-          "private_apps" : [ "crm.objects.contacts.read" ]
-        }, {
-          "oauth2_legacy" : [ "crm.schemas.custom.read" ]
-        }, {
-          "private_apps" : [ "crm.objects.companies.read" ]
-        }, {
-          "private_apps" : [ "crm.objects.deals.write" ]
-        }, {
-          "oauth2" : [ "crm.schemas.quotes.read" ]
-        }, {
-          "private_apps" : [ "crm.schemas.quotes.read" ]
-        }, {
-          "oauth2" : [ "crm.objects.companies.read" ]
-        }, {
-          "oauth2" : [ "crm.objects.deals.write" ]
-        }, {
-          "private_apps_legacy" : [ "crm.schemas.custom.read" ]
-        }, {
-          "private_apps_legacy" : [ "crm.objects.goals.read" ]
-        }, {
-          "private_apps" : [ "crm.schemas.deals.read" ]
-        }, {
-          "oauth2" : [ "crm.schemas.deals.read" ]
-        }, {
-          "oauth2_legacy" : [ "timeline" ]
-        }, {
-          "private_apps_legacy" : [ "media_bridge.read" ]
-        }, {
-          "private_apps" : [ "crm.objects.companies.write" ]
-        }, {
-          "oauth2" : [ "crm.objects.companies.write" ]
-        }, {
-          "oauth2" : [ "crm.schemas.contacts.read" ]
-        }, {
-          "private_apps" : [ "crm.schemas.contacts.read" ]
-        }, {
-          "oauth2_legacy" : [ "tickets" ]
-        }, {
-          "private_apps_legacy" : [ "e-commerce" ]
-        }, {
-          "oauth2" : [ "crm.objects.contacts.write" ]
-        }, {
-          "private_apps" : [ "crm.objects.contacts.write" ]
-        }, {
-          "private_apps" : [ "crm.schemas.companies.read" ]
-        }, {
-          "oauth2" : [ "crm.schemas.companies.read" ]
-        }, {
-          "oauth2_legacy" : [ "e-commerce" ]
-        }, {
-          "private_apps_legacy" : [ "tickets" ]
-        }, {
-          "oauth2_legacy" : [ "crm.objects.goals.read" ]
-        }, {
-          "private_apps" : [ "crm.schemas.line_items.read" ]
-        }, {
-          "oauth2" : [ "crm.schemas.line_items.read" ]
-        } ]
-      },
-      "post" : {
-        "tags" : [ "Groups" ],
-        "summary" : "Create a property group",
-        "description" : "Create and return a copy of a new property group.",
-        "operationId" : "GroupsCreate",
-        "parameters" : [ {
-          "name" : "objectType",
-          "in" : "path",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/PropertyGroupCreate"
-              }
-            }
-          },
-          "required" : true
-        },
-        "responses" : {
-          "201" : {
-            "description" : "successful operation",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/PropertyGroup"
-                }
-              }
-            }
-          },
-          "default" : {
-            "$ref" : "#/components/responses/Error"
-          }
-        },
-        "security" : [ {
-          "oauth2_legacy" : [ "tickets" ]
-        }, {
-          "oauth2" : [ "crm.schemas.deals.write" ]
-        }, {
-          "private_apps_legacy" : [ "e-commerce" ]
-        }, {
-          "oauth2" : [ "crm.schemas.contacts.write" ]
-        }, {
-          "oauth2" : [ "crm.schemas.companies.write" ]
-        }, {
-          "private_apps_legacy" : [ "contacts" ]
-        }, {
-          "private_apps" : [ "crm.schemas.contacts.write" ]
-        }, {
-          "private_apps" : [ "crm.schemas.companies.write" ]
-        }, {
-          "oauth2_legacy" : [ "e-commerce" ]
-        }, {
-          "private_apps_legacy" : [ "tickets" ]
-        }, {
-          "private_apps_legacy" : [ "crm.schemas.custom.write" ]
-        }, {
-          "private_apps" : [ "crm.schemas.deals.write" ]
-        } ]
-      }
-    },
     "/crm/v3/properties/{objectType}" : {
       "get" : {
         "tags" : [ "Core" ],
@@ -1040,9 +889,9 @@
         }, {
           "private_apps" : [ "crm.schemas.quotes.read" ]
         }, {
-          "oauth2" : [ "crm.objects.companies.read" ]
-        }, {
           "oauth2" : [ "crm.objects.deals.write" ]
+        }, {
+          "oauth2" : [ "crm.objects.companies.read" ]
         }, {
           "private_apps_legacy" : [ "crm.schemas.custom.read" ]
         }, {
@@ -1153,6 +1002,176 @@
           "private_apps" : [ "crm.schemas.deals.write" ]
         } ]
       }
+    },
+    "/crm/v3/properties/{objectType}/groups" : {
+      "get" : {
+        "tags" : [ "Groups" ],
+        "summary" : "Read all property groups",
+        "description" : "Read all existing property groups for the specified object type and HubSpot account.",
+        "operationId" : "GroupsGetAll",
+        "parameters" : [ {
+          "name" : "objectType",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CollectionResponsePropertyGroupNoPaging"
+                }
+              }
+            }
+          },
+          "default" : {
+            "$ref" : "#/components/responses/Error"
+          }
+        },
+        "security" : [ {
+          "oauth2_legacy" : [ "media_bridge.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.contacts.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.deals.read" ]
+        }, {
+          "private_apps_legacy" : [ "timeline" ]
+        }, {
+          "oauth2" : [ "crm.objects.deals.read" ]
+        }, {
+          "private_apps_legacy" : [ "contacts" ]
+        }, {
+          "private_apps" : [ "crm.objects.contacts.read" ]
+        }, {
+          "oauth2_legacy" : [ "crm.schemas.custom.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.companies.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.deals.write" ]
+        }, {
+          "oauth2" : [ "crm.schemas.quotes.read" ]
+        }, {
+          "private_apps" : [ "crm.schemas.quotes.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.deals.write" ]
+        }, {
+          "oauth2" : [ "crm.objects.companies.read" ]
+        }, {
+          "private_apps_legacy" : [ "crm.schemas.custom.read" ]
+        }, {
+          "private_apps_legacy" : [ "crm.objects.goals.read" ]
+        }, {
+          "private_apps" : [ "crm.schemas.deals.read" ]
+        }, {
+          "oauth2" : [ "crm.schemas.deals.read" ]
+        }, {
+          "oauth2_legacy" : [ "timeline" ]
+        }, {
+          "private_apps_legacy" : [ "media_bridge.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.companies.write" ]
+        }, {
+          "oauth2" : [ "crm.objects.companies.write" ]
+        }, {
+          "oauth2" : [ "crm.schemas.contacts.read" ]
+        }, {
+          "private_apps" : [ "crm.schemas.contacts.read" ]
+        }, {
+          "oauth2_legacy" : [ "tickets" ]
+        }, {
+          "private_apps_legacy" : [ "e-commerce" ]
+        }, {
+          "oauth2" : [ "crm.objects.contacts.write" ]
+        }, {
+          "private_apps" : [ "crm.objects.contacts.write" ]
+        }, {
+          "private_apps" : [ "crm.schemas.companies.read" ]
+        }, {
+          "oauth2" : [ "crm.schemas.companies.read" ]
+        }, {
+          "oauth2_legacy" : [ "e-commerce" ]
+        }, {
+          "private_apps_legacy" : [ "tickets" ]
+        }, {
+          "oauth2_legacy" : [ "crm.objects.goals.read" ]
+        }, {
+          "private_apps" : [ "crm.schemas.line_items.read" ]
+        }, {
+          "oauth2" : [ "crm.schemas.line_items.read" ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "Groups" ],
+        "summary" : "Create a property group",
+        "description" : "Create and return a copy of a new property group.",
+        "operationId" : "GroupsCreate",
+        "parameters" : [ {
+          "name" : "objectType",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/PropertyGroupCreate"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PropertyGroup"
+                }
+              }
+            }
+          },
+          "default" : {
+            "$ref" : "#/components/responses/Error"
+          }
+        },
+        "security" : [ {
+          "oauth2_legacy" : [ "tickets" ]
+        }, {
+          "oauth2" : [ "crm.schemas.deals.write" ]
+        }, {
+          "private_apps_legacy" : [ "e-commerce" ]
+        }, {
+          "oauth2" : [ "crm.schemas.contacts.write" ]
+        }, {
+          "oauth2" : [ "crm.schemas.companies.write" ]
+        }, {
+          "private_apps_legacy" : [ "contacts" ]
+        }, {
+          "private_apps" : [ "crm.schemas.contacts.write" ]
+        }, {
+          "private_apps" : [ "crm.schemas.companies.write" ]
+        }, {
+          "oauth2_legacy" : [ "e-commerce" ]
+        }, {
+          "private_apps_legacy" : [ "tickets" ]
+        }, {
+          "private_apps_legacy" : [ "crm.schemas.custom.write" ]
+        }, {
+          "private_apps" : [ "crm.schemas.deals.write" ]
+        } ]
+      }
     }
   },
   "components" : {
@@ -1161,27 +1180,9 @@
         "required" : [ "category", "context", "errors", "links", "message", "status" ],
         "type" : "object",
         "properties" : {
-          "status" : {
-            "type" : "string"
-          },
-          "id" : {
-            "type" : "string"
-          },
-          "category" : {
-            "type" : "string"
-          },
           "subCategory" : {
             "type" : "object",
             "properties" : { }
-          },
-          "message" : {
-            "type" : "string"
-          },
-          "errors" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/ErrorDetail"
-            }
           },
           "context" : {
             "type" : "object",
@@ -1197,6 +1198,24 @@
             "additionalProperties" : {
               "type" : "string"
             }
+          },
+          "id" : {
+            "type" : "string"
+          },
+          "category" : {
+            "type" : "string"
+          },
+          "message" : {
+            "type" : "string"
+          },
+          "errors" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ErrorDetail"
+            }
+          },
+          "status" : {
+            "type" : "string"
           }
         }
       },
@@ -1206,7 +1225,8 @@
         "properties" : {
           "name" : {
             "type" : "string",
-            "description" : "The name of the property to read or modify."
+            "description" : "The name of the property to read or modify.",
+            "example" : "my_custom_property"
           }
         },
         "example" : {
@@ -1217,15 +1237,9 @@
         "required" : [ "completedAt", "results", "startedAt", "status" ],
         "type" : "object",
         "properties" : {
-          "status" : {
+          "completedAt" : {
             "type" : "string",
-            "enum" : [ "PENDING", "PROCESSING", "CANCELED", "COMPLETE" ]
-          },
-          "results" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/Property"
-            }
+            "format" : "date-time"
           },
           "requestedAt" : {
             "type" : "string",
@@ -1235,15 +1249,21 @@
             "type" : "string",
             "format" : "date-time"
           },
-          "completedAt" : {
-            "type" : "string",
-            "format" : "date-time"
-          },
           "links" : {
             "type" : "object",
             "additionalProperties" : {
               "type" : "string"
             }
+          },
+          "results" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Property"
+            }
+          },
+          "status" : {
+            "type" : "string",
+            "enum" : [ "PENDING", "PROCESSING", "CANCELED", "COMPLETE" ]
           }
         }
       },
@@ -1251,21 +1271,24 @@
         "required" : [ "archived", "displayOrder", "label", "name" ],
         "type" : "object",
         "properties" : {
+          "archived" : {
+            "type" : "boolean"
+          },
           "name" : {
             "type" : "string",
-            "description" : "The internal property group name, which must be used when referencing the property group via the API."
-          },
-          "label" : {
-            "type" : "string",
-            "description" : "A human-readable label that will be shown in HubSpot."
+            "description" : "The internal property group name, which must be used when referencing the property group via the API.",
+            "example" : "mypropertygroup"
           },
           "displayOrder" : {
             "type" : "integer",
             "description" : "Property groups are displayed in order starting with the lowest positive integer value. Values of -1 will cause the property group to be displayed after any positive values.",
-            "format" : "int32"
+            "format" : "int32",
+            "example" : -1
           },
-          "archived" : {
-            "type" : "boolean"
+          "label" : {
+            "type" : "string",
+            "description" : "A human-readable label that will be shown in HubSpot.",
+            "example" : "My Property Group"
           }
         },
         "description" : "An ID for a group of properties",
@@ -1291,67 +1314,88 @@
         "required" : [ "fieldType", "groupName", "label", "name", "type" ],
         "type" : "object",
         "properties" : {
-          "name" : {
-            "type" : "string",
-            "description" : "The internal property name, which must be used when referencing the property via the API."
+          "hidden" : {
+            "type" : "boolean",
+            "description" : "If true, the property won't be visible and can't be used in HubSpot.",
+            "example" : false
           },
-          "label" : {
-            "type" : "string",
-            "description" : "A human-readable property label that will be shown in HubSpot."
-          },
-          "type" : {
-            "type" : "string",
-            "description" : "The data type of the property.",
-            "enum" : [ "string", "number", "date", "datetime", "enumeration", "bool" ]
-          },
-          "fieldType" : {
-            "type" : "string",
-            "description" : "Controls how the property appears in HubSpot.",
-            "enum" : [ "textarea", "text", "date", "file", "number", "select", "radio", "checkbox", "booleancheckbox", "calculation_equation" ]
-          },
-          "groupName" : {
-            "type" : "string",
-            "description" : "The name of the property group the property belongs to."
+          "displayOrder" : {
+            "type" : "integer",
+            "description" : "Properties are displayed in order starting with the lowest positive integer value. Values of -1 will cause the property to be displayed after any positive values.",
+            "format" : "int32",
+            "example" : 2
           },
           "description" : {
             "type" : "string",
             "description" : "A description of the property that will be shown as help text in HubSpot."
           },
-          "options" : {
-            "type" : "array",
-            "description" : "A list of valid options for the property. This field is required for enumerated properties.",
-            "items" : {
-              "$ref" : "#/components/schemas/OptionInput"
-            }
+          "label" : {
+            "type" : "string",
+            "description" : "A human-readable property label that will be shown in HubSpot.",
+            "example" : "My Contact Property"
           },
-          "displayOrder" : {
-            "type" : "integer",
-            "description" : "Properties are displayed in order starting with the lowest positive integer value. Values of -1 will cause the property to be displayed after any positive values.",
-            "format" : "int32"
-          },
-          "hasUniqueValue" : {
-            "type" : "boolean",
-            "description" : "Whether or not the property's value must be unique. Once set, this can't be changed."
-          },
-          "hidden" : {
-            "type" : "boolean",
-            "description" : "If true, the property won't be visible and can't be used in HubSpot."
+          "type" : {
+            "type" : "string",
+            "description" : "The data type of the property.",
+            "example" : "enumeration",
+            "enum" : [ "string", "number", "date", "datetime", "enumeration", "bool" ]
           },
           "formField" : {
             "type" : "boolean",
-            "description" : "Whether or not the property can be used in a HubSpot form."
+            "description" : "Whether or not the property can be used in a HubSpot form.",
+            "example" : true
           },
-          "externalOptions" : {
-            "type" : "boolean",
-            "description" : "Applicable only for 'enumeration' type properties.  Should be set to true in conjunction with a 'referencedObjectType' of 'OWNER'.  Otherwise false."
+          "groupName" : {
+            "type" : "string",
+            "description" : "The name of the property group the property belongs to.",
+            "example" : "contactinformation"
           },
           "referencedObjectType" : {
             "type" : "string",
             "description" : "Should be set to 'OWNER' when 'externalOptions' is true, which causes the property to dynamically pull option values from the current HubSpot users."
           },
+          "name" : {
+            "type" : "string",
+            "description" : "The internal property name, which must be used when referencing the property via the API."
+          },
+          "options" : {
+            "type" : "array",
+            "description" : "A list of valid options for the property. This field is required for enumerated properties.",
+            "example" : [ {
+              "label" : "Option A",
+              "value" : "A",
+              "hidden" : false,
+              "description" : "Choice number one",
+              "displayOrder" : 1
+            }, {
+              "label" : "Option B",
+              "value" : "B",
+              "hidden" : false,
+              "description" : "Choice number two",
+              "displayOrder" : 2
+            } ],
+            "items" : {
+              "$ref" : "#/components/schemas/OptionInput"
+            }
+          },
           "calculationFormula" : {
             "type" : "string",
             "description" : "Represents a formula that is used to compute a calculated property."
+          },
+          "hasUniqueValue" : {
+            "type" : "boolean",
+            "description" : "Whether or not the property's value must be unique. Once set, this can't be changed.",
+            "example" : false
+          },
+          "fieldType" : {
+            "type" : "string",
+            "description" : "Controls how the property appears in HubSpot.",
+            "example" : "select",
+            "enum" : [ "textarea", "text", "date", "file", "number", "select", "radio", "checkbox", "booleancheckbox", "calculation_equation" ]
+          },
+          "externalOptions" : {
+            "type" : "boolean",
+            "description" : "Applicable only for 'enumeration' type properties.  Should be set to true in conjunction with a 'referencedObjectType' of 'OWNER'.  Otherwise false."
           }
         },
         "example" : {
@@ -1382,26 +1426,31 @@
         "required" : [ "hidden", "label", "value" ],
         "type" : "object",
         "properties" : {
-          "label" : {
-            "type" : "string",
-            "description" : "A human-readable option label that will be shown in HubSpot."
-          },
-          "value" : {
-            "type" : "string",
-            "description" : "The internal value of the option, which must be used when setting the property value through the API."
-          },
-          "description" : {
-            "type" : "string",
-            "description" : "A description of the option."
+          "hidden" : {
+            "type" : "boolean",
+            "description" : "Hidden options won't be shown in HubSpot.",
+            "example" : false
           },
           "displayOrder" : {
             "type" : "integer",
             "description" : "Options are shown in order starting with the lowest positive integer value. Values of -1 will cause the option to be displayed after any positive values.",
-            "format" : "int32"
+            "format" : "int32",
+            "example" : 1
           },
-          "hidden" : {
-            "type" : "boolean",
-            "description" : "Hidden options won't be shown in HubSpot."
+          "description" : {
+            "type" : "string",
+            "description" : "A description of the option.",
+            "example" : "Choice number one"
+          },
+          "label" : {
+            "type" : "string",
+            "description" : "A human-readable option label that will be shown in HubSpot.",
+            "example" : "Option A"
+          },
+          "value" : {
+            "type" : "string",
+            "description" : "The internal value of the option, which must be used when setting the property value through the API.",
+            "example" : "A"
           }
         },
         "example" : {
@@ -1416,31 +1465,9 @@
         "required" : [ "category", "correlationId", "message" ],
         "type" : "object",
         "properties" : {
-          "message" : {
-            "type" : "string",
-            "description" : "A human readable message describing the error along with remediation steps where appropriate",
-            "example" : "An error occurred"
-          },
-          "correlationId" : {
-            "type" : "string",
-            "description" : "A unique identifier for the request. Include this value with any error reports or support tickets",
-            "format" : "uuid",
-            "example" : "aeb5f871-7f07-4993-9211-075dc63e7cbf"
-          },
-          "category" : {
-            "type" : "string",
-            "description" : "The error category"
-          },
           "subCategory" : {
             "type" : "string",
             "description" : "A specific category that contains more specific detail about the error"
-          },
-          "errors" : {
-            "type" : "array",
-            "description" : "further information about the error",
-            "items" : {
-              "$ref" : "#/components/schemas/ErrorDetail"
-            }
           },
           "context" : {
             "type" : "object",
@@ -1452,16 +1479,42 @@
             },
             "description" : "Context about the error condition",
             "example" : {
-              "invalidPropertyName" : [ "propertyValue" ],
-              "missingScopes" : [ "scope1", "scope2" ]
+              "missingScopes" : [ "scope1", "scope2" ],
+              "invalidPropertyName" : [ "propertyValue" ]
             }
+          },
+          "correlationId" : {
+            "type" : "string",
+            "description" : "A unique identifier for the request. Include this value with any error reports or support tickets",
+            "format" : "uuid",
+            "example" : "aeb5f871-7f07-4993-9211-075dc63e7cbf"
           },
           "links" : {
             "type" : "object",
             "additionalProperties" : {
               "type" : "string"
             },
-            "description" : "A map of link names to associated URIs containing documentation about the error or recommended remediation steps"
+            "description" : "A map of link names to associated URIs containing documentation about the error or recommended remediation steps",
+            "example" : {
+              "knowledge-base" : "https://www.hubspot.com/products/service/knowledge-base"
+            }
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "A human readable message describing the error along with remediation steps where appropriate",
+            "example" : "Invalid input (details will vary based on the error)"
+          },
+          "category" : {
+            "type" : "string",
+            "description" : "The error category",
+            "example" : "VALIDATION_ERROR"
+          },
+          "errors" : {
+            "type" : "array",
+            "description" : "further information about the error",
+            "items" : {
+              "$ref" : "#/components/schemas/ErrorDetail"
+            }
           }
         },
         "example" : {
@@ -1477,21 +1530,17 @@
         "required" : [ "message" ],
         "type" : "object",
         "properties" : {
-          "message" : {
+          "subCategory" : {
             "type" : "string",
-            "description" : "A human readable message describing the error along with remediation steps where appropriate"
-          },
-          "in" : {
-            "type" : "string",
-            "description" : "The name of the field or parameter in which the error was found."
+            "description" : "A specific category that contains more specific detail about the error"
           },
           "code" : {
             "type" : "string",
             "description" : "The status code associated with the error detail"
           },
-          "subCategory" : {
+          "in" : {
             "type" : "string",
-            "description" : "A specific category that contains more specific detail about the error"
+            "description" : "The name of the field or parameter in which the error was found."
           },
           "context" : {
             "type" : "object",
@@ -1505,6 +1554,10 @@
             "example" : {
               "missingScopes" : [ "scope1", "scope2" ]
             }
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "A human readable message describing the error along with remediation steps where appropriate"
           }
         }
       },
@@ -1535,31 +1588,32 @@
       "PropertyUpdate" : {
         "type" : "object",
         "properties" : {
-          "label" : {
-            "type" : "string",
-            "description" : "A human-readable property label that will be shown in HubSpot."
-          },
-          "type" : {
-            "type" : "string",
-            "description" : "The data type of the property.",
-            "enum" : [ "string", "number", "date", "datetime", "enumeration", "bool" ]
-          },
-          "fieldType" : {
-            "type" : "string",
-            "description" : "Controls how the property appears in HubSpot.",
-            "enum" : [ "textarea", "text", "date", "file", "number", "select", "radio", "checkbox", "booleancheckbox", "calculation_equation" ]
-          },
           "groupName" : {
             "type" : "string",
-            "description" : "The name of the property group the property belongs to."
+            "description" : "The name of the property group the property belongs to.",
+            "example" : "contactinformation"
           },
-          "description" : {
-            "type" : "string",
-            "description" : "A description of the property that will be shown as help text in HubSpot."
+          "hidden" : {
+            "type" : "boolean",
+            "description" : "If true, the property won't be visible and can't be used in HubSpot.",
+            "example" : false
           },
           "options" : {
             "type" : "array",
             "description" : "A list of valid options for the property.",
+            "example" : [ {
+              "label" : "Option A",
+              "value" : "A",
+              "hidden" : false,
+              "description" : "Choice number one",
+              "displayOrder" : 1
+            }, {
+              "label" : "Option B",
+              "value" : "B",
+              "hidden" : false,
+              "description" : "Choice number two",
+              "displayOrder" : 2
+            } ],
             "items" : {
               "$ref" : "#/components/schemas/OptionInput"
             }
@@ -1567,19 +1621,38 @@
           "displayOrder" : {
             "type" : "integer",
             "description" : "Properties are displayed in order starting with the lowest positive integer value. Values of -1 will cause the Property to be displayed after any positive values.",
-            "format" : "int32"
+            "format" : "int32",
+            "example" : 2
           },
-          "hidden" : {
-            "type" : "boolean",
-            "description" : "If true, the property won't be visible and can't be used in HubSpot."
-          },
-          "formField" : {
-            "type" : "boolean",
-            "description" : "Whether or not the property can be used in a HubSpot form."
+          "description" : {
+            "type" : "string",
+            "description" : "A description of the property that will be shown as help text in HubSpot."
           },
           "calculationFormula" : {
             "type" : "string",
             "description" : "Represents a formula that is used to compute a calculated property."
+          },
+          "label" : {
+            "type" : "string",
+            "description" : "A human-readable property label that will be shown in HubSpot.",
+            "example" : "My Contact Property"
+          },
+          "type" : {
+            "type" : "string",
+            "description" : "The data type of the property.",
+            "example" : "enumeration",
+            "enum" : [ "string", "number", "date", "datetime", "enumeration", "bool" ]
+          },
+          "fieldType" : {
+            "type" : "string",
+            "description" : "Controls how the property appears in HubSpot.",
+            "example" : "select",
+            "enum" : [ "textarea", "text", "date", "file", "number", "select", "radio", "checkbox", "booleancheckbox", "calculation_equation" ]
+          },
+          "formField" : {
+            "type" : "boolean",
+            "description" : "Whether or not the property can be used in a HubSpot form.",
+            "example" : true
           }
         },
         "example" : {
@@ -1609,16 +1682,16 @@
         "required" : [ "archivable", "readOnlyDefinition", "readOnlyValue" ],
         "type" : "object",
         "properties" : {
-          "archivable" : {
+          "readOnlyOptions" : {
+            "type" : "boolean"
+          },
+          "readOnlyValue" : {
             "type" : "boolean"
           },
           "readOnlyDefinition" : {
             "type" : "boolean"
           },
-          "readOnlyOptions" : {
-            "type" : "boolean"
-          },
-          "readOnlyValue" : {
+          "archivable" : {
             "type" : "boolean"
           }
         }
@@ -1629,16 +1702,19 @@
         "properties" : {
           "name" : {
             "type" : "string",
-            "description" : "The internal property group name, which must be used when referencing the property group via the API."
-          },
-          "label" : {
-            "type" : "string",
-            "description" : "A human-readable label that will be shown in HubSpot."
+            "description" : "The internal property group name, which must be used when referencing the property group via the API.",
+            "example" : "mypropertygroup"
           },
           "displayOrder" : {
             "type" : "integer",
             "description" : "Property groups are displayed in order starting with the lowest positive integer value. Values of -1 will cause the property group to be displayed after any positive values.",
-            "format" : "int32"
+            "format" : "int32",
+            "example" : -1
+          },
+          "label" : {
+            "type" : "string",
+            "description" : "A human-readable label that will be shown in HubSpot.",
+            "example" : "My Property Group"
           }
         },
         "example" : {
@@ -1678,25 +1754,13 @@
         "required" : [ "completedAt", "results", "startedAt", "status" ],
         "type" : "object",
         "properties" : {
-          "status" : {
+          "completedAt" : {
             "type" : "string",
-            "enum" : [ "PENDING", "PROCESSING", "CANCELED", "COMPLETE" ]
-          },
-          "results" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/Property"
-            }
+            "format" : "date-time"
           },
           "numErrors" : {
             "type" : "integer",
             "format" : "int32"
-          },
-          "errors" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/StandardError"
-            }
           },
           "requestedAt" : {
             "type" : "string",
@@ -1706,15 +1770,27 @@
             "type" : "string",
             "format" : "date-time"
           },
-          "completedAt" : {
-            "type" : "string",
-            "format" : "date-time"
-          },
           "links" : {
             "type" : "object",
             "additionalProperties" : {
               "type" : "string"
             }
+          },
+          "results" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Property"
+            }
+          },
+          "errors" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/StandardError"
+            }
+          },
+          "status" : {
+            "type" : "string",
+            "enum" : [ "PENDING", "PROCESSING", "CANCELED", "COMPLETE" ]
           }
         }
       },
@@ -1722,26 +1798,31 @@
         "required" : [ "hidden", "label", "value" ],
         "type" : "object",
         "properties" : {
-          "label" : {
-            "type" : "string",
-            "description" : "A human-readable option label that will be shown in HubSpot."
-          },
-          "value" : {
-            "type" : "string",
-            "description" : "The internal value of the option, which must be used when setting the property value through the API."
-          },
-          "description" : {
-            "type" : "string",
-            "description" : "A description of the option."
+          "hidden" : {
+            "type" : "boolean",
+            "description" : "Hidden options will not be displayed in HubSpot.",
+            "example" : false
           },
           "displayOrder" : {
             "type" : "integer",
             "description" : "Options are displayed in order starting with the lowest positive integer value. Values of -1 will cause the option to be displayed after any positive values.",
-            "format" : "int32"
+            "format" : "int32",
+            "example" : 1
           },
-          "hidden" : {
-            "type" : "boolean",
-            "description" : "Hidden options will not be displayed in HubSpot."
+          "description" : {
+            "type" : "string",
+            "description" : "A description of the option.",
+            "example" : "Choice number one"
+          },
+          "label" : {
+            "type" : "string",
+            "description" : "A human-readable option label that will be shown in HubSpot.",
+            "example" : "Option A"
+          },
+          "value" : {
+            "type" : "string",
+            "description" : "The internal value of the option, which must be used when setting the property value through the API.",
+            "example" : "A"
           }
         },
         "example" : {
@@ -1755,14 +1836,16 @@
       "PropertyGroupUpdate" : {
         "type" : "object",
         "properties" : {
-          "label" : {
-            "type" : "string",
-            "description" : "A human-readable label that will be shown in HubSpot."
-          },
           "displayOrder" : {
             "type" : "integer",
             "description" : "Property groups are displayed in order starting with the lowest positive integer value. Values of -1 will cause the property group to be displayed after any positive values.",
-            "format" : "int32"
+            "format" : "int32",
+            "example" : -1
+          },
+          "label" : {
+            "type" : "string",
+            "description" : "A human-readable label that will be shown in HubSpot.",
+            "example" : "My Property Group"
           }
         },
         "example" : {
@@ -1774,12 +1857,54 @@
         "required" : [ "description", "fieldType", "groupName", "label", "name", "options", "type" ],
         "type" : "object",
         "properties" : {
-          "updatedAt" : {
+          "createdUserId" : {
             "type" : "string",
-            "format" : "date-time"
+            "description" : "The internal user ID of the user who created the property in HubSpot. This field may not exist if the property was created outside of HubSpot."
+          },
+          "hidden" : {
+            "type" : "boolean",
+            "description" : "Whether or not the property will be hidden from the HubSpot UI. It's recommended this be set to false for custom properties.",
+            "example" : false
+          },
+          "modificationMetadata" : {
+            "$ref" : "#/components/schemas/PropertyModificationMetadata"
+          },
+          "displayOrder" : {
+            "type" : "integer",
+            "description" : "Properties are shown in order, starting with the lowest positive integer value.",
+            "format" : "int32",
+            "example" : 2
+          },
+          "description" : {
+            "type" : "string",
+            "description" : "A description of the property that will be shown as help text in HubSpot."
+          },
+          "showCurrencySymbol" : {
+            "type" : "boolean",
+            "description" : "Whether or not the property will display the currency symbol set in the account settings."
+          },
+          "label" : {
+            "type" : "string",
+            "description" : "A human-readable property label that will be shown in HubSpot.",
+            "example" : "My Contact Property"
+          },
+          "type" : {
+            "type" : "string",
+            "description" : "The property data type.",
+            "example" : "enumeration"
+          },
+          "hubspotDefined" : {
+            "type" : "boolean",
+            "description" : "This will be true for default object properties built into HubSpot."
+          },
+          "formField" : {
+            "type" : "boolean",
+            "description" : "Whether or not the property can be used in a HubSpot form.",
+            "example" : true
           },
           "createdAt" : {
             "type" : "string",
+            "description" : "",
             "format" : "date-time"
           },
           "archivedAt" : {
@@ -1787,53 +1912,61 @@
             "description" : "When the property was archived.",
             "format" : "date-time"
           },
-          "name" : {
-            "type" : "string",
-            "description" : "The internal property name, which must be used when referencing the property via the API."
-          },
-          "label" : {
-            "type" : "string",
-            "description" : "A human-readable property label that will be shown in HubSpot."
-          },
-          "type" : {
-            "type" : "string",
-            "description" : "The property data type."
-          },
-          "fieldType" : {
-            "type" : "string",
-            "description" : "Controls how the property appears in HubSpot."
-          },
-          "description" : {
-            "type" : "string",
-            "description" : "A description of the property that will be shown as help text in HubSpot."
+          "archived" : {
+            "type" : "boolean",
+            "description" : "Whether or not the property is archived."
           },
           "groupName" : {
             "type" : "string",
-            "description" : "The name of the property group the property belongs to."
-          },
-          "options" : {
-            "type" : "array",
-            "description" : "A list of valid options for the property. This field is required for enumerated properties, but will be empty for other property types.",
-            "items" : {
-              "$ref" : "#/components/schemas/Option"
-            }
-          },
-          "createdUserId" : {
-            "type" : "string",
-            "description" : "The internal user ID of the user who created the property in HubSpot. This field may not exist if the property was created outside of HubSpot."
-          },
-          "updatedUserId" : {
-            "type" : "string",
-            "description" : "The internal user ID of the user who updated the property in HubSpot. This field may not exist if the property was updated outside of HubSpot."
+            "description" : "The name of the property group the property belongs to.",
+            "example" : "contactinformation"
           },
           "referencedObjectType" : {
             "type" : "string",
             "description" : "If this property is related to other object(s), they'll be listed here."
           },
-          "displayOrder" : {
-            "type" : "integer",
-            "description" : "Properties are shown in order, starting with the lowest positive integer value.",
-            "format" : "int32"
+          "name" : {
+            "type" : "string",
+            "description" : "The internal property name, which must be used when referencing the property via the API.",
+            "example" : "my_contact_property"
+          },
+          "options" : {
+            "type" : "array",
+            "description" : "A list of valid options for the property. This field is required for enumerated properties, but will be empty for other property types.",
+            "example" : [ {
+              "label" : "Option A",
+              "value" : "A",
+              "hidden" : false,
+              "description" : "Choice number one",
+              "displayOrder" : 1
+            }, {
+              "label" : "Option B",
+              "value" : "B",
+              "hidden" : false,
+              "description" : "Choice number two",
+              "displayOrder" : 2
+            } ],
+            "items" : {
+              "$ref" : "#/components/schemas/Option"
+            }
+          },
+          "calculationFormula" : {
+            "type" : "string",
+            "description" : "Represents a formula that is used to compute a calculated property."
+          },
+          "hasUniqueValue" : {
+            "type" : "boolean",
+            "description" : "Whether or not the property's value must be unique. Once set, this can't be changed.",
+            "example" : false
+          },
+          "fieldType" : {
+            "type" : "string",
+            "description" : "Controls how the property appears in HubSpot.",
+            "example" : "select"
+          },
+          "updatedUserId" : {
+            "type" : "string",
+            "description" : "The internal user ID of the user who updated the property in HubSpot. This field may not exist if the property was updated outside of HubSpot."
           },
           "calculated" : {
             "type" : "boolean",
@@ -1843,36 +1976,10 @@
             "type" : "boolean",
             "description" : "For default properties, true indicates that the options are stored externally to the property settings."
           },
-          "archived" : {
-            "type" : "boolean",
-            "description" : "Whether or not the property is archived."
-          },
-          "hasUniqueValue" : {
-            "type" : "boolean",
-            "description" : "Whether or not the property's value must be unique. Once set, this can't be changed."
-          },
-          "hidden" : {
-            "type" : "boolean",
-            "description" : "Whether or not the property will be hidden from the HubSpot UI. It's recommended this be set to false for custom properties."
-          },
-          "hubspotDefined" : {
-            "type" : "boolean",
-            "description" : "This will be true for default object properties built into HubSpot."
-          },
-          "showCurrencySymbol" : {
-            "type" : "boolean",
-            "description" : "Whether or not the property will display the currency symbol set in the account settings."
-          },
-          "modificationMetadata" : {
-            "$ref" : "#/components/schemas/PropertyModificationMetadata"
-          },
-          "formField" : {
-            "type" : "boolean",
-            "description" : "Whether or not the property can be used in a HubSpot form."
-          },
-          "calculationFormula" : {
+          "updatedAt" : {
             "type" : "string",
-            "description" : "Represents a formula that is used to compute a calculated property."
+            "description" : "",
+            "format" : "date-time"
           }
         },
         "example" : {
@@ -1927,12 +2034,12 @@
             "authorizationUrl" : "https://app.hubspot.com/oauth/authorize",
             "tokenUrl" : "https://api.hubapi.com/oauth/v1/token",
             "scopes" : {
-              "crm.schemas.custom.read" : "View custom object definitions",
-              "tickets" : "Read and write tickets",
               "crm.objects.goals.read" : "Read goals",
-              "media_bridge.read" : "Read media and media events",
+              "tickets" : "Read and write tickets",
+              "crm.schemas.custom.read" : "View custom object definitions",
+              "timeline" : "Create timeline events",
               "e-commerce" : "e-commerce",
-              "timeline" : "Create timeline events"
+              "media_bridge.read" : "Read media and media events"
             }
           }
         }
@@ -1944,20 +2051,20 @@
             "authorizationUrl" : "https://app.hubspot.com/oauth/authorize",
             "tokenUrl" : "https://api.hubapi.com/oauth/v1/token",
             "scopes" : {
-              "crm.objects.companies.read" : " ",
-              "crm.schemas.companies.read" : " ",
-              "crm.objects.deals.read" : " ",
-              "crm.schemas.line_items.read" : "Line Items schemas",
-              "crm.objects.deals.write" : " ",
-              "crm.schemas.deals.read" : " ",
               "crm.objects.contacts.read" : " ",
-              "crm.schemas.quotes.read" : "Quotes schemas",
-              "crm.objects.contacts.write" : " ",
-              "crm.schemas.contacts.read" : " ",
+              "crm.schemas.deals.read" : " ",
+              "crm.objects.deals.write" : " ",
+              "crm.schemas.line_items.read" : "Line Items schemas",
+              "crm.objects.deals.read" : " ",
+              "crm.schemas.companies.read" : " ",
+              "crm.objects.companies.read" : " ",
               "crm.objects.companies.write" : " ",
+              "crm.schemas.contacts.read" : " ",
+              "crm.objects.contacts.write" : " ",
+              "crm.schemas.quotes.read" : "Quotes schemas",
               "crm.schemas.companies.write" : " ",
-              "crm.schemas.deals.write" : " ",
-              "crm.schemas.contacts.write" : " "
+              "crm.schemas.contacts.write" : " ",
+              "crm.schemas.deals.write" : " "
             }
           }
         }
@@ -1979,7 +2086,7 @@
     "marketing" : "FREE",
     "sales" : "FREE",
     "service" : "FREE",
-    "cms" : "FREE"
+    "cms" : "STARTER"
   },
   "x-hubspot-documentation-banner" : "NONE"
 }

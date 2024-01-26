@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**OutputFields** | **map[string]string** | A map of action output names and values. | 
+**OutputFields** | **map[string]string** |  | 
 
 ## Methods
 

@@ -1,5 +1,5 @@
 /*
-Blog Post endpoints
+Authors
 
 Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags
 
@@ -16,10 +16,10 @@ import (
 
 // BlogAuthorCloneRequestVNext Request body object for cloning blog authors.
 type BlogAuthorCloneRequestVNext struct {
-	// ID of the object to be cloned.
-	Id string `json:"id"`
 	// Language of newly cloned object.
 	Language *string `json:"language,omitempty"`
+	// ID of the object to be cloned.
+	Id string `json:"id"`
 	// Primary language in multi-language group.
 	PrimaryLanguage *string    `json:"primaryLanguage,omitempty"`
 	BlogAuthor      BlogAuthor `json:"blogAuthor"`
@@ -42,30 +42,6 @@ func NewBlogAuthorCloneRequestVNext(id string, blogAuthor BlogAuthor) *BlogAutho
 func NewBlogAuthorCloneRequestVNextWithDefaults() *BlogAuthorCloneRequestVNext {
 	this := BlogAuthorCloneRequestVNext{}
 	return &this
-}
-
-// GetId returns the Id field value
-func (o *BlogAuthorCloneRequestVNext) GetId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Id
-}
-
-// GetIdOk returns a tuple with the Id field value
-// and a boolean to check if the value has been set.
-func (o *BlogAuthorCloneRequestVNext) GetIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Id, true
-}
-
-// SetId sets field value
-func (o *BlogAuthorCloneRequestVNext) SetId(v string) {
-	o.Id = v
 }
 
 // GetLanguage returns the Language field value if set, zero value otherwise.
@@ -98,6 +74,30 @@ func (o *BlogAuthorCloneRequestVNext) HasLanguage() bool {
 // SetLanguage gets a reference to the given string and assigns it to the Language field.
 func (o *BlogAuthorCloneRequestVNext) SetLanguage(v string) {
 	o.Language = &v
+}
+
+// GetId returns the Id field value
+func (o *BlogAuthorCloneRequestVNext) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *BlogAuthorCloneRequestVNext) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *BlogAuthorCloneRequestVNext) SetId(v string) {
+	o.Id = v
 }
 
 // GetPrimaryLanguage returns the PrimaryLanguage field value if set, zero value otherwise.
@@ -158,11 +158,11 @@ func (o *BlogAuthorCloneRequestVNext) SetBlogAuthor(v BlogAuthor) {
 
 func (o BlogAuthorCloneRequestVNext) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
 	if o.Language != nil {
 		toSerialize["language"] = o.Language
+	}
+	if true {
+		toSerialize["id"] = o.Id
 	}
 	if o.PrimaryLanguage != nil {
 		toSerialize["primaryLanguage"] = o.PrimaryLanguage

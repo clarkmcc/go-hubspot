@@ -1,5 +1,5 @@
 /*
-CMS Performance API
+CMS Performance
 
 Use these endpoints to get a time series view of your website's performance.
 
@@ -41,7 +41,7 @@ var (
 	xmlCheck  = regexp.MustCompile(`(?i:(?:application|text)/xml)`)
 )
 
-// APIClient manages communication with the CMS Performance API API vv3
+// APIClient manages communication with the CMS Performance API vv3
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration

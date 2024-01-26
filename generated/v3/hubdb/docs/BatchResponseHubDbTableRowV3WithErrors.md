@@ -4,20 +4,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Status** | **string** |  | 
-**Results** | [**[]HubDbTableRowV3**](HubDbTableRowV3.md) |  | 
+**CompletedAt** | **time.Time** |  | 
 **NumErrors** | Pointer to **int32** |  | [optional] 
-**Errors** | Pointer to [**[]StandardError**](StandardError.md) |  | [optional] 
 **RequestedAt** | Pointer to **time.Time** |  | [optional] 
 **StartedAt** | **time.Time** |  | 
-**CompletedAt** | **time.Time** |  | 
 **Links** | Pointer to **map[string]string** |  | [optional] 
+**Results** | [**[]HubDbTableRowV3**](HubDbTableRowV3.md) |  | 
+**Errors** | Pointer to [**[]StandardError**](StandardError.md) |  | [optional] 
+**Status** | **string** |  | 
 
 ## Methods
 
 ### NewBatchResponseHubDbTableRowV3WithErrors
 
-`func NewBatchResponseHubDbTableRowV3WithErrors(status string, results []HubDbTableRowV3, startedAt time.Time, completedAt time.Time, ) *BatchResponseHubDbTableRowV3WithErrors`
+`func NewBatchResponseHubDbTableRowV3WithErrors(completedAt time.Time, startedAt time.Time, results []HubDbTableRowV3, status string, ) *BatchResponseHubDbTableRowV3WithErrors`
 
 NewBatchResponseHubDbTableRowV3WithErrors instantiates a new BatchResponseHubDbTableRowV3WithErrors object
 This constructor will assign default values to properties that have it defined,
@@ -32,44 +32,24 @@ NewBatchResponseHubDbTableRowV3WithErrorsWithDefaults instantiates a new BatchRe
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetStatus
+### GetCompletedAt
 
-`func (o *BatchResponseHubDbTableRowV3WithErrors) GetStatus() string`
+`func (o *BatchResponseHubDbTableRowV3WithErrors) GetCompletedAt() time.Time`
 
-GetStatus returns the Status field if non-nil, zero value otherwise.
+GetCompletedAt returns the CompletedAt field if non-nil, zero value otherwise.
 
-### GetStatusOk
+### GetCompletedAtOk
 
-`func (o *BatchResponseHubDbTableRowV3WithErrors) GetStatusOk() (*string, bool)`
+`func (o *BatchResponseHubDbTableRowV3WithErrors) GetCompletedAtOk() (*time.Time, bool)`
 
-GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
+GetCompletedAtOk returns a tuple with the CompletedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetStatus
+### SetCompletedAt
 
-`func (o *BatchResponseHubDbTableRowV3WithErrors) SetStatus(v string)`
+`func (o *BatchResponseHubDbTableRowV3WithErrors) SetCompletedAt(v time.Time)`
 
-SetStatus sets Status field to given value.
-
-
-### GetResults
-
-`func (o *BatchResponseHubDbTableRowV3WithErrors) GetResults() []HubDbTableRowV3`
-
-GetResults returns the Results field if non-nil, zero value otherwise.
-
-### GetResultsOk
-
-`func (o *BatchResponseHubDbTableRowV3WithErrors) GetResultsOk() (*[]HubDbTableRowV3, bool)`
-
-GetResultsOk returns a tuple with the Results field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetResults
-
-`func (o *BatchResponseHubDbTableRowV3WithErrors) SetResults(v []HubDbTableRowV3)`
-
-SetResults sets Results field to given value.
+SetCompletedAt sets CompletedAt field to given value.
 
 
 ### GetNumErrors
@@ -96,31 +76,6 @@ SetNumErrors sets NumErrors field to given value.
 `func (o *BatchResponseHubDbTableRowV3WithErrors) HasNumErrors() bool`
 
 HasNumErrors returns a boolean if a field has been set.
-
-### GetErrors
-
-`func (o *BatchResponseHubDbTableRowV3WithErrors) GetErrors() []StandardError`
-
-GetErrors returns the Errors field if non-nil, zero value otherwise.
-
-### GetErrorsOk
-
-`func (o *BatchResponseHubDbTableRowV3WithErrors) GetErrorsOk() (*[]StandardError, bool)`
-
-GetErrorsOk returns a tuple with the Errors field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetErrors
-
-`func (o *BatchResponseHubDbTableRowV3WithErrors) SetErrors(v []StandardError)`
-
-SetErrors sets Errors field to given value.
-
-### HasErrors
-
-`func (o *BatchResponseHubDbTableRowV3WithErrors) HasErrors() bool`
-
-HasErrors returns a boolean if a field has been set.
 
 ### GetRequestedAt
 
@@ -167,26 +122,6 @@ and a boolean to check if the value has been set.
 SetStartedAt sets StartedAt field to given value.
 
 
-### GetCompletedAt
-
-`func (o *BatchResponseHubDbTableRowV3WithErrors) GetCompletedAt() time.Time`
-
-GetCompletedAt returns the CompletedAt field if non-nil, zero value otherwise.
-
-### GetCompletedAtOk
-
-`func (o *BatchResponseHubDbTableRowV3WithErrors) GetCompletedAtOk() (*time.Time, bool)`
-
-GetCompletedAtOk returns a tuple with the CompletedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCompletedAt
-
-`func (o *BatchResponseHubDbTableRowV3WithErrors) SetCompletedAt(v time.Time)`
-
-SetCompletedAt sets CompletedAt field to given value.
-
-
 ### GetLinks
 
 `func (o *BatchResponseHubDbTableRowV3WithErrors) GetLinks() map[string]string`
@@ -211,6 +146,71 @@ SetLinks sets Links field to given value.
 `func (o *BatchResponseHubDbTableRowV3WithErrors) HasLinks() bool`
 
 HasLinks returns a boolean if a field has been set.
+
+### GetResults
+
+`func (o *BatchResponseHubDbTableRowV3WithErrors) GetResults() []HubDbTableRowV3`
+
+GetResults returns the Results field if non-nil, zero value otherwise.
+
+### GetResultsOk
+
+`func (o *BatchResponseHubDbTableRowV3WithErrors) GetResultsOk() (*[]HubDbTableRowV3, bool)`
+
+GetResultsOk returns a tuple with the Results field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetResults
+
+`func (o *BatchResponseHubDbTableRowV3WithErrors) SetResults(v []HubDbTableRowV3)`
+
+SetResults sets Results field to given value.
+
+
+### GetErrors
+
+`func (o *BatchResponseHubDbTableRowV3WithErrors) GetErrors() []StandardError`
+
+GetErrors returns the Errors field if non-nil, zero value otherwise.
+
+### GetErrorsOk
+
+`func (o *BatchResponseHubDbTableRowV3WithErrors) GetErrorsOk() (*[]StandardError, bool)`
+
+GetErrorsOk returns a tuple with the Errors field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetErrors
+
+`func (o *BatchResponseHubDbTableRowV3WithErrors) SetErrors(v []StandardError)`
+
+SetErrors sets Errors field to given value.
+
+### HasErrors
+
+`func (o *BatchResponseHubDbTableRowV3WithErrors) HasErrors() bool`
+
+HasErrors returns a boolean if a field has been set.
+
+### GetStatus
+
+`func (o *BatchResponseHubDbTableRowV3WithErrors) GetStatus() string`
+
+GetStatus returns the Status field if non-nil, zero value otherwise.
+
+### GetStatusOk
+
+`func (o *BatchResponseHubDbTableRowV3WithErrors) GetStatusOk() (*string, bool)`
+
+GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStatus
+
+`func (o *BatchResponseHubDbTableRowV3WithErrors) SetStatus(v string)`
+
+SetStatus sets Status field to given value.
+
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

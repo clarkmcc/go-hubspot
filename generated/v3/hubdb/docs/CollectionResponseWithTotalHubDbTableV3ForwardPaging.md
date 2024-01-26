@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Total** | **int32** |  | 
-**Results** | [**[]HubDbTableV3**](HubDbTableV3.md) |  | 
 **Paging** | Pointer to [**ForwardPaging**](ForwardPaging.md) |  | [optional] 
+**Results** | [**[]HubDbTableV3**](HubDbTableV3.md) |  | 
 
 ## Methods
 
@@ -47,26 +47,6 @@ and a boolean to check if the value has been set.
 SetTotal sets Total field to given value.
 
 
-### GetResults
-
-`func (o *CollectionResponseWithTotalHubDbTableV3ForwardPaging) GetResults() []HubDbTableV3`
-
-GetResults returns the Results field if non-nil, zero value otherwise.
-
-### GetResultsOk
-
-`func (o *CollectionResponseWithTotalHubDbTableV3ForwardPaging) GetResultsOk() (*[]HubDbTableV3, bool)`
-
-GetResultsOk returns a tuple with the Results field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetResults
-
-`func (o *CollectionResponseWithTotalHubDbTableV3ForwardPaging) SetResults(v []HubDbTableV3)`
-
-SetResults sets Results field to given value.
-
-
 ### GetPaging
 
 `func (o *CollectionResponseWithTotalHubDbTableV3ForwardPaging) GetPaging() ForwardPaging`
@@ -91,6 +71,26 @@ SetPaging sets Paging field to given value.
 `func (o *CollectionResponseWithTotalHubDbTableV3ForwardPaging) HasPaging() bool`
 
 HasPaging returns a boolean if a field has been set.
+
+### GetResults
+
+`func (o *CollectionResponseWithTotalHubDbTableV3ForwardPaging) GetResults() []HubDbTableV3`
+
+GetResults returns the Results field if non-nil, zero value otherwise.
+
+### GetResultsOk
+
+`func (o *CollectionResponseWithTotalHubDbTableV3ForwardPaging) GetResultsOk() (*[]HubDbTableV3, bool)`
+
+GetResultsOk returns a tuple with the Results field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetResults
+
+`func (o *CollectionResponseWithTotalHubDbTableV3ForwardPaging) SetResults(v []HubDbTableV3)`
+
+SetResults sets Results field to given value.
+
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

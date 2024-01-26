@@ -5,11 +5,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Path** | Pointer to **string** | Specifies the value for &#x60;hs_path&#x60; column, which will be used as slug in the dynamic pages | [optional] 
-**Name** | Pointer to **string** | Specifies the value for &#x60;hs_name&#x60; column, which will be used as title in the dynamic pages | [optional] 
 **ChildTableId** | Pointer to **int32** | Specifies the value for the column child table id | [optional] 
 **Values** | **map[string]map[string]interface{}** | List of key value pairs with the column name and column value | 
-**DisplayIndex** | Pointer to **int32** |  | [optional] 
+**Name** | Pointer to **string** | Specifies the value for &#x60;hs_name&#x60; column, which will be used as title in the dynamic pages | [optional] 
 **Id** | **string** | The id of the table row | 
+**DisplayIndex** | Pointer to **int32** |  | [optional] 
 
 ## Methods
 
@@ -54,31 +54,6 @@ SetPath sets Path field to given value.
 `func (o *HubDbTableRowV3BatchUpdateRequest) HasPath() bool`
 
 HasPath returns a boolean if a field has been set.
-
-### GetName
-
-`func (o *HubDbTableRowV3BatchUpdateRequest) GetName() string`
-
-GetName returns the Name field if non-nil, zero value otherwise.
-
-### GetNameOk
-
-`func (o *HubDbTableRowV3BatchUpdateRequest) GetNameOk() (*string, bool)`
-
-GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetName
-
-`func (o *HubDbTableRowV3BatchUpdateRequest) SetName(v string)`
-
-SetName sets Name field to given value.
-
-### HasName
-
-`func (o *HubDbTableRowV3BatchUpdateRequest) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 ### GetChildTableId
 
@@ -125,6 +100,51 @@ and a boolean to check if the value has been set.
 SetValues sets Values field to given value.
 
 
+### GetName
+
+`func (o *HubDbTableRowV3BatchUpdateRequest) GetName() string`
+
+GetName returns the Name field if non-nil, zero value otherwise.
+
+### GetNameOk
+
+`func (o *HubDbTableRowV3BatchUpdateRequest) GetNameOk() (*string, bool)`
+
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetName
+
+`func (o *HubDbTableRowV3BatchUpdateRequest) SetName(v string)`
+
+SetName sets Name field to given value.
+
+### HasName
+
+`func (o *HubDbTableRowV3BatchUpdateRequest) HasName() bool`
+
+HasName returns a boolean if a field has been set.
+
+### GetId
+
+`func (o *HubDbTableRowV3BatchUpdateRequest) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *HubDbTableRowV3BatchUpdateRequest) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *HubDbTableRowV3BatchUpdateRequest) SetId(v string)`
+
+SetId sets Id field to given value.
+
+
 ### GetDisplayIndex
 
 `func (o *HubDbTableRowV3BatchUpdateRequest) GetDisplayIndex() int32`
@@ -149,26 +169,6 @@ SetDisplayIndex sets DisplayIndex field to given value.
 `func (o *HubDbTableRowV3BatchUpdateRequest) HasDisplayIndex() bool`
 
 HasDisplayIndex returns a boolean if a field has been set.
-
-### GetId
-
-`func (o *HubDbTableRowV3BatchUpdateRequest) GetId() string`
-
-GetId returns the Id field if non-nil, zero value otherwise.
-
-### GetIdOk
-
-`func (o *HubDbTableRowV3BatchUpdateRequest) GetIdOk() (*string, bool)`
-
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetId
-
-`func (o *HubDbTableRowV3BatchUpdateRequest) SetId(v string)`
-
-SetId sets Id field to given value.
-
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -1,5 +1,5 @@
 /*
-CRM Pipelines
+Pipelines
 
 Pipelines represent distinct stages in a workflow, like closing a deal or servicing a support ticket. These endpoints provide access to read and modify pipelines in HubSpot. Pipelines support `deals` and `tickets` object types.  ## Pipeline ID validation  When calling endpoints that take pipelineId as a parameter, that ID must correspond to an existing, un-archived pipeline. Otherwise the request will fail with a `404 Not Found` response.
 
@@ -16,12 +16,12 @@ import (
 
 // PipelinePatchInput An input used to update some properties on a pipeline definition.
 type PipelinePatchInput struct {
-	// A unique label used to organize pipelines in HubSpot's UI
-	Label *string `json:"label,omitempty"`
-	// The order for displaying this pipeline. If two pipelines have a matching `displayOrder`, they will be sorted alphabetically by label.
-	DisplayOrder *int32 `json:"displayOrder,omitempty"`
 	// Whether the pipeline is archived. This property should only be provided when restoring an archived pipeline. If it's provided in any other call, the request will fail and a `400 Bad Request` will be returned.
 	Archived *bool `json:"archived,omitempty"`
+	// The order for displaying this pipeline. If two pipelines have a matching `displayOrder`, they will be sorted alphabetically by label.
+	DisplayOrder *int32 `json:"displayOrder,omitempty"`
+	// A unique label used to organize pipelines in HubSpot's UI
+	Label *string `json:"label,omitempty"`
 }
 
 // NewPipelinePatchInput instantiates a new PipelinePatchInput object
@@ -39,70 +39,6 @@ func NewPipelinePatchInput() *PipelinePatchInput {
 func NewPipelinePatchInputWithDefaults() *PipelinePatchInput {
 	this := PipelinePatchInput{}
 	return &this
-}
-
-// GetLabel returns the Label field value if set, zero value otherwise.
-func (o *PipelinePatchInput) GetLabel() string {
-	if o == nil || o.Label == nil {
-		var ret string
-		return ret
-	}
-	return *o.Label
-}
-
-// GetLabelOk returns a tuple with the Label field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PipelinePatchInput) GetLabelOk() (*string, bool) {
-	if o == nil || o.Label == nil {
-		return nil, false
-	}
-	return o.Label, true
-}
-
-// HasLabel returns a boolean if a field has been set.
-func (o *PipelinePatchInput) HasLabel() bool {
-	if o != nil && o.Label != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetLabel gets a reference to the given string and assigns it to the Label field.
-func (o *PipelinePatchInput) SetLabel(v string) {
-	o.Label = &v
-}
-
-// GetDisplayOrder returns the DisplayOrder field value if set, zero value otherwise.
-func (o *PipelinePatchInput) GetDisplayOrder() int32 {
-	if o == nil || o.DisplayOrder == nil {
-		var ret int32
-		return ret
-	}
-	return *o.DisplayOrder
-}
-
-// GetDisplayOrderOk returns a tuple with the DisplayOrder field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PipelinePatchInput) GetDisplayOrderOk() (*int32, bool) {
-	if o == nil || o.DisplayOrder == nil {
-		return nil, false
-	}
-	return o.DisplayOrder, true
-}
-
-// HasDisplayOrder returns a boolean if a field has been set.
-func (o *PipelinePatchInput) HasDisplayOrder() bool {
-	if o != nil && o.DisplayOrder != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetDisplayOrder gets a reference to the given int32 and assigns it to the DisplayOrder field.
-func (o *PipelinePatchInput) SetDisplayOrder(v int32) {
-	o.DisplayOrder = &v
 }
 
 // GetArchived returns the Archived field value if set, zero value otherwise.
@@ -137,16 +73,80 @@ func (o *PipelinePatchInput) SetArchived(v bool) {
 	o.Archived = &v
 }
 
+// GetDisplayOrder returns the DisplayOrder field value if set, zero value otherwise.
+func (o *PipelinePatchInput) GetDisplayOrder() int32 {
+	if o == nil || o.DisplayOrder == nil {
+		var ret int32
+		return ret
+	}
+	return *o.DisplayOrder
+}
+
+// GetDisplayOrderOk returns a tuple with the DisplayOrder field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PipelinePatchInput) GetDisplayOrderOk() (*int32, bool) {
+	if o == nil || o.DisplayOrder == nil {
+		return nil, false
+	}
+	return o.DisplayOrder, true
+}
+
+// HasDisplayOrder returns a boolean if a field has been set.
+func (o *PipelinePatchInput) HasDisplayOrder() bool {
+	if o != nil && o.DisplayOrder != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDisplayOrder gets a reference to the given int32 and assigns it to the DisplayOrder field.
+func (o *PipelinePatchInput) SetDisplayOrder(v int32) {
+	o.DisplayOrder = &v
+}
+
+// GetLabel returns the Label field value if set, zero value otherwise.
+func (o *PipelinePatchInput) GetLabel() string {
+	if o == nil || o.Label == nil {
+		var ret string
+		return ret
+	}
+	return *o.Label
+}
+
+// GetLabelOk returns a tuple with the Label field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PipelinePatchInput) GetLabelOk() (*string, bool) {
+	if o == nil || o.Label == nil {
+		return nil, false
+	}
+	return o.Label, true
+}
+
+// HasLabel returns a boolean if a field has been set.
+func (o *PipelinePatchInput) HasLabel() bool {
+	if o != nil && o.Label != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLabel gets a reference to the given string and assigns it to the Label field.
+func (o *PipelinePatchInput) SetLabel(v string) {
+	o.Label = &v
+}
+
 func (o PipelinePatchInput) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Label != nil {
-		toSerialize["label"] = o.Label
+	if o.Archived != nil {
+		toSerialize["archived"] = o.Archived
 	}
 	if o.DisplayOrder != nil {
 		toSerialize["displayOrder"] = o.DisplayOrder
 	}
-	if o.Archived != nil {
-		toSerialize["archived"] = o.Archived
+	if o.Label != nil {
+		toSerialize["label"] = o.Label
 	}
 	return json.Marshal(toSerialize)
 }

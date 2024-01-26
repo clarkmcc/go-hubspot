@@ -4,21 +4,21 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | 
-**Email** | Pointer to **string** |  | [optional] 
 **FirstName** | Pointer to **string** |  | [optional] 
 **LastName** | Pointer to **string** |  | [optional] 
-**UserId** | Pointer to **int32** |  | [optional] 
 **CreatedAt** | **time.Time** |  | 
-**UpdatedAt** | **time.Time** |  | 
 **Archived** | **bool** |  | 
 **Teams** | Pointer to [**[]PublicTeam**](PublicTeam.md) |  | [optional] 
+**Id** | **string** |  | 
+**UserId** | Pointer to **int32** |  | [optional] 
+**Email** | Pointer to **string** |  | [optional] 
+**UpdatedAt** | **time.Time** |  | 
 
 ## Methods
 
 ### NewPublicOwner
 
-`func NewPublicOwner(id string, createdAt time.Time, updatedAt time.Time, archived bool, ) *PublicOwner`
+`func NewPublicOwner(createdAt time.Time, archived bool, id string, updatedAt time.Time, ) *PublicOwner`
 
 NewPublicOwner instantiates a new PublicOwner object
 This constructor will assign default values to properties that have it defined,
@@ -32,51 +32,6 @@ will change when the set of required properties is changed
 NewPublicOwnerWithDefaults instantiates a new PublicOwner object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetId
-
-`func (o *PublicOwner) GetId() string`
-
-GetId returns the Id field if non-nil, zero value otherwise.
-
-### GetIdOk
-
-`func (o *PublicOwner) GetIdOk() (*string, bool)`
-
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetId
-
-`func (o *PublicOwner) SetId(v string)`
-
-SetId sets Id field to given value.
-
-
-### GetEmail
-
-`func (o *PublicOwner) GetEmail() string`
-
-GetEmail returns the Email field if non-nil, zero value otherwise.
-
-### GetEmailOk
-
-`func (o *PublicOwner) GetEmailOk() (*string, bool)`
-
-GetEmailOk returns a tuple with the Email field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetEmail
-
-`func (o *PublicOwner) SetEmail(v string)`
-
-SetEmail sets Email field to given value.
-
-### HasEmail
-
-`func (o *PublicOwner) HasEmail() bool`
-
-HasEmail returns a boolean if a field has been set.
 
 ### GetFirstName
 
@@ -128,31 +83,6 @@ SetLastName sets LastName field to given value.
 
 HasLastName returns a boolean if a field has been set.
 
-### GetUserId
-
-`func (o *PublicOwner) GetUserId() int32`
-
-GetUserId returns the UserId field if non-nil, zero value otherwise.
-
-### GetUserIdOk
-
-`func (o *PublicOwner) GetUserIdOk() (*int32, bool)`
-
-GetUserIdOk returns a tuple with the UserId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetUserId
-
-`func (o *PublicOwner) SetUserId(v int32)`
-
-SetUserId sets UserId field to given value.
-
-### HasUserId
-
-`func (o *PublicOwner) HasUserId() bool`
-
-HasUserId returns a boolean if a field has been set.
-
 ### GetCreatedAt
 
 `func (o *PublicOwner) GetCreatedAt() time.Time`
@@ -171,26 +101,6 @@ and a boolean to check if the value has been set.
 `func (o *PublicOwner) SetCreatedAt(v time.Time)`
 
 SetCreatedAt sets CreatedAt field to given value.
-
-
-### GetUpdatedAt
-
-`func (o *PublicOwner) GetUpdatedAt() time.Time`
-
-GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
-
-### GetUpdatedAtOk
-
-`func (o *PublicOwner) GetUpdatedAtOk() (*time.Time, bool)`
-
-GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetUpdatedAt
-
-`func (o *PublicOwner) SetUpdatedAt(v time.Time)`
-
-SetUpdatedAt sets UpdatedAt field to given value.
 
 
 ### GetArchived
@@ -237,6 +147,96 @@ SetTeams sets Teams field to given value.
 `func (o *PublicOwner) HasTeams() bool`
 
 HasTeams returns a boolean if a field has been set.
+
+### GetId
+
+`func (o *PublicOwner) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *PublicOwner) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *PublicOwner) SetId(v string)`
+
+SetId sets Id field to given value.
+
+
+### GetUserId
+
+`func (o *PublicOwner) GetUserId() int32`
+
+GetUserId returns the UserId field if non-nil, zero value otherwise.
+
+### GetUserIdOk
+
+`func (o *PublicOwner) GetUserIdOk() (*int32, bool)`
+
+GetUserIdOk returns a tuple with the UserId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUserId
+
+`func (o *PublicOwner) SetUserId(v int32)`
+
+SetUserId sets UserId field to given value.
+
+### HasUserId
+
+`func (o *PublicOwner) HasUserId() bool`
+
+HasUserId returns a boolean if a field has been set.
+
+### GetEmail
+
+`func (o *PublicOwner) GetEmail() string`
+
+GetEmail returns the Email field if non-nil, zero value otherwise.
+
+### GetEmailOk
+
+`func (o *PublicOwner) GetEmailOk() (*string, bool)`
+
+GetEmailOk returns a tuple with the Email field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEmail
+
+`func (o *PublicOwner) SetEmail(v string)`
+
+SetEmail sets Email field to given value.
+
+### HasEmail
+
+`func (o *PublicOwner) HasEmail() bool`
+
+HasEmail returns a boolean if a field has been set.
+
+### GetUpdatedAt
+
+`func (o *PublicOwner) GetUpdatedAt() time.Time`
+
+GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
+
+### GetUpdatedAtOk
+
+`func (o *PublicOwner) GetUpdatedAtOk() (*time.Time, bool)`
+
+GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUpdatedAt
+
+`func (o *PublicOwner) SetUpdatedAt(v time.Time)`
+
+SetUpdatedAt sets UpdatedAt field to given value.
+
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

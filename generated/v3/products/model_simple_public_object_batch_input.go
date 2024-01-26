@@ -16,18 +16,17 @@ import (
 
 // SimplePublicObjectBatchInput struct for SimplePublicObjectBatchInput
 type SimplePublicObjectBatchInput struct {
-	Properties map[string]string `json:"properties"`
-	Id         string            `json:"id"`
+	IdProperty *string            `json:"idProperty,omitempty"`
+	Id         *string            `json:"id,omitempty"`
+	Properties *map[string]string `json:"properties,omitempty"`
 }
 
 // NewSimplePublicObjectBatchInput instantiates a new SimplePublicObjectBatchInput object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSimplePublicObjectBatchInput(properties map[string]string, id string) *SimplePublicObjectBatchInput {
+func NewSimplePublicObjectBatchInput() *SimplePublicObjectBatchInput {
 	this := SimplePublicObjectBatchInput{}
-	this.Properties = properties
-	this.Id = id
 	return &this
 }
 
@@ -39,61 +38,112 @@ func NewSimplePublicObjectBatchInputWithDefaults() *SimplePublicObjectBatchInput
 	return &this
 }
 
-// GetProperties returns the Properties field value
-func (o *SimplePublicObjectBatchInput) GetProperties() map[string]string {
-	if o == nil {
-		var ret map[string]string
-		return ret
-	}
-
-	return o.Properties
-}
-
-// GetPropertiesOk returns a tuple with the Properties field value
-// and a boolean to check if the value has been set.
-func (o *SimplePublicObjectBatchInput) GetPropertiesOk() (*map[string]string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Properties, true
-}
-
-// SetProperties sets field value
-func (o *SimplePublicObjectBatchInput) SetProperties(v map[string]string) {
-	o.Properties = v
-}
-
-// GetId returns the Id field value
-func (o *SimplePublicObjectBatchInput) GetId() string {
-	if o == nil {
+// GetIdProperty returns the IdProperty field value if set, zero value otherwise.
+func (o *SimplePublicObjectBatchInput) GetIdProperty() string {
+	if o == nil || o.IdProperty == nil {
 		var ret string
 		return ret
 	}
-
-	return o.Id
+	return *o.IdProperty
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdPropertyOk returns a tuple with the IdProperty field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SimplePublicObjectBatchInput) GetIdOk() (*string, bool) {
-	if o == nil {
+func (o *SimplePublicObjectBatchInput) GetIdPropertyOk() (*string, bool) {
+	if o == nil || o.IdProperty == nil {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.IdProperty, true
 }
 
-// SetId sets field value
+// HasIdProperty returns a boolean if a field has been set.
+func (o *SimplePublicObjectBatchInput) HasIdProperty() bool {
+	if o != nil && o.IdProperty != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIdProperty gets a reference to the given string and assigns it to the IdProperty field.
+func (o *SimplePublicObjectBatchInput) SetIdProperty(v string) {
+	o.IdProperty = &v
+}
+
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *SimplePublicObjectBatchInput) GetId() string {
+	if o == nil || o.Id == nil {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SimplePublicObjectBatchInput) GetIdOk() (*string, bool) {
+	if o == nil || o.Id == nil {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *SimplePublicObjectBatchInput) HasId() bool {
+	if o != nil && o.Id != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
 func (o *SimplePublicObjectBatchInput) SetId(v string) {
-	o.Id = v
+	o.Id = &v
+}
+
+// GetProperties returns the Properties field value if set, zero value otherwise.
+func (o *SimplePublicObjectBatchInput) GetProperties() map[string]string {
+	if o == nil || o.Properties == nil {
+		var ret map[string]string
+		return ret
+	}
+	return *o.Properties
+}
+
+// GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SimplePublicObjectBatchInput) GetPropertiesOk() (*map[string]string, bool) {
+	if o == nil || o.Properties == nil {
+		return nil, false
+	}
+	return o.Properties, true
+}
+
+// HasProperties returns a boolean if a field has been set.
+func (o *SimplePublicObjectBatchInput) HasProperties() bool {
+	if o != nil && o.Properties != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetProperties gets a reference to the given map[string]string and assigns it to the Properties field.
+func (o *SimplePublicObjectBatchInput) SetProperties(v map[string]string) {
+	o.Properties = &v
 }
 
 func (o SimplePublicObjectBatchInput) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["properties"] = o.Properties
+	if o.IdProperty != nil {
+		toSerialize["idProperty"] = o.IdProperty
 	}
-	if true {
+	if o.Id != nil {
 		toSerialize["id"] = o.Id
+	}
+	if o.Properties != nil {
+		toSerialize["properties"] = o.Properties
 	}
 	return json.Marshal(toSerialize)
 }

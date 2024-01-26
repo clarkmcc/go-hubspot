@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**CreatedAt** | Pointer to **time.Time** | When the association was defined. | [optional] 
 **FromObjectTypeId** | **string** | ID of the primary object type to link from. | 
-**ToObjectTypeId** | **string** | ID of the target object type ID to link to. | 
 **Name** | Pointer to **string** | A unique name for this association. | [optional] 
 **Id** | **string** | A unique ID for this association. | 
-**CreatedAt** | Pointer to **time.Time** | When the association was defined. | [optional] 
+**ToObjectTypeId** | **string** | ID of the target object type ID to link to. | 
 **UpdatedAt** | Pointer to **time.Time** | When the association was last updated. | [optional] 
 
 ## Methods
 
 ### NewAssociationDefinition
 
-`func NewAssociationDefinition(fromObjectTypeId string, toObjectTypeId string, id string, ) *AssociationDefinition`
+`func NewAssociationDefinition(fromObjectTypeId string, id string, toObjectTypeId string, ) *AssociationDefinition`
 
 NewAssociationDefinition instantiates a new AssociationDefinition object
 This constructor will assign default values to properties that have it defined,
@@ -29,6 +29,31 @@ will change when the set of required properties is changed
 NewAssociationDefinitionWithDefaults instantiates a new AssociationDefinition object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetCreatedAt
+
+`func (o *AssociationDefinition) GetCreatedAt() time.Time`
+
+GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
+
+### GetCreatedAtOk
+
+`func (o *AssociationDefinition) GetCreatedAtOk() (*time.Time, bool)`
+
+GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedAt
+
+`func (o *AssociationDefinition) SetCreatedAt(v time.Time)`
+
+SetCreatedAt sets CreatedAt field to given value.
+
+### HasCreatedAt
+
+`func (o *AssociationDefinition) HasCreatedAt() bool`
+
+HasCreatedAt returns a boolean if a field has been set.
 
 ### GetFromObjectTypeId
 
@@ -48,26 +73,6 @@ and a boolean to check if the value has been set.
 `func (o *AssociationDefinition) SetFromObjectTypeId(v string)`
 
 SetFromObjectTypeId sets FromObjectTypeId field to given value.
-
-
-### GetToObjectTypeId
-
-`func (o *AssociationDefinition) GetToObjectTypeId() string`
-
-GetToObjectTypeId returns the ToObjectTypeId field if non-nil, zero value otherwise.
-
-### GetToObjectTypeIdOk
-
-`func (o *AssociationDefinition) GetToObjectTypeIdOk() (*string, bool)`
-
-GetToObjectTypeIdOk returns a tuple with the ToObjectTypeId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetToObjectTypeId
-
-`func (o *AssociationDefinition) SetToObjectTypeId(v string)`
-
-SetToObjectTypeId sets ToObjectTypeId field to given value.
 
 
 ### GetName
@@ -115,30 +120,25 @@ and a boolean to check if the value has been set.
 SetId sets Id field to given value.
 
 
-### GetCreatedAt
+### GetToObjectTypeId
 
-`func (o *AssociationDefinition) GetCreatedAt() time.Time`
+`func (o *AssociationDefinition) GetToObjectTypeId() string`
 
-GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
+GetToObjectTypeId returns the ToObjectTypeId field if non-nil, zero value otherwise.
 
-### GetCreatedAtOk
+### GetToObjectTypeIdOk
 
-`func (o *AssociationDefinition) GetCreatedAtOk() (*time.Time, bool)`
+`func (o *AssociationDefinition) GetToObjectTypeIdOk() (*string, bool)`
 
-GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
+GetToObjectTypeIdOk returns a tuple with the ToObjectTypeId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetCreatedAt
+### SetToObjectTypeId
 
-`func (o *AssociationDefinition) SetCreatedAt(v time.Time)`
+`func (o *AssociationDefinition) SetToObjectTypeId(v string)`
 
-SetCreatedAt sets CreatedAt field to given value.
+SetToObjectTypeId sets ToObjectTypeId field to given value.
 
-### HasCreatedAt
-
-`func (o *AssociationDefinition) HasCreatedAt() bool`
-
-HasCreatedAt returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 

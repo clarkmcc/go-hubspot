@@ -1,5 +1,5 @@
 /*
-Blog Post endpoints
+Posts
 
 Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags
 
@@ -16,10 +16,10 @@ import (
 
 // ContentCloneRequestVNext Request body object for cloning content.
 type ContentCloneRequestVNext struct {
-	// ID of the object to be cloned.
-	Id string `json:"id"`
 	// Name of the cloned object.
 	CloneName *string `json:"cloneName,omitempty"`
+	// ID of the object to be cloned.
+	Id string `json:"id"`
 }
 
 // NewContentCloneRequestVNext instantiates a new ContentCloneRequestVNext object
@@ -38,30 +38,6 @@ func NewContentCloneRequestVNext(id string) *ContentCloneRequestVNext {
 func NewContentCloneRequestVNextWithDefaults() *ContentCloneRequestVNext {
 	this := ContentCloneRequestVNext{}
 	return &this
-}
-
-// GetId returns the Id field value
-func (o *ContentCloneRequestVNext) GetId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Id
-}
-
-// GetIdOk returns a tuple with the Id field value
-// and a boolean to check if the value has been set.
-func (o *ContentCloneRequestVNext) GetIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Id, true
-}
-
-// SetId sets field value
-func (o *ContentCloneRequestVNext) SetId(v string) {
-	o.Id = v
 }
 
 // GetCloneName returns the CloneName field value if set, zero value otherwise.
@@ -96,13 +72,37 @@ func (o *ContentCloneRequestVNext) SetCloneName(v string) {
 	o.CloneName = &v
 }
 
+// GetId returns the Id field value
+func (o *ContentCloneRequestVNext) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *ContentCloneRequestVNext) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *ContentCloneRequestVNext) SetId(v string) {
+	o.Id = v
+}
+
 func (o ContentCloneRequestVNext) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
 	if o.CloneName != nil {
 		toSerialize["cloneName"] = o.CloneName
+	}
+	if true {
+		toSerialize["id"] = o.Id
 	}
 	return json.Marshal(toSerialize)
 }

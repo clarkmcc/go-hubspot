@@ -1,5 +1,5 @@
 /*
-Business Unit
+Business Units
 
 Retrieve Business Unit information.
 
@@ -41,7 +41,7 @@ var (
 	xmlCheck  = regexp.MustCompile(`(?i:(?:application|text)/xml)`)
 )
 
-// APIClient manages communication with the Business Unit API vv3
+// APIClient manages communication with the Business Units API vv3
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration

@@ -1,5 +1,5 @@
 /*
-URL redirects
+CMS Url Redirects
 
 URL redirect operations
 
@@ -17,49 +17,49 @@ import (
 
 // UrlMapping struct for UrlMapping
 type UrlMapping struct {
-	// The unique ID of this URL redirect.
-	Id string `json:"id"`
-	// The target incoming URL, path, or pattern to match for redirection.
-	RoutePrefix string `json:"routePrefix"`
-	// The destination URL, where the target URL should be redirected if it matches the `routePrefix`.
-	Destination string `json:"destination"`
-	// The type of redirect to create. Options include: 301 (permanent), 302 (temporary), or 305 (proxy). Find more details [here](https://knowledge.hubspot.com/cos-general/how-to-redirect-a-hubspot-page).
-	RedirectStyle int32 `json:"redirectStyle"`
-	// Whether the URL redirect mapping should apply only if a live page on the URL isn't found. If False, the URL redirect mapping will take precedence over any existing page.
-	IsOnlyAfterNotFound bool `json:"isOnlyAfterNotFound"`
-	// Whether the `routePrefix` should match on the entire URL, including the domain.
-	IsMatchFullUrl bool `json:"isMatchFullUrl"`
-	// Whether the `routePrefix` should match on the entire URL path, including the query string.
-	IsMatchQueryString bool `json:"isMatchQueryString"`
-	// Whether the `routePrefix` should match based on pattern.
-	IsPattern bool `json:"isPattern"`
 	// Whether a trailing slash will be ignored.
 	IsTrailingSlashOptional bool `json:"isTrailingSlashOptional"`
+	// The type of redirect to create. Options include: 301 (permanent), 302 (temporary), or 305 (proxy). Find more details [here](https://knowledge.hubspot.com/cos-general/how-to-redirect-a-hubspot-page).
+	RedirectStyle int32 `json:"redirectStyle"`
+	// Whether the `routePrefix` should match on the entire URL path, including the query string.
+	IsMatchQueryString bool       `json:"isMatchQueryString"`
+	Created            *time.Time `json:"created,omitempty"`
+	// Whether the `routePrefix` should match on the entire URL, including the domain.
+	IsMatchFullUrl bool `json:"isMatchFullUrl"`
+	// The destination URL, where the target URL should be redirected if it matches the `routePrefix`.
+	Destination string `json:"destination"`
+	// Whether the URL redirect mapping should apply only if a live page on the URL isn't found. If False, the URL redirect mapping will take precedence over any existing page.
+	IsOnlyAfterNotFound bool `json:"isOnlyAfterNotFound"`
+	// Whether the `routePrefix` should match based on pattern.
+	IsPattern bool `json:"isPattern"`
+	// Used to prioritize URL redirection. If a given URL matches more than one redirect, the one with the **lower** precedence will be used.
+	Precedence int32 `json:"precedence"`
+	// The target incoming URL, path, or pattern to match for redirection.
+	RoutePrefix string `json:"routePrefix"`
 	// Whether the `routePrefix` should match both HTTP and HTTPS protocols.
 	IsProtocolAgnostic bool `json:"isProtocolAgnostic"`
-	// Used to prioritize URL redirection. If a given URL matches more than one redirect, the one with the **lower** precedence will be used.
-	Precedence int32      `json:"precedence"`
-	Created    *time.Time `json:"created,omitempty"`
-	Updated    *time.Time `json:"updated,omitempty"`
+	// The unique ID of this URL redirect.
+	Id      string     `json:"id"`
+	Updated *time.Time `json:"updated,omitempty"`
 }
 
 // NewUrlMapping instantiates a new UrlMapping object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUrlMapping(id string, routePrefix string, destination string, redirectStyle int32, isOnlyAfterNotFound bool, isMatchFullUrl bool, isMatchQueryString bool, isPattern bool, isTrailingSlashOptional bool, isProtocolAgnostic bool, precedence int32) *UrlMapping {
+func NewUrlMapping(isTrailingSlashOptional bool, redirectStyle int32, isMatchQueryString bool, isMatchFullUrl bool, destination string, isOnlyAfterNotFound bool, isPattern bool, precedence int32, routePrefix string, isProtocolAgnostic bool, id string) *UrlMapping {
 	this := UrlMapping{}
-	this.Id = id
-	this.RoutePrefix = routePrefix
-	this.Destination = destination
-	this.RedirectStyle = redirectStyle
-	this.IsOnlyAfterNotFound = isOnlyAfterNotFound
-	this.IsMatchFullUrl = isMatchFullUrl
-	this.IsMatchQueryString = isMatchQueryString
-	this.IsPattern = isPattern
 	this.IsTrailingSlashOptional = isTrailingSlashOptional
-	this.IsProtocolAgnostic = isProtocolAgnostic
+	this.RedirectStyle = redirectStyle
+	this.IsMatchQueryString = isMatchQueryString
+	this.IsMatchFullUrl = isMatchFullUrl
+	this.Destination = destination
+	this.IsOnlyAfterNotFound = isOnlyAfterNotFound
+	this.IsPattern = isPattern
 	this.Precedence = precedence
+	this.RoutePrefix = routePrefix
+	this.IsProtocolAgnostic = isProtocolAgnostic
+	this.Id = id
 	return &this
 }
 
@@ -69,198 +69,6 @@ func NewUrlMapping(id string, routePrefix string, destination string, redirectSt
 func NewUrlMappingWithDefaults() *UrlMapping {
 	this := UrlMapping{}
 	return &this
-}
-
-// GetId returns the Id field value
-func (o *UrlMapping) GetId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Id
-}
-
-// GetIdOk returns a tuple with the Id field value
-// and a boolean to check if the value has been set.
-func (o *UrlMapping) GetIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Id, true
-}
-
-// SetId sets field value
-func (o *UrlMapping) SetId(v string) {
-	o.Id = v
-}
-
-// GetRoutePrefix returns the RoutePrefix field value
-func (o *UrlMapping) GetRoutePrefix() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.RoutePrefix
-}
-
-// GetRoutePrefixOk returns a tuple with the RoutePrefix field value
-// and a boolean to check if the value has been set.
-func (o *UrlMapping) GetRoutePrefixOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.RoutePrefix, true
-}
-
-// SetRoutePrefix sets field value
-func (o *UrlMapping) SetRoutePrefix(v string) {
-	o.RoutePrefix = v
-}
-
-// GetDestination returns the Destination field value
-func (o *UrlMapping) GetDestination() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Destination
-}
-
-// GetDestinationOk returns a tuple with the Destination field value
-// and a boolean to check if the value has been set.
-func (o *UrlMapping) GetDestinationOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Destination, true
-}
-
-// SetDestination sets field value
-func (o *UrlMapping) SetDestination(v string) {
-	o.Destination = v
-}
-
-// GetRedirectStyle returns the RedirectStyle field value
-func (o *UrlMapping) GetRedirectStyle() int32 {
-	if o == nil {
-		var ret int32
-		return ret
-	}
-
-	return o.RedirectStyle
-}
-
-// GetRedirectStyleOk returns a tuple with the RedirectStyle field value
-// and a boolean to check if the value has been set.
-func (o *UrlMapping) GetRedirectStyleOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.RedirectStyle, true
-}
-
-// SetRedirectStyle sets field value
-func (o *UrlMapping) SetRedirectStyle(v int32) {
-	o.RedirectStyle = v
-}
-
-// GetIsOnlyAfterNotFound returns the IsOnlyAfterNotFound field value
-func (o *UrlMapping) GetIsOnlyAfterNotFound() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.IsOnlyAfterNotFound
-}
-
-// GetIsOnlyAfterNotFoundOk returns a tuple with the IsOnlyAfterNotFound field value
-// and a boolean to check if the value has been set.
-func (o *UrlMapping) GetIsOnlyAfterNotFoundOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.IsOnlyAfterNotFound, true
-}
-
-// SetIsOnlyAfterNotFound sets field value
-func (o *UrlMapping) SetIsOnlyAfterNotFound(v bool) {
-	o.IsOnlyAfterNotFound = v
-}
-
-// GetIsMatchFullUrl returns the IsMatchFullUrl field value
-func (o *UrlMapping) GetIsMatchFullUrl() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.IsMatchFullUrl
-}
-
-// GetIsMatchFullUrlOk returns a tuple with the IsMatchFullUrl field value
-// and a boolean to check if the value has been set.
-func (o *UrlMapping) GetIsMatchFullUrlOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.IsMatchFullUrl, true
-}
-
-// SetIsMatchFullUrl sets field value
-func (o *UrlMapping) SetIsMatchFullUrl(v bool) {
-	o.IsMatchFullUrl = v
-}
-
-// GetIsMatchQueryString returns the IsMatchQueryString field value
-func (o *UrlMapping) GetIsMatchQueryString() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.IsMatchQueryString
-}
-
-// GetIsMatchQueryStringOk returns a tuple with the IsMatchQueryString field value
-// and a boolean to check if the value has been set.
-func (o *UrlMapping) GetIsMatchQueryStringOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.IsMatchQueryString, true
-}
-
-// SetIsMatchQueryString sets field value
-func (o *UrlMapping) SetIsMatchQueryString(v bool) {
-	o.IsMatchQueryString = v
-}
-
-// GetIsPattern returns the IsPattern field value
-func (o *UrlMapping) GetIsPattern() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.IsPattern
-}
-
-// GetIsPatternOk returns a tuple with the IsPattern field value
-// and a boolean to check if the value has been set.
-func (o *UrlMapping) GetIsPatternOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.IsPattern, true
-}
-
-// SetIsPattern sets field value
-func (o *UrlMapping) SetIsPattern(v bool) {
-	o.IsPattern = v
 }
 
 // GetIsTrailingSlashOptional returns the IsTrailingSlashOptional field value
@@ -287,52 +95,52 @@ func (o *UrlMapping) SetIsTrailingSlashOptional(v bool) {
 	o.IsTrailingSlashOptional = v
 }
 
-// GetIsProtocolAgnostic returns the IsProtocolAgnostic field value
-func (o *UrlMapping) GetIsProtocolAgnostic() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.IsProtocolAgnostic
-}
-
-// GetIsProtocolAgnosticOk returns a tuple with the IsProtocolAgnostic field value
-// and a boolean to check if the value has been set.
-func (o *UrlMapping) GetIsProtocolAgnosticOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.IsProtocolAgnostic, true
-}
-
-// SetIsProtocolAgnostic sets field value
-func (o *UrlMapping) SetIsProtocolAgnostic(v bool) {
-	o.IsProtocolAgnostic = v
-}
-
-// GetPrecedence returns the Precedence field value
-func (o *UrlMapping) GetPrecedence() int32 {
+// GetRedirectStyle returns the RedirectStyle field value
+func (o *UrlMapping) GetRedirectStyle() int32 {
 	if o == nil {
 		var ret int32
 		return ret
 	}
 
-	return o.Precedence
+	return o.RedirectStyle
 }
 
-// GetPrecedenceOk returns a tuple with the Precedence field value
+// GetRedirectStyleOk returns a tuple with the RedirectStyle field value
 // and a boolean to check if the value has been set.
-func (o *UrlMapping) GetPrecedenceOk() (*int32, bool) {
+func (o *UrlMapping) GetRedirectStyleOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Precedence, true
+	return &o.RedirectStyle, true
 }
 
-// SetPrecedence sets field value
-func (o *UrlMapping) SetPrecedence(v int32) {
-	o.Precedence = v
+// SetRedirectStyle sets field value
+func (o *UrlMapping) SetRedirectStyle(v int32) {
+	o.RedirectStyle = v
+}
+
+// GetIsMatchQueryString returns the IsMatchQueryString field value
+func (o *UrlMapping) GetIsMatchQueryString() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.IsMatchQueryString
+}
+
+// GetIsMatchQueryStringOk returns a tuple with the IsMatchQueryString field value
+// and a boolean to check if the value has been set.
+func (o *UrlMapping) GetIsMatchQueryStringOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.IsMatchQueryString, true
+}
+
+// SetIsMatchQueryString sets field value
+func (o *UrlMapping) SetIsMatchQueryString(v bool) {
+	o.IsMatchQueryString = v
 }
 
 // GetCreated returns the Created field value if set, zero value otherwise.
@@ -365,6 +173,198 @@ func (o *UrlMapping) HasCreated() bool {
 // SetCreated gets a reference to the given time.Time and assigns it to the Created field.
 func (o *UrlMapping) SetCreated(v time.Time) {
 	o.Created = &v
+}
+
+// GetIsMatchFullUrl returns the IsMatchFullUrl field value
+func (o *UrlMapping) GetIsMatchFullUrl() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.IsMatchFullUrl
+}
+
+// GetIsMatchFullUrlOk returns a tuple with the IsMatchFullUrl field value
+// and a boolean to check if the value has been set.
+func (o *UrlMapping) GetIsMatchFullUrlOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.IsMatchFullUrl, true
+}
+
+// SetIsMatchFullUrl sets field value
+func (o *UrlMapping) SetIsMatchFullUrl(v bool) {
+	o.IsMatchFullUrl = v
+}
+
+// GetDestination returns the Destination field value
+func (o *UrlMapping) GetDestination() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Destination
+}
+
+// GetDestinationOk returns a tuple with the Destination field value
+// and a boolean to check if the value has been set.
+func (o *UrlMapping) GetDestinationOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Destination, true
+}
+
+// SetDestination sets field value
+func (o *UrlMapping) SetDestination(v string) {
+	o.Destination = v
+}
+
+// GetIsOnlyAfterNotFound returns the IsOnlyAfterNotFound field value
+func (o *UrlMapping) GetIsOnlyAfterNotFound() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.IsOnlyAfterNotFound
+}
+
+// GetIsOnlyAfterNotFoundOk returns a tuple with the IsOnlyAfterNotFound field value
+// and a boolean to check if the value has been set.
+func (o *UrlMapping) GetIsOnlyAfterNotFoundOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.IsOnlyAfterNotFound, true
+}
+
+// SetIsOnlyAfterNotFound sets field value
+func (o *UrlMapping) SetIsOnlyAfterNotFound(v bool) {
+	o.IsOnlyAfterNotFound = v
+}
+
+// GetIsPattern returns the IsPattern field value
+func (o *UrlMapping) GetIsPattern() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.IsPattern
+}
+
+// GetIsPatternOk returns a tuple with the IsPattern field value
+// and a boolean to check if the value has been set.
+func (o *UrlMapping) GetIsPatternOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.IsPattern, true
+}
+
+// SetIsPattern sets field value
+func (o *UrlMapping) SetIsPattern(v bool) {
+	o.IsPattern = v
+}
+
+// GetPrecedence returns the Precedence field value
+func (o *UrlMapping) GetPrecedence() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.Precedence
+}
+
+// GetPrecedenceOk returns a tuple with the Precedence field value
+// and a boolean to check if the value has been set.
+func (o *UrlMapping) GetPrecedenceOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Precedence, true
+}
+
+// SetPrecedence sets field value
+func (o *UrlMapping) SetPrecedence(v int32) {
+	o.Precedence = v
+}
+
+// GetRoutePrefix returns the RoutePrefix field value
+func (o *UrlMapping) GetRoutePrefix() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.RoutePrefix
+}
+
+// GetRoutePrefixOk returns a tuple with the RoutePrefix field value
+// and a boolean to check if the value has been set.
+func (o *UrlMapping) GetRoutePrefixOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.RoutePrefix, true
+}
+
+// SetRoutePrefix sets field value
+func (o *UrlMapping) SetRoutePrefix(v string) {
+	o.RoutePrefix = v
+}
+
+// GetIsProtocolAgnostic returns the IsProtocolAgnostic field value
+func (o *UrlMapping) GetIsProtocolAgnostic() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.IsProtocolAgnostic
+}
+
+// GetIsProtocolAgnosticOk returns a tuple with the IsProtocolAgnostic field value
+// and a boolean to check if the value has been set.
+func (o *UrlMapping) GetIsProtocolAgnosticOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.IsProtocolAgnostic, true
+}
+
+// SetIsProtocolAgnostic sets field value
+func (o *UrlMapping) SetIsProtocolAgnostic(v bool) {
+	o.IsProtocolAgnostic = v
+}
+
+// GetId returns the Id field value
+func (o *UrlMapping) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *UrlMapping) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *UrlMapping) SetId(v string) {
+	o.Id = v
 }
 
 // GetUpdated returns the Updated field value if set, zero value otherwise.
@@ -402,40 +402,40 @@ func (o *UrlMapping) SetUpdated(v time.Time) {
 func (o UrlMapping) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["routePrefix"] = o.RoutePrefix
-	}
-	if true {
-		toSerialize["destination"] = o.Destination
+		toSerialize["isTrailingSlashOptional"] = o.IsTrailingSlashOptional
 	}
 	if true {
 		toSerialize["redirectStyle"] = o.RedirectStyle
 	}
 	if true {
-		toSerialize["isOnlyAfterNotFound"] = o.IsOnlyAfterNotFound
+		toSerialize["isMatchQueryString"] = o.IsMatchQueryString
+	}
+	if o.Created != nil {
+		toSerialize["created"] = o.Created
 	}
 	if true {
 		toSerialize["isMatchFullUrl"] = o.IsMatchFullUrl
 	}
 	if true {
-		toSerialize["isMatchQueryString"] = o.IsMatchQueryString
+		toSerialize["destination"] = o.Destination
+	}
+	if true {
+		toSerialize["isOnlyAfterNotFound"] = o.IsOnlyAfterNotFound
 	}
 	if true {
 		toSerialize["isPattern"] = o.IsPattern
 	}
 	if true {
-		toSerialize["isTrailingSlashOptional"] = o.IsTrailingSlashOptional
+		toSerialize["precedence"] = o.Precedence
+	}
+	if true {
+		toSerialize["routePrefix"] = o.RoutePrefix
 	}
 	if true {
 		toSerialize["isProtocolAgnostic"] = o.IsProtocolAgnostic
 	}
 	if true {
-		toSerialize["precedence"] = o.Precedence
-	}
-	if o.Created != nil {
-		toSerialize["created"] = o.Created
+		toSerialize["id"] = o.Id
 	}
 	if o.Updated != nil {
 		toSerialize["updated"] = o.Updated

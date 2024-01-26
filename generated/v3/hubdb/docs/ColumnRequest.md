@@ -4,19 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **int32** | Column Id | 
+**ForeignTableId** | Pointer to **int64** | The id of another table to which the column refers/points to. | [optional] 
 **Name** | **string** | Name of the column | 
+**Options** | [**[]Option**](Option.md) | Options to choose for select and multi-select columns | 
+**Id** | **int32** | Column Id | 
 **Label** | **string** | Label of the column | 
 **Type** | **string** | Type of the column | 
-**Options** | [**[]Option**](Option.md) | Options to choose for select and multi-select columns | 
-**ForeignTableId** | Pointer to **int64** | The id of another table to which the column refers/points to. | [optional] 
 **ForeignColumnId** | Pointer to **int32** | The id of the column from another table to which the column refers/points to. | [optional] 
 
 ## Methods
 
 ### NewColumnRequest
 
-`func NewColumnRequest(id int32, name string, label string, type_ string, options []Option, ) *ColumnRequest`
+`func NewColumnRequest(name string, options []Option, id int32, label string, type_ string, ) *ColumnRequest`
 
 NewColumnRequest instantiates a new ColumnRequest object
 This constructor will assign default values to properties that have it defined,
@@ -31,25 +31,30 @@ NewColumnRequestWithDefaults instantiates a new ColumnRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetId
+### GetForeignTableId
 
-`func (o *ColumnRequest) GetId() int32`
+`func (o *ColumnRequest) GetForeignTableId() int64`
 
-GetId returns the Id field if non-nil, zero value otherwise.
+GetForeignTableId returns the ForeignTableId field if non-nil, zero value otherwise.
 
-### GetIdOk
+### GetForeignTableIdOk
 
-`func (o *ColumnRequest) GetIdOk() (*int32, bool)`
+`func (o *ColumnRequest) GetForeignTableIdOk() (*int64, bool)`
 
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+GetForeignTableIdOk returns a tuple with the ForeignTableId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetId
+### SetForeignTableId
 
-`func (o *ColumnRequest) SetId(v int32)`
+`func (o *ColumnRequest) SetForeignTableId(v int64)`
 
-SetId sets Id field to given value.
+SetForeignTableId sets ForeignTableId field to given value.
 
+### HasForeignTableId
+
+`func (o *ColumnRequest) HasForeignTableId() bool`
+
+HasForeignTableId returns a boolean if a field has been set.
 
 ### GetName
 
@@ -69,6 +74,46 @@ and a boolean to check if the value has been set.
 `func (o *ColumnRequest) SetName(v string)`
 
 SetName sets Name field to given value.
+
+
+### GetOptions
+
+`func (o *ColumnRequest) GetOptions() []Option`
+
+GetOptions returns the Options field if non-nil, zero value otherwise.
+
+### GetOptionsOk
+
+`func (o *ColumnRequest) GetOptionsOk() (*[]Option, bool)`
+
+GetOptionsOk returns a tuple with the Options field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOptions
+
+`func (o *ColumnRequest) SetOptions(v []Option)`
+
+SetOptions sets Options field to given value.
+
+
+### GetId
+
+`func (o *ColumnRequest) GetId() int32`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *ColumnRequest) GetIdOk() (*int32, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *ColumnRequest) SetId(v int32)`
+
+SetId sets Id field to given value.
 
 
 ### GetLabel
@@ -110,51 +155,6 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
-
-### GetOptions
-
-`func (o *ColumnRequest) GetOptions() []Option`
-
-GetOptions returns the Options field if non-nil, zero value otherwise.
-
-### GetOptionsOk
-
-`func (o *ColumnRequest) GetOptionsOk() (*[]Option, bool)`
-
-GetOptionsOk returns a tuple with the Options field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetOptions
-
-`func (o *ColumnRequest) SetOptions(v []Option)`
-
-SetOptions sets Options field to given value.
-
-
-### GetForeignTableId
-
-`func (o *ColumnRequest) GetForeignTableId() int64`
-
-GetForeignTableId returns the ForeignTableId field if non-nil, zero value otherwise.
-
-### GetForeignTableIdOk
-
-`func (o *ColumnRequest) GetForeignTableIdOk() (*int64, bool)`
-
-GetForeignTableIdOk returns a tuple with the ForeignTableId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetForeignTableId
-
-`func (o *ColumnRequest) SetForeignTableId(v int64)`
-
-SetForeignTableId sets ForeignTableId field to given value.
-
-### HasForeignTableId
-
-`func (o *ColumnRequest) HasForeignTableId() bool`
-
-HasForeignTableId returns a boolean if a field has been set.
 
 ### GetForeignColumnId
 

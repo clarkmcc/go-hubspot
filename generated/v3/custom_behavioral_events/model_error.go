@@ -1,5 +1,5 @@
 /*
-Custom Behavioral Events API
+Send Event Completions
 
 HTTP API for triggering instances of custom behavioral events
 
@@ -16,30 +16,30 @@ import (
 
 // Error struct for Error
 type Error struct {
-	// A human readable message describing the error along with remediation steps where appropriate
-	Message string `json:"message"`
-	// A unique identifier for the request. Include this value with any error reports or support tickets
-	CorrelationId string `json:"correlationId"`
-	// The error category
-	Category string `json:"category"`
 	// A specific category that contains more specific detail about the error
 	SubCategory *string `json:"subCategory,omitempty"`
-	// further information about the error
-	Errors []ErrorDetail `json:"errors,omitempty"`
 	// Context about the error condition
 	Context *map[string][]string `json:"context,omitempty"`
+	// A unique identifier for the request. Include this value with any error reports or support tickets
+	CorrelationId string `json:"correlationId"`
 	// A map of link names to associated URIs containing documentation about the error or recommended remediation steps
 	Links *map[string]string `json:"links,omitempty"`
+	// A human readable message describing the error along with remediation steps where appropriate
+	Message string `json:"message"`
+	// The error category
+	Category string `json:"category"`
+	// further information about the error
+	Errors []ErrorDetail `json:"errors,omitempty"`
 }
 
 // NewError instantiates a new Error object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewError(message string, correlationId string, category string) *Error {
+func NewError(correlationId string, message string, category string) *Error {
 	this := Error{}
-	this.Message = message
 	this.CorrelationId = correlationId
+	this.Message = message
 	this.Category = category
 	return &this
 }
@@ -50,78 +50,6 @@ func NewError(message string, correlationId string, category string) *Error {
 func NewErrorWithDefaults() *Error {
 	this := Error{}
 	return &this
-}
-
-// GetMessage returns the Message field value
-func (o *Error) GetMessage() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Message
-}
-
-// GetMessageOk returns a tuple with the Message field value
-// and a boolean to check if the value has been set.
-func (o *Error) GetMessageOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Message, true
-}
-
-// SetMessage sets field value
-func (o *Error) SetMessage(v string) {
-	o.Message = v
-}
-
-// GetCorrelationId returns the CorrelationId field value
-func (o *Error) GetCorrelationId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.CorrelationId
-}
-
-// GetCorrelationIdOk returns a tuple with the CorrelationId field value
-// and a boolean to check if the value has been set.
-func (o *Error) GetCorrelationIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.CorrelationId, true
-}
-
-// SetCorrelationId sets field value
-func (o *Error) SetCorrelationId(v string) {
-	o.CorrelationId = v
-}
-
-// GetCategory returns the Category field value
-func (o *Error) GetCategory() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Category
-}
-
-// GetCategoryOk returns a tuple with the Category field value
-// and a boolean to check if the value has been set.
-func (o *Error) GetCategoryOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Category, true
-}
-
-// SetCategory sets field value
-func (o *Error) SetCategory(v string) {
-	o.Category = v
 }
 
 // GetSubCategory returns the SubCategory field value if set, zero value otherwise.
@@ -156,38 +84,6 @@ func (o *Error) SetSubCategory(v string) {
 	o.SubCategory = &v
 }
 
-// GetErrors returns the Errors field value if set, zero value otherwise.
-func (o *Error) GetErrors() []ErrorDetail {
-	if o == nil || o.Errors == nil {
-		var ret []ErrorDetail
-		return ret
-	}
-	return o.Errors
-}
-
-// GetErrorsOk returns a tuple with the Errors field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Error) GetErrorsOk() ([]ErrorDetail, bool) {
-	if o == nil || o.Errors == nil {
-		return nil, false
-	}
-	return o.Errors, true
-}
-
-// HasErrors returns a boolean if a field has been set.
-func (o *Error) HasErrors() bool {
-	if o != nil && o.Errors != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetErrors gets a reference to the given []ErrorDetail and assigns it to the Errors field.
-func (o *Error) SetErrors(v []ErrorDetail) {
-	o.Errors = v
-}
-
 // GetContext returns the Context field value if set, zero value otherwise.
 func (o *Error) GetContext() map[string][]string {
 	if o == nil || o.Context == nil {
@@ -218,6 +114,30 @@ func (o *Error) HasContext() bool {
 // SetContext gets a reference to the given map[string][]string and assigns it to the Context field.
 func (o *Error) SetContext(v map[string][]string) {
 	o.Context = &v
+}
+
+// GetCorrelationId returns the CorrelationId field value
+func (o *Error) GetCorrelationId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.CorrelationId
+}
+
+// GetCorrelationIdOk returns a tuple with the CorrelationId field value
+// and a boolean to check if the value has been set.
+func (o *Error) GetCorrelationIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.CorrelationId, true
+}
+
+// SetCorrelationId sets field value
+func (o *Error) SetCorrelationId(v string) {
+	o.CorrelationId = v
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
@@ -252,28 +172,108 @@ func (o *Error) SetLinks(v map[string]string) {
 	o.Links = &v
 }
 
+// GetMessage returns the Message field value
+func (o *Error) GetMessage() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Message
+}
+
+// GetMessageOk returns a tuple with the Message field value
+// and a boolean to check if the value has been set.
+func (o *Error) GetMessageOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Message, true
+}
+
+// SetMessage sets field value
+func (o *Error) SetMessage(v string) {
+	o.Message = v
+}
+
+// GetCategory returns the Category field value
+func (o *Error) GetCategory() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Category
+}
+
+// GetCategoryOk returns a tuple with the Category field value
+// and a boolean to check if the value has been set.
+func (o *Error) GetCategoryOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Category, true
+}
+
+// SetCategory sets field value
+func (o *Error) SetCategory(v string) {
+	o.Category = v
+}
+
+// GetErrors returns the Errors field value if set, zero value otherwise.
+func (o *Error) GetErrors() []ErrorDetail {
+	if o == nil || o.Errors == nil {
+		var ret []ErrorDetail
+		return ret
+	}
+	return o.Errors
+}
+
+// GetErrorsOk returns a tuple with the Errors field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Error) GetErrorsOk() ([]ErrorDetail, bool) {
+	if o == nil || o.Errors == nil {
+		return nil, false
+	}
+	return o.Errors, true
+}
+
+// HasErrors returns a boolean if a field has been set.
+func (o *Error) HasErrors() bool {
+	if o != nil && o.Errors != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetErrors gets a reference to the given []ErrorDetail and assigns it to the Errors field.
+func (o *Error) SetErrors(v []ErrorDetail) {
+	o.Errors = v
+}
+
 func (o Error) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["message"] = o.Message
-	}
-	if true {
-		toSerialize["correlationId"] = o.CorrelationId
-	}
-	if true {
-		toSerialize["category"] = o.Category
-	}
 	if o.SubCategory != nil {
 		toSerialize["subCategory"] = o.SubCategory
-	}
-	if o.Errors != nil {
-		toSerialize["errors"] = o.Errors
 	}
 	if o.Context != nil {
 		toSerialize["context"] = o.Context
 	}
+	if true {
+		toSerialize["correlationId"] = o.CorrelationId
+	}
 	if o.Links != nil {
 		toSerialize["links"] = o.Links
+	}
+	if true {
+		toSerialize["message"] = o.Message
+	}
+	if true {
+		toSerialize["category"] = o.Category
+	}
+	if o.Errors != nil {
+		toSerialize["errors"] = o.Errors
 	}
 	return json.Marshal(toSerialize)
 }

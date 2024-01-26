@@ -1,5 +1,5 @@
 /*
-Timeline events
+CRM Timeline
 
 This feature allows an app to create and configure custom events that can show up in the timelines of certain CRM objects like contacts, companies, tickets, or deals. You'll find multiple use cases for this API in the sections below.
 
@@ -17,39 +17,39 @@ import (
 
 // TimelineEventResponse The current state of the timeline event.
 type TimelineEventResponse struct {
+	// The event template ID.
+	EventTemplateId string     `json:"eventTemplateId"`
+	CreatedAt       *time.Time `json:"createdAt,omitempty"`
+	// Additional event-specific data that can be interpreted by the template's markdown.
+	ExtraData      map[string]interface{} `json:"extraData,omitempty"`
+	TimelineIFrame *TimelineEventIFrame   `json:"timelineIFrame,omitempty"`
+	// The event domain (often paired with utk).
+	Domain *string `json:"domain,omitempty"`
+	// A collection of token keys and values associated with the template tokens.
+	Tokens map[string]string `json:"tokens"`
 	// Identifier for the event. This should be unique to the app and event template. If you use the same ID for different CRM objects, the last to be processed will win and the first will not have a record. You can also use `{{uuid}}` anywhere in the ID to generate a unique string, guaranteeing uniqueness.
 	Id string `json:"id"`
-	// The event template ID.
-	EventTemplateId string `json:"eventTemplateId"`
+	// Use the `utk` parameter to associate an event with a contact by `usertoken`. This is recommended if you don't know a user's email, but have an identifying user token in your cookie.
+	Utk *string `json:"utk,omitempty"`
 	// The email address used for contact-specific events. This can be used to identify existing contacts, create new ones, or change the email for an existing contact (if paired with the `objectId`).
 	Email *string `json:"email,omitempty"`
 	// The CRM object identifier. This is required for every event other than contacts (where utk or email can be used).
 	ObjectId *string `json:"objectId,omitempty"`
-	// Use the `utk` parameter to associate an event with a contact by `usertoken`. This is recommended if you don't know a user's email, but have an identifying user token in your cookie.
-	Utk *string `json:"utk,omitempty"`
-	// The event domain (often paired with utk).
-	Domain *string `json:"domain,omitempty"`
 	// The time the event occurred. If not passed in, the curren time will be assumed. This is used to determine where an event is shown on a CRM object's timeline.
 	Timestamp *time.Time `json:"timestamp,omitempty"`
-	// A collection of token keys and values associated with the template tokens.
-	Tokens map[string]string `json:"tokens"`
-	// Additional event-specific data that can be interpreted by the template's markdown.
-	ExtraData      map[string]interface{} `json:"extraData,omitempty"`
-	TimelineIFrame *TimelineEventIFrame   `json:"timelineIFrame,omitempty"`
 	// The ObjectType associated with the EventTemplate.
-	ObjectType string     `json:"objectType"`
-	CreatedAt  *time.Time `json:"createdAt,omitempty"`
+	ObjectType string `json:"objectType"`
 }
 
 // NewTimelineEventResponse instantiates a new TimelineEventResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTimelineEventResponse(id string, eventTemplateId string, tokens map[string]string, objectType string) *TimelineEventResponse {
+func NewTimelineEventResponse(eventTemplateId string, tokens map[string]string, id string, objectType string) *TimelineEventResponse {
 	this := TimelineEventResponse{}
-	this.Id = id
 	this.EventTemplateId = eventTemplateId
 	this.Tokens = tokens
+	this.Id = id
 	this.ObjectType = objectType
 	return &this
 }
@@ -60,30 +60,6 @@ func NewTimelineEventResponse(id string, eventTemplateId string, tokens map[stri
 func NewTimelineEventResponseWithDefaults() *TimelineEventResponse {
 	this := TimelineEventResponse{}
 	return &this
-}
-
-// GetId returns the Id field value
-func (o *TimelineEventResponse) GetId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Id
-}
-
-// GetIdOk returns a tuple with the Id field value
-// and a boolean to check if the value has been set.
-func (o *TimelineEventResponse) GetIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Id, true
-}
-
-// SetId sets field value
-func (o *TimelineEventResponse) SetId(v string) {
-	o.Id = v
 }
 
 // GetEventTemplateId returns the EventTemplateId field value
@@ -110,188 +86,36 @@ func (o *TimelineEventResponse) SetEventTemplateId(v string) {
 	o.EventTemplateId = v
 }
 
-// GetEmail returns the Email field value if set, zero value otherwise.
-func (o *TimelineEventResponse) GetEmail() string {
-	if o == nil || o.Email == nil {
-		var ret string
-		return ret
-	}
-	return *o.Email
-}
-
-// GetEmailOk returns a tuple with the Email field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *TimelineEventResponse) GetEmailOk() (*string, bool) {
-	if o == nil || o.Email == nil {
-		return nil, false
-	}
-	return o.Email, true
-}
-
-// HasEmail returns a boolean if a field has been set.
-func (o *TimelineEventResponse) HasEmail() bool {
-	if o != nil && o.Email != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetEmail gets a reference to the given string and assigns it to the Email field.
-func (o *TimelineEventResponse) SetEmail(v string) {
-	o.Email = &v
-}
-
-// GetObjectId returns the ObjectId field value if set, zero value otherwise.
-func (o *TimelineEventResponse) GetObjectId() string {
-	if o == nil || o.ObjectId == nil {
-		var ret string
-		return ret
-	}
-	return *o.ObjectId
-}
-
-// GetObjectIdOk returns a tuple with the ObjectId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *TimelineEventResponse) GetObjectIdOk() (*string, bool) {
-	if o == nil || o.ObjectId == nil {
-		return nil, false
-	}
-	return o.ObjectId, true
-}
-
-// HasObjectId returns a boolean if a field has been set.
-func (o *TimelineEventResponse) HasObjectId() bool {
-	if o != nil && o.ObjectId != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetObjectId gets a reference to the given string and assigns it to the ObjectId field.
-func (o *TimelineEventResponse) SetObjectId(v string) {
-	o.ObjectId = &v
-}
-
-// GetUtk returns the Utk field value if set, zero value otherwise.
-func (o *TimelineEventResponse) GetUtk() string {
-	if o == nil || o.Utk == nil {
-		var ret string
-		return ret
-	}
-	return *o.Utk
-}
-
-// GetUtkOk returns a tuple with the Utk field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *TimelineEventResponse) GetUtkOk() (*string, bool) {
-	if o == nil || o.Utk == nil {
-		return nil, false
-	}
-	return o.Utk, true
-}
-
-// HasUtk returns a boolean if a field has been set.
-func (o *TimelineEventResponse) HasUtk() bool {
-	if o != nil && o.Utk != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetUtk gets a reference to the given string and assigns it to the Utk field.
-func (o *TimelineEventResponse) SetUtk(v string) {
-	o.Utk = &v
-}
-
-// GetDomain returns the Domain field value if set, zero value otherwise.
-func (o *TimelineEventResponse) GetDomain() string {
-	if o == nil || o.Domain == nil {
-		var ret string
-		return ret
-	}
-	return *o.Domain
-}
-
-// GetDomainOk returns a tuple with the Domain field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *TimelineEventResponse) GetDomainOk() (*string, bool) {
-	if o == nil || o.Domain == nil {
-		return nil, false
-	}
-	return o.Domain, true
-}
-
-// HasDomain returns a boolean if a field has been set.
-func (o *TimelineEventResponse) HasDomain() bool {
-	if o != nil && o.Domain != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetDomain gets a reference to the given string and assigns it to the Domain field.
-func (o *TimelineEventResponse) SetDomain(v string) {
-	o.Domain = &v
-}
-
-// GetTimestamp returns the Timestamp field value if set, zero value otherwise.
-func (o *TimelineEventResponse) GetTimestamp() time.Time {
-	if o == nil || o.Timestamp == nil {
+// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
+func (o *TimelineEventResponse) GetCreatedAt() time.Time {
+	if o == nil || o.CreatedAt == nil {
 		var ret time.Time
 		return ret
 	}
-	return *o.Timestamp
+	return *o.CreatedAt
 }
 
-// GetTimestampOk returns a tuple with the Timestamp field value if set, nil otherwise
+// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TimelineEventResponse) GetTimestampOk() (*time.Time, bool) {
-	if o == nil || o.Timestamp == nil {
+func (o *TimelineEventResponse) GetCreatedAtOk() (*time.Time, bool) {
+	if o == nil || o.CreatedAt == nil {
 		return nil, false
 	}
-	return o.Timestamp, true
+	return o.CreatedAt, true
 }
 
-// HasTimestamp returns a boolean if a field has been set.
-func (o *TimelineEventResponse) HasTimestamp() bool {
-	if o != nil && o.Timestamp != nil {
+// HasCreatedAt returns a boolean if a field has been set.
+func (o *TimelineEventResponse) HasCreatedAt() bool {
+	if o != nil && o.CreatedAt != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetTimestamp gets a reference to the given time.Time and assigns it to the Timestamp field.
-func (o *TimelineEventResponse) SetTimestamp(v time.Time) {
-	o.Timestamp = &v
-}
-
-// GetTokens returns the Tokens field value
-func (o *TimelineEventResponse) GetTokens() map[string]string {
-	if o == nil {
-		var ret map[string]string
-		return ret
-	}
-
-	return o.Tokens
-}
-
-// GetTokensOk returns a tuple with the Tokens field value
-// and a boolean to check if the value has been set.
-func (o *TimelineEventResponse) GetTokensOk() (*map[string]string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Tokens, true
-}
-
-// SetTokens sets field value
-func (o *TimelineEventResponse) SetTokens(v map[string]string) {
-	o.Tokens = v
+// SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
+func (o *TimelineEventResponse) SetCreatedAt(v time.Time) {
+	o.CreatedAt = &v
 }
 
 // GetExtraData returns the ExtraData field value if set, zero value otherwise.
@@ -358,6 +182,214 @@ func (o *TimelineEventResponse) SetTimelineIFrame(v TimelineEventIFrame) {
 	o.TimelineIFrame = &v
 }
 
+// GetDomain returns the Domain field value if set, zero value otherwise.
+func (o *TimelineEventResponse) GetDomain() string {
+	if o == nil || o.Domain == nil {
+		var ret string
+		return ret
+	}
+	return *o.Domain
+}
+
+// GetDomainOk returns a tuple with the Domain field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TimelineEventResponse) GetDomainOk() (*string, bool) {
+	if o == nil || o.Domain == nil {
+		return nil, false
+	}
+	return o.Domain, true
+}
+
+// HasDomain returns a boolean if a field has been set.
+func (o *TimelineEventResponse) HasDomain() bool {
+	if o != nil && o.Domain != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDomain gets a reference to the given string and assigns it to the Domain field.
+func (o *TimelineEventResponse) SetDomain(v string) {
+	o.Domain = &v
+}
+
+// GetTokens returns the Tokens field value
+func (o *TimelineEventResponse) GetTokens() map[string]string {
+	if o == nil {
+		var ret map[string]string
+		return ret
+	}
+
+	return o.Tokens
+}
+
+// GetTokensOk returns a tuple with the Tokens field value
+// and a boolean to check if the value has been set.
+func (o *TimelineEventResponse) GetTokensOk() (*map[string]string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Tokens, true
+}
+
+// SetTokens sets field value
+func (o *TimelineEventResponse) SetTokens(v map[string]string) {
+	o.Tokens = v
+}
+
+// GetId returns the Id field value
+func (o *TimelineEventResponse) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *TimelineEventResponse) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *TimelineEventResponse) SetId(v string) {
+	o.Id = v
+}
+
+// GetUtk returns the Utk field value if set, zero value otherwise.
+func (o *TimelineEventResponse) GetUtk() string {
+	if o == nil || o.Utk == nil {
+		var ret string
+		return ret
+	}
+	return *o.Utk
+}
+
+// GetUtkOk returns a tuple with the Utk field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TimelineEventResponse) GetUtkOk() (*string, bool) {
+	if o == nil || o.Utk == nil {
+		return nil, false
+	}
+	return o.Utk, true
+}
+
+// HasUtk returns a boolean if a field has been set.
+func (o *TimelineEventResponse) HasUtk() bool {
+	if o != nil && o.Utk != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetUtk gets a reference to the given string and assigns it to the Utk field.
+func (o *TimelineEventResponse) SetUtk(v string) {
+	o.Utk = &v
+}
+
+// GetEmail returns the Email field value if set, zero value otherwise.
+func (o *TimelineEventResponse) GetEmail() string {
+	if o == nil || o.Email == nil {
+		var ret string
+		return ret
+	}
+	return *o.Email
+}
+
+// GetEmailOk returns a tuple with the Email field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TimelineEventResponse) GetEmailOk() (*string, bool) {
+	if o == nil || o.Email == nil {
+		return nil, false
+	}
+	return o.Email, true
+}
+
+// HasEmail returns a boolean if a field has been set.
+func (o *TimelineEventResponse) HasEmail() bool {
+	if o != nil && o.Email != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetEmail gets a reference to the given string and assigns it to the Email field.
+func (o *TimelineEventResponse) SetEmail(v string) {
+	o.Email = &v
+}
+
+// GetObjectId returns the ObjectId field value if set, zero value otherwise.
+func (o *TimelineEventResponse) GetObjectId() string {
+	if o == nil || o.ObjectId == nil {
+		var ret string
+		return ret
+	}
+	return *o.ObjectId
+}
+
+// GetObjectIdOk returns a tuple with the ObjectId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TimelineEventResponse) GetObjectIdOk() (*string, bool) {
+	if o == nil || o.ObjectId == nil {
+		return nil, false
+	}
+	return o.ObjectId, true
+}
+
+// HasObjectId returns a boolean if a field has been set.
+func (o *TimelineEventResponse) HasObjectId() bool {
+	if o != nil && o.ObjectId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetObjectId gets a reference to the given string and assigns it to the ObjectId field.
+func (o *TimelineEventResponse) SetObjectId(v string) {
+	o.ObjectId = &v
+}
+
+// GetTimestamp returns the Timestamp field value if set, zero value otherwise.
+func (o *TimelineEventResponse) GetTimestamp() time.Time {
+	if o == nil || o.Timestamp == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.Timestamp
+}
+
+// GetTimestampOk returns a tuple with the Timestamp field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TimelineEventResponse) GetTimestampOk() (*time.Time, bool) {
+	if o == nil || o.Timestamp == nil {
+		return nil, false
+	}
+	return o.Timestamp, true
+}
+
+// HasTimestamp returns a boolean if a field has been set.
+func (o *TimelineEventResponse) HasTimestamp() bool {
+	if o != nil && o.Timestamp != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTimestamp gets a reference to the given time.Time and assigns it to the Timestamp field.
+func (o *TimelineEventResponse) SetTimestamp(v time.Time) {
+	o.Timestamp = &v
+}
+
 // GetObjectType returns the ObjectType field value
 func (o *TimelineEventResponse) GetObjectType() string {
 	if o == nil {
@@ -382,63 +414,13 @@ func (o *TimelineEventResponse) SetObjectType(v string) {
 	o.ObjectType = v
 }
 
-// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *TimelineEventResponse) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
-		var ret time.Time
-		return ret
-	}
-	return *o.CreatedAt
-}
-
-// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *TimelineEventResponse) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
-		return nil, false
-	}
-	return o.CreatedAt, true
-}
-
-// HasCreatedAt returns a boolean if a field has been set.
-func (o *TimelineEventResponse) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
-func (o *TimelineEventResponse) SetCreatedAt(v time.Time) {
-	o.CreatedAt = &v
-}
-
 func (o TimelineEventResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
 		toSerialize["eventTemplateId"] = o.EventTemplateId
 	}
-	if o.Email != nil {
-		toSerialize["email"] = o.Email
-	}
-	if o.ObjectId != nil {
-		toSerialize["objectId"] = o.ObjectId
-	}
-	if o.Utk != nil {
-		toSerialize["utk"] = o.Utk
-	}
-	if o.Domain != nil {
-		toSerialize["domain"] = o.Domain
-	}
-	if o.Timestamp != nil {
-		toSerialize["timestamp"] = o.Timestamp
-	}
-	if true {
-		toSerialize["tokens"] = o.Tokens
+	if o.CreatedAt != nil {
+		toSerialize["createdAt"] = o.CreatedAt
 	}
 	if o.ExtraData != nil {
 		toSerialize["extraData"] = o.ExtraData
@@ -446,11 +428,29 @@ func (o TimelineEventResponse) MarshalJSON() ([]byte, error) {
 	if o.TimelineIFrame != nil {
 		toSerialize["timelineIFrame"] = o.TimelineIFrame
 	}
+	if o.Domain != nil {
+		toSerialize["domain"] = o.Domain
+	}
+	if true {
+		toSerialize["tokens"] = o.Tokens
+	}
+	if true {
+		toSerialize["id"] = o.Id
+	}
+	if o.Utk != nil {
+		toSerialize["utk"] = o.Utk
+	}
+	if o.Email != nil {
+		toSerialize["email"] = o.Email
+	}
+	if o.ObjectId != nil {
+		toSerialize["objectId"] = o.ObjectId
+	}
+	if o.Timestamp != nil {
+		toSerialize["timestamp"] = o.Timestamp
+	}
 	if true {
 		toSerialize["objectType"] = o.ObjectType
-	}
-	if o.CreatedAt != nil {
-		toSerialize["createdAt"] = o.CreatedAt
 	}
 	return json.Marshal(toSerialize)
 }

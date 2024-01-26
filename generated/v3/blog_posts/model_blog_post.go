@@ -1,5 +1,5 @@
 /*
-Blog Post endpoints
+Posts
 
 Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags
 
@@ -17,181 +17,191 @@ import (
 
 // BlogPost Model definition for a Blog Post.
 type BlogPost struct {
+	// The date (ISO8601 format) the blog post is to be published at.
+	PublishDate time.Time `json:"publishDate"`
+	// The explicitly defined ISO 639 language code of the Blog Post. If null, the Blog Post will default to the language of the ParentBlog.
+	Language string `json:"language"`
+	// Boolean to determine whether or not the styles from the template should be applied.
+	EnableLayoutStylesheets bool `json:"enableLayoutStylesheets"`
+	// A description that goes in <meta> tag on the page.
+	MetaDescription string `json:"metaDescription"`
+	// List of stylesheets to attach to this blog post. These stylesheets are attached to just this page. Order of precedence is bottom to top, just like in the HTML.
+	AttachedStylesheets []map[string]map[string]interface{} `json:"attachedStylesheets"`
+	// Set this to create a password protected page. Entering the password will be required to view the page.
+	Password string `json:"password"`
+	// The html title of this Blog Post.
+	HtmlTitle string `json:"htmlTitle"`
+	// Set this to true if you want to be published immediately when the schedule publish endpoint is called, and to ignore the publish_date setting.
+	PublishImmediately bool                                `json:"publishImmediately"`
+	Translations       map[string]ContentLanguageVariation `json:"translations"`
 	// The unique ID of the Blog Post.
 	Id string `json:"id"`
-	// The path of the this blog post. This field is appended to the domain to construct the url of this post.
-	Slug string `json:"slug"`
-	// The ID of the parent Blog this Blog Post is associated with.
-	ContentGroupId string `json:"contentGroupId"`
-	// The GUID of the marketing campaign this Blog Post is a part of.
-	Campaign string `json:"campaign"`
-	// ID of the type of object this is. Should always .
-	CategoryId int32 `json:"categoryId"`
 	// An ENUM descibing the current state of this Blog Post.
 	State string `json:"state"`
-	// The internal name of the Blog Post.
-	Name            string `json:"name"`
-	MabExperimentId string `json:"mabExperimentId"`
-	// The name of the user that updated this Blog Post.
-	AuthorName string `json:"authorName"`
-	AbTestId   string `json:"abTestId"`
+	// The path of the this blog post. This field is appended to the domain to construct the url of this post.
+	Slug string `json:"slug"`
 	// The ID of the user that created this Blog Post.
 	CreatedById string `json:"createdById"`
+	// The contents of the RSS body for this Blog Post.
+	RssBody            string `json:"rssBody"`
+	CurrentlyPublished bool   `json:"currentlyPublished"`
+	// If True, the post will not show up in your dashboard, although the post could still be live.
+	ArchivedInDashboard bool      `json:"archivedInDashboard"`
+	Created             time.Time `json:"created"`
+	// An ENUM descibing the type of this object. Should always be BLOG_POST.
+	ContentTypeCategory string `json:"contentTypeCategory"`
+	//
+	MabExperimentId string `json:"mabExperimentId"`
 	// The ID of the user that updated this Blog Post.
 	UpdatedById string `json:"updatedById"`
-	// The domain this Blog Post will resolve to. If null, the Blog Post will default to the domain of the ParentBlog.
-	Domain   string `json:"domain"`
-	AbStatus string `json:"abStatus"`
+	// ID of the primary blog post this object was translated from.
+	TranslatedFromId string `json:"translatedFromId"`
+	//
 	FolderId string `json:"folderId"`
 	// A data structure containing the data for all the modules inside the containers for this post. This will only be populated if the page has widget containers.
 	WidgetContainers map[string]map[string]interface{} `json:"widgetContainers"`
-	// A data structure containing the data for all the modules for this page.
-	Widgets map[string]map[string]interface{} `json:"widgets"`
-	// The explicitly defined ISO 639 language code of the Blog Post. If null, the Blog Post will default to the language of the ParentBlog.
-	Language string `json:"language"`
-	// ID of the primary blog post this object was translated from.
-	TranslatedFromId string                              `json:"translatedFromId"`
-	Translations     map[string]ContentLanguageVariation `json:"translations"`
+	//
+	PageExpiryRedirectId      int64 `json:"pageExpiryRedirectId"`
+	DynamicPageDataSourceType int32 `json:"dynamicPageDataSourceType"`
+	// The featuredImage of this Blog Post.
+	FeaturedImage string `json:"featuredImage"`
+	// The name of the user that updated this Blog Post.
+	AuthorName string `json:"authorName"`
+	// The domain this Blog Post will resolve to. If null, the Blog Post will default to the domain of the ParentBlog.
+	Domain string `json:"domain"`
+	// The internal name of the Blog Post.
+	Name string `json:"name"`
 	// The ID of the HubDB table this Blog Post references, if applicable
-	DynamicPageHubDbTableId   string `json:"dynamicPageHubDbTableId"`
-	DynamicPageDataSourceType int32  `json:"dynamicPageDataSourceType"`
-	DynamicPageDataSourceId   string `json:"dynamicPageDataSourceId"`
-	// The ID of the Blog Author associated with this Blog Post.
-	BlogAuthorId string `json:"blogAuthorId"`
-	// List of IDs for the tags associated with this Blog Post.
-	TagIds []int64 `json:"tagIds"`
-	// The html title of this Blog Post.
-	HtmlTitle string `json:"htmlTitle"`
-	// Boolean to determine whether or not to respect publicAccessRules.
-	PublicAccessRulesEnabled bool `json:"publicAccessRulesEnabled"`
-	// Rules for require member registration to access private content.
-	PublicAccessRules []map[string]interface{} `json:"publicAccessRules"`
-	// Boolean to determine if this post should use a featuredImage.
-	UseFeaturedImage bool `json:"useFeaturedImage"`
-	// The summary of the blog post that will appear on the main listing page.
-	PostSummary string `json:"postSummary"`
-	// The HTML of the main post body.
-	PostBody string `json:"postBody"`
-	// The contents of the RSS summary for this Blog Post.
-	RssSummary string `json:"rssSummary"`
-	// The contents of the RSS body for this Blog Post.
-	RssBody string `json:"rssBody"`
-	// Boolean to allow overriding the AMP settings for the blog.
-	EnableGoogleAmpOutputOverride bool `json:"enableGoogleAmpOutputOverride"`
-	// Set this to true if you want to be published immediately when the schedule publish endpoint is called, and to ignore the publish_date setting.
-	PublishImmediately bool `json:"publishImmediately"`
-	// The timestamp (ISO8601 format) when this Blog Post was deleted.
-	ArchivedAt int64 `json:"archivedAt"`
-	// Optional override to set the URL to be used in the rel=canonical link tag on the page.
-	LinkRelCanonicalUrl string `json:"linkRelCanonicalUrl"`
-	// If True, the post will not show up in your dashboard, although the post could still be live.
-	ArchivedInDashboard   bool   `json:"archivedInDashboard"`
-	PageExpiryEnabled     bool   `json:"pageExpiryEnabled"`
-	PageExpiryRedirectId  int64  `json:"pageExpiryRedirectId"`
-	PageExpiryRedirectUrl string `json:"pageExpiryRedirectUrl"`
-	PageExpiryDate        int64  `json:"pageExpiryDate"`
+	DynamicPageHubDbTableId string `json:"dynamicPageHubDbTableId"`
+	// The GUID of the marketing campaign this Blog Post is a part of.
+	Campaign                string `json:"campaign"`
+	DynamicPageDataSourceId string `json:"dynamicPageDataSourceId"`
+	// Boolean to determine whether or not the styles from the template should be applied.
+	EnableDomainStylesheets bool `json:"enableDomainStylesheets"`
 	// Boolean to determine whether or not the Primary CSS Files should be applied.
 	IncludeDefaultCustomCss bool `json:"includeDefaultCustomCss"`
-	// Boolean to determine whether or not the styles from the template should be applied.
-	EnableLayoutStylesheets bool `json:"enableLayoutStylesheets"`
-	// Boolean to determine whether or not the styles from the template should be applied.
-	EnableDomainStylesheets bool                     `json:"enableDomainStylesheets"`
-	LayoutSections          map[string]LayoutSection `json:"layoutSections"`
-	// Alt Text of the featuredImage.
-	FeaturedImageAltText string `json:"featuredImageAltText"`
-	// List of stylesheets to attach to this blog post. These stylesheets are attached to just this page. Order of precedence is bottom to top, just like in the HTML.
-	AttachedStylesheets []map[string]map[string]interface{} `json:"attachedStylesheets"`
-	// A description that goes in <meta> tag on the page.
-	MetaDescription string `json:"metaDescription"`
-	// Custom HTML for embed codes, javascript, etc. that goes in the <head> tag of the page.
-	HeadHtml string `json:"headHtml"`
+	//
+	LayoutSections map[string]LayoutSection `json:"layoutSections"`
+	Updated        time.Time                `json:"updated"`
 	// Custom HTML for embed codes, javascript that should be placed before the </body> tag of the page.
 	FooterHtml string `json:"footerHtml"`
-	// The featuredImage of this Blog Post.
-	FeaturedImage       string                            `json:"featuredImage"`
-	ThemeSettingsValues map[string]map[string]interface{} `json:"themeSettingsValues"`
+	// List of IDs for the tags associated with this Blog Post.
+	TagIds []int64 `json:"tagIds"`
+	// A data structure containing the data for all the modules for this page.
+	Widgets map[string]map[string]interface{} `json:"widgets"`
+	// The summary of the blog post that will appear on the main listing page.
+	PostSummary string `json:"postSummary"`
+	// Custom HTML for embed codes, javascript, etc. that goes in the <head> tag of the page.
+	HeadHtml string `json:"headHtml"`
+	//
+	PageExpiryRedirectUrl string `json:"pageExpiryRedirectUrl"`
+	//
+	AbStatus string `json:"abStatus"`
+	// Boolean to determine if this post should use a featuredImage.
+	UseFeaturedImage bool `json:"useFeaturedImage"`
+	//
+	AbTestId string `json:"abTestId"`
+	// Alt Text of the featuredImage.
+	FeaturedImageAltText string `json:"featuredImageAltText"`
+	// The ID of the Blog Author associated with this Blog Post.
+	BlogAuthorId string `json:"blogAuthorId"`
+	// The ID of the parent Blog this Blog Post is associated with.
+	ContentGroupId string `json:"contentGroupId"`
+	// The contents of the RSS summary for this Blog Post.
+	RssSummary string `json:"rssSummary"`
+	//
+	PageExpiryEnabled bool `json:"pageExpiryEnabled"`
 	// A generated field representing the URL of this blog post.
 	Url string `json:"url"`
-	// Set this to create a password protected page. Entering the password will be required to view the page.
-	Password string `json:"password"`
+	// Rules for require member registration to access private content.
+	PublicAccessRules []map[string]interface{} `json:"publicAccessRules"`
+	// Boolean to allow overriding the AMP settings for the blog.
+	EnableGoogleAmpOutputOverride bool `json:"enableGoogleAmpOutputOverride"`
+	// The timestamp (ISO8601 format) when this Blog Post was deleted.
+	ArchivedAt int64 `json:"archivedAt"`
+	// The HTML of the main post body.
+	PostBody string `json:"postBody"`
+	//
+	ThemeSettingsValues map[string]map[string]interface{} `json:"themeSettingsValues"`
+	//
+	PageExpiryDate int64 `json:"pageExpiryDate"`
+	// Boolean to determine whether or not to respect publicAccessRules.
+	PublicAccessRulesEnabled bool `json:"publicAccessRulesEnabled"`
 	// A generated ENUM descibing the current state of this Blog Post. Should always match state.
-	CurrentState       string `json:"currentState"`
-	CurrentlyPublished bool   `json:"currentlyPublished"`
-	// An ENUM descibing the type of this object. Should always be BLOG_POST.
-	ContentTypeCategory string `json:"contentTypeCategory"`
-	// The date (ISO8601 format) the blog post is to be published at.
-	PublishDate time.Time `json:"publishDate"`
-	Created     time.Time `json:"created"`
-	Updated     time.Time `json:"updated"`
+	CurrentState string `json:"currentState"`
+	// ID of the type of object this is. Should always .
+	CategoryId int32 `json:"categoryId"`
+	// Optional override to set the URL to be used in the rel=canonical link tag on the page.
+	LinkRelCanonicalUrl string `json:"linkRelCanonicalUrl"`
 }
 
 // NewBlogPost instantiates a new BlogPost object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBlogPost(id string, slug string, contentGroupId string, campaign string, categoryId int32, state string, name string, mabExperimentId string, authorName string, abTestId string, createdById string, updatedById string, domain string, abStatus string, folderId string, widgetContainers map[string]map[string]interface{}, widgets map[string]map[string]interface{}, language string, translatedFromId string, translations map[string]ContentLanguageVariation, dynamicPageHubDbTableId string, dynamicPageDataSourceType int32, dynamicPageDataSourceId string, blogAuthorId string, tagIds []int64, htmlTitle string, publicAccessRulesEnabled bool, publicAccessRules []map[string]interface{}, useFeaturedImage bool, postSummary string, postBody string, rssSummary string, rssBody string, enableGoogleAmpOutputOverride bool, publishImmediately bool, archivedAt int64, linkRelCanonicalUrl string, archivedInDashboard bool, pageExpiryEnabled bool, pageExpiryRedirectId int64, pageExpiryRedirectUrl string, pageExpiryDate int64, includeDefaultCustomCss bool, enableLayoutStylesheets bool, enableDomainStylesheets bool, layoutSections map[string]LayoutSection, featuredImageAltText string, attachedStylesheets []map[string]map[string]interface{}, metaDescription string, headHtml string, footerHtml string, featuredImage string, themeSettingsValues map[string]map[string]interface{}, url string, password string, currentState string, currentlyPublished bool, contentTypeCategory string, publishDate time.Time, created time.Time, updated time.Time) *BlogPost {
+func NewBlogPost(publishDate time.Time, language string, enableLayoutStylesheets bool, metaDescription string, attachedStylesheets []map[string]map[string]interface{}, password string, htmlTitle string, publishImmediately bool, translations map[string]ContentLanguageVariation, id string, state string, slug string, createdById string, rssBody string, currentlyPublished bool, archivedInDashboard bool, created time.Time, contentTypeCategory string, mabExperimentId string, updatedById string, translatedFromId string, folderId string, widgetContainers map[string]map[string]interface{}, pageExpiryRedirectId int64, dynamicPageDataSourceType int32, featuredImage string, authorName string, domain string, name string, dynamicPageHubDbTableId string, campaign string, dynamicPageDataSourceId string, enableDomainStylesheets bool, includeDefaultCustomCss bool, layoutSections map[string]LayoutSection, updated time.Time, footerHtml string, tagIds []int64, widgets map[string]map[string]interface{}, postSummary string, headHtml string, pageExpiryRedirectUrl string, abStatus string, useFeaturedImage bool, abTestId string, featuredImageAltText string, blogAuthorId string, contentGroupId string, rssSummary string, pageExpiryEnabled bool, url string, publicAccessRules []map[string]interface{}, enableGoogleAmpOutputOverride bool, archivedAt int64, postBody string, themeSettingsValues map[string]map[string]interface{}, pageExpiryDate int64, publicAccessRulesEnabled bool, currentState string, categoryId int32, linkRelCanonicalUrl string) *BlogPost {
 	this := BlogPost{}
+	this.PublishDate = publishDate
+	this.Language = language
+	this.EnableLayoutStylesheets = enableLayoutStylesheets
+	this.MetaDescription = metaDescription
+	this.AttachedStylesheets = attachedStylesheets
+	this.Password = password
+	this.HtmlTitle = htmlTitle
+	this.PublishImmediately = publishImmediately
+	this.Translations = translations
 	this.Id = id
-	this.Slug = slug
-	this.ContentGroupId = contentGroupId
-	this.Campaign = campaign
-	this.CategoryId = categoryId
 	this.State = state
-	this.Name = name
-	this.MabExperimentId = mabExperimentId
-	this.AuthorName = authorName
-	this.AbTestId = abTestId
+	this.Slug = slug
 	this.CreatedById = createdById
+	this.RssBody = rssBody
+	this.CurrentlyPublished = currentlyPublished
+	this.ArchivedInDashboard = archivedInDashboard
+	this.Created = created
+	this.ContentTypeCategory = contentTypeCategory
+	this.MabExperimentId = mabExperimentId
 	this.UpdatedById = updatedById
-	this.Domain = domain
-	this.AbStatus = abStatus
+	this.TranslatedFromId = translatedFromId
 	this.FolderId = folderId
 	this.WidgetContainers = widgetContainers
-	this.Widgets = widgets
-	this.Language = language
-	this.TranslatedFromId = translatedFromId
-	this.Translations = translations
-	this.DynamicPageHubDbTableId = dynamicPageHubDbTableId
-	this.DynamicPageDataSourceType = dynamicPageDataSourceType
-	this.DynamicPageDataSourceId = dynamicPageDataSourceId
-	this.BlogAuthorId = blogAuthorId
-	this.TagIds = tagIds
-	this.HtmlTitle = htmlTitle
-	this.PublicAccessRulesEnabled = publicAccessRulesEnabled
-	this.PublicAccessRules = publicAccessRules
-	this.UseFeaturedImage = useFeaturedImage
-	this.PostSummary = postSummary
-	this.PostBody = postBody
-	this.RssSummary = rssSummary
-	this.RssBody = rssBody
-	this.EnableGoogleAmpOutputOverride = enableGoogleAmpOutputOverride
-	this.PublishImmediately = publishImmediately
-	this.ArchivedAt = archivedAt
-	this.LinkRelCanonicalUrl = linkRelCanonicalUrl
-	this.ArchivedInDashboard = archivedInDashboard
-	this.PageExpiryEnabled = pageExpiryEnabled
 	this.PageExpiryRedirectId = pageExpiryRedirectId
-	this.PageExpiryRedirectUrl = pageExpiryRedirectUrl
-	this.PageExpiryDate = pageExpiryDate
-	this.IncludeDefaultCustomCss = includeDefaultCustomCss
-	this.EnableLayoutStylesheets = enableLayoutStylesheets
-	this.EnableDomainStylesheets = enableDomainStylesheets
-	this.LayoutSections = layoutSections
-	this.FeaturedImageAltText = featuredImageAltText
-	this.AttachedStylesheets = attachedStylesheets
-	this.MetaDescription = metaDescription
-	this.HeadHtml = headHtml
-	this.FooterHtml = footerHtml
+	this.DynamicPageDataSourceType = dynamicPageDataSourceType
 	this.FeaturedImage = featuredImage
-	this.ThemeSettingsValues = themeSettingsValues
-	this.Url = url
-	this.Password = password
-	this.CurrentState = currentState
-	this.CurrentlyPublished = currentlyPublished
-	this.ContentTypeCategory = contentTypeCategory
-	this.PublishDate = publishDate
-	this.Created = created
+	this.AuthorName = authorName
+	this.Domain = domain
+	this.Name = name
+	this.DynamicPageHubDbTableId = dynamicPageHubDbTableId
+	this.Campaign = campaign
+	this.DynamicPageDataSourceId = dynamicPageDataSourceId
+	this.EnableDomainStylesheets = enableDomainStylesheets
+	this.IncludeDefaultCustomCss = includeDefaultCustomCss
+	this.LayoutSections = layoutSections
 	this.Updated = updated
+	this.FooterHtml = footerHtml
+	this.TagIds = tagIds
+	this.Widgets = widgets
+	this.PostSummary = postSummary
+	this.HeadHtml = headHtml
+	this.PageExpiryRedirectUrl = pageExpiryRedirectUrl
+	this.AbStatus = abStatus
+	this.UseFeaturedImage = useFeaturedImage
+	this.AbTestId = abTestId
+	this.FeaturedImageAltText = featuredImageAltText
+	this.BlogAuthorId = blogAuthorId
+	this.ContentGroupId = contentGroupId
+	this.RssSummary = rssSummary
+	this.PageExpiryEnabled = pageExpiryEnabled
+	this.Url = url
+	this.PublicAccessRules = publicAccessRules
+	this.EnableGoogleAmpOutputOverride = enableGoogleAmpOutputOverride
+	this.ArchivedAt = archivedAt
+	this.PostBody = postBody
+	this.ThemeSettingsValues = themeSettingsValues
+	this.PageExpiryDate = pageExpiryDate
+	this.PublicAccessRulesEnabled = publicAccessRulesEnabled
+	this.CurrentState = currentState
+	this.CategoryId = categoryId
+	this.LinkRelCanonicalUrl = linkRelCanonicalUrl
 	return &this
 }
 
@@ -201,6 +211,222 @@ func NewBlogPost(id string, slug string, contentGroupId string, campaign string,
 func NewBlogPostWithDefaults() *BlogPost {
 	this := BlogPost{}
 	return &this
+}
+
+// GetPublishDate returns the PublishDate field value
+func (o *BlogPost) GetPublishDate() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.PublishDate
+}
+
+// GetPublishDateOk returns a tuple with the PublishDate field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetPublishDateOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PublishDate, true
+}
+
+// SetPublishDate sets field value
+func (o *BlogPost) SetPublishDate(v time.Time) {
+	o.PublishDate = v
+}
+
+// GetLanguage returns the Language field value
+func (o *BlogPost) GetLanguage() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Language
+}
+
+// GetLanguageOk returns a tuple with the Language field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetLanguageOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Language, true
+}
+
+// SetLanguage sets field value
+func (o *BlogPost) SetLanguage(v string) {
+	o.Language = v
+}
+
+// GetEnableLayoutStylesheets returns the EnableLayoutStylesheets field value
+func (o *BlogPost) GetEnableLayoutStylesheets() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.EnableLayoutStylesheets
+}
+
+// GetEnableLayoutStylesheetsOk returns a tuple with the EnableLayoutStylesheets field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetEnableLayoutStylesheetsOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.EnableLayoutStylesheets, true
+}
+
+// SetEnableLayoutStylesheets sets field value
+func (o *BlogPost) SetEnableLayoutStylesheets(v bool) {
+	o.EnableLayoutStylesheets = v
+}
+
+// GetMetaDescription returns the MetaDescription field value
+func (o *BlogPost) GetMetaDescription() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.MetaDescription
+}
+
+// GetMetaDescriptionOk returns a tuple with the MetaDescription field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetMetaDescriptionOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.MetaDescription, true
+}
+
+// SetMetaDescription sets field value
+func (o *BlogPost) SetMetaDescription(v string) {
+	o.MetaDescription = v
+}
+
+// GetAttachedStylesheets returns the AttachedStylesheets field value
+func (o *BlogPost) GetAttachedStylesheets() []map[string]map[string]interface{} {
+	if o == nil {
+		var ret []map[string]map[string]interface{}
+		return ret
+	}
+
+	return o.AttachedStylesheets
+}
+
+// GetAttachedStylesheetsOk returns a tuple with the AttachedStylesheets field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetAttachedStylesheetsOk() ([]map[string]map[string]interface{}, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.AttachedStylesheets, true
+}
+
+// SetAttachedStylesheets sets field value
+func (o *BlogPost) SetAttachedStylesheets(v []map[string]map[string]interface{}) {
+	o.AttachedStylesheets = v
+}
+
+// GetPassword returns the Password field value
+func (o *BlogPost) GetPassword() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Password
+}
+
+// GetPasswordOk returns a tuple with the Password field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetPasswordOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Password, true
+}
+
+// SetPassword sets field value
+func (o *BlogPost) SetPassword(v string) {
+	o.Password = v
+}
+
+// GetHtmlTitle returns the HtmlTitle field value
+func (o *BlogPost) GetHtmlTitle() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.HtmlTitle
+}
+
+// GetHtmlTitleOk returns a tuple with the HtmlTitle field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetHtmlTitleOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.HtmlTitle, true
+}
+
+// SetHtmlTitle sets field value
+func (o *BlogPost) SetHtmlTitle(v string) {
+	o.HtmlTitle = v
+}
+
+// GetPublishImmediately returns the PublishImmediately field value
+func (o *BlogPost) GetPublishImmediately() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.PublishImmediately
+}
+
+// GetPublishImmediatelyOk returns a tuple with the PublishImmediately field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetPublishImmediatelyOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PublishImmediately, true
+}
+
+// SetPublishImmediately sets field value
+func (o *BlogPost) SetPublishImmediately(v bool) {
+	o.PublishImmediately = v
+}
+
+// GetTranslations returns the Translations field value
+func (o *BlogPost) GetTranslations() map[string]ContentLanguageVariation {
+	if o == nil {
+		var ret map[string]ContentLanguageVariation
+		return ret
+	}
+
+	return o.Translations
+}
+
+// GetTranslationsOk returns a tuple with the Translations field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetTranslationsOk() (*map[string]ContentLanguageVariation, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Translations, true
+}
+
+// SetTranslations sets field value
+func (o *BlogPost) SetTranslations(v map[string]ContentLanguageVariation) {
+	o.Translations = v
 }
 
 // GetId returns the Id field value
@@ -227,102 +453,6 @@ func (o *BlogPost) SetId(v string) {
 	o.Id = v
 }
 
-// GetSlug returns the Slug field value
-func (o *BlogPost) GetSlug() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Slug
-}
-
-// GetSlugOk returns a tuple with the Slug field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetSlugOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Slug, true
-}
-
-// SetSlug sets field value
-func (o *BlogPost) SetSlug(v string) {
-	o.Slug = v
-}
-
-// GetContentGroupId returns the ContentGroupId field value
-func (o *BlogPost) GetContentGroupId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.ContentGroupId
-}
-
-// GetContentGroupIdOk returns a tuple with the ContentGroupId field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetContentGroupIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.ContentGroupId, true
-}
-
-// SetContentGroupId sets field value
-func (o *BlogPost) SetContentGroupId(v string) {
-	o.ContentGroupId = v
-}
-
-// GetCampaign returns the Campaign field value
-func (o *BlogPost) GetCampaign() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Campaign
-}
-
-// GetCampaignOk returns a tuple with the Campaign field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetCampaignOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Campaign, true
-}
-
-// SetCampaign sets field value
-func (o *BlogPost) SetCampaign(v string) {
-	o.Campaign = v
-}
-
-// GetCategoryId returns the CategoryId field value
-func (o *BlogPost) GetCategoryId() int32 {
-	if o == nil {
-		var ret int32
-		return ret
-	}
-
-	return o.CategoryId
-}
-
-// GetCategoryIdOk returns a tuple with the CategoryId field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetCategoryIdOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.CategoryId, true
-}
-
-// SetCategoryId sets field value
-func (o *BlogPost) SetCategoryId(v int32) {
-	o.CategoryId = v
-}
-
 // GetState returns the State field value
 func (o *BlogPost) GetState() string {
 	if o == nil {
@@ -347,100 +477,28 @@ func (o *BlogPost) SetState(v string) {
 	o.State = v
 }
 
-// GetName returns the Name field value
-func (o *BlogPost) GetName() string {
+// GetSlug returns the Slug field value
+func (o *BlogPost) GetSlug() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Name
+	return o.Slug
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetSlugOk returns a tuple with the Slug field value
 // and a boolean to check if the value has been set.
-func (o *BlogPost) GetNameOk() (*string, bool) {
+func (o *BlogPost) GetSlugOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Name, true
+	return &o.Slug, true
 }
 
-// SetName sets field value
-func (o *BlogPost) SetName(v string) {
-	o.Name = v
-}
-
-// GetMabExperimentId returns the MabExperimentId field value
-func (o *BlogPost) GetMabExperimentId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.MabExperimentId
-}
-
-// GetMabExperimentIdOk returns a tuple with the MabExperimentId field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetMabExperimentIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.MabExperimentId, true
-}
-
-// SetMabExperimentId sets field value
-func (o *BlogPost) SetMabExperimentId(v string) {
-	o.MabExperimentId = v
-}
-
-// GetAuthorName returns the AuthorName field value
-func (o *BlogPost) GetAuthorName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.AuthorName
-}
-
-// GetAuthorNameOk returns a tuple with the AuthorName field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetAuthorNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.AuthorName, true
-}
-
-// SetAuthorName sets field value
-func (o *BlogPost) SetAuthorName(v string) {
-	o.AuthorName = v
-}
-
-// GetAbTestId returns the AbTestId field value
-func (o *BlogPost) GetAbTestId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.AbTestId
-}
-
-// GetAbTestIdOk returns a tuple with the AbTestId field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetAbTestIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.AbTestId, true
-}
-
-// SetAbTestId sets field value
-func (o *BlogPost) SetAbTestId(v string) {
-	o.AbTestId = v
+// SetSlug sets field value
+func (o *BlogPost) SetSlug(v string) {
+	o.Slug = v
 }
 
 // GetCreatedById returns the CreatedById field value
@@ -467,6 +525,150 @@ func (o *BlogPost) SetCreatedById(v string) {
 	o.CreatedById = v
 }
 
+// GetRssBody returns the RssBody field value
+func (o *BlogPost) GetRssBody() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.RssBody
+}
+
+// GetRssBodyOk returns a tuple with the RssBody field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetRssBodyOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.RssBody, true
+}
+
+// SetRssBody sets field value
+func (o *BlogPost) SetRssBody(v string) {
+	o.RssBody = v
+}
+
+// GetCurrentlyPublished returns the CurrentlyPublished field value
+func (o *BlogPost) GetCurrentlyPublished() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.CurrentlyPublished
+}
+
+// GetCurrentlyPublishedOk returns a tuple with the CurrentlyPublished field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetCurrentlyPublishedOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.CurrentlyPublished, true
+}
+
+// SetCurrentlyPublished sets field value
+func (o *BlogPost) SetCurrentlyPublished(v bool) {
+	o.CurrentlyPublished = v
+}
+
+// GetArchivedInDashboard returns the ArchivedInDashboard field value
+func (o *BlogPost) GetArchivedInDashboard() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.ArchivedInDashboard
+}
+
+// GetArchivedInDashboardOk returns a tuple with the ArchivedInDashboard field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetArchivedInDashboardOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ArchivedInDashboard, true
+}
+
+// SetArchivedInDashboard sets field value
+func (o *BlogPost) SetArchivedInDashboard(v bool) {
+	o.ArchivedInDashboard = v
+}
+
+// GetCreated returns the Created field value
+func (o *BlogPost) GetCreated() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.Created
+}
+
+// GetCreatedOk returns a tuple with the Created field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetCreatedOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Created, true
+}
+
+// SetCreated sets field value
+func (o *BlogPost) SetCreated(v time.Time) {
+	o.Created = v
+}
+
+// GetContentTypeCategory returns the ContentTypeCategory field value
+func (o *BlogPost) GetContentTypeCategory() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ContentTypeCategory
+}
+
+// GetContentTypeCategoryOk returns a tuple with the ContentTypeCategory field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetContentTypeCategoryOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ContentTypeCategory, true
+}
+
+// SetContentTypeCategory sets field value
+func (o *BlogPost) SetContentTypeCategory(v string) {
+	o.ContentTypeCategory = v
+}
+
+// GetMabExperimentId returns the MabExperimentId field value
+func (o *BlogPost) GetMabExperimentId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.MabExperimentId
+}
+
+// GetMabExperimentIdOk returns a tuple with the MabExperimentId field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetMabExperimentIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.MabExperimentId, true
+}
+
+// SetMabExperimentId sets field value
+func (o *BlogPost) SetMabExperimentId(v string) {
+	o.MabExperimentId = v
+}
+
 // GetUpdatedById returns the UpdatedById field value
 func (o *BlogPost) GetUpdatedById() string {
 	if o == nil {
@@ -491,52 +693,28 @@ func (o *BlogPost) SetUpdatedById(v string) {
 	o.UpdatedById = v
 }
 
-// GetDomain returns the Domain field value
-func (o *BlogPost) GetDomain() string {
+// GetTranslatedFromId returns the TranslatedFromId field value
+func (o *BlogPost) GetTranslatedFromId() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Domain
+	return o.TranslatedFromId
 }
 
-// GetDomainOk returns a tuple with the Domain field value
+// GetTranslatedFromIdOk returns a tuple with the TranslatedFromId field value
 // and a boolean to check if the value has been set.
-func (o *BlogPost) GetDomainOk() (*string, bool) {
+func (o *BlogPost) GetTranslatedFromIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Domain, true
+	return &o.TranslatedFromId, true
 }
 
-// SetDomain sets field value
-func (o *BlogPost) SetDomain(v string) {
-	o.Domain = v
-}
-
-// GetAbStatus returns the AbStatus field value
-func (o *BlogPost) GetAbStatus() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.AbStatus
-}
-
-// GetAbStatusOk returns a tuple with the AbStatus field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetAbStatusOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.AbStatus, true
-}
-
-// SetAbStatus sets field value
-func (o *BlogPost) SetAbStatus(v string) {
-	o.AbStatus = v
+// SetTranslatedFromId sets field value
+func (o *BlogPost) SetTranslatedFromId(v string) {
+	o.TranslatedFromId = v
 }
 
 // GetFolderId returns the FolderId field value
@@ -587,124 +765,28 @@ func (o *BlogPost) SetWidgetContainers(v map[string]map[string]interface{}) {
 	o.WidgetContainers = v
 }
 
-// GetWidgets returns the Widgets field value
-func (o *BlogPost) GetWidgets() map[string]map[string]interface{} {
+// GetPageExpiryRedirectId returns the PageExpiryRedirectId field value
+func (o *BlogPost) GetPageExpiryRedirectId() int64 {
 	if o == nil {
-		var ret map[string]map[string]interface{}
+		var ret int64
 		return ret
 	}
 
-	return o.Widgets
+	return o.PageExpiryRedirectId
 }
 
-// GetWidgetsOk returns a tuple with the Widgets field value
+// GetPageExpiryRedirectIdOk returns a tuple with the PageExpiryRedirectId field value
 // and a boolean to check if the value has been set.
-func (o *BlogPost) GetWidgetsOk() (map[string]map[string]interface{}, bool) {
+func (o *BlogPost) GetPageExpiryRedirectIdOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.Widgets, true
+	return &o.PageExpiryRedirectId, true
 }
 
-// SetWidgets sets field value
-func (o *BlogPost) SetWidgets(v map[string]map[string]interface{}) {
-	o.Widgets = v
-}
-
-// GetLanguage returns the Language field value
-func (o *BlogPost) GetLanguage() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Language
-}
-
-// GetLanguageOk returns a tuple with the Language field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetLanguageOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Language, true
-}
-
-// SetLanguage sets field value
-func (o *BlogPost) SetLanguage(v string) {
-	o.Language = v
-}
-
-// GetTranslatedFromId returns the TranslatedFromId field value
-func (o *BlogPost) GetTranslatedFromId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.TranslatedFromId
-}
-
-// GetTranslatedFromIdOk returns a tuple with the TranslatedFromId field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetTranslatedFromIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.TranslatedFromId, true
-}
-
-// SetTranslatedFromId sets field value
-func (o *BlogPost) SetTranslatedFromId(v string) {
-	o.TranslatedFromId = v
-}
-
-// GetTranslations returns the Translations field value
-func (o *BlogPost) GetTranslations() map[string]ContentLanguageVariation {
-	if o == nil {
-		var ret map[string]ContentLanguageVariation
-		return ret
-	}
-
-	return o.Translations
-}
-
-// GetTranslationsOk returns a tuple with the Translations field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetTranslationsOk() (*map[string]ContentLanguageVariation, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Translations, true
-}
-
-// SetTranslations sets field value
-func (o *BlogPost) SetTranslations(v map[string]ContentLanguageVariation) {
-	o.Translations = v
-}
-
-// GetDynamicPageHubDbTableId returns the DynamicPageHubDbTableId field value
-func (o *BlogPost) GetDynamicPageHubDbTableId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.DynamicPageHubDbTableId
-}
-
-// GetDynamicPageHubDbTableIdOk returns a tuple with the DynamicPageHubDbTableId field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetDynamicPageHubDbTableIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.DynamicPageHubDbTableId, true
-}
-
-// SetDynamicPageHubDbTableId sets field value
-func (o *BlogPost) SetDynamicPageHubDbTableId(v string) {
-	o.DynamicPageHubDbTableId = v
+// SetPageExpiryRedirectId sets field value
+func (o *BlogPost) SetPageExpiryRedirectId(v int64) {
+	o.PageExpiryRedirectId = v
 }
 
 // GetDynamicPageDataSourceType returns the DynamicPageDataSourceType field value
@@ -731,6 +813,150 @@ func (o *BlogPost) SetDynamicPageDataSourceType(v int32) {
 	o.DynamicPageDataSourceType = v
 }
 
+// GetFeaturedImage returns the FeaturedImage field value
+func (o *BlogPost) GetFeaturedImage() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.FeaturedImage
+}
+
+// GetFeaturedImageOk returns a tuple with the FeaturedImage field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetFeaturedImageOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.FeaturedImage, true
+}
+
+// SetFeaturedImage sets field value
+func (o *BlogPost) SetFeaturedImage(v string) {
+	o.FeaturedImage = v
+}
+
+// GetAuthorName returns the AuthorName field value
+func (o *BlogPost) GetAuthorName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.AuthorName
+}
+
+// GetAuthorNameOk returns a tuple with the AuthorName field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetAuthorNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.AuthorName, true
+}
+
+// SetAuthorName sets field value
+func (o *BlogPost) SetAuthorName(v string) {
+	o.AuthorName = v
+}
+
+// GetDomain returns the Domain field value
+func (o *BlogPost) GetDomain() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Domain
+}
+
+// GetDomainOk returns a tuple with the Domain field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetDomainOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Domain, true
+}
+
+// SetDomain sets field value
+func (o *BlogPost) SetDomain(v string) {
+	o.Domain = v
+}
+
+// GetName returns the Name field value
+func (o *BlogPost) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *BlogPost) SetName(v string) {
+	o.Name = v
+}
+
+// GetDynamicPageHubDbTableId returns the DynamicPageHubDbTableId field value
+func (o *BlogPost) GetDynamicPageHubDbTableId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.DynamicPageHubDbTableId
+}
+
+// GetDynamicPageHubDbTableIdOk returns a tuple with the DynamicPageHubDbTableId field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetDynamicPageHubDbTableIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.DynamicPageHubDbTableId, true
+}
+
+// SetDynamicPageHubDbTableId sets field value
+func (o *BlogPost) SetDynamicPageHubDbTableId(v string) {
+	o.DynamicPageHubDbTableId = v
+}
+
+// GetCampaign returns the Campaign field value
+func (o *BlogPost) GetCampaign() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Campaign
+}
+
+// GetCampaignOk returns a tuple with the Campaign field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetCampaignOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Campaign, true
+}
+
+// SetCampaign sets field value
+func (o *BlogPost) SetCampaign(v string) {
+	o.Campaign = v
+}
+
 // GetDynamicPageDataSourceId returns the DynamicPageDataSourceId field value
 func (o *BlogPost) GetDynamicPageDataSourceId() string {
 	if o == nil {
@@ -753,510 +979,6 @@ func (o *BlogPost) GetDynamicPageDataSourceIdOk() (*string, bool) {
 // SetDynamicPageDataSourceId sets field value
 func (o *BlogPost) SetDynamicPageDataSourceId(v string) {
 	o.DynamicPageDataSourceId = v
-}
-
-// GetBlogAuthorId returns the BlogAuthorId field value
-func (o *BlogPost) GetBlogAuthorId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.BlogAuthorId
-}
-
-// GetBlogAuthorIdOk returns a tuple with the BlogAuthorId field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetBlogAuthorIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.BlogAuthorId, true
-}
-
-// SetBlogAuthorId sets field value
-func (o *BlogPost) SetBlogAuthorId(v string) {
-	o.BlogAuthorId = v
-}
-
-// GetTagIds returns the TagIds field value
-func (o *BlogPost) GetTagIds() []int64 {
-	if o == nil {
-		var ret []int64
-		return ret
-	}
-
-	return o.TagIds
-}
-
-// GetTagIdsOk returns a tuple with the TagIds field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetTagIdsOk() ([]int64, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.TagIds, true
-}
-
-// SetTagIds sets field value
-func (o *BlogPost) SetTagIds(v []int64) {
-	o.TagIds = v
-}
-
-// GetHtmlTitle returns the HtmlTitle field value
-func (o *BlogPost) GetHtmlTitle() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.HtmlTitle
-}
-
-// GetHtmlTitleOk returns a tuple with the HtmlTitle field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetHtmlTitleOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.HtmlTitle, true
-}
-
-// SetHtmlTitle sets field value
-func (o *BlogPost) SetHtmlTitle(v string) {
-	o.HtmlTitle = v
-}
-
-// GetPublicAccessRulesEnabled returns the PublicAccessRulesEnabled field value
-func (o *BlogPost) GetPublicAccessRulesEnabled() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.PublicAccessRulesEnabled
-}
-
-// GetPublicAccessRulesEnabledOk returns a tuple with the PublicAccessRulesEnabled field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetPublicAccessRulesEnabledOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.PublicAccessRulesEnabled, true
-}
-
-// SetPublicAccessRulesEnabled sets field value
-func (o *BlogPost) SetPublicAccessRulesEnabled(v bool) {
-	o.PublicAccessRulesEnabled = v
-}
-
-// GetPublicAccessRules returns the PublicAccessRules field value
-func (o *BlogPost) GetPublicAccessRules() []map[string]interface{} {
-	if o == nil {
-		var ret []map[string]interface{}
-		return ret
-	}
-
-	return o.PublicAccessRules
-}
-
-// GetPublicAccessRulesOk returns a tuple with the PublicAccessRules field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetPublicAccessRulesOk() ([]map[string]interface{}, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.PublicAccessRules, true
-}
-
-// SetPublicAccessRules sets field value
-func (o *BlogPost) SetPublicAccessRules(v []map[string]interface{}) {
-	o.PublicAccessRules = v
-}
-
-// GetUseFeaturedImage returns the UseFeaturedImage field value
-func (o *BlogPost) GetUseFeaturedImage() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.UseFeaturedImage
-}
-
-// GetUseFeaturedImageOk returns a tuple with the UseFeaturedImage field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetUseFeaturedImageOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.UseFeaturedImage, true
-}
-
-// SetUseFeaturedImage sets field value
-func (o *BlogPost) SetUseFeaturedImage(v bool) {
-	o.UseFeaturedImage = v
-}
-
-// GetPostSummary returns the PostSummary field value
-func (o *BlogPost) GetPostSummary() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.PostSummary
-}
-
-// GetPostSummaryOk returns a tuple with the PostSummary field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetPostSummaryOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.PostSummary, true
-}
-
-// SetPostSummary sets field value
-func (o *BlogPost) SetPostSummary(v string) {
-	o.PostSummary = v
-}
-
-// GetPostBody returns the PostBody field value
-func (o *BlogPost) GetPostBody() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.PostBody
-}
-
-// GetPostBodyOk returns a tuple with the PostBody field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetPostBodyOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.PostBody, true
-}
-
-// SetPostBody sets field value
-func (o *BlogPost) SetPostBody(v string) {
-	o.PostBody = v
-}
-
-// GetRssSummary returns the RssSummary field value
-func (o *BlogPost) GetRssSummary() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.RssSummary
-}
-
-// GetRssSummaryOk returns a tuple with the RssSummary field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetRssSummaryOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.RssSummary, true
-}
-
-// SetRssSummary sets field value
-func (o *BlogPost) SetRssSummary(v string) {
-	o.RssSummary = v
-}
-
-// GetRssBody returns the RssBody field value
-func (o *BlogPost) GetRssBody() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.RssBody
-}
-
-// GetRssBodyOk returns a tuple with the RssBody field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetRssBodyOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.RssBody, true
-}
-
-// SetRssBody sets field value
-func (o *BlogPost) SetRssBody(v string) {
-	o.RssBody = v
-}
-
-// GetEnableGoogleAmpOutputOverride returns the EnableGoogleAmpOutputOverride field value
-func (o *BlogPost) GetEnableGoogleAmpOutputOverride() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.EnableGoogleAmpOutputOverride
-}
-
-// GetEnableGoogleAmpOutputOverrideOk returns a tuple with the EnableGoogleAmpOutputOverride field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetEnableGoogleAmpOutputOverrideOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.EnableGoogleAmpOutputOverride, true
-}
-
-// SetEnableGoogleAmpOutputOverride sets field value
-func (o *BlogPost) SetEnableGoogleAmpOutputOverride(v bool) {
-	o.EnableGoogleAmpOutputOverride = v
-}
-
-// GetPublishImmediately returns the PublishImmediately field value
-func (o *BlogPost) GetPublishImmediately() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.PublishImmediately
-}
-
-// GetPublishImmediatelyOk returns a tuple with the PublishImmediately field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetPublishImmediatelyOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.PublishImmediately, true
-}
-
-// SetPublishImmediately sets field value
-func (o *BlogPost) SetPublishImmediately(v bool) {
-	o.PublishImmediately = v
-}
-
-// GetArchivedAt returns the ArchivedAt field value
-func (o *BlogPost) GetArchivedAt() int64 {
-	if o == nil {
-		var ret int64
-		return ret
-	}
-
-	return o.ArchivedAt
-}
-
-// GetArchivedAtOk returns a tuple with the ArchivedAt field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetArchivedAtOk() (*int64, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.ArchivedAt, true
-}
-
-// SetArchivedAt sets field value
-func (o *BlogPost) SetArchivedAt(v int64) {
-	o.ArchivedAt = v
-}
-
-// GetLinkRelCanonicalUrl returns the LinkRelCanonicalUrl field value
-func (o *BlogPost) GetLinkRelCanonicalUrl() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.LinkRelCanonicalUrl
-}
-
-// GetLinkRelCanonicalUrlOk returns a tuple with the LinkRelCanonicalUrl field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetLinkRelCanonicalUrlOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.LinkRelCanonicalUrl, true
-}
-
-// SetLinkRelCanonicalUrl sets field value
-func (o *BlogPost) SetLinkRelCanonicalUrl(v string) {
-	o.LinkRelCanonicalUrl = v
-}
-
-// GetArchivedInDashboard returns the ArchivedInDashboard field value
-func (o *BlogPost) GetArchivedInDashboard() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.ArchivedInDashboard
-}
-
-// GetArchivedInDashboardOk returns a tuple with the ArchivedInDashboard field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetArchivedInDashboardOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.ArchivedInDashboard, true
-}
-
-// SetArchivedInDashboard sets field value
-func (o *BlogPost) SetArchivedInDashboard(v bool) {
-	o.ArchivedInDashboard = v
-}
-
-// GetPageExpiryEnabled returns the PageExpiryEnabled field value
-func (o *BlogPost) GetPageExpiryEnabled() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.PageExpiryEnabled
-}
-
-// GetPageExpiryEnabledOk returns a tuple with the PageExpiryEnabled field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetPageExpiryEnabledOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.PageExpiryEnabled, true
-}
-
-// SetPageExpiryEnabled sets field value
-func (o *BlogPost) SetPageExpiryEnabled(v bool) {
-	o.PageExpiryEnabled = v
-}
-
-// GetPageExpiryRedirectId returns the PageExpiryRedirectId field value
-func (o *BlogPost) GetPageExpiryRedirectId() int64 {
-	if o == nil {
-		var ret int64
-		return ret
-	}
-
-	return o.PageExpiryRedirectId
-}
-
-// GetPageExpiryRedirectIdOk returns a tuple with the PageExpiryRedirectId field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetPageExpiryRedirectIdOk() (*int64, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.PageExpiryRedirectId, true
-}
-
-// SetPageExpiryRedirectId sets field value
-func (o *BlogPost) SetPageExpiryRedirectId(v int64) {
-	o.PageExpiryRedirectId = v
-}
-
-// GetPageExpiryRedirectUrl returns the PageExpiryRedirectUrl field value
-func (o *BlogPost) GetPageExpiryRedirectUrl() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.PageExpiryRedirectUrl
-}
-
-// GetPageExpiryRedirectUrlOk returns a tuple with the PageExpiryRedirectUrl field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetPageExpiryRedirectUrlOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.PageExpiryRedirectUrl, true
-}
-
-// SetPageExpiryRedirectUrl sets field value
-func (o *BlogPost) SetPageExpiryRedirectUrl(v string) {
-	o.PageExpiryRedirectUrl = v
-}
-
-// GetPageExpiryDate returns the PageExpiryDate field value
-func (o *BlogPost) GetPageExpiryDate() int64 {
-	if o == nil {
-		var ret int64
-		return ret
-	}
-
-	return o.PageExpiryDate
-}
-
-// GetPageExpiryDateOk returns a tuple with the PageExpiryDate field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetPageExpiryDateOk() (*int64, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.PageExpiryDate, true
-}
-
-// SetPageExpiryDate sets field value
-func (o *BlogPost) SetPageExpiryDate(v int64) {
-	o.PageExpiryDate = v
-}
-
-// GetIncludeDefaultCustomCss returns the IncludeDefaultCustomCss field value
-func (o *BlogPost) GetIncludeDefaultCustomCss() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.IncludeDefaultCustomCss
-}
-
-// GetIncludeDefaultCustomCssOk returns a tuple with the IncludeDefaultCustomCss field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetIncludeDefaultCustomCssOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.IncludeDefaultCustomCss, true
-}
-
-// SetIncludeDefaultCustomCss sets field value
-func (o *BlogPost) SetIncludeDefaultCustomCss(v bool) {
-	o.IncludeDefaultCustomCss = v
-}
-
-// GetEnableLayoutStylesheets returns the EnableLayoutStylesheets field value
-func (o *BlogPost) GetEnableLayoutStylesheets() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.EnableLayoutStylesheets
-}
-
-// GetEnableLayoutStylesheetsOk returns a tuple with the EnableLayoutStylesheets field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetEnableLayoutStylesheetsOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.EnableLayoutStylesheets, true
-}
-
-// SetEnableLayoutStylesheets sets field value
-func (o *BlogPost) SetEnableLayoutStylesheets(v bool) {
-	o.EnableLayoutStylesheets = v
 }
 
 // GetEnableDomainStylesheets returns the EnableDomainStylesheets field value
@@ -1283,6 +1005,30 @@ func (o *BlogPost) SetEnableDomainStylesheets(v bool) {
 	o.EnableDomainStylesheets = v
 }
 
+// GetIncludeDefaultCustomCss returns the IncludeDefaultCustomCss field value
+func (o *BlogPost) GetIncludeDefaultCustomCss() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.IncludeDefaultCustomCss
+}
+
+// GetIncludeDefaultCustomCssOk returns a tuple with the IncludeDefaultCustomCss field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetIncludeDefaultCustomCssOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.IncludeDefaultCustomCss, true
+}
+
+// SetIncludeDefaultCustomCss sets field value
+func (o *BlogPost) SetIncludeDefaultCustomCss(v bool) {
+	o.IncludeDefaultCustomCss = v
+}
+
 // GetLayoutSections returns the LayoutSections field value
 func (o *BlogPost) GetLayoutSections() map[string]LayoutSection {
 	if o == nil {
@@ -1305,342 +1051,6 @@ func (o *BlogPost) GetLayoutSectionsOk() (*map[string]LayoutSection, bool) {
 // SetLayoutSections sets field value
 func (o *BlogPost) SetLayoutSections(v map[string]LayoutSection) {
 	o.LayoutSections = v
-}
-
-// GetFeaturedImageAltText returns the FeaturedImageAltText field value
-func (o *BlogPost) GetFeaturedImageAltText() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.FeaturedImageAltText
-}
-
-// GetFeaturedImageAltTextOk returns a tuple with the FeaturedImageAltText field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetFeaturedImageAltTextOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.FeaturedImageAltText, true
-}
-
-// SetFeaturedImageAltText sets field value
-func (o *BlogPost) SetFeaturedImageAltText(v string) {
-	o.FeaturedImageAltText = v
-}
-
-// GetAttachedStylesheets returns the AttachedStylesheets field value
-func (o *BlogPost) GetAttachedStylesheets() []map[string]map[string]interface{} {
-	if o == nil {
-		var ret []map[string]map[string]interface{}
-		return ret
-	}
-
-	return o.AttachedStylesheets
-}
-
-// GetAttachedStylesheetsOk returns a tuple with the AttachedStylesheets field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetAttachedStylesheetsOk() ([]map[string]map[string]interface{}, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.AttachedStylesheets, true
-}
-
-// SetAttachedStylesheets sets field value
-func (o *BlogPost) SetAttachedStylesheets(v []map[string]map[string]interface{}) {
-	o.AttachedStylesheets = v
-}
-
-// GetMetaDescription returns the MetaDescription field value
-func (o *BlogPost) GetMetaDescription() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.MetaDescription
-}
-
-// GetMetaDescriptionOk returns a tuple with the MetaDescription field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetMetaDescriptionOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.MetaDescription, true
-}
-
-// SetMetaDescription sets field value
-func (o *BlogPost) SetMetaDescription(v string) {
-	o.MetaDescription = v
-}
-
-// GetHeadHtml returns the HeadHtml field value
-func (o *BlogPost) GetHeadHtml() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.HeadHtml
-}
-
-// GetHeadHtmlOk returns a tuple with the HeadHtml field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetHeadHtmlOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.HeadHtml, true
-}
-
-// SetHeadHtml sets field value
-func (o *BlogPost) SetHeadHtml(v string) {
-	o.HeadHtml = v
-}
-
-// GetFooterHtml returns the FooterHtml field value
-func (o *BlogPost) GetFooterHtml() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.FooterHtml
-}
-
-// GetFooterHtmlOk returns a tuple with the FooterHtml field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetFooterHtmlOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.FooterHtml, true
-}
-
-// SetFooterHtml sets field value
-func (o *BlogPost) SetFooterHtml(v string) {
-	o.FooterHtml = v
-}
-
-// GetFeaturedImage returns the FeaturedImage field value
-func (o *BlogPost) GetFeaturedImage() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.FeaturedImage
-}
-
-// GetFeaturedImageOk returns a tuple with the FeaturedImage field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetFeaturedImageOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.FeaturedImage, true
-}
-
-// SetFeaturedImage sets field value
-func (o *BlogPost) SetFeaturedImage(v string) {
-	o.FeaturedImage = v
-}
-
-// GetThemeSettingsValues returns the ThemeSettingsValues field value
-func (o *BlogPost) GetThemeSettingsValues() map[string]map[string]interface{} {
-	if o == nil {
-		var ret map[string]map[string]interface{}
-		return ret
-	}
-
-	return o.ThemeSettingsValues
-}
-
-// GetThemeSettingsValuesOk returns a tuple with the ThemeSettingsValues field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetThemeSettingsValuesOk() (map[string]map[string]interface{}, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.ThemeSettingsValues, true
-}
-
-// SetThemeSettingsValues sets field value
-func (o *BlogPost) SetThemeSettingsValues(v map[string]map[string]interface{}) {
-	o.ThemeSettingsValues = v
-}
-
-// GetUrl returns the Url field value
-func (o *BlogPost) GetUrl() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Url
-}
-
-// GetUrlOk returns a tuple with the Url field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetUrlOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Url, true
-}
-
-// SetUrl sets field value
-func (o *BlogPost) SetUrl(v string) {
-	o.Url = v
-}
-
-// GetPassword returns the Password field value
-func (o *BlogPost) GetPassword() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Password
-}
-
-// GetPasswordOk returns a tuple with the Password field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetPasswordOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Password, true
-}
-
-// SetPassword sets field value
-func (o *BlogPost) SetPassword(v string) {
-	o.Password = v
-}
-
-// GetCurrentState returns the CurrentState field value
-func (o *BlogPost) GetCurrentState() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.CurrentState
-}
-
-// GetCurrentStateOk returns a tuple with the CurrentState field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetCurrentStateOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.CurrentState, true
-}
-
-// SetCurrentState sets field value
-func (o *BlogPost) SetCurrentState(v string) {
-	o.CurrentState = v
-}
-
-// GetCurrentlyPublished returns the CurrentlyPublished field value
-func (o *BlogPost) GetCurrentlyPublished() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.CurrentlyPublished
-}
-
-// GetCurrentlyPublishedOk returns a tuple with the CurrentlyPublished field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetCurrentlyPublishedOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.CurrentlyPublished, true
-}
-
-// SetCurrentlyPublished sets field value
-func (o *BlogPost) SetCurrentlyPublished(v bool) {
-	o.CurrentlyPublished = v
-}
-
-// GetContentTypeCategory returns the ContentTypeCategory field value
-func (o *BlogPost) GetContentTypeCategory() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.ContentTypeCategory
-}
-
-// GetContentTypeCategoryOk returns a tuple with the ContentTypeCategory field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetContentTypeCategoryOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.ContentTypeCategory, true
-}
-
-// SetContentTypeCategory sets field value
-func (o *BlogPost) SetContentTypeCategory(v string) {
-	o.ContentTypeCategory = v
-}
-
-// GetPublishDate returns the PublishDate field value
-func (o *BlogPost) GetPublishDate() time.Time {
-	if o == nil {
-		var ret time.Time
-		return ret
-	}
-
-	return o.PublishDate
-}
-
-// GetPublishDateOk returns a tuple with the PublishDate field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetPublishDateOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.PublishDate, true
-}
-
-// SetPublishDate sets field value
-func (o *BlogPost) SetPublishDate(v time.Time) {
-	o.PublishDate = v
-}
-
-// GetCreated returns the Created field value
-func (o *BlogPost) GetCreated() time.Time {
-	if o == nil {
-		var ret time.Time
-		return ret
-	}
-
-	return o.Created
-}
-
-// GetCreatedOk returns a tuple with the Created field value
-// and a boolean to check if the value has been set.
-func (o *BlogPost) GetCreatedOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Created, true
-}
-
-// SetCreated sets field value
-func (o *BlogPost) SetCreated(v time.Time) {
-	o.Created = v
 }
 
 // GetUpdated returns the Updated field value
@@ -1667,49 +1077,670 @@ func (o *BlogPost) SetUpdated(v time.Time) {
 	o.Updated = v
 }
 
+// GetFooterHtml returns the FooterHtml field value
+func (o *BlogPost) GetFooterHtml() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.FooterHtml
+}
+
+// GetFooterHtmlOk returns a tuple with the FooterHtml field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetFooterHtmlOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.FooterHtml, true
+}
+
+// SetFooterHtml sets field value
+func (o *BlogPost) SetFooterHtml(v string) {
+	o.FooterHtml = v
+}
+
+// GetTagIds returns the TagIds field value
+func (o *BlogPost) GetTagIds() []int64 {
+	if o == nil {
+		var ret []int64
+		return ret
+	}
+
+	return o.TagIds
+}
+
+// GetTagIdsOk returns a tuple with the TagIds field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetTagIdsOk() ([]int64, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.TagIds, true
+}
+
+// SetTagIds sets field value
+func (o *BlogPost) SetTagIds(v []int64) {
+	o.TagIds = v
+}
+
+// GetWidgets returns the Widgets field value
+func (o *BlogPost) GetWidgets() map[string]map[string]interface{} {
+	if o == nil {
+		var ret map[string]map[string]interface{}
+		return ret
+	}
+
+	return o.Widgets
+}
+
+// GetWidgetsOk returns a tuple with the Widgets field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetWidgetsOk() (map[string]map[string]interface{}, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Widgets, true
+}
+
+// SetWidgets sets field value
+func (o *BlogPost) SetWidgets(v map[string]map[string]interface{}) {
+	o.Widgets = v
+}
+
+// GetPostSummary returns the PostSummary field value
+func (o *BlogPost) GetPostSummary() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.PostSummary
+}
+
+// GetPostSummaryOk returns a tuple with the PostSummary field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetPostSummaryOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PostSummary, true
+}
+
+// SetPostSummary sets field value
+func (o *BlogPost) SetPostSummary(v string) {
+	o.PostSummary = v
+}
+
+// GetHeadHtml returns the HeadHtml field value
+func (o *BlogPost) GetHeadHtml() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.HeadHtml
+}
+
+// GetHeadHtmlOk returns a tuple with the HeadHtml field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetHeadHtmlOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.HeadHtml, true
+}
+
+// SetHeadHtml sets field value
+func (o *BlogPost) SetHeadHtml(v string) {
+	o.HeadHtml = v
+}
+
+// GetPageExpiryRedirectUrl returns the PageExpiryRedirectUrl field value
+func (o *BlogPost) GetPageExpiryRedirectUrl() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.PageExpiryRedirectUrl
+}
+
+// GetPageExpiryRedirectUrlOk returns a tuple with the PageExpiryRedirectUrl field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetPageExpiryRedirectUrlOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PageExpiryRedirectUrl, true
+}
+
+// SetPageExpiryRedirectUrl sets field value
+func (o *BlogPost) SetPageExpiryRedirectUrl(v string) {
+	o.PageExpiryRedirectUrl = v
+}
+
+// GetAbStatus returns the AbStatus field value
+func (o *BlogPost) GetAbStatus() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.AbStatus
+}
+
+// GetAbStatusOk returns a tuple with the AbStatus field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetAbStatusOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.AbStatus, true
+}
+
+// SetAbStatus sets field value
+func (o *BlogPost) SetAbStatus(v string) {
+	o.AbStatus = v
+}
+
+// GetUseFeaturedImage returns the UseFeaturedImage field value
+func (o *BlogPost) GetUseFeaturedImage() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.UseFeaturedImage
+}
+
+// GetUseFeaturedImageOk returns a tuple with the UseFeaturedImage field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetUseFeaturedImageOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.UseFeaturedImage, true
+}
+
+// SetUseFeaturedImage sets field value
+func (o *BlogPost) SetUseFeaturedImage(v bool) {
+	o.UseFeaturedImage = v
+}
+
+// GetAbTestId returns the AbTestId field value
+func (o *BlogPost) GetAbTestId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.AbTestId
+}
+
+// GetAbTestIdOk returns a tuple with the AbTestId field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetAbTestIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.AbTestId, true
+}
+
+// SetAbTestId sets field value
+func (o *BlogPost) SetAbTestId(v string) {
+	o.AbTestId = v
+}
+
+// GetFeaturedImageAltText returns the FeaturedImageAltText field value
+func (o *BlogPost) GetFeaturedImageAltText() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.FeaturedImageAltText
+}
+
+// GetFeaturedImageAltTextOk returns a tuple with the FeaturedImageAltText field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetFeaturedImageAltTextOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.FeaturedImageAltText, true
+}
+
+// SetFeaturedImageAltText sets field value
+func (o *BlogPost) SetFeaturedImageAltText(v string) {
+	o.FeaturedImageAltText = v
+}
+
+// GetBlogAuthorId returns the BlogAuthorId field value
+func (o *BlogPost) GetBlogAuthorId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.BlogAuthorId
+}
+
+// GetBlogAuthorIdOk returns a tuple with the BlogAuthorId field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetBlogAuthorIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.BlogAuthorId, true
+}
+
+// SetBlogAuthorId sets field value
+func (o *BlogPost) SetBlogAuthorId(v string) {
+	o.BlogAuthorId = v
+}
+
+// GetContentGroupId returns the ContentGroupId field value
+func (o *BlogPost) GetContentGroupId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ContentGroupId
+}
+
+// GetContentGroupIdOk returns a tuple with the ContentGroupId field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetContentGroupIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ContentGroupId, true
+}
+
+// SetContentGroupId sets field value
+func (o *BlogPost) SetContentGroupId(v string) {
+	o.ContentGroupId = v
+}
+
+// GetRssSummary returns the RssSummary field value
+func (o *BlogPost) GetRssSummary() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.RssSummary
+}
+
+// GetRssSummaryOk returns a tuple with the RssSummary field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetRssSummaryOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.RssSummary, true
+}
+
+// SetRssSummary sets field value
+func (o *BlogPost) SetRssSummary(v string) {
+	o.RssSummary = v
+}
+
+// GetPageExpiryEnabled returns the PageExpiryEnabled field value
+func (o *BlogPost) GetPageExpiryEnabled() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.PageExpiryEnabled
+}
+
+// GetPageExpiryEnabledOk returns a tuple with the PageExpiryEnabled field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetPageExpiryEnabledOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PageExpiryEnabled, true
+}
+
+// SetPageExpiryEnabled sets field value
+func (o *BlogPost) SetPageExpiryEnabled(v bool) {
+	o.PageExpiryEnabled = v
+}
+
+// GetUrl returns the Url field value
+func (o *BlogPost) GetUrl() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Url
+}
+
+// GetUrlOk returns a tuple with the Url field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetUrlOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Url, true
+}
+
+// SetUrl sets field value
+func (o *BlogPost) SetUrl(v string) {
+	o.Url = v
+}
+
+// GetPublicAccessRules returns the PublicAccessRules field value
+func (o *BlogPost) GetPublicAccessRules() []map[string]interface{} {
+	if o == nil {
+		var ret []map[string]interface{}
+		return ret
+	}
+
+	return o.PublicAccessRules
+}
+
+// GetPublicAccessRulesOk returns a tuple with the PublicAccessRules field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetPublicAccessRulesOk() ([]map[string]interface{}, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.PublicAccessRules, true
+}
+
+// SetPublicAccessRules sets field value
+func (o *BlogPost) SetPublicAccessRules(v []map[string]interface{}) {
+	o.PublicAccessRules = v
+}
+
+// GetEnableGoogleAmpOutputOverride returns the EnableGoogleAmpOutputOverride field value
+func (o *BlogPost) GetEnableGoogleAmpOutputOverride() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.EnableGoogleAmpOutputOverride
+}
+
+// GetEnableGoogleAmpOutputOverrideOk returns a tuple with the EnableGoogleAmpOutputOverride field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetEnableGoogleAmpOutputOverrideOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.EnableGoogleAmpOutputOverride, true
+}
+
+// SetEnableGoogleAmpOutputOverride sets field value
+func (o *BlogPost) SetEnableGoogleAmpOutputOverride(v bool) {
+	o.EnableGoogleAmpOutputOverride = v
+}
+
+// GetArchivedAt returns the ArchivedAt field value
+func (o *BlogPost) GetArchivedAt() int64 {
+	if o == nil {
+		var ret int64
+		return ret
+	}
+
+	return o.ArchivedAt
+}
+
+// GetArchivedAtOk returns a tuple with the ArchivedAt field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetArchivedAtOk() (*int64, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ArchivedAt, true
+}
+
+// SetArchivedAt sets field value
+func (o *BlogPost) SetArchivedAt(v int64) {
+	o.ArchivedAt = v
+}
+
+// GetPostBody returns the PostBody field value
+func (o *BlogPost) GetPostBody() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.PostBody
+}
+
+// GetPostBodyOk returns a tuple with the PostBody field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetPostBodyOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PostBody, true
+}
+
+// SetPostBody sets field value
+func (o *BlogPost) SetPostBody(v string) {
+	o.PostBody = v
+}
+
+// GetThemeSettingsValues returns the ThemeSettingsValues field value
+func (o *BlogPost) GetThemeSettingsValues() map[string]map[string]interface{} {
+	if o == nil {
+		var ret map[string]map[string]interface{}
+		return ret
+	}
+
+	return o.ThemeSettingsValues
+}
+
+// GetThemeSettingsValuesOk returns a tuple with the ThemeSettingsValues field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetThemeSettingsValuesOk() (map[string]map[string]interface{}, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ThemeSettingsValues, true
+}
+
+// SetThemeSettingsValues sets field value
+func (o *BlogPost) SetThemeSettingsValues(v map[string]map[string]interface{}) {
+	o.ThemeSettingsValues = v
+}
+
+// GetPageExpiryDate returns the PageExpiryDate field value
+func (o *BlogPost) GetPageExpiryDate() int64 {
+	if o == nil {
+		var ret int64
+		return ret
+	}
+
+	return o.PageExpiryDate
+}
+
+// GetPageExpiryDateOk returns a tuple with the PageExpiryDate field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetPageExpiryDateOk() (*int64, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PageExpiryDate, true
+}
+
+// SetPageExpiryDate sets field value
+func (o *BlogPost) SetPageExpiryDate(v int64) {
+	o.PageExpiryDate = v
+}
+
+// GetPublicAccessRulesEnabled returns the PublicAccessRulesEnabled field value
+func (o *BlogPost) GetPublicAccessRulesEnabled() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.PublicAccessRulesEnabled
+}
+
+// GetPublicAccessRulesEnabledOk returns a tuple with the PublicAccessRulesEnabled field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetPublicAccessRulesEnabledOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PublicAccessRulesEnabled, true
+}
+
+// SetPublicAccessRulesEnabled sets field value
+func (o *BlogPost) SetPublicAccessRulesEnabled(v bool) {
+	o.PublicAccessRulesEnabled = v
+}
+
+// GetCurrentState returns the CurrentState field value
+func (o *BlogPost) GetCurrentState() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.CurrentState
+}
+
+// GetCurrentStateOk returns a tuple with the CurrentState field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetCurrentStateOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.CurrentState, true
+}
+
+// SetCurrentState sets field value
+func (o *BlogPost) SetCurrentState(v string) {
+	o.CurrentState = v
+}
+
+// GetCategoryId returns the CategoryId field value
+func (o *BlogPost) GetCategoryId() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.CategoryId
+}
+
+// GetCategoryIdOk returns a tuple with the CategoryId field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetCategoryIdOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.CategoryId, true
+}
+
+// SetCategoryId sets field value
+func (o *BlogPost) SetCategoryId(v int32) {
+	o.CategoryId = v
+}
+
+// GetLinkRelCanonicalUrl returns the LinkRelCanonicalUrl field value
+func (o *BlogPost) GetLinkRelCanonicalUrl() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.LinkRelCanonicalUrl
+}
+
+// GetLinkRelCanonicalUrlOk returns a tuple with the LinkRelCanonicalUrl field value
+// and a boolean to check if the value has been set.
+func (o *BlogPost) GetLinkRelCanonicalUrlOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.LinkRelCanonicalUrl, true
+}
+
+// SetLinkRelCanonicalUrl sets field value
+func (o *BlogPost) SetLinkRelCanonicalUrl(v string) {
+	o.LinkRelCanonicalUrl = v
+}
+
 func (o BlogPost) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
+		toSerialize["publishDate"] = o.PublishDate
+	}
+	if true {
+		toSerialize["language"] = o.Language
+	}
+	if true {
+		toSerialize["enableLayoutStylesheets"] = o.EnableLayoutStylesheets
+	}
+	if true {
+		toSerialize["metaDescription"] = o.MetaDescription
+	}
+	if true {
+		toSerialize["attachedStylesheets"] = o.AttachedStylesheets
+	}
+	if true {
+		toSerialize["password"] = o.Password
+	}
+	if true {
+		toSerialize["htmlTitle"] = o.HtmlTitle
+	}
+	if true {
+		toSerialize["publishImmediately"] = o.PublishImmediately
+	}
+	if true {
+		toSerialize["translations"] = o.Translations
+	}
+	if true {
 		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["slug"] = o.Slug
-	}
-	if true {
-		toSerialize["contentGroupId"] = o.ContentGroupId
-	}
-	if true {
-		toSerialize["campaign"] = o.Campaign
-	}
-	if true {
-		toSerialize["categoryId"] = o.CategoryId
 	}
 	if true {
 		toSerialize["state"] = o.State
 	}
 	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["mabExperimentId"] = o.MabExperimentId
-	}
-	if true {
-		toSerialize["authorName"] = o.AuthorName
-	}
-	if true {
-		toSerialize["abTestId"] = o.AbTestId
+		toSerialize["slug"] = o.Slug
 	}
 	if true {
 		toSerialize["createdById"] = o.CreatedById
 	}
 	if true {
+		toSerialize["rssBody"] = o.RssBody
+	}
+	if true {
+		toSerialize["currentlyPublished"] = o.CurrentlyPublished
+	}
+	if true {
+		toSerialize["archivedInDashboard"] = o.ArchivedInDashboard
+	}
+	if true {
+		toSerialize["created"] = o.Created
+	}
+	if true {
+		toSerialize["contentTypeCategory"] = o.ContentTypeCategory
+	}
+	if true {
+		toSerialize["mabExperimentId"] = o.MabExperimentId
+	}
+	if true {
 		toSerialize["updatedById"] = o.UpdatedById
 	}
 	if true {
-		toSerialize["domain"] = o.Domain
-	}
-	if true {
-		toSerialize["abStatus"] = o.AbStatus
+		toSerialize["translatedFromId"] = o.TranslatedFromId
 	}
 	if true {
 		toSerialize["folderId"] = o.FolderId
@@ -1718,139 +1749,118 @@ func (o BlogPost) MarshalJSON() ([]byte, error) {
 		toSerialize["widgetContainers"] = o.WidgetContainers
 	}
 	if true {
-		toSerialize["widgets"] = o.Widgets
-	}
-	if true {
-		toSerialize["language"] = o.Language
-	}
-	if true {
-		toSerialize["translatedFromId"] = o.TranslatedFromId
-	}
-	if true {
-		toSerialize["translations"] = o.Translations
-	}
-	if true {
-		toSerialize["dynamicPageHubDbTableId"] = o.DynamicPageHubDbTableId
+		toSerialize["pageExpiryRedirectId"] = o.PageExpiryRedirectId
 	}
 	if true {
 		toSerialize["dynamicPageDataSourceType"] = o.DynamicPageDataSourceType
 	}
 	if true {
+		toSerialize["featuredImage"] = o.FeaturedImage
+	}
+	if true {
+		toSerialize["authorName"] = o.AuthorName
+	}
+	if true {
+		toSerialize["domain"] = o.Domain
+	}
+	if true {
+		toSerialize["name"] = o.Name
+	}
+	if true {
+		toSerialize["dynamicPageHubDbTableId"] = o.DynamicPageHubDbTableId
+	}
+	if true {
+		toSerialize["campaign"] = o.Campaign
+	}
+	if true {
 		toSerialize["dynamicPageDataSourceId"] = o.DynamicPageDataSourceId
-	}
-	if true {
-		toSerialize["blogAuthorId"] = o.BlogAuthorId
-	}
-	if true {
-		toSerialize["tagIds"] = o.TagIds
-	}
-	if true {
-		toSerialize["htmlTitle"] = o.HtmlTitle
-	}
-	if true {
-		toSerialize["publicAccessRulesEnabled"] = o.PublicAccessRulesEnabled
-	}
-	if true {
-		toSerialize["publicAccessRules"] = o.PublicAccessRules
-	}
-	if true {
-		toSerialize["useFeaturedImage"] = o.UseFeaturedImage
-	}
-	if true {
-		toSerialize["postSummary"] = o.PostSummary
-	}
-	if true {
-		toSerialize["postBody"] = o.PostBody
-	}
-	if true {
-		toSerialize["rssSummary"] = o.RssSummary
-	}
-	if true {
-		toSerialize["rssBody"] = o.RssBody
-	}
-	if true {
-		toSerialize["enableGoogleAmpOutputOverride"] = o.EnableGoogleAmpOutputOverride
-	}
-	if true {
-		toSerialize["publishImmediately"] = o.PublishImmediately
-	}
-	if true {
-		toSerialize["archivedAt"] = o.ArchivedAt
-	}
-	if true {
-		toSerialize["linkRelCanonicalUrl"] = o.LinkRelCanonicalUrl
-	}
-	if true {
-		toSerialize["archivedInDashboard"] = o.ArchivedInDashboard
-	}
-	if true {
-		toSerialize["pageExpiryEnabled"] = o.PageExpiryEnabled
-	}
-	if true {
-		toSerialize["pageExpiryRedirectId"] = o.PageExpiryRedirectId
-	}
-	if true {
-		toSerialize["pageExpiryRedirectUrl"] = o.PageExpiryRedirectUrl
-	}
-	if true {
-		toSerialize["pageExpiryDate"] = o.PageExpiryDate
-	}
-	if true {
-		toSerialize["includeDefaultCustomCss"] = o.IncludeDefaultCustomCss
-	}
-	if true {
-		toSerialize["enableLayoutStylesheets"] = o.EnableLayoutStylesheets
 	}
 	if true {
 		toSerialize["enableDomainStylesheets"] = o.EnableDomainStylesheets
 	}
 	if true {
+		toSerialize["includeDefaultCustomCss"] = o.IncludeDefaultCustomCss
+	}
+	if true {
 		toSerialize["layoutSections"] = o.LayoutSections
 	}
 	if true {
-		toSerialize["featuredImageAltText"] = o.FeaturedImageAltText
-	}
-	if true {
-		toSerialize["attachedStylesheets"] = o.AttachedStylesheets
-	}
-	if true {
-		toSerialize["metaDescription"] = o.MetaDescription
-	}
-	if true {
-		toSerialize["headHtml"] = o.HeadHtml
+		toSerialize["updated"] = o.Updated
 	}
 	if true {
 		toSerialize["footerHtml"] = o.FooterHtml
 	}
 	if true {
-		toSerialize["featuredImage"] = o.FeaturedImage
+		toSerialize["tagIds"] = o.TagIds
 	}
 	if true {
-		toSerialize["themeSettingsValues"] = o.ThemeSettingsValues
+		toSerialize["widgets"] = o.Widgets
+	}
+	if true {
+		toSerialize["postSummary"] = o.PostSummary
+	}
+	if true {
+		toSerialize["headHtml"] = o.HeadHtml
+	}
+	if true {
+		toSerialize["pageExpiryRedirectUrl"] = o.PageExpiryRedirectUrl
+	}
+	if true {
+		toSerialize["abStatus"] = o.AbStatus
+	}
+	if true {
+		toSerialize["useFeaturedImage"] = o.UseFeaturedImage
+	}
+	if true {
+		toSerialize["abTestId"] = o.AbTestId
+	}
+	if true {
+		toSerialize["featuredImageAltText"] = o.FeaturedImageAltText
+	}
+	if true {
+		toSerialize["blogAuthorId"] = o.BlogAuthorId
+	}
+	if true {
+		toSerialize["contentGroupId"] = o.ContentGroupId
+	}
+	if true {
+		toSerialize["rssSummary"] = o.RssSummary
+	}
+	if true {
+		toSerialize["pageExpiryEnabled"] = o.PageExpiryEnabled
 	}
 	if true {
 		toSerialize["url"] = o.Url
 	}
 	if true {
-		toSerialize["password"] = o.Password
+		toSerialize["publicAccessRules"] = o.PublicAccessRules
+	}
+	if true {
+		toSerialize["enableGoogleAmpOutputOverride"] = o.EnableGoogleAmpOutputOverride
+	}
+	if true {
+		toSerialize["archivedAt"] = o.ArchivedAt
+	}
+	if true {
+		toSerialize["postBody"] = o.PostBody
+	}
+	if true {
+		toSerialize["themeSettingsValues"] = o.ThemeSettingsValues
+	}
+	if true {
+		toSerialize["pageExpiryDate"] = o.PageExpiryDate
+	}
+	if true {
+		toSerialize["publicAccessRulesEnabled"] = o.PublicAccessRulesEnabled
 	}
 	if true {
 		toSerialize["currentState"] = o.CurrentState
 	}
 	if true {
-		toSerialize["currentlyPublished"] = o.CurrentlyPublished
+		toSerialize["categoryId"] = o.CategoryId
 	}
 	if true {
-		toSerialize["contentTypeCategory"] = o.ContentTypeCategory
-	}
-	if true {
-		toSerialize["publishDate"] = o.PublishDate
-	}
-	if true {
-		toSerialize["created"] = o.Created
-	}
-	if true {
-		toSerialize["updated"] = o.Updated
+		toSerialize["linkRelCanonicalUrl"] = o.LinkRelCanonicalUrl
 	}
 	return json.Marshal(toSerialize)
 }

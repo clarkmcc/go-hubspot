@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Label** | **string** | A unique label used to organize pipelines in HubSpot&#39;s UI | 
 **DisplayOrder** | **int32** | The order for displaying this pipeline. If two pipelines have a matching &#x60;displayOrder&#x60;, they will be sorted alphabetically by label. | 
 **Stages** | [**[]PipelineStageInput**](PipelineStageInput.md) | Pipeline stage inputs used to create the new or replacement pipeline. | 
+**Label** | **string** | A unique label used to organize pipelines in HubSpot&#39;s UI | 
 
 ## Methods
 
 ### NewPipelineInput
 
-`func NewPipelineInput(label string, displayOrder int32, stages []PipelineStageInput, ) *PipelineInput`
+`func NewPipelineInput(displayOrder int32, stages []PipelineStageInput, label string, ) *PipelineInput`
 
 NewPipelineInput instantiates a new PipelineInput object
 This constructor will assign default values to properties that have it defined,
@@ -26,26 +26,6 @@ will change when the set of required properties is changed
 NewPipelineInputWithDefaults instantiates a new PipelineInput object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetLabel
-
-`func (o *PipelineInput) GetLabel() string`
-
-GetLabel returns the Label field if non-nil, zero value otherwise.
-
-### GetLabelOk
-
-`func (o *PipelineInput) GetLabelOk() (*string, bool)`
-
-GetLabelOk returns a tuple with the Label field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetLabel
-
-`func (o *PipelineInput) SetLabel(v string)`
-
-SetLabel sets Label field to given value.
-
 
 ### GetDisplayOrder
 
@@ -85,6 +65,26 @@ and a boolean to check if the value has been set.
 `func (o *PipelineInput) SetStages(v []PipelineStageInput)`
 
 SetStages sets Stages field to given value.
+
+
+### GetLabel
+
+`func (o *PipelineInput) GetLabel() string`
+
+GetLabel returns the Label field if non-nil, zero value otherwise.
+
+### GetLabelOk
+
+`func (o *PipelineInput) GetLabelOk() (*string, bool)`
+
+GetLabelOk returns a tuple with the Label field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLabel
+
+`func (o *PipelineInput) SetLabel(v string)`
+
+SetLabel sets Label field to given value.
 
 
 

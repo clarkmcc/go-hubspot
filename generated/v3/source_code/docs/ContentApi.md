@@ -6,8 +6,8 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**ContentArchive**](ContentApi.md#ContentArchive) | **Delete** /cms/v3/source-code/{environment}/content/{path} | Delete a file
 [**ContentCreate**](ContentApi.md#ContentCreate) | **Post** /cms/v3/source-code/{environment}/content/{path} | Create a file
-[**ContentGet**](ContentApi.md#ContentGet) | **Get** /cms/v3/source-code/{environment}/content/{path} | Download a file
-[**ContentReplace**](ContentApi.md#ContentReplace) | **Put** /cms/v3/source-code/{environment}/content/{path} | Create or update a file
+[**GetCmsV3SourceCodeEnvironmentContentPathDownload**](ContentApi.md#GetCmsV3SourceCodeEnvironmentContentPathDownload) | **Get** /cms/v3/source-code/{environment}/content/{path} | Download a file
+[**PutCmsV3SourceCodeEnvironmentContentPathCreateOrUpdate**](ContentApi.md#PutCmsV3SourceCodeEnvironmentContentPathCreateOrUpdate) | **Put** /cms/v3/source-code/{environment}/content/{path} | Create or update a file
 
 
 
@@ -157,9 +157,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## ContentGet
+## GetCmsV3SourceCodeEnvironmentContentPathDownload
 
-> Error ContentGet(ctx, environment, path).Execute()
+> Error GetCmsV3SourceCodeEnvironmentContentPathDownload(ctx, environment, path).Execute()
 
 Download a file
 
@@ -183,13 +183,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ContentApi.ContentGet(context.Background(), environment, path).Execute()
+    resp, r, err := apiClient.ContentApi.GetCmsV3SourceCodeEnvironmentContentPathDownload(context.Background(), environment, path).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ContentApi.ContentGet``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ContentApi.GetCmsV3SourceCodeEnvironmentContentPathDownload``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `ContentGet`: Error
-    fmt.Fprintf(os.Stdout, "Response from `ContentApi.ContentGet`: %v\n", resp)
+    // response from `GetCmsV3SourceCodeEnvironmentContentPathDownload`: Error
+    fmt.Fprintf(os.Stdout, "Response from `ContentApi.GetCmsV3SourceCodeEnvironmentContentPathDownload`: %v\n", resp)
 }
 ```
 
@@ -204,7 +204,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiContentGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetCmsV3SourceCodeEnvironmentContentPathDownloadRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -230,9 +230,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## ContentReplace
+## PutCmsV3SourceCodeEnvironmentContentPathCreateOrUpdate
 
-> AssetFileMetadata ContentReplace(ctx, environment, path).File(file).Execute()
+> AssetFileMetadata PutCmsV3SourceCodeEnvironmentContentPathCreateOrUpdate(ctx, environment, path).File(file).Execute()
 
 Create or update a file
 
@@ -257,13 +257,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ContentApi.ContentReplace(context.Background(), environment, path).File(file).Execute()
+    resp, r, err := apiClient.ContentApi.PutCmsV3SourceCodeEnvironmentContentPathCreateOrUpdate(context.Background(), environment, path).File(file).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ContentApi.ContentReplace``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ContentApi.PutCmsV3SourceCodeEnvironmentContentPathCreateOrUpdate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `ContentReplace`: AssetFileMetadata
-    fmt.Fprintf(os.Stdout, "Response from `ContentApi.ContentReplace`: %v\n", resp)
+    // response from `PutCmsV3SourceCodeEnvironmentContentPathCreateOrUpdate`: AssetFileMetadata
+    fmt.Fprintf(os.Stdout, "Response from `ContentApi.PutCmsV3SourceCodeEnvironmentContentPathCreateOrUpdate`: %v\n", resp)
 }
 ```
 
@@ -278,7 +278,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiContentReplaceRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutCmsV3SourceCodeEnvironmentContentPathCreateOrUpdateRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

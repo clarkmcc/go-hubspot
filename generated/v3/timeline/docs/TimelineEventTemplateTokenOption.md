@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Value** | **string** |  | 
 **Label** | **string** |  | 
+**Value** | **string** |  | 
 
 ## Methods
 
 ### NewTimelineEventTemplateTokenOption
 
-`func NewTimelineEventTemplateTokenOption(value string, label string, ) *TimelineEventTemplateTokenOption`
+`func NewTimelineEventTemplateTokenOption(label string, value string, ) *TimelineEventTemplateTokenOption`
 
 NewTimelineEventTemplateTokenOption instantiates a new TimelineEventTemplateTokenOption object
 This constructor will assign default values to properties that have it defined,
@@ -25,26 +25,6 @@ will change when the set of required properties is changed
 NewTimelineEventTemplateTokenOptionWithDefaults instantiates a new TimelineEventTemplateTokenOption object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetValue
-
-`func (o *TimelineEventTemplateTokenOption) GetValue() string`
-
-GetValue returns the Value field if non-nil, zero value otherwise.
-
-### GetValueOk
-
-`func (o *TimelineEventTemplateTokenOption) GetValueOk() (*string, bool)`
-
-GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetValue
-
-`func (o *TimelineEventTemplateTokenOption) SetValue(v string)`
-
-SetValue sets Value field to given value.
-
 
 ### GetLabel
 
@@ -64,6 +44,26 @@ and a boolean to check if the value has been set.
 `func (o *TimelineEventTemplateTokenOption) SetLabel(v string)`
 
 SetLabel sets Label field to given value.
+
+
+### GetValue
+
+`func (o *TimelineEventTemplateTokenOption) GetValue() string`
+
+GetValue returns the Value field if non-nil, zero value otherwise.
+
+### GetValueOk
+
+`func (o *TimelineEventTemplateTokenOption) GetValueOk() (*string, bool)`
+
+GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetValue
+
+`func (o *TimelineEventTemplateTokenOption) SetValue(v string)`
+
+SetValue sets Value field to given value.
 
 
 

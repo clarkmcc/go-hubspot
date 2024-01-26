@@ -2,13 +2,281 @@ openapi: 3.0.1
 info:
   description: "Use these endpoints for interacting with Blog Posts, Blog Authors,\
     \ and Blog Tags"
-  title: Blog Post endpoints
+  title: Tags
   version: v3
+  x-hubspot-product-tier-requirements:
+    marketing: PROFESSIONAL
+    cms: STARTER
+  x-hubspot-documentation-banner: NONE
+  x-hubspot-api-use-case: "Retrieve all blog tags as a part of a content audit, then\
+    \ update specific tags to support an upcoming company rebrand."
+  x-hubspot-related-documentation:
+  - name: Blog Tags Guide
+    url: https://hubspot.dev/guides/api/cms/blog-tags
+  x-hubspot-introduction: Use the blog tags API to create and manage available blog
+    post tags for easy sorting and filtering on your site.
 servers:
-- url: https://api.hubapi.com/
+- url: https://api.hubapi.com
 tags:
-- name: Blog Tags
+- description: ""
+  name: Blog Tags
+  x-hubspot-tag-name-english-source: Blog Tags
 paths:
+  /cms/v3/blogs/tags/batch/update:
+    post:
+      description: Update the Blog Tag objects identified in the request body.
+      operationId: BatchUpdate
+      parameters:
+      - description: Specifies whether to update deleted Blog Tags. Defaults to `false`.
+        explode: true
+        in: query
+        name: archived
+        required: false
+        schema:
+          type: boolean
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchInputJsonNode'
+        description: A JSON array of the JSON representations of the updated Blog
+          Tags.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchResponseTag'
+          description: successful operation
+        "207":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchResponseTagWithErrors'
+          description: multiple statuses
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - private_apps_legacy:
+        - content
+      - oauth2_legacy:
+        - content
+      summary: Update a batch of Blog Tags
+      tags:
+      - Blog Tags
+  /cms/v3/blogs/tags/multi-language/update-languages:
+    post:
+      description: Explicitly set new languages for each Blog Tag in a multi-language
+        group.
+      operationId: UpdateLanguages
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateLanguagesRequestVNext'
+        description: The JSON representation of the UpdateLanguagesRequest object.
+        required: true
+      responses:
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+        "200":
+          content: {}
+          description: successful operation
+      security:
+      - private_apps_legacy:
+        - content
+      - oauth2_legacy:
+        - content
+      summary: Update languages of multi-language group
+      tags:
+      - Blog Tags
+  /cms/v3/blogs/tags/multi-language/detach-from-lang-group:
+    post:
+      description: Detach a Blog Tag from a multi-language group.
+      operationId: DetachFromLanguageGroup
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DetachFromLangGroupRequestVNext'
+        description: The JSON representation of the DetachFromLangGroupRequest object.
+        required: true
+      responses:
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+        "200":
+          content: {}
+          description: successful operation
+      security:
+      - private_apps_legacy:
+        - content
+      - oauth2_legacy:
+        - content
+      summary: Detach a Blog Tag from a multi-language group
+      tags:
+      - Blog Tags
+  /cms/v3/blogs/tags/batch/create:
+    post:
+      description: Create the Blog Tag objects detailed in the request body.
+      operationId: BatchCreate
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchInputTag'
+        description: The JSON array of new Blog Tags to create.
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchResponseTag'
+          description: successful operation
+        "207":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchResponseTagWithErrors'
+          description: multiple statuses
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - private_apps_legacy:
+        - content
+      - oauth2_legacy:
+        - content
+      summary: Create a batch of Blog Tags
+      tags:
+      - Blog Tags
+  /cms/v3/blogs/tags/batch/archive:
+    post:
+      description: Delete the Blog Tag objects identified in the request body.
+      operationId: BatchArchive
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchInputString'
+        description: The JSON array of Blog Tag ids.
+        required: true
+      responses:
+        "204":
+          content: {}
+          description: No content
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - private_apps_legacy:
+        - content
+      - oauth2_legacy:
+        - content
+      summary: Delete a batch of Blog Tags
+      tags:
+      - Blog Tags
+  /cms/v3/blogs/tags/multi-language/set-new-lang-primary:
+    put:
+      description: Set a Blog Tag as the primary language of a multi-language group.
+      operationId: SetLanguagePrimary
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetNewLanguagePrimaryRequestVNext'
+        description: The JSON representation of the SetNewLanguagePrimaryRequest object.
+        required: true
+      responses:
+        "204":
+          content: {}
+          description: No content
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - private_apps_legacy:
+        - content
+      - oauth2_legacy:
+        - content
+      summary: Set a new primary language
+      tags:
+      - Blog Tags
+  /cms/v3/blogs/tags/batch/read:
+    post:
+      description: Retrieve the Blog Tag objects identified in the request body.
+      operationId: BatchRead
+      parameters:
+      - description: Specifies whether to return deleted Blog Tags. Defaults to `false`.
+        explode: true
+        in: query
+        name: archived
+        required: false
+        schema:
+          type: boolean
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchInputString'
+        description: The JSON array of Blog Tag ids.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchResponseTag'
+          description: successful operation
+        "207":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchResponseTagWithErrors'
+          description: multiple statuses
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - private_apps_legacy:
+        - content
+      - oauth2_legacy:
+        - content
+      summary: Retrieve a batch of Blog Tags
+      tags:
+      - Blog Tags
   /cms/v3/blogs/tags:
     get:
       description: |
@@ -108,6 +376,13 @@ paths:
         schema:
           type: boolean
         style: form
+      - explode: true
+        in: query
+        name: property
+        required: false
+        schema:
+          type: string
+        style: form
       responses:
         "200":
           content:
@@ -132,6 +407,7 @@ paths:
     post:
       description: Create a new Blog Tag.
       operationId: Create
+      parameters: []
       requestBody:
         content:
           application/json:
@@ -160,172 +436,11 @@ paths:
       summary: Create a new Blog Tag
       tags:
       - Blog Tags
-  /cms/v3/blogs/tags/batch/archive:
-    post:
-      description: Delete the Blog Tag objects identified in the request body.
-      operationId: BatchArchive
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/BatchInputString'
-        description: The JSON array of Blog Tag ids.
-        required: true
-      responses:
-        "204":
-          content: {}
-          description: No content
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - private_apps_legacy:
-        - content
-      - oauth2_legacy:
-        - content
-      summary: Delete a batch of Blog Tags
-      tags:
-      - Blog Tags
-  /cms/v3/blogs/tags/batch/create:
-    post:
-      description: Create the Blog Tag objects detailed in the request body.
-      operationId: BatchCreate
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/BatchInputTag'
-        description: The JSON array of new Blog Tags to create.
-        required: true
-      responses:
-        "201":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BatchResponseTag'
-          description: successful operation
-        "207":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BatchResponseTagWithErrors'
-          description: multiple statuses
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - private_apps_legacy:
-        - content
-      - oauth2_legacy:
-        - content
-      summary: Create a batch of Blog Tags
-      tags:
-      - Blog Tags
-  /cms/v3/blogs/tags/batch/read:
-    post:
-      description: Retrieve the Blog Tag objects identified in the request body.
-      operationId: BatchRead
-      parameters:
-      - description: Specifies whether to return deleted Blog Tags. Defaults to `false`.
-        explode: true
-        in: query
-        name: archived
-        required: false
-        schema:
-          type: boolean
-        style: form
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/BatchInputString'
-        description: The JSON array of Blog Tag ids.
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BatchResponseTag'
-          description: successful operation
-        "207":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BatchResponseTagWithErrors'
-          description: multiple statuses
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - private_apps_legacy:
-        - content
-      - oauth2_legacy:
-        - content
-      summary: Retrieve a batch of Blog Tags
-      tags:
-      - Blog Tags
-  /cms/v3/blogs/tags/batch/update:
-    post:
-      description: Update the Blog Tag objects identified in the request body.
-      operationId: BatchUpdate
-      parameters:
-      - description: Specifies whether to update deleted Blog Tags. Defaults to `false`.
-        explode: true
-        in: query
-        name: archived
-        required: false
-        schema:
-          type: boolean
-        style: form
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/BatchInputJsonNode'
-        description: A JSON array of the JSON representations of the updated Blog
-          Tags.
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BatchResponseTag'
-          description: successful operation
-        "207":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BatchResponseTagWithErrors'
-          description: multiple statuses
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - private_apps_legacy:
-        - content
-      - oauth2_legacy:
-        - content
-      summary: Update a batch of Blog Tags
-      tags:
-      - Blog Tags
   /cms/v3/blogs/tags/multi-language/attach-to-lang-group:
     post:
       description: Attach a Blog Tag to a multi-language group.
       operationId: AttachToLanguageGroup
+      parameters: []
       requestBody:
         content:
           application/json:
@@ -340,126 +455,15 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
+        "200":
+          content: {}
+          description: successful operation
       security:
       - private_apps_legacy:
         - content
       - oauth2_legacy:
         - content
       summary: Attach a Blog Tag to a multi-language group
-      tags:
-      - Blog Tags
-  /cms/v3/blogs/tags/multi-language/create-language-variation:
-    post:
-      description: Create a new language variation from an existing Blog Tag
-      operationId: CreateLanguageVariation
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TagCloneRequestVNext'
-        description: The JSON representation of the ContentLanguageCloneRequest object.
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Tag'
-          description: successful operation
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - private_apps_legacy:
-        - content
-      - oauth2_legacy:
-        - content
-      summary: Create a new language variation
-      tags:
-      - Blog Tags
-  /cms/v3/blogs/tags/multi-language/detach-from-lang-group:
-    post:
-      description: Detach a Blog Tag from a multi-language group.
-      operationId: DetachFromLanguageGroup
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/DetachFromLangGroupRequestVNext'
-        description: The JSON representation of the DetachFromLangGroupRequest object.
-        required: true
-      responses:
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - private_apps_legacy:
-        - content
-      - oauth2_legacy:
-        - content
-      summary: Detach a Blog Tag from a multi-language group
-      tags:
-      - Blog Tags
-  /cms/v3/blogs/tags/multi-language/set-new-lang-primary:
-    put:
-      description: Set a Blog Tag as the primary language of a multi-language group.
-      operationId: SetLanguagePrimary
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SetNewLanguagePrimaryRequestVNext'
-        description: The JSON representation of the SetNewLanguagePrimaryRequest object.
-        required: true
-      responses:
-        "204":
-          content: {}
-          description: No content
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - private_apps_legacy:
-        - content
-      - oauth2_legacy:
-        - content
-      summary: Set a new primary language
-      tags:
-      - Blog Tags
-  /cms/v3/blogs/tags/multi-language/update-languages:
-    post:
-      description: Explicitly set new languages for each Blog Tag in a multi-language
-        group.
-      operationId: UpdateLanguages
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UpdateLanguagesRequestVNext'
-        description: The JSON representation of the UpdateLanguagesRequest object.
-        required: true
-      responses:
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - private_apps_legacy:
-        - content
-      - oauth2_legacy:
-        - content
-      summary: Update languages of multi-language group
       tags:
       - Blog Tags
   /cms/v3/blogs/tags/{objectId}:
@@ -520,6 +524,13 @@ paths:
         required: false
         schema:
           type: boolean
+        style: form
+      - explode: true
+        in: query
+        name: property
+        required: false
+        schema:
+          type: string
         style: form
       responses:
         "200":
@@ -592,6 +603,39 @@ paths:
       summary: Update a Blog Tag
       tags:
       - Blog Tags
+  /cms/v3/blogs/tags/multi-language/create-language-variation:
+    post:
+      description: Create a new language variation from an existing Blog Tag
+      operationId: CreateLanguageVariation
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagCloneRequestVNext'
+        description: The JSON representation of the ContentLanguageCloneRequest object.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - private_apps_legacy:
+        - content
+      - oauth2_legacy:
+        - content
+      summary: Create a new language variation
+      tags:
+      - Blog Tags
 components:
   responses:
     Error:
@@ -619,27 +663,10 @@ components:
     StandardError:
       description: Model definition for a standard error.
       properties:
-        status:
-          description: Error status.
-          type: string
-        id:
-          description: Error ID.
-          type: string
-        category:
-          description: Model definition for an error category.
-          type: object
         subCategory:
           description: Error subcategory.
           properties: {}
           type: object
-        message:
-          description: Error message.
-          type: string
-        errors:
-          description: List of error details.
-          items:
-            $ref: '#/components/schemas/ErrorDetail'
-          type: array
         context:
           additionalProperties:
             items:
@@ -652,6 +679,23 @@ components:
             type: string
           description: Error links.
           type: object
+        id:
+          description: Error ID.
+          type: string
+        category:
+          description: Error category.
+          type: string
+        message:
+          description: Error message.
+          type: string
+        errors:
+          description: List of error details.
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
+        status:
+          description: Error status.
+          type: string
       required:
       - category
       - context
@@ -674,30 +718,21 @@ components:
           name: name
           language: af
           id: id
-          translatedFromId: 6
+          translatedFromId: 0
           updated: 2000-01-23T04:56:07.000+00:00
         - deletedAt: 2000-01-23T04:56:07.000+00:00
           created: 2000-01-23T04:56:07.000+00:00
           name: name
           language: af
           id: id
-          translatedFromId: 6
+          translatedFromId: 0
           updated: 2000-01-23T04:56:07.000+00:00
         status: PENDING
       properties:
-        status:
-          description: Status of batch operation.
-          enum:
-          - PENDING
-          - PROCESSING
-          - CANCELED
-          - COMPLETE
+        completedAt:
+          description: Time of batch operation completion.
+          format: date-time
           type: string
-        results:
-          description: Results of batch operation.
-          items:
-            $ref: '#/components/schemas/Tag'
-          type: array
         requestedAt:
           description: Time of batch operation request.
           format: date-time
@@ -706,15 +741,24 @@ components:
           description: Time of batch operation start.
           format: date-time
           type: string
-        completedAt:
-          description: Time of batch operation completion.
-          format: date-time
-          type: string
         links:
           additionalProperties:
             type: string
           description: Links associated with batch operation.
           type: object
+        results:
+          description: Results of batch operation.
+          items:
+            $ref: '#/components/schemas/Tag'
+          type: array
+        status:
+          description: Status of batch operation.
+          enum:
+          - PENDING
+          - PROCESSING
+          - CANCELED
+          - COMPLETE
+          type: string
       required:
       - completedAt
       - results
@@ -741,734 +785,18 @@ components:
       description: Request object for updating languages within a multi-language group.
       example:
         languages:
-          key: af
+          key: languages
         primaryId: primaryId
       properties:
-        primaryId:
-          description: ID of the primary object in the multi-language group.
-          type: string
         languages:
           additionalProperties:
-            enum:
-            - af
-            - af-na
-            - af-za
-            - agq
-            - agq-cm
-            - ak
-            - ak-gh
-            - am
-            - am-et
-            - ar
-            - ar-001
-            - ar-ae
-            - ar-bh
-            - ar-dj
-            - ar-dz
-            - ar-eg
-            - ar-eh
-            - ar-er
-            - ar-il
-            - ar-iq
-            - ar-jo
-            - ar-km
-            - ar-kw
-            - ar-lb
-            - ar-ly
-            - ar-ma
-            - ar-mr
-            - ar-om
-            - ar-ps
-            - ar-qa
-            - ar-sa
-            - ar-sd
-            - ar-so
-            - ar-ss
-            - ar-sy
-            - ar-td
-            - ar-tn
-            - ar-ye
-            - as
-            - as-in
-            - asa
-            - asa-tz
-            - ast
-            - ast-es
-            - az
-            - az-az
-            - bas
-            - bas-cm
-            - be
-            - be-by
-            - bem
-            - bem-zm
-            - bez
-            - bez-tz
-            - bg
-            - bg-bg
-            - bm
-            - bm-ml
-            - bn
-            - bn-bd
-            - bn-in
-            - bo
-            - bo-cn
-            - bo-in
-            - br
-            - br-fr
-            - brx
-            - brx-in
-            - bs
-            - bs-ba
-            - ca
-            - ca-ad
-            - ca-es
-            - ca-fr
-            - ca-it
-            - ccp
-            - ccp-bd
-            - ccp-in
-            - ce
-            - ce-ru
-            - cgg
-            - cgg-ug
-            - chr
-            - chr-us
-            - ckb
-            - ckb-iq
-            - ckb-ir
-            - cs
-            - cs-cz
-            - cu
-            - cu-ru
-            - cy
-            - cy-gb
-            - da
-            - da-dk
-            - da-gl
-            - dav
-            - dav-ke
-            - de
-            - de-at
-            - de-be
-            - de-ch
-            - de-de
-            - de-gr
-            - de-it
-            - de-li
-            - de-lu
-            - dje
-            - dje-ne
-            - dsb
-            - dsb-de
-            - dua
-            - dua-cm
-            - dyo
-            - dyo-sn
-            - dz
-            - dz-bt
-            - ebu
-            - ebu-ke
-            - ee
-            - ee-gh
-            - ee-tg
-            - el
-            - el-cy
-            - el-gr
-            - en
-            - en-001
-            - en-150
-            - en-ae
-            - en-ag
-            - en-ai
-            - en-as
-            - en-at
-            - en-au
-            - en-bb
-            - en-be
-            - en-bi
-            - en-bm
-            - en-bs
-            - en-bw
-            - en-bz
-            - en-ca
-            - en-cc
-            - en-ch
-            - en-ck
-            - en-cm
-            - en-cx
-            - en-cy
-            - en-de
-            - en-dg
-            - en-dk
-            - en-dm
-            - en-er
-            - en-fi
-            - en-fj
-            - en-fk
-            - en-fm
-            - en-gb
-            - en-gd
-            - en-gg
-            - en-gh
-            - en-gi
-            - en-gm
-            - en-gu
-            - en-gy
-            - en-hk
-            - en-ie
-            - en-il
-            - en-im
-            - en-in
-            - en-io
-            - en-je
-            - en-jm
-            - en-ke
-            - en-ki
-            - en-kn
-            - en-ky
-            - en-lc
-            - en-lr
-            - en-ls
-            - en-lu
-            - en-mg
-            - en-mh
-            - en-mo
-            - en-mp
-            - en-ms
-            - en-mt
-            - en-mu
-            - en-mw
-            - en-my
-            - en-na
-            - en-nf
-            - en-ng
-            - en-nl
-            - en-nr
-            - en-nu
-            - en-nz
-            - en-pg
-            - en-ph
-            - en-pk
-            - en-pn
-            - en-pr
-            - en-pw
-            - en-rw
-            - en-sb
-            - en-sc
-            - en-sd
-            - en-se
-            - en-sg
-            - en-sh
-            - en-si
-            - en-sl
-            - en-ss
-            - en-sx
-            - en-sz
-            - en-tc
-            - en-tk
-            - en-to
-            - en-tt
-            - en-tv
-            - en-tz
-            - en-ug
-            - en-um
-            - en-us
-            - en-vc
-            - en-vg
-            - en-vi
-            - en-vu
-            - en-ws
-            - en-za
-            - en-zm
-            - en-zw
-            - eo
-            - eo-001
-            - es
-            - es-419
-            - es-ar
-            - es-bo
-            - es-br
-            - es-bz
-            - es-cl
-            - es-co
-            - es-cr
-            - es-cu
-            - es-do
-            - es-ea
-            - es-ec
-            - es-es
-            - es-gq
-            - es-gt
-            - es-hn
-            - es-ic
-            - es-mx
-            - es-ni
-            - es-pa
-            - es-pe
-            - es-ph
-            - es-pr
-            - es-py
-            - es-sv
-            - es-us
-            - es-uy
-            - es-ve
-            - et
-            - et-ee
-            - eu
-            - eu-es
-            - ewo
-            - ewo-cm
-            - fa
-            - fa-af
-            - fa-ir
-            - ff
-            - ff-cm
-            - ff-gn
-            - ff-mr
-            - ff-sn
-            - fi
-            - fi-fi
-            - fil
-            - fil-ph
-            - fo
-            - fo-dk
-            - fo-fo
-            - fr
-            - fr-be
-            - fr-bf
-            - fr-bi
-            - fr-bj
-            - fr-bl
-            - fr-ca
-            - fr-cd
-            - fr-cf
-            - fr-cg
-            - fr-ch
-            - fr-ci
-            - fr-cm
-            - fr-dj
-            - fr-dz
-            - fr-fr
-            - fr-ga
-            - fr-gf
-            - fr-gn
-            - fr-gp
-            - fr-gq
-            - fr-ht
-            - fr-km
-            - fr-lu
-            - fr-ma
-            - fr-mc
-            - fr-mf
-            - fr-mg
-            - fr-ml
-            - fr-mq
-            - fr-mr
-            - fr-mu
-            - fr-nc
-            - fr-ne
-            - fr-pf
-            - fr-pm
-            - fr-re
-            - fr-rw
-            - fr-sc
-            - fr-sn
-            - fr-sy
-            - fr-td
-            - fr-tg
-            - fr-tn
-            - fr-vu
-            - fr-wf
-            - fr-yt
-            - fur
-            - fur-it
-            - fy
-            - fy-nl
-            - ga
-            - ga-ie
-            - gd
-            - gd-gb
-            - gl
-            - gl-es
-            - gsw
-            - gsw-ch
-            - gsw-fr
-            - gsw-li
-            - gu
-            - gu-in
-            - guz
-            - guz-ke
-            - gv
-            - gv-im
-            - ha
-            - ha-gh
-            - ha-ne
-            - ha-ng
-            - haw
-            - haw-us
-            - he
-            - hi
-            - hi-in
-            - hr
-            - hr-ba
-            - hr-hr
-            - hsb
-            - hsb-de
-            - hu
-            - hu-hu
-            - hy
-            - hy-am
-            - id
-            - ig
-            - ig-ng
-            - ii
-            - ii-cn
-            - id-id
-            - is
-            - is-is
-            - it
-            - it-ch
-            - it-it
-            - it-sm
-            - it-va
-            - he-il
-            - ja
-            - ja-jp
-            - jgo
-            - jgo-cm
-            - yi
-            - yi-001
-            - jmc
-            - jmc-tz
-            - ka
-            - ka-ge
-            - kab
-            - kab-dz
-            - kam
-            - kam-ke
-            - kde
-            - kde-tz
-            - kea
-            - kea-cv
-            - khq
-            - khq-ml
-            - ki
-            - ki-ke
-            - kk
-            - kk-kz
-            - kkj
-            - kkj-cm
-            - kl
-            - kl-gl
-            - kln
-            - kln-ke
-            - km
-            - km-kh
-            - kn
-            - kn-in
-            - ko
-            - ko-kp
-            - ko-kr
-            - kok
-            - kok-in
-            - ks
-            - ks-in
-            - ksb
-            - ksb-tz
-            - ksf
-            - ksf-cm
-            - ksh
-            - ksh-de
-            - kw
-            - kw-gb
-            - ky
-            - ky-kg
-            - lag
-            - lag-tz
-            - lb
-            - lb-lu
-            - lg
-            - lg-ug
-            - lkt
-            - lkt-us
-            - ln
-            - ln-ao
-            - ln-cd
-            - ln-cf
-            - ln-cg
-            - lo
-            - lo-la
-            - lrc
-            - lrc-iq
-            - lrc-ir
-            - lt
-            - lt-lt
-            - lu
-            - lu-cd
-            - luo
-            - luo-ke
-            - luy
-            - luy-ke
-            - lv
-            - lv-lv
-            - mas
-            - mas-ke
-            - mas-tz
-            - mer
-            - mer-ke
-            - mfe
-            - mfe-mu
-            - mg
-            - mg-mg
-            - mgh
-            - mgh-mz
-            - mgo
-            - mgo-cm
-            - mk
-            - mk-mk
-            - ml
-            - ml-in
-            - mn
-            - mn-mn
-            - mr
-            - mr-in
-            - ms
-            - ms-bn
-            - ms-my
-            - ms-sg
-            - mt
-            - mt-mt
-            - mua
-            - mua-cm
-            - my
-            - my-mm
-            - mzn
-            - mzn-ir
-            - naq
-            - naq-na
-            - nb
-            - nb-no
-            - nb-sj
-            - nd
-            - nd-zw
-            - nds
-            - nds-de
-            - nds-nl
-            - ne
-            - ne-in
-            - ne-np
-            - nl
-            - nl-aw
-            - nl-be
-            - nl-ch
-            - nl-bq
-            - nl-cw
-            - nl-lu
-            - nl-nl
-            - nl-sr
-            - nl-sx
-            - nmg
-            - nmg-cm
-            - nn
-            - nn-no
-            - nnh
-            - nnh-cm
-            - "no"
-            - no-no
-            - nus
-            - nus-ss
-            - nyn
-            - nyn-ug
-            - om
-            - om-et
-            - om-ke
-            - or
-            - or-in
-            - os
-            - os-ge
-            - os-ru
-            - pa
-            - pa-in
-            - pa-pk
-            - pl
-            - pl-pl
-            - prg
-            - prg-001
-            - ps
-            - ps-af
-            - pt
-            - pt-ao
-            - pt-br
-            - pt-ch
-            - pt-cv
-            - pt-gq
-            - pt-gw
-            - pt-lu
-            - pt-mo
-            - pt-mz
-            - pt-pt
-            - pt-st
-            - pt-tl
-            - qu
-            - qu-bo
-            - qu-ec
-            - qu-pe
-            - rm
-            - rm-ch
-            - rn
-            - rn-bi
-            - ro
-            - ro-md
-            - ro-ro
-            - rof
-            - rof-tz
-            - ru
-            - ru-by
-            - ru-kg
-            - ru-kz
-            - ru-md
-            - ru-ru
-            - ru-ua
-            - rw
-            - rw-rw
-            - rwk
-            - rwk-tz
-            - sa
-            - sah
-            - sah-ru
-            - saq
-            - saq-ke
-            - sbp
-            - sbp-tz
-            - sd
-            - sd-pk
-            - se
-            - se-fi
-            - se-no
-            - se-se
-            - seh
-            - seh-mz
-            - ses
-            - ses-ml
-            - sg
-            - sg-cf
-            - shi
-            - shi-ma
-            - si
-            - si-lk
-            - sk
-            - sk-sk
-            - sl
-            - sl-si
-            - smn
-            - smn-fi
-            - sn
-            - sn-zw
-            - so
-            - so-dj
-            - so-et
-            - so-ke
-            - so-so
-            - sq
-            - sq-al
-            - sq-mk
-            - sq-xk
-            - sr
-            - sr-ba
-            - sr-cs
-            - sr-me
-            - sr-rs
-            - sr-xk
-            - sv
-            - sv-ax
-            - sv-fi
-            - sv-se
-            - sw
-            - sw-cd
-            - sw-ke
-            - sw-tz
-            - sw-ug
-            - sy
-            - ta
-            - ta-in
-            - ta-lk
-            - ta-my
-            - ta-sg
-            - te
-            - te-in
-            - teo
-            - teo-ke
-            - teo-ug
-            - tg
-            - tg-tj
-            - th
-            - th-th
-            - ti
-            - ti-er
-            - ti-et
-            - tk
-            - tk-tm
-            - to
-            - to-to
-            - tr
-            - tr-cy
-            - tr-tr
-            - tt
-            - tt-ru
-            - twq
-            - twq-ne
-            - tzm
-            - tzm-ma
-            - ug
-            - ug-cn
-            - uk
-            - uk-ua
-            - ur
-            - ur-in
-            - ur-pk
-            - uz
-            - uz-af
-            - uz-uz
-            - vai
-            - vai-lr
-            - vi
-            - vi-vn
-            - vo
-            - vo-001
-            - vun
-            - vun-tz
-            - wae
-            - wae-ch
-            - wo
-            - wo-sn
-            - xog
-            - xog-ug
-            - yav
-            - yav-cm
-            - yo
-            - yo-bj
-            - yo-ng
-            - yue
-            - yue-cn
-            - yue-hk
-            - zgh
-            - zgh-ma
-            - zh
-            - zh-cn
-            - zh-hk
-            - zh-mo
-            - zh-sg
-            - zh-tw
-            - zh-hans
-            - zh-hant
-            - zu
-            - zu-za
             type: string
-            x-hubspot-external-project-origin: true
           description: Map of object IDs to associated languages of object in the
             multi-language group.
           type: object
+        primaryId:
+          description: ID of the primary object in the multi-language group.
+          type: string
       required:
       - languages
       - primaryId
@@ -1495,61 +823,6 @@ components:
       required:
       - id
       type: object
-    Error:
-      example:
-        message: Invalid input (details will vary based on the error)
-        correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
-        category: VALIDATION_ERROR
-        links:
-          knowledge-base: https://www.hubspot.com/products/service/knowledge-base
-      properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          example: An error occurred
-          type: string
-        correlationId:
-          description: A unique identifier for the request. Include this value with
-            any error reports or support tickets
-          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
-          format: uuid
-          type: string
-        category:
-          description: The error category
-          type: string
-        subCategory:
-          description: A specific category that contains more specific detail about
-            the error
-          type: string
-        errors:
-          description: further information about the error
-          items:
-            $ref: '#/components/schemas/ErrorDetail'
-          type: array
-        context:
-          additionalProperties:
-            items:
-              type: string
-            type: array
-          description: Context about the error condition
-          example:
-            invalidPropertyName:
-            - propertyValue
-            missingScopes:
-            - scope1
-            - scope2
-          type: object
-        links:
-          additionalProperties:
-            type: string
-          description: A map of link names to associated URIs containing documentation
-            about the error or recommended remediation steps
-          type: object
-      required:
-      - category
-      - correlationId
-      - message
-      type: object
     CollectionResponseWithTotalTagForwardPaging:
       description: Response object for collections of blog tags with pagination information.
       example:
@@ -1564,1499 +837,39 @@ components:
           name: name
           language: af
           id: id
-          translatedFromId: 6
+          translatedFromId: 0
           updated: 2000-01-23T04:56:07.000+00:00
         - deletedAt: 2000-01-23T04:56:07.000+00:00
           created: 2000-01-23T04:56:07.000+00:00
           name: name
           language: af
           id: id
-          translatedFromId: 6
+          translatedFromId: 0
           updated: 2000-01-23T04:56:07.000+00:00
       properties:
         total:
           description: Total number of blog tags.
           format: int32
           type: integer
+        paging:
+          $ref: '#/components/schemas/ForwardPaging'
         results:
           description: Collection of blog tags.
           items:
             $ref: '#/components/schemas/Tag'
           type: array
-        paging:
-          $ref: '#/components/schemas/ForwardPaging'
       required:
       - results
       - total
       type: object
-    AttachToLangPrimaryRequestVNext:
-      description: Request body object fro attaching objects to multi-language groups.
+    Error:
       example:
-        language: af
-        id: id
-        primaryId: primaryId
-        primaryLanguage: af
+        message: Invalid input (details will vary based on the error)
+        correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
+        category: VALIDATION_ERROR
+        links:
+          knowledge-base: https://www.hubspot.com/products/service/knowledge-base
       properties:
-        id:
-          description: ID of the object to add to a multi-language group.
-          type: string
-        language:
-          description: Designated language of the object to add to a multi-language
-            group.
-          enum:
-          - af
-          - af-na
-          - af-za
-          - agq
-          - agq-cm
-          - ak
-          - ak-gh
-          - am
-          - am-et
-          - ar
-          - ar-001
-          - ar-ae
-          - ar-bh
-          - ar-dj
-          - ar-dz
-          - ar-eg
-          - ar-eh
-          - ar-er
-          - ar-il
-          - ar-iq
-          - ar-jo
-          - ar-km
-          - ar-kw
-          - ar-lb
-          - ar-ly
-          - ar-ma
-          - ar-mr
-          - ar-om
-          - ar-ps
-          - ar-qa
-          - ar-sa
-          - ar-sd
-          - ar-so
-          - ar-ss
-          - ar-sy
-          - ar-td
-          - ar-tn
-          - ar-ye
-          - as
-          - as-in
-          - asa
-          - asa-tz
-          - ast
-          - ast-es
-          - az
-          - az-az
-          - bas
-          - bas-cm
-          - be
-          - be-by
-          - bem
-          - bem-zm
-          - bez
-          - bez-tz
-          - bg
-          - bg-bg
-          - bm
-          - bm-ml
-          - bn
-          - bn-bd
-          - bn-in
-          - bo
-          - bo-cn
-          - bo-in
-          - br
-          - br-fr
-          - brx
-          - brx-in
-          - bs
-          - bs-ba
-          - ca
-          - ca-ad
-          - ca-es
-          - ca-fr
-          - ca-it
-          - ccp
-          - ccp-bd
-          - ccp-in
-          - ce
-          - ce-ru
-          - cgg
-          - cgg-ug
-          - chr
-          - chr-us
-          - ckb
-          - ckb-iq
-          - ckb-ir
-          - cs
-          - cs-cz
-          - cu
-          - cu-ru
-          - cy
-          - cy-gb
-          - da
-          - da-dk
-          - da-gl
-          - dav
-          - dav-ke
-          - de
-          - de-at
-          - de-be
-          - de-ch
-          - de-de
-          - de-gr
-          - de-it
-          - de-li
-          - de-lu
-          - dje
-          - dje-ne
-          - dsb
-          - dsb-de
-          - dua
-          - dua-cm
-          - dyo
-          - dyo-sn
-          - dz
-          - dz-bt
-          - ebu
-          - ebu-ke
-          - ee
-          - ee-gh
-          - ee-tg
-          - el
-          - el-cy
-          - el-gr
-          - en
-          - en-001
-          - en-150
-          - en-ae
-          - en-ag
-          - en-ai
-          - en-as
-          - en-at
-          - en-au
-          - en-bb
-          - en-be
-          - en-bi
-          - en-bm
-          - en-bs
-          - en-bw
-          - en-bz
-          - en-ca
-          - en-cc
-          - en-ch
-          - en-ck
-          - en-cm
-          - en-cx
-          - en-cy
-          - en-de
-          - en-dg
-          - en-dk
-          - en-dm
-          - en-er
-          - en-fi
-          - en-fj
-          - en-fk
-          - en-fm
-          - en-gb
-          - en-gd
-          - en-gg
-          - en-gh
-          - en-gi
-          - en-gm
-          - en-gu
-          - en-gy
-          - en-hk
-          - en-ie
-          - en-il
-          - en-im
-          - en-in
-          - en-io
-          - en-je
-          - en-jm
-          - en-ke
-          - en-ki
-          - en-kn
-          - en-ky
-          - en-lc
-          - en-lr
-          - en-ls
-          - en-lu
-          - en-mg
-          - en-mh
-          - en-mo
-          - en-mp
-          - en-ms
-          - en-mt
-          - en-mu
-          - en-mw
-          - en-my
-          - en-na
-          - en-nf
-          - en-ng
-          - en-nl
-          - en-nr
-          - en-nu
-          - en-nz
-          - en-pg
-          - en-ph
-          - en-pk
-          - en-pn
-          - en-pr
-          - en-pw
-          - en-rw
-          - en-sb
-          - en-sc
-          - en-sd
-          - en-se
-          - en-sg
-          - en-sh
-          - en-si
-          - en-sl
-          - en-ss
-          - en-sx
-          - en-sz
-          - en-tc
-          - en-tk
-          - en-to
-          - en-tt
-          - en-tv
-          - en-tz
-          - en-ug
-          - en-um
-          - en-us
-          - en-vc
-          - en-vg
-          - en-vi
-          - en-vu
-          - en-ws
-          - en-za
-          - en-zm
-          - en-zw
-          - eo
-          - eo-001
-          - es
-          - es-419
-          - es-ar
-          - es-bo
-          - es-br
-          - es-bz
-          - es-cl
-          - es-co
-          - es-cr
-          - es-cu
-          - es-do
-          - es-ea
-          - es-ec
-          - es-es
-          - es-gq
-          - es-gt
-          - es-hn
-          - es-ic
-          - es-mx
-          - es-ni
-          - es-pa
-          - es-pe
-          - es-ph
-          - es-pr
-          - es-py
-          - es-sv
-          - es-us
-          - es-uy
-          - es-ve
-          - et
-          - et-ee
-          - eu
-          - eu-es
-          - ewo
-          - ewo-cm
-          - fa
-          - fa-af
-          - fa-ir
-          - ff
-          - ff-cm
-          - ff-gn
-          - ff-mr
-          - ff-sn
-          - fi
-          - fi-fi
-          - fil
-          - fil-ph
-          - fo
-          - fo-dk
-          - fo-fo
-          - fr
-          - fr-be
-          - fr-bf
-          - fr-bi
-          - fr-bj
-          - fr-bl
-          - fr-ca
-          - fr-cd
-          - fr-cf
-          - fr-cg
-          - fr-ch
-          - fr-ci
-          - fr-cm
-          - fr-dj
-          - fr-dz
-          - fr-fr
-          - fr-ga
-          - fr-gf
-          - fr-gn
-          - fr-gp
-          - fr-gq
-          - fr-ht
-          - fr-km
-          - fr-lu
-          - fr-ma
-          - fr-mc
-          - fr-mf
-          - fr-mg
-          - fr-ml
-          - fr-mq
-          - fr-mr
-          - fr-mu
-          - fr-nc
-          - fr-ne
-          - fr-pf
-          - fr-pm
-          - fr-re
-          - fr-rw
-          - fr-sc
-          - fr-sn
-          - fr-sy
-          - fr-td
-          - fr-tg
-          - fr-tn
-          - fr-vu
-          - fr-wf
-          - fr-yt
-          - fur
-          - fur-it
-          - fy
-          - fy-nl
-          - ga
-          - ga-ie
-          - gd
-          - gd-gb
-          - gl
-          - gl-es
-          - gsw
-          - gsw-ch
-          - gsw-fr
-          - gsw-li
-          - gu
-          - gu-in
-          - guz
-          - guz-ke
-          - gv
-          - gv-im
-          - ha
-          - ha-gh
-          - ha-ne
-          - ha-ng
-          - haw
-          - haw-us
-          - he
-          - hi
-          - hi-in
-          - hr
-          - hr-ba
-          - hr-hr
-          - hsb
-          - hsb-de
-          - hu
-          - hu-hu
-          - hy
-          - hy-am
-          - id
-          - ig
-          - ig-ng
-          - ii
-          - ii-cn
-          - id-id
-          - is
-          - is-is
-          - it
-          - it-ch
-          - it-it
-          - it-sm
-          - it-va
-          - he-il
-          - ja
-          - ja-jp
-          - jgo
-          - jgo-cm
-          - yi
-          - yi-001
-          - jmc
-          - jmc-tz
-          - ka
-          - ka-ge
-          - kab
-          - kab-dz
-          - kam
-          - kam-ke
-          - kde
-          - kde-tz
-          - kea
-          - kea-cv
-          - khq
-          - khq-ml
-          - ki
-          - ki-ke
-          - kk
-          - kk-kz
-          - kkj
-          - kkj-cm
-          - kl
-          - kl-gl
-          - kln
-          - kln-ke
-          - km
-          - km-kh
-          - kn
-          - kn-in
-          - ko
-          - ko-kp
-          - ko-kr
-          - kok
-          - kok-in
-          - ks
-          - ks-in
-          - ksb
-          - ksb-tz
-          - ksf
-          - ksf-cm
-          - ksh
-          - ksh-de
-          - kw
-          - kw-gb
-          - ky
-          - ky-kg
-          - lag
-          - lag-tz
-          - lb
-          - lb-lu
-          - lg
-          - lg-ug
-          - lkt
-          - lkt-us
-          - ln
-          - ln-ao
-          - ln-cd
-          - ln-cf
-          - ln-cg
-          - lo
-          - lo-la
-          - lrc
-          - lrc-iq
-          - lrc-ir
-          - lt
-          - lt-lt
-          - lu
-          - lu-cd
-          - luo
-          - luo-ke
-          - luy
-          - luy-ke
-          - lv
-          - lv-lv
-          - mas
-          - mas-ke
-          - mas-tz
-          - mer
-          - mer-ke
-          - mfe
-          - mfe-mu
-          - mg
-          - mg-mg
-          - mgh
-          - mgh-mz
-          - mgo
-          - mgo-cm
-          - mk
-          - mk-mk
-          - ml
-          - ml-in
-          - mn
-          - mn-mn
-          - mr
-          - mr-in
-          - ms
-          - ms-bn
-          - ms-my
-          - ms-sg
-          - mt
-          - mt-mt
-          - mua
-          - mua-cm
-          - my
-          - my-mm
-          - mzn
-          - mzn-ir
-          - naq
-          - naq-na
-          - nb
-          - nb-no
-          - nb-sj
-          - nd
-          - nd-zw
-          - nds
-          - nds-de
-          - nds-nl
-          - ne
-          - ne-in
-          - ne-np
-          - nl
-          - nl-aw
-          - nl-be
-          - nl-ch
-          - nl-bq
-          - nl-cw
-          - nl-lu
-          - nl-nl
-          - nl-sr
-          - nl-sx
-          - nmg
-          - nmg-cm
-          - nn
-          - nn-no
-          - nnh
-          - nnh-cm
-          - "no"
-          - no-no
-          - nus
-          - nus-ss
-          - nyn
-          - nyn-ug
-          - om
-          - om-et
-          - om-ke
-          - or
-          - or-in
-          - os
-          - os-ge
-          - os-ru
-          - pa
-          - pa-in
-          - pa-pk
-          - pl
-          - pl-pl
-          - prg
-          - prg-001
-          - ps
-          - ps-af
-          - pt
-          - pt-ao
-          - pt-br
-          - pt-ch
-          - pt-cv
-          - pt-gq
-          - pt-gw
-          - pt-lu
-          - pt-mo
-          - pt-mz
-          - pt-pt
-          - pt-st
-          - pt-tl
-          - qu
-          - qu-bo
-          - qu-ec
-          - qu-pe
-          - rm
-          - rm-ch
-          - rn
-          - rn-bi
-          - ro
-          - ro-md
-          - ro-ro
-          - rof
-          - rof-tz
-          - ru
-          - ru-by
-          - ru-kg
-          - ru-kz
-          - ru-md
-          - ru-ru
-          - ru-ua
-          - rw
-          - rw-rw
-          - rwk
-          - rwk-tz
-          - sa
-          - sah
-          - sah-ru
-          - saq
-          - saq-ke
-          - sbp
-          - sbp-tz
-          - sd
-          - sd-pk
-          - se
-          - se-fi
-          - se-no
-          - se-se
-          - seh
-          - seh-mz
-          - ses
-          - ses-ml
-          - sg
-          - sg-cf
-          - shi
-          - shi-ma
-          - si
-          - si-lk
-          - sk
-          - sk-sk
-          - sl
-          - sl-si
-          - smn
-          - smn-fi
-          - sn
-          - sn-zw
-          - so
-          - so-dj
-          - so-et
-          - so-ke
-          - so-so
-          - sq
-          - sq-al
-          - sq-mk
-          - sq-xk
-          - sr
-          - sr-ba
-          - sr-cs
-          - sr-me
-          - sr-rs
-          - sr-xk
-          - sv
-          - sv-ax
-          - sv-fi
-          - sv-se
-          - sw
-          - sw-cd
-          - sw-ke
-          - sw-tz
-          - sw-ug
-          - sy
-          - ta
-          - ta-in
-          - ta-lk
-          - ta-my
-          - ta-sg
-          - te
-          - te-in
-          - teo
-          - teo-ke
-          - teo-ug
-          - tg
-          - tg-tj
-          - th
-          - th-th
-          - ti
-          - ti-er
-          - ti-et
-          - tk
-          - tk-tm
-          - to
-          - to-to
-          - tr
-          - tr-cy
-          - tr-tr
-          - tt
-          - tt-ru
-          - twq
-          - twq-ne
-          - tzm
-          - tzm-ma
-          - ug
-          - ug-cn
-          - uk
-          - uk-ua
-          - ur
-          - ur-in
-          - ur-pk
-          - uz
-          - uz-af
-          - uz-uz
-          - vai
-          - vai-lr
-          - vi
-          - vi-vn
-          - vo
-          - vo-001
-          - vun
-          - vun-tz
-          - wae
-          - wae-ch
-          - wo
-          - wo-sn
-          - xog
-          - xog-ug
-          - yav
-          - yav-cm
-          - yo
-          - yo-bj
-          - yo-ng
-          - yue
-          - yue-cn
-          - yue-hk
-          - zgh
-          - zgh-ma
-          - zh
-          - zh-cn
-          - zh-hk
-          - zh-mo
-          - zh-sg
-          - zh-tw
-          - zh-hans
-          - zh-hant
-          - zu
-          - zu-za
-          type: string
-        primaryId:
-          description: ID of primary language object in multi-language group.
-          type: string
-        primaryLanguage:
-          description: Primary language of the multi-language group.
-          enum:
-          - af
-          - af-na
-          - af-za
-          - agq
-          - agq-cm
-          - ak
-          - ak-gh
-          - am
-          - am-et
-          - ar
-          - ar-001
-          - ar-ae
-          - ar-bh
-          - ar-dj
-          - ar-dz
-          - ar-eg
-          - ar-eh
-          - ar-er
-          - ar-il
-          - ar-iq
-          - ar-jo
-          - ar-km
-          - ar-kw
-          - ar-lb
-          - ar-ly
-          - ar-ma
-          - ar-mr
-          - ar-om
-          - ar-ps
-          - ar-qa
-          - ar-sa
-          - ar-sd
-          - ar-so
-          - ar-ss
-          - ar-sy
-          - ar-td
-          - ar-tn
-          - ar-ye
-          - as
-          - as-in
-          - asa
-          - asa-tz
-          - ast
-          - ast-es
-          - az
-          - az-az
-          - bas
-          - bas-cm
-          - be
-          - be-by
-          - bem
-          - bem-zm
-          - bez
-          - bez-tz
-          - bg
-          - bg-bg
-          - bm
-          - bm-ml
-          - bn
-          - bn-bd
-          - bn-in
-          - bo
-          - bo-cn
-          - bo-in
-          - br
-          - br-fr
-          - brx
-          - brx-in
-          - bs
-          - bs-ba
-          - ca
-          - ca-ad
-          - ca-es
-          - ca-fr
-          - ca-it
-          - ccp
-          - ccp-bd
-          - ccp-in
-          - ce
-          - ce-ru
-          - cgg
-          - cgg-ug
-          - chr
-          - chr-us
-          - ckb
-          - ckb-iq
-          - ckb-ir
-          - cs
-          - cs-cz
-          - cu
-          - cu-ru
-          - cy
-          - cy-gb
-          - da
-          - da-dk
-          - da-gl
-          - dav
-          - dav-ke
-          - de
-          - de-at
-          - de-be
-          - de-ch
-          - de-de
-          - de-gr
-          - de-it
-          - de-li
-          - de-lu
-          - dje
-          - dje-ne
-          - dsb
-          - dsb-de
-          - dua
-          - dua-cm
-          - dyo
-          - dyo-sn
-          - dz
-          - dz-bt
-          - ebu
-          - ebu-ke
-          - ee
-          - ee-gh
-          - ee-tg
-          - el
-          - el-cy
-          - el-gr
-          - en
-          - en-001
-          - en-150
-          - en-ae
-          - en-ag
-          - en-ai
-          - en-as
-          - en-at
-          - en-au
-          - en-bb
-          - en-be
-          - en-bi
-          - en-bm
-          - en-bs
-          - en-bw
-          - en-bz
-          - en-ca
-          - en-cc
-          - en-ch
-          - en-ck
-          - en-cm
-          - en-cx
-          - en-cy
-          - en-de
-          - en-dg
-          - en-dk
-          - en-dm
-          - en-er
-          - en-fi
-          - en-fj
-          - en-fk
-          - en-fm
-          - en-gb
-          - en-gd
-          - en-gg
-          - en-gh
-          - en-gi
-          - en-gm
-          - en-gu
-          - en-gy
-          - en-hk
-          - en-ie
-          - en-il
-          - en-im
-          - en-in
-          - en-io
-          - en-je
-          - en-jm
-          - en-ke
-          - en-ki
-          - en-kn
-          - en-ky
-          - en-lc
-          - en-lr
-          - en-ls
-          - en-lu
-          - en-mg
-          - en-mh
-          - en-mo
-          - en-mp
-          - en-ms
-          - en-mt
-          - en-mu
-          - en-mw
-          - en-my
-          - en-na
-          - en-nf
-          - en-ng
-          - en-nl
-          - en-nr
-          - en-nu
-          - en-nz
-          - en-pg
-          - en-ph
-          - en-pk
-          - en-pn
-          - en-pr
-          - en-pw
-          - en-rw
-          - en-sb
-          - en-sc
-          - en-sd
-          - en-se
-          - en-sg
-          - en-sh
-          - en-si
-          - en-sl
-          - en-ss
-          - en-sx
-          - en-sz
-          - en-tc
-          - en-tk
-          - en-to
-          - en-tt
-          - en-tv
-          - en-tz
-          - en-ug
-          - en-um
-          - en-us
-          - en-vc
-          - en-vg
-          - en-vi
-          - en-vu
-          - en-ws
-          - en-za
-          - en-zm
-          - en-zw
-          - eo
-          - eo-001
-          - es
-          - es-419
-          - es-ar
-          - es-bo
-          - es-br
-          - es-bz
-          - es-cl
-          - es-co
-          - es-cr
-          - es-cu
-          - es-do
-          - es-ea
-          - es-ec
-          - es-es
-          - es-gq
-          - es-gt
-          - es-hn
-          - es-ic
-          - es-mx
-          - es-ni
-          - es-pa
-          - es-pe
-          - es-ph
-          - es-pr
-          - es-py
-          - es-sv
-          - es-us
-          - es-uy
-          - es-ve
-          - et
-          - et-ee
-          - eu
-          - eu-es
-          - ewo
-          - ewo-cm
-          - fa
-          - fa-af
-          - fa-ir
-          - ff
-          - ff-cm
-          - ff-gn
-          - ff-mr
-          - ff-sn
-          - fi
-          - fi-fi
-          - fil
-          - fil-ph
-          - fo
-          - fo-dk
-          - fo-fo
-          - fr
-          - fr-be
-          - fr-bf
-          - fr-bi
-          - fr-bj
-          - fr-bl
-          - fr-ca
-          - fr-cd
-          - fr-cf
-          - fr-cg
-          - fr-ch
-          - fr-ci
-          - fr-cm
-          - fr-dj
-          - fr-dz
-          - fr-fr
-          - fr-ga
-          - fr-gf
-          - fr-gn
-          - fr-gp
-          - fr-gq
-          - fr-ht
-          - fr-km
-          - fr-lu
-          - fr-ma
-          - fr-mc
-          - fr-mf
-          - fr-mg
-          - fr-ml
-          - fr-mq
-          - fr-mr
-          - fr-mu
-          - fr-nc
-          - fr-ne
-          - fr-pf
-          - fr-pm
-          - fr-re
-          - fr-rw
-          - fr-sc
-          - fr-sn
-          - fr-sy
-          - fr-td
-          - fr-tg
-          - fr-tn
-          - fr-vu
-          - fr-wf
-          - fr-yt
-          - fur
-          - fur-it
-          - fy
-          - fy-nl
-          - ga
-          - ga-ie
-          - gd
-          - gd-gb
-          - gl
-          - gl-es
-          - gsw
-          - gsw-ch
-          - gsw-fr
-          - gsw-li
-          - gu
-          - gu-in
-          - guz
-          - guz-ke
-          - gv
-          - gv-im
-          - ha
-          - ha-gh
-          - ha-ne
-          - ha-ng
-          - haw
-          - haw-us
-          - he
-          - hi
-          - hi-in
-          - hr
-          - hr-ba
-          - hr-hr
-          - hsb
-          - hsb-de
-          - hu
-          - hu-hu
-          - hy
-          - hy-am
-          - id
-          - ig
-          - ig-ng
-          - ii
-          - ii-cn
-          - id-id
-          - is
-          - is-is
-          - it
-          - it-ch
-          - it-it
-          - it-sm
-          - it-va
-          - he-il
-          - ja
-          - ja-jp
-          - jgo
-          - jgo-cm
-          - yi
-          - yi-001
-          - jmc
-          - jmc-tz
-          - ka
-          - ka-ge
-          - kab
-          - kab-dz
-          - kam
-          - kam-ke
-          - kde
-          - kde-tz
-          - kea
-          - kea-cv
-          - khq
-          - khq-ml
-          - ki
-          - ki-ke
-          - kk
-          - kk-kz
-          - kkj
-          - kkj-cm
-          - kl
-          - kl-gl
-          - kln
-          - kln-ke
-          - km
-          - km-kh
-          - kn
-          - kn-in
-          - ko
-          - ko-kp
-          - ko-kr
-          - kok
-          - kok-in
-          - ks
-          - ks-in
-          - ksb
-          - ksb-tz
-          - ksf
-          - ksf-cm
-          - ksh
-          - ksh-de
-          - kw
-          - kw-gb
-          - ky
-          - ky-kg
-          - lag
-          - lag-tz
-          - lb
-          - lb-lu
-          - lg
-          - lg-ug
-          - lkt
-          - lkt-us
-          - ln
-          - ln-ao
-          - ln-cd
-          - ln-cf
-          - ln-cg
-          - lo
-          - lo-la
-          - lrc
-          - lrc-iq
-          - lrc-ir
-          - lt
-          - lt-lt
-          - lu
-          - lu-cd
-          - luo
-          - luo-ke
-          - luy
-          - luy-ke
-          - lv
-          - lv-lv
-          - mas
-          - mas-ke
-          - mas-tz
-          - mer
-          - mer-ke
-          - mfe
-          - mfe-mu
-          - mg
-          - mg-mg
-          - mgh
-          - mgh-mz
-          - mgo
-          - mgo-cm
-          - mk
-          - mk-mk
-          - ml
-          - ml-in
-          - mn
-          - mn-mn
-          - mr
-          - mr-in
-          - ms
-          - ms-bn
-          - ms-my
-          - ms-sg
-          - mt
-          - mt-mt
-          - mua
-          - mua-cm
-          - my
-          - my-mm
-          - mzn
-          - mzn-ir
-          - naq
-          - naq-na
-          - nb
-          - nb-no
-          - nb-sj
-          - nd
-          - nd-zw
-          - nds
-          - nds-de
-          - nds-nl
-          - ne
-          - ne-in
-          - ne-np
-          - nl
-          - nl-aw
-          - nl-be
-          - nl-ch
-          - nl-bq
-          - nl-cw
-          - nl-lu
-          - nl-nl
-          - nl-sr
-          - nl-sx
-          - nmg
-          - nmg-cm
-          - nn
-          - nn-no
-          - nnh
-          - nnh-cm
-          - "no"
-          - no-no
-          - nus
-          - nus-ss
-          - nyn
-          - nyn-ug
-          - om
-          - om-et
-          - om-ke
-          - or
-          - or-in
-          - os
-          - os-ge
-          - os-ru
-          - pa
-          - pa-in
-          - pa-pk
-          - pl
-          - pl-pl
-          - prg
-          - prg-001
-          - ps
-          - ps-af
-          - pt
-          - pt-ao
-          - pt-br
-          - pt-ch
-          - pt-cv
-          - pt-gq
-          - pt-gw
-          - pt-lu
-          - pt-mo
-          - pt-mz
-          - pt-pt
-          - pt-st
-          - pt-tl
-          - qu
-          - qu-bo
-          - qu-ec
-          - qu-pe
-          - rm
-          - rm-ch
-          - rn
-          - rn-bi
-          - ro
-          - ro-md
-          - ro-ro
-          - rof
-          - rof-tz
-          - ru
-          - ru-by
-          - ru-kg
-          - ru-kz
-          - ru-md
-          - ru-ru
-          - ru-ua
-          - rw
-          - rw-rw
-          - rwk
-          - rwk-tz
-          - sa
-          - sah
-          - sah-ru
-          - saq
-          - saq-ke
-          - sbp
-          - sbp-tz
-          - sd
-          - sd-pk
-          - se
-          - se-fi
-          - se-no
-          - se-se
-          - seh
-          - seh-mz
-          - ses
-          - ses-ml
-          - sg
-          - sg-cf
-          - shi
-          - shi-ma
-          - si
-          - si-lk
-          - sk
-          - sk-sk
-          - sl
-          - sl-si
-          - smn
-          - smn-fi
-          - sn
-          - sn-zw
-          - so
-          - so-dj
-          - so-et
-          - so-ke
-          - so-so
-          - sq
-          - sq-al
-          - sq-mk
-          - sq-xk
-          - sr
-          - sr-ba
-          - sr-cs
-          - sr-me
-          - sr-rs
-          - sr-xk
-          - sv
-          - sv-ax
-          - sv-fi
-          - sv-se
-          - sw
-          - sw-cd
-          - sw-ke
-          - sw-tz
-          - sw-ug
-          - sy
-          - ta
-          - ta-in
-          - ta-lk
-          - ta-my
-          - ta-sg
-          - te
-          - te-in
-          - teo
-          - teo-ke
-          - teo-ug
-          - tg
-          - tg-tj
-          - th
-          - th-th
-          - ti
-          - ti-er
-          - ti-et
-          - tk
-          - tk-tm
-          - to
-          - to-to
-          - tr
-          - tr-cy
-          - tr-tr
-          - tt
-          - tt-ru
-          - twq
-          - twq-ne
-          - tzm
-          - tzm-ma
-          - ug
-          - ug-cn
-          - uk
-          - uk-ua
-          - ur
-          - ur-in
-          - ur-pk
-          - uz
-          - uz-af
-          - uz-uz
-          - vai
-          - vai-lr
-          - vi
-          - vi-vn
-          - vo
-          - vo-001
-          - vun
-          - vun-tz
-          - wae
-          - wae-ch
-          - wo
-          - wo-sn
-          - xog
-          - xog-ug
-          - yav
-          - yav-cm
-          - yo
-          - yo-bj
-          - yo-ng
-          - yue
-          - yue-cn
-          - yue-hk
-          - zgh
-          - zgh-ma
-          - zh
-          - zh-cn
-          - zh-hk
-          - zh-mo
-          - zh-sg
-          - zh-tw
-          - zh-hans
-          - zh-hant
-          - zu
-          - zu-za
-          type: string
-      required:
-      - id
-      - language
-      - primaryId
-      type: object
-    ErrorDetail:
-      properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          type: string
-        in:
-          description: The name of the field or parameter in which the error was found.
-          type: string
-        code:
-          description: The status code associated with the error detail
-          type: string
         subCategory:
           description: A specific category that contains more specific detail about
             the error
@@ -3071,7 +884,95 @@ components:
             missingScopes:
             - scope1
             - scope2
+            invalidPropertyName:
+            - propertyValue
           type: object
+        correlationId:
+          description: A unique identifier for the request. Include this value with
+            any error reports or support tickets
+          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
+          format: uuid
+          type: string
+        links:
+          additionalProperties:
+            type: string
+          description: A map of link names to associated URIs containing documentation
+            about the error or recommended remediation steps
+          example:
+            knowledge-base: https://www.hubspot.com/products/service/knowledge-base
+          type: object
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          example: Invalid input (details will vary based on the error)
+          type: string
+        category:
+          description: The error category
+          example: VALIDATION_ERROR
+          type: string
+        errors:
+          description: further information about the error
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
+      required:
+      - category
+      - correlationId
+      - message
+      type: object
+    AttachToLangPrimaryRequestVNext:
+      description: Request body object for attaching objects to multi-language groups.
+      example:
+        language: language
+        id: id
+        primaryId: primaryId
+        primaryLanguage: primaryLanguage
+      properties:
+        language:
+          description: Designated language of the object to add to a multi-language
+            group.
+          type: string
+        id:
+          description: ID of the object to add to a multi-language group.
+          type: string
+        primaryId:
+          description: ID of primary language object in multi-language group.
+          type: string
+        primaryLanguage:
+          description: Primary language of the multi-language group.
+          type: string
+      required:
+      - id
+      - language
+      - primaryId
+      type: object
+    ErrorDetail:
+      properties:
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
+          type: string
+        code:
+          description: The status code associated with the error detail
+          type: string
+        in:
+          description: The name of the field or parameter in which the error was found.
+          type: string
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: Context about the error condition
+          example:
+            missingScopes:
+            - scope1
+            - scope2
+          type: object
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          type: string
       required:
       - message
       type: object
@@ -3085,8 +986,53 @@ components:
         next:
           $ref: '#/components/schemas/NextPage'
       type: object
-    ErrorCategory:
-      description: Model definition for an error category.
+    BatchResponseTagWithErrors:
+      description: Response object for batch operations on blog tags with errors.
+      properties:
+        completedAt:
+          description: Time of batch operation completion.
+          format: date-time
+          type: string
+        numErrors:
+          description: Number of errors.
+          format: int32
+          type: integer
+        requestedAt:
+          description: Time of batch operation request.
+          format: date-time
+          type: string
+        startedAt:
+          description: Time of batch operation start.
+          format: date-time
+          type: string
+        links:
+          additionalProperties:
+            type: string
+          description: Links associated with batch operation.
+          type: object
+        results:
+          description: Results of batch operation.
+          items:
+            $ref: '#/components/schemas/Tag'
+          type: array
+        errors:
+          description: Errors in batch operation.
+          items:
+            $ref: '#/components/schemas/StandardError'
+          type: array
+        status:
+          description: Status of batch operation.
+          enum:
+          - PENDING
+          - PROCESSING
+          - CANCELED
+          - COMPLETE
+          type: string
+      required:
+      - completedAt
+      - results
+      - startedAt
+      - status
       type: object
     TagCloneRequestVNext:
       description: Request body object for cloning blog tags.
@@ -3096,69 +1042,21 @@ components:
         id: id
         primaryLanguage: primaryLanguage
       properties:
-        id:
-          description: ID of the object to be cloned.
+        name:
+          description: Name of newly cloned blog tag.
           type: string
         language:
           description: Target language of new variant.
           type: string
+        id:
+          description: ID of the object to be cloned.
+          type: string
         primaryLanguage:
           description: Language of primary blog tag to clone.
-          type: string
-        name:
-          description: Name of newly cloned blog tag.
           type: string
       required:
       - id
       - name
-      type: object
-    BatchResponseTagWithErrors:
-      description: Response object for batch operations on blog tags with errors.
-      properties:
-        status:
-          description: Status of batch operation.
-          enum:
-          - PENDING
-          - PROCESSING
-          - CANCELED
-          - COMPLETE
-          type: string
-        results:
-          description: Results of batch operation.
-          items:
-            $ref: '#/components/schemas/Tag'
-          type: array
-        numErrors:
-          description: Number of errors.
-          format: int32
-          type: integer
-        errors:
-          description: Errors in batch operation.
-          items:
-            $ref: '#/components/schemas/StandardError'
-          type: array
-        requestedAt:
-          description: Time of batch operation request.
-          format: date-time
-          type: string
-        startedAt:
-          description: Time of batch operation start.
-          format: date-time
-          type: string
-        completedAt:
-          description: Time of batch operation completion.
-          format: date-time
-          type: string
-        links:
-          additionalProperties:
-            type: string
-          description: Links associated with batch operation.
-          type: object
-      required:
-      - completedAt
-      - results
-      - startedAt
-      - status
       type: object
     Tag:
       description: Model definition for a Tag.
@@ -3168,11 +1066,15 @@ components:
         name: name
         language: af
         id: id
-        translatedFromId: 6
+        translatedFromId: 0
         updated: 2000-01-23T04:56:07.000+00:00
       properties:
-        id:
-          description: The unique ID of the Blog Tag.
+        deletedAt:
+          description: The timestamp (ISO8601 format) when this Blog Tag was deleted.
+          format: date-time
+          type: string
+        created:
+          format: date-time
           type: string
         name:
           description: The name of the tag.
@@ -3260,6 +1162,8 @@ components:
           - ccp-in
           - ce
           - ce-ru
+          - ceb
+          - ceb-ph
           - cgg
           - cgg-ug
           - chr
@@ -3289,6 +1193,8 @@ components:
           - de-lu
           - dje
           - dje-ne
+          - doi
+          - doi-in
           - dsb
           - dsb-de
           - dua
@@ -3326,6 +1232,7 @@ components:
           - en-ch
           - en-ck
           - en-cm
+          - en-cn
           - en-cx
           - en-cy
           - en-de
@@ -3369,6 +1276,7 @@ components:
           - en-mt
           - en-mu
           - en-mw
+          - en-mx
           - en-my
           - en-na
           - en-nf
@@ -3453,9 +1361,17 @@ components:
           - fa-af
           - fa-ir
           - ff
+          - ff-bf
           - ff-cm
+          - ff-gh
+          - ff-gm
           - ff-gn
+          - ff-gw
+          - ff-lr
           - ff-mr
+          - ff-ne
+          - ff-ng
+          - ff-sl
           - ff-sn
           - fi
           - fi-fi
@@ -3516,6 +1432,7 @@ components:
           - fy
           - fy-nl
           - ga
+          - ga-gb
           - ga-ie
           - gd
           - gd-gb
@@ -3549,6 +1466,8 @@ components:
           - hu-hu
           - hy
           - hy-am
+          - ia
+          - ia-001
           - id
           - ig
           - ig-ng
@@ -3571,6 +1490,8 @@ components:
           - yi-001
           - jmc
           - jmc-tz
+          - jv
+          - jv-id
           - ka
           - ka-ge
           - kab
@@ -3612,6 +1533,8 @@ components:
           - ksh-de
           - kw
           - kw-gb
+          - ku
+          - ku-tr
           - ky
           - ky-kg
           - lag
@@ -3642,6 +1565,8 @@ components:
           - luy-ke
           - lv
           - lv-lv
+          - mai
+          - mai-in
           - mas
           - mas-ke
           - mas-tz
@@ -3655,16 +1580,21 @@ components:
           - mgh-mz
           - mgo
           - mgo-cm
+          - mi
+          - mi-nz
           - mk
           - mk-mk
           - ml
           - ml-in
           - mn
           - mn-mn
+          - mni
+          - mni-in
           - mr
           - mr-in
           - ms
           - ms-bn
+          - ms-id
           - ms-my
           - ms-sg
           - mt
@@ -3721,12 +1651,15 @@ components:
           - pa
           - pa-in
           - pa-pk
+          - pcm
+          - pcm-ng
           - pl
           - pl-pl
           - prg
           - prg-001
           - ps
           - ps-af
+          - ps-pk
           - pt
           - pt-ao
           - pt-br
@@ -3765,13 +1698,17 @@ components:
           - rwk
           - rwk-tz
           - sa
+          - sa-in
           - sah
           - sah-ru
           - saq
           - saq-ke
+          - sat
+          - sat-in
           - sbp
           - sbp-tz
           - sd
+          - sd-in
           - sd-pk
           - se
           - se-fi
@@ -3810,6 +1747,8 @@ components:
           - sr-me
           - sr-rs
           - sr-xk
+          - su
+          - su-id
           - sv
           - sv-ax
           - sv-fi
@@ -3839,6 +1778,7 @@ components:
           - ti-et
           - tk
           - tk-tm
+          - tl
           - to
           - to-to
           - tr
@@ -3872,6 +1812,8 @@ components:
           - wae-ch
           - wo
           - wo-sn
+          - xh
+          - xh-za
           - xog
           - xog-ug
           - yav
@@ -3895,18 +1837,14 @@ components:
           - zu
           - zu-za
           type: string
+        id:
+          description: The unique ID of the Blog Tag.
+          type: string
         translatedFromId:
           description: ID of the primary tag this object was translated from.
           format: int64
           type: integer
-        created:
-          format: date-time
-          type: string
         updated:
-          format: date-time
-          type: string
-        deletedAt:
-          description: The timestamp (ISO8601 format) when this Blog Tag was deleted.
           format: date-time
           type: string
       required:
@@ -3924,9 +1862,11 @@ components:
         link: link
         after: after
       properties:
-        after:
-          type: string
         link:
+          description: ""
+          type: string
+        after:
+          description: ""
           type: string
       required:
       - after
@@ -3940,14 +1880,14 @@ components:
           name: name
           language: af
           id: id
-          translatedFromId: 6
+          translatedFromId: 0
           updated: 2000-01-23T04:56:07.000+00:00
         - deletedAt: 2000-01-23T04:56:07.000+00:00
           created: 2000-01-23T04:56:07.000+00:00
           name: name
           language: af
           id: id
-          translatedFromId: 6
+          translatedFromId: 0
           updated: 2000-01-23T04:56:07.000+00:00
       properties:
         inputs:
@@ -3974,5 +1914,9 @@ components:
 x-hubspot-available-client-libraries:
 - PHP
 - Node
-- Python
 - Ruby
+- Python
+x-hubspot-product-tier-requirements:
+  marketing: PROFESSIONAL
+  cms: STARTER
+x-hubspot-documentation-banner: NONE

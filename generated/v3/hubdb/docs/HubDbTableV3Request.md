@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** | Name of the table | 
-**Label** | **string** | Label of the table | 
-**UseForPages** | Pointer to **bool** | Specifies whether the table can be used for creation of dynamic pages | [optional] 
-**AllowPublicApiAccess** | Pointer to **bool** | Specifies whether the table can be read by public without authorization | [optional] 
-**AllowChildTables** | Pointer to **bool** | Specifies whether child tables can be created | [optional] 
-**EnableChildTablePages** | Pointer to **bool** | Specifies creation of multi-level dynamic pages using child tables | [optional] 
-**Columns** | Pointer to [**[]ColumnRequest**](ColumnRequest.md) | List of columns in the table | [optional] 
 **DynamicMetaTags** | Pointer to **map[string]int32** | Specifies the key value pairs of the metadata fields with the associated column ids | [optional] 
+**AllowPublicApiAccess** | Pointer to **bool** | Specifies whether the table can be read by public without authorization | [optional] 
+**UseForPages** | Pointer to **bool** | Specifies whether the table can be used for creation of dynamic pages | [optional] 
+**Columns** | Pointer to [**[]ColumnRequest**](ColumnRequest.md) | List of columns in the table | [optional] 
+**Name** | **string** | Name of the table | 
+**EnableChildTablePages** | Pointer to **bool** | Specifies creation of multi-level dynamic pages using child tables | [optional] 
+**Label** | **string** | Label of the table | 
+**AllowChildTables** | Pointer to **bool** | Specifies whether child tables can be created | [optional] 
 
 ## Methods
 
@@ -32,70 +32,30 @@ NewHubDbTableV3RequestWithDefaults instantiates a new HubDbTableV3Request object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetName
+### GetDynamicMetaTags
 
-`func (o *HubDbTableV3Request) GetName() string`
+`func (o *HubDbTableV3Request) GetDynamicMetaTags() map[string]int32`
 
-GetName returns the Name field if non-nil, zero value otherwise.
+GetDynamicMetaTags returns the DynamicMetaTags field if non-nil, zero value otherwise.
 
-### GetNameOk
+### GetDynamicMetaTagsOk
 
-`func (o *HubDbTableV3Request) GetNameOk() (*string, bool)`
+`func (o *HubDbTableV3Request) GetDynamicMetaTagsOk() (*map[string]int32, bool)`
 
-GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+GetDynamicMetaTagsOk returns a tuple with the DynamicMetaTags field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetName
+### SetDynamicMetaTags
 
-`func (o *HubDbTableV3Request) SetName(v string)`
+`func (o *HubDbTableV3Request) SetDynamicMetaTags(v map[string]int32)`
 
-SetName sets Name field to given value.
+SetDynamicMetaTags sets DynamicMetaTags field to given value.
 
+### HasDynamicMetaTags
 
-### GetLabel
+`func (o *HubDbTableV3Request) HasDynamicMetaTags() bool`
 
-`func (o *HubDbTableV3Request) GetLabel() string`
-
-GetLabel returns the Label field if non-nil, zero value otherwise.
-
-### GetLabelOk
-
-`func (o *HubDbTableV3Request) GetLabelOk() (*string, bool)`
-
-GetLabelOk returns a tuple with the Label field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetLabel
-
-`func (o *HubDbTableV3Request) SetLabel(v string)`
-
-SetLabel sets Label field to given value.
-
-
-### GetUseForPages
-
-`func (o *HubDbTableV3Request) GetUseForPages() bool`
-
-GetUseForPages returns the UseForPages field if non-nil, zero value otherwise.
-
-### GetUseForPagesOk
-
-`func (o *HubDbTableV3Request) GetUseForPagesOk() (*bool, bool)`
-
-GetUseForPagesOk returns a tuple with the UseForPages field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetUseForPages
-
-`func (o *HubDbTableV3Request) SetUseForPages(v bool)`
-
-SetUseForPages sets UseForPages field to given value.
-
-### HasUseForPages
-
-`func (o *HubDbTableV3Request) HasUseForPages() bool`
-
-HasUseForPages returns a boolean if a field has been set.
+HasDynamicMetaTags returns a boolean if a field has been set.
 
 ### GetAllowPublicApiAccess
 
@@ -122,55 +82,30 @@ SetAllowPublicApiAccess sets AllowPublicApiAccess field to given value.
 
 HasAllowPublicApiAccess returns a boolean if a field has been set.
 
-### GetAllowChildTables
+### GetUseForPages
 
-`func (o *HubDbTableV3Request) GetAllowChildTables() bool`
+`func (o *HubDbTableV3Request) GetUseForPages() bool`
 
-GetAllowChildTables returns the AllowChildTables field if non-nil, zero value otherwise.
+GetUseForPages returns the UseForPages field if non-nil, zero value otherwise.
 
-### GetAllowChildTablesOk
+### GetUseForPagesOk
 
-`func (o *HubDbTableV3Request) GetAllowChildTablesOk() (*bool, bool)`
+`func (o *HubDbTableV3Request) GetUseForPagesOk() (*bool, bool)`
 
-GetAllowChildTablesOk returns a tuple with the AllowChildTables field if it's non-nil, zero value otherwise
+GetUseForPagesOk returns a tuple with the UseForPages field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetAllowChildTables
+### SetUseForPages
 
-`func (o *HubDbTableV3Request) SetAllowChildTables(v bool)`
+`func (o *HubDbTableV3Request) SetUseForPages(v bool)`
 
-SetAllowChildTables sets AllowChildTables field to given value.
+SetUseForPages sets UseForPages field to given value.
 
-### HasAllowChildTables
+### HasUseForPages
 
-`func (o *HubDbTableV3Request) HasAllowChildTables() bool`
+`func (o *HubDbTableV3Request) HasUseForPages() bool`
 
-HasAllowChildTables returns a boolean if a field has been set.
-
-### GetEnableChildTablePages
-
-`func (o *HubDbTableV3Request) GetEnableChildTablePages() bool`
-
-GetEnableChildTablePages returns the EnableChildTablePages field if non-nil, zero value otherwise.
-
-### GetEnableChildTablePagesOk
-
-`func (o *HubDbTableV3Request) GetEnableChildTablePagesOk() (*bool, bool)`
-
-GetEnableChildTablePagesOk returns a tuple with the EnableChildTablePages field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetEnableChildTablePages
-
-`func (o *HubDbTableV3Request) SetEnableChildTablePages(v bool)`
-
-SetEnableChildTablePages sets EnableChildTablePages field to given value.
-
-### HasEnableChildTablePages
-
-`func (o *HubDbTableV3Request) HasEnableChildTablePages() bool`
-
-HasEnableChildTablePages returns a boolean if a field has been set.
+HasUseForPages returns a boolean if a field has been set.
 
 ### GetColumns
 
@@ -197,30 +132,95 @@ SetColumns sets Columns field to given value.
 
 HasColumns returns a boolean if a field has been set.
 
-### GetDynamicMetaTags
+### GetName
 
-`func (o *HubDbTableV3Request) GetDynamicMetaTags() map[string]int32`
+`func (o *HubDbTableV3Request) GetName() string`
 
-GetDynamicMetaTags returns the DynamicMetaTags field if non-nil, zero value otherwise.
+GetName returns the Name field if non-nil, zero value otherwise.
 
-### GetDynamicMetaTagsOk
+### GetNameOk
 
-`func (o *HubDbTableV3Request) GetDynamicMetaTagsOk() (*map[string]int32, bool)`
+`func (o *HubDbTableV3Request) GetNameOk() (*string, bool)`
 
-GetDynamicMetaTagsOk returns a tuple with the DynamicMetaTags field if it's non-nil, zero value otherwise
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetDynamicMetaTags
+### SetName
 
-`func (o *HubDbTableV3Request) SetDynamicMetaTags(v map[string]int32)`
+`func (o *HubDbTableV3Request) SetName(v string)`
 
-SetDynamicMetaTags sets DynamicMetaTags field to given value.
+SetName sets Name field to given value.
 
-### HasDynamicMetaTags
 
-`func (o *HubDbTableV3Request) HasDynamicMetaTags() bool`
+### GetEnableChildTablePages
 
-HasDynamicMetaTags returns a boolean if a field has been set.
+`func (o *HubDbTableV3Request) GetEnableChildTablePages() bool`
+
+GetEnableChildTablePages returns the EnableChildTablePages field if non-nil, zero value otherwise.
+
+### GetEnableChildTablePagesOk
+
+`func (o *HubDbTableV3Request) GetEnableChildTablePagesOk() (*bool, bool)`
+
+GetEnableChildTablePagesOk returns a tuple with the EnableChildTablePages field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEnableChildTablePages
+
+`func (o *HubDbTableV3Request) SetEnableChildTablePages(v bool)`
+
+SetEnableChildTablePages sets EnableChildTablePages field to given value.
+
+### HasEnableChildTablePages
+
+`func (o *HubDbTableV3Request) HasEnableChildTablePages() bool`
+
+HasEnableChildTablePages returns a boolean if a field has been set.
+
+### GetLabel
+
+`func (o *HubDbTableV3Request) GetLabel() string`
+
+GetLabel returns the Label field if non-nil, zero value otherwise.
+
+### GetLabelOk
+
+`func (o *HubDbTableV3Request) GetLabelOk() (*string, bool)`
+
+GetLabelOk returns a tuple with the Label field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLabel
+
+`func (o *HubDbTableV3Request) SetLabel(v string)`
+
+SetLabel sets Label field to given value.
+
+
+### GetAllowChildTables
+
+`func (o *HubDbTableV3Request) GetAllowChildTables() bool`
+
+GetAllowChildTables returns the AllowChildTables field if non-nil, zero value otherwise.
+
+### GetAllowChildTablesOk
+
+`func (o *HubDbTableV3Request) GetAllowChildTablesOk() (*bool, bool)`
+
+GetAllowChildTablesOk returns a tuple with the AllowChildTables field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAllowChildTables
+
+`func (o *HubDbTableV3Request) SetAllowChildTables(v bool)`
+
+SetAllowChildTables sets AllowChildTables field to given value.
+
+### HasAllowChildTables
+
+`func (o *HubDbTableV3Request) HasAllowChildTables() bool`
+
+HasAllowChildTables returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -5,17 +5,17 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Total** | **int32** |  | 
+**SearchTerm** | Pointer to **string** |  | [optional] 
 **Offset** | **int32** |  | 
 **Limit** | **int32** |  | 
-**Results** | [**[]ContentSearchResult**](ContentSearchResult.md) |  | 
-**SearchTerm** | Pointer to **string** |  | [optional] 
 **Page** | **int32** |  | 
+**Results** | [**[]ContentSearchResult**](ContentSearchResult.md) |  | 
 
 ## Methods
 
 ### NewPublicSearchResults
 
-`func NewPublicSearchResults(total int32, offset int32, limit int32, results []ContentSearchResult, page int32, ) *PublicSearchResults`
+`func NewPublicSearchResults(total int32, offset int32, limit int32, page int32, results []ContentSearchResult, ) *PublicSearchResults`
 
 NewPublicSearchResults instantiates a new PublicSearchResults object
 This constructor will assign default values to properties that have it defined,
@@ -49,6 +49,31 @@ and a boolean to check if the value has been set.
 
 SetTotal sets Total field to given value.
 
+
+### GetSearchTerm
+
+`func (o *PublicSearchResults) GetSearchTerm() string`
+
+GetSearchTerm returns the SearchTerm field if non-nil, zero value otherwise.
+
+### GetSearchTermOk
+
+`func (o *PublicSearchResults) GetSearchTermOk() (*string, bool)`
+
+GetSearchTermOk returns a tuple with the SearchTerm field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSearchTerm
+
+`func (o *PublicSearchResults) SetSearchTerm(v string)`
+
+SetSearchTerm sets SearchTerm field to given value.
+
+### HasSearchTerm
+
+`func (o *PublicSearchResults) HasSearchTerm() bool`
+
+HasSearchTerm returns a boolean if a field has been set.
 
 ### GetOffset
 
@@ -90,51 +115,6 @@ and a boolean to check if the value has been set.
 SetLimit sets Limit field to given value.
 
 
-### GetResults
-
-`func (o *PublicSearchResults) GetResults() []ContentSearchResult`
-
-GetResults returns the Results field if non-nil, zero value otherwise.
-
-### GetResultsOk
-
-`func (o *PublicSearchResults) GetResultsOk() (*[]ContentSearchResult, bool)`
-
-GetResultsOk returns a tuple with the Results field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetResults
-
-`func (o *PublicSearchResults) SetResults(v []ContentSearchResult)`
-
-SetResults sets Results field to given value.
-
-
-### GetSearchTerm
-
-`func (o *PublicSearchResults) GetSearchTerm() string`
-
-GetSearchTerm returns the SearchTerm field if non-nil, zero value otherwise.
-
-### GetSearchTermOk
-
-`func (o *PublicSearchResults) GetSearchTermOk() (*string, bool)`
-
-GetSearchTermOk returns a tuple with the SearchTerm field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetSearchTerm
-
-`func (o *PublicSearchResults) SetSearchTerm(v string)`
-
-SetSearchTerm sets SearchTerm field to given value.
-
-### HasSearchTerm
-
-`func (o *PublicSearchResults) HasSearchTerm() bool`
-
-HasSearchTerm returns a boolean if a field has been set.
-
 ### GetPage
 
 `func (o *PublicSearchResults) GetPage() int32`
@@ -153,6 +133,26 @@ and a boolean to check if the value has been set.
 `func (o *PublicSearchResults) SetPage(v int32)`
 
 SetPage sets Page field to given value.
+
+
+### GetResults
+
+`func (o *PublicSearchResults) GetResults() []ContentSearchResult`
+
+GetResults returns the Results field if non-nil, zero value otherwise.
+
+### GetResultsOk
+
+`func (o *PublicSearchResults) GetResultsOk() (*[]ContentSearchResult, bool)`
+
+GetResultsOk returns a tuple with the Results field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetResults
+
+`func (o *PublicSearchResults) SetResults(v []ContentSearchResult)`
+
+SetResults sets Results field to given value.
 
 
 

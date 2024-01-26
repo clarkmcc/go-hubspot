@@ -1,5 +1,5 @@
 /*
-Blog Post endpoints
+Tags
 
 Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags
 
@@ -17,34 +17,34 @@ import (
 
 // BatchResponseTagWithErrors Response object for batch operations on blog tags with errors.
 type BatchResponseTagWithErrors struct {
-	// Status of batch operation.
-	Status string `json:"status"`
-	// Results of batch operation.
-	Results []Tag `json:"results"`
+	// Time of batch operation completion.
+	CompletedAt time.Time `json:"completedAt"`
 	// Number of errors.
 	NumErrors *int32 `json:"numErrors,omitempty"`
-	// Errors in batch operation.
-	Errors []StandardError `json:"errors,omitempty"`
 	// Time of batch operation request.
 	RequestedAt *time.Time `json:"requestedAt,omitempty"`
 	// Time of batch operation start.
 	StartedAt time.Time `json:"startedAt"`
-	// Time of batch operation completion.
-	CompletedAt time.Time `json:"completedAt"`
 	// Links associated with batch operation.
 	Links *map[string]string `json:"links,omitempty"`
+	// Results of batch operation.
+	Results []Tag `json:"results"`
+	// Errors in batch operation.
+	Errors []StandardError `json:"errors,omitempty"`
+	// Status of batch operation.
+	Status string `json:"status"`
 }
 
 // NewBatchResponseTagWithErrors instantiates a new BatchResponseTagWithErrors object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBatchResponseTagWithErrors(status string, results []Tag, startedAt time.Time, completedAt time.Time) *BatchResponseTagWithErrors {
+func NewBatchResponseTagWithErrors(completedAt time.Time, startedAt time.Time, results []Tag, status string) *BatchResponseTagWithErrors {
 	this := BatchResponseTagWithErrors{}
-	this.Status = status
-	this.Results = results
-	this.StartedAt = startedAt
 	this.CompletedAt = completedAt
+	this.StartedAt = startedAt
+	this.Results = results
+	this.Status = status
 	return &this
 }
 
@@ -56,52 +56,28 @@ func NewBatchResponseTagWithErrorsWithDefaults() *BatchResponseTagWithErrors {
 	return &this
 }
 
-// GetStatus returns the Status field value
-func (o *BatchResponseTagWithErrors) GetStatus() string {
+// GetCompletedAt returns the CompletedAt field value
+func (o *BatchResponseTagWithErrors) GetCompletedAt() time.Time {
 	if o == nil {
-		var ret string
+		var ret time.Time
 		return ret
 	}
 
-	return o.Status
+	return o.CompletedAt
 }
 
-// GetStatusOk returns a tuple with the Status field value
+// GetCompletedAtOk returns a tuple with the CompletedAt field value
 // and a boolean to check if the value has been set.
-func (o *BatchResponseTagWithErrors) GetStatusOk() (*string, bool) {
+func (o *BatchResponseTagWithErrors) GetCompletedAtOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Status, true
+	return &o.CompletedAt, true
 }
 
-// SetStatus sets field value
-func (o *BatchResponseTagWithErrors) SetStatus(v string) {
-	o.Status = v
-}
-
-// GetResults returns the Results field value
-func (o *BatchResponseTagWithErrors) GetResults() []Tag {
-	if o == nil {
-		var ret []Tag
-		return ret
-	}
-
-	return o.Results
-}
-
-// GetResultsOk returns a tuple with the Results field value
-// and a boolean to check if the value has been set.
-func (o *BatchResponseTagWithErrors) GetResultsOk() ([]Tag, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Results, true
-}
-
-// SetResults sets field value
-func (o *BatchResponseTagWithErrors) SetResults(v []Tag) {
-	o.Results = v
+// SetCompletedAt sets field value
+func (o *BatchResponseTagWithErrors) SetCompletedAt(v time.Time) {
+	o.CompletedAt = v
 }
 
 // GetNumErrors returns the NumErrors field value if set, zero value otherwise.
@@ -134,38 +110,6 @@ func (o *BatchResponseTagWithErrors) HasNumErrors() bool {
 // SetNumErrors gets a reference to the given int32 and assigns it to the NumErrors field.
 func (o *BatchResponseTagWithErrors) SetNumErrors(v int32) {
 	o.NumErrors = &v
-}
-
-// GetErrors returns the Errors field value if set, zero value otherwise.
-func (o *BatchResponseTagWithErrors) GetErrors() []StandardError {
-	if o == nil || o.Errors == nil {
-		var ret []StandardError
-		return ret
-	}
-	return o.Errors
-}
-
-// GetErrorsOk returns a tuple with the Errors field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BatchResponseTagWithErrors) GetErrorsOk() ([]StandardError, bool) {
-	if o == nil || o.Errors == nil {
-		return nil, false
-	}
-	return o.Errors, true
-}
-
-// HasErrors returns a boolean if a field has been set.
-func (o *BatchResponseTagWithErrors) HasErrors() bool {
-	if o != nil && o.Errors != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetErrors gets a reference to the given []StandardError and assigns it to the Errors field.
-func (o *BatchResponseTagWithErrors) SetErrors(v []StandardError) {
-	o.Errors = v
 }
 
 // GetRequestedAt returns the RequestedAt field value if set, zero value otherwise.
@@ -224,30 +168,6 @@ func (o *BatchResponseTagWithErrors) SetStartedAt(v time.Time) {
 	o.StartedAt = v
 }
 
-// GetCompletedAt returns the CompletedAt field value
-func (o *BatchResponseTagWithErrors) GetCompletedAt() time.Time {
-	if o == nil {
-		var ret time.Time
-		return ret
-	}
-
-	return o.CompletedAt
-}
-
-// GetCompletedAtOk returns a tuple with the CompletedAt field value
-// and a boolean to check if the value has been set.
-func (o *BatchResponseTagWithErrors) GetCompletedAtOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.CompletedAt, true
-}
-
-// SetCompletedAt sets field value
-func (o *BatchResponseTagWithErrors) SetCompletedAt(v time.Time) {
-	o.CompletedAt = v
-}
-
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *BatchResponseTagWithErrors) GetLinks() map[string]string {
 	if o == nil || o.Links == nil {
@@ -280,19 +200,93 @@ func (o *BatchResponseTagWithErrors) SetLinks(v map[string]string) {
 	o.Links = &v
 }
 
+// GetResults returns the Results field value
+func (o *BatchResponseTagWithErrors) GetResults() []Tag {
+	if o == nil {
+		var ret []Tag
+		return ret
+	}
+
+	return o.Results
+}
+
+// GetResultsOk returns a tuple with the Results field value
+// and a boolean to check if the value has been set.
+func (o *BatchResponseTagWithErrors) GetResultsOk() ([]Tag, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Results, true
+}
+
+// SetResults sets field value
+func (o *BatchResponseTagWithErrors) SetResults(v []Tag) {
+	o.Results = v
+}
+
+// GetErrors returns the Errors field value if set, zero value otherwise.
+func (o *BatchResponseTagWithErrors) GetErrors() []StandardError {
+	if o == nil || o.Errors == nil {
+		var ret []StandardError
+		return ret
+	}
+	return o.Errors
+}
+
+// GetErrorsOk returns a tuple with the Errors field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BatchResponseTagWithErrors) GetErrorsOk() ([]StandardError, bool) {
+	if o == nil || o.Errors == nil {
+		return nil, false
+	}
+	return o.Errors, true
+}
+
+// HasErrors returns a boolean if a field has been set.
+func (o *BatchResponseTagWithErrors) HasErrors() bool {
+	if o != nil && o.Errors != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetErrors gets a reference to the given []StandardError and assigns it to the Errors field.
+func (o *BatchResponseTagWithErrors) SetErrors(v []StandardError) {
+	o.Errors = v
+}
+
+// GetStatus returns the Status field value
+func (o *BatchResponseTagWithErrors) GetStatus() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value
+// and a boolean to check if the value has been set.
+func (o *BatchResponseTagWithErrors) GetStatusOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Status, true
+}
+
+// SetStatus sets field value
+func (o *BatchResponseTagWithErrors) SetStatus(v string) {
+	o.Status = v
+}
+
 func (o BatchResponseTagWithErrors) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["status"] = o.Status
-	}
-	if true {
-		toSerialize["results"] = o.Results
+		toSerialize["completedAt"] = o.CompletedAt
 	}
 	if o.NumErrors != nil {
 		toSerialize["numErrors"] = o.NumErrors
-	}
-	if o.Errors != nil {
-		toSerialize["errors"] = o.Errors
 	}
 	if o.RequestedAt != nil {
 		toSerialize["requestedAt"] = o.RequestedAt
@@ -300,11 +294,17 @@ func (o BatchResponseTagWithErrors) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["startedAt"] = o.StartedAt
 	}
-	if true {
-		toSerialize["completedAt"] = o.CompletedAt
-	}
 	if o.Links != nil {
 		toSerialize["links"] = o.Links
+	}
+	if true {
+		toSerialize["results"] = o.Results
+	}
+	if o.Errors != nil {
+		toSerialize["errors"] = o.Errors
+	}
+	if true {
+		toSerialize["status"] = o.Status
 	}
 	return json.Marshal(toSerialize)
 }

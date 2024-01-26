@@ -1,10 +1,23 @@
 openapi: 3.0.1
 info:
   description: URL redirect operations
-  title: URL redirects
+  title: CMS Url Redirects
   version: v3
+  x-hubspot-product-tier-requirements:
+    marketing: PROFESSIONAL
+    cms: STARTER
+  x-hubspot-documentation-banner: NONE
+  x-hubspot-api-use-case: "Redirect one page to another, or redirect an entire blog\
+    \ with one URL using flexible pattern variables."
+  x-hubspot-related-documentation:
+  - name: URL Redirects Guide
+    url: https://hubspot.dev/guides/api/cms/url-redirects
+  x-hubspot-introduction: Use the URL redirects API to redirect traffic from a HubSpot-hosted
+    page or blog post to any URL. You can redirect pages to specific URLs or use flexible
+    pattern redirects to redirect multiple pages using variables. Learn more about
+    managing redirects in HubSpot.
 servers:
-- url: https://api.hubapi.com/
+- url: https://api.hubapi.com
 tags:
 - name: Redirects
 paths:
@@ -161,6 +174,7 @@ paths:
     post:
       description: Creates and configures a new URL redirect.
       operationId: Create
+      parameters: []
       requestBody:
         content:
           application/json:
@@ -327,43 +341,36 @@ components:
         id: id
         updated: 2000-01-23T04:56:07.000+00:00
       properties:
-        id:
-          description: The unique ID of this URL redirect.
-          type: string
-        routePrefix:
-          description: "The target incoming URL, path, or pattern to match for redirection."
-          type: string
-        destination:
-          description: "The destination URL, where the target URL should be redirected\
-            \ if it matches the `routePrefix`."
-          type: string
+        isTrailingSlashOptional:
+          description: Whether a trailing slash will be ignored.
+          type: boolean
         redirectStyle:
           description: "The type of redirect to create. Options include: 301 (permanent),\
             \ 302 (temporary), or 305 (proxy). Find more details [here](https://knowledge.hubspot.com/cos-general/how-to-redirect-a-hubspot-page)."
           format: int32
           type: integer
+        isMatchQueryString:
+          description: "Whether the `routePrefix` should match on the entire URL path,\
+            \ including the query string."
+          type: boolean
+        created:
+          format: date-time
+          type: string
+        isMatchFullUrl:
+          description: "Whether the `routePrefix` should match on the entire URL,\
+            \ including the domain."
+          type: boolean
+        destination:
+          description: "The destination URL, where the target URL should be redirected\
+            \ if it matches the `routePrefix`."
+          type: string
         isOnlyAfterNotFound:
           description: "Whether the URL redirect mapping should apply only if a live\
             \ page on the URL isn't found. If False, the URL redirect mapping will\
             \ take precedence over any existing page."
           type: boolean
-        isMatchFullUrl:
-          description: "Whether the `routePrefix` should match on the entire URL,\
-            \ including the domain."
-          type: boolean
-        isMatchQueryString:
-          description: "Whether the `routePrefix` should match on the entire URL path,\
-            \ including the query string."
-          type: boolean
         isPattern:
           description: Whether the `routePrefix` should match based on pattern.
-          type: boolean
-        isTrailingSlashOptional:
-          description: Whether a trailing slash will be ignored.
-          type: boolean
-        isProtocolAgnostic:
-          description: Whether the `routePrefix` should match both HTTP and HTTPS
-            protocols.
           type: boolean
         precedence:
           description: "Used to prioritize URL redirection. If a given URL matches\
@@ -371,8 +378,15 @@ components:
             \ used."
           format: int32
           type: integer
-        created:
-          format: date-time
+        routePrefix:
+          description: "The target incoming URL, path, or pattern to match for redirection."
+          type: string
+        isProtocolAgnostic:
+          description: Whether the `routePrefix` should match both HTTP and HTTPS
+            protocols.
+          type: boolean
+        id:
+          description: The unique ID of this URL redirect.
           type: string
         updated:
           format: date-time
@@ -392,19 +406,15 @@ components:
       type: object
     ErrorDetail:
       properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          type: string
-        in:
-          description: The name of the field or parameter in which the error was found.
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
           type: string
         code:
           description: The status code associated with the error detail
           type: string
-        subCategory:
-          description: A specific category that contains more specific detail about
-            the error
+        in:
+          description: The name of the field or parameter in which the error was found.
           type: string
         context:
           additionalProperties:
@@ -417,6 +427,10 @@ components:
             - scope1
             - scope2
           type: object
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          type: string
       required:
       - message
       type: object
@@ -433,35 +447,35 @@ components:
       example:
         isTrailingSlashOptional: true
         isMatchQueryString: true
-        redirectStyle: 6
+        redirectStyle: 0
         routePrefix: routePrefix
         isMatchFullUrl: true
         isProtocolAgnostic: true
         destination: destination
         isOnlyAfterNotFound: true
         isPattern: true
-        precedence: 0
+        precedence: 6
       properties:
-        precedence:
-          format: int32
-          type: integer
-        isOnlyAfterNotFound:
-          type: boolean
-        isMatchFullUrl:
+        isTrailingSlashOptional:
           type: boolean
         isMatchQueryString:
           type: boolean
-        isPattern:
-          type: boolean
-        isTrailingSlashOptional:
+        redirectStyle:
+          format: int32
+          type: integer
+        routePrefix:
+          type: string
+        isMatchFullUrl:
           type: boolean
         isProtocolAgnostic:
           type: boolean
-        routePrefix:
-          type: string
         destination:
           type: string
-        redirectStyle:
+        isOnlyAfterNotFound:
+          type: boolean
+        isPattern:
+          type: boolean
+        precedence:
           format: int32
           type: integer
       required:
@@ -477,29 +491,10 @@ components:
         links:
           knowledge-base: https://www.hubspot.com/products/service/knowledge-base
       properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          example: An error occurred
-          type: string
-        correlationId:
-          description: A unique identifier for the request. Include this value with
-            any error reports or support tickets
-          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
-          format: uuid
-          type: string
-        category:
-          description: The error category
-          type: string
         subCategory:
           description: A specific category that contains more specific detail about
             the error
           type: string
-        errors:
-          description: further information about the error
-          items:
-            $ref: '#/components/schemas/ErrorDetail'
-          type: array
         context:
           additionalProperties:
             items:
@@ -507,18 +502,40 @@ components:
             type: array
           description: Context about the error condition
           example:
-            invalidPropertyName:
-            - propertyValue
             missingScopes:
             - scope1
             - scope2
+            invalidPropertyName:
+            - propertyValue
           type: object
+        correlationId:
+          description: A unique identifier for the request. Include this value with
+            any error reports or support tickets
+          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
+          format: uuid
+          type: string
         links:
           additionalProperties:
             type: string
           description: A map of link names to associated URIs containing documentation
             about the error or recommended remediation steps
+          example:
+            knowledge-base: https://www.hubspot.com/products/service/knowledge-base
           type: object
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          example: Invalid input (details will vary based on the error)
+          type: string
+        category:
+          description: The error category
+          example: VALIDATION_ERROR
+          type: string
+        errors:
+          description: further information about the error
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
       required:
       - category
       - correlationId
@@ -529,9 +546,9 @@ components:
         link: link
         after: after
       properties:
-        after:
-          type: string
         link:
+          type: string
+        after:
           type: string
       required:
       - after
@@ -574,12 +591,12 @@ components:
         total:
           format: int32
           type: integer
+        paging:
+          $ref: '#/components/schemas/ForwardPaging'
         results:
           items:
             $ref: '#/components/schemas/UrlMapping'
           type: array
-        paging:
-          $ref: '#/components/schemas/ForwardPaging'
       required:
       - results
       - total
@@ -600,5 +617,9 @@ components:
 x-hubspot-available-client-libraries:
 - PHP
 - Node
-- Python
 - Ruby
+- Python
+x-hubspot-product-tier-requirements:
+  marketing: PROFESSIONAL
+  cms: STARTER
+x-hubspot-documentation-banner: NONE

@@ -16,23 +16,37 @@ import (
 
 // ObjectTypePropertyCreate Defines a property to create.
 type ObjectTypePropertyCreate struct {
-	// The internal property name, which must be used when referencing the property from the API.
-	Name string `json:"name"`
-	// A human-readable property label that will be shown in HubSpot.
-	Label string `json:"label"`
-	// The name of the group this property belongs to.
-	GroupName *string `json:"groupName,omitempty"`
-	// A description of the property that will be shown as help text in HubSpot.
-	Description *string `json:"description,omitempty"`
-	// A list of available options for the property. This field is only required for enumerated properties.
-	Options []OptionInput `json:"options,omitempty"`
+	Hidden *bool `json:"hidden,omitempty"`
+	// Controls how the property options will be sorted in the HubSpot UI.
+	OptionSortStrategy *string `json:"optionSortStrategy,omitempty"`
 	// The order that this property should be displayed in the HubSpot UI relative to other properties for this object type. Properties are displayed in order starting with the lowest positive integer value. A value of -1 will cause the property to be displayed **after** any positive values.
 	DisplayOrder *int32 `json:"displayOrder,omitempty"`
-	// Whether or not the property's value must be unique. Once set, this can't be changed.
-	HasUniqueValue *bool `json:"hasUniqueValue,omitempty"`
-	Hidden         *bool `json:"hidden,omitempty"`
+	// A description of the property that will be shown as help text in HubSpot.
+	Description *string `json:"description,omitempty"`
+	// Whether the property will display the currency symbol in the HubSpot UI.
+	ShowCurrencySymbol *bool `json:"showCurrencySymbol,omitempty"`
+	// A human-readable property label that will be shown in HubSpot.
+	Label string `json:"label"`
 	// The data type of the property.
 	Type string `json:"type"`
+	// Whether the property can be used in a HubSpot form.
+	FormField *bool `json:"formField,omitempty"`
+	// The name of the group this property belongs to.
+	GroupName *string `json:"groupName,omitempty"`
+	// Defines the options this property will return, e.g. OWNER would return name of users on the portal.
+	ReferencedObjectType *string `json:"referencedObjectType,omitempty"`
+	// Controls how text properties are formatted in the HubSpot UI
+	TextDisplayHint *string `json:"textDisplayHint,omitempty"`
+	// The internal property name, which must be used when referencing the property from the API.
+	Name string `json:"name"`
+	// A list of available options for the property. This field is only required for enumerated properties.
+	Options []OptionInput `json:"options,omitempty"`
+	// Allow users to search for information entered to this field (limited to 3 properties)
+	SearchableInGlobalSearch *bool `json:"searchableInGlobalSearch,omitempty"`
+	// Controls how numeric properties are formatted in the HubSpot UI
+	NumberDisplayHint *string `json:"numberDisplayHint,omitempty"`
+	// Whether or not the property's value must be unique. Once set, this can't be changed.
+	HasUniqueValue *bool `json:"hasUniqueValue,omitempty"`
 	// Controls how the property appears in HubSpot.
 	FieldType string `json:"fieldType"`
 }
@@ -41,11 +55,11 @@ type ObjectTypePropertyCreate struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewObjectTypePropertyCreate(name string, label string, type_ string, fieldType string) *ObjectTypePropertyCreate {
+func NewObjectTypePropertyCreate(label string, type_ string, name string, fieldType string) *ObjectTypePropertyCreate {
 	this := ObjectTypePropertyCreate{}
-	this.Name = name
 	this.Label = label
 	this.Type = type_
+	this.Name = name
 	this.FieldType = fieldType
 	return &this
 }
@@ -56,214 +70,6 @@ func NewObjectTypePropertyCreate(name string, label string, type_ string, fieldT
 func NewObjectTypePropertyCreateWithDefaults() *ObjectTypePropertyCreate {
 	this := ObjectTypePropertyCreate{}
 	return &this
-}
-
-// GetName returns the Name field value
-func (o *ObjectTypePropertyCreate) GetName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value
-// and a boolean to check if the value has been set.
-func (o *ObjectTypePropertyCreate) GetNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Name, true
-}
-
-// SetName sets field value
-func (o *ObjectTypePropertyCreate) SetName(v string) {
-	o.Name = v
-}
-
-// GetLabel returns the Label field value
-func (o *ObjectTypePropertyCreate) GetLabel() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Label
-}
-
-// GetLabelOk returns a tuple with the Label field value
-// and a boolean to check if the value has been set.
-func (o *ObjectTypePropertyCreate) GetLabelOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Label, true
-}
-
-// SetLabel sets field value
-func (o *ObjectTypePropertyCreate) SetLabel(v string) {
-	o.Label = v
-}
-
-// GetGroupName returns the GroupName field value if set, zero value otherwise.
-func (o *ObjectTypePropertyCreate) GetGroupName() string {
-	if o == nil || o.GroupName == nil {
-		var ret string
-		return ret
-	}
-	return *o.GroupName
-}
-
-// GetGroupNameOk returns a tuple with the GroupName field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ObjectTypePropertyCreate) GetGroupNameOk() (*string, bool) {
-	if o == nil || o.GroupName == nil {
-		return nil, false
-	}
-	return o.GroupName, true
-}
-
-// HasGroupName returns a boolean if a field has been set.
-func (o *ObjectTypePropertyCreate) HasGroupName() bool {
-	if o != nil && o.GroupName != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetGroupName gets a reference to the given string and assigns it to the GroupName field.
-func (o *ObjectTypePropertyCreate) SetGroupName(v string) {
-	o.GroupName = &v
-}
-
-// GetDescription returns the Description field value if set, zero value otherwise.
-func (o *ObjectTypePropertyCreate) GetDescription() string {
-	if o == nil || o.Description == nil {
-		var ret string
-		return ret
-	}
-	return *o.Description
-}
-
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ObjectTypePropertyCreate) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
-		return nil, false
-	}
-	return o.Description, true
-}
-
-// HasDescription returns a boolean if a field has been set.
-func (o *ObjectTypePropertyCreate) HasDescription() bool {
-	if o != nil && o.Description != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *ObjectTypePropertyCreate) SetDescription(v string) {
-	o.Description = &v
-}
-
-// GetOptions returns the Options field value if set, zero value otherwise.
-func (o *ObjectTypePropertyCreate) GetOptions() []OptionInput {
-	if o == nil || o.Options == nil {
-		var ret []OptionInput
-		return ret
-	}
-	return o.Options
-}
-
-// GetOptionsOk returns a tuple with the Options field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ObjectTypePropertyCreate) GetOptionsOk() ([]OptionInput, bool) {
-	if o == nil || o.Options == nil {
-		return nil, false
-	}
-	return o.Options, true
-}
-
-// HasOptions returns a boolean if a field has been set.
-func (o *ObjectTypePropertyCreate) HasOptions() bool {
-	if o != nil && o.Options != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetOptions gets a reference to the given []OptionInput and assigns it to the Options field.
-func (o *ObjectTypePropertyCreate) SetOptions(v []OptionInput) {
-	o.Options = v
-}
-
-// GetDisplayOrder returns the DisplayOrder field value if set, zero value otherwise.
-func (o *ObjectTypePropertyCreate) GetDisplayOrder() int32 {
-	if o == nil || o.DisplayOrder == nil {
-		var ret int32
-		return ret
-	}
-	return *o.DisplayOrder
-}
-
-// GetDisplayOrderOk returns a tuple with the DisplayOrder field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ObjectTypePropertyCreate) GetDisplayOrderOk() (*int32, bool) {
-	if o == nil || o.DisplayOrder == nil {
-		return nil, false
-	}
-	return o.DisplayOrder, true
-}
-
-// HasDisplayOrder returns a boolean if a field has been set.
-func (o *ObjectTypePropertyCreate) HasDisplayOrder() bool {
-	if o != nil && o.DisplayOrder != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetDisplayOrder gets a reference to the given int32 and assigns it to the DisplayOrder field.
-func (o *ObjectTypePropertyCreate) SetDisplayOrder(v int32) {
-	o.DisplayOrder = &v
-}
-
-// GetHasUniqueValue returns the HasUniqueValue field value if set, zero value otherwise.
-func (o *ObjectTypePropertyCreate) GetHasUniqueValue() bool {
-	if o == nil || o.HasUniqueValue == nil {
-		var ret bool
-		return ret
-	}
-	return *o.HasUniqueValue
-}
-
-// GetHasUniqueValueOk returns a tuple with the HasUniqueValue field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ObjectTypePropertyCreate) GetHasUniqueValueOk() (*bool, bool) {
-	if o == nil || o.HasUniqueValue == nil {
-		return nil, false
-	}
-	return o.HasUniqueValue, true
-}
-
-// HasHasUniqueValue returns a boolean if a field has been set.
-func (o *ObjectTypePropertyCreate) HasHasUniqueValue() bool {
-	if o != nil && o.HasUniqueValue != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetHasUniqueValue gets a reference to the given bool and assigns it to the HasUniqueValue field.
-func (o *ObjectTypePropertyCreate) SetHasUniqueValue(v bool) {
-	o.HasUniqueValue = &v
 }
 
 // GetHidden returns the Hidden field value if set, zero value otherwise.
@@ -298,6 +104,158 @@ func (o *ObjectTypePropertyCreate) SetHidden(v bool) {
 	o.Hidden = &v
 }
 
+// GetOptionSortStrategy returns the OptionSortStrategy field value if set, zero value otherwise.
+func (o *ObjectTypePropertyCreate) GetOptionSortStrategy() string {
+	if o == nil || o.OptionSortStrategy == nil {
+		var ret string
+		return ret
+	}
+	return *o.OptionSortStrategy
+}
+
+// GetOptionSortStrategyOk returns a tuple with the OptionSortStrategy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ObjectTypePropertyCreate) GetOptionSortStrategyOk() (*string, bool) {
+	if o == nil || o.OptionSortStrategy == nil {
+		return nil, false
+	}
+	return o.OptionSortStrategy, true
+}
+
+// HasOptionSortStrategy returns a boolean if a field has been set.
+func (o *ObjectTypePropertyCreate) HasOptionSortStrategy() bool {
+	if o != nil && o.OptionSortStrategy != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetOptionSortStrategy gets a reference to the given string and assigns it to the OptionSortStrategy field.
+func (o *ObjectTypePropertyCreate) SetOptionSortStrategy(v string) {
+	o.OptionSortStrategy = &v
+}
+
+// GetDisplayOrder returns the DisplayOrder field value if set, zero value otherwise.
+func (o *ObjectTypePropertyCreate) GetDisplayOrder() int32 {
+	if o == nil || o.DisplayOrder == nil {
+		var ret int32
+		return ret
+	}
+	return *o.DisplayOrder
+}
+
+// GetDisplayOrderOk returns a tuple with the DisplayOrder field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ObjectTypePropertyCreate) GetDisplayOrderOk() (*int32, bool) {
+	if o == nil || o.DisplayOrder == nil {
+		return nil, false
+	}
+	return o.DisplayOrder, true
+}
+
+// HasDisplayOrder returns a boolean if a field has been set.
+func (o *ObjectTypePropertyCreate) HasDisplayOrder() bool {
+	if o != nil && o.DisplayOrder != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDisplayOrder gets a reference to the given int32 and assigns it to the DisplayOrder field.
+func (o *ObjectTypePropertyCreate) SetDisplayOrder(v int32) {
+	o.DisplayOrder = &v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *ObjectTypePropertyCreate) GetDescription() string {
+	if o == nil || o.Description == nil {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ObjectTypePropertyCreate) GetDescriptionOk() (*string, bool) {
+	if o == nil || o.Description == nil {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *ObjectTypePropertyCreate) HasDescription() bool {
+	if o != nil && o.Description != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *ObjectTypePropertyCreate) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetShowCurrencySymbol returns the ShowCurrencySymbol field value if set, zero value otherwise.
+func (o *ObjectTypePropertyCreate) GetShowCurrencySymbol() bool {
+	if o == nil || o.ShowCurrencySymbol == nil {
+		var ret bool
+		return ret
+	}
+	return *o.ShowCurrencySymbol
+}
+
+// GetShowCurrencySymbolOk returns a tuple with the ShowCurrencySymbol field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ObjectTypePropertyCreate) GetShowCurrencySymbolOk() (*bool, bool) {
+	if o == nil || o.ShowCurrencySymbol == nil {
+		return nil, false
+	}
+	return o.ShowCurrencySymbol, true
+}
+
+// HasShowCurrencySymbol returns a boolean if a field has been set.
+func (o *ObjectTypePropertyCreate) HasShowCurrencySymbol() bool {
+	if o != nil && o.ShowCurrencySymbol != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetShowCurrencySymbol gets a reference to the given bool and assigns it to the ShowCurrencySymbol field.
+func (o *ObjectTypePropertyCreate) SetShowCurrencySymbol(v bool) {
+	o.ShowCurrencySymbol = &v
+}
+
+// GetLabel returns the Label field value
+func (o *ObjectTypePropertyCreate) GetLabel() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Label
+}
+
+// GetLabelOk returns a tuple with the Label field value
+// and a boolean to check if the value has been set.
+func (o *ObjectTypePropertyCreate) GetLabelOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Label, true
+}
+
+// SetLabel sets field value
+func (o *ObjectTypePropertyCreate) SetLabel(v string) {
+	o.Label = v
+}
+
 // GetType returns the Type field value
 func (o *ObjectTypePropertyCreate) GetType() string {
 	if o == nil {
@@ -320,6 +278,286 @@ func (o *ObjectTypePropertyCreate) GetTypeOk() (*string, bool) {
 // SetType sets field value
 func (o *ObjectTypePropertyCreate) SetType(v string) {
 	o.Type = v
+}
+
+// GetFormField returns the FormField field value if set, zero value otherwise.
+func (o *ObjectTypePropertyCreate) GetFormField() bool {
+	if o == nil || o.FormField == nil {
+		var ret bool
+		return ret
+	}
+	return *o.FormField
+}
+
+// GetFormFieldOk returns a tuple with the FormField field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ObjectTypePropertyCreate) GetFormFieldOk() (*bool, bool) {
+	if o == nil || o.FormField == nil {
+		return nil, false
+	}
+	return o.FormField, true
+}
+
+// HasFormField returns a boolean if a field has been set.
+func (o *ObjectTypePropertyCreate) HasFormField() bool {
+	if o != nil && o.FormField != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFormField gets a reference to the given bool and assigns it to the FormField field.
+func (o *ObjectTypePropertyCreate) SetFormField(v bool) {
+	o.FormField = &v
+}
+
+// GetGroupName returns the GroupName field value if set, zero value otherwise.
+func (o *ObjectTypePropertyCreate) GetGroupName() string {
+	if o == nil || o.GroupName == nil {
+		var ret string
+		return ret
+	}
+	return *o.GroupName
+}
+
+// GetGroupNameOk returns a tuple with the GroupName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ObjectTypePropertyCreate) GetGroupNameOk() (*string, bool) {
+	if o == nil || o.GroupName == nil {
+		return nil, false
+	}
+	return o.GroupName, true
+}
+
+// HasGroupName returns a boolean if a field has been set.
+func (o *ObjectTypePropertyCreate) HasGroupName() bool {
+	if o != nil && o.GroupName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetGroupName gets a reference to the given string and assigns it to the GroupName field.
+func (o *ObjectTypePropertyCreate) SetGroupName(v string) {
+	o.GroupName = &v
+}
+
+// GetReferencedObjectType returns the ReferencedObjectType field value if set, zero value otherwise.
+func (o *ObjectTypePropertyCreate) GetReferencedObjectType() string {
+	if o == nil || o.ReferencedObjectType == nil {
+		var ret string
+		return ret
+	}
+	return *o.ReferencedObjectType
+}
+
+// GetReferencedObjectTypeOk returns a tuple with the ReferencedObjectType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ObjectTypePropertyCreate) GetReferencedObjectTypeOk() (*string, bool) {
+	if o == nil || o.ReferencedObjectType == nil {
+		return nil, false
+	}
+	return o.ReferencedObjectType, true
+}
+
+// HasReferencedObjectType returns a boolean if a field has been set.
+func (o *ObjectTypePropertyCreate) HasReferencedObjectType() bool {
+	if o != nil && o.ReferencedObjectType != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetReferencedObjectType gets a reference to the given string and assigns it to the ReferencedObjectType field.
+func (o *ObjectTypePropertyCreate) SetReferencedObjectType(v string) {
+	o.ReferencedObjectType = &v
+}
+
+// GetTextDisplayHint returns the TextDisplayHint field value if set, zero value otherwise.
+func (o *ObjectTypePropertyCreate) GetTextDisplayHint() string {
+	if o == nil || o.TextDisplayHint == nil {
+		var ret string
+		return ret
+	}
+	return *o.TextDisplayHint
+}
+
+// GetTextDisplayHintOk returns a tuple with the TextDisplayHint field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ObjectTypePropertyCreate) GetTextDisplayHintOk() (*string, bool) {
+	if o == nil || o.TextDisplayHint == nil {
+		return nil, false
+	}
+	return o.TextDisplayHint, true
+}
+
+// HasTextDisplayHint returns a boolean if a field has been set.
+func (o *ObjectTypePropertyCreate) HasTextDisplayHint() bool {
+	if o != nil && o.TextDisplayHint != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTextDisplayHint gets a reference to the given string and assigns it to the TextDisplayHint field.
+func (o *ObjectTypePropertyCreate) SetTextDisplayHint(v string) {
+	o.TextDisplayHint = &v
+}
+
+// GetName returns the Name field value
+func (o *ObjectTypePropertyCreate) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *ObjectTypePropertyCreate) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *ObjectTypePropertyCreate) SetName(v string) {
+	o.Name = v
+}
+
+// GetOptions returns the Options field value if set, zero value otherwise.
+func (o *ObjectTypePropertyCreate) GetOptions() []OptionInput {
+	if o == nil || o.Options == nil {
+		var ret []OptionInput
+		return ret
+	}
+	return o.Options
+}
+
+// GetOptionsOk returns a tuple with the Options field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ObjectTypePropertyCreate) GetOptionsOk() ([]OptionInput, bool) {
+	if o == nil || o.Options == nil {
+		return nil, false
+	}
+	return o.Options, true
+}
+
+// HasOptions returns a boolean if a field has been set.
+func (o *ObjectTypePropertyCreate) HasOptions() bool {
+	if o != nil && o.Options != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetOptions gets a reference to the given []OptionInput and assigns it to the Options field.
+func (o *ObjectTypePropertyCreate) SetOptions(v []OptionInput) {
+	o.Options = v
+}
+
+// GetSearchableInGlobalSearch returns the SearchableInGlobalSearch field value if set, zero value otherwise.
+func (o *ObjectTypePropertyCreate) GetSearchableInGlobalSearch() bool {
+	if o == nil || o.SearchableInGlobalSearch == nil {
+		var ret bool
+		return ret
+	}
+	return *o.SearchableInGlobalSearch
+}
+
+// GetSearchableInGlobalSearchOk returns a tuple with the SearchableInGlobalSearch field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ObjectTypePropertyCreate) GetSearchableInGlobalSearchOk() (*bool, bool) {
+	if o == nil || o.SearchableInGlobalSearch == nil {
+		return nil, false
+	}
+	return o.SearchableInGlobalSearch, true
+}
+
+// HasSearchableInGlobalSearch returns a boolean if a field has been set.
+func (o *ObjectTypePropertyCreate) HasSearchableInGlobalSearch() bool {
+	if o != nil && o.SearchableInGlobalSearch != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSearchableInGlobalSearch gets a reference to the given bool and assigns it to the SearchableInGlobalSearch field.
+func (o *ObjectTypePropertyCreate) SetSearchableInGlobalSearch(v bool) {
+	o.SearchableInGlobalSearch = &v
+}
+
+// GetNumberDisplayHint returns the NumberDisplayHint field value if set, zero value otherwise.
+func (o *ObjectTypePropertyCreate) GetNumberDisplayHint() string {
+	if o == nil || o.NumberDisplayHint == nil {
+		var ret string
+		return ret
+	}
+	return *o.NumberDisplayHint
+}
+
+// GetNumberDisplayHintOk returns a tuple with the NumberDisplayHint field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ObjectTypePropertyCreate) GetNumberDisplayHintOk() (*string, bool) {
+	if o == nil || o.NumberDisplayHint == nil {
+		return nil, false
+	}
+	return o.NumberDisplayHint, true
+}
+
+// HasNumberDisplayHint returns a boolean if a field has been set.
+func (o *ObjectTypePropertyCreate) HasNumberDisplayHint() bool {
+	if o != nil && o.NumberDisplayHint != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetNumberDisplayHint gets a reference to the given string and assigns it to the NumberDisplayHint field.
+func (o *ObjectTypePropertyCreate) SetNumberDisplayHint(v string) {
+	o.NumberDisplayHint = &v
+}
+
+// GetHasUniqueValue returns the HasUniqueValue field value if set, zero value otherwise.
+func (o *ObjectTypePropertyCreate) GetHasUniqueValue() bool {
+	if o == nil || o.HasUniqueValue == nil {
+		var ret bool
+		return ret
+	}
+	return *o.HasUniqueValue
+}
+
+// GetHasUniqueValueOk returns a tuple with the HasUniqueValue field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ObjectTypePropertyCreate) GetHasUniqueValueOk() (*bool, bool) {
+	if o == nil || o.HasUniqueValue == nil {
+		return nil, false
+	}
+	return o.HasUniqueValue, true
+}
+
+// HasHasUniqueValue returns a boolean if a field has been set.
+func (o *ObjectTypePropertyCreate) HasHasUniqueValue() bool {
+	if o != nil && o.HasUniqueValue != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetHasUniqueValue gets a reference to the given bool and assigns it to the HasUniqueValue field.
+func (o *ObjectTypePropertyCreate) SetHasUniqueValue(v bool) {
+	o.HasUniqueValue = &v
 }
 
 // GetFieldType returns the FieldType field value
@@ -348,32 +586,53 @@ func (o *ObjectTypePropertyCreate) SetFieldType(v string) {
 
 func (o ObjectTypePropertyCreate) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name
+	if o.Hidden != nil {
+		toSerialize["hidden"] = o.Hidden
 	}
-	if true {
-		toSerialize["label"] = o.Label
-	}
-	if o.GroupName != nil {
-		toSerialize["groupName"] = o.GroupName
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.Options != nil {
-		toSerialize["options"] = o.Options
+	if o.OptionSortStrategy != nil {
+		toSerialize["optionSortStrategy"] = o.OptionSortStrategy
 	}
 	if o.DisplayOrder != nil {
 		toSerialize["displayOrder"] = o.DisplayOrder
 	}
-	if o.HasUniqueValue != nil {
-		toSerialize["hasUniqueValue"] = o.HasUniqueValue
+	if o.Description != nil {
+		toSerialize["description"] = o.Description
 	}
-	if o.Hidden != nil {
-		toSerialize["hidden"] = o.Hidden
+	if o.ShowCurrencySymbol != nil {
+		toSerialize["showCurrencySymbol"] = o.ShowCurrencySymbol
+	}
+	if true {
+		toSerialize["label"] = o.Label
 	}
 	if true {
 		toSerialize["type"] = o.Type
+	}
+	if o.FormField != nil {
+		toSerialize["formField"] = o.FormField
+	}
+	if o.GroupName != nil {
+		toSerialize["groupName"] = o.GroupName
+	}
+	if o.ReferencedObjectType != nil {
+		toSerialize["referencedObjectType"] = o.ReferencedObjectType
+	}
+	if o.TextDisplayHint != nil {
+		toSerialize["textDisplayHint"] = o.TextDisplayHint
+	}
+	if true {
+		toSerialize["name"] = o.Name
+	}
+	if o.Options != nil {
+		toSerialize["options"] = o.Options
+	}
+	if o.SearchableInGlobalSearch != nil {
+		toSerialize["searchableInGlobalSearch"] = o.SearchableInGlobalSearch
+	}
+	if o.NumberDisplayHint != nil {
+		toSerialize["numberDisplayHint"] = o.NumberDisplayHint
+	}
+	if o.HasUniqueValue != nil {
+		toSerialize["hasUniqueValue"] = o.HasUniqueValue
 	}
 	if true {
 		toSerialize["fieldType"] = o.FieldType

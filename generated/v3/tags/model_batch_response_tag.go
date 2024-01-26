@@ -1,5 +1,5 @@
 /*
-Blog Post endpoints
+Tags
 
 Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags
 
@@ -17,30 +17,30 @@ import (
 
 // BatchResponseTag Response object for batch operations on blog tags.
 type BatchResponseTag struct {
-	// Status of batch operation.
-	Status string `json:"status"`
-	// Results of batch operation.
-	Results []Tag `json:"results"`
+	// Time of batch operation completion.
+	CompletedAt time.Time `json:"completedAt"`
 	// Time of batch operation request.
 	RequestedAt *time.Time `json:"requestedAt,omitempty"`
 	// Time of batch operation start.
 	StartedAt time.Time `json:"startedAt"`
-	// Time of batch operation completion.
-	CompletedAt time.Time `json:"completedAt"`
 	// Links associated with batch operation.
 	Links *map[string]string `json:"links,omitempty"`
+	// Results of batch operation.
+	Results []Tag `json:"results"`
+	// Status of batch operation.
+	Status string `json:"status"`
 }
 
 // NewBatchResponseTag instantiates a new BatchResponseTag object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBatchResponseTag(status string, results []Tag, startedAt time.Time, completedAt time.Time) *BatchResponseTag {
+func NewBatchResponseTag(completedAt time.Time, startedAt time.Time, results []Tag, status string) *BatchResponseTag {
 	this := BatchResponseTag{}
-	this.Status = status
-	this.Results = results
-	this.StartedAt = startedAt
 	this.CompletedAt = completedAt
+	this.StartedAt = startedAt
+	this.Results = results
+	this.Status = status
 	return &this
 }
 
@@ -52,52 +52,28 @@ func NewBatchResponseTagWithDefaults() *BatchResponseTag {
 	return &this
 }
 
-// GetStatus returns the Status field value
-func (o *BatchResponseTag) GetStatus() string {
+// GetCompletedAt returns the CompletedAt field value
+func (o *BatchResponseTag) GetCompletedAt() time.Time {
 	if o == nil {
-		var ret string
+		var ret time.Time
 		return ret
 	}
 
-	return o.Status
+	return o.CompletedAt
 }
 
-// GetStatusOk returns a tuple with the Status field value
+// GetCompletedAtOk returns a tuple with the CompletedAt field value
 // and a boolean to check if the value has been set.
-func (o *BatchResponseTag) GetStatusOk() (*string, bool) {
+func (o *BatchResponseTag) GetCompletedAtOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Status, true
+	return &o.CompletedAt, true
 }
 
-// SetStatus sets field value
-func (o *BatchResponseTag) SetStatus(v string) {
-	o.Status = v
-}
-
-// GetResults returns the Results field value
-func (o *BatchResponseTag) GetResults() []Tag {
-	if o == nil {
-		var ret []Tag
-		return ret
-	}
-
-	return o.Results
-}
-
-// GetResultsOk returns a tuple with the Results field value
-// and a boolean to check if the value has been set.
-func (o *BatchResponseTag) GetResultsOk() ([]Tag, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Results, true
-}
-
-// SetResults sets field value
-func (o *BatchResponseTag) SetResults(v []Tag) {
-	o.Results = v
+// SetCompletedAt sets field value
+func (o *BatchResponseTag) SetCompletedAt(v time.Time) {
+	o.CompletedAt = v
 }
 
 // GetRequestedAt returns the RequestedAt field value if set, zero value otherwise.
@@ -156,30 +132,6 @@ func (o *BatchResponseTag) SetStartedAt(v time.Time) {
 	o.StartedAt = v
 }
 
-// GetCompletedAt returns the CompletedAt field value
-func (o *BatchResponseTag) GetCompletedAt() time.Time {
-	if o == nil {
-		var ret time.Time
-		return ret
-	}
-
-	return o.CompletedAt
-}
-
-// GetCompletedAtOk returns a tuple with the CompletedAt field value
-// and a boolean to check if the value has been set.
-func (o *BatchResponseTag) GetCompletedAtOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.CompletedAt, true
-}
-
-// SetCompletedAt sets field value
-func (o *BatchResponseTag) SetCompletedAt(v time.Time) {
-	o.CompletedAt = v
-}
-
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *BatchResponseTag) GetLinks() map[string]string {
 	if o == nil || o.Links == nil {
@@ -212,13 +164,58 @@ func (o *BatchResponseTag) SetLinks(v map[string]string) {
 	o.Links = &v
 }
 
+// GetResults returns the Results field value
+func (o *BatchResponseTag) GetResults() []Tag {
+	if o == nil {
+		var ret []Tag
+		return ret
+	}
+
+	return o.Results
+}
+
+// GetResultsOk returns a tuple with the Results field value
+// and a boolean to check if the value has been set.
+func (o *BatchResponseTag) GetResultsOk() ([]Tag, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Results, true
+}
+
+// SetResults sets field value
+func (o *BatchResponseTag) SetResults(v []Tag) {
+	o.Results = v
+}
+
+// GetStatus returns the Status field value
+func (o *BatchResponseTag) GetStatus() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value
+// and a boolean to check if the value has been set.
+func (o *BatchResponseTag) GetStatusOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Status, true
+}
+
+// SetStatus sets field value
+func (o *BatchResponseTag) SetStatus(v string) {
+	o.Status = v
+}
+
 func (o BatchResponseTag) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["status"] = o.Status
-	}
-	if true {
-		toSerialize["results"] = o.Results
+		toSerialize["completedAt"] = o.CompletedAt
 	}
 	if o.RequestedAt != nil {
 		toSerialize["requestedAt"] = o.RequestedAt
@@ -226,11 +223,14 @@ func (o BatchResponseTag) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["startedAt"] = o.StartedAt
 	}
-	if true {
-		toSerialize["completedAt"] = o.CompletedAt
-	}
 	if o.Links != nil {
 		toSerialize["links"] = o.Links
+	}
+	if true {
+		toSerialize["results"] = o.Results
+	}
+	if true {
+		toSerialize["status"] = o.Status
 	}
 	return json.Marshal(toSerialize)
 }

@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**After** | **string** |  | 
 **Link** | Pointer to **string** |  | [optional] 
+**After** | **string** |  | 
 
 ## Methods
 
@@ -25,26 +25,6 @@ will change when the set of required properties is changed
 NewNextPageWithDefaults instantiates a new NextPage object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetAfter
-
-`func (o *NextPage) GetAfter() string`
-
-GetAfter returns the After field if non-nil, zero value otherwise.
-
-### GetAfterOk
-
-`func (o *NextPage) GetAfterOk() (*string, bool)`
-
-GetAfterOk returns a tuple with the After field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetAfter
-
-`func (o *NextPage) SetAfter(v string)`
-
-SetAfter sets After field to given value.
-
 
 ### GetLink
 
@@ -70,6 +50,26 @@ SetLink sets Link field to given value.
 `func (o *NextPage) HasLink() bool`
 
 HasLink returns a boolean if a field has been set.
+
+### GetAfter
+
+`func (o *NextPage) GetAfter() string`
+
+GetAfter returns the After field if non-nil, zero value otherwise.
+
+### GetAfterOk
+
+`func (o *NextPage) GetAfterOk() (*string, bool)`
+
+GetAfterOk returns a tuple with the After field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAfter
+
+`func (o *NextPage) SetAfter(v string)`
+
+SetAfter sets After field to given value.
+
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -133,6 +133,7 @@ r, err := client.Service.Operation(auth, args)
 - **Flow**: accessCode
 - **Authorization URL**: https://app.hubspot.com/oauth/authorize
 - **Scopes**: 
+ - **cms.knowledge_base.settings.read**: View knowledge base settings
  - **cms.knowledge_base.settings.write**: Update knowledge base settings
  - **content**: Read from and write to my Content
 

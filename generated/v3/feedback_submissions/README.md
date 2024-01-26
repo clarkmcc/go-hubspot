@@ -78,17 +78,18 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*BasicApi* | [**Archive**](docs/BasicApi.md#archive) | **Delete** /crm/v3/objects/feedback_submissions/{feedbackSubmissionId} | Archive
-*BasicApi* | [**Create**](docs/BasicApi.md#create) | **Post** /crm/v3/objects/feedback_submissions | Create
-*BasicApi* | [**GetByID**](docs/BasicApi.md#getbyid) | **Get** /crm/v3/objects/feedback_submissions/{feedbackSubmissionId} | Read
-*BasicApi* | [**GetPage**](docs/BasicApi.md#getpage) | **Get** /crm/v3/objects/feedback_submissions | List
-*BasicApi* | [**Update**](docs/BasicApi.md#update) | **Patch** /crm/v3/objects/feedback_submissions/{feedbackSubmissionId} | Update
-*BatchApi* | [**BatchArchive**](docs/BatchApi.md#batcharchive) | **Post** /crm/v3/objects/feedback_submissions/batch/archive | Archive a batch of feedback submissions by ID
-*BatchApi* | [**BatchCreate**](docs/BatchApi.md#batchcreate) | **Post** /crm/v3/objects/feedback_submissions/batch/create | Create a batch of feedback submissions
-*BatchApi* | [**BatchRead**](docs/BatchApi.md#batchread) | **Post** /crm/v3/objects/feedback_submissions/batch/read | Read a batch of feedback submissions by internal ID, or unique property values
-*BatchApi* | [**BatchUpdate**](docs/BatchApi.md#batchupdate) | **Post** /crm/v3/objects/feedback_submissions/batch/update | Update a batch of feedback submissions
-*PublicObjectApi* | [**Merge**](docs/PublicObjectApi.md#merge) | **Post** /crm/v3/objects/feedback_submissions/merge | Merge two feedback submissions with same type
-*SearchApi* | [**Search**](docs/SearchApi.md#search) | **Post** /crm/v3/objects/feedback_submissions/search | 
+*BasicApi* | [**DeleteCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdArchive**](docs/BasicApi.md#deletecrmv3objectsfeedbacksubmissionsfeedbacksubmissionidarchive) | **Delete** /crm/v3/objects/feedback_submissions/{feedbackSubmissionId} | Archive
+*BasicApi* | [**GetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdGetById**](docs/BasicApi.md#getcrmv3objectsfeedbacksubmissionsfeedbacksubmissionidgetbyid) | **Get** /crm/v3/objects/feedback_submissions/{feedbackSubmissionId} | Read
+*BasicApi* | [**GetCrmV3ObjectsFeedbackSubmissionsGetPage**](docs/BasicApi.md#getcrmv3objectsfeedbacksubmissionsgetpage) | **Get** /crm/v3/objects/feedback_submissions | List
+*BasicApi* | [**PatchCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdUpdate**](docs/BasicApi.md#patchcrmv3objectsfeedbacksubmissionsfeedbacksubmissionidupdate) | **Patch** /crm/v3/objects/feedback_submissions/{feedbackSubmissionId} | Update
+*BasicApi* | [**PostCrmV3ObjectsFeedbackSubmissionsCreate**](docs/BasicApi.md#postcrmv3objectsfeedbacksubmissionscreate) | **Post** /crm/v3/objects/feedback_submissions | Create
+*BatchApi* | [**PostCrmV3ObjectsFeedbackSubmissionsBatchArchiveArchive**](docs/BatchApi.md#postcrmv3objectsfeedbacksubmissionsbatcharchivearchive) | **Post** /crm/v3/objects/feedback_submissions/batch/archive | Archive a batch of feedback submissions by ID
+*BatchApi* | [**PostCrmV3ObjectsFeedbackSubmissionsBatchCreateCreate**](docs/BatchApi.md#postcrmv3objectsfeedbacksubmissionsbatchcreatecreate) | **Post** /crm/v3/objects/feedback_submissions/batch/create | Create a batch of feedback submissions
+*BatchApi* | [**PostCrmV3ObjectsFeedbackSubmissionsBatchReadRead**](docs/BatchApi.md#postcrmv3objectsfeedbacksubmissionsbatchreadread) | **Post** /crm/v3/objects/feedback_submissions/batch/read | Read a batch of feedback submissions by internal ID, or unique property values
+*BatchApi* | [**PostCrmV3ObjectsFeedbackSubmissionsBatchUpdateUpdate**](docs/BatchApi.md#postcrmv3objectsfeedbacksubmissionsbatchupdateupdate) | **Post** /crm/v3/objects/feedback_submissions/batch/update | Update a batch of feedback submissions
+*GDPRApi* | [**PostCrmV3ObjectsFeedbackSubmissionsGdprDeletePurge**](docs/GDPRApi.md#postcrmv3objectsfeedbacksubmissionsgdprdeletepurge) | **Post** /crm/v3/objects/feedback_submissions/gdpr-delete | GDPR DELETE
+*PublicObjectApi* | [**PostCrmV3ObjectsFeedbackSubmissionsMergeMerge**](docs/PublicObjectApi.md#postcrmv3objectsfeedbacksubmissionsmergemerge) | **Post** /crm/v3/objects/feedback_submissions/merge | Merge two feedback submissions with same type
+*SearchApi* | [**PostCrmV3ObjectsFeedbackSubmissionsSearchDoSearch**](docs/SearchApi.md#postcrmv3objectsfeedbacksubmissionssearchdosearch) | **Post** /crm/v3/objects/feedback_submissions/search | 
 
 
 ## Documentation For Models
@@ -113,6 +114,7 @@ Class | Method | HTTP request | Description
  - [Paging](docs/Paging.md)
  - [PreviousPage](docs/PreviousPage.md)
  - [PublicAssociationsForObject](docs/PublicAssociationsForObject.md)
+ - [PublicGdprDeleteInput](docs/PublicGdprDeleteInput.md)
  - [PublicMergeInput](docs/PublicMergeInput.md)
  - [PublicObjectId](docs/PublicObjectId.md)
  - [PublicObjectSearchRequest](docs/PublicObjectSearchRequest.md)
@@ -137,8 +139,50 @@ Class | Method | HTTP request | Description
 - **Flow**: accessCode
 - **Authorization URL**: https://app.hubspot.com/oauth/authorize
 - **Scopes**: 
- - **crm.objects.contacts.read**:  
+ - **crm.objects.deals.read**:  
+ - **crm.objects.line_items.read**: Line Items
+ - **crm.objects.deals.write**:  
+ - **crm.objects.quotes.read**: Quotes
+ - **crm.objects.line_items.write**: Line Items
+ - **crm.objects.companies.read**:  
+ - **crm.objects.companies.write**:  
  - **crm.objects.contacts.write**:  
+ - **crm.objects.contacts.read**:  
+ - **crm.objects.quotes.write**: Quotes
+
+Example
+
+```golang
+auth := context.WithValue(context.Background(), sw.ContextAccessToken, "ACCESSTOKENSTRING")
+r, err := client.Service.Operation(auth, args)
+```
+
+Or via OAuth2 module to automatically refresh tokens and perform user authentication.
+
+```golang
+import "golang.org/x/oauth2"
+
+/* Perform OAuth2 round trip request and obtain a token */
+
+tokenSource := oauth2cfg.TokenSource(createContext(httpClient), &token)
+auth := context.WithValue(oauth2.NoContext, sw.ContextOAuth2, tokenSource)
+r, err := client.Service.Operation(auth, args)
+```
+
+
+### oauth2_legacy
+
+
+- **Type**: OAuth
+- **Flow**: accessCode
+- **Authorization URL**: https://app.hubspot.com/oauth/authorize
+- **Scopes**: 
+ - **media_bridge.read**: Read media and media events
+ - **crm.objects.goals.read**: Read goals
+ - **tickets**: Read and write tickets
+ - **crm.objects.custom.read**: View custom object records
+ - **e-commerce**: e-commerce
+ - **crm.objects.custom.write**: Change custom object records
 
 Example
 
@@ -167,6 +211,15 @@ r, err := client.Service.Operation(auth, args)
 - **Location**: HTTP header
 
 Note, each API key must be added to a map of `map[string]APIKey` where the key is: private-app and passed in as the auth context for each request.
+
+
+### private_apps_legacy
+
+- **Type**: API key
+- **API key parameter name**: private-app-legacy
+- **Location**: HTTP header
+
+Note, each API key must be added to a map of `map[string]APIKey` where the key is: private-app-legacy and passed in as the auth context for each request.
 
 
 ## Documentation for Utility Methods

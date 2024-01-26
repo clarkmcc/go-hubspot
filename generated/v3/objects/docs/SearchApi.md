@@ -28,7 +28,7 @@ import (
 
 func main() {
     objectType := "objectType_example" // string | 
-    publicObjectSearchRequest := *openapiclient.NewPublicObjectSearchRequest([]openapiclient.FilterGroup{*openapiclient.NewFilterGroup([]openapiclient.Filter{*openapiclient.NewFilter("PropertyName_example", "Operator_example")})}, []string{"Sorts_example"}, []string{"Properties_example"}, int32(123), int32(123)) // PublicObjectSearchRequest | 
+    publicObjectSearchRequest := *openapiclient.NewPublicObjectSearchRequest(int32(123), "After_example", []string{"Sorts_example"}, []string{"Properties_example"}, []openapiclient.FilterGroup{*openapiclient.NewFilterGroup([]openapiclient.Filter{*openapiclient.NewFilter("PropertyName_example", "Operator_example")})}) // PublicObjectSearchRequest | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)

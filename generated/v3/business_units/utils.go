@@ -1,5 +1,5 @@
 /*
-Business Unit
+Business Units
 
 Retrieve Business Unit information.
 

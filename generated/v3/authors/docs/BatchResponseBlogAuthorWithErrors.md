@@ -4,20 +4,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Status** | **string** | Status of batch operation. | 
-**Results** | [**[]BlogAuthor**](BlogAuthor.md) | Results of batch operation. | 
+**CompletedAt** | **time.Time** | Time of batch operation completion. | 
 **NumErrors** | Pointer to **int32** | Number of errors. | [optional] 
-**Errors** | Pointer to [**[]StandardError**](StandardError.md) | Errors in batch operation. | [optional] 
 **RequestedAt** | Pointer to **time.Time** | Time of batch operation request. | [optional] 
 **StartedAt** | **time.Time** | Time of batch operation start. | 
-**CompletedAt** | **time.Time** | Time of batch operation completion. | 
 **Links** | Pointer to **map[string]string** | Links associated with batch operation. | [optional] 
+**Results** | [**[]BlogAuthor**](BlogAuthor.md) | Results of batch operation. | 
+**Errors** | Pointer to [**[]StandardError**](StandardError.md) | Errors in batch operation. | [optional] 
+**Status** | **string** | Status of batch operation. | 
 
 ## Methods
 
 ### NewBatchResponseBlogAuthorWithErrors
 
-`func NewBatchResponseBlogAuthorWithErrors(status string, results []BlogAuthor, startedAt time.Time, completedAt time.Time, ) *BatchResponseBlogAuthorWithErrors`
+`func NewBatchResponseBlogAuthorWithErrors(completedAt time.Time, startedAt time.Time, results []BlogAuthor, status string, ) *BatchResponseBlogAuthorWithErrors`
 
 NewBatchResponseBlogAuthorWithErrors instantiates a new BatchResponseBlogAuthorWithErrors object
 This constructor will assign default values to properties that have it defined,
@@ -32,44 +32,24 @@ NewBatchResponseBlogAuthorWithErrorsWithDefaults instantiates a new BatchRespons
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetStatus
+### GetCompletedAt
 
-`func (o *BatchResponseBlogAuthorWithErrors) GetStatus() string`
+`func (o *BatchResponseBlogAuthorWithErrors) GetCompletedAt() time.Time`
 
-GetStatus returns the Status field if non-nil, zero value otherwise.
+GetCompletedAt returns the CompletedAt field if non-nil, zero value otherwise.
 
-### GetStatusOk
+### GetCompletedAtOk
 
-`func (o *BatchResponseBlogAuthorWithErrors) GetStatusOk() (*string, bool)`
+`func (o *BatchResponseBlogAuthorWithErrors) GetCompletedAtOk() (*time.Time, bool)`
 
-GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
+GetCompletedAtOk returns a tuple with the CompletedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetStatus
+### SetCompletedAt
 
-`func (o *BatchResponseBlogAuthorWithErrors) SetStatus(v string)`
+`func (o *BatchResponseBlogAuthorWithErrors) SetCompletedAt(v time.Time)`
 
-SetStatus sets Status field to given value.
-
-
-### GetResults
-
-`func (o *BatchResponseBlogAuthorWithErrors) GetResults() []BlogAuthor`
-
-GetResults returns the Results field if non-nil, zero value otherwise.
-
-### GetResultsOk
-
-`func (o *BatchResponseBlogAuthorWithErrors) GetResultsOk() (*[]BlogAuthor, bool)`
-
-GetResultsOk returns a tuple with the Results field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetResults
-
-`func (o *BatchResponseBlogAuthorWithErrors) SetResults(v []BlogAuthor)`
-
-SetResults sets Results field to given value.
+SetCompletedAt sets CompletedAt field to given value.
 
 
 ### GetNumErrors
@@ -96,31 +76,6 @@ SetNumErrors sets NumErrors field to given value.
 `func (o *BatchResponseBlogAuthorWithErrors) HasNumErrors() bool`
 
 HasNumErrors returns a boolean if a field has been set.
-
-### GetErrors
-
-`func (o *BatchResponseBlogAuthorWithErrors) GetErrors() []StandardError`
-
-GetErrors returns the Errors field if non-nil, zero value otherwise.
-
-### GetErrorsOk
-
-`func (o *BatchResponseBlogAuthorWithErrors) GetErrorsOk() (*[]StandardError, bool)`
-
-GetErrorsOk returns a tuple with the Errors field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetErrors
-
-`func (o *BatchResponseBlogAuthorWithErrors) SetErrors(v []StandardError)`
-
-SetErrors sets Errors field to given value.
-
-### HasErrors
-
-`func (o *BatchResponseBlogAuthorWithErrors) HasErrors() bool`
-
-HasErrors returns a boolean if a field has been set.
 
 ### GetRequestedAt
 
@@ -167,26 +122,6 @@ and a boolean to check if the value has been set.
 SetStartedAt sets StartedAt field to given value.
 
 
-### GetCompletedAt
-
-`func (o *BatchResponseBlogAuthorWithErrors) GetCompletedAt() time.Time`
-
-GetCompletedAt returns the CompletedAt field if non-nil, zero value otherwise.
-
-### GetCompletedAtOk
-
-`func (o *BatchResponseBlogAuthorWithErrors) GetCompletedAtOk() (*time.Time, bool)`
-
-GetCompletedAtOk returns a tuple with the CompletedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCompletedAt
-
-`func (o *BatchResponseBlogAuthorWithErrors) SetCompletedAt(v time.Time)`
-
-SetCompletedAt sets CompletedAt field to given value.
-
-
 ### GetLinks
 
 `func (o *BatchResponseBlogAuthorWithErrors) GetLinks() map[string]string`
@@ -211,6 +146,71 @@ SetLinks sets Links field to given value.
 `func (o *BatchResponseBlogAuthorWithErrors) HasLinks() bool`
 
 HasLinks returns a boolean if a field has been set.
+
+### GetResults
+
+`func (o *BatchResponseBlogAuthorWithErrors) GetResults() []BlogAuthor`
+
+GetResults returns the Results field if non-nil, zero value otherwise.
+
+### GetResultsOk
+
+`func (o *BatchResponseBlogAuthorWithErrors) GetResultsOk() (*[]BlogAuthor, bool)`
+
+GetResultsOk returns a tuple with the Results field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetResults
+
+`func (o *BatchResponseBlogAuthorWithErrors) SetResults(v []BlogAuthor)`
+
+SetResults sets Results field to given value.
+
+
+### GetErrors
+
+`func (o *BatchResponseBlogAuthorWithErrors) GetErrors() []StandardError`
+
+GetErrors returns the Errors field if non-nil, zero value otherwise.
+
+### GetErrorsOk
+
+`func (o *BatchResponseBlogAuthorWithErrors) GetErrorsOk() (*[]StandardError, bool)`
+
+GetErrorsOk returns a tuple with the Errors field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetErrors
+
+`func (o *BatchResponseBlogAuthorWithErrors) SetErrors(v []StandardError)`
+
+SetErrors sets Errors field to given value.
+
+### HasErrors
+
+`func (o *BatchResponseBlogAuthorWithErrors) HasErrors() bool`
+
+HasErrors returns a boolean if a field has been set.
+
+### GetStatus
+
+`func (o *BatchResponseBlogAuthorWithErrors) GetStatus() string`
+
+GetStatus returns the Status field if non-nil, zero value otherwise.
+
+### GetStatusOk
+
+`func (o *BatchResponseBlogAuthorWithErrors) GetStatusOk() (*string, bool)`
+
+GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStatus
+
+`func (o *BatchResponseBlogAuthorWithErrors) SetStatus(v string)`
+
+SetStatus sets Status field to given value.
+
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

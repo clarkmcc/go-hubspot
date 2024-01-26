@@ -1,5 +1,5 @@
 /*
-HubDB endpoints
+Hubdb
 
 HubDB is a relational data store that presents data as rows, columns, and cells in a table, much like a spreadsheet. HubDB tables can be added or modified [in the HubSpot CMS](https://knowledge.hubspot.com/cos-general/how-to-edit-hubdb-tables), but you can also use the API endpoints documented here. For more information on HubDB tables and using their data on a HubSpot site, see the [CMS developers site](https://designers.hubspot.com/docs/tools/hubdb). You can also see the [documentation for dynamic pages](https://designers.hubspot.com/docs/tutorials/how-to-build-dynamic-pages-with-hubdb) for more details about the `useForPages` field.  HubDB tables support `draft` and `published` versions. This allows you to update data in the table, either for testing or to allow for a manual approval process, without affecting any live pages using the existing data. Draft data can be reviewed, and published by a user working in HubSpot or published via the API. Draft data can also be discarded, allowing users to go back to the published version of the data without disrupting it. If a table is set to be `allowed for public access`, you can access the published version of the table and rows without any authentication by specifying the portal id via the query parameter `portalId`.
 
@@ -18,15 +18,15 @@ import (
 type HubDbTableRowV3BatchUpdateRequest struct {
 	// Specifies the value for `hs_path` column, which will be used as slug in the dynamic pages
 	Path *string `json:"path,omitempty"`
-	// Specifies the value for `hs_name` column, which will be used as title in the dynamic pages
-	Name *string `json:"name,omitempty"`
 	// Specifies the value for the column child table id
 	ChildTableId *int32 `json:"childTableId,omitempty"`
 	// List of key value pairs with the column name and column value
-	Values       map[string]map[string]interface{} `json:"values"`
-	DisplayIndex *int32                            `json:"displayIndex,omitempty"`
+	Values map[string]map[string]interface{} `json:"values"`
+	// Specifies the value for `hs_name` column, which will be used as title in the dynamic pages
+	Name *string `json:"name,omitempty"`
 	// The id of the table row
-	Id string `json:"id"`
+	Id           string `json:"id"`
+	DisplayIndex *int32 `json:"displayIndex,omitempty"`
 }
 
 // NewHubDbTableRowV3BatchUpdateRequest instantiates a new HubDbTableRowV3BatchUpdateRequest object
@@ -78,38 +78,6 @@ func (o *HubDbTableRowV3BatchUpdateRequest) HasPath() bool {
 // SetPath gets a reference to the given string and assigns it to the Path field.
 func (o *HubDbTableRowV3BatchUpdateRequest) SetPath(v string) {
 	o.Path = &v
-}
-
-// GetName returns the Name field value if set, zero value otherwise.
-func (o *HubDbTableRowV3BatchUpdateRequest) GetName() string {
-	if o == nil || o.Name == nil {
-		var ret string
-		return ret
-	}
-	return *o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *HubDbTableRowV3BatchUpdateRequest) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
-		return nil, false
-	}
-	return o.Name, true
-}
-
-// HasName returns a boolean if a field has been set.
-func (o *HubDbTableRowV3BatchUpdateRequest) HasName() bool {
-	if o != nil && o.Name != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
-func (o *HubDbTableRowV3BatchUpdateRequest) SetName(v string) {
-	o.Name = &v
 }
 
 // GetChildTableId returns the ChildTableId field value if set, zero value otherwise.
@@ -168,6 +136,62 @@ func (o *HubDbTableRowV3BatchUpdateRequest) SetValues(v map[string]map[string]in
 	o.Values = v
 }
 
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *HubDbTableRowV3BatchUpdateRequest) GetName() string {
+	if o == nil || o.Name == nil {
+		var ret string
+		return ret
+	}
+	return *o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *HubDbTableRowV3BatchUpdateRequest) GetNameOk() (*string, bool) {
+	if o == nil || o.Name == nil {
+		return nil, false
+	}
+	return o.Name, true
+}
+
+// HasName returns a boolean if a field has been set.
+func (o *HubDbTableRowV3BatchUpdateRequest) HasName() bool {
+	if o != nil && o.Name != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *HubDbTableRowV3BatchUpdateRequest) SetName(v string) {
+	o.Name = &v
+}
+
+// GetId returns the Id field value
+func (o *HubDbTableRowV3BatchUpdateRequest) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *HubDbTableRowV3BatchUpdateRequest) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *HubDbTableRowV3BatchUpdateRequest) SetId(v string) {
+	o.Id = v
+}
+
 // GetDisplayIndex returns the DisplayIndex field value if set, zero value otherwise.
 func (o *HubDbTableRowV3BatchUpdateRequest) GetDisplayIndex() int32 {
 	if o == nil || o.DisplayIndex == nil {
@@ -200,37 +224,10 @@ func (o *HubDbTableRowV3BatchUpdateRequest) SetDisplayIndex(v int32) {
 	o.DisplayIndex = &v
 }
 
-// GetId returns the Id field value
-func (o *HubDbTableRowV3BatchUpdateRequest) GetId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Id
-}
-
-// GetIdOk returns a tuple with the Id field value
-// and a boolean to check if the value has been set.
-func (o *HubDbTableRowV3BatchUpdateRequest) GetIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Id, true
-}
-
-// SetId sets field value
-func (o *HubDbTableRowV3BatchUpdateRequest) SetId(v string) {
-	o.Id = v
-}
-
 func (o HubDbTableRowV3BatchUpdateRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Path != nil {
 		toSerialize["path"] = o.Path
-	}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
 	}
 	if o.ChildTableId != nil {
 		toSerialize["childTableId"] = o.ChildTableId
@@ -238,11 +235,14 @@ func (o HubDbTableRowV3BatchUpdateRequest) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["values"] = o.Values
 	}
-	if o.DisplayIndex != nil {
-		toSerialize["displayIndex"] = o.DisplayIndex
+	if o.Name != nil {
+		toSerialize["name"] = o.Name
 	}
 	if true {
 		toSerialize["id"] = o.Id
+	}
+	if o.DisplayIndex != nil {
+		toSerialize["displayIndex"] = o.DisplayIndex
 	}
 	return json.Marshal(toSerialize)
 }

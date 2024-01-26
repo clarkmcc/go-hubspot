@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**PrimaryObjectId** | **string** |  | 
 **ObjectIdToMerge** | **string** |  | 
+**PrimaryObjectId** | **string** |  | 
 
 ## Methods
 
 ### NewPublicMergeInput
 
-`func NewPublicMergeInput(primaryObjectId string, objectIdToMerge string, ) *PublicMergeInput`
+`func NewPublicMergeInput(objectIdToMerge string, primaryObjectId string, ) *PublicMergeInput`
 
 NewPublicMergeInput instantiates a new PublicMergeInput object
 This constructor will assign default values to properties that have it defined,
@@ -25,26 +25,6 @@ will change when the set of required properties is changed
 NewPublicMergeInputWithDefaults instantiates a new PublicMergeInput object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetPrimaryObjectId
-
-`func (o *PublicMergeInput) GetPrimaryObjectId() string`
-
-GetPrimaryObjectId returns the PrimaryObjectId field if non-nil, zero value otherwise.
-
-### GetPrimaryObjectIdOk
-
-`func (o *PublicMergeInput) GetPrimaryObjectIdOk() (*string, bool)`
-
-GetPrimaryObjectIdOk returns a tuple with the PrimaryObjectId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPrimaryObjectId
-
-`func (o *PublicMergeInput) SetPrimaryObjectId(v string)`
-
-SetPrimaryObjectId sets PrimaryObjectId field to given value.
-
 
 ### GetObjectIdToMerge
 
@@ -64,6 +44,26 @@ and a boolean to check if the value has been set.
 `func (o *PublicMergeInput) SetObjectIdToMerge(v string)`
 
 SetObjectIdToMerge sets ObjectIdToMerge field to given value.
+
+
+### GetPrimaryObjectId
+
+`func (o *PublicMergeInput) GetPrimaryObjectId() string`
+
+GetPrimaryObjectId returns the PrimaryObjectId field if non-nil, zero value otherwise.
+
+### GetPrimaryObjectIdOk
+
+`func (o *PublicMergeInput) GetPrimaryObjectIdOk() (*string, bool)`
+
+GetPrimaryObjectIdOk returns a tuple with the PrimaryObjectId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPrimaryObjectId
+
+`func (o *PublicMergeInput) SetPrimaryObjectId(v string)`
+
+SetPrimaryObjectId sets PrimaryObjectId field to given value.
 
 
 

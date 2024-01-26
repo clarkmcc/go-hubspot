@@ -1,5 +1,5 @@
 /*
-CRM Pipelines
+Pipelines
 
 Pipelines represent distinct stages in a workflow, like closing a deal or servicing a support ticket. These endpoints provide access to read and modify pipelines in HubSpot. Pipelines support `deals` and `tickets` object types.  ## Pipeline ID validation  When calling endpoints that take pipelineId as a parameter, that ID must correspond to an existing, un-archived pipeline. Otherwise the request will fail with a `404 Not Found` response.
 
@@ -17,23 +17,23 @@ import (
 
 // PublicAuditInfo struct for PublicAuditInfo
 type PublicAuditInfo struct {
-	PortalId   int32                  `json:"portalId"`
 	Identifier string                 `json:"identifier"`
-	Action     string                 `json:"action"`
-	Timestamp  *time.Time             `json:"timestamp,omitempty"`
-	Message    *string                `json:"message,omitempty"`
 	RawObject  map[string]interface{} `json:"rawObject,omitempty"`
 	FromUserId *int32                 `json:"fromUserId,omitempty"`
+	PortalId   int32                  `json:"portalId"`
+	Action     string                 `json:"action"`
+	Message    *string                `json:"message,omitempty"`
+	Timestamp  *time.Time             `json:"timestamp,omitempty"`
 }
 
 // NewPublicAuditInfo instantiates a new PublicAuditInfo object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPublicAuditInfo(portalId int32, identifier string, action string) *PublicAuditInfo {
+func NewPublicAuditInfo(identifier string, portalId int32, action string) *PublicAuditInfo {
 	this := PublicAuditInfo{}
-	this.PortalId = portalId
 	this.Identifier = identifier
+	this.PortalId = portalId
 	this.Action = action
 	return &this
 }
@@ -44,30 +44,6 @@ func NewPublicAuditInfo(portalId int32, identifier string, action string) *Publi
 func NewPublicAuditInfoWithDefaults() *PublicAuditInfo {
 	this := PublicAuditInfo{}
 	return &this
-}
-
-// GetPortalId returns the PortalId field value
-func (o *PublicAuditInfo) GetPortalId() int32 {
-	if o == nil {
-		var ret int32
-		return ret
-	}
-
-	return o.PortalId
-}
-
-// GetPortalIdOk returns a tuple with the PortalId field value
-// and a boolean to check if the value has been set.
-func (o *PublicAuditInfo) GetPortalIdOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.PortalId, true
-}
-
-// SetPortalId sets field value
-func (o *PublicAuditInfo) SetPortalId(v int32) {
-	o.PortalId = v
 }
 
 // GetIdentifier returns the Identifier field value
@@ -92,94 +68,6 @@ func (o *PublicAuditInfo) GetIdentifierOk() (*string, bool) {
 // SetIdentifier sets field value
 func (o *PublicAuditInfo) SetIdentifier(v string) {
 	o.Identifier = v
-}
-
-// GetAction returns the Action field value
-func (o *PublicAuditInfo) GetAction() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Action
-}
-
-// GetActionOk returns a tuple with the Action field value
-// and a boolean to check if the value has been set.
-func (o *PublicAuditInfo) GetActionOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Action, true
-}
-
-// SetAction sets field value
-func (o *PublicAuditInfo) SetAction(v string) {
-	o.Action = v
-}
-
-// GetTimestamp returns the Timestamp field value if set, zero value otherwise.
-func (o *PublicAuditInfo) GetTimestamp() time.Time {
-	if o == nil || o.Timestamp == nil {
-		var ret time.Time
-		return ret
-	}
-	return *o.Timestamp
-}
-
-// GetTimestampOk returns a tuple with the Timestamp field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PublicAuditInfo) GetTimestampOk() (*time.Time, bool) {
-	if o == nil || o.Timestamp == nil {
-		return nil, false
-	}
-	return o.Timestamp, true
-}
-
-// HasTimestamp returns a boolean if a field has been set.
-func (o *PublicAuditInfo) HasTimestamp() bool {
-	if o != nil && o.Timestamp != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTimestamp gets a reference to the given time.Time and assigns it to the Timestamp field.
-func (o *PublicAuditInfo) SetTimestamp(v time.Time) {
-	o.Timestamp = &v
-}
-
-// GetMessage returns the Message field value if set, zero value otherwise.
-func (o *PublicAuditInfo) GetMessage() string {
-	if o == nil || o.Message == nil {
-		var ret string
-		return ret
-	}
-	return *o.Message
-}
-
-// GetMessageOk returns a tuple with the Message field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PublicAuditInfo) GetMessageOk() (*string, bool) {
-	if o == nil || o.Message == nil {
-		return nil, false
-	}
-	return o.Message, true
-}
-
-// HasMessage returns a boolean if a field has been set.
-func (o *PublicAuditInfo) HasMessage() bool {
-	if o != nil && o.Message != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetMessage gets a reference to the given string and assigns it to the Message field.
-func (o *PublicAuditInfo) SetMessage(v string) {
-	o.Message = &v
 }
 
 // GetRawObject returns the RawObject field value if set, zero value otherwise.
@@ -246,28 +134,140 @@ func (o *PublicAuditInfo) SetFromUserId(v int32) {
 	o.FromUserId = &v
 }
 
+// GetPortalId returns the PortalId field value
+func (o *PublicAuditInfo) GetPortalId() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.PortalId
+}
+
+// GetPortalIdOk returns a tuple with the PortalId field value
+// and a boolean to check if the value has been set.
+func (o *PublicAuditInfo) GetPortalIdOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PortalId, true
+}
+
+// SetPortalId sets field value
+func (o *PublicAuditInfo) SetPortalId(v int32) {
+	o.PortalId = v
+}
+
+// GetAction returns the Action field value
+func (o *PublicAuditInfo) GetAction() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Action
+}
+
+// GetActionOk returns a tuple with the Action field value
+// and a boolean to check if the value has been set.
+func (o *PublicAuditInfo) GetActionOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Action, true
+}
+
+// SetAction sets field value
+func (o *PublicAuditInfo) SetAction(v string) {
+	o.Action = v
+}
+
+// GetMessage returns the Message field value if set, zero value otherwise.
+func (o *PublicAuditInfo) GetMessage() string {
+	if o == nil || o.Message == nil {
+		var ret string
+		return ret
+	}
+	return *o.Message
+}
+
+// GetMessageOk returns a tuple with the Message field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PublicAuditInfo) GetMessageOk() (*string, bool) {
+	if o == nil || o.Message == nil {
+		return nil, false
+	}
+	return o.Message, true
+}
+
+// HasMessage returns a boolean if a field has been set.
+func (o *PublicAuditInfo) HasMessage() bool {
+	if o != nil && o.Message != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMessage gets a reference to the given string and assigns it to the Message field.
+func (o *PublicAuditInfo) SetMessage(v string) {
+	o.Message = &v
+}
+
+// GetTimestamp returns the Timestamp field value if set, zero value otherwise.
+func (o *PublicAuditInfo) GetTimestamp() time.Time {
+	if o == nil || o.Timestamp == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.Timestamp
+}
+
+// GetTimestampOk returns a tuple with the Timestamp field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PublicAuditInfo) GetTimestampOk() (*time.Time, bool) {
+	if o == nil || o.Timestamp == nil {
+		return nil, false
+	}
+	return o.Timestamp, true
+}
+
+// HasTimestamp returns a boolean if a field has been set.
+func (o *PublicAuditInfo) HasTimestamp() bool {
+	if o != nil && o.Timestamp != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTimestamp gets a reference to the given time.Time and assigns it to the Timestamp field.
+func (o *PublicAuditInfo) SetTimestamp(v time.Time) {
+	o.Timestamp = &v
+}
+
 func (o PublicAuditInfo) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["portalId"] = o.PortalId
-	}
-	if true {
 		toSerialize["identifier"] = o.Identifier
-	}
-	if true {
-		toSerialize["action"] = o.Action
-	}
-	if o.Timestamp != nil {
-		toSerialize["timestamp"] = o.Timestamp
-	}
-	if o.Message != nil {
-		toSerialize["message"] = o.Message
 	}
 	if o.RawObject != nil {
 		toSerialize["rawObject"] = o.RawObject
 	}
 	if o.FromUserId != nil {
 		toSerialize["fromUserId"] = o.FromUserId
+	}
+	if true {
+		toSerialize["portalId"] = o.PortalId
+	}
+	if true {
+		toSerialize["action"] = o.Action
+	}
+	if o.Message != nil {
+		toSerialize["message"] = o.Message
+	}
+	if o.Timestamp != nil {
+		toSerialize["timestamp"] = o.Timestamp
 	}
 	return json.Marshal(toSerialize)
 }

@@ -1,5 +1,5 @@
 /*
-Webhooks API
+Webhooks Webhooks
 
 Provides a way for apps to subscribe to certain change events in HubSpot. Once configured, apps will receive event payloads containing details about the changes at a specified target URL. There can only be one target URL for receiving event notifications per app.
 
@@ -16,19 +16,19 @@ import (
 
 // SettingsChangeRequest New or updated webhook settings for an app.
 type SettingsChangeRequest struct {
-	// A publicly available URL for Hubspot to call where event payloads will be delivered. See [link-so-some-doc](#) for details about the format of these event payloads.
-	TargetUrl  string             `json:"targetUrl"`
 	Throttling ThrottlingSettings `json:"throttling"`
+	// A publicly available URL for Hubspot to call where event payloads will be delivered. See [link-so-some-doc](#) for details about the format of these event payloads.
+	TargetUrl string `json:"targetUrl"`
 }
 
 // NewSettingsChangeRequest instantiates a new SettingsChangeRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSettingsChangeRequest(targetUrl string, throttling ThrottlingSettings) *SettingsChangeRequest {
+func NewSettingsChangeRequest(throttling ThrottlingSettings, targetUrl string) *SettingsChangeRequest {
 	this := SettingsChangeRequest{}
-	this.TargetUrl = targetUrl
 	this.Throttling = throttling
+	this.TargetUrl = targetUrl
 	return &this
 }
 
@@ -38,30 +38,6 @@ func NewSettingsChangeRequest(targetUrl string, throttling ThrottlingSettings) *
 func NewSettingsChangeRequestWithDefaults() *SettingsChangeRequest {
 	this := SettingsChangeRequest{}
 	return &this
-}
-
-// GetTargetUrl returns the TargetUrl field value
-func (o *SettingsChangeRequest) GetTargetUrl() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.TargetUrl
-}
-
-// GetTargetUrlOk returns a tuple with the TargetUrl field value
-// and a boolean to check if the value has been set.
-func (o *SettingsChangeRequest) GetTargetUrlOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.TargetUrl, true
-}
-
-// SetTargetUrl sets field value
-func (o *SettingsChangeRequest) SetTargetUrl(v string) {
-	o.TargetUrl = v
 }
 
 // GetThrottling returns the Throttling field value
@@ -88,13 +64,37 @@ func (o *SettingsChangeRequest) SetThrottling(v ThrottlingSettings) {
 	o.Throttling = v
 }
 
+// GetTargetUrl returns the TargetUrl field value
+func (o *SettingsChangeRequest) GetTargetUrl() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.TargetUrl
+}
+
+// GetTargetUrlOk returns a tuple with the TargetUrl field value
+// and a boolean to check if the value has been set.
+func (o *SettingsChangeRequest) GetTargetUrlOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.TargetUrl, true
+}
+
+// SetTargetUrl sets field value
+func (o *SettingsChangeRequest) SetTargetUrl(v string) {
+	o.TargetUrl = v
+}
+
 func (o SettingsChangeRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["targetUrl"] = o.TargetUrl
+		toSerialize["throttling"] = o.Throttling
 	}
 	if true {
-		toSerialize["throttling"] = o.Throttling
+		toSerialize["targetUrl"] = o.TargetUrl
 	}
 	return json.Marshal(toSerialize)
 }

@@ -110,7 +110,7 @@ import (
 func main() {
     objectType := "objectType_example" // string | 
     pipelineId := "pipelineId_example" // string | 
-    pipelineStageInput := *openapiclient.NewPipelineStageInput("Label_example", int32(123), map[string]string{"key": "Inner_example"}) // PipelineStageInput | 
+    pipelineStageInput := *openapiclient.NewPipelineStageInput(map[string]string{"key": "Inner_example"}, int32(1), "Done") // PipelineStageInput | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -335,7 +335,7 @@ func main() {
     objectType := "objectType_example" // string | 
     pipelineId := "pipelineId_example" // string | 
     stageId := "stageId_example" // string | 
-    pipelineStageInput := *openapiclient.NewPipelineStageInput("Label_example", int32(123), map[string]string{"key": "Inner_example"}) // PipelineStageInput | 
+    pipelineStageInput := *openapiclient.NewPipelineStageInput(map[string]string{"key": "Inner_example"}, int32(1), "Done") // PipelineStageInput | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)

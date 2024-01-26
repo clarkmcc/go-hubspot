@@ -4,13 +4,13 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FunctionsArchive**](FunctionsApi.md#FunctionsArchive) | **Delete** /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId} | Delete a custom action function
-[**FunctionsArchiveByType**](FunctionsApi.md#FunctionsArchiveByType) | **Delete** /automation/v4/actions/{appId}/{definitionId}/functions/{functionType} | Delete a custom action function
-[**FunctionsCreateOrReplace**](FunctionsApi.md#FunctionsCreateOrReplace) | **Put** /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId} | Create or replace a custom action function
-[**FunctionsCreateOrReplaceByType**](FunctionsApi.md#FunctionsCreateOrReplaceByType) | **Put** /automation/v4/actions/{appId}/{definitionId}/functions/{functionType} | Create or replace a custom action function
-[**FunctionsGetByID**](FunctionsApi.md#FunctionsGetByID) | **Get** /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId} | Get a custom action function
-[**FunctionsGetByType**](FunctionsApi.md#FunctionsGetByType) | **Get** /automation/v4/actions/{appId}/{definitionId}/functions/{functionType} | Get a custom action function
-[**FunctionsGetPage**](FunctionsApi.md#FunctionsGetPage) | **Get** /automation/v4/actions/{appId}/{definitionId}/functions | Get all custom action functions
+[**FunctionsArchive**](FunctionsApi.md#FunctionsArchive) | **Delete** /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId} | Archive a function for a definition
+[**FunctionsArchiveByType**](FunctionsApi.md#FunctionsArchiveByType) | **Delete** /automation/v4/actions/{appId}/{definitionId}/functions/{functionType} | Delete a function for a definition
+[**FunctionsCreateOrReplace**](FunctionsApi.md#FunctionsCreateOrReplace) | **Put** /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId} | Insert a function for a definition
+[**FunctionsCreateOrReplaceByType**](FunctionsApi.md#FunctionsCreateOrReplaceByType) | **Put** /automation/v4/actions/{appId}/{definitionId}/functions/{functionType} | Insert a function for a definition
+[**FunctionsGetByID**](FunctionsApi.md#FunctionsGetByID) | **Get** /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId} | Get a function for a given definition
+[**FunctionsGetByType**](FunctionsApi.md#FunctionsGetByType) | **Get** /automation/v4/actions/{appId}/{definitionId}/functions/{functionType} | Get all functions by a type for a given definition
+[**FunctionsGetPage**](FunctionsApi.md#FunctionsGetPage) | **Get** /automation/v4/actions/{appId}/{definitionId}/functions | Get all functions for a given definition
 
 
 
@@ -18,9 +18,7 @@ Method | HTTP request | Description
 
 > FunctionsArchive(ctx, definitionId, functionType, functionId, appId).Execute()
 
-Delete a custom action function
-
-
+Archive a function for a definition
 
 ### Example
 
@@ -35,9 +33,9 @@ import (
 )
 
 func main() {
-    definitionId := "definitionId_example" // string | The ID of the custom workflow action
-    functionType := "functionType_example" // string | The type of function. This determines when the function will be called.
-    functionId := "functionId_example" // string | The ID qualifier for the function. This is used to specify which input field a function is associated with for `PRE_FETCH_OPTIONS` and `POST_FETCH_OPTIONS` function types.
+    definitionId := "definitionId_example" // string | 
+    functionType := "functionType_example" // string | 
+    functionId := "functionId_example" // string | 
     appId := int32(56) // int32 | 
 
     configuration := openapiclient.NewConfiguration()
@@ -56,9 +54,9 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**definitionId** | **string** | The ID of the custom workflow action | 
-**functionType** | **string** | The type of function. This determines when the function will be called. | 
-**functionId** | **string** | The ID qualifier for the function. This is used to specify which input field a function is associated with for &#x60;PRE_FETCH_OPTIONS&#x60; and &#x60;POST_FETCH_OPTIONS&#x60; function types. | 
+**definitionId** | **string** |  | 
+**functionType** | **string** |  | 
+**functionId** | **string** |  | 
 **appId** | **int32** |  | 
 
 ### Other Parameters
@@ -79,7 +77,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[developer_hapikey](../README.md#developer_hapikey)
+No authorization required
 
 ### HTTP request headers
 
@@ -95,9 +93,7 @@ Name | Type | Description  | Notes
 
 > FunctionsArchiveByType(ctx, definitionId, functionType, appId).Execute()
 
-Delete a custom action function
-
-
+Delete a function for a definition
 
 ### Example
 
@@ -112,8 +108,8 @@ import (
 )
 
 func main() {
-    definitionId := "definitionId_example" // string | The ID of the custom workflow action.
-    functionType := "functionType_example" // string | The type of function. This determines when the function will be called.
+    definitionId := "definitionId_example" // string | 
+    functionType := "functionType_example" // string | 
     appId := int32(56) // int32 | 
 
     configuration := openapiclient.NewConfiguration()
@@ -132,8 +128,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**definitionId** | **string** | The ID of the custom workflow action. | 
-**functionType** | **string** | The type of function. This determines when the function will be called. | 
+**definitionId** | **string** |  | 
+**functionType** | **string** |  | 
 **appId** | **int32** |  | 
 
 ### Other Parameters
@@ -153,7 +149,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[developer_hapikey](../README.md#developer_hapikey)
+No authorization required
 
 ### HTTP request headers
 
@@ -167,11 +163,9 @@ Name | Type | Description  | Notes
 
 ## FunctionsCreateOrReplace
 
-> ActionFunctionIdentifier FunctionsCreateOrReplace(ctx, definitionId, functionType, functionId, appId).Body(body).Execute()
+> PublicActionFunctionIdentifier FunctionsCreateOrReplace(ctx, definitionId, functionType, functionId, appId).Body(body).Execute()
 
-Create or replace a custom action function
-
-
+Insert a function for a definition
 
 ### Example
 
@@ -186,11 +180,11 @@ import (
 )
 
 func main() {
-    definitionId := "definitionId_example" // string | The ID of the custom workflow action.
-    functionType := "functionType_example" // string | The type of function. This determines when the function will be called.
-    functionId := "functionId_example" // string | The ID qualifier for the function. This is used to specify which input field a function is associated with for `PRE_FETCH_OPTIONS` and `POST_FETCH_OPTIONS` function types.
+    definitionId := "definitionId_example" // string | 
+    functionType := "functionType_example" // string | 
+    functionId := "functionId_example" // string | 
     appId := int32(56) // int32 | 
-    body := "body_example" // string | The function source code. Must be valid JavaScript code.
+    body := "body_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -199,7 +193,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `FunctionsApi.FunctionsCreateOrReplace``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `FunctionsCreateOrReplace`: ActionFunctionIdentifier
+    // response from `FunctionsCreateOrReplace`: PublicActionFunctionIdentifier
     fmt.Fprintf(os.Stdout, "Response from `FunctionsApi.FunctionsCreateOrReplace`: %v\n", resp)
 }
 ```
@@ -210,9 +204,9 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**definitionId** | **string** | The ID of the custom workflow action. | 
-**functionType** | **string** | The type of function. This determines when the function will be called. | 
-**functionId** | **string** | The ID qualifier for the function. This is used to specify which input field a function is associated with for &#x60;PRE_FETCH_OPTIONS&#x60; and &#x60;POST_FETCH_OPTIONS&#x60; function types. | 
+**definitionId** | **string** |  | 
+**functionType** | **string** |  | 
+**functionId** | **string** |  | 
 **appId** | **int32** |  | 
 
 ### Other Parameters
@@ -226,15 +220,15 @@ Name | Type | Description  | Notes
 
 
 
- **body** | **string** | The function source code. Must be valid JavaScript code. | 
+ **body** | **string** |  | 
 
 ### Return type
 
-[**ActionFunctionIdentifier**](ActionFunctionIdentifier.md)
+[**PublicActionFunctionIdentifier**](PublicActionFunctionIdentifier.md)
 
 ### Authorization
 
-[developer_hapikey](../README.md#developer_hapikey)
+No authorization required
 
 ### HTTP request headers
 
@@ -248,11 +242,9 @@ Name | Type | Description  | Notes
 
 ## FunctionsCreateOrReplaceByType
 
-> ActionFunctionIdentifier FunctionsCreateOrReplaceByType(ctx, definitionId, functionType, appId).Body(body).Execute()
+> PublicActionFunctionIdentifier FunctionsCreateOrReplaceByType(ctx, definitionId, functionType, appId).Body(body).Execute()
 
-Create or replace a custom action function
-
-
+Insert a function for a definition
 
 ### Example
 
@@ -267,10 +259,10 @@ import (
 )
 
 func main() {
-    definitionId := "definitionId_example" // string | The ID of the custom workflow action.
-    functionType := "functionType_example" // string | The type of function. This determines when the function will be called.
+    definitionId := "definitionId_example" // string | 
+    functionType := "functionType_example" // string | 
     appId := int32(56) // int32 | 
-    body := "body_example" // string | The function source code. Must be valid JavaScript code.
+    body := "body_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -279,7 +271,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `FunctionsApi.FunctionsCreateOrReplaceByType``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `FunctionsCreateOrReplaceByType`: ActionFunctionIdentifier
+    // response from `FunctionsCreateOrReplaceByType`: PublicActionFunctionIdentifier
     fmt.Fprintf(os.Stdout, "Response from `FunctionsApi.FunctionsCreateOrReplaceByType`: %v\n", resp)
 }
 ```
@@ -290,8 +282,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**definitionId** | **string** | The ID of the custom workflow action. | 
-**functionType** | **string** | The type of function. This determines when the function will be called. | 
+**definitionId** | **string** |  | 
+**functionType** | **string** |  | 
 **appId** | **int32** |  | 
 
 ### Other Parameters
@@ -304,15 +296,15 @@ Name | Type | Description  | Notes
 
 
 
- **body** | **string** | The function source code. Must be valid JavaScript code. | 
+ **body** | **string** |  | 
 
 ### Return type
 
-[**ActionFunctionIdentifier**](ActionFunctionIdentifier.md)
+[**PublicActionFunctionIdentifier**](PublicActionFunctionIdentifier.md)
 
 ### Authorization
 
-[developer_hapikey](../README.md#developer_hapikey)
+No authorization required
 
 ### HTTP request headers
 
@@ -326,11 +318,9 @@ Name | Type | Description  | Notes
 
 ## FunctionsGetByID
 
-> ActionFunction FunctionsGetByID(ctx, definitionId, functionType, functionId, appId).Execute()
+> PublicActionFunction FunctionsGetByID(ctx, definitionId, functionType, functionId, appId).Execute()
 
-Get a custom action function
-
-
+Get a function for a given definition
 
 ### Example
 
@@ -345,9 +335,9 @@ import (
 )
 
 func main() {
-    definitionId := "definitionId_example" // string | The ID of the custom workflow action.
-    functionType := "functionType_example" // string | The type of function. This determines when the function will be called.
-    functionId := "functionId_example" // string | The ID qualifier for the function. This is used to specify which input field a function is associated with for `PRE_FETCH_OPTIONS` and `POST_FETCH_OPTIONS` function types.
+    definitionId := "definitionId_example" // string | 
+    functionType := "functionType_example" // string | 
+    functionId := "functionId_example" // string | 
     appId := int32(56) // int32 | 
 
     configuration := openapiclient.NewConfiguration()
@@ -357,7 +347,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `FunctionsApi.FunctionsGetByID``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `FunctionsGetByID`: ActionFunction
+    // response from `FunctionsGetByID`: PublicActionFunction
     fmt.Fprintf(os.Stdout, "Response from `FunctionsApi.FunctionsGetByID`: %v\n", resp)
 }
 ```
@@ -368,9 +358,9 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**definitionId** | **string** | The ID of the custom workflow action. | 
-**functionType** | **string** | The type of function. This determines when the function will be called. | 
-**functionId** | **string** | The ID qualifier for the function. This is used to specify which input field a function is associated with for &#x60;PRE_FETCH_OPTIONS&#x60; and &#x60;POST_FETCH_OPTIONS&#x60; function types. | 
+**definitionId** | **string** |  | 
+**functionType** | **string** |  | 
+**functionId** | **string** |  | 
 **appId** | **int32** |  | 
 
 ### Other Parameters
@@ -387,11 +377,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ActionFunction**](ActionFunction.md)
+[**PublicActionFunction**](PublicActionFunction.md)
 
 ### Authorization
 
-[developer_hapikey](../README.md#developer_hapikey)
+No authorization required
 
 ### HTTP request headers
 
@@ -405,11 +395,9 @@ Name | Type | Description  | Notes
 
 ## FunctionsGetByType
 
-> ActionFunction FunctionsGetByType(ctx, definitionId, functionType, appId).Execute()
+> PublicActionFunction FunctionsGetByType(ctx, definitionId, functionType, appId).Execute()
 
-Get a custom action function
-
-
+Get all functions by a type for a given definition
 
 ### Example
 
@@ -424,8 +412,8 @@ import (
 )
 
 func main() {
-    definitionId := "definitionId_example" // string | The ID of the custom workflow action.
-    functionType := "functionType_example" // string | The type of function. This determines when the function will be called.
+    definitionId := "definitionId_example" // string | 
+    functionType := "functionType_example" // string | 
     appId := int32(56) // int32 | 
 
     configuration := openapiclient.NewConfiguration()
@@ -435,7 +423,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `FunctionsApi.FunctionsGetByType``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `FunctionsGetByType`: ActionFunction
+    // response from `FunctionsGetByType`: PublicActionFunction
     fmt.Fprintf(os.Stdout, "Response from `FunctionsApi.FunctionsGetByType`: %v\n", resp)
 }
 ```
@@ -446,8 +434,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**definitionId** | **string** | The ID of the custom workflow action. | 
-**functionType** | **string** | The type of function. This determines when the function will be called. | 
+**definitionId** | **string** |  | 
+**functionType** | **string** |  | 
 **appId** | **int32** |  | 
 
 ### Other Parameters
@@ -463,11 +451,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ActionFunction**](ActionFunction.md)
+[**PublicActionFunction**](PublicActionFunction.md)
 
 ### Authorization
 
-[developer_hapikey](../README.md#developer_hapikey)
+No authorization required
 
 ### HTTP request headers
 
@@ -481,11 +469,9 @@ Name | Type | Description  | Notes
 
 ## FunctionsGetPage
 
-> CollectionResponseActionFunctionIdentifierNoPaging FunctionsGetPage(ctx, definitionId, appId).Execute()
+> CollectionResponsePublicActionFunctionIdentifierNoPaging FunctionsGetPage(ctx, definitionId, appId).Execute()
 
-Get all custom action functions
-
-
+Get all functions for a given definition
 
 ### Example
 
@@ -500,7 +486,7 @@ import (
 )
 
 func main() {
-    definitionId := "definitionId_example" // string | The ID of the custom workflow action.
+    definitionId := "definitionId_example" // string | 
     appId := int32(56) // int32 | 
 
     configuration := openapiclient.NewConfiguration()
@@ -510,7 +496,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `FunctionsApi.FunctionsGetPage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `FunctionsGetPage`: CollectionResponseActionFunctionIdentifierNoPaging
+    // response from `FunctionsGetPage`: CollectionResponsePublicActionFunctionIdentifierNoPaging
     fmt.Fprintf(os.Stdout, "Response from `FunctionsApi.FunctionsGetPage`: %v\n", resp)
 }
 ```
@@ -521,7 +507,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**definitionId** | **string** | The ID of the custom workflow action. | 
+**definitionId** | **string** |  | 
 **appId** | **int32** |  | 
 
 ### Other Parameters
@@ -536,11 +522,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CollectionResponseActionFunctionIdentifierNoPaging**](CollectionResponseActionFunctionIdentifierNoPaging.md)
+[**CollectionResponsePublicActionFunctionIdentifierNoPaging**](CollectionResponsePublicActionFunctionIdentifierNoPaging.md)
 
 ### Authorization
 
-[developer_hapikey](../README.md#developer_hapikey)
+No authorization required
 
 ### HTTP request headers
 

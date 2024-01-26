@@ -1,5 +1,5 @@
 /*
-Webhooks API
+Webhooks Webhooks
 
 Provides a way for apps to subscribe to certain change events in HubSpot. Once configured, apps will receive event payloads containing details about the changes at a specified target URL. There can only be one target URL for receiving event notifications per app.
 
@@ -16,12 +16,12 @@ import (
 
 // SubscriptionCreateRequest New webhook settings for an app.
 type SubscriptionCreateRequest struct {
-	// Type of event to listen for. Can be one of `create`, `delete`, `deletedForPrivacy`, or `propertyChange`.
-	EventType string `json:"eventType"`
 	// The internal name of the property to monitor for changes. Only applies when `eventType` is `propertyChange`.
 	PropertyName *string `json:"propertyName,omitempty"`
 	// Determines if the subscription is active or paused. Defaults to false.
 	Active *bool `json:"active,omitempty"`
+	// Type of event to listen for. Can be one of `create`, `delete`, `deletedForPrivacy`, or `propertyChange`.
+	EventType string `json:"eventType"`
 }
 
 // NewSubscriptionCreateRequest instantiates a new SubscriptionCreateRequest object
@@ -40,30 +40,6 @@ func NewSubscriptionCreateRequest(eventType string) *SubscriptionCreateRequest {
 func NewSubscriptionCreateRequestWithDefaults() *SubscriptionCreateRequest {
 	this := SubscriptionCreateRequest{}
 	return &this
-}
-
-// GetEventType returns the EventType field value
-func (o *SubscriptionCreateRequest) GetEventType() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.EventType
-}
-
-// GetEventTypeOk returns a tuple with the EventType field value
-// and a boolean to check if the value has been set.
-func (o *SubscriptionCreateRequest) GetEventTypeOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.EventType, true
-}
-
-// SetEventType sets field value
-func (o *SubscriptionCreateRequest) SetEventType(v string) {
-	o.EventType = v
 }
 
 // GetPropertyName returns the PropertyName field value if set, zero value otherwise.
@@ -130,16 +106,40 @@ func (o *SubscriptionCreateRequest) SetActive(v bool) {
 	o.Active = &v
 }
 
+// GetEventType returns the EventType field value
+func (o *SubscriptionCreateRequest) GetEventType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.EventType
+}
+
+// GetEventTypeOk returns a tuple with the EventType field value
+// and a boolean to check if the value has been set.
+func (o *SubscriptionCreateRequest) GetEventTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.EventType, true
+}
+
+// SetEventType sets field value
+func (o *SubscriptionCreateRequest) SetEventType(v string) {
+	o.EventType = v
+}
+
 func (o SubscriptionCreateRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["eventType"] = o.EventType
-	}
 	if o.PropertyName != nil {
 		toSerialize["propertyName"] = o.PropertyName
 	}
 	if o.Active != nil {
 		toSerialize["active"] = o.Active
+	}
+	if true {
+		toSerialize["eventType"] = o.EventType
 	}
 	return json.Marshal(toSerialize)
 }

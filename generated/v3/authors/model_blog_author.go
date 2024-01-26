@@ -1,5 +1,5 @@
 /*
-Blog Post endpoints
+Authors
 
 Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags
 
@@ -17,60 +17,60 @@ import (
 
 // BlogAuthor Model definition for a Blog Author.
 type BlogAuthor struct {
-	// The unique ID of the Blog Author.
-	Id       string `json:"id"`
-	FullName string `json:"fullName"`
-	// Email address of the Blog Author.
-	Email string `json:"email"`
-	Slug  string `json:"slug"`
-	// The explicitly defined ISO 639 language code of the blog author.
-	Language string `json:"language"`
-	// ID of the primary blog author this object was translated from.
-	TranslatedFromId int64  `json:"translatedFromId"`
-	Name             string `json:"name"`
-	// The full name of the Blog Author to be displayed.
-	DisplayName string `json:"displayName"`
-	// A short biography of the blog author.
-	Bio string `json:"bio"`
 	// URL to the website of the Blog Author.
 	Website string `json:"website"`
-	// URL or username of the Twitter account associated with the Blog Author. This will be normalized into the Twitter url for said user.
-	Twitter string `json:"twitter"`
+	// The full name of the Blog Author to be displayed.
+	DisplayName string    `json:"displayName"`
+	Created     time.Time `json:"created"`
 	// URL to the Blog Author's Facebook page.
 	Facebook string `json:"facebook"`
+	FullName string `json:"fullName"`
+	// A short biography of the blog author.
+	Bio string `json:"bio"`
+	// The explicitly defined ISO 639 language code of the blog author.
+	Language string `json:"language"`
 	// URL to the blog author's LinkedIn page.
 	Linkedin string `json:"linkedin"`
 	// URL to the blog author's avatar, if supplying a custom one.
-	Avatar  string    `json:"avatar"`
-	Created time.Time `json:"created"`
-	Updated time.Time `json:"updated"`
+	Avatar string `json:"avatar"`
+	// ID of the primary blog author this object was translated from.
+	TranslatedFromId int64 `json:"translatedFromId"`
+	// URL or username of the Twitter account associated with the Blog Author. This will be normalized into the Twitter url for said user.
+	Twitter string `json:"twitter"`
 	// The timestamp (ISO8601 format) when this Blog Author was deleted.
 	DeletedAt time.Time `json:"deletedAt"`
+	Name      string    `json:"name"`
+	// The unique ID of the Blog Author.
+	Id      string    `json:"id"`
+	Updated time.Time `json:"updated"`
+	// Email address of the Blog Author.
+	Email string `json:"email"`
+	Slug  string `json:"slug"`
 }
 
 // NewBlogAuthor instantiates a new BlogAuthor object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBlogAuthor(id string, fullName string, email string, slug string, language string, translatedFromId int64, name string, displayName string, bio string, website string, twitter string, facebook string, linkedin string, avatar string, created time.Time, updated time.Time, deletedAt time.Time) *BlogAuthor {
+func NewBlogAuthor(website string, displayName string, created time.Time, facebook string, fullName string, bio string, language string, linkedin string, avatar string, translatedFromId int64, twitter string, deletedAt time.Time, name string, id string, updated time.Time, email string, slug string) *BlogAuthor {
 	this := BlogAuthor{}
-	this.Id = id
-	this.FullName = fullName
-	this.Email = email
-	this.Slug = slug
-	this.Language = language
-	this.TranslatedFromId = translatedFromId
-	this.Name = name
-	this.DisplayName = displayName
-	this.Bio = bio
 	this.Website = website
-	this.Twitter = twitter
+	this.DisplayName = displayName
+	this.Created = created
 	this.Facebook = facebook
+	this.FullName = fullName
+	this.Bio = bio
+	this.Language = language
 	this.Linkedin = linkedin
 	this.Avatar = avatar
-	this.Created = created
-	this.Updated = updated
+	this.TranslatedFromId = translatedFromId
+	this.Twitter = twitter
 	this.DeletedAt = deletedAt
+	this.Name = name
+	this.Id = id
+	this.Updated = updated
+	this.Email = email
+	this.Slug = slug
 	return &this
 }
 
@@ -80,222 +80,6 @@ func NewBlogAuthor(id string, fullName string, email string, slug string, langua
 func NewBlogAuthorWithDefaults() *BlogAuthor {
 	this := BlogAuthor{}
 	return &this
-}
-
-// GetId returns the Id field value
-func (o *BlogAuthor) GetId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Id
-}
-
-// GetIdOk returns a tuple with the Id field value
-// and a boolean to check if the value has been set.
-func (o *BlogAuthor) GetIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Id, true
-}
-
-// SetId sets field value
-func (o *BlogAuthor) SetId(v string) {
-	o.Id = v
-}
-
-// GetFullName returns the FullName field value
-func (o *BlogAuthor) GetFullName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.FullName
-}
-
-// GetFullNameOk returns a tuple with the FullName field value
-// and a boolean to check if the value has been set.
-func (o *BlogAuthor) GetFullNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.FullName, true
-}
-
-// SetFullName sets field value
-func (o *BlogAuthor) SetFullName(v string) {
-	o.FullName = v
-}
-
-// GetEmail returns the Email field value
-func (o *BlogAuthor) GetEmail() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Email
-}
-
-// GetEmailOk returns a tuple with the Email field value
-// and a boolean to check if the value has been set.
-func (o *BlogAuthor) GetEmailOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Email, true
-}
-
-// SetEmail sets field value
-func (o *BlogAuthor) SetEmail(v string) {
-	o.Email = v
-}
-
-// GetSlug returns the Slug field value
-func (o *BlogAuthor) GetSlug() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Slug
-}
-
-// GetSlugOk returns a tuple with the Slug field value
-// and a boolean to check if the value has been set.
-func (o *BlogAuthor) GetSlugOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Slug, true
-}
-
-// SetSlug sets field value
-func (o *BlogAuthor) SetSlug(v string) {
-	o.Slug = v
-}
-
-// GetLanguage returns the Language field value
-func (o *BlogAuthor) GetLanguage() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Language
-}
-
-// GetLanguageOk returns a tuple with the Language field value
-// and a boolean to check if the value has been set.
-func (o *BlogAuthor) GetLanguageOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Language, true
-}
-
-// SetLanguage sets field value
-func (o *BlogAuthor) SetLanguage(v string) {
-	o.Language = v
-}
-
-// GetTranslatedFromId returns the TranslatedFromId field value
-func (o *BlogAuthor) GetTranslatedFromId() int64 {
-	if o == nil {
-		var ret int64
-		return ret
-	}
-
-	return o.TranslatedFromId
-}
-
-// GetTranslatedFromIdOk returns a tuple with the TranslatedFromId field value
-// and a boolean to check if the value has been set.
-func (o *BlogAuthor) GetTranslatedFromIdOk() (*int64, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.TranslatedFromId, true
-}
-
-// SetTranslatedFromId sets field value
-func (o *BlogAuthor) SetTranslatedFromId(v int64) {
-	o.TranslatedFromId = v
-}
-
-// GetName returns the Name field value
-func (o *BlogAuthor) GetName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value
-// and a boolean to check if the value has been set.
-func (o *BlogAuthor) GetNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Name, true
-}
-
-// SetName sets field value
-func (o *BlogAuthor) SetName(v string) {
-	o.Name = v
-}
-
-// GetDisplayName returns the DisplayName field value
-func (o *BlogAuthor) GetDisplayName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.DisplayName
-}
-
-// GetDisplayNameOk returns a tuple with the DisplayName field value
-// and a boolean to check if the value has been set.
-func (o *BlogAuthor) GetDisplayNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.DisplayName, true
-}
-
-// SetDisplayName sets field value
-func (o *BlogAuthor) SetDisplayName(v string) {
-	o.DisplayName = v
-}
-
-// GetBio returns the Bio field value
-func (o *BlogAuthor) GetBio() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Bio
-}
-
-// GetBioOk returns a tuple with the Bio field value
-// and a boolean to check if the value has been set.
-func (o *BlogAuthor) GetBioOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Bio, true
-}
-
-// SetBio sets field value
-func (o *BlogAuthor) SetBio(v string) {
-	o.Bio = v
 }
 
 // GetWebsite returns the Website field value
@@ -322,28 +106,52 @@ func (o *BlogAuthor) SetWebsite(v string) {
 	o.Website = v
 }
 
-// GetTwitter returns the Twitter field value
-func (o *BlogAuthor) GetTwitter() string {
+// GetDisplayName returns the DisplayName field value
+func (o *BlogAuthor) GetDisplayName() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Twitter
+	return o.DisplayName
 }
 
-// GetTwitterOk returns a tuple with the Twitter field value
+// GetDisplayNameOk returns a tuple with the DisplayName field value
 // and a boolean to check if the value has been set.
-func (o *BlogAuthor) GetTwitterOk() (*string, bool) {
+func (o *BlogAuthor) GetDisplayNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Twitter, true
+	return &o.DisplayName, true
 }
 
-// SetTwitter sets field value
-func (o *BlogAuthor) SetTwitter(v string) {
-	o.Twitter = v
+// SetDisplayName sets field value
+func (o *BlogAuthor) SetDisplayName(v string) {
+	o.DisplayName = v
+}
+
+// GetCreated returns the Created field value
+func (o *BlogAuthor) GetCreated() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.Created
+}
+
+// GetCreatedOk returns a tuple with the Created field value
+// and a boolean to check if the value has been set.
+func (o *BlogAuthor) GetCreatedOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Created, true
+}
+
+// SetCreated sets field value
+func (o *BlogAuthor) SetCreated(v time.Time) {
+	o.Created = v
 }
 
 // GetFacebook returns the Facebook field value
@@ -368,6 +176,78 @@ func (o *BlogAuthor) GetFacebookOk() (*string, bool) {
 // SetFacebook sets field value
 func (o *BlogAuthor) SetFacebook(v string) {
 	o.Facebook = v
+}
+
+// GetFullName returns the FullName field value
+func (o *BlogAuthor) GetFullName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.FullName
+}
+
+// GetFullNameOk returns a tuple with the FullName field value
+// and a boolean to check if the value has been set.
+func (o *BlogAuthor) GetFullNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.FullName, true
+}
+
+// SetFullName sets field value
+func (o *BlogAuthor) SetFullName(v string) {
+	o.FullName = v
+}
+
+// GetBio returns the Bio field value
+func (o *BlogAuthor) GetBio() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Bio
+}
+
+// GetBioOk returns a tuple with the Bio field value
+// and a boolean to check if the value has been set.
+func (o *BlogAuthor) GetBioOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Bio, true
+}
+
+// SetBio sets field value
+func (o *BlogAuthor) SetBio(v string) {
+	o.Bio = v
+}
+
+// GetLanguage returns the Language field value
+func (o *BlogAuthor) GetLanguage() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Language
+}
+
+// GetLanguageOk returns a tuple with the Language field value
+// and a boolean to check if the value has been set.
+func (o *BlogAuthor) GetLanguageOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Language, true
+}
+
+// SetLanguage sets field value
+func (o *BlogAuthor) SetLanguage(v string) {
+	o.Language = v
 }
 
 // GetLinkedin returns the Linkedin field value
@@ -418,52 +298,52 @@ func (o *BlogAuthor) SetAvatar(v string) {
 	o.Avatar = v
 }
 
-// GetCreated returns the Created field value
-func (o *BlogAuthor) GetCreated() time.Time {
+// GetTranslatedFromId returns the TranslatedFromId field value
+func (o *BlogAuthor) GetTranslatedFromId() int64 {
 	if o == nil {
-		var ret time.Time
+		var ret int64
 		return ret
 	}
 
-	return o.Created
+	return o.TranslatedFromId
 }
 
-// GetCreatedOk returns a tuple with the Created field value
+// GetTranslatedFromIdOk returns a tuple with the TranslatedFromId field value
 // and a boolean to check if the value has been set.
-func (o *BlogAuthor) GetCreatedOk() (*time.Time, bool) {
+func (o *BlogAuthor) GetTranslatedFromIdOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Created, true
+	return &o.TranslatedFromId, true
 }
 
-// SetCreated sets field value
-func (o *BlogAuthor) SetCreated(v time.Time) {
-	o.Created = v
+// SetTranslatedFromId sets field value
+func (o *BlogAuthor) SetTranslatedFromId(v int64) {
+	o.TranslatedFromId = v
 }
 
-// GetUpdated returns the Updated field value
-func (o *BlogAuthor) GetUpdated() time.Time {
+// GetTwitter returns the Twitter field value
+func (o *BlogAuthor) GetTwitter() string {
 	if o == nil {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 
-	return o.Updated
+	return o.Twitter
 }
 
-// GetUpdatedOk returns a tuple with the Updated field value
+// GetTwitterOk returns a tuple with the Twitter field value
 // and a boolean to check if the value has been set.
-func (o *BlogAuthor) GetUpdatedOk() (*time.Time, bool) {
+func (o *BlogAuthor) GetTwitterOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Updated, true
+	return &o.Twitter, true
 }
 
-// SetUpdated sets field value
-func (o *BlogAuthor) SetUpdated(v time.Time) {
-	o.Updated = v
+// SetTwitter sets field value
+func (o *BlogAuthor) SetTwitter(v string) {
+	o.Twitter = v
 }
 
 // GetDeletedAt returns the DeletedAt field value
@@ -490,43 +370,148 @@ func (o *BlogAuthor) SetDeletedAt(v time.Time) {
 	o.DeletedAt = v
 }
 
+// GetName returns the Name field value
+func (o *BlogAuthor) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *BlogAuthor) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *BlogAuthor) SetName(v string) {
+	o.Name = v
+}
+
+// GetId returns the Id field value
+func (o *BlogAuthor) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *BlogAuthor) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *BlogAuthor) SetId(v string) {
+	o.Id = v
+}
+
+// GetUpdated returns the Updated field value
+func (o *BlogAuthor) GetUpdated() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.Updated
+}
+
+// GetUpdatedOk returns a tuple with the Updated field value
+// and a boolean to check if the value has been set.
+func (o *BlogAuthor) GetUpdatedOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Updated, true
+}
+
+// SetUpdated sets field value
+func (o *BlogAuthor) SetUpdated(v time.Time) {
+	o.Updated = v
+}
+
+// GetEmail returns the Email field value
+func (o *BlogAuthor) GetEmail() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Email
+}
+
+// GetEmailOk returns a tuple with the Email field value
+// and a boolean to check if the value has been set.
+func (o *BlogAuthor) GetEmailOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Email, true
+}
+
+// SetEmail sets field value
+func (o *BlogAuthor) SetEmail(v string) {
+	o.Email = v
+}
+
+// GetSlug returns the Slug field value
+func (o *BlogAuthor) GetSlug() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Slug
+}
+
+// GetSlugOk returns a tuple with the Slug field value
+// and a boolean to check if the value has been set.
+func (o *BlogAuthor) GetSlugOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Slug, true
+}
+
+// SetSlug sets field value
+func (o *BlogAuthor) SetSlug(v string) {
+	o.Slug = v
+}
+
 func (o BlogAuthor) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["fullName"] = o.FullName
-	}
-	if true {
-		toSerialize["email"] = o.Email
-	}
-	if true {
-		toSerialize["slug"] = o.Slug
-	}
-	if true {
-		toSerialize["language"] = o.Language
-	}
-	if true {
-		toSerialize["translatedFromId"] = o.TranslatedFromId
-	}
-	if true {
-		toSerialize["name"] = o.Name
+		toSerialize["website"] = o.Website
 	}
 	if true {
 		toSerialize["displayName"] = o.DisplayName
 	}
 	if true {
-		toSerialize["bio"] = o.Bio
-	}
-	if true {
-		toSerialize["website"] = o.Website
-	}
-	if true {
-		toSerialize["twitter"] = o.Twitter
+		toSerialize["created"] = o.Created
 	}
 	if true {
 		toSerialize["facebook"] = o.Facebook
+	}
+	if true {
+		toSerialize["fullName"] = o.FullName
+	}
+	if true {
+		toSerialize["bio"] = o.Bio
+	}
+	if true {
+		toSerialize["language"] = o.Language
 	}
 	if true {
 		toSerialize["linkedin"] = o.Linkedin
@@ -535,13 +520,28 @@ func (o BlogAuthor) MarshalJSON() ([]byte, error) {
 		toSerialize["avatar"] = o.Avatar
 	}
 	if true {
-		toSerialize["created"] = o.Created
+		toSerialize["translatedFromId"] = o.TranslatedFromId
+	}
+	if true {
+		toSerialize["twitter"] = o.Twitter
+	}
+	if true {
+		toSerialize["deletedAt"] = o.DeletedAt
+	}
+	if true {
+		toSerialize["name"] = o.Name
+	}
+	if true {
+		toSerialize["id"] = o.Id
 	}
 	if true {
 		toSerialize["updated"] = o.Updated
 	}
 	if true {
-		toSerialize["deletedAt"] = o.DeletedAt
+		toSerialize["email"] = o.Email
+	}
+	if true {
+		toSerialize["slug"] = o.Slug
 	}
 	return json.Marshal(toSerialize)
 }

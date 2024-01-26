@@ -17,16 +17,16 @@ import (
 
 // AssociationDefinition Defines an association between two object types.
 type AssociationDefinition struct {
+	// When the association was defined.
+	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	// ID of the primary object type to link from.
 	FromObjectTypeId string `json:"fromObjectTypeId"`
-	// ID of the target object type ID to link to.
-	ToObjectTypeId string `json:"toObjectTypeId"`
 	// A unique name for this association.
 	Name *string `json:"name,omitempty"`
 	// A unique ID for this association.
 	Id string `json:"id"`
-	// When the association was defined.
-	CreatedAt *time.Time `json:"createdAt,omitempty"`
+	// ID of the target object type ID to link to.
+	ToObjectTypeId string `json:"toObjectTypeId"`
 	// When the association was last updated.
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 }
@@ -35,11 +35,11 @@ type AssociationDefinition struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAssociationDefinition(fromObjectTypeId string, toObjectTypeId string, id string) *AssociationDefinition {
+func NewAssociationDefinition(fromObjectTypeId string, id string, toObjectTypeId string) *AssociationDefinition {
 	this := AssociationDefinition{}
 	this.FromObjectTypeId = fromObjectTypeId
-	this.ToObjectTypeId = toObjectTypeId
 	this.Id = id
+	this.ToObjectTypeId = toObjectTypeId
 	return &this
 }
 
@@ -49,6 +49,38 @@ func NewAssociationDefinition(fromObjectTypeId string, toObjectTypeId string, id
 func NewAssociationDefinitionWithDefaults() *AssociationDefinition {
 	this := AssociationDefinition{}
 	return &this
+}
+
+// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
+func (o *AssociationDefinition) GetCreatedAt() time.Time {
+	if o == nil || o.CreatedAt == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.CreatedAt
+}
+
+// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AssociationDefinition) GetCreatedAtOk() (*time.Time, bool) {
+	if o == nil || o.CreatedAt == nil {
+		return nil, false
+	}
+	return o.CreatedAt, true
+}
+
+// HasCreatedAt returns a boolean if a field has been set.
+func (o *AssociationDefinition) HasCreatedAt() bool {
+	if o != nil && o.CreatedAt != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
+func (o *AssociationDefinition) SetCreatedAt(v time.Time) {
+	o.CreatedAt = &v
 }
 
 // GetFromObjectTypeId returns the FromObjectTypeId field value
@@ -73,30 +105,6 @@ func (o *AssociationDefinition) GetFromObjectTypeIdOk() (*string, bool) {
 // SetFromObjectTypeId sets field value
 func (o *AssociationDefinition) SetFromObjectTypeId(v string) {
 	o.FromObjectTypeId = v
-}
-
-// GetToObjectTypeId returns the ToObjectTypeId field value
-func (o *AssociationDefinition) GetToObjectTypeId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.ToObjectTypeId
-}
-
-// GetToObjectTypeIdOk returns a tuple with the ToObjectTypeId field value
-// and a boolean to check if the value has been set.
-func (o *AssociationDefinition) GetToObjectTypeIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.ToObjectTypeId, true
-}
-
-// SetToObjectTypeId sets field value
-func (o *AssociationDefinition) SetToObjectTypeId(v string) {
-	o.ToObjectTypeId = v
 }
 
 // GetName returns the Name field value if set, zero value otherwise.
@@ -155,36 +163,28 @@ func (o *AssociationDefinition) SetId(v string) {
 	o.Id = v
 }
 
-// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *AssociationDefinition) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
-		var ret time.Time
+// GetToObjectTypeId returns the ToObjectTypeId field value
+func (o *AssociationDefinition) GetToObjectTypeId() string {
+	if o == nil {
+		var ret string
 		return ret
 	}
-	return *o.CreatedAt
+
+	return o.ToObjectTypeId
 }
 
-// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
+// GetToObjectTypeIdOk returns a tuple with the ToObjectTypeId field value
 // and a boolean to check if the value has been set.
-func (o *AssociationDefinition) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+func (o *AssociationDefinition) GetToObjectTypeIdOk() (*string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CreatedAt, true
+	return &o.ToObjectTypeId, true
 }
 
-// HasCreatedAt returns a boolean if a field has been set.
-func (o *AssociationDefinition) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
-func (o *AssociationDefinition) SetCreatedAt(v time.Time) {
-	o.CreatedAt = &v
+// SetToObjectTypeId sets field value
+func (o *AssociationDefinition) SetToObjectTypeId(v string) {
+	o.ToObjectTypeId = v
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
@@ -221,11 +221,11 @@ func (o *AssociationDefinition) SetUpdatedAt(v time.Time) {
 
 func (o AssociationDefinition) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["fromObjectTypeId"] = o.FromObjectTypeId
+	if o.CreatedAt != nil {
+		toSerialize["createdAt"] = o.CreatedAt
 	}
 	if true {
-		toSerialize["toObjectTypeId"] = o.ToObjectTypeId
+		toSerialize["fromObjectTypeId"] = o.FromObjectTypeId
 	}
 	if o.Name != nil {
 		toSerialize["name"] = o.Name
@@ -233,8 +233,8 @@ func (o AssociationDefinition) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["id"] = o.Id
 	}
-	if o.CreatedAt != nil {
-		toSerialize["createdAt"] = o.CreatedAt
+	if true {
+		toSerialize["toObjectTypeId"] = o.ToObjectTypeId
 	}
 	if o.UpdatedAt != nil {
 		toSerialize["updatedAt"] = o.UpdatedAt

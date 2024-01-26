@@ -16,21 +16,21 @@ import (
 
 // BatchReadInputSimplePublicObjectId struct for BatchReadInputSimplePublicObjectId
 type BatchReadInputSimplePublicObjectId struct {
-	Properties            []string               `json:"properties"`
 	PropertiesWithHistory []string               `json:"propertiesWithHistory"`
 	IdProperty            *string                `json:"idProperty,omitempty"`
 	Inputs                []SimplePublicObjectId `json:"inputs"`
+	Properties            []string               `json:"properties"`
 }
 
 // NewBatchReadInputSimplePublicObjectId instantiates a new BatchReadInputSimplePublicObjectId object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBatchReadInputSimplePublicObjectId(properties []string, propertiesWithHistory []string, inputs []SimplePublicObjectId) *BatchReadInputSimplePublicObjectId {
+func NewBatchReadInputSimplePublicObjectId(propertiesWithHistory []string, inputs []SimplePublicObjectId, properties []string) *BatchReadInputSimplePublicObjectId {
 	this := BatchReadInputSimplePublicObjectId{}
-	this.Properties = properties
 	this.PropertiesWithHistory = propertiesWithHistory
 	this.Inputs = inputs
+	this.Properties = properties
 	return &this
 }
 
@@ -40,30 +40,6 @@ func NewBatchReadInputSimplePublicObjectId(properties []string, propertiesWithHi
 func NewBatchReadInputSimplePublicObjectIdWithDefaults() *BatchReadInputSimplePublicObjectId {
 	this := BatchReadInputSimplePublicObjectId{}
 	return &this
-}
-
-// GetProperties returns the Properties field value
-func (o *BatchReadInputSimplePublicObjectId) GetProperties() []string {
-	if o == nil {
-		var ret []string
-		return ret
-	}
-
-	return o.Properties
-}
-
-// GetPropertiesOk returns a tuple with the Properties field value
-// and a boolean to check if the value has been set.
-func (o *BatchReadInputSimplePublicObjectId) GetPropertiesOk() ([]string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Properties, true
-}
-
-// SetProperties sets field value
-func (o *BatchReadInputSimplePublicObjectId) SetProperties(v []string) {
-	o.Properties = v
 }
 
 // GetPropertiesWithHistory returns the PropertiesWithHistory field value
@@ -146,11 +122,32 @@ func (o *BatchReadInputSimplePublicObjectId) SetInputs(v []SimplePublicObjectId)
 	o.Inputs = v
 }
 
+// GetProperties returns the Properties field value
+func (o *BatchReadInputSimplePublicObjectId) GetProperties() []string {
+	if o == nil {
+		var ret []string
+		return ret
+	}
+
+	return o.Properties
+}
+
+// GetPropertiesOk returns a tuple with the Properties field value
+// and a boolean to check if the value has been set.
+func (o *BatchReadInputSimplePublicObjectId) GetPropertiesOk() ([]string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Properties, true
+}
+
+// SetProperties sets field value
+func (o *BatchReadInputSimplePublicObjectId) SetProperties(v []string) {
+	o.Properties = v
+}
+
 func (o BatchReadInputSimplePublicObjectId) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["properties"] = o.Properties
-	}
 	if true {
 		toSerialize["propertiesWithHistory"] = o.PropertiesWithHistory
 	}
@@ -159,6 +156,9 @@ func (o BatchReadInputSimplePublicObjectId) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["inputs"] = o.Inputs
+	}
+	if true {
+		toSerialize["properties"] = o.Properties
 	}
 	return json.Marshal(toSerialize)
 }

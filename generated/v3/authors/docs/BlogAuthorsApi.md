@@ -112,7 +112,7 @@ import (
 )
 
 func main() {
-    attachToLangPrimaryRequestVNext := *openapiclient.NewAttachToLangPrimaryRequestVNext("Id_example", "Language_example", "PrimaryId_example") // AttachToLangPrimaryRequestVNext | The JSON representation of the AttachToLangPrimaryRequest object.
+    attachToLangPrimaryRequestVNext := *openapiclient.NewAttachToLangPrimaryRequestVNext("Language_example", "Id_example", "PrimaryId_example") // AttachToLangPrimaryRequestVNext | The JSON representation of the AttachToLangPrimaryRequest object.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -241,7 +241,7 @@ import (
 )
 
 func main() {
-    batchInputBlogAuthor := *openapiclient.NewBatchInputBlogAuthor([]openapiclient.BlogAuthor{*openapiclient.NewBlogAuthor("Id_example", "FullName_example", "Email_example", "Slug_example", "Language_example", int64(123), "Name_example", "DisplayName_example", "Bio_example", "Website_example", "Twitter_example", "Facebook_example", "Linkedin_example", "Avatar_example", time.Now(), time.Now(), time.Now())}) // BatchInputBlogAuthor | The JSON array of new Blog Authors to create.
+    batchInputBlogAuthor := *openapiclient.NewBatchInputBlogAuthor([]openapiclient.BlogAuthor{*openapiclient.NewBlogAuthor("Website_example", "DisplayName_example", time.Now(), "Facebook_example", "FullName_example", "Bio_example", "Language_example", "Linkedin_example", "Avatar_example", int64(123), "Twitter_example", time.Now(), "Name_example", "Id_example", time.Now(), "Email_example", "Slug_example")}) // BatchInputBlogAuthor | The JSON array of new Blog Authors to create.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -444,7 +444,7 @@ import (
 )
 
 func main() {
-    blogAuthor := *openapiclient.NewBlogAuthor("Id_example", "FullName_example", "Email_example", "Slug_example", "Language_example", int64(123), "Name_example", "DisplayName_example", "Bio_example", "Website_example", "Twitter_example", "Facebook_example", "Linkedin_example", "Avatar_example", time.Now(), time.Now(), time.Now()) // BlogAuthor | The JSON representation of a new Blog Author.
+    blogAuthor := *openapiclient.NewBlogAuthor("Website_example", "DisplayName_example", time.Now(), "Facebook_example", "FullName_example", "Bio_example", "Language_example", "Linkedin_example", "Avatar_example", int64(123), "Twitter_example", time.Now(), "Name_example", "Id_example", time.Now(), "Email_example", "Slug_example") // BlogAuthor | The JSON representation of a new Blog Author.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -511,7 +511,7 @@ import (
 )
 
 func main() {
-    blogAuthorCloneRequestVNext := *openapiclient.NewBlogAuthorCloneRequestVNext("Id_example", *openapiclient.NewBlogAuthor("Id_example", "FullName_example", "Email_example", "Slug_example", "Language_example", int64(123), "Name_example", "DisplayName_example", "Bio_example", "Website_example", "Twitter_example", "Facebook_example", "Linkedin_example", "Avatar_example", time.Now(), time.Now(), time.Now())) // BlogAuthorCloneRequestVNext | The JSON representation of the ContentLanguageCloneRequest object.
+    blogAuthorCloneRequestVNext := *openapiclient.NewBlogAuthorCloneRequestVNext("Id_example", *openapiclient.NewBlogAuthor("Website_example", "DisplayName_example", time.Now(), "Facebook_example", "FullName_example", "Bio_example", "Language_example", "Linkedin_example", "Avatar_example", int64(123), "Twitter_example", time.Now(), "Name_example", "Id_example", time.Now(), "Email_example", "Slug_example")) // BlogAuthorCloneRequestVNext | The JSON representation of the ContentLanguageCloneRequest object.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -868,7 +868,7 @@ import (
 
 func main() {
     objectId := "objectId_example" // string | The Blog Author id.
-    blogAuthor := *openapiclient.NewBlogAuthor("Id_example", "FullName_example", "Email_example", "Slug_example", "Language_example", int64(123), "Name_example", "DisplayName_example", "Bio_example", "Website_example", "Twitter_example", "Facebook_example", "Linkedin_example", "Avatar_example", time.Now(), time.Now(), time.Now()) // BlogAuthor | The JSON representation of the updated Blog Author.
+    blogAuthor := *openapiclient.NewBlogAuthor("Website_example", "DisplayName_example", time.Now(), "Facebook_example", "FullName_example", "Bio_example", "Language_example", "Linkedin_example", "Avatar_example", int64(123), "Twitter_example", time.Now(), "Name_example", "Id_example", time.Now(), "Email_example", "Slug_example") // BlogAuthor | The JSON representation of the updated Blog Author.
     archived := true // bool | Specifies whether to update deleted Blog Authors. Defaults to `false`. (optional)
 
     configuration := openapiclient.NewConfiguration()
@@ -941,7 +941,7 @@ import (
 )
 
 func main() {
-    updateLanguagesRequestVNext := *openapiclient.NewUpdateLanguagesRequestVNext("PrimaryId_example", map[string]string{"key": "Inner_example"}) // UpdateLanguagesRequestVNext | The JSON representation of the UpdateLanguagesRequest object.
+    updateLanguagesRequestVNext := *openapiclient.NewUpdateLanguagesRequestVNext(map[string]string{"key": "Inner_example"}, "PrimaryId_example") // UpdateLanguagesRequestVNext | The JSON representation of the UpdateLanguagesRequest object.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)

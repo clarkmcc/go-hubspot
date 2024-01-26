@@ -1,9 +1,19 @@
 {
   "openapi" : "3.0.1",
   "info" : {
-    "title" : "CMS Audit Logs",
+    "title" : "CMS Cms Content Audit",
     "description" : "Use this endpoint to query audit logs of CMS changes that occurred on your HubSpot account.",
-    "version" : "v3"
+    "version" : "v3",
+    "x-hubspot-product-tier-requirements" : {
+      "cms" : "ENTERPRISE"
+    },
+    "x-hubspot-documentation-banner" : "NONE",
+    "x-hubspot-api-use-case" : "After noticing some recent changes to your website, including missing pages, use this API to see which user most recently modified and unpublished your website pages.",
+    "x-hubspot-related-documentation" : [ {
+      "name" : "Content Audit Guide",
+      "url" : "https://hubspot.dev/guides/api/cms/content-audit"
+    } ],
+    "x-hubspot-introduction" : "Use the content audit API to retrieve information about changes made to content objects, su ch as blog posts, website pages, and domains.        "
   },
   "servers" : [ {
     "url" : "https://api.hubapi.com"
@@ -144,21 +154,17 @@
         "required" : [ "message" ],
         "type" : "object",
         "properties" : {
-          "message" : {
+          "subCategory" : {
             "type" : "string",
-            "description" : "A human readable message describing the error along with remediation steps where appropriate"
-          },
-          "in" : {
-            "type" : "string",
-            "description" : "The name of the field or parameter in which the error was found."
+            "description" : "A specific category that contains more specific detail about the error"
           },
           "code" : {
             "type" : "string",
             "description" : "The status code associated with the error detail"
           },
-          "subCategory" : {
+          "in" : {
             "type" : "string",
-            "description" : "A specific category that contains more specific detail about the error"
+            "description" : "The name of the field or parameter in which the error was found."
           },
           "context" : {
             "type" : "object",
@@ -172,6 +178,10 @@
             "example" : {
               "missingScopes" : [ "scope1", "scope2" ]
             }
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "A human readable message describing the error along with remediation steps where appropriate"
           }
         }
       },
@@ -179,14 +189,15 @@
         "required" : [ "results" ],
         "type" : "object",
         "properties" : {
+          "paging" : {
+            "$ref" : "#/components/schemas/Paging"
+          },
           "results" : {
             "type" : "array",
+            "description" : "",
             "items" : {
               "$ref" : "#/components/schemas/PublicAuditLog"
             }
-          },
-          "paging" : {
-            "$ref" : "#/components/schemas/Paging"
           }
         },
         "description" : "The collection of audit logs."
@@ -214,44 +225,115 @@
           }
         }
       },
+      "Error" : {
+        "required" : [ "category", "correlationId", "message" ],
+        "type" : "object",
+        "properties" : {
+          "subCategory" : {
+            "type" : "string",
+            "description" : "A specific category that contains more specific detail about the error"
+          },
+          "context" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              }
+            },
+            "description" : "Context about the error condition",
+            "example" : {
+              "missingScopes" : [ "scope1", "scope2" ],
+              "invalidPropertyName" : [ "propertyValue" ]
+            }
+          },
+          "correlationId" : {
+            "type" : "string",
+            "description" : "A unique identifier for the request. Include this value with any error reports or support tickets",
+            "format" : "uuid",
+            "example" : "aeb5f871-7f07-4993-9211-075dc63e7cbf"
+          },
+          "links" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            },
+            "description" : "A map of link names to associated URIs containing documentation about the error or recommended remediation steps",
+            "example" : {
+              "knowledge-base" : "https://www.hubspot.com/products/service/knowledge-base"
+            }
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "A human readable message describing the error along with remediation steps where appropriate",
+            "example" : "Invalid input (details will vary based on the error)"
+          },
+          "category" : {
+            "type" : "string",
+            "description" : "The error category",
+            "example" : "VALIDATION_ERROR"
+          },
+          "errors" : {
+            "type" : "array",
+            "description" : "further information about the error",
+            "items" : {
+              "$ref" : "#/components/schemas/ErrorDetail"
+            }
+          }
+        },
+        "example" : {
+          "message" : "Invalid input (details will vary based on the error)",
+          "correlationId" : "aeb5f871-7f07-4993-9211-075dc63e7cbf",
+          "category" : "VALIDATION_ERROR",
+          "links" : {
+            "knowledge-base" : "https://www.hubspot.com/products/service/knowledge-base"
+          }
+        }
+      },
       "PublicAuditLog" : {
         "required" : [ "event", "fullName", "objectId", "objectName", "objectType", "timestamp", "userId" ],
         "type" : "object",
         "properties" : {
+          "meta" : {
+            "type" : "object",
+            "properties" : { }
+          },
+          "objectName" : {
+            "type" : "string",
+            "description" : "The internal name of the object in HubSpot.",
+            "example" : "My Landing Page"
+          },
+          "fullName" : {
+            "type" : "string",
+            "description" : "The name of the user who caused the event.",
+            "example" : "John Doe"
+          },
           "event" : {
             "type" : "string",
             "description" : "The type of event that took place (CREATED, UPDATED, PUBLISHED, DELETED, UNPUBLISHED).",
+            "example" : "UPDATED",
             "enum" : [ "CREATED", "UPDATED", "PUBLISHED", "DELETED", "UNPUBLISHED", "RESTORE" ]
+          },
+          "userId" : {
+            "type" : "string",
+            "description" : "The ID of the user who caused the event.",
+            "example" : "1011561"
+          },
+          "objectId" : {
+            "type" : "string",
+            "description" : "The ID of the object.",
+            "example" : "4065364319"
           },
           "objectType" : {
             "type" : "string",
             "description" : "The type of the object (BLOG, LANDING_PAGE, DOMAIN, HUBDB_TABLE etc.)",
+            "example" : "LANDING_PAGE",
             "enum" : [ "BLOG", "BLOG_POST", "LANDING_PAGE", "WEBSITE_PAGE", "TEMPLATE", "MODULE", "GLOBAL_MODULE", "SERVERLESS_FUNCTION", "DOMAIN", "URL_MAPPING", "EMAIL", "CONTENT_SETTINGS", "HUBDB_TABLE", "KNOWLEDGE_BASE_ARTICLE", "KNOWLEDGE_BASE", "THEME", "CSS", "JS", "CTA", "FILE" ]
-          },
-          "objectId" : {
-            "type" : "string",
-            "description" : "The ID of the object."
-          },
-          "userId" : {
-            "type" : "string",
-            "description" : "The ID of the user who caused the event."
           },
           "timestamp" : {
             "type" : "string",
             "description" : "The timestamp at which the event occurred.",
             "format" : "date-time"
-          },
-          "objectName" : {
-            "type" : "string",
-            "description" : "The internal name of the object in HubSpot."
-          },
-          "fullName" : {
-            "type" : "string",
-            "description" : "The name of the user who caused the event."
-          },
-          "meta" : {
-            "type" : "object",
-            "properties" : { }
           }
         },
         "example" : {
@@ -264,75 +346,14 @@
           "objectType" : "LANDING_PAGE"
         }
       },
-      "Error" : {
-        "required" : [ "category", "correlationId", "message" ],
-        "type" : "object",
-        "properties" : {
-          "message" : {
-            "type" : "string",
-            "description" : "A human readable message describing the error along with remediation steps where appropriate",
-            "example" : "An error occurred"
-          },
-          "correlationId" : {
-            "type" : "string",
-            "description" : "A unique identifier for the request. Include this value with any error reports or support tickets",
-            "format" : "uuid",
-            "example" : "aeb5f871-7f07-4993-9211-075dc63e7cbf"
-          },
-          "category" : {
-            "type" : "string",
-            "description" : "The error category"
-          },
-          "subCategory" : {
-            "type" : "string",
-            "description" : "A specific category that contains more specific detail about the error"
-          },
-          "errors" : {
-            "type" : "array",
-            "description" : "further information about the error",
-            "items" : {
-              "$ref" : "#/components/schemas/ErrorDetail"
-            }
-          },
-          "context" : {
-            "type" : "object",
-            "additionalProperties" : {
-              "type" : "array",
-              "items" : {
-                "type" : "string"
-              }
-            },
-            "description" : "Context about the error condition",
-            "example" : {
-              "invalidPropertyName" : [ "propertyValue" ],
-              "missingScopes" : [ "scope1", "scope2" ]
-            }
-          },
-          "links" : {
-            "type" : "object",
-            "additionalProperties" : {
-              "type" : "string"
-            },
-            "description" : "A map of link names to associated URIs containing documentation about the error or recommended remediation steps"
-          }
-        },
-        "example" : {
-          "message" : "Invalid input (details will vary based on the error)",
-          "correlationId" : "aeb5f871-7f07-4993-9211-075dc63e7cbf",
-          "category" : "VALIDATION_ERROR",
-          "links" : {
-            "knowledge-base" : "https://www.hubspot.com/products/service/knowledge-base"
-          }
-        }
-      },
       "NextPage" : {
         "required" : [ "after" ],
         "type" : "object",
         "properties" : {
-          "after" : {
+          "link" : {
             "type" : "string"
           },
-          "link" : {
+          "after" : {
             "type" : "string"
           }
         }
@@ -372,10 +393,7 @@
   },
   "x-hubspot-available-client-libraries" : [ "PHP", "Node", "Ruby", "Python" ],
   "x-hubspot-product-tier-requirements" : {
-    "marketing" : "FREE",
-    "sales" : "FREE",
-    "service" : "FREE",
-    "cms" : "FREE"
+    "cms" : "ENTERPRISE"
   },
   "x-hubspot-documentation-banner" : "NONE"
 }

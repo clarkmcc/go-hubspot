@@ -53,6 +53,8 @@ type APIClient struct {
 
 	BatchApi *BatchApiService
 
+	GDPRApi *GDPRApiService
+
 	PublicObjectApi *PublicObjectApiService
 
 	SearchApi *SearchApiService
@@ -76,6 +78,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	// API Services
 	c.BasicApi = (*BasicApiService)(&c.common)
 	c.BatchApi = (*BatchApiService)(&c.common)
+	c.GDPRApi = (*GDPRApiService)(&c.common)
 	c.PublicObjectApi = (*PublicObjectApiService)(&c.common)
 	c.SearchApi = (*SearchApiService)(&c.common)
 

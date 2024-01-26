@@ -16,21 +16,25 @@ import (
 
 // PropertyModificationMetadata struct for PropertyModificationMetadata
 type PropertyModificationMetadata struct {
-	Archivable         bool  `json:"archivable"`
-	ReadOnlyDefinition bool  `json:"readOnlyDefinition"`
-	ReadOnlyOptions    *bool `json:"readOnlyOptions,omitempty"`
-	ReadOnlyValue      bool  `json:"readOnlyValue"`
+	//
+	ReadOnlyOptions *bool `json:"readOnlyOptions,omitempty"`
+	//
+	ReadOnlyValue bool `json:"readOnlyValue"`
+	//
+	ReadOnlyDefinition bool `json:"readOnlyDefinition"`
+	//
+	Archivable bool `json:"archivable"`
 }
 
 // NewPropertyModificationMetadata instantiates a new PropertyModificationMetadata object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPropertyModificationMetadata(archivable bool, readOnlyDefinition bool, readOnlyValue bool) *PropertyModificationMetadata {
+func NewPropertyModificationMetadata(readOnlyValue bool, readOnlyDefinition bool, archivable bool) *PropertyModificationMetadata {
 	this := PropertyModificationMetadata{}
-	this.Archivable = archivable
-	this.ReadOnlyDefinition = readOnlyDefinition
 	this.ReadOnlyValue = readOnlyValue
+	this.ReadOnlyDefinition = readOnlyDefinition
+	this.Archivable = archivable
 	return &this
 }
 
@@ -40,54 +44,6 @@ func NewPropertyModificationMetadata(archivable bool, readOnlyDefinition bool, r
 func NewPropertyModificationMetadataWithDefaults() *PropertyModificationMetadata {
 	this := PropertyModificationMetadata{}
 	return &this
-}
-
-// GetArchivable returns the Archivable field value
-func (o *PropertyModificationMetadata) GetArchivable() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.Archivable
-}
-
-// GetArchivableOk returns a tuple with the Archivable field value
-// and a boolean to check if the value has been set.
-func (o *PropertyModificationMetadata) GetArchivableOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Archivable, true
-}
-
-// SetArchivable sets field value
-func (o *PropertyModificationMetadata) SetArchivable(v bool) {
-	o.Archivable = v
-}
-
-// GetReadOnlyDefinition returns the ReadOnlyDefinition field value
-func (o *PropertyModificationMetadata) GetReadOnlyDefinition() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.ReadOnlyDefinition
-}
-
-// GetReadOnlyDefinitionOk returns a tuple with the ReadOnlyDefinition field value
-// and a boolean to check if the value has been set.
-func (o *PropertyModificationMetadata) GetReadOnlyDefinitionOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.ReadOnlyDefinition, true
-}
-
-// SetReadOnlyDefinition sets field value
-func (o *PropertyModificationMetadata) SetReadOnlyDefinition(v bool) {
-	o.ReadOnlyDefinition = v
 }
 
 // GetReadOnlyOptions returns the ReadOnlyOptions field value if set, zero value otherwise.
@@ -146,19 +102,67 @@ func (o *PropertyModificationMetadata) SetReadOnlyValue(v bool) {
 	o.ReadOnlyValue = v
 }
 
+// GetReadOnlyDefinition returns the ReadOnlyDefinition field value
+func (o *PropertyModificationMetadata) GetReadOnlyDefinition() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.ReadOnlyDefinition
+}
+
+// GetReadOnlyDefinitionOk returns a tuple with the ReadOnlyDefinition field value
+// and a boolean to check if the value has been set.
+func (o *PropertyModificationMetadata) GetReadOnlyDefinitionOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ReadOnlyDefinition, true
+}
+
+// SetReadOnlyDefinition sets field value
+func (o *PropertyModificationMetadata) SetReadOnlyDefinition(v bool) {
+	o.ReadOnlyDefinition = v
+}
+
+// GetArchivable returns the Archivable field value
+func (o *PropertyModificationMetadata) GetArchivable() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.Archivable
+}
+
+// GetArchivableOk returns a tuple with the Archivable field value
+// and a boolean to check if the value has been set.
+func (o *PropertyModificationMetadata) GetArchivableOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Archivable, true
+}
+
+// SetArchivable sets field value
+func (o *PropertyModificationMetadata) SetArchivable(v bool) {
+	o.Archivable = v
+}
+
 func (o PropertyModificationMetadata) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["archivable"] = o.Archivable
-	}
-	if true {
-		toSerialize["readOnlyDefinition"] = o.ReadOnlyDefinition
-	}
 	if o.ReadOnlyOptions != nil {
 		toSerialize["readOnlyOptions"] = o.ReadOnlyOptions
 	}
 	if true {
 		toSerialize["readOnlyValue"] = o.ReadOnlyValue
+	}
+	if true {
+		toSerialize["readOnlyDefinition"] = o.ReadOnlyDefinition
+	}
+	if true {
+		toSerialize["archivable"] = o.Archivable
 	}
 	return json.Marshal(toSerialize)
 }

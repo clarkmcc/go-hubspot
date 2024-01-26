@@ -111,7 +111,7 @@ import (
 
 func main() {
     tableIdOrName := "tableIdOrName_example" // string | The ID or name of the table to clone.
-    hubDbTableCloneRequest := *openapiclient.NewHubDbTableCloneRequest(false) // HubDbTableCloneRequest | JSON object with the properties newName and newLabel. You can set copyRows to false to clone the table with copying rows and default is true.
+    hubDbTableCloneRequest := *openapiclient.NewHubDbTableCloneRequest(true) // HubDbTableCloneRequest | JSON object with the properties newName and newLabel. You can set copyRows to false to clone the table with copying rows and default is true.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -182,7 +182,7 @@ import (
 )
 
 func main() {
-    hubDbTableV3Request := *openapiclient.NewHubDbTableV3Request("Name_example", "Label_example") // HubDbTableV3Request | The JSON schema for the table being created.
+    hubDbTableV3Request := *openapiclient.NewHubDbTableV3Request("test_table", "Test Table") // HubDbTableV3Request | The JSON schema for the table being created.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -543,7 +543,7 @@ Name | Type | Description  | Notes
 
 ## GetDraftTableDetailsByID
 
-> HubDbTableV3 GetDraftTableDetailsByID(ctx, tableIdOrName).Archived(archived).IncludeForeignIds(includeForeignIds).Execute()
+> HubDbTableV3 GetDraftTableDetailsByID(ctx, tableIdOrName).IncludeForeignIds(includeForeignIds).Archived(archived).Execute()
 
 Get details for a draft table
 
@@ -563,12 +563,12 @@ import (
 
 func main() {
     tableIdOrName := "tableIdOrName_example" // string | The ID or name of the table to return.
-    archived := true // bool | Set this to `true` to return an archived table. Defaults to `false`. (optional)
     includeForeignIds := true // bool | Set this to `true` to populate foreign ID values in the result. (optional)
+    archived := true // bool | Set this to `true` to return an archived table. Defaults to `false`. (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TablesApi.GetDraftTableDetailsByID(context.Background(), tableIdOrName).Archived(archived).IncludeForeignIds(includeForeignIds).Execute()
+    resp, r, err := apiClient.TablesApi.GetDraftTableDetailsByID(context.Background(), tableIdOrName).IncludeForeignIds(includeForeignIds).Archived(archived).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TablesApi.GetDraftTableDetailsByID``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -594,8 +594,8 @@ Other parameters are passed through a pointer to a apiGetDraftTableDetailsByIDRe
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **archived** | **bool** | Set this to &#x60;true&#x60; to return an archived table. Defaults to &#x60;false&#x60;. | 
  **includeForeignIds** | **bool** | Set this to &#x60;true&#x60; to populate foreign ID values in the result. | 
+ **archived** | **bool** | Set this to &#x60;true&#x60; to return an archived table. Defaults to &#x60;false&#x60;. | 
 
 ### Return type
 
@@ -617,7 +617,7 @@ Name | Type | Description  | Notes
 
 ## GetTableDetails
 
-> HubDbTableV3 GetTableDetails(ctx, tableIdOrName).Archived(archived).IncludeForeignIds(includeForeignIds).Execute()
+> HubDbTableV3 GetTableDetails(ctx, tableIdOrName).IncludeForeignIds(includeForeignIds).Archived(archived).Execute()
 
 Get details for a published table
 
@@ -637,12 +637,12 @@ import (
 
 func main() {
     tableIdOrName := "tableIdOrName_example" // string | The ID or name of the table to return.
-    archived := true // bool | Set this to `true` to return details for an archived table. Defaults to `false`. (optional)
     includeForeignIds := true // bool | Set this to `true` to populate foreign ID values in the result. (optional)
+    archived := true // bool | Set this to `true` to return details for an archived table. Defaults to `false`. (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TablesApi.GetTableDetails(context.Background(), tableIdOrName).Archived(archived).IncludeForeignIds(includeForeignIds).Execute()
+    resp, r, err := apiClient.TablesApi.GetTableDetails(context.Background(), tableIdOrName).IncludeForeignIds(includeForeignIds).Archived(archived).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TablesApi.GetTableDetails``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -668,8 +668,8 @@ Other parameters are passed through a pointer to a apiGetTableDetailsRequest str
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **archived** | **bool** | Set this to &#x60;true&#x60; to return details for an archived table. Defaults to &#x60;false&#x60;. | 
  **includeForeignIds** | **bool** | Set this to &#x60;true&#x60; to populate foreign ID values in the result. | 
+ **archived** | **bool** | Set this to &#x60;true&#x60; to return details for an archived table. Defaults to &#x60;false&#x60;. | 
 
 ### Return type
 
@@ -981,7 +981,7 @@ Name | Type | Description  | Notes
 
 ## UpdateDraftTable
 
-> HubDbTableV3 UpdateDraftTable(ctx, tableIdOrName).HubDbTableV3Request(hubDbTableV3Request).Archived(archived).IncludeForeignIds(includeForeignIds).Execute()
+> HubDbTableV3 UpdateDraftTable(ctx, tableIdOrName).HubDbTableV3Request(hubDbTableV3Request).IncludeForeignIds(includeForeignIds).Archived(archived).Execute()
 
 Update an existing table
 
@@ -1001,13 +1001,13 @@ import (
 
 func main() {
     tableIdOrName := "tableIdOrName_example" // string | The ID or name of the table to update.
-    hubDbTableV3Request := *openapiclient.NewHubDbTableV3Request("Name_example", "Label_example") // HubDbTableV3Request | The JSON schema for the table being updated.
-    archived := true // bool | Specifies whether to return archived tables. Defaults to `false`. (optional)
+    hubDbTableV3Request := *openapiclient.NewHubDbTableV3Request("test_table", "Test Table") // HubDbTableV3Request | The JSON schema for the table being updated.
     includeForeignIds := true // bool | Set this to `true` to populate foreign ID values in the result. (optional)
+    archived := true // bool | Specifies whether to return archived tables. Defaults to `false`. (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TablesApi.UpdateDraftTable(context.Background(), tableIdOrName).HubDbTableV3Request(hubDbTableV3Request).Archived(archived).IncludeForeignIds(includeForeignIds).Execute()
+    resp, r, err := apiClient.TablesApi.UpdateDraftTable(context.Background(), tableIdOrName).HubDbTableV3Request(hubDbTableV3Request).IncludeForeignIds(includeForeignIds).Archived(archived).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TablesApi.UpdateDraftTable``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1034,8 +1034,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **hubDbTableV3Request** | [**HubDbTableV3Request**](HubDbTableV3Request.md) | The JSON schema for the table being updated. | 
- **archived** | **bool** | Specifies whether to return archived tables. Defaults to &#x60;false&#x60;. | 
  **includeForeignIds** | **bool** | Set this to &#x60;true&#x60; to populate foreign ID values in the result. | 
+ **archived** | **bool** | Specifies whether to return archived tables. Defaults to &#x60;false&#x60;. | 
 
 ### Return type
 

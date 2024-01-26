@@ -1,5 +1,5 @@
 /*
-Blog Post endpoints
+Tags
 
 Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags
 
@@ -17,33 +17,33 @@ import (
 
 // Tag Model definition for a Tag.
 type Tag struct {
-	// The unique ID of the Blog Tag.
-	Id string `json:"id"`
+	// The timestamp (ISO8601 format) when this Blog Tag was deleted.
+	DeletedAt time.Time `json:"deletedAt"`
+	Created   time.Time `json:"created"`
 	// The name of the tag.
 	Name string `json:"name"`
 	// The explicitly defined ISO 639 language code of the tag.
 	Language string `json:"language"`
+	// The unique ID of the Blog Tag.
+	Id string `json:"id"`
 	// ID of the primary tag this object was translated from.
 	TranslatedFromId int64     `json:"translatedFromId"`
-	Created          time.Time `json:"created"`
 	Updated          time.Time `json:"updated"`
-	// The timestamp (ISO8601 format) when this Blog Tag was deleted.
-	DeletedAt time.Time `json:"deletedAt"`
 }
 
 // NewTag instantiates a new Tag object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTag(id string, name string, language string, translatedFromId int64, created time.Time, updated time.Time, deletedAt time.Time) *Tag {
+func NewTag(deletedAt time.Time, created time.Time, name string, language string, id string, translatedFromId int64, updated time.Time) *Tag {
 	this := Tag{}
-	this.Id = id
+	this.DeletedAt = deletedAt
+	this.Created = created
 	this.Name = name
 	this.Language = language
+	this.Id = id
 	this.TranslatedFromId = translatedFromId
-	this.Created = created
 	this.Updated = updated
-	this.DeletedAt = deletedAt
 	return &this
 }
 
@@ -55,28 +55,52 @@ func NewTagWithDefaults() *Tag {
 	return &this
 }
 
-// GetId returns the Id field value
-func (o *Tag) GetId() string {
+// GetDeletedAt returns the DeletedAt field value
+func (o *Tag) GetDeletedAt() time.Time {
 	if o == nil {
-		var ret string
+		var ret time.Time
 		return ret
 	}
 
-	return o.Id
+	return o.DeletedAt
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetDeletedAtOk returns a tuple with the DeletedAt field value
 // and a boolean to check if the value has been set.
-func (o *Tag) GetIdOk() (*string, bool) {
+func (o *Tag) GetDeletedAtOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Id, true
+	return &o.DeletedAt, true
 }
 
-// SetId sets field value
-func (o *Tag) SetId(v string) {
-	o.Id = v
+// SetDeletedAt sets field value
+func (o *Tag) SetDeletedAt(v time.Time) {
+	o.DeletedAt = v
+}
+
+// GetCreated returns the Created field value
+func (o *Tag) GetCreated() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.Created
+}
+
+// GetCreatedOk returns a tuple with the Created field value
+// and a boolean to check if the value has been set.
+func (o *Tag) GetCreatedOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Created, true
+}
+
+// SetCreated sets field value
+func (o *Tag) SetCreated(v time.Time) {
+	o.Created = v
 }
 
 // GetName returns the Name field value
@@ -127,6 +151,30 @@ func (o *Tag) SetLanguage(v string) {
 	o.Language = v
 }
 
+// GetId returns the Id field value
+func (o *Tag) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *Tag) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *Tag) SetId(v string) {
+	o.Id = v
+}
+
 // GetTranslatedFromId returns the TranslatedFromId field value
 func (o *Tag) GetTranslatedFromId() int64 {
 	if o == nil {
@@ -149,30 +197,6 @@ func (o *Tag) GetTranslatedFromIdOk() (*int64, bool) {
 // SetTranslatedFromId sets field value
 func (o *Tag) SetTranslatedFromId(v int64) {
 	o.TranslatedFromId = v
-}
-
-// GetCreated returns the Created field value
-func (o *Tag) GetCreated() time.Time {
-	if o == nil {
-		var ret time.Time
-		return ret
-	}
-
-	return o.Created
-}
-
-// GetCreatedOk returns a tuple with the Created field value
-// and a boolean to check if the value has been set.
-func (o *Tag) GetCreatedOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Created, true
-}
-
-// SetCreated sets field value
-func (o *Tag) SetCreated(v time.Time) {
-	o.Created = v
 }
 
 // GetUpdated returns the Updated field value
@@ -199,34 +223,13 @@ func (o *Tag) SetUpdated(v time.Time) {
 	o.Updated = v
 }
 
-// GetDeletedAt returns the DeletedAt field value
-func (o *Tag) GetDeletedAt() time.Time {
-	if o == nil {
-		var ret time.Time
-		return ret
-	}
-
-	return o.DeletedAt
-}
-
-// GetDeletedAtOk returns a tuple with the DeletedAt field value
-// and a boolean to check if the value has been set.
-func (o *Tag) GetDeletedAtOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.DeletedAt, true
-}
-
-// SetDeletedAt sets field value
-func (o *Tag) SetDeletedAt(v time.Time) {
-	o.DeletedAt = v
-}
-
 func (o Tag) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["id"] = o.Id
+		toSerialize["deletedAt"] = o.DeletedAt
+	}
+	if true {
+		toSerialize["created"] = o.Created
 	}
 	if true {
 		toSerialize["name"] = o.Name
@@ -235,16 +238,13 @@ func (o Tag) MarshalJSON() ([]byte, error) {
 		toSerialize["language"] = o.Language
 	}
 	if true {
+		toSerialize["id"] = o.Id
+	}
+	if true {
 		toSerialize["translatedFromId"] = o.TranslatedFromId
 	}
 	if true {
-		toSerialize["created"] = o.Created
-	}
-	if true {
 		toSerialize["updated"] = o.Updated
-	}
-	if true {
-		toSerialize["deletedAt"] = o.DeletedAt
 	}
 	return json.Marshal(toSerialize)
 }

@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Next** | Pointer to [**NextPage**](NextPage.md) |  | [optional] 
+**Prev** | Pointer to [**PreviousPage**](PreviousPage.md) |  | [optional] 
 
 ## Methods
 
@@ -49,6 +50,31 @@ SetNext sets Next field to given value.
 `func (o *Paging) HasNext() bool`
 
 HasNext returns a boolean if a field has been set.
+
+### GetPrev
+
+`func (o *Paging) GetPrev() PreviousPage`
+
+GetPrev returns the Prev field if non-nil, zero value otherwise.
+
+### GetPrevOk
+
+`func (o *Paging) GetPrevOk() (*PreviousPage, bool)`
+
+GetPrevOk returns a tuple with the Prev field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPrev
+
+`func (o *Paging) SetPrev(v PreviousPage)`
+
+SetPrev sets Prev field to given value.
+
+### HasPrev
+
+`func (o *Paging) HasPrev() bool`
+
+HasPrev returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

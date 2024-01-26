@@ -1,5 +1,5 @@
 /*
-Marketing Events Extension
+Marketing Events
 
 These APIs allow you to interact with HubSpot's Marketing Events Extension. It allows you to: * Create, Read or update Marketing Event information in HubSpot * Specify whether a HubSpot contact has registered, attended or cancelled a registration to a Marketing Event. * Specify a URL that can be called to get the details of a Marketing Event.
 
@@ -17,14 +17,22 @@ import (
 
 // BatchResponseMarketingEventPublicDefaultResponse struct for BatchResponseMarketingEventPublicDefaultResponse
 type BatchResponseMarketingEventPublicDefaultResponse struct {
-	CompletedAt time.Time                             `json:"completedAt"`
-	NumErrors   *int32                                `json:"numErrors,omitempty"`
-	RequestedAt *time.Time                            `json:"requestedAt,omitempty"`
-	StartedAt   time.Time                             `json:"startedAt"`
-	Links       *map[string]string                    `json:"links,omitempty"`
-	Results     []MarketingEventPublicDefaultResponse `json:"results"`
-	Errors      []StandardError                       `json:"errors,omitempty"`
-	Status      string                                `json:"status"`
+	//
+	CompletedAt time.Time `json:"completedAt"`
+	//
+	NumErrors *int32 `json:"numErrors,omitempty"`
+	//
+	RequestedAt *time.Time `json:"requestedAt,omitempty"`
+	//
+	StartedAt time.Time `json:"startedAt"`
+	//
+	Links *map[string]string `json:"links,omitempty"`
+	//
+	Results []MarketingEventPublicDefaultResponse `json:"results"`
+	//
+	Errors []StandardError `json:"errors,omitempty"`
+	//
+	Status string `json:"status"`
 }
 
 // NewBatchResponseMarketingEventPublicDefaultResponse instantiates a new BatchResponseMarketingEventPublicDefaultResponse object

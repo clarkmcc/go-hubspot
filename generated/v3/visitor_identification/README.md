@@ -78,7 +78,7 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*GenerateApi* | [**GenerateToken**](docs/GenerateApi.md#generatetoken) | **Post** /visitor-identification/v3/tokens/create | Generate a token
+*GenerateApi* | [**PostConversationsV3VisitorIdentificationTokensCreateGenerateToken**](docs/GenerateApi.md#postconversationsv3visitoridentificationtokenscreategeneratetoken) | **Post** /conversations/v3/visitor-identification/tokens/create | Generate a token
 
 
 ## Documentation For Models

@@ -1,5 +1,5 @@
 /*
-HubDB endpoints
+Hubdb
 
 HubDB is a relational data store that presents data as rows, columns, and cells in a table, much like a spreadsheet. HubDB tables can be added or modified [in the HubSpot CMS](https://knowledge.hubspot.com/cos-general/how-to-edit-hubdb-tables), but you can also use the API endpoints documented here. For more information on HubDB tables and using their data on a HubSpot site, see the [CMS developers site](https://designers.hubspot.com/docs/tools/hubdb). You can also see the [documentation for dynamic pages](https://designers.hubspot.com/docs/tutorials/how-to-build-dynamic-pages-with-hubdb) for more details about the `useForPages` field.  HubDB tables support `draft` and `published` versions. This allows you to update data in the table, either for testing or to allow for a manual approval process, without affecting any live pages using the existing data. Draft data can be reviewed, and published by a user working in HubSpot or published via the API. Draft data can also be discarded, allowing users to go back to the published version of the data without disrupting it. If a table is set to be `allowed for public access`, you can access the published version of the table and rows without any authentication by specifying the portal id via the query parameter `portalId`.
 
@@ -17,26 +17,34 @@ import (
 
 // BatchResponseHubDbTableRowV3WithErrors struct for BatchResponseHubDbTableRowV3WithErrors
 type BatchResponseHubDbTableRowV3WithErrors struct {
-	Status      string             `json:"status"`
-	Results     []HubDbTableRowV3  `json:"results"`
-	NumErrors   *int32             `json:"numErrors,omitempty"`
-	Errors      []StandardError    `json:"errors,omitempty"`
-	RequestedAt *time.Time         `json:"requestedAt,omitempty"`
-	StartedAt   time.Time          `json:"startedAt"`
-	CompletedAt time.Time          `json:"completedAt"`
-	Links       *map[string]string `json:"links,omitempty"`
+	//
+	CompletedAt time.Time `json:"completedAt"`
+	//
+	NumErrors *int32 `json:"numErrors,omitempty"`
+	//
+	RequestedAt *time.Time `json:"requestedAt,omitempty"`
+	//
+	StartedAt time.Time `json:"startedAt"`
+	//
+	Links *map[string]string `json:"links,omitempty"`
+	//
+	Results []HubDbTableRowV3 `json:"results"`
+	//
+	Errors []StandardError `json:"errors,omitempty"`
+	//
+	Status string `json:"status"`
 }
 
 // NewBatchResponseHubDbTableRowV3WithErrors instantiates a new BatchResponseHubDbTableRowV3WithErrors object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBatchResponseHubDbTableRowV3WithErrors(status string, results []HubDbTableRowV3, startedAt time.Time, completedAt time.Time) *BatchResponseHubDbTableRowV3WithErrors {
+func NewBatchResponseHubDbTableRowV3WithErrors(completedAt time.Time, startedAt time.Time, results []HubDbTableRowV3, status string) *BatchResponseHubDbTableRowV3WithErrors {
 	this := BatchResponseHubDbTableRowV3WithErrors{}
-	this.Status = status
-	this.Results = results
-	this.StartedAt = startedAt
 	this.CompletedAt = completedAt
+	this.StartedAt = startedAt
+	this.Results = results
+	this.Status = status
 	return &this
 }
 
@@ -48,52 +56,28 @@ func NewBatchResponseHubDbTableRowV3WithErrorsWithDefaults() *BatchResponseHubDb
 	return &this
 }
 
-// GetStatus returns the Status field value
-func (o *BatchResponseHubDbTableRowV3WithErrors) GetStatus() string {
+// GetCompletedAt returns the CompletedAt field value
+func (o *BatchResponseHubDbTableRowV3WithErrors) GetCompletedAt() time.Time {
 	if o == nil {
-		var ret string
+		var ret time.Time
 		return ret
 	}
 
-	return o.Status
+	return o.CompletedAt
 }
 
-// GetStatusOk returns a tuple with the Status field value
+// GetCompletedAtOk returns a tuple with the CompletedAt field value
 // and a boolean to check if the value has been set.
-func (o *BatchResponseHubDbTableRowV3WithErrors) GetStatusOk() (*string, bool) {
+func (o *BatchResponseHubDbTableRowV3WithErrors) GetCompletedAtOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Status, true
+	return &o.CompletedAt, true
 }
 
-// SetStatus sets field value
-func (o *BatchResponseHubDbTableRowV3WithErrors) SetStatus(v string) {
-	o.Status = v
-}
-
-// GetResults returns the Results field value
-func (o *BatchResponseHubDbTableRowV3WithErrors) GetResults() []HubDbTableRowV3 {
-	if o == nil {
-		var ret []HubDbTableRowV3
-		return ret
-	}
-
-	return o.Results
-}
-
-// GetResultsOk returns a tuple with the Results field value
-// and a boolean to check if the value has been set.
-func (o *BatchResponseHubDbTableRowV3WithErrors) GetResultsOk() ([]HubDbTableRowV3, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Results, true
-}
-
-// SetResults sets field value
-func (o *BatchResponseHubDbTableRowV3WithErrors) SetResults(v []HubDbTableRowV3) {
-	o.Results = v
+// SetCompletedAt sets field value
+func (o *BatchResponseHubDbTableRowV3WithErrors) SetCompletedAt(v time.Time) {
+	o.CompletedAt = v
 }
 
 // GetNumErrors returns the NumErrors field value if set, zero value otherwise.
@@ -126,38 +110,6 @@ func (o *BatchResponseHubDbTableRowV3WithErrors) HasNumErrors() bool {
 // SetNumErrors gets a reference to the given int32 and assigns it to the NumErrors field.
 func (o *BatchResponseHubDbTableRowV3WithErrors) SetNumErrors(v int32) {
 	o.NumErrors = &v
-}
-
-// GetErrors returns the Errors field value if set, zero value otherwise.
-func (o *BatchResponseHubDbTableRowV3WithErrors) GetErrors() []StandardError {
-	if o == nil || o.Errors == nil {
-		var ret []StandardError
-		return ret
-	}
-	return o.Errors
-}
-
-// GetErrorsOk returns a tuple with the Errors field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BatchResponseHubDbTableRowV3WithErrors) GetErrorsOk() ([]StandardError, bool) {
-	if o == nil || o.Errors == nil {
-		return nil, false
-	}
-	return o.Errors, true
-}
-
-// HasErrors returns a boolean if a field has been set.
-func (o *BatchResponseHubDbTableRowV3WithErrors) HasErrors() bool {
-	if o != nil && o.Errors != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetErrors gets a reference to the given []StandardError and assigns it to the Errors field.
-func (o *BatchResponseHubDbTableRowV3WithErrors) SetErrors(v []StandardError) {
-	o.Errors = v
 }
 
 // GetRequestedAt returns the RequestedAt field value if set, zero value otherwise.
@@ -216,30 +168,6 @@ func (o *BatchResponseHubDbTableRowV3WithErrors) SetStartedAt(v time.Time) {
 	o.StartedAt = v
 }
 
-// GetCompletedAt returns the CompletedAt field value
-func (o *BatchResponseHubDbTableRowV3WithErrors) GetCompletedAt() time.Time {
-	if o == nil {
-		var ret time.Time
-		return ret
-	}
-
-	return o.CompletedAt
-}
-
-// GetCompletedAtOk returns a tuple with the CompletedAt field value
-// and a boolean to check if the value has been set.
-func (o *BatchResponseHubDbTableRowV3WithErrors) GetCompletedAtOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.CompletedAt, true
-}
-
-// SetCompletedAt sets field value
-func (o *BatchResponseHubDbTableRowV3WithErrors) SetCompletedAt(v time.Time) {
-	o.CompletedAt = v
-}
-
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *BatchResponseHubDbTableRowV3WithErrors) GetLinks() map[string]string {
 	if o == nil || o.Links == nil {
@@ -272,19 +200,93 @@ func (o *BatchResponseHubDbTableRowV3WithErrors) SetLinks(v map[string]string) {
 	o.Links = &v
 }
 
+// GetResults returns the Results field value
+func (o *BatchResponseHubDbTableRowV3WithErrors) GetResults() []HubDbTableRowV3 {
+	if o == nil {
+		var ret []HubDbTableRowV3
+		return ret
+	}
+
+	return o.Results
+}
+
+// GetResultsOk returns a tuple with the Results field value
+// and a boolean to check if the value has been set.
+func (o *BatchResponseHubDbTableRowV3WithErrors) GetResultsOk() ([]HubDbTableRowV3, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Results, true
+}
+
+// SetResults sets field value
+func (o *BatchResponseHubDbTableRowV3WithErrors) SetResults(v []HubDbTableRowV3) {
+	o.Results = v
+}
+
+// GetErrors returns the Errors field value if set, zero value otherwise.
+func (o *BatchResponseHubDbTableRowV3WithErrors) GetErrors() []StandardError {
+	if o == nil || o.Errors == nil {
+		var ret []StandardError
+		return ret
+	}
+	return o.Errors
+}
+
+// GetErrorsOk returns a tuple with the Errors field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BatchResponseHubDbTableRowV3WithErrors) GetErrorsOk() ([]StandardError, bool) {
+	if o == nil || o.Errors == nil {
+		return nil, false
+	}
+	return o.Errors, true
+}
+
+// HasErrors returns a boolean if a field has been set.
+func (o *BatchResponseHubDbTableRowV3WithErrors) HasErrors() bool {
+	if o != nil && o.Errors != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetErrors gets a reference to the given []StandardError and assigns it to the Errors field.
+func (o *BatchResponseHubDbTableRowV3WithErrors) SetErrors(v []StandardError) {
+	o.Errors = v
+}
+
+// GetStatus returns the Status field value
+func (o *BatchResponseHubDbTableRowV3WithErrors) GetStatus() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value
+// and a boolean to check if the value has been set.
+func (o *BatchResponseHubDbTableRowV3WithErrors) GetStatusOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Status, true
+}
+
+// SetStatus sets field value
+func (o *BatchResponseHubDbTableRowV3WithErrors) SetStatus(v string) {
+	o.Status = v
+}
+
 func (o BatchResponseHubDbTableRowV3WithErrors) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["status"] = o.Status
-	}
-	if true {
-		toSerialize["results"] = o.Results
+		toSerialize["completedAt"] = o.CompletedAt
 	}
 	if o.NumErrors != nil {
 		toSerialize["numErrors"] = o.NumErrors
-	}
-	if o.Errors != nil {
-		toSerialize["errors"] = o.Errors
 	}
 	if o.RequestedAt != nil {
 		toSerialize["requestedAt"] = o.RequestedAt
@@ -292,11 +294,17 @@ func (o BatchResponseHubDbTableRowV3WithErrors) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["startedAt"] = o.StartedAt
 	}
-	if true {
-		toSerialize["completedAt"] = o.CompletedAt
-	}
 	if o.Links != nil {
 		toSerialize["links"] = o.Links
+	}
+	if true {
+		toSerialize["results"] = o.Results
+	}
+	if o.Errors != nil {
+		toSerialize["errors"] = o.Errors
+	}
+	if true {
+		toSerialize["status"] = o.Status
 	}
 	return json.Marshal(toSerialize)
 }

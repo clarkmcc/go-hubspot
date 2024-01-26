@@ -78,7 +78,7 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*BehavioralEventsTrackingApi* | [**Send**](docs/BehavioralEventsTrackingApi.md#send) | **Post** /events/v3/send | Sends Custom Behavioral Event
+*BehavioralEventsTrackingApi* | [**SendSend**](docs/BehavioralEventsTrackingApi.md#sendsend) | **Post** /events/v3/send | Sends Custom Behavioral Event
 
 
 ## Documentation For Models
@@ -99,6 +99,7 @@ Class | Method | HTTP request | Description
 - **Flow**: accessCode
 - **Authorization URL**: https://app.hubspot.com/oauth/authorize
 - **Scopes**: 
+ - **behavioral_events.event_definitions.read_write**: Read from and write to custom behavioral events definitions
  - **analytics.behavioral_events.send**: Send Behavioral Event Completions
 
 Example

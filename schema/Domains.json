@@ -1,15 +1,25 @@
 {
   "openapi" : "3.0.1",
   "info" : {
-    "title" : "Domains",
-    "version" : "v3"
+    "title" : "CMS Domains",
+    "version" : "v3",
+    "x-hubspot-product-tier-requirements" : {
+      "marketing" : "PROFESSIONAL",
+      "cms" : "STARTER"
+    },
+    "x-hubspot-documentation-banner" : "NONE",
+    "x-hubspot-api-use-case" : "Retrieve all currently connected domains to see which sites are live in a given account.",
+    "x-hubspot-related-documentation" : [ {
+      "name" : "Domains Guide",
+      "url" : "https://hubspot.dev/guides/api/cms/domains"
+    } ],
+    "x-hubspot-introduction" : "Use the domain management API to return information about the domains connected to a HubSpot account. You can return data for all currently connected domains, or for a single domain by ID."
   },
   "servers" : [ {
-    "url" : "https://api.hubapi.com/"
+    "url" : "https://api.hubapi.com"
   } ],
   "tags" : [ {
-    "name" : "Domains",
-    "description" : "Operations for fetching domains"
+    "name" : "Domains"
   } ],
   "paths" : {
     "/cms/v3/domains/" : {
@@ -200,11 +210,15 @@
         }, {
           "oauth2" : [ "cms.domains.write" ]
         }, {
+          "oauth2_legacy" : [ "cms.knowledge_base.settings.read" ]
+        }, {
           "private_apps_legacy" : [ "cms.knowledge_base.settings.write" ]
         }, {
           "oauth2_legacy" : [ "cms.knowledge_base.settings.write" ]
         }, {
           "oauth2_legacy" : [ "content" ]
+        }, {
+          "private_apps_legacy" : [ "cms.knowledge_base.settings.read" ]
         } ]
       }
     },
@@ -273,11 +287,15 @@
         }, {
           "oauth2" : [ "cms.domains.write" ]
         }, {
+          "oauth2_legacy" : [ "cms.knowledge_base.settings.read" ]
+        }, {
           "private_apps_legacy" : [ "cms.knowledge_base.settings.write" ]
         }, {
           "oauth2_legacy" : [ "cms.knowledge_base.settings.write" ]
         }, {
           "oauth2_legacy" : [ "content" ]
+        }, {
+          "private_apps_legacy" : [ "cms.knowledge_base.settings.read" ]
         } ]
       }
     }
@@ -288,21 +306,17 @@
         "required" : [ "message" ],
         "type" : "object",
         "properties" : {
-          "message" : {
+          "subCategory" : {
             "type" : "string",
-            "description" : "A human readable message describing the error along with remediation steps where appropriate"
-          },
-          "in" : {
-            "type" : "string",
-            "description" : "The name of the field or parameter in which the error was found."
+            "description" : "A specific category that contains more specific detail about the error"
           },
           "code" : {
             "type" : "string",
             "description" : "The status code associated with the error detail"
           },
-          "subCategory" : {
+          "in" : {
             "type" : "string",
-            "description" : "A specific category that contains more specific detail about the error"
+            "description" : "The name of the field or parameter in which the error was found."
           },
           "context" : {
             "type" : "object",
@@ -316,6 +330,10 @@
             "example" : {
               "missingScopes" : [ "scope1", "scope2" ]
             }
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "A human readable message describing the error along with remediation steps where appropriate"
           }
         }
       },
@@ -331,31 +349,9 @@
         "required" : [ "category", "correlationId", "message" ],
         "type" : "object",
         "properties" : {
-          "message" : {
-            "type" : "string",
-            "description" : "A human readable message describing the error along with remediation steps where appropriate",
-            "example" : "An error occurred"
-          },
-          "correlationId" : {
-            "type" : "string",
-            "description" : "A unique identifier for the request. Include this value with any error reports or support tickets",
-            "format" : "uuid",
-            "example" : "aeb5f871-7f07-4993-9211-075dc63e7cbf"
-          },
-          "category" : {
-            "type" : "string",
-            "description" : "The error category"
-          },
           "subCategory" : {
             "type" : "string",
             "description" : "A specific category that contains more specific detail about the error"
-          },
-          "errors" : {
-            "type" : "array",
-            "description" : "further information about the error",
-            "items" : {
-              "$ref" : "#/components/schemas/ErrorDetail"
-            }
           },
           "context" : {
             "type" : "object",
@@ -367,16 +363,42 @@
             },
             "description" : "Context about the error condition",
             "example" : {
-              "invalidPropertyName" : [ "propertyValue" ],
-              "missingScopes" : [ "scope1", "scope2" ]
+              "missingScopes" : [ "scope1", "scope2" ],
+              "invalidPropertyName" : [ "propertyValue" ]
             }
+          },
+          "correlationId" : {
+            "type" : "string",
+            "description" : "A unique identifier for the request. Include this value with any error reports or support tickets",
+            "format" : "uuid",
+            "example" : "aeb5f871-7f07-4993-9211-075dc63e7cbf"
           },
           "links" : {
             "type" : "object",
             "additionalProperties" : {
               "type" : "string"
             },
-            "description" : "A map of link names to associated URIs containing documentation about the error or recommended remediation steps"
+            "description" : "A map of link names to associated URIs containing documentation about the error or recommended remediation steps",
+            "example" : {
+              "knowledge-base" : "https://www.hubspot.com/products/service/knowledge-base"
+            }
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "A human readable message describing the error along with remediation steps where appropriate",
+            "example" : "Invalid input (details will vary based on the error)"
+          },
+          "category" : {
+            "type" : "string",
+            "description" : "The error category",
+            "example" : "VALIDATION_ERROR"
+          },
+          "errors" : {
+            "type" : "array",
+            "description" : "further information about the error",
+            "items" : {
+              "$ref" : "#/components/schemas/ErrorDetail"
+            }
           }
         },
         "example" : {
@@ -392,44 +414,29 @@
         "required" : [ "domain", "id", "isResolving", "isUsedForBlogPost", "isUsedForEmail", "isUsedForKnowledge", "isUsedForLandingPage", "isUsedForSitePage" ],
         "type" : "object",
         "properties" : {
-          "id" : {
-            "type" : "string",
-            "description" : "The unique ID of this domain."
-          },
-          "domain" : {
-            "type" : "string",
-            "description" : "The actual domain or sub-domain. e.g. www.hubspot.com"
-          },
-          "primaryLandingPage" : {
-            "type" : "boolean"
-          },
-          "primaryEmail" : {
-            "type" : "boolean"
+          "isUsedForLandingPage" : {
+            "type" : "boolean",
+            "description" : "Whether the domain is used for CMS landing pages."
           },
           "primaryBlogPost" : {
-            "type" : "boolean"
-          },
-          "primarySitePage" : {
             "type" : "boolean"
           },
           "primaryKnowledge" : {
             "type" : "boolean"
           },
+          "created" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
           "secondaryToDomain" : {
             "type" : "string"
-          },
-          "isResolving" : {
-            "type" : "boolean",
-            "description" : "Whether the DNS for this domain is optimally configured for use with HubSpot."
           },
           "manuallyMarkedAsResolving" : {
             "type" : "boolean"
           },
-          "isSslEnabled" : {
-            "type" : "boolean"
-          },
-          "isSslOnly" : {
-            "type" : "boolean"
+          "isUsedForKnowledge" : {
+            "type" : "boolean",
+            "description" : "Whether the domain is used for CMS knowledge pages."
           },
           "isUsedForBlogPost" : {
             "type" : "boolean",
@@ -439,28 +446,43 @@
             "type" : "boolean",
             "description" : "Whether the domain is used for CMS site pages."
           },
-          "isUsedForLandingPage" : {
+          "isResolving" : {
             "type" : "boolean",
-            "description" : "Whether the domain is used for CMS landing pages."
+            "description" : "Whether the DNS for this domain is optimally configured for use with HubSpot."
+          },
+          "isSslEnabled" : {
+            "type" : "boolean"
           },
           "isUsedForEmail" : {
             "type" : "boolean",
             "description" : "Whether the domain is used for CMS email web pages."
           },
-          "isUsedForKnowledge" : {
-            "type" : "boolean",
-            "description" : "Whether the domain is used for CMS knowledge pages."
+          "domain" : {
+            "type" : "string",
+            "description" : "The actual domain or sub-domain. e.g. www.hubspot.com"
+          },
+          "primarySitePage" : {
+            "type" : "boolean"
+          },
+          "primaryLandingPage" : {
+            "type" : "boolean"
+          },
+          "id" : {
+            "type" : "string",
+            "description" : "The unique ID of this domain."
           },
           "correctCname" : {
             "type" : "string"
           },
-          "created" : {
-            "type" : "string",
-            "format" : "date-time"
+          "isSslOnly" : {
+            "type" : "boolean"
           },
           "updated" : {
             "type" : "string",
             "format" : "date-time"
+          },
+          "primaryEmail" : {
+            "type" : "boolean"
           }
         }
       },
@@ -468,10 +490,10 @@
         "required" : [ "after" ],
         "type" : "object",
         "properties" : {
-          "after" : {
+          "link" : {
             "type" : "string"
           },
-          "link" : {
+          "after" : {
             "type" : "string"
           }
         }
@@ -484,14 +506,14 @@
             "type" : "integer",
             "format" : "int32"
           },
+          "paging" : {
+            "$ref" : "#/components/schemas/ForwardPaging"
+          },
           "results" : {
             "type" : "array",
             "items" : {
               "$ref" : "#/components/schemas/Domain"
             }
-          },
-          "paging" : {
-            "$ref" : "#/components/schemas/ForwardPaging"
           }
         }
       }
@@ -516,6 +538,7 @@
             "authorizationUrl" : "https://app.hubspot.com/oauth/authorize",
             "tokenUrl" : "https://api.hubapi.com/oauth/v1/token",
             "scopes" : {
+              "cms.knowledge_base.settings.read" : "View knowledge base settings",
               "cms.knowledge_base.settings.write" : "Update knowledge base settings",
               "content" : "Read from and write to my Content"
             }
@@ -547,5 +570,10 @@
       }
     }
   },
-  "x-hubspot-available-client-libraries" : [ "PHP", "Node", "Python", "Ruby" ]
+  "x-hubspot-available-client-libraries" : [ "PHP", "Node", "Ruby", "Python" ],
+  "x-hubspot-product-tier-requirements" : {
+    "marketing" : "PROFESSIONAL",
+    "cms" : "STARTER"
+  },
+  "x-hubspot-documentation-banner" : "NONE"
 }

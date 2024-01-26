@@ -16,120 +16,65 @@ info:
     \ disrupting it. If a table is set to be `allowed for public access`, you can\
     \ access the published version of the table and rows without any authentication\
     \ by specifying the portal id via the query parameter `portalId`."
-  title: HubDB endpoints
+  title: Hubdb
   version: v3
+  x-hubspot-product-tier-requirements:
+    marketing: PROFESSIONAL
+    cms: PROFESSIONAL
+  x-hubspot-documentation-banner: NONE
+  x-hubspot-api-use-case: Store inventory data in HubDB tables for both record keeping
+    and generating dynamic pages for listing products on your website.
+  x-hubspot-related-documentation:
+  - name: HubDB Guide
+    url: https://hubspot.dev/guides/api/cms/hubdb
+  x-hubspot-introduction: "Use the HubDB API to create and manage HubDB tables in\
+    \ the account, as well as import, retrieve, and manage individual table data."
 servers:
-- url: https://api.hubapi.com/
+- url: https://api.hubapi.com
 tags:
-- name: Tables
-- name: Rows
-- name: Rows Batch
+- description: ""
+  name: Tables
+  x-hubspot-tag-name-english-source: Tables
+- description: ""
+  name: Rows
+  x-hubspot-tag-name-english-source: Rows
+- description: ""
+  name: Rows Batch
+  x-hubspot-tag-name-english-source: Rows Batch
 paths:
-  /cms/v3/hubdb/tables:
+  /cms/v3/hubdb/tables/{tableIdOrName}/draft/export:
     get:
-      description: "Returns the details for the `published` version of each table\
-        \ defined in an account, including column definitions."
-      operationId: GetAllTables
+      description: Exports the `draft` version of a table to CSV / EXCEL format.
+      operationId: ExportDraftTable
       parameters:
-      - description: "Specifies which fields to use for sorting results. Valid fields\
-          \ are `name`, `createdAt`, `updatedAt`, `createdBy`, `updatedBy`. `createdAt`\
-          \ will be used by default."
-        explode: true
-        in: query
-        name: sort
-        required: false
+      - description: The ID or name of the table to export.
+        explode: false
+        in: path
+        name: tableIdOrName
+        required: true
         schema:
-          items:
-            type: string
-          type: array
-        style: form
-      - description: The cursor token value to get the next set of results. You can
-          get this from the `paging.next.after` JSON property of a paged response
-          containing more results.
+          type: string
+        style: simple
+      - description: "The file format to export. Possible values include `CSV`, `XLSX`,\
+          \ and `XLS`."
         explode: true
         in: query
-        name: after
+        name: format
         required: false
         schema:
           type: string
-        style: form
-      - description: The maximum number of results to return. Default is 1000.
-        explode: true
-        in: query
-        name: limit
-        required: false
-        schema:
-          format: int32
-          type: integer
-        style: form
-      - description: Only return tables created at exactly the specified time.
-        explode: true
-        in: query
-        name: createdAt
-        required: false
-        schema:
-          format: date-time
-          type: string
-        style: form
-      - description: Only return tables created after the specified time.
-        explode: true
-        in: query
-        name: createdAfter
-        required: false
-        schema:
-          format: date-time
-          type: string
-        style: form
-      - description: Only return tables created before the specified time.
-        explode: true
-        in: query
-        name: createdBefore
-        required: false
-        schema:
-          format: date-time
-          type: string
-        style: form
-      - description: Only return tables last updated at exactly the specified time.
-        explode: true
-        in: query
-        name: updatedAt
-        required: false
-        schema:
-          format: date-time
-          type: string
-        style: form
-      - description: Only return tables last updated after the specified time.
-        explode: true
-        in: query
-        name: updatedAfter
-        required: false
-        schema:
-          format: date-time
-          type: string
-        style: form
-      - description: Only return tables last updated before the specified time.
-        explode: true
-        in: query
-        name: updatedBefore
-        required: false
-        schema:
-          format: date-time
-          type: string
-        style: form
-      - description: Specifies whether to return archived tables. Defaults to `false`.
-        explode: true
-        in: query
-        name: archived
-        required: false
-        schema:
-          type: boolean
         style: form
       responses:
         "200":
           content:
-            application/json:
+            application/vnd.ms-excel:
               schema:
-                $ref: '#/components/schemas/CollectionResponseWithTotalHubDbTableV3ForwardPaging'
+                format: binary
+                type: string
+            text/csv:
+              schema:
+                format: binary
+                type: string
           description: successful operation
         default:
           content:
@@ -142,39 +87,7 @@ paths:
         - hubdb
       - oauth2_legacy:
         - hubdb
-      summary: Get all published tables
-      tags:
-      - Tables
-    post:
-      description: Creates a new draft HubDB table given a JSON schema. The table
-        name and label should be unique for each account.
-      operationId: CreateTable
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/HubDbTableV3Request'
-        description: The JSON schema for the table being created.
-        required: true
-      responses:
-        "201":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HubDbTableV3'
-          description: successful operation
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - private_apps_legacy:
-        - hubdb
-      - oauth2_legacy:
-        - hubdb
-      summary: Create a new table
+      summary: Export a draft table
       tags:
       - Tables
   /cms/v3/hubdb/tables/draft:
@@ -297,46 +210,18 @@ paths:
       summary: Return all draft tables
       tags:
       - Tables
-  /cms/v3/hubdb/tables/{tableIdOrName}:
-    delete:
-      description: Archive (soft delete) an existing HubDB table. This archives both
-        the published and draft versions.
-      operationId: ArchiveTable
-      parameters:
-      - description: The ID or name of the table to archive.
-        explode: false
-        in: path
-        name: tableIdOrName
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "204":
-          content: {}
-          description: No content
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - private_apps_legacy:
-        - hubdb
-      - oauth2_legacy:
-        - hubdb
-      summary: Archive a table
-      tags:
-      - Tables
+  /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft:
     get:
-      description: |-
-        Returns the details for the `published` version of the specified table. This will include the definitions for the columns in the table and the number of rows in the table.
-
-        **Note:** This endpoint can be accessed without any authentication if the table is set to be allowed for public access.
-      operationId: GetTableDetails
+      description: "Returns rows in the `draft` version of the specified table. Row\
+        \ results can be filtered and sorted. Filtering and sorting options will be\
+        \ sent as query parameters to the API request. For example, by adding the\
+        \ query parameters `column1__gt=5&sort=-column1`, API returns the rows with\
+        \ values for column `column1` greater than 5 and in the descending order of\
+        \ `column1` values. Refer to the [overview section](https://developers.hubspot.com/docs/api/cms/hubdb#filtering-and-sorting-table-rows)\
+        \ for detailed filtering and sorting options."
+      operationId: ReadDraftTableRows
       parameters:
-      - description: The ID or name of the table to return.
+      - description: The ID or name of the table to query.
         explode: false
         in: path
         name: tableIdOrName
@@ -344,29 +229,53 @@ paths:
         schema:
           type: string
         style: simple
-      - description: Set this to `true` to return details for an archived table. Defaults
-          to `false`.
+      - description: Specifies the column names to sort the results by.
         explode: true
         in: query
-        name: archived
+        name: sort
         required: false
         schema:
-          type: boolean
+          items:
+            type: string
+          type: array
         style: form
-      - description: Set this to `true` to populate foreign ID values in the result.
+      - description: The cursor token value to get the next set of results. You can
+          get this from the `paging.next.after` JSON property of a paged response
+          containing more results.
         explode: true
         in: query
-        name: includeForeignIds
+        name: after
         required: false
         schema:
-          type: boolean
+          type: string
+        style: form
+      - description: The maximum number of results to return. Default is `1000`.
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+      - description: "Specify the column names to get results containing only the\
+          \ required columns instead of all column details. If you want to include\
+          \ multiple columns in the result, use this query param as many times. "
+        explode: true
+        in: query
+        name: properties
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
         style: form
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/HubDbTableV3'
+                $ref: '#/components/schemas/CollectionResponseWithTotalHubDbTableRowV3ForwardPaging'
           description: successful operation
         default:
           content:
@@ -379,17 +288,17 @@ paths:
         - hubdb
       - oauth2_legacy:
         - hubdb
-      summary: Get details for a published table
+      summary: Get rows from draft table
       tags:
-      - Tables
-  /cms/v3/hubdb/tables/{tableIdOrName}/draft:
+      - Rows
+  /cms/v3/hubdb/tables/{tableIdOrName}/rows/{rowId}:
     get:
-      description: Get the details for the `draft` version of a specific HubDB table.
-        This will include the definitions for the columns in the table and the number
-        of rows in the table.
-      operationId: GetDraftTableDetailsByID
+      description: "Get a single row by ID from a table's `published` version.\n**Note:**\
+        \ This endpoint can be accessed without any authentication, if the table is\
+        \ set to be allowed for public access."
+      operationId: GetTableRow
       parameters:
-      - description: The ID or name of the table to return.
+      - description: The ID or name of the table
         explode: false
         in: path
         name: tableIdOrName
@@ -397,28 +306,21 @@ paths:
         schema:
           type: string
         style: simple
-      - description: Set this to `true` to return an archived table. Defaults to `false`.
-        explode: true
-        in: query
-        name: archived
-        required: false
+      - description: The ID of the row
+        explode: false
+        in: path
+        name: rowId
+        required: true
         schema:
-          type: boolean
-        style: form
-      - description: Set this to `true` to populate foreign ID values in the result.
-        explode: true
-        in: query
-        name: includeForeignIds
-        required: false
-        schema:
-          type: boolean
-        style: form
+          pattern: \d+
+          type: string
+        style: simple
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/HubDbTableV3'
+                $ref: '#/components/schemas/HubDbTableRowV3'
           description: successful operation
         default:
           content:
@@ -431,81 +333,15 @@ paths:
         - hubdb
       - oauth2_legacy:
         - hubdb
-      summary: Get details for a draft table
+      summary: Get a table row
       tags:
-      - Tables
-    patch:
-      description: "Update an existing HubDB table. You can use this endpoint to add\
-        \ or remove columns to the table as well as restore an archived table. Tables\
-        \ updated using the endpoint will only modify the `draft` verion of the table.\
-        \ Use `publish` endpoint to push all the changes to the `published` version.\
-        \ To restore a table, include the query parameter `archived=true` and `\"\
-        archived\": false` in the json body.\n**Note:** You need to include all the\
-        \ columns in the input when you are adding/removing/updating a column. If\
-        \ you do not include an already existing column in the request, it will be\
-        \ deleted."
-      operationId: UpdateDraftTable
-      parameters:
-      - description: The ID or name of the table to update.
-        explode: false
-        in: path
-        name: tableIdOrName
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: Specifies whether to return archived tables. Defaults to `false`.
-        explode: true
-        in: query
-        name: archived
-        required: false
-        schema:
-          type: boolean
-        style: form
-      - description: Set this to `true` to populate foreign ID values in the result.
-        explode: true
-        in: query
-        name: includeForeignIds
-        required: false
-        schema:
-          type: boolean
-        style: form
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/HubDbTableV3Request'
-        description: The JSON schema for the table being updated.
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HubDbTableV3'
-          description: successful operation
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - private_apps_legacy:
-        - hubdb
-      - oauth2_legacy:
-        - hubdb
-      summary: Update an existing table
-      tags:
-      - Tables
-  /cms/v3/hubdb/tables/{tableIdOrName}/draft/clone:
+      - Rows
+  /cms/v3/hubdb/tables/{tableIdOrName}/rows/{rowId}/draft/clone:
     post:
-      description: Clone an existing HubDB table. The `newName` and `newLabel` of
-        the new table can be sent as JSON in the `body` parameter. This will create
-        the cloned table as a `draft`.
-      operationId: CloneDraftTable
+      description: Clones a single row in the `draft` version of the table.
+      operationId: CloneDraftTableRow
       parameters:
-      - description: The ID or name of the table to clone.
+      - description: The ID or name of the table
         explode: false
         in: path
         name: tableIdOrName
@@ -513,21 +349,21 @@ paths:
         schema:
           type: string
         style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/HubDbTableCloneRequest'
-        description: JSON object with the properties newName and newLabel. You can
-          set copyRows to false to clone the table with copying rows and default is
-          true.
+      - description: The ID of the row
+        explode: false
+        in: path
+        name: rowId
         required: true
+        schema:
+          pattern: \d+
+          type: string
+        style: simple
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/HubDbTableV3'
+                $ref: '#/components/schemas/HubDbTableRowV3'
           description: successful operation
         default:
           content:
@@ -540,147 +376,9 @@ paths:
         - hubdb
       - oauth2_legacy:
         - hubdb
-      summary: Clone a table
+      summary: Clone a row
       tags:
-      - Tables
-  /cms/v3/hubdb/tables/{tableIdOrName}/draft/export:
-    get:
-      description: Exports the `draft` version of a table to CSV / EXCEL format.
-      operationId: ExportDraftTable
-      parameters:
-      - description: The ID or name of the table to export.
-        explode: false
-        in: path
-        name: tableIdOrName
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: "The file format to export. Possible values include `CSV`, `XLSX`,\
-          \ and `XLS`."
-        explode: true
-        in: query
-        name: format
-        required: false
-        schema:
-          type: string
-        style: form
-      responses:
-        "200":
-          content:
-            application/vnd.ms-excel:
-              schema:
-                format: binary
-                type: string
-            text/csv:
-              schema:
-                format: binary
-                type: string
-          description: successful operation
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - private_apps_legacy:
-        - hubdb
-      - oauth2_legacy:
-        - hubdb
-      summary: Export a draft table
-      tags:
-      - Tables
-  /cms/v3/hubdb/tables/{tableIdOrName}/draft/import:
-    post:
-      description: "Import the contents of a CSV file into an existing HubDB table.\
-        \ The data will always be imported into the `draft` version of the table.\
-        \ Use `/publish` endpoint to push these changes to `published` version.\n\
-        This endpoint takes a multi-part POST request. The first part will be a set\
-        \ of JSON-formatted options for the import and you can specify this with the\
-        \ name as `config`.  The second part will be the CSV file you want to import\
-        \ and you can specify this with the name as `file`. Refer the [overview section](https://developers.hubspot.com/docs/api/cms/hubdb#importing-tables)\
-        \ to check the details and format of the JSON-formatted options for the import."
-      operationId: ImportDraftTable
-      parameters:
-      - description: The ID of the destination table where data will be imported.
-        explode: false
-        in: path
-        name: tableIdOrName
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/ImportDraftTable_request'
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ImportResult'
-          description: successful operation
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - private_apps_legacy:
-        - hubdb
-      - oauth2_legacy:
-        - hubdb
-      summary: Import data into draft table
-      tags:
-      - Tables
-  /cms/v3/hubdb/tables/{tableIdOrName}/draft/publish:
-    post:
-      description: "Publishes the table by copying the data and table schema changes\
-        \ from draft version to the published version, meaning any website pages using\
-        \ data from the table will be updated."
-      operationId: PublishDraftTable
-      parameters:
-      - description: The ID or name of the table to publish.
-        explode: false
-        in: path
-        name: tableIdOrName
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: Set this to `true` to populate foreign ID values in the response.
-        explode: true
-        in: query
-        name: includeForeignIds
-        required: false
-        schema:
-          type: boolean
-        style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HubDbTableV3'
-          description: successful operation
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - private_apps_legacy:
-        - hubdb
-      - oauth2_legacy:
-        - hubdb
-      summary: Publish a table from draft
-      tags:
-      - Tables
+      - Rows
   /cms/v3/hubdb/tables/{tableIdOrName}/draft/reset:
     post:
       description: Replaces the data in the `draft` version of the table with values
@@ -773,439 +471,6 @@ paths:
       summary: Export a published version of a table
       tags:
       - Tables
-  /cms/v3/hubdb/tables/{tableIdOrName}/rows:
-    get:
-      description: "Returns a set of rows in the `published` version of the specified\
-        \ table. Row results can be filtered and sorted. Filtering and sorting options\
-        \ will be sent as query parameters to the API request. For example, by adding\
-        \ the query parameters `column1__gt=5&sort=-column1`, API returns the rows\
-        \ with values for column `column1` greater than 5 and in the descending order\
-        \ of `column1` values. Refer to the [overview section](https://developers.hubspot.com/docs/api/cms/hubdb#filtering-and-sorting-table-rows)\
-        \ for detailed filtering and sorting options.\n**Note:** This endpoint can\
-        \ be accessed without any authentication, if the table is set to be allowed\
-        \ for public access."
-      operationId: GetTableRows
-      parameters:
-      - description: The ID or name of the table to query.
-        explode: false
-        in: path
-        name: tableIdOrName
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: Specifies the column names to sort the results by. See the above
-          description for more details.
-        explode: true
-        in: query
-        name: sort
-        required: false
-        schema:
-          items:
-            type: string
-          type: array
-        style: form
-      - description: The cursor token value to get the next set of results. You can
-          get this from the `paging.next.after` JSON property of a paged response
-          containing more results.
-        explode: true
-        in: query
-        name: after
-        required: false
-        schema:
-          type: string
-        style: form
-      - description: The maximum number of results to return. Default is `1000`.
-        explode: true
-        in: query
-        name: limit
-        required: false
-        schema:
-          format: int32
-          type: integer
-        style: form
-      - description: Specify the column names to get results containing only the required
-          columns instead of all column details.
-        explode: true
-        in: query
-        name: properties
-        required: false
-        schema:
-          items:
-            type: string
-          type: array
-        style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CollectionResponseWithTotalHubDbTableRowV3ForwardPaging'
-          description: successful operation
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - private_apps_legacy:
-        - hubdb
-      - oauth2_legacy:
-        - hubdb
-      summary: Get rows for a table
-      tags:
-      - Rows
-    post:
-      description: Add a new row to a HubDB table. New rows will be added to the `draft`
-        version of the table. Use `publish` endpoint to push these changes to published
-        version.
-      operationId: CreateTableRow
-      parameters:
-      - description: The ID or name of the target table.
-        explode: false
-        in: path
-        name: tableIdOrName
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/HubDbTableRowV3Request'
-        description: "The row definition JSON, formatted as described above."
-        required: true
-      responses:
-        "201":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HubDbTableRowV3'
-          description: successful operation
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - private_apps_legacy:
-        - hubdb
-      - oauth2_legacy:
-        - hubdb
-      summary: Add a new row to a table
-      tags:
-      - Rows
-  /cms/v3/hubdb/tables/{tableIdOrName}/rows/batch/read:
-    post:
-      description: "Returns rows in the `published` version of the specified table,\
-        \ given a set of row ids.\n**Note:** This endpoint can be accessed without\
-        \ any authentication if the table is set to be allowed for public access."
-      operationId: "post-/cms/v3/hubdb/tables/{tableIdOrName}/rows/batch/read_readTableRows"
-      parameters:
-      - description: The ID or name of the table to query.
-        explode: false
-        in: path
-        name: tableIdOrName
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/BatchInputString'
-        description: The JSON array of row ids
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BatchResponseHubDbTableRowV3'
-          description: successful operation
-        "207":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BatchResponseHubDbTableRowV3WithErrors'
-          description: multiple statuses
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - private_apps_legacy:
-        - hubdb
-      - oauth2_legacy:
-        - hubdb
-      summary: Get a set of rows
-      tags:
-      - Rows Batch
-  /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft:
-    get:
-      description: "Returns rows in the `draft` version of the specified table. Row\
-        \ results can be filtered and sorted. Filtering and sorting options will be\
-        \ sent as query parameters to the API request. For example, by adding the\
-        \ query parameters `column1__gt=5&sort=-column1`, API returns the rows with\
-        \ values for column `column1` greater than 5 and in the descending order of\
-        \ `column1` values. Refer to the [overview section](https://developers.hubspot.com/docs/api/cms/hubdb#filtering-and-sorting-table-rows)\
-        \ for detailed filtering and sorting options."
-      operationId: ReadDraftTableRows
-      parameters:
-      - description: The ID or name of the table to query.
-        explode: false
-        in: path
-        name: tableIdOrName
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: Specifies the column names to sort the results by.
-        explode: true
-        in: query
-        name: sort
-        required: false
-        schema:
-          items:
-            type: string
-          type: array
-        style: form
-      - description: The cursor token value to get the next set of results. You can
-          get this from the `paging.next.after` JSON property of a paged response
-          containing more results.
-        explode: true
-        in: query
-        name: after
-        required: false
-        schema:
-          type: string
-        style: form
-      - description: The maximum number of results to return. Default is `1000`.
-        explode: true
-        in: query
-        name: limit
-        required: false
-        schema:
-          format: int32
-          type: integer
-        style: form
-      - description: "Specify the column names to get results containing only the\
-          \ required columns instead of all column details. If you want to include\
-          \ multiple columns in the result, use this query param as many times. "
-        explode: true
-        in: query
-        name: properties
-        required: false
-        schema:
-          items:
-            type: string
-          type: array
-        style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CollectionResponseWithTotalHubDbTableRowV3ForwardPaging'
-          description: successful operation
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - private_apps_legacy:
-        - hubdb
-      - oauth2_legacy:
-        - hubdb
-      summary: Get rows from draft table
-      tags:
-      - Rows
-  /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/clone:
-    post:
-      description: "Clones rows in the `draft` version of the specified table, given\
-        \ a set of row ids. Maximum of 100 row ids per call."
-      operationId: "post-/cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/clone_cloneDraftTableRows"
-      parameters:
-      - description: The ID or name of the table
-        explode: false
-        in: path
-        name: tableIdOrName
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/BatchInputString'
-        description: The JSON array of row ids
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BatchResponseHubDbTableRowV3'
-          description: successful operation
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - private_apps_legacy:
-        - hubdb
-      - oauth2_legacy:
-        - hubdb
-      summary: Clone rows in batch
-      tags:
-      - Rows Batch
-  /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/create:
-    post:
-      description: "Creates rows in the `draft` version of the specified table, given\
-        \ an array of row objects. Maximum of 100 row object per call. See the overview\
-        \ section for more details with an example."
-      operationId: "post-/cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/create_createDraftTableRows"
-      parameters:
-      - description: The ID or name of the table
-        explode: false
-        in: path
-        name: tableIdOrName
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/BatchInputHubDbTableRowV3Request'
-        description: JSON array of row objects
-        required: true
-      responses:
-        "201":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BatchResponseHubDbTableRowV3'
-          description: successful operation
-        "207":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BatchResponseHubDbTableRowV3WithErrors'
-          description: multiple statuses
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - private_apps_legacy:
-        - hubdb
-      - oauth2_legacy:
-        - hubdb
-      summary: Create rows in batch
-      tags:
-      - Rows Batch
-  /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/purge:
-    post:
-      description: "Permanently deletes rows from the `draft` version of the table,\
-        \ given a set of row ids. Maximum of 100 row ids per call."
-      operationId: "post-/cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/purge_purgeDraftTableRows"
-      parameters:
-      - description: The ID or name of the table
-        explode: false
-        in: path
-        name: tableIdOrName
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/BatchInputString'
-        description: JSON array of row ids.
-        required: true
-      responses:
-        "204":
-          content: {}
-          description: No content
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - private_apps_legacy:
-        - hubdb
-      - oauth2_legacy:
-        - hubdb
-      summary: Permanently deletes rows
-      tags:
-      - Rows Batch
-  /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/read:
-    post:
-      description: "Returns rows in the `draft` version of the specified table, given\
-        \ a set of row ids."
-      operationId: "post-/cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/read_readDraftTableRows"
-      parameters:
-      - description: The ID or name of the table
-        explode: false
-        in: path
-        name: tableIdOrName
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/BatchInputString'
-        description: JSON array of row ids.
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BatchResponseHubDbTableRowV3'
-          description: successful operation
-        "207":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BatchResponseHubDbTableRowV3WithErrors'
-          description: multiple statuses
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - private_apps_legacy:
-        - hubdb
-      - oauth2_legacy:
-        - hubdb
-      summary: Get a set of rows from draft table
-      tags:
-      - Rows Batch
   /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/replace:
     post:
       description: "Replaces multiple rows as a batch in the `draft` version of the\
@@ -1255,12 +520,56 @@ paths:
       summary: Replace rows in batch in draft table
       tags:
       - Rows Batch
-  /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/update:
+  /cms/v3/hubdb/tables/{tableIdOrName}/draft/clone:
     post:
-      description: "Updates multiple rows as a batch in the `draft` version of the\
-        \ table, with a maximum of 100 rows per call. See the endpoint `PATCH /tables/{tableIdOrName}/rows/{rowId}/draft`\
-        \ for details on updating a single row."
-      operationId: "post-/cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/update_updateDraftTableRows"
+      description: Clone an existing HubDB table. The `newName` and `newLabel` of
+        the new table can be sent as JSON in the `body` parameter. This will create
+        the cloned table as a `draft`.
+      operationId: CloneDraftTable
+      parameters:
+      - description: The ID or name of the table to clone.
+        explode: false
+        in: path
+        name: tableIdOrName
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HubDbTableCloneRequest'
+        description: JSON object with the properties newName and newLabel. You can
+          set copyRows to false to clone the table with copying rows and default is
+          true.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HubDbTableV3'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - private_apps_legacy:
+        - hubdb
+      - oauth2_legacy:
+        - hubdb
+      summary: Clone a table
+      tags:
+      - Tables
+  /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/purge:
+    post:
+      description: "Permanently deletes rows from the `draft` version of the table,\
+        \ given a set of row ids. Maximum of 100 row ids per call."
+      operationId: "post-/cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/purge_purgeDraftTableRows"
       parameters:
       - description: The ID or name of the table
         explode: false
@@ -1274,22 +583,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/BatchInputHubDbTableRowV3BatchUpdateRequest'
-        description: JSON array of row objects.
+              $ref: '#/components/schemas/BatchInputString'
+        description: JSON array of row ids.
         required: true
       responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BatchResponseHubDbTableRowV3'
-          description: successful operation
-        "207":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BatchResponseHubDbTableRowV3WithErrors'
-          description: multiple statuses
+        "204":
+          content: {}
+          description: No content
         default:
           content:
             '*/*':
@@ -1301,17 +601,22 @@ paths:
         - hubdb
       - oauth2_legacy:
         - hubdb
-      summary: Update rows in batch in draft table
+      summary: Permanently deletes rows
       tags:
       - Rows Batch
-  /cms/v3/hubdb/tables/{tableIdOrName}/rows/{rowId}:
-    get:
-      description: "Get a single row by ID from a table's `published` version.\n**Note:**\
-        \ This endpoint can be accessed without any authentication, if the table is\
-        \ set to be allowed for public access."
-      operationId: GetTableRow
+  /cms/v3/hubdb/tables/{tableIdOrName}/draft/import:
+    post:
+      description: "Import the contents of a CSV file into an existing HubDB table.\
+        \ The data will always be imported into the `draft` version of the table.\
+        \ Use `/publish` endpoint to push these changes to `published` version.\n\
+        This endpoint takes a multi-part POST request. The first part will be a set\
+        \ of JSON-formatted options for the import and you can specify this with the\
+        \ name as `config`.  The second part will be the CSV file you want to import\
+        \ and you can specify this with the name as `file`. Refer the [overview section](https://developers.hubspot.com/docs/api/cms/hubdb#importing-tables)\
+        \ to check the details and format of the JSON-formatted options for the import."
+      operationId: ImportDraftTable
       parameters:
-      - description: The ID or name of the table
+      - description: The ID of the destination table where data will be imported.
         explode: false
         in: path
         name: tableIdOrName
@@ -1319,21 +624,17 @@ paths:
         schema:
           type: string
         style: simple
-      - description: The ID of the row
-        explode: false
-        in: path
-        name: rowId
-        required: true
-        schema:
-          pattern: \d+
-          type: string
-        style: simple
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ImportDraftTable_request'
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/HubDbTableRowV3'
+                $ref: '#/components/schemas/ImportResult'
           description: successful operation
         default:
           content:
@@ -1346,9 +647,9 @@ paths:
         - hubdb
       - oauth2_legacy:
         - hubdb
-      summary: Get a table row
+      summary: Import data into draft table
       tags:
-      - Rows
+      - Tables
   /cms/v3/hubdb/tables/{tableIdOrName}/rows/{rowId}/draft:
     delete:
       description: Permanently deletes a row from a table's `draft` version.
@@ -1536,12 +837,20 @@ paths:
       summary: Replaces an existing row
       tags:
       - Rows
-  /cms/v3/hubdb/tables/{tableIdOrName}/rows/{rowId}/draft/clone:
-    post:
-      description: Clones a single row in the `draft` version of the table.
-      operationId: CloneDraftTableRow
+  /cms/v3/hubdb/tables/{tableIdOrName}/rows:
+    get:
+      description: "Returns a set of rows in the `published` version of the specified\
+        \ table. Row results can be filtered and sorted. Filtering and sorting options\
+        \ will be sent as query parameters to the API request. For example, by adding\
+        \ the query parameters `column1__gt=5&sort=-column1`, API returns the rows\
+        \ with values for column `column1` greater than 5 and in the descending order\
+        \ of `column1` values. Refer to the [overview section](https://developers.hubspot.com/docs/api/cms/hubdb#filtering-and-sorting-table-rows)\
+        \ for detailed filtering and sorting options.\n**Note:** This endpoint can\
+        \ be accessed without any authentication, if the table is set to be allowed\
+        \ for public access."
+      operationId: GetTableRows
       parameters:
-      - description: The ID or name of the table
+      - description: The ID or name of the table to query.
         explode: false
         in: path
         name: tableIdOrName
@@ -1549,17 +858,91 @@ paths:
         schema:
           type: string
         style: simple
-      - description: The ID of the row
-        explode: false
-        in: path
-        name: rowId
-        required: true
+      - description: Specifies the column names to sort the results by. See the above
+          description for more details.
+        explode: true
+        in: query
+        name: sort
+        required: false
         schema:
-          pattern: \d+
+          items:
+            type: string
+          type: array
+        style: form
+      - description: The cursor token value to get the next set of results. You can
+          get this from the `paging.next.after` JSON property of a paged response
+          containing more results.
+        explode: true
+        in: query
+        name: after
+        required: false
+        schema:
           type: string
-        style: simple
+        style: form
+      - description: The maximum number of results to return. Default is `1000`.
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+      - description: Specify the column names to get results containing only the required
+          columns instead of all column details.
+        explode: true
+        in: query
+        name: properties
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
       responses:
         "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionResponseWithTotalHubDbTableRowV3ForwardPaging'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - private_apps_legacy:
+        - hubdb
+      - oauth2_legacy:
+        - hubdb
+      summary: Get rows for a table
+      tags:
+      - Rows
+    post:
+      description: Add a new row to a HubDB table. New rows will be added to the `draft`
+        version of the table. Use `publish` endpoint to push these changes to published
+        version.
+      operationId: CreateTableRow
+      parameters:
+      - description: The ID or name of the target table.
+        explode: false
+        in: path
+        name: tableIdOrName
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HubDbTableRowV3Request'
+        description: "The row definition JSON, formatted as described above."
+        required: true
+      responses:
+        "201":
           content:
             application/json:
               schema:
@@ -1576,9 +959,435 @@ paths:
         - hubdb
       - oauth2_legacy:
         - hubdb
-      summary: Clone a row
+      summary: Add a new row to a table
       tags:
       - Rows
+  /cms/v3/hubdb/tables/{tableIdOrName}/rows/batch/read:
+    post:
+      description: "Returns rows in the `published` version of the specified table,\
+        \ given a set of row ids.\n**Note:** This endpoint can be accessed without\
+        \ any authentication if the table is set to be allowed for public access."
+      operationId: "post-/cms/v3/hubdb/tables/{tableIdOrName}/rows/batch/read_readTableRows"
+      parameters:
+      - description: The ID or name of the table to query.
+        explode: false
+        in: path
+        name: tableIdOrName
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchInputString'
+        description: The JSON array of row ids
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchResponseHubDbTableRowV3'
+          description: successful operation
+        "207":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchResponseHubDbTableRowV3WithErrors'
+          description: multiple statuses
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - private_apps_legacy:
+        - hubdb
+      - oauth2_legacy:
+        - hubdb
+      summary: Get a set of rows
+      tags:
+      - Rows Batch
+  /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/create:
+    post:
+      description: "Creates rows in the `draft` version of the specified table, given\
+        \ an array of row objects. Maximum of 100 row object per call. See the overview\
+        \ section for more details with an example."
+      operationId: "post-/cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/create_createDraftTableRows"
+      parameters:
+      - description: The ID or name of the table
+        explode: false
+        in: path
+        name: tableIdOrName
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchInputHubDbTableRowV3Request'
+        description: JSON array of row objects
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchResponseHubDbTableRowV3'
+          description: successful operation
+        "207":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchResponseHubDbTableRowV3WithErrors'
+          description: multiple statuses
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - private_apps_legacy:
+        - hubdb
+      - oauth2_legacy:
+        - hubdb
+      summary: Create rows in batch
+      tags:
+      - Rows Batch
+  /cms/v3/hubdb/tables/{tableIdOrName}:
+    delete:
+      description: Archive (soft delete) an existing HubDB table. This archives both
+        the published and draft versions.
+      operationId: ArchiveTable
+      parameters:
+      - description: The ID or name of the table to archive.
+        explode: false
+        in: path
+        name: tableIdOrName
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          content: {}
+          description: No content
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - private_apps_legacy:
+        - hubdb
+      - oauth2_legacy:
+        - hubdb
+      summary: Archive a table
+      tags:
+      - Tables
+    get:
+      description: |-
+        Returns the details for the `published` version of the specified table. This will include the definitions for the columns in the table and the number of rows in the table.
+
+        **Note:** This endpoint can be accessed without any authentication if the table is set to be allowed for public access.
+      operationId: GetTableDetails
+      parameters:
+      - description: The ID or name of the table to return.
+        explode: false
+        in: path
+        name: tableIdOrName
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Set this to `true` to populate foreign ID values in the result.
+        explode: true
+        in: query
+        name: includeForeignIds
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: Set this to `true` to return details for an archived table. Defaults
+          to `false`.
+        explode: true
+        in: query
+        name: archived
+        required: false
+        schema:
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HubDbTableV3'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - private_apps_legacy:
+        - hubdb
+      - oauth2_legacy:
+        - hubdb
+      summary: Get details for a published table
+      tags:
+      - Tables
+  /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/read:
+    post:
+      description: "Returns rows in the `draft` version of the specified table, given\
+        \ a set of row ids."
+      operationId: "post-/cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/read_readDraftTableRows"
+      parameters:
+      - description: The ID or name of the table
+        explode: false
+        in: path
+        name: tableIdOrName
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchInputString'
+        description: JSON array of row ids.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchResponseHubDbTableRowV3'
+          description: successful operation
+        "207":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchResponseHubDbTableRowV3WithErrors'
+          description: multiple statuses
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - private_apps_legacy:
+        - hubdb
+      - oauth2_legacy:
+        - hubdb
+      summary: Get a set of rows from draft table
+      tags:
+      - Rows Batch
+  /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/clone:
+    post:
+      description: "Clones rows in the `draft` version of the specified table, given\
+        \ a set of row ids. Maximum of 100 row ids per call."
+      operationId: "post-/cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/clone_cloneDraftTableRows"
+      parameters:
+      - description: The ID or name of the table
+        explode: false
+        in: path
+        name: tableIdOrName
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchInputString'
+        description: The JSON array of row ids
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchResponseHubDbTableRowV3'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - private_apps_legacy:
+        - hubdb
+      - oauth2_legacy:
+        - hubdb
+      summary: Clone rows in batch
+      tags:
+      - Rows Batch
+  /cms/v3/hubdb/tables:
+    get:
+      description: "Returns the details for the `published` version of each table\
+        \ defined in an account, including column definitions."
+      operationId: GetAllTables
+      parameters:
+      - description: "Specifies which fields to use for sorting results. Valid fields\
+          \ are `name`, `createdAt`, `updatedAt`, `createdBy`, `updatedBy`. `createdAt`\
+          \ will be used by default."
+        explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: The cursor token value to get the next set of results. You can
+          get this from the `paging.next.after` JSON property of a paged response
+          containing more results.
+        explode: true
+        in: query
+        name: after
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: The maximum number of results to return. Default is 1000.
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+      - description: Only return tables created at exactly the specified time.
+        explode: true
+        in: query
+        name: createdAt
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: Only return tables created after the specified time.
+        explode: true
+        in: query
+        name: createdAfter
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: Only return tables created before the specified time.
+        explode: true
+        in: query
+        name: createdBefore
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: Only return tables last updated at exactly the specified time.
+        explode: true
+        in: query
+        name: updatedAt
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: Only return tables last updated after the specified time.
+        explode: true
+        in: query
+        name: updatedAfter
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: Only return tables last updated before the specified time.
+        explode: true
+        in: query
+        name: updatedBefore
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: Specifies whether to return archived tables. Defaults to `false`.
+        explode: true
+        in: query
+        name: archived
+        required: false
+        schema:
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionResponseWithTotalHubDbTableV3ForwardPaging'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - private_apps_legacy:
+        - hubdb
+      - oauth2_legacy:
+        - hubdb
+      summary: Get all published tables
+      tags:
+      - Tables
+    post:
+      description: Creates a new draft HubDB table given a JSON schema. The table
+        name and label should be unique for each account.
+      operationId: CreateTable
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HubDbTableV3Request'
+        description: The JSON schema for the table being created.
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HubDbTableV3'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - private_apps_legacy:
+        - hubdb
+      - oauth2_legacy:
+        - hubdb
+      summary: Create a new table
+      tags:
+      - Tables
   /cms/v3/hubdb/tables/{tableIdOrName}/unpublish:
     post:
       description: "Unpublishes the table, meaning any website pages using data from\
@@ -1622,6 +1431,215 @@ paths:
       summary: Unpublish a table
       tags:
       - Tables
+  /cms/v3/hubdb/tables/{tableIdOrName}/draft:
+    get:
+      description: Get the details for the `draft` version of a specific HubDB table.
+        This will include the definitions for the columns in the table and the number
+        of rows in the table.
+      operationId: GetDraftTableDetailsByID
+      parameters:
+      - description: The ID or name of the table to return.
+        explode: false
+        in: path
+        name: tableIdOrName
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Set this to `true` to populate foreign ID values in the result.
+        explode: true
+        in: query
+        name: includeForeignIds
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: Set this to `true` to return an archived table. Defaults to `false`.
+        explode: true
+        in: query
+        name: archived
+        required: false
+        schema:
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HubDbTableV3'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - private_apps_legacy:
+        - hubdb
+      - oauth2_legacy:
+        - hubdb
+      summary: Get details for a draft table
+      tags:
+      - Tables
+    patch:
+      description: "Update an existing HubDB table. You can use this endpoint to add\
+        \ or remove columns to the table as well as restore an archived table. Tables\
+        \ updated using the endpoint will only modify the `draft` verion of the table.\
+        \ Use `publish` endpoint to push all the changes to the `published` version.\
+        \ To restore a table, include the query parameter `archived=true` and `\"\
+        archived\": false` in the json body.\n**Note:** You need to include all the\
+        \ columns in the input when you are adding/removing/updating a column. If\
+        \ you do not include an already existing column in the request, it will be\
+        \ deleted."
+      operationId: UpdateDraftTable
+      parameters:
+      - description: The ID or name of the table to update.
+        explode: false
+        in: path
+        name: tableIdOrName
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Set this to `true` to populate foreign ID values in the result.
+        explode: true
+        in: query
+        name: includeForeignIds
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: Specifies whether to return archived tables. Defaults to `false`.
+        explode: true
+        in: query
+        name: archived
+        required: false
+        schema:
+          type: boolean
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HubDbTableV3Request'
+        description: The JSON schema for the table being updated.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HubDbTableV3'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - private_apps_legacy:
+        - hubdb
+      - oauth2_legacy:
+        - hubdb
+      summary: Update an existing table
+      tags:
+      - Tables
+  /cms/v3/hubdb/tables/{tableIdOrName}/draft/publish:
+    post:
+      description: "Publishes the table by copying the data and table schema changes\
+        \ from draft version to the published version, meaning any website pages using\
+        \ data from the table will be updated."
+      operationId: PublishDraftTable
+      parameters:
+      - description: The ID or name of the table to publish.
+        explode: false
+        in: path
+        name: tableIdOrName
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Set this to `true` to populate foreign ID values in the response.
+        explode: true
+        in: query
+        name: includeForeignIds
+        required: false
+        schema:
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HubDbTableV3'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - private_apps_legacy:
+        - hubdb
+      - oauth2_legacy:
+        - hubdb
+      summary: Publish a table from draft
+      tags:
+      - Tables
+  /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/update:
+    post:
+      description: "Updates multiple rows as a batch in the `draft` version of the\
+        \ table, with a maximum of 100 rows per call. See the endpoint `PATCH /tables/{tableIdOrName}/rows/{rowId}/draft`\
+        \ for details on updating a single row."
+      operationId: "post-/cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/update_updateDraftTableRows"
+      parameters:
+      - description: The ID or name of the table
+        explode: false
+        in: path
+        name: tableIdOrName
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchInputHubDbTableRowV3BatchUpdateRequest'
+        description: JSON array of row objects.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchResponseHubDbTableRowV3'
+          description: successful operation
+        "207":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchResponseHubDbTableRowV3WithErrors'
+          description: multiple statuses
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - private_apps_legacy:
+        - hubdb
+      - oauth2_legacy:
+        - hubdb
+      summary: Update rows in batch in draft table
+      tags:
+      - Rows Batch
 components:
   responses:
     Error:
@@ -1638,6 +1656,7 @@ components:
         - inputs
       properties:
         inputs:
+          description: ""
           items:
             type: string
           type: array
@@ -1646,31 +1665,39 @@ components:
       type: object
     StandardError:
       properties:
-        status:
-          type: string
-        id:
-          type: string
-        category:
-          type: string
         subCategory:
+          description: ""
           properties: {}
           type: object
-        message:
-          type: string
-        errors:
-          items:
-            $ref: '#/components/schemas/ErrorDetail'
-          type: array
         context:
           additionalProperties:
             items:
               type: string
             type: array
+          description: ""
           type: object
         links:
           additionalProperties:
             type: string
+          description: ""
           type: object
+        id:
+          description: ""
+          type: string
+        category:
+          description: ""
+          type: string
+        message:
+          description: ""
+          type: string
+        errors:
+          description: ""
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
+        status:
+          description: ""
+          type: string
       required:
       - category
       - context
@@ -1678,22 +1705,6 @@ components:
       - links
       - message
       - status
-      type: object
-    SimpleUser:
-      properties:
-        id:
-          type: string
-        email:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-      required:
-      - email
-      - firstName
-      - id
-      - lastName
       type: object
     HubDbTableCloneRequest:
       example:
@@ -1703,15 +1714,38 @@ components:
       properties:
         newName:
           description: The new name for the cloned table
+          example: test_table_new
           type: string
         newLabel:
           description: The new label for the cloned table
+          example: Test Table New
           type: string
         copyRows:
           description: Specifies whether to copy the rows during clone
+          example: true
           type: boolean
       required:
       - copyRows
+      type: object
+    SimpleUser:
+      properties:
+        firstName:
+          description: ""
+          type: string
+        lastName:
+          description: ""
+          type: string
+        id:
+          description: ""
+          type: string
+        email:
+          description: ""
+          type: string
+      required:
+      - email
+      - firstName
+      - id
+      - lastName
       type: object
     CollectionResponseWithTotalHubDbTableV3ForwardPaging:
       example:
@@ -1767,14 +1801,16 @@ components:
           columnCount: 3
       properties:
         total:
+          description: ""
           format: int32
           type: integer
+        paging:
+          $ref: '#/components/schemas/ForwardPaging'
         results:
+          description: ""
           items:
             $ref: '#/components/schemas/HubDbTableV3'
           type: array
-        paging:
-          $ref: '#/components/schemas/ForwardPaging'
       required:
       - results
       - total
@@ -1814,6 +1850,7 @@ components:
           childTableId: "1902373"
       properties:
         inputs:
+          description: ""
           items:
             $ref: '#/components/schemas/HubDbTableRowV3Request'
           type: array
@@ -1822,19 +1859,15 @@ components:
       type: object
     ErrorDetail:
       properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          type: string
-        in:
-          description: The name of the field or parameter in which the error was found.
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
           type: string
         code:
           description: The status code associated with the error detail
           type: string
-        subCategory:
-          description: A specific category that contains more specific detail about
-            the error
+        in:
+          description: The name of the field or parameter in which the error was found.
           type: string
         context:
           additionalProperties:
@@ -1847,6 +1880,10 @@ components:
             - scope1
             - scope2
           type: object
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          type: string
       required:
       - message
       type: object
@@ -1905,14 +1942,16 @@ components:
           childTableId: "1902373"
       properties:
         total:
+          description: ""
           format: int32
           type: integer
+        paging:
+          $ref: '#/components/schemas/ForwardPaging'
         results:
+          description: ""
           items:
             $ref: '#/components/schemas/HubDbTableRowV3'
           type: array
-        paging:
-          $ref: '#/components/schemas/ForwardPaging'
       required:
       - results
       - total
@@ -1925,41 +1964,16 @@ components:
         type: TEXT
         id: 1
       properties:
-        name:
-          description: Name of the column
-          type: string
-        label:
-          description: Label of the column
-          type: string
-        id:
-          description: Column Id
-          type: string
-        deleted:
-          type: boolean
-        options:
-          description: Options to choose for select and multi-select columns
-          items:
-            $ref: '#/components/schemas/Option'
-          type: array
-        width:
-          description: Column width for HubDB UI
-          format: int32
-          type: integer
         foreignTableId:
           description: Foreign table id referenced
           format: int64
           type: integer
-        foreignColumnId:
-          description: Foreign Column id
-          format: int32
-          type: integer
         description:
           type: string
-        foreignIds:
-          description: Foreign Ids
-          items:
-            $ref: '#/components/schemas/ForeignId'
-          type: array
+        label:
+          description: Label of the column
+          example: Text Column
+          type: string
         type:
           description: Type of the column
           enum:
@@ -1980,21 +1994,50 @@ components:
           - VIDEO
           - CTA
           - FILE
+          example: TEXT
+          type: string
+        optionCount:
+          description: Number of options available
+          format: int32
+          type: integer
+        foreignIds:
+          description: Foreign Ids
+          items:
+            $ref: '#/components/schemas/ForeignId'
+          type: array
+        deleted:
+          type: boolean
+        name:
+          description: Name of the column
+          example: text_column
+          type: string
+        options:
+          description: Options to choose for select and multi-select columns
+          items:
+            $ref: '#/components/schemas/Option'
+          type: array
+        width:
+          description: Column width for HubDB UI
+          format: int32
+          type: integer
+        id:
+          description: Column Id
+          example: "1"
           type: string
         foreignIdsById:
           additionalProperties:
             $ref: '#/components/schemas/ForeignId'
           description: Foreign ids
           type: object
+        foreignColumnId:
+          description: Foreign Column id
+          format: int32
+          type: integer
         foreignIdsByName:
           additionalProperties:
             $ref: '#/components/schemas/ForeignId'
           description: Foreign ids by name
           type: object
-        optionCount:
-          description: Number of options available
-          format: int32
-          type: integer
       required:
       - label
       - name
@@ -2026,67 +2069,85 @@ components:
         allowPublicApiAccess: false
         columnCount: 3
       properties:
-        id:
-          description: Id of the table
-          type: string
-        name:
-          description: Name of the table
-          type: string
-        label:
-          description: Label of the table
-          type: string
-        columns:
-          description: List of columns in the table
-          items:
-            $ref: '#/components/schemas/Column'
-          type: array
-        published:
-          type: boolean
-        deleted:
-          type: boolean
-        columnCount:
-          description: Number of columns including deleted
-          format: int32
-          type: integer
-        rowCount:
-          description: Number of rows in the table
-          format: int32
-          type: integer
-        createdBy:
-          $ref: '#/components/schemas/SimpleUser'
-        updatedBy:
-          $ref: '#/components/schemas/SimpleUser'
-        useForPages:
-          description: Specifies whether the table can be used for creation of dynamic
-            pages
-          type: boolean
-        allowChildTables:
-          description: Specifies whether child tables can be created
-          type: boolean
-        enableChildTablePages:
-          description: Specifies creation of multi-level dynamic pages using child
-            tables
-          type: boolean
-        isOrderedManually:
-          type: boolean
         dynamicMetaTags:
           additionalProperties:
             format: int32
             type: integer
           description: Specifies the key value pairs of the metadata fields with the
             associated column ids
+          example: {}
           type: object
+        updatedBy:
+          $ref: '#/components/schemas/SimpleUser'
         allowPublicApiAccess:
           description: Specifies whether the table can be read by public without authorization
+          example: false
+          type: boolean
+        useForPages:
+          description: Specifies whether the table can be used for creation of dynamic
+            pages
+          example: true
+          type: boolean
+        publishedAt:
+          description: Timestamp at which the table is published recently
+          format: date-time
+          type: string
+        columns:
+          description: List of columns in the table
+          example:
+          - id: "1"
+            name: text_column
+            type: TEXT
+            label: Text Column
+            archived: false
+            foreignIdsById: {}
+            foreignIdsByName: {}
+          items:
+            $ref: '#/components/schemas/Column'
+          type: array
+        label:
+          description: Label of the table
+          example: Test Table
+          type: string
+        published:
+          type: boolean
+        columnCount:
+          description: Number of columns including deleted
+          example: 3
+          format: int32
+          type: integer
+        allowChildTables:
+          description: Specifies whether child tables can be created
+          example: true
           type: boolean
         createdAt:
           description: Timestamp at which the table is created
           format: date-time
           type: string
-        publishedAt:
-          description: Timestamp at which the table is published recently
-          format: date-time
+        deleted:
+          type: boolean
+        createdBy:
+          $ref: '#/components/schemas/SimpleUser'
+        name:
+          description: Name of the table
+          example: test_table
           type: string
+        enableChildTablePages:
+          description: Specifies creation of multi-level dynamic pages using child
+            tables
+          example: false
+          type: boolean
+        id:
+          description: Id of the table
+          example: "1630034"
+          type: string
+        rowCount:
+          description: Number of rows in the table
+          example: 0
+          format: int32
+          type: integer
+        isOrderedManually:
+          type: boolean
         updatedAt:
           description: Timestamp at which the table is updated recently
           format: date-time
@@ -2141,6 +2202,23 @@ components:
           childTableId: "1902373"
         status: PENDING
       properties:
+        completedAt:
+          format: date-time
+          type: string
+        requestedAt:
+          format: date-time
+          type: string
+        startedAt:
+          format: date-time
+          type: string
+        links:
+          additionalProperties:
+            type: string
+          type: object
+        results:
+          items:
+            $ref: '#/components/schemas/HubDbTableRowV3'
+          type: array
         status:
           enum:
           - PENDING
@@ -2148,31 +2226,17 @@ components:
           - CANCELED
           - COMPLETE
           type: string
-        results:
-          items:
-            $ref: '#/components/schemas/HubDbTableRowV3'
-          type: array
-        requestedAt:
-          format: date-time
-          type: string
-        startedAt:
-          format: date-time
-          type: string
-        completedAt:
-          format: date-time
-          type: string
-        links:
-          additionalProperties:
-            type: string
-          type: object
       type: object
     ForeignId:
       properties:
-        id:
-          type: string
         name:
+          description: ""
+          type: string
+        id:
+          description: ""
           type: string
         type:
+          description: ""
           type: string
       required:
       - id
@@ -2197,22 +2261,22 @@ components:
           links:
             knowledge-base: https://www.hubspot.com/products/service/knowledge-base
       properties:
+        rowLimitExceeded:
+          description: Specifies whether row limit exceeded during import
+          type: boolean
+        duplicateRows:
+          description: Specifies number of duplicate rows
+          format: int32
+          type: integer
+        rowsImported:
+          description: Specifies number of rows imported
+          format: int32
+          type: integer
         errors:
           description: List of errors during import
           items:
             $ref: '#/components/schemas/Error'
           type: array
-        duplicateRows:
-          description: Specifies number of duplicate rows
-          format: int32
-          type: integer
-        rowLimitExceeded:
-          description: Specifies whether row limit exceeded during import
-          type: boolean
-        rowsImported:
-          description: Specifies number of rows imported
-          format: int32
-          type: integer
       required:
       - duplicateRows
       - errors
@@ -2234,38 +2298,50 @@ components:
         dynamicMetaTags: {}
         allowPublicApiAccess: false
       properties:
-        name:
-          description: Name of the table
-          type: string
-        label:
-          description: Label of the table
-          type: string
-        useForPages:
-          description: Specifies whether the table can be used for creation of dynamic
-            pages
-          type: boolean
-        allowPublicApiAccess:
-          description: Specifies whether the table can be read by public without authorization
-          type: boolean
-        allowChildTables:
-          description: Specifies whether child tables can be created
-          type: boolean
-        enableChildTablePages:
-          description: Specifies creation of multi-level dynamic pages using child
-            tables
-          type: boolean
-        columns:
-          description: List of columns in the table
-          items:
-            $ref: '#/components/schemas/ColumnRequest'
-          type: array
         dynamicMetaTags:
           additionalProperties:
             format: int32
             type: integer
           description: Specifies the key value pairs of the metadata fields with the
             associated column ids
+          example: {}
           type: object
+        allowPublicApiAccess:
+          description: Specifies whether the table can be read by public without authorization
+          example: false
+          type: boolean
+        useForPages:
+          description: Specifies whether the table can be used for creation of dynamic
+            pages
+          example: true
+          type: boolean
+        columns:
+          description: List of columns in the table
+          example:
+          - id: "1"
+            name: text_column
+            type: TEXT
+            label: Text Column
+          items:
+            $ref: '#/components/schemas/ColumnRequest'
+          type: array
+        name:
+          description: Name of the table
+          example: test_table
+          type: string
+        enableChildTablePages:
+          description: Specifies creation of multi-level dynamic pages using child
+            tables
+          example: false
+          type: boolean
+        label:
+          description: Label of the table
+          example: Test Table
+          type: string
+        allowChildTables:
+          description: Specifies whether child tables can be created
+          example: true
+          type: boolean
       required:
       - label
       - name
@@ -2278,29 +2354,10 @@ components:
         links:
           knowledge-base: https://www.hubspot.com/products/service/knowledge-base
       properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          example: An error occurred
-          type: string
-        correlationId:
-          description: A unique identifier for the request. Include this value with
-            any error reports or support tickets
-          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
-          format: uuid
-          type: string
-        category:
-          description: The error category
-          type: string
         subCategory:
           description: A specific category that contains more specific detail about
             the error
           type: string
-        errors:
-          description: further information about the error
-          items:
-            $ref: '#/components/schemas/ErrorDetail'
-          type: array
         context:
           additionalProperties:
             items:
@@ -2308,18 +2365,40 @@ components:
             type: array
           description: Context about the error condition
           example:
-            invalidPropertyName:
-            - propertyValue
             missingScopes:
             - scope1
             - scope2
+            invalidPropertyName:
+            - propertyValue
           type: object
+        correlationId:
+          description: A unique identifier for the request. Include this value with
+            any error reports or support tickets
+          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
+          format: uuid
+          type: string
         links:
           additionalProperties:
             type: string
           description: A map of link names to associated URIs containing documentation
             about the error or recommended remediation steps
+          example:
+            knowledge-base: https://www.hubspot.com/products/service/knowledge-base
           type: object
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          example: Invalid input (details will vary based on the error)
+          type: string
+        category:
+          description: The error category
+          example: VALIDATION_ERROR
+          type: string
+        errors:
+          description: further information about the error
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
       required:
       - category
       - correlationId
@@ -2327,44 +2406,50 @@ components:
       type: object
     BatchResponseHubDbTableRowV3WithErrors:
       properties:
+        completedAt:
+          description: ""
+          format: date-time
+          type: string
+        numErrors:
+          description: ""
+          format: int32
+          type: integer
+        requestedAt:
+          description: ""
+          format: date-time
+          type: string
+        startedAt:
+          description: ""
+          format: date-time
+          type: string
+        links:
+          additionalProperties:
+            type: string
+          description: ""
+          type: object
+        results:
+          description: ""
+          items:
+            $ref: '#/components/schemas/HubDbTableRowV3'
+          type: array
+        errors:
+          description: ""
+          items:
+            $ref: '#/components/schemas/StandardError'
+          type: array
         status:
+          description: ""
           enum:
           - PENDING
           - PROCESSING
           - CANCELED
           - COMPLETE
           type: string
-        results:
-          items:
-            $ref: '#/components/schemas/HubDbTableRowV3'
-          type: array
-        numErrors:
-          format: int32
-          type: integer
-        errors:
-          items:
-            $ref: '#/components/schemas/StandardError'
-          type: array
-        requestedAt:
-          format: date-time
-          type: string
-        startedAt:
-          format: date-time
-          type: string
-        completedAt:
-          format: date-time
-          type: string
-        links:
-          additionalProperties:
-            type: string
-          type: object
       required:
       - completedAt
       - results
       - startedAt
       - status
-      type: object
-    Variant:
       type: object
     ColumnRequest:
       example:
@@ -2374,15 +2459,27 @@ components:
         type: TEXT
         id: 1
       properties:
-        id:
-          description: Column Id
-          format: int32
+        foreignTableId:
+          description: The id of another table to which the column refers/points to.
+          format: int64
           type: integer
         name:
           description: Name of the column
+          example: text_column
           type: string
+        options:
+          description: Options to choose for select and multi-select columns
+          items:
+            $ref: '#/components/schemas/Option'
+          type: array
+        id:
+          description: Column Id
+          example: 1
+          format: int32
+          type: integer
         label:
           description: Label of the column
+          example: Text Column
           type: string
         type:
           description: Type of the column
@@ -2404,16 +2501,8 @@ components:
           - VIDEO
           - CTA
           - FILE
+          example: TEXT
           type: string
-        options:
-          description: Options to choose for select and multi-select columns
-          items:
-            $ref: '#/components/schemas/Option'
-          type: array
-        foreignTableId:
-          description: The id of another table to which the column refers/points to.
-          format: int64
-          type: integer
         foreignColumnId:
           description: The id of the column from another table to which the column
             refers/points to.
@@ -2425,6 +2514,9 @@ components:
       - name
       - options
       - type
+      type: object
+    Variant:
+      properties: {}
       type: object
     HubDbTableRowV3BatchUpdateRequest:
       example:
@@ -2448,69 +2540,44 @@ components:
         path:
           description: "Specifies the value for `hs_path` column, which will be used\
             \ as slug in the dynamic pages"
-          type: string
-        name:
-          description: "Specifies the value for `hs_name` column, which will be used\
-            \ as title in the dynamic pages"
+          example: test_path
           type: string
         childTableId:
           description: Specifies the value for the column child table id
+          example: 1902373
           format: int32
           type: integer
         values:
           additionalProperties:
             $ref: '#/components/schemas/Variant'
           description: List of key value pairs with the column name and column value
+          example:
+            multiselect:
+            - id: "1"
+              name: Option 1
+              type: option
+              order: 0
+            - id: "2"
+              name: Option 2
+              type: option
+              order: 1
+            text_column: sample text value
+            number_column: 76
           type: object
-        displayIndex:
-          format: int32
-          type: integer
+        name:
+          description: "Specifies the value for `hs_name` column, which will be used\
+            \ as title in the dynamic pages"
+          example: test_title
+          type: string
         id:
           description: The id of the table row
+          example: "4099275931"
           type: string
-      required:
-      - id
-      - values
-      type: object
-    HubDbTableRowV3Request:
-      example:
-        values:
-          text_column: sample text value
-          number_column: 76
-          multiselect:
-          - id: "1"
-            name: Option 1
-            type: option
-            order: 0
-          - id: "2"
-            name: Option 2
-            type: option
-            order: 1
-        path: test_path
-        name: test_title
-        childTableId: "1902373"
-      properties:
-        path:
-          description: "Specifies the value for `hs_path` column, which will be used\
-            \ as slug in the dynamic pages"
-          type: string
-        name:
-          description: "Specifies the value for `hs_name` column, which will be used\
-            \ as title in the dynamic pages"
-          type: string
-        childTableId:
-          description: Specifies the value for the column child table id
-          format: int32
-          type: integer
-        values:
-          additionalProperties:
-            $ref: '#/components/schemas/Variant'
-          description: List of key value pairs with the column name and column value
-          type: object
         displayIndex:
           format: int32
           type: integer
       required:
+      - id
       - values
       type: object
     HubDbTableRowV3:
@@ -2534,51 +2601,127 @@ components:
         name: test_title
         childTableId: "1902373"
       properties:
-        id:
-          description: The id of the table row
+        path:
+          description: "Specifies the value for `hs_path` column, which will be used\
+            \ as slug in the dynamic pages"
+          example: test_path
+          type: string
+        createdAt:
+          description: Timestamp at which the row is created
+          format: date-time
+          type: string
+        childTableId:
+          description: Specifies the value for the column child table id
+          example: "1902373"
+          type: string
+        publishedAt:
+          format: date-time
           type: string
         values:
           additionalProperties:
             properties: {}
             type: object
           description: List of key value pairs with the column name and column value
+          example:
+            multiselect:
+            - id: "1"
+              name: Option 1
+              type: option
+              order: 0
+            - id: "2"
+              name: Option 2
+              type: option
+              order: 1
+            text_column: sample text value
+            number_column: 76
           type: object
-        path:
-          description: "Specifies the value for `hs_path` column, which will be used\
-            \ as slug in the dynamic pages"
-          type: string
         name:
           description: "Specifies the value for `hs_name` column, which will be used\
             \ as title in the dynamic pages"
+          example: test_title
           type: string
-        childTableId:
-          description: Specifies the value for the column child table id
-          type: string
-        createdAt:
-          description: Timestamp at which the row is created
-          format: date-time
+        id:
+          description: The id of the table row
+          example: "4099275931"
           type: string
         updatedAt:
           description: Timestamp at which the row is updated last time
           format: date-time
           type: string
-        publishedAt:
-          format: date-time
+      required:
+      - values
+      type: object
+    HubDbTableRowV3Request:
+      example:
+        values:
+          text_column: sample text value
+          number_column: 76
+          multiselect:
+          - id: "1"
+            name: Option 1
+            type: option
+            order: 0
+          - id: "2"
+            name: Option 2
+            type: option
+            order: 1
+        path: test_path
+        name: test_title
+        childTableId: "1902373"
+      properties:
+        path:
+          description: "Specifies the value for `hs_path` column, which will be used\
+            \ as slug in the dynamic pages"
+          example: test_path
           type: string
+        childTableId:
+          description: Specifies the value for the column child table id
+          example: 1902373
+          format: int32
+          type: integer
+        values:
+          additionalProperties:
+            $ref: '#/components/schemas/Variant'
+          description: List of key value pairs with the column name and column value
+          example:
+            multiselect:
+            - id: "1"
+              name: Option 1
+              type: option
+              order: 0
+            - id: "2"
+              name: Option 2
+              type: option
+              order: 1
+            text_column: sample text value
+            number_column: 76
+          type: object
+        name:
+          description: "Specifies the value for `hs_name` column, which will be used\
+            \ as title in the dynamic pages"
+          example: test_title
+          type: string
+        displayIndex:
+          format: int32
+          type: integer
       required:
       - values
       type: object
     Option:
       properties:
-        id:
-          type: string
         name:
+          description: ""
+          type: string
+        id:
+          description: ""
           type: string
         label:
           type: string
         type:
+          description: ""
           type: string
         order:
+          description: ""
           format: int32
           type: integer
       required:
@@ -2592,9 +2735,11 @@ components:
         link: link
         after: after
       properties:
-        after:
-          type: string
         link:
+          description: ""
+          type: string
+        after:
+          description: ""
           type: string
       required:
       - after
@@ -2651,6 +2796,7 @@ components:
           description: The source CSV file to be imported.
           format: binary
           type: string
+      type: object
   securitySchemes:
     oauth2_legacy:
       flows:
@@ -2667,5 +2813,9 @@ components:
 x-hubspot-available-client-libraries:
 - PHP
 - Node
-- Python
 - Ruby
+- Python
+x-hubspot-product-tier-requirements:
+  marketing: PROFESSIONAL
+  cms: PROFESSIONAL
+x-hubspot-documentation-banner: NONE

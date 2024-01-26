@@ -1,5 +1,5 @@
 /*
-Blog Post endpoints
+Tags
 
 Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags
 
@@ -17,10 +17,10 @@ import (
 // CollectionResponseWithTotalTagForwardPaging Response object for collections of blog tags with pagination information.
 type CollectionResponseWithTotalTagForwardPaging struct {
 	// Total number of blog tags.
-	Total int32 `json:"total"`
+	Total  int32          `json:"total"`
+	Paging *ForwardPaging `json:"paging,omitempty"`
 	// Collection of blog tags.
-	Results []Tag          `json:"results"`
-	Paging  *ForwardPaging `json:"paging,omitempty"`
+	Results []Tag `json:"results"`
 }
 
 // NewCollectionResponseWithTotalTagForwardPaging instantiates a new CollectionResponseWithTotalTagForwardPaging object
@@ -66,30 +66,6 @@ func (o *CollectionResponseWithTotalTagForwardPaging) SetTotal(v int32) {
 	o.Total = v
 }
 
-// GetResults returns the Results field value
-func (o *CollectionResponseWithTotalTagForwardPaging) GetResults() []Tag {
-	if o == nil {
-		var ret []Tag
-		return ret
-	}
-
-	return o.Results
-}
-
-// GetResultsOk returns a tuple with the Results field value
-// and a boolean to check if the value has been set.
-func (o *CollectionResponseWithTotalTagForwardPaging) GetResultsOk() ([]Tag, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Results, true
-}
-
-// SetResults sets field value
-func (o *CollectionResponseWithTotalTagForwardPaging) SetResults(v []Tag) {
-	o.Results = v
-}
-
 // GetPaging returns the Paging field value if set, zero value otherwise.
 func (o *CollectionResponseWithTotalTagForwardPaging) GetPaging() ForwardPaging {
 	if o == nil || o.Paging == nil {
@@ -122,16 +98,40 @@ func (o *CollectionResponseWithTotalTagForwardPaging) SetPaging(v ForwardPaging)
 	o.Paging = &v
 }
 
+// GetResults returns the Results field value
+func (o *CollectionResponseWithTotalTagForwardPaging) GetResults() []Tag {
+	if o == nil {
+		var ret []Tag
+		return ret
+	}
+
+	return o.Results
+}
+
+// GetResultsOk returns a tuple with the Results field value
+// and a boolean to check if the value has been set.
+func (o *CollectionResponseWithTotalTagForwardPaging) GetResultsOk() ([]Tag, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Results, true
+}
+
+// SetResults sets field value
+func (o *CollectionResponseWithTotalTagForwardPaging) SetResults(v []Tag) {
+	o.Results = v
+}
+
 func (o CollectionResponseWithTotalTagForwardPaging) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
 		toSerialize["total"] = o.Total
 	}
-	if true {
-		toSerialize["results"] = o.Results
-	}
 	if o.Paging != nil {
 		toSerialize["paging"] = o.Paging
+	}
+	if true {
+		toSerialize["results"] = o.Results
 	}
 	return json.Marshal(toSerialize)
 }

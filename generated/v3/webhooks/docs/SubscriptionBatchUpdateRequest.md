@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **int32** |  | 
 **Active** | **bool** |  | 
+**Id** | **int32** |  | 
 
 ## Methods
 
 ### NewSubscriptionBatchUpdateRequest
 
-`func NewSubscriptionBatchUpdateRequest(id int32, active bool, ) *SubscriptionBatchUpdateRequest`
+`func NewSubscriptionBatchUpdateRequest(active bool, id int32, ) *SubscriptionBatchUpdateRequest`
 
 NewSubscriptionBatchUpdateRequest instantiates a new SubscriptionBatchUpdateRequest object
 This constructor will assign default values to properties that have it defined,
@@ -25,26 +25,6 @@ will change when the set of required properties is changed
 NewSubscriptionBatchUpdateRequestWithDefaults instantiates a new SubscriptionBatchUpdateRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetId
-
-`func (o *SubscriptionBatchUpdateRequest) GetId() int32`
-
-GetId returns the Id field if non-nil, zero value otherwise.
-
-### GetIdOk
-
-`func (o *SubscriptionBatchUpdateRequest) GetIdOk() (*int32, bool)`
-
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetId
-
-`func (o *SubscriptionBatchUpdateRequest) SetId(v int32)`
-
-SetId sets Id field to given value.
-
 
 ### GetActive
 
@@ -64,6 +44,26 @@ and a boolean to check if the value has been set.
 `func (o *SubscriptionBatchUpdateRequest) SetActive(v bool)`
 
 SetActive sets Active field to given value.
+
+
+### GetId
+
+`func (o *SubscriptionBatchUpdateRequest) GetId() int32`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *SubscriptionBatchUpdateRequest) GetIdOk() (*int32, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *SubscriptionBatchUpdateRequest) SetId(v int32)`
+
+SetId sets Id field to given value.
 
 
 

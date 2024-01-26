@@ -1,5 +1,5 @@
 /*
-Timeline events
+CRM Timeline
 
 This feature allows an app to create and configure custom events that can show up in the timelines of certain CRM objects like contacts, companies, tickets, or deals. You'll find multiple use cases for this API in the sections below.
 
@@ -15,6 +15,8 @@ import (
 	"context"
 	"io/ioutil"
 	"net/http"
+
+	"github.com/clarkmcc/go-hubspot"
 	"net/url"
 	"strings"
 )
@@ -22,7 +24,7 @@ import (
 // TokensApiService TokensApi service
 type TokensApiService service
 
-type ApiTemplatesTokensArchiveRequest struct {
+type ApiDeleteCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameArchiveRequest struct {
 	ctx             context.Context
 	ApiService      *TokensApiService
 	eventTemplateId string
@@ -30,12 +32,12 @@ type ApiTemplatesTokensArchiveRequest struct {
 	appId           int32
 }
 
-func (r ApiTemplatesTokensArchiveRequest) Execute() (*http.Response, error) {
-	return r.ApiService.TemplatesTokensArchiveExecute(r)
+func (r ApiDeleteCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameArchiveRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameArchiveExecute(r)
 }
 
 /*
-TemplatesTokensArchive Removes a token from the event template
+DeleteCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameArchive Removes a token from the event template
 
 This will remove the token from an existing template. Existing events and CRM objects will still retain the token and its mapped object properties, but new ones will not.
 
@@ -47,10 +49,10 @@ Any lists or reports referencing deleted tokens will no longer return new contac
  @param eventTemplateId The event template ID.
  @param tokenName The token name.
  @param appId The ID of the target app.
- @return ApiTemplatesTokensArchiveRequest
+ @return ApiDeleteCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameArchiveRequest
 */
-func (a *TokensApiService) TemplatesTokensArchive(ctx context.Context, eventTemplateId string, tokenName string, appId int32) ApiTemplatesTokensArchiveRequest {
-	return ApiTemplatesTokensArchiveRequest{
+func (a *TokensApiService) DeleteCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameArchive(ctx context.Context, eventTemplateId string, tokenName string, appId int32) ApiDeleteCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameArchiveRequest {
+	return ApiDeleteCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameArchiveRequest{
 		ApiService:      a,
 		ctx:             ctx,
 		eventTemplateId: eventTemplateId,
@@ -60,14 +62,14 @@ func (a *TokensApiService) TemplatesTokensArchive(ctx context.Context, eventTemp
 }
 
 // Execute executes the request
-func (a *TokensApiService) TemplatesTokensArchiveExecute(r ApiTemplatesTokensArchiveRequest) (*http.Response, error) {
+func (a *TokensApiService) DeleteCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameArchiveExecute(r ApiDeleteCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameArchiveRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TokensApiService.TemplatesTokensArchive")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TokensApiService.DeleteCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameArchive")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -100,16 +102,12 @@ func (a *TokensApiService) TemplatesTokensArchiveExecute(r ApiTemplatesTokensArc
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["developer_hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
@@ -147,7 +145,7 @@ func (a *TokensApiService) TemplatesTokensArchiveExecute(r ApiTemplatesTokensArc
 	return localVarHTTPResponse, nil
 }
 
-type ApiTemplatesTokensCreateRequest struct {
+type ApiPostCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensCreateRequest struct {
 	ctx                        context.Context
 	ApiService                 *TokensApiService
 	eventTemplateId            string
@@ -156,17 +154,17 @@ type ApiTemplatesTokensCreateRequest struct {
 }
 
 // The new token definition.
-func (r ApiTemplatesTokensCreateRequest) TimelineEventTemplateToken(timelineEventTemplateToken TimelineEventTemplateToken) ApiTemplatesTokensCreateRequest {
+func (r ApiPostCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensCreateRequest) TimelineEventTemplateToken(timelineEventTemplateToken TimelineEventTemplateToken) ApiPostCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensCreateRequest {
 	r.timelineEventTemplateToken = &timelineEventTemplateToken
 	return r
 }
 
-func (r ApiTemplatesTokensCreateRequest) Execute() (*TimelineEventTemplateToken, *http.Response, error) {
-	return r.ApiService.TemplatesTokensCreateExecute(r)
+func (r ApiPostCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensCreateRequest) Execute() (*TimelineEventTemplateToken, *http.Response, error) {
+	return r.ApiService.PostCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensCreateExecute(r)
 }
 
 /*
-TemplatesTokensCreate Adds a token to an existing event template
+PostCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensCreate Adds a token to an existing event template
 
 Once you've defined an event template, it's likely that you'll want to define tokens for it as well. You can do this on the event template itself or update individual tokens here.
 
@@ -179,10 +177,10 @@ Token names should be unique across the template.
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param eventTemplateId The event template ID.
  @param appId The ID of the target app.
- @return ApiTemplatesTokensCreateRequest
+ @return ApiPostCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensCreateRequest
 */
-func (a *TokensApiService) TemplatesTokensCreate(ctx context.Context, eventTemplateId string, appId int32) ApiTemplatesTokensCreateRequest {
-	return ApiTemplatesTokensCreateRequest{
+func (a *TokensApiService) PostCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensCreate(ctx context.Context, eventTemplateId string, appId int32) ApiPostCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensCreateRequest {
+	return ApiPostCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensCreateRequest{
 		ApiService:      a,
 		ctx:             ctx,
 		eventTemplateId: eventTemplateId,
@@ -192,7 +190,7 @@ func (a *TokensApiService) TemplatesTokensCreate(ctx context.Context, eventTempl
 
 // Execute executes the request
 //  @return TimelineEventTemplateToken
-func (a *TokensApiService) TemplatesTokensCreateExecute(r ApiTemplatesTokensCreateRequest) (*TimelineEventTemplateToken, *http.Response, error) {
+func (a *TokensApiService) PostCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensCreateExecute(r ApiPostCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensCreateRequest) (*TimelineEventTemplateToken, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -200,7 +198,7 @@ func (a *TokensApiService) TemplatesTokensCreateExecute(r ApiTemplatesTokensCrea
 		localVarReturnValue *TimelineEventTemplateToken
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TokensApiService.TemplatesTokensCreate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TokensApiService.PostCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensCreate")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -237,16 +235,12 @@ func (a *TokensApiService) TemplatesTokensCreateExecute(r ApiTemplatesTokensCrea
 	localVarPostBody = r.timelineEventTemplateToken
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["developer_hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
@@ -293,7 +287,7 @@ func (a *TokensApiService) TemplatesTokensCreateExecute(r ApiTemplatesTokensCrea
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiTemplatesTokensUpdateRequest struct {
+type ApiPutCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameUpdateRequest struct {
 	ctx                                     context.Context
 	ApiService                              *TokensApiService
 	eventTemplateId                         string
@@ -303,17 +297,17 @@ type ApiTemplatesTokensUpdateRequest struct {
 }
 
 // The updated token definition.
-func (r ApiTemplatesTokensUpdateRequest) TimelineEventTemplateTokenUpdateRequest(timelineEventTemplateTokenUpdateRequest TimelineEventTemplateTokenUpdateRequest) ApiTemplatesTokensUpdateRequest {
+func (r ApiPutCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameUpdateRequest) TimelineEventTemplateTokenUpdateRequest(timelineEventTemplateTokenUpdateRequest TimelineEventTemplateTokenUpdateRequest) ApiPutCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameUpdateRequest {
 	r.timelineEventTemplateTokenUpdateRequest = &timelineEventTemplateTokenUpdateRequest
 	return r
 }
 
-func (r ApiTemplatesTokensUpdateRequest) Execute() (*TimelineEventTemplateToken, *http.Response, error) {
-	return r.ApiService.TemplatesTokensUpdateExecute(r)
+func (r ApiPutCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameUpdateRequest) Execute() (*TimelineEventTemplateToken, *http.Response, error) {
+	return r.ApiService.PutCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameUpdateExecute(r)
 }
 
 /*
-TemplatesTokensUpdate Updates an existing token on an event template
+PutCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameUpdate Updates an existing token on an event template
 
 This will update the existing token on an event template. Name and type can't be changed on existing tokens.
 
@@ -321,10 +315,10 @@ This will update the existing token on an event template. Name and type can't be
  @param eventTemplateId The event template ID.
  @param tokenName The token name.
  @param appId The ID of the target app.
- @return ApiTemplatesTokensUpdateRequest
+ @return ApiPutCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameUpdateRequest
 */
-func (a *TokensApiService) TemplatesTokensUpdate(ctx context.Context, eventTemplateId string, tokenName string, appId int32) ApiTemplatesTokensUpdateRequest {
-	return ApiTemplatesTokensUpdateRequest{
+func (a *TokensApiService) PutCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameUpdate(ctx context.Context, eventTemplateId string, tokenName string, appId int32) ApiPutCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameUpdateRequest {
+	return ApiPutCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameUpdateRequest{
 		ApiService:      a,
 		ctx:             ctx,
 		eventTemplateId: eventTemplateId,
@@ -335,7 +329,7 @@ func (a *TokensApiService) TemplatesTokensUpdate(ctx context.Context, eventTempl
 
 // Execute executes the request
 //  @return TimelineEventTemplateToken
-func (a *TokensApiService) TemplatesTokensUpdateExecute(r ApiTemplatesTokensUpdateRequest) (*TimelineEventTemplateToken, *http.Response, error) {
+func (a *TokensApiService) PutCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameUpdateExecute(r ApiPutCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameUpdateRequest) (*TimelineEventTemplateToken, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
@@ -343,7 +337,7 @@ func (a *TokensApiService) TemplatesTokensUpdateExecute(r ApiTemplatesTokensUpda
 		localVarReturnValue *TimelineEventTemplateToken
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TokensApiService.TemplatesTokensUpdate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TokensApiService.PutCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameUpdate")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -381,16 +375,12 @@ func (a *TokensApiService) TemplatesTokensUpdateExecute(r ApiTemplatesTokensUpda
 	localVarPostBody = r.timelineEventTemplateTokenUpdateRequest
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["developer_hapikey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarQueryParams.Add("hapikey", key)
-			}
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)

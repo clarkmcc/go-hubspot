@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** | The internal property group name, which must be used when referencing the property group via the API. | 
-**Label** | **string** | A human-readable label that will be shown in HubSpot. | 
-**DisplayOrder** | **int32** | Property groups are displayed in order starting with the lowest positive integer value. Values of -1 will cause the property group to be displayed after any positive values. | 
 **Archived** | **bool** |  | 
+**Name** | **string** | The internal property group name, which must be used when referencing the property group via the API. | 
+**DisplayOrder** | **int32** | Property groups are displayed in order starting with the lowest positive integer value. Values of -1 will cause the property group to be displayed after any positive values. | 
+**Label** | **string** | A human-readable label that will be shown in HubSpot. | 
 
 ## Methods
 
 ### NewPropertyGroup
 
-`func NewPropertyGroup(name string, label string, displayOrder int32, archived bool, ) *PropertyGroup`
+`func NewPropertyGroup(archived bool, name string, displayOrder int32, label string, ) *PropertyGroup`
 
 NewPropertyGroup instantiates a new PropertyGroup object
 This constructor will assign default values to properties that have it defined,
@@ -27,6 +27,26 @@ will change when the set of required properties is changed
 NewPropertyGroupWithDefaults instantiates a new PropertyGroup object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetArchived
+
+`func (o *PropertyGroup) GetArchived() bool`
+
+GetArchived returns the Archived field if non-nil, zero value otherwise.
+
+### GetArchivedOk
+
+`func (o *PropertyGroup) GetArchivedOk() (*bool, bool)`
+
+GetArchivedOk returns a tuple with the Archived field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetArchived
+
+`func (o *PropertyGroup) SetArchived(v bool)`
+
+SetArchived sets Archived field to given value.
+
 
 ### GetName
 
@@ -46,26 +66,6 @@ and a boolean to check if the value has been set.
 `func (o *PropertyGroup) SetName(v string)`
 
 SetName sets Name field to given value.
-
-
-### GetLabel
-
-`func (o *PropertyGroup) GetLabel() string`
-
-GetLabel returns the Label field if non-nil, zero value otherwise.
-
-### GetLabelOk
-
-`func (o *PropertyGroup) GetLabelOk() (*string, bool)`
-
-GetLabelOk returns a tuple with the Label field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetLabel
-
-`func (o *PropertyGroup) SetLabel(v string)`
-
-SetLabel sets Label field to given value.
 
 
 ### GetDisplayOrder
@@ -88,24 +88,24 @@ and a boolean to check if the value has been set.
 SetDisplayOrder sets DisplayOrder field to given value.
 
 
-### GetArchived
+### GetLabel
 
-`func (o *PropertyGroup) GetArchived() bool`
+`func (o *PropertyGroup) GetLabel() string`
 
-GetArchived returns the Archived field if non-nil, zero value otherwise.
+GetLabel returns the Label field if non-nil, zero value otherwise.
 
-### GetArchivedOk
+### GetLabelOk
 
-`func (o *PropertyGroup) GetArchivedOk() (*bool, bool)`
+`func (o *PropertyGroup) GetLabelOk() (*string, bool)`
 
-GetArchivedOk returns a tuple with the Archived field if it's non-nil, zero value otherwise
+GetLabelOk returns a tuple with the Label field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetArchived
+### SetLabel
 
-`func (o *PropertyGroup) SetArchived(v bool)`
+`func (o *PropertyGroup) SetLabel(v string)`
 
-SetArchived sets Archived field to given value.
+SetLabel sets Label field to given value.
 
 
 

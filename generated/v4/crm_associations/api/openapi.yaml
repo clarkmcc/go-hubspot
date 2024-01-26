@@ -61,9 +61,9 @@ paths:
       - private_apps:
         - crm.objects.deals.write
       - oauth2:
-        - crm.objects.companies.read
-      - oauth2:
         - crm.objects.deals.write
+      - oauth2:
+        - crm.objects.companies.read
       - private_apps_legacy:
         - crm.objects.goals.read
       - private_apps_legacy:
@@ -170,9 +170,9 @@ paths:
       - private_apps:
         - crm.objects.deals.write
       - oauth2:
-        - crm.objects.companies.read
-      - oauth2:
         - crm.objects.deals.write
+      - oauth2:
+        - crm.objects.companies.read
       - private_apps_legacy:
         - crm.objects.goals.read
       - private_apps_legacy:
@@ -284,9 +284,9 @@ paths:
       - private_apps:
         - crm.objects.deals.write
       - oauth2:
-        - crm.objects.companies.read
-      - oauth2:
         - crm.objects.deals.write
+      - oauth2:
+        - crm.objects.companies.read
       - private_apps_legacy:
         - crm.objects.goals.read
       - private_apps_legacy:
@@ -391,9 +391,9 @@ paths:
       - private_apps:
         - crm.objects.deals.write
       - oauth2:
-        - crm.objects.companies.read
-      - oauth2:
         - crm.objects.deals.write
+      - oauth2:
+        - crm.objects.companies.read
       - private_apps_legacy:
         - crm.objects.goals.read
       - private_apps_legacy:
@@ -508,9 +508,9 @@ paths:
       - private_apps:
         - crm.objects.deals.write
       - oauth2:
-        - crm.objects.companies.read
-      - oauth2:
         - crm.objects.deals.write
+      - oauth2:
+        - crm.objects.companies.read
       - private_apps_legacy:
         - crm.objects.goals.read
       - private_apps_legacy:
@@ -610,9 +610,9 @@ paths:
       - private_apps:
         - crm.objects.deals.write
       - oauth2:
-        - crm.objects.companies.read
-      - oauth2:
         - crm.objects.deals.write
+      - oauth2:
+        - crm.objects.companies.read
       - private_apps_legacy:
         - crm.objects.goals.read
       - private_apps_legacy:
@@ -717,9 +717,9 @@ paths:
       - private_apps:
         - crm.objects.deals.write
       - oauth2:
-        - crm.objects.companies.read
-      - oauth2:
         - crm.objects.deals.write
+      - oauth2:
+        - crm.objects.companies.read
       - private_apps_legacy:
         - crm.objects.goals.read
       - private_apps_legacy:
@@ -821,9 +821,9 @@ paths:
       - private_apps:
         - crm.objects.deals.write
       - oauth2:
-        - crm.objects.companies.read
-      - oauth2:
         - crm.objects.deals.write
+      - oauth2:
+        - crm.objects.companies.read
       - private_apps_legacy:
         - crm.objects.goals.read
       - private_apps_legacy:
@@ -928,9 +928,9 @@ paths:
       - private_apps:
         - crm.objects.deals.write
       - oauth2:
-        - crm.objects.companies.read
-      - oauth2:
         - crm.objects.deals.write
+      - oauth2:
+        - crm.objects.companies.read
       - private_apps_legacy:
         - crm.objects.goals.read
       - private_apps_legacy:
@@ -1977,12 +1977,12 @@ components:
         authorizationCode:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
+            media_bridge.read: Read media and media events
             e-commerce: e-commerce
             crm.objects.custom.write: Change custom object records
             crm.objects.custom.read: View custom object records
             crm.objects.goals.read: Read goals
             tickets: Read and write tickets
-            media_bridge.read: Read media and media events
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
     oauth2:
@@ -1990,6 +1990,7 @@ components:
         authorizationCode:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
+            crm.objects.deals.write: ' '
             crm.objects.quotes.read: Quotes
             crm.objects.line_items.write: Line Items
             crm.objects.companies.read: ' '
@@ -1999,7 +2000,6 @@ components:
             crm.objects.quotes.write: Quotes
             crm.objects.deals.read: ' '
             crm.objects.line_items.read: Line Items
-            crm.objects.deals.write: ' '
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
     private_apps_legacy:

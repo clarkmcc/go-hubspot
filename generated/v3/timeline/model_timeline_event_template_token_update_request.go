@@ -1,5 +1,5 @@
 /*
-Timeline events
+CRM Timeline
 
 This feature allows an app to create and configure custom events that can show up in the timelines of certain CRM objects like contacts, companies, tickets, or deals. You'll find multiple use cases for this API in the sections below.
 
@@ -16,12 +16,12 @@ import (
 
 // TimelineEventTemplateTokenUpdateRequest State of the token definition for update requests.
 type TimelineEventTemplateTokenUpdateRequest struct {
+	// If type is `enumeration`, we should have a list of options to choose from.
+	Options []TimelineEventTemplateTokenOption `json:"options,omitempty"`
 	// Used for list segmentation and reporting.
 	Label string `json:"label"`
 	// The name of the CRM object property. This will populate the CRM object property associated with the event. With enough of these, you can fully build CRM objects via the Timeline API.
 	ObjectPropertyName *string `json:"objectPropertyName,omitempty"`
-	// If type is `enumeration`, we should have a list of options to choose from.
-	Options []TimelineEventTemplateTokenOption `json:"options,omitempty"`
 }
 
 // NewTimelineEventTemplateTokenUpdateRequest instantiates a new TimelineEventTemplateTokenUpdateRequest object
@@ -40,6 +40,38 @@ func NewTimelineEventTemplateTokenUpdateRequest(label string) *TimelineEventTemp
 func NewTimelineEventTemplateTokenUpdateRequestWithDefaults() *TimelineEventTemplateTokenUpdateRequest {
 	this := TimelineEventTemplateTokenUpdateRequest{}
 	return &this
+}
+
+// GetOptions returns the Options field value if set, zero value otherwise.
+func (o *TimelineEventTemplateTokenUpdateRequest) GetOptions() []TimelineEventTemplateTokenOption {
+	if o == nil || o.Options == nil {
+		var ret []TimelineEventTemplateTokenOption
+		return ret
+	}
+	return o.Options
+}
+
+// GetOptionsOk returns a tuple with the Options field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TimelineEventTemplateTokenUpdateRequest) GetOptionsOk() ([]TimelineEventTemplateTokenOption, bool) {
+	if o == nil || o.Options == nil {
+		return nil, false
+	}
+	return o.Options, true
+}
+
+// HasOptions returns a boolean if a field has been set.
+func (o *TimelineEventTemplateTokenUpdateRequest) HasOptions() bool {
+	if o != nil && o.Options != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetOptions gets a reference to the given []TimelineEventTemplateTokenOption and assigns it to the Options field.
+func (o *TimelineEventTemplateTokenUpdateRequest) SetOptions(v []TimelineEventTemplateTokenOption) {
+	o.Options = v
 }
 
 // GetLabel returns the Label field value
@@ -98,48 +130,16 @@ func (o *TimelineEventTemplateTokenUpdateRequest) SetObjectPropertyName(v string
 	o.ObjectPropertyName = &v
 }
 
-// GetOptions returns the Options field value if set, zero value otherwise.
-func (o *TimelineEventTemplateTokenUpdateRequest) GetOptions() []TimelineEventTemplateTokenOption {
-	if o == nil || o.Options == nil {
-		var ret []TimelineEventTemplateTokenOption
-		return ret
-	}
-	return o.Options
-}
-
-// GetOptionsOk returns a tuple with the Options field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *TimelineEventTemplateTokenUpdateRequest) GetOptionsOk() ([]TimelineEventTemplateTokenOption, bool) {
-	if o == nil || o.Options == nil {
-		return nil, false
-	}
-	return o.Options, true
-}
-
-// HasOptions returns a boolean if a field has been set.
-func (o *TimelineEventTemplateTokenUpdateRequest) HasOptions() bool {
-	if o != nil && o.Options != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetOptions gets a reference to the given []TimelineEventTemplateTokenOption and assigns it to the Options field.
-func (o *TimelineEventTemplateTokenUpdateRequest) SetOptions(v []TimelineEventTemplateTokenOption) {
-	o.Options = v
-}
-
 func (o TimelineEventTemplateTokenUpdateRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if o.Options != nil {
+		toSerialize["options"] = o.Options
+	}
 	if true {
 		toSerialize["label"] = o.Label
 	}
 	if o.ObjectPropertyName != nil {
 		toSerialize["objectPropertyName"] = o.ObjectPropertyName
-	}
-	if o.Options != nil {
-		toSerialize["options"] = o.Options
 	}
 	return json.Marshal(toSerialize)
 }

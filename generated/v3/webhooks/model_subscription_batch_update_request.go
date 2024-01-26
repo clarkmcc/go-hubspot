@@ -1,5 +1,5 @@
 /*
-Webhooks API
+Webhooks Webhooks
 
 Provides a way for apps to subscribe to certain change events in HubSpot. Once configured, apps will receive event payloads containing details about the changes at a specified target URL. There can only be one target URL for receiving event notifications per app.
 
@@ -16,18 +16,18 @@ import (
 
 // SubscriptionBatchUpdateRequest struct for SubscriptionBatchUpdateRequest
 type SubscriptionBatchUpdateRequest struct {
-	Id     int32 `json:"id"`
 	Active bool  `json:"active"`
+	Id     int32 `json:"id"`
 }
 
 // NewSubscriptionBatchUpdateRequest instantiates a new SubscriptionBatchUpdateRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSubscriptionBatchUpdateRequest(id int32, active bool) *SubscriptionBatchUpdateRequest {
+func NewSubscriptionBatchUpdateRequest(active bool, id int32) *SubscriptionBatchUpdateRequest {
 	this := SubscriptionBatchUpdateRequest{}
-	this.Id = id
 	this.Active = active
+	this.Id = id
 	return &this
 }
 
@@ -37,30 +37,6 @@ func NewSubscriptionBatchUpdateRequest(id int32, active bool) *SubscriptionBatch
 func NewSubscriptionBatchUpdateRequestWithDefaults() *SubscriptionBatchUpdateRequest {
 	this := SubscriptionBatchUpdateRequest{}
 	return &this
-}
-
-// GetId returns the Id field value
-func (o *SubscriptionBatchUpdateRequest) GetId() int32 {
-	if o == nil {
-		var ret int32
-		return ret
-	}
-
-	return o.Id
-}
-
-// GetIdOk returns a tuple with the Id field value
-// and a boolean to check if the value has been set.
-func (o *SubscriptionBatchUpdateRequest) GetIdOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Id, true
-}
-
-// SetId sets field value
-func (o *SubscriptionBatchUpdateRequest) SetId(v int32) {
-	o.Id = v
 }
 
 // GetActive returns the Active field value
@@ -87,13 +63,37 @@ func (o *SubscriptionBatchUpdateRequest) SetActive(v bool) {
 	o.Active = v
 }
 
+// GetId returns the Id field value
+func (o *SubscriptionBatchUpdateRequest) GetId() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *SubscriptionBatchUpdateRequest) GetIdOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *SubscriptionBatchUpdateRequest) SetId(v int32) {
+	o.Id = v
+}
+
 func (o SubscriptionBatchUpdateRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["id"] = o.Id
+		toSerialize["active"] = o.Active
 	}
 	if true {
-		toSerialize["active"] = o.Active
+		toSerialize["id"] = o.Id
 	}
 	return json.Marshal(toSerialize)
 }

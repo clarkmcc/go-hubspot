@@ -16,8 +16,8 @@ import (
 
 // CollectionResponseAssociatedIdForwardPaging struct for CollectionResponseAssociatedIdForwardPaging
 type CollectionResponseAssociatedIdForwardPaging struct {
-	Results []AssociatedId `json:"results"`
 	Paging  *ForwardPaging `json:"paging,omitempty"`
+	Results []AssociatedId `json:"results"`
 }
 
 // NewCollectionResponseAssociatedIdForwardPaging instantiates a new CollectionResponseAssociatedIdForwardPaging object
@@ -36,30 +36,6 @@ func NewCollectionResponseAssociatedIdForwardPaging(results []AssociatedId) *Col
 func NewCollectionResponseAssociatedIdForwardPagingWithDefaults() *CollectionResponseAssociatedIdForwardPaging {
 	this := CollectionResponseAssociatedIdForwardPaging{}
 	return &this
-}
-
-// GetResults returns the Results field value
-func (o *CollectionResponseAssociatedIdForwardPaging) GetResults() []AssociatedId {
-	if o == nil {
-		var ret []AssociatedId
-		return ret
-	}
-
-	return o.Results
-}
-
-// GetResultsOk returns a tuple with the Results field value
-// and a boolean to check if the value has been set.
-func (o *CollectionResponseAssociatedIdForwardPaging) GetResultsOk() ([]AssociatedId, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Results, true
-}
-
-// SetResults sets field value
-func (o *CollectionResponseAssociatedIdForwardPaging) SetResults(v []AssociatedId) {
-	o.Results = v
 }
 
 // GetPaging returns the Paging field value if set, zero value otherwise.
@@ -94,13 +70,37 @@ func (o *CollectionResponseAssociatedIdForwardPaging) SetPaging(v ForwardPaging)
 	o.Paging = &v
 }
 
+// GetResults returns the Results field value
+func (o *CollectionResponseAssociatedIdForwardPaging) GetResults() []AssociatedId {
+	if o == nil {
+		var ret []AssociatedId
+		return ret
+	}
+
+	return o.Results
+}
+
+// GetResultsOk returns a tuple with the Results field value
+// and a boolean to check if the value has been set.
+func (o *CollectionResponseAssociatedIdForwardPaging) GetResultsOk() ([]AssociatedId, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Results, true
+}
+
+// SetResults sets field value
+func (o *CollectionResponseAssociatedIdForwardPaging) SetResults(v []AssociatedId) {
+	o.Results = v
+}
+
 func (o CollectionResponseAssociatedIdForwardPaging) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["results"] = o.Results
-	}
 	if o.Paging != nil {
 		toSerialize["paging"] = o.Paging
+	}
+	if true {
+		toSerialize["results"] = o.Results
 	}
 	return json.Marshal(toSerialize)
 }

@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**R** | **int32** | Red. | 
-**G** | **int32** | Green. | 
-**B** | **int32** | Blue. | 
 **A** | **float32** | Alpha. | 
+**R** | **int32** | Red. | 
+**B** | **int32** | Blue. | 
+**G** | **int32** | Green. | 
 
 ## Methods
 
 ### NewRGBAColor
 
-`func NewRGBAColor(r int32, g int32, b int32, a float32, ) *RGBAColor`
+`func NewRGBAColor(a float32, r int32, b int32, g int32, ) *RGBAColor`
 
 NewRGBAColor instantiates a new RGBAColor object
 This constructor will assign default values to properties that have it defined,
@@ -27,6 +27,26 @@ will change when the set of required properties is changed
 NewRGBAColorWithDefaults instantiates a new RGBAColor object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetA
+
+`func (o *RGBAColor) GetA() float32`
+
+GetA returns the A field if non-nil, zero value otherwise.
+
+### GetAOk
+
+`func (o *RGBAColor) GetAOk() (*float32, bool)`
+
+GetAOk returns a tuple with the A field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetA
+
+`func (o *RGBAColor) SetA(v float32)`
+
+SetA sets A field to given value.
+
 
 ### GetR
 
@@ -46,26 +66,6 @@ and a boolean to check if the value has been set.
 `func (o *RGBAColor) SetR(v int32)`
 
 SetR sets R field to given value.
-
-
-### GetG
-
-`func (o *RGBAColor) GetG() int32`
-
-GetG returns the G field if non-nil, zero value otherwise.
-
-### GetGOk
-
-`func (o *RGBAColor) GetGOk() (*int32, bool)`
-
-GetGOk returns a tuple with the G field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetG
-
-`func (o *RGBAColor) SetG(v int32)`
-
-SetG sets G field to given value.
 
 
 ### GetB
@@ -88,24 +88,24 @@ and a boolean to check if the value has been set.
 SetB sets B field to given value.
 
 
-### GetA
+### GetG
 
-`func (o *RGBAColor) GetA() float32`
+`func (o *RGBAColor) GetG() int32`
 
-GetA returns the A field if non-nil, zero value otherwise.
+GetG returns the G field if non-nil, zero value otherwise.
 
-### GetAOk
+### GetGOk
 
-`func (o *RGBAColor) GetAOk() (*float32, bool)`
+`func (o *RGBAColor) GetGOk() (*int32, bool)`
 
-GetAOk returns a tuple with the A field if it's non-nil, zero value otherwise
+GetGOk returns a tuple with the G field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetA
+### SetG
 
-`func (o *RGBAColor) SetA(v float32)`
+`func (o *RGBAColor) SetG(v int32)`
 
-SetA sets A field to given value.
+SetG sets G field to given value.
 
 
 

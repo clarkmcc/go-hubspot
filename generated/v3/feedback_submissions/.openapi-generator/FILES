@@ -4,6 +4,7 @@ README.md
 api/openapi.yaml
 api_basic.go
 api_batch.go
+api_gdpr.go
 api_public_object.go
 api_search.go
 client.go
@@ -26,10 +27,12 @@ docs/ErrorDetail.md
 docs/Filter.md
 docs/FilterGroup.md
 docs/ForwardPaging.md
+docs/GDPRApi.md
 docs/NextPage.md
 docs/Paging.md
 docs/PreviousPage.md
 docs/PublicAssociationsForObject.md
+docs/PublicGdprDeleteInput.md
 docs/PublicMergeInput.md
 docs/PublicObjectApi.md
 docs/PublicObjectId.md
@@ -66,6 +69,7 @@ model_next_page.go
 model_paging.go
 model_previous_page.go
 model_public_associations_for_object.go
+model_public_gdpr_delete_input.go
 model_public_merge_input.go
 model_public_object_id.go
 model_public_object_search_request.go

@@ -16,28 +16,28 @@ import (
 
 // OptionInput Defines a enumeration property option
 type OptionInput struct {
+	// Hidden options won't be shown in HubSpot.
+	Hidden bool `json:"hidden"`
+	// Options are shown in order starting with the lowest positive integer value. Values of -1 will cause the option to be displayed after any positive values.
+	DisplayOrder int32 `json:"displayOrder"`
+	// A description of the option.
+	Description *string `json:"description,omitempty"`
 	// A human-readable option label that will be shown in HubSpot.
 	Label string `json:"label"`
 	// The internal value of the option, which must be used when setting the property value through the API.
 	Value string `json:"value"`
-	// A description of the option.
-	Description *string `json:"description,omitempty"`
-	// Options are shown in order starting with the lowest positive integer value. Values of -1 will cause the option to be displayed after any positive values.
-	DisplayOrder int32 `json:"displayOrder"`
-	// Hidden options won't be shown in HubSpot.
-	Hidden bool `json:"hidden"`
 }
 
 // NewOptionInput instantiates a new OptionInput object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewOptionInput(label string, value string, displayOrder int32, hidden bool) *OptionInput {
+func NewOptionInput(hidden bool, displayOrder int32, label string, value string) *OptionInput {
 	this := OptionInput{}
+	this.Hidden = hidden
+	this.DisplayOrder = displayOrder
 	this.Label = label
 	this.Value = value
-	this.DisplayOrder = displayOrder
-	this.Hidden = hidden
 	return &this
 }
 
@@ -47,6 +47,86 @@ func NewOptionInput(label string, value string, displayOrder int32, hidden bool)
 func NewOptionInputWithDefaults() *OptionInput {
 	this := OptionInput{}
 	return &this
+}
+
+// GetHidden returns the Hidden field value
+func (o *OptionInput) GetHidden() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.Hidden
+}
+
+// GetHiddenOk returns a tuple with the Hidden field value
+// and a boolean to check if the value has been set.
+func (o *OptionInput) GetHiddenOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Hidden, true
+}
+
+// SetHidden sets field value
+func (o *OptionInput) SetHidden(v bool) {
+	o.Hidden = v
+}
+
+// GetDisplayOrder returns the DisplayOrder field value
+func (o *OptionInput) GetDisplayOrder() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.DisplayOrder
+}
+
+// GetDisplayOrderOk returns a tuple with the DisplayOrder field value
+// and a boolean to check if the value has been set.
+func (o *OptionInput) GetDisplayOrderOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.DisplayOrder, true
+}
+
+// SetDisplayOrder sets field value
+func (o *OptionInput) SetDisplayOrder(v int32) {
+	o.DisplayOrder = v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *OptionInput) GetDescription() string {
+	if o == nil || o.Description == nil {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OptionInput) GetDescriptionOk() (*string, bool) {
+	if o == nil || o.Description == nil {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *OptionInput) HasDescription() bool {
+	if o != nil && o.Description != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *OptionInput) SetDescription(v string) {
+	o.Description = &v
 }
 
 // GetLabel returns the Label field value
@@ -97,102 +177,22 @@ func (o *OptionInput) SetValue(v string) {
 	o.Value = v
 }
 
-// GetDescription returns the Description field value if set, zero value otherwise.
-func (o *OptionInput) GetDescription() string {
-	if o == nil || o.Description == nil {
-		var ret string
-		return ret
-	}
-	return *o.Description
-}
-
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *OptionInput) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
-		return nil, false
-	}
-	return o.Description, true
-}
-
-// HasDescription returns a boolean if a field has been set.
-func (o *OptionInput) HasDescription() bool {
-	if o != nil && o.Description != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *OptionInput) SetDescription(v string) {
-	o.Description = &v
-}
-
-// GetDisplayOrder returns the DisplayOrder field value
-func (o *OptionInput) GetDisplayOrder() int32 {
-	if o == nil {
-		var ret int32
-		return ret
-	}
-
-	return o.DisplayOrder
-}
-
-// GetDisplayOrderOk returns a tuple with the DisplayOrder field value
-// and a boolean to check if the value has been set.
-func (o *OptionInput) GetDisplayOrderOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.DisplayOrder, true
-}
-
-// SetDisplayOrder sets field value
-func (o *OptionInput) SetDisplayOrder(v int32) {
-	o.DisplayOrder = v
-}
-
-// GetHidden returns the Hidden field value
-func (o *OptionInput) GetHidden() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.Hidden
-}
-
-// GetHiddenOk returns a tuple with the Hidden field value
-// and a boolean to check if the value has been set.
-func (o *OptionInput) GetHiddenOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Hidden, true
-}
-
-// SetHidden sets field value
-func (o *OptionInput) SetHidden(v bool) {
-	o.Hidden = v
-}
-
 func (o OptionInput) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["label"] = o.Label
+		toSerialize["hidden"] = o.Hidden
 	}
 	if true {
-		toSerialize["value"] = o.Value
+		toSerialize["displayOrder"] = o.DisplayOrder
 	}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
 	if true {
-		toSerialize["displayOrder"] = o.DisplayOrder
+		toSerialize["label"] = o.Label
 	}
 	if true {
-		toSerialize["hidden"] = o.Hidden
+		toSerialize["value"] = o.Value
 	}
 	return json.Marshal(toSerialize)
 }

@@ -4,29 +4,29 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** | The unique ID of the Blog Author. | 
-**FullName** | **string** |  | 
-**Email** | **string** | Email address of the Blog Author. | 
-**Slug** | **string** |  | 
-**Language** | **string** | The explicitly defined ISO 639 language code of the blog author. | 
-**TranslatedFromId** | **int64** | ID of the primary blog author this object was translated from. | 
-**Name** | **string** |  | 
-**DisplayName** | **string** | The full name of the Blog Author to be displayed. | 
-**Bio** | **string** | A short biography of the blog author. | 
 **Website** | **string** | URL to the website of the Blog Author. | 
-**Twitter** | **string** | URL or username of the Twitter account associated with the Blog Author. This will be normalized into the Twitter url for said user. | 
+**DisplayName** | **string** | The full name of the Blog Author to be displayed. | 
+**Created** | **time.Time** |  | 
 **Facebook** | **string** | URL to the Blog Author&#39;s Facebook page. | 
+**FullName** | **string** |  | 
+**Bio** | **string** | A short biography of the blog author. | 
+**Language** | **string** | The explicitly defined ISO 639 language code of the blog author. | 
 **Linkedin** | **string** | URL to the blog author&#39;s LinkedIn page. | 
 **Avatar** | **string** | URL to the blog author&#39;s avatar, if supplying a custom one. | 
-**Created** | **time.Time** |  | 
-**Updated** | **time.Time** |  | 
+**TranslatedFromId** | **int64** | ID of the primary blog author this object was translated from. | 
+**Twitter** | **string** | URL or username of the Twitter account associated with the Blog Author. This will be normalized into the Twitter url for said user. | 
 **DeletedAt** | **time.Time** | The timestamp (ISO8601 format) when this Blog Author was deleted. | 
+**Name** | **string** |  | 
+**Id** | **string** | The unique ID of the Blog Author. | 
+**Updated** | **time.Time** |  | 
+**Email** | **string** | Email address of the Blog Author. | 
+**Slug** | **string** |  | 
 
 ## Methods
 
 ### NewBlogAuthor
 
-`func NewBlogAuthor(id string, fullName string, email string, slug string, language string, translatedFromId int64, name string, displayName string, bio string, website string, twitter string, facebook string, linkedin string, avatar string, created time.Time, updated time.Time, deletedAt time.Time, ) *BlogAuthor`
+`func NewBlogAuthor(website string, displayName string, created time.Time, facebook string, fullName string, bio string, language string, linkedin string, avatar string, translatedFromId int64, twitter string, deletedAt time.Time, name string, id string, updated time.Time, email string, slug string, ) *BlogAuthor`
 
 NewBlogAuthor instantiates a new BlogAuthor object
 This constructor will assign default values to properties that have it defined,
@@ -41,144 +41,24 @@ NewBlogAuthorWithDefaults instantiates a new BlogAuthor object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetId
+### GetWebsite
 
-`func (o *BlogAuthor) GetId() string`
+`func (o *BlogAuthor) GetWebsite() string`
 
-GetId returns the Id field if non-nil, zero value otherwise.
+GetWebsite returns the Website field if non-nil, zero value otherwise.
 
-### GetIdOk
+### GetWebsiteOk
 
-`func (o *BlogAuthor) GetIdOk() (*string, bool)`
+`func (o *BlogAuthor) GetWebsiteOk() (*string, bool)`
 
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+GetWebsiteOk returns a tuple with the Website field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetId
+### SetWebsite
 
-`func (o *BlogAuthor) SetId(v string)`
+`func (o *BlogAuthor) SetWebsite(v string)`
 
-SetId sets Id field to given value.
-
-
-### GetFullName
-
-`func (o *BlogAuthor) GetFullName() string`
-
-GetFullName returns the FullName field if non-nil, zero value otherwise.
-
-### GetFullNameOk
-
-`func (o *BlogAuthor) GetFullNameOk() (*string, bool)`
-
-GetFullNameOk returns a tuple with the FullName field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetFullName
-
-`func (o *BlogAuthor) SetFullName(v string)`
-
-SetFullName sets FullName field to given value.
-
-
-### GetEmail
-
-`func (o *BlogAuthor) GetEmail() string`
-
-GetEmail returns the Email field if non-nil, zero value otherwise.
-
-### GetEmailOk
-
-`func (o *BlogAuthor) GetEmailOk() (*string, bool)`
-
-GetEmailOk returns a tuple with the Email field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetEmail
-
-`func (o *BlogAuthor) SetEmail(v string)`
-
-SetEmail sets Email field to given value.
-
-
-### GetSlug
-
-`func (o *BlogAuthor) GetSlug() string`
-
-GetSlug returns the Slug field if non-nil, zero value otherwise.
-
-### GetSlugOk
-
-`func (o *BlogAuthor) GetSlugOk() (*string, bool)`
-
-GetSlugOk returns a tuple with the Slug field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetSlug
-
-`func (o *BlogAuthor) SetSlug(v string)`
-
-SetSlug sets Slug field to given value.
-
-
-### GetLanguage
-
-`func (o *BlogAuthor) GetLanguage() string`
-
-GetLanguage returns the Language field if non-nil, zero value otherwise.
-
-### GetLanguageOk
-
-`func (o *BlogAuthor) GetLanguageOk() (*string, bool)`
-
-GetLanguageOk returns a tuple with the Language field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetLanguage
-
-`func (o *BlogAuthor) SetLanguage(v string)`
-
-SetLanguage sets Language field to given value.
-
-
-### GetTranslatedFromId
-
-`func (o *BlogAuthor) GetTranslatedFromId() int64`
-
-GetTranslatedFromId returns the TranslatedFromId field if non-nil, zero value otherwise.
-
-### GetTranslatedFromIdOk
-
-`func (o *BlogAuthor) GetTranslatedFromIdOk() (*int64, bool)`
-
-GetTranslatedFromIdOk returns a tuple with the TranslatedFromId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTranslatedFromId
-
-`func (o *BlogAuthor) SetTranslatedFromId(v int64)`
-
-SetTranslatedFromId sets TranslatedFromId field to given value.
-
-
-### GetName
-
-`func (o *BlogAuthor) GetName() string`
-
-GetName returns the Name field if non-nil, zero value otherwise.
-
-### GetNameOk
-
-`func (o *BlogAuthor) GetNameOk() (*string, bool)`
-
-GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetName
-
-`func (o *BlogAuthor) SetName(v string)`
-
-SetName sets Name field to given value.
+SetWebsite sets Website field to given value.
 
 
 ### GetDisplayName
@@ -201,64 +81,24 @@ and a boolean to check if the value has been set.
 SetDisplayName sets DisplayName field to given value.
 
 
-### GetBio
+### GetCreated
 
-`func (o *BlogAuthor) GetBio() string`
+`func (o *BlogAuthor) GetCreated() time.Time`
 
-GetBio returns the Bio field if non-nil, zero value otherwise.
+GetCreated returns the Created field if non-nil, zero value otherwise.
 
-### GetBioOk
+### GetCreatedOk
 
-`func (o *BlogAuthor) GetBioOk() (*string, bool)`
+`func (o *BlogAuthor) GetCreatedOk() (*time.Time, bool)`
 
-GetBioOk returns a tuple with the Bio field if it's non-nil, zero value otherwise
+GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetBio
+### SetCreated
 
-`func (o *BlogAuthor) SetBio(v string)`
+`func (o *BlogAuthor) SetCreated(v time.Time)`
 
-SetBio sets Bio field to given value.
-
-
-### GetWebsite
-
-`func (o *BlogAuthor) GetWebsite() string`
-
-GetWebsite returns the Website field if non-nil, zero value otherwise.
-
-### GetWebsiteOk
-
-`func (o *BlogAuthor) GetWebsiteOk() (*string, bool)`
-
-GetWebsiteOk returns a tuple with the Website field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetWebsite
-
-`func (o *BlogAuthor) SetWebsite(v string)`
-
-SetWebsite sets Website field to given value.
-
-
-### GetTwitter
-
-`func (o *BlogAuthor) GetTwitter() string`
-
-GetTwitter returns the Twitter field if non-nil, zero value otherwise.
-
-### GetTwitterOk
-
-`func (o *BlogAuthor) GetTwitterOk() (*string, bool)`
-
-GetTwitterOk returns a tuple with the Twitter field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTwitter
-
-`func (o *BlogAuthor) SetTwitter(v string)`
-
-SetTwitter sets Twitter field to given value.
+SetCreated sets Created field to given value.
 
 
 ### GetFacebook
@@ -279,6 +119,66 @@ and a boolean to check if the value has been set.
 `func (o *BlogAuthor) SetFacebook(v string)`
 
 SetFacebook sets Facebook field to given value.
+
+
+### GetFullName
+
+`func (o *BlogAuthor) GetFullName() string`
+
+GetFullName returns the FullName field if non-nil, zero value otherwise.
+
+### GetFullNameOk
+
+`func (o *BlogAuthor) GetFullNameOk() (*string, bool)`
+
+GetFullNameOk returns a tuple with the FullName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFullName
+
+`func (o *BlogAuthor) SetFullName(v string)`
+
+SetFullName sets FullName field to given value.
+
+
+### GetBio
+
+`func (o *BlogAuthor) GetBio() string`
+
+GetBio returns the Bio field if non-nil, zero value otherwise.
+
+### GetBioOk
+
+`func (o *BlogAuthor) GetBioOk() (*string, bool)`
+
+GetBioOk returns a tuple with the Bio field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBio
+
+`func (o *BlogAuthor) SetBio(v string)`
+
+SetBio sets Bio field to given value.
+
+
+### GetLanguage
+
+`func (o *BlogAuthor) GetLanguage() string`
+
+GetLanguage returns the Language field if non-nil, zero value otherwise.
+
+### GetLanguageOk
+
+`func (o *BlogAuthor) GetLanguageOk() (*string, bool)`
+
+GetLanguageOk returns a tuple with the Language field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLanguage
+
+`func (o *BlogAuthor) SetLanguage(v string)`
+
+SetLanguage sets Language field to given value.
 
 
 ### GetLinkedin
@@ -321,24 +221,104 @@ and a boolean to check if the value has been set.
 SetAvatar sets Avatar field to given value.
 
 
-### GetCreated
+### GetTranslatedFromId
 
-`func (o *BlogAuthor) GetCreated() time.Time`
+`func (o *BlogAuthor) GetTranslatedFromId() int64`
 
-GetCreated returns the Created field if non-nil, zero value otherwise.
+GetTranslatedFromId returns the TranslatedFromId field if non-nil, zero value otherwise.
 
-### GetCreatedOk
+### GetTranslatedFromIdOk
 
-`func (o *BlogAuthor) GetCreatedOk() (*time.Time, bool)`
+`func (o *BlogAuthor) GetTranslatedFromIdOk() (*int64, bool)`
 
-GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
+GetTranslatedFromIdOk returns a tuple with the TranslatedFromId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetCreated
+### SetTranslatedFromId
 
-`func (o *BlogAuthor) SetCreated(v time.Time)`
+`func (o *BlogAuthor) SetTranslatedFromId(v int64)`
 
-SetCreated sets Created field to given value.
+SetTranslatedFromId sets TranslatedFromId field to given value.
+
+
+### GetTwitter
+
+`func (o *BlogAuthor) GetTwitter() string`
+
+GetTwitter returns the Twitter field if non-nil, zero value otherwise.
+
+### GetTwitterOk
+
+`func (o *BlogAuthor) GetTwitterOk() (*string, bool)`
+
+GetTwitterOk returns a tuple with the Twitter field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTwitter
+
+`func (o *BlogAuthor) SetTwitter(v string)`
+
+SetTwitter sets Twitter field to given value.
+
+
+### GetDeletedAt
+
+`func (o *BlogAuthor) GetDeletedAt() time.Time`
+
+GetDeletedAt returns the DeletedAt field if non-nil, zero value otherwise.
+
+### GetDeletedAtOk
+
+`func (o *BlogAuthor) GetDeletedAtOk() (*time.Time, bool)`
+
+GetDeletedAtOk returns a tuple with the DeletedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDeletedAt
+
+`func (o *BlogAuthor) SetDeletedAt(v time.Time)`
+
+SetDeletedAt sets DeletedAt field to given value.
+
+
+### GetName
+
+`func (o *BlogAuthor) GetName() string`
+
+GetName returns the Name field if non-nil, zero value otherwise.
+
+### GetNameOk
+
+`func (o *BlogAuthor) GetNameOk() (*string, bool)`
+
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetName
+
+`func (o *BlogAuthor) SetName(v string)`
+
+SetName sets Name field to given value.
+
+
+### GetId
+
+`func (o *BlogAuthor) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *BlogAuthor) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *BlogAuthor) SetId(v string)`
+
+SetId sets Id field to given value.
 
 
 ### GetUpdated
@@ -361,24 +341,44 @@ and a boolean to check if the value has been set.
 SetUpdated sets Updated field to given value.
 
 
-### GetDeletedAt
+### GetEmail
 
-`func (o *BlogAuthor) GetDeletedAt() time.Time`
+`func (o *BlogAuthor) GetEmail() string`
 
-GetDeletedAt returns the DeletedAt field if non-nil, zero value otherwise.
+GetEmail returns the Email field if non-nil, zero value otherwise.
 
-### GetDeletedAtOk
+### GetEmailOk
 
-`func (o *BlogAuthor) GetDeletedAtOk() (*time.Time, bool)`
+`func (o *BlogAuthor) GetEmailOk() (*string, bool)`
 
-GetDeletedAtOk returns a tuple with the DeletedAt field if it's non-nil, zero value otherwise
+GetEmailOk returns a tuple with the Email field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetDeletedAt
+### SetEmail
 
-`func (o *BlogAuthor) SetDeletedAt(v time.Time)`
+`func (o *BlogAuthor) SetEmail(v string)`
 
-SetDeletedAt sets DeletedAt field to given value.
+SetEmail sets Email field to given value.
+
+
+### GetSlug
+
+`func (o *BlogAuthor) GetSlug() string`
+
+GetSlug returns the Slug field if non-nil, zero value otherwise.
+
+### GetSlugOk
+
+`func (o *BlogAuthor) GetSlugOk() (*string, bool)`
+
+GetSlugOk returns a tuple with the Slug field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSlug
+
+`func (o *BlogAuthor) SetSlug(v string)`
+
+SetSlug sets Slug field to given value.
 
 
 

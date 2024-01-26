@@ -4,19 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** | User name to log into the HubSpot SMTP server. | 
-**CreatedBy** | **string** | Email address of the user that sent the token creation request. | 
-**Password** | Pointer to **string** | Password used to log into the HubSpot SMTP server. | [optional] 
-**EmailCampaignId** | **string** | Identifier assigned to the campaign provided in the token creation request. | 
 **CreatedAt** | **time.Time** | Timestamp generated when a token is created. | 
+**Password** | Pointer to **string** | Password used to log into the HubSpot SMTP server. | [optional] 
+**CreatedBy** | **string** | Email address of the user that sent the token creation request. | 
 **CreateContact** | **bool** | Indicates whether a contact should be created for email recipients. | 
+**Id** | **string** | User name to log into the HubSpot SMTP server. | 
+**EmailCampaignId** | **string** | Identifier assigned to the campaign provided in the token creation request. | 
 **CampaignName** | **string** | A name for the campaign tied to the token. | 
 
 ## Methods
 
 ### NewSmtpApiTokenView
 
-`func NewSmtpApiTokenView(id string, createdBy string, emailCampaignId string, createdAt time.Time, createContact bool, campaignName string, ) *SmtpApiTokenView`
+`func NewSmtpApiTokenView(createdAt time.Time, createdBy string, createContact bool, id string, emailCampaignId string, campaignName string, ) *SmtpApiTokenView`
 
 NewSmtpApiTokenView instantiates a new SmtpApiTokenView object
 This constructor will assign default values to properties that have it defined,
@@ -31,44 +31,24 @@ NewSmtpApiTokenViewWithDefaults instantiates a new SmtpApiTokenView object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetId
+### GetCreatedAt
 
-`func (o *SmtpApiTokenView) GetId() string`
+`func (o *SmtpApiTokenView) GetCreatedAt() time.Time`
 
-GetId returns the Id field if non-nil, zero value otherwise.
+GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
-### GetIdOk
+### GetCreatedAtOk
 
-`func (o *SmtpApiTokenView) GetIdOk() (*string, bool)`
+`func (o *SmtpApiTokenView) GetCreatedAtOk() (*time.Time, bool)`
 
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetId
+### SetCreatedAt
 
-`func (o *SmtpApiTokenView) SetId(v string)`
+`func (o *SmtpApiTokenView) SetCreatedAt(v time.Time)`
 
-SetId sets Id field to given value.
-
-
-### GetCreatedBy
-
-`func (o *SmtpApiTokenView) GetCreatedBy() string`
-
-GetCreatedBy returns the CreatedBy field if non-nil, zero value otherwise.
-
-### GetCreatedByOk
-
-`func (o *SmtpApiTokenView) GetCreatedByOk() (*string, bool)`
-
-GetCreatedByOk returns a tuple with the CreatedBy field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCreatedBy
-
-`func (o *SmtpApiTokenView) SetCreatedBy(v string)`
-
-SetCreatedBy sets CreatedBy field to given value.
+SetCreatedAt sets CreatedAt field to given value.
 
 
 ### GetPassword
@@ -96,44 +76,24 @@ SetPassword sets Password field to given value.
 
 HasPassword returns a boolean if a field has been set.
 
-### GetEmailCampaignId
+### GetCreatedBy
 
-`func (o *SmtpApiTokenView) GetEmailCampaignId() string`
+`func (o *SmtpApiTokenView) GetCreatedBy() string`
 
-GetEmailCampaignId returns the EmailCampaignId field if non-nil, zero value otherwise.
+GetCreatedBy returns the CreatedBy field if non-nil, zero value otherwise.
 
-### GetEmailCampaignIdOk
+### GetCreatedByOk
 
-`func (o *SmtpApiTokenView) GetEmailCampaignIdOk() (*string, bool)`
+`func (o *SmtpApiTokenView) GetCreatedByOk() (*string, bool)`
 
-GetEmailCampaignIdOk returns a tuple with the EmailCampaignId field if it's non-nil, zero value otherwise
+GetCreatedByOk returns a tuple with the CreatedBy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetEmailCampaignId
+### SetCreatedBy
 
-`func (o *SmtpApiTokenView) SetEmailCampaignId(v string)`
+`func (o *SmtpApiTokenView) SetCreatedBy(v string)`
 
-SetEmailCampaignId sets EmailCampaignId field to given value.
-
-
-### GetCreatedAt
-
-`func (o *SmtpApiTokenView) GetCreatedAt() time.Time`
-
-GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
-
-### GetCreatedAtOk
-
-`func (o *SmtpApiTokenView) GetCreatedAtOk() (*time.Time, bool)`
-
-GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCreatedAt
-
-`func (o *SmtpApiTokenView) SetCreatedAt(v time.Time)`
-
-SetCreatedAt sets CreatedAt field to given value.
+SetCreatedBy sets CreatedBy field to given value.
 
 
 ### GetCreateContact
@@ -154,6 +114,46 @@ and a boolean to check if the value has been set.
 `func (o *SmtpApiTokenView) SetCreateContact(v bool)`
 
 SetCreateContact sets CreateContact field to given value.
+
+
+### GetId
+
+`func (o *SmtpApiTokenView) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *SmtpApiTokenView) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *SmtpApiTokenView) SetId(v string)`
+
+SetId sets Id field to given value.
+
+
+### GetEmailCampaignId
+
+`func (o *SmtpApiTokenView) GetEmailCampaignId() string`
+
+GetEmailCampaignId returns the EmailCampaignId field if non-nil, zero value otherwise.
+
+### GetEmailCampaignIdOk
+
+`func (o *SmtpApiTokenView) GetEmailCampaignIdOk() (*string, bool)`
+
+GetEmailCampaignIdOk returns a tuple with the EmailCampaignId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEmailCampaignId
+
+`func (o *SmtpApiTokenView) SetEmailCampaignId(v string)`
+
+SetEmailCampaignId sets EmailCampaignId field to given value.
 
 
 ### GetCampaignName

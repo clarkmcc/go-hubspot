@@ -1,5 +1,5 @@
 /*
-HubDB endpoints
+Hubdb
 
 HubDB is a relational data store that presents data as rows, columns, and cells in a table, much like a spreadsheet. HubDB tables can be added or modified [in the HubSpot CMS](https://knowledge.hubspot.com/cos-general/how-to-edit-hubdb-tables), but you can also use the API endpoints documented here. For more information on HubDB tables and using their data on a HubSpot site, see the [CMS developers site](https://designers.hubspot.com/docs/tools/hubdb). You can also see the [documentation for dynamic pages](https://designers.hubspot.com/docs/tutorials/how-to-build-dynamic-pages-with-hubdb) for more details about the `useForPages` field.  HubDB tables support `draft` and `published` versions. This allows you to update data in the table, either for testing or to allow for a manual approval process, without affecting any live pages using the existing data. Draft data can be reviewed, and published by a user working in HubSpot or published via the API. Draft data can also be discarded, allowing users to go back to the published version of the data without disrupting it. If a table is set to be `allowed for public access`, you can access the published version of the table and rows without any authentication by specifying the portal id via the query parameter `portalId`.
 
@@ -17,21 +17,21 @@ import (
 
 // HubDbTableRowV3 struct for HubDbTableRowV3
 type HubDbTableRowV3 struct {
-	// The id of the table row
-	Id *string `json:"id,omitempty"`
-	// List of key value pairs with the column name and column value
-	Values map[string]map[string]interface{} `json:"values"`
 	// Specifies the value for `hs_path` column, which will be used as slug in the dynamic pages
 	Path *string `json:"path,omitempty"`
-	// Specifies the value for `hs_name` column, which will be used as title in the dynamic pages
-	Name *string `json:"name,omitempty"`
-	// Specifies the value for the column child table id
-	ChildTableId *string `json:"childTableId,omitempty"`
 	// Timestamp at which the row is created
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
+	// Specifies the value for the column child table id
+	ChildTableId *string    `json:"childTableId,omitempty"`
+	PublishedAt  *time.Time `json:"publishedAt,omitempty"`
+	// List of key value pairs with the column name and column value
+	Values map[string]map[string]interface{} `json:"values"`
+	// Specifies the value for `hs_name` column, which will be used as title in the dynamic pages
+	Name *string `json:"name,omitempty"`
+	// The id of the table row
+	Id *string `json:"id,omitempty"`
 	// Timestamp at which the row is updated last time
-	UpdatedAt   *time.Time `json:"updatedAt,omitempty"`
-	PublishedAt *time.Time `json:"publishedAt,omitempty"`
+	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 }
 
 // NewHubDbTableRowV3 instantiates a new HubDbTableRowV3 object
@@ -50,62 +50,6 @@ func NewHubDbTableRowV3(values map[string]map[string]interface{}) *HubDbTableRow
 func NewHubDbTableRowV3WithDefaults() *HubDbTableRowV3 {
 	this := HubDbTableRowV3{}
 	return &this
-}
-
-// GetId returns the Id field value if set, zero value otherwise.
-func (o *HubDbTableRowV3) GetId() string {
-	if o == nil || o.Id == nil {
-		var ret string
-		return ret
-	}
-	return *o.Id
-}
-
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *HubDbTableRowV3) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
-		return nil, false
-	}
-	return o.Id, true
-}
-
-// HasId returns a boolean if a field has been set.
-func (o *HubDbTableRowV3) HasId() bool {
-	if o != nil && o.Id != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
-func (o *HubDbTableRowV3) SetId(v string) {
-	o.Id = &v
-}
-
-// GetValues returns the Values field value
-func (o *HubDbTableRowV3) GetValues() map[string]map[string]interface{} {
-	if o == nil {
-		var ret map[string]map[string]interface{}
-		return ret
-	}
-
-	return o.Values
-}
-
-// GetValuesOk returns a tuple with the Values field value
-// and a boolean to check if the value has been set.
-func (o *HubDbTableRowV3) GetValuesOk() (map[string]map[string]interface{}, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Values, true
-}
-
-// SetValues sets field value
-func (o *HubDbTableRowV3) SetValues(v map[string]map[string]interface{}) {
-	o.Values = v
 }
 
 // GetPath returns the Path field value if set, zero value otherwise.
@@ -140,36 +84,36 @@ func (o *HubDbTableRowV3) SetPath(v string) {
 	o.Path = &v
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
-func (o *HubDbTableRowV3) GetName() string {
-	if o == nil || o.Name == nil {
-		var ret string
+// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
+func (o *HubDbTableRowV3) GetCreatedAt() time.Time {
+	if o == nil || o.CreatedAt == nil {
+		var ret time.Time
 		return ret
 	}
-	return *o.Name
+	return *o.CreatedAt
 }
 
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *HubDbTableRowV3) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+func (o *HubDbTableRowV3) GetCreatedAtOk() (*time.Time, bool) {
+	if o == nil || o.CreatedAt == nil {
 		return nil, false
 	}
-	return o.Name, true
+	return o.CreatedAt, true
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *HubDbTableRowV3) HasName() bool {
-	if o != nil && o.Name != nil {
+// HasCreatedAt returns a boolean if a field has been set.
+func (o *HubDbTableRowV3) HasCreatedAt() bool {
+	if o != nil && o.CreatedAt != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetName gets a reference to the given string and assigns it to the Name field.
-func (o *HubDbTableRowV3) SetName(v string) {
-	o.Name = &v
+// SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
+func (o *HubDbTableRowV3) SetCreatedAt(v time.Time) {
+	o.CreatedAt = &v
 }
 
 // GetChildTableId returns the ChildTableId field value if set, zero value otherwise.
@@ -204,36 +148,124 @@ func (o *HubDbTableRowV3) SetChildTableId(v string) {
 	o.ChildTableId = &v
 }
 
-// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *HubDbTableRowV3) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+// GetPublishedAt returns the PublishedAt field value if set, zero value otherwise.
+func (o *HubDbTableRowV3) GetPublishedAt() time.Time {
+	if o == nil || o.PublishedAt == nil {
 		var ret time.Time
 		return ret
 	}
-	return *o.CreatedAt
+	return *o.PublishedAt
 }
 
-// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
+// GetPublishedAtOk returns a tuple with the PublishedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *HubDbTableRowV3) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+func (o *HubDbTableRowV3) GetPublishedAtOk() (*time.Time, bool) {
+	if o == nil || o.PublishedAt == nil {
 		return nil, false
 	}
-	return o.CreatedAt, true
+	return o.PublishedAt, true
 }
 
-// HasCreatedAt returns a boolean if a field has been set.
-func (o *HubDbTableRowV3) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+// HasPublishedAt returns a boolean if a field has been set.
+func (o *HubDbTableRowV3) HasPublishedAt() bool {
+	if o != nil && o.PublishedAt != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
-func (o *HubDbTableRowV3) SetCreatedAt(v time.Time) {
-	o.CreatedAt = &v
+// SetPublishedAt gets a reference to the given time.Time and assigns it to the PublishedAt field.
+func (o *HubDbTableRowV3) SetPublishedAt(v time.Time) {
+	o.PublishedAt = &v
+}
+
+// GetValues returns the Values field value
+func (o *HubDbTableRowV3) GetValues() map[string]map[string]interface{} {
+	if o == nil {
+		var ret map[string]map[string]interface{}
+		return ret
+	}
+
+	return o.Values
+}
+
+// GetValuesOk returns a tuple with the Values field value
+// and a boolean to check if the value has been set.
+func (o *HubDbTableRowV3) GetValuesOk() (map[string]map[string]interface{}, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Values, true
+}
+
+// SetValues sets field value
+func (o *HubDbTableRowV3) SetValues(v map[string]map[string]interface{}) {
+	o.Values = v
+}
+
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *HubDbTableRowV3) GetName() string {
+	if o == nil || o.Name == nil {
+		var ret string
+		return ret
+	}
+	return *o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *HubDbTableRowV3) GetNameOk() (*string, bool) {
+	if o == nil || o.Name == nil {
+		return nil, false
+	}
+	return o.Name, true
+}
+
+// HasName returns a boolean if a field has been set.
+func (o *HubDbTableRowV3) HasName() bool {
+	if o != nil && o.Name != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *HubDbTableRowV3) SetName(v string) {
+	o.Name = &v
+}
+
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *HubDbTableRowV3) GetId() string {
+	if o == nil || o.Id == nil {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *HubDbTableRowV3) GetIdOk() (*string, bool) {
+	if o == nil || o.Id == nil {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *HubDbTableRowV3) HasId() bool {
+	if o != nil && o.Id != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *HubDbTableRowV3) SetId(v string) {
+	o.Id = &v
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
@@ -268,63 +300,31 @@ func (o *HubDbTableRowV3) SetUpdatedAt(v time.Time) {
 	o.UpdatedAt = &v
 }
 
-// GetPublishedAt returns the PublishedAt field value if set, zero value otherwise.
-func (o *HubDbTableRowV3) GetPublishedAt() time.Time {
-	if o == nil || o.PublishedAt == nil {
-		var ret time.Time
-		return ret
-	}
-	return *o.PublishedAt
-}
-
-// GetPublishedAtOk returns a tuple with the PublishedAt field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *HubDbTableRowV3) GetPublishedAtOk() (*time.Time, bool) {
-	if o == nil || o.PublishedAt == nil {
-		return nil, false
-	}
-	return o.PublishedAt, true
-}
-
-// HasPublishedAt returns a boolean if a field has been set.
-func (o *HubDbTableRowV3) HasPublishedAt() bool {
-	if o != nil && o.PublishedAt != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetPublishedAt gets a reference to the given time.Time and assigns it to the PublishedAt field.
-func (o *HubDbTableRowV3) SetPublishedAt(v time.Time) {
-	o.PublishedAt = &v
-}
-
 func (o HubDbTableRowV3) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["values"] = o.Values
-	}
 	if o.Path != nil {
 		toSerialize["path"] = o.Path
-	}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.ChildTableId != nil {
-		toSerialize["childTableId"] = o.ChildTableId
 	}
 	if o.CreatedAt != nil {
 		toSerialize["createdAt"] = o.CreatedAt
 	}
-	if o.UpdatedAt != nil {
-		toSerialize["updatedAt"] = o.UpdatedAt
+	if o.ChildTableId != nil {
+		toSerialize["childTableId"] = o.ChildTableId
 	}
 	if o.PublishedAt != nil {
 		toSerialize["publishedAt"] = o.PublishedAt
+	}
+	if true {
+		toSerialize["values"] = o.Values
+	}
+	if o.Name != nil {
+		toSerialize["name"] = o.Name
+	}
+	if o.Id != nil {
+		toSerialize["id"] = o.Id
+	}
+	if o.UpdatedAt != nil {
+		toSerialize["updatedAt"] = o.UpdatedAt
 	}
 	return json.Marshal(toSerialize)
 }

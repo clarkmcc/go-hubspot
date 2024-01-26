@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ObjectId** | **string** |  | 
 **IdProperty** | Pointer to **string** |  | [optional] 
+**ObjectId** | **string** |  | 
 
 ## Methods
 
@@ -25,26 +25,6 @@ will change when the set of required properties is changed
 NewPublicGdprDeleteInputWithDefaults instantiates a new PublicGdprDeleteInput object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetObjectId
-
-`func (o *PublicGdprDeleteInput) GetObjectId() string`
-
-GetObjectId returns the ObjectId field if non-nil, zero value otherwise.
-
-### GetObjectIdOk
-
-`func (o *PublicGdprDeleteInput) GetObjectIdOk() (*string, bool)`
-
-GetObjectIdOk returns a tuple with the ObjectId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetObjectId
-
-`func (o *PublicGdprDeleteInput) SetObjectId(v string)`
-
-SetObjectId sets ObjectId field to given value.
-
 
 ### GetIdProperty
 
@@ -70,6 +50,26 @@ SetIdProperty sets IdProperty field to given value.
 `func (o *PublicGdprDeleteInput) HasIdProperty() bool`
 
 HasIdProperty returns a boolean if a field has been set.
+
+### GetObjectId
+
+`func (o *PublicGdprDeleteInput) GetObjectId() string`
+
+GetObjectId returns the ObjectId field if non-nil, zero value otherwise.
+
+### GetObjectIdOk
+
+`func (o *PublicGdprDeleteInput) GetObjectIdOk() (*string, bool)`
+
+GetObjectIdOk returns a tuple with the ObjectId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetObjectId
+
+`func (o *PublicGdprDeleteInput) SetObjectId(v string)`
+
+SetObjectId sets ObjectId field to given value.
+
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -1,5 +1,5 @@
 /*
-HubDB endpoints
+Hubdb
 
 HubDB is a relational data store that presents data as rows, columns, and cells in a table, much like a spreadsheet. HubDB tables can be added or modified [in the HubSpot CMS](https://knowledge.hubspot.com/cos-general/how-to-edit-hubdb-tables), but you can also use the API endpoints documented here. For more information on HubDB tables and using their data on a HubSpot site, see the [CMS developers site](https://designers.hubspot.com/docs/tools/hubdb). You can also see the [documentation for dynamic pages](https://designers.hubspot.com/docs/tutorials/how-to-build-dynamic-pages-with-hubdb) for more details about the `useForPages` field.  HubDB tables support `draft` and `published` versions. This allows you to update data in the table, either for testing or to allow for a manual approval process, without affecting any live pages using the existing data. Draft data can be reviewed, and published by a user working in HubSpot or published via the API. Draft data can also be discarded, allowing users to go back to the published version of the data without disrupting it. If a table is set to be `allowed for public access`, you can access the published version of the table and rows without any authentication by specifying the portal id via the query parameter `portalId`.
 
@@ -16,26 +16,26 @@ import (
 
 // ImportResult The result of import operation
 type ImportResult struct {
-	// List of errors during import
-	Errors []Error `json:"errors"`
-	// Specifies number of duplicate rows
-	DuplicateRows int32 `json:"duplicateRows"`
 	// Specifies whether row limit exceeded during import
 	RowLimitExceeded bool `json:"rowLimitExceeded"`
+	// Specifies number of duplicate rows
+	DuplicateRows int32 `json:"duplicateRows"`
 	// Specifies number of rows imported
 	RowsImported int32 `json:"rowsImported"`
+	// List of errors during import
+	Errors []Error `json:"errors"`
 }
 
 // NewImportResult instantiates a new ImportResult object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewImportResult(errors []Error, duplicateRows int32, rowLimitExceeded bool, rowsImported int32) *ImportResult {
+func NewImportResult(rowLimitExceeded bool, duplicateRows int32, rowsImported int32, errors []Error) *ImportResult {
 	this := ImportResult{}
-	this.Errors = errors
-	this.DuplicateRows = duplicateRows
 	this.RowLimitExceeded = rowLimitExceeded
+	this.DuplicateRows = duplicateRows
 	this.RowsImported = rowsImported
+	this.Errors = errors
 	return &this
 }
 
@@ -45,54 +45,6 @@ func NewImportResult(errors []Error, duplicateRows int32, rowLimitExceeded bool,
 func NewImportResultWithDefaults() *ImportResult {
 	this := ImportResult{}
 	return &this
-}
-
-// GetErrors returns the Errors field value
-func (o *ImportResult) GetErrors() []Error {
-	if o == nil {
-		var ret []Error
-		return ret
-	}
-
-	return o.Errors
-}
-
-// GetErrorsOk returns a tuple with the Errors field value
-// and a boolean to check if the value has been set.
-func (o *ImportResult) GetErrorsOk() ([]Error, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Errors, true
-}
-
-// SetErrors sets field value
-func (o *ImportResult) SetErrors(v []Error) {
-	o.Errors = v
-}
-
-// GetDuplicateRows returns the DuplicateRows field value
-func (o *ImportResult) GetDuplicateRows() int32 {
-	if o == nil {
-		var ret int32
-		return ret
-	}
-
-	return o.DuplicateRows
-}
-
-// GetDuplicateRowsOk returns a tuple with the DuplicateRows field value
-// and a boolean to check if the value has been set.
-func (o *ImportResult) GetDuplicateRowsOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.DuplicateRows, true
-}
-
-// SetDuplicateRows sets field value
-func (o *ImportResult) SetDuplicateRows(v int32) {
-	o.DuplicateRows = v
 }
 
 // GetRowLimitExceeded returns the RowLimitExceeded field value
@@ -119,6 +71,30 @@ func (o *ImportResult) SetRowLimitExceeded(v bool) {
 	o.RowLimitExceeded = v
 }
 
+// GetDuplicateRows returns the DuplicateRows field value
+func (o *ImportResult) GetDuplicateRows() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.DuplicateRows
+}
+
+// GetDuplicateRowsOk returns a tuple with the DuplicateRows field value
+// and a boolean to check if the value has been set.
+func (o *ImportResult) GetDuplicateRowsOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.DuplicateRows, true
+}
+
+// SetDuplicateRows sets field value
+func (o *ImportResult) SetDuplicateRows(v int32) {
+	o.DuplicateRows = v
+}
+
 // GetRowsImported returns the RowsImported field value
 func (o *ImportResult) GetRowsImported() int32 {
 	if o == nil {
@@ -143,19 +119,43 @@ func (o *ImportResult) SetRowsImported(v int32) {
 	o.RowsImported = v
 }
 
+// GetErrors returns the Errors field value
+func (o *ImportResult) GetErrors() []Error {
+	if o == nil {
+		var ret []Error
+		return ret
+	}
+
+	return o.Errors
+}
+
+// GetErrorsOk returns a tuple with the Errors field value
+// and a boolean to check if the value has been set.
+func (o *ImportResult) GetErrorsOk() ([]Error, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Errors, true
+}
+
+// SetErrors sets field value
+func (o *ImportResult) SetErrors(v []Error) {
+	o.Errors = v
+}
+
 func (o ImportResult) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["errors"] = o.Errors
+		toSerialize["rowLimitExceeded"] = o.RowLimitExceeded
 	}
 	if true {
 		toSerialize["duplicateRows"] = o.DuplicateRows
 	}
 	if true {
-		toSerialize["rowLimitExceeded"] = o.RowLimitExceeded
+		toSerialize["rowsImported"] = o.RowsImported
 	}
 	if true {
-		toSerialize["rowsImported"] = o.RowsImported
+		toSerialize["errors"] = o.Errors
 	}
 	return json.Marshal(toSerialize)
 }

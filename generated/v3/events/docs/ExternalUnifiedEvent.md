@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ObjectType** | **string** | The objectType for the object which did the event. | 
-**ObjectId** | **string** | The objectId of the object which did the event. | 
-**EventType** | **string** | The format of the &#x60;eventType&#x60; string is &#x60;ae{appId}_{eventTypeLabel}&#x60;, &#x60;pe{portalId}_{eventTypeLabel}&#x60;, or just &#x60;e_{eventTypeLabel}&#x60; for HubSpot events. | 
 **OccurredAt** | **time.Time** | An ISO 8601 timestamp when the event occurred. | 
+**EventType** | **string** | The format of the &#x60;eventType&#x60; string is &#x60;ae{appId}_{eventTypeLabel}&#x60;, &#x60;pe{portalId}_{eventTypeLabel}&#x60;, or just &#x60;e_{eventTypeLabel}&#x60; for HubSpot events. | 
 **Id** | **string** | A unique identifier for the event. | 
-**Properties** | **map[string]string** |  | 
+**ObjectId** | **string** | The objectId of the object which did the event. | 
+**Properties** | Pointer to **map[string]string** |  | [optional] 
+**ObjectType** | **string** | The objectType for the object which did the event. | 
 
 ## Methods
 
 ### NewExternalUnifiedEvent
 
-`func NewExternalUnifiedEvent(objectType string, objectId string, eventType string, occurredAt time.Time, id string, properties map[string]string, ) *ExternalUnifiedEvent`
+`func NewExternalUnifiedEvent(occurredAt time.Time, eventType string, id string, objectId string, objectType string, ) *ExternalUnifiedEvent`
 
 NewExternalUnifiedEvent instantiates a new ExternalUnifiedEvent object
 This constructor will assign default values to properties that have it defined,
@@ -30,44 +30,24 @@ NewExternalUnifiedEventWithDefaults instantiates a new ExternalUnifiedEvent obje
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetObjectType
+### GetOccurredAt
 
-`func (o *ExternalUnifiedEvent) GetObjectType() string`
+`func (o *ExternalUnifiedEvent) GetOccurredAt() time.Time`
 
-GetObjectType returns the ObjectType field if non-nil, zero value otherwise.
+GetOccurredAt returns the OccurredAt field if non-nil, zero value otherwise.
 
-### GetObjectTypeOk
+### GetOccurredAtOk
 
-`func (o *ExternalUnifiedEvent) GetObjectTypeOk() (*string, bool)`
+`func (o *ExternalUnifiedEvent) GetOccurredAtOk() (*time.Time, bool)`
 
-GetObjectTypeOk returns a tuple with the ObjectType field if it's non-nil, zero value otherwise
+GetOccurredAtOk returns a tuple with the OccurredAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetObjectType
+### SetOccurredAt
 
-`func (o *ExternalUnifiedEvent) SetObjectType(v string)`
+`func (o *ExternalUnifiedEvent) SetOccurredAt(v time.Time)`
 
-SetObjectType sets ObjectType field to given value.
-
-
-### GetObjectId
-
-`func (o *ExternalUnifiedEvent) GetObjectId() string`
-
-GetObjectId returns the ObjectId field if non-nil, zero value otherwise.
-
-### GetObjectIdOk
-
-`func (o *ExternalUnifiedEvent) GetObjectIdOk() (*string, bool)`
-
-GetObjectIdOk returns a tuple with the ObjectId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetObjectId
-
-`func (o *ExternalUnifiedEvent) SetObjectId(v string)`
-
-SetObjectId sets ObjectId field to given value.
+SetOccurredAt sets OccurredAt field to given value.
 
 
 ### GetEventType
@@ -90,26 +70,6 @@ and a boolean to check if the value has been set.
 SetEventType sets EventType field to given value.
 
 
-### GetOccurredAt
-
-`func (o *ExternalUnifiedEvent) GetOccurredAt() time.Time`
-
-GetOccurredAt returns the OccurredAt field if non-nil, zero value otherwise.
-
-### GetOccurredAtOk
-
-`func (o *ExternalUnifiedEvent) GetOccurredAtOk() (*time.Time, bool)`
-
-GetOccurredAtOk returns a tuple with the OccurredAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetOccurredAt
-
-`func (o *ExternalUnifiedEvent) SetOccurredAt(v time.Time)`
-
-SetOccurredAt sets OccurredAt field to given value.
-
-
 ### GetId
 
 `func (o *ExternalUnifiedEvent) GetId() string`
@@ -130,6 +90,26 @@ and a boolean to check if the value has been set.
 SetId sets Id field to given value.
 
 
+### GetObjectId
+
+`func (o *ExternalUnifiedEvent) GetObjectId() string`
+
+GetObjectId returns the ObjectId field if non-nil, zero value otherwise.
+
+### GetObjectIdOk
+
+`func (o *ExternalUnifiedEvent) GetObjectIdOk() (*string, bool)`
+
+GetObjectIdOk returns a tuple with the ObjectId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetObjectId
+
+`func (o *ExternalUnifiedEvent) SetObjectId(v string)`
+
+SetObjectId sets ObjectId field to given value.
+
+
 ### GetProperties
 
 `func (o *ExternalUnifiedEvent) GetProperties() map[string]string`
@@ -148,6 +128,31 @@ and a boolean to check if the value has been set.
 `func (o *ExternalUnifiedEvent) SetProperties(v map[string]string)`
 
 SetProperties sets Properties field to given value.
+
+### HasProperties
+
+`func (o *ExternalUnifiedEvent) HasProperties() bool`
+
+HasProperties returns a boolean if a field has been set.
+
+### GetObjectType
+
+`func (o *ExternalUnifiedEvent) GetObjectType() string`
+
+GetObjectType returns the ObjectType field if non-nil, zero value otherwise.
+
+### GetObjectTypeOk
+
+`func (o *ExternalUnifiedEvent) GetObjectTypeOk() (*string, bool)`
+
+GetObjectTypeOk returns a tuple with the ObjectType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetObjectType
+
+`func (o *ExternalUnifiedEvent) SetObjectType(v string)`
+
+SetObjectType sets ObjectType field to given value.
 
 
 

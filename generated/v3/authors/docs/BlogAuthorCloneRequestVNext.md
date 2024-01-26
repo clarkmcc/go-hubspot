@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** | ID of the object to be cloned. | 
 **Language** | Pointer to **string** | Language of newly cloned object. | [optional] 
+**Id** | **string** | ID of the object to be cloned. | 
 **PrimaryLanguage** | Pointer to **string** | Primary language in multi-language group. | [optional] 
 **BlogAuthor** | [**BlogAuthor**](BlogAuthor.md) |  | 
 
@@ -27,26 +27,6 @@ will change when the set of required properties is changed
 NewBlogAuthorCloneRequestVNextWithDefaults instantiates a new BlogAuthorCloneRequestVNext object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetId
-
-`func (o *BlogAuthorCloneRequestVNext) GetId() string`
-
-GetId returns the Id field if non-nil, zero value otherwise.
-
-### GetIdOk
-
-`func (o *BlogAuthorCloneRequestVNext) GetIdOk() (*string, bool)`
-
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetId
-
-`func (o *BlogAuthorCloneRequestVNext) SetId(v string)`
-
-SetId sets Id field to given value.
-
 
 ### GetLanguage
 
@@ -72,6 +52,26 @@ SetLanguage sets Language field to given value.
 `func (o *BlogAuthorCloneRequestVNext) HasLanguage() bool`
 
 HasLanguage returns a boolean if a field has been set.
+
+### GetId
+
+`func (o *BlogAuthorCloneRequestVNext) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *BlogAuthorCloneRequestVNext) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *BlogAuthorCloneRequestVNext) SetId(v string)`
+
+SetId sets Id field to given value.
+
 
 ### GetPrimaryLanguage
 

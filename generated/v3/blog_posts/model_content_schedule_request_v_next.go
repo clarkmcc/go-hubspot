@@ -1,5 +1,5 @@
 /*
-Blog Post endpoints
+Posts
 
 Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags
 
@@ -17,20 +17,20 @@ import (
 
 // ContentScheduleRequestVNext Request body object for scheduling the publish of content
 type ContentScheduleRequestVNext struct {
-	// The ID of the object to be scheduled.
-	Id string `json:"id"`
 	// The date the object should transition from scheduled to published.
 	PublishDate time.Time `json:"publishDate"`
+	// The ID of the object to be scheduled.
+	Id string `json:"id"`
 }
 
 // NewContentScheduleRequestVNext instantiates a new ContentScheduleRequestVNext object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewContentScheduleRequestVNext(id string, publishDate time.Time) *ContentScheduleRequestVNext {
+func NewContentScheduleRequestVNext(publishDate time.Time, id string) *ContentScheduleRequestVNext {
 	this := ContentScheduleRequestVNext{}
-	this.Id = id
 	this.PublishDate = publishDate
+	this.Id = id
 	return &this
 }
 
@@ -40,30 +40,6 @@ func NewContentScheduleRequestVNext(id string, publishDate time.Time) *ContentSc
 func NewContentScheduleRequestVNextWithDefaults() *ContentScheduleRequestVNext {
 	this := ContentScheduleRequestVNext{}
 	return &this
-}
-
-// GetId returns the Id field value
-func (o *ContentScheduleRequestVNext) GetId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Id
-}
-
-// GetIdOk returns a tuple with the Id field value
-// and a boolean to check if the value has been set.
-func (o *ContentScheduleRequestVNext) GetIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Id, true
-}
-
-// SetId sets field value
-func (o *ContentScheduleRequestVNext) SetId(v string) {
-	o.Id = v
 }
 
 // GetPublishDate returns the PublishDate field value
@@ -90,13 +66,37 @@ func (o *ContentScheduleRequestVNext) SetPublishDate(v time.Time) {
 	o.PublishDate = v
 }
 
+// GetId returns the Id field value
+func (o *ContentScheduleRequestVNext) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *ContentScheduleRequestVNext) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *ContentScheduleRequestVNext) SetId(v string) {
+	o.Id = v
+}
+
 func (o ContentScheduleRequestVNext) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["id"] = o.Id
+		toSerialize["publishDate"] = o.PublishDate
 	}
 	if true {
-		toSerialize["publishDate"] = o.PublishDate
+		toSerialize["id"] = o.Id
 	}
 	return json.Marshal(toSerialize)
 }

@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**TargetUrl** | **string** | A publicly available URL for Hubspot to call where event payloads will be delivered. See [link-so-some-doc](#) for details about the format of these event payloads. | 
-**Throttling** | [**ThrottlingSettings**](ThrottlingSettings.md) |  | 
 **CreatedAt** | **time.Time** | When this subscription was created. Formatted as milliseconds from the [Unix epoch](#). | 
+**Throttling** | [**ThrottlingSettings**](ThrottlingSettings.md) |  | 
+**TargetUrl** | **string** | A publicly available URL for Hubspot to call where event payloads will be delivered. See [link-so-some-doc](#) for details about the format of these event payloads. | 
 **UpdatedAt** | Pointer to **time.Time** | When this subscription was last updated. Formatted as milliseconds from the [Unix epoch](#). | [optional] 
 
 ## Methods
 
 ### NewSettingsResponse
 
-`func NewSettingsResponse(targetUrl string, throttling ThrottlingSettings, createdAt time.Time, ) *SettingsResponse`
+`func NewSettingsResponse(createdAt time.Time, throttling ThrottlingSettings, targetUrl string, ) *SettingsResponse`
 
 NewSettingsResponse instantiates a new SettingsResponse object
 This constructor will assign default values to properties that have it defined,
@@ -28,24 +28,24 @@ NewSettingsResponseWithDefaults instantiates a new SettingsResponse object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetTargetUrl
+### GetCreatedAt
 
-`func (o *SettingsResponse) GetTargetUrl() string`
+`func (o *SettingsResponse) GetCreatedAt() time.Time`
 
-GetTargetUrl returns the TargetUrl field if non-nil, zero value otherwise.
+GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
-### GetTargetUrlOk
+### GetCreatedAtOk
 
-`func (o *SettingsResponse) GetTargetUrlOk() (*string, bool)`
+`func (o *SettingsResponse) GetCreatedAtOk() (*time.Time, bool)`
 
-GetTargetUrlOk returns a tuple with the TargetUrl field if it's non-nil, zero value otherwise
+GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetTargetUrl
+### SetCreatedAt
 
-`func (o *SettingsResponse) SetTargetUrl(v string)`
+`func (o *SettingsResponse) SetCreatedAt(v time.Time)`
 
-SetTargetUrl sets TargetUrl field to given value.
+SetCreatedAt sets CreatedAt field to given value.
 
 
 ### GetThrottling
@@ -68,24 +68,24 @@ and a boolean to check if the value has been set.
 SetThrottling sets Throttling field to given value.
 
 
-### GetCreatedAt
+### GetTargetUrl
 
-`func (o *SettingsResponse) GetCreatedAt() time.Time`
+`func (o *SettingsResponse) GetTargetUrl() string`
 
-GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
+GetTargetUrl returns the TargetUrl field if non-nil, zero value otherwise.
 
-### GetCreatedAtOk
+### GetTargetUrlOk
 
-`func (o *SettingsResponse) GetCreatedAtOk() (*time.Time, bool)`
+`func (o *SettingsResponse) GetTargetUrlOk() (*string, bool)`
 
-GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
+GetTargetUrlOk returns a tuple with the TargetUrl field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetCreatedAt
+### SetTargetUrl
 
-`func (o *SettingsResponse) SetCreatedAt(v time.Time)`
+`func (o *SettingsResponse) SetTargetUrl(v string)`
 
-SetCreatedAt sets CreatedAt field to given value.
+SetTargetUrl sets TargetUrl field to given value.
 
 
 ### GetUpdatedAt

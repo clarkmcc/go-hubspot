@@ -1,5 +1,5 @@
 /*
-CRM Pipelines
+Pipelines
 
 Pipelines represent distinct stages in a workflow, like closing a deal or servicing a support ticket. These endpoints provide access to read and modify pipelines in HubSpot. Pipelines support `deals` and `tickets` object types.  ## Pipeline ID validation  When calling endpoints that take pipelineId as a parameter, that ID must correspond to an existing, un-archived pipeline. Otherwise the request will fail with a `404 Not Found` response.
 
@@ -16,23 +16,23 @@ import (
 
 // PipelineStageInput An input used to create or replace a pipeline stage's definition.
 type PipelineStageInput struct {
-	// A label used to organize pipeline stages in HubSpot's UI. Each pipeline stage's label must be unique within that pipeline.
-	Label string `json:"label"`
-	// The order for displaying this pipeline stage. If two pipeline stages have a matching `displayOrder`, they will be sorted alphabetically by label.
-	DisplayOrder int32 `json:"displayOrder"`
 	// A JSON object containing properties that are not present on all object pipelines.  For `deals` pipelines, the `probability` field is required (`{ \"probability\": 0.5 }`), and represents the likelihood a deal will close. Possible values are between 0.0 and 1.0 in increments of 0.1.  For `tickets` pipelines, the `ticketState` field is optional (`{ \"ticketState\": \"OPEN\" }`), and represents whether the ticket remains open or has been closed by a member of your Support team. Possible values are `OPEN` or `CLOSED`.
 	Metadata map[string]string `json:"metadata"`
+	// The order for displaying this pipeline stage. If two pipeline stages have a matching `displayOrder`, they will be sorted alphabetically by label.
+	DisplayOrder int32 `json:"displayOrder"`
+	// A label used to organize pipeline stages in HubSpot's UI. Each pipeline stage's label must be unique within that pipeline.
+	Label string `json:"label"`
 }
 
 // NewPipelineStageInput instantiates a new PipelineStageInput object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPipelineStageInput(label string, displayOrder int32, metadata map[string]string) *PipelineStageInput {
+func NewPipelineStageInput(metadata map[string]string, displayOrder int32, label string) *PipelineStageInput {
 	this := PipelineStageInput{}
-	this.Label = label
-	this.DisplayOrder = displayOrder
 	this.Metadata = metadata
+	this.DisplayOrder = displayOrder
+	this.Label = label
 	return &this
 }
 
@@ -42,54 +42,6 @@ func NewPipelineStageInput(label string, displayOrder int32, metadata map[string
 func NewPipelineStageInputWithDefaults() *PipelineStageInput {
 	this := PipelineStageInput{}
 	return &this
-}
-
-// GetLabel returns the Label field value
-func (o *PipelineStageInput) GetLabel() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Label
-}
-
-// GetLabelOk returns a tuple with the Label field value
-// and a boolean to check if the value has been set.
-func (o *PipelineStageInput) GetLabelOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Label, true
-}
-
-// SetLabel sets field value
-func (o *PipelineStageInput) SetLabel(v string) {
-	o.Label = v
-}
-
-// GetDisplayOrder returns the DisplayOrder field value
-func (o *PipelineStageInput) GetDisplayOrder() int32 {
-	if o == nil {
-		var ret int32
-		return ret
-	}
-
-	return o.DisplayOrder
-}
-
-// GetDisplayOrderOk returns a tuple with the DisplayOrder field value
-// and a boolean to check if the value has been set.
-func (o *PipelineStageInput) GetDisplayOrderOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.DisplayOrder, true
-}
-
-// SetDisplayOrder sets field value
-func (o *PipelineStageInput) SetDisplayOrder(v int32) {
-	o.DisplayOrder = v
 }
 
 // GetMetadata returns the Metadata field value
@@ -116,16 +68,64 @@ func (o *PipelineStageInput) SetMetadata(v map[string]string) {
 	o.Metadata = v
 }
 
+// GetDisplayOrder returns the DisplayOrder field value
+func (o *PipelineStageInput) GetDisplayOrder() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.DisplayOrder
+}
+
+// GetDisplayOrderOk returns a tuple with the DisplayOrder field value
+// and a boolean to check if the value has been set.
+func (o *PipelineStageInput) GetDisplayOrderOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.DisplayOrder, true
+}
+
+// SetDisplayOrder sets field value
+func (o *PipelineStageInput) SetDisplayOrder(v int32) {
+	o.DisplayOrder = v
+}
+
+// GetLabel returns the Label field value
+func (o *PipelineStageInput) GetLabel() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Label
+}
+
+// GetLabelOk returns a tuple with the Label field value
+// and a boolean to check if the value has been set.
+func (o *PipelineStageInput) GetLabelOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Label, true
+}
+
+// SetLabel sets field value
+func (o *PipelineStageInput) SetLabel(v string) {
+	o.Label = v
+}
+
 func (o PipelineStageInput) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["label"] = o.Label
+		toSerialize["metadata"] = o.Metadata
 	}
 	if true {
 		toSerialize["displayOrder"] = o.DisplayOrder
 	}
 	if true {
-		toSerialize["metadata"] = o.Metadata
+		toSerialize["label"] = o.Label
 	}
 	return json.Marshal(toSerialize)
 }

@@ -15,6 +15,8 @@ import (
 	"context"
 	"io/ioutil"
 	"net/http"
+
+	"github.com/clarkmcc/go-hubspot"
 	"net/url"
 	"strings"
 )
@@ -22,27 +24,27 @@ import (
 // PublicObjectSchemasApiService PublicObjectSchemasApi service
 type PublicObjectSchemasApiService service
 
-type ApiPurgeRequest struct {
+type ApiDeleteCrmV3SchemasObjectTypePurgePurgeRequest struct {
 	ctx        context.Context
 	ApiService *PublicObjectSchemasApiService
 	objectType string
 }
 
-func (r ApiPurgeRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PurgeExecute(r)
+func (r ApiDeleteCrmV3SchemasObjectTypePurgePurgeRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteCrmV3SchemasObjectTypePurgePurgeExecute(r)
 }
 
 /*
-Purge Method for Purge
+DeleteCrmV3SchemasObjectTypePurgePurge Method for DeleteCrmV3SchemasObjectTypePurgePurge
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param objectType
- @return ApiPurgeRequest
+ @return ApiDeleteCrmV3SchemasObjectTypePurgePurgeRequest
 
 Deprecated
 */
-func (a *PublicObjectSchemasApiService) Purge(ctx context.Context, objectType string) ApiPurgeRequest {
-	return ApiPurgeRequest{
+func (a *PublicObjectSchemasApiService) DeleteCrmV3SchemasObjectTypePurgePurge(ctx context.Context, objectType string) ApiDeleteCrmV3SchemasObjectTypePurgePurgeRequest {
+	return ApiDeleteCrmV3SchemasObjectTypePurgePurgeRequest{
 		ApiService: a,
 		ctx:        ctx,
 		objectType: objectType,
@@ -51,14 +53,14 @@ func (a *PublicObjectSchemasApiService) Purge(ctx context.Context, objectType st
 
 // Execute executes the request
 // Deprecated
-func (a *PublicObjectSchemasApiService) PurgeExecute(r ApiPurgeRequest) (*http.Response, error) {
+func (a *PublicObjectSchemasApiService) DeleteCrmV3SchemasObjectTypePurgePurgeExecute(r ApiDeleteCrmV3SchemasObjectTypePurgePurgeRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicObjectSchemasApiService.Purge")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicObjectSchemasApiService.DeleteCrmV3SchemasObjectTypePurgePurge")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -89,16 +91,12 @@ func (a *PublicObjectSchemasApiService) PurgeExecute(r ApiPurgeRequest) (*http.R
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["private_apps_legacy"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["private-app-legacy"] = key
-			}
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)

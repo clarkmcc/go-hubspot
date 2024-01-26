@@ -4,19 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**VerticalAlignment** | **string** |  | 
 **BackgroundColor** | [**RGBAColor**](RGBAColor.md) |  | 
-**BackgroundImage** | [**BackgroundImage**](BackgroundImage.md) |  | 
-**BackgroundGradient** | [**Gradient**](Gradient.md) |  | 
-**MaxWidthSectionCentering** | **int32** |  | 
-**ForceFullWidthSection** | **bool** |  | 
 **FlexboxPositioning** | **string** |  | 
+**BackgroundImage** | [**BackgroundImage**](BackgroundImage.md) |  | 
+**ForceFullWidthSection** | **bool** |  | 
+**VerticalAlignment** | **string** |  | 
+**MaxWidthSectionCentering** | **int32** |  | 
+**BackgroundGradient** | [**Gradient**](Gradient.md) |  | 
 
 ## Methods
 
 ### NewStyles
 
-`func NewStyles(verticalAlignment string, backgroundColor RGBAColor, backgroundImage BackgroundImage, backgroundGradient Gradient, maxWidthSectionCentering int32, forceFullWidthSection bool, flexboxPositioning string, ) *Styles`
+`func NewStyles(backgroundColor RGBAColor, flexboxPositioning string, backgroundImage BackgroundImage, forceFullWidthSection bool, verticalAlignment string, maxWidthSectionCentering int32, backgroundGradient Gradient, ) *Styles`
 
 NewStyles instantiates a new Styles object
 This constructor will assign default values to properties that have it defined,
@@ -30,26 +30,6 @@ will change when the set of required properties is changed
 NewStylesWithDefaults instantiates a new Styles object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetVerticalAlignment
-
-`func (o *Styles) GetVerticalAlignment() string`
-
-GetVerticalAlignment returns the VerticalAlignment field if non-nil, zero value otherwise.
-
-### GetVerticalAlignmentOk
-
-`func (o *Styles) GetVerticalAlignmentOk() (*string, bool)`
-
-GetVerticalAlignmentOk returns a tuple with the VerticalAlignment field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetVerticalAlignment
-
-`func (o *Styles) SetVerticalAlignment(v string)`
-
-SetVerticalAlignment sets VerticalAlignment field to given value.
-
 
 ### GetBackgroundColor
 
@@ -69,6 +49,26 @@ and a boolean to check if the value has been set.
 `func (o *Styles) SetBackgroundColor(v RGBAColor)`
 
 SetBackgroundColor sets BackgroundColor field to given value.
+
+
+### GetFlexboxPositioning
+
+`func (o *Styles) GetFlexboxPositioning() string`
+
+GetFlexboxPositioning returns the FlexboxPositioning field if non-nil, zero value otherwise.
+
+### GetFlexboxPositioningOk
+
+`func (o *Styles) GetFlexboxPositioningOk() (*string, bool)`
+
+GetFlexboxPositioningOk returns a tuple with the FlexboxPositioning field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFlexboxPositioning
+
+`func (o *Styles) SetFlexboxPositioning(v string)`
+
+SetFlexboxPositioning sets FlexboxPositioning field to given value.
 
 
 ### GetBackgroundImage
@@ -91,24 +91,44 @@ and a boolean to check if the value has been set.
 SetBackgroundImage sets BackgroundImage field to given value.
 
 
-### GetBackgroundGradient
+### GetForceFullWidthSection
 
-`func (o *Styles) GetBackgroundGradient() Gradient`
+`func (o *Styles) GetForceFullWidthSection() bool`
 
-GetBackgroundGradient returns the BackgroundGradient field if non-nil, zero value otherwise.
+GetForceFullWidthSection returns the ForceFullWidthSection field if non-nil, zero value otherwise.
 
-### GetBackgroundGradientOk
+### GetForceFullWidthSectionOk
 
-`func (o *Styles) GetBackgroundGradientOk() (*Gradient, bool)`
+`func (o *Styles) GetForceFullWidthSectionOk() (*bool, bool)`
 
-GetBackgroundGradientOk returns a tuple with the BackgroundGradient field if it's non-nil, zero value otherwise
+GetForceFullWidthSectionOk returns a tuple with the ForceFullWidthSection field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetBackgroundGradient
+### SetForceFullWidthSection
 
-`func (o *Styles) SetBackgroundGradient(v Gradient)`
+`func (o *Styles) SetForceFullWidthSection(v bool)`
 
-SetBackgroundGradient sets BackgroundGradient field to given value.
+SetForceFullWidthSection sets ForceFullWidthSection field to given value.
+
+
+### GetVerticalAlignment
+
+`func (o *Styles) GetVerticalAlignment() string`
+
+GetVerticalAlignment returns the VerticalAlignment field if non-nil, zero value otherwise.
+
+### GetVerticalAlignmentOk
+
+`func (o *Styles) GetVerticalAlignmentOk() (*string, bool)`
+
+GetVerticalAlignmentOk returns a tuple with the VerticalAlignment field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVerticalAlignment
+
+`func (o *Styles) SetVerticalAlignment(v string)`
+
+SetVerticalAlignment sets VerticalAlignment field to given value.
 
 
 ### GetMaxWidthSectionCentering
@@ -131,44 +151,24 @@ and a boolean to check if the value has been set.
 SetMaxWidthSectionCentering sets MaxWidthSectionCentering field to given value.
 
 
-### GetForceFullWidthSection
+### GetBackgroundGradient
 
-`func (o *Styles) GetForceFullWidthSection() bool`
+`func (o *Styles) GetBackgroundGradient() Gradient`
 
-GetForceFullWidthSection returns the ForceFullWidthSection field if non-nil, zero value otherwise.
+GetBackgroundGradient returns the BackgroundGradient field if non-nil, zero value otherwise.
 
-### GetForceFullWidthSectionOk
+### GetBackgroundGradientOk
 
-`func (o *Styles) GetForceFullWidthSectionOk() (*bool, bool)`
+`func (o *Styles) GetBackgroundGradientOk() (*Gradient, bool)`
 
-GetForceFullWidthSectionOk returns a tuple with the ForceFullWidthSection field if it's non-nil, zero value otherwise
+GetBackgroundGradientOk returns a tuple with the BackgroundGradient field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetForceFullWidthSection
+### SetBackgroundGradient
 
-`func (o *Styles) SetForceFullWidthSection(v bool)`
+`func (o *Styles) SetBackgroundGradient(v Gradient)`
 
-SetForceFullWidthSection sets ForceFullWidthSection field to given value.
-
-
-### GetFlexboxPositioning
-
-`func (o *Styles) GetFlexboxPositioning() string`
-
-GetFlexboxPositioning returns the FlexboxPositioning field if non-nil, zero value otherwise.
-
-### GetFlexboxPositioningOk
-
-`func (o *Styles) GetFlexboxPositioningOk() (*string, bool)`
-
-GetFlexboxPositioningOk returns a tuple with the FlexboxPositioning field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetFlexboxPositioning
-
-`func (o *Styles) SetFlexboxPositioning(v string)`
-
-SetFlexboxPositioning sets FlexboxPositioning field to given value.
+SetBackgroundGradient sets BackgroundGradient field to given value.
 
 
 

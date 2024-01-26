@@ -4,10 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**UserVerifyUrl** | Pointer to **string** | The URL that HubSpot will use to verify that a user exists in the video conference application. | [optional] 
+**FetchAccountsUri** | Pointer to **string** |  | [optional] 
 **CreateMeetingUrl** | **string** | The URL that HubSpot will send requests to create a new video conference. | 
 **UpdateMeetingUrl** | Pointer to **string** | The URL that HubSpot will send updates to existing meetings. Typically called when the user changes the topic or times of a meeting. | [optional] 
 **DeleteMeetingUrl** | Pointer to **string** | The URL that HubSpot will send notifications of meetings that have been deleted in HubSpot. | [optional] 
-**UserVerifyUrl** | Pointer to **string** | The URL that HubSpot will use to verify that a user exists in the video conference application. | [optional] 
 
 ## Methods
 
@@ -27,6 +28,56 @@ will change when the set of required properties is changed
 NewExternalSettingsWithDefaults instantiates a new ExternalSettings object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetUserVerifyUrl
+
+`func (o *ExternalSettings) GetUserVerifyUrl() string`
+
+GetUserVerifyUrl returns the UserVerifyUrl field if non-nil, zero value otherwise.
+
+### GetUserVerifyUrlOk
+
+`func (o *ExternalSettings) GetUserVerifyUrlOk() (*string, bool)`
+
+GetUserVerifyUrlOk returns a tuple with the UserVerifyUrl field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUserVerifyUrl
+
+`func (o *ExternalSettings) SetUserVerifyUrl(v string)`
+
+SetUserVerifyUrl sets UserVerifyUrl field to given value.
+
+### HasUserVerifyUrl
+
+`func (o *ExternalSettings) HasUserVerifyUrl() bool`
+
+HasUserVerifyUrl returns a boolean if a field has been set.
+
+### GetFetchAccountsUri
+
+`func (o *ExternalSettings) GetFetchAccountsUri() string`
+
+GetFetchAccountsUri returns the FetchAccountsUri field if non-nil, zero value otherwise.
+
+### GetFetchAccountsUriOk
+
+`func (o *ExternalSettings) GetFetchAccountsUriOk() (*string, bool)`
+
+GetFetchAccountsUriOk returns a tuple with the FetchAccountsUri field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFetchAccountsUri
+
+`func (o *ExternalSettings) SetFetchAccountsUri(v string)`
+
+SetFetchAccountsUri sets FetchAccountsUri field to given value.
+
+### HasFetchAccountsUri
+
+`func (o *ExternalSettings) HasFetchAccountsUri() bool`
+
+HasFetchAccountsUri returns a boolean if a field has been set.
 
 ### GetCreateMeetingUrl
 
@@ -97,31 +148,6 @@ SetDeleteMeetingUrl sets DeleteMeetingUrl field to given value.
 `func (o *ExternalSettings) HasDeleteMeetingUrl() bool`
 
 HasDeleteMeetingUrl returns a boolean if a field has been set.
-
-### GetUserVerifyUrl
-
-`func (o *ExternalSettings) GetUserVerifyUrl() string`
-
-GetUserVerifyUrl returns the UserVerifyUrl field if non-nil, zero value otherwise.
-
-### GetUserVerifyUrlOk
-
-`func (o *ExternalSettings) GetUserVerifyUrlOk() (*string, bool)`
-
-GetUserVerifyUrlOk returns a tuple with the UserVerifyUrl field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetUserVerifyUrl
-
-`func (o *ExternalSettings) SetUserVerifyUrl(v string)`
-
-SetUserVerifyUrl sets UserVerifyUrl field to given value.
-
-### HasUserVerifyUrl
-
-`func (o *ExternalSettings) HasUserVerifyUrl() bool`
-
-HasUserVerifyUrl returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

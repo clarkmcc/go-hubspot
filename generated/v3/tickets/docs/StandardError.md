@@ -4,20 +4,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Status** | **string** |  | 
-**Id** | Pointer to **string** |  | [optional] 
-**Category** | **string** |  | 
 **SubCategory** | Pointer to **map[string]interface{}** |  | [optional] 
-**Message** | **string** |  | 
-**Errors** | [**[]ErrorDetail**](ErrorDetail.md) |  | 
 **Context** | **map[string][]string** |  | 
 **Links** | **map[string]string** |  | 
+**Id** | Pointer to **string** |  | [optional] 
+**Category** | **string** |  | 
+**Message** | **string** |  | 
+**Errors** | [**[]ErrorDetail**](ErrorDetail.md) |  | 
+**Status** | **string** |  | 
 
 ## Methods
 
 ### NewStandardError
 
-`func NewStandardError(status string, category string, message string, errors []ErrorDetail, context map[string][]string, links map[string]string, ) *StandardError`
+`func NewStandardError(context map[string][]string, links map[string]string, category string, message string, errors []ErrorDetail, status string, ) *StandardError`
 
 NewStandardError instantiates a new StandardError object
 This constructor will assign default values to properties that have it defined,
@@ -32,24 +32,69 @@ NewStandardErrorWithDefaults instantiates a new StandardError object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetStatus
+### GetSubCategory
 
-`func (o *StandardError) GetStatus() string`
+`func (o *StandardError) GetSubCategory() map[string]interface{}`
 
-GetStatus returns the Status field if non-nil, zero value otherwise.
+GetSubCategory returns the SubCategory field if non-nil, zero value otherwise.
 
-### GetStatusOk
+### GetSubCategoryOk
 
-`func (o *StandardError) GetStatusOk() (*string, bool)`
+`func (o *StandardError) GetSubCategoryOk() (*map[string]interface{}, bool)`
 
-GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
+GetSubCategoryOk returns a tuple with the SubCategory field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetStatus
+### SetSubCategory
 
-`func (o *StandardError) SetStatus(v string)`
+`func (o *StandardError) SetSubCategory(v map[string]interface{})`
 
-SetStatus sets Status field to given value.
+SetSubCategory sets SubCategory field to given value.
+
+### HasSubCategory
+
+`func (o *StandardError) HasSubCategory() bool`
+
+HasSubCategory returns a boolean if a field has been set.
+
+### GetContext
+
+`func (o *StandardError) GetContext() map[string][]string`
+
+GetContext returns the Context field if non-nil, zero value otherwise.
+
+### GetContextOk
+
+`func (o *StandardError) GetContextOk() (*map[string][]string, bool)`
+
+GetContextOk returns a tuple with the Context field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetContext
+
+`func (o *StandardError) SetContext(v map[string][]string)`
+
+SetContext sets Context field to given value.
+
+
+### GetLinks
+
+`func (o *StandardError) GetLinks() map[string]string`
+
+GetLinks returns the Links field if non-nil, zero value otherwise.
+
+### GetLinksOk
+
+`func (o *StandardError) GetLinksOk() (*map[string]string, bool)`
+
+GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLinks
+
+`func (o *StandardError) SetLinks(v map[string]string)`
+
+SetLinks sets Links field to given value.
 
 
 ### GetId
@@ -97,31 +142,6 @@ and a boolean to check if the value has been set.
 SetCategory sets Category field to given value.
 
 
-### GetSubCategory
-
-`func (o *StandardError) GetSubCategory() map[string]interface{}`
-
-GetSubCategory returns the SubCategory field if non-nil, zero value otherwise.
-
-### GetSubCategoryOk
-
-`func (o *StandardError) GetSubCategoryOk() (*map[string]interface{}, bool)`
-
-GetSubCategoryOk returns a tuple with the SubCategory field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetSubCategory
-
-`func (o *StandardError) SetSubCategory(v map[string]interface{})`
-
-SetSubCategory sets SubCategory field to given value.
-
-### HasSubCategory
-
-`func (o *StandardError) HasSubCategory() bool`
-
-HasSubCategory returns a boolean if a field has been set.
-
 ### GetMessage
 
 `func (o *StandardError) GetMessage() string`
@@ -162,44 +182,24 @@ and a boolean to check if the value has been set.
 SetErrors sets Errors field to given value.
 
 
-### GetContext
+### GetStatus
 
-`func (o *StandardError) GetContext() map[string][]string`
+`func (o *StandardError) GetStatus() string`
 
-GetContext returns the Context field if non-nil, zero value otherwise.
+GetStatus returns the Status field if non-nil, zero value otherwise.
 
-### GetContextOk
+### GetStatusOk
 
-`func (o *StandardError) GetContextOk() (*map[string][]string, bool)`
+`func (o *StandardError) GetStatusOk() (*string, bool)`
 
-GetContextOk returns a tuple with the Context field if it's non-nil, zero value otherwise
+GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetContext
+### SetStatus
 
-`func (o *StandardError) SetContext(v map[string][]string)`
+`func (o *StandardError) SetStatus(v string)`
 
-SetContext sets Context field to given value.
-
-
-### GetLinks
-
-`func (o *StandardError) GetLinks() map[string]string`
-
-GetLinks returns the Links field if non-nil, zero value otherwise.
-
-### GetLinksOk
-
-`func (o *StandardError) GetLinksOk() (*map[string]string, bool)`
-
-GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetLinks
-
-`func (o *StandardError) SetLinks(v map[string]string)`
-
-SetLinks sets Links field to given value.
+SetStatus sets Status field to given value.
 
 
 

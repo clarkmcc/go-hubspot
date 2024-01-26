@@ -32,7 +32,7 @@ import (
 
 func main() {
     objectType := "objectType_example" // string | 
-    batchInputPropertyName := *openapiclient.NewBatchInputPropertyName([]openapiclient.PropertyName{*openapiclient.NewPropertyName("Name_example")}) // BatchInputPropertyName | 
+    batchInputPropertyName := *openapiclient.NewBatchInputPropertyName([]openapiclient.PropertyName{*openapiclient.NewPropertyName("my_custom_property")}) // BatchInputPropertyName | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -102,7 +102,7 @@ import (
 
 func main() {
     objectType := "objectType_example" // string | 
-    batchInputPropertyCreate := *openapiclient.NewBatchInputPropertyCreate([]openapiclient.PropertyCreate{*openapiclient.NewPropertyCreate("Name_example", "Label_example", "Type_example", "FieldType_example", "GroupName_example")}) // BatchInputPropertyCreate | 
+    batchInputPropertyCreate := *openapiclient.NewBatchInputPropertyCreate([]openapiclient.PropertyCreate{*openapiclient.NewPropertyCreate("My Contact Property", "enumeration", "contactinformation", "Name_example", "select")}) // BatchInputPropertyCreate | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -174,7 +174,7 @@ import (
 
 func main() {
     objectType := "objectType_example" // string | 
-    batchReadInputPropertyName := *openapiclient.NewBatchReadInputPropertyName(false, []openapiclient.PropertyName{*openapiclient.NewPropertyName("Name_example")}) // BatchReadInputPropertyName | 
+    batchReadInputPropertyName := *openapiclient.NewBatchReadInputPropertyName(false, []openapiclient.PropertyName{*openapiclient.NewPropertyName("my_custom_property")}) // BatchReadInputPropertyName | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)

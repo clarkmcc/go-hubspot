@@ -105,7 +105,7 @@ import (
 
 func main() {
     objectType := "objectType_example" // string | 
-    propertyCreate := *openapiclient.NewPropertyCreate("Name_example", "Label_example", "Type_example", "FieldType_example", "GroupName_example") // PropertyCreate | 
+    propertyCreate := *openapiclient.NewPropertyCreate("My Contact Property", "enumeration", "contactinformation", "Name_example", "select") // PropertyCreate | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)

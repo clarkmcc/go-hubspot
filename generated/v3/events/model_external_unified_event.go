@@ -1,5 +1,5 @@
 /*
-HubSpot Events API
+Events
 
 API for accessing CRM object events.
 
@@ -17,31 +17,30 @@ import (
 
 // ExternalUnifiedEvent Used to represent any event. With this format, the `objectType` and `eventType` values are stringified CRM types. Example object: <br/> ```  {       \"objectType\": \"CONTACT\",       \"objectId\": 208451632,       \"eventType\": \"e_visited_page\",       \"occurredAt\": 1567377501421,       \"id\": \"leviathan-be3335d3-46f1-3985-988e-ff38e6e7b9d8\",       \"properties\": {           \"hs_url\": \"https://some-website.com/\",           \"hs_title\": \"Home\",           \"hs_referrer\": \"https://some-other-website.com/blog/why-we-love-big-data-and-you-should-too\",           \"hs_userAgent\": \"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.80 Safari/537.36\",           \"hs_city\": \"lund\",           \"hs_region\": \"m\",           \"hs_country\": \"se\",           \"hs_session_id\" : \"leviathan-be3335d3-46f1-3985-988e-ff38e6e7b9d8\",           \"hs_session_source\" : \"DIRECT\"       }   }       ```
 type ExternalUnifiedEvent struct {
-	// The objectType for the object which did the event.
-	ObjectType string `json:"objectType"`
-	// The objectId of the object which did the event.
-	ObjectId string `json:"objectId"`
-	// The format of the `eventType` string is `ae{appId}_{eventTypeLabel}`, `pe{portalId}_{eventTypeLabel}`, or just `e_{eventTypeLabel}` for HubSpot events.
-	EventType string `json:"eventType"`
 	// An ISO 8601 timestamp when the event occurred.
 	OccurredAt time.Time `json:"occurredAt"`
+	// The format of the `eventType` string is `ae{appId}_{eventTypeLabel}`, `pe{portalId}_{eventTypeLabel}`, or just `e_{eventTypeLabel}` for HubSpot events.
+	EventType string `json:"eventType"`
 	// A unique identifier for the event.
-	Id         string            `json:"id"`
-	Properties map[string]string `json:"properties"`
+	Id string `json:"id"`
+	// The objectId of the object which did the event.
+	ObjectId   string             `json:"objectId"`
+	Properties *map[string]string `json:"properties,omitempty"`
+	// The objectType for the object which did the event.
+	ObjectType string `json:"objectType"`
 }
 
 // NewExternalUnifiedEvent instantiates a new ExternalUnifiedEvent object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewExternalUnifiedEvent(objectType string, objectId string, eventType string, occurredAt time.Time, id string, properties map[string]string) *ExternalUnifiedEvent {
+func NewExternalUnifiedEvent(occurredAt time.Time, eventType string, id string, objectId string, objectType string) *ExternalUnifiedEvent {
 	this := ExternalUnifiedEvent{}
-	this.ObjectType = objectType
-	this.ObjectId = objectId
-	this.EventType = eventType
 	this.OccurredAt = occurredAt
+	this.EventType = eventType
 	this.Id = id
-	this.Properties = properties
+	this.ObjectId = objectId
+	this.ObjectType = objectType
 	return &this
 }
 
@@ -51,78 +50,6 @@ func NewExternalUnifiedEvent(objectType string, objectId string, eventType strin
 func NewExternalUnifiedEventWithDefaults() *ExternalUnifiedEvent {
 	this := ExternalUnifiedEvent{}
 	return &this
-}
-
-// GetObjectType returns the ObjectType field value
-func (o *ExternalUnifiedEvent) GetObjectType() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.ObjectType
-}
-
-// GetObjectTypeOk returns a tuple with the ObjectType field value
-// and a boolean to check if the value has been set.
-func (o *ExternalUnifiedEvent) GetObjectTypeOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.ObjectType, true
-}
-
-// SetObjectType sets field value
-func (o *ExternalUnifiedEvent) SetObjectType(v string) {
-	o.ObjectType = v
-}
-
-// GetObjectId returns the ObjectId field value
-func (o *ExternalUnifiedEvent) GetObjectId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.ObjectId
-}
-
-// GetObjectIdOk returns a tuple with the ObjectId field value
-// and a boolean to check if the value has been set.
-func (o *ExternalUnifiedEvent) GetObjectIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.ObjectId, true
-}
-
-// SetObjectId sets field value
-func (o *ExternalUnifiedEvent) SetObjectId(v string) {
-	o.ObjectId = v
-}
-
-// GetEventType returns the EventType field value
-func (o *ExternalUnifiedEvent) GetEventType() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.EventType
-}
-
-// GetEventTypeOk returns a tuple with the EventType field value
-// and a boolean to check if the value has been set.
-func (o *ExternalUnifiedEvent) GetEventTypeOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.EventType, true
-}
-
-// SetEventType sets field value
-func (o *ExternalUnifiedEvent) SetEventType(v string) {
-	o.EventType = v
 }
 
 // GetOccurredAt returns the OccurredAt field value
@@ -149,6 +76,30 @@ func (o *ExternalUnifiedEvent) SetOccurredAt(v time.Time) {
 	o.OccurredAt = v
 }
 
+// GetEventType returns the EventType field value
+func (o *ExternalUnifiedEvent) GetEventType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.EventType
+}
+
+// GetEventTypeOk returns a tuple with the EventType field value
+// and a boolean to check if the value has been set.
+func (o *ExternalUnifiedEvent) GetEventTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.EventType, true
+}
+
+// SetEventType sets field value
+func (o *ExternalUnifiedEvent) SetEventType(v string) {
+	o.EventType = v
+}
+
 // GetId returns the Id field value
 func (o *ExternalUnifiedEvent) GetId() string {
 	if o == nil {
@@ -173,49 +124,105 @@ func (o *ExternalUnifiedEvent) SetId(v string) {
 	o.Id = v
 }
 
-// GetProperties returns the Properties field value
-func (o *ExternalUnifiedEvent) GetProperties() map[string]string {
+// GetObjectId returns the ObjectId field value
+func (o *ExternalUnifiedEvent) GetObjectId() string {
 	if o == nil {
-		var ret map[string]string
+		var ret string
 		return ret
 	}
 
-	return o.Properties
+	return o.ObjectId
 }
 
-// GetPropertiesOk returns a tuple with the Properties field value
+// GetObjectIdOk returns a tuple with the ObjectId field value
 // and a boolean to check if the value has been set.
-func (o *ExternalUnifiedEvent) GetPropertiesOk() (*map[string]string, bool) {
+func (o *ExternalUnifiedEvent) GetObjectIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Properties, true
+	return &o.ObjectId, true
 }
 
-// SetProperties sets field value
+// SetObjectId sets field value
+func (o *ExternalUnifiedEvent) SetObjectId(v string) {
+	o.ObjectId = v
+}
+
+// GetProperties returns the Properties field value if set, zero value otherwise.
+func (o *ExternalUnifiedEvent) GetProperties() map[string]string {
+	if o == nil || o.Properties == nil {
+		var ret map[string]string
+		return ret
+	}
+	return *o.Properties
+}
+
+// GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ExternalUnifiedEvent) GetPropertiesOk() (*map[string]string, bool) {
+	if o == nil || o.Properties == nil {
+		return nil, false
+	}
+	return o.Properties, true
+}
+
+// HasProperties returns a boolean if a field has been set.
+func (o *ExternalUnifiedEvent) HasProperties() bool {
+	if o != nil && o.Properties != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetProperties gets a reference to the given map[string]string and assigns it to the Properties field.
 func (o *ExternalUnifiedEvent) SetProperties(v map[string]string) {
-	o.Properties = v
+	o.Properties = &v
+}
+
+// GetObjectType returns the ObjectType field value
+func (o *ExternalUnifiedEvent) GetObjectType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ObjectType
+}
+
+// GetObjectTypeOk returns a tuple with the ObjectType field value
+// and a boolean to check if the value has been set.
+func (o *ExternalUnifiedEvent) GetObjectTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ObjectType, true
+}
+
+// SetObjectType sets field value
+func (o *ExternalUnifiedEvent) SetObjectType(v string) {
+	o.ObjectType = v
 }
 
 func (o ExternalUnifiedEvent) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["objectType"] = o.ObjectType
-	}
-	if true {
-		toSerialize["objectId"] = o.ObjectId
+		toSerialize["occurredAt"] = o.OccurredAt
 	}
 	if true {
 		toSerialize["eventType"] = o.EventType
 	}
 	if true {
-		toSerialize["occurredAt"] = o.OccurredAt
-	}
-	if true {
 		toSerialize["id"] = o.Id
 	}
 	if true {
+		toSerialize["objectId"] = o.ObjectId
+	}
+	if o.Properties != nil {
 		toSerialize["properties"] = o.Properties
+	}
+	if true {
+		toSerialize["objectType"] = o.ObjectType
 	}
 	return json.Marshal(toSerialize)
 }

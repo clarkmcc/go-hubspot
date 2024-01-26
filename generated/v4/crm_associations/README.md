@@ -134,6 +134,7 @@ Class | Method | HTTP request | Description
 - **Flow**: accessCode
 - **Authorization URL**: https://app.hubspot.com/oauth/authorize
 - **Scopes**: 
+ - **crm.objects.deals.write**:  
  - **crm.objects.quotes.read**: Quotes
  - **crm.objects.line_items.write**: Line Items
  - **crm.objects.companies.read**:  
@@ -143,7 +144,6 @@ Class | Method | HTTP request | Description
  - **crm.objects.quotes.write**: Quotes
  - **crm.objects.deals.read**:  
  - **crm.objects.line_items.read**: Line Items
- - **crm.objects.deals.write**:  
 
 Example
 
@@ -172,12 +172,12 @@ r, err := client.Service.Operation(auth, args)
 - **Flow**: accessCode
 - **Authorization URL**: https://app.hubspot.com/oauth/authorize
 - **Scopes**: 
+ - **media_bridge.read**: Read media and media events
  - **e-commerce**: e-commerce
  - **crm.objects.custom.write**: Change custom object records
  - **crm.objects.custom.read**: View custom object records
  - **crm.objects.goals.read**: Read goals
  - **tickets**: Read and write tickets
- - **media_bridge.read**: Read media and media events
 
 Example
 

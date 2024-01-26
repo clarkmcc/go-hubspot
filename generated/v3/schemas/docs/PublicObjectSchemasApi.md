@@ -4,13 +4,13 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Purge**](PublicObjectSchemasApi.md#Purge) | **Delete** /crm/v3/schemas/{objectType}/purge | 
+[**DeleteCrmV3SchemasObjectTypePurgePurge**](PublicObjectSchemasApi.md#DeleteCrmV3SchemasObjectTypePurgePurge) | **Delete** /crm/v3/schemas/{objectType}/purge | 
 
 
 
-## Purge
+## DeleteCrmV3SchemasObjectTypePurgePurge
 
-> Purge(ctx, objectType).Execute()
+> DeleteCrmV3SchemasObjectTypePurgePurge(ctx, objectType).Execute()
 
 
 
@@ -31,9 +31,9 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PublicObjectSchemasApi.Purge(context.Background(), objectType).Execute()
+    resp, r, err := apiClient.PublicObjectSchemasApi.DeleteCrmV3SchemasObjectTypePurgePurge(context.Background(), objectType).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PublicObjectSchemasApi.Purge``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `PublicObjectSchemasApi.DeleteCrmV3SchemasObjectTypePurgePurge``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -49,7 +49,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPurgeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteCrmV3SchemasObjectTypePurgePurgeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

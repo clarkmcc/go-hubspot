@@ -78,7 +78,7 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*EventsApi* | [**GetPage**](docs/EventsApi.md#getpage) | **Get** /events/v3/events | Returns a collection of events matching a query.
+*EventsApi* | [**GetEventsV3EventsGetPage**](docs/EventsApi.md#geteventsv3eventsgetpage) | **Get** /events/v3/events/ | 
 
 
 ## Documentation For Models
@@ -89,6 +89,7 @@ Class | Method | HTTP request | Description
  - [ExternalUnifiedEvent](docs/ExternalUnifiedEvent.md)
  - [NextPage](docs/NextPage.md)
  - [Paging](docs/Paging.md)
+ - [PreviousPage](docs/PreviousPage.md)
 
 
 ## Documentation For Authorization
@@ -102,7 +103,7 @@ Class | Method | HTTP request | Description
 - **Flow**: accessCode
 - **Authorization URL**: https://app.hubspot.com/oauth/authorize
 - **Scopes**: 
- - **business-intelligence**: Read from Business Intelligence API
+ - **oauth**: User and Account Information
 
 Example
 

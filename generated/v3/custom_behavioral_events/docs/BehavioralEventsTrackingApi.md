@@ -4,13 +4,13 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Send**](BehavioralEventsTrackingApi.md#Send) | **Post** /events/v3/send | Sends Custom Behavioral Event
+[**SendSend**](BehavioralEventsTrackingApi.md#SendSend) | **Post** /events/v3/send | Sends Custom Behavioral Event
 
 
 
-## Send
+## SendSend
 
-> Send(ctx).BehavioralEventHttpCompletionRequest(behavioralEventHttpCompletionRequest).Execute()
+> SendSend(ctx).BehavioralEventHttpCompletionRequest(behavioralEventHttpCompletionRequest).Execute()
 
 Sends Custom Behavioral Event
 
@@ -29,13 +29,13 @@ import (
 )
 
 func main() {
-    behavioralEventHttpCompletionRequest := *openapiclient.NewBehavioralEventHttpCompletionRequest("EventName_example", map[string]string{"key": "Inner_example"}) // BehavioralEventHttpCompletionRequest | 
+    behavioralEventHttpCompletionRequest := *openapiclient.NewBehavioralEventHttpCompletionRequest("EventName_example") // BehavioralEventHttpCompletionRequest | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BehavioralEventsTrackingApi.Send(context.Background()).BehavioralEventHttpCompletionRequest(behavioralEventHttpCompletionRequest).Execute()
+    resp, r, err := apiClient.BehavioralEventsTrackingApi.SendSend(context.Background()).BehavioralEventHttpCompletionRequest(behavioralEventHttpCompletionRequest).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BehavioralEventsTrackingApi.Send``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BehavioralEventsTrackingApi.SendSend``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -47,7 +47,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiSendRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiSendSendRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

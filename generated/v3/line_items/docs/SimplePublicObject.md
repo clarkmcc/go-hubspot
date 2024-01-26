@@ -4,19 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | 
-**Properties** | **map[string]string** |  | 
-**PropertiesWithHistory** | Pointer to [**map[string][]ValueWithTimestamp**](array.md) |  | [optional] 
 **CreatedAt** | **time.Time** |  | 
-**UpdatedAt** | **time.Time** |  | 
 **Archived** | Pointer to **bool** |  | [optional] 
 **ArchivedAt** | Pointer to **time.Time** |  | [optional] 
+**PropertiesWithHistory** | Pointer to [**map[string][]ValueWithTimestamp**](array.md) |  | [optional] 
+**Id** | **string** |  | 
+**Properties** | **map[string]string** |  | 
+**UpdatedAt** | **time.Time** |  | 
 
 ## Methods
 
 ### NewSimplePublicObject
 
-`func NewSimplePublicObject(id string, properties map[string]string, createdAt time.Time, updatedAt time.Time, ) *SimplePublicObject`
+`func NewSimplePublicObject(createdAt time.Time, id string, properties map[string]string, updatedAt time.Time, ) *SimplePublicObject`
 
 NewSimplePublicObject instantiates a new SimplePublicObject object
 This constructor will assign default values to properties that have it defined,
@@ -30,71 +30,6 @@ will change when the set of required properties is changed
 NewSimplePublicObjectWithDefaults instantiates a new SimplePublicObject object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetId
-
-`func (o *SimplePublicObject) GetId() string`
-
-GetId returns the Id field if non-nil, zero value otherwise.
-
-### GetIdOk
-
-`func (o *SimplePublicObject) GetIdOk() (*string, bool)`
-
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetId
-
-`func (o *SimplePublicObject) SetId(v string)`
-
-SetId sets Id field to given value.
-
-
-### GetProperties
-
-`func (o *SimplePublicObject) GetProperties() map[string]string`
-
-GetProperties returns the Properties field if non-nil, zero value otherwise.
-
-### GetPropertiesOk
-
-`func (o *SimplePublicObject) GetPropertiesOk() (*map[string]string, bool)`
-
-GetPropertiesOk returns a tuple with the Properties field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetProperties
-
-`func (o *SimplePublicObject) SetProperties(v map[string]string)`
-
-SetProperties sets Properties field to given value.
-
-
-### GetPropertiesWithHistory
-
-`func (o *SimplePublicObject) GetPropertiesWithHistory() map[string][]ValueWithTimestamp`
-
-GetPropertiesWithHistory returns the PropertiesWithHistory field if non-nil, zero value otherwise.
-
-### GetPropertiesWithHistoryOk
-
-`func (o *SimplePublicObject) GetPropertiesWithHistoryOk() (*map[string][]ValueWithTimestamp, bool)`
-
-GetPropertiesWithHistoryOk returns a tuple with the PropertiesWithHistory field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPropertiesWithHistory
-
-`func (o *SimplePublicObject) SetPropertiesWithHistory(v map[string][]ValueWithTimestamp)`
-
-SetPropertiesWithHistory sets PropertiesWithHistory field to given value.
-
-### HasPropertiesWithHistory
-
-`func (o *SimplePublicObject) HasPropertiesWithHistory() bool`
-
-HasPropertiesWithHistory returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
@@ -114,26 +49,6 @@ and a boolean to check if the value has been set.
 `func (o *SimplePublicObject) SetCreatedAt(v time.Time)`
 
 SetCreatedAt sets CreatedAt field to given value.
-
-
-### GetUpdatedAt
-
-`func (o *SimplePublicObject) GetUpdatedAt() time.Time`
-
-GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
-
-### GetUpdatedAtOk
-
-`func (o *SimplePublicObject) GetUpdatedAtOk() (*time.Time, bool)`
-
-GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetUpdatedAt
-
-`func (o *SimplePublicObject) SetUpdatedAt(v time.Time)`
-
-SetUpdatedAt sets UpdatedAt field to given value.
 
 
 ### GetArchived
@@ -185,6 +100,91 @@ SetArchivedAt sets ArchivedAt field to given value.
 `func (o *SimplePublicObject) HasArchivedAt() bool`
 
 HasArchivedAt returns a boolean if a field has been set.
+
+### GetPropertiesWithHistory
+
+`func (o *SimplePublicObject) GetPropertiesWithHistory() map[string][]ValueWithTimestamp`
+
+GetPropertiesWithHistory returns the PropertiesWithHistory field if non-nil, zero value otherwise.
+
+### GetPropertiesWithHistoryOk
+
+`func (o *SimplePublicObject) GetPropertiesWithHistoryOk() (*map[string][]ValueWithTimestamp, bool)`
+
+GetPropertiesWithHistoryOk returns a tuple with the PropertiesWithHistory field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPropertiesWithHistory
+
+`func (o *SimplePublicObject) SetPropertiesWithHistory(v map[string][]ValueWithTimestamp)`
+
+SetPropertiesWithHistory sets PropertiesWithHistory field to given value.
+
+### HasPropertiesWithHistory
+
+`func (o *SimplePublicObject) HasPropertiesWithHistory() bool`
+
+HasPropertiesWithHistory returns a boolean if a field has been set.
+
+### GetId
+
+`func (o *SimplePublicObject) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *SimplePublicObject) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *SimplePublicObject) SetId(v string)`
+
+SetId sets Id field to given value.
+
+
+### GetProperties
+
+`func (o *SimplePublicObject) GetProperties() map[string]string`
+
+GetProperties returns the Properties field if non-nil, zero value otherwise.
+
+### GetPropertiesOk
+
+`func (o *SimplePublicObject) GetPropertiesOk() (*map[string]string, bool)`
+
+GetPropertiesOk returns a tuple with the Properties field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProperties
+
+`func (o *SimplePublicObject) SetProperties(v map[string]string)`
+
+SetProperties sets Properties field to given value.
+
+
+### GetUpdatedAt
+
+`func (o *SimplePublicObject) GetUpdatedAt() time.Time`
+
+GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
+
+### GetUpdatedAtOk
+
+`func (o *SimplePublicObject) GetUpdatedAtOk() (*time.Time, bool)`
+
+GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUpdatedAt
+
+`func (o *SimplePublicObject) SetUpdatedAt(v time.Time)`
+
+SetUpdatedAt sets UpdatedAt field to given value.
+
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

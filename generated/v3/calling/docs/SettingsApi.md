@@ -101,7 +101,7 @@ import (
 
 func main() {
     appId := int32(56) // int32 | The ID of the target app.
-    settingsRequest := *openapiclient.NewSettingsRequest("Name_example", "Url_example") // SettingsRequest | Settings state to create with.
+    settingsRequest := *openapiclient.NewSettingsRequest("HubPhone", "https://www.example.com/hubspot/iframe") // SettingsRequest | Settings state to create with.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)

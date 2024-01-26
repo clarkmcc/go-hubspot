@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Object** | [**BlogPost**](BlogPost.md) |  | 
-**User** | [**VersionUser**](VersionUser.md) |  | 
 **Id** | **string** | The id of the version. | 
+**User** | [**VersionUser**](VersionUser.md) |  | 
+**Object** | [**BlogPost**](BlogPost.md) |  | 
 **UpdatedAt** | **time.Time** |  | 
 
 ## Methods
 
 ### NewVersionBlogPost
 
-`func NewVersionBlogPost(object BlogPost, user VersionUser, id string, updatedAt time.Time, ) *VersionBlogPost`
+`func NewVersionBlogPost(id string, user VersionUser, object BlogPost, updatedAt time.Time, ) *VersionBlogPost`
 
 NewVersionBlogPost instantiates a new VersionBlogPost object
 This constructor will assign default values to properties that have it defined,
@@ -28,24 +28,24 @@ NewVersionBlogPostWithDefaults instantiates a new VersionBlogPost object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetObject
+### GetId
 
-`func (o *VersionBlogPost) GetObject() BlogPost`
+`func (o *VersionBlogPost) GetId() string`
 
-GetObject returns the Object field if non-nil, zero value otherwise.
+GetId returns the Id field if non-nil, zero value otherwise.
 
-### GetObjectOk
+### GetIdOk
 
-`func (o *VersionBlogPost) GetObjectOk() (*BlogPost, bool)`
+`func (o *VersionBlogPost) GetIdOk() (*string, bool)`
 
-GetObjectOk returns a tuple with the Object field if it's non-nil, zero value otherwise
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetObject
+### SetId
 
-`func (o *VersionBlogPost) SetObject(v BlogPost)`
+`func (o *VersionBlogPost) SetId(v string)`
 
-SetObject sets Object field to given value.
+SetId sets Id field to given value.
 
 
 ### GetUser
@@ -68,24 +68,24 @@ and a boolean to check if the value has been set.
 SetUser sets User field to given value.
 
 
-### GetId
+### GetObject
 
-`func (o *VersionBlogPost) GetId() string`
+`func (o *VersionBlogPost) GetObject() BlogPost`
 
-GetId returns the Id field if non-nil, zero value otherwise.
+GetObject returns the Object field if non-nil, zero value otherwise.
 
-### GetIdOk
+### GetObjectOk
 
-`func (o *VersionBlogPost) GetIdOk() (*string, bool)`
+`func (o *VersionBlogPost) GetObjectOk() (*BlogPost, bool)`
 
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+GetObjectOk returns a tuple with the Object field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetId
+### SetObject
 
-`func (o *VersionBlogPost) SetId(v string)`
+`func (o *VersionBlogPost) SetObject(v BlogPost)`
 
-SetId sets Id field to given value.
+SetObject sets Object field to given value.
 
 
 ### GetUpdatedAt

@@ -5,18 +5,32 @@ info:
     your own authentication system.
   title: Visitor Identification
   version: v3
+  x-hubspot-product-tier-requirements:
+    marketing: PROFESSIONAL
+    sales: PROFESSIONAL
+    service: PROFESSIONAL
+    cms: PROFESSIONAL
+  x-hubspot-documentation-banner: NONE
+  x-hubspot-api-use-case: "You're building an integration to pass along website visitors\
+    \ to a chatflow you've configured in HubSpot, and ensure that visitors are associated\
+    \ with a known contact so support agents in your account know who they're helping."
+  x-hubspot-related-documentation:
+  - name: 'Visitor Identification Guide '
+    url: https://hubspot.dev/guides/api/conversation/visitor-identification
+  x-hubspot-introduction: The visitor identification API allows you to identify users
+    who navigate to your website that you've authenticated using your own authentication
+    system.
 servers:
 - url: https://api.hubapi.com
 tags:
 - name: Generate
 paths:
-  /visitor-identification/v3/tokens/create:
+  /conversations/v3/visitor-identification/tokens/create:
     post:
       description: "Generates a new visitor identification token. This token will\
         \ be unique every time this endpoint is called, even if called with the same\
         \ email address. This token is temporary and will expire after 12 hours"
-      operationId: GenerateToken
-      parameters: []
+      operationId: post-/conversations/v3/visitor-identification/tokens/create_generateToken
       requestBody:
         content:
           application/json:
@@ -55,19 +69,15 @@ components:
   schemas:
     ErrorDetail:
       properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          type: string
-        in:
-          description: The name of the field or parameter in which the error was found.
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
           type: string
         code:
           description: The status code associated with the error detail
           type: string
-        subCategory:
-          description: A specific category that contains more specific detail about
-            the error
+        in:
+          description: The name of the field or parameter in which the error was found.
           type: string
         context:
           additionalProperties:
@@ -80,6 +90,10 @@ components:
             - scope1
             - scope2
           type: object
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          type: string
       required:
       - message
       type: object
@@ -91,29 +105,10 @@ components:
         links:
           knowledge-base: https://www.hubspot.com/products/service/knowledge-base
       properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          example: An error occurred
-          type: string
-        correlationId:
-          description: A unique identifier for the request. Include this value with
-            any error reports or support tickets
-          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
-          format: uuid
-          type: string
-        category:
-          description: The error category
-          type: string
         subCategory:
           description: A specific category that contains more specific detail about
             the error
           type: string
-        errors:
-          description: further information about the error
-          items:
-            $ref: '#/components/schemas/ErrorDetail'
-          type: array
         context:
           additionalProperties:
             items:
@@ -121,18 +116,40 @@ components:
             type: array
           description: Context about the error condition
           example:
-            invalidPropertyName:
-            - propertyValue
             missingScopes:
             - scope1
             - scope2
+            invalidPropertyName:
+            - propertyValue
           type: object
+        correlationId:
+          description: A unique identifier for the request. Include this value with
+            any error reports or support tickets
+          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
+          format: uuid
+          type: string
         links:
           additionalProperties:
             type: string
           description: A map of link names to associated URIs containing documentation
             about the error or recommended remediation steps
+          example:
+            knowledge-base: https://www.hubspot.com/products/service/knowledge-base
           type: object
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          example: Invalid input (details will vary based on the error)
+          type: string
+        category:
+          description: The error category
+          example: VALIDATION_ERROR
+          type: string
+        errors:
+          description: further information about the error
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
       required:
       - category
       - correlationId
@@ -145,6 +162,8 @@ components:
         token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
       properties:
         token:
+          description: ""
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
           type: string
       required:
       - token
@@ -156,18 +175,21 @@ components:
         firstName: Gob
         lastName: Bluth
       properties:
-        email:
-          description: The email of the visitor that you wish to identify
-          type: string
         firstName:
           description: The first name of the visitor that you wish to identify. This
             value will only be set in HubSpot for new contacts and existing contacts
             where first name is unknown. Optional.
+          example: Gob
           type: string
         lastName:
           description: The last name of the visitor that you wish to identify. This
             value will only be set in HubSpot for new contacts and existing contacts
             where last name is unknown. Optional.
+          example: Bluth
+          type: string
+        email:
+          description: The email of the visitor that you wish to identify
+          example: visitor-email@example.com
           type: string
       required:
       - email
@@ -193,8 +215,8 @@ x-hubspot-available-client-libraries:
 - Ruby
 - Python
 x-hubspot-product-tier-requirements:
-  marketing: FREE
-  sales: FREE
-  service: FREE
-  cms: FREE
+  marketing: PROFESSIONAL
+  sales: PROFESSIONAL
+  service: PROFESSIONAL
+  cms: PROFESSIONAL
 x-hubspot-documentation-banner: NONE

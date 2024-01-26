@@ -1,5 +1,5 @@
 /*
-Webhooks API
+Webhooks Webhooks
 
 Provides a way for apps to subscribe to certain change events in HubSpot. Once configured, apps will receive event payloads containing details about the changes at a specified target URL. There can only be one target URL for receiving event notifications per app.
 
@@ -17,11 +17,11 @@ import (
 
 // SettingsResponse Webhook settings for an app.
 type SettingsResponse struct {
-	// A publicly available URL for Hubspot to call where event payloads will be delivered. See [link-so-some-doc](#) for details about the format of these event payloads.
-	TargetUrl  string             `json:"targetUrl"`
-	Throttling ThrottlingSettings `json:"throttling"`
 	// When this subscription was created. Formatted as milliseconds from the [Unix epoch](#).
-	CreatedAt time.Time `json:"createdAt"`
+	CreatedAt  time.Time          `json:"createdAt"`
+	Throttling ThrottlingSettings `json:"throttling"`
+	// A publicly available URL for Hubspot to call where event payloads will be delivered. See [link-so-some-doc](#) for details about the format of these event payloads.
+	TargetUrl string `json:"targetUrl"`
 	// When this subscription was last updated. Formatted as milliseconds from the [Unix epoch](#).
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 }
@@ -30,11 +30,11 @@ type SettingsResponse struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSettingsResponse(targetUrl string, throttling ThrottlingSettings, createdAt time.Time) *SettingsResponse {
+func NewSettingsResponse(createdAt time.Time, throttling ThrottlingSettings, targetUrl string) *SettingsResponse {
 	this := SettingsResponse{}
-	this.TargetUrl = targetUrl
-	this.Throttling = throttling
 	this.CreatedAt = createdAt
+	this.Throttling = throttling
+	this.TargetUrl = targetUrl
 	return &this
 }
 
@@ -46,28 +46,28 @@ func NewSettingsResponseWithDefaults() *SettingsResponse {
 	return &this
 }
 
-// GetTargetUrl returns the TargetUrl field value
-func (o *SettingsResponse) GetTargetUrl() string {
+// GetCreatedAt returns the CreatedAt field value
+func (o *SettingsResponse) GetCreatedAt() time.Time {
 	if o == nil {
-		var ret string
+		var ret time.Time
 		return ret
 	}
 
-	return o.TargetUrl
+	return o.CreatedAt
 }
 
-// GetTargetUrlOk returns a tuple with the TargetUrl field value
+// GetCreatedAtOk returns a tuple with the CreatedAt field value
 // and a boolean to check if the value has been set.
-func (o *SettingsResponse) GetTargetUrlOk() (*string, bool) {
+func (o *SettingsResponse) GetCreatedAtOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.TargetUrl, true
+	return &o.CreatedAt, true
 }
 
-// SetTargetUrl sets field value
-func (o *SettingsResponse) SetTargetUrl(v string) {
-	o.TargetUrl = v
+// SetCreatedAt sets field value
+func (o *SettingsResponse) SetCreatedAt(v time.Time) {
+	o.CreatedAt = v
 }
 
 // GetThrottling returns the Throttling field value
@@ -94,28 +94,28 @@ func (o *SettingsResponse) SetThrottling(v ThrottlingSettings) {
 	o.Throttling = v
 }
 
-// GetCreatedAt returns the CreatedAt field value
-func (o *SettingsResponse) GetCreatedAt() time.Time {
+// GetTargetUrl returns the TargetUrl field value
+func (o *SettingsResponse) GetTargetUrl() string {
 	if o == nil {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 
-	return o.CreatedAt
+	return o.TargetUrl
 }
 
-// GetCreatedAtOk returns a tuple with the CreatedAt field value
+// GetTargetUrlOk returns a tuple with the TargetUrl field value
 // and a boolean to check if the value has been set.
-func (o *SettingsResponse) GetCreatedAtOk() (*time.Time, bool) {
+func (o *SettingsResponse) GetTargetUrlOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.CreatedAt, true
+	return &o.TargetUrl, true
 }
 
-// SetCreatedAt sets field value
-func (o *SettingsResponse) SetCreatedAt(v time.Time) {
-	o.CreatedAt = v
+// SetTargetUrl sets field value
+func (o *SettingsResponse) SetTargetUrl(v string) {
+	o.TargetUrl = v
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
@@ -153,13 +153,13 @@ func (o *SettingsResponse) SetUpdatedAt(v time.Time) {
 func (o SettingsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["targetUrl"] = o.TargetUrl
+		toSerialize["createdAt"] = o.CreatedAt
 	}
 	if true {
 		toSerialize["throttling"] = o.Throttling
 	}
 	if true {
-		toSerialize["createdAt"] = o.CreatedAt
+		toSerialize["targetUrl"] = o.TargetUrl
 	}
 	if o.UpdatedAt != nil {
 		toSerialize["updatedAt"] = o.UpdatedAt

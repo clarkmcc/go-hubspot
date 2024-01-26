@@ -16,12 +16,12 @@ import (
 
 // IdentificationTokenGenerationRequest Information used to generate a token
 type IdentificationTokenGenerationRequest struct {
-	// The email of the visitor that you wish to identify
-	Email string `json:"email"`
 	// The first name of the visitor that you wish to identify. This value will only be set in HubSpot for new contacts and existing contacts where first name is unknown. Optional.
 	FirstName *string `json:"firstName,omitempty"`
 	// The last name of the visitor that you wish to identify. This value will only be set in HubSpot for new contacts and existing contacts where last name is unknown. Optional.
 	LastName *string `json:"lastName,omitempty"`
+	// The email of the visitor that you wish to identify
+	Email string `json:"email"`
 }
 
 // NewIdentificationTokenGenerationRequest instantiates a new IdentificationTokenGenerationRequest object
@@ -40,30 +40,6 @@ func NewIdentificationTokenGenerationRequest(email string) *IdentificationTokenG
 func NewIdentificationTokenGenerationRequestWithDefaults() *IdentificationTokenGenerationRequest {
 	this := IdentificationTokenGenerationRequest{}
 	return &this
-}
-
-// GetEmail returns the Email field value
-func (o *IdentificationTokenGenerationRequest) GetEmail() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Email
-}
-
-// GetEmailOk returns a tuple with the Email field value
-// and a boolean to check if the value has been set.
-func (o *IdentificationTokenGenerationRequest) GetEmailOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Email, true
-}
-
-// SetEmail sets field value
-func (o *IdentificationTokenGenerationRequest) SetEmail(v string) {
-	o.Email = v
 }
 
 // GetFirstName returns the FirstName field value if set, zero value otherwise.
@@ -130,16 +106,40 @@ func (o *IdentificationTokenGenerationRequest) SetLastName(v string) {
 	o.LastName = &v
 }
 
+// GetEmail returns the Email field value
+func (o *IdentificationTokenGenerationRequest) GetEmail() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Email
+}
+
+// GetEmailOk returns a tuple with the Email field value
+// and a boolean to check if the value has been set.
+func (o *IdentificationTokenGenerationRequest) GetEmailOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Email, true
+}
+
+// SetEmail sets field value
+func (o *IdentificationTokenGenerationRequest) SetEmail(v string) {
+	o.Email = v
+}
+
 func (o IdentificationTokenGenerationRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["email"] = o.Email
-	}
 	if o.FirstName != nil {
 		toSerialize["firstName"] = o.FirstName
 	}
 	if o.LastName != nil {
 		toSerialize["lastName"] = o.LastName
+	}
+	if true {
+		toSerialize["email"] = o.Email
 	}
 	return json.Marshal(toSerialize)
 }

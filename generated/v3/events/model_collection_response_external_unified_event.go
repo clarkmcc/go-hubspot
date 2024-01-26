@@ -1,5 +1,5 @@
 /*
-HubSpot Events API
+Events
 
 API for accessing CRM object events.
 
@@ -16,8 +16,9 @@ import (
 
 // CollectionResponseExternalUnifiedEvent struct for CollectionResponseExternalUnifiedEvent
 type CollectionResponseExternalUnifiedEvent struct {
+	Paging *Paging `json:"paging,omitempty"`
+	//
 	Results []ExternalUnifiedEvent `json:"results"`
-	Paging  *Paging                `json:"paging,omitempty"`
 }
 
 // NewCollectionResponseExternalUnifiedEvent instantiates a new CollectionResponseExternalUnifiedEvent object
@@ -36,30 +37,6 @@ func NewCollectionResponseExternalUnifiedEvent(results []ExternalUnifiedEvent) *
 func NewCollectionResponseExternalUnifiedEventWithDefaults() *CollectionResponseExternalUnifiedEvent {
 	this := CollectionResponseExternalUnifiedEvent{}
 	return &this
-}
-
-// GetResults returns the Results field value
-func (o *CollectionResponseExternalUnifiedEvent) GetResults() []ExternalUnifiedEvent {
-	if o == nil {
-		var ret []ExternalUnifiedEvent
-		return ret
-	}
-
-	return o.Results
-}
-
-// GetResultsOk returns a tuple with the Results field value
-// and a boolean to check if the value has been set.
-func (o *CollectionResponseExternalUnifiedEvent) GetResultsOk() ([]ExternalUnifiedEvent, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Results, true
-}
-
-// SetResults sets field value
-func (o *CollectionResponseExternalUnifiedEvent) SetResults(v []ExternalUnifiedEvent) {
-	o.Results = v
 }
 
 // GetPaging returns the Paging field value if set, zero value otherwise.
@@ -94,13 +71,37 @@ func (o *CollectionResponseExternalUnifiedEvent) SetPaging(v Paging) {
 	o.Paging = &v
 }
 
+// GetResults returns the Results field value
+func (o *CollectionResponseExternalUnifiedEvent) GetResults() []ExternalUnifiedEvent {
+	if o == nil {
+		var ret []ExternalUnifiedEvent
+		return ret
+	}
+
+	return o.Results
+}
+
+// GetResultsOk returns a tuple with the Results field value
+// and a boolean to check if the value has been set.
+func (o *CollectionResponseExternalUnifiedEvent) GetResultsOk() ([]ExternalUnifiedEvent, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Results, true
+}
+
+// SetResults sets field value
+func (o *CollectionResponseExternalUnifiedEvent) SetResults(v []ExternalUnifiedEvent) {
+	o.Results = v
+}
+
 func (o CollectionResponseExternalUnifiedEvent) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["results"] = o.Results
-	}
 	if o.Paging != nil {
 		toSerialize["paging"] = o.Paging
+	}
+	if true {
+		toSerialize["results"] = o.Results
 	}
 	return json.Marshal(toSerialize)
 }

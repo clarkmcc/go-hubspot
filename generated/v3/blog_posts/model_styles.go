@@ -1,5 +1,5 @@
 /*
-Blog Post endpoints
+Posts
 
 Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags
 
@@ -16,28 +16,28 @@ import (
 
 // Styles struct for Styles
 type Styles struct {
-	VerticalAlignment        string          `json:"verticalAlignment"`
 	BackgroundColor          RGBAColor       `json:"backgroundColor"`
-	BackgroundImage          BackgroundImage `json:"backgroundImage"`
-	BackgroundGradient       Gradient        `json:"backgroundGradient"`
-	MaxWidthSectionCentering int32           `json:"maxWidthSectionCentering"`
-	ForceFullWidthSection    bool            `json:"forceFullWidthSection"`
 	FlexboxPositioning       string          `json:"flexboxPositioning"`
+	BackgroundImage          BackgroundImage `json:"backgroundImage"`
+	ForceFullWidthSection    bool            `json:"forceFullWidthSection"`
+	VerticalAlignment        string          `json:"verticalAlignment"`
+	MaxWidthSectionCentering int32           `json:"maxWidthSectionCentering"`
+	BackgroundGradient       Gradient        `json:"backgroundGradient"`
 }
 
 // NewStyles instantiates a new Styles object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewStyles(verticalAlignment string, backgroundColor RGBAColor, backgroundImage BackgroundImage, backgroundGradient Gradient, maxWidthSectionCentering int32, forceFullWidthSection bool, flexboxPositioning string) *Styles {
+func NewStyles(backgroundColor RGBAColor, flexboxPositioning string, backgroundImage BackgroundImage, forceFullWidthSection bool, verticalAlignment string, maxWidthSectionCentering int32, backgroundGradient Gradient) *Styles {
 	this := Styles{}
-	this.VerticalAlignment = verticalAlignment
 	this.BackgroundColor = backgroundColor
-	this.BackgroundImage = backgroundImage
-	this.BackgroundGradient = backgroundGradient
-	this.MaxWidthSectionCentering = maxWidthSectionCentering
-	this.ForceFullWidthSection = forceFullWidthSection
 	this.FlexboxPositioning = flexboxPositioning
+	this.BackgroundImage = backgroundImage
+	this.ForceFullWidthSection = forceFullWidthSection
+	this.VerticalAlignment = verticalAlignment
+	this.MaxWidthSectionCentering = maxWidthSectionCentering
+	this.BackgroundGradient = backgroundGradient
 	return &this
 }
 
@@ -47,30 +47,6 @@ func NewStyles(verticalAlignment string, backgroundColor RGBAColor, backgroundIm
 func NewStylesWithDefaults() *Styles {
 	this := Styles{}
 	return &this
-}
-
-// GetVerticalAlignment returns the VerticalAlignment field value
-func (o *Styles) GetVerticalAlignment() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.VerticalAlignment
-}
-
-// GetVerticalAlignmentOk returns a tuple with the VerticalAlignment field value
-// and a boolean to check if the value has been set.
-func (o *Styles) GetVerticalAlignmentOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.VerticalAlignment, true
-}
-
-// SetVerticalAlignment sets field value
-func (o *Styles) SetVerticalAlignment(v string) {
-	o.VerticalAlignment = v
 }
 
 // GetBackgroundColor returns the BackgroundColor field value
@@ -97,6 +73,30 @@ func (o *Styles) SetBackgroundColor(v RGBAColor) {
 	o.BackgroundColor = v
 }
 
+// GetFlexboxPositioning returns the FlexboxPositioning field value
+func (o *Styles) GetFlexboxPositioning() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.FlexboxPositioning
+}
+
+// GetFlexboxPositioningOk returns a tuple with the FlexboxPositioning field value
+// and a boolean to check if the value has been set.
+func (o *Styles) GetFlexboxPositioningOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.FlexboxPositioning, true
+}
+
+// SetFlexboxPositioning sets field value
+func (o *Styles) SetFlexboxPositioning(v string) {
+	o.FlexboxPositioning = v
+}
+
 // GetBackgroundImage returns the BackgroundImage field value
 func (o *Styles) GetBackgroundImage() BackgroundImage {
 	if o == nil {
@@ -119,54 +119,6 @@ func (o *Styles) GetBackgroundImageOk() (*BackgroundImage, bool) {
 // SetBackgroundImage sets field value
 func (o *Styles) SetBackgroundImage(v BackgroundImage) {
 	o.BackgroundImage = v
-}
-
-// GetBackgroundGradient returns the BackgroundGradient field value
-func (o *Styles) GetBackgroundGradient() Gradient {
-	if o == nil {
-		var ret Gradient
-		return ret
-	}
-
-	return o.BackgroundGradient
-}
-
-// GetBackgroundGradientOk returns a tuple with the BackgroundGradient field value
-// and a boolean to check if the value has been set.
-func (o *Styles) GetBackgroundGradientOk() (*Gradient, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.BackgroundGradient, true
-}
-
-// SetBackgroundGradient sets field value
-func (o *Styles) SetBackgroundGradient(v Gradient) {
-	o.BackgroundGradient = v
-}
-
-// GetMaxWidthSectionCentering returns the MaxWidthSectionCentering field value
-func (o *Styles) GetMaxWidthSectionCentering() int32 {
-	if o == nil {
-		var ret int32
-		return ret
-	}
-
-	return o.MaxWidthSectionCentering
-}
-
-// GetMaxWidthSectionCenteringOk returns a tuple with the MaxWidthSectionCentering field value
-// and a boolean to check if the value has been set.
-func (o *Styles) GetMaxWidthSectionCenteringOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.MaxWidthSectionCentering, true
-}
-
-// SetMaxWidthSectionCentering sets field value
-func (o *Styles) SetMaxWidthSectionCentering(v int32) {
-	o.MaxWidthSectionCentering = v
 }
 
 // GetForceFullWidthSection returns the ForceFullWidthSection field value
@@ -193,52 +145,100 @@ func (o *Styles) SetForceFullWidthSection(v bool) {
 	o.ForceFullWidthSection = v
 }
 
-// GetFlexboxPositioning returns the FlexboxPositioning field value
-func (o *Styles) GetFlexboxPositioning() string {
+// GetVerticalAlignment returns the VerticalAlignment field value
+func (o *Styles) GetVerticalAlignment() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.FlexboxPositioning
+	return o.VerticalAlignment
 }
 
-// GetFlexboxPositioningOk returns a tuple with the FlexboxPositioning field value
+// GetVerticalAlignmentOk returns a tuple with the VerticalAlignment field value
 // and a boolean to check if the value has been set.
-func (o *Styles) GetFlexboxPositioningOk() (*string, bool) {
+func (o *Styles) GetVerticalAlignmentOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.FlexboxPositioning, true
+	return &o.VerticalAlignment, true
 }
 
-// SetFlexboxPositioning sets field value
-func (o *Styles) SetFlexboxPositioning(v string) {
-	o.FlexboxPositioning = v
+// SetVerticalAlignment sets field value
+func (o *Styles) SetVerticalAlignment(v string) {
+	o.VerticalAlignment = v
+}
+
+// GetMaxWidthSectionCentering returns the MaxWidthSectionCentering field value
+func (o *Styles) GetMaxWidthSectionCentering() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.MaxWidthSectionCentering
+}
+
+// GetMaxWidthSectionCenteringOk returns a tuple with the MaxWidthSectionCentering field value
+// and a boolean to check if the value has been set.
+func (o *Styles) GetMaxWidthSectionCenteringOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.MaxWidthSectionCentering, true
+}
+
+// SetMaxWidthSectionCentering sets field value
+func (o *Styles) SetMaxWidthSectionCentering(v int32) {
+	o.MaxWidthSectionCentering = v
+}
+
+// GetBackgroundGradient returns the BackgroundGradient field value
+func (o *Styles) GetBackgroundGradient() Gradient {
+	if o == nil {
+		var ret Gradient
+		return ret
+	}
+
+	return o.BackgroundGradient
+}
+
+// GetBackgroundGradientOk returns a tuple with the BackgroundGradient field value
+// and a boolean to check if the value has been set.
+func (o *Styles) GetBackgroundGradientOk() (*Gradient, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.BackgroundGradient, true
+}
+
+// SetBackgroundGradient sets field value
+func (o *Styles) SetBackgroundGradient(v Gradient) {
+	o.BackgroundGradient = v
 }
 
 func (o Styles) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["verticalAlignment"] = o.VerticalAlignment
+		toSerialize["backgroundColor"] = o.BackgroundColor
 	}
 	if true {
-		toSerialize["backgroundColor"] = o.BackgroundColor
+		toSerialize["flexboxPositioning"] = o.FlexboxPositioning
 	}
 	if true {
 		toSerialize["backgroundImage"] = o.BackgroundImage
 	}
 	if true {
-		toSerialize["backgroundGradient"] = o.BackgroundGradient
+		toSerialize["forceFullWidthSection"] = o.ForceFullWidthSection
+	}
+	if true {
+		toSerialize["verticalAlignment"] = o.VerticalAlignment
 	}
 	if true {
 		toSerialize["maxWidthSectionCentering"] = o.MaxWidthSectionCentering
 	}
 	if true {
-		toSerialize["forceFullWidthSection"] = o.ForceFullWidthSection
-	}
-	if true {
-		toSerialize["flexboxPositioning"] = o.FlexboxPositioning
+		toSerialize["backgroundGradient"] = o.BackgroundGradient
 	}
 	return json.Marshal(toSerialize)
 }
