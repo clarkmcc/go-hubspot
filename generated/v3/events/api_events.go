@@ -1,5 +1,5 @@
 /*
-HubSpot Events API
+Events
 
 API for accessing CRM object events.
 
@@ -15,6 +15,8 @@ import (
 	"context"
 	"io/ioutil"
 	"net/http"
+
+	"github.com/clarkmcc/go-hubspot"
 	"net/url"
 	"reflect"
 	"time"
@@ -23,85 +25,109 @@ import (
 // EventsApiService EventsApi service
 type EventsApiService service
 
-type ApiGetPageRequest struct {
-	ctx            context.Context
-	ApiService     *EventsApiService
-	occurredAfter  *time.Time
-	occurredBefore *time.Time
-	objectType     *string
-	objectId       *int64
-	eventType      *string
-	after          *string
-	before         *string
-	limit          *int32
-	sort           *[]string
+type ApiGetEventsV3EventsGetPageRequest struct {
+	ctx                    context.Context
+	ApiService             *EventsApiService
+	objectType             *string
+	eventType              *string
+	occurredAfter          *time.Time
+	occurredBefore         *time.Time
+	objectId               *int64
+	indexTableName         *string
+	indexSpecificMetadata  *string
+	after                  *string
+	before                 *string
+	limit                  *int32
+	sort                   *[]string
+	objectPropertyPropname *map[string]interface{}
+	propertyPropname       *map[string]interface{}
+	id                     *[]string
 }
 
-// The starting time as an ISO 8601 timestamp.
-func (r ApiGetPageRequest) OccurredAfter(occurredAfter time.Time) ApiGetPageRequest {
-	r.occurredAfter = &occurredAfter
-	return r
-}
-
-// The ending time as an ISO 8601 timestamp.
-func (r ApiGetPageRequest) OccurredBefore(occurredBefore time.Time) ApiGetPageRequest {
-	r.occurredBefore = &occurredBefore
-	return r
-}
-
-// The type of object being selected. Valid values are hubspot named object types (e.g. &#x60;contact&#x60;).
-func (r ApiGetPageRequest) ObjectType(objectType string) ApiGetPageRequest {
+func (r ApiGetEventsV3EventsGetPageRequest) ObjectType(objectType string) ApiGetEventsV3EventsGetPageRequest {
 	r.objectType = &objectType
 	return r
 }
 
-// The id of the selected object. If not present, then the &#x60;objectProperty&#x60; parameter is required.
-func (r ApiGetPageRequest) ObjectId(objectId int64) ApiGetPageRequest {
-	r.objectId = &objectId
-	return r
-}
-
-// Limits the response to the specified event type.  For example &#x60;&amp;eventType&#x3D;e_visited_page&#x60; returns only &#x60;e_visited_page&#x60; events.  If not present all event types are returned.
-func (r ApiGetPageRequest) EventType(eventType string) ApiGetPageRequest {
+func (r ApiGetEventsV3EventsGetPageRequest) EventType(eventType string) ApiGetEventsV3EventsGetPageRequest {
 	r.eventType = &eventType
 	return r
 }
 
-// An additional parameter that may be used to get the next &#x60;limit&#x60; set of results.
-func (r ApiGetPageRequest) After(after string) ApiGetPageRequest {
+func (r ApiGetEventsV3EventsGetPageRequest) OccurredAfter(occurredAfter time.Time) ApiGetEventsV3EventsGetPageRequest {
+	r.occurredAfter = &occurredAfter
+	return r
+}
+
+func (r ApiGetEventsV3EventsGetPageRequest) OccurredBefore(occurredBefore time.Time) ApiGetEventsV3EventsGetPageRequest {
+	r.occurredBefore = &occurredBefore
+	return r
+}
+
+func (r ApiGetEventsV3EventsGetPageRequest) ObjectId(objectId int64) ApiGetEventsV3EventsGetPageRequest {
+	r.objectId = &objectId
+	return r
+}
+
+func (r ApiGetEventsV3EventsGetPageRequest) IndexTableName(indexTableName string) ApiGetEventsV3EventsGetPageRequest {
+	r.indexTableName = &indexTableName
+	return r
+}
+
+func (r ApiGetEventsV3EventsGetPageRequest) IndexSpecificMetadata(indexSpecificMetadata string) ApiGetEventsV3EventsGetPageRequest {
+	r.indexSpecificMetadata = &indexSpecificMetadata
+	return r
+}
+
+// The paging cursor token of the last successfully read resource will be returned as the &#x60;paging.next.after&#x60; JSON property of a paged response containing more results.
+func (r ApiGetEventsV3EventsGetPageRequest) After(after string) ApiGetEventsV3EventsGetPageRequest {
 	r.after = &after
 	return r
 }
 
-func (r ApiGetPageRequest) Before(before string) ApiGetPageRequest {
+func (r ApiGetEventsV3EventsGetPageRequest) Before(before string) ApiGetEventsV3EventsGetPageRequest {
 	r.before = &before
 	return r
 }
 
-// The maximum number of events to return, defaults to 20.
-func (r ApiGetPageRequest) Limit(limit int32) ApiGetPageRequest {
+// The maximum number of results to display per page.
+func (r ApiGetEventsV3EventsGetPageRequest) Limit(limit int32) ApiGetEventsV3EventsGetPageRequest {
 	r.limit = &limit
 	return r
 }
 
-// Selects the sort field and order. Defaults to ascending, prefix with &#x60;-&#x60; for descending order. &#x60;occurredAt&#x60; is the only field supported for sorting.
-func (r ApiGetPageRequest) Sort(sort []string) ApiGetPageRequest {
+func (r ApiGetEventsV3EventsGetPageRequest) Sort(sort []string) ApiGetEventsV3EventsGetPageRequest {
 	r.sort = &sort
 	return r
 }
 
-func (r ApiGetPageRequest) Execute() (*CollectionResponseExternalUnifiedEvent, *http.Response, error) {
-	return r.ApiService.GetPageExecute(r)
+func (r ApiGetEventsV3EventsGetPageRequest) ObjectPropertyPropname(objectPropertyPropname map[string]interface{}) ApiGetEventsV3EventsGetPageRequest {
+	r.objectPropertyPropname = &objectPropertyPropname
+	return r
+}
+
+func (r ApiGetEventsV3EventsGetPageRequest) PropertyPropname(propertyPropname map[string]interface{}) ApiGetEventsV3EventsGetPageRequest {
+	r.propertyPropname = &propertyPropname
+	return r
+}
+
+func (r ApiGetEventsV3EventsGetPageRequest) Id(id []string) ApiGetEventsV3EventsGetPageRequest {
+	r.id = &id
+	return r
+}
+
+func (r ApiGetEventsV3EventsGetPageRequest) Execute() (*CollectionResponseExternalUnifiedEvent, *http.Response, error) {
+	return r.ApiService.GetEventsV3EventsGetPageExecute(r)
 }
 
 /*
-GetPage Returns a collection of events matching a query.
+GetEventsV3EventsGetPage Method for GetEventsV3EventsGetPage
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetPageRequest
+ @return ApiGetEventsV3EventsGetPageRequest
 */
-func (a *EventsApiService) GetPage(ctx context.Context) ApiGetPageRequest {
-	return ApiGetPageRequest{
+func (a *EventsApiService) GetEventsV3EventsGetPage(ctx context.Context) ApiGetEventsV3EventsGetPageRequest {
+	return ApiGetEventsV3EventsGetPageRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -109,7 +135,7 @@ func (a *EventsApiService) GetPage(ctx context.Context) ApiGetPageRequest {
 
 // Execute executes the request
 //  @return CollectionResponseExternalUnifiedEvent
-func (a *EventsApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionResponseExternalUnifiedEvent, *http.Response, error) {
+func (a *EventsApiService) GetEventsV3EventsGetPageExecute(r ApiGetEventsV3EventsGetPageRequest) (*CollectionResponseExternalUnifiedEvent, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -117,31 +143,37 @@ func (a *EventsApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionRespo
 		localVarReturnValue *CollectionResponseExternalUnifiedEvent
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventsApiService.GetPage")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventsApiService.GetEventsV3EventsGetPage")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/events/v3/events"
+	localVarPath := localBasePath + "/events/v3/events/"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.objectType != nil {
+		localVarQueryParams.Add("objectType", parameterToString(*r.objectType, ""))
+	}
+	if r.eventType != nil {
+		localVarQueryParams.Add("eventType", parameterToString(*r.eventType, ""))
+	}
 	if r.occurredAfter != nil {
 		localVarQueryParams.Add("occurredAfter", parameterToString(*r.occurredAfter, ""))
 	}
 	if r.occurredBefore != nil {
 		localVarQueryParams.Add("occurredBefore", parameterToString(*r.occurredBefore, ""))
 	}
-	if r.objectType != nil {
-		localVarQueryParams.Add("objectType", parameterToString(*r.objectType, ""))
-	}
 	if r.objectId != nil {
 		localVarQueryParams.Add("objectId", parameterToString(*r.objectId, ""))
 	}
-	if r.eventType != nil {
-		localVarQueryParams.Add("eventType", parameterToString(*r.eventType, ""))
+	if r.indexTableName != nil {
+		localVarQueryParams.Add("indexTableName", parameterToString(*r.indexTableName, ""))
+	}
+	if r.indexSpecificMetadata != nil {
+		localVarQueryParams.Add("indexSpecificMetadata", parameterToString(*r.indexSpecificMetadata, ""))
 	}
 	if r.after != nil {
 		localVarQueryParams.Add("after", parameterToString(*r.after, ""))
@@ -163,6 +195,23 @@ func (a *EventsApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionRespo
 			localVarQueryParams.Add("sort", parameterToString(t, "multi"))
 		}
 	}
+	if r.objectPropertyPropname != nil {
+		localVarQueryParams.Add("objectProperty.{propname}", parameterToString(*r.objectPropertyPropname, ""))
+	}
+	if r.propertyPropname != nil {
+		localVarQueryParams.Add("property.{propname}", parameterToString(*r.propertyPropname, ""))
+	}
+	if r.id != nil {
+		t := *r.id
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				localVarQueryParams.Add("id", parameterToString(s.Index(i), "multi"))
+			}
+		} else {
+			localVarQueryParams.Add("id", parameterToString(t, "multi"))
+		}
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -182,16 +231,12 @@ func (a *EventsApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionRespo
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["private_apps_legacy"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["private-app-legacy"] = key
-			}
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)

@@ -87,7 +87,8 @@ Class | Method | HTTP request | Description
 *BatchApi* | [**BatchCreate**](docs/BatchApi.md#batchcreate) | **Post** /crm/v3/objects/products/batch/create | Create a batch of products
 *BatchApi* | [**BatchRead**](docs/BatchApi.md#batchread) | **Post** /crm/v3/objects/products/batch/read | Read a batch of products by internal ID, or unique property values
 *BatchApi* | [**BatchUpdate**](docs/BatchApi.md#batchupdate) | **Post** /crm/v3/objects/products/batch/update | Update a batch of products
-*PublicObjectApi* | [**Merge**](docs/PublicObjectApi.md#merge) | **Post** /crm/v3/objects/products/merge | Merge two products with same type
+*GDPRApi* | [**PostCrmV3ObjectsProductsGdprDeletePurge**](docs/GDPRApi.md#postcrmv3objectsproductsgdprdeletepurge) | **Post** /crm/v3/objects/products/gdpr-delete | GDPR DELETE
+*PublicObjectApi* | [**PostCrmV3ObjectsProductsMerge**](docs/PublicObjectApi.md#postcrmv3objectsproductsmerge) | **Post** /crm/v3/objects/products/merge | Merge two products with same type
 *SearchApi* | [**Search**](docs/SearchApi.md#search) | **Post** /crm/v3/objects/products/search | 
 
 
@@ -113,6 +114,7 @@ Class | Method | HTTP request | Description
  - [Paging](docs/Paging.md)
  - [PreviousPage](docs/PreviousPage.md)
  - [PublicAssociationsForObject](docs/PublicAssociationsForObject.md)
+ - [PublicGdprDeleteInput](docs/PublicGdprDeleteInput.md)
  - [PublicMergeInput](docs/PublicMergeInput.md)
  - [PublicObjectId](docs/PublicObjectId.md)
  - [PublicObjectSearchRequest](docs/PublicObjectSearchRequest.md)
@@ -130,14 +132,23 @@ Class | Method | HTTP request | Description
 
 
 
-### oauth2_legacy
+### oauth2
 
 
 - **Type**: OAuth
 - **Flow**: accessCode
 - **Authorization URL**: https://app.hubspot.com/oauth/authorize
 - **Scopes**: 
- - **e-commerce**: e-commerce
+ - **crm.objects.line_items.read**: Line Items
+ - **crm.objects.deals.read**:  
+ - **crm.objects.quotes.write**: Quotes
+ - **crm.objects.contacts.read**:  
+ - **crm.objects.contacts.write**:  
+ - **crm.objects.companies.write**:  
+ - **crm.objects.companies.read**:  
+ - **crm.objects.line_items.write**: Line Items
+ - **crm.objects.quotes.read**: Quotes
+ - **crm.objects.deals.write**:  
 
 Example
 
@@ -157,6 +168,49 @@ tokenSource := oauth2cfg.TokenSource(createContext(httpClient), &token)
 auth := context.WithValue(oauth2.NoContext, sw.ContextOAuth2, tokenSource)
 r, err := client.Service.Operation(auth, args)
 ```
+
+
+### oauth2_legacy
+
+
+- **Type**: OAuth
+- **Flow**: accessCode
+- **Authorization URL**: https://app.hubspot.com/oauth/authorize
+- **Scopes**: 
+ - **crm.objects.goals.read**: Read goals
+ - **media_bridge.read**: Read media and media events
+ - **crm.objects.custom.write**: Change custom object records
+ - **e-commerce**: e-commerce
+ - **crm.objects.custom.read**: View custom object records
+ - **tickets**: Read and write tickets
+
+Example
+
+```golang
+auth := context.WithValue(context.Background(), sw.ContextAccessToken, "ACCESSTOKENSTRING")
+r, err := client.Service.Operation(auth, args)
+```
+
+Or via OAuth2 module to automatically refresh tokens and perform user authentication.
+
+```golang
+import "golang.org/x/oauth2"
+
+/* Perform OAuth2 round trip request and obtain a token */
+
+tokenSource := oauth2cfg.TokenSource(createContext(httpClient), &token)
+auth := context.WithValue(oauth2.NoContext, sw.ContextOAuth2, tokenSource)
+r, err := client.Service.Operation(auth, args)
+```
+
+
+### private_apps
+
+- **Type**: API key
+- **API key parameter name**: private-app
+- **Location**: HTTP header
+
+Note, each API key must be added to a map of `map[string]APIKey` where the key is: private-app and passed in as the auth context for each request.
 
 
 ### private_apps_legacy

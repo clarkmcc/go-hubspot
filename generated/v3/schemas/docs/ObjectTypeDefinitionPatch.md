@@ -4,12 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Labels** | Pointer to [**ObjectTypeDefinitionLabels**](ObjectTypeDefinitionLabels.md) |  | [optional] 
+**SecondaryDisplayProperties** | Pointer to **[]string** | The names of secondary properties for this object. These will be displayed as secondary on the HubSpot record page for this object type. | [optional] 
 **RequiredProperties** | Pointer to **[]string** | The names of properties that should be **required** when creating an object of this type. | [optional] 
 **SearchableProperties** | Pointer to **[]string** | Names of properties that will be indexed for this object type in by HubSpot&#39;s product search. | [optional] 
 **PrimaryDisplayProperty** | Pointer to **string** | The name of the primary property for this object. This will be displayed as primary on the HubSpot record page for this object type. | [optional] 
-**SecondaryDisplayProperties** | Pointer to **[]string** | The names of secondary properties for this object. These will be displayed as secondary on the HubSpot record page for this object type. | [optional] 
+**Description** | Pointer to **string** |  | [optional] 
 **Restorable** | Pointer to **bool** |  | [optional] 
+**Labels** | Pointer to [**ObjectTypeDefinitionLabels**](ObjectTypeDefinitionLabels.md) |  | [optional] 
 
 ## Methods
 
@@ -30,30 +31,30 @@ NewObjectTypeDefinitionPatchWithDefaults instantiates a new ObjectTypeDefinition
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetLabels
+### GetSecondaryDisplayProperties
 
-`func (o *ObjectTypeDefinitionPatch) GetLabels() ObjectTypeDefinitionLabels`
+`func (o *ObjectTypeDefinitionPatch) GetSecondaryDisplayProperties() []string`
 
-GetLabels returns the Labels field if non-nil, zero value otherwise.
+GetSecondaryDisplayProperties returns the SecondaryDisplayProperties field if non-nil, zero value otherwise.
 
-### GetLabelsOk
+### GetSecondaryDisplayPropertiesOk
 
-`func (o *ObjectTypeDefinitionPatch) GetLabelsOk() (*ObjectTypeDefinitionLabels, bool)`
+`func (o *ObjectTypeDefinitionPatch) GetSecondaryDisplayPropertiesOk() (*[]string, bool)`
 
-GetLabelsOk returns a tuple with the Labels field if it's non-nil, zero value otherwise
+GetSecondaryDisplayPropertiesOk returns a tuple with the SecondaryDisplayProperties field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetLabels
+### SetSecondaryDisplayProperties
 
-`func (o *ObjectTypeDefinitionPatch) SetLabels(v ObjectTypeDefinitionLabels)`
+`func (o *ObjectTypeDefinitionPatch) SetSecondaryDisplayProperties(v []string)`
 
-SetLabels sets Labels field to given value.
+SetSecondaryDisplayProperties sets SecondaryDisplayProperties field to given value.
 
-### HasLabels
+### HasSecondaryDisplayProperties
 
-`func (o *ObjectTypeDefinitionPatch) HasLabels() bool`
+`func (o *ObjectTypeDefinitionPatch) HasSecondaryDisplayProperties() bool`
 
-HasLabels returns a boolean if a field has been set.
+HasSecondaryDisplayProperties returns a boolean if a field has been set.
 
 ### GetRequiredProperties
 
@@ -130,30 +131,30 @@ SetPrimaryDisplayProperty sets PrimaryDisplayProperty field to given value.
 
 HasPrimaryDisplayProperty returns a boolean if a field has been set.
 
-### GetSecondaryDisplayProperties
+### GetDescription
 
-`func (o *ObjectTypeDefinitionPatch) GetSecondaryDisplayProperties() []string`
+`func (o *ObjectTypeDefinitionPatch) GetDescription() string`
 
-GetSecondaryDisplayProperties returns the SecondaryDisplayProperties field if non-nil, zero value otherwise.
+GetDescription returns the Description field if non-nil, zero value otherwise.
 
-### GetSecondaryDisplayPropertiesOk
+### GetDescriptionOk
 
-`func (o *ObjectTypeDefinitionPatch) GetSecondaryDisplayPropertiesOk() (*[]string, bool)`
+`func (o *ObjectTypeDefinitionPatch) GetDescriptionOk() (*string, bool)`
 
-GetSecondaryDisplayPropertiesOk returns a tuple with the SecondaryDisplayProperties field if it's non-nil, zero value otherwise
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetSecondaryDisplayProperties
+### SetDescription
 
-`func (o *ObjectTypeDefinitionPatch) SetSecondaryDisplayProperties(v []string)`
+`func (o *ObjectTypeDefinitionPatch) SetDescription(v string)`
 
-SetSecondaryDisplayProperties sets SecondaryDisplayProperties field to given value.
+SetDescription sets Description field to given value.
 
-### HasSecondaryDisplayProperties
+### HasDescription
 
-`func (o *ObjectTypeDefinitionPatch) HasSecondaryDisplayProperties() bool`
+`func (o *ObjectTypeDefinitionPatch) HasDescription() bool`
 
-HasSecondaryDisplayProperties returns a boolean if a field has been set.
+HasDescription returns a boolean if a field has been set.
 
 ### GetRestorable
 
@@ -179,6 +180,31 @@ SetRestorable sets Restorable field to given value.
 `func (o *ObjectTypeDefinitionPatch) HasRestorable() bool`
 
 HasRestorable returns a boolean if a field has been set.
+
+### GetLabels
+
+`func (o *ObjectTypeDefinitionPatch) GetLabels() ObjectTypeDefinitionLabels`
+
+GetLabels returns the Labels field if non-nil, zero value otherwise.
+
+### GetLabelsOk
+
+`func (o *ObjectTypeDefinitionPatch) GetLabelsOk() (*ObjectTypeDefinitionLabels, bool)`
+
+GetLabelsOk returns a tuple with the Labels field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLabels
+
+`func (o *ObjectTypeDefinitionPatch) SetLabels(v ObjectTypeDefinitionLabels)`
+
+SetLabels sets Labels field to given value.
+
+### HasLabels
+
+`func (o *ObjectTypeDefinitionPatch) HasLabels() bool`
+
+HasLabels returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

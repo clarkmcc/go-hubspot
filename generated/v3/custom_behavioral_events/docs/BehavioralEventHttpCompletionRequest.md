@@ -4,18 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Utk** | Pointer to **string** | User token | [optional] 
-**Email** | Pointer to **string** | Email of visitor | [optional] 
-**EventName** | **string** | Internal name of the event-type to trigger | 
-**Properties** | **map[string]string** | Map of properties for the event in the format property internal name - property value | 
 **OccurredAt** | Pointer to **time.Time** | The time when this event occurred (if any). If this isn&#39;t set, the current time will be used | [optional] 
+**EventName** | **string** | Internal name of the event-type to trigger | 
+**Utk** | Pointer to **string** | User token | [optional] 
+**Uuid** | Pointer to **string** |  | [optional] 
+**Email** | Pointer to **string** | Email of visitor | [optional] 
+**Properties** | Pointer to **map[string]string** | Map of properties for the event in the format property internal name - property value | [optional] 
 **ObjectId** | Pointer to **string** | The object id that this event occurred on. Could be a contact id or a visitor id. | [optional] 
 
 ## Methods
 
 ### NewBehavioralEventHttpCompletionRequest
 
-`func NewBehavioralEventHttpCompletionRequest(eventName string, properties map[string]string, ) *BehavioralEventHttpCompletionRequest`
+`func NewBehavioralEventHttpCompletionRequest(eventName string, ) *BehavioralEventHttpCompletionRequest`
 
 NewBehavioralEventHttpCompletionRequest instantiates a new BehavioralEventHttpCompletionRequest object
 This constructor will assign default values to properties that have it defined,
@@ -29,6 +30,51 @@ will change when the set of required properties is changed
 NewBehavioralEventHttpCompletionRequestWithDefaults instantiates a new BehavioralEventHttpCompletionRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetOccurredAt
+
+`func (o *BehavioralEventHttpCompletionRequest) GetOccurredAt() time.Time`
+
+GetOccurredAt returns the OccurredAt field if non-nil, zero value otherwise.
+
+### GetOccurredAtOk
+
+`func (o *BehavioralEventHttpCompletionRequest) GetOccurredAtOk() (*time.Time, bool)`
+
+GetOccurredAtOk returns a tuple with the OccurredAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOccurredAt
+
+`func (o *BehavioralEventHttpCompletionRequest) SetOccurredAt(v time.Time)`
+
+SetOccurredAt sets OccurredAt field to given value.
+
+### HasOccurredAt
+
+`func (o *BehavioralEventHttpCompletionRequest) HasOccurredAt() bool`
+
+HasOccurredAt returns a boolean if a field has been set.
+
+### GetEventName
+
+`func (o *BehavioralEventHttpCompletionRequest) GetEventName() string`
+
+GetEventName returns the EventName field if non-nil, zero value otherwise.
+
+### GetEventNameOk
+
+`func (o *BehavioralEventHttpCompletionRequest) GetEventNameOk() (*string, bool)`
+
+GetEventNameOk returns a tuple with the EventName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEventName
+
+`func (o *BehavioralEventHttpCompletionRequest) SetEventName(v string)`
+
+SetEventName sets EventName field to given value.
+
 
 ### GetUtk
 
@@ -55,6 +101,31 @@ SetUtk sets Utk field to given value.
 
 HasUtk returns a boolean if a field has been set.
 
+### GetUuid
+
+`func (o *BehavioralEventHttpCompletionRequest) GetUuid() string`
+
+GetUuid returns the Uuid field if non-nil, zero value otherwise.
+
+### GetUuidOk
+
+`func (o *BehavioralEventHttpCompletionRequest) GetUuidOk() (*string, bool)`
+
+GetUuidOk returns a tuple with the Uuid field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUuid
+
+`func (o *BehavioralEventHttpCompletionRequest) SetUuid(v string)`
+
+SetUuid sets Uuid field to given value.
+
+### HasUuid
+
+`func (o *BehavioralEventHttpCompletionRequest) HasUuid() bool`
+
+HasUuid returns a boolean if a field has been set.
+
 ### GetEmail
 
 `func (o *BehavioralEventHttpCompletionRequest) GetEmail() string`
@@ -80,26 +151,6 @@ SetEmail sets Email field to given value.
 
 HasEmail returns a boolean if a field has been set.
 
-### GetEventName
-
-`func (o *BehavioralEventHttpCompletionRequest) GetEventName() string`
-
-GetEventName returns the EventName field if non-nil, zero value otherwise.
-
-### GetEventNameOk
-
-`func (o *BehavioralEventHttpCompletionRequest) GetEventNameOk() (*string, bool)`
-
-GetEventNameOk returns a tuple with the EventName field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetEventName
-
-`func (o *BehavioralEventHttpCompletionRequest) SetEventName(v string)`
-
-SetEventName sets EventName field to given value.
-
-
 ### GetProperties
 
 `func (o *BehavioralEventHttpCompletionRequest) GetProperties() map[string]string`
@@ -119,31 +170,11 @@ and a boolean to check if the value has been set.
 
 SetProperties sets Properties field to given value.
 
+### HasProperties
 
-### GetOccurredAt
+`func (o *BehavioralEventHttpCompletionRequest) HasProperties() bool`
 
-`func (o *BehavioralEventHttpCompletionRequest) GetOccurredAt() time.Time`
-
-GetOccurredAt returns the OccurredAt field if non-nil, zero value otherwise.
-
-### GetOccurredAtOk
-
-`func (o *BehavioralEventHttpCompletionRequest) GetOccurredAtOk() (*time.Time, bool)`
-
-GetOccurredAtOk returns a tuple with the OccurredAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetOccurredAt
-
-`func (o *BehavioralEventHttpCompletionRequest) SetOccurredAt(v time.Time)`
-
-SetOccurredAt sets OccurredAt field to given value.
-
-### HasOccurredAt
-
-`func (o *BehavioralEventHttpCompletionRequest) HasOccurredAt() bool`
-
-HasOccurredAt returns a boolean if a field has been set.
+HasProperties returns a boolean if a field has been set.
 
 ### GetObjectId
 

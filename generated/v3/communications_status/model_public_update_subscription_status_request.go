@@ -18,10 +18,10 @@ import (
 type PublicUpdateSubscriptionStatusRequest struct {
 	// Contact's email address.
 	EmailAddress string `json:"emailAddress"`
-	// ID of the subscription being updated for the contact.
-	SubscriptionId string `json:"subscriptionId"`
 	// Legal basis for updating the contact's status (required for GDPR enabled portals).
 	LegalBasis *string `json:"legalBasis,omitempty"`
+	// ID of the subscription being updated for the contact.
+	SubscriptionId string `json:"subscriptionId"`
 	// A more detailed explanation to go with the legal basis (required for GDPR enabled portals).
 	LegalBasisExplanation *string `json:"legalBasisExplanation,omitempty"`
 }
@@ -69,30 +69,6 @@ func (o *PublicUpdateSubscriptionStatusRequest) SetEmailAddress(v string) {
 	o.EmailAddress = v
 }
 
-// GetSubscriptionId returns the SubscriptionId field value
-func (o *PublicUpdateSubscriptionStatusRequest) GetSubscriptionId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.SubscriptionId
-}
-
-// GetSubscriptionIdOk returns a tuple with the SubscriptionId field value
-// and a boolean to check if the value has been set.
-func (o *PublicUpdateSubscriptionStatusRequest) GetSubscriptionIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.SubscriptionId, true
-}
-
-// SetSubscriptionId sets field value
-func (o *PublicUpdateSubscriptionStatusRequest) SetSubscriptionId(v string) {
-	o.SubscriptionId = v
-}
-
 // GetLegalBasis returns the LegalBasis field value if set, zero value otherwise.
 func (o *PublicUpdateSubscriptionStatusRequest) GetLegalBasis() string {
 	if o == nil || o.LegalBasis == nil {
@@ -123,6 +99,30 @@ func (o *PublicUpdateSubscriptionStatusRequest) HasLegalBasis() bool {
 // SetLegalBasis gets a reference to the given string and assigns it to the LegalBasis field.
 func (o *PublicUpdateSubscriptionStatusRequest) SetLegalBasis(v string) {
 	o.LegalBasis = &v
+}
+
+// GetSubscriptionId returns the SubscriptionId field value
+func (o *PublicUpdateSubscriptionStatusRequest) GetSubscriptionId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.SubscriptionId
+}
+
+// GetSubscriptionIdOk returns a tuple with the SubscriptionId field value
+// and a boolean to check if the value has been set.
+func (o *PublicUpdateSubscriptionStatusRequest) GetSubscriptionIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.SubscriptionId, true
+}
+
+// SetSubscriptionId sets field value
+func (o *PublicUpdateSubscriptionStatusRequest) SetSubscriptionId(v string) {
+	o.SubscriptionId = v
 }
 
 // GetLegalBasisExplanation returns the LegalBasisExplanation field value if set, zero value otherwise.
@@ -162,11 +162,11 @@ func (o PublicUpdateSubscriptionStatusRequest) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["emailAddress"] = o.EmailAddress
 	}
-	if true {
-		toSerialize["subscriptionId"] = o.SubscriptionId
-	}
 	if o.LegalBasis != nil {
 		toSerialize["legalBasis"] = o.LegalBasis
+	}
+	if true {
+		toSerialize["subscriptionId"] = o.SubscriptionId
 	}
 	if o.LegalBasisExplanation != nil {
 		toSerialize["legalBasisExplanation"] = o.LegalBasisExplanation

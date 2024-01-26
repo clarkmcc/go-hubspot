@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** | The template name. | 
-**HeaderTemplate** | Pointer to **string** | This uses Markdown syntax with Handlebars and event-specific data to render HTML on a timeline as a header. | [optional] 
+**CreatedAt** | Pointer to **time.Time** | The date and time that the Event Template was created, as an ISO 8601 timestamp. Will be null if the template was created before Feb 18th, 2020. | [optional] 
 **DetailTemplate** | Pointer to **string** | This uses Markdown syntax with Handlebars and event-specific data to render HTML on a timeline when you expand the details. | [optional] 
+**Name** | **string** | The template name. | 
 **Tokens** | [**[]TimelineEventTemplateToken**](TimelineEventTemplateToken.md) | A collection of tokens that can be used as custom properties on the event and to create fully fledged CRM objects. | 
 **Id** | **string** | The template ID. | 
+**HeaderTemplate** | Pointer to **string** | This uses Markdown syntax with Handlebars and event-specific data to render HTML on a timeline as a header. | [optional] 
 **ObjectType** | **string** | The type of CRM object this template is for. [Contacts, companies, tickets, and deals] are supported. | 
-**CreatedAt** | Pointer to **time.Time** | The date and time that the Event Template was created, as an ISO 8601 timestamp. Will be null if the template was created before Feb 18th, 2020. | [optional] 
 **UpdatedAt** | Pointer to **time.Time** | The date and time that the Event Template was last updated, as an ISO 8601 timestamp. Will be null if the template was created before Feb 18th, 2020. | [optional] 
 
 ## Methods
@@ -32,50 +32,30 @@ NewTimelineEventTemplateWithDefaults instantiates a new TimelineEventTemplate ob
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetName
+### GetCreatedAt
 
-`func (o *TimelineEventTemplate) GetName() string`
+`func (o *TimelineEventTemplate) GetCreatedAt() time.Time`
 
-GetName returns the Name field if non-nil, zero value otherwise.
+GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
-### GetNameOk
+### GetCreatedAtOk
 
-`func (o *TimelineEventTemplate) GetNameOk() (*string, bool)`
+`func (o *TimelineEventTemplate) GetCreatedAtOk() (*time.Time, bool)`
 
-GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetName
+### SetCreatedAt
 
-`func (o *TimelineEventTemplate) SetName(v string)`
+`func (o *TimelineEventTemplate) SetCreatedAt(v time.Time)`
 
-SetName sets Name field to given value.
+SetCreatedAt sets CreatedAt field to given value.
 
+### HasCreatedAt
 
-### GetHeaderTemplate
+`func (o *TimelineEventTemplate) HasCreatedAt() bool`
 
-`func (o *TimelineEventTemplate) GetHeaderTemplate() string`
-
-GetHeaderTemplate returns the HeaderTemplate field if non-nil, zero value otherwise.
-
-### GetHeaderTemplateOk
-
-`func (o *TimelineEventTemplate) GetHeaderTemplateOk() (*string, bool)`
-
-GetHeaderTemplateOk returns a tuple with the HeaderTemplate field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetHeaderTemplate
-
-`func (o *TimelineEventTemplate) SetHeaderTemplate(v string)`
-
-SetHeaderTemplate sets HeaderTemplate field to given value.
-
-### HasHeaderTemplate
-
-`func (o *TimelineEventTemplate) HasHeaderTemplate() bool`
-
-HasHeaderTemplate returns a boolean if a field has been set.
+HasCreatedAt returns a boolean if a field has been set.
 
 ### GetDetailTemplate
 
@@ -101,6 +81,26 @@ SetDetailTemplate sets DetailTemplate field to given value.
 `func (o *TimelineEventTemplate) HasDetailTemplate() bool`
 
 HasDetailTemplate returns a boolean if a field has been set.
+
+### GetName
+
+`func (o *TimelineEventTemplate) GetName() string`
+
+GetName returns the Name field if non-nil, zero value otherwise.
+
+### GetNameOk
+
+`func (o *TimelineEventTemplate) GetNameOk() (*string, bool)`
+
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetName
+
+`func (o *TimelineEventTemplate) SetName(v string)`
+
+SetName sets Name field to given value.
+
 
 ### GetTokens
 
@@ -142,6 +142,31 @@ and a boolean to check if the value has been set.
 SetId sets Id field to given value.
 
 
+### GetHeaderTemplate
+
+`func (o *TimelineEventTemplate) GetHeaderTemplate() string`
+
+GetHeaderTemplate returns the HeaderTemplate field if non-nil, zero value otherwise.
+
+### GetHeaderTemplateOk
+
+`func (o *TimelineEventTemplate) GetHeaderTemplateOk() (*string, bool)`
+
+GetHeaderTemplateOk returns a tuple with the HeaderTemplate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHeaderTemplate
+
+`func (o *TimelineEventTemplate) SetHeaderTemplate(v string)`
+
+SetHeaderTemplate sets HeaderTemplate field to given value.
+
+### HasHeaderTemplate
+
+`func (o *TimelineEventTemplate) HasHeaderTemplate() bool`
+
+HasHeaderTemplate returns a boolean if a field has been set.
+
 ### GetObjectType
 
 `func (o *TimelineEventTemplate) GetObjectType() string`
@@ -161,31 +186,6 @@ and a boolean to check if the value has been set.
 
 SetObjectType sets ObjectType field to given value.
 
-
-### GetCreatedAt
-
-`func (o *TimelineEventTemplate) GetCreatedAt() time.Time`
-
-GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
-
-### GetCreatedAtOk
-
-`func (o *TimelineEventTemplate) GetCreatedAtOk() (*time.Time, bool)`
-
-GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCreatedAt
-
-`func (o *TimelineEventTemplate) SetCreatedAt(v time.Time)`
-
-SetCreatedAt sets CreatedAt field to given value.
-
-### HasCreatedAt
-
-`func (o *TimelineEventTemplate) HasCreatedAt() bool`
-
-HasCreatedAt returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 

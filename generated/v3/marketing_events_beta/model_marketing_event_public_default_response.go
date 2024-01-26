@@ -1,5 +1,5 @@
 /*
-Marketing Events Extension
+Marketing Events
 
 These APIs allow you to interact with HubSpot's Marketing Events Extension. It allows you to: * Create, Read or update Marketing Event information in HubSpot * Specify whether a HubSpot contact has registered, attended or cancelled a registration to a Marketing Event. * Specify a URL that can be called to get the details of a Marketing Event.
 
@@ -17,6 +17,7 @@ import (
 
 // MarketingEventPublicDefaultResponse struct for MarketingEventPublicDefaultResponse
 type MarketingEventPublicDefaultResponse struct {
+	//
 	CreatedAt time.Time `json:"createdAt"`
 	// The start date and time of the marketing event.
 	StartDateTime *time.Time `json:"startDateTime,omitempty"`
@@ -34,10 +35,12 @@ type MarketingEventPublicDefaultResponse struct {
 	EventName string `json:"eventName"`
 	// The type of the marketing event.
 	EventType *string `json:"eventType,omitempty"`
-	Id        string  `json:"id"`
+	//
+	Id string `json:"id"`
 	// The end date and time of the marketing event.
 	EndDateTime *time.Time `json:"endDateTime,omitempty"`
-	UpdatedAt   time.Time  `json:"updatedAt"`
+	//
+	UpdatedAt time.Time `json:"updatedAt"`
 }
 
 // NewMarketingEventPublicDefaultResponse instantiates a new MarketingEventPublicDefaultResponse object

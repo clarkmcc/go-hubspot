@@ -5,56 +5,76 @@ info:
     \ pertaining to a specific topic, brand, or an entire HubSpot account."
   title: Subscriptions
   version: v3
+  x-hubspot-product-tier-requirements:
+    marketing: FREE
+  x-hubspot-documentation-banner: NONE
+  x-hubspot-api-use-case: You want to ensure a contact's opt-in status is updated
+    if they opted out of communications from your business via a service external
+    to HubSpot.
+  x-hubspot-related-documentation:
+  - name: Subscription Preferences Guide
+    url: https://hubspot.dev/guides/api/marketing-api/subscriptions-preferences
+  x-hubspot-introduction: Use the subscription preferences API to retrieve subscription
+    data for a contact or opt a contact in or out of a specific subscription type.
 servers:
-- url: https://api.hubapi.com/
+- url: https://api.hubapi.com
 tags:
-- description: Whether a contact has subscribed or unsubscribed from a given subscription
-    type.
+- description: ""
   name: Status
-- description: The different subscription types that are defined in a portal.
+  x-hubspot-tag-name-english-source: Status
+- description: ""
   name: Definition
+  x-hubspot-tag-name-english-source: Definition
 paths:
-  /communication-preferences/v3/definitions:
-    get:
-      description: Get a list of all subscription definitions for the portal
-      operationId: GetPage
+  /communication-preferences/v3/subscribe:
+    post:
+      description: Subscribes a contact to the given subscription type. This API is
+        not valid to use for subscribing a contact at a brand or portal level and
+        will return an error.
+      operationId: Subscribe
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicUpdateSubscriptionStatusRequest'
+        required: true
       responses:
         "200":
           content:
             application/json:
               example:
-                subscriptionDefinitions:
-                - id: "1805677"
-                  name: Default HubSpot Blog Subscription
-                  description: Receive timely updates with the latest blog posts.
-                  isActive: true
-                  isDefault: false
-                  isInternal: false
-                  createdAt: 2019-08-05T13:01:15.875Z
-                  updatedAt: 2019-08-05T13:01:15.875Z
-                - id: "1805669"
-                  name: Customer Service Communication
-                  description: Receive feedback requests and customer service information.
-                  purpose: Service
-                  communicationMethod: Email
-                  isActive: true
-                  isDefault: true
-                  isInternal: true
-                  createdAt: 2019-08-05T13:01:15.875Z
-                  updatedAt: 2019-08-05T13:01:15.875Z
-                - id: "1805670"
-                  name: One to One
-                  description: One to One emails
-                  purpose: Sales
-                  communicationMethod: Email
-                  isActive: true
-                  isDefault: true
-                  isInternal: true
-                  createdAt: 2019-08-05T13:01:15.875Z
-                  updatedAt: 2019-08-05T13:01:15.875Z
+                id: "7148714"
+                name: Default HubSpot Blog Subscription
+                description: Receive timely updates with the latest blog posts.
+                status: SUBSCRIBED
+                sourceOfStatus: SUBSCRIPTION_STATUS
+                preferenceGroupName: Initial Group
+                legalBasis: CONSENT_WITH_NOTICE
+                legalBasisExplanation: "At users request, we opted them in"
               schema:
-                $ref: '#/components/schemas/SubscriptionDefinitionsResponse'
+                $ref: '#/components/schemas/PublicSubscriptionStatus'
           description: successful operation
+        "400":
+          content:
+            application/json:
+              example:
+                status: error
+                message: subscription 7148712 for example@example.com cannot be updated
+                  because they have unsubscribed
+                correlationId: af3df921-1418-4b18-b6f4-35ca117728ae
+                category: VALIDATION_ERROR
+                requestId: 3b0e0c44-fd57-4714-a3c9-42f6fead33c8
+        "404":
+          content:
+            application/json:
+              example:
+                status: error
+                message: example@example.com either has no subscriptions associated
+                  with this portal or does not exist
+                correlationId: af3df921-1418-4b18-b6f4-35ca117728ae
+                category: OBJECT_NOT_FOUND
+                requestId: 3b0e0c44-fd57-4714-a3c9-42f6fead33c8
         default:
           content:
             '*/*':
@@ -62,17 +82,17 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - private_apps_legacy:
-        - communication_preferences.read
+      - oauth2_legacy:
+        - communication_preferences.write
       - oauth2_legacy:
         - communication_preferences.read_write
       - private_apps_legacy:
+        - communication_preferences.write
+      - private_apps_legacy:
         - communication_preferences.read_write
-      - oauth2_legacy:
-        - communication_preferences.read
-      summary: Get subscription definitions
+      summary: Subscribe a contact
       tags:
-      - Definition
+      - Status
   /communication-preferences/v3/status/email/{emailAddress}:
     get:
       description: Returns a list of subscriptions and their status for a given contact.
@@ -128,58 +148,13 @@ paths:
       summary: Get subscription statuses for a contact
       tags:
       - Status
-  /communication-preferences/v3/subscribe:
-    post:
-      description: Subscribes a contact to the given subscription type. This API is
-        not valid to use for subscribing a contact at a brand or portal level and
-        will return an error.
-      operationId: Subscribe
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PublicUpdateSubscriptionStatusRequest'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              example:
-                id: "7148714"
-                name: Default HubSpot Blog Subscription
-                description: Receive timely updates with the latest blog posts.
-                status: SUBSCRIBED
-                sourceOfStatus: SUBSCRIPTION_STATUS
-                preferenceGroupName: Initial Group
-                legalBasis: CONSENT_WITH_NOTICE
-                legalBasisExplanation: "At users request, we opted them in"
-              schema:
-                $ref: '#/components/schemas/PublicSubscriptionStatus'
-          description: successful operation
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - oauth2_legacy:
-        - communication_preferences.write
-      - oauth2_legacy:
-        - communication_preferences.read_write
-      - private_apps_legacy:
-        - communication_preferences.write
-      - private_apps_legacy:
-        - communication_preferences.read_write
-      summary: Subscribe a contact
-      tags:
-      - Status
   /communication-preferences/v3/unsubscribe:
     post:
       description: Unsubscribes a contact from the given subscription type. This API
         is not valid to use for unsubscribing a contact at a brand or portal level
         and will return an error.
       operationId: Unsubscribe
+      parameters: []
       requestBody:
         content:
           application/json:
@@ -202,6 +177,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/PublicSubscriptionStatus'
           description: successful operation
+        "400":
+          content:
+            application/json:
+              example:
+                status: error
+                message: example@example.com is already unsubscribed to subscription
+                  7148712
+                correlationId: af3df921-1418-4b18-b6f4-35ca117728ae
+                category: VALIDATION_ERROR
+                requestId: 3b0e0c44-fd57-4714-a3c9-42f6fead33c8
+        "404":
+          content:
+            application/json:
+              example:
+                status: error
+                message: example@example.com either has no subscriptions associated
+                  with this portal or does not exist
+                correlationId: af3df921-1418-4b18-b6f4-35ca117728ae
+                category: OBJECT_NOT_FOUND
+                requestId: 3b0e0c44-fd57-4714-a3c9-42f6fead33c8
         default:
           content:
             '*/*':
@@ -220,6 +215,66 @@ paths:
       summary: Unsubscribe a contact
       tags:
       - Status
+  /communication-preferences/v3/definitions:
+    get:
+      description: Get a list of all subscription definitions for the portal
+      operationId: GetPage
+      parameters: []
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                subscriptionDefinitions:
+                - id: "1805677"
+                  name: Default HubSpot Blog Subscription
+                  description: Receive timely updates with the latest blog posts.
+                  isActive: true
+                  isDefault: false
+                  isInternal: false
+                  createdAt: 2019-08-05T13:01:15.875Z
+                  updatedAt: 2019-08-05T13:01:15.875Z
+                - id: "1805669"
+                  name: Customer Service Communication
+                  description: Receive feedback requests and customer service information.
+                  purpose: Service
+                  communicationMethod: Email
+                  isActive: true
+                  isDefault: true
+                  isInternal: true
+                  createdAt: 2019-08-05T13:01:15.875Z
+                  updatedAt: 2019-08-05T13:01:15.875Z
+                - id: "1805670"
+                  name: One to One
+                  description: One to One emails
+                  purpose: Sales
+                  communicationMethod: Email
+                  isActive: true
+                  isDefault: true
+                  isInternal: true
+                  createdAt: 2019-08-05T13:01:15.875Z
+                  updatedAt: 2019-08-05T13:01:15.875Z
+              schema:
+                $ref: '#/components/schemas/SubscriptionDefinitionsResponse'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - private_apps_legacy:
+        - communication_preferences.read
+      - oauth2_legacy:
+        - communication_preferences.read_write
+      - private_apps_legacy:
+        - communication_preferences.read_write
+      - oauth2_legacy:
+        - communication_preferences.read
+      summary: Get subscription definitions
+      tags:
+      - Definition
 components:
   responses:
     Error:
@@ -231,19 +286,15 @@ components:
   schemas:
     ErrorDetail:
       properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          type: string
-        in:
-          description: The name of the field or parameter in which the error was found.
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
           type: string
         code:
           description: The status code associated with the error detail
           type: string
-        subCategory:
-          description: A specific category that contains more specific detail about
-            the error
+        in:
+          description: The name of the field or parameter in which the error was found.
           type: string
         context:
           additionalProperties:
@@ -256,6 +307,10 @@ components:
             - scope1
             - scope2
           type: object
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          type: string
       required:
       - message
       type: object
@@ -270,9 +325,6 @@ components:
         emailAddress:
           description: Contact's email address.
           type: string
-        subscriptionId:
-          description: ID of the subscription being updated for the contact.
-          type: string
         legalBasis:
           description: Legal basis for updating the contact's status (required for
             GDPR enabled portals).
@@ -284,6 +336,9 @@ components:
           - NON_GDPR
           - PROCESS_AND_STORE
           - LEGITIMATE_INTEREST_OTHER
+          type: string
+        subscriptionId:
+          description: ID of the subscription being updated for the contact.
           type: string
         legalBasisExplanation:
           description: A more detailed explanation to go with the legal basis (required
@@ -375,28 +430,6 @@ components:
         isActive: true
         updatedAt: 2000-01-23T04:56:07.000+00:00
       properties:
-        id:
-          description: The ID of the definition.
-          type: string
-        name:
-          description: The name of the subscription.
-          type: string
-        description:
-          description: A description of the subscription.
-          type: string
-        purpose:
-          description: The purpose of this subscription or the department in your
-            organization that uses it.
-          type: string
-        communicationMethod:
-          description: The method or technology used to contact.
-          type: string
-        isActive:
-          description: Whether the definition is active or archived.
-          type: boolean
-        isDefault:
-          description: A subscription definition created by HubSpot.
-          type: boolean
         isInternal:
           description: A default description that is used by some HubSpot tools and
             cannot be edited.
@@ -405,6 +438,28 @@ components:
           description: Time at which the definition was created.
           format: date-time
           type: string
+        isDefault:
+          description: A subscription definition created by HubSpot.
+          type: boolean
+        communicationMethod:
+          description: The method or technology used to contact.
+          type: string
+        purpose:
+          description: The purpose of this subscription or the department in your
+            organization that uses it.
+          type: string
+        name:
+          description: The name of the subscription.
+          type: string
+        description:
+          description: A description of the subscription.
+          type: string
+        id:
+          description: The ID of the definition.
+          type: string
+        isActive:
+          description: Whether the definition is active or archived.
+          type: boolean
         updatedAt:
           description: Time at which the definition was last updated.
           format: date-time
@@ -432,14 +487,37 @@ components:
         status: SUBSCRIBED
         sourceOfStatus: PORTAL_WIDE_STATUS
       properties:
-        id:
-          description: The ID for the subscription.
-          type: string
+        brandId:
+          description: "The ID of the brand that the subscription is associated with,\
+            \ if there is one."
+          format: int64
+          type: integer
         name:
           description: The name of the subscription.
           type: string
         description:
           description: A description of the subscription.
+          type: string
+        legalBasis:
+          description: The legal reason for the current status of the subscription.
+          enum:
+          - LEGITIMATE_INTEREST_PQL
+          - LEGITIMATE_INTEREST_CLIENT
+          - PERFORMANCE_OF_CONTRACT
+          - CONSENT_WITH_NOTICE
+          - NON_GDPR
+          - PROCESS_AND_STORE
+          - LEGITIMATE_INTEREST_OTHER
+          type: string
+        preferenceGroupName:
+          description: The name of the preferences group that the subscription is
+            associated with.
+          type: string
+        id:
+          description: The ID for the subscription.
+          type: string
+        legalBasisExplanation:
+          description: A more detailed explanation to go with the legal basis.
           type: string
         status:
           description: Whether the contact is subscribed.
@@ -454,29 +532,6 @@ components:
           - PORTAL_WIDE_STATUS
           - BRAND_WIDE_STATUS
           - SUBSCRIPTION_STATUS
-          type: string
-        brandId:
-          description: "The ID of the brand that the subscription is associated with,\
-            \ if there is one."
-          format: int64
-          type: integer
-        preferenceGroupName:
-          description: The name of the preferences group that the subscription is
-            associated with.
-          type: string
-        legalBasis:
-          description: The legal reason for the current status of the subscription.
-          enum:
-          - LEGITIMATE_INTEREST_PQL
-          - LEGITIMATE_INTEREST_CLIENT
-          - PERFORMANCE_OF_CONTRACT
-          - CONSENT_WITH_NOTICE
-          - NON_GDPR
-          - PROCESS_AND_STORE
-          - LEGITIMATE_INTEREST_OTHER
-          type: string
-        legalBasisExplanation:
-          description: A more detailed explanation to go with the legal basis.
           type: string
       required:
       - description
@@ -493,29 +548,10 @@ components:
         links:
           knowledge-base: https://www.hubspot.com/products/service/knowledge-base
       properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          example: An error occurred
-          type: string
-        correlationId:
-          description: A unique identifier for the request. Include this value with
-            any error reports or support tickets
-          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
-          format: uuid
-          type: string
-        category:
-          description: The error category
-          type: string
         subCategory:
           description: A specific category that contains more specific detail about
             the error
           type: string
-        errors:
-          description: further information about the error
-          items:
-            $ref: '#/components/schemas/ErrorDetail'
-          type: array
         context:
           additionalProperties:
             items:
@@ -523,18 +559,40 @@ components:
             type: array
           description: Context about the error condition
           example:
-            invalidPropertyName:
-            - propertyValue
             missingScopes:
             - scope1
             - scope2
+            invalidPropertyName:
+            - propertyValue
           type: object
+        correlationId:
+          description: A unique identifier for the request. Include this value with
+            any error reports or support tickets
+          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
+          format: uuid
+          type: string
         links:
           additionalProperties:
             type: string
           description: A map of link names to associated URIs containing documentation
             about the error or recommended remediation steps
+          example:
+            knowledge-base: https://www.hubspot.com/products/service/knowledge-base
           type: object
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          example: Invalid input (details will vary based on the error)
+          type: string
+        category:
+          description: The error category
+          example: VALIDATION_ERROR
+          type: string
+        errors:
+          description: further information about the error
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
       required:
       - category
       - correlationId
@@ -558,5 +616,8 @@ components:
 x-hubspot-available-client-libraries:
 - PHP
 - Node
-- Python
 - Ruby
+- Python
+x-hubspot-product-tier-requirements:
+  marketing: FREE
+x-hubspot-documentation-banner: NONE

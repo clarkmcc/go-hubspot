@@ -1,12 +1,23 @@
 openapi: 3.0.1
 info:
-  title: Domains
+  title: CMS Domains
   version: v3
+  x-hubspot-product-tier-requirements:
+    marketing: PROFESSIONAL
+    cms: STARTER
+  x-hubspot-documentation-banner: NONE
+  x-hubspot-api-use-case: Retrieve all currently connected domains to see which sites
+    are live in a given account.
+  x-hubspot-related-documentation:
+  - name: Domains Guide
+    url: https://hubspot.dev/guides/api/cms/domains
+  x-hubspot-introduction: "Use the domain management API to return information about\
+    \ the domains connected to a HubSpot account. You can return data for all currently\
+    \ connected domains, or for a single domain by ID."
 servers:
-- url: https://api.hubapi.com/
+- url: https://api.hubapi.com
 tags:
-- description: Operations for fetching domains
-  name: Domains
+- name: Domains
 paths:
   /cms/v3/domains/:
     get:
@@ -171,12 +182,16 @@ paths:
         - cms.domains.write
       - oauth2:
         - cms.domains.write
+      - oauth2_legacy:
+        - cms.knowledge_base.settings.read
       - private_apps_legacy:
         - cms.knowledge_base.settings.write
       - oauth2_legacy:
         - cms.knowledge_base.settings.write
       - oauth2_legacy:
         - content
+      - private_apps_legacy:
+        - cms.knowledge_base.settings.read
       summary: Get current domains
       tags:
       - Domains
@@ -238,12 +253,16 @@ paths:
         - cms.domains.write
       - oauth2:
         - cms.domains.write
+      - oauth2_legacy:
+        - cms.knowledge_base.settings.read
       - private_apps_legacy:
         - cms.knowledge_base.settings.write
       - oauth2_legacy:
         - cms.knowledge_base.settings.write
       - oauth2_legacy:
         - content
+      - private_apps_legacy:
+        - cms.knowledge_base.settings.read
       summary: Get a single domain
       tags:
       - Domains
@@ -258,19 +277,15 @@ components:
   schemas:
     ErrorDetail:
       properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          type: string
-        in:
-          description: The name of the field or parameter in which the error was found.
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
           type: string
         code:
           description: The status code associated with the error detail
           type: string
-        subCategory:
-          description: A specific category that contains more specific detail about
-            the error
+        in:
+          description: The name of the field or parameter in which the error was found.
           type: string
         context:
           additionalProperties:
@@ -283,6 +298,10 @@ components:
             - scope1
             - scope2
           type: object
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          type: string
       required:
       - message
       type: object
@@ -303,29 +322,10 @@ components:
         links:
           knowledge-base: https://www.hubspot.com/products/service/knowledge-base
       properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          example: An error occurred
-          type: string
-        correlationId:
-          description: A unique identifier for the request. Include this value with
-            any error reports or support tickets
-          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
-          format: uuid
-          type: string
-        category:
-          description: The error category
-          type: string
         subCategory:
           description: A specific category that contains more specific detail about
             the error
           type: string
-        errors:
-          description: further information about the error
-          items:
-            $ref: '#/components/schemas/ErrorDetail'
-          type: array
         context:
           additionalProperties:
             items:
@@ -333,18 +333,40 @@ components:
             type: array
           description: Context about the error condition
           example:
-            invalidPropertyName:
-            - propertyValue
             missingScopes:
             - scope1
             - scope2
+            invalidPropertyName:
+            - propertyValue
           type: object
+        correlationId:
+          description: A unique identifier for the request. Include this value with
+            any error reports or support tickets
+          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
+          format: uuid
+          type: string
         links:
           additionalProperties:
             type: string
           description: A map of link names to associated URIs containing documentation
             about the error or recommended remediation steps
+          example:
+            knowledge-base: https://www.hubspot.com/products/service/knowledge-base
           type: object
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          example: Invalid input (details will vary based on the error)
+          type: string
+        category:
+          description: The error category
+          example: VALIDATION_ERROR
+          type: string
+        errors:
+          description: further information about the error
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
       required:
       - category
       - correlationId
@@ -373,33 +395,22 @@ components:
         updated: 2000-01-23T04:56:07.000+00:00
         primaryEmail: true
       properties:
-        id:
-          description: The unique ID of this domain.
-          type: string
-        domain:
-          description: The actual domain or sub-domain. e.g. www.hubspot.com
-          type: string
-        primaryLandingPage:
-          type: boolean
-        primaryEmail:
+        isUsedForLandingPage:
+          description: Whether the domain is used for CMS landing pages.
           type: boolean
         primaryBlogPost:
           type: boolean
-        primarySitePage:
-          type: boolean
         primaryKnowledge:
           type: boolean
+        created:
+          format: date-time
+          type: string
         secondaryToDomain:
           type: string
-        isResolving:
-          description: Whether the DNS for this domain is optimally configured for
-            use with HubSpot.
-          type: boolean
         manuallyMarkedAsResolving:
           type: boolean
-        isSslEnabled:
-          type: boolean
-        isSslOnly:
+        isUsedForKnowledge:
+          description: Whether the domain is used for CMS knowledge pages.
           type: boolean
         isUsedForBlogPost:
           description: Whether the domain is used for CMS blog posts.
@@ -407,23 +418,34 @@ components:
         isUsedForSitePage:
           description: Whether the domain is used for CMS site pages.
           type: boolean
-        isUsedForLandingPage:
-          description: Whether the domain is used for CMS landing pages.
+        isResolving:
+          description: Whether the DNS for this domain is optimally configured for
+            use with HubSpot.
+          type: boolean
+        isSslEnabled:
           type: boolean
         isUsedForEmail:
           description: Whether the domain is used for CMS email web pages.
           type: boolean
-        isUsedForKnowledge:
-          description: Whether the domain is used for CMS knowledge pages.
+        domain:
+          description: The actual domain or sub-domain. e.g. www.hubspot.com
+          type: string
+        primarySitePage:
           type: boolean
+        primaryLandingPage:
+          type: boolean
+        id:
+          description: The unique ID of this domain.
+          type: string
         correctCname:
           type: string
-        created:
-          format: date-time
-          type: string
+        isSslOnly:
+          type: boolean
         updated:
           format: date-time
           type: string
+        primaryEmail:
+          type: boolean
       required:
       - domain
       - id
@@ -439,9 +461,9 @@ components:
         link: link
         after: after
       properties:
-        after:
-          type: string
         link:
+          type: string
+        after:
           type: string
       required:
       - after
@@ -498,12 +520,12 @@ components:
         total:
           format: int32
           type: integer
+        paging:
+          $ref: '#/components/schemas/ForwardPaging'
         results:
           items:
             $ref: '#/components/schemas/Domain'
           type: array
-        paging:
-          $ref: '#/components/schemas/ForwardPaging'
       required:
       - results
       - total
@@ -514,6 +536,7 @@ components:
         authorizationCode:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
+            cms.knowledge_base.settings.read: View knowledge base settings
             cms.knowledge_base.settings.write: Update knowledge base settings
             content: Read from and write to my Content
           tokenUrl: https://api.hubapi.com/oauth/v1/token
@@ -538,5 +561,9 @@ components:
 x-hubspot-available-client-libraries:
 - PHP
 - Node
-- Python
 - Ruby
+- Python
+x-hubspot-product-tier-requirements:
+  marketing: PROFESSIONAL
+  cms: STARTER
+x-hubspot-documentation-banner: NONE

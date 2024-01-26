@@ -1,5 +1,5 @@
 /*
-HubSpot Events API
+Events
 
 API for accessing CRM object events.
 
@@ -41,7 +41,7 @@ var (
 	xmlCheck  = regexp.MustCompile(`(?i:(?:application|text)/xml)`)
 )
 
-// APIClient manages communication with the HubSpot Events API API vv3
+// APIClient manages communication with the Events API vv3
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration

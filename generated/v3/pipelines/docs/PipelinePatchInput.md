@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Label** | Pointer to **string** | A unique label used to organize pipelines in HubSpot&#39;s UI | [optional] 
-**DisplayOrder** | Pointer to **int32** | The order for displaying this pipeline. If two pipelines have a matching &#x60;displayOrder&#x60;, they will be sorted alphabetically by label. | [optional] 
 **Archived** | Pointer to **bool** | Whether the pipeline is archived. This property should only be provided when restoring an archived pipeline. If it&#39;s provided in any other call, the request will fail and a &#x60;400 Bad Request&#x60; will be returned. | [optional] 
+**DisplayOrder** | Pointer to **int32** | The order for displaying this pipeline. If two pipelines have a matching &#x60;displayOrder&#x60;, they will be sorted alphabetically by label. | [optional] 
+**Label** | Pointer to **string** | A unique label used to organize pipelines in HubSpot&#39;s UI | [optional] 
 
 ## Methods
 
@@ -27,30 +27,30 @@ NewPipelinePatchInputWithDefaults instantiates a new PipelinePatchInput object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetLabel
+### GetArchived
 
-`func (o *PipelinePatchInput) GetLabel() string`
+`func (o *PipelinePatchInput) GetArchived() bool`
 
-GetLabel returns the Label field if non-nil, zero value otherwise.
+GetArchived returns the Archived field if non-nil, zero value otherwise.
 
-### GetLabelOk
+### GetArchivedOk
 
-`func (o *PipelinePatchInput) GetLabelOk() (*string, bool)`
+`func (o *PipelinePatchInput) GetArchivedOk() (*bool, bool)`
 
-GetLabelOk returns a tuple with the Label field if it's non-nil, zero value otherwise
+GetArchivedOk returns a tuple with the Archived field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetLabel
+### SetArchived
 
-`func (o *PipelinePatchInput) SetLabel(v string)`
+`func (o *PipelinePatchInput) SetArchived(v bool)`
 
-SetLabel sets Label field to given value.
+SetArchived sets Archived field to given value.
 
-### HasLabel
+### HasArchived
 
-`func (o *PipelinePatchInput) HasLabel() bool`
+`func (o *PipelinePatchInput) HasArchived() bool`
 
-HasLabel returns a boolean if a field has been set.
+HasArchived returns a boolean if a field has been set.
 
 ### GetDisplayOrder
 
@@ -77,30 +77,30 @@ SetDisplayOrder sets DisplayOrder field to given value.
 
 HasDisplayOrder returns a boolean if a field has been set.
 
-### GetArchived
+### GetLabel
 
-`func (o *PipelinePatchInput) GetArchived() bool`
+`func (o *PipelinePatchInput) GetLabel() string`
 
-GetArchived returns the Archived field if non-nil, zero value otherwise.
+GetLabel returns the Label field if non-nil, zero value otherwise.
 
-### GetArchivedOk
+### GetLabelOk
 
-`func (o *PipelinePatchInput) GetArchivedOk() (*bool, bool)`
+`func (o *PipelinePatchInput) GetLabelOk() (*string, bool)`
 
-GetArchivedOk returns a tuple with the Archived field if it's non-nil, zero value otherwise
+GetLabelOk returns a tuple with the Label field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetArchived
+### SetLabel
 
-`func (o *PipelinePatchInput) SetArchived(v bool)`
+`func (o *PipelinePatchInput) SetLabel(v string)`
 
-SetArchived sets Archived field to given value.
+SetLabel sets Label field to given value.
 
-### HasArchived
+### HasLabel
 
-`func (o *PipelinePatchInput) HasArchived() bool`
+`func (o *PipelinePatchInput) HasLabel() bool`
 
-HasArchived returns a boolean if a field has been set.
+HasLabel returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

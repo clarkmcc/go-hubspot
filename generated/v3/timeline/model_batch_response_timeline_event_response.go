@@ -1,5 +1,5 @@
 /*
-Timeline events
+CRM Timeline
 
 This feature allows an app to create and configure custom events that can show up in the timelines of certain CRM objects like contacts, companies, tickets, or deals. You'll find multiple use cases for this API in the sections below.
 
@@ -17,29 +17,29 @@ import (
 
 // BatchResponseTimelineEventResponse The state of the batch event request.
 type BatchResponseTimelineEventResponse struct {
-	// The status of the batch response. Should always be COMPLETED if processed.
-	Status string `json:"status"`
-	// Successfully created events.
-	Results []TimelineEventResponse `json:"results"`
+	// The time the request was completed.
+	CompletedAt time.Time `json:"completedAt"`
 	// The time the request occurred.
 	RequestedAt *time.Time `json:"requestedAt,omitempty"`
 	// The time the request began processing.
-	StartedAt time.Time `json:"startedAt"`
-	// The time the request was completed.
-	CompletedAt time.Time          `json:"completedAt"`
-	Links       *map[string]string `json:"links,omitempty"`
+	StartedAt time.Time          `json:"startedAt"`
+	Links     *map[string]string `json:"links,omitempty"`
+	// Successfully created events.
+	Results []TimelineEventResponse `json:"results"`
+	// The status of the batch response. Should always be COMPLETED if processed.
+	Status string `json:"status"`
 }
 
 // NewBatchResponseTimelineEventResponse instantiates a new BatchResponseTimelineEventResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBatchResponseTimelineEventResponse(status string, results []TimelineEventResponse, startedAt time.Time, completedAt time.Time) *BatchResponseTimelineEventResponse {
+func NewBatchResponseTimelineEventResponse(completedAt time.Time, startedAt time.Time, results []TimelineEventResponse, status string) *BatchResponseTimelineEventResponse {
 	this := BatchResponseTimelineEventResponse{}
-	this.Status = status
-	this.Results = results
-	this.StartedAt = startedAt
 	this.CompletedAt = completedAt
+	this.StartedAt = startedAt
+	this.Results = results
+	this.Status = status
 	return &this
 }
 
@@ -51,52 +51,28 @@ func NewBatchResponseTimelineEventResponseWithDefaults() *BatchResponseTimelineE
 	return &this
 }
 
-// GetStatus returns the Status field value
-func (o *BatchResponseTimelineEventResponse) GetStatus() string {
+// GetCompletedAt returns the CompletedAt field value
+func (o *BatchResponseTimelineEventResponse) GetCompletedAt() time.Time {
 	if o == nil {
-		var ret string
+		var ret time.Time
 		return ret
 	}
 
-	return o.Status
+	return o.CompletedAt
 }
 
-// GetStatusOk returns a tuple with the Status field value
+// GetCompletedAtOk returns a tuple with the CompletedAt field value
 // and a boolean to check if the value has been set.
-func (o *BatchResponseTimelineEventResponse) GetStatusOk() (*string, bool) {
+func (o *BatchResponseTimelineEventResponse) GetCompletedAtOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Status, true
+	return &o.CompletedAt, true
 }
 
-// SetStatus sets field value
-func (o *BatchResponseTimelineEventResponse) SetStatus(v string) {
-	o.Status = v
-}
-
-// GetResults returns the Results field value
-func (o *BatchResponseTimelineEventResponse) GetResults() []TimelineEventResponse {
-	if o == nil {
-		var ret []TimelineEventResponse
-		return ret
-	}
-
-	return o.Results
-}
-
-// GetResultsOk returns a tuple with the Results field value
-// and a boolean to check if the value has been set.
-func (o *BatchResponseTimelineEventResponse) GetResultsOk() ([]TimelineEventResponse, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Results, true
-}
-
-// SetResults sets field value
-func (o *BatchResponseTimelineEventResponse) SetResults(v []TimelineEventResponse) {
-	o.Results = v
+// SetCompletedAt sets field value
+func (o *BatchResponseTimelineEventResponse) SetCompletedAt(v time.Time) {
+	o.CompletedAt = v
 }
 
 // GetRequestedAt returns the RequestedAt field value if set, zero value otherwise.
@@ -155,30 +131,6 @@ func (o *BatchResponseTimelineEventResponse) SetStartedAt(v time.Time) {
 	o.StartedAt = v
 }
 
-// GetCompletedAt returns the CompletedAt field value
-func (o *BatchResponseTimelineEventResponse) GetCompletedAt() time.Time {
-	if o == nil {
-		var ret time.Time
-		return ret
-	}
-
-	return o.CompletedAt
-}
-
-// GetCompletedAtOk returns a tuple with the CompletedAt field value
-// and a boolean to check if the value has been set.
-func (o *BatchResponseTimelineEventResponse) GetCompletedAtOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.CompletedAt, true
-}
-
-// SetCompletedAt sets field value
-func (o *BatchResponseTimelineEventResponse) SetCompletedAt(v time.Time) {
-	o.CompletedAt = v
-}
-
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *BatchResponseTimelineEventResponse) GetLinks() map[string]string {
 	if o == nil || o.Links == nil {
@@ -211,13 +163,58 @@ func (o *BatchResponseTimelineEventResponse) SetLinks(v map[string]string) {
 	o.Links = &v
 }
 
+// GetResults returns the Results field value
+func (o *BatchResponseTimelineEventResponse) GetResults() []TimelineEventResponse {
+	if o == nil {
+		var ret []TimelineEventResponse
+		return ret
+	}
+
+	return o.Results
+}
+
+// GetResultsOk returns a tuple with the Results field value
+// and a boolean to check if the value has been set.
+func (o *BatchResponseTimelineEventResponse) GetResultsOk() ([]TimelineEventResponse, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Results, true
+}
+
+// SetResults sets field value
+func (o *BatchResponseTimelineEventResponse) SetResults(v []TimelineEventResponse) {
+	o.Results = v
+}
+
+// GetStatus returns the Status field value
+func (o *BatchResponseTimelineEventResponse) GetStatus() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value
+// and a boolean to check if the value has been set.
+func (o *BatchResponseTimelineEventResponse) GetStatusOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Status, true
+}
+
+// SetStatus sets field value
+func (o *BatchResponseTimelineEventResponse) SetStatus(v string) {
+	o.Status = v
+}
+
 func (o BatchResponseTimelineEventResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["status"] = o.Status
-	}
-	if true {
-		toSerialize["results"] = o.Results
+		toSerialize["completedAt"] = o.CompletedAt
 	}
 	if o.RequestedAt != nil {
 		toSerialize["requestedAt"] = o.RequestedAt
@@ -225,11 +222,14 @@ func (o BatchResponseTimelineEventResponse) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["startedAt"] = o.StartedAt
 	}
-	if true {
-		toSerialize["completedAt"] = o.CompletedAt
-	}
 	if o.Links != nil {
 		toSerialize["links"] = o.Links
+	}
+	if true {
+		toSerialize["results"] = o.Results
+	}
+	if true {
+		toSerialize["status"] = o.Status
 	}
 	return json.Marshal(toSerialize)
 }

@@ -15,35 +15,37 @@ import (
 	"context"
 	"io/ioutil"
 	"net/http"
+
+	"github.com/clarkmcc/go-hubspot"
 	"net/url"
 )
 
 // PublicObjectApiService PublicObjectApi service
 type PublicObjectApiService service
 
-type ApiMergeRequest struct {
+type ApiPostCrmV3ObjectsFeedbackSubmissionsMergeMergeRequest struct {
 	ctx              context.Context
 	ApiService       *PublicObjectApiService
 	publicMergeInput *PublicMergeInput
 }
 
-func (r ApiMergeRequest) PublicMergeInput(publicMergeInput PublicMergeInput) ApiMergeRequest {
+func (r ApiPostCrmV3ObjectsFeedbackSubmissionsMergeMergeRequest) PublicMergeInput(publicMergeInput PublicMergeInput) ApiPostCrmV3ObjectsFeedbackSubmissionsMergeMergeRequest {
 	r.publicMergeInput = &publicMergeInput
 	return r
 }
 
-func (r ApiMergeRequest) Execute() (*SimplePublicObject, *http.Response, error) {
-	return r.ApiService.MergeExecute(r)
+func (r ApiPostCrmV3ObjectsFeedbackSubmissionsMergeMergeRequest) Execute() (*SimplePublicObject, *http.Response, error) {
+	return r.ApiService.PostCrmV3ObjectsFeedbackSubmissionsMergeMergeExecute(r)
 }
 
 /*
-Merge Merge two feedback submissions with same type
+PostCrmV3ObjectsFeedbackSubmissionsMergeMerge Merge two feedback submissions with same type
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiMergeRequest
+ @return ApiPostCrmV3ObjectsFeedbackSubmissionsMergeMergeRequest
 */
-func (a *PublicObjectApiService) Merge(ctx context.Context) ApiMergeRequest {
-	return ApiMergeRequest{
+func (a *PublicObjectApiService) PostCrmV3ObjectsFeedbackSubmissionsMergeMerge(ctx context.Context) ApiPostCrmV3ObjectsFeedbackSubmissionsMergeMergeRequest {
+	return ApiPostCrmV3ObjectsFeedbackSubmissionsMergeMergeRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -51,7 +53,7 @@ func (a *PublicObjectApiService) Merge(ctx context.Context) ApiMergeRequest {
 
 // Execute executes the request
 //  @return SimplePublicObject
-func (a *PublicObjectApiService) MergeExecute(r ApiMergeRequest) (*SimplePublicObject, *http.Response, error) {
+func (a *PublicObjectApiService) PostCrmV3ObjectsFeedbackSubmissionsMergeMergeExecute(r ApiPostCrmV3ObjectsFeedbackSubmissionsMergeMergeRequest) (*SimplePublicObject, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -59,7 +61,7 @@ func (a *PublicObjectApiService) MergeExecute(r ApiMergeRequest) (*SimplePublicO
 		localVarReturnValue *SimplePublicObject
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicObjectApiService.Merge")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicObjectApiService.PostCrmV3ObjectsFeedbackSubmissionsMergeMerge")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -94,16 +96,12 @@ func (a *PublicObjectApiService) MergeExecute(r ApiMergeRequest) (*SimplePublicO
 	localVarPostBody = r.publicMergeInput
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["private_apps"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["private-app"] = key
-			}
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)

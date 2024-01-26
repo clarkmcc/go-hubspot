@@ -1,5 +1,5 @@
 /*
-Business Unit
+Business Units
 
 Retrieve Business Unit information.
 
@@ -15,6 +15,8 @@ import (
 	"context"
 	"io/ioutil"
 	"net/http"
+
+	"github.com/clarkmcc/go-hubspot"
 	"net/url"
 	"reflect"
 	"strings"
@@ -23,7 +25,7 @@ import (
 // BusinessUnitApiService BusinessUnitApi service
 type BusinessUnitApiService service
 
-type ApiGetBusinessUnitsV3BusinessUnitsUserUserIdRequest struct {
+type ApiGetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserIDRequest struct {
 	ctx        context.Context
 	ApiService *BusinessUnitApiService
 	userId     string
@@ -32,32 +34,32 @@ type ApiGetBusinessUnitsV3BusinessUnitsUserUserIdRequest struct {
 }
 
 // The names of properties to optionally include in the response body. The only valid value is &#x60;logoMetadata&#x60;.
-func (r ApiGetBusinessUnitsV3BusinessUnitsUserUserIdRequest) Properties(properties []string) ApiGetBusinessUnitsV3BusinessUnitsUserUserIdRequest {
+func (r ApiGetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserIDRequest) Properties(properties []string) ApiGetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserIDRequest {
 	r.properties = &properties
 	return r
 }
 
 // The names of Business Units to retrieve. If empty or not provided, then all associated Business Units will be returned.
-func (r ApiGetBusinessUnitsV3BusinessUnitsUserUserIdRequest) Name(name []string) ApiGetBusinessUnitsV3BusinessUnitsUserUserIdRequest {
+func (r ApiGetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserIDRequest) Name(name []string) ApiGetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserIDRequest {
 	r.name = &name
 	return r
 }
 
-func (r ApiGetBusinessUnitsV3BusinessUnitsUserUserIdRequest) Execute() (*CollectionResponsePublicBusinessUnitNoPaging, *http.Response, error) {
-	return r.ApiService.GetBusinessUnitsV3BusinessUnitsUserUserIdExecute(r)
+func (r ApiGetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserIDRequest) Execute() (*CollectionResponsePublicBusinessUnitNoPaging, *http.Response, error) {
+	return r.ApiService.GetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserIDExecute(r)
 }
 
 /*
-GetBusinessUnitsV3BusinessUnitsUserUserId Get Business Units for a user
+GetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserID Get Business Units for a user
 
 Get Business Units identified by `userId`. The `userId` refers to the user’s ID.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param userId Identifier of user to retrieve.
- @return ApiGetBusinessUnitsV3BusinessUnitsUserUserIdRequest
+ @return ApiGetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserIDRequest
 */
-func (a *BusinessUnitApiService) GetBusinessUnitsV3BusinessUnitsUserUserId(ctx context.Context, userId string) ApiGetBusinessUnitsV3BusinessUnitsUserUserIdRequest {
-	return ApiGetBusinessUnitsV3BusinessUnitsUserUserIdRequest{
+func (a *BusinessUnitApiService) GetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserID(ctx context.Context, userId string) ApiGetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserIDRequest {
+	return ApiGetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserIDRequest{
 		ApiService: a,
 		ctx:        ctx,
 		userId:     userId,
@@ -66,7 +68,7 @@ func (a *BusinessUnitApiService) GetBusinessUnitsV3BusinessUnitsUserUserId(ctx c
 
 // Execute executes the request
 //  @return CollectionResponsePublicBusinessUnitNoPaging
-func (a *BusinessUnitApiService) GetBusinessUnitsV3BusinessUnitsUserUserIdExecute(r ApiGetBusinessUnitsV3BusinessUnitsUserUserIdRequest) (*CollectionResponsePublicBusinessUnitNoPaging, *http.Response, error) {
+func (a *BusinessUnitApiService) GetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserIDExecute(r ApiGetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserIDRequest) (*CollectionResponsePublicBusinessUnitNoPaging, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -74,7 +76,7 @@ func (a *BusinessUnitApiService) GetBusinessUnitsV3BusinessUnitsUserUserIdExecut
 		localVarReturnValue *CollectionResponsePublicBusinessUnitNoPaging
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BusinessUnitApiService.GetBusinessUnitsV3BusinessUnitsUserUserId")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BusinessUnitApiService.GetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserID")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -127,16 +129,12 @@ func (a *BusinessUnitApiService) GetBusinessUnitsV3BusinessUnitsUserUserIdExecut
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["private_apps_legacy"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["private-app-legacy"] = key
-			}
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)

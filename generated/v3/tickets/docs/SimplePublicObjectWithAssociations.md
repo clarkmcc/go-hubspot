@@ -4,20 +4,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | 
-**Properties** | **map[string]string** |  | 
-**PropertiesWithHistory** | Pointer to [**map[string][]ValueWithTimestamp**](array.md) |  | [optional] 
+**Associations** | Pointer to [**map[string]CollectionResponseAssociatedId**](CollectionResponseAssociatedId.md) |  | [optional] 
 **CreatedAt** | **time.Time** |  | 
-**UpdatedAt** | **time.Time** |  | 
 **Archived** | Pointer to **bool** |  | [optional] 
 **ArchivedAt** | Pointer to **time.Time** |  | [optional] 
-**Associations** | Pointer to [**map[string]CollectionResponseAssociatedId**](CollectionResponseAssociatedId.md) |  | [optional] 
+**PropertiesWithHistory** | Pointer to [**map[string][]ValueWithTimestamp**](array.md) |  | [optional] 
+**Id** | **string** |  | 
+**Properties** | **map[string]string** |  | 
+**UpdatedAt** | **time.Time** |  | 
 
 ## Methods
 
 ### NewSimplePublicObjectWithAssociations
 
-`func NewSimplePublicObjectWithAssociations(id string, properties map[string]string, createdAt time.Time, updatedAt time.Time, ) *SimplePublicObjectWithAssociations`
+`func NewSimplePublicObjectWithAssociations(createdAt time.Time, id string, properties map[string]string, updatedAt time.Time, ) *SimplePublicObjectWithAssociations`
 
 NewSimplePublicObjectWithAssociations instantiates a new SimplePublicObjectWithAssociations object
 This constructor will assign default values to properties that have it defined,
@@ -32,70 +32,30 @@ NewSimplePublicObjectWithAssociationsWithDefaults instantiates a new SimplePubli
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetId
+### GetAssociations
 
-`func (o *SimplePublicObjectWithAssociations) GetId() string`
+`func (o *SimplePublicObjectWithAssociations) GetAssociations() map[string]CollectionResponseAssociatedId`
 
-GetId returns the Id field if non-nil, zero value otherwise.
+GetAssociations returns the Associations field if non-nil, zero value otherwise.
 
-### GetIdOk
+### GetAssociationsOk
 
-`func (o *SimplePublicObjectWithAssociations) GetIdOk() (*string, bool)`
+`func (o *SimplePublicObjectWithAssociations) GetAssociationsOk() (*map[string]CollectionResponseAssociatedId, bool)`
 
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+GetAssociationsOk returns a tuple with the Associations field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetId
+### SetAssociations
 
-`func (o *SimplePublicObjectWithAssociations) SetId(v string)`
+`func (o *SimplePublicObjectWithAssociations) SetAssociations(v map[string]CollectionResponseAssociatedId)`
 
-SetId sets Id field to given value.
+SetAssociations sets Associations field to given value.
 
+### HasAssociations
 
-### GetProperties
+`func (o *SimplePublicObjectWithAssociations) HasAssociations() bool`
 
-`func (o *SimplePublicObjectWithAssociations) GetProperties() map[string]string`
-
-GetProperties returns the Properties field if non-nil, zero value otherwise.
-
-### GetPropertiesOk
-
-`func (o *SimplePublicObjectWithAssociations) GetPropertiesOk() (*map[string]string, bool)`
-
-GetPropertiesOk returns a tuple with the Properties field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetProperties
-
-`func (o *SimplePublicObjectWithAssociations) SetProperties(v map[string]string)`
-
-SetProperties sets Properties field to given value.
-
-
-### GetPropertiesWithHistory
-
-`func (o *SimplePublicObjectWithAssociations) GetPropertiesWithHistory() map[string][]ValueWithTimestamp`
-
-GetPropertiesWithHistory returns the PropertiesWithHistory field if non-nil, zero value otherwise.
-
-### GetPropertiesWithHistoryOk
-
-`func (o *SimplePublicObjectWithAssociations) GetPropertiesWithHistoryOk() (*map[string][]ValueWithTimestamp, bool)`
-
-GetPropertiesWithHistoryOk returns a tuple with the PropertiesWithHistory field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPropertiesWithHistory
-
-`func (o *SimplePublicObjectWithAssociations) SetPropertiesWithHistory(v map[string][]ValueWithTimestamp)`
-
-SetPropertiesWithHistory sets PropertiesWithHistory field to given value.
-
-### HasPropertiesWithHistory
-
-`func (o *SimplePublicObjectWithAssociations) HasPropertiesWithHistory() bool`
-
-HasPropertiesWithHistory returns a boolean if a field has been set.
+HasAssociations returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
@@ -115,26 +75,6 @@ and a boolean to check if the value has been set.
 `func (o *SimplePublicObjectWithAssociations) SetCreatedAt(v time.Time)`
 
 SetCreatedAt sets CreatedAt field to given value.
-
-
-### GetUpdatedAt
-
-`func (o *SimplePublicObjectWithAssociations) GetUpdatedAt() time.Time`
-
-GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
-
-### GetUpdatedAtOk
-
-`func (o *SimplePublicObjectWithAssociations) GetUpdatedAtOk() (*time.Time, bool)`
-
-GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetUpdatedAt
-
-`func (o *SimplePublicObjectWithAssociations) SetUpdatedAt(v time.Time)`
-
-SetUpdatedAt sets UpdatedAt field to given value.
 
 
 ### GetArchived
@@ -187,30 +127,90 @@ SetArchivedAt sets ArchivedAt field to given value.
 
 HasArchivedAt returns a boolean if a field has been set.
 
-### GetAssociations
+### GetPropertiesWithHistory
 
-`func (o *SimplePublicObjectWithAssociations) GetAssociations() map[string]CollectionResponseAssociatedId`
+`func (o *SimplePublicObjectWithAssociations) GetPropertiesWithHistory() map[string][]ValueWithTimestamp`
 
-GetAssociations returns the Associations field if non-nil, zero value otherwise.
+GetPropertiesWithHistory returns the PropertiesWithHistory field if non-nil, zero value otherwise.
 
-### GetAssociationsOk
+### GetPropertiesWithHistoryOk
 
-`func (o *SimplePublicObjectWithAssociations) GetAssociationsOk() (*map[string]CollectionResponseAssociatedId, bool)`
+`func (o *SimplePublicObjectWithAssociations) GetPropertiesWithHistoryOk() (*map[string][]ValueWithTimestamp, bool)`
 
-GetAssociationsOk returns a tuple with the Associations field if it's non-nil, zero value otherwise
+GetPropertiesWithHistoryOk returns a tuple with the PropertiesWithHistory field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetAssociations
+### SetPropertiesWithHistory
 
-`func (o *SimplePublicObjectWithAssociations) SetAssociations(v map[string]CollectionResponseAssociatedId)`
+`func (o *SimplePublicObjectWithAssociations) SetPropertiesWithHistory(v map[string][]ValueWithTimestamp)`
 
-SetAssociations sets Associations field to given value.
+SetPropertiesWithHistory sets PropertiesWithHistory field to given value.
 
-### HasAssociations
+### HasPropertiesWithHistory
 
-`func (o *SimplePublicObjectWithAssociations) HasAssociations() bool`
+`func (o *SimplePublicObjectWithAssociations) HasPropertiesWithHistory() bool`
 
-HasAssociations returns a boolean if a field has been set.
+HasPropertiesWithHistory returns a boolean if a field has been set.
+
+### GetId
+
+`func (o *SimplePublicObjectWithAssociations) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *SimplePublicObjectWithAssociations) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *SimplePublicObjectWithAssociations) SetId(v string)`
+
+SetId sets Id field to given value.
+
+
+### GetProperties
+
+`func (o *SimplePublicObjectWithAssociations) GetProperties() map[string]string`
+
+GetProperties returns the Properties field if non-nil, zero value otherwise.
+
+### GetPropertiesOk
+
+`func (o *SimplePublicObjectWithAssociations) GetPropertiesOk() (*map[string]string, bool)`
+
+GetPropertiesOk returns a tuple with the Properties field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProperties
+
+`func (o *SimplePublicObjectWithAssociations) SetProperties(v map[string]string)`
+
+SetProperties sets Properties field to given value.
+
+
+### GetUpdatedAt
+
+`func (o *SimplePublicObjectWithAssociations) GetUpdatedAt() time.Time`
+
+GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
+
+### GetUpdatedAtOk
+
+`func (o *SimplePublicObjectWithAssociations) GetUpdatedAtOk() (*time.Time, bool)`
+
+GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUpdatedAt
+
+`func (o *SimplePublicObjectWithAssociations) SetUpdatedAt(v time.Time)`
+
+SetUpdatedAt sets UpdatedAt field to given value.
+
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

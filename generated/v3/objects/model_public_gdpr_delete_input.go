@@ -16,8 +16,8 @@ import (
 
 // PublicGdprDeleteInput struct for PublicGdprDeleteInput
 type PublicGdprDeleteInput struct {
-	ObjectId   string  `json:"objectId"`
 	IdProperty *string `json:"idProperty,omitempty"`
+	ObjectId   string  `json:"objectId"`
 }
 
 // NewPublicGdprDeleteInput instantiates a new PublicGdprDeleteInput object
@@ -36,30 +36,6 @@ func NewPublicGdprDeleteInput(objectId string) *PublicGdprDeleteInput {
 func NewPublicGdprDeleteInputWithDefaults() *PublicGdprDeleteInput {
 	this := PublicGdprDeleteInput{}
 	return &this
-}
-
-// GetObjectId returns the ObjectId field value
-func (o *PublicGdprDeleteInput) GetObjectId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.ObjectId
-}
-
-// GetObjectIdOk returns a tuple with the ObjectId field value
-// and a boolean to check if the value has been set.
-func (o *PublicGdprDeleteInput) GetObjectIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.ObjectId, true
-}
-
-// SetObjectId sets field value
-func (o *PublicGdprDeleteInput) SetObjectId(v string) {
-	o.ObjectId = v
 }
 
 // GetIdProperty returns the IdProperty field value if set, zero value otherwise.
@@ -94,13 +70,37 @@ func (o *PublicGdprDeleteInput) SetIdProperty(v string) {
 	o.IdProperty = &v
 }
 
+// GetObjectId returns the ObjectId field value
+func (o *PublicGdprDeleteInput) GetObjectId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ObjectId
+}
+
+// GetObjectIdOk returns a tuple with the ObjectId field value
+// and a boolean to check if the value has been set.
+func (o *PublicGdprDeleteInput) GetObjectIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ObjectId, true
+}
+
+// SetObjectId sets field value
+func (o *PublicGdprDeleteInput) SetObjectId(v string) {
+	o.ObjectId = v
+}
+
 func (o PublicGdprDeleteInput) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["objectId"] = o.ObjectId
-	}
 	if o.IdProperty != nil {
 		toSerialize["idProperty"] = o.IdProperty
+	}
+	if true {
+		toSerialize["objectId"] = o.ObjectId
 	}
 	return json.Marshal(toSerialize)
 }

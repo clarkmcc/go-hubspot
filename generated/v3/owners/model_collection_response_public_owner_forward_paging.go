@@ -1,5 +1,5 @@
 /*
-CRM Owners
+Crm Owners
 
 HubSpot uses **owners** to assign CRM objects to specific people in your organization. The endpoints described here are used to get a list of the owners that are available for an account. To assign an owner to an object, set the hubspot_owner_id property using the appropriate CRM object update or create a request.  If teams are available for your HubSpot tier, these endpoints will also indicate which team(s) an owner can access, as well as which team is the owner's primary team.
 
@@ -16,8 +16,8 @@ import (
 
 // CollectionResponsePublicOwnerForwardPaging struct for CollectionResponsePublicOwnerForwardPaging
 type CollectionResponsePublicOwnerForwardPaging struct {
-	Results []PublicOwner  `json:"results"`
 	Paging  *ForwardPaging `json:"paging,omitempty"`
+	Results []PublicOwner  `json:"results"`
 }
 
 // NewCollectionResponsePublicOwnerForwardPaging instantiates a new CollectionResponsePublicOwnerForwardPaging object
@@ -36,30 +36,6 @@ func NewCollectionResponsePublicOwnerForwardPaging(results []PublicOwner) *Colle
 func NewCollectionResponsePublicOwnerForwardPagingWithDefaults() *CollectionResponsePublicOwnerForwardPaging {
 	this := CollectionResponsePublicOwnerForwardPaging{}
 	return &this
-}
-
-// GetResults returns the Results field value
-func (o *CollectionResponsePublicOwnerForwardPaging) GetResults() []PublicOwner {
-	if o == nil {
-		var ret []PublicOwner
-		return ret
-	}
-
-	return o.Results
-}
-
-// GetResultsOk returns a tuple with the Results field value
-// and a boolean to check if the value has been set.
-func (o *CollectionResponsePublicOwnerForwardPaging) GetResultsOk() ([]PublicOwner, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Results, true
-}
-
-// SetResults sets field value
-func (o *CollectionResponsePublicOwnerForwardPaging) SetResults(v []PublicOwner) {
-	o.Results = v
 }
 
 // GetPaging returns the Paging field value if set, zero value otherwise.
@@ -94,13 +70,37 @@ func (o *CollectionResponsePublicOwnerForwardPaging) SetPaging(v ForwardPaging) 
 	o.Paging = &v
 }
 
+// GetResults returns the Results field value
+func (o *CollectionResponsePublicOwnerForwardPaging) GetResults() []PublicOwner {
+	if o == nil {
+		var ret []PublicOwner
+		return ret
+	}
+
+	return o.Results
+}
+
+// GetResultsOk returns a tuple with the Results field value
+// and a boolean to check if the value has been set.
+func (o *CollectionResponsePublicOwnerForwardPaging) GetResultsOk() ([]PublicOwner, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Results, true
+}
+
+// SetResults sets field value
+func (o *CollectionResponsePublicOwnerForwardPaging) SetResults(v []PublicOwner) {
+	o.Results = v
+}
+
 func (o CollectionResponsePublicOwnerForwardPaging) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["results"] = o.Results
-	}
 	if o.Paging != nil {
 		toSerialize["paging"] = o.Paging
+	}
+	if true {
+		toSerialize["results"] = o.Results
 	}
 	return json.Marshal(toSerialize)
 }

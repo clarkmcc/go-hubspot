@@ -394,7 +394,7 @@ import (
 
 func main() {
     tableIdOrName := "tableIdOrName_example" // string | The ID or name of the table
-    batchInputHubDbTableRowV3BatchUpdateRequest := *openapiclient.NewBatchInputHubDbTableRowV3BatchUpdateRequest([]openapiclient.HubDbTableRowV3BatchUpdateRequest{*openapiclient.NewHubDbTableRowV3BatchUpdateRequest(map[string]map[string]interface{}{"key": map[string]interface{}(123)}, "Id_example")}) // BatchInputHubDbTableRowV3BatchUpdateRequest | JSON array of row objects.
+    batchInputHubDbTableRowV3BatchUpdateRequest := *openapiclient.NewBatchInputHubDbTableRowV3BatchUpdateRequest([]openapiclient.HubDbTableRowV3BatchUpdateRequest{*openapiclient.NewHubDbTableRowV3BatchUpdateRequest(map[string]map[string]interface{}{"key": map[string]interface{}(123)}, "4099275931")}) // BatchInputHubDbTableRowV3BatchUpdateRequest | JSON array of row objects.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -466,7 +466,7 @@ import (
 
 func main() {
     tableIdOrName := "tableIdOrName_example" // string | The ID or name of the table
-    batchInputHubDbTableRowV3BatchUpdateRequest := *openapiclient.NewBatchInputHubDbTableRowV3BatchUpdateRequest([]openapiclient.HubDbTableRowV3BatchUpdateRequest{*openapiclient.NewHubDbTableRowV3BatchUpdateRequest(map[string]map[string]interface{}{"key": map[string]interface{}(123)}, "Id_example")}) // BatchInputHubDbTableRowV3BatchUpdateRequest | JSON array of row objects.
+    batchInputHubDbTableRowV3BatchUpdateRequest := *openapiclient.NewBatchInputHubDbTableRowV3BatchUpdateRequest([]openapiclient.HubDbTableRowV3BatchUpdateRequest{*openapiclient.NewHubDbTableRowV3BatchUpdateRequest(map[string]map[string]interface{}{"key": map[string]interface{}(123)}, "4099275931")}) // BatchInputHubDbTableRowV3BatchUpdateRequest | JSON array of row objects.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)

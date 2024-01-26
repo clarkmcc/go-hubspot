@@ -1,5 +1,5 @@
 /*
-Timeline events
+CRM Timeline
 
 This feature allows an app to create and configure custom events that can show up in the timelines of certain CRM objects like contacts, companies, tickets, or deals. You'll find multiple use cases for this API in the sections below.
 
@@ -16,16 +16,16 @@ import (
 
 // TimelineEventTemplateUpdateRequest State of the template definition being updated.
 type TimelineEventTemplateUpdateRequest struct {
-	// The template name.
-	Name string `json:"name"`
-	// This uses Markdown syntax with Handlebars and event-specific data to render HTML on a timeline as a header.
-	HeaderTemplate *string `json:"headerTemplate,omitempty"`
 	// This uses Markdown syntax with Handlebars and event-specific data to render HTML on a timeline when you expand the details.
 	DetailTemplate *string `json:"detailTemplate,omitempty"`
+	// The template name.
+	Name string `json:"name"`
 	// A collection of tokens that can be used as custom properties on the event and to create fully fledged CRM objects.
 	Tokens []TimelineEventTemplateToken `json:"tokens"`
 	// The template ID.
 	Id string `json:"id"`
+	// This uses Markdown syntax with Handlebars and event-specific data to render HTML on a timeline as a header.
+	HeaderTemplate *string `json:"headerTemplate,omitempty"`
 }
 
 // NewTimelineEventTemplateUpdateRequest instantiates a new TimelineEventTemplateUpdateRequest object
@@ -46,62 +46,6 @@ func NewTimelineEventTemplateUpdateRequest(name string, tokens []TimelineEventTe
 func NewTimelineEventTemplateUpdateRequestWithDefaults() *TimelineEventTemplateUpdateRequest {
 	this := TimelineEventTemplateUpdateRequest{}
 	return &this
-}
-
-// GetName returns the Name field value
-func (o *TimelineEventTemplateUpdateRequest) GetName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value
-// and a boolean to check if the value has been set.
-func (o *TimelineEventTemplateUpdateRequest) GetNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Name, true
-}
-
-// SetName sets field value
-func (o *TimelineEventTemplateUpdateRequest) SetName(v string) {
-	o.Name = v
-}
-
-// GetHeaderTemplate returns the HeaderTemplate field value if set, zero value otherwise.
-func (o *TimelineEventTemplateUpdateRequest) GetHeaderTemplate() string {
-	if o == nil || o.HeaderTemplate == nil {
-		var ret string
-		return ret
-	}
-	return *o.HeaderTemplate
-}
-
-// GetHeaderTemplateOk returns a tuple with the HeaderTemplate field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *TimelineEventTemplateUpdateRequest) GetHeaderTemplateOk() (*string, bool) {
-	if o == nil || o.HeaderTemplate == nil {
-		return nil, false
-	}
-	return o.HeaderTemplate, true
-}
-
-// HasHeaderTemplate returns a boolean if a field has been set.
-func (o *TimelineEventTemplateUpdateRequest) HasHeaderTemplate() bool {
-	if o != nil && o.HeaderTemplate != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetHeaderTemplate gets a reference to the given string and assigns it to the HeaderTemplate field.
-func (o *TimelineEventTemplateUpdateRequest) SetHeaderTemplate(v string) {
-	o.HeaderTemplate = &v
 }
 
 // GetDetailTemplate returns the DetailTemplate field value if set, zero value otherwise.
@@ -134,6 +78,30 @@ func (o *TimelineEventTemplateUpdateRequest) HasDetailTemplate() bool {
 // SetDetailTemplate gets a reference to the given string and assigns it to the DetailTemplate field.
 func (o *TimelineEventTemplateUpdateRequest) SetDetailTemplate(v string) {
 	o.DetailTemplate = &v
+}
+
+// GetName returns the Name field value
+func (o *TimelineEventTemplateUpdateRequest) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *TimelineEventTemplateUpdateRequest) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *TimelineEventTemplateUpdateRequest) SetName(v string) {
+	o.Name = v
 }
 
 // GetTokens returns the Tokens field value
@@ -184,22 +152,54 @@ func (o *TimelineEventTemplateUpdateRequest) SetId(v string) {
 	o.Id = v
 }
 
+// GetHeaderTemplate returns the HeaderTemplate field value if set, zero value otherwise.
+func (o *TimelineEventTemplateUpdateRequest) GetHeaderTemplate() string {
+	if o == nil || o.HeaderTemplate == nil {
+		var ret string
+		return ret
+	}
+	return *o.HeaderTemplate
+}
+
+// GetHeaderTemplateOk returns a tuple with the HeaderTemplate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TimelineEventTemplateUpdateRequest) GetHeaderTemplateOk() (*string, bool) {
+	if o == nil || o.HeaderTemplate == nil {
+		return nil, false
+	}
+	return o.HeaderTemplate, true
+}
+
+// HasHeaderTemplate returns a boolean if a field has been set.
+func (o *TimelineEventTemplateUpdateRequest) HasHeaderTemplate() bool {
+	if o != nil && o.HeaderTemplate != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetHeaderTemplate gets a reference to the given string and assigns it to the HeaderTemplate field.
+func (o *TimelineEventTemplateUpdateRequest) SetHeaderTemplate(v string) {
+	o.HeaderTemplate = &v
+}
+
 func (o TimelineEventTemplateUpdateRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.HeaderTemplate != nil {
-		toSerialize["headerTemplate"] = o.HeaderTemplate
-	}
 	if o.DetailTemplate != nil {
 		toSerialize["detailTemplate"] = o.DetailTemplate
+	}
+	if true {
+		toSerialize["name"] = o.Name
 	}
 	if true {
 		toSerialize["tokens"] = o.Tokens
 	}
 	if true {
 		toSerialize["id"] = o.Id
+	}
+	if o.HeaderTemplate != nil {
+		toSerialize["headerTemplate"] = o.HeaderTemplate
 	}
 	return json.Marshal(toSerialize)
 }

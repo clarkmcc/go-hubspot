@@ -4,16 +4,16 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**BatchArchive**](BatchApi.md#BatchArchive) | **Post** /crm/v3/objects/feedback_submissions/batch/archive | Archive a batch of feedback submissions by ID
-[**BatchCreate**](BatchApi.md#BatchCreate) | **Post** /crm/v3/objects/feedback_submissions/batch/create | Create a batch of feedback submissions
-[**BatchRead**](BatchApi.md#BatchRead) | **Post** /crm/v3/objects/feedback_submissions/batch/read | Read a batch of feedback submissions by internal ID, or unique property values
-[**BatchUpdate**](BatchApi.md#BatchUpdate) | **Post** /crm/v3/objects/feedback_submissions/batch/update | Update a batch of feedback submissions
+[**PostCrmV3ObjectsFeedbackSubmissionsBatchArchiveArchive**](BatchApi.md#PostCrmV3ObjectsFeedbackSubmissionsBatchArchiveArchive) | **Post** /crm/v3/objects/feedback_submissions/batch/archive | Archive a batch of feedback submissions by ID
+[**PostCrmV3ObjectsFeedbackSubmissionsBatchCreateCreate**](BatchApi.md#PostCrmV3ObjectsFeedbackSubmissionsBatchCreateCreate) | **Post** /crm/v3/objects/feedback_submissions/batch/create | Create a batch of feedback submissions
+[**PostCrmV3ObjectsFeedbackSubmissionsBatchReadRead**](BatchApi.md#PostCrmV3ObjectsFeedbackSubmissionsBatchReadRead) | **Post** /crm/v3/objects/feedback_submissions/batch/read | Read a batch of feedback submissions by internal ID, or unique property values
+[**PostCrmV3ObjectsFeedbackSubmissionsBatchUpdateUpdate**](BatchApi.md#PostCrmV3ObjectsFeedbackSubmissionsBatchUpdateUpdate) | **Post** /crm/v3/objects/feedback_submissions/batch/update | Update a batch of feedback submissions
 
 
 
-## BatchArchive
+## PostCrmV3ObjectsFeedbackSubmissionsBatchArchiveArchive
 
-> BatchArchive(ctx).BatchInputSimplePublicObjectId(batchInputSimplePublicObjectId).Execute()
+> PostCrmV3ObjectsFeedbackSubmissionsBatchArchiveArchive(ctx).BatchInputSimplePublicObjectId(batchInputSimplePublicObjectId).Execute()
 
 Archive a batch of feedback submissions by ID
 
@@ -34,9 +34,9 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BatchApi.BatchArchive(context.Background()).BatchInputSimplePublicObjectId(batchInputSimplePublicObjectId).Execute()
+    resp, r, err := apiClient.BatchApi.PostCrmV3ObjectsFeedbackSubmissionsBatchArchiveArchive(context.Background()).BatchInputSimplePublicObjectId(batchInputSimplePublicObjectId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.BatchArchive``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.PostCrmV3ObjectsFeedbackSubmissionsBatchArchiveArchive``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -48,7 +48,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiBatchArchiveRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCrmV3ObjectsFeedbackSubmissionsBatchArchiveArchiveRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -61,7 +61,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [private_apps](../README.md#private_apps)
+[oauth2_legacy](../README.md#oauth2_legacy), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -73,9 +73,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## BatchCreate
+## PostCrmV3ObjectsFeedbackSubmissionsBatchCreateCreate
 
-> BatchResponseSimplePublicObject BatchCreate(ctx).BatchInputSimplePublicObjectInputForCreate(batchInputSimplePublicObjectInputForCreate).Execute()
+> BatchResponseSimplePublicObject PostCrmV3ObjectsFeedbackSubmissionsBatchCreateCreate(ctx).BatchInputSimplePublicObjectInputForCreate(batchInputSimplePublicObjectInputForCreate).Execute()
 
 Create a batch of feedback submissions
 
@@ -92,17 +92,17 @@ import (
 )
 
 func main() {
-    batchInputSimplePublicObjectInputForCreate := *openapiclient.NewBatchInputSimplePublicObjectInputForCreate([]openapiclient.SimplePublicObjectInputForCreate{*openapiclient.NewSimplePublicObjectInputForCreate(map[string]string{"key": "Inner_example"}, []openapiclient.PublicAssociationsForObject{*openapiclient.NewPublicAssociationsForObject(*openapiclient.NewPublicObjectId("Id_example"), []openapiclient.AssociationSpec{*openapiclient.NewAssociationSpec("AssociationCategory_example", int32(123))})})}) // BatchInputSimplePublicObjectInputForCreate | 
+    batchInputSimplePublicObjectInputForCreate := *openapiclient.NewBatchInputSimplePublicObjectInputForCreate([]openapiclient.SimplePublicObjectInputForCreate{*openapiclient.NewSimplePublicObjectInputForCreate([]openapiclient.PublicAssociationsForObject{*openapiclient.NewPublicAssociationsForObject([]openapiclient.AssociationSpec{*openapiclient.NewAssociationSpec("AssociationCategory_example", int32(123))}, *openapiclient.NewPublicObjectId("Id_example"))}, map[string]string{"key": "Inner_example"})}) // BatchInputSimplePublicObjectInputForCreate | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BatchApi.BatchCreate(context.Background()).BatchInputSimplePublicObjectInputForCreate(batchInputSimplePublicObjectInputForCreate).Execute()
+    resp, r, err := apiClient.BatchApi.PostCrmV3ObjectsFeedbackSubmissionsBatchCreateCreate(context.Background()).BatchInputSimplePublicObjectInputForCreate(batchInputSimplePublicObjectInputForCreate).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.BatchCreate``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.PostCrmV3ObjectsFeedbackSubmissionsBatchCreateCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `BatchCreate`: BatchResponseSimplePublicObject
-    fmt.Fprintf(os.Stdout, "Response from `BatchApi.BatchCreate`: %v\n", resp)
+    // response from `PostCrmV3ObjectsFeedbackSubmissionsBatchCreateCreate`: BatchResponseSimplePublicObject
+    fmt.Fprintf(os.Stdout, "Response from `BatchApi.PostCrmV3ObjectsFeedbackSubmissionsBatchCreateCreate`: %v\n", resp)
 }
 ```
 
@@ -112,7 +112,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiBatchCreateRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCrmV3ObjectsFeedbackSubmissionsBatchCreateCreateRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -125,7 +125,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [private_apps](../README.md#private_apps)
+[oauth2_legacy](../README.md#oauth2_legacy), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -137,9 +137,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## BatchRead
+## PostCrmV3ObjectsFeedbackSubmissionsBatchReadRead
 
-> BatchResponseSimplePublicObject BatchRead(ctx).BatchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId).Archived(archived).Execute()
+> BatchResponseSimplePublicObject PostCrmV3ObjectsFeedbackSubmissionsBatchReadRead(ctx).BatchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId).Archived(archived).Execute()
 
 Read a batch of feedback submissions by internal ID, or unique property values
 
@@ -156,18 +156,18 @@ import (
 )
 
 func main() {
-    batchReadInputSimplePublicObjectId := *openapiclient.NewBatchReadInputSimplePublicObjectId([]string{"Properties_example"}, []string{"PropertiesWithHistory_example"}, []openapiclient.SimplePublicObjectId{*openapiclient.NewSimplePublicObjectId("Id_example")}) // BatchReadInputSimplePublicObjectId | 
+    batchReadInputSimplePublicObjectId := *openapiclient.NewBatchReadInputSimplePublicObjectId([]string{"PropertiesWithHistory_example"}, []openapiclient.SimplePublicObjectId{*openapiclient.NewSimplePublicObjectId("Id_example")}, []string{"Properties_example"}) // BatchReadInputSimplePublicObjectId | 
     archived := true // bool | Whether to return only results that have been archived. (optional) (default to false)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BatchApi.BatchRead(context.Background()).BatchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId).Archived(archived).Execute()
+    resp, r, err := apiClient.BatchApi.PostCrmV3ObjectsFeedbackSubmissionsBatchReadRead(context.Background()).BatchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId).Archived(archived).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.BatchRead``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.PostCrmV3ObjectsFeedbackSubmissionsBatchReadRead``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `BatchRead`: BatchResponseSimplePublicObject
-    fmt.Fprintf(os.Stdout, "Response from `BatchApi.BatchRead`: %v\n", resp)
+    // response from `PostCrmV3ObjectsFeedbackSubmissionsBatchReadRead`: BatchResponseSimplePublicObject
+    fmt.Fprintf(os.Stdout, "Response from `BatchApi.PostCrmV3ObjectsFeedbackSubmissionsBatchReadRead`: %v\n", resp)
 }
 ```
 
@@ -177,7 +177,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiBatchReadRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCrmV3ObjectsFeedbackSubmissionsBatchReadReadRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -191,7 +191,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [private_apps](../README.md#private_apps)
+[oauth2_legacy](../README.md#oauth2_legacy), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 
@@ -203,9 +203,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## BatchUpdate
+## PostCrmV3ObjectsFeedbackSubmissionsBatchUpdateUpdate
 
-> BatchResponseSimplePublicObject BatchUpdate(ctx).BatchInputSimplePublicObjectBatchInput(batchInputSimplePublicObjectBatchInput).Execute()
+> BatchResponseSimplePublicObject PostCrmV3ObjectsFeedbackSubmissionsBatchUpdateUpdate(ctx).BatchInputSimplePublicObjectBatchInput(batchInputSimplePublicObjectBatchInput).Execute()
 
 Update a batch of feedback submissions
 
@@ -222,17 +222,17 @@ import (
 )
 
 func main() {
-    batchInputSimplePublicObjectBatchInput := *openapiclient.NewBatchInputSimplePublicObjectBatchInput([]openapiclient.SimplePublicObjectBatchInput{*openapiclient.NewSimplePublicObjectBatchInput(map[string]string{"key": "Inner_example"}, "Id_example")}) // BatchInputSimplePublicObjectBatchInput | 
+    batchInputSimplePublicObjectBatchInput := *openapiclient.NewBatchInputSimplePublicObjectBatchInput([]openapiclient.SimplePublicObjectBatchInput{*openapiclient.NewSimplePublicObjectBatchInput("Id_example", map[string]string{"key": "Inner_example"})}) // BatchInputSimplePublicObjectBatchInput | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BatchApi.BatchUpdate(context.Background()).BatchInputSimplePublicObjectBatchInput(batchInputSimplePublicObjectBatchInput).Execute()
+    resp, r, err := apiClient.BatchApi.PostCrmV3ObjectsFeedbackSubmissionsBatchUpdateUpdate(context.Background()).BatchInputSimplePublicObjectBatchInput(batchInputSimplePublicObjectBatchInput).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.BatchUpdate``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BatchApi.PostCrmV3ObjectsFeedbackSubmissionsBatchUpdateUpdate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `BatchUpdate`: BatchResponseSimplePublicObject
-    fmt.Fprintf(os.Stdout, "Response from `BatchApi.BatchUpdate`: %v\n", resp)
+    // response from `PostCrmV3ObjectsFeedbackSubmissionsBatchUpdateUpdate`: BatchResponseSimplePublicObject
+    fmt.Fprintf(os.Stdout, "Response from `BatchApi.PostCrmV3ObjectsFeedbackSubmissionsBatchUpdateUpdate`: %v\n", resp)
 }
 ```
 
@@ -242,7 +242,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiBatchUpdateRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostCrmV3ObjectsFeedbackSubmissionsBatchUpdateUpdateRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -255,7 +255,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [private_apps](../README.md#private_apps)
+[oauth2_legacy](../README.md#oauth2_legacy), [private_apps_legacy](../README.md#private_apps_legacy)
 
 ### HTTP request headers
 

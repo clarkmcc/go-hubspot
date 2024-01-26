@@ -4,9 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**X** | **int32** |  | 
-**W** | **int32** |  | 
-**Name** | **string** |  | 
+**CssStyle** | **string** |  | 
 **Label** | **string** |  | 
 **Type** | **string** |  | 
 **Params** | **map[string]map[string]interface{}** | null | 
@@ -14,15 +12,17 @@ Name | Type | Description | Notes
 **RowMetaData** | [**[]RowMetaData**](RowMetaData.md) |  | 
 **Cells** | [**[]LayoutSection**](LayoutSection.md) |  | 
 **CssClass** | **string** |  | 
-**CssStyle** | **string** |  | 
+**W** | **int32** |  | 
 **CssId** | **string** |  | 
+**X** | **int32** |  | 
+**Name** | **string** |  | 
 **Styles** | [**Styles**](Styles.md) |  | 
 
 ## Methods
 
 ### NewLayoutSection
 
-`func NewLayoutSection(x int32, w int32, name string, label string, type_ string, params map[string]map[string]interface{}, rows []map[string]LayoutSection, rowMetaData []RowMetaData, cells []LayoutSection, cssClass string, cssStyle string, cssId string, styles Styles, ) *LayoutSection`
+`func NewLayoutSection(cssStyle string, label string, type_ string, params map[string]map[string]interface{}, rows []map[string]LayoutSection, rowMetaData []RowMetaData, cells []LayoutSection, cssClass string, w int32, cssId string, x int32, name string, styles Styles, ) *LayoutSection`
 
 NewLayoutSection instantiates a new LayoutSection object
 This constructor will assign default values to properties that have it defined,
@@ -37,64 +37,24 @@ NewLayoutSectionWithDefaults instantiates a new LayoutSection object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetX
+### GetCssStyle
 
-`func (o *LayoutSection) GetX() int32`
+`func (o *LayoutSection) GetCssStyle() string`
 
-GetX returns the X field if non-nil, zero value otherwise.
+GetCssStyle returns the CssStyle field if non-nil, zero value otherwise.
 
-### GetXOk
+### GetCssStyleOk
 
-`func (o *LayoutSection) GetXOk() (*int32, bool)`
+`func (o *LayoutSection) GetCssStyleOk() (*string, bool)`
 
-GetXOk returns a tuple with the X field if it's non-nil, zero value otherwise
+GetCssStyleOk returns a tuple with the CssStyle field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetX
+### SetCssStyle
 
-`func (o *LayoutSection) SetX(v int32)`
+`func (o *LayoutSection) SetCssStyle(v string)`
 
-SetX sets X field to given value.
-
-
-### GetW
-
-`func (o *LayoutSection) GetW() int32`
-
-GetW returns the W field if non-nil, zero value otherwise.
-
-### GetWOk
-
-`func (o *LayoutSection) GetWOk() (*int32, bool)`
-
-GetWOk returns a tuple with the W field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetW
-
-`func (o *LayoutSection) SetW(v int32)`
-
-SetW sets W field to given value.
-
-
-### GetName
-
-`func (o *LayoutSection) GetName() string`
-
-GetName returns the Name field if non-nil, zero value otherwise.
-
-### GetNameOk
-
-`func (o *LayoutSection) GetNameOk() (*string, bool)`
-
-GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetName
-
-`func (o *LayoutSection) SetName(v string)`
-
-SetName sets Name field to given value.
+SetCssStyle sets CssStyle field to given value.
 
 
 ### GetLabel
@@ -237,24 +197,24 @@ and a boolean to check if the value has been set.
 SetCssClass sets CssClass field to given value.
 
 
-### GetCssStyle
+### GetW
 
-`func (o *LayoutSection) GetCssStyle() string`
+`func (o *LayoutSection) GetW() int32`
 
-GetCssStyle returns the CssStyle field if non-nil, zero value otherwise.
+GetW returns the W field if non-nil, zero value otherwise.
 
-### GetCssStyleOk
+### GetWOk
 
-`func (o *LayoutSection) GetCssStyleOk() (*string, bool)`
+`func (o *LayoutSection) GetWOk() (*int32, bool)`
 
-GetCssStyleOk returns a tuple with the CssStyle field if it's non-nil, zero value otherwise
+GetWOk returns a tuple with the W field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetCssStyle
+### SetW
 
-`func (o *LayoutSection) SetCssStyle(v string)`
+`func (o *LayoutSection) SetW(v int32)`
 
-SetCssStyle sets CssStyle field to given value.
+SetW sets W field to given value.
 
 
 ### GetCssId
@@ -275,6 +235,46 @@ and a boolean to check if the value has been set.
 `func (o *LayoutSection) SetCssId(v string)`
 
 SetCssId sets CssId field to given value.
+
+
+### GetX
+
+`func (o *LayoutSection) GetX() int32`
+
+GetX returns the X field if non-nil, zero value otherwise.
+
+### GetXOk
+
+`func (o *LayoutSection) GetXOk() (*int32, bool)`
+
+GetXOk returns a tuple with the X field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetX
+
+`func (o *LayoutSection) SetX(v int32)`
+
+SetX sets X field to given value.
+
+
+### GetName
+
+`func (o *LayoutSection) GetName() string`
+
+GetName returns the Name field if non-nil, zero value otherwise.
+
+### GetNameOk
+
+`func (o *LayoutSection) GetNameOk() (*string, bool)`
+
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetName
+
+`func (o *LayoutSection) SetName(v string)`
+
+SetName sets Name field to given value.
 
 
 ### GetStyles

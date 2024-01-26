@@ -1,5 +1,5 @@
 /*
-URL redirects
+CMS Url Redirects
 
 URL redirect operations
 
@@ -17,8 +17,8 @@ import (
 // CollectionResponseWithTotalUrlMappingForwardPaging struct for CollectionResponseWithTotalUrlMappingForwardPaging
 type CollectionResponseWithTotalUrlMappingForwardPaging struct {
 	Total   int32          `json:"total"`
-	Results []UrlMapping   `json:"results"`
 	Paging  *ForwardPaging `json:"paging,omitempty"`
+	Results []UrlMapping   `json:"results"`
 }
 
 // NewCollectionResponseWithTotalUrlMappingForwardPaging instantiates a new CollectionResponseWithTotalUrlMappingForwardPaging object
@@ -64,30 +64,6 @@ func (o *CollectionResponseWithTotalUrlMappingForwardPaging) SetTotal(v int32) {
 	o.Total = v
 }
 
-// GetResults returns the Results field value
-func (o *CollectionResponseWithTotalUrlMappingForwardPaging) GetResults() []UrlMapping {
-	if o == nil {
-		var ret []UrlMapping
-		return ret
-	}
-
-	return o.Results
-}
-
-// GetResultsOk returns a tuple with the Results field value
-// and a boolean to check if the value has been set.
-func (o *CollectionResponseWithTotalUrlMappingForwardPaging) GetResultsOk() ([]UrlMapping, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Results, true
-}
-
-// SetResults sets field value
-func (o *CollectionResponseWithTotalUrlMappingForwardPaging) SetResults(v []UrlMapping) {
-	o.Results = v
-}
-
 // GetPaging returns the Paging field value if set, zero value otherwise.
 func (o *CollectionResponseWithTotalUrlMappingForwardPaging) GetPaging() ForwardPaging {
 	if o == nil || o.Paging == nil {
@@ -120,16 +96,40 @@ func (o *CollectionResponseWithTotalUrlMappingForwardPaging) SetPaging(v Forward
 	o.Paging = &v
 }
 
+// GetResults returns the Results field value
+func (o *CollectionResponseWithTotalUrlMappingForwardPaging) GetResults() []UrlMapping {
+	if o == nil {
+		var ret []UrlMapping
+		return ret
+	}
+
+	return o.Results
+}
+
+// GetResultsOk returns a tuple with the Results field value
+// and a boolean to check if the value has been set.
+func (o *CollectionResponseWithTotalUrlMappingForwardPaging) GetResultsOk() ([]UrlMapping, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Results, true
+}
+
+// SetResults sets field value
+func (o *CollectionResponseWithTotalUrlMappingForwardPaging) SetResults(v []UrlMapping) {
+	o.Results = v
+}
+
 func (o CollectionResponseWithTotalUrlMappingForwardPaging) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
 		toSerialize["total"] = o.Total
 	}
-	if true {
-		toSerialize["results"] = o.Results
-	}
 	if o.Paging != nil {
 		toSerialize["paging"] = o.Paging
+	}
+	if true {
+		toSerialize["results"] = o.Results
 	}
 	return json.Marshal(toSerialize)
 }

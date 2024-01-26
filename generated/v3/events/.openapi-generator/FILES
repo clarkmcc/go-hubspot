@@ -12,6 +12,7 @@ docs/EventsApi.md
 docs/ExternalUnifiedEvent.md
 docs/NextPage.md
 docs/Paging.md
+docs/PreviousPage.md
 git_push.sh
 go.mod
 go.sum
@@ -21,5 +22,6 @@ model_error_detail.go
 model_external_unified_event.go
 model_next_page.go
 model_paging.go
+model_previous_page.go
 response.go
 utils.go

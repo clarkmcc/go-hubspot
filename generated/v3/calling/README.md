@@ -78,6 +78,9 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*RecordingSettingsApi* | [**GetCrmV3ExtensionsCallingAppIdSettingsRecordingGetUrlFormat**](docs/RecordingSettingsApi.md#getcrmv3extensionscallingappidsettingsrecordinggeturlformat) | **Get** /crm/v3/extensions/calling/{appId}/settings/recording | 
+*RecordingSettingsApi* | [**PatchCrmV3ExtensionsCallingAppIdSettingsRecordingUpdateUrlFormat**](docs/RecordingSettingsApi.md#patchcrmv3extensionscallingappidsettingsrecordingupdateurlformat) | **Patch** /crm/v3/extensions/calling/{appId}/settings/recording | 
+*RecordingSettingsApi* | [**PostCrmV3ExtensionsCallingAppIdSettingsRecordingRegisterUrlFormat**](docs/RecordingSettingsApi.md#postcrmv3extensionscallingappidsettingsrecordingregisterurlformat) | **Post** /crm/v3/extensions/calling/{appId}/settings/recording | 
 *SettingsApi* | [**Archive**](docs/SettingsApi.md#archive) | **Delete** /crm/v3/extensions/calling/{appId}/settings | Delete calling settings
 *SettingsApi* | [**Create**](docs/SettingsApi.md#create) | **Post** /crm/v3/extensions/calling/{appId}/settings | Configure a calling extension
 *SettingsApi* | [**GetByID**](docs/SettingsApi.md#getbyid) | **Get** /crm/v3/extensions/calling/{appId}/settings | Get calling settings
@@ -88,6 +91,9 @@ Class | Method | HTTP request | Description
 
  - [Error](docs/Error.md)
  - [ErrorDetail](docs/ErrorDetail.md)
+ - [RecordingSettingsPatchRequest](docs/RecordingSettingsPatchRequest.md)
+ - [RecordingSettingsRequest](docs/RecordingSettingsRequest.md)
+ - [RecordingSettingsResponse](docs/RecordingSettingsResponse.md)
  - [SettingsPatchRequest](docs/SettingsPatchRequest.md)
  - [SettingsRequest](docs/SettingsRequest.md)
  - [SettingsResponse](docs/SettingsResponse.md)

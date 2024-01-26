@@ -17,23 +17,23 @@ import (
 
 // ValueWithTimestamp struct for ValueWithTimestamp
 type ValueWithTimestamp struct {
-	Value           string    `json:"value"`
-	Timestamp       time.Time `json:"timestamp"`
-	SourceType      string    `json:"sourceType"`
 	SourceId        *string   `json:"sourceId,omitempty"`
+	SourceType      string    `json:"sourceType"`
 	SourceLabel     *string   `json:"sourceLabel,omitempty"`
 	UpdatedByUserId *int32    `json:"updatedByUserId,omitempty"`
+	Value           string    `json:"value"`
+	Timestamp       time.Time `json:"timestamp"`
 }
 
 // NewValueWithTimestamp instantiates a new ValueWithTimestamp object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewValueWithTimestamp(value string, timestamp time.Time, sourceType string) *ValueWithTimestamp {
+func NewValueWithTimestamp(sourceType string, value string, timestamp time.Time) *ValueWithTimestamp {
 	this := ValueWithTimestamp{}
+	this.SourceType = sourceType
 	this.Value = value
 	this.Timestamp = timestamp
-	this.SourceType = sourceType
 	return &this
 }
 
@@ -43,78 +43,6 @@ func NewValueWithTimestamp(value string, timestamp time.Time, sourceType string)
 func NewValueWithTimestampWithDefaults() *ValueWithTimestamp {
 	this := ValueWithTimestamp{}
 	return &this
-}
-
-// GetValue returns the Value field value
-func (o *ValueWithTimestamp) GetValue() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Value
-}
-
-// GetValueOk returns a tuple with the Value field value
-// and a boolean to check if the value has been set.
-func (o *ValueWithTimestamp) GetValueOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Value, true
-}
-
-// SetValue sets field value
-func (o *ValueWithTimestamp) SetValue(v string) {
-	o.Value = v
-}
-
-// GetTimestamp returns the Timestamp field value
-func (o *ValueWithTimestamp) GetTimestamp() time.Time {
-	if o == nil {
-		var ret time.Time
-		return ret
-	}
-
-	return o.Timestamp
-}
-
-// GetTimestampOk returns a tuple with the Timestamp field value
-// and a boolean to check if the value has been set.
-func (o *ValueWithTimestamp) GetTimestampOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Timestamp, true
-}
-
-// SetTimestamp sets field value
-func (o *ValueWithTimestamp) SetTimestamp(v time.Time) {
-	o.Timestamp = v
-}
-
-// GetSourceType returns the SourceType field value
-func (o *ValueWithTimestamp) GetSourceType() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.SourceType
-}
-
-// GetSourceTypeOk returns a tuple with the SourceType field value
-// and a boolean to check if the value has been set.
-func (o *ValueWithTimestamp) GetSourceTypeOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.SourceType, true
-}
-
-// SetSourceType sets field value
-func (o *ValueWithTimestamp) SetSourceType(v string) {
-	o.SourceType = v
 }
 
 // GetSourceId returns the SourceId field value if set, zero value otherwise.
@@ -147,6 +75,30 @@ func (o *ValueWithTimestamp) HasSourceId() bool {
 // SetSourceId gets a reference to the given string and assigns it to the SourceId field.
 func (o *ValueWithTimestamp) SetSourceId(v string) {
 	o.SourceId = &v
+}
+
+// GetSourceType returns the SourceType field value
+func (o *ValueWithTimestamp) GetSourceType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.SourceType
+}
+
+// GetSourceTypeOk returns a tuple with the SourceType field value
+// and a boolean to check if the value has been set.
+func (o *ValueWithTimestamp) GetSourceTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.SourceType, true
+}
+
+// SetSourceType sets field value
+func (o *ValueWithTimestamp) SetSourceType(v string) {
+	o.SourceType = v
 }
 
 // GetSourceLabel returns the SourceLabel field value if set, zero value otherwise.
@@ -213,25 +165,73 @@ func (o *ValueWithTimestamp) SetUpdatedByUserId(v int32) {
 	o.UpdatedByUserId = &v
 }
 
+// GetValue returns the Value field value
+func (o *ValueWithTimestamp) GetValue() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Value
+}
+
+// GetValueOk returns a tuple with the Value field value
+// and a boolean to check if the value has been set.
+func (o *ValueWithTimestamp) GetValueOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Value, true
+}
+
+// SetValue sets field value
+func (o *ValueWithTimestamp) SetValue(v string) {
+	o.Value = v
+}
+
+// GetTimestamp returns the Timestamp field value
+func (o *ValueWithTimestamp) GetTimestamp() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.Timestamp
+}
+
+// GetTimestampOk returns a tuple with the Timestamp field value
+// and a boolean to check if the value has been set.
+func (o *ValueWithTimestamp) GetTimestampOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Timestamp, true
+}
+
+// SetTimestamp sets field value
+func (o *ValueWithTimestamp) SetTimestamp(v time.Time) {
+	o.Timestamp = v
+}
+
 func (o ValueWithTimestamp) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["value"] = o.Value
-	}
-	if true {
-		toSerialize["timestamp"] = o.Timestamp
+	if o.SourceId != nil {
+		toSerialize["sourceId"] = o.SourceId
 	}
 	if true {
 		toSerialize["sourceType"] = o.SourceType
-	}
-	if o.SourceId != nil {
-		toSerialize["sourceId"] = o.SourceId
 	}
 	if o.SourceLabel != nil {
 		toSerialize["sourceLabel"] = o.SourceLabel
 	}
 	if o.UpdatedByUserId != nil {
 		toSerialize["updatedByUserId"] = o.UpdatedByUserId
+	}
+	if true {
+		toSerialize["value"] = o.Value
+	}
+	if true {
+		toSerialize["timestamp"] = o.Timestamp
 	}
 	return json.Marshal(toSerialize)
 }

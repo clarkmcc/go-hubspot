@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Properties** | **map[string]string** |  | 
 **Associations** | [**[]PublicAssociationsForObject**](PublicAssociationsForObject.md) |  | 
+**Properties** | **map[string]string** |  | 
 
 ## Methods
 
 ### NewSimplePublicObjectInputForCreate
 
-`func NewSimplePublicObjectInputForCreate(properties map[string]string, associations []PublicAssociationsForObject, ) *SimplePublicObjectInputForCreate`
+`func NewSimplePublicObjectInputForCreate(associations []PublicAssociationsForObject, properties map[string]string, ) *SimplePublicObjectInputForCreate`
 
 NewSimplePublicObjectInputForCreate instantiates a new SimplePublicObjectInputForCreate object
 This constructor will assign default values to properties that have it defined,
@@ -25,26 +25,6 @@ will change when the set of required properties is changed
 NewSimplePublicObjectInputForCreateWithDefaults instantiates a new SimplePublicObjectInputForCreate object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetProperties
-
-`func (o *SimplePublicObjectInputForCreate) GetProperties() map[string]string`
-
-GetProperties returns the Properties field if non-nil, zero value otherwise.
-
-### GetPropertiesOk
-
-`func (o *SimplePublicObjectInputForCreate) GetPropertiesOk() (*map[string]string, bool)`
-
-GetPropertiesOk returns a tuple with the Properties field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetProperties
-
-`func (o *SimplePublicObjectInputForCreate) SetProperties(v map[string]string)`
-
-SetProperties sets Properties field to given value.
-
 
 ### GetAssociations
 
@@ -64,6 +44,26 @@ and a boolean to check if the value has been set.
 `func (o *SimplePublicObjectInputForCreate) SetAssociations(v []PublicAssociationsForObject)`
 
 SetAssociations sets Associations field to given value.
+
+
+### GetProperties
+
+`func (o *SimplePublicObjectInputForCreate) GetProperties() map[string]string`
+
+GetProperties returns the Properties field if non-nil, zero value otherwise.
+
+### GetPropertiesOk
+
+`func (o *SimplePublicObjectInputForCreate) GetPropertiesOk() (*map[string]string, bool)`
+
+GetPropertiesOk returns a tuple with the Properties field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProperties
+
+`func (o *SimplePublicObjectInputForCreate) SetProperties(v map[string]string)`
+
+SetProperties sets Properties field to given value.
 
 
 

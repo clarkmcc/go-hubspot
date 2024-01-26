@@ -78,19 +78,19 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*EventsApi* | [**BatchCreate**](docs/EventsApi.md#batchcreate) | **Post** /crm/v3/timeline/events/batch/create | Creates multiple events
-*EventsApi* | [**Create**](docs/EventsApi.md#create) | **Post** /crm/v3/timeline/events | Create a single event
-*EventsApi* | [**GetByID**](docs/EventsApi.md#getbyid) | **Get** /crm/v3/timeline/events/{eventTemplateId}/{eventId} | Gets the event
-*EventsApi* | [**GetDetailByID**](docs/EventsApi.md#getdetailbyid) | **Get** /crm/v3/timeline/events/{eventTemplateId}/{eventId}/detail | Gets the detailTemplate as rendered
-*EventsApi* | [**GetRenderByID**](docs/EventsApi.md#getrenderbyid) | **Get** /crm/v3/timeline/events/{eventTemplateId}/{eventId}/render | Renders the header or detail as HTML
-*TemplatesApi* | [**TemplateCreate**](docs/TemplatesApi.md#templatecreate) | **Post** /crm/v3/timeline/{appId}/event-templates | Create an event template for your app
-*TemplatesApi* | [**TemplateGetAll**](docs/TemplatesApi.md#templategetall) | **Get** /crm/v3/timeline/{appId}/event-templates | List all event templates for your app
-*TemplatesApi* | [**TemplatesArchive**](docs/TemplatesApi.md#templatesarchive) | **Delete** /crm/v3/timeline/{appId}/event-templates/{eventTemplateId} | Deletes an event template for the app
-*TemplatesApi* | [**TemplatesGetByID**](docs/TemplatesApi.md#templatesgetbyid) | **Get** /crm/v3/timeline/{appId}/event-templates/{eventTemplateId} | Gets a specific event template for your app
-*TemplatesApi* | [**TemplatesUpdate**](docs/TemplatesApi.md#templatesupdate) | **Put** /crm/v3/timeline/{appId}/event-templates/{eventTemplateId} | Update an existing event template
-*TokensApi* | [**TemplatesTokensArchive**](docs/TokensApi.md#templatestokensarchive) | **Delete** /crm/v3/timeline/{appId}/event-templates/{eventTemplateId}/tokens/{tokenName} | Removes a token from the event template
-*TokensApi* | [**TemplatesTokensCreate**](docs/TokensApi.md#templatestokenscreate) | **Post** /crm/v3/timeline/{appId}/event-templates/{eventTemplateId}/tokens | Adds a token to an existing event template
-*TokensApi* | [**TemplatesTokensUpdate**](docs/TokensApi.md#templatestokensupdate) | **Put** /crm/v3/timeline/{appId}/event-templates/{eventTemplateId}/tokens/{tokenName} | Updates an existing token on an event template
+*EventsApi* | [**GetCrmV3TimelineEventsEventTemplateIdEventIdDetailGetDetailById**](docs/EventsApi.md#getcrmv3timelineeventseventtemplateideventiddetailgetdetailbyid) | **Get** /crm/v3/timeline/events/{eventTemplateId}/{eventId}/detail | Gets the detailTemplate as rendered
+*EventsApi* | [**GetCrmV3TimelineEventsEventTemplateIdEventIdGetById**](docs/EventsApi.md#getcrmv3timelineeventseventtemplateideventidgetbyid) | **Get** /crm/v3/timeline/events/{eventTemplateId}/{eventId} | Gets the event
+*EventsApi* | [**GetCrmV3TimelineEventsEventTemplateIdEventIdRenderGetRenderById**](docs/EventsApi.md#getcrmv3timelineeventseventtemplateideventidrendergetrenderbyid) | **Get** /crm/v3/timeline/events/{eventTemplateId}/{eventId}/render | Renders the header or detail as HTML
+*EventsApi* | [**PostCrmV3TimelineEventsBatchCreateCreateBatch**](docs/EventsApi.md#postcrmv3timelineeventsbatchcreatecreatebatch) | **Post** /crm/v3/timeline/events/batch/create | Creates multiple events
+*EventsApi* | [**PostCrmV3TimelineEventsCreate**](docs/EventsApi.md#postcrmv3timelineeventscreate) | **Post** /crm/v3/timeline/events | Create a single event
+*TemplatesApi* | [**DeleteCrmV3TimelineAppIdEventTemplatesEventTemplateIdArchive**](docs/TemplatesApi.md#deletecrmv3timelineappideventtemplateseventtemplateidarchive) | **Delete** /crm/v3/timeline/{appId}/event-templates/{eventTemplateId} | Deletes an event template for the app
+*TemplatesApi* | [**GetCrmV3TimelineAppIdEventTemplatesEventTemplateIdGetById**](docs/TemplatesApi.md#getcrmv3timelineappideventtemplateseventtemplateidgetbyid) | **Get** /crm/v3/timeline/{appId}/event-templates/{eventTemplateId} | Gets a specific event template for your app
+*TemplatesApi* | [**GetCrmV3TimelineAppIdEventTemplatesGetAll**](docs/TemplatesApi.md#getcrmv3timelineappideventtemplatesgetall) | **Get** /crm/v3/timeline/{appId}/event-templates | List all event templates for your app
+*TemplatesApi* | [**PostCrmV3TimelineAppIdEventTemplatesCreate**](docs/TemplatesApi.md#postcrmv3timelineappideventtemplatescreate) | **Post** /crm/v3/timeline/{appId}/event-templates | Create an event template for your app
+*TemplatesApi* | [**PutCrmV3TimelineAppIdEventTemplatesEventTemplateIdUpdate**](docs/TemplatesApi.md#putcrmv3timelineappideventtemplateseventtemplateidupdate) | **Put** /crm/v3/timeline/{appId}/event-templates/{eventTemplateId} | Update an existing event template
+*TokensApi* | [**DeleteCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameArchive**](docs/TokensApi.md#deletecrmv3timelineappideventtemplateseventtemplateidtokenstokennamearchive) | **Delete** /crm/v3/timeline/{appId}/event-templates/{eventTemplateId}/tokens/{tokenName} | Removes a token from the event template
+*TokensApi* | [**PostCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensCreate**](docs/TokensApi.md#postcrmv3timelineappideventtemplateseventtemplateidtokenscreate) | **Post** /crm/v3/timeline/{appId}/event-templates/{eventTemplateId}/tokens | Adds a token to an existing event template
+*TokensApi* | [**PutCrmV3TimelineAppIdEventTemplatesEventTemplateIdTokensTokenNameUpdate**](docs/TokensApi.md#putcrmv3timelineappideventtemplateseventtemplateidtokenstokennameupdate) | **Put** /crm/v3/timeline/{appId}/event-templates/{eventTemplateId}/tokens/{tokenName} | Updates an existing token on an event template
 
 
 ## Documentation For Models
@@ -134,16 +134,16 @@ Note, each API key must be added to a map of `map[string]APIKey` where the key i
 - **Flow**: accessCode
 - **Authorization URL**: https://app.hubspot.com/oauth/authorize
 - **Scopes**: 
- - **crm.schemas.contacts.write**:  
  - **crm.objects.contacts.write**:  
- - **crm.schemas.companies.write**:  
+ - **crm.schemas.contacts.write**:  
  - **crm.objects.companies.write**:  
- - **crm.objects.deals.write**:  
+ - **crm.schemas.companies.write**:  
  - **crm.schemas.deals.write**:  
- - **crm.objects.contacts.read**:  
+ - **crm.objects.deals.write**:  
  - **crm.schemas.contacts.read**:  
- - **crm.schemas.companies.read**:  
+ - **crm.objects.contacts.read**:  
  - **crm.objects.companies.read**:  
+ - **crm.schemas.companies.read**:  
  - **crm.objects.deals.read**:  
  - **crm.schemas.deals.read**:  
 

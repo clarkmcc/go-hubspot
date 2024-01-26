@@ -105,7 +105,7 @@ import (
 
 func main() {
     objectType := "objectType_example" // string | 
-    propertyGroupCreate := *openapiclient.NewPropertyGroupCreate("Name_example", "Label_example") // PropertyGroupCreate | 
+    propertyGroupCreate := *openapiclient.NewPropertyGroupCreate("mypropertygroup", "My Property Group") // PropertyGroupCreate | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)

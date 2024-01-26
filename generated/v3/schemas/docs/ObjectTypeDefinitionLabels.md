@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Singular** | Pointer to **string** | The word for one object. (There’s no way to change this later.) | [optional] 
 **Plural** | Pointer to **string** | The word for multiple objects. (There’s no way to change this later.) | [optional] 
+**Singular** | Pointer to **string** | The word for one object. (There’s no way to change this later.) | [optional] 
 
 ## Methods
 
@@ -25,31 +25,6 @@ will change when the set of required properties is changed
 NewObjectTypeDefinitionLabelsWithDefaults instantiates a new ObjectTypeDefinitionLabels object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetSingular
-
-`func (o *ObjectTypeDefinitionLabels) GetSingular() string`
-
-GetSingular returns the Singular field if non-nil, zero value otherwise.
-
-### GetSingularOk
-
-`func (o *ObjectTypeDefinitionLabels) GetSingularOk() (*string, bool)`
-
-GetSingularOk returns a tuple with the Singular field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetSingular
-
-`func (o *ObjectTypeDefinitionLabels) SetSingular(v string)`
-
-SetSingular sets Singular field to given value.
-
-### HasSingular
-
-`func (o *ObjectTypeDefinitionLabels) HasSingular() bool`
-
-HasSingular returns a boolean if a field has been set.
 
 ### GetPlural
 
@@ -75,6 +50,31 @@ SetPlural sets Plural field to given value.
 `func (o *ObjectTypeDefinitionLabels) HasPlural() bool`
 
 HasPlural returns a boolean if a field has been set.
+
+### GetSingular
+
+`func (o *ObjectTypeDefinitionLabels) GetSingular() string`
+
+GetSingular returns the Singular field if non-nil, zero value otherwise.
+
+### GetSingularOk
+
+`func (o *ObjectTypeDefinitionLabels) GetSingularOk() (*string, bool)`
+
+GetSingularOk returns a tuple with the Singular field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSingular
+
+`func (o *ObjectTypeDefinitionLabels) SetSingular(v string)`
+
+SetSingular sets Singular field to given value.
+
+### HasSingular
+
+`func (o *ObjectTypeDefinitionLabels) HasSingular() bool`
+
+HasSingular returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

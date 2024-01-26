@@ -1,5 +1,5 @@
 /*
-Blog Post endpoints
+Posts
 
 Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags
 
@@ -16,10 +16,10 @@ import (
 
 // BlogPostLanguageCloneRequestVNext Request body object for creating new blog post language variant.
 type BlogPostLanguageCloneRequestVNext struct {
-	// ID of blog post to clone.
-	Id string `json:"id"`
 	// Target language of new variant.
 	Language *string `json:"language,omitempty"`
+	// ID of blog post to clone.
+	Id string `json:"id"`
 }
 
 // NewBlogPostLanguageCloneRequestVNext instantiates a new BlogPostLanguageCloneRequestVNext object
@@ -38,30 +38,6 @@ func NewBlogPostLanguageCloneRequestVNext(id string) *BlogPostLanguageCloneReque
 func NewBlogPostLanguageCloneRequestVNextWithDefaults() *BlogPostLanguageCloneRequestVNext {
 	this := BlogPostLanguageCloneRequestVNext{}
 	return &this
-}
-
-// GetId returns the Id field value
-func (o *BlogPostLanguageCloneRequestVNext) GetId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Id
-}
-
-// GetIdOk returns a tuple with the Id field value
-// and a boolean to check if the value has been set.
-func (o *BlogPostLanguageCloneRequestVNext) GetIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Id, true
-}
-
-// SetId sets field value
-func (o *BlogPostLanguageCloneRequestVNext) SetId(v string) {
-	o.Id = v
 }
 
 // GetLanguage returns the Language field value if set, zero value otherwise.
@@ -96,13 +72,37 @@ func (o *BlogPostLanguageCloneRequestVNext) SetLanguage(v string) {
 	o.Language = &v
 }
 
+// GetId returns the Id field value
+func (o *BlogPostLanguageCloneRequestVNext) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *BlogPostLanguageCloneRequestVNext) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *BlogPostLanguageCloneRequestVNext) SetId(v string) {
+	o.Id = v
+}
+
 func (o BlogPostLanguageCloneRequestVNext) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
 	if o.Language != nil {
 		toSerialize["language"] = o.Language
+	}
+	if true {
+		toSerialize["id"] = o.Id
 	}
 	return json.Marshal(toSerialize)
 }

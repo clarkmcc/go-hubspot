@@ -998,11 +998,11 @@
             "tokenUrl" : "https://api.hubapi.com/oauth/v1/token",
             "scopes" : {
               "e-commerce" : "e-commerce",
-              "crm.objects.custom.write" : "Change custom object records",
-              "crm.objects.custom.read" : "View custom object records",
-              "crm.objects.goals.read" : "Read goals",
+              "media_bridge.read" : "Read media and media events",
               "tickets" : "Read and write tickets",
-              "media_bridge.read" : "Read media and media events"
+              "crm.objects.goals.read" : "Read goals",
+              "crm.objects.custom.read" : "View custom object records",
+              "crm.objects.custom.write" : "Change custom object records"
             }
           }
         }
@@ -1014,16 +1014,16 @@
             "authorizationUrl" : "https://app.hubspot.com/oauth/authorize",
             "tokenUrl" : "https://api.hubapi.com/oauth/v1/token",
             "scopes" : {
-              "crm.objects.quotes.read" : "Quotes",
-              "crm.objects.line_items.write" : "Line Items",
-              "crm.objects.companies.read" : " ",
-              "crm.objects.companies.write" : " ",
-              "crm.objects.contacts.write" : " ",
               "crm.objects.contacts.read" : " ",
-              "crm.objects.quotes.write" : "Quotes",
-              "crm.objects.deals.read" : " ",
+              "crm.objects.contacts.write" : " ",
+              "crm.objects.companies.write" : " ",
+              "crm.objects.companies.read" : " ",
+              "crm.objects.line_items.write" : "Line Items",
+              "crm.objects.quotes.read" : "Quotes",
+              "crm.objects.deals.write" : " ",
               "crm.objects.line_items.read" : "Line Items",
-              "crm.objects.deals.write" : " "
+              "crm.objects.deals.read" : " ",
+              "crm.objects.quotes.write" : "Quotes"
             }
           }
         }

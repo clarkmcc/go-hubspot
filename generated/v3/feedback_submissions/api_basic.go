@@ -15,6 +15,8 @@ import (
 	"context"
 	"io/ioutil"
 	"net/http"
+
+	"github.com/clarkmcc/go-hubspot"
 	"net/url"
 	"reflect"
 	"strings"
@@ -23,27 +25,27 @@ import (
 // BasicApiService BasicApi service
 type BasicApiService service
 
-type ApiArchiveRequest struct {
+type ApiDeleteCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdArchiveRequest struct {
 	ctx                  context.Context
 	ApiService           *BasicApiService
 	feedbackSubmissionId string
 }
 
-func (r ApiArchiveRequest) Execute() (*http.Response, error) {
-	return r.ApiService.ArchiveExecute(r)
+func (r ApiDeleteCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdArchiveRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdArchiveExecute(r)
 }
 
 /*
-Archive Archive
+DeleteCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdArchive Archive
 
 Move an Object identified by `{feedbackSubmissionId}` to the recycling bin.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param feedbackSubmissionId
- @return ApiArchiveRequest
+ @return ApiDeleteCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdArchiveRequest
 */
-func (a *BasicApiService) Archive(ctx context.Context, feedbackSubmissionId string) ApiArchiveRequest {
-	return ApiArchiveRequest{
+func (a *BasicApiService) DeleteCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdArchive(ctx context.Context, feedbackSubmissionId string) ApiDeleteCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdArchiveRequest {
+	return ApiDeleteCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdArchiveRequest{
 		ApiService:           a,
 		ctx:                  ctx,
 		feedbackSubmissionId: feedbackSubmissionId,
@@ -51,14 +53,14 @@ func (a *BasicApiService) Archive(ctx context.Context, feedbackSubmissionId stri
 }
 
 // Execute executes the request
-func (a *BasicApiService) ArchiveExecute(r ApiArchiveRequest) (*http.Response, error) {
+func (a *BasicApiService) DeleteCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdArchiveExecute(r ApiDeleteCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdArchiveRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.Archive")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.DeleteCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdArchive")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -89,16 +91,12 @@ func (a *BasicApiService) ArchiveExecute(r ApiArchiveRequest) (*http.Response, e
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["private_apps"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["private-app"] = key
-			}
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
@@ -136,138 +134,7 @@ func (a *BasicApiService) ArchiveExecute(r ApiArchiveRequest) (*http.Response, e
 	return localVarHTTPResponse, nil
 }
 
-type ApiCreateRequest struct {
-	ctx                              context.Context
-	ApiService                       *BasicApiService
-	simplePublicObjectInputForCreate *SimplePublicObjectInputForCreate
-}
-
-func (r ApiCreateRequest) SimplePublicObjectInputForCreate(simplePublicObjectInputForCreate SimplePublicObjectInputForCreate) ApiCreateRequest {
-	r.simplePublicObjectInputForCreate = &simplePublicObjectInputForCreate
-	return r
-}
-
-func (r ApiCreateRequest) Execute() (*SimplePublicObject, *http.Response, error) {
-	return r.ApiService.CreateExecute(r)
-}
-
-/*
-Create Create
-
-Create a feedback submission with the given properties and return a copy of the object, including the ID. Documentation and examples for creating standard feedback submissions is provided.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateRequest
-*/
-func (a *BasicApiService) Create(ctx context.Context) ApiCreateRequest {
-	return ApiCreateRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//  @return SimplePublicObject
-func (a *BasicApiService) CreateExecute(r ApiCreateRequest) (*SimplePublicObject, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *SimplePublicObject
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.Create")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/crm/v3/objects/feedback_submissions"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.simplePublicObjectInputForCreate == nil {
-		return localVarReturnValue, nil, reportError("simplePublicObjectInputForCreate is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "*/*"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.simplePublicObjectInputForCreate
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["private_apps"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["private-app"] = key
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		var v Error
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiGetByIDRequest struct {
+type ApiGetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdGetByIdRequest struct {
 	ctx                   context.Context
 	ApiService            *BasicApiService
 	feedbackSubmissionId  string
@@ -279,50 +146,50 @@ type ApiGetByIDRequest struct {
 }
 
 // A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
-func (r ApiGetByIDRequest) Properties(properties []string) ApiGetByIDRequest {
+func (r ApiGetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdGetByIdRequest) Properties(properties []string) ApiGetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdGetByIdRequest {
 	r.properties = &properties
 	return r
 }
 
 // A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored.
-func (r ApiGetByIDRequest) PropertiesWithHistory(propertiesWithHistory []string) ApiGetByIDRequest {
+func (r ApiGetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdGetByIdRequest) PropertiesWithHistory(propertiesWithHistory []string) ApiGetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdGetByIdRequest {
 	r.propertiesWithHistory = &propertiesWithHistory
 	return r
 }
 
 // A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
-func (r ApiGetByIDRequest) Associations(associations []string) ApiGetByIDRequest {
+func (r ApiGetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdGetByIdRequest) Associations(associations []string) ApiGetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdGetByIdRequest {
 	r.associations = &associations
 	return r
 }
 
 // Whether to return only results that have been archived.
-func (r ApiGetByIDRequest) Archived(archived bool) ApiGetByIDRequest {
+func (r ApiGetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdGetByIdRequest) Archived(archived bool) ApiGetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdGetByIdRequest {
 	r.archived = &archived
 	return r
 }
 
 // The name of a property whose values are unique for this object type
-func (r ApiGetByIDRequest) IdProperty(idProperty string) ApiGetByIDRequest {
+func (r ApiGetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdGetByIdRequest) IdProperty(idProperty string) ApiGetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdGetByIdRequest {
 	r.idProperty = &idProperty
 	return r
 }
 
-func (r ApiGetByIDRequest) Execute() (*SimplePublicObjectWithAssociations, *http.Response, error) {
-	return r.ApiService.GetByIDExecute(r)
+func (r ApiGetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdGetByIdRequest) Execute() (*SimplePublicObjectWithAssociations, *http.Response, error) {
+	return r.ApiService.GetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdGetByIdExecute(r)
 }
 
 /*
-GetByID Read
+GetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdGetById Read
 
 Read an Object identified by `{feedbackSubmissionId}`. `{feedbackSubmissionId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param feedbackSubmissionId
- @return ApiGetByIDRequest
+ @return ApiGetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdGetByIdRequest
 */
-func (a *BasicApiService) GetByID(ctx context.Context, feedbackSubmissionId string) ApiGetByIDRequest {
-	return ApiGetByIDRequest{
+func (a *BasicApiService) GetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdGetById(ctx context.Context, feedbackSubmissionId string) ApiGetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdGetByIdRequest {
+	return ApiGetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdGetByIdRequest{
 		ApiService:           a,
 		ctx:                  ctx,
 		feedbackSubmissionId: feedbackSubmissionId,
@@ -331,7 +198,7 @@ func (a *BasicApiService) GetByID(ctx context.Context, feedbackSubmissionId stri
 
 // Execute executes the request
 //  @return SimplePublicObjectWithAssociations
-func (a *BasicApiService) GetByIDExecute(r ApiGetByIDRequest) (*SimplePublicObjectWithAssociations, *http.Response, error) {
+func (a *BasicApiService) GetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdGetByIdExecute(r ApiGetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdGetByIdRequest) (*SimplePublicObjectWithAssociations, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -339,7 +206,7 @@ func (a *BasicApiService) GetByIDExecute(r ApiGetByIDRequest) (*SimplePublicObje
 		localVarReturnValue *SimplePublicObjectWithAssociations
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.GetByID")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.GetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdGetById")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -409,16 +276,12 @@ func (a *BasicApiService) GetByIDExecute(r ApiGetByIDRequest) (*SimplePublicObje
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["private_apps"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["private-app"] = key
-			}
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
@@ -465,7 +328,7 @@ func (a *BasicApiService) GetByIDExecute(r ApiGetByIDRequest) (*SimplePublicObje
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetPageRequest struct {
+type ApiGetCrmV3ObjectsFeedbackSubmissionsGetPageRequest struct {
 	ctx                   context.Context
 	ApiService            *BasicApiService
 	limit                 *int32
@@ -477,55 +340,55 @@ type ApiGetPageRequest struct {
 }
 
 // The maximum number of results to display per page.
-func (r ApiGetPageRequest) Limit(limit int32) ApiGetPageRequest {
+func (r ApiGetCrmV3ObjectsFeedbackSubmissionsGetPageRequest) Limit(limit int32) ApiGetCrmV3ObjectsFeedbackSubmissionsGetPageRequest {
 	r.limit = &limit
 	return r
 }
 
 // The paging cursor token of the last successfully read resource will be returned as the &#x60;paging.next.after&#x60; JSON property of a paged response containing more results.
-func (r ApiGetPageRequest) After(after string) ApiGetPageRequest {
+func (r ApiGetCrmV3ObjectsFeedbackSubmissionsGetPageRequest) After(after string) ApiGetCrmV3ObjectsFeedbackSubmissionsGetPageRequest {
 	r.after = &after
 	return r
 }
 
 // A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
-func (r ApiGetPageRequest) Properties(properties []string) ApiGetPageRequest {
+func (r ApiGetCrmV3ObjectsFeedbackSubmissionsGetPageRequest) Properties(properties []string) ApiGetCrmV3ObjectsFeedbackSubmissionsGetPageRequest {
 	r.properties = &properties
 	return r
 }
 
 // A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored. Usage of this parameter will reduce the maximum number of objects that can be read by a single request.
-func (r ApiGetPageRequest) PropertiesWithHistory(propertiesWithHistory []string) ApiGetPageRequest {
+func (r ApiGetCrmV3ObjectsFeedbackSubmissionsGetPageRequest) PropertiesWithHistory(propertiesWithHistory []string) ApiGetCrmV3ObjectsFeedbackSubmissionsGetPageRequest {
 	r.propertiesWithHistory = &propertiesWithHistory
 	return r
 }
 
 // A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
-func (r ApiGetPageRequest) Associations(associations []string) ApiGetPageRequest {
+func (r ApiGetCrmV3ObjectsFeedbackSubmissionsGetPageRequest) Associations(associations []string) ApiGetCrmV3ObjectsFeedbackSubmissionsGetPageRequest {
 	r.associations = &associations
 	return r
 }
 
 // Whether to return only results that have been archived.
-func (r ApiGetPageRequest) Archived(archived bool) ApiGetPageRequest {
+func (r ApiGetCrmV3ObjectsFeedbackSubmissionsGetPageRequest) Archived(archived bool) ApiGetCrmV3ObjectsFeedbackSubmissionsGetPageRequest {
 	r.archived = &archived
 	return r
 }
 
-func (r ApiGetPageRequest) Execute() (*CollectionResponseSimplePublicObjectWithAssociationsForwardPaging, *http.Response, error) {
-	return r.ApiService.GetPageExecute(r)
+func (r ApiGetCrmV3ObjectsFeedbackSubmissionsGetPageRequest) Execute() (*CollectionResponseSimplePublicObjectWithAssociationsForwardPaging, *http.Response, error) {
+	return r.ApiService.GetCrmV3ObjectsFeedbackSubmissionsGetPageExecute(r)
 }
 
 /*
-GetPage List
+GetCrmV3ObjectsFeedbackSubmissionsGetPage List
 
 Read a page of feedback submissions. Control what is returned via the `properties` query param.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetPageRequest
+ @return ApiGetCrmV3ObjectsFeedbackSubmissionsGetPageRequest
 */
-func (a *BasicApiService) GetPage(ctx context.Context) ApiGetPageRequest {
-	return ApiGetPageRequest{
+func (a *BasicApiService) GetCrmV3ObjectsFeedbackSubmissionsGetPage(ctx context.Context) ApiGetCrmV3ObjectsFeedbackSubmissionsGetPageRequest {
+	return ApiGetCrmV3ObjectsFeedbackSubmissionsGetPageRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -533,7 +396,7 @@ func (a *BasicApiService) GetPage(ctx context.Context) ApiGetPageRequest {
 
 // Execute executes the request
 //  @return CollectionResponseSimplePublicObjectWithAssociationsForwardPaging
-func (a *BasicApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionResponseSimplePublicObjectWithAssociationsForwardPaging, *http.Response, error) {
+func (a *BasicApiService) GetCrmV3ObjectsFeedbackSubmissionsGetPageExecute(r ApiGetCrmV3ObjectsFeedbackSubmissionsGetPageRequest) (*CollectionResponseSimplePublicObjectWithAssociationsForwardPaging, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -541,7 +404,7 @@ func (a *BasicApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionRespon
 		localVarReturnValue *CollectionResponseSimplePublicObjectWithAssociationsForwardPaging
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.GetPage")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.GetCrmV3ObjectsFeedbackSubmissionsGetPage")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -613,16 +476,12 @@ func (a *BasicApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionRespon
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["private_apps"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["private-app"] = key
-			}
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
@@ -669,7 +528,7 @@ func (a *BasicApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionRespon
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiUpdateRequest struct {
+type ApiPatchCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdUpdateRequest struct {
 	ctx                     context.Context
 	ApiService              *BasicApiService
 	feedbackSubmissionId    string
@@ -677,32 +536,32 @@ type ApiUpdateRequest struct {
 	idProperty              *string
 }
 
-func (r ApiUpdateRequest) SimplePublicObjectInput(simplePublicObjectInput SimplePublicObjectInput) ApiUpdateRequest {
+func (r ApiPatchCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdUpdateRequest) SimplePublicObjectInput(simplePublicObjectInput SimplePublicObjectInput) ApiPatchCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdUpdateRequest {
 	r.simplePublicObjectInput = &simplePublicObjectInput
 	return r
 }
 
 // The name of a property whose values are unique for this object type
-func (r ApiUpdateRequest) IdProperty(idProperty string) ApiUpdateRequest {
+func (r ApiPatchCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdUpdateRequest) IdProperty(idProperty string) ApiPatchCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdUpdateRequest {
 	r.idProperty = &idProperty
 	return r
 }
 
-func (r ApiUpdateRequest) Execute() (*SimplePublicObject, *http.Response, error) {
-	return r.ApiService.UpdateExecute(r)
+func (r ApiPatchCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdUpdateRequest) Execute() (*SimplePublicObject, *http.Response, error) {
+	return r.ApiService.PatchCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdUpdateExecute(r)
 }
 
 /*
-Update Update
+PatchCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdUpdate Update
 
 Perform a partial update of an Object identified by `{feedbackSubmissionId}`. `{feedbackSubmissionId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param. Provided property values will be overwritten. Read-only and non-existent properties will be ignored. Properties values can be cleared by passing an empty string.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param feedbackSubmissionId
- @return ApiUpdateRequest
+ @return ApiPatchCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdUpdateRequest
 */
-func (a *BasicApiService) Update(ctx context.Context, feedbackSubmissionId string) ApiUpdateRequest {
-	return ApiUpdateRequest{
+func (a *BasicApiService) PatchCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdUpdate(ctx context.Context, feedbackSubmissionId string) ApiPatchCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdUpdateRequest {
+	return ApiPatchCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdUpdateRequest{
 		ApiService:           a,
 		ctx:                  ctx,
 		feedbackSubmissionId: feedbackSubmissionId,
@@ -711,7 +570,7 @@ func (a *BasicApiService) Update(ctx context.Context, feedbackSubmissionId strin
 
 // Execute executes the request
 //  @return SimplePublicObject
-func (a *BasicApiService) UpdateExecute(r ApiUpdateRequest) (*SimplePublicObject, *http.Response, error) {
+func (a *BasicApiService) PatchCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdUpdateExecute(r ApiPatchCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdUpdateRequest) (*SimplePublicObject, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
 		localVarPostBody    interface{}
@@ -719,7 +578,7 @@ func (a *BasicApiService) UpdateExecute(r ApiUpdateRequest) (*SimplePublicObject
 		localVarReturnValue *SimplePublicObject
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.Update")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.PatchCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdUpdate")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -758,16 +617,139 @@ func (a *BasicApiService) UpdateExecute(r ApiUpdateRequest) (*SimplePublicObject
 	localVarPostBody = r.simplePublicObjectInput
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["private_apps"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["private-app"] = key
-			}
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiPostCrmV3ObjectsFeedbackSubmissionsCreateRequest struct {
+	ctx                              context.Context
+	ApiService                       *BasicApiService
+	simplePublicObjectInputForCreate *SimplePublicObjectInputForCreate
+}
+
+func (r ApiPostCrmV3ObjectsFeedbackSubmissionsCreateRequest) SimplePublicObjectInputForCreate(simplePublicObjectInputForCreate SimplePublicObjectInputForCreate) ApiPostCrmV3ObjectsFeedbackSubmissionsCreateRequest {
+	r.simplePublicObjectInputForCreate = &simplePublicObjectInputForCreate
+	return r
+}
+
+func (r ApiPostCrmV3ObjectsFeedbackSubmissionsCreateRequest) Execute() (*SimplePublicObject, *http.Response, error) {
+	return r.ApiService.PostCrmV3ObjectsFeedbackSubmissionsCreateExecute(r)
+}
+
+/*
+PostCrmV3ObjectsFeedbackSubmissionsCreate Create
+
+Create a feedback submission with the given properties and return a copy of the object, including the ID. Documentation and examples for creating standard feedback submissions is provided.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiPostCrmV3ObjectsFeedbackSubmissionsCreateRequest
+*/
+func (a *BasicApiService) PostCrmV3ObjectsFeedbackSubmissionsCreate(ctx context.Context) ApiPostCrmV3ObjectsFeedbackSubmissionsCreateRequest {
+	return ApiPostCrmV3ObjectsFeedbackSubmissionsCreateRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//  @return SimplePublicObject
+func (a *BasicApiService) PostCrmV3ObjectsFeedbackSubmissionsCreateExecute(r ApiPostCrmV3ObjectsFeedbackSubmissionsCreateRequest) (*SimplePublicObject, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SimplePublicObject
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.PostCrmV3ObjectsFeedbackSubmissionsCreate")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/crm/v3/objects/feedback_submissions"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.simplePublicObjectInputForCreate == nil {
+		return localVarReturnValue, nil, reportError("simplePublicObjectInputForCreate is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "*/*"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.simplePublicObjectInputForCreate
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)

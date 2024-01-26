@@ -1,5 +1,5 @@
 /*
-Blog Post endpoints
+Posts
 
 Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags
 
@@ -41,7 +41,7 @@ var (
 	xmlCheck  = regexp.MustCompile(`(?i:(?:application|text)/xml)`)
 )
 
-// APIClient manages communication with the Blog Post endpoints API vv3
+// APIClient manages communication with the Posts API vv3
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration

@@ -17,26 +17,26 @@ import (
 
 // BatchResponsePropertyWithErrors struct for BatchResponsePropertyWithErrors
 type BatchResponsePropertyWithErrors struct {
-	Status      string             `json:"status"`
-	Results     []Property         `json:"results"`
+	CompletedAt time.Time          `json:"completedAt"`
 	NumErrors   *int32             `json:"numErrors,omitempty"`
-	Errors      []StandardError    `json:"errors,omitempty"`
 	RequestedAt *time.Time         `json:"requestedAt,omitempty"`
 	StartedAt   time.Time          `json:"startedAt"`
-	CompletedAt time.Time          `json:"completedAt"`
 	Links       *map[string]string `json:"links,omitempty"`
+	Results     []Property         `json:"results"`
+	Errors      []StandardError    `json:"errors,omitempty"`
+	Status      string             `json:"status"`
 }
 
 // NewBatchResponsePropertyWithErrors instantiates a new BatchResponsePropertyWithErrors object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBatchResponsePropertyWithErrors(status string, results []Property, startedAt time.Time, completedAt time.Time) *BatchResponsePropertyWithErrors {
+func NewBatchResponsePropertyWithErrors(completedAt time.Time, startedAt time.Time, results []Property, status string) *BatchResponsePropertyWithErrors {
 	this := BatchResponsePropertyWithErrors{}
-	this.Status = status
-	this.Results = results
-	this.StartedAt = startedAt
 	this.CompletedAt = completedAt
+	this.StartedAt = startedAt
+	this.Results = results
+	this.Status = status
 	return &this
 }
 
@@ -48,52 +48,28 @@ func NewBatchResponsePropertyWithErrorsWithDefaults() *BatchResponsePropertyWith
 	return &this
 }
 
-// GetStatus returns the Status field value
-func (o *BatchResponsePropertyWithErrors) GetStatus() string {
+// GetCompletedAt returns the CompletedAt field value
+func (o *BatchResponsePropertyWithErrors) GetCompletedAt() time.Time {
 	if o == nil {
-		var ret string
+		var ret time.Time
 		return ret
 	}
 
-	return o.Status
+	return o.CompletedAt
 }
 
-// GetStatusOk returns a tuple with the Status field value
+// GetCompletedAtOk returns a tuple with the CompletedAt field value
 // and a boolean to check if the value has been set.
-func (o *BatchResponsePropertyWithErrors) GetStatusOk() (*string, bool) {
+func (o *BatchResponsePropertyWithErrors) GetCompletedAtOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Status, true
+	return &o.CompletedAt, true
 }
 
-// SetStatus sets field value
-func (o *BatchResponsePropertyWithErrors) SetStatus(v string) {
-	o.Status = v
-}
-
-// GetResults returns the Results field value
-func (o *BatchResponsePropertyWithErrors) GetResults() []Property {
-	if o == nil {
-		var ret []Property
-		return ret
-	}
-
-	return o.Results
-}
-
-// GetResultsOk returns a tuple with the Results field value
-// and a boolean to check if the value has been set.
-func (o *BatchResponsePropertyWithErrors) GetResultsOk() ([]Property, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Results, true
-}
-
-// SetResults sets field value
-func (o *BatchResponsePropertyWithErrors) SetResults(v []Property) {
-	o.Results = v
+// SetCompletedAt sets field value
+func (o *BatchResponsePropertyWithErrors) SetCompletedAt(v time.Time) {
+	o.CompletedAt = v
 }
 
 // GetNumErrors returns the NumErrors field value if set, zero value otherwise.
@@ -126,38 +102,6 @@ func (o *BatchResponsePropertyWithErrors) HasNumErrors() bool {
 // SetNumErrors gets a reference to the given int32 and assigns it to the NumErrors field.
 func (o *BatchResponsePropertyWithErrors) SetNumErrors(v int32) {
 	o.NumErrors = &v
-}
-
-// GetErrors returns the Errors field value if set, zero value otherwise.
-func (o *BatchResponsePropertyWithErrors) GetErrors() []StandardError {
-	if o == nil || o.Errors == nil {
-		var ret []StandardError
-		return ret
-	}
-	return o.Errors
-}
-
-// GetErrorsOk returns a tuple with the Errors field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BatchResponsePropertyWithErrors) GetErrorsOk() ([]StandardError, bool) {
-	if o == nil || o.Errors == nil {
-		return nil, false
-	}
-	return o.Errors, true
-}
-
-// HasErrors returns a boolean if a field has been set.
-func (o *BatchResponsePropertyWithErrors) HasErrors() bool {
-	if o != nil && o.Errors != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetErrors gets a reference to the given []StandardError and assigns it to the Errors field.
-func (o *BatchResponsePropertyWithErrors) SetErrors(v []StandardError) {
-	o.Errors = v
 }
 
 // GetRequestedAt returns the RequestedAt field value if set, zero value otherwise.
@@ -216,30 +160,6 @@ func (o *BatchResponsePropertyWithErrors) SetStartedAt(v time.Time) {
 	o.StartedAt = v
 }
 
-// GetCompletedAt returns the CompletedAt field value
-func (o *BatchResponsePropertyWithErrors) GetCompletedAt() time.Time {
-	if o == nil {
-		var ret time.Time
-		return ret
-	}
-
-	return o.CompletedAt
-}
-
-// GetCompletedAtOk returns a tuple with the CompletedAt field value
-// and a boolean to check if the value has been set.
-func (o *BatchResponsePropertyWithErrors) GetCompletedAtOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.CompletedAt, true
-}
-
-// SetCompletedAt sets field value
-func (o *BatchResponsePropertyWithErrors) SetCompletedAt(v time.Time) {
-	o.CompletedAt = v
-}
-
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *BatchResponsePropertyWithErrors) GetLinks() map[string]string {
 	if o == nil || o.Links == nil {
@@ -272,19 +192,93 @@ func (o *BatchResponsePropertyWithErrors) SetLinks(v map[string]string) {
 	o.Links = &v
 }
 
+// GetResults returns the Results field value
+func (o *BatchResponsePropertyWithErrors) GetResults() []Property {
+	if o == nil {
+		var ret []Property
+		return ret
+	}
+
+	return o.Results
+}
+
+// GetResultsOk returns a tuple with the Results field value
+// and a boolean to check if the value has been set.
+func (o *BatchResponsePropertyWithErrors) GetResultsOk() ([]Property, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Results, true
+}
+
+// SetResults sets field value
+func (o *BatchResponsePropertyWithErrors) SetResults(v []Property) {
+	o.Results = v
+}
+
+// GetErrors returns the Errors field value if set, zero value otherwise.
+func (o *BatchResponsePropertyWithErrors) GetErrors() []StandardError {
+	if o == nil || o.Errors == nil {
+		var ret []StandardError
+		return ret
+	}
+	return o.Errors
+}
+
+// GetErrorsOk returns a tuple with the Errors field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BatchResponsePropertyWithErrors) GetErrorsOk() ([]StandardError, bool) {
+	if o == nil || o.Errors == nil {
+		return nil, false
+	}
+	return o.Errors, true
+}
+
+// HasErrors returns a boolean if a field has been set.
+func (o *BatchResponsePropertyWithErrors) HasErrors() bool {
+	if o != nil && o.Errors != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetErrors gets a reference to the given []StandardError and assigns it to the Errors field.
+func (o *BatchResponsePropertyWithErrors) SetErrors(v []StandardError) {
+	o.Errors = v
+}
+
+// GetStatus returns the Status field value
+func (o *BatchResponsePropertyWithErrors) GetStatus() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value
+// and a boolean to check if the value has been set.
+func (o *BatchResponsePropertyWithErrors) GetStatusOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Status, true
+}
+
+// SetStatus sets field value
+func (o *BatchResponsePropertyWithErrors) SetStatus(v string) {
+	o.Status = v
+}
+
 func (o BatchResponsePropertyWithErrors) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["status"] = o.Status
-	}
-	if true {
-		toSerialize["results"] = o.Results
+		toSerialize["completedAt"] = o.CompletedAt
 	}
 	if o.NumErrors != nil {
 		toSerialize["numErrors"] = o.NumErrors
-	}
-	if o.Errors != nil {
-		toSerialize["errors"] = o.Errors
 	}
 	if o.RequestedAt != nil {
 		toSerialize["requestedAt"] = o.RequestedAt
@@ -292,11 +286,17 @@ func (o BatchResponsePropertyWithErrors) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["startedAt"] = o.StartedAt
 	}
-	if true {
-		toSerialize["completedAt"] = o.CompletedAt
-	}
 	if o.Links != nil {
 		toSerialize["links"] = o.Links
+	}
+	if true {
+		toSerialize["results"] = o.Results
+	}
+	if o.Errors != nil {
+		toSerialize["errors"] = o.Errors
+	}
+	if true {
+		toSerialize["status"] = o.Status
 	}
 	return json.Marshal(toSerialize)
 }

@@ -17,24 +17,24 @@ import (
 
 // SimplePublicObject struct for SimplePublicObject
 type SimplePublicObject struct {
-	Id                    string                           `json:"id"`
-	Properties            map[string]string                `json:"properties"`
-	PropertiesWithHistory *map[string][]ValueWithTimestamp `json:"propertiesWithHistory,omitempty"`
 	CreatedAt             time.Time                        `json:"createdAt"`
-	UpdatedAt             time.Time                        `json:"updatedAt"`
 	Archived              *bool                            `json:"archived,omitempty"`
 	ArchivedAt            *time.Time                       `json:"archivedAt,omitempty"`
+	PropertiesWithHistory *map[string][]ValueWithTimestamp `json:"propertiesWithHistory,omitempty"`
+	Id                    string                           `json:"id"`
+	Properties            map[string]string                `json:"properties"`
+	UpdatedAt             time.Time                        `json:"updatedAt"`
 }
 
 // NewSimplePublicObject instantiates a new SimplePublicObject object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSimplePublicObject(id string, properties map[string]string, createdAt time.Time, updatedAt time.Time) *SimplePublicObject {
+func NewSimplePublicObject(createdAt time.Time, id string, properties map[string]string, updatedAt time.Time) *SimplePublicObject {
 	this := SimplePublicObject{}
+	this.CreatedAt = createdAt
 	this.Id = id
 	this.Properties = properties
-	this.CreatedAt = createdAt
 	this.UpdatedAt = updatedAt
 	return &this
 }
@@ -45,86 +45,6 @@ func NewSimplePublicObject(id string, properties map[string]string, createdAt ti
 func NewSimplePublicObjectWithDefaults() *SimplePublicObject {
 	this := SimplePublicObject{}
 	return &this
-}
-
-// GetId returns the Id field value
-func (o *SimplePublicObject) GetId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Id
-}
-
-// GetIdOk returns a tuple with the Id field value
-// and a boolean to check if the value has been set.
-func (o *SimplePublicObject) GetIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Id, true
-}
-
-// SetId sets field value
-func (o *SimplePublicObject) SetId(v string) {
-	o.Id = v
-}
-
-// GetProperties returns the Properties field value
-func (o *SimplePublicObject) GetProperties() map[string]string {
-	if o == nil {
-		var ret map[string]string
-		return ret
-	}
-
-	return o.Properties
-}
-
-// GetPropertiesOk returns a tuple with the Properties field value
-// and a boolean to check if the value has been set.
-func (o *SimplePublicObject) GetPropertiesOk() (*map[string]string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Properties, true
-}
-
-// SetProperties sets field value
-func (o *SimplePublicObject) SetProperties(v map[string]string) {
-	o.Properties = v
-}
-
-// GetPropertiesWithHistory returns the PropertiesWithHistory field value if set, zero value otherwise.
-func (o *SimplePublicObject) GetPropertiesWithHistory() map[string][]ValueWithTimestamp {
-	if o == nil || o.PropertiesWithHistory == nil {
-		var ret map[string][]ValueWithTimestamp
-		return ret
-	}
-	return *o.PropertiesWithHistory
-}
-
-// GetPropertiesWithHistoryOk returns a tuple with the PropertiesWithHistory field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SimplePublicObject) GetPropertiesWithHistoryOk() (*map[string][]ValueWithTimestamp, bool) {
-	if o == nil || o.PropertiesWithHistory == nil {
-		return nil, false
-	}
-	return o.PropertiesWithHistory, true
-}
-
-// HasPropertiesWithHistory returns a boolean if a field has been set.
-func (o *SimplePublicObject) HasPropertiesWithHistory() bool {
-	if o != nil && o.PropertiesWithHistory != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetPropertiesWithHistory gets a reference to the given map[string][]ValueWithTimestamp and assigns it to the PropertiesWithHistory field.
-func (o *SimplePublicObject) SetPropertiesWithHistory(v map[string][]ValueWithTimestamp) {
-	o.PropertiesWithHistory = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value
@@ -149,30 +69,6 @@ func (o *SimplePublicObject) GetCreatedAtOk() (*time.Time, bool) {
 // SetCreatedAt sets field value
 func (o *SimplePublicObject) SetCreatedAt(v time.Time) {
 	o.CreatedAt = v
-}
-
-// GetUpdatedAt returns the UpdatedAt field value
-func (o *SimplePublicObject) GetUpdatedAt() time.Time {
-	if o == nil {
-		var ret time.Time
-		return ret
-	}
-
-	return o.UpdatedAt
-}
-
-// GetUpdatedAtOk returns a tuple with the UpdatedAt field value
-// and a boolean to check if the value has been set.
-func (o *SimplePublicObject) GetUpdatedAtOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.UpdatedAt, true
-}
-
-// SetUpdatedAt sets field value
-func (o *SimplePublicObject) SetUpdatedAt(v time.Time) {
-	o.UpdatedAt = v
 }
 
 // GetArchived returns the Archived field value if set, zero value otherwise.
@@ -239,28 +135,132 @@ func (o *SimplePublicObject) SetArchivedAt(v time.Time) {
 	o.ArchivedAt = &v
 }
 
+// GetPropertiesWithHistory returns the PropertiesWithHistory field value if set, zero value otherwise.
+func (o *SimplePublicObject) GetPropertiesWithHistory() map[string][]ValueWithTimestamp {
+	if o == nil || o.PropertiesWithHistory == nil {
+		var ret map[string][]ValueWithTimestamp
+		return ret
+	}
+	return *o.PropertiesWithHistory
+}
+
+// GetPropertiesWithHistoryOk returns a tuple with the PropertiesWithHistory field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SimplePublicObject) GetPropertiesWithHistoryOk() (*map[string][]ValueWithTimestamp, bool) {
+	if o == nil || o.PropertiesWithHistory == nil {
+		return nil, false
+	}
+	return o.PropertiesWithHistory, true
+}
+
+// HasPropertiesWithHistory returns a boolean if a field has been set.
+func (o *SimplePublicObject) HasPropertiesWithHistory() bool {
+	if o != nil && o.PropertiesWithHistory != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPropertiesWithHistory gets a reference to the given map[string][]ValueWithTimestamp and assigns it to the PropertiesWithHistory field.
+func (o *SimplePublicObject) SetPropertiesWithHistory(v map[string][]ValueWithTimestamp) {
+	o.PropertiesWithHistory = &v
+}
+
+// GetId returns the Id field value
+func (o *SimplePublicObject) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *SimplePublicObject) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *SimplePublicObject) SetId(v string) {
+	o.Id = v
+}
+
+// GetProperties returns the Properties field value
+func (o *SimplePublicObject) GetProperties() map[string]string {
+	if o == nil {
+		var ret map[string]string
+		return ret
+	}
+
+	return o.Properties
+}
+
+// GetPropertiesOk returns a tuple with the Properties field value
+// and a boolean to check if the value has been set.
+func (o *SimplePublicObject) GetPropertiesOk() (*map[string]string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Properties, true
+}
+
+// SetProperties sets field value
+func (o *SimplePublicObject) SetProperties(v map[string]string) {
+	o.Properties = v
+}
+
+// GetUpdatedAt returns the UpdatedAt field value
+func (o *SimplePublicObject) GetUpdatedAt() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.UpdatedAt
+}
+
+// GetUpdatedAtOk returns a tuple with the UpdatedAt field value
+// and a boolean to check if the value has been set.
+func (o *SimplePublicObject) GetUpdatedAtOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.UpdatedAt, true
+}
+
+// SetUpdatedAt sets field value
+func (o *SimplePublicObject) SetUpdatedAt(v time.Time) {
+	o.UpdatedAt = v
+}
+
 func (o SimplePublicObject) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["properties"] = o.Properties
-	}
-	if o.PropertiesWithHistory != nil {
-		toSerialize["propertiesWithHistory"] = o.PropertiesWithHistory
-	}
-	if true {
 		toSerialize["createdAt"] = o.CreatedAt
-	}
-	if true {
-		toSerialize["updatedAt"] = o.UpdatedAt
 	}
 	if o.Archived != nil {
 		toSerialize["archived"] = o.Archived
 	}
 	if o.ArchivedAt != nil {
 		toSerialize["archivedAt"] = o.ArchivedAt
+	}
+	if o.PropertiesWithHistory != nil {
+		toSerialize["propertiesWithHistory"] = o.PropertiesWithHistory
+	}
+	if true {
+		toSerialize["id"] = o.Id
+	}
+	if true {
+		toSerialize["properties"] = o.Properties
+	}
+	if true {
+		toSerialize["updatedAt"] = o.UpdatedAt
 	}
 	return json.Marshal(toSerialize)
 }

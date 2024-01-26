@@ -4,13 +4,13 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GenerateToken**](GenerateApi.md#GenerateToken) | **Post** /visitor-identification/v3/tokens/create | Generate a token
+[**PostConversationsV3VisitorIdentificationTokensCreateGenerateToken**](GenerateApi.md#PostConversationsV3VisitorIdentificationTokensCreateGenerateToken) | **Post** /conversations/v3/visitor-identification/tokens/create | Generate a token
 
 
 
-## GenerateToken
+## PostConversationsV3VisitorIdentificationTokensCreateGenerateToken
 
-> IdentificationTokenResponse GenerateToken(ctx).IdentificationTokenGenerationRequest(identificationTokenGenerationRequest).Execute()
+> IdentificationTokenResponse PostConversationsV3VisitorIdentificationTokensCreateGenerateToken(ctx).IdentificationTokenGenerationRequest(identificationTokenGenerationRequest).Execute()
 
 Generate a token
 
@@ -29,17 +29,17 @@ import (
 )
 
 func main() {
-    identificationTokenGenerationRequest := *openapiclient.NewIdentificationTokenGenerationRequest("Email_example") // IdentificationTokenGenerationRequest | 
+    identificationTokenGenerationRequest := *openapiclient.NewIdentificationTokenGenerationRequest("visitor-email@example.com") // IdentificationTokenGenerationRequest | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.GenerateApi.GenerateToken(context.Background()).IdentificationTokenGenerationRequest(identificationTokenGenerationRequest).Execute()
+    resp, r, err := apiClient.GenerateApi.PostConversationsV3VisitorIdentificationTokensCreateGenerateToken(context.Background()).IdentificationTokenGenerationRequest(identificationTokenGenerationRequest).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `GenerateApi.GenerateToken``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `GenerateApi.PostConversationsV3VisitorIdentificationTokensCreateGenerateToken``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GenerateToken`: IdentificationTokenResponse
-    fmt.Fprintf(os.Stdout, "Response from `GenerateApi.GenerateToken`: %v\n", resp)
+    // response from `PostConversationsV3VisitorIdentificationTokensCreateGenerateToken`: IdentificationTokenResponse
+    fmt.Fprintf(os.Stdout, "Response from `GenerateApi.PostConversationsV3VisitorIdentificationTokensCreateGenerateToken`: %v\n", resp)
 }
 ```
 
@@ -49,7 +49,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGenerateTokenRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostConversationsV3VisitorIdentificationTokensCreateGenerateTokenRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

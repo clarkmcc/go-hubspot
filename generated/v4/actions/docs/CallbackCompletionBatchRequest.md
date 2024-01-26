@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CallbackId** | **string** | The ID of the callback to complete. | 
-**OutputFields** | **map[string]string** | A map of action output names and values. | 
+**OutputFields** | **map[string]string** |  | 
+**CallbackId** | **string** |  | 
 
 ## Methods
 
 ### NewCallbackCompletionBatchRequest
 
-`func NewCallbackCompletionBatchRequest(callbackId string, outputFields map[string]string, ) *CallbackCompletionBatchRequest`
+`func NewCallbackCompletionBatchRequest(outputFields map[string]string, callbackId string, ) *CallbackCompletionBatchRequest`
 
 NewCallbackCompletionBatchRequest instantiates a new CallbackCompletionBatchRequest object
 This constructor will assign default values to properties that have it defined,
@@ -25,26 +25,6 @@ will change when the set of required properties is changed
 NewCallbackCompletionBatchRequestWithDefaults instantiates a new CallbackCompletionBatchRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetCallbackId
-
-`func (o *CallbackCompletionBatchRequest) GetCallbackId() string`
-
-GetCallbackId returns the CallbackId field if non-nil, zero value otherwise.
-
-### GetCallbackIdOk
-
-`func (o *CallbackCompletionBatchRequest) GetCallbackIdOk() (*string, bool)`
-
-GetCallbackIdOk returns a tuple with the CallbackId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCallbackId
-
-`func (o *CallbackCompletionBatchRequest) SetCallbackId(v string)`
-
-SetCallbackId sets CallbackId field to given value.
-
 
 ### GetOutputFields
 
@@ -64,6 +44,26 @@ and a boolean to check if the value has been set.
 `func (o *CallbackCompletionBatchRequest) SetOutputFields(v map[string]string)`
 
 SetOutputFields sets OutputFields field to given value.
+
+
+### GetCallbackId
+
+`func (o *CallbackCompletionBatchRequest) GetCallbackId() string`
+
+GetCallbackId returns the CallbackId field if non-nil, zero value otherwise.
+
+### GetCallbackIdOk
+
+`func (o *CallbackCompletionBatchRequest) GetCallbackIdOk() (*string, bool)`
+
+GetCallbackIdOk returns a tuple with the CallbackId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCallbackId
+
+`func (o *CallbackCompletionBatchRequest) SetCallbackId(v string)`
+
+SetCallbackId sets CallbackId field to given value.
 
 
 

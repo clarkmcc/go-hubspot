@@ -1,16 +1,432 @@
 openapi: 3.0.1
 info:
+  description: ""
   title: Tickets
   version: v3
+  x-hubspot-product-tier-requirements:
+    marketing: FREE
+    sales: FREE
+    service: FREE
+    cms: FREE
+  x-hubspot-documentation-banner: NONE
+  x-hubspot-api-use-case: "When a customer contacts your support team to request help\
+    \ with an issue, create a ticket to track that request and keep a record of it\
+    \ for future reference."
+  x-hubspot-related-documentation:
+  - name: Tickets Guide
+    url: https://hubspot.dev/guides/api/crm/tickets
+  x-hubspot-introduction: Use the tickets API to create and manage CRM records that
+    represent customer service requests in your CRM.
 servers:
-- url: https://api.hubapi.com/
+- url: https://api.hubapi.com
 tags:
-- name: Associations
-- name: Basic
 - name: Batch
-- name: Search
+- name: Basic
 - name: Public_Object
+- name: Associations
+- name: GDPR
+- name: Search
 paths:
+  /crm/v3/objects/tickets/batch/read:
+    post:
+      operationId: BatchRead
+      parameters:
+      - description: Whether to return only results that have been archived.
+        explode: true
+        in: query
+        name: archived
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchReadInputSimplePublicObjectId'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchResponseSimplePublicObject'
+          description: successful operation
+        "207":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchResponseSimplePublicObjectWithErrors'
+          description: multiple statuses
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - oauth2_legacy:
+        - tickets
+      - oauth2: []
+      - private_apps_legacy:
+        - tickets
+      - private_apps: []
+      summary: "Read a batch of tickets by internal ID, or unique property values"
+      tags:
+      - Batch
+  /crm/v3/objects/tickets/{ticketId}:
+    delete:
+      description: "Move an Object identified by `{ticketId}` to the recycling bin."
+      operationId: Archive
+      parameters:
+      - explode: false
+        in: path
+        name: ticketId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          content: {}
+          description: No content
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - oauth2_legacy:
+        - tickets
+      - oauth2: []
+      - private_apps_legacy:
+        - tickets
+      - private_apps: []
+      summary: Archive
+      tags:
+      - Basic
+    get:
+      description: "Read an Object identified by `{ticketId}`. `{ticketId}` refers\
+        \ to the internal object ID by default, or optionally any unique property\
+        \ value as specified by the `idProperty` query param.  Control what is returned\
+        \ via the `properties` query param."
+      operationId: GetByID
+      parameters:
+      - explode: false
+        in: path
+        name: ticketId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "A comma separated list of the properties to be returned in the\
+          \ response. If any of the specified properties are not present on the requested\
+          \ object(s), they will be ignored."
+        explode: true
+        in: query
+        name: properties
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: "A comma separated list of the properties to be returned along\
+          \ with their history of previous values. If any of the specified properties\
+          \ are not present on the requested object(s), they will be ignored."
+        explode: true
+        in: query
+        name: propertiesWithHistory
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: "A comma separated list of object types to retrieve associated\
+          \ IDs for. If any of the specified associations do not exist, they will\
+          \ be ignored."
+        explode: true
+        in: query
+        name: associations
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: Whether to return only results that have been archived.
+        explode: true
+        in: query
+        name: archived
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
+      - description: The name of a property whose values are unique for this object
+          type
+        explode: true
+        in: query
+        name: idProperty
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimplePublicObjectWithAssociations'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - oauth2_legacy:
+        - tickets
+      - oauth2: []
+      - private_apps_legacy:
+        - tickets
+      - private_apps: []
+      summary: Read
+      tags:
+      - Basic
+    patch:
+      description: "Perform a partial update of an Object identified by `{ticketId}`.\
+        \ `{ticketId}` refers to the internal object ID by default, or optionally\
+        \ any unique property value as specified by the `idProperty` query param.\
+        \ Provided property values will be overwritten. Read-only and non-existent\
+        \ properties will be ignored. Properties values can be cleared by passing\
+        \ an empty string."
+      operationId: Update
+      parameters:
+      - explode: false
+        in: path
+        name: ticketId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The name of a property whose values are unique for this object
+          type
+        explode: true
+        in: query
+        name: idProperty
+        required: false
+        schema:
+          type: string
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SimplePublicObjectInput'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimplePublicObject'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - oauth2_legacy:
+        - tickets
+      - oauth2: []
+      - private_apps_legacy:
+        - tickets
+      - private_apps: []
+      summary: Update
+      tags:
+      - Basic
+  /crm/v3/objects/tickets/merge:
+    post:
+      operationId: Merge
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicMergeInput'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimplePublicObject'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - oauth2_legacy:
+        - tickets
+      - oauth2: []
+      - private_apps_legacy:
+        - tickets
+      - private_apps: []
+      summary: Merge two tickets with same type
+      tags:
+      - Public_Object
+  /crm/v3/objects/tickets/batch/archive:
+    post:
+      operationId: BatchArchive
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchInputSimplePublicObjectId'
+        required: true
+      responses:
+        "204":
+          content: {}
+          description: No content
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - oauth2_legacy:
+        - tickets
+      - oauth2: []
+      - private_apps_legacy:
+        - tickets
+      - private_apps: []
+      summary: Archive a batch of tickets by ID
+      tags:
+      - Batch
+  /crm/v3/objects/tickets/batch/create:
+    post:
+      operationId: BatchCreate
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchInputSimplePublicObjectInputForCreate'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchResponseSimplePublicObject'
+          description: successful operation
+        "207":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchResponseSimplePublicObjectWithErrors'
+          description: multiple statuses
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - oauth2_legacy:
+        - tickets
+      - oauth2: []
+      - private_apps_legacy:
+        - tickets
+      - private_apps: []
+      summary: Create a batch of tickets
+      tags:
+      - Batch
+  /crm/v3/objects/tickets/batch/update:
+    post:
+      operationId: BatchUpdate
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchInputSimplePublicObjectBatchInput'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchResponseSimplePublicObject'
+          description: successful operation
+        "207":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchResponseSimplePublicObjectWithErrors'
+          description: multiple statuses
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - oauth2_legacy:
+        - tickets
+      - oauth2: []
+      - private_apps_legacy:
+        - tickets
+      - private_apps: []
+      summary: Update a batch of tickets
+      tags:
+      - Batch
+  /crm/v3/objects/tickets/gdpr-delete:
+    post:
+      description: "Permanently delete a contact and all associated content to follow\
+        \ GDPR. Use optional property 'idProperty' set to 'email' to identify contact\
+        \ by email address. If email address is not found, the email address will\
+        \ be added to a blocklist and prevent it from being used in the future."
+      operationId: post-/crm/v3/objects/tickets/gdpr-delete_purge
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicGdprDeleteInput'
+        required: true
+      responses:
+        "204":
+          content: {}
+          description: No content
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - oauth2_legacy:
+        - tickets
+      - oauth2: []
+      - private_apps_legacy:
+        - tickets
+      - private_apps: []
+      summary: GDPR DELETE
+      tags:
+      - GDPR
   /crm/v3/objects/tickets:
     get:
       description: Read a page of tickets. Control what is returned via the `properties`
@@ -100,8 +516,10 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
+      - oauth2: []
       - private_apps_legacy:
         - tickets
+      - private_apps: []
       summary: List
       tags:
       - Basic
@@ -133,190 +551,13 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
+      - oauth2: []
       - private_apps_legacy:
         - tickets
+      - private_apps: []
       summary: Create
       tags:
       - Basic
-  /crm/v3/objects/tickets/batch/archive:
-    post:
-      operationId: BatchArchive
-      parameters: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/BatchInputSimplePublicObjectId'
-        required: true
-      responses:
-        "204":
-          content: {}
-          description: No content
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - oauth2_legacy:
-        - tickets
-      - private_apps_legacy:
-        - tickets
-      summary: Archive a batch of tickets by ID
-      tags:
-      - Batch
-  /crm/v3/objects/tickets/batch/create:
-    post:
-      operationId: BatchCreate
-      parameters: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/BatchInputSimplePublicObjectInputForCreate'
-        required: true
-      responses:
-        "201":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BatchResponseSimplePublicObject'
-          description: successful operation
-        "207":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BatchResponseSimplePublicObjectWithErrors'
-          description: multiple statuses
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - oauth2_legacy:
-        - tickets
-      - private_apps_legacy:
-        - tickets
-      summary: Create a batch of tickets
-      tags:
-      - Batch
-  /crm/v3/objects/tickets/batch/read:
-    post:
-      operationId: BatchRead
-      parameters:
-      - description: Whether to return only results that have been archived.
-        explode: true
-        in: query
-        name: archived
-        required: false
-        schema:
-          default: false
-          type: boolean
-        style: form
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/BatchReadInputSimplePublicObjectId'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BatchResponseSimplePublicObject'
-          description: successful operation
-        "207":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BatchResponseSimplePublicObjectWithErrors'
-          description: multiple statuses
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - oauth2_legacy:
-        - tickets
-      - private_apps_legacy:
-        - tickets
-      summary: "Read a batch of tickets by internal ID, or unique property values"
-      tags:
-      - Batch
-  /crm/v3/objects/tickets/batch/update:
-    post:
-      operationId: BatchUpdate
-      parameters: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/BatchInputSimplePublicObjectBatchInput'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BatchResponseSimplePublicObject'
-          description: successful operation
-        "207":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BatchResponseSimplePublicObjectWithErrors'
-          description: multiple statuses
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - oauth2_legacy:
-        - tickets
-      - private_apps_legacy:
-        - tickets
-      summary: Update a batch of tickets
-      tags:
-      - Batch
-  /crm/v3/objects/tickets/merge:
-    post:
-      operationId: Merge
-      parameters: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PublicMergeInput'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SimplePublicObject'
-          description: successful operation
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - oauth2_legacy:
-        - tickets
-      - private_apps_legacy:
-        - tickets
-      summary: Merge two tickets with same type
-      tags:
-      - Public_Object
   /crm/v3/objects/tickets/search:
     post:
       operationId: Search
@@ -343,183 +584,14 @@ paths:
       security:
       - oauth2_legacy:
         - tickets
+      - oauth2: []
       - private_apps_legacy:
         - tickets
+      - private_apps: []
       tags:
       - Search
       x-hubspot-rate-limit-exemptions:
       - ten-secondly
-  /crm/v3/objects/tickets/{ticketId}:
-    delete:
-      description: "Move an Object identified by `{ticketId}` to the recycling bin."
-      operationId: Archive
-      parameters:
-      - explode: false
-        in: path
-        name: ticketId
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "204":
-          content: {}
-          description: No content
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - oauth2_legacy:
-        - tickets
-      - private_apps_legacy:
-        - tickets
-      summary: Archive
-      tags:
-      - Basic
-    get:
-      description: "Read an Object identified by `{ticketId}`. `{ticketId}` refers\
-        \ to the internal object ID by default, or optionally any unique property\
-        \ value as specified by the `idProperty` query param.  Control what is returned\
-        \ via the `properties` query param."
-      operationId: GetByID
-      parameters:
-      - explode: false
-        in: path
-        name: ticketId
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: "A comma separated list of the properties to be returned in the\
-          \ response. If any of the specified properties are not present on the requested\
-          \ object(s), they will be ignored."
-        explode: true
-        in: query
-        name: properties
-        required: false
-        schema:
-          items:
-            type: string
-          type: array
-        style: form
-      - description: "A comma separated list of the properties to be returned along\
-          \ with their history of previous values. If any of the specified properties\
-          \ are not present on the requested object(s), they will be ignored."
-        explode: true
-        in: query
-        name: propertiesWithHistory
-        required: false
-        schema:
-          items:
-            type: string
-          type: array
-        style: form
-      - description: "A comma separated list of object types to retrieve associated\
-          \ IDs for. If any of the specified associations do not exist, they will\
-          \ be ignored."
-        explode: true
-        in: query
-        name: associations
-        required: false
-        schema:
-          items:
-            type: string
-          type: array
-        style: form
-      - description: Whether to return only results that have been archived.
-        explode: true
-        in: query
-        name: archived
-        required: false
-        schema:
-          default: false
-          type: boolean
-        style: form
-      - description: The name of a property whose values are unique for this object
-          type
-        explode: true
-        in: query
-        name: idProperty
-        required: false
-        schema:
-          type: string
-        style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SimplePublicObjectWithAssociations'
-          description: successful operation
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - oauth2_legacy:
-        - tickets
-      - private_apps_legacy:
-        - tickets
-      summary: Read
-      tags:
-      - Basic
-    patch:
-      description: "Perform a partial update of an Object identified by `{ticketId}`.\
-        \ `{ticketId}` refers to the internal object ID by default, or optionally\
-        \ any unique property value as specified by the `idProperty` query param.\
-        \ Provided property values will be overwritten. Read-only and non-existent\
-        \ properties will be ignored. Properties values can be cleared by passing\
-        \ an empty string."
-      operationId: Update
-      parameters:
-      - explode: false
-        in: path
-        name: ticketId
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: The name of a property whose values are unique for this object
-          type
-        explode: true
-        in: query
-        name: idProperty
-        required: false
-        schema:
-          type: string
-        style: form
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SimplePublicObjectInput'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SimplePublicObject'
-          description: successful operation
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - oauth2_legacy:
-        - tickets
-      - private_apps_legacy:
-        - tickets
-      summary: Update
-      tags:
-      - Basic
 components:
   responses:
     Error:
@@ -531,21 +603,9 @@ components:
   schemas:
     StandardError:
       properties:
-        status:
-          type: string
-        id:
-          type: string
-        category:
-          type: string
         subCategory:
           properties: {}
           type: object
-        message:
-          type: string
-        errors:
-          items:
-            $ref: '#/components/schemas/ErrorDetail'
-          type: array
         context:
           additionalProperties:
             items:
@@ -556,6 +616,18 @@ components:
           additionalProperties:
             type: string
           type: object
+        id:
+          type: string
+        category:
+          type: string
+        message:
+          type: string
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
+        status:
+          type: string
       required:
       - category
       - context
@@ -566,23 +638,23 @@ components:
       type: object
     CollectionResponseAssociatedId:
       properties:
+        paging:
+          $ref: '#/components/schemas/Paging'
         results:
           items:
             $ref: '#/components/schemas/AssociatedId'
           type: array
-        paging:
-          $ref: '#/components/schemas/Paging'
       required:
       - results
       type: object
     PublicAssociationsForObject:
       properties:
-        to:
-          $ref: '#/components/schemas/PublicObjectId'
         types:
           items:
             $ref: '#/components/schemas/AssociationSpec'
           type: array
+        to:
+          $ref: '#/components/schemas/PublicObjectId'
       required:
       - to
       - types
@@ -621,6 +693,23 @@ components:
           archived: false
         status: PENDING
       properties:
+        completedAt:
+          format: date-time
+          type: string
+        requestedAt:
+          format: date-time
+          type: string
+        startedAt:
+          format: date-time
+          type: string
+        links:
+          additionalProperties:
+            type: string
+          type: object
+        results:
+          items:
+            $ref: '#/components/schemas/SimplePublicObject'
+          type: array
         status:
           enum:
           - PENDING
@@ -628,23 +717,6 @@ components:
           - CANCELED
           - COMPLETE
           type: string
-        results:
-          items:
-            $ref: '#/components/schemas/SimplePublicObject'
-          type: array
-        requestedAt:
-          format: date-time
-          type: string
-        startedAt:
-          format: date-time
-          type: string
-        completedAt:
-          format: date-time
-          type: string
-        links:
-          additionalProperties:
-            type: string
-          type: object
       required:
       - completedAt
       - results
@@ -678,19 +750,15 @@ components:
       type: object
     ErrorDetail:
       properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          type: string
-        in:
-          description: The name of the field or parameter in which the error was found.
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
           type: string
         code:
           description: The status code associated with the error detail
           type: string
-        subCategory:
-          description: A specific category that contains more specific detail about
-            the error
+        in:
+          description: The name of the field or parameter in which the error was found.
           type: string
         context:
           additionalProperties:
@@ -703,6 +771,10 @@ components:
             - scope1
             - scope2
           type: object
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          type: string
       required:
       - message
       type: object
@@ -737,10 +809,6 @@ components:
         - properties
         - properties
       properties:
-        properties:
-          items:
-            type: string
-          type: array
         propertiesWithHistory:
           items:
             type: string
@@ -751,31 +819,14 @@ components:
           items:
             $ref: '#/components/schemas/SimplePublicObjectId'
           type: array
+        properties:
+          items:
+            type: string
+          type: array
       required:
       - inputs
       - properties
       - propertiesWithHistory
-      type: object
-    ValueWithTimestamp:
-      properties:
-        value:
-          type: string
-        timestamp:
-          format: date-time
-          type: string
-        sourceType:
-          type: string
-        sourceId:
-          type: string
-        sourceLabel:
-          type: string
-        updatedByUserId:
-          format: int32
-          type: integer
-      required:
-      - sourceType
-      - timestamp
-      - value
       type: object
     BatchInputSimplePublicObjectId:
       example:
@@ -789,6 +840,27 @@ components:
           type: array
       required:
       - inputs
+      type: object
+    ValueWithTimestamp:
+      properties:
+        sourceId:
+          type: string
+        sourceType:
+          type: string
+        sourceLabel:
+          type: string
+        updatedByUserId:
+          format: int32
+          type: integer
+        value:
+          type: string
+        timestamp:
+          format: date-time
+          type: string
+      required:
+      - sourceType
+      - timestamp
+      - value
       type: object
     CollectionResponseWithTotalSimplePublicObjectForwardPaging:
       example:
@@ -826,12 +898,12 @@ components:
         total:
           format: int32
           type: integer
+        paging:
+          $ref: '#/components/schemas/ForwardPaging'
         results:
           items:
             $ref: '#/components/schemas/SimplePublicObject'
           type: array
-        paging:
-          $ref: '#/components/schemas/ForwardPaging'
       required:
       - results
       - total
@@ -851,28 +923,38 @@ components:
         updatedAt: 2019-12-07T16:50:06.678Z
         archived: false
       properties:
-        id:
+        createdAt:
+          format: date-time
           type: string
-        properties:
-          additionalProperties:
-            nullable: true
-            type: string
-          type: object
+        archived:
+          example: false
+          type: boolean
+        archivedAt:
+          format: date-time
+          type: string
         propertiesWithHistory:
           additionalProperties:
             items:
               $ref: '#/components/schemas/ValueWithTimestamp'
             type: array
           type: object
-        createdAt:
-          format: date-time
+        id:
+          example: "512"
           type: string
+        properties:
+          additionalProperties:
+            nullable: true
+            type: string
+          example:
+            property_date: "1572480000000"
+            property_radio: option_1
+            property_number: "17"
+            property_string: value
+            property_checkbox: "false"
+            property_dropdown: choice_b
+            property_multiple_checkboxes: chocolate;strawberry
+          type: object
         updatedAt:
-          format: date-time
-          type: string
-        archived:
-          type: boolean
-        archivedAt:
           format: date-time
           type: string
       required:
@@ -899,7 +981,7 @@ components:
       example:
         query: query
         limit: 0
-        after: 6
+        after: after
         sorts:
         - sorts
         - sorts
@@ -938,26 +1020,25 @@ components:
             value: value
             operator: EQ
       properties:
-        filterGroups:
-          items:
-            $ref: '#/components/schemas/FilterGroup'
-          type: array
-        sorts:
-          items:
-            type: string
-          type: array
         query:
           type: string
-        properties:
-          items:
-            type: string
-          type: array
         limit:
           format: int32
           type: integer
         after:
-          format: int32
-          type: integer
+          type: string
+        sorts:
+          items:
+            type: string
+          type: array
+        properties:
+          items:
+            type: string
+          type: array
+        filterGroups:
+          items:
+            $ref: '#/components/schemas/FilterGroup'
+          type: array
       required:
       - after
       - filterGroups
@@ -973,29 +1054,10 @@ components:
         links:
           knowledge-base: https://www.hubspot.com/products/service/knowledge-base
       properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          example: An error occurred
-          type: string
-        correlationId:
-          description: A unique identifier for the request. Include this value with
-            any error reports or support tickets
-          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
-          format: uuid
-          type: string
-        category:
-          description: The error category
-          type: string
         subCategory:
           description: A specific category that contains more specific detail about
             the error
           type: string
-        errors:
-          description: further information about the error
-          items:
-            $ref: '#/components/schemas/ErrorDetail'
-          type: array
         context:
           additionalProperties:
             items:
@@ -1003,18 +1065,40 @@ components:
             type: array
           description: Context about the error condition
           example:
-            invalidPropertyName:
-            - propertyValue
             missingScopes:
             - scope1
             - scope2
+            invalidPropertyName:
+            - propertyValue
           type: object
+        correlationId:
+          description: A unique identifier for the request. Include this value with
+            any error reports or support tickets
+          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
+          format: uuid
+          type: string
         links:
           additionalProperties:
             type: string
           description: A map of link names to associated URIs containing documentation
             about the error or recommended remediation steps
+          example:
+            knowledge-base: https://www.hubspot.com/products/service/knowledge-base
           type: object
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          example: Invalid input (details will vary based on the error)
+          type: string
+        category:
+          description: The error category
+          example: VALIDATION_ERROR
+          type: string
+        errors:
+          description: further information about the error
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
       required:
       - category
       - correlationId
@@ -1022,6 +1106,30 @@ components:
       type: object
     BatchResponseSimplePublicObjectWithErrors:
       properties:
+        completedAt:
+          format: date-time
+          type: string
+        numErrors:
+          format: int32
+          type: integer
+        requestedAt:
+          format: date-time
+          type: string
+        startedAt:
+          format: date-time
+          type: string
+        links:
+          additionalProperties:
+            type: string
+          type: object
+        results:
+          items:
+            $ref: '#/components/schemas/SimplePublicObject'
+          type: array
+        errors:
+          items:
+            $ref: '#/components/schemas/StandardError'
+          type: array
         status:
           enum:
           - PENDING
@@ -1029,44 +1137,32 @@ components:
           - CANCELED
           - COMPLETE
           type: string
-        results:
-          items:
-            $ref: '#/components/schemas/SimplePublicObject'
-          type: array
-        numErrors:
-          format: int32
-          type: integer
-        errors:
-          items:
-            $ref: '#/components/schemas/StandardError'
-          type: array
-        requestedAt:
-          format: date-time
-          type: string
-        startedAt:
-          format: date-time
-          type: string
-        completedAt:
-          format: date-time
-          type: string
-        links:
-          additionalProperties:
-            type: string
-          type: object
       required:
       - completedAt
       - results
       - startedAt
       - status
       type: object
+    PublicGdprDeleteInput:
+      example:
+        idProperty: idProperty
+        objectId: objectId
+      properties:
+        idProperty:
+          type: string
+        objectId:
+          type: string
+      required:
+      - objectId
+      type: object
     SimplePublicObjectInput:
       example:
         properties:
+          subject: troubleshoot report
           hs_pipeline: support_pipeline
+          hubspot_owner_id: "910901"
           hs_pipeline_stage: open
           hs_ticket_priority: HIGH
-          hubspot_owner_id: "910901"
-          subject: troubleshoot report
         associations:
         - to:
             id: "101"
@@ -1077,6 +1173,14 @@ components:
         properties:
           additionalProperties:
             type: string
+          example:
+            property_date: "1572480000000"
+            property_radio: option_1
+            property_number: "17"
+            property_string: value
+            property_checkbox: "false"
+            property_dropdown: choice_b
+            property_multiple_checkboxes: chocolate;strawberry
           type: object
       required:
       - properties
@@ -1105,27 +1209,14 @@ components:
             hubspot_owner_id: "910901"
             subject: troubleshoot report
       properties:
+        paging:
+          $ref: '#/components/schemas/ForwardPaging'
         results:
           items:
             $ref: '#/components/schemas/SimplePublicObjectWithAssociations'
           type: array
-        paging:
-          $ref: '#/components/schemas/ForwardPaging'
       required:
       - results
-      type: object
-    PublicMergeInput:
-      example:
-        objectIdToMerge: objectIdToMerge
-        primaryObjectId: primaryObjectId
-      properties:
-        primaryObjectId:
-          type: string
-        objectIdToMerge:
-          type: string
-      required:
-      - objectIdToMerge
-      - primaryObjectId
       type: object
     AssociationSpec:
       properties:
@@ -1142,6 +1233,19 @@ components:
       - associationCategory
       - associationTypeId
       type: object
+    PublicMergeInput:
+      example:
+        objectIdToMerge: objectIdToMerge
+        primaryObjectId: primaryObjectId
+      properties:
+        objectIdToMerge:
+          type: string
+        primaryObjectId:
+          type: string
+      required:
+      - objectIdToMerge
+      - primaryObjectId
+      type: object
     SimplePublicObjectWithAssociations:
       example:
         properties:
@@ -1153,23 +1257,11 @@ components:
           hubspot_owner_id: "910901"
           subject: troubleshoot report
       properties:
-        id:
-          type: string
-        properties:
+        associations:
           additionalProperties:
-            nullable: true
-            type: string
-          type: object
-        propertiesWithHistory:
-          additionalProperties:
-            items:
-              $ref: '#/components/schemas/ValueWithTimestamp'
-            type: array
+            $ref: '#/components/schemas/CollectionResponseAssociatedId'
           type: object
         createdAt:
-          format: date-time
-          type: string
-        updatedAt:
           format: date-time
           type: string
         archived:
@@ -1177,10 +1269,28 @@ components:
         archivedAt:
           format: date-time
           type: string
-        associations:
+        propertiesWithHistory:
           additionalProperties:
-            $ref: '#/components/schemas/CollectionResponseAssociatedId'
+            items:
+              $ref: '#/components/schemas/ValueWithTimestamp'
+            type: array
           type: object
+        id:
+          type: string
+        properties:
+          additionalProperties:
+            nullable: true
+            type: string
+          example:
+            subject: troubleshoot report
+            hs_pipeline: support_pipeline
+            hubspot_owner_id: "910901"
+            hs_pipeline_stage: open
+            hs_ticket_priority: HIGH
+          type: object
+        updatedAt:
+          format: date-time
+          type: string
       required:
       - createdAt
       - id
@@ -1197,15 +1307,15 @@ components:
         value: value
         operator: EQ
       properties:
-        value:
-          type: string
         highValue:
+          type: string
+        propertyName:
           type: string
         values:
           items:
             type: string
           type: array
-        propertyName:
+        value:
           type: string
         operator:
           description: "null"
@@ -1228,24 +1338,40 @@ components:
       - operator
       - propertyName
       type: object
-    PreviousPage:
+    BatchInputSimplePublicObjectBatchInput:
+      example:
+        inputs:
+        - id: "1"
+          properties:
+            subject: troubleshoot report
+            hs_pipeline: support_pipeline
+            hubspot_owner_id: "910901"
+            hs_pipeline_stage: open
+            hs_ticket_priority: HIGH
+        - id: "1"
+          properties:
+            subject: troubleshoot report
+            hs_pipeline: support_pipeline
+            hubspot_owner_id: "910901"
+            hs_pipeline_stage: open
+            hs_ticket_priority: HIGH
       properties:
-        before:
-          type: string
-        link:
-          type: string
+        inputs:
+          items:
+            $ref: '#/components/schemas/SimplePublicObjectBatchInput'
+          type: array
       required:
-      - before
+      - inputs
       type: object
     BatchInputSimplePublicObjectInputForCreate:
       example:
         inputs:
         - properties:
+            subject: troubleshoot report
             hs_pipeline: support_pipeline
+            hubspot_owner_id: "910901"
             hs_pipeline_stage: open
             hs_ticket_priority: HIGH
-            hubspot_owner_id: "910901"
-            subject: troubleshoot report
           associations:
           - to:
               id: "101"
@@ -1253,11 +1379,11 @@ components:
             - associationCategory: HUBSPOT_DEFINED
               associationTypeId: 2
         - properties:
+            subject: troubleshoot report
             hs_pipeline: support_pipeline
+            hubspot_owner_id: "910901"
             hs_pipeline_stage: open
             hs_ticket_priority: HIGH
-            hubspot_owner_id: "910901"
-            subject: troubleshoot report
           associations:
           - to:
               id: "101"
@@ -1272,62 +1398,43 @@ components:
       required:
       - inputs
       type: object
-    BatchInputSimplePublicObjectBatchInput:
-      example:
-        inputs:
-        - id: "1"
-          properties:
-            hs_pipeline: support_pipeline
-            hs_pipeline_stage: open
-            hs_ticket_priority: HIGH
-            hubspot_owner_id: "910901"
-            subject: troubleshoot report
-        - id: "1"
-          properties:
-            hs_pipeline: support_pipeline
-            hs_pipeline_stage: open
-            hs_ticket_priority: HIGH
-            hubspot_owner_id: "910901"
-            subject: troubleshoot report
+    PreviousPage:
       properties:
-        inputs:
-          items:
-            $ref: '#/components/schemas/SimplePublicObjectBatchInput'
-          type: array
+        before:
+          type: string
+        link:
+          type: string
       required:
-      - inputs
+      - before
       type: object
     SimplePublicObjectBatchInput:
       example:
         id: "1"
         properties:
+          subject: troubleshoot report
           hs_pipeline: support_pipeline
+          hubspot_owner_id: "910901"
           hs_pipeline_stage: open
           hs_ticket_priority: HIGH
-          hubspot_owner_id: "910901"
-          subject: troubleshoot report
       properties:
+        idProperty:
+          example: my_unique_property_name
+          type: string
+        id:
+          type: string
         properties:
           additionalProperties:
             type: string
+          example:
+            subject: troubleshoot report
+            hs_pipeline: support_pipeline
+            hubspot_owner_id: "910901"
+            hs_pipeline_stage: open
+            hs_ticket_priority: HIGH
           type: object
-        id:
-          type: string
       required:
       - id
       - properties
-      type: object
-    NextPage:
-      example:
-        after: NTI1Cg%3D%3D
-        link: ?after=NTI1Cg%3D%3D
-      properties:
-        after:
-          type: string
-        link:
-          type: string
-      required:
-      - after
       type: object
     AssociatedId:
       properties:
@@ -1339,14 +1446,28 @@ components:
       - id
       - type
       type: object
+    NextPage:
+      example:
+        after: NTI1Cg%3D%3D
+        link: ?after=NTI1Cg%3D%3D
+      properties:
+        link:
+          example: ?after=NTI1Cg%3D%3D
+          type: string
+        after:
+          example: NTI1Cg%3D%3D
+          type: string
+      required:
+      - after
+      type: object
     SimplePublicObjectInputForCreate:
       example:
         properties:
+          subject: troubleshoot report
           hs_pipeline: support_pipeline
+          hubspot_owner_id: "910901"
           hs_pipeline_stage: open
           hs_ticket_priority: HIGH
-          hubspot_owner_id: "910901"
-          subject: troubleshoot report
         associations:
         - to:
             id: "101"
@@ -1354,14 +1475,20 @@ components:
           - associationCategory: HUBSPOT_DEFINED
             associationTypeId: 2
       properties:
-        properties:
-          additionalProperties:
-            type: string
-          type: object
         associations:
           items:
             $ref: '#/components/schemas/PublicAssociationsForObject'
           type: array
+        properties:
+          additionalProperties:
+            type: string
+          example:
+            subject: troubleshoot report
+            hs_pipeline: support_pipeline
+            hubspot_owner_id: "910901"
+            hs_pipeline_stage: open
+            hs_ticket_priority: HIGH
+          type: object
       required:
       - associations
       - properties
@@ -1372,15 +1499,47 @@ components:
         authorizationCode:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
+            media_bridge.read: Read media and media events
+            crm.objects.goals.read: Read goals
             tickets: Read and write tickets
+            crm.objects.custom.read: View custom object records
+            e-commerce: e-commerce
+            crm.objects.custom.write: Change custom object records
+          tokenUrl: https://api.hubapi.com/oauth/v1/token
+      type: oauth2
+    oauth2:
+      flows:
+        authorizationCode:
+          authorizationUrl: https://app.hubspot.com/oauth/authorize
+          scopes:
+            crm.objects.deals.read: ' '
+            crm.objects.line_items.read: Line Items
+            crm.objects.deals.write: ' '
+            crm.objects.quotes.read: Quotes
+            crm.objects.line_items.write: Line Items
+            crm.objects.companies.read: ' '
+            crm.objects.companies.write: ' '
+            crm.objects.contacts.write: ' '
+            crm.objects.contacts.read: ' '
+            crm.objects.quotes.write: Quotes
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
     private_apps_legacy:
       in: header
       name: private-app-legacy
       type: apiKey
+    private_apps:
+      in: header
+      name: private-app
+      type: apiKey
 x-hubspot-available-client-libraries:
 - PHP
 - Node
-- Python
 - Ruby
+- Python
+x-hubspot-product-tier-requirements:
+  marketing: FREE
+  sales: FREE
+  service: FREE
+  cms: FREE
+x-hubspot-documentation-banner: NONE

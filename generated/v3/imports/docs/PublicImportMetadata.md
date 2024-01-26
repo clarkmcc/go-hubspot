@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ObjectLists** | [**[]PublicObjectListRecord**](PublicObjectListRecord.md) | The lists containing the imported objects. | 
 **Counters** | **map[string]int32** | Summarized outcomes of each row a developer attempted to import into HubSpot. | 
 **FileIds** | **[]string** | The IDs of files uploaded in the File Manager API. | 
+**ObjectLists** | [**[]PublicObjectListRecord**](PublicObjectListRecord.md) | The lists containing the imported objects. | 
 
 ## Methods
 
 ### NewPublicImportMetadata
 
-`func NewPublicImportMetadata(objectLists []PublicObjectListRecord, counters map[string]int32, fileIds []string, ) *PublicImportMetadata`
+`func NewPublicImportMetadata(counters map[string]int32, fileIds []string, objectLists []PublicObjectListRecord, ) *PublicImportMetadata`
 
 NewPublicImportMetadata instantiates a new PublicImportMetadata object
 This constructor will assign default values to properties that have it defined,
@@ -26,26 +26,6 @@ will change when the set of required properties is changed
 NewPublicImportMetadataWithDefaults instantiates a new PublicImportMetadata object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetObjectLists
-
-`func (o *PublicImportMetadata) GetObjectLists() []PublicObjectListRecord`
-
-GetObjectLists returns the ObjectLists field if non-nil, zero value otherwise.
-
-### GetObjectListsOk
-
-`func (o *PublicImportMetadata) GetObjectListsOk() (*[]PublicObjectListRecord, bool)`
-
-GetObjectListsOk returns a tuple with the ObjectLists field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetObjectLists
-
-`func (o *PublicImportMetadata) SetObjectLists(v []PublicObjectListRecord)`
-
-SetObjectLists sets ObjectLists field to given value.
-
 
 ### GetCounters
 
@@ -85,6 +65,26 @@ and a boolean to check if the value has been set.
 `func (o *PublicImportMetadata) SetFileIds(v []string)`
 
 SetFileIds sets FileIds field to given value.
+
+
+### GetObjectLists
+
+`func (o *PublicImportMetadata) GetObjectLists() []PublicObjectListRecord`
+
+GetObjectLists returns the ObjectLists field if non-nil, zero value otherwise.
+
+### GetObjectListsOk
+
+`func (o *PublicImportMetadata) GetObjectListsOk() (*[]PublicObjectListRecord, bool)`
+
+GetObjectListsOk returns a tuple with the ObjectLists field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetObjectLists
+
+`func (o *PublicImportMetadata) SetObjectLists(v []PublicObjectListRecord)`
+
+SetObjectLists sets ObjectLists field to given value.
 
 
 

@@ -1,5 +1,5 @@
 /*
-HubDB endpoints
+Hubdb
 
 HubDB is a relational data store that presents data as rows, columns, and cells in a table, much like a spreadsheet. HubDB tables can be added or modified [in the HubSpot CMS](https://knowledge.hubspot.com/cos-general/how-to-edit-hubdb-tables), but you can also use the API endpoints documented here. For more information on HubDB tables and using their data on a HubSpot site, see the [CMS developers site](https://designers.hubspot.com/docs/tools/hubdb). You can also see the [documentation for dynamic pages](https://designers.hubspot.com/docs/tutorials/how-to-build-dynamic-pages-with-hubdb) for more details about the `useForPages` field.  HubDB tables support `draft` and `published` versions. This allows you to update data in the table, either for testing or to allow for a manual approval process, without affecting any live pages using the existing data. Draft data can be reviewed, and published by a user working in HubSpot or published via the API. Draft data can also be discarded, allowing users to go back to the published version of the data without disrupting it. If a table is set to be `allowed for public access`, you can access the published version of the table and rows without any authentication by specifying the portal id via the query parameter `portalId`.
 
@@ -16,22 +16,26 @@ import (
 
 // SimpleUser struct for SimpleUser
 type SimpleUser struct {
-	Id        string `json:"id"`
-	Email     string `json:"email"`
+	//
 	FirstName string `json:"firstName"`
-	LastName  string `json:"lastName"`
+	//
+	LastName string `json:"lastName"`
+	//
+	Id string `json:"id"`
+	//
+	Email string `json:"email"`
 }
 
 // NewSimpleUser instantiates a new SimpleUser object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSimpleUser(id string, email string, firstName string, lastName string) *SimpleUser {
+func NewSimpleUser(firstName string, lastName string, id string, email string) *SimpleUser {
 	this := SimpleUser{}
-	this.Id = id
-	this.Email = email
 	this.FirstName = firstName
 	this.LastName = lastName
+	this.Id = id
+	this.Email = email
 	return &this
 }
 
@@ -41,54 +45,6 @@ func NewSimpleUser(id string, email string, firstName string, lastName string) *
 func NewSimpleUserWithDefaults() *SimpleUser {
 	this := SimpleUser{}
 	return &this
-}
-
-// GetId returns the Id field value
-func (o *SimpleUser) GetId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Id
-}
-
-// GetIdOk returns a tuple with the Id field value
-// and a boolean to check if the value has been set.
-func (o *SimpleUser) GetIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Id, true
-}
-
-// SetId sets field value
-func (o *SimpleUser) SetId(v string) {
-	o.Id = v
-}
-
-// GetEmail returns the Email field value
-func (o *SimpleUser) GetEmail() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Email
-}
-
-// GetEmailOk returns a tuple with the Email field value
-// and a boolean to check if the value has been set.
-func (o *SimpleUser) GetEmailOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Email, true
-}
-
-// SetEmail sets field value
-func (o *SimpleUser) SetEmail(v string) {
-	o.Email = v
 }
 
 // GetFirstName returns the FirstName field value
@@ -139,19 +95,67 @@ func (o *SimpleUser) SetLastName(v string) {
 	o.LastName = v
 }
 
+// GetId returns the Id field value
+func (o *SimpleUser) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *SimpleUser) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *SimpleUser) SetId(v string) {
+	o.Id = v
+}
+
+// GetEmail returns the Email field value
+func (o *SimpleUser) GetEmail() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Email
+}
+
+// GetEmailOk returns a tuple with the Email field value
+// and a boolean to check if the value has been set.
+func (o *SimpleUser) GetEmailOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Email, true
+}
+
+// SetEmail sets field value
+func (o *SimpleUser) SetEmail(v string) {
+	o.Email = v
+}
+
 func (o SimpleUser) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["email"] = o.Email
-	}
 	if true {
 		toSerialize["firstName"] = o.FirstName
 	}
 	if true {
 		toSerialize["lastName"] = o.LastName
+	}
+	if true {
+		toSerialize["id"] = o.Id
+	}
+	if true {
+		toSerialize["email"] = o.Email
 	}
 	return json.Marshal(toSerialize)
 }

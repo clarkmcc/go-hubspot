@@ -78,17 +78,18 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*BasicApi* | [**Archive**](docs/BasicApi.md#archive) | **Delete** /crm/v3/objects/line_items/{lineItemId} | Archive
-*BasicApi* | [**Create**](docs/BasicApi.md#create) | **Post** /crm/v3/objects/line_items | Create
-*BasicApi* | [**GetByID**](docs/BasicApi.md#getbyid) | **Get** /crm/v3/objects/line_items/{lineItemId} | Read
-*BasicApi* | [**GetPage**](docs/BasicApi.md#getpage) | **Get** /crm/v3/objects/line_items | List
-*BasicApi* | [**Update**](docs/BasicApi.md#update) | **Patch** /crm/v3/objects/line_items/{lineItemId} | Update
-*BatchApi* | [**BatchArchive**](docs/BatchApi.md#batcharchive) | **Post** /crm/v3/objects/line_items/batch/archive | Archive a batch of line items by ID
-*BatchApi* | [**BatchCreate**](docs/BatchApi.md#batchcreate) | **Post** /crm/v3/objects/line_items/batch/create | Create a batch of line items
-*BatchApi* | [**BatchRead**](docs/BatchApi.md#batchread) | **Post** /crm/v3/objects/line_items/batch/read | Read a batch of line items by internal ID, or unique property values
-*BatchApi* | [**BatchUpdate**](docs/BatchApi.md#batchupdate) | **Post** /crm/v3/objects/line_items/batch/update | Update a batch of line items
-*PublicObjectApi* | [**Merge**](docs/PublicObjectApi.md#merge) | **Post** /crm/v3/objects/line_items/merge | Merge two line items with same type
-*SearchApi* | [**Search**](docs/SearchApi.md#search) | **Post** /crm/v3/objects/line_items/search | 
+*BasicApi* | [**DeleteCrmV3ObjectsLineItemsLineItemIdArchive**](docs/BasicApi.md#deletecrmv3objectslineitemslineitemidarchive) | **Delete** /crm/v3/objects/line_items/{lineItemId} | Archive
+*BasicApi* | [**GetCrmV3ObjectsLineItemsGetPage**](docs/BasicApi.md#getcrmv3objectslineitemsgetpage) | **Get** /crm/v3/objects/line_items | List
+*BasicApi* | [**GetCrmV3ObjectsLineItemsLineItemIdGetById**](docs/BasicApi.md#getcrmv3objectslineitemslineitemidgetbyid) | **Get** /crm/v3/objects/line_items/{lineItemId} | Read
+*BasicApi* | [**PatchCrmV3ObjectsLineItemsLineItemIdUpdate**](docs/BasicApi.md#patchcrmv3objectslineitemslineitemidupdate) | **Patch** /crm/v3/objects/line_items/{lineItemId} | Update
+*BasicApi* | [**PostCrmV3ObjectsLineItemsCreate**](docs/BasicApi.md#postcrmv3objectslineitemscreate) | **Post** /crm/v3/objects/line_items | Create
+*BatchApi* | [**PostCrmV3ObjectsLineItemsBatchArchiveArchive**](docs/BatchApi.md#postcrmv3objectslineitemsbatcharchivearchive) | **Post** /crm/v3/objects/line_items/batch/archive | Archive a batch of line items by ID
+*BatchApi* | [**PostCrmV3ObjectsLineItemsBatchCreateCreate**](docs/BatchApi.md#postcrmv3objectslineitemsbatchcreatecreate) | **Post** /crm/v3/objects/line_items/batch/create | Create a batch of line items
+*BatchApi* | [**PostCrmV3ObjectsLineItemsBatchReadRead**](docs/BatchApi.md#postcrmv3objectslineitemsbatchreadread) | **Post** /crm/v3/objects/line_items/batch/read | Read a batch of line items by internal ID, or unique property values
+*BatchApi* | [**PostCrmV3ObjectsLineItemsBatchUpdateUpdate**](docs/BatchApi.md#postcrmv3objectslineitemsbatchupdateupdate) | **Post** /crm/v3/objects/line_items/batch/update | Update a batch of line items
+*GDPRApi* | [**PostCrmV3ObjectsLineItemsGdprDeletePurge**](docs/GDPRApi.md#postcrmv3objectslineitemsgdprdeletepurge) | **Post** /crm/v3/objects/line_items/gdpr-delete | GDPR DELETE
+*PublicObjectApi* | [**PostCrmV3ObjectsLineItemsMergeMerge**](docs/PublicObjectApi.md#postcrmv3objectslineitemsmergemerge) | **Post** /crm/v3/objects/line_items/merge | Merge two line items with same type
+*SearchApi* | [**PostCrmV3ObjectsLineItemsSearchDoSearch**](docs/SearchApi.md#postcrmv3objectslineitemssearchdosearch) | **Post** /crm/v3/objects/line_items/search | 
 
 
 ## Documentation For Models
@@ -113,6 +114,7 @@ Class | Method | HTTP request | Description
  - [Paging](docs/Paging.md)
  - [PreviousPage](docs/PreviousPage.md)
  - [PublicAssociationsForObject](docs/PublicAssociationsForObject.md)
+ - [PublicGdprDeleteInput](docs/PublicGdprDeleteInput.md)
  - [PublicMergeInput](docs/PublicMergeInput.md)
  - [PublicObjectId](docs/PublicObjectId.md)
  - [PublicObjectSearchRequest](docs/PublicObjectSearchRequest.md)
@@ -137,8 +139,16 @@ Class | Method | HTTP request | Description
 - **Flow**: accessCode
 - **Authorization URL**: https://app.hubspot.com/oauth/authorize
 - **Scopes**: 
+ - **crm.objects.deals.read**:  
  - **crm.objects.line_items.read**: Line Items
+ - **crm.objects.deals.write**:  
+ - **crm.objects.quotes.read**: Quotes
  - **crm.objects.line_items.write**: Line Items
+ - **crm.objects.companies.read**:  
+ - **crm.objects.companies.write**:  
+ - **crm.objects.contacts.write**:  
+ - **crm.objects.contacts.read**:  
+ - **crm.objects.quotes.write**: Quotes
 
 Example
 
@@ -167,7 +177,12 @@ r, err := client.Service.Operation(auth, args)
 - **Flow**: accessCode
 - **Authorization URL**: https://app.hubspot.com/oauth/authorize
 - **Scopes**: 
+ - **media_bridge.read**: Read media and media events
+ - **crm.objects.goals.read**: Read goals
+ - **tickets**: Read and write tickets
+ - **crm.objects.custom.read**: View custom object records
  - **e-commerce**: e-commerce
+ - **crm.objects.custom.write**: Change custom object records
 
 Example
 

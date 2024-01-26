@@ -80,8 +80,8 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *ContentApi* | [**ContentArchive**](docs/ContentApi.md#contentarchive) | **Delete** /cms/v3/source-code/{environment}/content/{path} | Delete a file
 *ContentApi* | [**ContentCreate**](docs/ContentApi.md#contentcreate) | **Post** /cms/v3/source-code/{environment}/content/{path} | Create a file
-*ContentApi* | [**ContentGet**](docs/ContentApi.md#contentget) | **Get** /cms/v3/source-code/{environment}/content/{path} | Download a file
-*ContentApi* | [**ContentReplace**](docs/ContentApi.md#contentreplace) | **Put** /cms/v3/source-code/{environment}/content/{path} | Create or update a file
+*ContentApi* | [**GetCmsV3SourceCodeEnvironmentContentPathDownload**](docs/ContentApi.md#getcmsv3sourcecodeenvironmentcontentpathdownload) | **Get** /cms/v3/source-code/{environment}/content/{path} | Download a file
+*ContentApi* | [**PutCmsV3SourceCodeEnvironmentContentPathCreateOrUpdate**](docs/ContentApi.md#putcmsv3sourcecodeenvironmentcontentpathcreateorupdate) | **Put** /cms/v3/source-code/{environment}/content/{path} | Create or update a file
 *ExtractApi* | [**ExtractByPath**](docs/ExtractApi.md#extractbypath) | **Post** /cms/v3/source-code/extract/{path} | Extracts a zip file
 *MetadataApi* | [**MetadataGet**](docs/MetadataApi.md#metadataget) | **Get** /cms/v3/source-code/{environment}/metadata/{path} | Get the metadata for a file
 *SourceCodeExtractApi* | [**ExtractAsync**](docs/SourceCodeExtractApi.md#extractasync) | **Post** /cms/v3/source-code/extract/async | 

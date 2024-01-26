@@ -3,13 +3,28 @@ info:
   description: "These APIs allow you to specify URLs that can be used to interact\
     \ with a video conferencing application, to allow HubSpot to add video conference\
     \ links to meeting requests with contacts."
-  title: Video Conference Extension
+  title: Video Conferencing Extension
   version: v3
+  x-hubspot-product-tier-requirements:
+    marketing: FREE
+    sales: FREE
+    service: FREE
+    cms: STARTER
+  x-hubspot-documentation-banner: NONE
+  x-hubspot-api-use-case: "If your company often conducts meetings over Zoom, use\
+    \ this API to enable users to add Zoom information to meeting invitations when\
+    \ schedule meetings in HubSpot."
+  x-hubspot-related-documentation:
+  - name: Video Conference Guide
+    url: https://hubspot.dev/guides/api/crm/extensions/video-conferencing
+  x-hubspot-introduction: Use the video conference API to add video conferencing options
+    when scheduling a meeting in HubSpot.
 servers:
-- url: https://api.hubapi.com/
+- url: https://api.hubapi.com
 tags:
-- description: Operations to change settings.
+- description: ""
   name: Settings
+  x-hubspot-tag-name-english-source: Settings
 paths:
   /crm/v3/extensions/videoconferencing/settings/{appId}:
     delete:
@@ -37,7 +52,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security: []
+      security:
+      - developer_hapikey: []
       summary: Delete settings
       tags:
       - Settings
@@ -69,7 +85,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security: []
+      security:
+      - developer_hapikey: []
       summary: Get settings
       tags:
       - Settings
@@ -107,7 +124,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security: []
+      security:
+      - developer_hapikey: []
       summary: Update settings
       tags:
       - Settings
@@ -122,19 +140,15 @@ components:
   schemas:
     ErrorDetail:
       properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          type: string
-        in:
-          description: The name of the field or parameter in which the error was found.
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
           type: string
         code:
           description: The status code associated with the error detail
           type: string
-        subCategory:
-          description: A specific category that contains more specific detail about
-            the error
+        in:
+          description: The name of the field or parameter in which the error was found.
           type: string
         context:
           additionalProperties:
@@ -147,6 +161,10 @@ components:
             - scope1
             - scope2
           type: object
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          type: string
       required:
       - message
       type: object
@@ -158,29 +176,10 @@ components:
         links:
           knowledge-base: https://www.hubspot.com/products/service/knowledge-base
       properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          example: An error occurred
-          type: string
-        correlationId:
-          description: A unique identifier for the request. Include this value with
-            any error reports or support tickets
-          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
-          format: uuid
-          type: string
-        category:
-          description: The error category
-          type: string
         subCategory:
           description: A specific category that contains more specific detail about
             the error
           type: string
-        errors:
-          description: further information about the error
-          items:
-            $ref: '#/components/schemas/ErrorDetail'
-          type: array
         context:
           additionalProperties:
             items:
@@ -188,18 +187,40 @@ components:
             type: array
           description: Context about the error condition
           example:
-            invalidPropertyName:
-            - propertyValue
             missingScopes:
             - scope1
             - scope2
+            invalidPropertyName:
+            - propertyValue
           type: object
+        correlationId:
+          description: A unique identifier for the request. Include this value with
+            any error reports or support tickets
+          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
+          format: uuid
+          type: string
         links:
           additionalProperties:
             type: string
           description: A map of link names to associated URIs containing documentation
             about the error or recommended remediation steps
+          example:
+            knowledge-base: https://www.hubspot.com/products/service/knowledge-base
           type: object
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          example: Invalid input (details will vary based on the error)
+          type: string
+        category:
+          description: The error category
+          example: VALIDATION_ERROR
+          type: string
+        errors:
+          description: further information about the error
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
       required:
       - category
       - correlationId
@@ -214,28 +235,44 @@ components:
         deleteMeetingUrl: https://example.com/delete-meeting
         userVerifyUrl: https://example.com/user-verify
       properties:
+        userVerifyUrl:
+          description: The URL that HubSpot will use to verify that a user exists
+            in the video conference application.
+          example: https://example.com/user-verify
+          type: string
+        fetchAccountsUri:
+          type: string
         createMeetingUrl:
           description: The URL that HubSpot will send requests to create a new video
             conference.
+          example: https://example.com/create-meeting
           type: string
         updateMeetingUrl:
           description: The URL that HubSpot will send updates to existing meetings.
             Typically called when the user changes the topic or times of a meeting.
+          example: https://example.com/update-meeting
           type: string
         deleteMeetingUrl:
           description: The URL that HubSpot will send notifications of meetings that
             have been deleted in HubSpot.
-          type: string
-        userVerifyUrl:
-          description: The URL that HubSpot will use to verify that a user exists
-            in the video conference application.
+          example: https://example.com/delete-meeting
           type: string
       required:
       - createMeetingUrl
       type: object
-  securitySchemes: {}
+  securitySchemes:
+    developer_hapikey:
+      in: query
+      name: hapikey
+      type: apiKey
 x-hubspot-available-client-libraries:
 - PHP
 - Node
-- Python
 - Ruby
+- Python
+x-hubspot-product-tier-requirements:
+  marketing: FREE
+  sales: FREE
+  service: FREE
+  cms: STARTER
+x-hubspot-documentation-banner: NONE

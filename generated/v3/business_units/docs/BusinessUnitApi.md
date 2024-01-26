@@ -4,13 +4,13 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetBusinessUnitsV3BusinessUnitsUserUserId**](BusinessUnitApi.md#GetBusinessUnitsV3BusinessUnitsUserUserId) | **Get** /business-units/v3/business-units/user/{userId} | Get Business Units for a user
+[**GetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserID**](BusinessUnitApi.md#GetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserID) | **Get** /business-units/v3/business-units/user/{userId} | Get Business Units for a user
 
 
 
-## GetBusinessUnitsV3BusinessUnitsUserUserId
+## GetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserID
 
-> CollectionResponsePublicBusinessUnitNoPaging GetBusinessUnitsV3BusinessUnitsUserUserId(ctx, userId).Properties(properties).Name(name).Execute()
+> CollectionResponsePublicBusinessUnitNoPaging GetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserID(ctx, userId).Properties(properties).Name(name).Execute()
 
 Get Business Units for a user
 
@@ -35,13 +35,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BusinessUnitApi.GetBusinessUnitsV3BusinessUnitsUserUserId(context.Background(), userId).Properties(properties).Name(name).Execute()
+    resp, r, err := apiClient.BusinessUnitApi.GetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserID(context.Background(), userId).Properties(properties).Name(name).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BusinessUnitApi.GetBusinessUnitsV3BusinessUnitsUserUserId``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BusinessUnitApi.GetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserID``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetBusinessUnitsV3BusinessUnitsUserUserId`: CollectionResponsePublicBusinessUnitNoPaging
-    fmt.Fprintf(os.Stdout, "Response from `BusinessUnitApi.GetBusinessUnitsV3BusinessUnitsUserUserId`: %v\n", resp)
+    // response from `GetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserID`: CollectionResponsePublicBusinessUnitNoPaging
+    fmt.Fprintf(os.Stdout, "Response from `BusinessUnitApi.GetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserID`: %v\n", resp)
 }
 ```
 
@@ -55,7 +55,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetBusinessUnitsV3BusinessUnitsUserUserIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserIDRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

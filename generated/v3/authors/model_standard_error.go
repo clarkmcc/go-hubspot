@@ -1,5 +1,5 @@
 /*
-Blog Post endpoints
+Authors
 
 Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags
 
@@ -16,36 +16,36 @@ import (
 
 // StandardError Model definition for a standard error.
 type StandardError struct {
-	// Error status.
-	Status string `json:"status"`
-	// Error ID.
-	Id *string `json:"id,omitempty"`
-	// Error category.
-	Category string `json:"category"`
 	// Error subcategory.
 	SubCategory map[string]interface{} `json:"subCategory,omitempty"`
-	// Error message.
-	Message string `json:"message"`
-	// List of error details.
-	Errors []ErrorDetail `json:"errors"`
 	// Error context.
 	Context map[string][]string `json:"context"`
 	// Error links.
 	Links map[string]string `json:"links"`
+	// Error ID.
+	Id *string `json:"id,omitempty"`
+	// Error category.
+	Category string `json:"category"`
+	// Error message.
+	Message string `json:"message"`
+	// List of error details.
+	Errors []ErrorDetail `json:"errors"`
+	// Error status.
+	Status string `json:"status"`
 }
 
 // NewStandardError instantiates a new StandardError object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewStandardError(status string, category string, message string, errors []ErrorDetail, context map[string][]string, links map[string]string) *StandardError {
+func NewStandardError(context map[string][]string, links map[string]string, category string, message string, errors []ErrorDetail, status string) *StandardError {
 	this := StandardError{}
-	this.Status = status
+	this.Context = context
+	this.Links = links
 	this.Category = category
 	this.Message = message
 	this.Errors = errors
-	this.Context = context
-	this.Links = links
+	this.Status = status
 	return &this
 }
 
@@ -57,28 +57,84 @@ func NewStandardErrorWithDefaults() *StandardError {
 	return &this
 }
 
-// GetStatus returns the Status field value
-func (o *StandardError) GetStatus() string {
+// GetSubCategory returns the SubCategory field value if set, zero value otherwise.
+func (o *StandardError) GetSubCategory() map[string]interface{} {
+	if o == nil || o.SubCategory == nil {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.SubCategory
+}
+
+// GetSubCategoryOk returns a tuple with the SubCategory field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *StandardError) GetSubCategoryOk() (map[string]interface{}, bool) {
+	if o == nil || o.SubCategory == nil {
+		return nil, false
+	}
+	return o.SubCategory, true
+}
+
+// HasSubCategory returns a boolean if a field has been set.
+func (o *StandardError) HasSubCategory() bool {
+	if o != nil && o.SubCategory != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSubCategory gets a reference to the given map[string]interface{} and assigns it to the SubCategory field.
+func (o *StandardError) SetSubCategory(v map[string]interface{}) {
+	o.SubCategory = v
+}
+
+// GetContext returns the Context field value
+func (o *StandardError) GetContext() map[string][]string {
 	if o == nil {
-		var ret string
+		var ret map[string][]string
 		return ret
 	}
 
-	return o.Status
+	return o.Context
 }
 
-// GetStatusOk returns a tuple with the Status field value
+// GetContextOk returns a tuple with the Context field value
 // and a boolean to check if the value has been set.
-func (o *StandardError) GetStatusOk() (*string, bool) {
+func (o *StandardError) GetContextOk() (*map[string][]string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Status, true
+	return &o.Context, true
 }
 
-// SetStatus sets field value
-func (o *StandardError) SetStatus(v string) {
-	o.Status = v
+// SetContext sets field value
+func (o *StandardError) SetContext(v map[string][]string) {
+	o.Context = v
+}
+
+// GetLinks returns the Links field value
+func (o *StandardError) GetLinks() map[string]string {
+	if o == nil {
+		var ret map[string]string
+		return ret
+	}
+
+	return o.Links
+}
+
+// GetLinksOk returns a tuple with the Links field value
+// and a boolean to check if the value has been set.
+func (o *StandardError) GetLinksOk() (*map[string]string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Links, true
+}
+
+// SetLinks sets field value
+func (o *StandardError) SetLinks(v map[string]string) {
+	o.Links = v
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
@@ -137,38 +193,6 @@ func (o *StandardError) SetCategory(v string) {
 	o.Category = v
 }
 
-// GetSubCategory returns the SubCategory field value if set, zero value otherwise.
-func (o *StandardError) GetSubCategory() map[string]interface{} {
-	if o == nil || o.SubCategory == nil {
-		var ret map[string]interface{}
-		return ret
-	}
-	return o.SubCategory
-}
-
-// GetSubCategoryOk returns a tuple with the SubCategory field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *StandardError) GetSubCategoryOk() (map[string]interface{}, bool) {
-	if o == nil || o.SubCategory == nil {
-		return nil, false
-	}
-	return o.SubCategory, true
-}
-
-// HasSubCategory returns a boolean if a field has been set.
-func (o *StandardError) HasSubCategory() bool {
-	if o != nil && o.SubCategory != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetSubCategory gets a reference to the given map[string]interface{} and assigns it to the SubCategory field.
-func (o *StandardError) SetSubCategory(v map[string]interface{}) {
-	o.SubCategory = v
-}
-
 // GetMessage returns the Message field value
 func (o *StandardError) GetMessage() string {
 	if o == nil {
@@ -217,67 +241,46 @@ func (o *StandardError) SetErrors(v []ErrorDetail) {
 	o.Errors = v
 }
 
-// GetContext returns the Context field value
-func (o *StandardError) GetContext() map[string][]string {
+// GetStatus returns the Status field value
+func (o *StandardError) GetStatus() string {
 	if o == nil {
-		var ret map[string][]string
+		var ret string
 		return ret
 	}
 
-	return o.Context
+	return o.Status
 }
 
-// GetContextOk returns a tuple with the Context field value
+// GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
-func (o *StandardError) GetContextOk() (*map[string][]string, bool) {
+func (o *StandardError) GetStatusOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Context, true
+	return &o.Status, true
 }
 
-// SetContext sets field value
-func (o *StandardError) SetContext(v map[string][]string) {
-	o.Context = v
-}
-
-// GetLinks returns the Links field value
-func (o *StandardError) GetLinks() map[string]string {
-	if o == nil {
-		var ret map[string]string
-		return ret
-	}
-
-	return o.Links
-}
-
-// GetLinksOk returns a tuple with the Links field value
-// and a boolean to check if the value has been set.
-func (o *StandardError) GetLinksOk() (*map[string]string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Links, true
-}
-
-// SetLinks sets field value
-func (o *StandardError) SetLinks(v map[string]string) {
-	o.Links = v
+// SetStatus sets field value
+func (o *StandardError) SetStatus(v string) {
+	o.Status = v
 }
 
 func (o StandardError) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if o.SubCategory != nil {
+		toSerialize["subCategory"] = o.SubCategory
+	}
 	if true {
-		toSerialize["status"] = o.Status
+		toSerialize["context"] = o.Context
+	}
+	if true {
+		toSerialize["links"] = o.Links
 	}
 	if o.Id != nil {
 		toSerialize["id"] = o.Id
 	}
 	if true {
 		toSerialize["category"] = o.Category
-	}
-	if o.SubCategory != nil {
-		toSerialize["subCategory"] = o.SubCategory
 	}
 	if true {
 		toSerialize["message"] = o.Message
@@ -286,10 +289,7 @@ func (o StandardError) MarshalJSON() ([]byte, error) {
 		toSerialize["errors"] = o.Errors
 	}
 	if true {
-		toSerialize["context"] = o.Context
-	}
-	if true {
-		toSerialize["links"] = o.Links
+		toSerialize["status"] = o.Status
 	}
 	return json.Marshal(toSerialize)
 }

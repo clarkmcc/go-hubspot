@@ -1,5 +1,5 @@
 /*
-CMS Performance API
+CMS Performance
 
 Use these endpoints to get a time series view of your website's performance.
 
@@ -16,25 +16,25 @@ import (
 
 // PublicPerformanceResponse struct for PublicPerformanceResponse
 type PublicPerformanceResponse struct {
-	Domain        *string           `json:"domain,omitempty"`
 	Path          *string           `json:"path,omitempty"`
-	StartInterval int64             `json:"startInterval"`
-	EndInterval   int64             `json:"endInterval"`
-	Data          []PerformanceView `json:"data"`
-	Interval      string            `json:"interval"`
 	Period        *string           `json:"period,omitempty"`
+	StartInterval int64             `json:"startInterval"`
+	Data          []PerformanceView `json:"data"`
+	Domain        *string           `json:"domain,omitempty"`
+	Interval      string            `json:"interval"`
+	EndInterval   int64             `json:"endInterval"`
 }
 
 // NewPublicPerformanceResponse instantiates a new PublicPerformanceResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPublicPerformanceResponse(startInterval int64, endInterval int64, data []PerformanceView, interval string) *PublicPerformanceResponse {
+func NewPublicPerformanceResponse(startInterval int64, data []PerformanceView, interval string, endInterval int64) *PublicPerformanceResponse {
 	this := PublicPerformanceResponse{}
 	this.StartInterval = startInterval
-	this.EndInterval = endInterval
 	this.Data = data
 	this.Interval = interval
+	this.EndInterval = endInterval
 	return &this
 }
 
@@ -44,38 +44,6 @@ func NewPublicPerformanceResponse(startInterval int64, endInterval int64, data [
 func NewPublicPerformanceResponseWithDefaults() *PublicPerformanceResponse {
 	this := PublicPerformanceResponse{}
 	return &this
-}
-
-// GetDomain returns the Domain field value if set, zero value otherwise.
-func (o *PublicPerformanceResponse) GetDomain() string {
-	if o == nil || o.Domain == nil {
-		var ret string
-		return ret
-	}
-	return *o.Domain
-}
-
-// GetDomainOk returns a tuple with the Domain field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PublicPerformanceResponse) GetDomainOk() (*string, bool) {
-	if o == nil || o.Domain == nil {
-		return nil, false
-	}
-	return o.Domain, true
-}
-
-// HasDomain returns a boolean if a field has been set.
-func (o *PublicPerformanceResponse) HasDomain() bool {
-	if o != nil && o.Domain != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetDomain gets a reference to the given string and assigns it to the Domain field.
-func (o *PublicPerformanceResponse) SetDomain(v string) {
-	o.Domain = &v
 }
 
 // GetPath returns the Path field value if set, zero value otherwise.
@@ -110,102 +78,6 @@ func (o *PublicPerformanceResponse) SetPath(v string) {
 	o.Path = &v
 }
 
-// GetStartInterval returns the StartInterval field value
-func (o *PublicPerformanceResponse) GetStartInterval() int64 {
-	if o == nil {
-		var ret int64
-		return ret
-	}
-
-	return o.StartInterval
-}
-
-// GetStartIntervalOk returns a tuple with the StartInterval field value
-// and a boolean to check if the value has been set.
-func (o *PublicPerformanceResponse) GetStartIntervalOk() (*int64, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.StartInterval, true
-}
-
-// SetStartInterval sets field value
-func (o *PublicPerformanceResponse) SetStartInterval(v int64) {
-	o.StartInterval = v
-}
-
-// GetEndInterval returns the EndInterval field value
-func (o *PublicPerformanceResponse) GetEndInterval() int64 {
-	if o == nil {
-		var ret int64
-		return ret
-	}
-
-	return o.EndInterval
-}
-
-// GetEndIntervalOk returns a tuple with the EndInterval field value
-// and a boolean to check if the value has been set.
-func (o *PublicPerformanceResponse) GetEndIntervalOk() (*int64, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.EndInterval, true
-}
-
-// SetEndInterval sets field value
-func (o *PublicPerformanceResponse) SetEndInterval(v int64) {
-	o.EndInterval = v
-}
-
-// GetData returns the Data field value
-func (o *PublicPerformanceResponse) GetData() []PerformanceView {
-	if o == nil {
-		var ret []PerformanceView
-		return ret
-	}
-
-	return o.Data
-}
-
-// GetDataOk returns a tuple with the Data field value
-// and a boolean to check if the value has been set.
-func (o *PublicPerformanceResponse) GetDataOk() ([]PerformanceView, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Data, true
-}
-
-// SetData sets field value
-func (o *PublicPerformanceResponse) SetData(v []PerformanceView) {
-	o.Data = v
-}
-
-// GetInterval returns the Interval field value
-func (o *PublicPerformanceResponse) GetInterval() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Interval
-}
-
-// GetIntervalOk returns a tuple with the Interval field value
-// and a boolean to check if the value has been set.
-func (o *PublicPerformanceResponse) GetIntervalOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Interval, true
-}
-
-// SetInterval sets field value
-func (o *PublicPerformanceResponse) SetInterval(v string) {
-	o.Interval = v
-}
-
 // GetPeriod returns the Period field value if set, zero value otherwise.
 func (o *PublicPerformanceResponse) GetPeriod() string {
 	if o == nil || o.Period == nil {
@@ -238,28 +110,156 @@ func (o *PublicPerformanceResponse) SetPeriod(v string) {
 	o.Period = &v
 }
 
+// GetStartInterval returns the StartInterval field value
+func (o *PublicPerformanceResponse) GetStartInterval() int64 {
+	if o == nil {
+		var ret int64
+		return ret
+	}
+
+	return o.StartInterval
+}
+
+// GetStartIntervalOk returns a tuple with the StartInterval field value
+// and a boolean to check if the value has been set.
+func (o *PublicPerformanceResponse) GetStartIntervalOk() (*int64, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.StartInterval, true
+}
+
+// SetStartInterval sets field value
+func (o *PublicPerformanceResponse) SetStartInterval(v int64) {
+	o.StartInterval = v
+}
+
+// GetData returns the Data field value
+func (o *PublicPerformanceResponse) GetData() []PerformanceView {
+	if o == nil {
+		var ret []PerformanceView
+		return ret
+	}
+
+	return o.Data
+}
+
+// GetDataOk returns a tuple with the Data field value
+// and a boolean to check if the value has been set.
+func (o *PublicPerformanceResponse) GetDataOk() ([]PerformanceView, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Data, true
+}
+
+// SetData sets field value
+func (o *PublicPerformanceResponse) SetData(v []PerformanceView) {
+	o.Data = v
+}
+
+// GetDomain returns the Domain field value if set, zero value otherwise.
+func (o *PublicPerformanceResponse) GetDomain() string {
+	if o == nil || o.Domain == nil {
+		var ret string
+		return ret
+	}
+	return *o.Domain
+}
+
+// GetDomainOk returns a tuple with the Domain field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PublicPerformanceResponse) GetDomainOk() (*string, bool) {
+	if o == nil || o.Domain == nil {
+		return nil, false
+	}
+	return o.Domain, true
+}
+
+// HasDomain returns a boolean if a field has been set.
+func (o *PublicPerformanceResponse) HasDomain() bool {
+	if o != nil && o.Domain != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDomain gets a reference to the given string and assigns it to the Domain field.
+func (o *PublicPerformanceResponse) SetDomain(v string) {
+	o.Domain = &v
+}
+
+// GetInterval returns the Interval field value
+func (o *PublicPerformanceResponse) GetInterval() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Interval
+}
+
+// GetIntervalOk returns a tuple with the Interval field value
+// and a boolean to check if the value has been set.
+func (o *PublicPerformanceResponse) GetIntervalOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Interval, true
+}
+
+// SetInterval sets field value
+func (o *PublicPerformanceResponse) SetInterval(v string) {
+	o.Interval = v
+}
+
+// GetEndInterval returns the EndInterval field value
+func (o *PublicPerformanceResponse) GetEndInterval() int64 {
+	if o == nil {
+		var ret int64
+		return ret
+	}
+
+	return o.EndInterval
+}
+
+// GetEndIntervalOk returns a tuple with the EndInterval field value
+// and a boolean to check if the value has been set.
+func (o *PublicPerformanceResponse) GetEndIntervalOk() (*int64, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.EndInterval, true
+}
+
+// SetEndInterval sets field value
+func (o *PublicPerformanceResponse) SetEndInterval(v int64) {
+	o.EndInterval = v
+}
+
 func (o PublicPerformanceResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Domain != nil {
-		toSerialize["domain"] = o.Domain
-	}
 	if o.Path != nil {
 		toSerialize["path"] = o.Path
+	}
+	if o.Period != nil {
+		toSerialize["period"] = o.Period
 	}
 	if true {
 		toSerialize["startInterval"] = o.StartInterval
 	}
 	if true {
-		toSerialize["endInterval"] = o.EndInterval
-	}
-	if true {
 		toSerialize["data"] = o.Data
+	}
+	if o.Domain != nil {
+		toSerialize["domain"] = o.Domain
 	}
 	if true {
 		toSerialize["interval"] = o.Interval
 	}
-	if o.Period != nil {
-		toSerialize["period"] = o.Period
+	if true {
+		toSerialize["endInterval"] = o.EndInterval
 	}
 	return json.Marshal(toSerialize)
 }

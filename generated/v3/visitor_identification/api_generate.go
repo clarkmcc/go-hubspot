@@ -15,37 +15,39 @@ import (
 	"context"
 	"io/ioutil"
 	"net/http"
+
+	"github.com/clarkmcc/go-hubspot"
 	"net/url"
 )
 
 // GenerateApiService GenerateApi service
 type GenerateApiService service
 
-type ApiGenerateTokenRequest struct {
+type ApiPostConversationsV3VisitorIdentificationTokensCreateGenerateTokenRequest struct {
 	ctx                                  context.Context
 	ApiService                           *GenerateApiService
 	identificationTokenGenerationRequest *IdentificationTokenGenerationRequest
 }
 
-func (r ApiGenerateTokenRequest) IdentificationTokenGenerationRequest(identificationTokenGenerationRequest IdentificationTokenGenerationRequest) ApiGenerateTokenRequest {
+func (r ApiPostConversationsV3VisitorIdentificationTokensCreateGenerateTokenRequest) IdentificationTokenGenerationRequest(identificationTokenGenerationRequest IdentificationTokenGenerationRequest) ApiPostConversationsV3VisitorIdentificationTokensCreateGenerateTokenRequest {
 	r.identificationTokenGenerationRequest = &identificationTokenGenerationRequest
 	return r
 }
 
-func (r ApiGenerateTokenRequest) Execute() (*IdentificationTokenResponse, *http.Response, error) {
-	return r.ApiService.GenerateTokenExecute(r)
+func (r ApiPostConversationsV3VisitorIdentificationTokensCreateGenerateTokenRequest) Execute() (*IdentificationTokenResponse, *http.Response, error) {
+	return r.ApiService.PostConversationsV3VisitorIdentificationTokensCreateGenerateTokenExecute(r)
 }
 
 /*
-GenerateToken Generate a token
+PostConversationsV3VisitorIdentificationTokensCreateGenerateToken Generate a token
 
 Generates a new visitor identification token. This token will be unique every time this endpoint is called, even if called with the same email address. This token is temporary and will expire after 12 hours
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGenerateTokenRequest
+ @return ApiPostConversationsV3VisitorIdentificationTokensCreateGenerateTokenRequest
 */
-func (a *GenerateApiService) GenerateToken(ctx context.Context) ApiGenerateTokenRequest {
-	return ApiGenerateTokenRequest{
+func (a *GenerateApiService) PostConversationsV3VisitorIdentificationTokensCreateGenerateToken(ctx context.Context) ApiPostConversationsV3VisitorIdentificationTokensCreateGenerateTokenRequest {
+	return ApiPostConversationsV3VisitorIdentificationTokensCreateGenerateTokenRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -53,7 +55,7 @@ func (a *GenerateApiService) GenerateToken(ctx context.Context) ApiGenerateToken
 
 // Execute executes the request
 //  @return IdentificationTokenResponse
-func (a *GenerateApiService) GenerateTokenExecute(r ApiGenerateTokenRequest) (*IdentificationTokenResponse, *http.Response, error) {
+func (a *GenerateApiService) PostConversationsV3VisitorIdentificationTokensCreateGenerateTokenExecute(r ApiPostConversationsV3VisitorIdentificationTokensCreateGenerateTokenRequest) (*IdentificationTokenResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -61,12 +63,12 @@ func (a *GenerateApiService) GenerateTokenExecute(r ApiGenerateTokenRequest) (*I
 		localVarReturnValue *IdentificationTokenResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GenerateApiService.GenerateToken")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GenerateApiService.PostConversationsV3VisitorIdentificationTokensCreateGenerateToken")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/visitor-identification/v3/tokens/create"
+	localVarPath := localBasePath + "/conversations/v3/visitor-identification/tokens/create"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -96,16 +98,12 @@ func (a *GenerateApiService) GenerateTokenExecute(r ApiGenerateTokenRequest) (*I
 	localVarPostBody = r.identificationTokenGenerationRequest
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["private_apps_legacy"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["private-app-legacy"] = key
-			}
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)

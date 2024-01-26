@@ -4,73 +4,73 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**PublishDate** | **time.Time** | The date (ISO8601 format) the blog post is to be published at. | 
+**Language** | **string** | The explicitly defined ISO 639 language code of the Blog Post. If null, the Blog Post will default to the language of the ParentBlog. | 
+**EnableLayoutStylesheets** | **bool** | Boolean to determine whether or not the styles from the template should be applied. | 
+**MetaDescription** | **string** | A description that goes in &lt;meta&gt; tag on the page. | 
+**AttachedStylesheets** | **[]map[string]map[string]interface{}** | List of stylesheets to attach to this blog post. These stylesheets are attached to just this page. Order of precedence is bottom to top, just like in the HTML. | 
+**Password** | **string** | Set this to create a password protected page. Entering the password will be required to view the page. | 
+**HtmlTitle** | **string** | The html title of this Blog Post. | 
+**PublishImmediately** | **bool** | Set this to true if you want to be published immediately when the schedule publish endpoint is called, and to ignore the publish_date setting. | 
+**Translations** | [**map[string]ContentLanguageVariation**](ContentLanguageVariation.md) |  | 
 **Id** | **string** | The unique ID of the Blog Post. | 
-**Slug** | **string** | The path of the this blog post. This field is appended to the domain to construct the url of this post. | 
-**ContentGroupId** | **string** | The ID of the parent Blog this Blog Post is associated with. | 
-**Campaign** | **string** | The GUID of the marketing campaign this Blog Post is a part of. | 
-**CategoryId** | **int32** | ID of the type of object this is. Should always . | 
 **State** | **string** | An ENUM descibing the current state of this Blog Post. | 
-**Name** | **string** | The internal name of the Blog Post. | 
-**MabExperimentId** | **string** |  | 
-**AuthorName** | **string** | The name of the user that updated this Blog Post. | 
-**AbTestId** | **string** |  | 
+**Slug** | **string** | The path of the this blog post. This field is appended to the domain to construct the url of this post. | 
 **CreatedById** | **string** | The ID of the user that created this Blog Post. | 
+**RssBody** | **string** | The contents of the RSS body for this Blog Post. | 
+**CurrentlyPublished** | **bool** |  | 
+**ArchivedInDashboard** | **bool** | If True, the post will not show up in your dashboard, although the post could still be live. | 
+**Created** | **time.Time** |  | 
+**ContentTypeCategory** | **string** | An ENUM descibing the type of this object. Should always be BLOG_POST. | 
+**MabExperimentId** | **string** |  | 
 **UpdatedById** | **string** | The ID of the user that updated this Blog Post. | 
-**Domain** | **string** | The domain this Blog Post will resolve to. If null, the Blog Post will default to the domain of the ParentBlog. | 
-**AbStatus** | **string** |  | 
+**TranslatedFromId** | **string** | ID of the primary blog post this object was translated from. | 
 **FolderId** | **string** |  | 
 **WidgetContainers** | **map[string]map[string]interface{}** | A data structure containing the data for all the modules inside the containers for this post. This will only be populated if the page has widget containers. | 
-**Widgets** | **map[string]map[string]interface{}** | A data structure containing the data for all the modules for this page. | 
-**Language** | **string** | The explicitly defined ISO 639 language code of the Blog Post. If null, the Blog Post will default to the language of the ParentBlog. | 
-**TranslatedFromId** | **string** | ID of the primary blog post this object was translated from. | 
-**Translations** | [**map[string]ContentLanguageVariation**](ContentLanguageVariation.md) |  | 
-**DynamicPageHubDbTableId** | **string** | The ID of the HubDB table this Blog Post references, if applicable | 
-**DynamicPageDataSourceType** | **int32** |  | 
-**DynamicPageDataSourceId** | **string** |  | 
-**BlogAuthorId** | **string** | The ID of the Blog Author associated with this Blog Post. | 
-**TagIds** | **[]int64** | List of IDs for the tags associated with this Blog Post. | 
-**HtmlTitle** | **string** | The html title of this Blog Post. | 
-**PublicAccessRulesEnabled** | **bool** | Boolean to determine whether or not to respect publicAccessRules. | 
-**PublicAccessRules** | **[]map[string]interface{}** | Rules for require member registration to access private content. | 
-**UseFeaturedImage** | **bool** | Boolean to determine if this post should use a featuredImage. | 
-**PostSummary** | **string** | The summary of the blog post that will appear on the main listing page. | 
-**PostBody** | **string** | The HTML of the main post body. | 
-**RssSummary** | **string** | The contents of the RSS summary for this Blog Post. | 
-**RssBody** | **string** | The contents of the RSS body for this Blog Post. | 
-**EnableGoogleAmpOutputOverride** | **bool** | Boolean to allow overriding the AMP settings for the blog. | 
-**PublishImmediately** | **bool** | Set this to true if you want to be published immediately when the schedule publish endpoint is called, and to ignore the publish_date setting. | 
-**ArchivedAt** | **int64** | The timestamp (ISO8601 format) when this Blog Post was deleted. | 
-**LinkRelCanonicalUrl** | **string** | Optional override to set the URL to be used in the rel&#x3D;canonical link tag on the page. | 
-**ArchivedInDashboard** | **bool** | If True, the post will not show up in your dashboard, although the post could still be live. | 
-**PageExpiryEnabled** | **bool** |  | 
 **PageExpiryRedirectId** | **int64** |  | 
-**PageExpiryRedirectUrl** | **string** |  | 
-**PageExpiryDate** | **int64** |  | 
-**IncludeDefaultCustomCss** | **bool** | Boolean to determine whether or not the Primary CSS Files should be applied. | 
-**EnableLayoutStylesheets** | **bool** | Boolean to determine whether or not the styles from the template should be applied. | 
-**EnableDomainStylesheets** | **bool** | Boolean to determine whether or not the styles from the template should be applied. | 
-**LayoutSections** | [**map[string]LayoutSection**](LayoutSection.md) |  | 
-**FeaturedImageAltText** | **string** | Alt Text of the featuredImage. | 
-**AttachedStylesheets** | **[]map[string]map[string]interface{}** | List of stylesheets to attach to this blog post. These stylesheets are attached to just this page. Order of precedence is bottom to top, just like in the HTML. | 
-**MetaDescription** | **string** | A description that goes in &lt;meta&gt; tag on the page. | 
-**HeadHtml** | **string** | Custom HTML for embed codes, javascript, etc. that goes in the &lt;head&gt; tag of the page. | 
-**FooterHtml** | **string** | Custom HTML for embed codes, javascript that should be placed before the &lt;/body&gt; tag of the page. | 
+**DynamicPageDataSourceType** | **int32** |  | 
 **FeaturedImage** | **string** | The featuredImage of this Blog Post. | 
-**ThemeSettingsValues** | **map[string]map[string]interface{}** |  | 
-**Url** | **string** | A generated field representing the URL of this blog post. | 
-**Password** | **string** | Set this to create a password protected page. Entering the password will be required to view the page. | 
-**CurrentState** | **string** | A generated ENUM descibing the current state of this Blog Post. Should always match state. | 
-**CurrentlyPublished** | **bool** |  | 
-**ContentTypeCategory** | **string** | An ENUM descibing the type of this object. Should always be BLOG_POST. | 
-**PublishDate** | **time.Time** | The date (ISO8601 format) the blog post is to be published at. | 
-**Created** | **time.Time** |  | 
+**AuthorName** | **string** | The name of the user that updated this Blog Post. | 
+**Domain** | **string** | The domain this Blog Post will resolve to. If null, the Blog Post will default to the domain of the ParentBlog. | 
+**Name** | **string** | The internal name of the Blog Post. | 
+**DynamicPageHubDbTableId** | **string** | The ID of the HubDB table this Blog Post references, if applicable | 
+**Campaign** | **string** | The GUID of the marketing campaign this Blog Post is a part of. | 
+**DynamicPageDataSourceId** | **string** |  | 
+**EnableDomainStylesheets** | **bool** | Boolean to determine whether or not the styles from the template should be applied. | 
+**IncludeDefaultCustomCss** | **bool** | Boolean to determine whether or not the Primary CSS Files should be applied. | 
+**LayoutSections** | [**map[string]LayoutSection**](LayoutSection.md) |  | 
 **Updated** | **time.Time** |  | 
+**FooterHtml** | **string** | Custom HTML for embed codes, javascript that should be placed before the &lt;/body&gt; tag of the page. | 
+**TagIds** | **[]int64** | List of IDs for the tags associated with this Blog Post. | 
+**Widgets** | **map[string]map[string]interface{}** | A data structure containing the data for all the modules for this page. | 
+**PostSummary** | **string** | The summary of the blog post that will appear on the main listing page. | 
+**HeadHtml** | **string** | Custom HTML for embed codes, javascript, etc. that goes in the &lt;head&gt; tag of the page. | 
+**PageExpiryRedirectUrl** | **string** |  | 
+**AbStatus** | **string** |  | 
+**UseFeaturedImage** | **bool** | Boolean to determine if this post should use a featuredImage. | 
+**AbTestId** | **string** |  | 
+**FeaturedImageAltText** | **string** | Alt Text of the featuredImage. | 
+**BlogAuthorId** | **string** | The ID of the Blog Author associated with this Blog Post. | 
+**ContentGroupId** | **string** | The ID of the parent Blog this Blog Post is associated with. | 
+**RssSummary** | **string** | The contents of the RSS summary for this Blog Post. | 
+**PageExpiryEnabled** | **bool** |  | 
+**Url** | **string** | A generated field representing the URL of this blog post. | 
+**PublicAccessRules** | **[]map[string]interface{}** | Rules for require member registration to access private content. | 
+**EnableGoogleAmpOutputOverride** | **bool** | Boolean to allow overriding the AMP settings for the blog. | 
+**ArchivedAt** | **int64** | The timestamp (ISO8601 format) when this Blog Post was deleted. | 
+**PostBody** | **string** | The HTML of the main post body. | 
+**ThemeSettingsValues** | **map[string]map[string]interface{}** |  | 
+**PageExpiryDate** | **int64** |  | 
+**PublicAccessRulesEnabled** | **bool** | Boolean to determine whether or not to respect publicAccessRules. | 
+**CurrentState** | **string** | A generated ENUM descibing the current state of this Blog Post. Should always match state. | 
+**CategoryId** | **int32** | ID of the type of object this is. Should always . | 
+**LinkRelCanonicalUrl** | **string** | Optional override to set the URL to be used in the rel&#x3D;canonical link tag on the page. | 
 
 ## Methods
 
 ### NewBlogPost
 
-`func NewBlogPost(id string, slug string, contentGroupId string, campaign string, categoryId int32, state string, name string, mabExperimentId string, authorName string, abTestId string, createdById string, updatedById string, domain string, abStatus string, folderId string, widgetContainers map[string]map[string]interface{}, widgets map[string]map[string]interface{}, language string, translatedFromId string, translations map[string]ContentLanguageVariation, dynamicPageHubDbTableId string, dynamicPageDataSourceType int32, dynamicPageDataSourceId string, blogAuthorId string, tagIds []int64, htmlTitle string, publicAccessRulesEnabled bool, publicAccessRules []map[string]interface{}, useFeaturedImage bool, postSummary string, postBody string, rssSummary string, rssBody string, enableGoogleAmpOutputOverride bool, publishImmediately bool, archivedAt int64, linkRelCanonicalUrl string, archivedInDashboard bool, pageExpiryEnabled bool, pageExpiryRedirectId int64, pageExpiryRedirectUrl string, pageExpiryDate int64, includeDefaultCustomCss bool, enableLayoutStylesheets bool, enableDomainStylesheets bool, layoutSections map[string]LayoutSection, featuredImageAltText string, attachedStylesheets []map[string]map[string]interface{}, metaDescription string, headHtml string, footerHtml string, featuredImage string, themeSettingsValues map[string]map[string]interface{}, url string, password string, currentState string, currentlyPublished bool, contentTypeCategory string, publishDate time.Time, created time.Time, updated time.Time, ) *BlogPost`
+`func NewBlogPost(publishDate time.Time, language string, enableLayoutStylesheets bool, metaDescription string, attachedStylesheets []map[string]map[string]interface{}, password string, htmlTitle string, publishImmediately bool, translations map[string]ContentLanguageVariation, id string, state string, slug string, createdById string, rssBody string, currentlyPublished bool, archivedInDashboard bool, created time.Time, contentTypeCategory string, mabExperimentId string, updatedById string, translatedFromId string, folderId string, widgetContainers map[string]map[string]interface{}, pageExpiryRedirectId int64, dynamicPageDataSourceType int32, featuredImage string, authorName string, domain string, name string, dynamicPageHubDbTableId string, campaign string, dynamicPageDataSourceId string, enableDomainStylesheets bool, includeDefaultCustomCss bool, layoutSections map[string]LayoutSection, updated time.Time, footerHtml string, tagIds []int64, widgets map[string]map[string]interface{}, postSummary string, headHtml string, pageExpiryRedirectUrl string, abStatus string, useFeaturedImage bool, abTestId string, featuredImageAltText string, blogAuthorId string, contentGroupId string, rssSummary string, pageExpiryEnabled bool, url string, publicAccessRules []map[string]interface{}, enableGoogleAmpOutputOverride bool, archivedAt int64, postBody string, themeSettingsValues map[string]map[string]interface{}, pageExpiryDate int64, publicAccessRulesEnabled bool, currentState string, categoryId int32, linkRelCanonicalUrl string, ) *BlogPost`
 
 NewBlogPost instantiates a new BlogPost object
 This constructor will assign default values to properties that have it defined,
@@ -84,6 +84,186 @@ will change when the set of required properties is changed
 NewBlogPostWithDefaults instantiates a new BlogPost object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetPublishDate
+
+`func (o *BlogPost) GetPublishDate() time.Time`
+
+GetPublishDate returns the PublishDate field if non-nil, zero value otherwise.
+
+### GetPublishDateOk
+
+`func (o *BlogPost) GetPublishDateOk() (*time.Time, bool)`
+
+GetPublishDateOk returns a tuple with the PublishDate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPublishDate
+
+`func (o *BlogPost) SetPublishDate(v time.Time)`
+
+SetPublishDate sets PublishDate field to given value.
+
+
+### GetLanguage
+
+`func (o *BlogPost) GetLanguage() string`
+
+GetLanguage returns the Language field if non-nil, zero value otherwise.
+
+### GetLanguageOk
+
+`func (o *BlogPost) GetLanguageOk() (*string, bool)`
+
+GetLanguageOk returns a tuple with the Language field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLanguage
+
+`func (o *BlogPost) SetLanguage(v string)`
+
+SetLanguage sets Language field to given value.
+
+
+### GetEnableLayoutStylesheets
+
+`func (o *BlogPost) GetEnableLayoutStylesheets() bool`
+
+GetEnableLayoutStylesheets returns the EnableLayoutStylesheets field if non-nil, zero value otherwise.
+
+### GetEnableLayoutStylesheetsOk
+
+`func (o *BlogPost) GetEnableLayoutStylesheetsOk() (*bool, bool)`
+
+GetEnableLayoutStylesheetsOk returns a tuple with the EnableLayoutStylesheets field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEnableLayoutStylesheets
+
+`func (o *BlogPost) SetEnableLayoutStylesheets(v bool)`
+
+SetEnableLayoutStylesheets sets EnableLayoutStylesheets field to given value.
+
+
+### GetMetaDescription
+
+`func (o *BlogPost) GetMetaDescription() string`
+
+GetMetaDescription returns the MetaDescription field if non-nil, zero value otherwise.
+
+### GetMetaDescriptionOk
+
+`func (o *BlogPost) GetMetaDescriptionOk() (*string, bool)`
+
+GetMetaDescriptionOk returns a tuple with the MetaDescription field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMetaDescription
+
+`func (o *BlogPost) SetMetaDescription(v string)`
+
+SetMetaDescription sets MetaDescription field to given value.
+
+
+### GetAttachedStylesheets
+
+`func (o *BlogPost) GetAttachedStylesheets() []map[string]map[string]interface{}`
+
+GetAttachedStylesheets returns the AttachedStylesheets field if non-nil, zero value otherwise.
+
+### GetAttachedStylesheetsOk
+
+`func (o *BlogPost) GetAttachedStylesheetsOk() (*[]map[string]map[string]interface{}, bool)`
+
+GetAttachedStylesheetsOk returns a tuple with the AttachedStylesheets field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAttachedStylesheets
+
+`func (o *BlogPost) SetAttachedStylesheets(v []map[string]map[string]interface{})`
+
+SetAttachedStylesheets sets AttachedStylesheets field to given value.
+
+
+### GetPassword
+
+`func (o *BlogPost) GetPassword() string`
+
+GetPassword returns the Password field if non-nil, zero value otherwise.
+
+### GetPasswordOk
+
+`func (o *BlogPost) GetPasswordOk() (*string, bool)`
+
+GetPasswordOk returns a tuple with the Password field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPassword
+
+`func (o *BlogPost) SetPassword(v string)`
+
+SetPassword sets Password field to given value.
+
+
+### GetHtmlTitle
+
+`func (o *BlogPost) GetHtmlTitle() string`
+
+GetHtmlTitle returns the HtmlTitle field if non-nil, zero value otherwise.
+
+### GetHtmlTitleOk
+
+`func (o *BlogPost) GetHtmlTitleOk() (*string, bool)`
+
+GetHtmlTitleOk returns a tuple with the HtmlTitle field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHtmlTitle
+
+`func (o *BlogPost) SetHtmlTitle(v string)`
+
+SetHtmlTitle sets HtmlTitle field to given value.
+
+
+### GetPublishImmediately
+
+`func (o *BlogPost) GetPublishImmediately() bool`
+
+GetPublishImmediately returns the PublishImmediately field if non-nil, zero value otherwise.
+
+### GetPublishImmediatelyOk
+
+`func (o *BlogPost) GetPublishImmediatelyOk() (*bool, bool)`
+
+GetPublishImmediatelyOk returns a tuple with the PublishImmediately field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPublishImmediately
+
+`func (o *BlogPost) SetPublishImmediately(v bool)`
+
+SetPublishImmediately sets PublishImmediately field to given value.
+
+
+### GetTranslations
+
+`func (o *BlogPost) GetTranslations() map[string]ContentLanguageVariation`
+
+GetTranslations returns the Translations field if non-nil, zero value otherwise.
+
+### GetTranslationsOk
+
+`func (o *BlogPost) GetTranslationsOk() (*map[string]ContentLanguageVariation, bool)`
+
+GetTranslationsOk returns a tuple with the Translations field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTranslations
+
+`func (o *BlogPost) SetTranslations(v map[string]ContentLanguageVariation)`
+
+SetTranslations sets Translations field to given value.
+
 
 ### GetId
 
@@ -103,86 +283,6 @@ and a boolean to check if the value has been set.
 `func (o *BlogPost) SetId(v string)`
 
 SetId sets Id field to given value.
-
-
-### GetSlug
-
-`func (o *BlogPost) GetSlug() string`
-
-GetSlug returns the Slug field if non-nil, zero value otherwise.
-
-### GetSlugOk
-
-`func (o *BlogPost) GetSlugOk() (*string, bool)`
-
-GetSlugOk returns a tuple with the Slug field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetSlug
-
-`func (o *BlogPost) SetSlug(v string)`
-
-SetSlug sets Slug field to given value.
-
-
-### GetContentGroupId
-
-`func (o *BlogPost) GetContentGroupId() string`
-
-GetContentGroupId returns the ContentGroupId field if non-nil, zero value otherwise.
-
-### GetContentGroupIdOk
-
-`func (o *BlogPost) GetContentGroupIdOk() (*string, bool)`
-
-GetContentGroupIdOk returns a tuple with the ContentGroupId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetContentGroupId
-
-`func (o *BlogPost) SetContentGroupId(v string)`
-
-SetContentGroupId sets ContentGroupId field to given value.
-
-
-### GetCampaign
-
-`func (o *BlogPost) GetCampaign() string`
-
-GetCampaign returns the Campaign field if non-nil, zero value otherwise.
-
-### GetCampaignOk
-
-`func (o *BlogPost) GetCampaignOk() (*string, bool)`
-
-GetCampaignOk returns a tuple with the Campaign field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCampaign
-
-`func (o *BlogPost) SetCampaign(v string)`
-
-SetCampaign sets Campaign field to given value.
-
-
-### GetCategoryId
-
-`func (o *BlogPost) GetCategoryId() int32`
-
-GetCategoryId returns the CategoryId field if non-nil, zero value otherwise.
-
-### GetCategoryIdOk
-
-`func (o *BlogPost) GetCategoryIdOk() (*int32, bool)`
-
-GetCategoryIdOk returns a tuple with the CategoryId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCategoryId
-
-`func (o *BlogPost) SetCategoryId(v int32)`
-
-SetCategoryId sets CategoryId field to given value.
 
 
 ### GetState
@@ -205,84 +305,24 @@ and a boolean to check if the value has been set.
 SetState sets State field to given value.
 
 
-### GetName
+### GetSlug
 
-`func (o *BlogPost) GetName() string`
+`func (o *BlogPost) GetSlug() string`
 
-GetName returns the Name field if non-nil, zero value otherwise.
+GetSlug returns the Slug field if non-nil, zero value otherwise.
 
-### GetNameOk
+### GetSlugOk
 
-`func (o *BlogPost) GetNameOk() (*string, bool)`
+`func (o *BlogPost) GetSlugOk() (*string, bool)`
 
-GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+GetSlugOk returns a tuple with the Slug field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetName
+### SetSlug
 
-`func (o *BlogPost) SetName(v string)`
+`func (o *BlogPost) SetSlug(v string)`
 
-SetName sets Name field to given value.
-
-
-### GetMabExperimentId
-
-`func (o *BlogPost) GetMabExperimentId() string`
-
-GetMabExperimentId returns the MabExperimentId field if non-nil, zero value otherwise.
-
-### GetMabExperimentIdOk
-
-`func (o *BlogPost) GetMabExperimentIdOk() (*string, bool)`
-
-GetMabExperimentIdOk returns a tuple with the MabExperimentId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetMabExperimentId
-
-`func (o *BlogPost) SetMabExperimentId(v string)`
-
-SetMabExperimentId sets MabExperimentId field to given value.
-
-
-### GetAuthorName
-
-`func (o *BlogPost) GetAuthorName() string`
-
-GetAuthorName returns the AuthorName field if non-nil, zero value otherwise.
-
-### GetAuthorNameOk
-
-`func (o *BlogPost) GetAuthorNameOk() (*string, bool)`
-
-GetAuthorNameOk returns a tuple with the AuthorName field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetAuthorName
-
-`func (o *BlogPost) SetAuthorName(v string)`
-
-SetAuthorName sets AuthorName field to given value.
-
-
-### GetAbTestId
-
-`func (o *BlogPost) GetAbTestId() string`
-
-GetAbTestId returns the AbTestId field if non-nil, zero value otherwise.
-
-### GetAbTestIdOk
-
-`func (o *BlogPost) GetAbTestIdOk() (*string, bool)`
-
-GetAbTestIdOk returns a tuple with the AbTestId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetAbTestId
-
-`func (o *BlogPost) SetAbTestId(v string)`
-
-SetAbTestId sets AbTestId field to given value.
+SetSlug sets Slug field to given value.
 
 
 ### GetCreatedById
@@ -305,6 +345,126 @@ and a boolean to check if the value has been set.
 SetCreatedById sets CreatedById field to given value.
 
 
+### GetRssBody
+
+`func (o *BlogPost) GetRssBody() string`
+
+GetRssBody returns the RssBody field if non-nil, zero value otherwise.
+
+### GetRssBodyOk
+
+`func (o *BlogPost) GetRssBodyOk() (*string, bool)`
+
+GetRssBodyOk returns a tuple with the RssBody field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRssBody
+
+`func (o *BlogPost) SetRssBody(v string)`
+
+SetRssBody sets RssBody field to given value.
+
+
+### GetCurrentlyPublished
+
+`func (o *BlogPost) GetCurrentlyPublished() bool`
+
+GetCurrentlyPublished returns the CurrentlyPublished field if non-nil, zero value otherwise.
+
+### GetCurrentlyPublishedOk
+
+`func (o *BlogPost) GetCurrentlyPublishedOk() (*bool, bool)`
+
+GetCurrentlyPublishedOk returns a tuple with the CurrentlyPublished field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCurrentlyPublished
+
+`func (o *BlogPost) SetCurrentlyPublished(v bool)`
+
+SetCurrentlyPublished sets CurrentlyPublished field to given value.
+
+
+### GetArchivedInDashboard
+
+`func (o *BlogPost) GetArchivedInDashboard() bool`
+
+GetArchivedInDashboard returns the ArchivedInDashboard field if non-nil, zero value otherwise.
+
+### GetArchivedInDashboardOk
+
+`func (o *BlogPost) GetArchivedInDashboardOk() (*bool, bool)`
+
+GetArchivedInDashboardOk returns a tuple with the ArchivedInDashboard field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetArchivedInDashboard
+
+`func (o *BlogPost) SetArchivedInDashboard(v bool)`
+
+SetArchivedInDashboard sets ArchivedInDashboard field to given value.
+
+
+### GetCreated
+
+`func (o *BlogPost) GetCreated() time.Time`
+
+GetCreated returns the Created field if non-nil, zero value otherwise.
+
+### GetCreatedOk
+
+`func (o *BlogPost) GetCreatedOk() (*time.Time, bool)`
+
+GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreated
+
+`func (o *BlogPost) SetCreated(v time.Time)`
+
+SetCreated sets Created field to given value.
+
+
+### GetContentTypeCategory
+
+`func (o *BlogPost) GetContentTypeCategory() string`
+
+GetContentTypeCategory returns the ContentTypeCategory field if non-nil, zero value otherwise.
+
+### GetContentTypeCategoryOk
+
+`func (o *BlogPost) GetContentTypeCategoryOk() (*string, bool)`
+
+GetContentTypeCategoryOk returns a tuple with the ContentTypeCategory field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetContentTypeCategory
+
+`func (o *BlogPost) SetContentTypeCategory(v string)`
+
+SetContentTypeCategory sets ContentTypeCategory field to given value.
+
+
+### GetMabExperimentId
+
+`func (o *BlogPost) GetMabExperimentId() string`
+
+GetMabExperimentId returns the MabExperimentId field if non-nil, zero value otherwise.
+
+### GetMabExperimentIdOk
+
+`func (o *BlogPost) GetMabExperimentIdOk() (*string, bool)`
+
+GetMabExperimentIdOk returns a tuple with the MabExperimentId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMabExperimentId
+
+`func (o *BlogPost) SetMabExperimentId(v string)`
+
+SetMabExperimentId sets MabExperimentId field to given value.
+
+
 ### GetUpdatedById
 
 `func (o *BlogPost) GetUpdatedById() string`
@@ -325,44 +485,24 @@ and a boolean to check if the value has been set.
 SetUpdatedById sets UpdatedById field to given value.
 
 
-### GetDomain
+### GetTranslatedFromId
 
-`func (o *BlogPost) GetDomain() string`
+`func (o *BlogPost) GetTranslatedFromId() string`
 
-GetDomain returns the Domain field if non-nil, zero value otherwise.
+GetTranslatedFromId returns the TranslatedFromId field if non-nil, zero value otherwise.
 
-### GetDomainOk
+### GetTranslatedFromIdOk
 
-`func (o *BlogPost) GetDomainOk() (*string, bool)`
+`func (o *BlogPost) GetTranslatedFromIdOk() (*string, bool)`
 
-GetDomainOk returns a tuple with the Domain field if it's non-nil, zero value otherwise
+GetTranslatedFromIdOk returns a tuple with the TranslatedFromId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetDomain
+### SetTranslatedFromId
 
-`func (o *BlogPost) SetDomain(v string)`
+`func (o *BlogPost) SetTranslatedFromId(v string)`
 
-SetDomain sets Domain field to given value.
-
-
-### GetAbStatus
-
-`func (o *BlogPost) GetAbStatus() string`
-
-GetAbStatus returns the AbStatus field if non-nil, zero value otherwise.
-
-### GetAbStatusOk
-
-`func (o *BlogPost) GetAbStatusOk() (*string, bool)`
-
-GetAbStatusOk returns a tuple with the AbStatus field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetAbStatus
-
-`func (o *BlogPost) SetAbStatus(v string)`
-
-SetAbStatus sets AbStatus field to given value.
+SetTranslatedFromId sets TranslatedFromId field to given value.
 
 
 ### GetFolderId
@@ -405,104 +545,24 @@ and a boolean to check if the value has been set.
 SetWidgetContainers sets WidgetContainers field to given value.
 
 
-### GetWidgets
+### GetPageExpiryRedirectId
 
-`func (o *BlogPost) GetWidgets() map[string]map[string]interface{}`
+`func (o *BlogPost) GetPageExpiryRedirectId() int64`
 
-GetWidgets returns the Widgets field if non-nil, zero value otherwise.
+GetPageExpiryRedirectId returns the PageExpiryRedirectId field if non-nil, zero value otherwise.
 
-### GetWidgetsOk
+### GetPageExpiryRedirectIdOk
 
-`func (o *BlogPost) GetWidgetsOk() (*map[string]map[string]interface{}, bool)`
+`func (o *BlogPost) GetPageExpiryRedirectIdOk() (*int64, bool)`
 
-GetWidgetsOk returns a tuple with the Widgets field if it's non-nil, zero value otherwise
+GetPageExpiryRedirectIdOk returns a tuple with the PageExpiryRedirectId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetWidgets
+### SetPageExpiryRedirectId
 
-`func (o *BlogPost) SetWidgets(v map[string]map[string]interface{})`
+`func (o *BlogPost) SetPageExpiryRedirectId(v int64)`
 
-SetWidgets sets Widgets field to given value.
-
-
-### GetLanguage
-
-`func (o *BlogPost) GetLanguage() string`
-
-GetLanguage returns the Language field if non-nil, zero value otherwise.
-
-### GetLanguageOk
-
-`func (o *BlogPost) GetLanguageOk() (*string, bool)`
-
-GetLanguageOk returns a tuple with the Language field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetLanguage
-
-`func (o *BlogPost) SetLanguage(v string)`
-
-SetLanguage sets Language field to given value.
-
-
-### GetTranslatedFromId
-
-`func (o *BlogPost) GetTranslatedFromId() string`
-
-GetTranslatedFromId returns the TranslatedFromId field if non-nil, zero value otherwise.
-
-### GetTranslatedFromIdOk
-
-`func (o *BlogPost) GetTranslatedFromIdOk() (*string, bool)`
-
-GetTranslatedFromIdOk returns a tuple with the TranslatedFromId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTranslatedFromId
-
-`func (o *BlogPost) SetTranslatedFromId(v string)`
-
-SetTranslatedFromId sets TranslatedFromId field to given value.
-
-
-### GetTranslations
-
-`func (o *BlogPost) GetTranslations() map[string]ContentLanguageVariation`
-
-GetTranslations returns the Translations field if non-nil, zero value otherwise.
-
-### GetTranslationsOk
-
-`func (o *BlogPost) GetTranslationsOk() (*map[string]ContentLanguageVariation, bool)`
-
-GetTranslationsOk returns a tuple with the Translations field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTranslations
-
-`func (o *BlogPost) SetTranslations(v map[string]ContentLanguageVariation)`
-
-SetTranslations sets Translations field to given value.
-
-
-### GetDynamicPageHubDbTableId
-
-`func (o *BlogPost) GetDynamicPageHubDbTableId() string`
-
-GetDynamicPageHubDbTableId returns the DynamicPageHubDbTableId field if non-nil, zero value otherwise.
-
-### GetDynamicPageHubDbTableIdOk
-
-`func (o *BlogPost) GetDynamicPageHubDbTableIdOk() (*string, bool)`
-
-GetDynamicPageHubDbTableIdOk returns a tuple with the DynamicPageHubDbTableId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDynamicPageHubDbTableId
-
-`func (o *BlogPost) SetDynamicPageHubDbTableId(v string)`
-
-SetDynamicPageHubDbTableId sets DynamicPageHubDbTableId field to given value.
+SetPageExpiryRedirectId sets PageExpiryRedirectId field to given value.
 
 
 ### GetDynamicPageDataSourceType
@@ -525,6 +585,126 @@ and a boolean to check if the value has been set.
 SetDynamicPageDataSourceType sets DynamicPageDataSourceType field to given value.
 
 
+### GetFeaturedImage
+
+`func (o *BlogPost) GetFeaturedImage() string`
+
+GetFeaturedImage returns the FeaturedImage field if non-nil, zero value otherwise.
+
+### GetFeaturedImageOk
+
+`func (o *BlogPost) GetFeaturedImageOk() (*string, bool)`
+
+GetFeaturedImageOk returns a tuple with the FeaturedImage field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFeaturedImage
+
+`func (o *BlogPost) SetFeaturedImage(v string)`
+
+SetFeaturedImage sets FeaturedImage field to given value.
+
+
+### GetAuthorName
+
+`func (o *BlogPost) GetAuthorName() string`
+
+GetAuthorName returns the AuthorName field if non-nil, zero value otherwise.
+
+### GetAuthorNameOk
+
+`func (o *BlogPost) GetAuthorNameOk() (*string, bool)`
+
+GetAuthorNameOk returns a tuple with the AuthorName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAuthorName
+
+`func (o *BlogPost) SetAuthorName(v string)`
+
+SetAuthorName sets AuthorName field to given value.
+
+
+### GetDomain
+
+`func (o *BlogPost) GetDomain() string`
+
+GetDomain returns the Domain field if non-nil, zero value otherwise.
+
+### GetDomainOk
+
+`func (o *BlogPost) GetDomainOk() (*string, bool)`
+
+GetDomainOk returns a tuple with the Domain field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDomain
+
+`func (o *BlogPost) SetDomain(v string)`
+
+SetDomain sets Domain field to given value.
+
+
+### GetName
+
+`func (o *BlogPost) GetName() string`
+
+GetName returns the Name field if non-nil, zero value otherwise.
+
+### GetNameOk
+
+`func (o *BlogPost) GetNameOk() (*string, bool)`
+
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetName
+
+`func (o *BlogPost) SetName(v string)`
+
+SetName sets Name field to given value.
+
+
+### GetDynamicPageHubDbTableId
+
+`func (o *BlogPost) GetDynamicPageHubDbTableId() string`
+
+GetDynamicPageHubDbTableId returns the DynamicPageHubDbTableId field if non-nil, zero value otherwise.
+
+### GetDynamicPageHubDbTableIdOk
+
+`func (o *BlogPost) GetDynamicPageHubDbTableIdOk() (*string, bool)`
+
+GetDynamicPageHubDbTableIdOk returns a tuple with the DynamicPageHubDbTableId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDynamicPageHubDbTableId
+
+`func (o *BlogPost) SetDynamicPageHubDbTableId(v string)`
+
+SetDynamicPageHubDbTableId sets DynamicPageHubDbTableId field to given value.
+
+
+### GetCampaign
+
+`func (o *BlogPost) GetCampaign() string`
+
+GetCampaign returns the Campaign field if non-nil, zero value otherwise.
+
+### GetCampaignOk
+
+`func (o *BlogPost) GetCampaignOk() (*string, bool)`
+
+GetCampaignOk returns a tuple with the Campaign field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCampaign
+
+`func (o *BlogPost) SetCampaign(v string)`
+
+SetCampaign sets Campaign field to given value.
+
+
 ### GetDynamicPageDataSourceId
 
 `func (o *BlogPost) GetDynamicPageDataSourceId() string`
@@ -543,426 +723,6 @@ and a boolean to check if the value has been set.
 `func (o *BlogPost) SetDynamicPageDataSourceId(v string)`
 
 SetDynamicPageDataSourceId sets DynamicPageDataSourceId field to given value.
-
-
-### GetBlogAuthorId
-
-`func (o *BlogPost) GetBlogAuthorId() string`
-
-GetBlogAuthorId returns the BlogAuthorId field if non-nil, zero value otherwise.
-
-### GetBlogAuthorIdOk
-
-`func (o *BlogPost) GetBlogAuthorIdOk() (*string, bool)`
-
-GetBlogAuthorIdOk returns a tuple with the BlogAuthorId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetBlogAuthorId
-
-`func (o *BlogPost) SetBlogAuthorId(v string)`
-
-SetBlogAuthorId sets BlogAuthorId field to given value.
-
-
-### GetTagIds
-
-`func (o *BlogPost) GetTagIds() []int64`
-
-GetTagIds returns the TagIds field if non-nil, zero value otherwise.
-
-### GetTagIdsOk
-
-`func (o *BlogPost) GetTagIdsOk() (*[]int64, bool)`
-
-GetTagIdsOk returns a tuple with the TagIds field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTagIds
-
-`func (o *BlogPost) SetTagIds(v []int64)`
-
-SetTagIds sets TagIds field to given value.
-
-
-### GetHtmlTitle
-
-`func (o *BlogPost) GetHtmlTitle() string`
-
-GetHtmlTitle returns the HtmlTitle field if non-nil, zero value otherwise.
-
-### GetHtmlTitleOk
-
-`func (o *BlogPost) GetHtmlTitleOk() (*string, bool)`
-
-GetHtmlTitleOk returns a tuple with the HtmlTitle field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetHtmlTitle
-
-`func (o *BlogPost) SetHtmlTitle(v string)`
-
-SetHtmlTitle sets HtmlTitle field to given value.
-
-
-### GetPublicAccessRulesEnabled
-
-`func (o *BlogPost) GetPublicAccessRulesEnabled() bool`
-
-GetPublicAccessRulesEnabled returns the PublicAccessRulesEnabled field if non-nil, zero value otherwise.
-
-### GetPublicAccessRulesEnabledOk
-
-`func (o *BlogPost) GetPublicAccessRulesEnabledOk() (*bool, bool)`
-
-GetPublicAccessRulesEnabledOk returns a tuple with the PublicAccessRulesEnabled field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPublicAccessRulesEnabled
-
-`func (o *BlogPost) SetPublicAccessRulesEnabled(v bool)`
-
-SetPublicAccessRulesEnabled sets PublicAccessRulesEnabled field to given value.
-
-
-### GetPublicAccessRules
-
-`func (o *BlogPost) GetPublicAccessRules() []map[string]interface{}`
-
-GetPublicAccessRules returns the PublicAccessRules field if non-nil, zero value otherwise.
-
-### GetPublicAccessRulesOk
-
-`func (o *BlogPost) GetPublicAccessRulesOk() (*[]map[string]interface{}, bool)`
-
-GetPublicAccessRulesOk returns a tuple with the PublicAccessRules field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPublicAccessRules
-
-`func (o *BlogPost) SetPublicAccessRules(v []map[string]interface{})`
-
-SetPublicAccessRules sets PublicAccessRules field to given value.
-
-
-### GetUseFeaturedImage
-
-`func (o *BlogPost) GetUseFeaturedImage() bool`
-
-GetUseFeaturedImage returns the UseFeaturedImage field if non-nil, zero value otherwise.
-
-### GetUseFeaturedImageOk
-
-`func (o *BlogPost) GetUseFeaturedImageOk() (*bool, bool)`
-
-GetUseFeaturedImageOk returns a tuple with the UseFeaturedImage field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetUseFeaturedImage
-
-`func (o *BlogPost) SetUseFeaturedImage(v bool)`
-
-SetUseFeaturedImage sets UseFeaturedImage field to given value.
-
-
-### GetPostSummary
-
-`func (o *BlogPost) GetPostSummary() string`
-
-GetPostSummary returns the PostSummary field if non-nil, zero value otherwise.
-
-### GetPostSummaryOk
-
-`func (o *BlogPost) GetPostSummaryOk() (*string, bool)`
-
-GetPostSummaryOk returns a tuple with the PostSummary field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPostSummary
-
-`func (o *BlogPost) SetPostSummary(v string)`
-
-SetPostSummary sets PostSummary field to given value.
-
-
-### GetPostBody
-
-`func (o *BlogPost) GetPostBody() string`
-
-GetPostBody returns the PostBody field if non-nil, zero value otherwise.
-
-### GetPostBodyOk
-
-`func (o *BlogPost) GetPostBodyOk() (*string, bool)`
-
-GetPostBodyOk returns a tuple with the PostBody field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPostBody
-
-`func (o *BlogPost) SetPostBody(v string)`
-
-SetPostBody sets PostBody field to given value.
-
-
-### GetRssSummary
-
-`func (o *BlogPost) GetRssSummary() string`
-
-GetRssSummary returns the RssSummary field if non-nil, zero value otherwise.
-
-### GetRssSummaryOk
-
-`func (o *BlogPost) GetRssSummaryOk() (*string, bool)`
-
-GetRssSummaryOk returns a tuple with the RssSummary field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRssSummary
-
-`func (o *BlogPost) SetRssSummary(v string)`
-
-SetRssSummary sets RssSummary field to given value.
-
-
-### GetRssBody
-
-`func (o *BlogPost) GetRssBody() string`
-
-GetRssBody returns the RssBody field if non-nil, zero value otherwise.
-
-### GetRssBodyOk
-
-`func (o *BlogPost) GetRssBodyOk() (*string, bool)`
-
-GetRssBodyOk returns a tuple with the RssBody field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRssBody
-
-`func (o *BlogPost) SetRssBody(v string)`
-
-SetRssBody sets RssBody field to given value.
-
-
-### GetEnableGoogleAmpOutputOverride
-
-`func (o *BlogPost) GetEnableGoogleAmpOutputOverride() bool`
-
-GetEnableGoogleAmpOutputOverride returns the EnableGoogleAmpOutputOverride field if non-nil, zero value otherwise.
-
-### GetEnableGoogleAmpOutputOverrideOk
-
-`func (o *BlogPost) GetEnableGoogleAmpOutputOverrideOk() (*bool, bool)`
-
-GetEnableGoogleAmpOutputOverrideOk returns a tuple with the EnableGoogleAmpOutputOverride field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetEnableGoogleAmpOutputOverride
-
-`func (o *BlogPost) SetEnableGoogleAmpOutputOverride(v bool)`
-
-SetEnableGoogleAmpOutputOverride sets EnableGoogleAmpOutputOverride field to given value.
-
-
-### GetPublishImmediately
-
-`func (o *BlogPost) GetPublishImmediately() bool`
-
-GetPublishImmediately returns the PublishImmediately field if non-nil, zero value otherwise.
-
-### GetPublishImmediatelyOk
-
-`func (o *BlogPost) GetPublishImmediatelyOk() (*bool, bool)`
-
-GetPublishImmediatelyOk returns a tuple with the PublishImmediately field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPublishImmediately
-
-`func (o *BlogPost) SetPublishImmediately(v bool)`
-
-SetPublishImmediately sets PublishImmediately field to given value.
-
-
-### GetArchivedAt
-
-`func (o *BlogPost) GetArchivedAt() int64`
-
-GetArchivedAt returns the ArchivedAt field if non-nil, zero value otherwise.
-
-### GetArchivedAtOk
-
-`func (o *BlogPost) GetArchivedAtOk() (*int64, bool)`
-
-GetArchivedAtOk returns a tuple with the ArchivedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetArchivedAt
-
-`func (o *BlogPost) SetArchivedAt(v int64)`
-
-SetArchivedAt sets ArchivedAt field to given value.
-
-
-### GetLinkRelCanonicalUrl
-
-`func (o *BlogPost) GetLinkRelCanonicalUrl() string`
-
-GetLinkRelCanonicalUrl returns the LinkRelCanonicalUrl field if non-nil, zero value otherwise.
-
-### GetLinkRelCanonicalUrlOk
-
-`func (o *BlogPost) GetLinkRelCanonicalUrlOk() (*string, bool)`
-
-GetLinkRelCanonicalUrlOk returns a tuple with the LinkRelCanonicalUrl field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetLinkRelCanonicalUrl
-
-`func (o *BlogPost) SetLinkRelCanonicalUrl(v string)`
-
-SetLinkRelCanonicalUrl sets LinkRelCanonicalUrl field to given value.
-
-
-### GetArchivedInDashboard
-
-`func (o *BlogPost) GetArchivedInDashboard() bool`
-
-GetArchivedInDashboard returns the ArchivedInDashboard field if non-nil, zero value otherwise.
-
-### GetArchivedInDashboardOk
-
-`func (o *BlogPost) GetArchivedInDashboardOk() (*bool, bool)`
-
-GetArchivedInDashboardOk returns a tuple with the ArchivedInDashboard field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetArchivedInDashboard
-
-`func (o *BlogPost) SetArchivedInDashboard(v bool)`
-
-SetArchivedInDashboard sets ArchivedInDashboard field to given value.
-
-
-### GetPageExpiryEnabled
-
-`func (o *BlogPost) GetPageExpiryEnabled() bool`
-
-GetPageExpiryEnabled returns the PageExpiryEnabled field if non-nil, zero value otherwise.
-
-### GetPageExpiryEnabledOk
-
-`func (o *BlogPost) GetPageExpiryEnabledOk() (*bool, bool)`
-
-GetPageExpiryEnabledOk returns a tuple with the PageExpiryEnabled field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPageExpiryEnabled
-
-`func (o *BlogPost) SetPageExpiryEnabled(v bool)`
-
-SetPageExpiryEnabled sets PageExpiryEnabled field to given value.
-
-
-### GetPageExpiryRedirectId
-
-`func (o *BlogPost) GetPageExpiryRedirectId() int64`
-
-GetPageExpiryRedirectId returns the PageExpiryRedirectId field if non-nil, zero value otherwise.
-
-### GetPageExpiryRedirectIdOk
-
-`func (o *BlogPost) GetPageExpiryRedirectIdOk() (*int64, bool)`
-
-GetPageExpiryRedirectIdOk returns a tuple with the PageExpiryRedirectId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPageExpiryRedirectId
-
-`func (o *BlogPost) SetPageExpiryRedirectId(v int64)`
-
-SetPageExpiryRedirectId sets PageExpiryRedirectId field to given value.
-
-
-### GetPageExpiryRedirectUrl
-
-`func (o *BlogPost) GetPageExpiryRedirectUrl() string`
-
-GetPageExpiryRedirectUrl returns the PageExpiryRedirectUrl field if non-nil, zero value otherwise.
-
-### GetPageExpiryRedirectUrlOk
-
-`func (o *BlogPost) GetPageExpiryRedirectUrlOk() (*string, bool)`
-
-GetPageExpiryRedirectUrlOk returns a tuple with the PageExpiryRedirectUrl field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPageExpiryRedirectUrl
-
-`func (o *BlogPost) SetPageExpiryRedirectUrl(v string)`
-
-SetPageExpiryRedirectUrl sets PageExpiryRedirectUrl field to given value.
-
-
-### GetPageExpiryDate
-
-`func (o *BlogPost) GetPageExpiryDate() int64`
-
-GetPageExpiryDate returns the PageExpiryDate field if non-nil, zero value otherwise.
-
-### GetPageExpiryDateOk
-
-`func (o *BlogPost) GetPageExpiryDateOk() (*int64, bool)`
-
-GetPageExpiryDateOk returns a tuple with the PageExpiryDate field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPageExpiryDate
-
-`func (o *BlogPost) SetPageExpiryDate(v int64)`
-
-SetPageExpiryDate sets PageExpiryDate field to given value.
-
-
-### GetIncludeDefaultCustomCss
-
-`func (o *BlogPost) GetIncludeDefaultCustomCss() bool`
-
-GetIncludeDefaultCustomCss returns the IncludeDefaultCustomCss field if non-nil, zero value otherwise.
-
-### GetIncludeDefaultCustomCssOk
-
-`func (o *BlogPost) GetIncludeDefaultCustomCssOk() (*bool, bool)`
-
-GetIncludeDefaultCustomCssOk returns a tuple with the IncludeDefaultCustomCss field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetIncludeDefaultCustomCss
-
-`func (o *BlogPost) SetIncludeDefaultCustomCss(v bool)`
-
-SetIncludeDefaultCustomCss sets IncludeDefaultCustomCss field to given value.
-
-
-### GetEnableLayoutStylesheets
-
-`func (o *BlogPost) GetEnableLayoutStylesheets() bool`
-
-GetEnableLayoutStylesheets returns the EnableLayoutStylesheets field if non-nil, zero value otherwise.
-
-### GetEnableLayoutStylesheetsOk
-
-`func (o *BlogPost) GetEnableLayoutStylesheetsOk() (*bool, bool)`
-
-GetEnableLayoutStylesheetsOk returns a tuple with the EnableLayoutStylesheets field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetEnableLayoutStylesheets
-
-`func (o *BlogPost) SetEnableLayoutStylesheets(v bool)`
-
-SetEnableLayoutStylesheets sets EnableLayoutStylesheets field to given value.
 
 
 ### GetEnableDomainStylesheets
@@ -985,6 +745,26 @@ and a boolean to check if the value has been set.
 SetEnableDomainStylesheets sets EnableDomainStylesheets field to given value.
 
 
+### GetIncludeDefaultCustomCss
+
+`func (o *BlogPost) GetIncludeDefaultCustomCss() bool`
+
+GetIncludeDefaultCustomCss returns the IncludeDefaultCustomCss field if non-nil, zero value otherwise.
+
+### GetIncludeDefaultCustomCssOk
+
+`func (o *BlogPost) GetIncludeDefaultCustomCssOk() (*bool, bool)`
+
+GetIncludeDefaultCustomCssOk returns a tuple with the IncludeDefaultCustomCss field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIncludeDefaultCustomCss
+
+`func (o *BlogPost) SetIncludeDefaultCustomCss(v bool)`
+
+SetIncludeDefaultCustomCss sets IncludeDefaultCustomCss field to given value.
+
+
 ### GetLayoutSections
 
 `func (o *BlogPost) GetLayoutSections() map[string]LayoutSection`
@@ -1005,84 +785,24 @@ and a boolean to check if the value has been set.
 SetLayoutSections sets LayoutSections field to given value.
 
 
-### GetFeaturedImageAltText
+### GetUpdated
 
-`func (o *BlogPost) GetFeaturedImageAltText() string`
+`func (o *BlogPost) GetUpdated() time.Time`
 
-GetFeaturedImageAltText returns the FeaturedImageAltText field if non-nil, zero value otherwise.
+GetUpdated returns the Updated field if non-nil, zero value otherwise.
 
-### GetFeaturedImageAltTextOk
+### GetUpdatedOk
 
-`func (o *BlogPost) GetFeaturedImageAltTextOk() (*string, bool)`
+`func (o *BlogPost) GetUpdatedOk() (*time.Time, bool)`
 
-GetFeaturedImageAltTextOk returns a tuple with the FeaturedImageAltText field if it's non-nil, zero value otherwise
+GetUpdatedOk returns a tuple with the Updated field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetFeaturedImageAltText
+### SetUpdated
 
-`func (o *BlogPost) SetFeaturedImageAltText(v string)`
+`func (o *BlogPost) SetUpdated(v time.Time)`
 
-SetFeaturedImageAltText sets FeaturedImageAltText field to given value.
-
-
-### GetAttachedStylesheets
-
-`func (o *BlogPost) GetAttachedStylesheets() []map[string]map[string]interface{}`
-
-GetAttachedStylesheets returns the AttachedStylesheets field if non-nil, zero value otherwise.
-
-### GetAttachedStylesheetsOk
-
-`func (o *BlogPost) GetAttachedStylesheetsOk() (*[]map[string]map[string]interface{}, bool)`
-
-GetAttachedStylesheetsOk returns a tuple with the AttachedStylesheets field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetAttachedStylesheets
-
-`func (o *BlogPost) SetAttachedStylesheets(v []map[string]map[string]interface{})`
-
-SetAttachedStylesheets sets AttachedStylesheets field to given value.
-
-
-### GetMetaDescription
-
-`func (o *BlogPost) GetMetaDescription() string`
-
-GetMetaDescription returns the MetaDescription field if non-nil, zero value otherwise.
-
-### GetMetaDescriptionOk
-
-`func (o *BlogPost) GetMetaDescriptionOk() (*string, bool)`
-
-GetMetaDescriptionOk returns a tuple with the MetaDescription field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetMetaDescription
-
-`func (o *BlogPost) SetMetaDescription(v string)`
-
-SetMetaDescription sets MetaDescription field to given value.
-
-
-### GetHeadHtml
-
-`func (o *BlogPost) GetHeadHtml() string`
-
-GetHeadHtml returns the HeadHtml field if non-nil, zero value otherwise.
-
-### GetHeadHtmlOk
-
-`func (o *BlogPost) GetHeadHtmlOk() (*string, bool)`
-
-GetHeadHtmlOk returns a tuple with the HeadHtml field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetHeadHtml
-
-`func (o *BlogPost) SetHeadHtml(v string)`
-
-SetHeadHtml sets HeadHtml field to given value.
+SetUpdated sets Updated field to given value.
 
 
 ### GetFooterHtml
@@ -1105,44 +825,264 @@ and a boolean to check if the value has been set.
 SetFooterHtml sets FooterHtml field to given value.
 
 
-### GetFeaturedImage
+### GetTagIds
 
-`func (o *BlogPost) GetFeaturedImage() string`
+`func (o *BlogPost) GetTagIds() []int64`
 
-GetFeaturedImage returns the FeaturedImage field if non-nil, zero value otherwise.
+GetTagIds returns the TagIds field if non-nil, zero value otherwise.
 
-### GetFeaturedImageOk
+### GetTagIdsOk
 
-`func (o *BlogPost) GetFeaturedImageOk() (*string, bool)`
+`func (o *BlogPost) GetTagIdsOk() (*[]int64, bool)`
 
-GetFeaturedImageOk returns a tuple with the FeaturedImage field if it's non-nil, zero value otherwise
+GetTagIdsOk returns a tuple with the TagIds field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetFeaturedImage
+### SetTagIds
 
-`func (o *BlogPost) SetFeaturedImage(v string)`
+`func (o *BlogPost) SetTagIds(v []int64)`
 
-SetFeaturedImage sets FeaturedImage field to given value.
+SetTagIds sets TagIds field to given value.
 
 
-### GetThemeSettingsValues
+### GetWidgets
 
-`func (o *BlogPost) GetThemeSettingsValues() map[string]map[string]interface{}`
+`func (o *BlogPost) GetWidgets() map[string]map[string]interface{}`
 
-GetThemeSettingsValues returns the ThemeSettingsValues field if non-nil, zero value otherwise.
+GetWidgets returns the Widgets field if non-nil, zero value otherwise.
 
-### GetThemeSettingsValuesOk
+### GetWidgetsOk
 
-`func (o *BlogPost) GetThemeSettingsValuesOk() (*map[string]map[string]interface{}, bool)`
+`func (o *BlogPost) GetWidgetsOk() (*map[string]map[string]interface{}, bool)`
 
-GetThemeSettingsValuesOk returns a tuple with the ThemeSettingsValues field if it's non-nil, zero value otherwise
+GetWidgetsOk returns a tuple with the Widgets field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetThemeSettingsValues
+### SetWidgets
 
-`func (o *BlogPost) SetThemeSettingsValues(v map[string]map[string]interface{})`
+`func (o *BlogPost) SetWidgets(v map[string]map[string]interface{})`
 
-SetThemeSettingsValues sets ThemeSettingsValues field to given value.
+SetWidgets sets Widgets field to given value.
+
+
+### GetPostSummary
+
+`func (o *BlogPost) GetPostSummary() string`
+
+GetPostSummary returns the PostSummary field if non-nil, zero value otherwise.
+
+### GetPostSummaryOk
+
+`func (o *BlogPost) GetPostSummaryOk() (*string, bool)`
+
+GetPostSummaryOk returns a tuple with the PostSummary field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPostSummary
+
+`func (o *BlogPost) SetPostSummary(v string)`
+
+SetPostSummary sets PostSummary field to given value.
+
+
+### GetHeadHtml
+
+`func (o *BlogPost) GetHeadHtml() string`
+
+GetHeadHtml returns the HeadHtml field if non-nil, zero value otherwise.
+
+### GetHeadHtmlOk
+
+`func (o *BlogPost) GetHeadHtmlOk() (*string, bool)`
+
+GetHeadHtmlOk returns a tuple with the HeadHtml field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHeadHtml
+
+`func (o *BlogPost) SetHeadHtml(v string)`
+
+SetHeadHtml sets HeadHtml field to given value.
+
+
+### GetPageExpiryRedirectUrl
+
+`func (o *BlogPost) GetPageExpiryRedirectUrl() string`
+
+GetPageExpiryRedirectUrl returns the PageExpiryRedirectUrl field if non-nil, zero value otherwise.
+
+### GetPageExpiryRedirectUrlOk
+
+`func (o *BlogPost) GetPageExpiryRedirectUrlOk() (*string, bool)`
+
+GetPageExpiryRedirectUrlOk returns a tuple with the PageExpiryRedirectUrl field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPageExpiryRedirectUrl
+
+`func (o *BlogPost) SetPageExpiryRedirectUrl(v string)`
+
+SetPageExpiryRedirectUrl sets PageExpiryRedirectUrl field to given value.
+
+
+### GetAbStatus
+
+`func (o *BlogPost) GetAbStatus() string`
+
+GetAbStatus returns the AbStatus field if non-nil, zero value otherwise.
+
+### GetAbStatusOk
+
+`func (o *BlogPost) GetAbStatusOk() (*string, bool)`
+
+GetAbStatusOk returns a tuple with the AbStatus field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAbStatus
+
+`func (o *BlogPost) SetAbStatus(v string)`
+
+SetAbStatus sets AbStatus field to given value.
+
+
+### GetUseFeaturedImage
+
+`func (o *BlogPost) GetUseFeaturedImage() bool`
+
+GetUseFeaturedImage returns the UseFeaturedImage field if non-nil, zero value otherwise.
+
+### GetUseFeaturedImageOk
+
+`func (o *BlogPost) GetUseFeaturedImageOk() (*bool, bool)`
+
+GetUseFeaturedImageOk returns a tuple with the UseFeaturedImage field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUseFeaturedImage
+
+`func (o *BlogPost) SetUseFeaturedImage(v bool)`
+
+SetUseFeaturedImage sets UseFeaturedImage field to given value.
+
+
+### GetAbTestId
+
+`func (o *BlogPost) GetAbTestId() string`
+
+GetAbTestId returns the AbTestId field if non-nil, zero value otherwise.
+
+### GetAbTestIdOk
+
+`func (o *BlogPost) GetAbTestIdOk() (*string, bool)`
+
+GetAbTestIdOk returns a tuple with the AbTestId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAbTestId
+
+`func (o *BlogPost) SetAbTestId(v string)`
+
+SetAbTestId sets AbTestId field to given value.
+
+
+### GetFeaturedImageAltText
+
+`func (o *BlogPost) GetFeaturedImageAltText() string`
+
+GetFeaturedImageAltText returns the FeaturedImageAltText field if non-nil, zero value otherwise.
+
+### GetFeaturedImageAltTextOk
+
+`func (o *BlogPost) GetFeaturedImageAltTextOk() (*string, bool)`
+
+GetFeaturedImageAltTextOk returns a tuple with the FeaturedImageAltText field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFeaturedImageAltText
+
+`func (o *BlogPost) SetFeaturedImageAltText(v string)`
+
+SetFeaturedImageAltText sets FeaturedImageAltText field to given value.
+
+
+### GetBlogAuthorId
+
+`func (o *BlogPost) GetBlogAuthorId() string`
+
+GetBlogAuthorId returns the BlogAuthorId field if non-nil, zero value otherwise.
+
+### GetBlogAuthorIdOk
+
+`func (o *BlogPost) GetBlogAuthorIdOk() (*string, bool)`
+
+GetBlogAuthorIdOk returns a tuple with the BlogAuthorId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBlogAuthorId
+
+`func (o *BlogPost) SetBlogAuthorId(v string)`
+
+SetBlogAuthorId sets BlogAuthorId field to given value.
+
+
+### GetContentGroupId
+
+`func (o *BlogPost) GetContentGroupId() string`
+
+GetContentGroupId returns the ContentGroupId field if non-nil, zero value otherwise.
+
+### GetContentGroupIdOk
+
+`func (o *BlogPost) GetContentGroupIdOk() (*string, bool)`
+
+GetContentGroupIdOk returns a tuple with the ContentGroupId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetContentGroupId
+
+`func (o *BlogPost) SetContentGroupId(v string)`
+
+SetContentGroupId sets ContentGroupId field to given value.
+
+
+### GetRssSummary
+
+`func (o *BlogPost) GetRssSummary() string`
+
+GetRssSummary returns the RssSummary field if non-nil, zero value otherwise.
+
+### GetRssSummaryOk
+
+`func (o *BlogPost) GetRssSummaryOk() (*string, bool)`
+
+GetRssSummaryOk returns a tuple with the RssSummary field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRssSummary
+
+`func (o *BlogPost) SetRssSummary(v string)`
+
+SetRssSummary sets RssSummary field to given value.
+
+
+### GetPageExpiryEnabled
+
+`func (o *BlogPost) GetPageExpiryEnabled() bool`
+
+GetPageExpiryEnabled returns the PageExpiryEnabled field if non-nil, zero value otherwise.
+
+### GetPageExpiryEnabledOk
+
+`func (o *BlogPost) GetPageExpiryEnabledOk() (*bool, bool)`
+
+GetPageExpiryEnabledOk returns a tuple with the PageExpiryEnabled field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPageExpiryEnabled
+
+`func (o *BlogPost) SetPageExpiryEnabled(v bool)`
+
+SetPageExpiryEnabled sets PageExpiryEnabled field to given value.
 
 
 ### GetUrl
@@ -1165,24 +1105,144 @@ and a boolean to check if the value has been set.
 SetUrl sets Url field to given value.
 
 
-### GetPassword
+### GetPublicAccessRules
 
-`func (o *BlogPost) GetPassword() string`
+`func (o *BlogPost) GetPublicAccessRules() []map[string]interface{}`
 
-GetPassword returns the Password field if non-nil, zero value otherwise.
+GetPublicAccessRules returns the PublicAccessRules field if non-nil, zero value otherwise.
 
-### GetPasswordOk
+### GetPublicAccessRulesOk
 
-`func (o *BlogPost) GetPasswordOk() (*string, bool)`
+`func (o *BlogPost) GetPublicAccessRulesOk() (*[]map[string]interface{}, bool)`
 
-GetPasswordOk returns a tuple with the Password field if it's non-nil, zero value otherwise
+GetPublicAccessRulesOk returns a tuple with the PublicAccessRules field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetPassword
+### SetPublicAccessRules
 
-`func (o *BlogPost) SetPassword(v string)`
+`func (o *BlogPost) SetPublicAccessRules(v []map[string]interface{})`
 
-SetPassword sets Password field to given value.
+SetPublicAccessRules sets PublicAccessRules field to given value.
+
+
+### GetEnableGoogleAmpOutputOverride
+
+`func (o *BlogPost) GetEnableGoogleAmpOutputOverride() bool`
+
+GetEnableGoogleAmpOutputOverride returns the EnableGoogleAmpOutputOverride field if non-nil, zero value otherwise.
+
+### GetEnableGoogleAmpOutputOverrideOk
+
+`func (o *BlogPost) GetEnableGoogleAmpOutputOverrideOk() (*bool, bool)`
+
+GetEnableGoogleAmpOutputOverrideOk returns a tuple with the EnableGoogleAmpOutputOverride field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEnableGoogleAmpOutputOverride
+
+`func (o *BlogPost) SetEnableGoogleAmpOutputOverride(v bool)`
+
+SetEnableGoogleAmpOutputOverride sets EnableGoogleAmpOutputOverride field to given value.
+
+
+### GetArchivedAt
+
+`func (o *BlogPost) GetArchivedAt() int64`
+
+GetArchivedAt returns the ArchivedAt field if non-nil, zero value otherwise.
+
+### GetArchivedAtOk
+
+`func (o *BlogPost) GetArchivedAtOk() (*int64, bool)`
+
+GetArchivedAtOk returns a tuple with the ArchivedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetArchivedAt
+
+`func (o *BlogPost) SetArchivedAt(v int64)`
+
+SetArchivedAt sets ArchivedAt field to given value.
+
+
+### GetPostBody
+
+`func (o *BlogPost) GetPostBody() string`
+
+GetPostBody returns the PostBody field if non-nil, zero value otherwise.
+
+### GetPostBodyOk
+
+`func (o *BlogPost) GetPostBodyOk() (*string, bool)`
+
+GetPostBodyOk returns a tuple with the PostBody field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPostBody
+
+`func (o *BlogPost) SetPostBody(v string)`
+
+SetPostBody sets PostBody field to given value.
+
+
+### GetThemeSettingsValues
+
+`func (o *BlogPost) GetThemeSettingsValues() map[string]map[string]interface{}`
+
+GetThemeSettingsValues returns the ThemeSettingsValues field if non-nil, zero value otherwise.
+
+### GetThemeSettingsValuesOk
+
+`func (o *BlogPost) GetThemeSettingsValuesOk() (*map[string]map[string]interface{}, bool)`
+
+GetThemeSettingsValuesOk returns a tuple with the ThemeSettingsValues field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetThemeSettingsValues
+
+`func (o *BlogPost) SetThemeSettingsValues(v map[string]map[string]interface{})`
+
+SetThemeSettingsValues sets ThemeSettingsValues field to given value.
+
+
+### GetPageExpiryDate
+
+`func (o *BlogPost) GetPageExpiryDate() int64`
+
+GetPageExpiryDate returns the PageExpiryDate field if non-nil, zero value otherwise.
+
+### GetPageExpiryDateOk
+
+`func (o *BlogPost) GetPageExpiryDateOk() (*int64, bool)`
+
+GetPageExpiryDateOk returns a tuple with the PageExpiryDate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPageExpiryDate
+
+`func (o *BlogPost) SetPageExpiryDate(v int64)`
+
+SetPageExpiryDate sets PageExpiryDate field to given value.
+
+
+### GetPublicAccessRulesEnabled
+
+`func (o *BlogPost) GetPublicAccessRulesEnabled() bool`
+
+GetPublicAccessRulesEnabled returns the PublicAccessRulesEnabled field if non-nil, zero value otherwise.
+
+### GetPublicAccessRulesEnabledOk
+
+`func (o *BlogPost) GetPublicAccessRulesEnabledOk() (*bool, bool)`
+
+GetPublicAccessRulesEnabledOk returns a tuple with the PublicAccessRulesEnabled field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPublicAccessRulesEnabled
+
+`func (o *BlogPost) SetPublicAccessRulesEnabled(v bool)`
+
+SetPublicAccessRulesEnabled sets PublicAccessRulesEnabled field to given value.
 
 
 ### GetCurrentState
@@ -1205,104 +1265,44 @@ and a boolean to check if the value has been set.
 SetCurrentState sets CurrentState field to given value.
 
 
-### GetCurrentlyPublished
+### GetCategoryId
 
-`func (o *BlogPost) GetCurrentlyPublished() bool`
+`func (o *BlogPost) GetCategoryId() int32`
 
-GetCurrentlyPublished returns the CurrentlyPublished field if non-nil, zero value otherwise.
+GetCategoryId returns the CategoryId field if non-nil, zero value otherwise.
 
-### GetCurrentlyPublishedOk
+### GetCategoryIdOk
 
-`func (o *BlogPost) GetCurrentlyPublishedOk() (*bool, bool)`
+`func (o *BlogPost) GetCategoryIdOk() (*int32, bool)`
 
-GetCurrentlyPublishedOk returns a tuple with the CurrentlyPublished field if it's non-nil, zero value otherwise
+GetCategoryIdOk returns a tuple with the CategoryId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetCurrentlyPublished
+### SetCategoryId
 
-`func (o *BlogPost) SetCurrentlyPublished(v bool)`
+`func (o *BlogPost) SetCategoryId(v int32)`
 
-SetCurrentlyPublished sets CurrentlyPublished field to given value.
+SetCategoryId sets CategoryId field to given value.
 
 
-### GetContentTypeCategory
+### GetLinkRelCanonicalUrl
 
-`func (o *BlogPost) GetContentTypeCategory() string`
+`func (o *BlogPost) GetLinkRelCanonicalUrl() string`
 
-GetContentTypeCategory returns the ContentTypeCategory field if non-nil, zero value otherwise.
+GetLinkRelCanonicalUrl returns the LinkRelCanonicalUrl field if non-nil, zero value otherwise.
 
-### GetContentTypeCategoryOk
+### GetLinkRelCanonicalUrlOk
 
-`func (o *BlogPost) GetContentTypeCategoryOk() (*string, bool)`
+`func (o *BlogPost) GetLinkRelCanonicalUrlOk() (*string, bool)`
 
-GetContentTypeCategoryOk returns a tuple with the ContentTypeCategory field if it's non-nil, zero value otherwise
+GetLinkRelCanonicalUrlOk returns a tuple with the LinkRelCanonicalUrl field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetContentTypeCategory
+### SetLinkRelCanonicalUrl
 
-`func (o *BlogPost) SetContentTypeCategory(v string)`
+`func (o *BlogPost) SetLinkRelCanonicalUrl(v string)`
 
-SetContentTypeCategory sets ContentTypeCategory field to given value.
-
-
-### GetPublishDate
-
-`func (o *BlogPost) GetPublishDate() time.Time`
-
-GetPublishDate returns the PublishDate field if non-nil, zero value otherwise.
-
-### GetPublishDateOk
-
-`func (o *BlogPost) GetPublishDateOk() (*time.Time, bool)`
-
-GetPublishDateOk returns a tuple with the PublishDate field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPublishDate
-
-`func (o *BlogPost) SetPublishDate(v time.Time)`
-
-SetPublishDate sets PublishDate field to given value.
-
-
-### GetCreated
-
-`func (o *BlogPost) GetCreated() time.Time`
-
-GetCreated returns the Created field if non-nil, zero value otherwise.
-
-### GetCreatedOk
-
-`func (o *BlogPost) GetCreatedOk() (*time.Time, bool)`
-
-GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCreated
-
-`func (o *BlogPost) SetCreated(v time.Time)`
-
-SetCreated sets Created field to given value.
-
-
-### GetUpdated
-
-`func (o *BlogPost) GetUpdated() time.Time`
-
-GetUpdated returns the Updated field if non-nil, zero value otherwise.
-
-### GetUpdatedOk
-
-`func (o *BlogPost) GetUpdatedOk() (*time.Time, bool)`
-
-GetUpdatedOk returns a tuple with the Updated field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetUpdated
-
-`func (o *BlogPost) SetUpdated(v time.Time)`
-
-SetUpdated sets Updated field to given value.
+SetLinkRelCanonicalUrl sets LinkRelCanonicalUrl field to given value.
 
 
 

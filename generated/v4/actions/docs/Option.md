@@ -4,19 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Label** | **string** | The user-facing label for the option. | 
-**Value** | **string** | The internal value for the option. This is what will be included in the execution request to the &#x60;actionUrl&#x60;. | 
+**Hidden** | **bool** |  | 
 **DisplayOrder** | **int32** |  | 
 **DoubleData** | **float32** |  | 
-**Hidden** | **bool** |  | 
 **Description** | **string** |  | 
 **ReadOnly** | **bool** |  | 
+**Label** | **string** |  | 
+**Value** | **string** |  | 
 
 ## Methods
 
 ### NewOption
 
-`func NewOption(label string, value string, displayOrder int32, doubleData float32, hidden bool, description string, readOnly bool, ) *Option`
+`func NewOption(hidden bool, displayOrder int32, doubleData float32, description string, readOnly bool, label string, value string, ) *Option`
 
 NewOption instantiates a new Option object
 This constructor will assign default values to properties that have it defined,
@@ -31,44 +31,24 @@ NewOptionWithDefaults instantiates a new Option object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetLabel
+### GetHidden
 
-`func (o *Option) GetLabel() string`
+`func (o *Option) GetHidden() bool`
 
-GetLabel returns the Label field if non-nil, zero value otherwise.
+GetHidden returns the Hidden field if non-nil, zero value otherwise.
 
-### GetLabelOk
+### GetHiddenOk
 
-`func (o *Option) GetLabelOk() (*string, bool)`
+`func (o *Option) GetHiddenOk() (*bool, bool)`
 
-GetLabelOk returns a tuple with the Label field if it's non-nil, zero value otherwise
+GetHiddenOk returns a tuple with the Hidden field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetLabel
+### SetHidden
 
-`func (o *Option) SetLabel(v string)`
+`func (o *Option) SetHidden(v bool)`
 
-SetLabel sets Label field to given value.
-
-
-### GetValue
-
-`func (o *Option) GetValue() string`
-
-GetValue returns the Value field if non-nil, zero value otherwise.
-
-### GetValueOk
-
-`func (o *Option) GetValueOk() (*string, bool)`
-
-GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetValue
-
-`func (o *Option) SetValue(v string)`
-
-SetValue sets Value field to given value.
+SetHidden sets Hidden field to given value.
 
 
 ### GetDisplayOrder
@@ -111,26 +91,6 @@ and a boolean to check if the value has been set.
 SetDoubleData sets DoubleData field to given value.
 
 
-### GetHidden
-
-`func (o *Option) GetHidden() bool`
-
-GetHidden returns the Hidden field if non-nil, zero value otherwise.
-
-### GetHiddenOk
-
-`func (o *Option) GetHiddenOk() (*bool, bool)`
-
-GetHiddenOk returns a tuple with the Hidden field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetHidden
-
-`func (o *Option) SetHidden(v bool)`
-
-SetHidden sets Hidden field to given value.
-
-
 ### GetDescription
 
 `func (o *Option) GetDescription() string`
@@ -169,6 +129,46 @@ and a boolean to check if the value has been set.
 `func (o *Option) SetReadOnly(v bool)`
 
 SetReadOnly sets ReadOnly field to given value.
+
+
+### GetLabel
+
+`func (o *Option) GetLabel() string`
+
+GetLabel returns the Label field if non-nil, zero value otherwise.
+
+### GetLabelOk
+
+`func (o *Option) GetLabelOk() (*string, bool)`
+
+GetLabelOk returns a tuple with the Label field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLabel
+
+`func (o *Option) SetLabel(v string)`
+
+SetLabel sets Label field to given value.
+
+
+### GetValue
+
+`func (o *Option) GetValue() string`
+
+GetValue returns the Value field if non-nil, zero value otherwise.
+
+### GetValueOk
+
+`func (o *Option) GetValueOk() (*string, bool)`
+
+GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetValue
+
+`func (o *Option) SetValue(v string)`
+
+SetValue sets Value field to given value.
 
 
 

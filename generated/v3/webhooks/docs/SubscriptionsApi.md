@@ -102,7 +102,7 @@ import (
 
 func main() {
     appId := int32(56) // int32 | 
-    batchInputSubscriptionBatchUpdateRequest := *openapiclient.NewBatchInputSubscriptionBatchUpdateRequest([]openapiclient.SubscriptionBatchUpdateRequest{*openapiclient.NewSubscriptionBatchUpdateRequest(int32(123), false)}) // BatchInputSubscriptionBatchUpdateRequest | 
+    batchInputSubscriptionBatchUpdateRequest := *openapiclient.NewBatchInputSubscriptionBatchUpdateRequest([]openapiclient.SubscriptionBatchUpdateRequest{*openapiclient.NewSubscriptionBatchUpdateRequest(false, int32(123))}) // BatchInputSubscriptionBatchUpdateRequest | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -172,7 +172,7 @@ import (
 
 func main() {
     appId := int32(56) // int32 | 
-    subscriptionCreateRequest := *openapiclient.NewSubscriptionCreateRequest("EventType_example") // SubscriptionCreateRequest | 
+    subscriptionCreateRequest := *openapiclient.NewSubscriptionCreateRequest("contact.propertyChange") // SubscriptionCreateRequest | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)

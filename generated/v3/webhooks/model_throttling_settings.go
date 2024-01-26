@@ -1,5 +1,5 @@
 /*
-Webhooks API
+Webhooks Webhooks
 
 Provides a way for apps to subscribe to certain change events in HubSpot. Once configured, apps will receive event payloads containing details about the changes at a specified target URL. There can only be one target URL for receiving event notifications per app.
 
@@ -16,20 +16,20 @@ import (
 
 // ThrottlingSettings Configuration details for webhook throttling.
 type ThrottlingSettings struct {
-	// The maximum number of HTTP requests HubSpot will attempt to make to your app in a given time frame determined by `period`.
-	MaxConcurrentRequests int32 `json:"maxConcurrentRequests"`
 	// Time scale for this setting. Can be either `SECONDLY` (per second) or `ROLLING_MINUTE` (per minute).
 	Period string `json:"period"`
+	// The maximum number of HTTP requests HubSpot will attempt to make to your app in a given time frame determined by `period`.
+	MaxConcurrentRequests int32 `json:"maxConcurrentRequests"`
 }
 
 // NewThrottlingSettings instantiates a new ThrottlingSettings object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewThrottlingSettings(maxConcurrentRequests int32, period string) *ThrottlingSettings {
+func NewThrottlingSettings(period string, maxConcurrentRequests int32) *ThrottlingSettings {
 	this := ThrottlingSettings{}
-	this.MaxConcurrentRequests = maxConcurrentRequests
 	this.Period = period
+	this.MaxConcurrentRequests = maxConcurrentRequests
 	return &this
 }
 
@@ -39,30 +39,6 @@ func NewThrottlingSettings(maxConcurrentRequests int32, period string) *Throttli
 func NewThrottlingSettingsWithDefaults() *ThrottlingSettings {
 	this := ThrottlingSettings{}
 	return &this
-}
-
-// GetMaxConcurrentRequests returns the MaxConcurrentRequests field value
-func (o *ThrottlingSettings) GetMaxConcurrentRequests() int32 {
-	if o == nil {
-		var ret int32
-		return ret
-	}
-
-	return o.MaxConcurrentRequests
-}
-
-// GetMaxConcurrentRequestsOk returns a tuple with the MaxConcurrentRequests field value
-// and a boolean to check if the value has been set.
-func (o *ThrottlingSettings) GetMaxConcurrentRequestsOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.MaxConcurrentRequests, true
-}
-
-// SetMaxConcurrentRequests sets field value
-func (o *ThrottlingSettings) SetMaxConcurrentRequests(v int32) {
-	o.MaxConcurrentRequests = v
 }
 
 // GetPeriod returns the Period field value
@@ -89,13 +65,37 @@ func (o *ThrottlingSettings) SetPeriod(v string) {
 	o.Period = v
 }
 
+// GetMaxConcurrentRequests returns the MaxConcurrentRequests field value
+func (o *ThrottlingSettings) GetMaxConcurrentRequests() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.MaxConcurrentRequests
+}
+
+// GetMaxConcurrentRequestsOk returns a tuple with the MaxConcurrentRequests field value
+// and a boolean to check if the value has been set.
+func (o *ThrottlingSettings) GetMaxConcurrentRequestsOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.MaxConcurrentRequests, true
+}
+
+// SetMaxConcurrentRequests sets field value
+func (o *ThrottlingSettings) SetMaxConcurrentRequests(v int32) {
+	o.MaxConcurrentRequests = v
+}
+
 func (o ThrottlingSettings) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["maxConcurrentRequests"] = o.MaxConcurrentRequests
+		toSerialize["period"] = o.Period
 	}
 	if true {
-		toSerialize["period"] = o.Period
+		toSerialize["maxConcurrentRequests"] = o.MaxConcurrentRequests
 	}
 	return json.Marshal(toSerialize)
 }

@@ -16,8 +16,8 @@ import (
 
 // TaskLocator struct for TaskLocator
 type TaskLocator struct {
-	Id    string             `json:"id"`
 	Links *map[string]string `json:"links,omitempty"`
+	Id    string             `json:"id"`
 }
 
 // NewTaskLocator instantiates a new TaskLocator object
@@ -36,30 +36,6 @@ func NewTaskLocator(id string) *TaskLocator {
 func NewTaskLocatorWithDefaults() *TaskLocator {
 	this := TaskLocator{}
 	return &this
-}
-
-// GetId returns the Id field value
-func (o *TaskLocator) GetId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Id
-}
-
-// GetIdOk returns a tuple with the Id field value
-// and a boolean to check if the value has been set.
-func (o *TaskLocator) GetIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Id, true
-}
-
-// SetId sets field value
-func (o *TaskLocator) SetId(v string) {
-	o.Id = v
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
@@ -94,13 +70,37 @@ func (o *TaskLocator) SetLinks(v map[string]string) {
 	o.Links = &v
 }
 
+// GetId returns the Id field value
+func (o *TaskLocator) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *TaskLocator) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *TaskLocator) SetId(v string) {
+	o.Id = v
+}
+
 func (o TaskLocator) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
 	if o.Links != nil {
 		toSerialize["links"] = o.Links
+	}
+	if true {
+		toSerialize["id"] = o.Id
 	}
 	return json.Marshal(toSerialize)
 }

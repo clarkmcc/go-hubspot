@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | 
-**Email** | **string** |  | 
 **FirstName** | **string** |  | 
 **LastName** | **string** |  | 
+**Id** | **string** |  | 
+**Email** | **string** |  | 
 
 ## Methods
 
 ### NewSimpleUser
 
-`func NewSimpleUser(id string, email string, firstName string, lastName string, ) *SimpleUser`
+`func NewSimpleUser(firstName string, lastName string, id string, email string, ) *SimpleUser`
 
 NewSimpleUser instantiates a new SimpleUser object
 This constructor will assign default values to properties that have it defined,
@@ -27,46 +27,6 @@ will change when the set of required properties is changed
 NewSimpleUserWithDefaults instantiates a new SimpleUser object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetId
-
-`func (o *SimpleUser) GetId() string`
-
-GetId returns the Id field if non-nil, zero value otherwise.
-
-### GetIdOk
-
-`func (o *SimpleUser) GetIdOk() (*string, bool)`
-
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetId
-
-`func (o *SimpleUser) SetId(v string)`
-
-SetId sets Id field to given value.
-
-
-### GetEmail
-
-`func (o *SimpleUser) GetEmail() string`
-
-GetEmail returns the Email field if non-nil, zero value otherwise.
-
-### GetEmailOk
-
-`func (o *SimpleUser) GetEmailOk() (*string, bool)`
-
-GetEmailOk returns a tuple with the Email field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetEmail
-
-`func (o *SimpleUser) SetEmail(v string)`
-
-SetEmail sets Email field to given value.
-
 
 ### GetFirstName
 
@@ -106,6 +66,46 @@ and a boolean to check if the value has been set.
 `func (o *SimpleUser) SetLastName(v string)`
 
 SetLastName sets LastName field to given value.
+
+
+### GetId
+
+`func (o *SimpleUser) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *SimpleUser) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *SimpleUser) SetId(v string)`
+
+SetId sets Id field to given value.
+
+
+### GetEmail
+
+`func (o *SimpleUser) GetEmail() string`
+
+GetEmail returns the Email field if non-nil, zero value otherwise.
+
+### GetEmailOk
+
+`func (o *SimpleUser) GetEmailOk() (*string, bool)`
+
+GetEmailOk returns a tuple with the Email field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEmail
+
+`func (o *SimpleUser) SetEmail(v string)`
+
+SetEmail sets Email field to given value.
 
 
 

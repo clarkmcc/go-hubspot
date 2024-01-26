@@ -1,5 +1,5 @@
 /*
-HubDB endpoints
+Hubdb
 
 HubDB is a relational data store that presents data as rows, columns, and cells in a table, much like a spreadsheet. HubDB tables can be added or modified [in the HubSpot CMS](https://knowledge.hubspot.com/cos-general/how-to-edit-hubdb-tables), but you can also use the API endpoints documented here. For more information on HubDB tables and using their data on a HubSpot site, see the [CMS developers site](https://designers.hubspot.com/docs/tools/hubdb). You can also see the [documentation for dynamic pages](https://designers.hubspot.com/docs/tutorials/how-to-build-dynamic-pages-with-hubdb) for more details about the `useForPages` field.  HubDB tables support `draft` and `published` versions. This allows you to update data in the table, either for testing or to allow for a manual approval process, without affecting any live pages using the existing data. Draft data can be reviewed, and published by a user working in HubSpot or published via the API. Draft data can also be discarded, allowing users to go back to the published version of the data without disrupting it. If a table is set to be `allowed for public access`, you can access the published version of the table and rows without any authentication by specifying the portal id via the query parameter `portalId`.
 
@@ -16,21 +16,25 @@ import (
 
 // Option struct for Option
 type Option struct {
+	//
+	Name string `json:"name"`
+	//
 	Id    string  `json:"id"`
-	Name  string  `json:"name"`
 	Label *string `json:"label,omitempty"`
-	Type  string  `json:"type"`
-	Order int32   `json:"order"`
+	//
+	Type string `json:"type"`
+	//
+	Order int32 `json:"order"`
 }
 
 // NewOption instantiates a new Option object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewOption(id string, name string, type_ string, order int32) *Option {
+func NewOption(name string, id string, type_ string, order int32) *Option {
 	this := Option{}
-	this.Id = id
 	this.Name = name
+	this.Id = id
 	this.Type = type_
 	this.Order = order
 	return &this
@@ -42,30 +46,6 @@ func NewOption(id string, name string, type_ string, order int32) *Option {
 func NewOptionWithDefaults() *Option {
 	this := Option{}
 	return &this
-}
-
-// GetId returns the Id field value
-func (o *Option) GetId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Id
-}
-
-// GetIdOk returns a tuple with the Id field value
-// and a boolean to check if the value has been set.
-func (o *Option) GetIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Id, true
-}
-
-// SetId sets field value
-func (o *Option) SetId(v string) {
-	o.Id = v
 }
 
 // GetName returns the Name field value
@@ -90,6 +70,30 @@ func (o *Option) GetNameOk() (*string, bool) {
 // SetName sets field value
 func (o *Option) SetName(v string) {
 	o.Name = v
+}
+
+// GetId returns the Id field value
+func (o *Option) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *Option) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *Option) SetId(v string) {
+	o.Id = v
 }
 
 // GetLabel returns the Label field value if set, zero value otherwise.
@@ -175,10 +179,10 @@ func (o *Option) SetOrder(v int32) {
 func (o Option) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["id"] = o.Id
+		toSerialize["name"] = o.Name
 	}
 	if true {
-		toSerialize["name"] = o.Name
+		toSerialize["id"] = o.Id
 	}
 	if o.Label != nil {
 		toSerialize["label"] = o.Label

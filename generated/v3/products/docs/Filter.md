@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Value** | Pointer to **string** |  | [optional] 
 **HighValue** | Pointer to **string** |  | [optional] 
-**Values** | Pointer to **[]string** |  | [optional] 
 **PropertyName** | **string** |  | 
+**Values** | Pointer to **[]string** |  | [optional] 
+**Value** | Pointer to **string** |  | [optional] 
 **Operator** | **string** | null | 
 
 ## Methods
@@ -28,31 +28,6 @@ will change when the set of required properties is changed
 NewFilterWithDefaults instantiates a new Filter object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetValue
-
-`func (o *Filter) GetValue() string`
-
-GetValue returns the Value field if non-nil, zero value otherwise.
-
-### GetValueOk
-
-`func (o *Filter) GetValueOk() (*string, bool)`
-
-GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetValue
-
-`func (o *Filter) SetValue(v string)`
-
-SetValue sets Value field to given value.
-
-### HasValue
-
-`func (o *Filter) HasValue() bool`
-
-HasValue returns a boolean if a field has been set.
 
 ### GetHighValue
 
@@ -79,6 +54,26 @@ SetHighValue sets HighValue field to given value.
 
 HasHighValue returns a boolean if a field has been set.
 
+### GetPropertyName
+
+`func (o *Filter) GetPropertyName() string`
+
+GetPropertyName returns the PropertyName field if non-nil, zero value otherwise.
+
+### GetPropertyNameOk
+
+`func (o *Filter) GetPropertyNameOk() (*string, bool)`
+
+GetPropertyNameOk returns a tuple with the PropertyName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPropertyName
+
+`func (o *Filter) SetPropertyName(v string)`
+
+SetPropertyName sets PropertyName field to given value.
+
+
 ### GetValues
 
 `func (o *Filter) GetValues() []string`
@@ -104,25 +99,30 @@ SetValues sets Values field to given value.
 
 HasValues returns a boolean if a field has been set.
 
-### GetPropertyName
+### GetValue
 
-`func (o *Filter) GetPropertyName() string`
+`func (o *Filter) GetValue() string`
 
-GetPropertyName returns the PropertyName field if non-nil, zero value otherwise.
+GetValue returns the Value field if non-nil, zero value otherwise.
 
-### GetPropertyNameOk
+### GetValueOk
 
-`func (o *Filter) GetPropertyNameOk() (*string, bool)`
+`func (o *Filter) GetValueOk() (*string, bool)`
 
-GetPropertyNameOk returns a tuple with the PropertyName field if it's non-nil, zero value otherwise
+GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetPropertyName
+### SetValue
 
-`func (o *Filter) SetPropertyName(v string)`
+`func (o *Filter) SetValue(v string)`
 
-SetPropertyName sets PropertyName field to given value.
+SetValue sets Value field to given value.
 
+### HasValue
+
+`func (o *Filter) HasValue() bool`
+
+HasValue returns a boolean if a field has been set.
 
 ### GetOperator
 

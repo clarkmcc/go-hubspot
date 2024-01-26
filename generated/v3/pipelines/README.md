@@ -125,19 +125,19 @@ Class | Method | HTTP request | Description
 - **Flow**: accessCode
 - **Authorization URL**: https://app.hubspot.com/oauth/authorize
 - **Scopes**: 
- - **crm.objects.companies.read**:  
- - **crm.objects.companies.write**:  
- - **crm.schemas.contacts.read**:  
- - **crm.objects.contacts.write**:  
- - **crm.schemas.quotes.read**: Quotes schemas
- - **crm.objects.contacts.read**:  
- - **crm.schemas.deals.read**:  
  - **crm.objects.deals.write**:  
- - **crm.schemas.line_items.read**: Line Items schemas
- - **crm.objects.deals.read**:  
+ - **crm.schemas.deals.read**:  
+ - **crm.objects.contacts.read**:  
+ - **crm.schemas.quotes.read**: Quotes schemas
+ - **crm.objects.contacts.write**:  
+ - **crm.schemas.contacts.read**:  
+ - **crm.objects.companies.write**:  
+ - **crm.objects.companies.read**:  
  - **crm.schemas.companies.read**:  
- - **crm.schemas.contacts.write**:  
+ - **crm.objects.deals.read**:  
+ - **crm.schemas.line_items.read**: Line Items schemas
  - **crm.schemas.deals.write**:  
+ - **crm.schemas.contacts.write**:  
  - **crm.schemas.companies.write**:  
 
 Example
@@ -167,12 +167,12 @@ r, err := client.Service.Operation(auth, args)
 - **Flow**: accessCode
 - **Authorization URL**: https://app.hubspot.com/oauth/authorize
 - **Scopes**: 
- - **timeline**: Create timeline events
- - **e-commerce**: e-commerce
- - **media_bridge.read**: Read media and media events
  - **crm.objects.goals.read**: Read goals
- - **tickets**: Read and write tickets
+ - **media_bridge.read**: Read media and media events
+ - **e-commerce**: e-commerce
+ - **timeline**: Create timeline events
  - **crm.schemas.custom.read**: View custom object definitions
+ - **tickets**: Read and write tickets
 
 Example
 

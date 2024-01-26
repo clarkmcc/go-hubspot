@@ -1,5 +1,5 @@
 /*
-HubDB endpoints
+Hubdb
 
 HubDB is a relational data store that presents data as rows, columns, and cells in a table, much like a spreadsheet. HubDB tables can be added or modified [in the HubSpot CMS](https://knowledge.hubspot.com/cos-general/how-to-edit-hubdb-tables), but you can also use the API endpoints documented here. For more information on HubDB tables and using their data on a HubSpot site, see the [CMS developers site](https://designers.hubspot.com/docs/tools/hubdb). You can also see the [documentation for dynamic pages](https://designers.hubspot.com/docs/tutorials/how-to-build-dynamic-pages-with-hubdb) for more details about the `useForPages` field.  HubDB tables support `draft` and `published` versions. This allows you to update data in the table, either for testing or to allow for a manual approval process, without affecting any live pages using the existing data. Draft data can be reviewed, and published by a user working in HubSpot or published via the API. Draft data can also be discarded, allowing users to go back to the published version of the data without disrupting it. If a table is set to be `allowed for public access`, you can access the published version of the table and rows without any authentication by specifying the portal id via the query parameter `portalId`.
 
@@ -16,16 +16,16 @@ import (
 
 // ErrorDetail struct for ErrorDetail
 type ErrorDetail struct {
-	// A human readable message describing the error along with remediation steps where appropriate
-	Message string `json:"message"`
-	// The name of the field or parameter in which the error was found.
-	In *string `json:"in,omitempty"`
-	// The status code associated with the error detail
-	Code *string `json:"code,omitempty"`
 	// A specific category that contains more specific detail about the error
 	SubCategory *string `json:"subCategory,omitempty"`
+	// The status code associated with the error detail
+	Code *string `json:"code,omitempty"`
+	// The name of the field or parameter in which the error was found.
+	In *string `json:"in,omitempty"`
 	// Context about the error condition
 	Context *map[string][]string `json:"context,omitempty"`
+	// A human readable message describing the error along with remediation steps where appropriate
+	Message string `json:"message"`
 }
 
 // NewErrorDetail instantiates a new ErrorDetail object
@@ -44,94 +44,6 @@ func NewErrorDetail(message string) *ErrorDetail {
 func NewErrorDetailWithDefaults() *ErrorDetail {
 	this := ErrorDetail{}
 	return &this
-}
-
-// GetMessage returns the Message field value
-func (o *ErrorDetail) GetMessage() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Message
-}
-
-// GetMessageOk returns a tuple with the Message field value
-// and a boolean to check if the value has been set.
-func (o *ErrorDetail) GetMessageOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Message, true
-}
-
-// SetMessage sets field value
-func (o *ErrorDetail) SetMessage(v string) {
-	o.Message = v
-}
-
-// GetIn returns the In field value if set, zero value otherwise.
-func (o *ErrorDetail) GetIn() string {
-	if o == nil || o.In == nil {
-		var ret string
-		return ret
-	}
-	return *o.In
-}
-
-// GetInOk returns a tuple with the In field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ErrorDetail) GetInOk() (*string, bool) {
-	if o == nil || o.In == nil {
-		return nil, false
-	}
-	return o.In, true
-}
-
-// HasIn returns a boolean if a field has been set.
-func (o *ErrorDetail) HasIn() bool {
-	if o != nil && o.In != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetIn gets a reference to the given string and assigns it to the In field.
-func (o *ErrorDetail) SetIn(v string) {
-	o.In = &v
-}
-
-// GetCode returns the Code field value if set, zero value otherwise.
-func (o *ErrorDetail) GetCode() string {
-	if o == nil || o.Code == nil {
-		var ret string
-		return ret
-	}
-	return *o.Code
-}
-
-// GetCodeOk returns a tuple with the Code field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ErrorDetail) GetCodeOk() (*string, bool) {
-	if o == nil || o.Code == nil {
-		return nil, false
-	}
-	return o.Code, true
-}
-
-// HasCode returns a boolean if a field has been set.
-func (o *ErrorDetail) HasCode() bool {
-	if o != nil && o.Code != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetCode gets a reference to the given string and assigns it to the Code field.
-func (o *ErrorDetail) SetCode(v string) {
-	o.Code = &v
 }
 
 // GetSubCategory returns the SubCategory field value if set, zero value otherwise.
@@ -166,6 +78,70 @@ func (o *ErrorDetail) SetSubCategory(v string) {
 	o.SubCategory = &v
 }
 
+// GetCode returns the Code field value if set, zero value otherwise.
+func (o *ErrorDetail) GetCode() string {
+	if o == nil || o.Code == nil {
+		var ret string
+		return ret
+	}
+	return *o.Code
+}
+
+// GetCodeOk returns a tuple with the Code field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ErrorDetail) GetCodeOk() (*string, bool) {
+	if o == nil || o.Code == nil {
+		return nil, false
+	}
+	return o.Code, true
+}
+
+// HasCode returns a boolean if a field has been set.
+func (o *ErrorDetail) HasCode() bool {
+	if o != nil && o.Code != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCode gets a reference to the given string and assigns it to the Code field.
+func (o *ErrorDetail) SetCode(v string) {
+	o.Code = &v
+}
+
+// GetIn returns the In field value if set, zero value otherwise.
+func (o *ErrorDetail) GetIn() string {
+	if o == nil || o.In == nil {
+		var ret string
+		return ret
+	}
+	return *o.In
+}
+
+// GetInOk returns a tuple with the In field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ErrorDetail) GetInOk() (*string, bool) {
+	if o == nil || o.In == nil {
+		return nil, false
+	}
+	return o.In, true
+}
+
+// HasIn returns a boolean if a field has been set.
+func (o *ErrorDetail) HasIn() bool {
+	if o != nil && o.In != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIn gets a reference to the given string and assigns it to the In field.
+func (o *ErrorDetail) SetIn(v string) {
+	o.In = &v
+}
+
 // GetContext returns the Context field value if set, zero value otherwise.
 func (o *ErrorDetail) GetContext() map[string][]string {
 	if o == nil || o.Context == nil {
@@ -198,22 +174,46 @@ func (o *ErrorDetail) SetContext(v map[string][]string) {
 	o.Context = &v
 }
 
+// GetMessage returns the Message field value
+func (o *ErrorDetail) GetMessage() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Message
+}
+
+// GetMessageOk returns a tuple with the Message field value
+// and a boolean to check if the value has been set.
+func (o *ErrorDetail) GetMessageOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Message, true
+}
+
+// SetMessage sets field value
+func (o *ErrorDetail) SetMessage(v string) {
+	o.Message = v
+}
+
 func (o ErrorDetail) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["message"] = o.Message
-	}
-	if o.In != nil {
-		toSerialize["in"] = o.In
+	if o.SubCategory != nil {
+		toSerialize["subCategory"] = o.SubCategory
 	}
 	if o.Code != nil {
 		toSerialize["code"] = o.Code
 	}
-	if o.SubCategory != nil {
-		toSerialize["subCategory"] = o.SubCategory
+	if o.In != nil {
+		toSerialize["in"] = o.In
 	}
 	if o.Context != nil {
 		toSerialize["context"] = o.Context
+	}
+	if true {
+		toSerialize["message"] = o.Message
 	}
 	return json.Marshal(toSerialize)
 }

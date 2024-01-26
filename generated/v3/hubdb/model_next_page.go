@@ -1,5 +1,5 @@
 /*
-HubDB endpoints
+Hubdb
 
 HubDB is a relational data store that presents data as rows, columns, and cells in a table, much like a spreadsheet. HubDB tables can be added or modified [in the HubSpot CMS](https://knowledge.hubspot.com/cos-general/how-to-edit-hubdb-tables), but you can also use the API endpoints documented here. For more information on HubDB tables and using their data on a HubSpot site, see the [CMS developers site](https://designers.hubspot.com/docs/tools/hubdb). You can also see the [documentation for dynamic pages](https://designers.hubspot.com/docs/tutorials/how-to-build-dynamic-pages-with-hubdb) for more details about the `useForPages` field.  HubDB tables support `draft` and `published` versions. This allows you to update data in the table, either for testing or to allow for a manual approval process, without affecting any live pages using the existing data. Draft data can be reviewed, and published by a user working in HubSpot or published via the API. Draft data can also be discarded, allowing users to go back to the published version of the data without disrupting it. If a table is set to be `allowed for public access`, you can access the published version of the table and rows without any authentication by specifying the portal id via the query parameter `portalId`.
 
@@ -16,8 +16,10 @@ import (
 
 // NextPage struct for NextPage
 type NextPage struct {
-	After string  `json:"after"`
-	Link  *string `json:"link,omitempty"`
+	//
+	Link *string `json:"link,omitempty"`
+	//
+	After string `json:"after"`
 }
 
 // NewNextPage instantiates a new NextPage object
@@ -36,30 +38,6 @@ func NewNextPage(after string) *NextPage {
 func NewNextPageWithDefaults() *NextPage {
 	this := NextPage{}
 	return &this
-}
-
-// GetAfter returns the After field value
-func (o *NextPage) GetAfter() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.After
-}
-
-// GetAfterOk returns a tuple with the After field value
-// and a boolean to check if the value has been set.
-func (o *NextPage) GetAfterOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.After, true
-}
-
-// SetAfter sets field value
-func (o *NextPage) SetAfter(v string) {
-	o.After = v
 }
 
 // GetLink returns the Link field value if set, zero value otherwise.
@@ -94,13 +72,37 @@ func (o *NextPage) SetLink(v string) {
 	o.Link = &v
 }
 
+// GetAfter returns the After field value
+func (o *NextPage) GetAfter() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.After
+}
+
+// GetAfterOk returns a tuple with the After field value
+// and a boolean to check if the value has been set.
+func (o *NextPage) GetAfterOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.After, true
+}
+
+// SetAfter sets field value
+func (o *NextPage) SetAfter(v string) {
+	o.After = v
+}
+
 func (o NextPage) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["after"] = o.After
-	}
 	if o.Link != nil {
 		toSerialize["link"] = o.Link
+	}
+	if true {
+		toSerialize["after"] = o.After
 	}
 	return json.Marshal(toSerialize)
 }

@@ -1,5 +1,5 @@
 /*
-CMS Audit Logs
+CMS Cms Content Audit
 
 Use this endpoint to query audit logs of CMS changes that occurred on your HubSpot account.
 
@@ -16,8 +16,8 @@ import (
 
 // NextPage struct for NextPage
 type NextPage struct {
-	After string  `json:"after"`
 	Link  *string `json:"link,omitempty"`
+	After string  `json:"after"`
 }
 
 // NewNextPage instantiates a new NextPage object
@@ -36,30 +36,6 @@ func NewNextPage(after string) *NextPage {
 func NewNextPageWithDefaults() *NextPage {
 	this := NextPage{}
 	return &this
-}
-
-// GetAfter returns the After field value
-func (o *NextPage) GetAfter() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.After
-}
-
-// GetAfterOk returns a tuple with the After field value
-// and a boolean to check if the value has been set.
-func (o *NextPage) GetAfterOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.After, true
-}
-
-// SetAfter sets field value
-func (o *NextPage) SetAfter(v string) {
-	o.After = v
 }
 
 // GetLink returns the Link field value if set, zero value otherwise.
@@ -94,13 +70,37 @@ func (o *NextPage) SetLink(v string) {
 	o.Link = &v
 }
 
+// GetAfter returns the After field value
+func (o *NextPage) GetAfter() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.After
+}
+
+// GetAfterOk returns a tuple with the After field value
+// and a boolean to check if the value has been set.
+func (o *NextPage) GetAfterOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.After, true
+}
+
+// SetAfter sets field value
+func (o *NextPage) SetAfter(v string) {
+	o.After = v
+}
+
 func (o NextPage) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["after"] = o.After
-	}
 	if o.Link != nil {
 		toSerialize["link"] = o.Link
+	}
+	if true {
+		toSerialize["after"] = o.After
 	}
 	return json.Marshal(toSerialize)
 }

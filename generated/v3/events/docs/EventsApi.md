@@ -4,15 +4,15 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetPage**](EventsApi.md#GetPage) | **Get** /events/v3/events | Returns a collection of events matching a query.
+[**GetEventsV3EventsGetPage**](EventsApi.md#GetEventsV3EventsGetPage) | **Get** /events/v3/events/ | 
 
 
 
-## GetPage
+## GetEventsV3EventsGetPage
 
-> CollectionResponseExternalUnifiedEvent GetPage(ctx).OccurredAfter(occurredAfter).OccurredBefore(occurredBefore).ObjectType(objectType).ObjectId(objectId).EventType(eventType).After(after).Before(before).Limit(limit).Sort(sort).Execute()
+> CollectionResponseExternalUnifiedEvent GetEventsV3EventsGetPage(ctx).ObjectType(objectType).EventType(eventType).OccurredAfter(occurredAfter).OccurredBefore(occurredBefore).ObjectId(objectId).IndexTableName(indexTableName).IndexSpecificMetadata(indexSpecificMetadata).After(after).Before(before).Limit(limit).Sort(sort).ObjectPropertyPropname(objectPropertyPropname).PropertyPropname(propertyPropname).Id(id).Execute()
 
-Returns a collection of events matching a query.
+
 
 ### Example
 
@@ -28,25 +28,30 @@ import (
 )
 
 func main() {
-    occurredAfter := time.Now() // time.Time | The starting time as an ISO 8601 timestamp. (optional)
-    occurredBefore := time.Now() // time.Time | The ending time as an ISO 8601 timestamp. (optional)
-    objectType := "objectType_example" // string | The type of object being selected. Valid values are hubspot named object types (e.g. `contact`). (optional)
-    objectId := int64(789) // int64 | The id of the selected object. If not present, then the `objectProperty` parameter is required. (optional)
-    eventType := "eventType_example" // string | Limits the response to the specified event type.  For example `&eventType=e_visited_page` returns only `e_visited_page` events.  If not present all event types are returned. (optional)
-    after := "after_example" // string | An additional parameter that may be used to get the next `limit` set of results. (optional)
+    objectType := "objectType_example" // string |  (optional)
+    eventType := "eventType_example" // string |  (optional)
+    occurredAfter := time.Now() // time.Time |  (optional)
+    occurredBefore := time.Now() // time.Time |  (optional)
+    objectId := int64(789) // int64 |  (optional)
+    indexTableName := "indexTableName_example" // string |  (optional)
+    indexSpecificMetadata := "indexSpecificMetadata_example" // string |  (optional)
+    after := "after_example" // string | The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results. (optional)
     before := "before_example" // string |  (optional)
-    limit := int32(56) // int32 | The maximum number of events to return, defaults to 20. (optional)
-    sort := []string{"Inner_example"} // []string | Selects the sort field and order. Defaults to ascending, prefix with `-` for descending order. `occurredAt` is the only field supported for sorting. (optional)
+    limit := int32(56) // int32 | The maximum number of results to display per page. (optional)
+    sort := []string{"Inner_example"} // []string |  (optional)
+    objectPropertyPropname := map[string]interface{}{ ... } // map[string]interface{} |  (optional)
+    propertyPropname := map[string]interface{}{ ... } // map[string]interface{} |  (optional)
+    id := []string{"Inner_example"} // []string |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.EventsApi.GetPage(context.Background()).OccurredAfter(occurredAfter).OccurredBefore(occurredBefore).ObjectType(objectType).ObjectId(objectId).EventType(eventType).After(after).Before(before).Limit(limit).Sort(sort).Execute()
+    resp, r, err := apiClient.EventsApi.GetEventsV3EventsGetPage(context.Background()).ObjectType(objectType).EventType(eventType).OccurredAfter(occurredAfter).OccurredBefore(occurredBefore).ObjectId(objectId).IndexTableName(indexTableName).IndexSpecificMetadata(indexSpecificMetadata).After(after).Before(before).Limit(limit).Sort(sort).ObjectPropertyPropname(objectPropertyPropname).PropertyPropname(propertyPropname).Id(id).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.GetPage``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.GetEventsV3EventsGetPage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetPage`: CollectionResponseExternalUnifiedEvent
-    fmt.Fprintf(os.Stdout, "Response from `EventsApi.GetPage`: %v\n", resp)
+    // response from `GetEventsV3EventsGetPage`: CollectionResponseExternalUnifiedEvent
+    fmt.Fprintf(os.Stdout, "Response from `EventsApi.GetEventsV3EventsGetPage`: %v\n", resp)
 }
 ```
 
@@ -56,20 +61,25 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetPageRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetEventsV3EventsGetPageRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **occurredAfter** | **time.Time** | The starting time as an ISO 8601 timestamp. | 
- **occurredBefore** | **time.Time** | The ending time as an ISO 8601 timestamp. | 
- **objectType** | **string** | The type of object being selected. Valid values are hubspot named object types (e.g. &#x60;contact&#x60;). | 
- **objectId** | **int64** | The id of the selected object. If not present, then the &#x60;objectProperty&#x60; parameter is required. | 
- **eventType** | **string** | Limits the response to the specified event type.  For example &#x60;&amp;eventType&#x3D;e_visited_page&#x60; returns only &#x60;e_visited_page&#x60; events.  If not present all event types are returned. | 
- **after** | **string** | An additional parameter that may be used to get the next &#x60;limit&#x60; set of results. | 
+ **objectType** | **string** |  | 
+ **eventType** | **string** |  | 
+ **occurredAfter** | **time.Time** |  | 
+ **occurredBefore** | **time.Time** |  | 
+ **objectId** | **int64** |  | 
+ **indexTableName** | **string** |  | 
+ **indexSpecificMetadata** | **string** |  | 
+ **after** | **string** | The paging cursor token of the last successfully read resource will be returned as the &#x60;paging.next.after&#x60; JSON property of a paged response containing more results. | 
  **before** | **string** |  | 
- **limit** | **int32** | The maximum number of events to return, defaults to 20. | 
- **sort** | **[]string** | Selects the sort field and order. Defaults to ascending, prefix with &#x60;-&#x60; for descending order. &#x60;occurredAt&#x60; is the only field supported for sorting. | 
+ **limit** | **int32** | The maximum number of results to display per page. | 
+ **sort** | **[]string** |  | 
+ **objectPropertyPropname** | [**map[string]interface{}**](map[string]interface{}.md) |  | 
+ **propertyPropname** | [**map[string]interface{}**](map[string]interface{}.md) |  | 
+ **id** | **[]string** |  | 
 
 ### Return type
 

@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**VerticalSide** | **string** |  | 
 **HorizontalSide** | **string** |  | 
+**VerticalSide** | **string** |  | 
 
 ## Methods
 
 ### NewSideOrCorner
 
-`func NewSideOrCorner(verticalSide string, horizontalSide string, ) *SideOrCorner`
+`func NewSideOrCorner(horizontalSide string, verticalSide string, ) *SideOrCorner`
 
 NewSideOrCorner instantiates a new SideOrCorner object
 This constructor will assign default values to properties that have it defined,
@@ -25,26 +25,6 @@ will change when the set of required properties is changed
 NewSideOrCornerWithDefaults instantiates a new SideOrCorner object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetVerticalSide
-
-`func (o *SideOrCorner) GetVerticalSide() string`
-
-GetVerticalSide returns the VerticalSide field if non-nil, zero value otherwise.
-
-### GetVerticalSideOk
-
-`func (o *SideOrCorner) GetVerticalSideOk() (*string, bool)`
-
-GetVerticalSideOk returns a tuple with the VerticalSide field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetVerticalSide
-
-`func (o *SideOrCorner) SetVerticalSide(v string)`
-
-SetVerticalSide sets VerticalSide field to given value.
-
 
 ### GetHorizontalSide
 
@@ -64,6 +44,26 @@ and a boolean to check if the value has been set.
 `func (o *SideOrCorner) SetHorizontalSide(v string)`
 
 SetHorizontalSide sets HorizontalSide field to given value.
+
+
+### GetVerticalSide
+
+`func (o *SideOrCorner) GetVerticalSide() string`
+
+GetVerticalSide returns the VerticalSide field if non-nil, zero value otherwise.
+
+### GetVerticalSideOk
+
+`func (o *SideOrCorner) GetVerticalSideOk() (*string, bool)`
+
+GetVerticalSideOk returns a tuple with the VerticalSide field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVerticalSide
+
+`func (o *SideOrCorner) SetVerticalSide(v string)`
+
+SetVerticalSide sets VerticalSide field to given value.
 
 
 

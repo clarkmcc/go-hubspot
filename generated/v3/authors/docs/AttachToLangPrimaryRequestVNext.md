@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** | ID of the object to add to a multi-language group. | 
 **Language** | **string** | Designated language of the object to add to a multi-language group. | 
+**Id** | **string** | ID of the object to add to a multi-language group. | 
 **PrimaryId** | **string** | ID of primary language object in multi-language group. | 
 **PrimaryLanguage** | Pointer to **string** | Primary language of the multi-language group. | [optional] 
 
@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 
 ### NewAttachToLangPrimaryRequestVNext
 
-`func NewAttachToLangPrimaryRequestVNext(id string, language string, primaryId string, ) *AttachToLangPrimaryRequestVNext`
+`func NewAttachToLangPrimaryRequestVNext(language string, id string, primaryId string, ) *AttachToLangPrimaryRequestVNext`
 
 NewAttachToLangPrimaryRequestVNext instantiates a new AttachToLangPrimaryRequestVNext object
 This constructor will assign default values to properties that have it defined,
@@ -27,26 +27,6 @@ will change when the set of required properties is changed
 NewAttachToLangPrimaryRequestVNextWithDefaults instantiates a new AttachToLangPrimaryRequestVNext object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetId
-
-`func (o *AttachToLangPrimaryRequestVNext) GetId() string`
-
-GetId returns the Id field if non-nil, zero value otherwise.
-
-### GetIdOk
-
-`func (o *AttachToLangPrimaryRequestVNext) GetIdOk() (*string, bool)`
-
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetId
-
-`func (o *AttachToLangPrimaryRequestVNext) SetId(v string)`
-
-SetId sets Id field to given value.
-
 
 ### GetLanguage
 
@@ -66,6 +46,26 @@ and a boolean to check if the value has been set.
 `func (o *AttachToLangPrimaryRequestVNext) SetLanguage(v string)`
 
 SetLanguage sets Language field to given value.
+
+
+### GetId
+
+`func (o *AttachToLangPrimaryRequestVNext) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *AttachToLangPrimaryRequestVNext) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *AttachToLangPrimaryRequestVNext) SetId(v string)`
+
+SetId sets Id field to given value.
 
 
 ### GetPrimaryId

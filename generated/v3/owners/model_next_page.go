@@ -1,5 +1,5 @@
 /*
-CRM Owners
+Crm Owners
 
 HubSpot uses **owners** to assign CRM objects to specific people in your organization. The endpoints described here are used to get a list of the owners that are available for an account. To assign an owner to an object, set the hubspot_owner_id property using the appropriate CRM object update or create a request.  If teams are available for your HubSpot tier, these endpoints will also indicate which team(s) an owner can access, as well as which team is the owner's primary team.
 
@@ -16,8 +16,8 @@ import (
 
 // NextPage struct for NextPage
 type NextPage struct {
-	After string  `json:"after"`
 	Link  *string `json:"link,omitempty"`
+	After string  `json:"after"`
 }
 
 // NewNextPage instantiates a new NextPage object
@@ -36,30 +36,6 @@ func NewNextPage(after string) *NextPage {
 func NewNextPageWithDefaults() *NextPage {
 	this := NextPage{}
 	return &this
-}
-
-// GetAfter returns the After field value
-func (o *NextPage) GetAfter() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.After
-}
-
-// GetAfterOk returns a tuple with the After field value
-// and a boolean to check if the value has been set.
-func (o *NextPage) GetAfterOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.After, true
-}
-
-// SetAfter sets field value
-func (o *NextPage) SetAfter(v string) {
-	o.After = v
 }
 
 // GetLink returns the Link field value if set, zero value otherwise.
@@ -94,13 +70,37 @@ func (o *NextPage) SetLink(v string) {
 	o.Link = &v
 }
 
+// GetAfter returns the After field value
+func (o *NextPage) GetAfter() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.After
+}
+
+// GetAfterOk returns a tuple with the After field value
+// and a boolean to check if the value has been set.
+func (o *NextPage) GetAfterOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.After, true
+}
+
+// SetAfter sets field value
+func (o *NextPage) SetAfter(v string) {
+	o.After = v
+}
+
 func (o NextPage) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["after"] = o.After
-	}
 	if o.Link != nil {
 		toSerialize["link"] = o.Link
+	}
+	if true {
+		toSerialize["after"] = o.After
 	}
 	return json.Marshal(toSerialize)
 }

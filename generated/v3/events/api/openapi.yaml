@@ -1,19 +1,49 @@
 openapi: 3.0.1
 info:
   description: API for accessing CRM object events.
-  title: HubSpot Events API
+  title: Events
   version: v3
+  x-hubspot-product-tier-requirements:
+    marketing: ENTERPRISE
+    sales: ENTERPRISE
+    service: ENTERPRISE
+    cms: ENTERPRISE
+  x-hubspot-documentation-banner: NONE
+  x-hubspot-api-use-case: You want to view a timeline of the interactions that a contact
+    has had with your content. You can then use this timeline to build a dataset for
+    custom analytics or present a contact timeline in an external application.
+  x-hubspot-related-documentation:
+  - name: Web Analytics Guide
+    url: https://hubspot.dev/guides/api/events/web-analytics
+  x-hubspot-introduction: "Use the web analytics API to fetch events associated with\
+    \ CRM records of any type. This includes standard events, such as website page\
+    \ views and email opens, as well as custom behavioral events."
 servers:
-- url: https://api.hubapi.com/
+- url: https://api.hubapi.com
 tags:
-- name: Events
+- description: ""
+  name: Events
+  x-hubspot-tag-name-english-source: Events
 paths:
-  /events/v3/events:
+  /events/v3/events/:
     get:
-      operationId: GetPage
+      operationId: get-/events/v3/events/_getPage
       parameters:
-      - description: The starting time as an ISO 8601 timestamp.
-        explode: true
+      - explode: true
+        in: query
+        name: objectType
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: eventType
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
         in: query
         name: occurredAfter
         required: false
@@ -21,8 +51,7 @@ paths:
           format: date-time
           type: string
         style: form
-      - description: The ending time as an ISO 8601 timestamp.
-        explode: true
+      - explode: true
         in: query
         name: occurredBefore
         required: false
@@ -30,18 +59,7 @@ paths:
           format: date-time
           type: string
         style: form
-      - description: The type of object being selected. Valid values are hubspot named
-          object types (e.g. `contact`).
-        explode: true
-        in: query
-        name: objectType
-        required: false
-        schema:
-          type: string
-        style: form
-      - description: "The id of the selected object. If not present, then the `objectProperty`\
-          \ parameter is required."
-        explode: true
+      - explode: true
         in: query
         name: objectId
         required: false
@@ -49,18 +67,23 @@ paths:
           format: int64
           type: integer
         style: form
-      - description: Limits the response to the specified event type.  For example
-          `&eventType=e_visited_page` returns only `e_visited_page` events.  If not
-          present all event types are returned.
-        explode: true
+      - explode: true
         in: query
-        name: eventType
+        name: indexTableName
         required: false
         schema:
           type: string
         style: form
-      - description: An additional parameter that may be used to get the next `limit`
-          set of results.
+      - explode: true
+        in: query
+        name: indexSpecificMetadata
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: The paging cursor token of the last successfully read resource
+          will be returned as the `paging.next.after` JSON property of a paged response
+          containing more results.
         explode: true
         in: query
         name: after
@@ -75,7 +98,7 @@ paths:
         schema:
           type: string
         style: form
-      - description: "The maximum number of events to return, defaults to 20."
+      - description: The maximum number of results to display per page.
         explode: true
         in: query
         name: limit
@@ -84,12 +107,32 @@ paths:
           format: int32
           type: integer
         style: form
-      - description: "Selects the sort field and order. Defaults to ascending, prefix\
-          \ with `-` for descending order. `occurredAt` is the only field supported\
-          \ for sorting."
-        explode: true
+      - explode: true
         in: query
         name: sort
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - explode: true
+        in: query
+        name: "objectProperty.{propname}"
+        required: false
+        schema:
+          type: object
+        style: form
+      - explode: true
+        in: query
+        name: "property.{propname}"
+        required: false
+        schema:
+          type: object
+        style: form
+      - explode: true
+        in: query
+        name: id
         required: false
         schema:
           items:
@@ -110,11 +153,10 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
       security:
-      - oauth2_legacy:
-        - business-intelligence
       - private_apps_legacy:
-        - business-intelligence
-      summary: Returns a collection of events matching a query.
+        - oauth
+      - oauth2_legacy:
+        - oauth
       tags:
       - Events
 components:
@@ -128,19 +170,15 @@ components:
   schemas:
     ErrorDetail:
       properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          type: string
-        in:
-          description: The name of the field or parameter in which the error was found.
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
           type: string
         code:
           description: The status code associated with the error detail
           type: string
-        subCategory:
-          description: A specific category that contains more specific detail about
-            the error
+        in:
+          description: The name of the field or parameter in which the error was found.
           type: string
         context:
           additionalProperties:
@@ -153,6 +191,10 @@ components:
             - scope1
             - scope2
           type: object
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          type: string
       required:
       - message
       type: object
@@ -162,6 +204,9 @@ components:
           next:
             link: link
             after: after
+          prev:
+            before: before
+            link: link
         results:
         - occurredAt: 2000-01-23T04:56:07.000+00:00
           eventType: eventType
@@ -178,12 +223,13 @@ components:
             key: properties
           objectType: objectType
       properties:
+        paging:
+          $ref: '#/components/schemas/Paging'
         results:
+          description: ""
           items:
             $ref: '#/components/schemas/ExternalUnifiedEvent'
           type: array
-        paging:
-          $ref: '#/components/schemas/Paging'
       required:
       - results
       type: object
@@ -209,44 +255,60 @@ components:
           key: properties
         objectType: objectType
       properties:
-        objectType:
-          description: The objectType for the object which did the event.
-          type: string
-        objectId:
-          description: The objectId of the object which did the event.
+        occurredAt:
+          description: An ISO 8601 timestamp when the event occurred.
+          format: date-time
           type: string
         eventType:
           description: "The format of the `eventType` string is `ae{appId}_{eventTypeLabel}`,\
             \ `pe{portalId}_{eventTypeLabel}`, or just `e_{eventTypeLabel}` for HubSpot\
             \ events."
           type: string
-        occurredAt:
-          description: An ISO 8601 timestamp when the event occurred.
-          format: date-time
-          type: string
         id:
           description: A unique identifier for the event.
+          type: string
+        objectId:
+          description: The objectId of the object which did the event.
           type: string
         properties:
           additionalProperties:
             type: string
           type: object
+        objectType:
+          description: The objectType for the object which did the event.
+          type: string
       required:
       - eventType
       - id
       - objectId
       - objectType
       - occurredAt
-      - properties
+      type: object
+    PreviousPage:
+      example:
+        before: before
+        link: link
+      properties:
+        before:
+          type: string
+        link:
+          type: string
+      required:
+      - before
       type: object
     Paging:
       example:
         next:
           link: link
           after: after
+        prev:
+          before: before
+          link: link
       properties:
         next:
           $ref: '#/components/schemas/NextPage'
+        prev:
+          $ref: '#/components/schemas/PreviousPage'
       type: object
     Error:
       example:
@@ -256,29 +318,10 @@ components:
         links:
           knowledge-base: https://www.hubspot.com/products/service/knowledge-base
       properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          example: An error occurred
-          type: string
-        correlationId:
-          description: A unique identifier for the request. Include this value with
-            any error reports or support tickets
-          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
-          format: uuid
-          type: string
-        category:
-          description: The error category
-          type: string
         subCategory:
           description: A specific category that contains more specific detail about
             the error
           type: string
-        errors:
-          description: further information about the error
-          items:
-            $ref: '#/components/schemas/ErrorDetail'
-          type: array
         context:
           additionalProperties:
             items:
@@ -286,18 +329,40 @@ components:
             type: array
           description: Context about the error condition
           example:
-            invalidPropertyName:
-            - propertyValue
             missingScopes:
             - scope1
             - scope2
+            invalidPropertyName:
+            - propertyValue
           type: object
+        correlationId:
+          description: A unique identifier for the request. Include this value with
+            any error reports or support tickets
+          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
+          format: uuid
+          type: string
         links:
           additionalProperties:
             type: string
           description: A map of link names to associated URIs containing documentation
             about the error or recommended remediation steps
+          example:
+            knowledge-base: https://www.hubspot.com/products/service/knowledge-base
           type: object
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          example: Invalid input (details will vary based on the error)
+          type: string
+        category:
+          description: The error category
+          example: VALIDATION_ERROR
+          type: string
+        errors:
+          description: further information about the error
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
       required:
       - category
       - correlationId
@@ -308,9 +373,11 @@ components:
         link: link
         after: after
       properties:
-        after:
-          type: string
         link:
+          description: ""
+          type: string
+        after:
+          description: ""
           type: string
       required:
       - after
@@ -321,7 +388,7 @@ components:
         authorizationCode:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
-            business-intelligence: Read from Business Intelligence API
+            oauth: User and Account Information
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
     private_apps_legacy:
@@ -331,5 +398,11 @@ components:
 x-hubspot-available-client-libraries:
 - PHP
 - Node
-- Python
 - Ruby
+- Python
+x-hubspot-product-tier-requirements:
+  marketing: ENTERPRISE
+  sales: ENTERPRISE
+  service: ENTERPRISE
+  cms: ENTERPRISE
+x-hubspot-documentation-banner: NONE

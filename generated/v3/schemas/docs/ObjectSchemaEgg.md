@@ -4,20 +4,21 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Labels** | [**ObjectTypeDefinitionLabels**](ObjectTypeDefinitionLabels.md) |  | 
+**SecondaryDisplayProperties** | Pointer to **[]string** | The names of secondary properties for this object. These will be displayed as secondary on the HubSpot record page for this object type. | [optional] 
 **RequiredProperties** | **[]string** | The names of properties that should be **required** when creating an object of this type. | 
-**SearchableProperties** | **[]string** | Names of properties that will be indexed for this object type in by HubSpot&#39;s product search. | 
+**SearchableProperties** | Pointer to **[]string** | Names of properties that will be indexed for this object type in by HubSpot&#39;s product search. | [optional] 
 **PrimaryDisplayProperty** | Pointer to **string** | The name of the primary property for this object. This will be displayed as primary on the HubSpot record page for this object type. | [optional] 
-**SecondaryDisplayProperties** | **[]string** | The names of secondary properties for this object. These will be displayed as secondary on the HubSpot record page for this object type. | 
-**Properties** | [**[]ObjectTypePropertyCreate**](ObjectTypePropertyCreate.md) | Properties defined for this object type. | 
-**AssociatedObjects** | **[]string** | Associations defined for this object type. | 
 **Name** | **string** | A unique name for this object. For internal use only. | 
+**Description** | Pointer to **string** |  | [optional] 
+**AssociatedObjects** | **[]string** | Associations defined for this object type. | 
+**Properties** | [**[]ObjectTypePropertyCreate**](ObjectTypePropertyCreate.md) | Properties defined for this object type. | 
+**Labels** | [**ObjectTypeDefinitionLabels**](ObjectTypeDefinitionLabels.md) |  | 
 
 ## Methods
 
 ### NewObjectSchemaEgg
 
-`func NewObjectSchemaEgg(labels ObjectTypeDefinitionLabels, requiredProperties []string, searchableProperties []string, secondaryDisplayProperties []string, properties []ObjectTypePropertyCreate, associatedObjects []string, name string, ) *ObjectSchemaEgg`
+`func NewObjectSchemaEgg(requiredProperties []string, name string, associatedObjects []string, properties []ObjectTypePropertyCreate, labels ObjectTypeDefinitionLabels, ) *ObjectSchemaEgg`
 
 NewObjectSchemaEgg instantiates a new ObjectSchemaEgg object
 This constructor will assign default values to properties that have it defined,
@@ -32,25 +33,30 @@ NewObjectSchemaEggWithDefaults instantiates a new ObjectSchemaEgg object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetLabels
+### GetSecondaryDisplayProperties
 
-`func (o *ObjectSchemaEgg) GetLabels() ObjectTypeDefinitionLabels`
+`func (o *ObjectSchemaEgg) GetSecondaryDisplayProperties() []string`
 
-GetLabels returns the Labels field if non-nil, zero value otherwise.
+GetSecondaryDisplayProperties returns the SecondaryDisplayProperties field if non-nil, zero value otherwise.
 
-### GetLabelsOk
+### GetSecondaryDisplayPropertiesOk
 
-`func (o *ObjectSchemaEgg) GetLabelsOk() (*ObjectTypeDefinitionLabels, bool)`
+`func (o *ObjectSchemaEgg) GetSecondaryDisplayPropertiesOk() (*[]string, bool)`
 
-GetLabelsOk returns a tuple with the Labels field if it's non-nil, zero value otherwise
+GetSecondaryDisplayPropertiesOk returns a tuple with the SecondaryDisplayProperties field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetLabels
+### SetSecondaryDisplayProperties
 
-`func (o *ObjectSchemaEgg) SetLabels(v ObjectTypeDefinitionLabels)`
+`func (o *ObjectSchemaEgg) SetSecondaryDisplayProperties(v []string)`
 
-SetLabels sets Labels field to given value.
+SetSecondaryDisplayProperties sets SecondaryDisplayProperties field to given value.
 
+### HasSecondaryDisplayProperties
+
+`func (o *ObjectSchemaEgg) HasSecondaryDisplayProperties() bool`
+
+HasSecondaryDisplayProperties returns a boolean if a field has been set.
 
 ### GetRequiredProperties
 
@@ -91,6 +97,11 @@ and a boolean to check if the value has been set.
 
 SetSearchableProperties sets SearchableProperties field to given value.
 
+### HasSearchableProperties
+
+`func (o *ObjectSchemaEgg) HasSearchableProperties() bool`
+
+HasSearchableProperties returns a boolean if a field has been set.
 
 ### GetPrimaryDisplayProperty
 
@@ -117,24 +128,69 @@ SetPrimaryDisplayProperty sets PrimaryDisplayProperty field to given value.
 
 HasPrimaryDisplayProperty returns a boolean if a field has been set.
 
-### GetSecondaryDisplayProperties
+### GetName
 
-`func (o *ObjectSchemaEgg) GetSecondaryDisplayProperties() []string`
+`func (o *ObjectSchemaEgg) GetName() string`
 
-GetSecondaryDisplayProperties returns the SecondaryDisplayProperties field if non-nil, zero value otherwise.
+GetName returns the Name field if non-nil, zero value otherwise.
 
-### GetSecondaryDisplayPropertiesOk
+### GetNameOk
 
-`func (o *ObjectSchemaEgg) GetSecondaryDisplayPropertiesOk() (*[]string, bool)`
+`func (o *ObjectSchemaEgg) GetNameOk() (*string, bool)`
 
-GetSecondaryDisplayPropertiesOk returns a tuple with the SecondaryDisplayProperties field if it's non-nil, zero value otherwise
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetSecondaryDisplayProperties
+### SetName
 
-`func (o *ObjectSchemaEgg) SetSecondaryDisplayProperties(v []string)`
+`func (o *ObjectSchemaEgg) SetName(v string)`
 
-SetSecondaryDisplayProperties sets SecondaryDisplayProperties field to given value.
+SetName sets Name field to given value.
+
+
+### GetDescription
+
+`func (o *ObjectSchemaEgg) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *ObjectSchemaEgg) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *ObjectSchemaEgg) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *ObjectSchemaEgg) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
+
+### GetAssociatedObjects
+
+`func (o *ObjectSchemaEgg) GetAssociatedObjects() []string`
+
+GetAssociatedObjects returns the AssociatedObjects field if non-nil, zero value otherwise.
+
+### GetAssociatedObjectsOk
+
+`func (o *ObjectSchemaEgg) GetAssociatedObjectsOk() (*[]string, bool)`
+
+GetAssociatedObjectsOk returns a tuple with the AssociatedObjects field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAssociatedObjects
+
+`func (o *ObjectSchemaEgg) SetAssociatedObjects(v []string)`
+
+SetAssociatedObjects sets AssociatedObjects field to given value.
 
 
 ### GetProperties
@@ -157,44 +213,24 @@ and a boolean to check if the value has been set.
 SetProperties sets Properties field to given value.
 
 
-### GetAssociatedObjects
+### GetLabels
 
-`func (o *ObjectSchemaEgg) GetAssociatedObjects() []string`
+`func (o *ObjectSchemaEgg) GetLabels() ObjectTypeDefinitionLabels`
 
-GetAssociatedObjects returns the AssociatedObjects field if non-nil, zero value otherwise.
+GetLabels returns the Labels field if non-nil, zero value otherwise.
 
-### GetAssociatedObjectsOk
+### GetLabelsOk
 
-`func (o *ObjectSchemaEgg) GetAssociatedObjectsOk() (*[]string, bool)`
+`func (o *ObjectSchemaEgg) GetLabelsOk() (*ObjectTypeDefinitionLabels, bool)`
 
-GetAssociatedObjectsOk returns a tuple with the AssociatedObjects field if it's non-nil, zero value otherwise
+GetLabelsOk returns a tuple with the Labels field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetAssociatedObjects
+### SetLabels
 
-`func (o *ObjectSchemaEgg) SetAssociatedObjects(v []string)`
+`func (o *ObjectSchemaEgg) SetLabels(v ObjectTypeDefinitionLabels)`
 
-SetAssociatedObjects sets AssociatedObjects field to given value.
-
-
-### GetName
-
-`func (o *ObjectSchemaEgg) GetName() string`
-
-GetName returns the Name field if non-nil, zero value otherwise.
-
-### GetNameOk
-
-`func (o *ObjectSchemaEgg) GetNameOk() (*string, bool)`
-
-GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetName
-
-`func (o *ObjectSchemaEgg) SetName(v string)`
-
-SetName sets Name field to given value.
+SetLabels sets Labels field to given value.
 
 
 

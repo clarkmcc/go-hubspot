@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Styles** | [**Styles**](Styles.md) |  | 
 **CssClass** | **string** |  | 
+**Styles** | [**Styles**](Styles.md) |  | 
 
 ## Methods
 
 ### NewRowMetaData
 
-`func NewRowMetaData(styles Styles, cssClass string, ) *RowMetaData`
+`func NewRowMetaData(cssClass string, styles Styles, ) *RowMetaData`
 
 NewRowMetaData instantiates a new RowMetaData object
 This constructor will assign default values to properties that have it defined,
@@ -25,26 +25,6 @@ will change when the set of required properties is changed
 NewRowMetaDataWithDefaults instantiates a new RowMetaData object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetStyles
-
-`func (o *RowMetaData) GetStyles() Styles`
-
-GetStyles returns the Styles field if non-nil, zero value otherwise.
-
-### GetStylesOk
-
-`func (o *RowMetaData) GetStylesOk() (*Styles, bool)`
-
-GetStylesOk returns a tuple with the Styles field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetStyles
-
-`func (o *RowMetaData) SetStyles(v Styles)`
-
-SetStyles sets Styles field to given value.
-
 
 ### GetCssClass
 
@@ -64,6 +44,26 @@ and a boolean to check if the value has been set.
 `func (o *RowMetaData) SetCssClass(v string)`
 
 SetCssClass sets CssClass field to given value.
+
+
+### GetStyles
+
+`func (o *RowMetaData) GetStyles() Styles`
+
+GetStyles returns the Styles field if non-nil, zero value otherwise.
+
+### GetStylesOk
+
+`func (o *RowMetaData) GetStylesOk() (*Styles, bool)`
+
+GetStylesOk returns a tuple with the Styles field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStyles
+
+`func (o *RowMetaData) SetStyles(v Styles)`
+
+SetStyles sets Styles field to given value.
 
 
 

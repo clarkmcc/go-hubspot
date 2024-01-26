@@ -4,19 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Message** | **string** | A human readable message describing the error along with remediation steps where appropriate | 
-**CorrelationId** | **string** | A unique identifier for the request. Include this value with any error reports or support tickets | 
-**Category** | **string** | The error category | 
 **SubCategory** | Pointer to **string** | A specific category that contains more specific detail about the error | [optional] 
-**Errors** | Pointer to [**[]ErrorDetail**](ErrorDetail.md) | further information about the error | [optional] 
 **Context** | Pointer to **map[string][]string** | Context about the error condition | [optional] 
+**CorrelationId** | **string** | A unique identifier for the request. Include this value with any error reports or support tickets | 
 **Links** | Pointer to **map[string]string** | A map of link names to associated URIs containing documentation about the error or recommended remediation steps | [optional] 
+**Message** | **string** | A human readable message describing the error along with remediation steps where appropriate | 
+**Category** | **string** | The error category | 
+**Errors** | Pointer to [**[]ErrorDetail**](ErrorDetail.md) | further information about the error | [optional] 
 
 ## Methods
 
 ### NewError
 
-`func NewError(message string, correlationId string, category string, ) *Error`
+`func NewError(correlationId string, message string, category string, ) *Error`
 
 NewError instantiates a new Error object
 This constructor will assign default values to properties that have it defined,
@@ -30,66 +30,6 @@ will change when the set of required properties is changed
 NewErrorWithDefaults instantiates a new Error object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetMessage
-
-`func (o *Error) GetMessage() string`
-
-GetMessage returns the Message field if non-nil, zero value otherwise.
-
-### GetMessageOk
-
-`func (o *Error) GetMessageOk() (*string, bool)`
-
-GetMessageOk returns a tuple with the Message field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetMessage
-
-`func (o *Error) SetMessage(v string)`
-
-SetMessage sets Message field to given value.
-
-
-### GetCorrelationId
-
-`func (o *Error) GetCorrelationId() string`
-
-GetCorrelationId returns the CorrelationId field if non-nil, zero value otherwise.
-
-### GetCorrelationIdOk
-
-`func (o *Error) GetCorrelationIdOk() (*string, bool)`
-
-GetCorrelationIdOk returns a tuple with the CorrelationId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCorrelationId
-
-`func (o *Error) SetCorrelationId(v string)`
-
-SetCorrelationId sets CorrelationId field to given value.
-
-
-### GetCategory
-
-`func (o *Error) GetCategory() string`
-
-GetCategory returns the Category field if non-nil, zero value otherwise.
-
-### GetCategoryOk
-
-`func (o *Error) GetCategoryOk() (*string, bool)`
-
-GetCategoryOk returns a tuple with the Category field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCategory
-
-`func (o *Error) SetCategory(v string)`
-
-SetCategory sets Category field to given value.
-
 
 ### GetSubCategory
 
@@ -116,31 +56,6 @@ SetSubCategory sets SubCategory field to given value.
 
 HasSubCategory returns a boolean if a field has been set.
 
-### GetErrors
-
-`func (o *Error) GetErrors() []ErrorDetail`
-
-GetErrors returns the Errors field if non-nil, zero value otherwise.
-
-### GetErrorsOk
-
-`func (o *Error) GetErrorsOk() (*[]ErrorDetail, bool)`
-
-GetErrorsOk returns a tuple with the Errors field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetErrors
-
-`func (o *Error) SetErrors(v []ErrorDetail)`
-
-SetErrors sets Errors field to given value.
-
-### HasErrors
-
-`func (o *Error) HasErrors() bool`
-
-HasErrors returns a boolean if a field has been set.
-
 ### GetContext
 
 `func (o *Error) GetContext() map[string][]string`
@@ -166,6 +81,26 @@ SetContext sets Context field to given value.
 
 HasContext returns a boolean if a field has been set.
 
+### GetCorrelationId
+
+`func (o *Error) GetCorrelationId() string`
+
+GetCorrelationId returns the CorrelationId field if non-nil, zero value otherwise.
+
+### GetCorrelationIdOk
+
+`func (o *Error) GetCorrelationIdOk() (*string, bool)`
+
+GetCorrelationIdOk returns a tuple with the CorrelationId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCorrelationId
+
+`func (o *Error) SetCorrelationId(v string)`
+
+SetCorrelationId sets CorrelationId field to given value.
+
+
 ### GetLinks
 
 `func (o *Error) GetLinks() map[string]string`
@@ -190,6 +125,71 @@ SetLinks sets Links field to given value.
 `func (o *Error) HasLinks() bool`
 
 HasLinks returns a boolean if a field has been set.
+
+### GetMessage
+
+`func (o *Error) GetMessage() string`
+
+GetMessage returns the Message field if non-nil, zero value otherwise.
+
+### GetMessageOk
+
+`func (o *Error) GetMessageOk() (*string, bool)`
+
+GetMessageOk returns a tuple with the Message field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMessage
+
+`func (o *Error) SetMessage(v string)`
+
+SetMessage sets Message field to given value.
+
+
+### GetCategory
+
+`func (o *Error) GetCategory() string`
+
+GetCategory returns the Category field if non-nil, zero value otherwise.
+
+### GetCategoryOk
+
+`func (o *Error) GetCategoryOk() (*string, bool)`
+
+GetCategoryOk returns a tuple with the Category field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCategory
+
+`func (o *Error) SetCategory(v string)`
+
+SetCategory sets Category field to given value.
+
+
+### GetErrors
+
+`func (o *Error) GetErrors() []ErrorDetail`
+
+GetErrors returns the Errors field if non-nil, zero value otherwise.
+
+### GetErrorsOk
+
+`func (o *Error) GetErrorsOk() (*[]ErrorDetail, bool)`
+
+GetErrorsOk returns a tuple with the Errors field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetErrors
+
+`func (o *Error) SetErrors(v []ErrorDetail)`
+
+SetErrors sets Errors field to given value.
+
+### HasErrors
+
+`func (o *Error) HasErrors() bool`
+
+HasErrors returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -4,14 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Properties** | **map[string]string** |  | 
-**Id** | **string** |  | 
+**IdProperty** | Pointer to **string** |  | [optional] 
+**Id** | Pointer to **string** |  | [optional] 
+**Properties** | Pointer to **map[string]string** |  | [optional] 
 
 ## Methods
 
 ### NewSimplePublicObjectBatchInput
 
-`func NewSimplePublicObjectBatchInput(properties map[string]string, id string, ) *SimplePublicObjectBatchInput`
+`func NewSimplePublicObjectBatchInput() *SimplePublicObjectBatchInput`
 
 NewSimplePublicObjectBatchInput instantiates a new SimplePublicObjectBatchInput object
 This constructor will assign default values to properties that have it defined,
@@ -26,25 +27,30 @@ NewSimplePublicObjectBatchInputWithDefaults instantiates a new SimplePublicObjec
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetProperties
+### GetIdProperty
 
-`func (o *SimplePublicObjectBatchInput) GetProperties() map[string]string`
+`func (o *SimplePublicObjectBatchInput) GetIdProperty() string`
 
-GetProperties returns the Properties field if non-nil, zero value otherwise.
+GetIdProperty returns the IdProperty field if non-nil, zero value otherwise.
 
-### GetPropertiesOk
+### GetIdPropertyOk
 
-`func (o *SimplePublicObjectBatchInput) GetPropertiesOk() (*map[string]string, bool)`
+`func (o *SimplePublicObjectBatchInput) GetIdPropertyOk() (*string, bool)`
 
-GetPropertiesOk returns a tuple with the Properties field if it's non-nil, zero value otherwise
+GetIdPropertyOk returns a tuple with the IdProperty field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetProperties
+### SetIdProperty
 
-`func (o *SimplePublicObjectBatchInput) SetProperties(v map[string]string)`
+`func (o *SimplePublicObjectBatchInput) SetIdProperty(v string)`
 
-SetProperties sets Properties field to given value.
+SetIdProperty sets IdProperty field to given value.
 
+### HasIdProperty
+
+`func (o *SimplePublicObjectBatchInput) HasIdProperty() bool`
+
+HasIdProperty returns a boolean if a field has been set.
 
 ### GetId
 
@@ -65,6 +71,36 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
+### HasId
+
+`func (o *SimplePublicObjectBatchInput) HasId() bool`
+
+HasId returns a boolean if a field has been set.
+
+### GetProperties
+
+`func (o *SimplePublicObjectBatchInput) GetProperties() map[string]string`
+
+GetProperties returns the Properties field if non-nil, zero value otherwise.
+
+### GetPropertiesOk
+
+`func (o *SimplePublicObjectBatchInput) GetPropertiesOk() (*map[string]string, bool)`
+
+GetPropertiesOk returns a tuple with the Properties field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProperties
+
+`func (o *SimplePublicObjectBatchInput) SetProperties(v map[string]string)`
+
+SetProperties sets Properties field to given value.
+
+### HasProperties
+
+`func (o *SimplePublicObjectBatchInput) HasProperties() bool`
+
+HasProperties returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

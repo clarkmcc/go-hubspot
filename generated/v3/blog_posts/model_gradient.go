@@ -1,5 +1,5 @@
 /*
-Blog Post endpoints
+Posts
 
 Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags
 
@@ -16,8 +16,8 @@ import (
 
 // Gradient struct for Gradient
 type Gradient struct {
-	SideOrCorner SideOrCorner `json:"sideOrCorner"`
 	Angle        Angle        `json:"angle"`
+	SideOrCorner SideOrCorner `json:"sideOrCorner"`
 	Colors       []ColorStop  `json:"colors"`
 }
 
@@ -25,10 +25,10 @@ type Gradient struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGradient(sideOrCorner SideOrCorner, angle Angle, colors []ColorStop) *Gradient {
+func NewGradient(angle Angle, sideOrCorner SideOrCorner, colors []ColorStop) *Gradient {
 	this := Gradient{}
-	this.SideOrCorner = sideOrCorner
 	this.Angle = angle
+	this.SideOrCorner = sideOrCorner
 	this.Colors = colors
 	return &this
 }
@@ -39,30 +39,6 @@ func NewGradient(sideOrCorner SideOrCorner, angle Angle, colors []ColorStop) *Gr
 func NewGradientWithDefaults() *Gradient {
 	this := Gradient{}
 	return &this
-}
-
-// GetSideOrCorner returns the SideOrCorner field value
-func (o *Gradient) GetSideOrCorner() SideOrCorner {
-	if o == nil {
-		var ret SideOrCorner
-		return ret
-	}
-
-	return o.SideOrCorner
-}
-
-// GetSideOrCornerOk returns a tuple with the SideOrCorner field value
-// and a boolean to check if the value has been set.
-func (o *Gradient) GetSideOrCornerOk() (*SideOrCorner, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.SideOrCorner, true
-}
-
-// SetSideOrCorner sets field value
-func (o *Gradient) SetSideOrCorner(v SideOrCorner) {
-	o.SideOrCorner = v
 }
 
 // GetAngle returns the Angle field value
@@ -87,6 +63,30 @@ func (o *Gradient) GetAngleOk() (*Angle, bool) {
 // SetAngle sets field value
 func (o *Gradient) SetAngle(v Angle) {
 	o.Angle = v
+}
+
+// GetSideOrCorner returns the SideOrCorner field value
+func (o *Gradient) GetSideOrCorner() SideOrCorner {
+	if o == nil {
+		var ret SideOrCorner
+		return ret
+	}
+
+	return o.SideOrCorner
+}
+
+// GetSideOrCornerOk returns a tuple with the SideOrCorner field value
+// and a boolean to check if the value has been set.
+func (o *Gradient) GetSideOrCornerOk() (*SideOrCorner, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.SideOrCorner, true
+}
+
+// SetSideOrCorner sets field value
+func (o *Gradient) SetSideOrCorner(v SideOrCorner) {
+	o.SideOrCorner = v
 }
 
 // GetColors returns the Colors field value
@@ -116,10 +116,10 @@ func (o *Gradient) SetColors(v []ColorStop) {
 func (o Gradient) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["sideOrCorner"] = o.SideOrCorner
+		toSerialize["angle"] = o.Angle
 	}
 	if true {
-		toSerialize["angle"] = o.Angle
+		toSerialize["sideOrCorner"] = o.SideOrCorner
 	}
 	if true {
 		toSerialize["colors"] = o.Colors

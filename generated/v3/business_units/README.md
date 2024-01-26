@@ -78,7 +78,7 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*BusinessUnitApi* | [**GetBusinessUnitsV3BusinessUnitsUserUserId**](docs/BusinessUnitApi.md#getbusinessunitsv3businessunitsuseruserid) | **Get** /business-units/v3/business-units/user/{userId} | Get Business Units for a user
+*BusinessUnitApi* | [**GetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserID**](docs/BusinessUnitApi.md#getbusinessunitsv3businessunitsuseruseridgetbyuserid) | **Get** /business-units/v3/business-units/user/{userId} | Get Business Units for a user
 
 
 ## Documentation For Models

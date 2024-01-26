@@ -5,6 +5,18 @@ info:
     \ are used to create CMS content."
   title: CMS Source Code
   version: v3
+  x-hubspot-product-tier-requirements:
+    marketing: FREE
+    cms: FREE
+  x-hubspot-documentation-banner: NONE
+  x-hubspot-api-use-case: Retrieve a drafted website page template to view its contents
+    before publishing.
+  x-hubspot-related-documentation:
+  - name: Source Code Guide
+    url: https://hubspot.dev/guides/api/cms/source-code
+  x-hubspot-introduction: "Use the source code API to interact with files stored in\
+    \ the developer file system. These files are surfaced in the design manager, and\
+    \ include template, module, CSS, JavaScript, and other CMS asset files."
 servers:
 - url: https://api.hubapi.com
 tags:
@@ -14,12 +26,102 @@ tags:
 - name: Extract
 - name: Source_Code_Extract
 paths:
-  /cms/v3/source-code/{environment}/validate/{path}:
-    post:
-      description: Validates the file contents passed to the endpoint given a specified
-        path and environment. Accepts multipart/form-data content type.
-      operationId: Validate
+  /cms/v3/source-code/{environment}/content/{path}:
+    delete:
+      description: Deletes the file at the specified path in the specified environment.
+      operationId: ContentArchive
       parameters:
+      - description: The environment of the file ("draft" or "published").
+        explode: false
+        in: path
+        name: environment
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The file system location of the file.
+        explode: false
+        in: path
+        name: path
+        required: true
+        schema:
+          pattern: .+
+          type: string
+        style: simple
+      responses:
+        "204":
+          content: {}
+          description: No content
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - private_apps_legacy:
+        - content
+      - oauth2_legacy:
+        - content
+      summary: Delete a file
+      tags:
+      - Content
+      x-hubspot-rate-limit-exemptions:
+      - ten-secondly
+    get:
+      description: Downloads the byte contents of the file at the specified path in
+        the specified environment.
+      operationId: "get-/cms/v3/source-code/{environment}/content/{path}_download"
+      parameters:
+      - description: The environment of the file ("draft" or "published").
+        explode: false
+        in: path
+        name: environment
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The file system location of the file.
+        explode: false
+        in: path
+        name: path
+        required: true
+        schema:
+          pattern: .+
+          type: string
+        style: simple
+      responses:
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - private_apps_legacy:
+        - content
+      - oauth2_legacy:
+        - content
+      summary: Download a file
+      tags:
+      - Content
+      x-hubspot-rate-limit-exemptions:
+      - ten-secondly
+    post:
+      deprecated: true
+      description: Creates a file at the specified path in the specified environment.
+        Accepts multipart/form-data content type. Throws an error if a file already
+        exists at the specified path.
+      operationId: ContentCreate
+      parameters:
+      - description: The environment of the file ("draft" or "published").
+        explode: false
+        in: path
+        name: environment
+        required: true
+        schema:
+          type: string
+        style: simple
       - description: The file system location of the file.
         explode: false
         in: path
@@ -33,8 +135,22 @@ paths:
         content:
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/Validate_request'
+              $ref: '#/components/schemas/put__cms_v3_source_code__environment__content__path__createOrUpdate_request'
       responses:
+        "200":
+          content:
+            application/json:
+              example:
+                id: /example.json
+                name: example.json
+                folder: false
+                children: []
+                updatedAt: 1608049506
+                createdAt: 1608049506
+                archivedAt: 0
+              schema:
+                $ref: '#/components/schemas/AssetFileMetadata'
+          description: successful operation
         default:
           content:
             '*/*':
@@ -46,9 +162,69 @@ paths:
         - content
       - oauth2_legacy:
         - content
-      summary: Validate the contents of a file
+      summary: Create a file
       tags:
-      - Validation
+      - Content
+      x-hubspot-rate-limit-exemptions:
+      - ten-secondly
+    put:
+      description: Upserts a file at the specified path in the specified environment.
+        Accepts multipart/form-data content type.
+      operationId: "put-/cms/v3/source-code/{environment}/content/{path}_createOrUpdate"
+      parameters:
+      - description: The environment of the file ("draft" or "published").
+        explode: false
+        in: path
+        name: environment
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The file system location of the file.
+        explode: false
+        in: path
+        name: path
+        required: true
+        schema:
+          pattern: .+
+          type: string
+        style: simple
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/put__cms_v3_source_code__environment__content__path__createOrUpdate_request'
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                id: /example.json
+                name: example.json
+                folder: false
+                children: []
+                updatedAt: 1608049506
+                createdAt: 1608049506
+                archivedAt: 0
+              schema:
+                $ref: '#/components/schemas/AssetFileMetadata'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - private_apps_legacy:
+        - content
+      - oauth2_legacy:
+        - content
+      summary: Create or update a file
+      tags:
+      - Content
+      x-hubspot-rate-limit-exemptions:
+      - ten-secondly
   /cms/v3/source-code/{environment}/metadata/{path}:
     get:
       description: Gets the metadata object for the file at the specified path in
@@ -108,98 +284,14 @@ paths:
       summary: Get the metadata for a file
       tags:
       - Metadata
-  /cms/v3/source-code/{environment}/content/{path}:
-    delete:
-      description: Deletes the file at the specified path in the specified environment.
-      operationId: ContentArchive
-      parameters:
-      - description: The environment of the file ("draft" or "published").
-        explode: false
-        in: path
-        name: environment
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: The file system location of the file.
-        explode: false
-        in: path
-        name: path
-        required: true
-        schema:
-          pattern: .+
-          type: string
-        style: simple
-      responses:
-        "204":
-          content: {}
-          description: No content
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - private_apps_legacy:
-        - content
-      - oauth2_legacy:
-        - content
-      summary: Delete a file
-      tags:
-      - Content
-    get:
-      description: Downloads the byte contents of the file at the specified path in
-        the specified environment.
-      operationId: ContentGet
-      parameters:
-      - description: The environment of the file ("draft" or "published").
-        explode: false
-        in: path
-        name: environment
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: The file system location of the file.
-        explode: false
-        in: path
-        name: path
-        required: true
-        schema:
-          pattern: .+
-          type: string
-        style: simple
-      responses:
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - private_apps_legacy:
-        - content
-      - oauth2_legacy:
-        - content
-      summary: Download a file
-      tags:
-      - Content
+      x-hubspot-rate-limit-exemptions:
+      - ten-secondly
+  /cms/v3/source-code/{environment}/validate/{path}:
     post:
-      deprecated: true
-      description: Creates a file at the specified path in the specified environment.
-        Accepts multipart/form-data content type. Throws an error if a file already
-        exists at the specified path.
-      operationId: ContentCreate
+      description: Validates the file contents passed to the endpoint given a specified
+        path and environment. Accepts multipart/form-data content type.
+      operationId: Validate
       parameters:
-      - description: The environment of the file ("draft" or "published").
-        explode: false
-        in: path
-        name: environment
-        required: true
-        schema:
-          type: string
-        style: simple
       - description: The file system location of the file.
         explode: false
         in: path
@@ -213,22 +305,8 @@ paths:
         content:
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/ContentReplace_request'
+              $ref: '#/components/schemas/Validate_request'
       responses:
-        "200":
-          content:
-            application/json:
-              example:
-                id: /example.json
-                name: example.json
-                folder: false
-                children: []
-                updatedAt: 1608049506
-                createdAt: 1608049506
-                archivedAt: 0
-              schema:
-                $ref: '#/components/schemas/AssetFileMetadata'
-          description: successful operation
         default:
           content:
             '*/*':
@@ -240,65 +318,11 @@ paths:
         - content
       - oauth2_legacy:
         - content
-      summary: Create a file
+      summary: Validate the contents of a file
       tags:
-      - Content
-    put:
-      description: Upserts a file at the specified path in the specified environment.
-        Accepts multipart/form-data content type.
-      operationId: ContentReplace
-      parameters:
-      - description: The environment of the file ("draft" or "published").
-        explode: false
-        in: path
-        name: environment
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: The file system location of the file.
-        explode: false
-        in: path
-        name: path
-        required: true
-        schema:
-          pattern: .+
-          type: string
-        style: simple
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/ContentReplace_request'
-      responses:
-        "200":
-          content:
-            application/json:
-              example:
-                id: /example.json
-                name: example.json
-                folder: false
-                children: []
-                updatedAt: 1608049506
-                createdAt: 1608049506
-                archivedAt: 0
-              schema:
-                $ref: '#/components/schemas/AssetFileMetadata'
-          description: successful operation
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - private_apps_legacy:
-        - content
-      - oauth2_legacy:
-        - content
-      summary: Create or update a file
-      tags:
-      - Content
+      - Validation
+      x-hubspot-rate-limit-exemptions:
+      - ten-secondly
   /cms/v3/source-code/extract/{path}:
     post:
       deprecated: true
@@ -406,19 +430,15 @@ components:
   schemas:
     ErrorDetail:
       properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          type: string
-        in:
-          description: The name of the field or parameter in which the error was found.
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
           type: string
         code:
           description: The status code associated with the error detail
           type: string
-        subCategory:
-          description: A specific category that contains more specific detail about
-            the error
+        in:
+          description: The name of the field or parameter in which the error was found.
           type: string
         context:
           additionalProperties:
@@ -431,8 +451,62 @@ components:
             - scope1
             - scope2
           type: object
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          type: string
       required:
       - message
+      type: object
+    AssetFileMetadata:
+      description: The object metadata of a file.
+      example:
+        createdAt: 0
+        archivedAt: 6
+        folder: true
+        children:
+        - children
+        - children
+        name: name
+        id: id
+        hash: hash
+        updatedAt: 1
+      properties:
+        createdAt:
+          description: Timestamp of when the object was first created.
+          format: int32
+          type: integer
+        archivedAt:
+          description: Timestamp of when the object was archived (deleted).
+          format: int64
+          type: integer
+        folder:
+          description: Determines whether or not this path points to a folder.
+          type: boolean
+        children:
+          description: "If the object is a folder, contains the filenames of the files\
+            \ within the folder."
+          items:
+            type: string
+          type: array
+        name:
+          description: The name of the file.
+          type: string
+        id:
+          description: The path of the file in the CMS Developer File System.
+          type: string
+        hash:
+          type: string
+        updatedAt:
+          description: Timestamp of when the object was last updated.
+          format: int32
+          type: integer
+      required:
+      - createdAt
+      - folder
+      - id
+      - name
+      - updatedAt
       type: object
     FileExtractRequest:
       example:
@@ -443,56 +517,6 @@ components:
       required:
       - path
       type: object
-    AssetFileMetadata:
-      description: The object metadata of a file.
-      example:
-        createdAt: 6
-        archivedAt: 1
-        folder: true
-        children:
-        - children
-        - children
-        name: name
-        id: id
-        hash: hash
-        updatedAt: 0
-      properties:
-        id:
-          description: The path of the file in the CMS Developer File System.
-          type: string
-        name:
-          description: The name of the file.
-          type: string
-        folder:
-          description: Determines whether or not this path points to a folder.
-          type: boolean
-        children:
-          description: "If the object is a folder, contains the filenames of the files\
-            \ within the folder."
-          items:
-            type: string
-          type: array
-        updatedAt:
-          description: Timestamp of when the object was last updated.
-          format: int32
-          type: integer
-        createdAt:
-          description: Timestamp of when the object was first created.
-          format: int32
-          type: integer
-        archivedAt:
-          description: Timestamp of when the object was archived (deleted).
-          format: int64
-          type: integer
-        hash:
-          type: string
-      required:
-      - createdAt
-      - folder
-      - id
-      - name
-      - updatedAt
-      type: object
     Error:
       example:
         message: Invalid input (details will vary based on the error)
@@ -501,29 +525,10 @@ components:
         links:
           knowledge-base: https://www.hubspot.com/products/service/knowledge-base
       properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          example: An error occurred
-          type: string
-        correlationId:
-          description: A unique identifier for the request. Include this value with
-            any error reports or support tickets
-          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
-          format: uuid
-          type: string
-        category:
-          description: The error category
-          type: string
         subCategory:
           description: A specific category that contains more specific detail about
             the error
           type: string
-        errors:
-          description: further information about the error
-          items:
-            $ref: '#/components/schemas/ErrorDetail'
-          type: array
         context:
           additionalProperties:
             items:
@@ -531,18 +536,40 @@ components:
             type: array
           description: Context about the error condition
           example:
-            invalidPropertyName:
-            - propertyValue
             missingScopes:
             - scope1
             - scope2
+            invalidPropertyName:
+            - propertyValue
           type: object
+        correlationId:
+          description: A unique identifier for the request. Include this value with
+            any error reports or support tickets
+          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
+          format: uuid
+          type: string
         links:
           additionalProperties:
             type: string
           description: A map of link names to associated URIs containing documentation
             about the error or recommended remediation steps
+          example:
+            knowledge-base: https://www.hubspot.com/products/service/knowledge-base
           type: object
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          example: Invalid input (details will vary based on the error)
+          type: string
+        category:
+          description: The error category
+          example: VALIDATION_ERROR
+          type: string
+        errors:
+          description: further information about the error
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
       required:
       - category
       - correlationId
@@ -557,12 +584,8 @@ components:
           key: links
         status: PENDING
       properties:
-        status:
-          enum:
-          - PENDING
-          - PROCESSING
-          - CANCELED
-          - COMPLETE
+        completedAt:
+          format: date-time
           type: string
         requestedAt:
           format: date-time
@@ -570,13 +593,17 @@ components:
         startedAt:
           format: date-time
           type: string
-        completedAt:
-          format: date-time
-          type: string
         links:
           additionalProperties:
             type: string
           type: object
+        status:
+          enum:
+          - PENDING
+          - PROCESSING
+          - CANCELED
+          - COMPLETE
+          type: string
       required:
       - completedAt
       - startedAt
@@ -588,26 +615,26 @@ components:
           key: links
         id: id
       properties:
-        id:
-          type: string
         links:
           additionalProperties:
             type: string
           type: object
+        id:
+          type: string
       required:
       - id
+      type: object
+    put__cms_v3_source_code__environment__content__path__createOrUpdate_request:
+      properties:
+        file:
+          description: The file to upload.
+          format: binary
+          type: string
       type: object
     Validate_request:
       properties:
         file:
           description: The file to validate.
-          format: binary
-          type: string
-      type: object
-    ContentReplace_request:
-      properties:
-        file:
-          description: The file to upload.
           format: binary
           type: string
       type: object
@@ -631,7 +658,5 @@ x-hubspot-available-client-libraries:
 - Python
 x-hubspot-product-tier-requirements:
   marketing: FREE
-  sales: FREE
-  service: FREE
   cms: FREE
 x-hubspot-documentation-banner: NONE

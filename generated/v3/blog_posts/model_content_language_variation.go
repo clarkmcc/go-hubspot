@@ -1,5 +1,5 @@
 /*
-Blog Post endpoints
+Posts
 
 Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags
 
@@ -17,41 +17,41 @@ import (
 
 // ContentLanguageVariation struct for ContentLanguageVariation
 type ContentLanguageVariation struct {
-	Id                       int64                    `json:"id"`
-	Name                     string                   `json:"name"`
-	Slug                     string                   `json:"slug"`
-	State                    string                   `json:"state"`
-	AuthorName               string                   `json:"authorName"`
-	Password                 string                   `json:"password"`
-	PublicAccessRulesEnabled bool                     `json:"publicAccessRulesEnabled"`
-	PublicAccessRules        []map[string]interface{} `json:"publicAccessRules"`
-	Campaign                 string                   `json:"campaign"`
-	TagIds                   []int64                  `json:"tagIds,omitempty"`
 	ArchivedInDashboard      bool                     `json:"archivedInDashboard"`
 	Created                  time.Time                `json:"created"`
-	Updated                  time.Time                `json:"updated"`
+	TagIds                   []int64                  `json:"tagIds,omitempty"`
 	PublishDate              time.Time                `json:"publishDate"`
+	PublicAccessRules        []map[string]interface{} `json:"publicAccessRules"`
+	Password                 string                   `json:"password"`
+	AuthorName               string                   `json:"authorName"`
+	PublicAccessRulesEnabled bool                     `json:"publicAccessRulesEnabled"`
+	Name                     string                   `json:"name"`
+	Campaign                 string                   `json:"campaign"`
+	Id                       int64                    `json:"id"`
+	State                    string                   `json:"state"`
+	Updated                  time.Time                `json:"updated"`
+	Slug                     string                   `json:"slug"`
 }
 
 // NewContentLanguageVariation instantiates a new ContentLanguageVariation object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewContentLanguageVariation(id int64, name string, slug string, state string, authorName string, password string, publicAccessRulesEnabled bool, publicAccessRules []map[string]interface{}, campaign string, archivedInDashboard bool, created time.Time, updated time.Time, publishDate time.Time) *ContentLanguageVariation {
+func NewContentLanguageVariation(archivedInDashboard bool, created time.Time, publishDate time.Time, publicAccessRules []map[string]interface{}, password string, authorName string, publicAccessRulesEnabled bool, name string, campaign string, id int64, state string, updated time.Time, slug string) *ContentLanguageVariation {
 	this := ContentLanguageVariation{}
-	this.Id = id
-	this.Name = name
-	this.Slug = slug
-	this.State = state
-	this.AuthorName = authorName
-	this.Password = password
-	this.PublicAccessRulesEnabled = publicAccessRulesEnabled
-	this.PublicAccessRules = publicAccessRules
-	this.Campaign = campaign
 	this.ArchivedInDashboard = archivedInDashboard
 	this.Created = created
-	this.Updated = updated
 	this.PublishDate = publishDate
+	this.PublicAccessRules = publicAccessRules
+	this.Password = password
+	this.AuthorName = authorName
+	this.PublicAccessRulesEnabled = publicAccessRulesEnabled
+	this.Name = name
+	this.Campaign = campaign
+	this.Id = id
+	this.State = state
+	this.Updated = updated
+	this.Slug = slug
 	return &this
 }
 
@@ -61,254 +61,6 @@ func NewContentLanguageVariation(id int64, name string, slug string, state strin
 func NewContentLanguageVariationWithDefaults() *ContentLanguageVariation {
 	this := ContentLanguageVariation{}
 	return &this
-}
-
-// GetId returns the Id field value
-func (o *ContentLanguageVariation) GetId() int64 {
-	if o == nil {
-		var ret int64
-		return ret
-	}
-
-	return o.Id
-}
-
-// GetIdOk returns a tuple with the Id field value
-// and a boolean to check if the value has been set.
-func (o *ContentLanguageVariation) GetIdOk() (*int64, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Id, true
-}
-
-// SetId sets field value
-func (o *ContentLanguageVariation) SetId(v int64) {
-	o.Id = v
-}
-
-// GetName returns the Name field value
-func (o *ContentLanguageVariation) GetName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value
-// and a boolean to check if the value has been set.
-func (o *ContentLanguageVariation) GetNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Name, true
-}
-
-// SetName sets field value
-func (o *ContentLanguageVariation) SetName(v string) {
-	o.Name = v
-}
-
-// GetSlug returns the Slug field value
-func (o *ContentLanguageVariation) GetSlug() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Slug
-}
-
-// GetSlugOk returns a tuple with the Slug field value
-// and a boolean to check if the value has been set.
-func (o *ContentLanguageVariation) GetSlugOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Slug, true
-}
-
-// SetSlug sets field value
-func (o *ContentLanguageVariation) SetSlug(v string) {
-	o.Slug = v
-}
-
-// GetState returns the State field value
-func (o *ContentLanguageVariation) GetState() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.State
-}
-
-// GetStateOk returns a tuple with the State field value
-// and a boolean to check if the value has been set.
-func (o *ContentLanguageVariation) GetStateOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.State, true
-}
-
-// SetState sets field value
-func (o *ContentLanguageVariation) SetState(v string) {
-	o.State = v
-}
-
-// GetAuthorName returns the AuthorName field value
-func (o *ContentLanguageVariation) GetAuthorName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.AuthorName
-}
-
-// GetAuthorNameOk returns a tuple with the AuthorName field value
-// and a boolean to check if the value has been set.
-func (o *ContentLanguageVariation) GetAuthorNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.AuthorName, true
-}
-
-// SetAuthorName sets field value
-func (o *ContentLanguageVariation) SetAuthorName(v string) {
-	o.AuthorName = v
-}
-
-// GetPassword returns the Password field value
-func (o *ContentLanguageVariation) GetPassword() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Password
-}
-
-// GetPasswordOk returns a tuple with the Password field value
-// and a boolean to check if the value has been set.
-func (o *ContentLanguageVariation) GetPasswordOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Password, true
-}
-
-// SetPassword sets field value
-func (o *ContentLanguageVariation) SetPassword(v string) {
-	o.Password = v
-}
-
-// GetPublicAccessRulesEnabled returns the PublicAccessRulesEnabled field value
-func (o *ContentLanguageVariation) GetPublicAccessRulesEnabled() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.PublicAccessRulesEnabled
-}
-
-// GetPublicAccessRulesEnabledOk returns a tuple with the PublicAccessRulesEnabled field value
-// and a boolean to check if the value has been set.
-func (o *ContentLanguageVariation) GetPublicAccessRulesEnabledOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.PublicAccessRulesEnabled, true
-}
-
-// SetPublicAccessRulesEnabled sets field value
-func (o *ContentLanguageVariation) SetPublicAccessRulesEnabled(v bool) {
-	o.PublicAccessRulesEnabled = v
-}
-
-// GetPublicAccessRules returns the PublicAccessRules field value
-func (o *ContentLanguageVariation) GetPublicAccessRules() []map[string]interface{} {
-	if o == nil {
-		var ret []map[string]interface{}
-		return ret
-	}
-
-	return o.PublicAccessRules
-}
-
-// GetPublicAccessRulesOk returns a tuple with the PublicAccessRules field value
-// and a boolean to check if the value has been set.
-func (o *ContentLanguageVariation) GetPublicAccessRulesOk() ([]map[string]interface{}, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.PublicAccessRules, true
-}
-
-// SetPublicAccessRules sets field value
-func (o *ContentLanguageVariation) SetPublicAccessRules(v []map[string]interface{}) {
-	o.PublicAccessRules = v
-}
-
-// GetCampaign returns the Campaign field value
-func (o *ContentLanguageVariation) GetCampaign() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Campaign
-}
-
-// GetCampaignOk returns a tuple with the Campaign field value
-// and a boolean to check if the value has been set.
-func (o *ContentLanguageVariation) GetCampaignOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Campaign, true
-}
-
-// SetCampaign sets field value
-func (o *ContentLanguageVariation) SetCampaign(v string) {
-	o.Campaign = v
-}
-
-// GetTagIds returns the TagIds field value if set, zero value otherwise.
-func (o *ContentLanguageVariation) GetTagIds() []int64 {
-	if o == nil || o.TagIds == nil {
-		var ret []int64
-		return ret
-	}
-	return o.TagIds
-}
-
-// GetTagIdsOk returns a tuple with the TagIds field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ContentLanguageVariation) GetTagIdsOk() ([]int64, bool) {
-	if o == nil || o.TagIds == nil {
-		return nil, false
-	}
-	return o.TagIds, true
-}
-
-// HasTagIds returns a boolean if a field has been set.
-func (o *ContentLanguageVariation) HasTagIds() bool {
-	if o != nil && o.TagIds != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTagIds gets a reference to the given []int64 and assigns it to the TagIds field.
-func (o *ContentLanguageVariation) SetTagIds(v []int64) {
-	o.TagIds = v
 }
 
 // GetArchivedInDashboard returns the ArchivedInDashboard field value
@@ -359,28 +111,36 @@ func (o *ContentLanguageVariation) SetCreated(v time.Time) {
 	o.Created = v
 }
 
-// GetUpdated returns the Updated field value
-func (o *ContentLanguageVariation) GetUpdated() time.Time {
-	if o == nil {
-		var ret time.Time
+// GetTagIds returns the TagIds field value if set, zero value otherwise.
+func (o *ContentLanguageVariation) GetTagIds() []int64 {
+	if o == nil || o.TagIds == nil {
+		var ret []int64
 		return ret
 	}
-
-	return o.Updated
+	return o.TagIds
 }
 
-// GetUpdatedOk returns a tuple with the Updated field value
+// GetTagIdsOk returns a tuple with the TagIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ContentLanguageVariation) GetUpdatedOk() (*time.Time, bool) {
-	if o == nil {
+func (o *ContentLanguageVariation) GetTagIdsOk() ([]int64, bool) {
+	if o == nil || o.TagIds == nil {
 		return nil, false
 	}
-	return &o.Updated, true
+	return o.TagIds, true
 }
 
-// SetUpdated sets field value
-func (o *ContentLanguageVariation) SetUpdated(v time.Time) {
-	o.Updated = v
+// HasTagIds returns a boolean if a field has been set.
+func (o *ContentLanguageVariation) HasTagIds() bool {
+	if o != nil && o.TagIds != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTagIds gets a reference to the given []int64 and assigns it to the TagIds field.
+func (o *ContentLanguageVariation) SetTagIds(v []int64) {
+	o.TagIds = v
 }
 
 // GetPublishDate returns the PublishDate field value
@@ -407,49 +167,289 @@ func (o *ContentLanguageVariation) SetPublishDate(v time.Time) {
 	o.PublishDate = v
 }
 
+// GetPublicAccessRules returns the PublicAccessRules field value
+func (o *ContentLanguageVariation) GetPublicAccessRules() []map[string]interface{} {
+	if o == nil {
+		var ret []map[string]interface{}
+		return ret
+	}
+
+	return o.PublicAccessRules
+}
+
+// GetPublicAccessRulesOk returns a tuple with the PublicAccessRules field value
+// and a boolean to check if the value has been set.
+func (o *ContentLanguageVariation) GetPublicAccessRulesOk() ([]map[string]interface{}, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.PublicAccessRules, true
+}
+
+// SetPublicAccessRules sets field value
+func (o *ContentLanguageVariation) SetPublicAccessRules(v []map[string]interface{}) {
+	o.PublicAccessRules = v
+}
+
+// GetPassword returns the Password field value
+func (o *ContentLanguageVariation) GetPassword() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Password
+}
+
+// GetPasswordOk returns a tuple with the Password field value
+// and a boolean to check if the value has been set.
+func (o *ContentLanguageVariation) GetPasswordOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Password, true
+}
+
+// SetPassword sets field value
+func (o *ContentLanguageVariation) SetPassword(v string) {
+	o.Password = v
+}
+
+// GetAuthorName returns the AuthorName field value
+func (o *ContentLanguageVariation) GetAuthorName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.AuthorName
+}
+
+// GetAuthorNameOk returns a tuple with the AuthorName field value
+// and a boolean to check if the value has been set.
+func (o *ContentLanguageVariation) GetAuthorNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.AuthorName, true
+}
+
+// SetAuthorName sets field value
+func (o *ContentLanguageVariation) SetAuthorName(v string) {
+	o.AuthorName = v
+}
+
+// GetPublicAccessRulesEnabled returns the PublicAccessRulesEnabled field value
+func (o *ContentLanguageVariation) GetPublicAccessRulesEnabled() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.PublicAccessRulesEnabled
+}
+
+// GetPublicAccessRulesEnabledOk returns a tuple with the PublicAccessRulesEnabled field value
+// and a boolean to check if the value has been set.
+func (o *ContentLanguageVariation) GetPublicAccessRulesEnabledOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PublicAccessRulesEnabled, true
+}
+
+// SetPublicAccessRulesEnabled sets field value
+func (o *ContentLanguageVariation) SetPublicAccessRulesEnabled(v bool) {
+	o.PublicAccessRulesEnabled = v
+}
+
+// GetName returns the Name field value
+func (o *ContentLanguageVariation) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *ContentLanguageVariation) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *ContentLanguageVariation) SetName(v string) {
+	o.Name = v
+}
+
+// GetCampaign returns the Campaign field value
+func (o *ContentLanguageVariation) GetCampaign() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Campaign
+}
+
+// GetCampaignOk returns a tuple with the Campaign field value
+// and a boolean to check if the value has been set.
+func (o *ContentLanguageVariation) GetCampaignOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Campaign, true
+}
+
+// SetCampaign sets field value
+func (o *ContentLanguageVariation) SetCampaign(v string) {
+	o.Campaign = v
+}
+
+// GetId returns the Id field value
+func (o *ContentLanguageVariation) GetId() int64 {
+	if o == nil {
+		var ret int64
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *ContentLanguageVariation) GetIdOk() (*int64, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *ContentLanguageVariation) SetId(v int64) {
+	o.Id = v
+}
+
+// GetState returns the State field value
+func (o *ContentLanguageVariation) GetState() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.State
+}
+
+// GetStateOk returns a tuple with the State field value
+// and a boolean to check if the value has been set.
+func (o *ContentLanguageVariation) GetStateOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.State, true
+}
+
+// SetState sets field value
+func (o *ContentLanguageVariation) SetState(v string) {
+	o.State = v
+}
+
+// GetUpdated returns the Updated field value
+func (o *ContentLanguageVariation) GetUpdated() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.Updated
+}
+
+// GetUpdatedOk returns a tuple with the Updated field value
+// and a boolean to check if the value has been set.
+func (o *ContentLanguageVariation) GetUpdatedOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Updated, true
+}
+
+// SetUpdated sets field value
+func (o *ContentLanguageVariation) SetUpdated(v time.Time) {
+	o.Updated = v
+}
+
+// GetSlug returns the Slug field value
+func (o *ContentLanguageVariation) GetSlug() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Slug
+}
+
+// GetSlugOk returns a tuple with the Slug field value
+// and a boolean to check if the value has been set.
+func (o *ContentLanguageVariation) GetSlugOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Slug, true
+}
+
+// SetSlug sets field value
+func (o *ContentLanguageVariation) SetSlug(v string) {
+	o.Slug = v
+}
+
 func (o ContentLanguageVariation) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["slug"] = o.Slug
-	}
-	if true {
-		toSerialize["state"] = o.State
-	}
-	if true {
-		toSerialize["authorName"] = o.AuthorName
-	}
-	if true {
-		toSerialize["password"] = o.Password
-	}
-	if true {
-		toSerialize["publicAccessRulesEnabled"] = o.PublicAccessRulesEnabled
-	}
-	if true {
-		toSerialize["publicAccessRules"] = o.PublicAccessRules
-	}
-	if true {
-		toSerialize["campaign"] = o.Campaign
-	}
-	if o.TagIds != nil {
-		toSerialize["tagIds"] = o.TagIds
-	}
 	if true {
 		toSerialize["archivedInDashboard"] = o.ArchivedInDashboard
 	}
 	if true {
 		toSerialize["created"] = o.Created
 	}
+	if o.TagIds != nil {
+		toSerialize["tagIds"] = o.TagIds
+	}
+	if true {
+		toSerialize["publishDate"] = o.PublishDate
+	}
+	if true {
+		toSerialize["publicAccessRules"] = o.PublicAccessRules
+	}
+	if true {
+		toSerialize["password"] = o.Password
+	}
+	if true {
+		toSerialize["authorName"] = o.AuthorName
+	}
+	if true {
+		toSerialize["publicAccessRulesEnabled"] = o.PublicAccessRulesEnabled
+	}
+	if true {
+		toSerialize["name"] = o.Name
+	}
+	if true {
+		toSerialize["campaign"] = o.Campaign
+	}
+	if true {
+		toSerialize["id"] = o.Id
+	}
+	if true {
+		toSerialize["state"] = o.State
+	}
 	if true {
 		toSerialize["updated"] = o.Updated
 	}
 	if true {
-		toSerialize["publishDate"] = o.PublishDate
+		toSerialize["slug"] = o.Slug
 	}
 	return json.Marshal(toSerialize)
 }

@@ -1,112 +1,27 @@
 openapi: 3.0.1
 info:
   description: Use these endpoints to get a time series view of your website's performance.
-  title: CMS Performance API
+  title: CMS Performance
   version: v3
+  x-hubspot-product-tier-requirements:
+    cms: ENTERPRISE
+  x-hubspot-documentation-banner: NONE
+  x-hubspot-api-use-case: "View how many requests a connect domain has received for\
+    \ a given time period, along with how many of those requests have resulted in\
+    \ 4xx errors."
+  x-hubspot-related-documentation:
+  - name: CMS Performance Guide
+    url: https://hubspot.dev/guides/api/cms/performance
+  x-hubspot-introduction: "Use the CMS performance API to monitor the status of HubSpot-hosted\
+    \ pages, including uptime, 1xx-5xx errors, cache hits, total requests, and median\
+    \ response time. Data is typically updated within 30 minutes, and is purged over\
+    \ time dependent on resolution. (link to guide). Pages must be enabled for site\
+    \ performance data collection to use this API."
 servers:
 - url: https://api.hubapi.com
 tags:
 - name: Public_Performance
 paths:
-  /cms/v3/performance/uptime:
-    get:
-      description: Returns uptime time series website performance data for the given
-        domain.
-      operationId: GetUptime
-      parameters:
-      - description: The domain to search return data for.
-        explode: true
-        in: query
-        name: domain
-        required: false
-        schema:
-          type: string
-        style: form
-      - explode: true
-        in: query
-        name: path
-        required: false
-        schema:
-          type: string
-        style: form
-      - description: Specifies whether the time series data should have empty intervals
-          if performance data is not present to create a continuous set.
-        explode: true
-        in: query
-        name: pad
-        required: false
-        schema:
-          type: boolean
-        style: form
-      - description: Specifies whether the time series data should be summated for
-          the given period. Defaults to false.
-        explode: true
-        in: query
-        name: sum
-        required: false
-        schema:
-          type: boolean
-        style: form
-      - description: "A relative period to return time series data for. This value\
-          \ is ignored if start and/or end are provided. Valid periods: [15m, 30m,\
-          \ 1h, 4h, 12h, 1d, 1w]"
-        explode: true
-        in: query
-        name: period
-        required: false
-        schema:
-          type: string
-        style: form
-      - description: "The time series interval to group data by. Valid intervals:\
-          \ [1m, 5m, 15m, 30m, 1h, 4h, 12h, 1d, 1w]"
-        explode: true
-        in: query
-        name: interval
-        required: false
-        schema:
-          type: string
-        style: form
-      - description: A timestamp in milliseconds that indicates the start of the time
-          period.
-        explode: true
-        in: query
-        name: start
-        required: false
-        schema:
-          format: int64
-          type: integer
-        style: form
-      - description: A timestamp in milliseconds that indicates the end of the time
-          period.
-        explode: true
-        in: query
-        name: end
-        required: false
-        schema:
-          format: int64
-          type: integer
-        style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PublicPerformanceResponse'
-          description: successful operation
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - oauth2_legacy:
-        - cms.performance.read
-      - private_apps_legacy:
-        - cms.performance.read
-      summary: View your website's uptime.
-      tags:
-      - Public_Performance
   /cms/v3/performance/:
     get:
       description: Returns time series data website performance data for the given
@@ -207,6 +122,105 @@ paths:
       summary: View your website's performance.
       tags:
       - Public_Performance
+  /cms/v3/performance/uptime:
+    get:
+      description: Returns uptime time series website performance data for the given
+        domain.
+      operationId: GetUptime
+      parameters:
+      - description: The domain to search return data for.
+        explode: true
+        in: query
+        name: domain
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: path
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Specifies whether the time series data should have empty intervals
+          if performance data is not present to create a continuous set.
+        explode: true
+        in: query
+        name: pad
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: Specifies whether the time series data should be summated for
+          the given period. Defaults to false.
+        explode: true
+        in: query
+        name: sum
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: "A relative period to return time series data for. This value\
+          \ is ignored if start and/or end are provided. Valid periods: [15m, 30m,\
+          \ 1h, 4h, 12h, 1d, 1w]"
+        explode: true
+        in: query
+        name: period
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "The time series interval to group data by. Valid intervals:\
+          \ [1m, 5m, 15m, 30m, 1h, 4h, 12h, 1d, 1w]"
+        explode: true
+        in: query
+        name: interval
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: A timestamp in milliseconds that indicates the start of the time
+          period.
+        explode: true
+        in: query
+        name: start
+        required: false
+        schema:
+          format: int64
+          type: integer
+        style: form
+      - description: A timestamp in milliseconds that indicates the end of the time
+          period.
+        explode: true
+        in: query
+        name: end
+        required: false
+        schema:
+          format: int64
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicPerformanceResponse'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - oauth2_legacy:
+        - cms.performance.read
+      - private_apps_legacy:
+        - cms.performance.read
+      summary: View your website's uptime.
+      tags:
+      - Public_Performance
 components:
   responses:
     Error:
@@ -218,19 +232,15 @@ components:
   schemas:
     ErrorDetail:
       properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          type: string
-        in:
-          description: The name of the field or parameter in which the error was found.
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
           type: string
         code:
           description: The status code associated with the error detail
           type: string
-        subCategory:
-          description: A specific category that contains more specific detail about
-            the error
+        in:
+          description: The name of the field or parameter in which the error was found.
           type: string
         context:
           additionalProperties:
@@ -243,6 +253,10 @@ components:
             - scope1
             - scope2
           type: object
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          type: string
       required:
       - message
       type: object
@@ -254,29 +268,10 @@ components:
         links:
           knowledge-base: https://www.hubspot.com/products/service/knowledge-base
       properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          example: An error occurred
-          type: string
-        correlationId:
-          description: A unique identifier for the request. Include this value with
-            any error reports or support tickets
-          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
-          format: uuid
-          type: string
-        category:
-          description: The error category
-          type: string
         subCategory:
           description: A specific category that contains more specific detail about
             the error
           type: string
-        errors:
-          description: further information about the error
-          items:
-            $ref: '#/components/schemas/ErrorDetail'
-          type: array
         context:
           additionalProperties:
             items:
@@ -284,18 +279,40 @@ components:
             type: array
           description: Context about the error condition
           example:
-            invalidPropertyName:
-            - propertyValue
             missingScopes:
             - scope1
             - scope2
+            invalidPropertyName:
+            - propertyValue
           type: object
+        correlationId:
+          description: A unique identifier for the request. Include this value with
+            any error reports or support tickets
+          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
+          format: uuid
+          type: string
         links:
           additionalProperties:
             type: string
           description: A map of link names to associated URIs containing documentation
             about the error or recommended remediation steps
+          example:
+            knowledge-base: https://www.hubspot.com/products/service/knowledge-base
           type: object
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          example: Invalid input (details will vary based on the error)
+          type: string
+        category:
+          description: The error category
+          example: VALIDATION_ERROR
+          type: string
+        errors:
+          description: further information about the error
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
       required:
       - category
       - correlationId
@@ -308,79 +325,54 @@ components:
         startInterval: 0
         data:
         - startDatetime: startDatetime
-          responseTimeMs: 2
-          "95th": 9
+          responseTimeMs: 6
+          "95th": 1
           totalRequests: 5
-          cacheHitRate: 7.061401241503109
-          "99th": 9
-          totalRequestTime: 9
-          "100X": 4
-          "500": 1
-          "403": 6
-          "50th": 5
+          cacheHitRate: 5.637376656633329
+          "99th": 2
+          totalRequestTime: 7
+          "100X": 9
+          "500": 3
+          "403": 2
+          "50th": 4
           "404": 7
-          cacheHits: 2
-          "504": 4
-          "20X": 7
-          "30X": 1
-          "40X": 1
-          endTimestamp: 5
-          "50X": 1
-          startTimestamp: 1
+          cacheHits: 1
+          "504": 1
+          "20X": 1
+          "30X": 6
+          "40X": 7
+          endTimestamp: 1
+          "50X": 4
+          startTimestamp: 5
           endDatetime: endDatetime
-          avgOriginResponseTime: 3
+          avgOriginResponseTime: 9
         - startDatetime: startDatetime
-          responseTimeMs: 2
-          "95th": 9
+          responseTimeMs: 6
+          "95th": 1
           totalRequests: 5
-          cacheHitRate: 7.061401241503109
-          "99th": 9
-          totalRequestTime: 9
-          "100X": 4
-          "500": 1
-          "403": 6
-          "50th": 5
+          cacheHitRate: 5.637376656633329
+          "99th": 2
+          totalRequestTime: 7
+          "100X": 9
+          "500": 3
+          "403": 2
+          "50th": 4
           "404": 7
-          cacheHits: 2
-          "504": 4
-          "20X": 7
-          "30X": 1
-          "40X": 1
-          endTimestamp: 5
-          "50X": 1
-          startTimestamp: 1
+          cacheHits: 1
+          "504": 1
+          "20X": 1
+          "30X": 6
+          "40X": 7
+          endTimestamp: 1
+          "50X": 4
+          startTimestamp: 5
           endDatetime: endDatetime
-          avgOriginResponseTime: 3
+          avgOriginResponseTime: 9
         domain: domain
         interval: ONE_MINUTE
-        endInterval: 6
+        endInterval: 9
       properties:
-        domain:
-          type: string
         path:
-          type: string
-        startInterval:
-          format: int64
-          type: integer
-        endInterval:
-          format: int64
-          type: integer
-        data:
-          items:
-            $ref: '#/components/schemas/PerformanceView'
-          type: array
-        interval:
-          enum:
-          - ONE_MINUTE
-          - FIVE_MINUTES
-          - TEN_MINUTES
-          - FIFTEEN_MINUTES
-          - THIRTY_MINUTES
-          - ONE_HOUR
-          - FOUR_HOURS
-          - TWELVE_HOURS
-          - ONE_DAY
-          - ONE_WEEK
           type: string
         period:
           enum:
@@ -395,6 +387,31 @@ components:
           - ONE_DAY
           - ONE_WEEK
           type: string
+        startInterval:
+          format: int64
+          type: integer
+        data:
+          items:
+            $ref: '#/components/schemas/PerformanceView'
+          type: array
+        domain:
+          type: string
+        interval:
+          enum:
+          - ONE_MINUTE
+          - FIVE_MINUTES
+          - TEN_MINUTES
+          - FIFTEEN_MINUTES
+          - THIRTY_MINUTES
+          - ONE_HOUR
+          - FOUR_HOURS
+          - TWELVE_HOURS
+          - ONE_DAY
+          - ONE_WEEK
+          type: string
+        endInterval:
+          format: int64
+          type: integer
       required:
       - data
       - endInterval
@@ -405,66 +422,79 @@ components:
       description: An individual time series performance data point.
       example:
         startDatetime: startDatetime
-        responseTimeMs: 2
-        "95th": 9
+        responseTimeMs: 6
+        "95th": 1
         totalRequests: 5
-        cacheHitRate: 7.061401241503109
-        "99th": 9
-        totalRequestTime: 9
-        "100X": 4
-        "500": 1
-        "403": 6
-        "50th": 5
+        cacheHitRate: 5.637376656633329
+        "99th": 2
+        totalRequestTime: 7
+        "100X": 9
+        "500": 3
+        "403": 2
+        "50th": 4
         "404": 7
-        cacheHits: 2
-        "504": 4
-        "20X": 7
-        "30X": 1
-        "40X": 1
-        endTimestamp: 5
-        "50X": 1
-        startTimestamp: 1
+        cacheHits: 1
+        "504": 1
+        "20X": 1
+        "30X": 6
+        "40X": 7
+        endTimestamp: 1
+        "50X": 4
+        startTimestamp: 5
         endDatetime: endDatetime
-        avgOriginResponseTime: 3
+        avgOriginResponseTime: 9
       properties:
-        startTimestamp:
-          description: The timestamp in milliseconds of the start of this interval.
-          format: int64
-          type: integer
-        endTimestamp:
-          description: The timestamp in milliseconds of the end of this interval.
-          format: int64
-          type: integer
         startDatetime:
           type: string
-        endDatetime:
-          type: string
+        responseTimeMs:
+          description: The average response time in milliseconds.
+          format: int32
+          type: integer
+        "95th":
+          description: The 95th percentile response time.
+          format: int32
+          type: integer
         totalRequests:
           description: The total number of requests received in this period.
+          format: int32
+          type: integer
+        cacheHitRate:
+          description: The percentage of requests that were served cached responses.
+          type: number
+        "99th":
+          description: The 99th percentile response time.
+          format: int32
+          type: integer
+        totalRequestTime:
+          format: int32
+          type: integer
+        "100X":
+          description: The number of responses that had an http status code between
+            1000-1999.
+          format: int32
+          type: integer
+        "500":
+          description: The number of responses that had an http status code of 500.
+          format: int32
+          type: integer
+        "403":
+          description: The number of responses that had an http status code of 403.
+          format: int32
+          type: integer
+        "50th":
+          description: The 50th percentile response time.
+          format: int32
+          type: integer
+        "404":
+          description: The number of responses that had an http status code of 404.
           format: int32
           type: integer
         cacheHits:
           description: The total number of requests that were served cached responses.
           format: int32
           type: integer
-        cacheHitRate:
-          description: The percentage of requests that were served cached responses.
-          type: number
-        totalRequestTime:
-          format: int32
-          type: integer
-        avgOriginResponseTime:
-          description: The average response time in milliseconds from the origin to
-            the edge.
-          format: int32
-          type: integer
-        responseTimeMs:
-          description: The average response time in milliseconds.
-          format: int32
-          type: integer
-        "100X":
-          description: The number of responses that had an http status code between
-            1000-1999.
+        "504":
+          description: The number of responses that had an http status code of 504.
           format: int32
           type: integer
         "20X":
@@ -482,37 +512,24 @@ components:
             400-499.
           format: int32
           type: integer
+        endTimestamp:
+          description: The timestamp in milliseconds of the end of this interval.
+          format: int64
+          type: integer
         "50X":
           description: The number of responses that had an http status code between
             500-599.
           format: int32
           type: integer
-        "403":
-          description: The number of responses that had an http status code of 403.
-          format: int32
+        startTimestamp:
+          description: The timestamp in milliseconds of the start of this interval.
+          format: int64
           type: integer
-        "404":
-          description: The number of responses that had an http status code of 404.
-          format: int32
-          type: integer
-        "500":
-          description: The number of responses that had an http status code of 500.
-          format: int32
-          type: integer
-        "504":
-          description: The number of responses that had an http status code of 504.
-          format: int32
-          type: integer
-        "50th":
-          description: The 50th percentile response time.
-          format: int32
-          type: integer
-        "95th":
-          description: The 95th percentile response time.
-          format: int32
-          type: integer
-        "99th":
-          description: The 99th percentile response time.
+        endDatetime:
+          type: string
+        avgOriginResponseTime:
+          description: The average response time in milliseconds from the origin to
+            the edge.
           format: int32
           type: integer
       required:
@@ -555,8 +572,5 @@ x-hubspot-available-client-libraries:
 - Ruby
 - Python
 x-hubspot-product-tier-requirements:
-  marketing: FREE
-  sales: FREE
-  service: FREE
-  cms: FREE
+  cms: ENTERPRISE
 x-hubspot-documentation-banner: NONE

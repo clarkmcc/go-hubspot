@@ -17,45 +17,41 @@ import (
 
 // ObjectTypeDefinition Defines an object type.
 type ObjectTypeDefinition struct {
-	Labels ObjectTypeDefinitionLabels `json:"labels"`
+	// The names of secondary properties for this object. These will be displayed as secondary on the HubSpot record page for this object type.
+	SecondaryDisplayProperties []string                   `json:"secondaryDisplayProperties,omitempty"`
+	ObjectTypeId               *string                    `json:"objectTypeId,omitempty"`
+	Description                *string                    `json:"description,omitempty"`
+	FullyQualifiedName         *string                    `json:"fullyQualifiedName,omitempty"`
+	Labels                     ObjectTypeDefinitionLabels `json:"labels"`
+	Archived                   *bool                      `json:"archived,omitempty"`
+	// When the object type was created.
+	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	// The names of properties that should be **required** when creating an object of this type.
 	RequiredProperties []string `json:"requiredProperties"`
 	// Names of properties that will be indexed for this object type in by HubSpot's product search.
-	SearchableProperties []string `json:"searchableProperties"`
-	// The name of the primary property for this object. This will be displayed as primary on the HubSpot record page for this object type.
-	PrimaryDisplayProperty *string `json:"primaryDisplayProperty,omitempty"`
-	// The names of secondary properties for this object. These will be displayed as secondary on the HubSpot record page for this object type.
-	SecondaryDisplayProperties []string `json:"secondaryDisplayProperties"`
-	Archived                   bool     `json:"archived"`
-	// A unique ID for this object type. Will be defined as {meta-type}-{unique ID}.
-	Id                 string `json:"id"`
-	FullyQualifiedName string `json:"fullyQualifiedName"`
-	// When the object type was created.
-	CreatedAt *time.Time `json:"createdAt,omitempty"`
-	// When the object type was last updated.
-	UpdatedAt    *time.Time `json:"updatedAt,omitempty"`
-	ObjectTypeId string     `json:"objectTypeId"`
-	// A unique name for this object. For internal use only.
-	Name string `json:"name"`
+	SearchableProperties []string `json:"searchableProperties,omitempty"`
 	// The ID of the account that this object type is specific to.
 	PortalId *int32 `json:"portalId,omitempty"`
+	// The name of the primary property for this object. This will be displayed as primary on the HubSpot record page for this object type.
+	PrimaryDisplayProperty *string `json:"primaryDisplayProperty,omitempty"`
+	// A unique name for this object. For internal use only.
+	Name string `json:"name"`
+	// A unique ID for this object type. Will be defined as {meta-type}-{unique ID}.
+	Id string `json:"id"`
+	// When the object type was last updated.
+	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 }
 
 // NewObjectTypeDefinition instantiates a new ObjectTypeDefinition object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewObjectTypeDefinition(labels ObjectTypeDefinitionLabels, requiredProperties []string, searchableProperties []string, secondaryDisplayProperties []string, archived bool, id string, fullyQualifiedName string, objectTypeId string, name string) *ObjectTypeDefinition {
+func NewObjectTypeDefinition(labels ObjectTypeDefinitionLabels, requiredProperties []string, name string, id string) *ObjectTypeDefinition {
 	this := ObjectTypeDefinition{}
 	this.Labels = labels
 	this.RequiredProperties = requiredProperties
-	this.SearchableProperties = searchableProperties
-	this.SecondaryDisplayProperties = secondaryDisplayProperties
-	this.Archived = archived
-	this.Id = id
-	this.FullyQualifiedName = fullyQualifiedName
-	this.ObjectTypeId = objectTypeId
 	this.Name = name
+	this.Id = id
 	return &this
 }
 
@@ -65,6 +61,134 @@ func NewObjectTypeDefinition(labels ObjectTypeDefinitionLabels, requiredProperti
 func NewObjectTypeDefinitionWithDefaults() *ObjectTypeDefinition {
 	this := ObjectTypeDefinition{}
 	return &this
+}
+
+// GetSecondaryDisplayProperties returns the SecondaryDisplayProperties field value if set, zero value otherwise.
+func (o *ObjectTypeDefinition) GetSecondaryDisplayProperties() []string {
+	if o == nil || o.SecondaryDisplayProperties == nil {
+		var ret []string
+		return ret
+	}
+	return o.SecondaryDisplayProperties
+}
+
+// GetSecondaryDisplayPropertiesOk returns a tuple with the SecondaryDisplayProperties field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ObjectTypeDefinition) GetSecondaryDisplayPropertiesOk() ([]string, bool) {
+	if o == nil || o.SecondaryDisplayProperties == nil {
+		return nil, false
+	}
+	return o.SecondaryDisplayProperties, true
+}
+
+// HasSecondaryDisplayProperties returns a boolean if a field has been set.
+func (o *ObjectTypeDefinition) HasSecondaryDisplayProperties() bool {
+	if o != nil && o.SecondaryDisplayProperties != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSecondaryDisplayProperties gets a reference to the given []string and assigns it to the SecondaryDisplayProperties field.
+func (o *ObjectTypeDefinition) SetSecondaryDisplayProperties(v []string) {
+	o.SecondaryDisplayProperties = v
+}
+
+// GetObjectTypeId returns the ObjectTypeId field value if set, zero value otherwise.
+func (o *ObjectTypeDefinition) GetObjectTypeId() string {
+	if o == nil || o.ObjectTypeId == nil {
+		var ret string
+		return ret
+	}
+	return *o.ObjectTypeId
+}
+
+// GetObjectTypeIdOk returns a tuple with the ObjectTypeId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ObjectTypeDefinition) GetObjectTypeIdOk() (*string, bool) {
+	if o == nil || o.ObjectTypeId == nil {
+		return nil, false
+	}
+	return o.ObjectTypeId, true
+}
+
+// HasObjectTypeId returns a boolean if a field has been set.
+func (o *ObjectTypeDefinition) HasObjectTypeId() bool {
+	if o != nil && o.ObjectTypeId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetObjectTypeId gets a reference to the given string and assigns it to the ObjectTypeId field.
+func (o *ObjectTypeDefinition) SetObjectTypeId(v string) {
+	o.ObjectTypeId = &v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *ObjectTypeDefinition) GetDescription() string {
+	if o == nil || o.Description == nil {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ObjectTypeDefinition) GetDescriptionOk() (*string, bool) {
+	if o == nil || o.Description == nil {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *ObjectTypeDefinition) HasDescription() bool {
+	if o != nil && o.Description != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *ObjectTypeDefinition) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetFullyQualifiedName returns the FullyQualifiedName field value if set, zero value otherwise.
+func (o *ObjectTypeDefinition) GetFullyQualifiedName() string {
+	if o == nil || o.FullyQualifiedName == nil {
+		var ret string
+		return ret
+	}
+	return *o.FullyQualifiedName
+}
+
+// GetFullyQualifiedNameOk returns a tuple with the FullyQualifiedName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ObjectTypeDefinition) GetFullyQualifiedNameOk() (*string, bool) {
+	if o == nil || o.FullyQualifiedName == nil {
+		return nil, false
+	}
+	return o.FullyQualifiedName, true
+}
+
+// HasFullyQualifiedName returns a boolean if a field has been set.
+func (o *ObjectTypeDefinition) HasFullyQualifiedName() bool {
+	if o != nil && o.FullyQualifiedName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFullyQualifiedName gets a reference to the given string and assigns it to the FullyQualifiedName field.
+func (o *ObjectTypeDefinition) SetFullyQualifiedName(v string) {
+	o.FullyQualifiedName = &v
 }
 
 // GetLabels returns the Labels field value
@@ -91,180 +215,36 @@ func (o *ObjectTypeDefinition) SetLabels(v ObjectTypeDefinitionLabels) {
 	o.Labels = v
 }
 
-// GetRequiredProperties returns the RequiredProperties field value
-func (o *ObjectTypeDefinition) GetRequiredProperties() []string {
-	if o == nil {
-		var ret []string
+// GetArchived returns the Archived field value if set, zero value otherwise.
+func (o *ObjectTypeDefinition) GetArchived() bool {
+	if o == nil || o.Archived == nil {
+		var ret bool
 		return ret
 	}
-
-	return o.RequiredProperties
+	return *o.Archived
 }
 
-// GetRequiredPropertiesOk returns a tuple with the RequiredProperties field value
+// GetArchivedOk returns a tuple with the Archived field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ObjectTypeDefinition) GetRequiredPropertiesOk() ([]string, bool) {
-	if o == nil {
+func (o *ObjectTypeDefinition) GetArchivedOk() (*bool, bool) {
+	if o == nil || o.Archived == nil {
 		return nil, false
 	}
-	return o.RequiredProperties, true
+	return o.Archived, true
 }
 
-// SetRequiredProperties sets field value
-func (o *ObjectTypeDefinition) SetRequiredProperties(v []string) {
-	o.RequiredProperties = v
-}
-
-// GetSearchableProperties returns the SearchableProperties field value
-func (o *ObjectTypeDefinition) GetSearchableProperties() []string {
-	if o == nil {
-		var ret []string
-		return ret
-	}
-
-	return o.SearchableProperties
-}
-
-// GetSearchablePropertiesOk returns a tuple with the SearchableProperties field value
-// and a boolean to check if the value has been set.
-func (o *ObjectTypeDefinition) GetSearchablePropertiesOk() ([]string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.SearchableProperties, true
-}
-
-// SetSearchableProperties sets field value
-func (o *ObjectTypeDefinition) SetSearchableProperties(v []string) {
-	o.SearchableProperties = v
-}
-
-// GetPrimaryDisplayProperty returns the PrimaryDisplayProperty field value if set, zero value otherwise.
-func (o *ObjectTypeDefinition) GetPrimaryDisplayProperty() string {
-	if o == nil || o.PrimaryDisplayProperty == nil {
-		var ret string
-		return ret
-	}
-	return *o.PrimaryDisplayProperty
-}
-
-// GetPrimaryDisplayPropertyOk returns a tuple with the PrimaryDisplayProperty field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ObjectTypeDefinition) GetPrimaryDisplayPropertyOk() (*string, bool) {
-	if o == nil || o.PrimaryDisplayProperty == nil {
-		return nil, false
-	}
-	return o.PrimaryDisplayProperty, true
-}
-
-// HasPrimaryDisplayProperty returns a boolean if a field has been set.
-func (o *ObjectTypeDefinition) HasPrimaryDisplayProperty() bool {
-	if o != nil && o.PrimaryDisplayProperty != nil {
+// HasArchived returns a boolean if a field has been set.
+func (o *ObjectTypeDefinition) HasArchived() bool {
+	if o != nil && o.Archived != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetPrimaryDisplayProperty gets a reference to the given string and assigns it to the PrimaryDisplayProperty field.
-func (o *ObjectTypeDefinition) SetPrimaryDisplayProperty(v string) {
-	o.PrimaryDisplayProperty = &v
-}
-
-// GetSecondaryDisplayProperties returns the SecondaryDisplayProperties field value
-func (o *ObjectTypeDefinition) GetSecondaryDisplayProperties() []string {
-	if o == nil {
-		var ret []string
-		return ret
-	}
-
-	return o.SecondaryDisplayProperties
-}
-
-// GetSecondaryDisplayPropertiesOk returns a tuple with the SecondaryDisplayProperties field value
-// and a boolean to check if the value has been set.
-func (o *ObjectTypeDefinition) GetSecondaryDisplayPropertiesOk() ([]string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.SecondaryDisplayProperties, true
-}
-
-// SetSecondaryDisplayProperties sets field value
-func (o *ObjectTypeDefinition) SetSecondaryDisplayProperties(v []string) {
-	o.SecondaryDisplayProperties = v
-}
-
-// GetArchived returns the Archived field value
-func (o *ObjectTypeDefinition) GetArchived() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.Archived
-}
-
-// GetArchivedOk returns a tuple with the Archived field value
-// and a boolean to check if the value has been set.
-func (o *ObjectTypeDefinition) GetArchivedOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Archived, true
-}
-
-// SetArchived sets field value
+// SetArchived gets a reference to the given bool and assigns it to the Archived field.
 func (o *ObjectTypeDefinition) SetArchived(v bool) {
-	o.Archived = v
-}
-
-// GetId returns the Id field value
-func (o *ObjectTypeDefinition) GetId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Id
-}
-
-// GetIdOk returns a tuple with the Id field value
-// and a boolean to check if the value has been set.
-func (o *ObjectTypeDefinition) GetIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Id, true
-}
-
-// SetId sets field value
-func (o *ObjectTypeDefinition) SetId(v string) {
-	o.Id = v
-}
-
-// GetFullyQualifiedName returns the FullyQualifiedName field value
-func (o *ObjectTypeDefinition) GetFullyQualifiedName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.FullyQualifiedName
-}
-
-// GetFullyQualifiedNameOk returns a tuple with the FullyQualifiedName field value
-// and a boolean to check if the value has been set.
-func (o *ObjectTypeDefinition) GetFullyQualifiedNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.FullyQualifiedName, true
-}
-
-// SetFullyQualifiedName sets field value
-func (o *ObjectTypeDefinition) SetFullyQualifiedName(v string) {
-	o.FullyQualifiedName = v
+	o.Archived = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -299,84 +279,60 @@ func (o *ObjectTypeDefinition) SetCreatedAt(v time.Time) {
 	o.CreatedAt = &v
 }
 
-// GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *ObjectTypeDefinition) GetUpdatedAt() time.Time {
-	if o == nil || o.UpdatedAt == nil {
-		var ret time.Time
+// GetRequiredProperties returns the RequiredProperties field value
+func (o *ObjectTypeDefinition) GetRequiredProperties() []string {
+	if o == nil {
+		var ret []string
 		return ret
 	}
-	return *o.UpdatedAt
+
+	return o.RequiredProperties
 }
 
-// GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
+// GetRequiredPropertiesOk returns a tuple with the RequiredProperties field value
 // and a boolean to check if the value has been set.
-func (o *ObjectTypeDefinition) GetUpdatedAtOk() (*time.Time, bool) {
-	if o == nil || o.UpdatedAt == nil {
+func (o *ObjectTypeDefinition) GetRequiredPropertiesOk() ([]string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.UpdatedAt, true
+	return o.RequiredProperties, true
 }
 
-// HasUpdatedAt returns a boolean if a field has been set.
-func (o *ObjectTypeDefinition) HasUpdatedAt() bool {
-	if o != nil && o.UpdatedAt != nil {
+// SetRequiredProperties sets field value
+func (o *ObjectTypeDefinition) SetRequiredProperties(v []string) {
+	o.RequiredProperties = v
+}
+
+// GetSearchableProperties returns the SearchableProperties field value if set, zero value otherwise.
+func (o *ObjectTypeDefinition) GetSearchableProperties() []string {
+	if o == nil || o.SearchableProperties == nil {
+		var ret []string
+		return ret
+	}
+	return o.SearchableProperties
+}
+
+// GetSearchablePropertiesOk returns a tuple with the SearchableProperties field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ObjectTypeDefinition) GetSearchablePropertiesOk() ([]string, bool) {
+	if o == nil || o.SearchableProperties == nil {
+		return nil, false
+	}
+	return o.SearchableProperties, true
+}
+
+// HasSearchableProperties returns a boolean if a field has been set.
+func (o *ObjectTypeDefinition) HasSearchableProperties() bool {
+	if o != nil && o.SearchableProperties != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetUpdatedAt gets a reference to the given time.Time and assigns it to the UpdatedAt field.
-func (o *ObjectTypeDefinition) SetUpdatedAt(v time.Time) {
-	o.UpdatedAt = &v
-}
-
-// GetObjectTypeId returns the ObjectTypeId field value
-func (o *ObjectTypeDefinition) GetObjectTypeId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.ObjectTypeId
-}
-
-// GetObjectTypeIdOk returns a tuple with the ObjectTypeId field value
-// and a boolean to check if the value has been set.
-func (o *ObjectTypeDefinition) GetObjectTypeIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.ObjectTypeId, true
-}
-
-// SetObjectTypeId sets field value
-func (o *ObjectTypeDefinition) SetObjectTypeId(v string) {
-	o.ObjectTypeId = v
-}
-
-// GetName returns the Name field value
-func (o *ObjectTypeDefinition) GetName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value
-// and a boolean to check if the value has been set.
-func (o *ObjectTypeDefinition) GetNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Name, true
-}
-
-// SetName sets field value
-func (o *ObjectTypeDefinition) SetName(v string) {
-	o.Name = v
+// SetSearchableProperties gets a reference to the given []string and assigns it to the SearchableProperties field.
+func (o *ObjectTypeDefinition) SetSearchableProperties(v []string) {
+	o.SearchableProperties = v
 }
 
 // GetPortalId returns the PortalId field value if set, zero value otherwise.
@@ -411,46 +367,161 @@ func (o *ObjectTypeDefinition) SetPortalId(v int32) {
 	o.PortalId = &v
 }
 
+// GetPrimaryDisplayProperty returns the PrimaryDisplayProperty field value if set, zero value otherwise.
+func (o *ObjectTypeDefinition) GetPrimaryDisplayProperty() string {
+	if o == nil || o.PrimaryDisplayProperty == nil {
+		var ret string
+		return ret
+	}
+	return *o.PrimaryDisplayProperty
+}
+
+// GetPrimaryDisplayPropertyOk returns a tuple with the PrimaryDisplayProperty field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ObjectTypeDefinition) GetPrimaryDisplayPropertyOk() (*string, bool) {
+	if o == nil || o.PrimaryDisplayProperty == nil {
+		return nil, false
+	}
+	return o.PrimaryDisplayProperty, true
+}
+
+// HasPrimaryDisplayProperty returns a boolean if a field has been set.
+func (o *ObjectTypeDefinition) HasPrimaryDisplayProperty() bool {
+	if o != nil && o.PrimaryDisplayProperty != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPrimaryDisplayProperty gets a reference to the given string and assigns it to the PrimaryDisplayProperty field.
+func (o *ObjectTypeDefinition) SetPrimaryDisplayProperty(v string) {
+	o.PrimaryDisplayProperty = &v
+}
+
+// GetName returns the Name field value
+func (o *ObjectTypeDefinition) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *ObjectTypeDefinition) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *ObjectTypeDefinition) SetName(v string) {
+	o.Name = v
+}
+
+// GetId returns the Id field value
+func (o *ObjectTypeDefinition) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *ObjectTypeDefinition) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *ObjectTypeDefinition) SetId(v string) {
+	o.Id = v
+}
+
+// GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
+func (o *ObjectTypeDefinition) GetUpdatedAt() time.Time {
+	if o == nil || o.UpdatedAt == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.UpdatedAt
+}
+
+// GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ObjectTypeDefinition) GetUpdatedAtOk() (*time.Time, bool) {
+	if o == nil || o.UpdatedAt == nil {
+		return nil, false
+	}
+	return o.UpdatedAt, true
+}
+
+// HasUpdatedAt returns a boolean if a field has been set.
+func (o *ObjectTypeDefinition) HasUpdatedAt() bool {
+	if o != nil && o.UpdatedAt != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetUpdatedAt gets a reference to the given time.Time and assigns it to the UpdatedAt field.
+func (o *ObjectTypeDefinition) SetUpdatedAt(v time.Time) {
+	o.UpdatedAt = &v
+}
+
 func (o ObjectTypeDefinition) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if o.SecondaryDisplayProperties != nil {
+		toSerialize["secondaryDisplayProperties"] = o.SecondaryDisplayProperties
+	}
+	if o.ObjectTypeId != nil {
+		toSerialize["objectTypeId"] = o.ObjectTypeId
+	}
+	if o.Description != nil {
+		toSerialize["description"] = o.Description
+	}
+	if o.FullyQualifiedName != nil {
+		toSerialize["fullyQualifiedName"] = o.FullyQualifiedName
+	}
 	if true {
 		toSerialize["labels"] = o.Labels
+	}
+	if o.Archived != nil {
+		toSerialize["archived"] = o.Archived
+	}
+	if o.CreatedAt != nil {
+		toSerialize["createdAt"] = o.CreatedAt
 	}
 	if true {
 		toSerialize["requiredProperties"] = o.RequiredProperties
 	}
-	if true {
+	if o.SearchableProperties != nil {
 		toSerialize["searchableProperties"] = o.SearchableProperties
+	}
+	if o.PortalId != nil {
+		toSerialize["portalId"] = o.PortalId
 	}
 	if o.PrimaryDisplayProperty != nil {
 		toSerialize["primaryDisplayProperty"] = o.PrimaryDisplayProperty
 	}
 	if true {
-		toSerialize["secondaryDisplayProperties"] = o.SecondaryDisplayProperties
-	}
-	if true {
-		toSerialize["archived"] = o.Archived
+		toSerialize["name"] = o.Name
 	}
 	if true {
 		toSerialize["id"] = o.Id
 	}
-	if true {
-		toSerialize["fullyQualifiedName"] = o.FullyQualifiedName
-	}
-	if o.CreatedAt != nil {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
 	if o.UpdatedAt != nil {
 		toSerialize["updatedAt"] = o.UpdatedAt
-	}
-	if true {
-		toSerialize["objectTypeId"] = o.ObjectTypeId
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.PortalId != nil {
-		toSerialize["portalId"] = o.PortalId
 	}
 	return json.Marshal(toSerialize)
 }

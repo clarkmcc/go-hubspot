@@ -4,18 +4,16 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**RevisionsGetByID**](RevisionsApi.md#RevisionsGetByID) | **Get** /automation/v4/actions/{appId}/{definitionId}/revisions/{revisionId} | Get a revision for a custom action
-[**RevisionsGetPage**](RevisionsApi.md#RevisionsGetPage) | **Get** /automation/v4/actions/{appId}/{definitionId}/revisions | Get all revisions for a custom action
+[**RevisionsGetByID**](RevisionsApi.md#RevisionsGetByID) | **Get** /automation/v4/actions/{appId}/{definitionId}/revisions/{revisionId} | Gets a revision for a given definition by revision id
+[**RevisionsGetPage**](RevisionsApi.md#RevisionsGetPage) | **Get** /automation/v4/actions/{appId}/{definitionId}/revisions | Get all revisions for a given definition
 
 
 
 ## RevisionsGetByID
 
-> ActionRevision RevisionsGetByID(ctx, definitionId, revisionId, appId).Execute()
+> PublicActionRevision RevisionsGetByID(ctx, definitionId, revisionId, appId).Execute()
 
-Get a revision for a custom action
-
-
+Gets a revision for a given definition by revision id
 
 ### Example
 
@@ -30,8 +28,8 @@ import (
 )
 
 func main() {
-    definitionId := "definitionId_example" // string | The ID of the custom workflow action.
-    revisionId := "revisionId_example" // string | The version of the custom workflow action.
+    definitionId := "definitionId_example" // string | 
+    revisionId := "revisionId_example" // string | 
     appId := int32(56) // int32 | 
 
     configuration := openapiclient.NewConfiguration()
@@ -41,7 +39,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `RevisionsApi.RevisionsGetByID``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `RevisionsGetByID`: ActionRevision
+    // response from `RevisionsGetByID`: PublicActionRevision
     fmt.Fprintf(os.Stdout, "Response from `RevisionsApi.RevisionsGetByID`: %v\n", resp)
 }
 ```
@@ -52,8 +50,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**definitionId** | **string** | The ID of the custom workflow action. | 
-**revisionId** | **string** | The version of the custom workflow action. | 
+**definitionId** | **string** |  | 
+**revisionId** | **string** |  | 
 **appId** | **int32** |  | 
 
 ### Other Parameters
@@ -69,11 +67,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ActionRevision**](ActionRevision.md)
+[**PublicActionRevision**](PublicActionRevision.md)
 
 ### Authorization
 
-[developer_hapikey](../README.md#developer_hapikey)
+No authorization required
 
 ### HTTP request headers
 
@@ -87,11 +85,9 @@ Name | Type | Description  | Notes
 
 ## RevisionsGetPage
 
-> CollectionResponseActionRevisionForwardPaging RevisionsGetPage(ctx, definitionId, appId).Limit(limit).After(after).Execute()
+> CollectionResponsePublicActionRevisionForwardPaging RevisionsGetPage(ctx, definitionId, appId).Limit(limit).After(after).Execute()
 
-Get all revisions for a custom action
-
-
+Get all revisions for a given definition
 
 ### Example
 
@@ -106,9 +102,9 @@ import (
 )
 
 func main() {
-    definitionId := "definitionId_example" // string | The ID of the custom workflow action
+    definitionId := "definitionId_example" // string | 
     appId := int32(56) // int32 | 
-    limit := int32(56) // int32 | Maximum number of results per page. (optional)
+    limit := int32(56) // int32 | The maximum number of results to display per page. (optional)
     after := "after_example" // string | The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results. (optional)
 
     configuration := openapiclient.NewConfiguration()
@@ -118,7 +114,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `RevisionsApi.RevisionsGetPage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `RevisionsGetPage`: CollectionResponseActionRevisionForwardPaging
+    // response from `RevisionsGetPage`: CollectionResponsePublicActionRevisionForwardPaging
     fmt.Fprintf(os.Stdout, "Response from `RevisionsApi.RevisionsGetPage`: %v\n", resp)
 }
 ```
@@ -129,7 +125,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**definitionId** | **string** | The ID of the custom workflow action | 
+**definitionId** | **string** |  | 
 **appId** | **int32** |  | 
 
 ### Other Parameters
@@ -141,16 +137,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **limit** | **int32** | Maximum number of results per page. | 
+ **limit** | **int32** | The maximum number of results to display per page. | 
  **after** | **string** | The paging cursor token of the last successfully read resource will be returned as the &#x60;paging.next.after&#x60; JSON property of a paged response containing more results. | 
 
 ### Return type
 
-[**CollectionResponseActionRevisionForwardPaging**](CollectionResponseActionRevisionForwardPaging.md)
+[**CollectionResponsePublicActionRevisionForwardPaging**](CollectionResponsePublicActionRevisionForwardPaging.md)
 
 ### Authorization
 
-[developer_hapikey](../README.md#developer_hapikey)
+No authorization required
 
 ### HTTP request headers
 

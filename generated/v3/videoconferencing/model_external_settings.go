@@ -1,5 +1,5 @@
 /*
-Video Conference Extension
+Video Conferencing Extension
 
 These APIs allow you to specify URLs that can be used to interact with a video conferencing application, to allow HubSpot to add video conference links to meeting requests with contacts.
 
@@ -16,14 +16,15 @@ import (
 
 // ExternalSettings The URLs of the various actions provided by the video conferencing application. All URLs must use the `https` protocol.
 type ExternalSettings struct {
+	// The URL that HubSpot will use to verify that a user exists in the video conference application.
+	UserVerifyUrl    *string `json:"userVerifyUrl,omitempty"`
+	FetchAccountsUri *string `json:"fetchAccountsUri,omitempty"`
 	// The URL that HubSpot will send requests to create a new video conference.
 	CreateMeetingUrl string `json:"createMeetingUrl"`
 	// The URL that HubSpot will send updates to existing meetings. Typically called when the user changes the topic or times of a meeting.
 	UpdateMeetingUrl *string `json:"updateMeetingUrl,omitempty"`
 	// The URL that HubSpot will send notifications of meetings that have been deleted in HubSpot.
 	DeleteMeetingUrl *string `json:"deleteMeetingUrl,omitempty"`
-	// The URL that HubSpot will use to verify that a user exists in the video conference application.
-	UserVerifyUrl *string `json:"userVerifyUrl,omitempty"`
 }
 
 // NewExternalSettings instantiates a new ExternalSettings object
@@ -42,6 +43,70 @@ func NewExternalSettings(createMeetingUrl string) *ExternalSettings {
 func NewExternalSettingsWithDefaults() *ExternalSettings {
 	this := ExternalSettings{}
 	return &this
+}
+
+// GetUserVerifyUrl returns the UserVerifyUrl field value if set, zero value otherwise.
+func (o *ExternalSettings) GetUserVerifyUrl() string {
+	if o == nil || o.UserVerifyUrl == nil {
+		var ret string
+		return ret
+	}
+	return *o.UserVerifyUrl
+}
+
+// GetUserVerifyUrlOk returns a tuple with the UserVerifyUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ExternalSettings) GetUserVerifyUrlOk() (*string, bool) {
+	if o == nil || o.UserVerifyUrl == nil {
+		return nil, false
+	}
+	return o.UserVerifyUrl, true
+}
+
+// HasUserVerifyUrl returns a boolean if a field has been set.
+func (o *ExternalSettings) HasUserVerifyUrl() bool {
+	if o != nil && o.UserVerifyUrl != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetUserVerifyUrl gets a reference to the given string and assigns it to the UserVerifyUrl field.
+func (o *ExternalSettings) SetUserVerifyUrl(v string) {
+	o.UserVerifyUrl = &v
+}
+
+// GetFetchAccountsUri returns the FetchAccountsUri field value if set, zero value otherwise.
+func (o *ExternalSettings) GetFetchAccountsUri() string {
+	if o == nil || o.FetchAccountsUri == nil {
+		var ret string
+		return ret
+	}
+	return *o.FetchAccountsUri
+}
+
+// GetFetchAccountsUriOk returns a tuple with the FetchAccountsUri field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ExternalSettings) GetFetchAccountsUriOk() (*string, bool) {
+	if o == nil || o.FetchAccountsUri == nil {
+		return nil, false
+	}
+	return o.FetchAccountsUri, true
+}
+
+// HasFetchAccountsUri returns a boolean if a field has been set.
+func (o *ExternalSettings) HasFetchAccountsUri() bool {
+	if o != nil && o.FetchAccountsUri != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFetchAccountsUri gets a reference to the given string and assigns it to the FetchAccountsUri field.
+func (o *ExternalSettings) SetFetchAccountsUri(v string) {
+	o.FetchAccountsUri = &v
 }
 
 // GetCreateMeetingUrl returns the CreateMeetingUrl field value
@@ -132,40 +197,14 @@ func (o *ExternalSettings) SetDeleteMeetingUrl(v string) {
 	o.DeleteMeetingUrl = &v
 }
 
-// GetUserVerifyUrl returns the UserVerifyUrl field value if set, zero value otherwise.
-func (o *ExternalSettings) GetUserVerifyUrl() string {
-	if o == nil || o.UserVerifyUrl == nil {
-		var ret string
-		return ret
-	}
-	return *o.UserVerifyUrl
-}
-
-// GetUserVerifyUrlOk returns a tuple with the UserVerifyUrl field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ExternalSettings) GetUserVerifyUrlOk() (*string, bool) {
-	if o == nil || o.UserVerifyUrl == nil {
-		return nil, false
-	}
-	return o.UserVerifyUrl, true
-}
-
-// HasUserVerifyUrl returns a boolean if a field has been set.
-func (o *ExternalSettings) HasUserVerifyUrl() bool {
-	if o != nil && o.UserVerifyUrl != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetUserVerifyUrl gets a reference to the given string and assigns it to the UserVerifyUrl field.
-func (o *ExternalSettings) SetUserVerifyUrl(v string) {
-	o.UserVerifyUrl = &v
-}
-
 func (o ExternalSettings) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if o.UserVerifyUrl != nil {
+		toSerialize["userVerifyUrl"] = o.UserVerifyUrl
+	}
+	if o.FetchAccountsUri != nil {
+		toSerialize["fetchAccountsUri"] = o.FetchAccountsUri
+	}
 	if true {
 		toSerialize["createMeetingUrl"] = o.CreateMeetingUrl
 	}
@@ -174,9 +213,6 @@ func (o ExternalSettings) MarshalJSON() ([]byte, error) {
 	}
 	if o.DeleteMeetingUrl != nil {
 		toSerialize["deleteMeetingUrl"] = o.DeleteMeetingUrl
-	}
-	if o.UserVerifyUrl != nil {
-		toSerialize["userVerifyUrl"] = o.UserVerifyUrl
 	}
 	return json.Marshal(toSerialize)
 }

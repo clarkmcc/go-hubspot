@@ -16,16 +16,17 @@ import (
 
 // ObjectTypeDefinitionPatch Defines attributes to update on an object type.
 type ObjectTypeDefinitionPatch struct {
-	Labels *ObjectTypeDefinitionLabels `json:"labels,omitempty"`
+	// The names of secondary properties for this object. These will be displayed as secondary on the HubSpot record page for this object type.
+	SecondaryDisplayProperties []string `json:"secondaryDisplayProperties,omitempty"`
 	// The names of properties that should be **required** when creating an object of this type.
 	RequiredProperties []string `json:"requiredProperties,omitempty"`
 	// Names of properties that will be indexed for this object type in by HubSpot's product search.
 	SearchableProperties []string `json:"searchableProperties,omitempty"`
 	// The name of the primary property for this object. This will be displayed as primary on the HubSpot record page for this object type.
-	PrimaryDisplayProperty *string `json:"primaryDisplayProperty,omitempty"`
-	// The names of secondary properties for this object. These will be displayed as secondary on the HubSpot record page for this object type.
-	SecondaryDisplayProperties []string `json:"secondaryDisplayProperties,omitempty"`
-	Restorable                 *bool    `json:"restorable,omitempty"`
+	PrimaryDisplayProperty *string                     `json:"primaryDisplayProperty,omitempty"`
+	Description            *string                     `json:"description,omitempty"`
+	Restorable             *bool                       `json:"restorable,omitempty"`
+	Labels                 *ObjectTypeDefinitionLabels `json:"labels,omitempty"`
 }
 
 // NewObjectTypeDefinitionPatch instantiates a new ObjectTypeDefinitionPatch object
@@ -45,36 +46,36 @@ func NewObjectTypeDefinitionPatchWithDefaults() *ObjectTypeDefinitionPatch {
 	return &this
 }
 
-// GetLabels returns the Labels field value if set, zero value otherwise.
-func (o *ObjectTypeDefinitionPatch) GetLabels() ObjectTypeDefinitionLabels {
-	if o == nil || o.Labels == nil {
-		var ret ObjectTypeDefinitionLabels
+// GetSecondaryDisplayProperties returns the SecondaryDisplayProperties field value if set, zero value otherwise.
+func (o *ObjectTypeDefinitionPatch) GetSecondaryDisplayProperties() []string {
+	if o == nil || o.SecondaryDisplayProperties == nil {
+		var ret []string
 		return ret
 	}
-	return *o.Labels
+	return o.SecondaryDisplayProperties
 }
 
-// GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
+// GetSecondaryDisplayPropertiesOk returns a tuple with the SecondaryDisplayProperties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ObjectTypeDefinitionPatch) GetLabelsOk() (*ObjectTypeDefinitionLabels, bool) {
-	if o == nil || o.Labels == nil {
+func (o *ObjectTypeDefinitionPatch) GetSecondaryDisplayPropertiesOk() ([]string, bool) {
+	if o == nil || o.SecondaryDisplayProperties == nil {
 		return nil, false
 	}
-	return o.Labels, true
+	return o.SecondaryDisplayProperties, true
 }
 
-// HasLabels returns a boolean if a field has been set.
-func (o *ObjectTypeDefinitionPatch) HasLabels() bool {
-	if o != nil && o.Labels != nil {
+// HasSecondaryDisplayProperties returns a boolean if a field has been set.
+func (o *ObjectTypeDefinitionPatch) HasSecondaryDisplayProperties() bool {
+	if o != nil && o.SecondaryDisplayProperties != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetLabels gets a reference to the given ObjectTypeDefinitionLabels and assigns it to the Labels field.
-func (o *ObjectTypeDefinitionPatch) SetLabels(v ObjectTypeDefinitionLabels) {
-	o.Labels = &v
+// SetSecondaryDisplayProperties gets a reference to the given []string and assigns it to the SecondaryDisplayProperties field.
+func (o *ObjectTypeDefinitionPatch) SetSecondaryDisplayProperties(v []string) {
+	o.SecondaryDisplayProperties = v
 }
 
 // GetRequiredProperties returns the RequiredProperties field value if set, zero value otherwise.
@@ -173,36 +174,36 @@ func (o *ObjectTypeDefinitionPatch) SetPrimaryDisplayProperty(v string) {
 	o.PrimaryDisplayProperty = &v
 }
 
-// GetSecondaryDisplayProperties returns the SecondaryDisplayProperties field value if set, zero value otherwise.
-func (o *ObjectTypeDefinitionPatch) GetSecondaryDisplayProperties() []string {
-	if o == nil || o.SecondaryDisplayProperties == nil {
-		var ret []string
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *ObjectTypeDefinitionPatch) GetDescription() string {
+	if o == nil || o.Description == nil {
+		var ret string
 		return ret
 	}
-	return o.SecondaryDisplayProperties
+	return *o.Description
 }
 
-// GetSecondaryDisplayPropertiesOk returns a tuple with the SecondaryDisplayProperties field value if set, nil otherwise
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ObjectTypeDefinitionPatch) GetSecondaryDisplayPropertiesOk() ([]string, bool) {
-	if o == nil || o.SecondaryDisplayProperties == nil {
+func (o *ObjectTypeDefinitionPatch) GetDescriptionOk() (*string, bool) {
+	if o == nil || o.Description == nil {
 		return nil, false
 	}
-	return o.SecondaryDisplayProperties, true
+	return o.Description, true
 }
 
-// HasSecondaryDisplayProperties returns a boolean if a field has been set.
-func (o *ObjectTypeDefinitionPatch) HasSecondaryDisplayProperties() bool {
-	if o != nil && o.SecondaryDisplayProperties != nil {
+// HasDescription returns a boolean if a field has been set.
+func (o *ObjectTypeDefinitionPatch) HasDescription() bool {
+	if o != nil && o.Description != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetSecondaryDisplayProperties gets a reference to the given []string and assigns it to the SecondaryDisplayProperties field.
-func (o *ObjectTypeDefinitionPatch) SetSecondaryDisplayProperties(v []string) {
-	o.SecondaryDisplayProperties = v
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *ObjectTypeDefinitionPatch) SetDescription(v string) {
+	o.Description = &v
 }
 
 // GetRestorable returns the Restorable field value if set, zero value otherwise.
@@ -237,10 +238,42 @@ func (o *ObjectTypeDefinitionPatch) SetRestorable(v bool) {
 	o.Restorable = &v
 }
 
+// GetLabels returns the Labels field value if set, zero value otherwise.
+func (o *ObjectTypeDefinitionPatch) GetLabels() ObjectTypeDefinitionLabels {
+	if o == nil || o.Labels == nil {
+		var ret ObjectTypeDefinitionLabels
+		return ret
+	}
+	return *o.Labels
+}
+
+// GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ObjectTypeDefinitionPatch) GetLabelsOk() (*ObjectTypeDefinitionLabels, bool) {
+	if o == nil || o.Labels == nil {
+		return nil, false
+	}
+	return o.Labels, true
+}
+
+// HasLabels returns a boolean if a field has been set.
+func (o *ObjectTypeDefinitionPatch) HasLabels() bool {
+	if o != nil && o.Labels != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLabels gets a reference to the given ObjectTypeDefinitionLabels and assigns it to the Labels field.
+func (o *ObjectTypeDefinitionPatch) SetLabels(v ObjectTypeDefinitionLabels) {
+	o.Labels = &v
+}
+
 func (o ObjectTypeDefinitionPatch) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Labels != nil {
-		toSerialize["labels"] = o.Labels
+	if o.SecondaryDisplayProperties != nil {
+		toSerialize["secondaryDisplayProperties"] = o.SecondaryDisplayProperties
 	}
 	if o.RequiredProperties != nil {
 		toSerialize["requiredProperties"] = o.RequiredProperties
@@ -251,11 +284,14 @@ func (o ObjectTypeDefinitionPatch) MarshalJSON() ([]byte, error) {
 	if o.PrimaryDisplayProperty != nil {
 		toSerialize["primaryDisplayProperty"] = o.PrimaryDisplayProperty
 	}
-	if o.SecondaryDisplayProperties != nil {
-		toSerialize["secondaryDisplayProperties"] = o.SecondaryDisplayProperties
+	if o.Description != nil {
+		toSerialize["description"] = o.Description
 	}
 	if o.Restorable != nil {
 		toSerialize["restorable"] = o.Restorable
+	}
+	if o.Labels != nil {
+		toSerialize["labels"] = o.Labels
 	}
 	return json.Marshal(toSerialize)
 }

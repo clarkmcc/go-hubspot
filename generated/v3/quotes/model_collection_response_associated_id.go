@@ -16,8 +16,8 @@ import (
 
 // CollectionResponseAssociatedId struct for CollectionResponseAssociatedId
 type CollectionResponseAssociatedId struct {
-	Results []AssociatedId `json:"results"`
 	Paging  *Paging        `json:"paging,omitempty"`
+	Results []AssociatedId `json:"results"`
 }
 
 // NewCollectionResponseAssociatedId instantiates a new CollectionResponseAssociatedId object
@@ -36,30 +36,6 @@ func NewCollectionResponseAssociatedId(results []AssociatedId) *CollectionRespon
 func NewCollectionResponseAssociatedIdWithDefaults() *CollectionResponseAssociatedId {
 	this := CollectionResponseAssociatedId{}
 	return &this
-}
-
-// GetResults returns the Results field value
-func (o *CollectionResponseAssociatedId) GetResults() []AssociatedId {
-	if o == nil {
-		var ret []AssociatedId
-		return ret
-	}
-
-	return o.Results
-}
-
-// GetResultsOk returns a tuple with the Results field value
-// and a boolean to check if the value has been set.
-func (o *CollectionResponseAssociatedId) GetResultsOk() ([]AssociatedId, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Results, true
-}
-
-// SetResults sets field value
-func (o *CollectionResponseAssociatedId) SetResults(v []AssociatedId) {
-	o.Results = v
 }
 
 // GetPaging returns the Paging field value if set, zero value otherwise.
@@ -94,13 +70,37 @@ func (o *CollectionResponseAssociatedId) SetPaging(v Paging) {
 	o.Paging = &v
 }
 
+// GetResults returns the Results field value
+func (o *CollectionResponseAssociatedId) GetResults() []AssociatedId {
+	if o == nil {
+		var ret []AssociatedId
+		return ret
+	}
+
+	return o.Results
+}
+
+// GetResultsOk returns a tuple with the Results field value
+// and a boolean to check if the value has been set.
+func (o *CollectionResponseAssociatedId) GetResultsOk() ([]AssociatedId, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Results, true
+}
+
+// SetResults sets field value
+func (o *CollectionResponseAssociatedId) SetResults(v []AssociatedId) {
+	o.Results = v
+}
+
 func (o CollectionResponseAssociatedId) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["results"] = o.Results
-	}
 	if o.Paging != nil {
 		toSerialize["paging"] = o.Paging
+	}
+	if true {
+		toSerialize["results"] = o.Results
 	}
 	return json.Marshal(toSerialize)
 }

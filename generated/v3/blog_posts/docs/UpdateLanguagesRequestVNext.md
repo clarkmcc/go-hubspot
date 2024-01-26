@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**PrimaryId** | **string** | ID of the primary object in the multi-language group. | 
 **Languages** | **map[string]string** | Map of object IDs to associated languages of object in the multi-language group. | 
+**PrimaryId** | **string** | ID of the primary object in the multi-language group. | 
 
 ## Methods
 
 ### NewUpdateLanguagesRequestVNext
 
-`func NewUpdateLanguagesRequestVNext(primaryId string, languages map[string]string, ) *UpdateLanguagesRequestVNext`
+`func NewUpdateLanguagesRequestVNext(languages map[string]string, primaryId string, ) *UpdateLanguagesRequestVNext`
 
 NewUpdateLanguagesRequestVNext instantiates a new UpdateLanguagesRequestVNext object
 This constructor will assign default values to properties that have it defined,
@@ -25,26 +25,6 @@ will change when the set of required properties is changed
 NewUpdateLanguagesRequestVNextWithDefaults instantiates a new UpdateLanguagesRequestVNext object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetPrimaryId
-
-`func (o *UpdateLanguagesRequestVNext) GetPrimaryId() string`
-
-GetPrimaryId returns the PrimaryId field if non-nil, zero value otherwise.
-
-### GetPrimaryIdOk
-
-`func (o *UpdateLanguagesRequestVNext) GetPrimaryIdOk() (*string, bool)`
-
-GetPrimaryIdOk returns a tuple with the PrimaryId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPrimaryId
-
-`func (o *UpdateLanguagesRequestVNext) SetPrimaryId(v string)`
-
-SetPrimaryId sets PrimaryId field to given value.
-
 
 ### GetLanguages
 
@@ -64,6 +44,26 @@ and a boolean to check if the value has been set.
 `func (o *UpdateLanguagesRequestVNext) SetLanguages(v map[string]string)`
 
 SetLanguages sets Languages field to given value.
+
+
+### GetPrimaryId
+
+`func (o *UpdateLanguagesRequestVNext) GetPrimaryId() string`
+
+GetPrimaryId returns the PrimaryId field if non-nil, zero value otherwise.
+
+### GetPrimaryIdOk
+
+`func (o *UpdateLanguagesRequestVNext) GetPrimaryIdOk() (*string, bool)`
+
+GetPrimaryIdOk returns a tuple with the PrimaryId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPrimaryId
+
+`func (o *UpdateLanguagesRequestVNext) SetPrimaryId(v string)`
+
+SetPrimaryId sets PrimaryId field to given value.
 
 
 

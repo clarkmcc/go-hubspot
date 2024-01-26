@@ -93,7 +93,7 @@ Name | Type | Description  | Notes
 
 ## AttachToLanguageGroup
 
-> Error AttachToLanguageGroup(ctx).AttachToLangPrimaryRequestVNext(attachToLangPrimaryRequestVNext).Execute()
+> AttachToLanguageGroup(ctx).AttachToLangPrimaryRequestVNext(attachToLangPrimaryRequestVNext).Execute()
 
 Attach a Blog Tag to a multi-language group
 
@@ -112,7 +112,7 @@ import (
 )
 
 func main() {
-    attachToLangPrimaryRequestVNext := *openapiclient.NewAttachToLangPrimaryRequestVNext("Id_example", "Language_example", "PrimaryId_example") // AttachToLangPrimaryRequestVNext | The JSON representation of the AttachToLangPrimaryRequest object.
+    attachToLangPrimaryRequestVNext := *openapiclient.NewAttachToLangPrimaryRequestVNext("Language_example", "Id_example", "PrimaryId_example") // AttachToLangPrimaryRequestVNext | The JSON representation of the AttachToLangPrimaryRequest object.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -121,8 +121,6 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `BlogTagsApi.AttachToLanguageGroup``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AttachToLanguageGroup`: Error
-    fmt.Fprintf(os.Stdout, "Response from `BlogTagsApi.AttachToLanguageGroup`: %v\n", resp)
 }
 ```
 
@@ -141,7 +139,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Error**](Error.md)
+ (empty response body)
 
 ### Authorization
 
@@ -243,7 +241,7 @@ import (
 )
 
 func main() {
-    batchInputTag := *openapiclient.NewBatchInputTag([]openapiclient.Tag{*openapiclient.NewTag("Id_example", "Name_example", "Language_example", int64(123), time.Now(), time.Now(), time.Now())}) // BatchInputTag | The JSON array of new Blog Tags to create.
+    batchInputTag := *openapiclient.NewBatchInputTag([]openapiclient.Tag{*openapiclient.NewTag(time.Now(), time.Now(), "Name_example", "Language_example", "Id_example", int64(123), time.Now())}) // BatchInputTag | The JSON array of new Blog Tags to create.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -446,7 +444,7 @@ import (
 )
 
 func main() {
-    tag := *openapiclient.NewTag("Id_example", "Name_example", "Language_example", int64(123), time.Now(), time.Now(), time.Now()) // Tag | The JSON representation of a new Blog Tag.
+    tag := *openapiclient.NewTag(time.Now(), time.Now(), "Name_example", "Language_example", "Id_example", int64(123), time.Now()) // Tag | The JSON representation of a new Blog Tag.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -512,7 +510,7 @@ import (
 )
 
 func main() {
-    tagCloneRequestVNext := *openapiclient.NewTagCloneRequestVNext("Id_example", "Name_example") // TagCloneRequestVNext | The JSON representation of the ContentLanguageCloneRequest object.
+    tagCloneRequestVNext := *openapiclient.NewTagCloneRequestVNext("Name_example", "Id_example") // TagCloneRequestVNext | The JSON representation of the ContentLanguageCloneRequest object.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -559,7 +557,7 @@ Name | Type | Description  | Notes
 
 ## DetachFromLanguageGroup
 
-> Error DetachFromLanguageGroup(ctx).DetachFromLangGroupRequestVNext(detachFromLangGroupRequestVNext).Execute()
+> DetachFromLanguageGroup(ctx).DetachFromLangGroupRequestVNext(detachFromLangGroupRequestVNext).Execute()
 
 Detach a Blog Tag from a multi-language group
 
@@ -587,8 +585,6 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `BlogTagsApi.DetachFromLanguageGroup``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `DetachFromLanguageGroup`: Error
-    fmt.Fprintf(os.Stdout, "Response from `BlogTagsApi.DetachFromLanguageGroup`: %v\n", resp)
 }
 ```
 
@@ -607,7 +603,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Error**](Error.md)
+ (empty response body)
 
 ### Authorization
 
@@ -625,7 +621,7 @@ Name | Type | Description  | Notes
 
 ## GetByID
 
-> Tag GetByID(ctx, objectId).Archived(archived).Execute()
+> Tag GetByID(ctx, objectId).Archived(archived).Property(property).Execute()
 
 Retrieve a Blog Tag
 
@@ -646,10 +642,11 @@ import (
 func main() {
     objectId := "objectId_example" // string | The Blog Tag id.
     archived := true // bool | Specifies whether to return deleted Blog Tags. Defaults to `false`. (optional)
+    property := "property_example" // string |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogTagsApi.GetByID(context.Background(), objectId).Archived(archived).Execute()
+    resp, r, err := apiClient.BlogTagsApi.GetByID(context.Background(), objectId).Archived(archived).Property(property).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `BlogTagsApi.GetByID``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -676,6 +673,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **archived** | **bool** | Specifies whether to return deleted Blog Tags. Defaults to &#x60;false&#x60;. | 
+ **property** | **string** |  | 
 
 ### Return type
 
@@ -697,7 +695,7 @@ Name | Type | Description  | Notes
 
 ## GetPage
 
-> CollectionResponseWithTotalTagForwardPaging GetPage(ctx).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Sort(sort).After(after).Limit(limit).Archived(archived).Execute()
+> CollectionResponseWithTotalTagForwardPaging GetPage(ctx).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Sort(sort).After(after).Limit(limit).Archived(archived).Property(property).Execute()
 
 Get all Blog Tags
 
@@ -727,10 +725,11 @@ func main() {
     after := "after_example" // string | The cursor token value to get the next set of results. You can get this from the `paging.next.after` JSON property of a paged response containing more results. (optional)
     limit := int32(56) // int32 | The maximum number of results to return. Default is 100. (optional)
     archived := true // bool | Specifies whether to return deleted Blog Tags. Defaults to `false`. (optional)
+    property := "property_example" // string |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogTagsApi.GetPage(context.Background()).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Sort(sort).After(after).Limit(limit).Archived(archived).Execute()
+    resp, r, err := apiClient.BlogTagsApi.GetPage(context.Background()).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Sort(sort).After(after).Limit(limit).Archived(archived).Property(property).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `BlogTagsApi.GetPage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -761,6 +760,7 @@ Name | Type | Description  | Notes
  **after** | **string** | The cursor token value to get the next set of results. You can get this from the &#x60;paging.next.after&#x60; JSON property of a paged response containing more results. | 
  **limit** | **int32** | The maximum number of results to return. Default is 100. | 
  **archived** | **bool** | Specifies whether to return deleted Blog Tags. Defaults to &#x60;false&#x60;. | 
+ **property** | **string** |  | 
 
 ### Return type
 
@@ -867,7 +867,7 @@ import (
 
 func main() {
     objectId := "objectId_example" // string | The Blog Tag id.
-    tag := *openapiclient.NewTag("Id_example", "Name_example", "Language_example", int64(123), time.Now(), time.Now(), time.Now()) // Tag | The JSON representation of the updated Blog Tag.
+    tag := *openapiclient.NewTag(time.Now(), time.Now(), "Name_example", "Language_example", "Id_example", int64(123), time.Now()) // Tag | The JSON representation of the updated Blog Tag.
     archived := true // bool | Specifies whether to update deleted Blog Tags. Defaults to `false`. (optional)
 
     configuration := openapiclient.NewConfiguration()
@@ -921,7 +921,7 @@ Name | Type | Description  | Notes
 
 ## UpdateLanguages
 
-> Error UpdateLanguages(ctx).UpdateLanguagesRequestVNext(updateLanguagesRequestVNext).Execute()
+> UpdateLanguages(ctx).UpdateLanguagesRequestVNext(updateLanguagesRequestVNext).Execute()
 
 Update languages of multi-language group
 
@@ -940,7 +940,7 @@ import (
 )
 
 func main() {
-    updateLanguagesRequestVNext := *openapiclient.NewUpdateLanguagesRequestVNext("PrimaryId_example", map[string]string{"key": "Inner_example"}) // UpdateLanguagesRequestVNext | The JSON representation of the UpdateLanguagesRequest object.
+    updateLanguagesRequestVNext := *openapiclient.NewUpdateLanguagesRequestVNext(map[string]string{"key": "Inner_example"}, "PrimaryId_example") // UpdateLanguagesRequestVNext | The JSON representation of the UpdateLanguagesRequest object.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -949,8 +949,6 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `BlogTagsApi.UpdateLanguages``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `UpdateLanguages`: Error
-    fmt.Fprintf(os.Stdout, "Response from `BlogTagsApi.UpdateLanguages`: %v\n", resp)
 }
 ```
 
@@ -969,7 +967,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Error**](Error.md)
+ (empty response body)
 
 ### Authorization
 

@@ -16,10 +16,10 @@ import (
 
 // Filter struct for Filter
 type Filter struct {
-	Value        *string  `json:"value,omitempty"`
 	HighValue    *string  `json:"highValue,omitempty"`
-	Values       []string `json:"values,omitempty"`
 	PropertyName string   `json:"propertyName"`
+	Values       []string `json:"values,omitempty"`
+	Value        *string  `json:"value,omitempty"`
 	// null
 	Operator string `json:"operator"`
 }
@@ -41,38 +41,6 @@ func NewFilter(propertyName string, operator string) *Filter {
 func NewFilterWithDefaults() *Filter {
 	this := Filter{}
 	return &this
-}
-
-// GetValue returns the Value field value if set, zero value otherwise.
-func (o *Filter) GetValue() string {
-	if o == nil || o.Value == nil {
-		var ret string
-		return ret
-	}
-	return *o.Value
-}
-
-// GetValueOk returns a tuple with the Value field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Filter) GetValueOk() (*string, bool) {
-	if o == nil || o.Value == nil {
-		return nil, false
-	}
-	return o.Value, true
-}
-
-// HasValue returns a boolean if a field has been set.
-func (o *Filter) HasValue() bool {
-	if o != nil && o.Value != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetValue gets a reference to the given string and assigns it to the Value field.
-func (o *Filter) SetValue(v string) {
-	o.Value = &v
 }
 
 // GetHighValue returns the HighValue field value if set, zero value otherwise.
@@ -107,6 +75,30 @@ func (o *Filter) SetHighValue(v string) {
 	o.HighValue = &v
 }
 
+// GetPropertyName returns the PropertyName field value
+func (o *Filter) GetPropertyName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.PropertyName
+}
+
+// GetPropertyNameOk returns a tuple with the PropertyName field value
+// and a boolean to check if the value has been set.
+func (o *Filter) GetPropertyNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PropertyName, true
+}
+
+// SetPropertyName sets field value
+func (o *Filter) SetPropertyName(v string) {
+	o.PropertyName = v
+}
+
 // GetValues returns the Values field value if set, zero value otherwise.
 func (o *Filter) GetValues() []string {
 	if o == nil || o.Values == nil {
@@ -139,28 +131,36 @@ func (o *Filter) SetValues(v []string) {
 	o.Values = v
 }
 
-// GetPropertyName returns the PropertyName field value
-func (o *Filter) GetPropertyName() string {
-	if o == nil {
+// GetValue returns the Value field value if set, zero value otherwise.
+func (o *Filter) GetValue() string {
+	if o == nil || o.Value == nil {
 		var ret string
 		return ret
 	}
-
-	return o.PropertyName
+	return *o.Value
 }
 
-// GetPropertyNameOk returns a tuple with the PropertyName field value
+// GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Filter) GetPropertyNameOk() (*string, bool) {
-	if o == nil {
+func (o *Filter) GetValueOk() (*string, bool) {
+	if o == nil || o.Value == nil {
 		return nil, false
 	}
-	return &o.PropertyName, true
+	return o.Value, true
 }
 
-// SetPropertyName sets field value
-func (o *Filter) SetPropertyName(v string) {
-	o.PropertyName = v
+// HasValue returns a boolean if a field has been set.
+func (o *Filter) HasValue() bool {
+	if o != nil && o.Value != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetValue gets a reference to the given string and assigns it to the Value field.
+func (o *Filter) SetValue(v string) {
+	o.Value = &v
 }
 
 // GetOperator returns the Operator field value
@@ -189,17 +189,17 @@ func (o *Filter) SetOperator(v string) {
 
 func (o Filter) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Value != nil {
-		toSerialize["value"] = o.Value
-	}
 	if o.HighValue != nil {
 		toSerialize["highValue"] = o.HighValue
+	}
+	if true {
+		toSerialize["propertyName"] = o.PropertyName
 	}
 	if o.Values != nil {
 		toSerialize["values"] = o.Values
 	}
-	if true {
-		toSerialize["propertyName"] = o.PropertyName
+	if o.Value != nil {
+		toSerialize["value"] = o.Value
 	}
 	if true {
 		toSerialize["operator"] = o.Operator

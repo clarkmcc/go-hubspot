@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** | The id of the table row | [optional] 
-**Values** | **map[string]map[string]interface{}** | List of key value pairs with the column name and column value | 
 **Path** | Pointer to **string** | Specifies the value for &#x60;hs_path&#x60; column, which will be used as slug in the dynamic pages | [optional] 
-**Name** | Pointer to **string** | Specifies the value for &#x60;hs_name&#x60; column, which will be used as title in the dynamic pages | [optional] 
-**ChildTableId** | Pointer to **string** | Specifies the value for the column child table id | [optional] 
 **CreatedAt** | Pointer to **time.Time** | Timestamp at which the row is created | [optional] 
-**UpdatedAt** | Pointer to **time.Time** | Timestamp at which the row is updated last time | [optional] 
+**ChildTableId** | Pointer to **string** | Specifies the value for the column child table id | [optional] 
 **PublishedAt** | Pointer to **time.Time** |  | [optional] 
+**Values** | **map[string]map[string]interface{}** | List of key value pairs with the column name and column value | 
+**Name** | Pointer to **string** | Specifies the value for &#x60;hs_name&#x60; column, which will be used as title in the dynamic pages | [optional] 
+**Id** | Pointer to **string** | The id of the table row | [optional] 
+**UpdatedAt** | Pointer to **time.Time** | Timestamp at which the row is updated last time | [optional] 
 
 ## Methods
 
@@ -31,51 +31,6 @@ will change when the set of required properties is changed
 NewHubDbTableRowV3WithDefaults instantiates a new HubDbTableRowV3 object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetId
-
-`func (o *HubDbTableRowV3) GetId() string`
-
-GetId returns the Id field if non-nil, zero value otherwise.
-
-### GetIdOk
-
-`func (o *HubDbTableRowV3) GetIdOk() (*string, bool)`
-
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetId
-
-`func (o *HubDbTableRowV3) SetId(v string)`
-
-SetId sets Id field to given value.
-
-### HasId
-
-`func (o *HubDbTableRowV3) HasId() bool`
-
-HasId returns a boolean if a field has been set.
-
-### GetValues
-
-`func (o *HubDbTableRowV3) GetValues() map[string]map[string]interface{}`
-
-GetValues returns the Values field if non-nil, zero value otherwise.
-
-### GetValuesOk
-
-`func (o *HubDbTableRowV3) GetValuesOk() (*map[string]map[string]interface{}, bool)`
-
-GetValuesOk returns a tuple with the Values field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetValues
-
-`func (o *HubDbTableRowV3) SetValues(v map[string]map[string]interface{})`
-
-SetValues sets Values field to given value.
-
 
 ### GetPath
 
@@ -102,30 +57,30 @@ SetPath sets Path field to given value.
 
 HasPath returns a boolean if a field has been set.
 
-### GetName
+### GetCreatedAt
 
-`func (o *HubDbTableRowV3) GetName() string`
+`func (o *HubDbTableRowV3) GetCreatedAt() time.Time`
 
-GetName returns the Name field if non-nil, zero value otherwise.
+GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
-### GetNameOk
+### GetCreatedAtOk
 
-`func (o *HubDbTableRowV3) GetNameOk() (*string, bool)`
+`func (o *HubDbTableRowV3) GetCreatedAtOk() (*time.Time, bool)`
 
-GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetName
+### SetCreatedAt
 
-`func (o *HubDbTableRowV3) SetName(v string)`
+`func (o *HubDbTableRowV3) SetCreatedAt(v time.Time)`
 
-SetName sets Name field to given value.
+SetCreatedAt sets CreatedAt field to given value.
 
-### HasName
+### HasCreatedAt
 
-`func (o *HubDbTableRowV3) HasName() bool`
+`func (o *HubDbTableRowV3) HasCreatedAt() bool`
 
-HasName returns a boolean if a field has been set.
+HasCreatedAt returns a boolean if a field has been set.
 
 ### GetChildTableId
 
@@ -152,30 +107,100 @@ SetChildTableId sets ChildTableId field to given value.
 
 HasChildTableId returns a boolean if a field has been set.
 
-### GetCreatedAt
+### GetPublishedAt
 
-`func (o *HubDbTableRowV3) GetCreatedAt() time.Time`
+`func (o *HubDbTableRowV3) GetPublishedAt() time.Time`
 
-GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
+GetPublishedAt returns the PublishedAt field if non-nil, zero value otherwise.
 
-### GetCreatedAtOk
+### GetPublishedAtOk
 
-`func (o *HubDbTableRowV3) GetCreatedAtOk() (*time.Time, bool)`
+`func (o *HubDbTableRowV3) GetPublishedAtOk() (*time.Time, bool)`
 
-GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
+GetPublishedAtOk returns a tuple with the PublishedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetCreatedAt
+### SetPublishedAt
 
-`func (o *HubDbTableRowV3) SetCreatedAt(v time.Time)`
+`func (o *HubDbTableRowV3) SetPublishedAt(v time.Time)`
 
-SetCreatedAt sets CreatedAt field to given value.
+SetPublishedAt sets PublishedAt field to given value.
 
-### HasCreatedAt
+### HasPublishedAt
 
-`func (o *HubDbTableRowV3) HasCreatedAt() bool`
+`func (o *HubDbTableRowV3) HasPublishedAt() bool`
 
-HasCreatedAt returns a boolean if a field has been set.
+HasPublishedAt returns a boolean if a field has been set.
+
+### GetValues
+
+`func (o *HubDbTableRowV3) GetValues() map[string]map[string]interface{}`
+
+GetValues returns the Values field if non-nil, zero value otherwise.
+
+### GetValuesOk
+
+`func (o *HubDbTableRowV3) GetValuesOk() (*map[string]map[string]interface{}, bool)`
+
+GetValuesOk returns a tuple with the Values field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetValues
+
+`func (o *HubDbTableRowV3) SetValues(v map[string]map[string]interface{})`
+
+SetValues sets Values field to given value.
+
+
+### GetName
+
+`func (o *HubDbTableRowV3) GetName() string`
+
+GetName returns the Name field if non-nil, zero value otherwise.
+
+### GetNameOk
+
+`func (o *HubDbTableRowV3) GetNameOk() (*string, bool)`
+
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetName
+
+`func (o *HubDbTableRowV3) SetName(v string)`
+
+SetName sets Name field to given value.
+
+### HasName
+
+`func (o *HubDbTableRowV3) HasName() bool`
+
+HasName returns a boolean if a field has been set.
+
+### GetId
+
+`func (o *HubDbTableRowV3) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *HubDbTableRowV3) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *HubDbTableRowV3) SetId(v string)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *HubDbTableRowV3) HasId() bool`
+
+HasId returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
@@ -201,31 +226,6 @@ SetUpdatedAt sets UpdatedAt field to given value.
 `func (o *HubDbTableRowV3) HasUpdatedAt() bool`
 
 HasUpdatedAt returns a boolean if a field has been set.
-
-### GetPublishedAt
-
-`func (o *HubDbTableRowV3) GetPublishedAt() time.Time`
-
-GetPublishedAt returns the PublishedAt field if non-nil, zero value otherwise.
-
-### GetPublishedAtOk
-
-`func (o *HubDbTableRowV3) GetPublishedAtOk() (*time.Time, bool)`
-
-GetPublishedAtOk returns a tuple with the PublishedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPublishedAt
-
-`func (o *HubDbTableRowV3) SetPublishedAt(v time.Time)`
-
-SetPublishedAt sets PublishedAt field to given value.
-
-### HasPublishedAt
-
-`func (o *HubDbTableRowV3) HasPublishedAt() bool`
-
-HasPublishedAt returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

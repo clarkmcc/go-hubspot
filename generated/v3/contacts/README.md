@@ -139,8 +139,50 @@ Class | Method | HTTP request | Description
 - **Flow**: accessCode
 - **Authorization URL**: https://app.hubspot.com/oauth/authorize
 - **Scopes**: 
- - **crm.objects.contacts.read**:  
+ - **crm.objects.deals.read**:  
+ - **crm.objects.line_items.read**: Line Items
+ - **crm.objects.deals.write**:  
+ - **crm.objects.quotes.read**: Quotes
+ - **crm.objects.line_items.write**: Line Items
+ - **crm.objects.companies.read**:  
+ - **crm.objects.companies.write**:  
  - **crm.objects.contacts.write**:  
+ - **crm.objects.contacts.read**:  
+ - **crm.objects.quotes.write**: Quotes
+
+Example
+
+```golang
+auth := context.WithValue(context.Background(), sw.ContextAccessToken, "ACCESSTOKENSTRING")
+r, err := client.Service.Operation(auth, args)
+```
+
+Or via OAuth2 module to automatically refresh tokens and perform user authentication.
+
+```golang
+import "golang.org/x/oauth2"
+
+/* Perform OAuth2 round trip request and obtain a token */
+
+tokenSource := oauth2cfg.TokenSource(createContext(httpClient), &token)
+auth := context.WithValue(oauth2.NoContext, sw.ContextOAuth2, tokenSource)
+r, err := client.Service.Operation(auth, args)
+```
+
+
+### oauth2_legacy
+
+
+- **Type**: OAuth
+- **Flow**: accessCode
+- **Authorization URL**: https://app.hubspot.com/oauth/authorize
+- **Scopes**: 
+ - **media_bridge.read**: Read media and media events
+ - **crm.objects.goals.read**: Read goals
+ - **tickets**: Read and write tickets
+ - **crm.objects.custom.read**: View custom object records
+ - **e-commerce**: e-commerce
+ - **crm.objects.custom.write**: Change custom object records
 
 Example
 

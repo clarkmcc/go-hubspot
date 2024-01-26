@@ -1,5 +1,5 @@
 /*
-Timeline events
+CRM Timeline
 
 This feature allows an app to create and configure custom events that can show up in the timelines of certain CRM objects like contacts, companies, tickets, or deals. You'll find multiple use cases for this API in the sections below.
 
@@ -16,18 +16,18 @@ import (
 
 // TimelineEventTemplateTokenOption struct for TimelineEventTemplateTokenOption
 type TimelineEventTemplateTokenOption struct {
-	Value string `json:"value"`
 	Label string `json:"label"`
+	Value string `json:"value"`
 }
 
 // NewTimelineEventTemplateTokenOption instantiates a new TimelineEventTemplateTokenOption object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTimelineEventTemplateTokenOption(value string, label string) *TimelineEventTemplateTokenOption {
+func NewTimelineEventTemplateTokenOption(label string, value string) *TimelineEventTemplateTokenOption {
 	this := TimelineEventTemplateTokenOption{}
-	this.Value = value
 	this.Label = label
+	this.Value = value
 	return &this
 }
 
@@ -37,30 +37,6 @@ func NewTimelineEventTemplateTokenOption(value string, label string) *TimelineEv
 func NewTimelineEventTemplateTokenOptionWithDefaults() *TimelineEventTemplateTokenOption {
 	this := TimelineEventTemplateTokenOption{}
 	return &this
-}
-
-// GetValue returns the Value field value
-func (o *TimelineEventTemplateTokenOption) GetValue() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Value
-}
-
-// GetValueOk returns a tuple with the Value field value
-// and a boolean to check if the value has been set.
-func (o *TimelineEventTemplateTokenOption) GetValueOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Value, true
-}
-
-// SetValue sets field value
-func (o *TimelineEventTemplateTokenOption) SetValue(v string) {
-	o.Value = v
 }
 
 // GetLabel returns the Label field value
@@ -87,13 +63,37 @@ func (o *TimelineEventTemplateTokenOption) SetLabel(v string) {
 	o.Label = v
 }
 
+// GetValue returns the Value field value
+func (o *TimelineEventTemplateTokenOption) GetValue() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Value
+}
+
+// GetValueOk returns a tuple with the Value field value
+// and a boolean to check if the value has been set.
+func (o *TimelineEventTemplateTokenOption) GetValueOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Value, true
+}
+
+// SetValue sets field value
+func (o *TimelineEventTemplateTokenOption) SetValue(v string) {
+	o.Value = v
+}
+
 func (o TimelineEventTemplateTokenOption) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["value"] = o.Value
+		toSerialize["label"] = o.Label
 	}
 	if true {
-		toSerialize["label"] = o.Label
+		toSerialize["value"] = o.Value
 	}
 	return json.Marshal(toSerialize)
 }

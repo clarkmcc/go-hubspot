@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**TargetUrl** | **string** | A publicly available URL for Hubspot to call where event payloads will be delivered. See [link-so-some-doc](#) for details about the format of these event payloads. | 
 **Throttling** | [**ThrottlingSettings**](ThrottlingSettings.md) |  | 
+**TargetUrl** | **string** | A publicly available URL for Hubspot to call where event payloads will be delivered. See [link-so-some-doc](#) for details about the format of these event payloads. | 
 
 ## Methods
 
 ### NewSettingsChangeRequest
 
-`func NewSettingsChangeRequest(targetUrl string, throttling ThrottlingSettings, ) *SettingsChangeRequest`
+`func NewSettingsChangeRequest(throttling ThrottlingSettings, targetUrl string, ) *SettingsChangeRequest`
 
 NewSettingsChangeRequest instantiates a new SettingsChangeRequest object
 This constructor will assign default values to properties that have it defined,
@@ -25,26 +25,6 @@ will change when the set of required properties is changed
 NewSettingsChangeRequestWithDefaults instantiates a new SettingsChangeRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetTargetUrl
-
-`func (o *SettingsChangeRequest) GetTargetUrl() string`
-
-GetTargetUrl returns the TargetUrl field if non-nil, zero value otherwise.
-
-### GetTargetUrlOk
-
-`func (o *SettingsChangeRequest) GetTargetUrlOk() (*string, bool)`
-
-GetTargetUrlOk returns a tuple with the TargetUrl field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTargetUrl
-
-`func (o *SettingsChangeRequest) SetTargetUrl(v string)`
-
-SetTargetUrl sets TargetUrl field to given value.
-
 
 ### GetThrottling
 
@@ -64,6 +44,26 @@ and a boolean to check if the value has been set.
 `func (o *SettingsChangeRequest) SetThrottling(v ThrottlingSettings)`
 
 SetThrottling sets Throttling field to given value.
+
+
+### GetTargetUrl
+
+`func (o *SettingsChangeRequest) GetTargetUrl() string`
+
+GetTargetUrl returns the TargetUrl field if non-nil, zero value otherwise.
+
+### GetTargetUrlOk
+
+`func (o *SettingsChangeRequest) GetTargetUrlOk() (*string, bool)`
+
+GetTargetUrlOk returns a tuple with the TargetUrl field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTargetUrl
+
+`func (o *SettingsChangeRequest) SetTargetUrl(v string)`
+
+SetTargetUrl sets TargetUrl field to given value.
 
 
 

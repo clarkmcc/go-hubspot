@@ -4,32 +4,32 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** | The unique ID of this domain. | 
-**Domain** | **string** | The actual domain or sub-domain. e.g. www.hubspot.com | 
-**PrimaryLandingPage** | Pointer to **bool** |  | [optional] 
-**PrimaryEmail** | Pointer to **bool** |  | [optional] 
+**IsUsedForLandingPage** | **bool** | Whether the domain is used for CMS landing pages. | 
 **PrimaryBlogPost** | Pointer to **bool** |  | [optional] 
-**PrimarySitePage** | Pointer to **bool** |  | [optional] 
 **PrimaryKnowledge** | Pointer to **bool** |  | [optional] 
+**Created** | Pointer to **time.Time** |  | [optional] 
 **SecondaryToDomain** | Pointer to **string** |  | [optional] 
-**IsResolving** | **bool** | Whether the DNS for this domain is optimally configured for use with HubSpot. | 
 **ManuallyMarkedAsResolving** | Pointer to **bool** |  | [optional] 
-**IsSslEnabled** | Pointer to **bool** |  | [optional] 
-**IsSslOnly** | Pointer to **bool** |  | [optional] 
+**IsUsedForKnowledge** | **bool** | Whether the domain is used for CMS knowledge pages. | 
 **IsUsedForBlogPost** | **bool** | Whether the domain is used for CMS blog posts. | 
 **IsUsedForSitePage** | **bool** | Whether the domain is used for CMS site pages. | 
-**IsUsedForLandingPage** | **bool** | Whether the domain is used for CMS landing pages. | 
+**IsResolving** | **bool** | Whether the DNS for this domain is optimally configured for use with HubSpot. | 
+**IsSslEnabled** | Pointer to **bool** |  | [optional] 
 **IsUsedForEmail** | **bool** | Whether the domain is used for CMS email web pages. | 
-**IsUsedForKnowledge** | **bool** | Whether the domain is used for CMS knowledge pages. | 
+**Domain** | **string** | The actual domain or sub-domain. e.g. www.hubspot.com | 
+**PrimarySitePage** | Pointer to **bool** |  | [optional] 
+**PrimaryLandingPage** | Pointer to **bool** |  | [optional] 
+**Id** | **string** | The unique ID of this domain. | 
 **CorrectCname** | Pointer to **string** |  | [optional] 
-**Created** | Pointer to **time.Time** |  | [optional] 
+**IsSslOnly** | Pointer to **bool** |  | [optional] 
 **Updated** | Pointer to **time.Time** |  | [optional] 
+**PrimaryEmail** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
 ### NewDomain
 
-`func NewDomain(id string, domain string, isResolving bool, isUsedForBlogPost bool, isUsedForSitePage bool, isUsedForLandingPage bool, isUsedForEmail bool, isUsedForKnowledge bool, ) *Domain`
+`func NewDomain(isUsedForLandingPage bool, isUsedForKnowledge bool, isUsedForBlogPost bool, isUsedForSitePage bool, isResolving bool, isUsedForEmail bool, domain string, id string, ) *Domain`
 
 NewDomain instantiates a new Domain object
 This constructor will assign default values to properties that have it defined,
@@ -44,95 +44,25 @@ NewDomainWithDefaults instantiates a new Domain object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetId
+### GetIsUsedForLandingPage
 
-`func (o *Domain) GetId() string`
+`func (o *Domain) GetIsUsedForLandingPage() bool`
 
-GetId returns the Id field if non-nil, zero value otherwise.
+GetIsUsedForLandingPage returns the IsUsedForLandingPage field if non-nil, zero value otherwise.
 
-### GetIdOk
+### GetIsUsedForLandingPageOk
 
-`func (o *Domain) GetIdOk() (*string, bool)`
+`func (o *Domain) GetIsUsedForLandingPageOk() (*bool, bool)`
 
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+GetIsUsedForLandingPageOk returns a tuple with the IsUsedForLandingPage field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetId
+### SetIsUsedForLandingPage
 
-`func (o *Domain) SetId(v string)`
+`func (o *Domain) SetIsUsedForLandingPage(v bool)`
 
-SetId sets Id field to given value.
+SetIsUsedForLandingPage sets IsUsedForLandingPage field to given value.
 
-
-### GetDomain
-
-`func (o *Domain) GetDomain() string`
-
-GetDomain returns the Domain field if non-nil, zero value otherwise.
-
-### GetDomainOk
-
-`func (o *Domain) GetDomainOk() (*string, bool)`
-
-GetDomainOk returns a tuple with the Domain field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDomain
-
-`func (o *Domain) SetDomain(v string)`
-
-SetDomain sets Domain field to given value.
-
-
-### GetPrimaryLandingPage
-
-`func (o *Domain) GetPrimaryLandingPage() bool`
-
-GetPrimaryLandingPage returns the PrimaryLandingPage field if non-nil, zero value otherwise.
-
-### GetPrimaryLandingPageOk
-
-`func (o *Domain) GetPrimaryLandingPageOk() (*bool, bool)`
-
-GetPrimaryLandingPageOk returns a tuple with the PrimaryLandingPage field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPrimaryLandingPage
-
-`func (o *Domain) SetPrimaryLandingPage(v bool)`
-
-SetPrimaryLandingPage sets PrimaryLandingPage field to given value.
-
-### HasPrimaryLandingPage
-
-`func (o *Domain) HasPrimaryLandingPage() bool`
-
-HasPrimaryLandingPage returns a boolean if a field has been set.
-
-### GetPrimaryEmail
-
-`func (o *Domain) GetPrimaryEmail() bool`
-
-GetPrimaryEmail returns the PrimaryEmail field if non-nil, zero value otherwise.
-
-### GetPrimaryEmailOk
-
-`func (o *Domain) GetPrimaryEmailOk() (*bool, bool)`
-
-GetPrimaryEmailOk returns a tuple with the PrimaryEmail field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPrimaryEmail
-
-`func (o *Domain) SetPrimaryEmail(v bool)`
-
-SetPrimaryEmail sets PrimaryEmail field to given value.
-
-### HasPrimaryEmail
-
-`func (o *Domain) HasPrimaryEmail() bool`
-
-HasPrimaryEmail returns a boolean if a field has been set.
 
 ### GetPrimaryBlogPost
 
@@ -159,31 +89,6 @@ SetPrimaryBlogPost sets PrimaryBlogPost field to given value.
 
 HasPrimaryBlogPost returns a boolean if a field has been set.
 
-### GetPrimarySitePage
-
-`func (o *Domain) GetPrimarySitePage() bool`
-
-GetPrimarySitePage returns the PrimarySitePage field if non-nil, zero value otherwise.
-
-### GetPrimarySitePageOk
-
-`func (o *Domain) GetPrimarySitePageOk() (*bool, bool)`
-
-GetPrimarySitePageOk returns a tuple with the PrimarySitePage field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPrimarySitePage
-
-`func (o *Domain) SetPrimarySitePage(v bool)`
-
-SetPrimarySitePage sets PrimarySitePage field to given value.
-
-### HasPrimarySitePage
-
-`func (o *Domain) HasPrimarySitePage() bool`
-
-HasPrimarySitePage returns a boolean if a field has been set.
-
 ### GetPrimaryKnowledge
 
 `func (o *Domain) GetPrimaryKnowledge() bool`
@@ -208,6 +113,31 @@ SetPrimaryKnowledge sets PrimaryKnowledge field to given value.
 `func (o *Domain) HasPrimaryKnowledge() bool`
 
 HasPrimaryKnowledge returns a boolean if a field has been set.
+
+### GetCreated
+
+`func (o *Domain) GetCreated() time.Time`
+
+GetCreated returns the Created field if non-nil, zero value otherwise.
+
+### GetCreatedOk
+
+`func (o *Domain) GetCreatedOk() (*time.Time, bool)`
+
+GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreated
+
+`func (o *Domain) SetCreated(v time.Time)`
+
+SetCreated sets Created field to given value.
+
+### HasCreated
+
+`func (o *Domain) HasCreated() bool`
+
+HasCreated returns a boolean if a field has been set.
 
 ### GetSecondaryToDomain
 
@@ -234,26 +164,6 @@ SetSecondaryToDomain sets SecondaryToDomain field to given value.
 
 HasSecondaryToDomain returns a boolean if a field has been set.
 
-### GetIsResolving
-
-`func (o *Domain) GetIsResolving() bool`
-
-GetIsResolving returns the IsResolving field if non-nil, zero value otherwise.
-
-### GetIsResolvingOk
-
-`func (o *Domain) GetIsResolvingOk() (*bool, bool)`
-
-GetIsResolvingOk returns a tuple with the IsResolving field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetIsResolving
-
-`func (o *Domain) SetIsResolving(v bool)`
-
-SetIsResolving sets IsResolving field to given value.
-
-
 ### GetManuallyMarkedAsResolving
 
 `func (o *Domain) GetManuallyMarkedAsResolving() bool`
@@ -279,55 +189,25 @@ SetManuallyMarkedAsResolving sets ManuallyMarkedAsResolving field to given value
 
 HasManuallyMarkedAsResolving returns a boolean if a field has been set.
 
-### GetIsSslEnabled
+### GetIsUsedForKnowledge
 
-`func (o *Domain) GetIsSslEnabled() bool`
+`func (o *Domain) GetIsUsedForKnowledge() bool`
 
-GetIsSslEnabled returns the IsSslEnabled field if non-nil, zero value otherwise.
+GetIsUsedForKnowledge returns the IsUsedForKnowledge field if non-nil, zero value otherwise.
 
-### GetIsSslEnabledOk
+### GetIsUsedForKnowledgeOk
 
-`func (o *Domain) GetIsSslEnabledOk() (*bool, bool)`
+`func (o *Domain) GetIsUsedForKnowledgeOk() (*bool, bool)`
 
-GetIsSslEnabledOk returns a tuple with the IsSslEnabled field if it's non-nil, zero value otherwise
+GetIsUsedForKnowledgeOk returns a tuple with the IsUsedForKnowledge field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetIsSslEnabled
+### SetIsUsedForKnowledge
 
-`func (o *Domain) SetIsSslEnabled(v bool)`
+`func (o *Domain) SetIsUsedForKnowledge(v bool)`
 
-SetIsSslEnabled sets IsSslEnabled field to given value.
+SetIsUsedForKnowledge sets IsUsedForKnowledge field to given value.
 
-### HasIsSslEnabled
-
-`func (o *Domain) HasIsSslEnabled() bool`
-
-HasIsSslEnabled returns a boolean if a field has been set.
-
-### GetIsSslOnly
-
-`func (o *Domain) GetIsSslOnly() bool`
-
-GetIsSslOnly returns the IsSslOnly field if non-nil, zero value otherwise.
-
-### GetIsSslOnlyOk
-
-`func (o *Domain) GetIsSslOnlyOk() (*bool, bool)`
-
-GetIsSslOnlyOk returns a tuple with the IsSslOnly field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetIsSslOnly
-
-`func (o *Domain) SetIsSslOnly(v bool)`
-
-SetIsSslOnly sets IsSslOnly field to given value.
-
-### HasIsSslOnly
-
-`func (o *Domain) HasIsSslOnly() bool`
-
-HasIsSslOnly returns a boolean if a field has been set.
 
 ### GetIsUsedForBlogPost
 
@@ -369,25 +249,50 @@ and a boolean to check if the value has been set.
 SetIsUsedForSitePage sets IsUsedForSitePage field to given value.
 
 
-### GetIsUsedForLandingPage
+### GetIsResolving
 
-`func (o *Domain) GetIsUsedForLandingPage() bool`
+`func (o *Domain) GetIsResolving() bool`
 
-GetIsUsedForLandingPage returns the IsUsedForLandingPage field if non-nil, zero value otherwise.
+GetIsResolving returns the IsResolving field if non-nil, zero value otherwise.
 
-### GetIsUsedForLandingPageOk
+### GetIsResolvingOk
 
-`func (o *Domain) GetIsUsedForLandingPageOk() (*bool, bool)`
+`func (o *Domain) GetIsResolvingOk() (*bool, bool)`
 
-GetIsUsedForLandingPageOk returns a tuple with the IsUsedForLandingPage field if it's non-nil, zero value otherwise
+GetIsResolvingOk returns a tuple with the IsResolving field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetIsUsedForLandingPage
+### SetIsResolving
 
-`func (o *Domain) SetIsUsedForLandingPage(v bool)`
+`func (o *Domain) SetIsResolving(v bool)`
 
-SetIsUsedForLandingPage sets IsUsedForLandingPage field to given value.
+SetIsResolving sets IsResolving field to given value.
 
+
+### GetIsSslEnabled
+
+`func (o *Domain) GetIsSslEnabled() bool`
+
+GetIsSslEnabled returns the IsSslEnabled field if non-nil, zero value otherwise.
+
+### GetIsSslEnabledOk
+
+`func (o *Domain) GetIsSslEnabledOk() (*bool, bool)`
+
+GetIsSslEnabledOk returns a tuple with the IsSslEnabled field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsSslEnabled
+
+`func (o *Domain) SetIsSslEnabled(v bool)`
+
+SetIsSslEnabled sets IsSslEnabled field to given value.
+
+### HasIsSslEnabled
+
+`func (o *Domain) HasIsSslEnabled() bool`
+
+HasIsSslEnabled returns a boolean if a field has been set.
 
 ### GetIsUsedForEmail
 
@@ -409,24 +314,94 @@ and a boolean to check if the value has been set.
 SetIsUsedForEmail sets IsUsedForEmail field to given value.
 
 
-### GetIsUsedForKnowledge
+### GetDomain
 
-`func (o *Domain) GetIsUsedForKnowledge() bool`
+`func (o *Domain) GetDomain() string`
 
-GetIsUsedForKnowledge returns the IsUsedForKnowledge field if non-nil, zero value otherwise.
+GetDomain returns the Domain field if non-nil, zero value otherwise.
 
-### GetIsUsedForKnowledgeOk
+### GetDomainOk
 
-`func (o *Domain) GetIsUsedForKnowledgeOk() (*bool, bool)`
+`func (o *Domain) GetDomainOk() (*string, bool)`
 
-GetIsUsedForKnowledgeOk returns a tuple with the IsUsedForKnowledge field if it's non-nil, zero value otherwise
+GetDomainOk returns a tuple with the Domain field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetIsUsedForKnowledge
+### SetDomain
 
-`func (o *Domain) SetIsUsedForKnowledge(v bool)`
+`func (o *Domain) SetDomain(v string)`
 
-SetIsUsedForKnowledge sets IsUsedForKnowledge field to given value.
+SetDomain sets Domain field to given value.
+
+
+### GetPrimarySitePage
+
+`func (o *Domain) GetPrimarySitePage() bool`
+
+GetPrimarySitePage returns the PrimarySitePage field if non-nil, zero value otherwise.
+
+### GetPrimarySitePageOk
+
+`func (o *Domain) GetPrimarySitePageOk() (*bool, bool)`
+
+GetPrimarySitePageOk returns a tuple with the PrimarySitePage field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPrimarySitePage
+
+`func (o *Domain) SetPrimarySitePage(v bool)`
+
+SetPrimarySitePage sets PrimarySitePage field to given value.
+
+### HasPrimarySitePage
+
+`func (o *Domain) HasPrimarySitePage() bool`
+
+HasPrimarySitePage returns a boolean if a field has been set.
+
+### GetPrimaryLandingPage
+
+`func (o *Domain) GetPrimaryLandingPage() bool`
+
+GetPrimaryLandingPage returns the PrimaryLandingPage field if non-nil, zero value otherwise.
+
+### GetPrimaryLandingPageOk
+
+`func (o *Domain) GetPrimaryLandingPageOk() (*bool, bool)`
+
+GetPrimaryLandingPageOk returns a tuple with the PrimaryLandingPage field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPrimaryLandingPage
+
+`func (o *Domain) SetPrimaryLandingPage(v bool)`
+
+SetPrimaryLandingPage sets PrimaryLandingPage field to given value.
+
+### HasPrimaryLandingPage
+
+`func (o *Domain) HasPrimaryLandingPage() bool`
+
+HasPrimaryLandingPage returns a boolean if a field has been set.
+
+### GetId
+
+`func (o *Domain) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *Domain) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *Domain) SetId(v string)`
+
+SetId sets Id field to given value.
 
 
 ### GetCorrectCname
@@ -454,30 +429,30 @@ SetCorrectCname sets CorrectCname field to given value.
 
 HasCorrectCname returns a boolean if a field has been set.
 
-### GetCreated
+### GetIsSslOnly
 
-`func (o *Domain) GetCreated() time.Time`
+`func (o *Domain) GetIsSslOnly() bool`
 
-GetCreated returns the Created field if non-nil, zero value otherwise.
+GetIsSslOnly returns the IsSslOnly field if non-nil, zero value otherwise.
 
-### GetCreatedOk
+### GetIsSslOnlyOk
 
-`func (o *Domain) GetCreatedOk() (*time.Time, bool)`
+`func (o *Domain) GetIsSslOnlyOk() (*bool, bool)`
 
-GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
+GetIsSslOnlyOk returns a tuple with the IsSslOnly field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetCreated
+### SetIsSslOnly
 
-`func (o *Domain) SetCreated(v time.Time)`
+`func (o *Domain) SetIsSslOnly(v bool)`
 
-SetCreated sets Created field to given value.
+SetIsSslOnly sets IsSslOnly field to given value.
 
-### HasCreated
+### HasIsSslOnly
 
-`func (o *Domain) HasCreated() bool`
+`func (o *Domain) HasIsSslOnly() bool`
 
-HasCreated returns a boolean if a field has been set.
+HasIsSslOnly returns a boolean if a field has been set.
 
 ### GetUpdated
 
@@ -503,6 +478,31 @@ SetUpdated sets Updated field to given value.
 `func (o *Domain) HasUpdated() bool`
 
 HasUpdated returns a boolean if a field has been set.
+
+### GetPrimaryEmail
+
+`func (o *Domain) GetPrimaryEmail() bool`
+
+GetPrimaryEmail returns the PrimaryEmail field if non-nil, zero value otherwise.
+
+### GetPrimaryEmailOk
+
+`func (o *Domain) GetPrimaryEmailOk() (*bool, bool)`
+
+GetPrimaryEmailOk returns a tuple with the PrimaryEmail field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPrimaryEmail
+
+`func (o *Domain) SetPrimaryEmail(v bool)`
+
+SetPrimaryEmail sets PrimaryEmail field to given value.
+
+### HasPrimaryEmail
+
+`func (o *Domain) HasPrimaryEmail() bool`
+
+HasPrimaryEmail returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

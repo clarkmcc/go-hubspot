@@ -1,5 +1,5 @@
 /*
-CMS Audit Logs
+CMS Cms Content Audit
 
 Use this endpoint to query audit logs of CMS changes that occurred on your HubSpot account.
 
@@ -41,7 +41,7 @@ var (
 	xmlCheck  = regexp.MustCompile(`(?i:(?:application|text)/xml)`)
 )
 
-// APIClient manages communication with the CMS Audit Logs API vv3
+// APIClient manages communication with the CMS Cms Content Audit API vv3
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration

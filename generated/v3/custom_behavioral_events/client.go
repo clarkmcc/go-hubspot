@@ -1,5 +1,5 @@
 /*
-Custom Behavioral Events API
+Send Event Completions
 
 HTTP API for triggering instances of custom behavioral events
 
@@ -41,7 +41,7 @@ var (
 	xmlCheck  = regexp.MustCompile(`(?i:(?:application|text)/xml)`)
 )
 
-// APIClient manages communication with the Custom Behavioral Events API API vv3
+// APIClient manages communication with the Send Event Completions API vv3
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration

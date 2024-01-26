@@ -16,34 +16,34 @@ import (
 
 // AssetFileMetadata The object metadata of a file.
 type AssetFileMetadata struct {
-	// The path of the file in the CMS Developer File System.
-	Id string `json:"id"`
-	// The name of the file.
-	Name string `json:"name"`
+	// Timestamp of when the object was first created.
+	CreatedAt int32 `json:"createdAt"`
+	// Timestamp of when the object was archived (deleted).
+	ArchivedAt *int64 `json:"archivedAt,omitempty"`
 	// Determines whether or not this path points to a folder.
 	Folder bool `json:"folder"`
 	// If the object is a folder, contains the filenames of the files within the folder.
 	Children []string `json:"children,omitempty"`
+	// The name of the file.
+	Name string `json:"name"`
+	// The path of the file in the CMS Developer File System.
+	Id   string  `json:"id"`
+	Hash *string `json:"hash,omitempty"`
 	// Timestamp of when the object was last updated.
 	UpdatedAt int32 `json:"updatedAt"`
-	// Timestamp of when the object was first created.
-	CreatedAt int32 `json:"createdAt"`
-	// Timestamp of when the object was archived (deleted).
-	ArchivedAt *int64  `json:"archivedAt,omitempty"`
-	Hash       *string `json:"hash,omitempty"`
 }
 
 // NewAssetFileMetadata instantiates a new AssetFileMetadata object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAssetFileMetadata(id string, name string, folder bool, updatedAt int32, createdAt int32) *AssetFileMetadata {
+func NewAssetFileMetadata(createdAt int32, folder bool, name string, id string, updatedAt int32) *AssetFileMetadata {
 	this := AssetFileMetadata{}
-	this.Id = id
-	this.Name = name
-	this.Folder = folder
-	this.UpdatedAt = updatedAt
 	this.CreatedAt = createdAt
+	this.Folder = folder
+	this.Name = name
+	this.Id = id
+	this.UpdatedAt = updatedAt
 	return &this
 }
 
@@ -53,134 +53,6 @@ func NewAssetFileMetadata(id string, name string, folder bool, updatedAt int32, 
 func NewAssetFileMetadataWithDefaults() *AssetFileMetadata {
 	this := AssetFileMetadata{}
 	return &this
-}
-
-// GetId returns the Id field value
-func (o *AssetFileMetadata) GetId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Id
-}
-
-// GetIdOk returns a tuple with the Id field value
-// and a boolean to check if the value has been set.
-func (o *AssetFileMetadata) GetIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Id, true
-}
-
-// SetId sets field value
-func (o *AssetFileMetadata) SetId(v string) {
-	o.Id = v
-}
-
-// GetName returns the Name field value
-func (o *AssetFileMetadata) GetName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value
-// and a boolean to check if the value has been set.
-func (o *AssetFileMetadata) GetNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Name, true
-}
-
-// SetName sets field value
-func (o *AssetFileMetadata) SetName(v string) {
-	o.Name = v
-}
-
-// GetFolder returns the Folder field value
-func (o *AssetFileMetadata) GetFolder() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.Folder
-}
-
-// GetFolderOk returns a tuple with the Folder field value
-// and a boolean to check if the value has been set.
-func (o *AssetFileMetadata) GetFolderOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Folder, true
-}
-
-// SetFolder sets field value
-func (o *AssetFileMetadata) SetFolder(v bool) {
-	o.Folder = v
-}
-
-// GetChildren returns the Children field value if set, zero value otherwise.
-func (o *AssetFileMetadata) GetChildren() []string {
-	if o == nil || o.Children == nil {
-		var ret []string
-		return ret
-	}
-	return o.Children
-}
-
-// GetChildrenOk returns a tuple with the Children field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AssetFileMetadata) GetChildrenOk() ([]string, bool) {
-	if o == nil || o.Children == nil {
-		return nil, false
-	}
-	return o.Children, true
-}
-
-// HasChildren returns a boolean if a field has been set.
-func (o *AssetFileMetadata) HasChildren() bool {
-	if o != nil && o.Children != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetChildren gets a reference to the given []string and assigns it to the Children field.
-func (o *AssetFileMetadata) SetChildren(v []string) {
-	o.Children = v
-}
-
-// GetUpdatedAt returns the UpdatedAt field value
-func (o *AssetFileMetadata) GetUpdatedAt() int32 {
-	if o == nil {
-		var ret int32
-		return ret
-	}
-
-	return o.UpdatedAt
-}
-
-// GetUpdatedAtOk returns a tuple with the UpdatedAt field value
-// and a boolean to check if the value has been set.
-func (o *AssetFileMetadata) GetUpdatedAtOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.UpdatedAt, true
-}
-
-// SetUpdatedAt sets field value
-func (o *AssetFileMetadata) SetUpdatedAt(v int32) {
-	o.UpdatedAt = v
 }
 
 // GetCreatedAt returns the CreatedAt field value
@@ -239,6 +111,110 @@ func (o *AssetFileMetadata) SetArchivedAt(v int64) {
 	o.ArchivedAt = &v
 }
 
+// GetFolder returns the Folder field value
+func (o *AssetFileMetadata) GetFolder() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.Folder
+}
+
+// GetFolderOk returns a tuple with the Folder field value
+// and a boolean to check if the value has been set.
+func (o *AssetFileMetadata) GetFolderOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Folder, true
+}
+
+// SetFolder sets field value
+func (o *AssetFileMetadata) SetFolder(v bool) {
+	o.Folder = v
+}
+
+// GetChildren returns the Children field value if set, zero value otherwise.
+func (o *AssetFileMetadata) GetChildren() []string {
+	if o == nil || o.Children == nil {
+		var ret []string
+		return ret
+	}
+	return o.Children
+}
+
+// GetChildrenOk returns a tuple with the Children field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AssetFileMetadata) GetChildrenOk() ([]string, bool) {
+	if o == nil || o.Children == nil {
+		return nil, false
+	}
+	return o.Children, true
+}
+
+// HasChildren returns a boolean if a field has been set.
+func (o *AssetFileMetadata) HasChildren() bool {
+	if o != nil && o.Children != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetChildren gets a reference to the given []string and assigns it to the Children field.
+func (o *AssetFileMetadata) SetChildren(v []string) {
+	o.Children = v
+}
+
+// GetName returns the Name field value
+func (o *AssetFileMetadata) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *AssetFileMetadata) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *AssetFileMetadata) SetName(v string) {
+	o.Name = v
+}
+
+// GetId returns the Id field value
+func (o *AssetFileMetadata) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *AssetFileMetadata) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *AssetFileMetadata) SetId(v string) {
+	o.Id = v
+}
+
 // GetHash returns the Hash field value if set, zero value otherwise.
 func (o *AssetFileMetadata) GetHash() string {
 	if o == nil || o.Hash == nil {
@@ -271,13 +247,37 @@ func (o *AssetFileMetadata) SetHash(v string) {
 	o.Hash = &v
 }
 
+// GetUpdatedAt returns the UpdatedAt field value
+func (o *AssetFileMetadata) GetUpdatedAt() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.UpdatedAt
+}
+
+// GetUpdatedAtOk returns a tuple with the UpdatedAt field value
+// and a boolean to check if the value has been set.
+func (o *AssetFileMetadata) GetUpdatedAtOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.UpdatedAt, true
+}
+
+// SetUpdatedAt sets field value
+func (o *AssetFileMetadata) SetUpdatedAt(v int32) {
+	o.UpdatedAt = v
+}
+
 func (o AssetFileMetadata) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["id"] = o.Id
+		toSerialize["createdAt"] = o.CreatedAt
 	}
-	if true {
-		toSerialize["name"] = o.Name
+	if o.ArchivedAt != nil {
+		toSerialize["archivedAt"] = o.ArchivedAt
 	}
 	if true {
 		toSerialize["folder"] = o.Folder
@@ -286,16 +286,16 @@ func (o AssetFileMetadata) MarshalJSON() ([]byte, error) {
 		toSerialize["children"] = o.Children
 	}
 	if true {
-		toSerialize["updatedAt"] = o.UpdatedAt
+		toSerialize["name"] = o.Name
 	}
 	if true {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
-	if o.ArchivedAt != nil {
-		toSerialize["archivedAt"] = o.ArchivedAt
+		toSerialize["id"] = o.Id
 	}
 	if o.Hash != nil {
 		toSerialize["hash"] = o.Hash
+	}
+	if true {
+		toSerialize["updatedAt"] = o.UpdatedAt
 	}
 	return json.Marshal(toSerialize)
 }

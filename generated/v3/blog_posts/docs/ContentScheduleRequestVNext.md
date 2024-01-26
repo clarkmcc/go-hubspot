@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** | The ID of the object to be scheduled. | 
 **PublishDate** | **time.Time** | The date the object should transition from scheduled to published. | 
+**Id** | **string** | The ID of the object to be scheduled. | 
 
 ## Methods
 
 ### NewContentScheduleRequestVNext
 
-`func NewContentScheduleRequestVNext(id string, publishDate time.Time, ) *ContentScheduleRequestVNext`
+`func NewContentScheduleRequestVNext(publishDate time.Time, id string, ) *ContentScheduleRequestVNext`
 
 NewContentScheduleRequestVNext instantiates a new ContentScheduleRequestVNext object
 This constructor will assign default values to properties that have it defined,
@@ -25,26 +25,6 @@ will change when the set of required properties is changed
 NewContentScheduleRequestVNextWithDefaults instantiates a new ContentScheduleRequestVNext object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetId
-
-`func (o *ContentScheduleRequestVNext) GetId() string`
-
-GetId returns the Id field if non-nil, zero value otherwise.
-
-### GetIdOk
-
-`func (o *ContentScheduleRequestVNext) GetIdOk() (*string, bool)`
-
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetId
-
-`func (o *ContentScheduleRequestVNext) SetId(v string)`
-
-SetId sets Id field to given value.
-
 
 ### GetPublishDate
 
@@ -64,6 +44,26 @@ and a boolean to check if the value has been set.
 `func (o *ContentScheduleRequestVNext) SetPublishDate(v time.Time)`
 
 SetPublishDate sets PublishDate field to given value.
+
+
+### GetId
+
+`func (o *ContentScheduleRequestVNext) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *ContentScheduleRequestVNext) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *ContentScheduleRequestVNext) SetId(v string)`
+
+SetId sets Id field to given value.
 
 
 

@@ -1,5 +1,5 @@
 /*
-Blog Post endpoints
+Posts
 
 Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags
 
@@ -17,22 +17,22 @@ import (
 
 // VersionBlogPost Model definition of a version of a blog post.
 type VersionBlogPost struct {
-	Object BlogPost    `json:"object"`
-	User   VersionUser `json:"user"`
 	// The id of the version.
-	Id        string    `json:"id"`
-	UpdatedAt time.Time `json:"updatedAt"`
+	Id        string      `json:"id"`
+	User      VersionUser `json:"user"`
+	Object    BlogPost    `json:"object"`
+	UpdatedAt time.Time   `json:"updatedAt"`
 }
 
 // NewVersionBlogPost instantiates a new VersionBlogPost object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewVersionBlogPost(object BlogPost, user VersionUser, id string, updatedAt time.Time) *VersionBlogPost {
+func NewVersionBlogPost(id string, user VersionUser, object BlogPost, updatedAt time.Time) *VersionBlogPost {
 	this := VersionBlogPost{}
-	this.Object = object
-	this.User = user
 	this.Id = id
+	this.User = user
+	this.Object = object
 	this.UpdatedAt = updatedAt
 	return &this
 }
@@ -45,28 +45,28 @@ func NewVersionBlogPostWithDefaults() *VersionBlogPost {
 	return &this
 }
 
-// GetObject returns the Object field value
-func (o *VersionBlogPost) GetObject() BlogPost {
+// GetId returns the Id field value
+func (o *VersionBlogPost) GetId() string {
 	if o == nil {
-		var ret BlogPost
+		var ret string
 		return ret
 	}
 
-	return o.Object
+	return o.Id
 }
 
-// GetObjectOk returns a tuple with the Object field value
+// GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
-func (o *VersionBlogPost) GetObjectOk() (*BlogPost, bool) {
+func (o *VersionBlogPost) GetIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Object, true
+	return &o.Id, true
 }
 
-// SetObject sets field value
-func (o *VersionBlogPost) SetObject(v BlogPost) {
-	o.Object = v
+// SetId sets field value
+func (o *VersionBlogPost) SetId(v string) {
+	o.Id = v
 }
 
 // GetUser returns the User field value
@@ -93,28 +93,28 @@ func (o *VersionBlogPost) SetUser(v VersionUser) {
 	o.User = v
 }
 
-// GetId returns the Id field value
-func (o *VersionBlogPost) GetId() string {
+// GetObject returns the Object field value
+func (o *VersionBlogPost) GetObject() BlogPost {
 	if o == nil {
-		var ret string
+		var ret BlogPost
 		return ret
 	}
 
-	return o.Id
+	return o.Object
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetObjectOk returns a tuple with the Object field value
 // and a boolean to check if the value has been set.
-func (o *VersionBlogPost) GetIdOk() (*string, bool) {
+func (o *VersionBlogPost) GetObjectOk() (*BlogPost, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Id, true
+	return &o.Object, true
 }
 
-// SetId sets field value
-func (o *VersionBlogPost) SetId(v string) {
-	o.Id = v
+// SetObject sets field value
+func (o *VersionBlogPost) SetObject(v BlogPost) {
+	o.Object = v
 }
 
 // GetUpdatedAt returns the UpdatedAt field value
@@ -144,13 +144,13 @@ func (o *VersionBlogPost) SetUpdatedAt(v time.Time) {
 func (o VersionBlogPost) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["object"] = o.Object
+		toSerialize["id"] = o.Id
 	}
 	if true {
 		toSerialize["user"] = o.User
 	}
 	if true {
-		toSerialize["id"] = o.Id
+		toSerialize["object"] = o.Object
 	}
 	if true {
 		toSerialize["updatedAt"] = o.UpdatedAt

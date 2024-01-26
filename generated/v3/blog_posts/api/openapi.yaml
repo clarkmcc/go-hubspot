@@ -2,12 +2,25 @@ openapi: 3.0.1
 info:
   description: "Use these endpoints for interacting with Blog Posts, Blog Authors,\
     \ and Blog Tags"
-  title: Blog Post endpoints
+  title: Posts
   version: v3
+  x-hubspot-product-tier-requirements:
+    marketing: PROFESSIONAL
+    cms: STARTER
+  x-hubspot-documentation-banner: NONE
+  x-hubspot-api-use-case: Retrieve all blog posts created this year as a part of a
+    content audit.
+  x-hubspot-related-documentation:
+  - name: Blog Posts Guide
+    url: https://hubspot.dev/guides/api/cms/blog-post
+  x-hubspot-introduction: "Use the blog posts API to create, manage, and publish blog\
+    \ posts on your website."
 servers:
 - url: https://api.hubapi.com
 tags:
-- name: Blog Posts
+- description: ""
+  name: Blog Posts
+  x-hubspot-tag-name-english-source: Blog Posts
 paths:
   /cms/v3/blogs/posts/schedule:
     post:
@@ -117,34 +130,31 @@ paths:
       summary: Update languages of multi-language group
       tags:
       - Blog Posts
-  /cms/v3/blogs/posts/{objectId}/revisions/{revisionId}:
-    get:
-      description: Retrieves a previous version of a blog post.
-      operationId: GetPreviousVersion
-      parameters:
-      - description: The Blog Post id.
-        explode: false
-        in: path
-        name: objectId
+  /cms/v3/blogs/posts/batch/create:
+    post:
+      description: Create the Blog Post objects detailed in the request body.
+      operationId: BatchCreate
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchInputBlogPost'
+        description: The JSON array of new Blog Posts to create.
         required: true
-        schema:
-          type: string
-        style: simple
-      - description: The Blog Post version id.
-        explode: false
-        in: path
-        name: revisionId
-        required: true
-        schema:
-          type: string
-        style: simple
       responses:
-        "200":
+        "201":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/VersionBlogPost'
+                $ref: '#/components/schemas/BatchResponseBlogPost'
           description: successful operation
+        "207":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchResponseBlogPostWithErrors'
+          description: multiple statuses
         default:
           content:
             '*/*':
@@ -156,7 +166,7 @@ paths:
         - content
       - oauth2_legacy:
         - content
-      summary: Retrieves a previous version of a blog post
+      summary: Create a batch of Blog Posts
       tags:
       - Blog Posts
   /cms/v3/blogs/posts/batch/update:
@@ -284,31 +294,34 @@ paths:
       summary: Update a Blog Post draft
       tags:
       - Blog Posts
-  /cms/v3/blogs/posts/batch/create:
-    post:
-      description: Create the Blog Post objects detailed in the request body.
-      operationId: BatchCreate
-      parameters: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/BatchInputBlogPost'
-        description: The JSON array of new Blog Posts to create.
+  /cms/v3/blogs/posts/{objectId}/revisions/{revisionId}:
+    get:
+      description: Retrieves a previous version of a blog post.
+      operationId: GetPreviousVersion
+      parameters:
+      - description: The Blog Post id.
+        explode: false
+        in: path
+        name: objectId
         required: true
+        schema:
+          type: string
+        style: simple
+      - description: The Blog Post version id.
+        explode: false
+        in: path
+        name: revisionId
+        required: true
+        schema:
+          type: string
+        style: simple
       responses:
-        "201":
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BatchResponseBlogPost'
+                $ref: '#/components/schemas/VersionBlogPost'
           description: successful operation
-        "207":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BatchResponseBlogPostWithErrors'
-          description: multiple statuses
         default:
           content:
             '*/*':
@@ -320,7 +333,7 @@ paths:
         - content
       - oauth2_legacy:
         - content
-      summary: Create a batch of Blog Posts
+      summary: Retrieves a previous version of a blog post
       tags:
       - Blog Posts
   /cms/v3/blogs/posts/{objectId}/revisions/{revisionId}/restore-to-draft:
@@ -400,39 +413,6 @@ paths:
       - oauth2_legacy:
         - content
       summary: Create a new language variation
-      tags:
-      - Blog Posts
-  /cms/v3/blogs/posts/clone:
-    post:
-      description: Clone a Blog Post.
-      operationId: Clone
-      parameters: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ContentCloneRequestVNext'
-        description: The JSON representation of the ContentCloneRequest object.
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BlogPost'
-          description: successful operation
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - private_apps_legacy:
-        - content
-      - oauth2_legacy:
-        - content
-      summary: Clone a Blog Post
       tags:
       - Blog Posts
   /cms/v3/blogs/posts:
@@ -593,6 +573,39 @@ paths:
       - oauth2_legacy:
         - content
       summary: Create a new Blog Post
+      tags:
+      - Blog Posts
+  /cms/v3/blogs/posts/clone:
+    post:
+      description: Clone a Blog Post.
+      operationId: Clone
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContentCloneRequestVNext'
+        description: The JSON representation of the ContentCloneRequest object.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BlogPost'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - private_apps_legacy:
+        - content
+      - oauth2_legacy:
+        - content
+      summary: Clone a Blog Post
       tags:
       - Blog Posts
   /cms/v3/blogs/posts/{objectId}/revisions/{revisionId}/restore:
@@ -793,66 +806,6 @@ paths:
       summary: Attach a Blog Post to a multi-language group
       tags:
       - Blog Posts
-  /cms/v3/blogs/posts/{objectId}/revisions:
-    get:
-      description: Retrieves all the previous versions of a blog post.
-      operationId: GetPreviousVersions
-      parameters:
-      - description: The Blog Post id.
-        explode: false
-        in: path
-        name: objectId
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: The cursor token value to get the next set of results. You can
-          get this from the `paging.next.after` JSON property of a paged response
-          containing more results.
-        explode: true
-        in: query
-        name: after
-        required: false
-        schema:
-          type: string
-        style: form
-      - explode: true
-        in: query
-        name: before
-        required: false
-        schema:
-          type: string
-        style: form
-      - description: The maximum number of results to return. Default is 100.
-        explode: true
-        in: query
-        name: limit
-        required: false
-        schema:
-          format: int32
-          type: integer
-        style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CollectionResponseWithTotalVersionBlogPost'
-          description: successful operation
-        default:
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: An error occurred.
-      security:
-      - private_apps_legacy:
-        - content
-      - oauth2_legacy:
-        - content
-      summary: Retrieves all the previous versions of a blog post
-      tags:
-      - Blog Posts
   /cms/v3/blogs/posts/multi-language/set-new-lang-primary:
     put:
       description: Set a Blog Post as the primary language of a multi-language group.
@@ -1020,6 +973,66 @@ paths:
       summary: Update a Blog Post
       tags:
       - Blog Posts
+  /cms/v3/blogs/posts/{objectId}/revisions:
+    get:
+      description: Retrieves all the previous versions of a blog post.
+      operationId: GetPreviousVersions
+      parameters:
+      - description: The Blog Post id.
+        explode: false
+        in: path
+        name: objectId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The cursor token value to get the next set of results. You can
+          get this from the `paging.next.after` JSON property of a paged response
+          containing more results.
+        explode: true
+        in: query
+        name: after
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: before
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: The maximum number of results to return. Default is 100.
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionResponseWithTotalVersionBlogPost'
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred.
+      security:
+      - private_apps_legacy:
+        - content
+      - oauth2_legacy:
+        - content
+      summary: Retrieves all the previous versions of a blog post
+      tags:
+      - Blog Posts
 components:
   responses:
     Error:
@@ -1047,27 +1060,10 @@ components:
     StandardError:
       description: Model definition for a standard error.
       properties:
-        status:
-          description: Error status.
-          type: string
-        id:
-          description: Error ID.
-          type: string
-        category:
-          description: Error category.
-          type: string
         subCategory:
           description: Error subcategory.
           properties: {}
           type: object
-        message:
-          description: Error message.
-          type: string
-        errors:
-          description: List of error details.
-          items:
-            $ref: '#/components/schemas/ErrorDetail'
-          type: array
         context:
           additionalProperties:
             items:
@@ -1080,62 +1076,29 @@ components:
             type: string
           description: Error links.
           type: object
+        id:
+          description: Error ID.
+          type: string
+        category:
+          description: Error category.
+          type: string
+        message:
+          description: Error message.
+          type: string
+        errors:
+          description: List of error details.
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
+        status:
+          description: Error status.
+          type: string
       required:
       - category
       - context
       - errors
       - links
       - message
-      - status
-      type: object
-    BatchInputBlogAuthor:
-      description: Wrapper for providing an array of blog authors as inputs.
-      properties:
-        inputs:
-          description: Blog authors to input.
-          items:
-            $ref: '#/components/schemas/BlogAuthor'
-          type: array
-      required:
-      - inputs
-      type: object
-    BatchResponseTag:
-      description: Response object for batch operations on blog tags.
-      properties:
-        status:
-          description: Status of batch operation.
-          enum:
-          - PENDING
-          - PROCESSING
-          - CANCELED
-          - COMPLETE
-          type: string
-        results:
-          description: Results of batch operation.
-          items:
-            $ref: '#/components/schemas/Tag'
-          type: array
-        requestedAt:
-          description: Time of batch operation request.
-          format: date-time
-          type: string
-        startedAt:
-          description: Time of batch operation start.
-          format: date-time
-          type: string
-        completedAt:
-          description: Time of batch operation completion.
-          format: date-time
-          type: string
-        links:
-          additionalProperties:
-            type: string
-          description: Links associated with batch operation.
-          type: object
-      required:
-      - completedAt
-      - results
-      - startedAt
       - status
       type: object
     BatchInputJsonNode:
@@ -1161,15 +1124,15 @@ components:
           key: languages
         primaryId: primaryId
       properties:
-        primaryId:
-          description: ID of the primary object in the multi-language group.
-          type: string
         languages:
           additionalProperties:
             type: string
           description: Map of object IDs to associated languages of object in the
             multi-language group.
           type: object
+        primaryId:
+          description: ID of the primary object in the multi-language group.
+          type: string
       required:
       - languages
       - primaryId
@@ -1219,12 +1182,12 @@ components:
                 archivedInDashboard: true
                 created: 2000-01-23T04:56:07.000+00:00
                 tagIds:
-                - 1
-                - 1
+                - 0
+                - 0
                 publishDate: 2000-01-23T04:56:07.000+00:00
                 publicAccessRules:
-                - null
-                - null
+                - {}
+                - {}
                 password: password
                 authorName: authorName
                 publicAccessRulesEnabled: true
@@ -1249,7 +1212,7 @@ components:
             folderId: folderId
             widgetContainers:
               key: "{}"
-            pageExpiryRedirectId: 7
+            pageExpiryRedirectId: 1
             dynamicPageDataSourceType: 5
             featuredImage: featuredImage
             authorName: authorName
@@ -1274,10 +1237,10 @@ components:
                 - cssClass: cssClass
                   styles:
                     backgroundColor:
-                      a: 1.0246457001441578
-                      r: 4
-                      b: 1
-                      g: 7
+                      a: 5.637376656633329
+                      r: 2
+                      b: 7
+                      g: 9
                     flexboxPositioning: flexboxPositioning
                     backgroundImage:
                       imageUrl: imageUrl
@@ -1285,32 +1248,32 @@ components:
                       backgroundPosition: backgroundPosition
                     forceFullWidthSection: true
                     verticalAlignment: verticalAlignment
-                    maxWidthSectionCentering: 6
+                    maxWidthSectionCentering: 3
                     backgroundGradient:
                       angle:
                         units: units
-                        value: 1.4894159098541704
+                        value: 2.027123023002322
                       sideOrCorner:
                         horizontalSide: horizontalSide
                         verticalSide: verticalSide
                       colors:
                       - color:
-                          a: 1.0246457001441578
-                          r: 4
-                          b: 1
-                          g: 7
+                          a: 5.637376656633329
+                          r: 2
+                          b: 7
+                          g: 9
                       - color:
-                          a: 1.0246457001441578
-                          r: 4
-                          b: 1
-                          g: 7
+                          a: 5.637376656633329
+                          r: 2
+                          b: 7
+                          g: 9
                 - cssClass: cssClass
                   styles:
                     backgroundColor:
-                      a: 1.0246457001441578
-                      r: 4
-                      b: 1
-                      g: 7
+                      a: 5.637376656633329
+                      r: 2
+                      b: 7
+                      g: 9
                     flexboxPositioning: flexboxPositioning
                     backgroundImage:
                       imageUrl: imageUrl
@@ -1318,39 +1281,39 @@ components:
                       backgroundPosition: backgroundPosition
                     forceFullWidthSection: true
                     verticalAlignment: verticalAlignment
-                    maxWidthSectionCentering: 6
+                    maxWidthSectionCentering: 3
                     backgroundGradient:
                       angle:
                         units: units
-                        value: 1.4894159098541704
+                        value: 2.027123023002322
                       sideOrCorner:
                         horizontalSide: horizontalSide
                         verticalSide: verticalSide
                       colors:
                       - color:
-                          a: 1.0246457001441578
-                          r: 4
-                          b: 1
-                          g: 7
+                          a: 5.637376656633329
+                          r: 2
+                          b: 7
+                          g: 9
                       - color:
-                          a: 1.0246457001441578
-                          r: 4
-                          b: 1
-                          g: 7
+                          a: 5.637376656633329
+                          r: 2
+                          b: 7
+                          g: 9
                 cells:
                 - null
                 - null
                 cssClass: cssClass
-                w: 2
+                w: 4
                 cssId: cssId
-                x: 3
+                x: 7
                 name: name
                 styles:
                   backgroundColor:
-                    a: 1.0246457001441578
-                    r: 4
-                    b: 1
-                    g: 7
+                    a: 5.637376656633329
+                    r: 2
+                    b: 7
+                    g: 9
                   flexboxPositioning: flexboxPositioning
                   backgroundImage:
                     imageUrl: imageUrl
@@ -1358,30 +1321,30 @@ components:
                     backgroundPosition: backgroundPosition
                   forceFullWidthSection: true
                   verticalAlignment: verticalAlignment
-                  maxWidthSectionCentering: 6
+                  maxWidthSectionCentering: 3
                   backgroundGradient:
                     angle:
                       units: units
-                      value: 1.4894159098541704
+                      value: 2.027123023002322
                     sideOrCorner:
                       horizontalSide: horizontalSide
                       verticalSide: verticalSide
                     colors:
                     - color:
-                        a: 1.0246457001441578
-                        r: 4
-                        b: 1
-                        g: 7
+                        a: 5.637376656633329
+                        r: 2
+                        b: 7
+                        g: 9
                     - color:
-                        a: 1.0246457001441578
-                        r: 4
-                        b: 1
-                        g: 7
+                        a: 5.637376656633329
+                        r: 2
+                        b: 7
+                        g: 9
             updated: 2000-01-23T04:56:07.000+00:00
             footerHtml: footerHtml
             tagIds:
-            - 5
-            - 5
+            - 1
+            - 1
             widgets:
               key: "{}"
             postSummary: postSummary
@@ -1397,17 +1360,17 @@ components:
             pageExpiryEnabled: true
             url: url
             publicAccessRules:
-            - null
-            - null
+            - {}
+            - {}
             enableGoogleAmpOutputOverride: true
-            archivedAt: 2
+            archivedAt: 1
             postBody: postBody
             themeSettingsValues:
               key: "{}"
-            pageExpiryDate: 9
+            pageExpiryDate: 1
             publicAccessRulesEnabled: true
             currentState: AUTOMATED
-            categoryId: 0
+            categoryId: 6
             linkRelCanonicalUrl: linkRelCanonicalUrl
           updatedAt: 2000-01-23T04:56:07.000+00:00
         - id: id
@@ -1431,12 +1394,12 @@ components:
                 archivedInDashboard: true
                 created: 2000-01-23T04:56:07.000+00:00
                 tagIds:
-                - 1
-                - 1
+                - 0
+                - 0
                 publishDate: 2000-01-23T04:56:07.000+00:00
                 publicAccessRules:
-                - null
-                - null
+                - {}
+                - {}
                 password: password
                 authorName: authorName
                 publicAccessRulesEnabled: true
@@ -1461,7 +1424,7 @@ components:
             folderId: folderId
             widgetContainers:
               key: "{}"
-            pageExpiryRedirectId: 7
+            pageExpiryRedirectId: 1
             dynamicPageDataSourceType: 5
             featuredImage: featuredImage
             authorName: authorName
@@ -1486,10 +1449,10 @@ components:
                 - cssClass: cssClass
                   styles:
                     backgroundColor:
-                      a: 1.0246457001441578
-                      r: 4
-                      b: 1
-                      g: 7
+                      a: 5.637376656633329
+                      r: 2
+                      b: 7
+                      g: 9
                     flexboxPositioning: flexboxPositioning
                     backgroundImage:
                       imageUrl: imageUrl
@@ -1497,32 +1460,32 @@ components:
                       backgroundPosition: backgroundPosition
                     forceFullWidthSection: true
                     verticalAlignment: verticalAlignment
-                    maxWidthSectionCentering: 6
+                    maxWidthSectionCentering: 3
                     backgroundGradient:
                       angle:
                         units: units
-                        value: 1.4894159098541704
+                        value: 2.027123023002322
                       sideOrCorner:
                         horizontalSide: horizontalSide
                         verticalSide: verticalSide
                       colors:
                       - color:
-                          a: 1.0246457001441578
-                          r: 4
-                          b: 1
-                          g: 7
+                          a: 5.637376656633329
+                          r: 2
+                          b: 7
+                          g: 9
                       - color:
-                          a: 1.0246457001441578
-                          r: 4
-                          b: 1
-                          g: 7
+                          a: 5.637376656633329
+                          r: 2
+                          b: 7
+                          g: 9
                 - cssClass: cssClass
                   styles:
                     backgroundColor:
-                      a: 1.0246457001441578
-                      r: 4
-                      b: 1
-                      g: 7
+                      a: 5.637376656633329
+                      r: 2
+                      b: 7
+                      g: 9
                     flexboxPositioning: flexboxPositioning
                     backgroundImage:
                       imageUrl: imageUrl
@@ -1530,39 +1493,39 @@ components:
                       backgroundPosition: backgroundPosition
                     forceFullWidthSection: true
                     verticalAlignment: verticalAlignment
-                    maxWidthSectionCentering: 6
+                    maxWidthSectionCentering: 3
                     backgroundGradient:
                       angle:
                         units: units
-                        value: 1.4894159098541704
+                        value: 2.027123023002322
                       sideOrCorner:
                         horizontalSide: horizontalSide
                         verticalSide: verticalSide
                       colors:
                       - color:
-                          a: 1.0246457001441578
-                          r: 4
-                          b: 1
-                          g: 7
+                          a: 5.637376656633329
+                          r: 2
+                          b: 7
+                          g: 9
                       - color:
-                          a: 1.0246457001441578
-                          r: 4
-                          b: 1
-                          g: 7
+                          a: 5.637376656633329
+                          r: 2
+                          b: 7
+                          g: 9
                 cells:
                 - null
                 - null
                 cssClass: cssClass
-                w: 2
+                w: 4
                 cssId: cssId
-                x: 3
+                x: 7
                 name: name
                 styles:
                   backgroundColor:
-                    a: 1.0246457001441578
-                    r: 4
-                    b: 1
-                    g: 7
+                    a: 5.637376656633329
+                    r: 2
+                    b: 7
+                    g: 9
                   flexboxPositioning: flexboxPositioning
                   backgroundImage:
                     imageUrl: imageUrl
@@ -1570,30 +1533,30 @@ components:
                     backgroundPosition: backgroundPosition
                   forceFullWidthSection: true
                   verticalAlignment: verticalAlignment
-                  maxWidthSectionCentering: 6
+                  maxWidthSectionCentering: 3
                   backgroundGradient:
                     angle:
                       units: units
-                      value: 1.4894159098541704
+                      value: 2.027123023002322
                     sideOrCorner:
                       horizontalSide: horizontalSide
                       verticalSide: verticalSide
                     colors:
                     - color:
-                        a: 1.0246457001441578
-                        r: 4
-                        b: 1
-                        g: 7
+                        a: 5.637376656633329
+                        r: 2
+                        b: 7
+                        g: 9
                     - color:
-                        a: 1.0246457001441578
-                        r: 4
-                        b: 1
-                        g: 7
+                        a: 5.637376656633329
+                        r: 2
+                        b: 7
+                        g: 9
             updated: 2000-01-23T04:56:07.000+00:00
             footerHtml: footerHtml
             tagIds:
-            - 5
-            - 5
+            - 1
+            - 1
             widgets:
               key: "{}"
             postSummary: postSummary
@@ -1609,17 +1572,17 @@ components:
             pageExpiryEnabled: true
             url: url
             publicAccessRules:
-            - null
-            - null
+            - {}
+            - {}
             enableGoogleAmpOutputOverride: true
-            archivedAt: 2
+            archivedAt: 1
             postBody: postBody
             themeSettingsValues:
               key: "{}"
-            pageExpiryDate: 9
+            pageExpiryDate: 1
             publicAccessRulesEnabled: true
             currentState: AUTOMATED
-            categoryId: 0
+            categoryId: 6
             linkRelCanonicalUrl: linkRelCanonicalUrl
           updatedAt: 2000-01-23T04:56:07.000+00:00
       properties:
@@ -1627,13 +1590,13 @@ components:
           description: Total number of blog post versions.
           format: int32
           type: integer
+        paging:
+          $ref: '#/components/schemas/Paging'
         results:
           description: Collection of blog post versions.
           items:
             $ref: '#/components/schemas/VersionBlogPost'
           type: array
-        paging:
-          $ref: '#/components/schemas/Paging'
       required:
       - results
       - total
@@ -1641,49 +1604,31 @@ components:
     RGBAColor:
       description: A color defined by RGB values.
       example:
-        a: 1.0246457001441578
-        r: 4
-        b: 1
-        g: 7
+        a: 5.637376656633329
+        r: 2
+        b: 7
+        g: 9
       properties:
+        a:
+          description: Alpha.
+          type: number
         r:
           description: Red.
-          format: int32
-          type: integer
-        g:
-          description: Green.
           format: int32
           type: integer
         b:
           description: Blue.
           format: int32
           type: integer
-        a:
-          description: Alpha.
-          type: number
+        g:
+          description: Green.
+          format: int32
+          type: integer
       required:
       - a
       - b
       - g
       - r
-      type: object
-    BlogAuthorCloneRequestVNext:
-      description: Request body object for cloning blog authors.
-      properties:
-        id:
-          description: ID of the object to be cloned.
-          type: string
-        language:
-          description: Language of newly cloned object.
-          type: string
-        primaryLanguage:
-          description: Primary language in multi-language group.
-          type: string
-        blogAuthor:
-          $ref: '#/components/schemas/BlogAuthor'
-      required:
-      - blogAuthor
-      - id
       type: object
     DetachFromLangGroupRequestVNext:
       description: Request body object for detaching objects from multi-language groups.
@@ -1696,861 +1641,15 @@ components:
       required:
       - id
       type: object
-    CollectionResponseWithTotalTagForwardPaging:
-      description: Response object for collections of blog tags with pagination information.
-      properties:
-        total:
-          description: Total number of blog tags.
-          format: int32
-          type: integer
-        results:
-          description: Collection of blog tags.
-          items:
-            $ref: '#/components/schemas/Tag'
-          type: array
-        paging:
-          $ref: '#/components/schemas/ForwardPaging'
-      required:
-      - results
-      - total
-      type: object
-    BlogAuthor:
-      description: Model definition for a Blog Author.
-      properties:
-        id:
-          description: The unique ID of the Blog Author.
-          type: string
-        fullName:
-          type: string
-        email:
-          description: Email address of the Blog Author.
-          type: string
-        slug:
-          type: string
-        language:
-          description: The explicitly defined ISO 639 language code of the blog author.
-          enum:
-          - af
-          - af-na
-          - af-za
-          - agq
-          - agq-cm
-          - ak
-          - ak-gh
-          - am
-          - am-et
-          - ar
-          - ar-001
-          - ar-ae
-          - ar-bh
-          - ar-dj
-          - ar-dz
-          - ar-eg
-          - ar-eh
-          - ar-er
-          - ar-il
-          - ar-iq
-          - ar-jo
-          - ar-km
-          - ar-kw
-          - ar-lb
-          - ar-ly
-          - ar-ma
-          - ar-mr
-          - ar-om
-          - ar-ps
-          - ar-qa
-          - ar-sa
-          - ar-sd
-          - ar-so
-          - ar-ss
-          - ar-sy
-          - ar-td
-          - ar-tn
-          - ar-ye
-          - as
-          - as-in
-          - asa
-          - asa-tz
-          - ast
-          - ast-es
-          - az
-          - az-az
-          - bas
-          - bas-cm
-          - be
-          - be-by
-          - bem
-          - bem-zm
-          - bez
-          - bez-tz
-          - bg
-          - bg-bg
-          - bm
-          - bm-ml
-          - bn
-          - bn-bd
-          - bn-in
-          - bo
-          - bo-cn
-          - bo-in
-          - br
-          - br-fr
-          - brx
-          - brx-in
-          - bs
-          - bs-ba
-          - ca
-          - ca-ad
-          - ca-es
-          - ca-fr
-          - ca-it
-          - ccp
-          - ccp-bd
-          - ccp-in
-          - ce
-          - ce-ru
-          - ceb
-          - ceb-ph
-          - cgg
-          - cgg-ug
-          - chr
-          - chr-us
-          - ckb
-          - ckb-iq
-          - ckb-ir
-          - cs
-          - cs-cz
-          - cu
-          - cu-ru
-          - cy
-          - cy-gb
-          - da
-          - da-dk
-          - da-gl
-          - dav
-          - dav-ke
-          - de
-          - de-at
-          - de-be
-          - de-ch
-          - de-de
-          - de-gr
-          - de-it
-          - de-li
-          - de-lu
-          - dje
-          - dje-ne
-          - doi
-          - doi-in
-          - dsb
-          - dsb-de
-          - dua
-          - dua-cm
-          - dyo
-          - dyo-sn
-          - dz
-          - dz-bt
-          - ebu
-          - ebu-ke
-          - ee
-          - ee-gh
-          - ee-tg
-          - el
-          - el-cy
-          - el-gr
-          - en
-          - en-001
-          - en-150
-          - en-ae
-          - en-ag
-          - en-ai
-          - en-as
-          - en-at
-          - en-au
-          - en-bb
-          - en-be
-          - en-bi
-          - en-bm
-          - en-bs
-          - en-bw
-          - en-bz
-          - en-ca
-          - en-cc
-          - en-ch
-          - en-ck
-          - en-cm
-          - en-cn
-          - en-cx
-          - en-cy
-          - en-de
-          - en-dg
-          - en-dk
-          - en-dm
-          - en-er
-          - en-fi
-          - en-fj
-          - en-fk
-          - en-fm
-          - en-gb
-          - en-gd
-          - en-gg
-          - en-gh
-          - en-gi
-          - en-gm
-          - en-gu
-          - en-gy
-          - en-hk
-          - en-ie
-          - en-il
-          - en-im
-          - en-in
-          - en-io
-          - en-je
-          - en-jm
-          - en-ke
-          - en-ki
-          - en-kn
-          - en-ky
-          - en-lc
-          - en-lr
-          - en-ls
-          - en-lu
-          - en-mg
-          - en-mh
-          - en-mo
-          - en-mp
-          - en-ms
-          - en-mt
-          - en-mu
-          - en-mw
-          - en-mx
-          - en-my
-          - en-na
-          - en-nf
-          - en-ng
-          - en-nl
-          - en-nr
-          - en-nu
-          - en-nz
-          - en-pg
-          - en-ph
-          - en-pk
-          - en-pn
-          - en-pr
-          - en-pw
-          - en-rw
-          - en-sb
-          - en-sc
-          - en-sd
-          - en-se
-          - en-sg
-          - en-sh
-          - en-si
-          - en-sl
-          - en-ss
-          - en-sx
-          - en-sz
-          - en-tc
-          - en-tk
-          - en-to
-          - en-tt
-          - en-tv
-          - en-tz
-          - en-ug
-          - en-um
-          - en-us
-          - en-vc
-          - en-vg
-          - en-vi
-          - en-vu
-          - en-ws
-          - en-za
-          - en-zm
-          - en-zw
-          - eo
-          - eo-001
-          - es
-          - es-419
-          - es-ar
-          - es-bo
-          - es-br
-          - es-bz
-          - es-cl
-          - es-co
-          - es-cr
-          - es-cu
-          - es-do
-          - es-ea
-          - es-ec
-          - es-es
-          - es-gq
-          - es-gt
-          - es-hn
-          - es-ic
-          - es-mx
-          - es-ni
-          - es-pa
-          - es-pe
-          - es-ph
-          - es-pr
-          - es-py
-          - es-sv
-          - es-us
-          - es-uy
-          - es-ve
-          - et
-          - et-ee
-          - eu
-          - eu-es
-          - ewo
-          - ewo-cm
-          - fa
-          - fa-af
-          - fa-ir
-          - ff
-          - ff-bf
-          - ff-cm
-          - ff-gh
-          - ff-gm
-          - ff-gn
-          - ff-gw
-          - ff-lr
-          - ff-mr
-          - ff-ne
-          - ff-ng
-          - ff-sl
-          - ff-sn
-          - fi
-          - fi-fi
-          - fil
-          - fil-ph
-          - fo
-          - fo-dk
-          - fo-fo
-          - fr
-          - fr-be
-          - fr-bf
-          - fr-bi
-          - fr-bj
-          - fr-bl
-          - fr-ca
-          - fr-cd
-          - fr-cf
-          - fr-cg
-          - fr-ch
-          - fr-ci
-          - fr-cm
-          - fr-dj
-          - fr-dz
-          - fr-fr
-          - fr-ga
-          - fr-gf
-          - fr-gn
-          - fr-gp
-          - fr-gq
-          - fr-ht
-          - fr-km
-          - fr-lu
-          - fr-ma
-          - fr-mc
-          - fr-mf
-          - fr-mg
-          - fr-ml
-          - fr-mq
-          - fr-mr
-          - fr-mu
-          - fr-nc
-          - fr-ne
-          - fr-pf
-          - fr-pm
-          - fr-re
-          - fr-rw
-          - fr-sc
-          - fr-sn
-          - fr-sy
-          - fr-td
-          - fr-tg
-          - fr-tn
-          - fr-vu
-          - fr-wf
-          - fr-yt
-          - fur
-          - fur-it
-          - fy
-          - fy-nl
-          - ga
-          - ga-gb
-          - ga-ie
-          - gd
-          - gd-gb
-          - gl
-          - gl-es
-          - gsw
-          - gsw-ch
-          - gsw-fr
-          - gsw-li
-          - gu
-          - gu-in
-          - guz
-          - guz-ke
-          - gv
-          - gv-im
-          - ha
-          - ha-gh
-          - ha-ne
-          - ha-ng
-          - haw
-          - haw-us
-          - he
-          - hi
-          - hi-in
-          - hr
-          - hr-ba
-          - hr-hr
-          - hsb
-          - hsb-de
-          - hu
-          - hu-hu
-          - hy
-          - hy-am
-          - ia
-          - ia-001
-          - id
-          - ig
-          - ig-ng
-          - ii
-          - ii-cn
-          - id-id
-          - is
-          - is-is
-          - it
-          - it-ch
-          - it-it
-          - it-sm
-          - it-va
-          - he-il
-          - ja
-          - ja-jp
-          - jgo
-          - jgo-cm
-          - yi
-          - yi-001
-          - jmc
-          - jmc-tz
-          - jv
-          - jv-id
-          - ka
-          - ka-ge
-          - kab
-          - kab-dz
-          - kam
-          - kam-ke
-          - kde
-          - kde-tz
-          - kea
-          - kea-cv
-          - khq
-          - khq-ml
-          - ki
-          - ki-ke
-          - kk
-          - kk-kz
-          - kkj
-          - kkj-cm
-          - kl
-          - kl-gl
-          - kln
-          - kln-ke
-          - km
-          - km-kh
-          - kn
-          - kn-in
-          - ko
-          - ko-kp
-          - ko-kr
-          - kok
-          - kok-in
-          - ks
-          - ks-in
-          - ksb
-          - ksb-tz
-          - ksf
-          - ksf-cm
-          - ksh
-          - ksh-de
-          - kw
-          - kw-gb
-          - ku
-          - ku-tr
-          - ky
-          - ky-kg
-          - lag
-          - lag-tz
-          - lb
-          - lb-lu
-          - lg
-          - lg-ug
-          - lkt
-          - lkt-us
-          - ln
-          - ln-ao
-          - ln-cd
-          - ln-cf
-          - ln-cg
-          - lo
-          - lo-la
-          - lrc
-          - lrc-iq
-          - lrc-ir
-          - lt
-          - lt-lt
-          - lu
-          - lu-cd
-          - luo
-          - luo-ke
-          - luy
-          - luy-ke
-          - lv
-          - lv-lv
-          - mai
-          - mai-in
-          - mas
-          - mas-ke
-          - mas-tz
-          - mer
-          - mer-ke
-          - mfe
-          - mfe-mu
-          - mg
-          - mg-mg
-          - mgh
-          - mgh-mz
-          - mgo
-          - mgo-cm
-          - mi
-          - mi-nz
-          - mk
-          - mk-mk
-          - ml
-          - ml-in
-          - mn
-          - mn-mn
-          - mni
-          - mni-in
-          - mr
-          - mr-in
-          - ms
-          - ms-bn
-          - ms-id
-          - ms-my
-          - ms-sg
-          - mt
-          - mt-mt
-          - mua
-          - mua-cm
-          - my
-          - my-mm
-          - mzn
-          - mzn-ir
-          - naq
-          - naq-na
-          - nb
-          - nb-no
-          - nb-sj
-          - nd
-          - nd-zw
-          - nds
-          - nds-de
-          - nds-nl
-          - ne
-          - ne-in
-          - ne-np
-          - nl
-          - nl-aw
-          - nl-be
-          - nl-ch
-          - nl-bq
-          - nl-cw
-          - nl-lu
-          - nl-nl
-          - nl-sr
-          - nl-sx
-          - nmg
-          - nmg-cm
-          - nn
-          - nn-no
-          - nnh
-          - nnh-cm
-          - "no"
-          - no-no
-          - nus
-          - nus-ss
-          - nyn
-          - nyn-ug
-          - om
-          - om-et
-          - om-ke
-          - or
-          - or-in
-          - os
-          - os-ge
-          - os-ru
-          - pa
-          - pa-in
-          - pa-pk
-          - pcm
-          - pcm-ng
-          - pl
-          - pl-pl
-          - prg
-          - prg-001
-          - ps
-          - ps-af
-          - ps-pk
-          - pt
-          - pt-ao
-          - pt-br
-          - pt-ch
-          - pt-cv
-          - pt-gq
-          - pt-gw
-          - pt-lu
-          - pt-mo
-          - pt-mz
-          - pt-pt
-          - pt-st
-          - pt-tl
-          - qu
-          - qu-bo
-          - qu-ec
-          - qu-pe
-          - rm
-          - rm-ch
-          - rn
-          - rn-bi
-          - ro
-          - ro-md
-          - ro-ro
-          - rof
-          - rof-tz
-          - ru
-          - ru-by
-          - ru-kg
-          - ru-kz
-          - ru-md
-          - ru-ru
-          - ru-ua
-          - rw
-          - rw-rw
-          - rwk
-          - rwk-tz
-          - sa
-          - sa-in
-          - sah
-          - sah-ru
-          - saq
-          - saq-ke
-          - sat
-          - sat-in
-          - sbp
-          - sbp-tz
-          - sd
-          - sd-in
-          - sd-pk
-          - se
-          - se-fi
-          - se-no
-          - se-se
-          - seh
-          - seh-mz
-          - ses
-          - ses-ml
-          - sg
-          - sg-cf
-          - shi
-          - shi-ma
-          - si
-          - si-lk
-          - sk
-          - sk-sk
-          - sl
-          - sl-si
-          - smn
-          - smn-fi
-          - sn
-          - sn-zw
-          - so
-          - so-dj
-          - so-et
-          - so-ke
-          - so-so
-          - sq
-          - sq-al
-          - sq-mk
-          - sq-xk
-          - sr
-          - sr-ba
-          - sr-cs
-          - sr-me
-          - sr-rs
-          - sr-xk
-          - su
-          - su-id
-          - sv
-          - sv-ax
-          - sv-fi
-          - sv-se
-          - sw
-          - sw-cd
-          - sw-ke
-          - sw-tz
-          - sw-ug
-          - sy
-          - ta
-          - ta-in
-          - ta-lk
-          - ta-my
-          - ta-sg
-          - te
-          - te-in
-          - teo
-          - teo-ke
-          - teo-ug
-          - tg
-          - tg-tj
-          - th
-          - th-th
-          - ti
-          - ti-er
-          - ti-et
-          - tk
-          - tk-tm
-          - tl
-          - to
-          - to-to
-          - tr
-          - tr-cy
-          - tr-tr
-          - tt
-          - tt-ru
-          - twq
-          - twq-ne
-          - tzm
-          - tzm-ma
-          - ug
-          - ug-cn
-          - uk
-          - uk-ua
-          - ur
-          - ur-in
-          - ur-pk
-          - uz
-          - uz-af
-          - uz-uz
-          - vai
-          - vai-lr
-          - vi
-          - vi-vn
-          - vo
-          - vo-001
-          - vun
-          - vun-tz
-          - wae
-          - wae-ch
-          - wo
-          - wo-sn
-          - xh
-          - xh-za
-          - xog
-          - xog-ug
-          - yav
-          - yav-cm
-          - yo
-          - yo-bj
-          - yo-ng
-          - yue
-          - yue-cn
-          - yue-hk
-          - zgh
-          - zgh-ma
-          - zh
-          - zh-cn
-          - zh-hk
-          - zh-mo
-          - zh-sg
-          - zh-tw
-          - zh-hans
-          - zh-hant
-          - zu
-          - zu-za
-          type: string
-        translatedFromId:
-          description: ID of the primary blog author this object was translated from.
-          format: int64
-          type: integer
-        name:
-          type: string
-        displayName:
-          description: The full name of the Blog Author to be displayed.
-          type: string
-        bio:
-          description: A short biography of the blog author.
-          type: string
-        website:
-          description: URL to the website of the Blog Author.
-          type: string
-        twitter:
-          description: URL or username of the Twitter account associated with the
-            Blog Author. This will be normalized into the Twitter url for said user.
-          type: string
-        facebook:
-          description: URL to the Blog Author's Facebook page.
-          type: string
-        linkedin:
-          description: URL to the blog author's LinkedIn page.
-          type: string
-        avatar:
-          description: "URL to the blog author's avatar, if supplying a custom one."
-          type: string
-        created:
-          format: date-time
-          type: string
-        updated:
-          format: date-time
-          type: string
-        deletedAt:
-          description: The timestamp (ISO8601 format) when this Blog Author was deleted.
-          format: date-time
-          type: string
-      required:
-      - avatar
-      - bio
-      - created
-      - deletedAt
-      - displayName
-      - email
-      - facebook
-      - fullName
-      - id
-      - language
-      - linkedin
-      - name
-      - slug
-      - translatedFromId
-      - twitter
-      - updated
-      - website
-      type: object
     RowMetaData:
       example:
         cssClass: cssClass
         styles:
           backgroundColor:
-            a: 1.0246457001441578
-            r: 4
-            b: 1
-            g: 7
+            a: 5.637376656633329
+            r: 2
+            b: 7
+            g: 9
           flexboxPositioning: flexboxPositioning
           backgroundImage:
             imageUrl: imageUrl
@@ -2558,30 +1657,30 @@ components:
             backgroundPosition: backgroundPosition
           forceFullWidthSection: true
           verticalAlignment: verticalAlignment
-          maxWidthSectionCentering: 6
+          maxWidthSectionCentering: 3
           backgroundGradient:
             angle:
               units: units
-              value: 1.4894159098541704
+              value: 2.027123023002322
             sideOrCorner:
               horizontalSide: horizontalSide
               verticalSide: verticalSide
             colors:
             - color:
-                a: 1.0246457001441578
-                r: 4
-                b: 1
-                g: 7
+                a: 5.637376656633329
+                r: 2
+                b: 7
+                g: 9
             - color:
-                a: 1.0246457001441578
-                r: 4
-                b: 1
-                g: 7
+                a: 5.637376656633329
+                r: 2
+                b: 7
+                g: 9
       properties:
-        styles:
-          $ref: '#/components/schemas/Styles'
         cssClass:
           type: string
+        styles:
+          $ref: '#/components/schemas/Styles'
       required:
       - cssClass
       - styles
@@ -2591,12 +1690,12 @@ components:
         archivedInDashboard: true
         created: 2000-01-23T04:56:07.000+00:00
         tagIds:
-        - 1
-        - 1
+        - 0
+        - 0
         publishDate: 2000-01-23T04:56:07.000+00:00
         publicAccessRules:
-        - null
-        - null
+        - {}
+        - {}
         password: password
         authorName: authorName
         publicAccessRulesEnabled: true
@@ -2607,42 +1706,42 @@ components:
         updated: 2000-01-23T04:56:07.000+00:00
         slug: slug
       properties:
-        id:
-          format: int64
-          type: integer
-        name:
-          type: string
-        slug:
-          type: string
-        state:
-          type: string
-        authorName:
-          type: string
-        password:
-          type: string
-        publicAccessRulesEnabled:
+        archivedInDashboard:
           type: boolean
-        publicAccessRules:
-          items:
-            $ref: '#/components/schemas/PublicAccessRule'
-          type: array
-        campaign:
+        created:
+          format: date-time
           type: string
         tagIds:
           items:
             format: int64
             type: integer
           type: array
-        archivedInDashboard:
-          type: boolean
-        created:
+        publishDate:
           format: date-time
+          type: string
+        publicAccessRules:
+          items:
+            $ref: '#/components/schemas/PublicAccessRule'
+          type: array
+        password:
+          type: string
+        authorName:
+          type: string
+        publicAccessRulesEnabled:
+          type: boolean
+        name:
+          type: string
+        campaign:
+          type: string
+        id:
+          format: int64
+          type: integer
+        state:
           type: string
         updated:
           format: date-time
           type: string
-        publishDate:
-          format: date-time
+        slug:
           type: string
       required:
       - archivedInDashboard
@@ -2667,12 +1766,12 @@ components:
         primaryId: primaryId
         primaryLanguage: primaryLanguage
       properties:
-        id:
-          description: ID of the object to add to a multi-language group.
-          type: string
         language:
           description: Designated language of the object to add to a multi-language
             group.
+          type: string
+        id:
+          description: ID of the object to add to a multi-language group.
           type: string
         primaryId:
           description: ID of primary language object in multi-language group.
@@ -2690,9 +1789,9 @@ components:
         horizontalSide: horizontalSide
         verticalSide: verticalSide
       properties:
-        verticalSide:
-          type: string
         horizontalSide:
+          type: string
+        verticalSide:
           type: string
       required:
       - horizontalSide
@@ -2700,19 +1799,15 @@ components:
       type: object
     ErrorDetail:
       properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          type: string
-        in:
-          description: The name of the field or parameter in which the error was found.
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
           type: string
         code:
           description: The status code associated with the error detail
           type: string
-        subCategory:
-          description: A specific category that contains more specific detail about
-            the error
+        in:
+          description: The name of the field or parameter in which the error was found.
           type: string
         context:
           additionalProperties:
@@ -2725,47 +1820,12 @@ components:
             - scope1
             - scope2
           type: object
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          type: string
       required:
       - message
-      type: object
-    BatchResponseBlogAuthor:
-      description: Response object for batch operations on blog authors.
-      properties:
-        status:
-          description: Status of batch operation.
-          enum:
-          - PENDING
-          - PROCESSING
-          - CANCELED
-          - COMPLETE
-          type: string
-        results:
-          description: Results of batch operation.
-          items:
-            $ref: '#/components/schemas/BlogAuthor'
-          type: array
-        requestedAt:
-          description: Time of batch operation request.
-          format: date-time
-          type: string
-        startedAt:
-          description: Time of batch operation start.
-          format: date-time
-          type: string
-        completedAt:
-          description: Time of batch operation completion.
-          format: date-time
-          type: string
-        links:
-          additionalProperties:
-            type: string
-          description: Links associated with batch operation.
-          type: object
-      required:
-      - completedAt
-      - results
-      - startedAt
-      - status
       type: object
     BatchInputBlogPost:
       description: Wrapper for providing an array of blog posts as inputs.
@@ -2786,12 +1846,12 @@ components:
               archivedInDashboard: true
               created: 2000-01-23T04:56:07.000+00:00
               tagIds:
-              - 1
-              - 1
+              - 0
+              - 0
               publishDate: 2000-01-23T04:56:07.000+00:00
               publicAccessRules:
-              - null
-              - null
+              - {}
+              - {}
               password: password
               authorName: authorName
               publicAccessRulesEnabled: true
@@ -2816,7 +1876,7 @@ components:
           folderId: folderId
           widgetContainers:
             key: "{}"
-          pageExpiryRedirectId: 7
+          pageExpiryRedirectId: 1
           dynamicPageDataSourceType: 5
           featuredImage: featuredImage
           authorName: authorName
@@ -2841,10 +1901,10 @@ components:
               - cssClass: cssClass
                 styles:
                   backgroundColor:
-                    a: 1.0246457001441578
-                    r: 4
-                    b: 1
-                    g: 7
+                    a: 5.637376656633329
+                    r: 2
+                    b: 7
+                    g: 9
                   flexboxPositioning: flexboxPositioning
                   backgroundImage:
                     imageUrl: imageUrl
@@ -2852,32 +1912,32 @@ components:
                     backgroundPosition: backgroundPosition
                   forceFullWidthSection: true
                   verticalAlignment: verticalAlignment
-                  maxWidthSectionCentering: 6
+                  maxWidthSectionCentering: 3
                   backgroundGradient:
                     angle:
                       units: units
-                      value: 1.4894159098541704
+                      value: 2.027123023002322
                     sideOrCorner:
                       horizontalSide: horizontalSide
                       verticalSide: verticalSide
                     colors:
                     - color:
-                        a: 1.0246457001441578
-                        r: 4
-                        b: 1
-                        g: 7
+                        a: 5.637376656633329
+                        r: 2
+                        b: 7
+                        g: 9
                     - color:
-                        a: 1.0246457001441578
-                        r: 4
-                        b: 1
-                        g: 7
+                        a: 5.637376656633329
+                        r: 2
+                        b: 7
+                        g: 9
               - cssClass: cssClass
                 styles:
                   backgroundColor:
-                    a: 1.0246457001441578
-                    r: 4
-                    b: 1
-                    g: 7
+                    a: 5.637376656633329
+                    r: 2
+                    b: 7
+                    g: 9
                   flexboxPositioning: flexboxPositioning
                   backgroundImage:
                     imageUrl: imageUrl
@@ -2885,39 +1945,39 @@ components:
                     backgroundPosition: backgroundPosition
                   forceFullWidthSection: true
                   verticalAlignment: verticalAlignment
-                  maxWidthSectionCentering: 6
+                  maxWidthSectionCentering: 3
                   backgroundGradient:
                     angle:
                       units: units
-                      value: 1.4894159098541704
+                      value: 2.027123023002322
                     sideOrCorner:
                       horizontalSide: horizontalSide
                       verticalSide: verticalSide
                     colors:
                     - color:
-                        a: 1.0246457001441578
-                        r: 4
-                        b: 1
-                        g: 7
+                        a: 5.637376656633329
+                        r: 2
+                        b: 7
+                        g: 9
                     - color:
-                        a: 1.0246457001441578
-                        r: 4
-                        b: 1
-                        g: 7
+                        a: 5.637376656633329
+                        r: 2
+                        b: 7
+                        g: 9
               cells:
               - null
               - null
               cssClass: cssClass
-              w: 2
+              w: 4
               cssId: cssId
-              x: 3
+              x: 7
               name: name
               styles:
                 backgroundColor:
-                  a: 1.0246457001441578
-                  r: 4
-                  b: 1
-                  g: 7
+                  a: 5.637376656633329
+                  r: 2
+                  b: 7
+                  g: 9
                 flexboxPositioning: flexboxPositioning
                 backgroundImage:
                   imageUrl: imageUrl
@@ -2925,30 +1985,30 @@ components:
                   backgroundPosition: backgroundPosition
                 forceFullWidthSection: true
                 verticalAlignment: verticalAlignment
-                maxWidthSectionCentering: 6
+                maxWidthSectionCentering: 3
                 backgroundGradient:
                   angle:
                     units: units
-                    value: 1.4894159098541704
+                    value: 2.027123023002322
                   sideOrCorner:
                     horizontalSide: horizontalSide
                     verticalSide: verticalSide
                   colors:
                   - color:
-                      a: 1.0246457001441578
-                      r: 4
-                      b: 1
-                      g: 7
+                      a: 5.637376656633329
+                      r: 2
+                      b: 7
+                      g: 9
                   - color:
-                      a: 1.0246457001441578
-                      r: 4
-                      b: 1
-                      g: 7
+                      a: 5.637376656633329
+                      r: 2
+                      b: 7
+                      g: 9
           updated: 2000-01-23T04:56:07.000+00:00
           footerHtml: footerHtml
           tagIds:
-          - 5
-          - 5
+          - 1
+          - 1
           widgets:
             key: "{}"
           postSummary: postSummary
@@ -2964,17 +2024,17 @@ components:
           pageExpiryEnabled: true
           url: url
           publicAccessRules:
-          - null
-          - null
+          - {}
+          - {}
           enableGoogleAmpOutputOverride: true
-          archivedAt: 2
+          archivedAt: 1
           postBody: postBody
           themeSettingsValues:
             key: "{}"
-          pageExpiryDate: 9
+          pageExpiryDate: 1
           publicAccessRulesEnabled: true
           currentState: AUTOMATED
-          categoryId: 0
+          categoryId: 6
           linkRelCanonicalUrl: linkRelCanonicalUrl
         - publishDate: 2000-01-23T04:56:07.000+00:00
           language: af
@@ -2991,12 +2051,12 @@ components:
               archivedInDashboard: true
               created: 2000-01-23T04:56:07.000+00:00
               tagIds:
-              - 1
-              - 1
+              - 0
+              - 0
               publishDate: 2000-01-23T04:56:07.000+00:00
               publicAccessRules:
-              - null
-              - null
+              - {}
+              - {}
               password: password
               authorName: authorName
               publicAccessRulesEnabled: true
@@ -3021,7 +2081,7 @@ components:
           folderId: folderId
           widgetContainers:
             key: "{}"
-          pageExpiryRedirectId: 7
+          pageExpiryRedirectId: 1
           dynamicPageDataSourceType: 5
           featuredImage: featuredImage
           authorName: authorName
@@ -3046,10 +2106,10 @@ components:
               - cssClass: cssClass
                 styles:
                   backgroundColor:
-                    a: 1.0246457001441578
-                    r: 4
-                    b: 1
-                    g: 7
+                    a: 5.637376656633329
+                    r: 2
+                    b: 7
+                    g: 9
                   flexboxPositioning: flexboxPositioning
                   backgroundImage:
                     imageUrl: imageUrl
@@ -3057,32 +2117,32 @@ components:
                     backgroundPosition: backgroundPosition
                   forceFullWidthSection: true
                   verticalAlignment: verticalAlignment
-                  maxWidthSectionCentering: 6
+                  maxWidthSectionCentering: 3
                   backgroundGradient:
                     angle:
                       units: units
-                      value: 1.4894159098541704
+                      value: 2.027123023002322
                     sideOrCorner:
                       horizontalSide: horizontalSide
                       verticalSide: verticalSide
                     colors:
                     - color:
-                        a: 1.0246457001441578
-                        r: 4
-                        b: 1
-                        g: 7
+                        a: 5.637376656633329
+                        r: 2
+                        b: 7
+                        g: 9
                     - color:
-                        a: 1.0246457001441578
-                        r: 4
-                        b: 1
-                        g: 7
+                        a: 5.637376656633329
+                        r: 2
+                        b: 7
+                        g: 9
               - cssClass: cssClass
                 styles:
                   backgroundColor:
-                    a: 1.0246457001441578
-                    r: 4
-                    b: 1
-                    g: 7
+                    a: 5.637376656633329
+                    r: 2
+                    b: 7
+                    g: 9
                   flexboxPositioning: flexboxPositioning
                   backgroundImage:
                     imageUrl: imageUrl
@@ -3090,39 +2150,39 @@ components:
                     backgroundPosition: backgroundPosition
                   forceFullWidthSection: true
                   verticalAlignment: verticalAlignment
-                  maxWidthSectionCentering: 6
+                  maxWidthSectionCentering: 3
                   backgroundGradient:
                     angle:
                       units: units
-                      value: 1.4894159098541704
+                      value: 2.027123023002322
                     sideOrCorner:
                       horizontalSide: horizontalSide
                       verticalSide: verticalSide
                     colors:
                     - color:
-                        a: 1.0246457001441578
-                        r: 4
-                        b: 1
-                        g: 7
+                        a: 5.637376656633329
+                        r: 2
+                        b: 7
+                        g: 9
                     - color:
-                        a: 1.0246457001441578
-                        r: 4
-                        b: 1
-                        g: 7
+                        a: 5.637376656633329
+                        r: 2
+                        b: 7
+                        g: 9
               cells:
               - null
               - null
               cssClass: cssClass
-              w: 2
+              w: 4
               cssId: cssId
-              x: 3
+              x: 7
               name: name
               styles:
                 backgroundColor:
-                  a: 1.0246457001441578
-                  r: 4
-                  b: 1
-                  g: 7
+                  a: 5.637376656633329
+                  r: 2
+                  b: 7
+                  g: 9
                 flexboxPositioning: flexboxPositioning
                 backgroundImage:
                   imageUrl: imageUrl
@@ -3130,30 +2190,30 @@ components:
                   backgroundPosition: backgroundPosition
                 forceFullWidthSection: true
                 verticalAlignment: verticalAlignment
-                maxWidthSectionCentering: 6
+                maxWidthSectionCentering: 3
                 backgroundGradient:
                   angle:
                     units: units
-                    value: 1.4894159098541704
+                    value: 2.027123023002322
                   sideOrCorner:
                     horizontalSide: horizontalSide
                     verticalSide: verticalSide
                   colors:
                   - color:
-                      a: 1.0246457001441578
-                      r: 4
-                      b: 1
-                      g: 7
+                      a: 5.637376656633329
+                      r: 2
+                      b: 7
+                      g: 9
                   - color:
-                      a: 1.0246457001441578
-                      r: 4
-                      b: 1
-                      g: 7
+                      a: 5.637376656633329
+                      r: 2
+                      b: 7
+                      g: 9
           updated: 2000-01-23T04:56:07.000+00:00
           footerHtml: footerHtml
           tagIds:
-          - 5
-          - 5
+          - 1
+          - 1
           widgets:
             key: "{}"
           postSummary: postSummary
@@ -3169,17 +2229,17 @@ components:
           pageExpiryEnabled: true
           url: url
           publicAccessRules:
-          - null
-          - null
+          - {}
+          - {}
           enableGoogleAmpOutputOverride: true
-          archivedAt: 2
+          archivedAt: 1
           postBody: postBody
           themeSettingsValues:
             key: "{}"
-          pageExpiryDate: 9
+          pageExpiryDate: 1
           publicAccessRulesEnabled: true
           currentState: AUTOMATED
-          categoryId: 0
+          categoryId: 6
           linkRelCanonicalUrl: linkRelCanonicalUrl
       properties:
         inputs:
@@ -3206,81 +2266,14 @@ components:
         language: language
         id: id
       properties:
-        id:
-          description: ID of blog post to clone.
-          type: string
         language:
           description: Target language of new variant.
           type: string
+        id:
+          description: ID of blog post to clone.
+          type: string
       required:
       - id
-      type: object
-    BatchResponseTagWithErrors:
-      description: Response object for batch operations on blog tags with errors.
-      properties:
-        status:
-          description: Status of batch operation.
-          enum:
-          - PENDING
-          - PROCESSING
-          - CANCELED
-          - COMPLETE
-          type: string
-        results:
-          description: Results of batch operation.
-          items:
-            $ref: '#/components/schemas/Tag'
-          type: array
-        numErrors:
-          description: Number of errors.
-          format: int32
-          type: integer
-        errors:
-          description: Errors in batch operation.
-          items:
-            $ref: '#/components/schemas/StandardError'
-          type: array
-        requestedAt:
-          description: Time of batch operation request.
-          format: date-time
-          type: string
-        startedAt:
-          description: Time of batch operation start.
-          format: date-time
-          type: string
-        completedAt:
-          description: Time of batch operation completion.
-          format: date-time
-          type: string
-        links:
-          additionalProperties:
-            type: string
-          description: Links associated with batch operation.
-          type: object
-      required:
-      - completedAt
-      - results
-      - startedAt
-      - status
-      type: object
-    CollectionResponseWithTotalBlogAuthorForwardPaging:
-      description: Response object for collections of blog authors with pagination
-        information.
-      properties:
-        total:
-          description: Total number of blog authors.
-          format: int32
-          type: integer
-        results:
-          description: Collection of blog authors.
-          items:
-            $ref: '#/components/schemas/BlogAuthor'
-          type: array
-        paging:
-          $ref: '#/components/schemas/ForwardPaging'
-      required:
-      - results
-      - total
       type: object
     VersionUser:
       description: Model definition for a version user. Contains addition information
@@ -3290,14 +2283,14 @@ components:
         id: id
         email: email
       properties:
+        fullName:
+          description: The first and last name of the User.
+          type: string
         id:
           description: The unique ID of the User.
           type: string
         email:
           description: The email address of the user.
-          type: string
-        fullName:
-          description: The first and last name of the User.
           type: string
       required:
       - email
@@ -3307,10 +2300,10 @@ components:
     ColorStop:
       example:
         color:
-          a: 1.0246457001441578
-          r: 4
-          b: 1
-          g: 7
+          a: 5.637376656633329
+          r: 2
+          b: 7
+          g: 9
       properties:
         color:
           $ref: '#/components/schemas/RGBAColor'
@@ -3321,26 +2314,26 @@ components:
       example:
         angle:
           units: units
-          value: 1.4894159098541704
+          value: 2.027123023002322
         sideOrCorner:
           horizontalSide: horizontalSide
           verticalSide: verticalSide
         colors:
         - color:
-            a: 1.0246457001441578
-            r: 4
-            b: 1
-            g: 7
+            a: 5.637376656633329
+            r: 2
+            b: 7
+            g: 9
         - color:
-            a: 1.0246457001441578
-            r: 4
-            b: 1
-            g: 7
+            a: 5.637376656633329
+            r: 2
+            b: 7
+            g: 9
       properties:
-        sideOrCorner:
-          $ref: '#/components/schemas/SideOrCorner'
         angle:
           $ref: '#/components/schemas/Angle'
+        sideOrCorner:
+          $ref: '#/components/schemas/SideOrCorner'
         colors:
           items:
             $ref: '#/components/schemas/ColorStop'
@@ -3364,10 +2357,10 @@ components:
         - cssClass: cssClass
           styles:
             backgroundColor:
-              a: 1.0246457001441578
-              r: 4
-              b: 1
-              g: 7
+              a: 5.637376656633329
+              r: 2
+              b: 7
+              g: 9
             flexboxPositioning: flexboxPositioning
             backgroundImage:
               imageUrl: imageUrl
@@ -3375,32 +2368,32 @@ components:
               backgroundPosition: backgroundPosition
             forceFullWidthSection: true
             verticalAlignment: verticalAlignment
-            maxWidthSectionCentering: 6
+            maxWidthSectionCentering: 3
             backgroundGradient:
               angle:
                 units: units
-                value: 1.4894159098541704
+                value: 2.027123023002322
               sideOrCorner:
                 horizontalSide: horizontalSide
                 verticalSide: verticalSide
               colors:
               - color:
-                  a: 1.0246457001441578
-                  r: 4
-                  b: 1
-                  g: 7
+                  a: 5.637376656633329
+                  r: 2
+                  b: 7
+                  g: 9
               - color:
-                  a: 1.0246457001441578
-                  r: 4
-                  b: 1
-                  g: 7
+                  a: 5.637376656633329
+                  r: 2
+                  b: 7
+                  g: 9
         - cssClass: cssClass
           styles:
             backgroundColor:
-              a: 1.0246457001441578
-              r: 4
-              b: 1
-              g: 7
+              a: 5.637376656633329
+              r: 2
+              b: 7
+              g: 9
             flexboxPositioning: flexboxPositioning
             backgroundImage:
               imageUrl: imageUrl
@@ -3408,39 +2401,39 @@ components:
               backgroundPosition: backgroundPosition
             forceFullWidthSection: true
             verticalAlignment: verticalAlignment
-            maxWidthSectionCentering: 6
+            maxWidthSectionCentering: 3
             backgroundGradient:
               angle:
                 units: units
-                value: 1.4894159098541704
+                value: 2.027123023002322
               sideOrCorner:
                 horizontalSide: horizontalSide
                 verticalSide: verticalSide
               colors:
               - color:
-                  a: 1.0246457001441578
-                  r: 4
-                  b: 1
-                  g: 7
+                  a: 5.637376656633329
+                  r: 2
+                  b: 7
+                  g: 9
               - color:
-                  a: 1.0246457001441578
-                  r: 4
-                  b: 1
-                  g: 7
+                  a: 5.637376656633329
+                  r: 2
+                  b: 7
+                  g: 9
         cells:
         - null
         - null
         cssClass: cssClass
-        w: 2
+        w: 4
         cssId: cssId
-        x: 3
+        x: 7
         name: name
         styles:
           backgroundColor:
-            a: 1.0246457001441578
-            r: 4
-            b: 1
-            g: 7
+            a: 5.637376656633329
+            r: 2
+            b: 7
+            g: 9
           flexboxPositioning: flexboxPositioning
           backgroundImage:
             imageUrl: imageUrl
@@ -3448,33 +2441,27 @@ components:
             backgroundPosition: backgroundPosition
           forceFullWidthSection: true
           verticalAlignment: verticalAlignment
-          maxWidthSectionCentering: 6
+          maxWidthSectionCentering: 3
           backgroundGradient:
             angle:
               units: units
-              value: 1.4894159098541704
+              value: 2.027123023002322
             sideOrCorner:
               horizontalSide: horizontalSide
               verticalSide: verticalSide
             colors:
             - color:
-                a: 1.0246457001441578
-                r: 4
-                b: 1
-                g: 7
+                a: 5.637376656633329
+                r: 2
+                b: 7
+                g: 9
             - color:
-                a: 1.0246457001441578
-                r: 4
-                b: 1
-                g: 7
+                a: 5.637376656633329
+                r: 2
+                b: 7
+                g: 9
       properties:
-        x:
-          format: int32
-          type: integer
-        w:
-          format: int32
-          type: integer
-        name:
+        cssStyle:
           type: string
         label:
           type: string
@@ -3502,9 +2489,15 @@ components:
           type: array
         cssClass:
           type: string
-        cssStyle:
-          type: string
+        w:
+          format: int32
+          type: integer
         cssId:
+          type: string
+        x:
+          format: int32
+          type: integer
+        name:
           type: string
         styles:
           $ref: '#/components/schemas/Styles'
@@ -3562,12 +2555,12 @@ components:
               archivedInDashboard: true
               created: 2000-01-23T04:56:07.000+00:00
               tagIds:
-              - 1
-              - 1
+              - 0
+              - 0
               publishDate: 2000-01-23T04:56:07.000+00:00
               publicAccessRules:
-              - null
-              - null
+              - {}
+              - {}
               password: password
               authorName: authorName
               publicAccessRulesEnabled: true
@@ -3592,7 +2585,7 @@ components:
           folderId: folderId
           widgetContainers:
             key: "{}"
-          pageExpiryRedirectId: 7
+          pageExpiryRedirectId: 1
           dynamicPageDataSourceType: 5
           featuredImage: featuredImage
           authorName: authorName
@@ -3617,10 +2610,10 @@ components:
               - cssClass: cssClass
                 styles:
                   backgroundColor:
-                    a: 1.0246457001441578
-                    r: 4
-                    b: 1
-                    g: 7
+                    a: 5.637376656633329
+                    r: 2
+                    b: 7
+                    g: 9
                   flexboxPositioning: flexboxPositioning
                   backgroundImage:
                     imageUrl: imageUrl
@@ -3628,32 +2621,32 @@ components:
                     backgroundPosition: backgroundPosition
                   forceFullWidthSection: true
                   verticalAlignment: verticalAlignment
-                  maxWidthSectionCentering: 6
+                  maxWidthSectionCentering: 3
                   backgroundGradient:
                     angle:
                       units: units
-                      value: 1.4894159098541704
+                      value: 2.027123023002322
                     sideOrCorner:
                       horizontalSide: horizontalSide
                       verticalSide: verticalSide
                     colors:
                     - color:
-                        a: 1.0246457001441578
-                        r: 4
-                        b: 1
-                        g: 7
+                        a: 5.637376656633329
+                        r: 2
+                        b: 7
+                        g: 9
                     - color:
-                        a: 1.0246457001441578
-                        r: 4
-                        b: 1
-                        g: 7
+                        a: 5.637376656633329
+                        r: 2
+                        b: 7
+                        g: 9
               - cssClass: cssClass
                 styles:
                   backgroundColor:
-                    a: 1.0246457001441578
-                    r: 4
-                    b: 1
-                    g: 7
+                    a: 5.637376656633329
+                    r: 2
+                    b: 7
+                    g: 9
                   flexboxPositioning: flexboxPositioning
                   backgroundImage:
                     imageUrl: imageUrl
@@ -3661,39 +2654,39 @@ components:
                     backgroundPosition: backgroundPosition
                   forceFullWidthSection: true
                   verticalAlignment: verticalAlignment
-                  maxWidthSectionCentering: 6
+                  maxWidthSectionCentering: 3
                   backgroundGradient:
                     angle:
                       units: units
-                      value: 1.4894159098541704
+                      value: 2.027123023002322
                     sideOrCorner:
                       horizontalSide: horizontalSide
                       verticalSide: verticalSide
                     colors:
                     - color:
-                        a: 1.0246457001441578
-                        r: 4
-                        b: 1
-                        g: 7
+                        a: 5.637376656633329
+                        r: 2
+                        b: 7
+                        g: 9
                     - color:
-                        a: 1.0246457001441578
-                        r: 4
-                        b: 1
-                        g: 7
+                        a: 5.637376656633329
+                        r: 2
+                        b: 7
+                        g: 9
               cells:
               - null
               - null
               cssClass: cssClass
-              w: 2
+              w: 4
               cssId: cssId
-              x: 3
+              x: 7
               name: name
               styles:
                 backgroundColor:
-                  a: 1.0246457001441578
-                  r: 4
-                  b: 1
-                  g: 7
+                  a: 5.637376656633329
+                  r: 2
+                  b: 7
+                  g: 9
                 flexboxPositioning: flexboxPositioning
                 backgroundImage:
                   imageUrl: imageUrl
@@ -3701,30 +2694,30 @@ components:
                   backgroundPosition: backgroundPosition
                 forceFullWidthSection: true
                 verticalAlignment: verticalAlignment
-                maxWidthSectionCentering: 6
+                maxWidthSectionCentering: 3
                 backgroundGradient:
                   angle:
                     units: units
-                    value: 1.4894159098541704
+                    value: 2.027123023002322
                   sideOrCorner:
                     horizontalSide: horizontalSide
                     verticalSide: verticalSide
                   colors:
                   - color:
-                      a: 1.0246457001441578
-                      r: 4
-                      b: 1
-                      g: 7
+                      a: 5.637376656633329
+                      r: 2
+                      b: 7
+                      g: 9
                   - color:
-                      a: 1.0246457001441578
-                      r: 4
-                      b: 1
-                      g: 7
+                      a: 5.637376656633329
+                      r: 2
+                      b: 7
+                      g: 9
           updated: 2000-01-23T04:56:07.000+00:00
           footerHtml: footerHtml
           tagIds:
-          - 5
-          - 5
+          - 1
+          - 1
           widgets:
             key: "{}"
           postSummary: postSummary
@@ -3740,27 +2733,27 @@ components:
           pageExpiryEnabled: true
           url: url
           publicAccessRules:
-          - null
-          - null
+          - {}
+          - {}
           enableGoogleAmpOutputOverride: true
-          archivedAt: 2
+          archivedAt: 1
           postBody: postBody
           themeSettingsValues:
             key: "{}"
-          pageExpiryDate: 9
+          pageExpiryDate: 1
           publicAccessRulesEnabled: true
           currentState: AUTOMATED
-          categoryId: 0
+          categoryId: 6
           linkRelCanonicalUrl: linkRelCanonicalUrl
         updatedAt: 2000-01-23T04:56:07.000+00:00
       properties:
-        object:
-          $ref: '#/components/schemas/BlogPost'
-        user:
-          $ref: '#/components/schemas/VersionUser'
         id:
           description: The id of the version.
           type: string
+        user:
+          $ref: '#/components/schemas/VersionUser'
+        object:
+          $ref: '#/components/schemas/BlogPost'
         updatedAt:
           format: date-time
           type: string
@@ -3778,29 +2771,10 @@ components:
         links:
           knowledge-base: https://www.hubspot.com/products/service/knowledge-base
       properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          example: An error occurred
-          type: string
-        correlationId:
-          description: A unique identifier for the request. Include this value with
-            any error reports or support tickets
-          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
-          format: uuid
-          type: string
-        category:
-          description: The error category
-          type: string
         subCategory:
           description: A specific category that contains more specific detail about
             the error
           type: string
-        errors:
-          description: further information about the error
-          items:
-            $ref: '#/components/schemas/ErrorDetail'
-          type: array
         context:
           additionalProperties:
             items:
@@ -3808,18 +2782,40 @@ components:
             type: array
           description: Context about the error condition
           example:
-            invalidPropertyName:
-            - propertyValue
             missingScopes:
             - scope1
             - scope2
+            invalidPropertyName:
+            - propertyValue
           type: object
+        correlationId:
+          description: A unique identifier for the request. Include this value with
+            any error reports or support tickets
+          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
+          format: uuid
+          type: string
         links:
           additionalProperties:
             type: string
           description: A map of link names to associated URIs containing documentation
             about the error or recommended remediation steps
+          example:
+            knowledge-base: https://www.hubspot.com/products/service/knowledge-base
           type: object
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          example: Invalid input (details will vary based on the error)
+          type: string
+        category:
+          description: The error category
+          example: VALIDATION_ERROR
+          type: string
+        errors:
+          description: further information about the error
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
       required:
       - category
       - correlationId
@@ -3828,28 +2824,14 @@ components:
     BatchResponseBlogPostWithErrors:
       description: Response object for batch operations on blog posts with errors.
       properties:
-        status:
-          description: Status of batch operation.
-          enum:
-          - PENDING
-          - PROCESSING
-          - CANCELED
-          - COMPLETE
+        completedAt:
+          description: Time of batch operation completion.
+          format: date-time
           type: string
-        results:
-          description: Results of batch operation.
-          items:
-            $ref: '#/components/schemas/BlogPost'
-          type: array
         numErrors:
           description: Number of errors.
           format: int32
           type: integer
-        errors:
-          description: Errors in batch operation.
-          items:
-            $ref: '#/components/schemas/StandardError'
-          type: array
         requestedAt:
           description: Time of batch operation request.
           format: date-time
@@ -3858,15 +2840,29 @@ components:
           description: Time of batch operation start.
           format: date-time
           type: string
-        completedAt:
-          description: Time of batch operation completion.
-          format: date-time
-          type: string
         links:
           additionalProperties:
             type: string
           description: Links associated with batch operation.
           type: object
+        results:
+          description: Results of batch operation.
+          items:
+            $ref: '#/components/schemas/BlogPost'
+          type: array
+        errors:
+          description: Errors in batch operation.
+          items:
+            $ref: '#/components/schemas/StandardError'
+          type: array
+        status:
+          description: Status of batch operation.
+          enum:
+          - PENDING
+          - PROCESSING
+          - CANCELED
+          - COMPLETE
+          type: string
       required:
       - completedAt
       - results
@@ -3891,12 +2887,12 @@ components:
             archivedInDashboard: true
             created: 2000-01-23T04:56:07.000+00:00
             tagIds:
-            - 1
-            - 1
+            - 0
+            - 0
             publishDate: 2000-01-23T04:56:07.000+00:00
             publicAccessRules:
-            - null
-            - null
+            - {}
+            - {}
             password: password
             authorName: authorName
             publicAccessRulesEnabled: true
@@ -3921,7 +2917,7 @@ components:
         folderId: folderId
         widgetContainers:
           key: "{}"
-        pageExpiryRedirectId: 7
+        pageExpiryRedirectId: 1
         dynamicPageDataSourceType: 5
         featuredImage: featuredImage
         authorName: authorName
@@ -3946,10 +2942,10 @@ components:
             - cssClass: cssClass
               styles:
                 backgroundColor:
-                  a: 1.0246457001441578
-                  r: 4
-                  b: 1
-                  g: 7
+                  a: 5.637376656633329
+                  r: 2
+                  b: 7
+                  g: 9
                 flexboxPositioning: flexboxPositioning
                 backgroundImage:
                   imageUrl: imageUrl
@@ -3957,32 +2953,32 @@ components:
                   backgroundPosition: backgroundPosition
                 forceFullWidthSection: true
                 verticalAlignment: verticalAlignment
-                maxWidthSectionCentering: 6
+                maxWidthSectionCentering: 3
                 backgroundGradient:
                   angle:
                     units: units
-                    value: 1.4894159098541704
+                    value: 2.027123023002322
                   sideOrCorner:
                     horizontalSide: horizontalSide
                     verticalSide: verticalSide
                   colors:
                   - color:
-                      a: 1.0246457001441578
-                      r: 4
-                      b: 1
-                      g: 7
+                      a: 5.637376656633329
+                      r: 2
+                      b: 7
+                      g: 9
                   - color:
-                      a: 1.0246457001441578
-                      r: 4
-                      b: 1
-                      g: 7
+                      a: 5.637376656633329
+                      r: 2
+                      b: 7
+                      g: 9
             - cssClass: cssClass
               styles:
                 backgroundColor:
-                  a: 1.0246457001441578
-                  r: 4
-                  b: 1
-                  g: 7
+                  a: 5.637376656633329
+                  r: 2
+                  b: 7
+                  g: 9
                 flexboxPositioning: flexboxPositioning
                 backgroundImage:
                   imageUrl: imageUrl
@@ -3990,39 +2986,39 @@ components:
                   backgroundPosition: backgroundPosition
                 forceFullWidthSection: true
                 verticalAlignment: verticalAlignment
-                maxWidthSectionCentering: 6
+                maxWidthSectionCentering: 3
                 backgroundGradient:
                   angle:
                     units: units
-                    value: 1.4894159098541704
+                    value: 2.027123023002322
                   sideOrCorner:
                     horizontalSide: horizontalSide
                     verticalSide: verticalSide
                   colors:
                   - color:
-                      a: 1.0246457001441578
-                      r: 4
-                      b: 1
-                      g: 7
+                      a: 5.637376656633329
+                      r: 2
+                      b: 7
+                      g: 9
                   - color:
-                      a: 1.0246457001441578
-                      r: 4
-                      b: 1
-                      g: 7
+                      a: 5.637376656633329
+                      r: 2
+                      b: 7
+                      g: 9
             cells:
             - null
             - null
             cssClass: cssClass
-            w: 2
+            w: 4
             cssId: cssId
-            x: 3
+            x: 7
             name: name
             styles:
               backgroundColor:
-                a: 1.0246457001441578
-                r: 4
-                b: 1
-                g: 7
+                a: 5.637376656633329
+                r: 2
+                b: 7
+                g: 9
               flexboxPositioning: flexboxPositioning
               backgroundImage:
                 imageUrl: imageUrl
@@ -4030,30 +3026,30 @@ components:
                 backgroundPosition: backgroundPosition
               forceFullWidthSection: true
               verticalAlignment: verticalAlignment
-              maxWidthSectionCentering: 6
+              maxWidthSectionCentering: 3
               backgroundGradient:
                 angle:
                   units: units
-                  value: 1.4894159098541704
+                  value: 2.027123023002322
                 sideOrCorner:
                   horizontalSide: horizontalSide
                   verticalSide: verticalSide
                 colors:
                 - color:
-                    a: 1.0246457001441578
-                    r: 4
-                    b: 1
-                    g: 7
+                    a: 5.637376656633329
+                    r: 2
+                    b: 7
+                    g: 9
                 - color:
-                    a: 1.0246457001441578
-                    r: 4
-                    b: 1
-                    g: 7
+                    a: 5.637376656633329
+                    r: 2
+                    b: 7
+                    g: 9
         updated: 2000-01-23T04:56:07.000+00:00
         footerHtml: footerHtml
         tagIds:
-        - 5
-        - 5
+        - 1
+        - 1
         widgets:
           key: "{}"
         postSummary: postSummary
@@ -4069,89 +3065,24 @@ components:
         pageExpiryEnabled: true
         url: url
         publicAccessRules:
-        - null
-        - null
+        - {}
+        - {}
         enableGoogleAmpOutputOverride: true
-        archivedAt: 2
+        archivedAt: 1
         postBody: postBody
         themeSettingsValues:
           key: "{}"
-        pageExpiryDate: 9
+        pageExpiryDate: 1
         publicAccessRulesEnabled: true
         currentState: AUTOMATED
-        categoryId: 0
+        categoryId: 6
         linkRelCanonicalUrl: linkRelCanonicalUrl
       properties:
-        id:
-          description: The unique ID of the Blog Post.
+        publishDate:
+          description: The date (ISO8601 format) the blog post is to be published
+            at.
+          format: date-time
           type: string
-        slug:
-          description: The path of the this blog post. This field is appended to the
-            domain to construct the url of this post.
-          type: string
-        contentGroupId:
-          description: The ID of the parent Blog this Blog Post is associated with.
-          type: string
-        campaign:
-          description: The GUID of the marketing campaign this Blog Post is a part
-            of.
-          type: string
-        categoryId:
-          description: ID of the type of object this is. Should always .
-          format: int32
-          type: integer
-        state:
-          description: An ENUM descibing the current state of this Blog Post.
-          maxLength: 25
-          type: string
-        name:
-          description: The internal name of the Blog Post.
-          type: string
-        mabExperimentId:
-          type: string
-        authorName:
-          description: The name of the user that updated this Blog Post.
-          type: string
-        abTestId:
-          type: string
-        createdById:
-          description: The ID of the user that created this Blog Post.
-          type: string
-        updatedById:
-          description: The ID of the user that updated this Blog Post.
-          type: string
-        domain:
-          description: "The domain this Blog Post will resolve to. If null, the Blog\
-            \ Post will default to the domain of the ParentBlog."
-          type: string
-        abStatus:
-          enum:
-          - master
-          - variant
-          - loser_variant
-          - mab_master
-          - mab_variant
-          - automated_master
-          - automated_variant
-          - automated_loser_variant
-          type: string
-        folderId:
-          type: string
-        widgetContainers:
-          additionalProperties:
-            properties: {}
-            type: object
-          description: A data structure containing the data for all the modules inside
-            the containers for this post. This will only be populated if the page
-            has widget containers.
-          type: object
-        widgets:
-          additionalProperties:
-            properties: {}
-            type: object
-          description: A data structure containing the data for all the modules for
-            this page.
-          type: object
         language:
           description: "The explicitly defined ISO 639 language code of the Blog Post.\
             \ If null, the Blog Post will default to the language of the ParentBlog."
@@ -4911,105 +3842,12 @@ components:
           - zu
           - zu-za
           type: string
-        translatedFromId:
-          description: ID of the primary blog post this object was translated from.
-          type: string
-        translations:
-          additionalProperties:
-            $ref: '#/components/schemas/ContentLanguageVariation'
-          type: object
-        dynamicPageHubDbTableId:
-          description: "The ID of the HubDB table this Blog Post references, if applicable"
-          type: string
-        dynamicPageDataSourceType:
-          format: int32
-          type: integer
-        dynamicPageDataSourceId:
-          type: string
-        blogAuthorId:
-          description: The ID of the Blog Author associated with this Blog Post.
-          type: string
-        tagIds:
-          description: List of IDs for the tags associated with this Blog Post.
-          items:
-            format: int64
-            type: integer
-          type: array
-        htmlTitle:
-          description: The html title of this Blog Post.
-          type: string
-        publicAccessRulesEnabled:
-          description: Boolean to determine whether or not to respect publicAccessRules.
-          type: boolean
-        publicAccessRules:
-          description: Rules for require member registration to access private content.
-          items:
-            $ref: '#/components/schemas/PublicAccessRule'
-          type: array
-        useFeaturedImage:
-          description: Boolean to determine if this post should use a featuredImage.
-          type: boolean
-        postSummary:
-          description: The summary of the blog post that will appear on the main listing
-            page.
-          type: string
-        postBody:
-          description: The HTML of the main post body.
-          type: string
-        rssSummary:
-          description: The contents of the RSS summary for this Blog Post.
-          type: string
-        rssBody:
-          description: The contents of the RSS body for this Blog Post.
-          type: string
-        enableGoogleAmpOutputOverride:
-          description: Boolean to allow overriding the AMP settings for the blog.
-          type: boolean
-        publishImmediately:
-          description: "Set this to true if you want to be published immediately when\
-            \ the schedule publish endpoint is called, and to ignore the publish_date\
-            \ setting."
-          type: boolean
-        archivedAt:
-          description: The timestamp (ISO8601 format) when this Blog Post was deleted.
-          format: int64
-          type: integer
-        linkRelCanonicalUrl:
-          description: Optional override to set the URL to be used in the rel=canonical
-            link tag on the page.
-          type: string
-        archivedInDashboard:
-          description: "If True, the post will not show up in your dashboard, although\
-            \ the post could still be live."
-          type: boolean
-        pageExpiryEnabled:
-          type: boolean
-        pageExpiryRedirectId:
-          format: int64
-          type: integer
-        pageExpiryRedirectUrl:
-          type: string
-        pageExpiryDate:
-          format: int64
-          type: integer
-        includeDefaultCustomCss:
-          description: Boolean to determine whether or not the Primary CSS Files should
-            be applied.
-          type: boolean
         enableLayoutStylesheets:
           description: Boolean to determine whether or not the styles from the template
             should be applied.
           type: boolean
-        enableDomainStylesheets:
-          description: Boolean to determine whether or not the styles from the template
-            should be applied.
-          type: boolean
-        layoutSections:
-          additionalProperties:
-            $ref: '#/components/schemas/LayoutSection'
-          type: object
-        featuredImageAltText:
-          description: Alt Text of the featuredImage.
+        metaDescription:
+          description: A description that goes in <meta> tag on the page.
           type: string
         attachedStylesheets:
           description: "List of stylesheets to attach to this blog post. These stylesheets\
@@ -5021,32 +3859,223 @@ components:
               type: object
             type: object
           type: array
-        metaDescription:
-          description: A description that goes in <meta> tag on the page.
+        password:
+          description: Set this to create a password protected page. Entering the
+            password will be required to view the page.
           type: string
-        headHtml:
-          description: "Custom HTML for embed codes, javascript, etc. that goes in\
-            \ the <head> tag of the page."
+        htmlTitle:
+          description: The html title of this Blog Post.
+          type: string
+        publishImmediately:
+          description: "Set this to true if you want to be published immediately when\
+            \ the schedule publish endpoint is called, and to ignore the publish_date\
+            \ setting."
+          type: boolean
+        translations:
+          additionalProperties:
+            $ref: '#/components/schemas/ContentLanguageVariation'
+          type: object
+        id:
+          description: The unique ID of the Blog Post.
+          type: string
+        state:
+          description: An ENUM descibing the current state of this Blog Post.
+          maxLength: 25
+          type: string
+        slug:
+          description: The path of the this blog post. This field is appended to the
+            domain to construct the url of this post.
+          type: string
+        createdById:
+          description: The ID of the user that created this Blog Post.
+          type: string
+        rssBody:
+          description: The contents of the RSS body for this Blog Post.
+          type: string
+        currentlyPublished:
+          type: boolean
+        archivedInDashboard:
+          description: "If True, the post will not show up in your dashboard, although\
+            \ the post could still be live."
+          type: boolean
+        created:
+          format: date-time
+          type: string
+        contentTypeCategory:
+          description: An ENUM descibing the type of this object. Should always be
+            BLOG_POST.
+          enum:
+          - "0"
+          - "1"
+          - "2"
+          - "3"
+          - "4"
+          - "5"
+          - "6"
+          - "7"
+          - "8"
+          - "9"
+          - "10"
+          - "11"
+          - "12"
+          type: string
+        mabExperimentId:
+          description: ""
+          type: string
+        updatedById:
+          description: The ID of the user that updated this Blog Post.
+          type: string
+        translatedFromId:
+          description: ID of the primary blog post this object was translated from.
+          type: string
+        folderId:
+          description: ""
+          type: string
+        widgetContainers:
+          additionalProperties:
+            properties: {}
+            type: object
+          description: A data structure containing the data for all the modules inside
+            the containers for this post. This will only be populated if the page
+            has widget containers.
+          type: object
+        pageExpiryRedirectId:
+          description: ""
+          format: int64
+          type: integer
+        dynamicPageDataSourceType:
+          format: int32
+          type: integer
+        featuredImage:
+          description: The featuredImage of this Blog Post.
+          type: string
+        authorName:
+          description: The name of the user that updated this Blog Post.
+          type: string
+        domain:
+          description: "The domain this Blog Post will resolve to. If null, the Blog\
+            \ Post will default to the domain of the ParentBlog."
+          type: string
+        name:
+          description: The internal name of the Blog Post.
+          type: string
+        dynamicPageHubDbTableId:
+          description: "The ID of the HubDB table this Blog Post references, if applicable"
+          type: string
+        campaign:
+          description: The GUID of the marketing campaign this Blog Post is a part
+            of.
+          type: string
+        dynamicPageDataSourceId:
+          type: string
+        enableDomainStylesheets:
+          description: Boolean to determine whether or not the styles from the template
+            should be applied.
+          type: boolean
+        includeDefaultCustomCss:
+          description: Boolean to determine whether or not the Primary CSS Files should
+            be applied.
+          type: boolean
+        layoutSections:
+          additionalProperties:
+            $ref: '#/components/schemas/LayoutSection'
+          description: ""
+          type: object
+        updated:
+          format: date-time
           type: string
         footerHtml:
           description: "Custom HTML for embed codes, javascript that should be placed\
             \ before the </body> tag of the page."
           type: string
-        featuredImage:
-          description: The featuredImage of this Blog Post.
+        tagIds:
+          description: List of IDs for the tags associated with this Blog Post.
+          items:
+            format: int64
+            type: integer
+          type: array
+        widgets:
+          additionalProperties:
+            properties: {}
+            type: object
+          description: A data structure containing the data for all the modules for
+            this page.
+          type: object
+        postSummary:
+          description: The summary of the blog post that will appear on the main listing
+            page.
+          type: string
+        headHtml:
+          description: "Custom HTML for embed codes, javascript, etc. that goes in\
+            \ the <head> tag of the page."
+          type: string
+        pageExpiryRedirectUrl:
+          description: ""
+          type: string
+        abStatus:
+          description: ""
+          enum:
+          - master
+          - variant
+          - loser_variant
+          - mab_master
+          - mab_variant
+          - automated_master
+          - automated_variant
+          - automated_loser_variant
+          type: string
+        useFeaturedImage:
+          description: Boolean to determine if this post should use a featuredImage.
+          type: boolean
+        abTestId:
+          description: ""
+          type: string
+        featuredImageAltText:
+          description: Alt Text of the featuredImage.
+          type: string
+        blogAuthorId:
+          description: The ID of the Blog Author associated with this Blog Post.
+          type: string
+        contentGroupId:
+          description: The ID of the parent Blog this Blog Post is associated with.
+          type: string
+        rssSummary:
+          description: The contents of the RSS summary for this Blog Post.
+          type: string
+        pageExpiryEnabled:
+          description: ""
+          type: boolean
+        url:
+          description: A generated field representing the URL of this blog post.
+          type: string
+        publicAccessRules:
+          description: Rules for require member registration to access private content.
+          items:
+            $ref: '#/components/schemas/PublicAccessRule'
+          type: array
+        enableGoogleAmpOutputOverride:
+          description: Boolean to allow overriding the AMP settings for the blog.
+          type: boolean
+        archivedAt:
+          description: The timestamp (ISO8601 format) when this Blog Post was deleted.
+          format: int64
+          type: integer
+        postBody:
+          description: The HTML of the main post body.
           type: string
         themeSettingsValues:
           additionalProperties:
             properties: {}
             type: object
+          description: ""
           type: object
-        url:
-          description: A generated field representing the URL of this blog post.
-          type: string
-        password:
-          description: Set this to create a password protected page. Entering the
-            password will be required to view the page.
-          type: string
+        pageExpiryDate:
+          description: ""
+          format: int64
+          type: integer
+        publicAccessRulesEnabled:
+          description: Boolean to determine whether or not to respect publicAccessRules.
+          type: boolean
         currentState:
           description: A generated ENUM descibing the current state of this Blog Post.
             Should always match state.
@@ -5083,36 +4112,13 @@ components:
           - AUTOMATED_DRAFT_ABVARIANT
           - AUTOMATED_LOSER_ABVARIANT
           type: string
-        currentlyPublished:
-          type: boolean
-        contentTypeCategory:
-          description: An ENUM descibing the type of this object. Should always be
-            BLOG_POST.
-          enum:
-          - "0"
-          - "1"
-          - "2"
-          - "3"
-          - "4"
-          - "5"
-          - "6"
-          - "7"
-          - "8"
-          - "9"
-          - "10"
-          - "11"
-          - "12"
-          type: string
-        publishDate:
-          description: The date (ISO8601 format) the blog post is to be published
-            at.
-          format: date-time
-          type: string
-        created:
-          format: date-time
-          type: string
-        updated:
-          format: date-time
+        categoryId:
+          description: ID of the type of object this is. Should always .
+          format: int32
+          type: integer
+        linkRelCanonicalUrl:
+          description: Optional override to set the URL to be used in the rel=canonical
+            link tag on the page.
           type: string
       required:
       - abStatus
@@ -5201,12 +4207,12 @@ components:
               archivedInDashboard: true
               created: 2000-01-23T04:56:07.000+00:00
               tagIds:
-              - 1
-              - 1
+              - 0
+              - 0
               publishDate: 2000-01-23T04:56:07.000+00:00
               publicAccessRules:
-              - null
-              - null
+              - {}
+              - {}
               password: password
               authorName: authorName
               publicAccessRulesEnabled: true
@@ -5231,7 +4237,7 @@ components:
           folderId: folderId
           widgetContainers:
             key: "{}"
-          pageExpiryRedirectId: 7
+          pageExpiryRedirectId: 1
           dynamicPageDataSourceType: 5
           featuredImage: featuredImage
           authorName: authorName
@@ -5256,10 +4262,10 @@ components:
               - cssClass: cssClass
                 styles:
                   backgroundColor:
-                    a: 1.0246457001441578
-                    r: 4
-                    b: 1
-                    g: 7
+                    a: 5.637376656633329
+                    r: 2
+                    b: 7
+                    g: 9
                   flexboxPositioning: flexboxPositioning
                   backgroundImage:
                     imageUrl: imageUrl
@@ -5267,32 +4273,32 @@ components:
                     backgroundPosition: backgroundPosition
                   forceFullWidthSection: true
                   verticalAlignment: verticalAlignment
-                  maxWidthSectionCentering: 6
+                  maxWidthSectionCentering: 3
                   backgroundGradient:
                     angle:
                       units: units
-                      value: 1.4894159098541704
+                      value: 2.027123023002322
                     sideOrCorner:
                       horizontalSide: horizontalSide
                       verticalSide: verticalSide
                     colors:
                     - color:
-                        a: 1.0246457001441578
-                        r: 4
-                        b: 1
-                        g: 7
+                        a: 5.637376656633329
+                        r: 2
+                        b: 7
+                        g: 9
                     - color:
-                        a: 1.0246457001441578
-                        r: 4
-                        b: 1
-                        g: 7
+                        a: 5.637376656633329
+                        r: 2
+                        b: 7
+                        g: 9
               - cssClass: cssClass
                 styles:
                   backgroundColor:
-                    a: 1.0246457001441578
-                    r: 4
-                    b: 1
-                    g: 7
+                    a: 5.637376656633329
+                    r: 2
+                    b: 7
+                    g: 9
                   flexboxPositioning: flexboxPositioning
                   backgroundImage:
                     imageUrl: imageUrl
@@ -5300,39 +4306,39 @@ components:
                     backgroundPosition: backgroundPosition
                   forceFullWidthSection: true
                   verticalAlignment: verticalAlignment
-                  maxWidthSectionCentering: 6
+                  maxWidthSectionCentering: 3
                   backgroundGradient:
                     angle:
                       units: units
-                      value: 1.4894159098541704
+                      value: 2.027123023002322
                     sideOrCorner:
                       horizontalSide: horizontalSide
                       verticalSide: verticalSide
                     colors:
                     - color:
-                        a: 1.0246457001441578
-                        r: 4
-                        b: 1
-                        g: 7
+                        a: 5.637376656633329
+                        r: 2
+                        b: 7
+                        g: 9
                     - color:
-                        a: 1.0246457001441578
-                        r: 4
-                        b: 1
-                        g: 7
+                        a: 5.637376656633329
+                        r: 2
+                        b: 7
+                        g: 9
               cells:
               - null
               - null
               cssClass: cssClass
-              w: 2
+              w: 4
               cssId: cssId
-              x: 3
+              x: 7
               name: name
               styles:
                 backgroundColor:
-                  a: 1.0246457001441578
-                  r: 4
-                  b: 1
-                  g: 7
+                  a: 5.637376656633329
+                  r: 2
+                  b: 7
+                  g: 9
                 flexboxPositioning: flexboxPositioning
                 backgroundImage:
                   imageUrl: imageUrl
@@ -5340,30 +4346,30 @@ components:
                   backgroundPosition: backgroundPosition
                 forceFullWidthSection: true
                 verticalAlignment: verticalAlignment
-                maxWidthSectionCentering: 6
+                maxWidthSectionCentering: 3
                 backgroundGradient:
                   angle:
                     units: units
-                    value: 1.4894159098541704
+                    value: 2.027123023002322
                   sideOrCorner:
                     horizontalSide: horizontalSide
                     verticalSide: verticalSide
                   colors:
                   - color:
-                      a: 1.0246457001441578
-                      r: 4
-                      b: 1
-                      g: 7
+                      a: 5.637376656633329
+                      r: 2
+                      b: 7
+                      g: 9
                   - color:
-                      a: 1.0246457001441578
-                      r: 4
-                      b: 1
-                      g: 7
+                      a: 5.637376656633329
+                      r: 2
+                      b: 7
+                      g: 9
           updated: 2000-01-23T04:56:07.000+00:00
           footerHtml: footerHtml
           tagIds:
-          - 5
-          - 5
+          - 1
+          - 1
           widgets:
             key: "{}"
           postSummary: postSummary
@@ -5379,17 +4385,17 @@ components:
           pageExpiryEnabled: true
           url: url
           publicAccessRules:
-          - null
-          - null
+          - {}
+          - {}
           enableGoogleAmpOutputOverride: true
-          archivedAt: 2
+          archivedAt: 1
           postBody: postBody
           themeSettingsValues:
             key: "{}"
-          pageExpiryDate: 9
+          pageExpiryDate: 1
           publicAccessRulesEnabled: true
           currentState: AUTOMATED
-          categoryId: 0
+          categoryId: 6
           linkRelCanonicalUrl: linkRelCanonicalUrl
         - publishDate: 2000-01-23T04:56:07.000+00:00
           language: af
@@ -5406,12 +4412,12 @@ components:
               archivedInDashboard: true
               created: 2000-01-23T04:56:07.000+00:00
               tagIds:
-              - 1
-              - 1
+              - 0
+              - 0
               publishDate: 2000-01-23T04:56:07.000+00:00
               publicAccessRules:
-              - null
-              - null
+              - {}
+              - {}
               password: password
               authorName: authorName
               publicAccessRulesEnabled: true
@@ -5436,7 +4442,7 @@ components:
           folderId: folderId
           widgetContainers:
             key: "{}"
-          pageExpiryRedirectId: 7
+          pageExpiryRedirectId: 1
           dynamicPageDataSourceType: 5
           featuredImage: featuredImage
           authorName: authorName
@@ -5461,10 +4467,10 @@ components:
               - cssClass: cssClass
                 styles:
                   backgroundColor:
-                    a: 1.0246457001441578
-                    r: 4
-                    b: 1
-                    g: 7
+                    a: 5.637376656633329
+                    r: 2
+                    b: 7
+                    g: 9
                   flexboxPositioning: flexboxPositioning
                   backgroundImage:
                     imageUrl: imageUrl
@@ -5472,32 +4478,32 @@ components:
                     backgroundPosition: backgroundPosition
                   forceFullWidthSection: true
                   verticalAlignment: verticalAlignment
-                  maxWidthSectionCentering: 6
+                  maxWidthSectionCentering: 3
                   backgroundGradient:
                     angle:
                       units: units
-                      value: 1.4894159098541704
+                      value: 2.027123023002322
                     sideOrCorner:
                       horizontalSide: horizontalSide
                       verticalSide: verticalSide
                     colors:
                     - color:
-                        a: 1.0246457001441578
-                        r: 4
-                        b: 1
-                        g: 7
+                        a: 5.637376656633329
+                        r: 2
+                        b: 7
+                        g: 9
                     - color:
-                        a: 1.0246457001441578
-                        r: 4
-                        b: 1
-                        g: 7
+                        a: 5.637376656633329
+                        r: 2
+                        b: 7
+                        g: 9
               - cssClass: cssClass
                 styles:
                   backgroundColor:
-                    a: 1.0246457001441578
-                    r: 4
-                    b: 1
-                    g: 7
+                    a: 5.637376656633329
+                    r: 2
+                    b: 7
+                    g: 9
                   flexboxPositioning: flexboxPositioning
                   backgroundImage:
                     imageUrl: imageUrl
@@ -5505,39 +4511,39 @@ components:
                     backgroundPosition: backgroundPosition
                   forceFullWidthSection: true
                   verticalAlignment: verticalAlignment
-                  maxWidthSectionCentering: 6
+                  maxWidthSectionCentering: 3
                   backgroundGradient:
                     angle:
                       units: units
-                      value: 1.4894159098541704
+                      value: 2.027123023002322
                     sideOrCorner:
                       horizontalSide: horizontalSide
                       verticalSide: verticalSide
                     colors:
                     - color:
-                        a: 1.0246457001441578
-                        r: 4
-                        b: 1
-                        g: 7
+                        a: 5.637376656633329
+                        r: 2
+                        b: 7
+                        g: 9
                     - color:
-                        a: 1.0246457001441578
-                        r: 4
-                        b: 1
-                        g: 7
+                        a: 5.637376656633329
+                        r: 2
+                        b: 7
+                        g: 9
               cells:
               - null
               - null
               cssClass: cssClass
-              w: 2
+              w: 4
               cssId: cssId
-              x: 3
+              x: 7
               name: name
               styles:
                 backgroundColor:
-                  a: 1.0246457001441578
-                  r: 4
-                  b: 1
-                  g: 7
+                  a: 5.637376656633329
+                  r: 2
+                  b: 7
+                  g: 9
                 flexboxPositioning: flexboxPositioning
                 backgroundImage:
                   imageUrl: imageUrl
@@ -5545,30 +4551,30 @@ components:
                   backgroundPosition: backgroundPosition
                 forceFullWidthSection: true
                 verticalAlignment: verticalAlignment
-                maxWidthSectionCentering: 6
+                maxWidthSectionCentering: 3
                 backgroundGradient:
                   angle:
                     units: units
-                    value: 1.4894159098541704
+                    value: 2.027123023002322
                   sideOrCorner:
                     horizontalSide: horizontalSide
                     verticalSide: verticalSide
                   colors:
                   - color:
-                      a: 1.0246457001441578
-                      r: 4
-                      b: 1
-                      g: 7
+                      a: 5.637376656633329
+                      r: 2
+                      b: 7
+                      g: 9
                   - color:
-                      a: 1.0246457001441578
-                      r: 4
-                      b: 1
-                      g: 7
+                      a: 5.637376656633329
+                      r: 2
+                      b: 7
+                      g: 9
           updated: 2000-01-23T04:56:07.000+00:00
           footerHtml: footerHtml
           tagIds:
-          - 5
-          - 5
+          - 1
+          - 1
           widgets:
             key: "{}"
           postSummary: postSummary
@@ -5584,33 +4590,24 @@ components:
           pageExpiryEnabled: true
           url: url
           publicAccessRules:
-          - null
-          - null
+          - {}
+          - {}
           enableGoogleAmpOutputOverride: true
-          archivedAt: 2
+          archivedAt: 1
           postBody: postBody
           themeSettingsValues:
             key: "{}"
-          pageExpiryDate: 9
+          pageExpiryDate: 1
           publicAccessRulesEnabled: true
           currentState: AUTOMATED
-          categoryId: 0
+          categoryId: 6
           linkRelCanonicalUrl: linkRelCanonicalUrl
         status: PENDING
       properties:
-        status:
-          description: Status of batch operation.
-          enum:
-          - PENDING
-          - PROCESSING
-          - CANCELED
-          - COMPLETE
+        completedAt:
+          description: Time of batch operation completion.
+          format: date-time
           type: string
-        results:
-          description: Results of batch operation.
-          items:
-            $ref: '#/components/schemas/BlogPost'
-          type: array
         requestedAt:
           description: Time of batch operation request.
           format: date-time
@@ -5619,15 +4616,24 @@ components:
           description: Time of batch operation start.
           format: date-time
           type: string
-        completedAt:
-          description: Time of batch operation completion.
-          format: date-time
-          type: string
         links:
           additionalProperties:
             type: string
           description: Links associated with batch operation.
           type: object
+        results:
+          description: Results of batch operation.
+          items:
+            $ref: '#/components/schemas/BlogPost'
+          type: array
+        status:
+          description: Status of batch operation.
+          enum:
+          - PENDING
+          - PROCESSING
+          - CANCELED
+          - COMPLETE
+          type: string
       required:
       - completedAt
       - results
@@ -5658,12 +4664,12 @@ components:
               archivedInDashboard: true
               created: 2000-01-23T04:56:07.000+00:00
               tagIds:
-              - 1
-              - 1
+              - 0
+              - 0
               publishDate: 2000-01-23T04:56:07.000+00:00
               publicAccessRules:
-              - null
-              - null
+              - {}
+              - {}
               password: password
               authorName: authorName
               publicAccessRulesEnabled: true
@@ -5688,7 +4694,7 @@ components:
           folderId: folderId
           widgetContainers:
             key: "{}"
-          pageExpiryRedirectId: 7
+          pageExpiryRedirectId: 1
           dynamicPageDataSourceType: 5
           featuredImage: featuredImage
           authorName: authorName
@@ -5713,10 +4719,10 @@ components:
               - cssClass: cssClass
                 styles:
                   backgroundColor:
-                    a: 1.0246457001441578
-                    r: 4
-                    b: 1
-                    g: 7
+                    a: 5.637376656633329
+                    r: 2
+                    b: 7
+                    g: 9
                   flexboxPositioning: flexboxPositioning
                   backgroundImage:
                     imageUrl: imageUrl
@@ -5724,32 +4730,32 @@ components:
                     backgroundPosition: backgroundPosition
                   forceFullWidthSection: true
                   verticalAlignment: verticalAlignment
-                  maxWidthSectionCentering: 6
+                  maxWidthSectionCentering: 3
                   backgroundGradient:
                     angle:
                       units: units
-                      value: 1.4894159098541704
+                      value: 2.027123023002322
                     sideOrCorner:
                       horizontalSide: horizontalSide
                       verticalSide: verticalSide
                     colors:
                     - color:
-                        a: 1.0246457001441578
-                        r: 4
-                        b: 1
-                        g: 7
+                        a: 5.637376656633329
+                        r: 2
+                        b: 7
+                        g: 9
                     - color:
-                        a: 1.0246457001441578
-                        r: 4
-                        b: 1
-                        g: 7
+                        a: 5.637376656633329
+                        r: 2
+                        b: 7
+                        g: 9
               - cssClass: cssClass
                 styles:
                   backgroundColor:
-                    a: 1.0246457001441578
-                    r: 4
-                    b: 1
-                    g: 7
+                    a: 5.637376656633329
+                    r: 2
+                    b: 7
+                    g: 9
                   flexboxPositioning: flexboxPositioning
                   backgroundImage:
                     imageUrl: imageUrl
@@ -5757,39 +4763,39 @@ components:
                     backgroundPosition: backgroundPosition
                   forceFullWidthSection: true
                   verticalAlignment: verticalAlignment
-                  maxWidthSectionCentering: 6
+                  maxWidthSectionCentering: 3
                   backgroundGradient:
                     angle:
                       units: units
-                      value: 1.4894159098541704
+                      value: 2.027123023002322
                     sideOrCorner:
                       horizontalSide: horizontalSide
                       verticalSide: verticalSide
                     colors:
                     - color:
-                        a: 1.0246457001441578
-                        r: 4
-                        b: 1
-                        g: 7
+                        a: 5.637376656633329
+                        r: 2
+                        b: 7
+                        g: 9
                     - color:
-                        a: 1.0246457001441578
-                        r: 4
-                        b: 1
-                        g: 7
+                        a: 5.637376656633329
+                        r: 2
+                        b: 7
+                        g: 9
               cells:
               - null
               - null
               cssClass: cssClass
-              w: 2
+              w: 4
               cssId: cssId
-              x: 3
+              x: 7
               name: name
               styles:
                 backgroundColor:
-                  a: 1.0246457001441578
-                  r: 4
-                  b: 1
-                  g: 7
+                  a: 5.637376656633329
+                  r: 2
+                  b: 7
+                  g: 9
                 flexboxPositioning: flexboxPositioning
                 backgroundImage:
                   imageUrl: imageUrl
@@ -5797,30 +4803,30 @@ components:
                   backgroundPosition: backgroundPosition
                 forceFullWidthSection: true
                 verticalAlignment: verticalAlignment
-                maxWidthSectionCentering: 6
+                maxWidthSectionCentering: 3
                 backgroundGradient:
                   angle:
                     units: units
-                    value: 1.4894159098541704
+                    value: 2.027123023002322
                   sideOrCorner:
                     horizontalSide: horizontalSide
                     verticalSide: verticalSide
                   colors:
                   - color:
-                      a: 1.0246457001441578
-                      r: 4
-                      b: 1
-                      g: 7
+                      a: 5.637376656633329
+                      r: 2
+                      b: 7
+                      g: 9
                   - color:
-                      a: 1.0246457001441578
-                      r: 4
-                      b: 1
-                      g: 7
+                      a: 5.637376656633329
+                      r: 2
+                      b: 7
+                      g: 9
           updated: 2000-01-23T04:56:07.000+00:00
           footerHtml: footerHtml
           tagIds:
-          - 5
-          - 5
+          - 1
+          - 1
           widgets:
             key: "{}"
           postSummary: postSummary
@@ -5836,17 +4842,17 @@ components:
           pageExpiryEnabled: true
           url: url
           publicAccessRules:
-          - null
-          - null
+          - {}
+          - {}
           enableGoogleAmpOutputOverride: true
-          archivedAt: 2
+          archivedAt: 1
           postBody: postBody
           themeSettingsValues:
             key: "{}"
-          pageExpiryDate: 9
+          pageExpiryDate: 1
           publicAccessRulesEnabled: true
           currentState: AUTOMATED
-          categoryId: 0
+          categoryId: 6
           linkRelCanonicalUrl: linkRelCanonicalUrl
         - publishDate: 2000-01-23T04:56:07.000+00:00
           language: af
@@ -5863,12 +4869,12 @@ components:
               archivedInDashboard: true
               created: 2000-01-23T04:56:07.000+00:00
               tagIds:
-              - 1
-              - 1
+              - 0
+              - 0
               publishDate: 2000-01-23T04:56:07.000+00:00
               publicAccessRules:
-              - null
-              - null
+              - {}
+              - {}
               password: password
               authorName: authorName
               publicAccessRulesEnabled: true
@@ -5893,7 +4899,7 @@ components:
           folderId: folderId
           widgetContainers:
             key: "{}"
-          pageExpiryRedirectId: 7
+          pageExpiryRedirectId: 1
           dynamicPageDataSourceType: 5
           featuredImage: featuredImage
           authorName: authorName
@@ -5918,10 +4924,10 @@ components:
               - cssClass: cssClass
                 styles:
                   backgroundColor:
-                    a: 1.0246457001441578
-                    r: 4
-                    b: 1
-                    g: 7
+                    a: 5.637376656633329
+                    r: 2
+                    b: 7
+                    g: 9
                   flexboxPositioning: flexboxPositioning
                   backgroundImage:
                     imageUrl: imageUrl
@@ -5929,32 +4935,32 @@ components:
                     backgroundPosition: backgroundPosition
                   forceFullWidthSection: true
                   verticalAlignment: verticalAlignment
-                  maxWidthSectionCentering: 6
+                  maxWidthSectionCentering: 3
                   backgroundGradient:
                     angle:
                       units: units
-                      value: 1.4894159098541704
+                      value: 2.027123023002322
                     sideOrCorner:
                       horizontalSide: horizontalSide
                       verticalSide: verticalSide
                     colors:
                     - color:
-                        a: 1.0246457001441578
-                        r: 4
-                        b: 1
-                        g: 7
+                        a: 5.637376656633329
+                        r: 2
+                        b: 7
+                        g: 9
                     - color:
-                        a: 1.0246457001441578
-                        r: 4
-                        b: 1
-                        g: 7
+                        a: 5.637376656633329
+                        r: 2
+                        b: 7
+                        g: 9
               - cssClass: cssClass
                 styles:
                   backgroundColor:
-                    a: 1.0246457001441578
-                    r: 4
-                    b: 1
-                    g: 7
+                    a: 5.637376656633329
+                    r: 2
+                    b: 7
+                    g: 9
                   flexboxPositioning: flexboxPositioning
                   backgroundImage:
                     imageUrl: imageUrl
@@ -5962,39 +4968,39 @@ components:
                     backgroundPosition: backgroundPosition
                   forceFullWidthSection: true
                   verticalAlignment: verticalAlignment
-                  maxWidthSectionCentering: 6
+                  maxWidthSectionCentering: 3
                   backgroundGradient:
                     angle:
                       units: units
-                      value: 1.4894159098541704
+                      value: 2.027123023002322
                     sideOrCorner:
                       horizontalSide: horizontalSide
                       verticalSide: verticalSide
                     colors:
                     - color:
-                        a: 1.0246457001441578
-                        r: 4
-                        b: 1
-                        g: 7
+                        a: 5.637376656633329
+                        r: 2
+                        b: 7
+                        g: 9
                     - color:
-                        a: 1.0246457001441578
-                        r: 4
-                        b: 1
-                        g: 7
+                        a: 5.637376656633329
+                        r: 2
+                        b: 7
+                        g: 9
               cells:
               - null
               - null
               cssClass: cssClass
-              w: 2
+              w: 4
               cssId: cssId
-              x: 3
+              x: 7
               name: name
               styles:
                 backgroundColor:
-                  a: 1.0246457001441578
-                  r: 4
-                  b: 1
-                  g: 7
+                  a: 5.637376656633329
+                  r: 2
+                  b: 7
+                  g: 9
                 flexboxPositioning: flexboxPositioning
                 backgroundImage:
                   imageUrl: imageUrl
@@ -6002,30 +5008,30 @@ components:
                   backgroundPosition: backgroundPosition
                 forceFullWidthSection: true
                 verticalAlignment: verticalAlignment
-                maxWidthSectionCentering: 6
+                maxWidthSectionCentering: 3
                 backgroundGradient:
                   angle:
                     units: units
-                    value: 1.4894159098541704
+                    value: 2.027123023002322
                   sideOrCorner:
                     horizontalSide: horizontalSide
                     verticalSide: verticalSide
                   colors:
                   - color:
-                      a: 1.0246457001441578
-                      r: 4
-                      b: 1
-                      g: 7
+                      a: 5.637376656633329
+                      r: 2
+                      b: 7
+                      g: 9
                   - color:
-                      a: 1.0246457001441578
-                      r: 4
-                      b: 1
-                      g: 7
+                      a: 5.637376656633329
+                      r: 2
+                      b: 7
+                      g: 9
           updated: 2000-01-23T04:56:07.000+00:00
           footerHtml: footerHtml
           tagIds:
-          - 5
-          - 5
+          - 1
+          - 1
           widgets:
             key: "{}"
           postSummary: postSummary
@@ -6041,35 +5047,37 @@ components:
           pageExpiryEnabled: true
           url: url
           publicAccessRules:
-          - null
-          - null
+          - {}
+          - {}
           enableGoogleAmpOutputOverride: true
-          archivedAt: 2
+          archivedAt: 1
           postBody: postBody
           themeSettingsValues:
             key: "{}"
-          pageExpiryDate: 9
+          pageExpiryDate: 1
           publicAccessRulesEnabled: true
           currentState: AUTOMATED
-          categoryId: 0
+          categoryId: 6
           linkRelCanonicalUrl: linkRelCanonicalUrl
       properties:
         total:
           description: Total number of blog posts.
           format: int32
           type: integer
+        paging:
+          $ref: '#/components/schemas/ForwardPaging'
         results:
           description: Collection of blog posts.
           items:
             $ref: '#/components/schemas/BlogPost'
           type: array
-        paging:
-          $ref: '#/components/schemas/ForwardPaging'
       required:
       - results
       - total
       type: object
     PublicAccessRule:
+      example: {}
+      properties: {}
       type: object
     BackgroundImage:
       example:
@@ -6091,12 +5099,12 @@ components:
     Angle:
       example:
         units: units
-        value: 1.4894159098541704
+        value: 2.027123023002322
       properties:
-        value:
-          type: number
         units:
           type: string
+        value:
+          type: number
       required:
       - units
       - value
@@ -6108,8 +5116,10 @@ components:
         link: link
       properties:
         before:
+          description: ""
           type: string
         link:
+          description: ""
           type: string
       required:
       - before
@@ -6120,825 +5130,16 @@ components:
         publishDate: 2000-01-23T04:56:07.000+00:00
         id: id
       properties:
-        id:
-          description: The ID of the object to be scheduled.
-          type: string
         publishDate:
           description: The date the object should transition from scheduled to published.
           format: date-time
           type: string
+        id:
+          description: The ID of the object to be scheduled.
+          type: string
       required:
       - id
       - publishDate
-      type: object
-    TagCloneRequestVNext:
-      description: Request body object for cloning blog tags.
-      properties:
-        id:
-          description: ID of the object to be cloned.
-          type: string
-        language:
-          description: Target language of new variant.
-          type: string
-        primaryLanguage:
-          description: Language of primary blog tag to clone.
-          type: string
-        name:
-          description: Name of newly cloned blog tag.
-          type: string
-      required:
-      - id
-      - name
-      type: object
-    Tag:
-      description: Model definition for a Tag.
-      properties:
-        id:
-          description: The unique ID of the Blog Tag.
-          type: string
-        name:
-          description: The name of the tag.
-          type: string
-        language:
-          description: The explicitly defined ISO 639 language code of the tag.
-          enum:
-          - af
-          - af-na
-          - af-za
-          - agq
-          - agq-cm
-          - ak
-          - ak-gh
-          - am
-          - am-et
-          - ar
-          - ar-001
-          - ar-ae
-          - ar-bh
-          - ar-dj
-          - ar-dz
-          - ar-eg
-          - ar-eh
-          - ar-er
-          - ar-il
-          - ar-iq
-          - ar-jo
-          - ar-km
-          - ar-kw
-          - ar-lb
-          - ar-ly
-          - ar-ma
-          - ar-mr
-          - ar-om
-          - ar-ps
-          - ar-qa
-          - ar-sa
-          - ar-sd
-          - ar-so
-          - ar-ss
-          - ar-sy
-          - ar-td
-          - ar-tn
-          - ar-ye
-          - as
-          - as-in
-          - asa
-          - asa-tz
-          - ast
-          - ast-es
-          - az
-          - az-az
-          - bas
-          - bas-cm
-          - be
-          - be-by
-          - bem
-          - bem-zm
-          - bez
-          - bez-tz
-          - bg
-          - bg-bg
-          - bm
-          - bm-ml
-          - bn
-          - bn-bd
-          - bn-in
-          - bo
-          - bo-cn
-          - bo-in
-          - br
-          - br-fr
-          - brx
-          - brx-in
-          - bs
-          - bs-ba
-          - ca
-          - ca-ad
-          - ca-es
-          - ca-fr
-          - ca-it
-          - ccp
-          - ccp-bd
-          - ccp-in
-          - ce
-          - ce-ru
-          - ceb
-          - ceb-ph
-          - cgg
-          - cgg-ug
-          - chr
-          - chr-us
-          - ckb
-          - ckb-iq
-          - ckb-ir
-          - cs
-          - cs-cz
-          - cu
-          - cu-ru
-          - cy
-          - cy-gb
-          - da
-          - da-dk
-          - da-gl
-          - dav
-          - dav-ke
-          - de
-          - de-at
-          - de-be
-          - de-ch
-          - de-de
-          - de-gr
-          - de-it
-          - de-li
-          - de-lu
-          - dje
-          - dje-ne
-          - doi
-          - doi-in
-          - dsb
-          - dsb-de
-          - dua
-          - dua-cm
-          - dyo
-          - dyo-sn
-          - dz
-          - dz-bt
-          - ebu
-          - ebu-ke
-          - ee
-          - ee-gh
-          - ee-tg
-          - el
-          - el-cy
-          - el-gr
-          - en
-          - en-001
-          - en-150
-          - en-ae
-          - en-ag
-          - en-ai
-          - en-as
-          - en-at
-          - en-au
-          - en-bb
-          - en-be
-          - en-bi
-          - en-bm
-          - en-bs
-          - en-bw
-          - en-bz
-          - en-ca
-          - en-cc
-          - en-ch
-          - en-ck
-          - en-cm
-          - en-cn
-          - en-cx
-          - en-cy
-          - en-de
-          - en-dg
-          - en-dk
-          - en-dm
-          - en-er
-          - en-fi
-          - en-fj
-          - en-fk
-          - en-fm
-          - en-gb
-          - en-gd
-          - en-gg
-          - en-gh
-          - en-gi
-          - en-gm
-          - en-gu
-          - en-gy
-          - en-hk
-          - en-ie
-          - en-il
-          - en-im
-          - en-in
-          - en-io
-          - en-je
-          - en-jm
-          - en-ke
-          - en-ki
-          - en-kn
-          - en-ky
-          - en-lc
-          - en-lr
-          - en-ls
-          - en-lu
-          - en-mg
-          - en-mh
-          - en-mo
-          - en-mp
-          - en-ms
-          - en-mt
-          - en-mu
-          - en-mw
-          - en-mx
-          - en-my
-          - en-na
-          - en-nf
-          - en-ng
-          - en-nl
-          - en-nr
-          - en-nu
-          - en-nz
-          - en-pg
-          - en-ph
-          - en-pk
-          - en-pn
-          - en-pr
-          - en-pw
-          - en-rw
-          - en-sb
-          - en-sc
-          - en-sd
-          - en-se
-          - en-sg
-          - en-sh
-          - en-si
-          - en-sl
-          - en-ss
-          - en-sx
-          - en-sz
-          - en-tc
-          - en-tk
-          - en-to
-          - en-tt
-          - en-tv
-          - en-tz
-          - en-ug
-          - en-um
-          - en-us
-          - en-vc
-          - en-vg
-          - en-vi
-          - en-vu
-          - en-ws
-          - en-za
-          - en-zm
-          - en-zw
-          - eo
-          - eo-001
-          - es
-          - es-419
-          - es-ar
-          - es-bo
-          - es-br
-          - es-bz
-          - es-cl
-          - es-co
-          - es-cr
-          - es-cu
-          - es-do
-          - es-ea
-          - es-ec
-          - es-es
-          - es-gq
-          - es-gt
-          - es-hn
-          - es-ic
-          - es-mx
-          - es-ni
-          - es-pa
-          - es-pe
-          - es-ph
-          - es-pr
-          - es-py
-          - es-sv
-          - es-us
-          - es-uy
-          - es-ve
-          - et
-          - et-ee
-          - eu
-          - eu-es
-          - ewo
-          - ewo-cm
-          - fa
-          - fa-af
-          - fa-ir
-          - ff
-          - ff-bf
-          - ff-cm
-          - ff-gh
-          - ff-gm
-          - ff-gn
-          - ff-gw
-          - ff-lr
-          - ff-mr
-          - ff-ne
-          - ff-ng
-          - ff-sl
-          - ff-sn
-          - fi
-          - fi-fi
-          - fil
-          - fil-ph
-          - fo
-          - fo-dk
-          - fo-fo
-          - fr
-          - fr-be
-          - fr-bf
-          - fr-bi
-          - fr-bj
-          - fr-bl
-          - fr-ca
-          - fr-cd
-          - fr-cf
-          - fr-cg
-          - fr-ch
-          - fr-ci
-          - fr-cm
-          - fr-dj
-          - fr-dz
-          - fr-fr
-          - fr-ga
-          - fr-gf
-          - fr-gn
-          - fr-gp
-          - fr-gq
-          - fr-ht
-          - fr-km
-          - fr-lu
-          - fr-ma
-          - fr-mc
-          - fr-mf
-          - fr-mg
-          - fr-ml
-          - fr-mq
-          - fr-mr
-          - fr-mu
-          - fr-nc
-          - fr-ne
-          - fr-pf
-          - fr-pm
-          - fr-re
-          - fr-rw
-          - fr-sc
-          - fr-sn
-          - fr-sy
-          - fr-td
-          - fr-tg
-          - fr-tn
-          - fr-vu
-          - fr-wf
-          - fr-yt
-          - fur
-          - fur-it
-          - fy
-          - fy-nl
-          - ga
-          - ga-gb
-          - ga-ie
-          - gd
-          - gd-gb
-          - gl
-          - gl-es
-          - gsw
-          - gsw-ch
-          - gsw-fr
-          - gsw-li
-          - gu
-          - gu-in
-          - guz
-          - guz-ke
-          - gv
-          - gv-im
-          - ha
-          - ha-gh
-          - ha-ne
-          - ha-ng
-          - haw
-          - haw-us
-          - he
-          - hi
-          - hi-in
-          - hr
-          - hr-ba
-          - hr-hr
-          - hsb
-          - hsb-de
-          - hu
-          - hu-hu
-          - hy
-          - hy-am
-          - ia
-          - ia-001
-          - id
-          - ig
-          - ig-ng
-          - ii
-          - ii-cn
-          - id-id
-          - is
-          - is-is
-          - it
-          - it-ch
-          - it-it
-          - it-sm
-          - it-va
-          - he-il
-          - ja
-          - ja-jp
-          - jgo
-          - jgo-cm
-          - yi
-          - yi-001
-          - jmc
-          - jmc-tz
-          - jv
-          - jv-id
-          - ka
-          - ka-ge
-          - kab
-          - kab-dz
-          - kam
-          - kam-ke
-          - kde
-          - kde-tz
-          - kea
-          - kea-cv
-          - khq
-          - khq-ml
-          - ki
-          - ki-ke
-          - kk
-          - kk-kz
-          - kkj
-          - kkj-cm
-          - kl
-          - kl-gl
-          - kln
-          - kln-ke
-          - km
-          - km-kh
-          - kn
-          - kn-in
-          - ko
-          - ko-kp
-          - ko-kr
-          - kok
-          - kok-in
-          - ks
-          - ks-in
-          - ksb
-          - ksb-tz
-          - ksf
-          - ksf-cm
-          - ksh
-          - ksh-de
-          - kw
-          - kw-gb
-          - ku
-          - ku-tr
-          - ky
-          - ky-kg
-          - lag
-          - lag-tz
-          - lb
-          - lb-lu
-          - lg
-          - lg-ug
-          - lkt
-          - lkt-us
-          - ln
-          - ln-ao
-          - ln-cd
-          - ln-cf
-          - ln-cg
-          - lo
-          - lo-la
-          - lrc
-          - lrc-iq
-          - lrc-ir
-          - lt
-          - lt-lt
-          - lu
-          - lu-cd
-          - luo
-          - luo-ke
-          - luy
-          - luy-ke
-          - lv
-          - lv-lv
-          - mai
-          - mai-in
-          - mas
-          - mas-ke
-          - mas-tz
-          - mer
-          - mer-ke
-          - mfe
-          - mfe-mu
-          - mg
-          - mg-mg
-          - mgh
-          - mgh-mz
-          - mgo
-          - mgo-cm
-          - mi
-          - mi-nz
-          - mk
-          - mk-mk
-          - ml
-          - ml-in
-          - mn
-          - mn-mn
-          - mni
-          - mni-in
-          - mr
-          - mr-in
-          - ms
-          - ms-bn
-          - ms-id
-          - ms-my
-          - ms-sg
-          - mt
-          - mt-mt
-          - mua
-          - mua-cm
-          - my
-          - my-mm
-          - mzn
-          - mzn-ir
-          - naq
-          - naq-na
-          - nb
-          - nb-no
-          - nb-sj
-          - nd
-          - nd-zw
-          - nds
-          - nds-de
-          - nds-nl
-          - ne
-          - ne-in
-          - ne-np
-          - nl
-          - nl-aw
-          - nl-be
-          - nl-ch
-          - nl-bq
-          - nl-cw
-          - nl-lu
-          - nl-nl
-          - nl-sr
-          - nl-sx
-          - nmg
-          - nmg-cm
-          - nn
-          - nn-no
-          - nnh
-          - nnh-cm
-          - "no"
-          - no-no
-          - nus
-          - nus-ss
-          - nyn
-          - nyn-ug
-          - om
-          - om-et
-          - om-ke
-          - or
-          - or-in
-          - os
-          - os-ge
-          - os-ru
-          - pa
-          - pa-in
-          - pa-pk
-          - pcm
-          - pcm-ng
-          - pl
-          - pl-pl
-          - prg
-          - prg-001
-          - ps
-          - ps-af
-          - ps-pk
-          - pt
-          - pt-ao
-          - pt-br
-          - pt-ch
-          - pt-cv
-          - pt-gq
-          - pt-gw
-          - pt-lu
-          - pt-mo
-          - pt-mz
-          - pt-pt
-          - pt-st
-          - pt-tl
-          - qu
-          - qu-bo
-          - qu-ec
-          - qu-pe
-          - rm
-          - rm-ch
-          - rn
-          - rn-bi
-          - ro
-          - ro-md
-          - ro-ro
-          - rof
-          - rof-tz
-          - ru
-          - ru-by
-          - ru-kg
-          - ru-kz
-          - ru-md
-          - ru-ru
-          - ru-ua
-          - rw
-          - rw-rw
-          - rwk
-          - rwk-tz
-          - sa
-          - sa-in
-          - sah
-          - sah-ru
-          - saq
-          - saq-ke
-          - sat
-          - sat-in
-          - sbp
-          - sbp-tz
-          - sd
-          - sd-in
-          - sd-pk
-          - se
-          - se-fi
-          - se-no
-          - se-se
-          - seh
-          - seh-mz
-          - ses
-          - ses-ml
-          - sg
-          - sg-cf
-          - shi
-          - shi-ma
-          - si
-          - si-lk
-          - sk
-          - sk-sk
-          - sl
-          - sl-si
-          - smn
-          - smn-fi
-          - sn
-          - sn-zw
-          - so
-          - so-dj
-          - so-et
-          - so-ke
-          - so-so
-          - sq
-          - sq-al
-          - sq-mk
-          - sq-xk
-          - sr
-          - sr-ba
-          - sr-cs
-          - sr-me
-          - sr-rs
-          - sr-xk
-          - su
-          - su-id
-          - sv
-          - sv-ax
-          - sv-fi
-          - sv-se
-          - sw
-          - sw-cd
-          - sw-ke
-          - sw-tz
-          - sw-ug
-          - sy
-          - ta
-          - ta-in
-          - ta-lk
-          - ta-my
-          - ta-sg
-          - te
-          - te-in
-          - teo
-          - teo-ke
-          - teo-ug
-          - tg
-          - tg-tj
-          - th
-          - th-th
-          - ti
-          - ti-er
-          - ti-et
-          - tk
-          - tk-tm
-          - tl
-          - to
-          - to-to
-          - tr
-          - tr-cy
-          - tr-tr
-          - tt
-          - tt-ru
-          - twq
-          - twq-ne
-          - tzm
-          - tzm-ma
-          - ug
-          - ug-cn
-          - uk
-          - uk-ua
-          - ur
-          - ur-in
-          - ur-pk
-          - uz
-          - uz-af
-          - uz-uz
-          - vai
-          - vai-lr
-          - vi
-          - vi-vn
-          - vo
-          - vo-001
-          - vun
-          - vun-tz
-          - wae
-          - wae-ch
-          - wo
-          - wo-sn
-          - xh
-          - xh-za
-          - xog
-          - xog-ug
-          - yav
-          - yav-cm
-          - yo
-          - yo-bj
-          - yo-ng
-          - yue
-          - yue-cn
-          - yue-hk
-          - zgh
-          - zgh-ma
-          - zh
-          - zh-cn
-          - zh-hk
-          - zh-mo
-          - zh-sg
-          - zh-tw
-          - zh-hans
-          - zh-hant
-          - zu
-          - zu-za
-          type: string
-        translatedFromId:
-          description: ID of the primary tag this object was translated from.
-          format: int64
-          type: integer
-        created:
-          format: date-time
-          type: string
-        updated:
-          format: date-time
-          type: string
-        deletedAt:
-          description: The timestamp (ISO8601 format) when this Blog Tag was deleted.
-          format: date-time
-          type: string
-      required:
-      - created
-      - deletedAt
-      - id
-      - language
-      - name
-      - translatedFromId
-      - updated
       type: object
     ContentCloneRequestVNext:
       description: Request body object for cloning content.
@@ -6946,62 +5147,14 @@ components:
         cloneName: cloneName
         id: id
       properties:
-        id:
-          description: ID of the object to be cloned.
-          type: string
         cloneName:
           description: Name of the cloned object.
           type: string
+        id:
+          description: ID of the object to be cloned.
+          type: string
       required:
       - id
-      type: object
-    BatchResponseBlogAuthorWithErrors:
-      description: Response object for batch operations on blog authors with errors.
-      properties:
-        status:
-          description: Status of batch operation.
-          enum:
-          - PENDING
-          - PROCESSING
-          - CANCELED
-          - COMPLETE
-          type: string
-        results:
-          description: Results of batch operation.
-          items:
-            $ref: '#/components/schemas/BlogAuthor'
-          type: array
-        numErrors:
-          description: Number of errors.
-          format: int32
-          type: integer
-        errors:
-          description: Errors in batch operation.
-          items:
-            $ref: '#/components/schemas/StandardError'
-          type: array
-        requestedAt:
-          description: Time of batch operation request.
-          format: date-time
-          type: string
-        startedAt:
-          description: Time of batch operation start.
-          format: date-time
-          type: string
-        completedAt:
-          description: Time of batch operation completion.
-          format: date-time
-          type: string
-        links:
-          additionalProperties:
-            type: string
-          description: Links associated with batch operation.
-          type: object
-      required:
-      - completedAt
-      - results
-      - startedAt
-      - status
       type: object
     NextPage:
       description: Model definition for a next page.
@@ -7009,31 +5162,22 @@ components:
         link: link
         after: after
       properties:
-        after:
-          type: string
         link:
+          description: ""
+          type: string
+        after:
+          description: ""
           type: string
       required:
       - after
       type: object
-    BatchInputTag:
-      description: Wrapper for providing an array of blog tags as inputs.
-      properties:
-        inputs:
-          description: Blog tags to input.
-          items:
-            $ref: '#/components/schemas/Tag'
-          type: array
-      required:
-      - inputs
-      type: object
     Styles:
       example:
         backgroundColor:
-          a: 1.0246457001441578
-          r: 4
-          b: 1
-          g: 7
+          a: 5.637376656633329
+          r: 2
+          b: 7
+          g: 9
         flexboxPositioning: flexboxPositioning
         backgroundImage:
           imageUrl: imageUrl
@@ -7041,41 +5185,41 @@ components:
           backgroundPosition: backgroundPosition
         forceFullWidthSection: true
         verticalAlignment: verticalAlignment
-        maxWidthSectionCentering: 6
+        maxWidthSectionCentering: 3
         backgroundGradient:
           angle:
             units: units
-            value: 1.4894159098541704
+            value: 2.027123023002322
           sideOrCorner:
             horizontalSide: horizontalSide
             verticalSide: verticalSide
           colors:
           - color:
-              a: 1.0246457001441578
-              r: 4
-              b: 1
-              g: 7
+              a: 5.637376656633329
+              r: 2
+              b: 7
+              g: 9
           - color:
-              a: 1.0246457001441578
-              r: 4
-              b: 1
-              g: 7
+              a: 5.637376656633329
+              r: 2
+              b: 7
+              g: 9
       properties:
-        verticalAlignment:
-          type: string
         backgroundColor:
           $ref: '#/components/schemas/RGBAColor'
+        flexboxPositioning:
+          type: string
         backgroundImage:
           $ref: '#/components/schemas/BackgroundImage'
-        backgroundGradient:
-          $ref: '#/components/schemas/Gradient'
+        forceFullWidthSection:
+          type: boolean
+        verticalAlignment:
+          type: string
         maxWidthSectionCentering:
           format: int32
           type: integer
-        forceFullWidthSection:
-          type: boolean
-        flexboxPositioning:
-          type: string
+        backgroundGradient:
+          $ref: '#/components/schemas/Gradient'
       required:
       - backgroundColor
       - backgroundGradient
@@ -7104,8 +5248,6 @@ x-hubspot-available-client-libraries:
 - Ruby
 - Python
 x-hubspot-product-tier-requirements:
-  marketing: FREE
-  sales: FREE
-  service: FREE
-  cms: FREE
+  marketing: PROFESSIONAL
+  cms: STARTER
 x-hubspot-documentation-banner: NONE

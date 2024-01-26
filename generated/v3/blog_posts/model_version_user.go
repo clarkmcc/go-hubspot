@@ -1,5 +1,5 @@
 /*
-Blog Post endpoints
+Posts
 
 Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags
 
@@ -16,23 +16,23 @@ import (
 
 // VersionUser Model definition for a version user. Contains addition information about the user who created a version.
 type VersionUser struct {
+	// The first and last name of the User.
+	FullName string `json:"fullName"`
 	// The unique ID of the User.
 	Id string `json:"id"`
 	// The email address of the user.
 	Email string `json:"email"`
-	// The first and last name of the User.
-	FullName string `json:"fullName"`
 }
 
 // NewVersionUser instantiates a new VersionUser object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewVersionUser(id string, email string, fullName string) *VersionUser {
+func NewVersionUser(fullName string, id string, email string) *VersionUser {
 	this := VersionUser{}
+	this.FullName = fullName
 	this.Id = id
 	this.Email = email
-	this.FullName = fullName
 	return &this
 }
 
@@ -42,6 +42,30 @@ func NewVersionUser(id string, email string, fullName string) *VersionUser {
 func NewVersionUserWithDefaults() *VersionUser {
 	this := VersionUser{}
 	return &this
+}
+
+// GetFullName returns the FullName field value
+func (o *VersionUser) GetFullName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.FullName
+}
+
+// GetFullNameOk returns a tuple with the FullName field value
+// and a boolean to check if the value has been set.
+func (o *VersionUser) GetFullNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.FullName, true
+}
+
+// SetFullName sets field value
+func (o *VersionUser) SetFullName(v string) {
+	o.FullName = v
 }
 
 // GetId returns the Id field value
@@ -92,40 +116,16 @@ func (o *VersionUser) SetEmail(v string) {
 	o.Email = v
 }
 
-// GetFullName returns the FullName field value
-func (o *VersionUser) GetFullName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.FullName
-}
-
-// GetFullNameOk returns a tuple with the FullName field value
-// and a boolean to check if the value has been set.
-func (o *VersionUser) GetFullNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.FullName, true
-}
-
-// SetFullName sets field value
-func (o *VersionUser) SetFullName(v string) {
-	o.FullName = v
-}
-
 func (o VersionUser) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if true {
+		toSerialize["fullName"] = o.FullName
+	}
 	if true {
 		toSerialize["id"] = o.Id
 	}
 	if true {
 		toSerialize["email"] = o.Email
-	}
-	if true {
-		toSerialize["fullName"] = o.FullName
 	}
 	return json.Marshal(toSerialize)
 }

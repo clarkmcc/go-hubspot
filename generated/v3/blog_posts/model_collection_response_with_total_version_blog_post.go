@@ -1,5 +1,5 @@
 /*
-Blog Post endpoints
+Posts
 
 Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags
 
@@ -17,10 +17,10 @@ import (
 // CollectionResponseWithTotalVersionBlogPost Response object for collections of blog post versions with pagination information.
 type CollectionResponseWithTotalVersionBlogPost struct {
 	// Total number of blog post versions.
-	Total int32 `json:"total"`
+	Total  int32   `json:"total"`
+	Paging *Paging `json:"paging,omitempty"`
 	// Collection of blog post versions.
 	Results []VersionBlogPost `json:"results"`
-	Paging  *Paging           `json:"paging,omitempty"`
 }
 
 // NewCollectionResponseWithTotalVersionBlogPost instantiates a new CollectionResponseWithTotalVersionBlogPost object
@@ -66,30 +66,6 @@ func (o *CollectionResponseWithTotalVersionBlogPost) SetTotal(v int32) {
 	o.Total = v
 }
 
-// GetResults returns the Results field value
-func (o *CollectionResponseWithTotalVersionBlogPost) GetResults() []VersionBlogPost {
-	if o == nil {
-		var ret []VersionBlogPost
-		return ret
-	}
-
-	return o.Results
-}
-
-// GetResultsOk returns a tuple with the Results field value
-// and a boolean to check if the value has been set.
-func (o *CollectionResponseWithTotalVersionBlogPost) GetResultsOk() ([]VersionBlogPost, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Results, true
-}
-
-// SetResults sets field value
-func (o *CollectionResponseWithTotalVersionBlogPost) SetResults(v []VersionBlogPost) {
-	o.Results = v
-}
-
 // GetPaging returns the Paging field value if set, zero value otherwise.
 func (o *CollectionResponseWithTotalVersionBlogPost) GetPaging() Paging {
 	if o == nil || o.Paging == nil {
@@ -122,16 +98,40 @@ func (o *CollectionResponseWithTotalVersionBlogPost) SetPaging(v Paging) {
 	o.Paging = &v
 }
 
+// GetResults returns the Results field value
+func (o *CollectionResponseWithTotalVersionBlogPost) GetResults() []VersionBlogPost {
+	if o == nil {
+		var ret []VersionBlogPost
+		return ret
+	}
+
+	return o.Results
+}
+
+// GetResultsOk returns a tuple with the Results field value
+// and a boolean to check if the value has been set.
+func (o *CollectionResponseWithTotalVersionBlogPost) GetResultsOk() ([]VersionBlogPost, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Results, true
+}
+
+// SetResults sets field value
+func (o *CollectionResponseWithTotalVersionBlogPost) SetResults(v []VersionBlogPost) {
+	o.Results = v
+}
+
 func (o CollectionResponseWithTotalVersionBlogPost) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
 		toSerialize["total"] = o.Total
 	}
-	if true {
-		toSerialize["results"] = o.Results
-	}
 	if o.Paging != nil {
 		toSerialize["paging"] = o.Paging
+	}
+	if true {
+		toSerialize["results"] = o.Results
 	}
 	return json.Marshal(toSerialize)
 }

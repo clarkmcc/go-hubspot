@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | 
 **Name** | **string** |  | 
+**Id** | **string** |  | 
 **Type** | **string** |  | 
 
 ## Methods
 
 ### NewForeignId
 
-`func NewForeignId(id string, name string, type_ string, ) *ForeignId`
+`func NewForeignId(name string, id string, type_ string, ) *ForeignId`
 
 NewForeignId instantiates a new ForeignId object
 This constructor will assign default values to properties that have it defined,
@@ -26,26 +26,6 @@ will change when the set of required properties is changed
 NewForeignIdWithDefaults instantiates a new ForeignId object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetId
-
-`func (o *ForeignId) GetId() string`
-
-GetId returns the Id field if non-nil, zero value otherwise.
-
-### GetIdOk
-
-`func (o *ForeignId) GetIdOk() (*string, bool)`
-
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetId
-
-`func (o *ForeignId) SetId(v string)`
-
-SetId sets Id field to given value.
-
 
 ### GetName
 
@@ -65,6 +45,26 @@ and a boolean to check if the value has been set.
 `func (o *ForeignId) SetName(v string)`
 
 SetName sets Name field to given value.
+
+
+### GetId
+
+`func (o *ForeignId) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *ForeignId) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *ForeignId) SetId(v string)`
+
+SetId sets Id field to given value.
 
 
 ### GetType

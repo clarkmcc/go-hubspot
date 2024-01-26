@@ -1,17 +1,30 @@
 openapi: 3.0.1
 info:
   description: HTTP API for triggering instances of custom behavioral events
-  title: Custom Behavioral Events API
+  title: Send Event Completions
   version: v3
+  x-hubspot-product-tier-requirements:
+    marketing: ENTERPRISE
+  x-hubspot-documentation-banner: NONE
+  x-hubspot-api-use-case: You want to track more complex interactions that visitors
+    perform when they navigate to your website and engage with your content.
+  x-hubspot-related-documentation:
+  - name: Custom Behavioral Events Guide
+    url: https://hubspot.dev/guides/api/analytics/events
+  x-hubspot-introduction: Use the custom behavioral events API to define events that
+    you can later create and associate with records in your HubSpot CRM.
 servers:
-- url: https://api.hubapi.com/
+- url: https://api.hubapi.com
 tags:
-- name: Behavioral_Events_Tracking
+- description: ""
+  name: Behavioral_Events_Tracking
+  x-hubspot-tag-name-english-source: Behavioral_Events_Tracking
 paths:
   /events/v3/send:
     post:
       description: Endpoint to send an instance of a behavioral event
-      operationId: Send
+      operationId: Send_send
+      parameters: []
       requestBody:
         content:
           application/json:
@@ -47,19 +60,15 @@ components:
   schemas:
     ErrorDetail:
       properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          type: string
-        in:
-          description: The name of the field or parameter in which the error was found.
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
           type: string
         code:
           description: The status code associated with the error detail
           type: string
-        subCategory:
-          description: A specific category that contains more specific detail about
-            the error
+        in:
+          description: The name of the field or parameter in which the error was found.
           type: string
         context:
           additionalProperties:
@@ -72,6 +81,10 @@ components:
             - scope1
             - scope2
           type: object
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          type: string
       required:
       - message
       type: object
@@ -83,29 +96,10 @@ components:
         links:
           knowledge-base: https://www.hubspot.com/products/service/knowledge-base
       properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          example: An error occurred
-          type: string
-        correlationId:
-          description: A unique identifier for the request. Include this value with
-            any error reports or support tickets
-          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
-          format: uuid
-          type: string
-        category:
-          description: The error category
-          type: string
         subCategory:
           description: A specific category that contains more specific detail about
             the error
           type: string
-        errors:
-          description: further information about the error
-          items:
-            $ref: '#/components/schemas/ErrorDetail'
-          type: array
         context:
           additionalProperties:
             items:
@@ -113,18 +107,40 @@ components:
             type: array
           description: Context about the error condition
           example:
-            invalidPropertyName:
-            - propertyValue
             missingScopes:
             - scope1
             - scope2
+            invalidPropertyName:
+            - propertyValue
           type: object
+        correlationId:
+          description: A unique identifier for the request. Include this value with
+            any error reports or support tickets
+          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
+          format: uuid
+          type: string
         links:
           additionalProperties:
             type: string
           description: A map of link names to associated URIs containing documentation
             about the error or recommended remediation steps
+          example:
+            knowledge-base: https://www.hubspot.com/products/service/knowledge-base
           type: object
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          example: Invalid input (details will vary based on the error)
+          type: string
+        category:
+          description: The error category
+          example: VALIDATION_ERROR
+          type: string
+        errors:
+          description: further information about the error
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
       required:
       - category
       - correlationId
@@ -135,19 +151,27 @@ components:
         occurredAt: 2000-01-23T04:56:07.000+00:00
         eventName: eventName
         utk: utk
+        uuid: uuid
         email: email
         properties:
           key: properties
         objectId: objectId
       properties:
-        utk:
-          description: User token
-          type: string
-        email:
-          description: Email of visitor
+        occurredAt:
+          description: "The time when this event occurred (if any). If this isn't\
+            \ set, the current time will be used"
+          format: date-time
           type: string
         eventName:
           description: Internal name of the event-type to trigger
+          type: string
+        utk:
+          description: User token
+          type: string
+        uuid:
+          type: string
+        email:
+          description: Email of visitor
           type: string
         properties:
           additionalProperties:
@@ -155,18 +179,12 @@ components:
           description: Map of properties for the event in the format property internal
             name - property value
           type: object
-        occurredAt:
-          description: "The time when this event occurred (if any). If this isn't\
-            \ set, the current time will be used"
-          format: date-time
-          type: string
         objectId:
           description: The object id that this event occurred on. Could be a contact
             id or a visitor id.
           type: string
       required:
       - eventName
-      - properties
       type: object
   securitySchemes:
     oauth2_legacy:
@@ -174,6 +192,8 @@ components:
         authorizationCode:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
+            behavioral_events.event_definitions.read_write: Read from and write to
+              custom behavioral events definitions
             analytics.behavioral_events.send: Send Behavioral Event Completions
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
@@ -181,3 +201,11 @@ components:
       in: header
       name: private-app-legacy
       type: apiKey
+x-hubspot-available-client-libraries:
+- PHP
+- Node
+- Ruby
+- Python
+x-hubspot-product-tier-requirements:
+  marketing: ENTERPRISE
+x-hubspot-documentation-banner: NONE

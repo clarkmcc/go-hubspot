@@ -16,53 +16,53 @@ import (
 
 // ContentSearchResult An individual search result.
 type ContentSearchResult struct {
-	// The ID of the content.
-	Id int32 `json:"id"`
-	// The matching score of the document.
-	Score float32 `json:"score"`
-	// The type of document. Can be `SITE_PAGE`, `LANDING_PAGE`, `BLOG_POST`, `LISTING_PAGE`, or `KNOWLEDGE_ARTICLE`.
-	Type string `json:"type"`
-	// The domain the document is hosted on.
-	Domain string `json:"domain"`
-	// The url of the document.
-	Url string `json:"url"`
-	// URL of the featured image.
-	FeaturedImageUrl *string `json:"featuredImageUrl,omitempty"`
-	// The document's language.
-	Language *string `json:"language,omitempty"`
-	// The title of the returned document.
-	Title *string `json:"title,omitempty"`
+	// The ID of the document in HubSpot.
+	CombinedId *string `json:"combinedId,omitempty"`
 	// The result's description. The content will be determined by the value of `length` in the request.
 	Description *string `json:"description,omitempty"`
+	// The document's language.
+	Language *string `json:"language,omitempty"`
+	// The type of document. Can be `SITE_PAGE`, `LANDING_PAGE`, `BLOG_POST`, `LISTING_PAGE`, or `KNOWLEDGE_ARTICLE`.
+	Type string `json:"type"`
+	// The title of the returned document.
+	Title *string `json:"title,omitempty"`
+	// The url of the document.
+	Url string `json:"url"`
+	// If a blog post, the tags associated with it.
+	Tags []string `json:"tags,omitempty"`
+	// If a dynamic page, the row ID in the HubDB table.
+	RowId *int64 `json:"rowId,omitempty"`
+	// URL of the featured image.
+	FeaturedImageUrl *string `json:"featuredImageUrl,omitempty"`
+	// The matching score of the document.
+	Score float32 `json:"score"`
+	// Name of the author.
+	AuthorFullName *string `json:"authorFullName,omitempty"`
+	// The domain the document is hosted on.
+	Domain string `json:"domain"`
+	// If a dynamic page, the ID of the HubDB table.
+	TableId *int64 `json:"tableId,omitempty"`
+	// The ID of the content.
+	Id int32 `json:"id"`
+	// The date the content was published.
+	PublishedDate *int64 `json:"publishedDate,omitempty"`
 	// For knowledge articles, the category of the article.
 	Category *string `json:"category,omitempty"`
 	// For knowledge articles, the subcategory of the article.
 	Subcategory *string `json:"subcategory,omitempty"`
-	// Name of the author.
-	AuthorFullName *string `json:"authorFullName,omitempty"`
-	// If a blog post, the tags associated with it.
-	Tags []string `json:"tags,omitempty"`
-	// If a dynamic page, the ID of the HubDB table.
-	TableId *int64 `json:"tableId,omitempty"`
-	// If a dynamic page, the row ID in the HubDB table.
-	RowId *int64 `json:"rowId,omitempty"`
-	// The date the content was published.
-	PublishedDate *int64 `json:"publishedDate,omitempty"`
-	// The ID of the document in HubSpot.
-	CombinedId *string `json:"combinedId,omitempty"`
 }
 
 // NewContentSearchResult instantiates a new ContentSearchResult object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewContentSearchResult(id int32, score float32, type_ string, domain string, url string) *ContentSearchResult {
+func NewContentSearchResult(type_ string, url string, score float32, domain string, id int32) *ContentSearchResult {
 	this := ContentSearchResult{}
-	this.Id = id
-	this.Score = score
 	this.Type = type_
-	this.Domain = domain
 	this.Url = url
+	this.Score = score
+	this.Domain = domain
+	this.Id = id
 	return &this
 }
 
@@ -74,156 +74,68 @@ func NewContentSearchResultWithDefaults() *ContentSearchResult {
 	return &this
 }
 
-// GetId returns the Id field value
-func (o *ContentSearchResult) GetId() int32 {
-	if o == nil {
-		var ret int32
-		return ret
-	}
-
-	return o.Id
-}
-
-// GetIdOk returns a tuple with the Id field value
-// and a boolean to check if the value has been set.
-func (o *ContentSearchResult) GetIdOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Id, true
-}
-
-// SetId sets field value
-func (o *ContentSearchResult) SetId(v int32) {
-	o.Id = v
-}
-
-// GetScore returns the Score field value
-func (o *ContentSearchResult) GetScore() float32 {
-	if o == nil {
-		var ret float32
-		return ret
-	}
-
-	return o.Score
-}
-
-// GetScoreOk returns a tuple with the Score field value
-// and a boolean to check if the value has been set.
-func (o *ContentSearchResult) GetScoreOk() (*float32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Score, true
-}
-
-// SetScore sets field value
-func (o *ContentSearchResult) SetScore(v float32) {
-	o.Score = v
-}
-
-// GetType returns the Type field value
-func (o *ContentSearchResult) GetType() string {
-	if o == nil {
+// GetCombinedId returns the CombinedId field value if set, zero value otherwise.
+func (o *ContentSearchResult) GetCombinedId() string {
+	if o == nil || o.CombinedId == nil {
 		var ret string
 		return ret
 	}
-
-	return o.Type
+	return *o.CombinedId
 }
 
-// GetTypeOk returns a tuple with the Type field value
+// GetCombinedIdOk returns a tuple with the CombinedId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ContentSearchResult) GetTypeOk() (*string, bool) {
-	if o == nil {
+func (o *ContentSearchResult) GetCombinedIdOk() (*string, bool) {
+	if o == nil || o.CombinedId == nil {
 		return nil, false
 	}
-	return &o.Type, true
+	return o.CombinedId, true
 }
 
-// SetType sets field value
-func (o *ContentSearchResult) SetType(v string) {
-	o.Type = v
-}
-
-// GetDomain returns the Domain field value
-func (o *ContentSearchResult) GetDomain() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Domain
-}
-
-// GetDomainOk returns a tuple with the Domain field value
-// and a boolean to check if the value has been set.
-func (o *ContentSearchResult) GetDomainOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Domain, true
-}
-
-// SetDomain sets field value
-func (o *ContentSearchResult) SetDomain(v string) {
-	o.Domain = v
-}
-
-// GetUrl returns the Url field value
-func (o *ContentSearchResult) GetUrl() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Url
-}
-
-// GetUrlOk returns a tuple with the Url field value
-// and a boolean to check if the value has been set.
-func (o *ContentSearchResult) GetUrlOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Url, true
-}
-
-// SetUrl sets field value
-func (o *ContentSearchResult) SetUrl(v string) {
-	o.Url = v
-}
-
-// GetFeaturedImageUrl returns the FeaturedImageUrl field value if set, zero value otherwise.
-func (o *ContentSearchResult) GetFeaturedImageUrl() string {
-	if o == nil || o.FeaturedImageUrl == nil {
-		var ret string
-		return ret
-	}
-	return *o.FeaturedImageUrl
-}
-
-// GetFeaturedImageUrlOk returns a tuple with the FeaturedImageUrl field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ContentSearchResult) GetFeaturedImageUrlOk() (*string, bool) {
-	if o == nil || o.FeaturedImageUrl == nil {
-		return nil, false
-	}
-	return o.FeaturedImageUrl, true
-}
-
-// HasFeaturedImageUrl returns a boolean if a field has been set.
-func (o *ContentSearchResult) HasFeaturedImageUrl() bool {
-	if o != nil && o.FeaturedImageUrl != nil {
+// HasCombinedId returns a boolean if a field has been set.
+func (o *ContentSearchResult) HasCombinedId() bool {
+	if o != nil && o.CombinedId != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetFeaturedImageUrl gets a reference to the given string and assigns it to the FeaturedImageUrl field.
-func (o *ContentSearchResult) SetFeaturedImageUrl(v string) {
-	o.FeaturedImageUrl = &v
+// SetCombinedId gets a reference to the given string and assigns it to the CombinedId field.
+func (o *ContentSearchResult) SetCombinedId(v string) {
+	o.CombinedId = &v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *ContentSearchResult) GetDescription() string {
+	if o == nil || o.Description == nil {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ContentSearchResult) GetDescriptionOk() (*string, bool) {
+	if o == nil || o.Description == nil {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *ContentSearchResult) HasDescription() bool {
+	if o != nil && o.Description != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *ContentSearchResult) SetDescription(v string) {
+	o.Description = &v
 }
 
 // GetLanguage returns the Language field value if set, zero value otherwise.
@@ -258,6 +170,30 @@ func (o *ContentSearchResult) SetLanguage(v string) {
 	o.Language = &v
 }
 
+// GetType returns the Type field value
+func (o *ContentSearchResult) GetType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value
+// and a boolean to check if the value has been set.
+func (o *ContentSearchResult) GetTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Type, true
+}
+
+// SetType sets field value
+func (o *ContentSearchResult) SetType(v string) {
+	o.Type = v
+}
+
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *ContentSearchResult) GetTitle() string {
 	if o == nil || o.Title == nil {
@@ -290,36 +226,292 @@ func (o *ContentSearchResult) SetTitle(v string) {
 	o.Title = &v
 }
 
-// GetDescription returns the Description field value if set, zero value otherwise.
-func (o *ContentSearchResult) GetDescription() string {
-	if o == nil || o.Description == nil {
+// GetUrl returns the Url field value
+func (o *ContentSearchResult) GetUrl() string {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Description
+
+	return o.Url
 }
 
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// GetUrlOk returns a tuple with the Url field value
 // and a boolean to check if the value has been set.
-func (o *ContentSearchResult) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+func (o *ContentSearchResult) GetUrlOk() (*string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Description, true
+	return &o.Url, true
 }
 
-// HasDescription returns a boolean if a field has been set.
-func (o *ContentSearchResult) HasDescription() bool {
-	if o != nil && o.Description != nil {
+// SetUrl sets field value
+func (o *ContentSearchResult) SetUrl(v string) {
+	o.Url = v
+}
+
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *ContentSearchResult) GetTags() []string {
+	if o == nil || o.Tags == nil {
+		var ret []string
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ContentSearchResult) GetTagsOk() ([]string, bool) {
+	if o == nil || o.Tags == nil {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *ContentSearchResult) HasTags() bool {
+	if o != nil && o.Tags != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *ContentSearchResult) SetDescription(v string) {
-	o.Description = &v
+// SetTags gets a reference to the given []string and assigns it to the Tags field.
+func (o *ContentSearchResult) SetTags(v []string) {
+	o.Tags = v
+}
+
+// GetRowId returns the RowId field value if set, zero value otherwise.
+func (o *ContentSearchResult) GetRowId() int64 {
+	if o == nil || o.RowId == nil {
+		var ret int64
+		return ret
+	}
+	return *o.RowId
+}
+
+// GetRowIdOk returns a tuple with the RowId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ContentSearchResult) GetRowIdOk() (*int64, bool) {
+	if o == nil || o.RowId == nil {
+		return nil, false
+	}
+	return o.RowId, true
+}
+
+// HasRowId returns a boolean if a field has been set.
+func (o *ContentSearchResult) HasRowId() bool {
+	if o != nil && o.RowId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRowId gets a reference to the given int64 and assigns it to the RowId field.
+func (o *ContentSearchResult) SetRowId(v int64) {
+	o.RowId = &v
+}
+
+// GetFeaturedImageUrl returns the FeaturedImageUrl field value if set, zero value otherwise.
+func (o *ContentSearchResult) GetFeaturedImageUrl() string {
+	if o == nil || o.FeaturedImageUrl == nil {
+		var ret string
+		return ret
+	}
+	return *o.FeaturedImageUrl
+}
+
+// GetFeaturedImageUrlOk returns a tuple with the FeaturedImageUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ContentSearchResult) GetFeaturedImageUrlOk() (*string, bool) {
+	if o == nil || o.FeaturedImageUrl == nil {
+		return nil, false
+	}
+	return o.FeaturedImageUrl, true
+}
+
+// HasFeaturedImageUrl returns a boolean if a field has been set.
+func (o *ContentSearchResult) HasFeaturedImageUrl() bool {
+	if o != nil && o.FeaturedImageUrl != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFeaturedImageUrl gets a reference to the given string and assigns it to the FeaturedImageUrl field.
+func (o *ContentSearchResult) SetFeaturedImageUrl(v string) {
+	o.FeaturedImageUrl = &v
+}
+
+// GetScore returns the Score field value
+func (o *ContentSearchResult) GetScore() float32 {
+	if o == nil {
+		var ret float32
+		return ret
+	}
+
+	return o.Score
+}
+
+// GetScoreOk returns a tuple with the Score field value
+// and a boolean to check if the value has been set.
+func (o *ContentSearchResult) GetScoreOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Score, true
+}
+
+// SetScore sets field value
+func (o *ContentSearchResult) SetScore(v float32) {
+	o.Score = v
+}
+
+// GetAuthorFullName returns the AuthorFullName field value if set, zero value otherwise.
+func (o *ContentSearchResult) GetAuthorFullName() string {
+	if o == nil || o.AuthorFullName == nil {
+		var ret string
+		return ret
+	}
+	return *o.AuthorFullName
+}
+
+// GetAuthorFullNameOk returns a tuple with the AuthorFullName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ContentSearchResult) GetAuthorFullNameOk() (*string, bool) {
+	if o == nil || o.AuthorFullName == nil {
+		return nil, false
+	}
+	return o.AuthorFullName, true
+}
+
+// HasAuthorFullName returns a boolean if a field has been set.
+func (o *ContentSearchResult) HasAuthorFullName() bool {
+	if o != nil && o.AuthorFullName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAuthorFullName gets a reference to the given string and assigns it to the AuthorFullName field.
+func (o *ContentSearchResult) SetAuthorFullName(v string) {
+	o.AuthorFullName = &v
+}
+
+// GetDomain returns the Domain field value
+func (o *ContentSearchResult) GetDomain() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Domain
+}
+
+// GetDomainOk returns a tuple with the Domain field value
+// and a boolean to check if the value has been set.
+func (o *ContentSearchResult) GetDomainOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Domain, true
+}
+
+// SetDomain sets field value
+func (o *ContentSearchResult) SetDomain(v string) {
+	o.Domain = v
+}
+
+// GetTableId returns the TableId field value if set, zero value otherwise.
+func (o *ContentSearchResult) GetTableId() int64 {
+	if o == nil || o.TableId == nil {
+		var ret int64
+		return ret
+	}
+	return *o.TableId
+}
+
+// GetTableIdOk returns a tuple with the TableId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ContentSearchResult) GetTableIdOk() (*int64, bool) {
+	if o == nil || o.TableId == nil {
+		return nil, false
+	}
+	return o.TableId, true
+}
+
+// HasTableId returns a boolean if a field has been set.
+func (o *ContentSearchResult) HasTableId() bool {
+	if o != nil && o.TableId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTableId gets a reference to the given int64 and assigns it to the TableId field.
+func (o *ContentSearchResult) SetTableId(v int64) {
+	o.TableId = &v
+}
+
+// GetId returns the Id field value
+func (o *ContentSearchResult) GetId() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *ContentSearchResult) GetIdOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *ContentSearchResult) SetId(v int32) {
+	o.Id = v
+}
+
+// GetPublishedDate returns the PublishedDate field value if set, zero value otherwise.
+func (o *ContentSearchResult) GetPublishedDate() int64 {
+	if o == nil || o.PublishedDate == nil {
+		var ret int64
+		return ret
+	}
+	return *o.PublishedDate
+}
+
+// GetPublishedDateOk returns a tuple with the PublishedDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ContentSearchResult) GetPublishedDateOk() (*int64, bool) {
+	if o == nil || o.PublishedDate == nil {
+		return nil, false
+	}
+	return o.PublishedDate, true
+}
+
+// HasPublishedDate returns a boolean if a field has been set.
+func (o *ContentSearchResult) HasPublishedDate() bool {
+	if o != nil && o.PublishedDate != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPublishedDate gets a reference to the given int64 and assigns it to the PublishedDate field.
+func (o *ContentSearchResult) SetPublishedDate(v int64) {
+	o.PublishedDate = &v
 }
 
 // GetCategory returns the Category field value if set, zero value otherwise.
@@ -386,250 +578,58 @@ func (o *ContentSearchResult) SetSubcategory(v string) {
 	o.Subcategory = &v
 }
 
-// GetAuthorFullName returns the AuthorFullName field value if set, zero value otherwise.
-func (o *ContentSearchResult) GetAuthorFullName() string {
-	if o == nil || o.AuthorFullName == nil {
-		var ret string
-		return ret
-	}
-	return *o.AuthorFullName
-}
-
-// GetAuthorFullNameOk returns a tuple with the AuthorFullName field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ContentSearchResult) GetAuthorFullNameOk() (*string, bool) {
-	if o == nil || o.AuthorFullName == nil {
-		return nil, false
-	}
-	return o.AuthorFullName, true
-}
-
-// HasAuthorFullName returns a boolean if a field has been set.
-func (o *ContentSearchResult) HasAuthorFullName() bool {
-	if o != nil && o.AuthorFullName != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAuthorFullName gets a reference to the given string and assigns it to the AuthorFullName field.
-func (o *ContentSearchResult) SetAuthorFullName(v string) {
-	o.AuthorFullName = &v
-}
-
-// GetTags returns the Tags field value if set, zero value otherwise.
-func (o *ContentSearchResult) GetTags() []string {
-	if o == nil || o.Tags == nil {
-		var ret []string
-		return ret
-	}
-	return o.Tags
-}
-
-// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ContentSearchResult) GetTagsOk() ([]string, bool) {
-	if o == nil || o.Tags == nil {
-		return nil, false
-	}
-	return o.Tags, true
-}
-
-// HasTags returns a boolean if a field has been set.
-func (o *ContentSearchResult) HasTags() bool {
-	if o != nil && o.Tags != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTags gets a reference to the given []string and assigns it to the Tags field.
-func (o *ContentSearchResult) SetTags(v []string) {
-	o.Tags = v
-}
-
-// GetTableId returns the TableId field value if set, zero value otherwise.
-func (o *ContentSearchResult) GetTableId() int64 {
-	if o == nil || o.TableId == nil {
-		var ret int64
-		return ret
-	}
-	return *o.TableId
-}
-
-// GetTableIdOk returns a tuple with the TableId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ContentSearchResult) GetTableIdOk() (*int64, bool) {
-	if o == nil || o.TableId == nil {
-		return nil, false
-	}
-	return o.TableId, true
-}
-
-// HasTableId returns a boolean if a field has been set.
-func (o *ContentSearchResult) HasTableId() bool {
-	if o != nil && o.TableId != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTableId gets a reference to the given int64 and assigns it to the TableId field.
-func (o *ContentSearchResult) SetTableId(v int64) {
-	o.TableId = &v
-}
-
-// GetRowId returns the RowId field value if set, zero value otherwise.
-func (o *ContentSearchResult) GetRowId() int64 {
-	if o == nil || o.RowId == nil {
-		var ret int64
-		return ret
-	}
-	return *o.RowId
-}
-
-// GetRowIdOk returns a tuple with the RowId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ContentSearchResult) GetRowIdOk() (*int64, bool) {
-	if o == nil || o.RowId == nil {
-		return nil, false
-	}
-	return o.RowId, true
-}
-
-// HasRowId returns a boolean if a field has been set.
-func (o *ContentSearchResult) HasRowId() bool {
-	if o != nil && o.RowId != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetRowId gets a reference to the given int64 and assigns it to the RowId field.
-func (o *ContentSearchResult) SetRowId(v int64) {
-	o.RowId = &v
-}
-
-// GetPublishedDate returns the PublishedDate field value if set, zero value otherwise.
-func (o *ContentSearchResult) GetPublishedDate() int64 {
-	if o == nil || o.PublishedDate == nil {
-		var ret int64
-		return ret
-	}
-	return *o.PublishedDate
-}
-
-// GetPublishedDateOk returns a tuple with the PublishedDate field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ContentSearchResult) GetPublishedDateOk() (*int64, bool) {
-	if o == nil || o.PublishedDate == nil {
-		return nil, false
-	}
-	return o.PublishedDate, true
-}
-
-// HasPublishedDate returns a boolean if a field has been set.
-func (o *ContentSearchResult) HasPublishedDate() bool {
-	if o != nil && o.PublishedDate != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetPublishedDate gets a reference to the given int64 and assigns it to the PublishedDate field.
-func (o *ContentSearchResult) SetPublishedDate(v int64) {
-	o.PublishedDate = &v
-}
-
-// GetCombinedId returns the CombinedId field value if set, zero value otherwise.
-func (o *ContentSearchResult) GetCombinedId() string {
-	if o == nil || o.CombinedId == nil {
-		var ret string
-		return ret
-	}
-	return *o.CombinedId
-}
-
-// GetCombinedIdOk returns a tuple with the CombinedId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ContentSearchResult) GetCombinedIdOk() (*string, bool) {
-	if o == nil || o.CombinedId == nil {
-		return nil, false
-	}
-	return o.CombinedId, true
-}
-
-// HasCombinedId returns a boolean if a field has been set.
-func (o *ContentSearchResult) HasCombinedId() bool {
-	if o != nil && o.CombinedId != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetCombinedId gets a reference to the given string and assigns it to the CombinedId field.
-func (o *ContentSearchResult) SetCombinedId(v string) {
-	o.CombinedId = &v
-}
-
 func (o ContentSearchResult) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
+	if o.CombinedId != nil {
+		toSerialize["combinedId"] = o.CombinedId
 	}
-	if true {
-		toSerialize["score"] = o.Score
-	}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if true {
-		toSerialize["domain"] = o.Domain
-	}
-	if true {
-		toSerialize["url"] = o.Url
-	}
-	if o.FeaturedImageUrl != nil {
-		toSerialize["featuredImageUrl"] = o.FeaturedImageUrl
+	if o.Description != nil {
+		toSerialize["description"] = o.Description
 	}
 	if o.Language != nil {
 		toSerialize["language"] = o.Language
 	}
+	if true {
+		toSerialize["type"] = o.Type
+	}
 	if o.Title != nil {
 		toSerialize["title"] = o.Title
 	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
+	if true {
+		toSerialize["url"] = o.Url
+	}
+	if o.Tags != nil {
+		toSerialize["tags"] = o.Tags
+	}
+	if o.RowId != nil {
+		toSerialize["rowId"] = o.RowId
+	}
+	if o.FeaturedImageUrl != nil {
+		toSerialize["featuredImageUrl"] = o.FeaturedImageUrl
+	}
+	if true {
+		toSerialize["score"] = o.Score
+	}
+	if o.AuthorFullName != nil {
+		toSerialize["authorFullName"] = o.AuthorFullName
+	}
+	if true {
+		toSerialize["domain"] = o.Domain
+	}
+	if o.TableId != nil {
+		toSerialize["tableId"] = o.TableId
+	}
+	if true {
+		toSerialize["id"] = o.Id
+	}
+	if o.PublishedDate != nil {
+		toSerialize["publishedDate"] = o.PublishedDate
 	}
 	if o.Category != nil {
 		toSerialize["category"] = o.Category
 	}
 	if o.Subcategory != nil {
 		toSerialize["subcategory"] = o.Subcategory
-	}
-	if o.AuthorFullName != nil {
-		toSerialize["authorFullName"] = o.AuthorFullName
-	}
-	if o.Tags != nil {
-		toSerialize["tags"] = o.Tags
-	}
-	if o.TableId != nil {
-		toSerialize["tableId"] = o.TableId
-	}
-	if o.RowId != nil {
-		toSerialize["rowId"] = o.RowId
-	}
-	if o.PublishedDate != nil {
-		toSerialize["publishedDate"] = o.PublishedDate
-	}
-	if o.CombinedId != nil {
-		toSerialize["combinedId"] = o.CombinedId
 	}
 	return json.Marshal(toSerialize)
 }

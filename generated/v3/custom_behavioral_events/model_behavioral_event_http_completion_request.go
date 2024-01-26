@@ -1,5 +1,5 @@
 /*
-Custom Behavioral Events API
+Send Event Completions
 
 HTTP API for triggering instances of custom behavioral events
 
@@ -17,16 +17,17 @@ import (
 
 // BehavioralEventHttpCompletionRequest struct for BehavioralEventHttpCompletionRequest
 type BehavioralEventHttpCompletionRequest struct {
-	// User token
-	Utk *string `json:"utk,omitempty"`
-	// Email of visitor
-	Email *string `json:"email,omitempty"`
-	// Internal name of the event-type to trigger
-	EventName string `json:"eventName"`
-	// Map of properties for the event in the format property internal name - property value
-	Properties map[string]string `json:"properties"`
 	// The time when this event occurred (if any). If this isn't set, the current time will be used
 	OccurredAt *time.Time `json:"occurredAt,omitempty"`
+	// Internal name of the event-type to trigger
+	EventName string `json:"eventName"`
+	// User token
+	Utk  *string `json:"utk,omitempty"`
+	Uuid *string `json:"uuid,omitempty"`
+	// Email of visitor
+	Email *string `json:"email,omitempty"`
+	// Map of properties for the event in the format property internal name - property value
+	Properties *map[string]string `json:"properties,omitempty"`
 	// The object id that this event occurred on. Could be a contact id or a visitor id.
 	ObjectId *string `json:"objectId,omitempty"`
 }
@@ -35,10 +36,9 @@ type BehavioralEventHttpCompletionRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBehavioralEventHttpCompletionRequest(eventName string, properties map[string]string) *BehavioralEventHttpCompletionRequest {
+func NewBehavioralEventHttpCompletionRequest(eventName string) *BehavioralEventHttpCompletionRequest {
 	this := BehavioralEventHttpCompletionRequest{}
 	this.EventName = eventName
-	this.Properties = properties
 	return &this
 }
 
@@ -48,6 +48,62 @@ func NewBehavioralEventHttpCompletionRequest(eventName string, properties map[st
 func NewBehavioralEventHttpCompletionRequestWithDefaults() *BehavioralEventHttpCompletionRequest {
 	this := BehavioralEventHttpCompletionRequest{}
 	return &this
+}
+
+// GetOccurredAt returns the OccurredAt field value if set, zero value otherwise.
+func (o *BehavioralEventHttpCompletionRequest) GetOccurredAt() time.Time {
+	if o == nil || o.OccurredAt == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.OccurredAt
+}
+
+// GetOccurredAtOk returns a tuple with the OccurredAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BehavioralEventHttpCompletionRequest) GetOccurredAtOk() (*time.Time, bool) {
+	if o == nil || o.OccurredAt == nil {
+		return nil, false
+	}
+	return o.OccurredAt, true
+}
+
+// HasOccurredAt returns a boolean if a field has been set.
+func (o *BehavioralEventHttpCompletionRequest) HasOccurredAt() bool {
+	if o != nil && o.OccurredAt != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetOccurredAt gets a reference to the given time.Time and assigns it to the OccurredAt field.
+func (o *BehavioralEventHttpCompletionRequest) SetOccurredAt(v time.Time) {
+	o.OccurredAt = &v
+}
+
+// GetEventName returns the EventName field value
+func (o *BehavioralEventHttpCompletionRequest) GetEventName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.EventName
+}
+
+// GetEventNameOk returns a tuple with the EventName field value
+// and a boolean to check if the value has been set.
+func (o *BehavioralEventHttpCompletionRequest) GetEventNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.EventName, true
+}
+
+// SetEventName sets field value
+func (o *BehavioralEventHttpCompletionRequest) SetEventName(v string) {
+	o.EventName = v
 }
 
 // GetUtk returns the Utk field value if set, zero value otherwise.
@@ -82,6 +138,38 @@ func (o *BehavioralEventHttpCompletionRequest) SetUtk(v string) {
 	o.Utk = &v
 }
 
+// GetUuid returns the Uuid field value if set, zero value otherwise.
+func (o *BehavioralEventHttpCompletionRequest) GetUuid() string {
+	if o == nil || o.Uuid == nil {
+		var ret string
+		return ret
+	}
+	return *o.Uuid
+}
+
+// GetUuidOk returns a tuple with the Uuid field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BehavioralEventHttpCompletionRequest) GetUuidOk() (*string, bool) {
+	if o == nil || o.Uuid == nil {
+		return nil, false
+	}
+	return o.Uuid, true
+}
+
+// HasUuid returns a boolean if a field has been set.
+func (o *BehavioralEventHttpCompletionRequest) HasUuid() bool {
+	if o != nil && o.Uuid != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetUuid gets a reference to the given string and assigns it to the Uuid field.
+func (o *BehavioralEventHttpCompletionRequest) SetUuid(v string) {
+	o.Uuid = &v
+}
+
 // GetEmail returns the Email field value if set, zero value otherwise.
 func (o *BehavioralEventHttpCompletionRequest) GetEmail() string {
 	if o == nil || o.Email == nil {
@@ -114,84 +202,36 @@ func (o *BehavioralEventHttpCompletionRequest) SetEmail(v string) {
 	o.Email = &v
 }
 
-// GetEventName returns the EventName field value
-func (o *BehavioralEventHttpCompletionRequest) GetEventName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.EventName
-}
-
-// GetEventNameOk returns a tuple with the EventName field value
-// and a boolean to check if the value has been set.
-func (o *BehavioralEventHttpCompletionRequest) GetEventNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.EventName, true
-}
-
-// SetEventName sets field value
-func (o *BehavioralEventHttpCompletionRequest) SetEventName(v string) {
-	o.EventName = v
-}
-
-// GetProperties returns the Properties field value
+// GetProperties returns the Properties field value if set, zero value otherwise.
 func (o *BehavioralEventHttpCompletionRequest) GetProperties() map[string]string {
-	if o == nil {
+	if o == nil || o.Properties == nil {
 		var ret map[string]string
 		return ret
 	}
-
-	return o.Properties
+	return *o.Properties
 }
 
-// GetPropertiesOk returns a tuple with the Properties field value
+// GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BehavioralEventHttpCompletionRequest) GetPropertiesOk() (*map[string]string, bool) {
-	if o == nil {
+	if o == nil || o.Properties == nil {
 		return nil, false
 	}
-	return &o.Properties, true
+	return o.Properties, true
 }
 
-// SetProperties sets field value
-func (o *BehavioralEventHttpCompletionRequest) SetProperties(v map[string]string) {
-	o.Properties = v
-}
-
-// GetOccurredAt returns the OccurredAt field value if set, zero value otherwise.
-func (o *BehavioralEventHttpCompletionRequest) GetOccurredAt() time.Time {
-	if o == nil || o.OccurredAt == nil {
-		var ret time.Time
-		return ret
-	}
-	return *o.OccurredAt
-}
-
-// GetOccurredAtOk returns a tuple with the OccurredAt field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BehavioralEventHttpCompletionRequest) GetOccurredAtOk() (*time.Time, bool) {
-	if o == nil || o.OccurredAt == nil {
-		return nil, false
-	}
-	return o.OccurredAt, true
-}
-
-// HasOccurredAt returns a boolean if a field has been set.
-func (o *BehavioralEventHttpCompletionRequest) HasOccurredAt() bool {
-	if o != nil && o.OccurredAt != nil {
+// HasProperties returns a boolean if a field has been set.
+func (o *BehavioralEventHttpCompletionRequest) HasProperties() bool {
+	if o != nil && o.Properties != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetOccurredAt gets a reference to the given time.Time and assigns it to the OccurredAt field.
-func (o *BehavioralEventHttpCompletionRequest) SetOccurredAt(v time.Time) {
-	o.OccurredAt = &v
+// SetProperties gets a reference to the given map[string]string and assigns it to the Properties field.
+func (o *BehavioralEventHttpCompletionRequest) SetProperties(v map[string]string) {
+	o.Properties = &v
 }
 
 // GetObjectId returns the ObjectId field value if set, zero value otherwise.
@@ -228,20 +268,23 @@ func (o *BehavioralEventHttpCompletionRequest) SetObjectId(v string) {
 
 func (o BehavioralEventHttpCompletionRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Utk != nil {
-		toSerialize["utk"] = o.Utk
-	}
-	if o.Email != nil {
-		toSerialize["email"] = o.Email
+	if o.OccurredAt != nil {
+		toSerialize["occurredAt"] = o.OccurredAt
 	}
 	if true {
 		toSerialize["eventName"] = o.EventName
 	}
-	if true {
-		toSerialize["properties"] = o.Properties
+	if o.Utk != nil {
+		toSerialize["utk"] = o.Utk
 	}
-	if o.OccurredAt != nil {
-		toSerialize["occurredAt"] = o.OccurredAt
+	if o.Uuid != nil {
+		toSerialize["uuid"] = o.Uuid
+	}
+	if o.Email != nil {
+		toSerialize["email"] = o.Email
+	}
+	if o.Properties != nil {
+		toSerialize["properties"] = o.Properties
 	}
 	if o.ObjectId != nil {
 		toSerialize["objectId"] = o.ObjectId

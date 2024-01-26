@@ -110,7 +110,7 @@ import (
 
 func main() {
     objectType := "objectType_example" // string | 
-    pipelineInput := *openapiclient.NewPipelineInput("Label_example", int32(123), []openapiclient.PipelineStageInput{*openapiclient.NewPipelineStageInput("Label_example", int32(123), map[string]string{"key": "Inner_example"})}) // PipelineInput | 
+    pipelineInput := *openapiclient.NewPipelineInput(int32(0), []openapiclient.PipelineStageInput{*openapiclient.NewPipelineStageInput(map[string]string{"key": "Inner_example"}, int32(1), "Done")}, "My replaced pipeline") // PipelineInput | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -326,7 +326,7 @@ import (
 func main() {
     objectType := "objectType_example" // string | 
     pipelineId := "pipelineId_example" // string | 
-    pipelineInput := *openapiclient.NewPipelineInput("Label_example", int32(123), []openapiclient.PipelineStageInput{*openapiclient.NewPipelineStageInput("Label_example", int32(123), map[string]string{"key": "Inner_example"})}) // PipelineInput | 
+    pipelineInput := *openapiclient.NewPipelineInput(int32(0), []openapiclient.PipelineStageInput{*openapiclient.NewPipelineStageInput(map[string]string{"key": "Inner_example"}, int32(1), "Done")}, "My replaced pipeline") // PipelineInput | 
     validateReferencesBeforeDelete := true // bool |  (optional) (default to false)
     validateDealStageUsagesBeforeDelete := true // bool |  (optional) (default to false)
 

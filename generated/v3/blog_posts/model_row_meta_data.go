@@ -1,5 +1,5 @@
 /*
-Blog Post endpoints
+Posts
 
 Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags
 
@@ -16,18 +16,18 @@ import (
 
 // RowMetaData struct for RowMetaData
 type RowMetaData struct {
-	Styles   Styles `json:"styles"`
 	CssClass string `json:"cssClass"`
+	Styles   Styles `json:"styles"`
 }
 
 // NewRowMetaData instantiates a new RowMetaData object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRowMetaData(styles Styles, cssClass string) *RowMetaData {
+func NewRowMetaData(cssClass string, styles Styles) *RowMetaData {
 	this := RowMetaData{}
-	this.Styles = styles
 	this.CssClass = cssClass
+	this.Styles = styles
 	return &this
 }
 
@@ -37,30 +37,6 @@ func NewRowMetaData(styles Styles, cssClass string) *RowMetaData {
 func NewRowMetaDataWithDefaults() *RowMetaData {
 	this := RowMetaData{}
 	return &this
-}
-
-// GetStyles returns the Styles field value
-func (o *RowMetaData) GetStyles() Styles {
-	if o == nil {
-		var ret Styles
-		return ret
-	}
-
-	return o.Styles
-}
-
-// GetStylesOk returns a tuple with the Styles field value
-// and a boolean to check if the value has been set.
-func (o *RowMetaData) GetStylesOk() (*Styles, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Styles, true
-}
-
-// SetStyles sets field value
-func (o *RowMetaData) SetStyles(v Styles) {
-	o.Styles = v
 }
 
 // GetCssClass returns the CssClass field value
@@ -87,13 +63,37 @@ func (o *RowMetaData) SetCssClass(v string) {
 	o.CssClass = v
 }
 
+// GetStyles returns the Styles field value
+func (o *RowMetaData) GetStyles() Styles {
+	if o == nil {
+		var ret Styles
+		return ret
+	}
+
+	return o.Styles
+}
+
+// GetStylesOk returns a tuple with the Styles field value
+// and a boolean to check if the value has been set.
+func (o *RowMetaData) GetStylesOk() (*Styles, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Styles, true
+}
+
+// SetStyles sets field value
+func (o *RowMetaData) SetStyles(v Styles) {
+	o.Styles = v
+}
+
 func (o RowMetaData) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["styles"] = o.Styles
+		toSerialize["cssClass"] = o.CssClass
 	}
 	if true {
-		toSerialize["cssClass"] = o.CssClass
+		toSerialize["styles"] = o.Styles
 	}
 	return json.Marshal(toSerialize)
 }

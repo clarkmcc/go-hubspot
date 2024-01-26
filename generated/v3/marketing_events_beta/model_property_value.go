@@ -1,5 +1,5 @@
 /*
-Marketing Events Extension
+Marketing Events
 
 These APIs allow you to interact with HubSpot's Marketing Events Extension. It allows you to: * Create, Read or update Marketing Event information in HubSpot * Specify whether a HubSpot contact has registered, attended or cancelled a registration to a Marketing Event. * Specify a URL that can be called to get the details of a Marketing Event.
 
@@ -16,22 +16,32 @@ import (
 
 // PropertyValue struct for PropertyValue
 type PropertyValue struct {
-	SourceId             string `json:"sourceId"`
-	SelectedByUser       bool   `json:"selectedByUser"`
-	SourceLabel          string `json:"sourceLabel"`
+	//
+	SourceId string `json:"sourceId"`
+	//
+	SelectedByUser bool `json:"selectedByUser"`
+	//
+	SourceLabel string `json:"sourceLabel"`
+	//
 	Source               string `json:"source"`
 	UpdatedByUserId      *int32 `json:"updatedByUserId,omitempty"`
 	PersistenceTimestamp *int64 `json:"persistenceTimestamp,omitempty"`
 	// Source metadata encoded as a base64 string. For example: `ZXhhbXBsZSBzdHJpbmc=`
-	SourceMetadata                     string  `json:"sourceMetadata"`
-	SourceVid                          []int64 `json:"sourceVid"`
-	RequestId                          string  `json:"requestId"`
-	Name                               string  `json:"name"`
-	UseTimestampAsPersistenceTimestamp *bool   `json:"useTimestampAsPersistenceTimestamp,omitempty"`
-	Value                              string  `json:"value"`
-	SelectedByUserTimestamp            int64   `json:"selectedByUserTimestamp"`
-	Timestamp                          int64   `json:"timestamp"`
-	IsLargeValue                       *bool   `json:"isLargeValue,omitempty"`
+	SourceMetadata string `json:"sourceMetadata"`
+	//
+	SourceVid []int64 `json:"sourceVid"`
+	//
+	RequestId string `json:"requestId"`
+	//
+	Name                               string `json:"name"`
+	UseTimestampAsPersistenceTimestamp *bool  `json:"useTimestampAsPersistenceTimestamp,omitempty"`
+	//
+	Value string `json:"value"`
+	//
+	SelectedByUserTimestamp int64 `json:"selectedByUserTimestamp"`
+	//
+	Timestamp    int64 `json:"timestamp"`
+	IsLargeValue *bool `json:"isLargeValue,omitempty"`
 }
 
 // NewPropertyValue instantiates a new PropertyValue object

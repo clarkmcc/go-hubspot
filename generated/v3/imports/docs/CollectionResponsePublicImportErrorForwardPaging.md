@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Results** | [**[]PublicImportError**](PublicImportError.md) |  | 
 **Paging** | Pointer to [**ForwardPaging**](ForwardPaging.md) |  | [optional] 
+**Results** | [**[]PublicImportError**](PublicImportError.md) |  | 
 
 ## Methods
 
@@ -25,26 +25,6 @@ will change when the set of required properties is changed
 NewCollectionResponsePublicImportErrorForwardPagingWithDefaults instantiates a new CollectionResponsePublicImportErrorForwardPaging object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetResults
-
-`func (o *CollectionResponsePublicImportErrorForwardPaging) GetResults() []PublicImportError`
-
-GetResults returns the Results field if non-nil, zero value otherwise.
-
-### GetResultsOk
-
-`func (o *CollectionResponsePublicImportErrorForwardPaging) GetResultsOk() (*[]PublicImportError, bool)`
-
-GetResultsOk returns a tuple with the Results field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetResults
-
-`func (o *CollectionResponsePublicImportErrorForwardPaging) SetResults(v []PublicImportError)`
-
-SetResults sets Results field to given value.
-
 
 ### GetPaging
 
@@ -70,6 +50,26 @@ SetPaging sets Paging field to given value.
 `func (o *CollectionResponsePublicImportErrorForwardPaging) HasPaging() bool`
 
 HasPaging returns a boolean if a field has been set.
+
+### GetResults
+
+`func (o *CollectionResponsePublicImportErrorForwardPaging) GetResults() []PublicImportError`
+
+GetResults returns the Results field if non-nil, zero value otherwise.
+
+### GetResultsOk
+
+`func (o *CollectionResponsePublicImportErrorForwardPaging) GetResultsOk() (*[]PublicImportError, bool)`
+
+GetResultsOk returns a tuple with the Results field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetResults
+
+`func (o *CollectionResponsePublicImportErrorForwardPaging) SetResults(v []PublicImportError)`
+
+SetResults sets Results field to given value.
+
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

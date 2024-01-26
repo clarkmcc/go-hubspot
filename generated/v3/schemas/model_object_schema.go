@@ -17,50 +17,46 @@ import (
 
 // ObjectSchema Defines an object schema, including its properties and associations.
 type ObjectSchema struct {
-	Labels ObjectTypeDefinitionLabels `json:"labels"`
+	// Associations defined for a given object type.
+	Associations []AssociationDefinition `json:"associations"`
+	// The names of secondary properties for this object. These will be displayed as secondary on the HubSpot record page for this object type.
+	SecondaryDisplayProperties []string `json:"secondaryDisplayProperties,omitempty"`
+	ObjectTypeId               *string  `json:"objectTypeId,omitempty"`
+	Description                *string  `json:"description,omitempty"`
+	// An assigned unique ID for the object, including portal ID and object name.
+	FullyQualifiedName *string                    `json:"fullyQualifiedName,omitempty"`
+	Labels             ObjectTypeDefinitionLabels `json:"labels"`
+	Archived           *bool                      `json:"archived,omitempty"`
+	// When the object schema was created.
+	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	// The names of properties that should be **required** when creating an object of this type.
 	RequiredProperties []string `json:"requiredProperties"`
 	// Names of properties that will be indexed for this object type in by HubSpot's product search.
-	SearchableProperties []string `json:"searchableProperties"`
+	SearchableProperties []string `json:"searchableProperties,omitempty"`
 	// The name of the primary property for this object. This will be displayed as primary on the HubSpot record page for this object type.
 	PrimaryDisplayProperty *string `json:"primaryDisplayProperty,omitempty"`
-	// The names of secondary properties for this object. These will be displayed as secondary on the HubSpot record page for this object type.
-	SecondaryDisplayProperties []string `json:"secondaryDisplayProperties"`
-	Archived                   bool     `json:"archived"`
-	// A unique ID for this schema's object type. Will be defined as {meta-type}-{unique ID}.
-	Id string `json:"id"`
-	// An assigned unique ID for the object, including portal ID and object name.
-	FullyQualifiedName string `json:"fullyQualifiedName"`
-	// When the object schema was created.
-	CreatedAt *time.Time `json:"createdAt,omitempty"`
-	// When the object schema was last updated.
-	UpdatedAt    *time.Time `json:"updatedAt,omitempty"`
-	ObjectTypeId string     `json:"objectTypeId"`
-	// Properties defined for this object type.
-	Properties []Property `json:"properties"`
-	// Associations defined for a given object type.
-	Associations []AssociationDefinition `json:"associations"`
 	// A unique name for the schema's object type.
 	Name string `json:"name"`
+	// A unique ID for this schema's object type. Will be defined as {meta-type}-{unique ID}.
+	Id string `json:"id"`
+	// Properties defined for this object type.
+	Properties []Property `json:"properties"`
+	// When the object schema was last updated.
+	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 }
 
 // NewObjectSchema instantiates a new ObjectSchema object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewObjectSchema(labels ObjectTypeDefinitionLabels, requiredProperties []string, searchableProperties []string, secondaryDisplayProperties []string, archived bool, id string, fullyQualifiedName string, objectTypeId string, properties []Property, associations []AssociationDefinition, name string) *ObjectSchema {
+func NewObjectSchema(associations []AssociationDefinition, labels ObjectTypeDefinitionLabels, requiredProperties []string, name string, id string, properties []Property) *ObjectSchema {
 	this := ObjectSchema{}
+	this.Associations = associations
 	this.Labels = labels
 	this.RequiredProperties = requiredProperties
-	this.SearchableProperties = searchableProperties
-	this.SecondaryDisplayProperties = secondaryDisplayProperties
-	this.Archived = archived
-	this.Id = id
-	this.FullyQualifiedName = fullyQualifiedName
-	this.ObjectTypeId = objectTypeId
-	this.Properties = properties
-	this.Associations = associations
 	this.Name = name
+	this.Id = id
+	this.Properties = properties
 	return &this
 }
 
@@ -70,6 +66,158 @@ func NewObjectSchema(labels ObjectTypeDefinitionLabels, requiredProperties []str
 func NewObjectSchemaWithDefaults() *ObjectSchema {
 	this := ObjectSchema{}
 	return &this
+}
+
+// GetAssociations returns the Associations field value
+func (o *ObjectSchema) GetAssociations() []AssociationDefinition {
+	if o == nil {
+		var ret []AssociationDefinition
+		return ret
+	}
+
+	return o.Associations
+}
+
+// GetAssociationsOk returns a tuple with the Associations field value
+// and a boolean to check if the value has been set.
+func (o *ObjectSchema) GetAssociationsOk() ([]AssociationDefinition, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Associations, true
+}
+
+// SetAssociations sets field value
+func (o *ObjectSchema) SetAssociations(v []AssociationDefinition) {
+	o.Associations = v
+}
+
+// GetSecondaryDisplayProperties returns the SecondaryDisplayProperties field value if set, zero value otherwise.
+func (o *ObjectSchema) GetSecondaryDisplayProperties() []string {
+	if o == nil || o.SecondaryDisplayProperties == nil {
+		var ret []string
+		return ret
+	}
+	return o.SecondaryDisplayProperties
+}
+
+// GetSecondaryDisplayPropertiesOk returns a tuple with the SecondaryDisplayProperties field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ObjectSchema) GetSecondaryDisplayPropertiesOk() ([]string, bool) {
+	if o == nil || o.SecondaryDisplayProperties == nil {
+		return nil, false
+	}
+	return o.SecondaryDisplayProperties, true
+}
+
+// HasSecondaryDisplayProperties returns a boolean if a field has been set.
+func (o *ObjectSchema) HasSecondaryDisplayProperties() bool {
+	if o != nil && o.SecondaryDisplayProperties != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSecondaryDisplayProperties gets a reference to the given []string and assigns it to the SecondaryDisplayProperties field.
+func (o *ObjectSchema) SetSecondaryDisplayProperties(v []string) {
+	o.SecondaryDisplayProperties = v
+}
+
+// GetObjectTypeId returns the ObjectTypeId field value if set, zero value otherwise.
+func (o *ObjectSchema) GetObjectTypeId() string {
+	if o == nil || o.ObjectTypeId == nil {
+		var ret string
+		return ret
+	}
+	return *o.ObjectTypeId
+}
+
+// GetObjectTypeIdOk returns a tuple with the ObjectTypeId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ObjectSchema) GetObjectTypeIdOk() (*string, bool) {
+	if o == nil || o.ObjectTypeId == nil {
+		return nil, false
+	}
+	return o.ObjectTypeId, true
+}
+
+// HasObjectTypeId returns a boolean if a field has been set.
+func (o *ObjectSchema) HasObjectTypeId() bool {
+	if o != nil && o.ObjectTypeId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetObjectTypeId gets a reference to the given string and assigns it to the ObjectTypeId field.
+func (o *ObjectSchema) SetObjectTypeId(v string) {
+	o.ObjectTypeId = &v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *ObjectSchema) GetDescription() string {
+	if o == nil || o.Description == nil {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ObjectSchema) GetDescriptionOk() (*string, bool) {
+	if o == nil || o.Description == nil {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *ObjectSchema) HasDescription() bool {
+	if o != nil && o.Description != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *ObjectSchema) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetFullyQualifiedName returns the FullyQualifiedName field value if set, zero value otherwise.
+func (o *ObjectSchema) GetFullyQualifiedName() string {
+	if o == nil || o.FullyQualifiedName == nil {
+		var ret string
+		return ret
+	}
+	return *o.FullyQualifiedName
+}
+
+// GetFullyQualifiedNameOk returns a tuple with the FullyQualifiedName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ObjectSchema) GetFullyQualifiedNameOk() (*string, bool) {
+	if o == nil || o.FullyQualifiedName == nil {
+		return nil, false
+	}
+	return o.FullyQualifiedName, true
+}
+
+// HasFullyQualifiedName returns a boolean if a field has been set.
+func (o *ObjectSchema) HasFullyQualifiedName() bool {
+	if o != nil && o.FullyQualifiedName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFullyQualifiedName gets a reference to the given string and assigns it to the FullyQualifiedName field.
+func (o *ObjectSchema) SetFullyQualifiedName(v string) {
+	o.FullyQualifiedName = &v
 }
 
 // GetLabels returns the Labels field value
@@ -96,6 +244,70 @@ func (o *ObjectSchema) SetLabels(v ObjectTypeDefinitionLabels) {
 	o.Labels = v
 }
 
+// GetArchived returns the Archived field value if set, zero value otherwise.
+func (o *ObjectSchema) GetArchived() bool {
+	if o == nil || o.Archived == nil {
+		var ret bool
+		return ret
+	}
+	return *o.Archived
+}
+
+// GetArchivedOk returns a tuple with the Archived field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ObjectSchema) GetArchivedOk() (*bool, bool) {
+	if o == nil || o.Archived == nil {
+		return nil, false
+	}
+	return o.Archived, true
+}
+
+// HasArchived returns a boolean if a field has been set.
+func (o *ObjectSchema) HasArchived() bool {
+	if o != nil && o.Archived != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetArchived gets a reference to the given bool and assigns it to the Archived field.
+func (o *ObjectSchema) SetArchived(v bool) {
+	o.Archived = &v
+}
+
+// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
+func (o *ObjectSchema) GetCreatedAt() time.Time {
+	if o == nil || o.CreatedAt == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.CreatedAt
+}
+
+// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ObjectSchema) GetCreatedAtOk() (*time.Time, bool) {
+	if o == nil || o.CreatedAt == nil {
+		return nil, false
+	}
+	return o.CreatedAt, true
+}
+
+// HasCreatedAt returns a boolean if a field has been set.
+func (o *ObjectSchema) HasCreatedAt() bool {
+	if o != nil && o.CreatedAt != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
+func (o *ObjectSchema) SetCreatedAt(v time.Time) {
+	o.CreatedAt = &v
+}
+
 // GetRequiredProperties returns the RequiredProperties field value
 func (o *ObjectSchema) GetRequiredProperties() []string {
 	if o == nil {
@@ -120,26 +332,34 @@ func (o *ObjectSchema) SetRequiredProperties(v []string) {
 	o.RequiredProperties = v
 }
 
-// GetSearchableProperties returns the SearchableProperties field value
+// GetSearchableProperties returns the SearchableProperties field value if set, zero value otherwise.
 func (o *ObjectSchema) GetSearchableProperties() []string {
-	if o == nil {
+	if o == nil || o.SearchableProperties == nil {
 		var ret []string
 		return ret
 	}
-
 	return o.SearchableProperties
 }
 
-// GetSearchablePropertiesOk returns a tuple with the SearchableProperties field value
+// GetSearchablePropertiesOk returns a tuple with the SearchableProperties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ObjectSchema) GetSearchablePropertiesOk() ([]string, bool) {
-	if o == nil {
+	if o == nil || o.SearchableProperties == nil {
 		return nil, false
 	}
 	return o.SearchableProperties, true
 }
 
-// SetSearchableProperties sets field value
+// HasSearchableProperties returns a boolean if a field has been set.
+func (o *ObjectSchema) HasSearchableProperties() bool {
+	if o != nil && o.SearchableProperties != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSearchableProperties gets a reference to the given []string and assigns it to the SearchableProperties field.
 func (o *ObjectSchema) SetSearchableProperties(v []string) {
 	o.SearchableProperties = v
 }
@@ -176,52 +396,28 @@ func (o *ObjectSchema) SetPrimaryDisplayProperty(v string) {
 	o.PrimaryDisplayProperty = &v
 }
 
-// GetSecondaryDisplayProperties returns the SecondaryDisplayProperties field value
-func (o *ObjectSchema) GetSecondaryDisplayProperties() []string {
+// GetName returns the Name field value
+func (o *ObjectSchema) GetName() string {
 	if o == nil {
-		var ret []string
+		var ret string
 		return ret
 	}
 
-	return o.SecondaryDisplayProperties
+	return o.Name
 }
 
-// GetSecondaryDisplayPropertiesOk returns a tuple with the SecondaryDisplayProperties field value
+// GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
-func (o *ObjectSchema) GetSecondaryDisplayPropertiesOk() ([]string, bool) {
+func (o *ObjectSchema) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.SecondaryDisplayProperties, true
+	return &o.Name, true
 }
 
-// SetSecondaryDisplayProperties sets field value
-func (o *ObjectSchema) SetSecondaryDisplayProperties(v []string) {
-	o.SecondaryDisplayProperties = v
-}
-
-// GetArchived returns the Archived field value
-func (o *ObjectSchema) GetArchived() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.Archived
-}
-
-// GetArchivedOk returns a tuple with the Archived field value
-// and a boolean to check if the value has been set.
-func (o *ObjectSchema) GetArchivedOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Archived, true
-}
-
-// SetArchived sets field value
-func (o *ObjectSchema) SetArchived(v bool) {
-	o.Archived = v
+// SetName sets field value
+func (o *ObjectSchema) SetName(v string) {
+	o.Name = v
 }
 
 // GetId returns the Id field value
@@ -248,60 +444,28 @@ func (o *ObjectSchema) SetId(v string) {
 	o.Id = v
 }
 
-// GetFullyQualifiedName returns the FullyQualifiedName field value
-func (o *ObjectSchema) GetFullyQualifiedName() string {
+// GetProperties returns the Properties field value
+func (o *ObjectSchema) GetProperties() []Property {
 	if o == nil {
-		var ret string
+		var ret []Property
 		return ret
 	}
 
-	return o.FullyQualifiedName
+	return o.Properties
 }
 
-// GetFullyQualifiedNameOk returns a tuple with the FullyQualifiedName field value
+// GetPropertiesOk returns a tuple with the Properties field value
 // and a boolean to check if the value has been set.
-func (o *ObjectSchema) GetFullyQualifiedNameOk() (*string, bool) {
+func (o *ObjectSchema) GetPropertiesOk() ([]Property, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.FullyQualifiedName, true
+	return o.Properties, true
 }
 
-// SetFullyQualifiedName sets field value
-func (o *ObjectSchema) SetFullyQualifiedName(v string) {
-	o.FullyQualifiedName = v
-}
-
-// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *ObjectSchema) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
-		var ret time.Time
-		return ret
-	}
-	return *o.CreatedAt
-}
-
-// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ObjectSchema) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
-		return nil, false
-	}
-	return o.CreatedAt, true
-}
-
-// HasCreatedAt returns a boolean if a field has been set.
-func (o *ObjectSchema) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
-func (o *ObjectSchema) SetCreatedAt(v time.Time) {
-	o.CreatedAt = &v
+// SetProperties sets field value
+func (o *ObjectSchema) SetProperties(v []Property) {
+	o.Properties = v
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
@@ -336,145 +500,52 @@ func (o *ObjectSchema) SetUpdatedAt(v time.Time) {
 	o.UpdatedAt = &v
 }
 
-// GetObjectTypeId returns the ObjectTypeId field value
-func (o *ObjectSchema) GetObjectTypeId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.ObjectTypeId
-}
-
-// GetObjectTypeIdOk returns a tuple with the ObjectTypeId field value
-// and a boolean to check if the value has been set.
-func (o *ObjectSchema) GetObjectTypeIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.ObjectTypeId, true
-}
-
-// SetObjectTypeId sets field value
-func (o *ObjectSchema) SetObjectTypeId(v string) {
-	o.ObjectTypeId = v
-}
-
-// GetProperties returns the Properties field value
-func (o *ObjectSchema) GetProperties() []Property {
-	if o == nil {
-		var ret []Property
-		return ret
-	}
-
-	return o.Properties
-}
-
-// GetPropertiesOk returns a tuple with the Properties field value
-// and a boolean to check if the value has been set.
-func (o *ObjectSchema) GetPropertiesOk() ([]Property, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Properties, true
-}
-
-// SetProperties sets field value
-func (o *ObjectSchema) SetProperties(v []Property) {
-	o.Properties = v
-}
-
-// GetAssociations returns the Associations field value
-func (o *ObjectSchema) GetAssociations() []AssociationDefinition {
-	if o == nil {
-		var ret []AssociationDefinition
-		return ret
-	}
-
-	return o.Associations
-}
-
-// GetAssociationsOk returns a tuple with the Associations field value
-// and a boolean to check if the value has been set.
-func (o *ObjectSchema) GetAssociationsOk() ([]AssociationDefinition, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Associations, true
-}
-
-// SetAssociations sets field value
-func (o *ObjectSchema) SetAssociations(v []AssociationDefinition) {
-	o.Associations = v
-}
-
-// GetName returns the Name field value
-func (o *ObjectSchema) GetName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value
-// and a boolean to check if the value has been set.
-func (o *ObjectSchema) GetNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Name, true
-}
-
-// SetName sets field value
-func (o *ObjectSchema) SetName(v string) {
-	o.Name = v
-}
-
 func (o ObjectSchema) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
+		toSerialize["associations"] = o.Associations
+	}
+	if o.SecondaryDisplayProperties != nil {
+		toSerialize["secondaryDisplayProperties"] = o.SecondaryDisplayProperties
+	}
+	if o.ObjectTypeId != nil {
+		toSerialize["objectTypeId"] = o.ObjectTypeId
+	}
+	if o.Description != nil {
+		toSerialize["description"] = o.Description
+	}
+	if o.FullyQualifiedName != nil {
+		toSerialize["fullyQualifiedName"] = o.FullyQualifiedName
+	}
+	if true {
 		toSerialize["labels"] = o.Labels
+	}
+	if o.Archived != nil {
+		toSerialize["archived"] = o.Archived
+	}
+	if o.CreatedAt != nil {
+		toSerialize["createdAt"] = o.CreatedAt
 	}
 	if true {
 		toSerialize["requiredProperties"] = o.RequiredProperties
 	}
-	if true {
+	if o.SearchableProperties != nil {
 		toSerialize["searchableProperties"] = o.SearchableProperties
 	}
 	if o.PrimaryDisplayProperty != nil {
 		toSerialize["primaryDisplayProperty"] = o.PrimaryDisplayProperty
 	}
 	if true {
-		toSerialize["secondaryDisplayProperties"] = o.SecondaryDisplayProperties
-	}
-	if true {
-		toSerialize["archived"] = o.Archived
+		toSerialize["name"] = o.Name
 	}
 	if true {
 		toSerialize["id"] = o.Id
 	}
 	if true {
-		toSerialize["fullyQualifiedName"] = o.FullyQualifiedName
-	}
-	if o.CreatedAt != nil {
-		toSerialize["createdAt"] = o.CreatedAt
+		toSerialize["properties"] = o.Properties
 	}
 	if o.UpdatedAt != nil {
 		toSerialize["updatedAt"] = o.UpdatedAt
-	}
-	if true {
-		toSerialize["objectTypeId"] = o.ObjectTypeId
-	}
-	if true {
-		toSerialize["properties"] = o.Properties
-	}
-	if true {
-		toSerialize["associations"] = o.Associations
-	}
-	if true {
-		toSerialize["name"] = o.Name
 	}
 	return json.Marshal(toSerialize)
 }

@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** | The template name. | 
-**HeaderTemplate** | Pointer to **string** | This uses Markdown syntax with Handlebars and event-specific data to render HTML on a timeline as a header. | [optional] 
 **DetailTemplate** | Pointer to **string** | This uses Markdown syntax with Handlebars and event-specific data to render HTML on a timeline when you expand the details. | [optional] 
+**Name** | **string** | The template name. | 
 **Tokens** | [**[]TimelineEventTemplateToken**](TimelineEventTemplateToken.md) | A collection of tokens that can be used as custom properties on the event and to create fully fledged CRM objects. | 
+**HeaderTemplate** | Pointer to **string** | This uses Markdown syntax with Handlebars and event-specific data to render HTML on a timeline as a header. | [optional] 
 **ObjectType** | **string** | The type of CRM object this template is for. [Contacts, companies, tickets, and deals] are supported. | 
 
 ## Methods
@@ -28,51 +28,6 @@ will change when the set of required properties is changed
 NewTimelineEventTemplateCreateRequestWithDefaults instantiates a new TimelineEventTemplateCreateRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetName
-
-`func (o *TimelineEventTemplateCreateRequest) GetName() string`
-
-GetName returns the Name field if non-nil, zero value otherwise.
-
-### GetNameOk
-
-`func (o *TimelineEventTemplateCreateRequest) GetNameOk() (*string, bool)`
-
-GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetName
-
-`func (o *TimelineEventTemplateCreateRequest) SetName(v string)`
-
-SetName sets Name field to given value.
-
-
-### GetHeaderTemplate
-
-`func (o *TimelineEventTemplateCreateRequest) GetHeaderTemplate() string`
-
-GetHeaderTemplate returns the HeaderTemplate field if non-nil, zero value otherwise.
-
-### GetHeaderTemplateOk
-
-`func (o *TimelineEventTemplateCreateRequest) GetHeaderTemplateOk() (*string, bool)`
-
-GetHeaderTemplateOk returns a tuple with the HeaderTemplate field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetHeaderTemplate
-
-`func (o *TimelineEventTemplateCreateRequest) SetHeaderTemplate(v string)`
-
-SetHeaderTemplate sets HeaderTemplate field to given value.
-
-### HasHeaderTemplate
-
-`func (o *TimelineEventTemplateCreateRequest) HasHeaderTemplate() bool`
-
-HasHeaderTemplate returns a boolean if a field has been set.
 
 ### GetDetailTemplate
 
@@ -99,6 +54,26 @@ SetDetailTemplate sets DetailTemplate field to given value.
 
 HasDetailTemplate returns a boolean if a field has been set.
 
+### GetName
+
+`func (o *TimelineEventTemplateCreateRequest) GetName() string`
+
+GetName returns the Name field if non-nil, zero value otherwise.
+
+### GetNameOk
+
+`func (o *TimelineEventTemplateCreateRequest) GetNameOk() (*string, bool)`
+
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetName
+
+`func (o *TimelineEventTemplateCreateRequest) SetName(v string)`
+
+SetName sets Name field to given value.
+
+
 ### GetTokens
 
 `func (o *TimelineEventTemplateCreateRequest) GetTokens() []TimelineEventTemplateToken`
@@ -118,6 +93,31 @@ and a boolean to check if the value has been set.
 
 SetTokens sets Tokens field to given value.
 
+
+### GetHeaderTemplate
+
+`func (o *TimelineEventTemplateCreateRequest) GetHeaderTemplate() string`
+
+GetHeaderTemplate returns the HeaderTemplate field if non-nil, zero value otherwise.
+
+### GetHeaderTemplateOk
+
+`func (o *TimelineEventTemplateCreateRequest) GetHeaderTemplateOk() (*string, bool)`
+
+GetHeaderTemplateOk returns a tuple with the HeaderTemplate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHeaderTemplate
+
+`func (o *TimelineEventTemplateCreateRequest) SetHeaderTemplate(v string)`
+
+SetHeaderTemplate sets HeaderTemplate field to given value.
+
+### HasHeaderTemplate
+
+`func (o *TimelineEventTemplateCreateRequest) HasHeaderTemplate() bool`
+
+HasHeaderTemplate returns a boolean if a field has been set.
 
 ### GetObjectType
 

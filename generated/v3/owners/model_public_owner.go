@@ -1,5 +1,5 @@
 /*
-CRM Owners
+Crm Owners
 
 HubSpot uses **owners** to assign CRM objects to specific people in your organization. The endpoints described here are used to get a list of the owners that are available for an account. To assign an owner to an object, set the hubspot_owner_id property using the appropriate CRM object update or create a request.  If teams are available for your HubSpot tier, these endpoints will also indicate which team(s) an owner can access, as well as which team is the owner's primary team.
 
@@ -17,27 +17,27 @@ import (
 
 // PublicOwner struct for PublicOwner
 type PublicOwner struct {
-	Id        string       `json:"id"`
-	Email     *string      `json:"email,omitempty"`
 	FirstName *string      `json:"firstName,omitempty"`
 	LastName  *string      `json:"lastName,omitempty"`
-	UserId    *int32       `json:"userId,omitempty"`
 	CreatedAt time.Time    `json:"createdAt"`
-	UpdatedAt time.Time    `json:"updatedAt"`
 	Archived  bool         `json:"archived"`
 	Teams     []PublicTeam `json:"teams,omitempty"`
+	Id        string       `json:"id"`
+	UserId    *int32       `json:"userId,omitempty"`
+	Email     *string      `json:"email,omitempty"`
+	UpdatedAt time.Time    `json:"updatedAt"`
 }
 
 // NewPublicOwner instantiates a new PublicOwner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPublicOwner(id string, createdAt time.Time, updatedAt time.Time, archived bool) *PublicOwner {
+func NewPublicOwner(createdAt time.Time, archived bool, id string, updatedAt time.Time) *PublicOwner {
 	this := PublicOwner{}
-	this.Id = id
 	this.CreatedAt = createdAt
-	this.UpdatedAt = updatedAt
 	this.Archived = archived
+	this.Id = id
+	this.UpdatedAt = updatedAt
 	return &this
 }
 
@@ -47,62 +47,6 @@ func NewPublicOwner(id string, createdAt time.Time, updatedAt time.Time, archive
 func NewPublicOwnerWithDefaults() *PublicOwner {
 	this := PublicOwner{}
 	return &this
-}
-
-// GetId returns the Id field value
-func (o *PublicOwner) GetId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Id
-}
-
-// GetIdOk returns a tuple with the Id field value
-// and a boolean to check if the value has been set.
-func (o *PublicOwner) GetIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Id, true
-}
-
-// SetId sets field value
-func (o *PublicOwner) SetId(v string) {
-	o.Id = v
-}
-
-// GetEmail returns the Email field value if set, zero value otherwise.
-func (o *PublicOwner) GetEmail() string {
-	if o == nil || o.Email == nil {
-		var ret string
-		return ret
-	}
-	return *o.Email
-}
-
-// GetEmailOk returns a tuple with the Email field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PublicOwner) GetEmailOk() (*string, bool) {
-	if o == nil || o.Email == nil {
-		return nil, false
-	}
-	return o.Email, true
-}
-
-// HasEmail returns a boolean if a field has been set.
-func (o *PublicOwner) HasEmail() bool {
-	if o != nil && o.Email != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetEmail gets a reference to the given string and assigns it to the Email field.
-func (o *PublicOwner) SetEmail(v string) {
-	o.Email = &v
 }
 
 // GetFirstName returns the FirstName field value if set, zero value otherwise.
@@ -169,38 +113,6 @@ func (o *PublicOwner) SetLastName(v string) {
 	o.LastName = &v
 }
 
-// GetUserId returns the UserId field value if set, zero value otherwise.
-func (o *PublicOwner) GetUserId() int32 {
-	if o == nil || o.UserId == nil {
-		var ret int32
-		return ret
-	}
-	return *o.UserId
-}
-
-// GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PublicOwner) GetUserIdOk() (*int32, bool) {
-	if o == nil || o.UserId == nil {
-		return nil, false
-	}
-	return o.UserId, true
-}
-
-// HasUserId returns a boolean if a field has been set.
-func (o *PublicOwner) HasUserId() bool {
-	if o != nil && o.UserId != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetUserId gets a reference to the given int32 and assigns it to the UserId field.
-func (o *PublicOwner) SetUserId(v int32) {
-	o.UserId = &v
-}
-
 // GetCreatedAt returns the CreatedAt field value
 func (o *PublicOwner) GetCreatedAt() time.Time {
 	if o == nil {
@@ -223,30 +135,6 @@ func (o *PublicOwner) GetCreatedAtOk() (*time.Time, bool) {
 // SetCreatedAt sets field value
 func (o *PublicOwner) SetCreatedAt(v time.Time) {
 	o.CreatedAt = v
-}
-
-// GetUpdatedAt returns the UpdatedAt field value
-func (o *PublicOwner) GetUpdatedAt() time.Time {
-	if o == nil {
-		var ret time.Time
-		return ret
-	}
-
-	return o.UpdatedAt
-}
-
-// GetUpdatedAtOk returns a tuple with the UpdatedAt field value
-// and a boolean to check if the value has been set.
-func (o *PublicOwner) GetUpdatedAtOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.UpdatedAt, true
-}
-
-// SetUpdatedAt sets field value
-func (o *PublicOwner) SetUpdatedAt(v time.Time) {
-	o.UpdatedAt = v
 }
 
 // GetArchived returns the Archived field value
@@ -305,34 +193,146 @@ func (o *PublicOwner) SetTeams(v []PublicTeam) {
 	o.Teams = v
 }
 
+// GetId returns the Id field value
+func (o *PublicOwner) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *PublicOwner) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *PublicOwner) SetId(v string) {
+	o.Id = v
+}
+
+// GetUserId returns the UserId field value if set, zero value otherwise.
+func (o *PublicOwner) GetUserId() int32 {
+	if o == nil || o.UserId == nil {
+		var ret int32
+		return ret
+	}
+	return *o.UserId
+}
+
+// GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PublicOwner) GetUserIdOk() (*int32, bool) {
+	if o == nil || o.UserId == nil {
+		return nil, false
+	}
+	return o.UserId, true
+}
+
+// HasUserId returns a boolean if a field has been set.
+func (o *PublicOwner) HasUserId() bool {
+	if o != nil && o.UserId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetUserId gets a reference to the given int32 and assigns it to the UserId field.
+func (o *PublicOwner) SetUserId(v int32) {
+	o.UserId = &v
+}
+
+// GetEmail returns the Email field value if set, zero value otherwise.
+func (o *PublicOwner) GetEmail() string {
+	if o == nil || o.Email == nil {
+		var ret string
+		return ret
+	}
+	return *o.Email
+}
+
+// GetEmailOk returns a tuple with the Email field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PublicOwner) GetEmailOk() (*string, bool) {
+	if o == nil || o.Email == nil {
+		return nil, false
+	}
+	return o.Email, true
+}
+
+// HasEmail returns a boolean if a field has been set.
+func (o *PublicOwner) HasEmail() bool {
+	if o != nil && o.Email != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetEmail gets a reference to the given string and assigns it to the Email field.
+func (o *PublicOwner) SetEmail(v string) {
+	o.Email = &v
+}
+
+// GetUpdatedAt returns the UpdatedAt field value
+func (o *PublicOwner) GetUpdatedAt() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.UpdatedAt
+}
+
+// GetUpdatedAtOk returns a tuple with the UpdatedAt field value
+// and a boolean to check if the value has been set.
+func (o *PublicOwner) GetUpdatedAtOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.UpdatedAt, true
+}
+
+// SetUpdatedAt sets field value
+func (o *PublicOwner) SetUpdatedAt(v time.Time) {
+	o.UpdatedAt = v
+}
+
 func (o PublicOwner) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if o.Email != nil {
-		toSerialize["email"] = o.Email
-	}
 	if o.FirstName != nil {
 		toSerialize["firstName"] = o.FirstName
 	}
 	if o.LastName != nil {
 		toSerialize["lastName"] = o.LastName
 	}
-	if o.UserId != nil {
-		toSerialize["userId"] = o.UserId
-	}
 	if true {
 		toSerialize["createdAt"] = o.CreatedAt
-	}
-	if true {
-		toSerialize["updatedAt"] = o.UpdatedAt
 	}
 	if true {
 		toSerialize["archived"] = o.Archived
 	}
 	if o.Teams != nil {
 		toSerialize["teams"] = o.Teams
+	}
+	if true {
+		toSerialize["id"] = o.Id
+	}
+	if o.UserId != nil {
+		toSerialize["userId"] = o.UserId
+	}
+	if o.Email != nil {
+		toSerialize["email"] = o.Email
+	}
+	if true {
+		toSerialize["updatedAt"] = o.UpdatedAt
 	}
 	return json.Marshal(toSerialize)
 }

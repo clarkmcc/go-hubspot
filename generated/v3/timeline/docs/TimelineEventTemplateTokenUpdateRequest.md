@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Options** | Pointer to [**[]TimelineEventTemplateTokenOption**](TimelineEventTemplateTokenOption.md) | If type is &#x60;enumeration&#x60;, we should have a list of options to choose from. | [optional] 
 **Label** | **string** | Used for list segmentation and reporting. | 
 **ObjectPropertyName** | Pointer to **string** | The name of the CRM object property. This will populate the CRM object property associated with the event. With enough of these, you can fully build CRM objects via the Timeline API. | [optional] 
-**Options** | Pointer to [**[]TimelineEventTemplateTokenOption**](TimelineEventTemplateTokenOption.md) | If type is &#x60;enumeration&#x60;, we should have a list of options to choose from. | [optional] 
 
 ## Methods
 
@@ -26,6 +26,31 @@ will change when the set of required properties is changed
 NewTimelineEventTemplateTokenUpdateRequestWithDefaults instantiates a new TimelineEventTemplateTokenUpdateRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetOptions
+
+`func (o *TimelineEventTemplateTokenUpdateRequest) GetOptions() []TimelineEventTemplateTokenOption`
+
+GetOptions returns the Options field if non-nil, zero value otherwise.
+
+### GetOptionsOk
+
+`func (o *TimelineEventTemplateTokenUpdateRequest) GetOptionsOk() (*[]TimelineEventTemplateTokenOption, bool)`
+
+GetOptionsOk returns a tuple with the Options field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOptions
+
+`func (o *TimelineEventTemplateTokenUpdateRequest) SetOptions(v []TimelineEventTemplateTokenOption)`
+
+SetOptions sets Options field to given value.
+
+### HasOptions
+
+`func (o *TimelineEventTemplateTokenUpdateRequest) HasOptions() bool`
+
+HasOptions returns a boolean if a field has been set.
 
 ### GetLabel
 
@@ -71,31 +96,6 @@ SetObjectPropertyName sets ObjectPropertyName field to given value.
 `func (o *TimelineEventTemplateTokenUpdateRequest) HasObjectPropertyName() bool`
 
 HasObjectPropertyName returns a boolean if a field has been set.
-
-### GetOptions
-
-`func (o *TimelineEventTemplateTokenUpdateRequest) GetOptions() []TimelineEventTemplateTokenOption`
-
-GetOptions returns the Options field if non-nil, zero value otherwise.
-
-### GetOptionsOk
-
-`func (o *TimelineEventTemplateTokenUpdateRequest) GetOptionsOk() (*[]TimelineEventTemplateTokenOption, bool)`
-
-GetOptionsOk returns a tuple with the Options field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetOptions
-
-`func (o *TimelineEventTemplateTokenUpdateRequest) SetOptions(v []TimelineEventTemplateTokenOption)`
-
-SetOptions sets Options field to given value.
-
-### HasOptions
-
-`func (o *TimelineEventTemplateTokenUpdateRequest) HasOptions() bool`
-
-HasOptions returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

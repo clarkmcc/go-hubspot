@@ -18,10 +18,10 @@ import (
 type PropertyGroupCreate struct {
 	// The internal property group name, which must be used when referencing the property group via the API.
 	Name string `json:"name"`
-	// A human-readable label that will be shown in HubSpot.
-	Label string `json:"label"`
 	// Property groups are displayed in order starting with the lowest positive integer value. Values of -1 will cause the property group to be displayed after any positive values.
 	DisplayOrder *int32 `json:"displayOrder,omitempty"`
+	// A human-readable label that will be shown in HubSpot.
+	Label string `json:"label"`
 }
 
 // NewPropertyGroupCreate instantiates a new PropertyGroupCreate object
@@ -67,30 +67,6 @@ func (o *PropertyGroupCreate) SetName(v string) {
 	o.Name = v
 }
 
-// GetLabel returns the Label field value
-func (o *PropertyGroupCreate) GetLabel() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Label
-}
-
-// GetLabelOk returns a tuple with the Label field value
-// and a boolean to check if the value has been set.
-func (o *PropertyGroupCreate) GetLabelOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Label, true
-}
-
-// SetLabel sets field value
-func (o *PropertyGroupCreate) SetLabel(v string) {
-	o.Label = v
-}
-
 // GetDisplayOrder returns the DisplayOrder field value if set, zero value otherwise.
 func (o *PropertyGroupCreate) GetDisplayOrder() int32 {
 	if o == nil || o.DisplayOrder == nil {
@@ -123,16 +99,40 @@ func (o *PropertyGroupCreate) SetDisplayOrder(v int32) {
 	o.DisplayOrder = &v
 }
 
+// GetLabel returns the Label field value
+func (o *PropertyGroupCreate) GetLabel() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Label
+}
+
+// GetLabelOk returns a tuple with the Label field value
+// and a boolean to check if the value has been set.
+func (o *PropertyGroupCreate) GetLabelOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Label, true
+}
+
+// SetLabel sets field value
+func (o *PropertyGroupCreate) SetLabel(v string) {
+	o.Label = v
+}
+
 func (o PropertyGroupCreate) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
 		toSerialize["name"] = o.Name
 	}
-	if true {
-		toSerialize["label"] = o.Label
-	}
 	if o.DisplayOrder != nil {
 		toSerialize["displayOrder"] = o.DisplayOrder
+	}
+	if true {
+		toSerialize["label"] = o.Label
 	}
 	return json.Marshal(toSerialize)
 }

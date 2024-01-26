@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **FromObjectTypeId** | **string** | ID of the primary object type to link from. | 
-**ToObjectTypeId** | **string** | ID of the target object type ID to link to. | 
 **Name** | Pointer to **string** | A unique name for this association. | [optional] 
+**ToObjectTypeId** | **string** | ID of the target object type ID to link to. | 
 
 ## Methods
 
@@ -47,26 +47,6 @@ and a boolean to check if the value has been set.
 SetFromObjectTypeId sets FromObjectTypeId field to given value.
 
 
-### GetToObjectTypeId
-
-`func (o *AssociationDefinitionEgg) GetToObjectTypeId() string`
-
-GetToObjectTypeId returns the ToObjectTypeId field if non-nil, zero value otherwise.
-
-### GetToObjectTypeIdOk
-
-`func (o *AssociationDefinitionEgg) GetToObjectTypeIdOk() (*string, bool)`
-
-GetToObjectTypeIdOk returns a tuple with the ToObjectTypeId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetToObjectTypeId
-
-`func (o *AssociationDefinitionEgg) SetToObjectTypeId(v string)`
-
-SetToObjectTypeId sets ToObjectTypeId field to given value.
-
-
 ### GetName
 
 `func (o *AssociationDefinitionEgg) GetName() string`
@@ -91,6 +71,26 @@ SetName sets Name field to given value.
 `func (o *AssociationDefinitionEgg) HasName() bool`
 
 HasName returns a boolean if a field has been set.
+
+### GetToObjectTypeId
+
+`func (o *AssociationDefinitionEgg) GetToObjectTypeId() string`
+
+GetToObjectTypeId returns the ToObjectTypeId field if non-nil, zero value otherwise.
+
+### GetToObjectTypeIdOk
+
+`func (o *AssociationDefinitionEgg) GetToObjectTypeIdOk() (*string, bool)`
+
+GetToObjectTypeIdOk returns a tuple with the ToObjectTypeId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetToObjectTypeId
+
+`func (o *AssociationDefinitionEgg) SetToObjectTypeId(v string)`
+
+SetToObjectTypeId sets ToObjectTypeId field to given value.
+
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

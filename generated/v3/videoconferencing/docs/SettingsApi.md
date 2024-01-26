@@ -66,7 +66,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[developer_hapikey](../README.md#developer_hapikey)
 
 ### HTTP request headers
 
@@ -136,7 +136,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[developer_hapikey](../README.md#developer_hapikey)
 
 ### HTTP request headers
 
@@ -170,7 +170,7 @@ import (
 
 func main() {
     appId := int32(56) // int32 | The ID of the video conference application. This is the identifier of the application created in your HubSpot developer portal.
-    externalSettings := *openapiclient.NewExternalSettings("CreateMeetingUrl_example") // ExternalSettings | 
+    externalSettings := *openapiclient.NewExternalSettings("https://example.com/create-meeting") // ExternalSettings | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -208,7 +208,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[developer_hapikey](../README.md#developer_hapikey)
 
 ### HTTP request headers
 

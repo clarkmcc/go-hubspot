@@ -4,21 +4,21 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**CreatedAt** | **int32** |  | 
+**ExtraContext** | Pointer to **string** |  | [optional] 
+**ObjectTypeId** | Pointer to **string** |  | [optional] 
 **ErrorType** | **string** |  | 
+**KnownColumnNumber** | Pointer to **int32** |  | [optional] 
+**Id** | **string** |  | 
 **SourceData** | [**ImportRowCore**](ImportRowCore.md) |  | 
 **ObjectType** | Pointer to **string** |  | [optional] 
 **InvalidValue** | Pointer to **string** |  | [optional] 
-**ExtraContext** | Pointer to **string** |  | [optional] 
-**ObjectTypeId** | Pointer to **string** |  | [optional] 
-**KnownColumnNumber** | Pointer to **int32** |  | [optional] 
-**CreatedAt** | **int32** |  | 
-**Id** | **string** |  | 
 
 ## Methods
 
 ### NewPublicImportError
 
-`func NewPublicImportError(errorType string, sourceData ImportRowCore, createdAt int32, id string, ) *PublicImportError`
+`func NewPublicImportError(createdAt int32, errorType string, id string, sourceData ImportRowCore, ) *PublicImportError`
 
 NewPublicImportError instantiates a new PublicImportError object
 This constructor will assign default values to properties that have it defined,
@@ -32,6 +32,76 @@ will change when the set of required properties is changed
 NewPublicImportErrorWithDefaults instantiates a new PublicImportError object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetCreatedAt
+
+`func (o *PublicImportError) GetCreatedAt() int32`
+
+GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
+
+### GetCreatedAtOk
+
+`func (o *PublicImportError) GetCreatedAtOk() (*int32, bool)`
+
+GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedAt
+
+`func (o *PublicImportError) SetCreatedAt(v int32)`
+
+SetCreatedAt sets CreatedAt field to given value.
+
+
+### GetExtraContext
+
+`func (o *PublicImportError) GetExtraContext() string`
+
+GetExtraContext returns the ExtraContext field if non-nil, zero value otherwise.
+
+### GetExtraContextOk
+
+`func (o *PublicImportError) GetExtraContextOk() (*string, bool)`
+
+GetExtraContextOk returns a tuple with the ExtraContext field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExtraContext
+
+`func (o *PublicImportError) SetExtraContext(v string)`
+
+SetExtraContext sets ExtraContext field to given value.
+
+### HasExtraContext
+
+`func (o *PublicImportError) HasExtraContext() bool`
+
+HasExtraContext returns a boolean if a field has been set.
+
+### GetObjectTypeId
+
+`func (o *PublicImportError) GetObjectTypeId() string`
+
+GetObjectTypeId returns the ObjectTypeId field if non-nil, zero value otherwise.
+
+### GetObjectTypeIdOk
+
+`func (o *PublicImportError) GetObjectTypeIdOk() (*string, bool)`
+
+GetObjectTypeIdOk returns a tuple with the ObjectTypeId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetObjectTypeId
+
+`func (o *PublicImportError) SetObjectTypeId(v string)`
+
+SetObjectTypeId sets ObjectTypeId field to given value.
+
+### HasObjectTypeId
+
+`func (o *PublicImportError) HasObjectTypeId() bool`
+
+HasObjectTypeId returns a boolean if a field has been set.
 
 ### GetErrorType
 
@@ -51,6 +121,51 @@ and a boolean to check if the value has been set.
 `func (o *PublicImportError) SetErrorType(v string)`
 
 SetErrorType sets ErrorType field to given value.
+
+
+### GetKnownColumnNumber
+
+`func (o *PublicImportError) GetKnownColumnNumber() int32`
+
+GetKnownColumnNumber returns the KnownColumnNumber field if non-nil, zero value otherwise.
+
+### GetKnownColumnNumberOk
+
+`func (o *PublicImportError) GetKnownColumnNumberOk() (*int32, bool)`
+
+GetKnownColumnNumberOk returns a tuple with the KnownColumnNumber field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetKnownColumnNumber
+
+`func (o *PublicImportError) SetKnownColumnNumber(v int32)`
+
+SetKnownColumnNumber sets KnownColumnNumber field to given value.
+
+### HasKnownColumnNumber
+
+`func (o *PublicImportError) HasKnownColumnNumber() bool`
+
+HasKnownColumnNumber returns a boolean if a field has been set.
+
+### GetId
+
+`func (o *PublicImportError) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *PublicImportError) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *PublicImportError) SetId(v string)`
+
+SetId sets Id field to given value.
 
 
 ### GetSourceData
@@ -122,121 +237,6 @@ SetInvalidValue sets InvalidValue field to given value.
 `func (o *PublicImportError) HasInvalidValue() bool`
 
 HasInvalidValue returns a boolean if a field has been set.
-
-### GetExtraContext
-
-`func (o *PublicImportError) GetExtraContext() string`
-
-GetExtraContext returns the ExtraContext field if non-nil, zero value otherwise.
-
-### GetExtraContextOk
-
-`func (o *PublicImportError) GetExtraContextOk() (*string, bool)`
-
-GetExtraContextOk returns a tuple with the ExtraContext field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetExtraContext
-
-`func (o *PublicImportError) SetExtraContext(v string)`
-
-SetExtraContext sets ExtraContext field to given value.
-
-### HasExtraContext
-
-`func (o *PublicImportError) HasExtraContext() bool`
-
-HasExtraContext returns a boolean if a field has been set.
-
-### GetObjectTypeId
-
-`func (o *PublicImportError) GetObjectTypeId() string`
-
-GetObjectTypeId returns the ObjectTypeId field if non-nil, zero value otherwise.
-
-### GetObjectTypeIdOk
-
-`func (o *PublicImportError) GetObjectTypeIdOk() (*string, bool)`
-
-GetObjectTypeIdOk returns a tuple with the ObjectTypeId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetObjectTypeId
-
-`func (o *PublicImportError) SetObjectTypeId(v string)`
-
-SetObjectTypeId sets ObjectTypeId field to given value.
-
-### HasObjectTypeId
-
-`func (o *PublicImportError) HasObjectTypeId() bool`
-
-HasObjectTypeId returns a boolean if a field has been set.
-
-### GetKnownColumnNumber
-
-`func (o *PublicImportError) GetKnownColumnNumber() int32`
-
-GetKnownColumnNumber returns the KnownColumnNumber field if non-nil, zero value otherwise.
-
-### GetKnownColumnNumberOk
-
-`func (o *PublicImportError) GetKnownColumnNumberOk() (*int32, bool)`
-
-GetKnownColumnNumberOk returns a tuple with the KnownColumnNumber field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetKnownColumnNumber
-
-`func (o *PublicImportError) SetKnownColumnNumber(v int32)`
-
-SetKnownColumnNumber sets KnownColumnNumber field to given value.
-
-### HasKnownColumnNumber
-
-`func (o *PublicImportError) HasKnownColumnNumber() bool`
-
-HasKnownColumnNumber returns a boolean if a field has been set.
-
-### GetCreatedAt
-
-`func (o *PublicImportError) GetCreatedAt() int32`
-
-GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
-
-### GetCreatedAtOk
-
-`func (o *PublicImportError) GetCreatedAtOk() (*int32, bool)`
-
-GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCreatedAt
-
-`func (o *PublicImportError) SetCreatedAt(v int32)`
-
-SetCreatedAt sets CreatedAt field to given value.
-
-
-### GetId
-
-`func (o *PublicImportError) GetId() string`
-
-GetId returns the Id field if non-nil, zero value otherwise.
-
-### GetIdOk
-
-`func (o *PublicImportError) GetIdOk() (*string, bool)`
-
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetId
-
-`func (o *PublicImportError) SetId(v string)`
-
-SetId sets Id field to given value.
-
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

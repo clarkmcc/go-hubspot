@@ -1,5 +1,5 @@
 /*
-HubDB endpoints
+Hubdb
 
 HubDB is a relational data store that presents data as rows, columns, and cells in a table, much like a spreadsheet. HubDB tables can be added or modified [in the HubSpot CMS](https://knowledge.hubspot.com/cos-general/how-to-edit-hubdb-tables), but you can also use the API endpoints documented here. For more information on HubDB tables and using their data on a HubSpot site, see the [CMS developers site](https://designers.hubspot.com/docs/tools/hubdb). You can also see the [documentation for dynamic pages](https://designers.hubspot.com/docs/tutorials/how-to-build-dynamic-pages-with-hubdb) for more details about the `useForPages` field.  HubDB tables support `draft` and `published` versions. This allows you to update data in the table, either for testing or to allow for a manual approval process, without affecting any live pages using the existing data. Draft data can be reviewed, and published by a user working in HubSpot or published via the API. Draft data can also be discarded, allowing users to go back to the published version of the data without disrupting it. If a table is set to be `allowed for public access`, you can access the published version of the table and rows without any authentication by specifying the portal id via the query parameter `portalId`.
 
@@ -16,18 +16,18 @@ import (
 
 // ColumnRequest struct for ColumnRequest
 type ColumnRequest struct {
-	// Column Id
-	Id int32 `json:"id"`
+	// The id of another table to which the column refers/points to.
+	ForeignTableId *int64 `json:"foreignTableId,omitempty"`
 	// Name of the column
 	Name string `json:"name"`
+	// Options to choose for select and multi-select columns
+	Options []Option `json:"options"`
+	// Column Id
+	Id int32 `json:"id"`
 	// Label of the column
 	Label string `json:"label"`
 	// Type of the column
 	Type string `json:"type"`
-	// Options to choose for select and multi-select columns
-	Options []Option `json:"options"`
-	// The id of another table to which the column refers/points to.
-	ForeignTableId *int64 `json:"foreignTableId,omitempty"`
 	// The id of the column from another table to which the column refers/points to.
 	ForeignColumnId *int32 `json:"foreignColumnId,omitempty"`
 }
@@ -36,13 +36,13 @@ type ColumnRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewColumnRequest(id int32, name string, label string, type_ string, options []Option) *ColumnRequest {
+func NewColumnRequest(name string, options []Option, id int32, label string, type_ string) *ColumnRequest {
 	this := ColumnRequest{}
-	this.Id = id
 	this.Name = name
+	this.Options = options
+	this.Id = id
 	this.Label = label
 	this.Type = type_
-	this.Options = options
 	return &this
 }
 
@@ -54,28 +54,36 @@ func NewColumnRequestWithDefaults() *ColumnRequest {
 	return &this
 }
 
-// GetId returns the Id field value
-func (o *ColumnRequest) GetId() int32 {
-	if o == nil {
-		var ret int32
+// GetForeignTableId returns the ForeignTableId field value if set, zero value otherwise.
+func (o *ColumnRequest) GetForeignTableId() int64 {
+	if o == nil || o.ForeignTableId == nil {
+		var ret int64
 		return ret
 	}
-
-	return o.Id
+	return *o.ForeignTableId
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetForeignTableIdOk returns a tuple with the ForeignTableId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ColumnRequest) GetIdOk() (*int32, bool) {
-	if o == nil {
+func (o *ColumnRequest) GetForeignTableIdOk() (*int64, bool) {
+	if o == nil || o.ForeignTableId == nil {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.ForeignTableId, true
 }
 
-// SetId sets field value
-func (o *ColumnRequest) SetId(v int32) {
-	o.Id = v
+// HasForeignTableId returns a boolean if a field has been set.
+func (o *ColumnRequest) HasForeignTableId() bool {
+	if o != nil && o.ForeignTableId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetForeignTableId gets a reference to the given int64 and assigns it to the ForeignTableId field.
+func (o *ColumnRequest) SetForeignTableId(v int64) {
+	o.ForeignTableId = &v
 }
 
 // GetName returns the Name field value
@@ -100,6 +108,54 @@ func (o *ColumnRequest) GetNameOk() (*string, bool) {
 // SetName sets field value
 func (o *ColumnRequest) SetName(v string) {
 	o.Name = v
+}
+
+// GetOptions returns the Options field value
+func (o *ColumnRequest) GetOptions() []Option {
+	if o == nil {
+		var ret []Option
+		return ret
+	}
+
+	return o.Options
+}
+
+// GetOptionsOk returns a tuple with the Options field value
+// and a boolean to check if the value has been set.
+func (o *ColumnRequest) GetOptionsOk() ([]Option, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Options, true
+}
+
+// SetOptions sets field value
+func (o *ColumnRequest) SetOptions(v []Option) {
+	o.Options = v
+}
+
+// GetId returns the Id field value
+func (o *ColumnRequest) GetId() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *ColumnRequest) GetIdOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *ColumnRequest) SetId(v int32) {
+	o.Id = v
 }
 
 // GetLabel returns the Label field value
@@ -150,62 +206,6 @@ func (o *ColumnRequest) SetType(v string) {
 	o.Type = v
 }
 
-// GetOptions returns the Options field value
-func (o *ColumnRequest) GetOptions() []Option {
-	if o == nil {
-		var ret []Option
-		return ret
-	}
-
-	return o.Options
-}
-
-// GetOptionsOk returns a tuple with the Options field value
-// and a boolean to check if the value has been set.
-func (o *ColumnRequest) GetOptionsOk() ([]Option, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Options, true
-}
-
-// SetOptions sets field value
-func (o *ColumnRequest) SetOptions(v []Option) {
-	o.Options = v
-}
-
-// GetForeignTableId returns the ForeignTableId field value if set, zero value otherwise.
-func (o *ColumnRequest) GetForeignTableId() int64 {
-	if o == nil || o.ForeignTableId == nil {
-		var ret int64
-		return ret
-	}
-	return *o.ForeignTableId
-}
-
-// GetForeignTableIdOk returns a tuple with the ForeignTableId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ColumnRequest) GetForeignTableIdOk() (*int64, bool) {
-	if o == nil || o.ForeignTableId == nil {
-		return nil, false
-	}
-	return o.ForeignTableId, true
-}
-
-// HasForeignTableId returns a boolean if a field has been set.
-func (o *ColumnRequest) HasForeignTableId() bool {
-	if o != nil && o.ForeignTableId != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetForeignTableId gets a reference to the given int64 and assigns it to the ForeignTableId field.
-func (o *ColumnRequest) SetForeignTableId(v int64) {
-	o.ForeignTableId = &v
-}
-
 // GetForeignColumnId returns the ForeignColumnId field value if set, zero value otherwise.
 func (o *ColumnRequest) GetForeignColumnId() int32 {
 	if o == nil || o.ForeignColumnId == nil {
@@ -240,23 +240,23 @@ func (o *ColumnRequest) SetForeignColumnId(v int32) {
 
 func (o ColumnRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
+	if o.ForeignTableId != nil {
+		toSerialize["foreignTableId"] = o.ForeignTableId
 	}
 	if true {
 		toSerialize["name"] = o.Name
+	}
+	if true {
+		toSerialize["options"] = o.Options
+	}
+	if true {
+		toSerialize["id"] = o.Id
 	}
 	if true {
 		toSerialize["label"] = o.Label
 	}
 	if true {
 		toSerialize["type"] = o.Type
-	}
-	if true {
-		toSerialize["options"] = o.Options
-	}
-	if o.ForeignTableId != nil {
-		toSerialize["foreignTableId"] = o.ForeignTableId
 	}
 	if o.ForeignColumnId != nil {
 		toSerialize["foreignColumnId"] = o.ForeignColumnId

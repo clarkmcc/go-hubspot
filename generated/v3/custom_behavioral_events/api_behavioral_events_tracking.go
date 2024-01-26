@@ -1,5 +1,5 @@
 /*
-Custom Behavioral Events API
+Send Event Completions
 
 HTTP API for triggering instances of custom behavioral events
 
@@ -15,51 +15,53 @@ import (
 	"context"
 	"io/ioutil"
 	"net/http"
+
+	"github.com/clarkmcc/go-hubspot"
 	"net/url"
 )
 
 // BehavioralEventsTrackingApiService BehavioralEventsTrackingApi service
 type BehavioralEventsTrackingApiService service
 
-type ApiSendRequest struct {
+type ApiSendSendRequest struct {
 	ctx                                  context.Context
 	ApiService                           *BehavioralEventsTrackingApiService
 	behavioralEventHttpCompletionRequest *BehavioralEventHttpCompletionRequest
 }
 
-func (r ApiSendRequest) BehavioralEventHttpCompletionRequest(behavioralEventHttpCompletionRequest BehavioralEventHttpCompletionRequest) ApiSendRequest {
+func (r ApiSendSendRequest) BehavioralEventHttpCompletionRequest(behavioralEventHttpCompletionRequest BehavioralEventHttpCompletionRequest) ApiSendSendRequest {
 	r.behavioralEventHttpCompletionRequest = &behavioralEventHttpCompletionRequest
 	return r
 }
 
-func (r ApiSendRequest) Execute() (*http.Response, error) {
-	return r.ApiService.SendExecute(r)
+func (r ApiSendSendRequest) Execute() (*http.Response, error) {
+	return r.ApiService.SendSendExecute(r)
 }
 
 /*
-Send Sends Custom Behavioral Event
+SendSend Sends Custom Behavioral Event
 
 Endpoint to send an instance of a behavioral event
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiSendRequest
+ @return ApiSendSendRequest
 */
-func (a *BehavioralEventsTrackingApiService) Send(ctx context.Context) ApiSendRequest {
-	return ApiSendRequest{
+func (a *BehavioralEventsTrackingApiService) SendSend(ctx context.Context) ApiSendSendRequest {
+	return ApiSendSendRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *BehavioralEventsTrackingApiService) SendExecute(r ApiSendRequest) (*http.Response, error) {
+func (a *BehavioralEventsTrackingApiService) SendSendExecute(r ApiSendSendRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BehavioralEventsTrackingApiService.Send")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BehavioralEventsTrackingApiService.SendSend")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -94,16 +96,12 @@ func (a *BehavioralEventsTrackingApiService) SendExecute(r ApiSendRequest) (*htt
 	localVarPostBody = r.behavioralEventHttpCompletionRequest
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["private_apps_legacy"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["private-app-legacy"] = key
-			}
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)

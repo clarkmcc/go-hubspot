@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **EmailAddress** | **string** | Contact&#39;s email address. | 
-**SubscriptionId** | **string** | ID of the subscription being updated for the contact. | 
 **LegalBasis** | Pointer to **string** | Legal basis for updating the contact&#39;s status (required for GDPR enabled portals). | [optional] 
+**SubscriptionId** | **string** | ID of the subscription being updated for the contact. | 
 **LegalBasisExplanation** | Pointer to **string** | A more detailed explanation to go with the legal basis (required for GDPR enabled portals). | [optional] 
 
 ## Methods
@@ -48,26 +48,6 @@ and a boolean to check if the value has been set.
 SetEmailAddress sets EmailAddress field to given value.
 
 
-### GetSubscriptionId
-
-`func (o *PublicUpdateSubscriptionStatusRequest) GetSubscriptionId() string`
-
-GetSubscriptionId returns the SubscriptionId field if non-nil, zero value otherwise.
-
-### GetSubscriptionIdOk
-
-`func (o *PublicUpdateSubscriptionStatusRequest) GetSubscriptionIdOk() (*string, bool)`
-
-GetSubscriptionIdOk returns a tuple with the SubscriptionId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetSubscriptionId
-
-`func (o *PublicUpdateSubscriptionStatusRequest) SetSubscriptionId(v string)`
-
-SetSubscriptionId sets SubscriptionId field to given value.
-
-
 ### GetLegalBasis
 
 `func (o *PublicUpdateSubscriptionStatusRequest) GetLegalBasis() string`
@@ -92,6 +72,26 @@ SetLegalBasis sets LegalBasis field to given value.
 `func (o *PublicUpdateSubscriptionStatusRequest) HasLegalBasis() bool`
 
 HasLegalBasis returns a boolean if a field has been set.
+
+### GetSubscriptionId
+
+`func (o *PublicUpdateSubscriptionStatusRequest) GetSubscriptionId() string`
+
+GetSubscriptionId returns the SubscriptionId field if non-nil, zero value otherwise.
+
+### GetSubscriptionIdOk
+
+`func (o *PublicUpdateSubscriptionStatusRequest) GetSubscriptionIdOk() (*string, bool)`
+
+GetSubscriptionIdOk returns a tuple with the SubscriptionId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSubscriptionId
+
+`func (o *PublicUpdateSubscriptionStatusRequest) SetSubscriptionId(v string)`
+
+SetSubscriptionId sets SubscriptionId field to given value.
+
 
 ### GetLegalBasisExplanation
 

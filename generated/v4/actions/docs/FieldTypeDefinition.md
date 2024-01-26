@@ -4,18 +4,23 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** | The input field name. | 
-**Type** | **string** | The data type of the field. | 
-**FieldType** | Pointer to **string** | Controls how the field appears in HubSpot. | [optional] 
-**Options** | [**[]Option**](Option.md) | A list of valid options for the field value. | 
-**OptionsUrl** | Pointer to **string** | A URL that will accept HTTPS requests when the valid options for the field are fetched. | [optional] 
-**ReferencedObjectType** | Pointer to **string** | This can be set to &#x60;OWNER&#x60; if the field should contain a HubSpot owner value. | [optional] 
+**HelpText** | Pointer to **string** |  | [optional] 
+**ReferencedObjectType** | Pointer to **string** |  | [optional] 
+**Name** | **string** |  | 
+**Options** | [**[]Option**](Option.md) |  | 
+**Description** | Pointer to **string** |  | [optional] 
+**ExternalOptionsReferenceType** | Pointer to **string** |  | [optional] 
+**Label** | Pointer to **string** |  | [optional] 
+**Type** | **string** |  | 
+**FieldType** | Pointer to **string** |  | [optional] 
+**OptionsUrl** | Pointer to **string** |  | [optional] 
+**ExternalOptions** | **bool** |  | 
 
 ## Methods
 
 ### NewFieldTypeDefinition
 
-`func NewFieldTypeDefinition(name string, type_ string, options []Option, ) *FieldTypeDefinition`
+`func NewFieldTypeDefinition(name string, options []Option, type_ string, externalOptions bool, ) *FieldTypeDefinition`
 
 NewFieldTypeDefinition instantiates a new FieldTypeDefinition object
 This constructor will assign default values to properties that have it defined,
@@ -29,6 +34,56 @@ will change when the set of required properties is changed
 NewFieldTypeDefinitionWithDefaults instantiates a new FieldTypeDefinition object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetHelpText
+
+`func (o *FieldTypeDefinition) GetHelpText() string`
+
+GetHelpText returns the HelpText field if non-nil, zero value otherwise.
+
+### GetHelpTextOk
+
+`func (o *FieldTypeDefinition) GetHelpTextOk() (*string, bool)`
+
+GetHelpTextOk returns a tuple with the HelpText field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHelpText
+
+`func (o *FieldTypeDefinition) SetHelpText(v string)`
+
+SetHelpText sets HelpText field to given value.
+
+### HasHelpText
+
+`func (o *FieldTypeDefinition) HasHelpText() bool`
+
+HasHelpText returns a boolean if a field has been set.
+
+### GetReferencedObjectType
+
+`func (o *FieldTypeDefinition) GetReferencedObjectType() string`
+
+GetReferencedObjectType returns the ReferencedObjectType field if non-nil, zero value otherwise.
+
+### GetReferencedObjectTypeOk
+
+`func (o *FieldTypeDefinition) GetReferencedObjectTypeOk() (*string, bool)`
+
+GetReferencedObjectTypeOk returns a tuple with the ReferencedObjectType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReferencedObjectType
+
+`func (o *FieldTypeDefinition) SetReferencedObjectType(v string)`
+
+SetReferencedObjectType sets ReferencedObjectType field to given value.
+
+### HasReferencedObjectType
+
+`func (o *FieldTypeDefinition) HasReferencedObjectType() bool`
+
+HasReferencedObjectType returns a boolean if a field has been set.
 
 ### GetName
 
@@ -49,6 +104,101 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
+
+### GetOptions
+
+`func (o *FieldTypeDefinition) GetOptions() []Option`
+
+GetOptions returns the Options field if non-nil, zero value otherwise.
+
+### GetOptionsOk
+
+`func (o *FieldTypeDefinition) GetOptionsOk() (*[]Option, bool)`
+
+GetOptionsOk returns a tuple with the Options field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOptions
+
+`func (o *FieldTypeDefinition) SetOptions(v []Option)`
+
+SetOptions sets Options field to given value.
+
+
+### GetDescription
+
+`func (o *FieldTypeDefinition) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *FieldTypeDefinition) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *FieldTypeDefinition) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *FieldTypeDefinition) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
+
+### GetExternalOptionsReferenceType
+
+`func (o *FieldTypeDefinition) GetExternalOptionsReferenceType() string`
+
+GetExternalOptionsReferenceType returns the ExternalOptionsReferenceType field if non-nil, zero value otherwise.
+
+### GetExternalOptionsReferenceTypeOk
+
+`func (o *FieldTypeDefinition) GetExternalOptionsReferenceTypeOk() (*string, bool)`
+
+GetExternalOptionsReferenceTypeOk returns a tuple with the ExternalOptionsReferenceType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExternalOptionsReferenceType
+
+`func (o *FieldTypeDefinition) SetExternalOptionsReferenceType(v string)`
+
+SetExternalOptionsReferenceType sets ExternalOptionsReferenceType field to given value.
+
+### HasExternalOptionsReferenceType
+
+`func (o *FieldTypeDefinition) HasExternalOptionsReferenceType() bool`
+
+HasExternalOptionsReferenceType returns a boolean if a field has been set.
+
+### GetLabel
+
+`func (o *FieldTypeDefinition) GetLabel() string`
+
+GetLabel returns the Label field if non-nil, zero value otherwise.
+
+### GetLabelOk
+
+`func (o *FieldTypeDefinition) GetLabelOk() (*string, bool)`
+
+GetLabelOk returns a tuple with the Label field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLabel
+
+`func (o *FieldTypeDefinition) SetLabel(v string)`
+
+SetLabel sets Label field to given value.
+
+### HasLabel
+
+`func (o *FieldTypeDefinition) HasLabel() bool`
+
+HasLabel returns a boolean if a field has been set.
 
 ### GetType
 
@@ -95,26 +245,6 @@ SetFieldType sets FieldType field to given value.
 
 HasFieldType returns a boolean if a field has been set.
 
-### GetOptions
-
-`func (o *FieldTypeDefinition) GetOptions() []Option`
-
-GetOptions returns the Options field if non-nil, zero value otherwise.
-
-### GetOptionsOk
-
-`func (o *FieldTypeDefinition) GetOptionsOk() (*[]Option, bool)`
-
-GetOptionsOk returns a tuple with the Options field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetOptions
-
-`func (o *FieldTypeDefinition) SetOptions(v []Option)`
-
-SetOptions sets Options field to given value.
-
-
 ### GetOptionsUrl
 
 `func (o *FieldTypeDefinition) GetOptionsUrl() string`
@@ -140,30 +270,25 @@ SetOptionsUrl sets OptionsUrl field to given value.
 
 HasOptionsUrl returns a boolean if a field has been set.
 
-### GetReferencedObjectType
+### GetExternalOptions
 
-`func (o *FieldTypeDefinition) GetReferencedObjectType() string`
+`func (o *FieldTypeDefinition) GetExternalOptions() bool`
 
-GetReferencedObjectType returns the ReferencedObjectType field if non-nil, zero value otherwise.
+GetExternalOptions returns the ExternalOptions field if non-nil, zero value otherwise.
 
-### GetReferencedObjectTypeOk
+### GetExternalOptionsOk
 
-`func (o *FieldTypeDefinition) GetReferencedObjectTypeOk() (*string, bool)`
+`func (o *FieldTypeDefinition) GetExternalOptionsOk() (*bool, bool)`
 
-GetReferencedObjectTypeOk returns a tuple with the ReferencedObjectType field if it's non-nil, zero value otherwise
+GetExternalOptionsOk returns a tuple with the ExternalOptions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetReferencedObjectType
+### SetExternalOptions
 
-`func (o *FieldTypeDefinition) SetReferencedObjectType(v string)`
+`func (o *FieldTypeDefinition) SetExternalOptions(v bool)`
 
-SetReferencedObjectType sets ReferencedObjectType field to given value.
+SetExternalOptions sets ExternalOptions field to given value.
 
-### HasReferencedObjectType
-
-`func (o *FieldTypeDefinition) HasReferencedObjectType() bool`
-
-HasReferencedObjectType returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

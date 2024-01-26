@@ -87,6 +87,7 @@ Class | Method | HTTP request | Description
 *BatchApi* | [**BatchCreate**](docs/BatchApi.md#batchcreate) | **Post** /crm/v3/objects/deals/batch/create | Create a batch of deals
 *BatchApi* | [**BatchRead**](docs/BatchApi.md#batchread) | **Post** /crm/v3/objects/deals/batch/read | Read a batch of deals by internal ID, or unique property values
 *BatchApi* | [**BatchUpdate**](docs/BatchApi.md#batchupdate) | **Post** /crm/v3/objects/deals/batch/update | Update a batch of deals
+*GDPRApi* | [**PostCrmV3ObjectsDealsGdprDeletePurge**](docs/GDPRApi.md#postcrmv3objectsdealsgdprdeletepurge) | **Post** /crm/v3/objects/deals/gdpr-delete | GDPR DELETE
 *PublicObjectApi* | [**Merge**](docs/PublicObjectApi.md#merge) | **Post** /crm/v3/objects/deals/merge | Merge two deals with same type
 *SearchApi* | [**Search**](docs/SearchApi.md#search) | **Post** /crm/v3/objects/deals/search | 
 
@@ -113,6 +114,7 @@ Class | Method | HTTP request | Description
  - [Paging](docs/Paging.md)
  - [PreviousPage](docs/PreviousPage.md)
  - [PublicAssociationsForObject](docs/PublicAssociationsForObject.md)
+ - [PublicGdprDeleteInput](docs/PublicGdprDeleteInput.md)
  - [PublicMergeInput](docs/PublicMergeInput.md)
  - [PublicObjectId](docs/PublicObjectId.md)
  - [PublicObjectSearchRequest](docs/PublicObjectSearchRequest.md)
@@ -138,7 +140,49 @@ Class | Method | HTTP request | Description
 - **Authorization URL**: https://app.hubspot.com/oauth/authorize
 - **Scopes**: 
  - **crm.objects.deals.read**:  
+ - **crm.objects.line_items.read**: Line Items
  - **crm.objects.deals.write**:  
+ - **crm.objects.quotes.read**: Quotes
+ - **crm.objects.line_items.write**: Line Items
+ - **crm.objects.companies.read**:  
+ - **crm.objects.companies.write**:  
+ - **crm.objects.contacts.write**:  
+ - **crm.objects.contacts.read**:  
+ - **crm.objects.quotes.write**: Quotes
+
+Example
+
+```golang
+auth := context.WithValue(context.Background(), sw.ContextAccessToken, "ACCESSTOKENSTRING")
+r, err := client.Service.Operation(auth, args)
+```
+
+Or via OAuth2 module to automatically refresh tokens and perform user authentication.
+
+```golang
+import "golang.org/x/oauth2"
+
+/* Perform OAuth2 round trip request and obtain a token */
+
+tokenSource := oauth2cfg.TokenSource(createContext(httpClient), &token)
+auth := context.WithValue(oauth2.NoContext, sw.ContextOAuth2, tokenSource)
+r, err := client.Service.Operation(auth, args)
+```
+
+
+### oauth2_legacy
+
+
+- **Type**: OAuth
+- **Flow**: accessCode
+- **Authorization URL**: https://app.hubspot.com/oauth/authorize
+- **Scopes**: 
+ - **media_bridge.read**: Read media and media events
+ - **crm.objects.goals.read**: Read goals
+ - **tickets**: Read and write tickets
+ - **crm.objects.custom.read**: View custom object records
+ - **e-commerce**: e-commerce
+ - **crm.objects.custom.write**: Change custom object records
 
 Example
 

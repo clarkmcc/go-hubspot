@@ -15,6 +15,8 @@ import (
 	"context"
 	"io/ioutil"
 	"net/http"
+
+	"github.com/clarkmcc/go-hubspot"
 	"net/url"
 	"os"
 	"strings"
@@ -93,16 +95,12 @@ func (a *ContentApiService) ContentArchiveExecute(r ApiContentArchiveRequest) (*
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["private_apps_legacy"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["private-app-legacy"] = key
-			}
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
@@ -239,16 +237,12 @@ func (a *ContentApiService) ContentCreateExecute(r ApiContentCreateRequest) (*As
 	formFiles = append(formFiles, formFile{fileBytes: fileLocalVarFileBytes, fileName: fileLocalVarFileName, formFileName: fileLocalVarFormFileName})
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["private_apps_legacy"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["private-app-legacy"] = key
-			}
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
@@ -295,29 +289,29 @@ func (a *ContentApiService) ContentCreateExecute(r ApiContentCreateRequest) (*As
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiContentGetRequest struct {
+type ApiGetCmsV3SourceCodeEnvironmentContentPathDownloadRequest struct {
 	ctx         context.Context
 	ApiService  *ContentApiService
 	environment string
 	path        string
 }
 
-func (r ApiContentGetRequest) Execute() (*Error, *http.Response, error) {
-	return r.ApiService.ContentGetExecute(r)
+func (r ApiGetCmsV3SourceCodeEnvironmentContentPathDownloadRequest) Execute() (*Error, *http.Response, error) {
+	return r.ApiService.GetCmsV3SourceCodeEnvironmentContentPathDownloadExecute(r)
 }
 
 /*
-ContentGet Download a file
+GetCmsV3SourceCodeEnvironmentContentPathDownload Download a file
 
 Downloads the byte contents of the file at the specified path in the specified environment.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param environment The environment of the file (\"draft\" or \"published\").
  @param path The file system location of the file.
- @return ApiContentGetRequest
+ @return ApiGetCmsV3SourceCodeEnvironmentContentPathDownloadRequest
 */
-func (a *ContentApiService) ContentGet(ctx context.Context, environment string, path string) ApiContentGetRequest {
-	return ApiContentGetRequest{
+func (a *ContentApiService) GetCmsV3SourceCodeEnvironmentContentPathDownload(ctx context.Context, environment string, path string) ApiGetCmsV3SourceCodeEnvironmentContentPathDownloadRequest {
+	return ApiGetCmsV3SourceCodeEnvironmentContentPathDownloadRequest{
 		ApiService:  a,
 		ctx:         ctx,
 		environment: environment,
@@ -327,7 +321,7 @@ func (a *ContentApiService) ContentGet(ctx context.Context, environment string, 
 
 // Execute executes the request
 //  @return Error
-func (a *ContentApiService) ContentGetExecute(r ApiContentGetRequest) (*Error, *http.Response, error) {
+func (a *ContentApiService) GetCmsV3SourceCodeEnvironmentContentPathDownloadExecute(r ApiGetCmsV3SourceCodeEnvironmentContentPathDownloadRequest) (*Error, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -335,7 +329,7 @@ func (a *ContentApiService) ContentGetExecute(r ApiContentGetRequest) (*Error, *
 		localVarReturnValue *Error
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ContentApiService.ContentGet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ContentApiService.GetCmsV3SourceCodeEnvironmentContentPathDownload")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -367,16 +361,12 @@ func (a *ContentApiService) ContentGetExecute(r ApiContentGetRequest) (*Error, *
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["private_apps_legacy"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["private-app-legacy"] = key
-			}
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
@@ -423,7 +413,7 @@ func (a *ContentApiService) ContentGetExecute(r ApiContentGetRequest) (*Error, *
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiContentReplaceRequest struct {
+type ApiPutCmsV3SourceCodeEnvironmentContentPathCreateOrUpdateRequest struct {
 	ctx         context.Context
 	ApiService  *ContentApiService
 	environment string
@@ -432,27 +422,27 @@ type ApiContentReplaceRequest struct {
 }
 
 // The file to upload.
-func (r ApiContentReplaceRequest) File(file *os.File) ApiContentReplaceRequest {
+func (r ApiPutCmsV3SourceCodeEnvironmentContentPathCreateOrUpdateRequest) File(file *os.File) ApiPutCmsV3SourceCodeEnvironmentContentPathCreateOrUpdateRequest {
 	r.file = &file
 	return r
 }
 
-func (r ApiContentReplaceRequest) Execute() (*AssetFileMetadata, *http.Response, error) {
-	return r.ApiService.ContentReplaceExecute(r)
+func (r ApiPutCmsV3SourceCodeEnvironmentContentPathCreateOrUpdateRequest) Execute() (*AssetFileMetadata, *http.Response, error) {
+	return r.ApiService.PutCmsV3SourceCodeEnvironmentContentPathCreateOrUpdateExecute(r)
 }
 
 /*
-ContentReplace Create or update a file
+PutCmsV3SourceCodeEnvironmentContentPathCreateOrUpdate Create or update a file
 
 Upserts a file at the specified path in the specified environment. Accepts multipart/form-data content type.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param environment The environment of the file (\"draft\" or \"published\").
  @param path The file system location of the file.
- @return ApiContentReplaceRequest
+ @return ApiPutCmsV3SourceCodeEnvironmentContentPathCreateOrUpdateRequest
 */
-func (a *ContentApiService) ContentReplace(ctx context.Context, environment string, path string) ApiContentReplaceRequest {
-	return ApiContentReplaceRequest{
+func (a *ContentApiService) PutCmsV3SourceCodeEnvironmentContentPathCreateOrUpdate(ctx context.Context, environment string, path string) ApiPutCmsV3SourceCodeEnvironmentContentPathCreateOrUpdateRequest {
+	return ApiPutCmsV3SourceCodeEnvironmentContentPathCreateOrUpdateRequest{
 		ApiService:  a,
 		ctx:         ctx,
 		environment: environment,
@@ -462,7 +452,7 @@ func (a *ContentApiService) ContentReplace(ctx context.Context, environment stri
 
 // Execute executes the request
 //  @return AssetFileMetadata
-func (a *ContentApiService) ContentReplaceExecute(r ApiContentReplaceRequest) (*AssetFileMetadata, *http.Response, error) {
+func (a *ContentApiService) PutCmsV3SourceCodeEnvironmentContentPathCreateOrUpdateExecute(r ApiPutCmsV3SourceCodeEnvironmentContentPathCreateOrUpdateRequest) (*AssetFileMetadata, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
@@ -470,7 +460,7 @@ func (a *ContentApiService) ContentReplaceExecute(r ApiContentReplaceRequest) (*
 		localVarReturnValue *AssetFileMetadata
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ContentApiService.ContentReplace")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ContentApiService.PutCmsV3SourceCodeEnvironmentContentPathCreateOrUpdate")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -519,16 +509,12 @@ func (a *ContentApiService) ContentReplaceExecute(r ApiContentReplaceRequest) (*
 	formFiles = append(formFiles, formFile{fileBytes: fileLocalVarFileBytes, fileName: fileLocalVarFileName, formFileName: fileLocalVarFormFileName})
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["private_apps_legacy"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["private-app-legacy"] = key
-			}
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
 		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)

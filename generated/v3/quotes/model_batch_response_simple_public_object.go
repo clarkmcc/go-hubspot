@@ -17,24 +17,24 @@ import (
 
 // BatchResponseSimplePublicObject struct for BatchResponseSimplePublicObject
 type BatchResponseSimplePublicObject struct {
-	Status      string               `json:"status"`
-	Results     []SimplePublicObject `json:"results"`
+	CompletedAt time.Time            `json:"completedAt"`
 	RequestedAt *time.Time           `json:"requestedAt,omitempty"`
 	StartedAt   time.Time            `json:"startedAt"`
-	CompletedAt time.Time            `json:"completedAt"`
 	Links       *map[string]string   `json:"links,omitempty"`
+	Results     []SimplePublicObject `json:"results"`
+	Status      string               `json:"status"`
 }
 
 // NewBatchResponseSimplePublicObject instantiates a new BatchResponseSimplePublicObject object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBatchResponseSimplePublicObject(status string, results []SimplePublicObject, startedAt time.Time, completedAt time.Time) *BatchResponseSimplePublicObject {
+func NewBatchResponseSimplePublicObject(completedAt time.Time, startedAt time.Time, results []SimplePublicObject, status string) *BatchResponseSimplePublicObject {
 	this := BatchResponseSimplePublicObject{}
-	this.Status = status
-	this.Results = results
-	this.StartedAt = startedAt
 	this.CompletedAt = completedAt
+	this.StartedAt = startedAt
+	this.Results = results
+	this.Status = status
 	return &this
 }
 
@@ -46,52 +46,28 @@ func NewBatchResponseSimplePublicObjectWithDefaults() *BatchResponseSimplePublic
 	return &this
 }
 
-// GetStatus returns the Status field value
-func (o *BatchResponseSimplePublicObject) GetStatus() string {
+// GetCompletedAt returns the CompletedAt field value
+func (o *BatchResponseSimplePublicObject) GetCompletedAt() time.Time {
 	if o == nil {
-		var ret string
+		var ret time.Time
 		return ret
 	}
 
-	return o.Status
+	return o.CompletedAt
 }
 
-// GetStatusOk returns a tuple with the Status field value
+// GetCompletedAtOk returns a tuple with the CompletedAt field value
 // and a boolean to check if the value has been set.
-func (o *BatchResponseSimplePublicObject) GetStatusOk() (*string, bool) {
+func (o *BatchResponseSimplePublicObject) GetCompletedAtOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Status, true
+	return &o.CompletedAt, true
 }
 
-// SetStatus sets field value
-func (o *BatchResponseSimplePublicObject) SetStatus(v string) {
-	o.Status = v
-}
-
-// GetResults returns the Results field value
-func (o *BatchResponseSimplePublicObject) GetResults() []SimplePublicObject {
-	if o == nil {
-		var ret []SimplePublicObject
-		return ret
-	}
-
-	return o.Results
-}
-
-// GetResultsOk returns a tuple with the Results field value
-// and a boolean to check if the value has been set.
-func (o *BatchResponseSimplePublicObject) GetResultsOk() ([]SimplePublicObject, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Results, true
-}
-
-// SetResults sets field value
-func (o *BatchResponseSimplePublicObject) SetResults(v []SimplePublicObject) {
-	o.Results = v
+// SetCompletedAt sets field value
+func (o *BatchResponseSimplePublicObject) SetCompletedAt(v time.Time) {
+	o.CompletedAt = v
 }
 
 // GetRequestedAt returns the RequestedAt field value if set, zero value otherwise.
@@ -150,30 +126,6 @@ func (o *BatchResponseSimplePublicObject) SetStartedAt(v time.Time) {
 	o.StartedAt = v
 }
 
-// GetCompletedAt returns the CompletedAt field value
-func (o *BatchResponseSimplePublicObject) GetCompletedAt() time.Time {
-	if o == nil {
-		var ret time.Time
-		return ret
-	}
-
-	return o.CompletedAt
-}
-
-// GetCompletedAtOk returns a tuple with the CompletedAt field value
-// and a boolean to check if the value has been set.
-func (o *BatchResponseSimplePublicObject) GetCompletedAtOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.CompletedAt, true
-}
-
-// SetCompletedAt sets field value
-func (o *BatchResponseSimplePublicObject) SetCompletedAt(v time.Time) {
-	o.CompletedAt = v
-}
-
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *BatchResponseSimplePublicObject) GetLinks() map[string]string {
 	if o == nil || o.Links == nil {
@@ -206,13 +158,58 @@ func (o *BatchResponseSimplePublicObject) SetLinks(v map[string]string) {
 	o.Links = &v
 }
 
+// GetResults returns the Results field value
+func (o *BatchResponseSimplePublicObject) GetResults() []SimplePublicObject {
+	if o == nil {
+		var ret []SimplePublicObject
+		return ret
+	}
+
+	return o.Results
+}
+
+// GetResultsOk returns a tuple with the Results field value
+// and a boolean to check if the value has been set.
+func (o *BatchResponseSimplePublicObject) GetResultsOk() ([]SimplePublicObject, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Results, true
+}
+
+// SetResults sets field value
+func (o *BatchResponseSimplePublicObject) SetResults(v []SimplePublicObject) {
+	o.Results = v
+}
+
+// GetStatus returns the Status field value
+func (o *BatchResponseSimplePublicObject) GetStatus() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value
+// and a boolean to check if the value has been set.
+func (o *BatchResponseSimplePublicObject) GetStatusOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Status, true
+}
+
+// SetStatus sets field value
+func (o *BatchResponseSimplePublicObject) SetStatus(v string) {
+	o.Status = v
+}
+
 func (o BatchResponseSimplePublicObject) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["status"] = o.Status
-	}
-	if true {
-		toSerialize["results"] = o.Results
+		toSerialize["completedAt"] = o.CompletedAt
 	}
 	if o.RequestedAt != nil {
 		toSerialize["requestedAt"] = o.RequestedAt
@@ -220,11 +217,14 @@ func (o BatchResponseSimplePublicObject) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["startedAt"] = o.StartedAt
 	}
-	if true {
-		toSerialize["completedAt"] = o.CompletedAt
-	}
 	if o.Links != nil {
 		toSerialize["links"] = o.Links
+	}
+	if true {
+		toSerialize["results"] = o.Results
+	}
+	if true {
+		toSerialize["status"] = o.Status
 	}
 	return json.Marshal(toSerialize)
 }

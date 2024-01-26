@@ -4,22 +4,22 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** | The ID of the definition. | 
-**Name** | **string** | The name of the subscription. | 
-**Description** | **string** | A description of the subscription. | 
-**Purpose** | Pointer to **string** | The purpose of this subscription or the department in your organization that uses it. | [optional] 
-**CommunicationMethod** | Pointer to **string** | The method or technology used to contact. | [optional] 
-**IsActive** | **bool** | Whether the definition is active or archived. | 
-**IsDefault** | **bool** | A subscription definition created by HubSpot. | 
 **IsInternal** | **bool** | A default description that is used by some HubSpot tools and cannot be edited. | 
 **CreatedAt** | **time.Time** | Time at which the definition was created. | 
+**IsDefault** | **bool** | A subscription definition created by HubSpot. | 
+**CommunicationMethod** | Pointer to **string** | The method or technology used to contact. | [optional] 
+**Purpose** | Pointer to **string** | The purpose of this subscription or the department in your organization that uses it. | [optional] 
+**Name** | **string** | The name of the subscription. | 
+**Description** | **string** | A description of the subscription. | 
+**Id** | **string** | The ID of the definition. | 
+**IsActive** | **bool** | Whether the definition is active or archived. | 
 **UpdatedAt** | **time.Time** | Time at which the definition was last updated. | 
 
 ## Methods
 
 ### NewSubscriptionDefinition
 
-`func NewSubscriptionDefinition(id string, name string, description string, isActive bool, isDefault bool, isInternal bool, createdAt time.Time, updatedAt time.Time, ) *SubscriptionDefinition`
+`func NewSubscriptionDefinition(isInternal bool, createdAt time.Time, isDefault bool, name string, description string, id string, isActive bool, updatedAt time.Time, ) *SubscriptionDefinition`
 
 NewSubscriptionDefinition instantiates a new SubscriptionDefinition object
 This constructor will assign default values to properties that have it defined,
@@ -34,25 +34,115 @@ NewSubscriptionDefinitionWithDefaults instantiates a new SubscriptionDefinition 
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetId
+### GetIsInternal
 
-`func (o *SubscriptionDefinition) GetId() string`
+`func (o *SubscriptionDefinition) GetIsInternal() bool`
 
-GetId returns the Id field if non-nil, zero value otherwise.
+GetIsInternal returns the IsInternal field if non-nil, zero value otherwise.
 
-### GetIdOk
+### GetIsInternalOk
 
-`func (o *SubscriptionDefinition) GetIdOk() (*string, bool)`
+`func (o *SubscriptionDefinition) GetIsInternalOk() (*bool, bool)`
 
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+GetIsInternalOk returns a tuple with the IsInternal field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetId
+### SetIsInternal
 
-`func (o *SubscriptionDefinition) SetId(v string)`
+`func (o *SubscriptionDefinition) SetIsInternal(v bool)`
 
-SetId sets Id field to given value.
+SetIsInternal sets IsInternal field to given value.
 
+
+### GetCreatedAt
+
+`func (o *SubscriptionDefinition) GetCreatedAt() time.Time`
+
+GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
+
+### GetCreatedAtOk
+
+`func (o *SubscriptionDefinition) GetCreatedAtOk() (*time.Time, bool)`
+
+GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedAt
+
+`func (o *SubscriptionDefinition) SetCreatedAt(v time.Time)`
+
+SetCreatedAt sets CreatedAt field to given value.
+
+
+### GetIsDefault
+
+`func (o *SubscriptionDefinition) GetIsDefault() bool`
+
+GetIsDefault returns the IsDefault field if non-nil, zero value otherwise.
+
+### GetIsDefaultOk
+
+`func (o *SubscriptionDefinition) GetIsDefaultOk() (*bool, bool)`
+
+GetIsDefaultOk returns a tuple with the IsDefault field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsDefault
+
+`func (o *SubscriptionDefinition) SetIsDefault(v bool)`
+
+SetIsDefault sets IsDefault field to given value.
+
+
+### GetCommunicationMethod
+
+`func (o *SubscriptionDefinition) GetCommunicationMethod() string`
+
+GetCommunicationMethod returns the CommunicationMethod field if non-nil, zero value otherwise.
+
+### GetCommunicationMethodOk
+
+`func (o *SubscriptionDefinition) GetCommunicationMethodOk() (*string, bool)`
+
+GetCommunicationMethodOk returns a tuple with the CommunicationMethod field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCommunicationMethod
+
+`func (o *SubscriptionDefinition) SetCommunicationMethod(v string)`
+
+SetCommunicationMethod sets CommunicationMethod field to given value.
+
+### HasCommunicationMethod
+
+`func (o *SubscriptionDefinition) HasCommunicationMethod() bool`
+
+HasCommunicationMethod returns a boolean if a field has been set.
+
+### GetPurpose
+
+`func (o *SubscriptionDefinition) GetPurpose() string`
+
+GetPurpose returns the Purpose field if non-nil, zero value otherwise.
+
+### GetPurposeOk
+
+`func (o *SubscriptionDefinition) GetPurposeOk() (*string, bool)`
+
+GetPurposeOk returns a tuple with the Purpose field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPurpose
+
+`func (o *SubscriptionDefinition) SetPurpose(v string)`
+
+SetPurpose sets Purpose field to given value.
+
+### HasPurpose
+
+`func (o *SubscriptionDefinition) HasPurpose() bool`
+
+HasPurpose returns a boolean if a field has been set.
 
 ### GetName
 
@@ -94,55 +184,25 @@ and a boolean to check if the value has been set.
 SetDescription sets Description field to given value.
 
 
-### GetPurpose
+### GetId
 
-`func (o *SubscriptionDefinition) GetPurpose() string`
+`func (o *SubscriptionDefinition) GetId() string`
 
-GetPurpose returns the Purpose field if non-nil, zero value otherwise.
+GetId returns the Id field if non-nil, zero value otherwise.
 
-### GetPurposeOk
+### GetIdOk
 
-`func (o *SubscriptionDefinition) GetPurposeOk() (*string, bool)`
+`func (o *SubscriptionDefinition) GetIdOk() (*string, bool)`
 
-GetPurposeOk returns a tuple with the Purpose field if it's non-nil, zero value otherwise
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetPurpose
+### SetId
 
-`func (o *SubscriptionDefinition) SetPurpose(v string)`
+`func (o *SubscriptionDefinition) SetId(v string)`
 
-SetPurpose sets Purpose field to given value.
+SetId sets Id field to given value.
 
-### HasPurpose
-
-`func (o *SubscriptionDefinition) HasPurpose() bool`
-
-HasPurpose returns a boolean if a field has been set.
-
-### GetCommunicationMethod
-
-`func (o *SubscriptionDefinition) GetCommunicationMethod() string`
-
-GetCommunicationMethod returns the CommunicationMethod field if non-nil, zero value otherwise.
-
-### GetCommunicationMethodOk
-
-`func (o *SubscriptionDefinition) GetCommunicationMethodOk() (*string, bool)`
-
-GetCommunicationMethodOk returns a tuple with the CommunicationMethod field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCommunicationMethod
-
-`func (o *SubscriptionDefinition) SetCommunicationMethod(v string)`
-
-SetCommunicationMethod sets CommunicationMethod field to given value.
-
-### HasCommunicationMethod
-
-`func (o *SubscriptionDefinition) HasCommunicationMethod() bool`
-
-HasCommunicationMethod returns a boolean if a field has been set.
 
 ### GetIsActive
 
@@ -162,66 +222,6 @@ and a boolean to check if the value has been set.
 `func (o *SubscriptionDefinition) SetIsActive(v bool)`
 
 SetIsActive sets IsActive field to given value.
-
-
-### GetIsDefault
-
-`func (o *SubscriptionDefinition) GetIsDefault() bool`
-
-GetIsDefault returns the IsDefault field if non-nil, zero value otherwise.
-
-### GetIsDefaultOk
-
-`func (o *SubscriptionDefinition) GetIsDefaultOk() (*bool, bool)`
-
-GetIsDefaultOk returns a tuple with the IsDefault field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetIsDefault
-
-`func (o *SubscriptionDefinition) SetIsDefault(v bool)`
-
-SetIsDefault sets IsDefault field to given value.
-
-
-### GetIsInternal
-
-`func (o *SubscriptionDefinition) GetIsInternal() bool`
-
-GetIsInternal returns the IsInternal field if non-nil, zero value otherwise.
-
-### GetIsInternalOk
-
-`func (o *SubscriptionDefinition) GetIsInternalOk() (*bool, bool)`
-
-GetIsInternalOk returns a tuple with the IsInternal field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetIsInternal
-
-`func (o *SubscriptionDefinition) SetIsInternal(v bool)`
-
-SetIsInternal sets IsInternal field to given value.
-
-
-### GetCreatedAt
-
-`func (o *SubscriptionDefinition) GetCreatedAt() time.Time`
-
-GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
-
-### GetCreatedAtOk
-
-`func (o *SubscriptionDefinition) GetCreatedAtOk() (*time.Time, bool)`
-
-GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCreatedAt
-
-`func (o *SubscriptionDefinition) SetCreatedAt(v time.Time)`
-
-SetCreatedAt sets CreatedAt field to given value.
 
 
 ### GetUpdatedAt

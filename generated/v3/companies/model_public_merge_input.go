@@ -16,18 +16,18 @@ import (
 
 // PublicMergeInput struct for PublicMergeInput
 type PublicMergeInput struct {
-	PrimaryObjectId string `json:"primaryObjectId"`
 	ObjectIdToMerge string `json:"objectIdToMerge"`
+	PrimaryObjectId string `json:"primaryObjectId"`
 }
 
 // NewPublicMergeInput instantiates a new PublicMergeInput object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPublicMergeInput(primaryObjectId string, objectIdToMerge string) *PublicMergeInput {
+func NewPublicMergeInput(objectIdToMerge string, primaryObjectId string) *PublicMergeInput {
 	this := PublicMergeInput{}
-	this.PrimaryObjectId = primaryObjectId
 	this.ObjectIdToMerge = objectIdToMerge
+	this.PrimaryObjectId = primaryObjectId
 	return &this
 }
 
@@ -37,30 +37,6 @@ func NewPublicMergeInput(primaryObjectId string, objectIdToMerge string) *Public
 func NewPublicMergeInputWithDefaults() *PublicMergeInput {
 	this := PublicMergeInput{}
 	return &this
-}
-
-// GetPrimaryObjectId returns the PrimaryObjectId field value
-func (o *PublicMergeInput) GetPrimaryObjectId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.PrimaryObjectId
-}
-
-// GetPrimaryObjectIdOk returns a tuple with the PrimaryObjectId field value
-// and a boolean to check if the value has been set.
-func (o *PublicMergeInput) GetPrimaryObjectIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.PrimaryObjectId, true
-}
-
-// SetPrimaryObjectId sets field value
-func (o *PublicMergeInput) SetPrimaryObjectId(v string) {
-	o.PrimaryObjectId = v
 }
 
 // GetObjectIdToMerge returns the ObjectIdToMerge field value
@@ -87,13 +63,37 @@ func (o *PublicMergeInput) SetObjectIdToMerge(v string) {
 	o.ObjectIdToMerge = v
 }
 
+// GetPrimaryObjectId returns the PrimaryObjectId field value
+func (o *PublicMergeInput) GetPrimaryObjectId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.PrimaryObjectId
+}
+
+// GetPrimaryObjectIdOk returns a tuple with the PrimaryObjectId field value
+// and a boolean to check if the value has been set.
+func (o *PublicMergeInput) GetPrimaryObjectIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PrimaryObjectId, true
+}
+
+// SetPrimaryObjectId sets field value
+func (o *PublicMergeInput) SetPrimaryObjectId(v string) {
+	o.PrimaryObjectId = v
+}
+
 func (o PublicMergeInput) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["primaryObjectId"] = o.PrimaryObjectId
+		toSerialize["objectIdToMerge"] = o.ObjectIdToMerge
 	}
 	if true {
-		toSerialize["objectIdToMerge"] = o.ObjectIdToMerge
+		toSerialize["primaryObjectId"] = o.PrimaryObjectId
 	}
 	return json.Marshal(toSerialize)
 }

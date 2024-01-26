@@ -1,5 +1,5 @@
 /*
-Marketing Events Extension
+Marketing Events
 
 These APIs allow you to interact with HubSpot's Marketing Events Extension. It allows you to: * Create, Read or update Marketing Event information in HubSpot * Specify whether a HubSpot contact has registered, attended or cancelled a registration to a Marketing Event. * Specify a URL that can be called to get the details of a Marketing Event.
 
@@ -32,8 +32,9 @@ type MarketingEventPublicReadResponse struct {
 	// The number of HubSpot contacts that registered for this marketing event, but did not attend. This field only had a value when the event is over.
 	NoShows int32 `json:"noShows"`
 	// The number of HubSpot contacts that registered for this marketing event, but later cancelled their registration.
-	Cancellations int32     `json:"cancellations"`
-	CreatedAt     time.Time `json:"createdAt"`
+	Cancellations int32 `json:"cancellations"`
+	//
+	CreatedAt time.Time `json:"createdAt"`
 	// The start date and time of the marketing event.
 	StartDateTime *time.Time `json:"startDateTime,omitempty"`
 	// A list of PropertyValues. These can be whatever kind of property names and values you want. However, they must already exist on the HubSpot account's definition of the MarketingEvent Object. If they don't they will be filtered out and not set. In order to do this you'll need to create a new PropertyGroup on the HubSpot account's MarketingEvent object for your specific app and create the Custom Property you want to track on that HubSpot account. Do not create any new default properties on the MarketingEvent object as that will apply to all HubSpot accounts.
@@ -45,8 +46,10 @@ type MarketingEventPublicReadResponse struct {
 	// The description of the marketing event.
 	EventDescription *string `json:"eventDescription,omitempty"`
 	// The name of the marketing event.
-	EventName string    `json:"eventName"`
-	Id        string    `json:"id"`
+	EventName string `json:"eventName"`
+	//
+	Id string `json:"id"`
+	//
 	UpdatedAt time.Time `json:"updatedAt"`
 }
 

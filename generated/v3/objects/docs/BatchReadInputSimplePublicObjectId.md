@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Properties** | **[]string** |  | 
 **PropertiesWithHistory** | **[]string** |  | 
 **IdProperty** | Pointer to **string** |  | [optional] 
 **Inputs** | [**[]SimplePublicObjectId**](SimplePublicObjectId.md) |  | 
+**Properties** | **[]string** |  | 
 
 ## Methods
 
 ### NewBatchReadInputSimplePublicObjectId
 
-`func NewBatchReadInputSimplePublicObjectId(properties []string, propertiesWithHistory []string, inputs []SimplePublicObjectId, ) *BatchReadInputSimplePublicObjectId`
+`func NewBatchReadInputSimplePublicObjectId(propertiesWithHistory []string, inputs []SimplePublicObjectId, properties []string, ) *BatchReadInputSimplePublicObjectId`
 
 NewBatchReadInputSimplePublicObjectId instantiates a new BatchReadInputSimplePublicObjectId object
 This constructor will assign default values to properties that have it defined,
@@ -27,26 +27,6 @@ will change when the set of required properties is changed
 NewBatchReadInputSimplePublicObjectIdWithDefaults instantiates a new BatchReadInputSimplePublicObjectId object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetProperties
-
-`func (o *BatchReadInputSimplePublicObjectId) GetProperties() []string`
-
-GetProperties returns the Properties field if non-nil, zero value otherwise.
-
-### GetPropertiesOk
-
-`func (o *BatchReadInputSimplePublicObjectId) GetPropertiesOk() (*[]string, bool)`
-
-GetPropertiesOk returns a tuple with the Properties field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetProperties
-
-`func (o *BatchReadInputSimplePublicObjectId) SetProperties(v []string)`
-
-SetProperties sets Properties field to given value.
-
 
 ### GetPropertiesWithHistory
 
@@ -111,6 +91,26 @@ and a boolean to check if the value has been set.
 `func (o *BatchReadInputSimplePublicObjectId) SetInputs(v []SimplePublicObjectId)`
 
 SetInputs sets Inputs field to given value.
+
+
+### GetProperties
+
+`func (o *BatchReadInputSimplePublicObjectId) GetProperties() []string`
+
+GetProperties returns the Properties field if non-nil, zero value otherwise.
+
+### GetPropertiesOk
+
+`func (o *BatchReadInputSimplePublicObjectId) GetPropertiesOk() (*[]string, bool)`
+
+GetPropertiesOk returns a tuple with the Properties field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProperties
+
+`func (o *BatchReadInputSimplePublicObjectId) SetProperties(v []string)`
+
+SetProperties sets Properties field to given value.
 
 
 

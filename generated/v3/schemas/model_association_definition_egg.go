@@ -18,10 +18,10 @@ import (
 type AssociationDefinitionEgg struct {
 	// ID of the primary object type to link from.
 	FromObjectTypeId string `json:"fromObjectTypeId"`
-	// ID of the target object type ID to link to.
-	ToObjectTypeId string `json:"toObjectTypeId"`
 	// A unique name for this association.
 	Name *string `json:"name,omitempty"`
+	// ID of the target object type ID to link to.
+	ToObjectTypeId string `json:"toObjectTypeId"`
 }
 
 // NewAssociationDefinitionEgg instantiates a new AssociationDefinitionEgg object
@@ -67,30 +67,6 @@ func (o *AssociationDefinitionEgg) SetFromObjectTypeId(v string) {
 	o.FromObjectTypeId = v
 }
 
-// GetToObjectTypeId returns the ToObjectTypeId field value
-func (o *AssociationDefinitionEgg) GetToObjectTypeId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.ToObjectTypeId
-}
-
-// GetToObjectTypeIdOk returns a tuple with the ToObjectTypeId field value
-// and a boolean to check if the value has been set.
-func (o *AssociationDefinitionEgg) GetToObjectTypeIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.ToObjectTypeId, true
-}
-
-// SetToObjectTypeId sets field value
-func (o *AssociationDefinitionEgg) SetToObjectTypeId(v string) {
-	o.ToObjectTypeId = v
-}
-
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *AssociationDefinitionEgg) GetName() string {
 	if o == nil || o.Name == nil {
@@ -123,16 +99,40 @@ func (o *AssociationDefinitionEgg) SetName(v string) {
 	o.Name = &v
 }
 
+// GetToObjectTypeId returns the ToObjectTypeId field value
+func (o *AssociationDefinitionEgg) GetToObjectTypeId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ToObjectTypeId
+}
+
+// GetToObjectTypeIdOk returns a tuple with the ToObjectTypeId field value
+// and a boolean to check if the value has been set.
+func (o *AssociationDefinitionEgg) GetToObjectTypeIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ToObjectTypeId, true
+}
+
+// SetToObjectTypeId sets field value
+func (o *AssociationDefinitionEgg) SetToObjectTypeId(v string) {
+	o.ToObjectTypeId = v
+}
+
 func (o AssociationDefinitionEgg) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
 		toSerialize["fromObjectTypeId"] = o.FromObjectTypeId
 	}
-	if true {
-		toSerialize["toObjectTypeId"] = o.ToObjectTypeId
-	}
 	if o.Name != nil {
 		toSerialize["name"] = o.Name
+	}
+	if true {
+		toSerialize["toObjectTypeId"] = o.ToObjectTypeId
 	}
 	return json.Marshal(toSerialize)
 }

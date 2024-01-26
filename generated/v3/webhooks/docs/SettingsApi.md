@@ -96,7 +96,7 @@ import (
 
 func main() {
     appId := int32(56) // int32 | 
-    settingsChangeRequest := *openapiclient.NewSettingsChangeRequest("TargetUrl_example", *openapiclient.NewThrottlingSettings(int32(123), "Period_example")) // SettingsChangeRequest | 
+    settingsChangeRequest := *openapiclient.NewSettingsChangeRequest(*openapiclient.NewThrottlingSettings("Period_example", int32(123)), "https://www.example.com/hubspot/target") // SettingsChangeRequest | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)

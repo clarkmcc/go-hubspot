@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Value** | **float32** |  | 
 **Units** | **string** |  | 
+**Value** | **float32** |  | 
 
 ## Methods
 
 ### NewAngle
 
-`func NewAngle(value float32, units string, ) *Angle`
+`func NewAngle(units string, value float32, ) *Angle`
 
 NewAngle instantiates a new Angle object
 This constructor will assign default values to properties that have it defined,
@@ -25,26 +25,6 @@ will change when the set of required properties is changed
 NewAngleWithDefaults instantiates a new Angle object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetValue
-
-`func (o *Angle) GetValue() float32`
-
-GetValue returns the Value field if non-nil, zero value otherwise.
-
-### GetValueOk
-
-`func (o *Angle) GetValueOk() (*float32, bool)`
-
-GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetValue
-
-`func (o *Angle) SetValue(v float32)`
-
-SetValue sets Value field to given value.
-
 
 ### GetUnits
 
@@ -64,6 +44,26 @@ and a boolean to check if the value has been set.
 `func (o *Angle) SetUnits(v string)`
 
 SetUnits sets Units field to given value.
+
+
+### GetValue
+
+`func (o *Angle) GetValue() float32`
+
+GetValue returns the Value field if non-nil, zero value otherwise.
+
+### GetValueOk
+
+`func (o *Angle) GetValueOk() (*float32, bool)`
+
+GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetValue
+
+`func (o *Angle) SetValue(v float32)`
+
+SetValue sets Value field to given value.
 
 
 

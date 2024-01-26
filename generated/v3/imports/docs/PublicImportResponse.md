@@ -4,22 +4,22 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**State** | **string** | The status of the import. | 
 **ImportTemplate** | Pointer to [**ImportTemplate**](ImportTemplate.md) |  | [optional] 
-**ImportRequestJson** | Pointer to **map[string]interface{}** |  | [optional] 
-**ImportSource** | Pointer to **string** |  | [optional] 
 **CreatedAt** | **time.Time** |  | 
 **Metadata** | [**PublicImportMetadata**](PublicImportMetadata.md) |  | 
+**ImportRequestJson** | Pointer to **map[string]interface{}** |  | [optional] 
+**ImportSource** | Pointer to **string** |  | [optional] 
 **ImportName** | Pointer to **string** |  | [optional] 
-**UpdatedAt** | **time.Time** |  | 
-**OptOutImport** | **bool** | Whether or not the import is a list of people disqualified from receiving emails. | 
+**State** | **string** | The status of the import. | 
 **Id** | **string** |  | 
+**OptOutImport** | **bool** | Whether or not the import is a list of people disqualified from receiving emails. | 
+**UpdatedAt** | **time.Time** |  | 
 
 ## Methods
 
 ### NewPublicImportResponse
 
-`func NewPublicImportResponse(state string, createdAt time.Time, metadata PublicImportMetadata, updatedAt time.Time, optOutImport bool, id string, ) *PublicImportResponse`
+`func NewPublicImportResponse(createdAt time.Time, metadata PublicImportMetadata, state string, id string, optOutImport bool, updatedAt time.Time, ) *PublicImportResponse`
 
 NewPublicImportResponse instantiates a new PublicImportResponse object
 This constructor will assign default values to properties that have it defined,
@@ -33,26 +33,6 @@ will change when the set of required properties is changed
 NewPublicImportResponseWithDefaults instantiates a new PublicImportResponse object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetState
-
-`func (o *PublicImportResponse) GetState() string`
-
-GetState returns the State field if non-nil, zero value otherwise.
-
-### GetStateOk
-
-`func (o *PublicImportResponse) GetStateOk() (*string, bool)`
-
-GetStateOk returns a tuple with the State field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetState
-
-`func (o *PublicImportResponse) SetState(v string)`
-
-SetState sets State field to given value.
-
 
 ### GetImportTemplate
 
@@ -78,6 +58,46 @@ SetImportTemplate sets ImportTemplate field to given value.
 `func (o *PublicImportResponse) HasImportTemplate() bool`
 
 HasImportTemplate returns a boolean if a field has been set.
+
+### GetCreatedAt
+
+`func (o *PublicImportResponse) GetCreatedAt() time.Time`
+
+GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
+
+### GetCreatedAtOk
+
+`func (o *PublicImportResponse) GetCreatedAtOk() (*time.Time, bool)`
+
+GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedAt
+
+`func (o *PublicImportResponse) SetCreatedAt(v time.Time)`
+
+SetCreatedAt sets CreatedAt field to given value.
+
+
+### GetMetadata
+
+`func (o *PublicImportResponse) GetMetadata() PublicImportMetadata`
+
+GetMetadata returns the Metadata field if non-nil, zero value otherwise.
+
+### GetMetadataOk
+
+`func (o *PublicImportResponse) GetMetadataOk() (*PublicImportMetadata, bool)`
+
+GetMetadataOk returns a tuple with the Metadata field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMetadata
+
+`func (o *PublicImportResponse) SetMetadata(v PublicImportMetadata)`
+
+SetMetadata sets Metadata field to given value.
+
 
 ### GetImportRequestJson
 
@@ -129,46 +149,6 @@ SetImportSource sets ImportSource field to given value.
 
 HasImportSource returns a boolean if a field has been set.
 
-### GetCreatedAt
-
-`func (o *PublicImportResponse) GetCreatedAt() time.Time`
-
-GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
-
-### GetCreatedAtOk
-
-`func (o *PublicImportResponse) GetCreatedAtOk() (*time.Time, bool)`
-
-GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCreatedAt
-
-`func (o *PublicImportResponse) SetCreatedAt(v time.Time)`
-
-SetCreatedAt sets CreatedAt field to given value.
-
-
-### GetMetadata
-
-`func (o *PublicImportResponse) GetMetadata() PublicImportMetadata`
-
-GetMetadata returns the Metadata field if non-nil, zero value otherwise.
-
-### GetMetadataOk
-
-`func (o *PublicImportResponse) GetMetadataOk() (*PublicImportMetadata, bool)`
-
-GetMetadataOk returns a tuple with the Metadata field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetMetadata
-
-`func (o *PublicImportResponse) SetMetadata(v PublicImportMetadata)`
-
-SetMetadata sets Metadata field to given value.
-
-
 ### GetImportName
 
 `func (o *PublicImportResponse) GetImportName() string`
@@ -194,24 +174,44 @@ SetImportName sets ImportName field to given value.
 
 HasImportName returns a boolean if a field has been set.
 
-### GetUpdatedAt
+### GetState
 
-`func (o *PublicImportResponse) GetUpdatedAt() time.Time`
+`func (o *PublicImportResponse) GetState() string`
 
-GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
+GetState returns the State field if non-nil, zero value otherwise.
 
-### GetUpdatedAtOk
+### GetStateOk
 
-`func (o *PublicImportResponse) GetUpdatedAtOk() (*time.Time, bool)`
+`func (o *PublicImportResponse) GetStateOk() (*string, bool)`
 
-GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
+GetStateOk returns a tuple with the State field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetUpdatedAt
+### SetState
 
-`func (o *PublicImportResponse) SetUpdatedAt(v time.Time)`
+`func (o *PublicImportResponse) SetState(v string)`
 
-SetUpdatedAt sets UpdatedAt field to given value.
+SetState sets State field to given value.
+
+
+### GetId
+
+`func (o *PublicImportResponse) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *PublicImportResponse) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *PublicImportResponse) SetId(v string)`
+
+SetId sets Id field to given value.
 
 
 ### GetOptOutImport
@@ -234,24 +234,24 @@ and a boolean to check if the value has been set.
 SetOptOutImport sets OptOutImport field to given value.
 
 
-### GetId
+### GetUpdatedAt
 
-`func (o *PublicImportResponse) GetId() string`
+`func (o *PublicImportResponse) GetUpdatedAt() time.Time`
 
-GetId returns the Id field if non-nil, zero value otherwise.
+GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
 
-### GetIdOk
+### GetUpdatedAtOk
 
-`func (o *PublicImportResponse) GetIdOk() (*string, bool)`
+`func (o *PublicImportResponse) GetUpdatedAtOk() (*time.Time, bool)`
 
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetId
+### SetUpdatedAt
 
-`func (o *PublicImportResponse) SetId(v string)`
+`func (o *PublicImportResponse) SetUpdatedAt(v time.Time)`
 
-SetId sets Id field to given value.
+SetUpdatedAt sets UpdatedAt field to given value.
 
 
 

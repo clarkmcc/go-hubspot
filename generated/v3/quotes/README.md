@@ -87,6 +87,7 @@ Class | Method | HTTP request | Description
 *BatchApi* | [**BatchCreate**](docs/BatchApi.md#batchcreate) | **Post** /crm/v3/objects/quotes/batch/create | Create a batch of quotes
 *BatchApi* | [**BatchRead**](docs/BatchApi.md#batchread) | **Post** /crm/v3/objects/quotes/batch/read | Read a batch of quotes by internal ID, or unique property values
 *BatchApi* | [**BatchUpdate**](docs/BatchApi.md#batchupdate) | **Post** /crm/v3/objects/quotes/batch/update | Update a batch of quotes
+*GDPRApi* | [**PostCrmV3ObjectsQuotesGdprDeletePurge**](docs/GDPRApi.md#postcrmv3objectsquotesgdprdeletepurge) | **Post** /crm/v3/objects/quotes/gdpr-delete | GDPR DELETE
 *PublicObjectApi* | [**Merge**](docs/PublicObjectApi.md#merge) | **Post** /crm/v3/objects/quotes/merge | Merge two quotes with same type
 *SearchApi* | [**Search**](docs/SearchApi.md#search) | **Post** /crm/v3/objects/quotes/search | 
 
@@ -113,6 +114,7 @@ Class | Method | HTTP request | Description
  - [Paging](docs/Paging.md)
  - [PreviousPage](docs/PreviousPage.md)
  - [PublicAssociationsForObject](docs/PublicAssociationsForObject.md)
+ - [PublicGdprDeleteInput](docs/PublicGdprDeleteInput.md)
  - [PublicMergeInput](docs/PublicMergeInput.md)
  - [PublicObjectId](docs/PublicObjectId.md)
  - [PublicObjectSearchRequest](docs/PublicObjectSearchRequest.md)
@@ -137,8 +139,16 @@ Class | Method | HTTP request | Description
 - **Flow**: accessCode
 - **Authorization URL**: https://app.hubspot.com/oauth/authorize
 - **Scopes**: 
- - **crm.objects.quotes.read**: Quotes
+ - **crm.objects.line_items.read**: Line Items
+ - **crm.objects.deals.read**:  
  - **crm.objects.quotes.write**: Quotes
+ - **crm.objects.contacts.read**:  
+ - **crm.objects.contacts.write**:  
+ - **crm.objects.companies.write**:  
+ - **crm.objects.companies.read**:  
+ - **crm.objects.line_items.write**: Line Items
+ - **crm.objects.quotes.read**: Quotes
+ - **crm.objects.deals.write**:  
 
 Example
 
@@ -167,7 +177,12 @@ r, err := client.Service.Operation(auth, args)
 - **Flow**: accessCode
 - **Authorization URL**: https://app.hubspot.com/oauth/authorize
 - **Scopes**: 
+ - **crm.objects.goals.read**: Read goals
+ - **media_bridge.read**: Read media and media events
+ - **crm.objects.custom.write**: Change custom object records
  - **e-commerce**: e-commerce
+ - **crm.objects.custom.read**: View custom object records
+ - **tickets**: Read and write tickets
 
 Example
 

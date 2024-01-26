@@ -92,9 +92,9 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*AssociationsApi* | [**AssociationsArchive**](docs/AssociationsApi.md#associationsarchive) | **Delete** /crm/v3/objects/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}/{associationType} | Remove an association between two objects
-*AssociationsApi* | [**AssociationsCreate**](docs/AssociationsApi.md#associationscreate) | **Put** /crm/v3/objects/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}/{associationType} | Associate an object with another object
-*AssociationsApi* | [**AssociationsGetAll**](docs/AssociationsApi.md#associationsgetall) | **Get** /crm/v3/objects/{objectType}/{objectId}/associations/{toObjectType} | List associations of an object by type
+*AssociationsApi* | [**DeleteCrmV3ObjectsObjectTypeObjectIdAssociationsToObjectTypeToObjectIdAssociationType**](docs/AssociationsApi.md#deletecrmv3objectsobjecttypeobjectidassociationstoobjecttypetoobjectidassociationtype) | **Delete** /crm/v3/objects/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}/{associationType} | Remove an association between two objects
+*AssociationsApi* | [**GetCrmV3ObjectsObjectTypeObjectIdAssociationsToObjectType**](docs/AssociationsApi.md#getcrmv3objectsobjecttypeobjectidassociationstoobjecttype) | **Get** /crm/v3/objects/{objectType}/{objectId}/associations/{toObjectType} | List associations of an object by type
+*AssociationsApi* | [**PutCrmV3ObjectsObjectTypeObjectIdAssociationsToObjectTypeToObjectIdAssociationType**](docs/AssociationsApi.md#putcrmv3objectsobjecttypeobjectidassociationstoobjecttypetoobjectidassociationtype) | **Put** /crm/v3/objects/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}/{associationType} | Associate an object with another object
 *BasicApi* | [**Archive**](docs/BasicApi.md#archive) | **Delete** /crm/v3/objects/{objectType}/{objectId} | Archive
 *BasicApi* | [**Create**](docs/BasicApi.md#create) | **Post** /crm/v3/objects/{objectType} | Create
 *BasicApi* | [**GetByID**](docs/BasicApi.md#getbyid) | **Get** /crm/v3/objects/{objectType}/{objectId} | Read
@@ -103,7 +103,7 @@ Class | Method | HTTP request | Description
 *BatchApi* | [**BatchArchive**](docs/BatchApi.md#batcharchive) | **Post** /crm/v3/objects/{objectType}/batch/archive | Archive a batch of objects by ID
 *BatchApi* | [**BatchCreate**](docs/BatchApi.md#batchcreate) | **Post** /crm/v3/objects/{objectType}/batch/create | Create a batch of objects
 *BatchApi* | [**BatchRead**](docs/BatchApi.md#batchread) | **Post** /crm/v3/objects/{objectType}/batch/read | Read a batch of objects by internal ID, or unique property values
-*BatchApi* | [**BatchUpdate**](docs/BatchApi.md#batchupdate) | **Post** /crm/v3/objects/{objectType}/batch/update | Update a batch of objects
+*BatchApi* | [**BatchUpdate**](docs/BatchApi.md#batchupdate) | **Post** /crm/v3/objects/{objectType}/batch/update | Update a batch of objects by internal ID, or unique property values
 *GDPRApi* | [**Delete**](docs/GDPRApi.md#delete) | **Post** /crm/v3/objects/{objectType}/gdpr-delete | GDPR DELETE
 *PublicObjectApi* | [**Merge**](docs/PublicObjectApi.md#merge) | **Post** /crm/v3/objects/{objectType}/merge | Merge two objects with same type
 *SearchApi* | [**Search**](docs/SearchApi.md#search) | **Post** /crm/v3/objects/{objectType}/search | 
@@ -157,6 +157,9 @@ Class | Method | HTTP request | Description
 - **Flow**: accessCode
 - **Authorization URL**: https://app.hubspot.com/oauth/authorize
 - **Scopes**: 
+ - **crm.objects.deals.read**:  
+ - **crm.objects.line_items.read**: Line Items
+ - **crm.objects.deals.write**:  
  - **crm.objects.quotes.read**: Quotes
  - **crm.objects.line_items.write**: Line Items
  - **crm.objects.companies.read**:  
@@ -164,9 +167,6 @@ Class | Method | HTTP request | Description
  - **crm.objects.contacts.write**:  
  - **crm.objects.contacts.read**:  
  - **crm.objects.quotes.write**: Quotes
- - **crm.objects.deals.read**:  
- - **crm.objects.line_items.read**: Line Items
- - **crm.objects.deals.write**:  
 
 Example
 
@@ -195,12 +195,12 @@ r, err := client.Service.Operation(auth, args)
 - **Flow**: accessCode
 - **Authorization URL**: https://app.hubspot.com/oauth/authorize
 - **Scopes**: 
- - **e-commerce**: e-commerce
- - **crm.objects.custom.write**: Change custom object records
- - **crm.objects.custom.read**: View custom object records
+ - **media_bridge.read**: Read media and media events
  - **crm.objects.goals.read**: Read goals
  - **tickets**: Read and write tickets
- - **media_bridge.read**: Read media and media events
+ - **crm.objects.custom.read**: View custom object records
+ - **e-commerce**: e-commerce
+ - **crm.objects.custom.write**: Change custom object records
 
 Example
 

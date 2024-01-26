@@ -4,20 +4,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Status** | **string** | Status of batch operation. | 
-**Results** | [**[]Tag**](Tag.md) | Results of batch operation. | 
+**CompletedAt** | **time.Time** | Time of batch operation completion. | 
 **NumErrors** | Pointer to **int32** | Number of errors. | [optional] 
-**Errors** | Pointer to [**[]StandardError**](StandardError.md) | Errors in batch operation. | [optional] 
 **RequestedAt** | Pointer to **time.Time** | Time of batch operation request. | [optional] 
 **StartedAt** | **time.Time** | Time of batch operation start. | 
-**CompletedAt** | **time.Time** | Time of batch operation completion. | 
 **Links** | Pointer to **map[string]string** | Links associated with batch operation. | [optional] 
+**Results** | [**[]Tag**](Tag.md) | Results of batch operation. | 
+**Errors** | Pointer to [**[]StandardError**](StandardError.md) | Errors in batch operation. | [optional] 
+**Status** | **string** | Status of batch operation. | 
 
 ## Methods
 
 ### NewBatchResponseTagWithErrors
 
-`func NewBatchResponseTagWithErrors(status string, results []Tag, startedAt time.Time, completedAt time.Time, ) *BatchResponseTagWithErrors`
+`func NewBatchResponseTagWithErrors(completedAt time.Time, startedAt time.Time, results []Tag, status string, ) *BatchResponseTagWithErrors`
 
 NewBatchResponseTagWithErrors instantiates a new BatchResponseTagWithErrors object
 This constructor will assign default values to properties that have it defined,
@@ -32,44 +32,24 @@ NewBatchResponseTagWithErrorsWithDefaults instantiates a new BatchResponseTagWit
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetStatus
+### GetCompletedAt
 
-`func (o *BatchResponseTagWithErrors) GetStatus() string`
+`func (o *BatchResponseTagWithErrors) GetCompletedAt() time.Time`
 
-GetStatus returns the Status field if non-nil, zero value otherwise.
+GetCompletedAt returns the CompletedAt field if non-nil, zero value otherwise.
 
-### GetStatusOk
+### GetCompletedAtOk
 
-`func (o *BatchResponseTagWithErrors) GetStatusOk() (*string, bool)`
+`func (o *BatchResponseTagWithErrors) GetCompletedAtOk() (*time.Time, bool)`
 
-GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
+GetCompletedAtOk returns a tuple with the CompletedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetStatus
+### SetCompletedAt
 
-`func (o *BatchResponseTagWithErrors) SetStatus(v string)`
+`func (o *BatchResponseTagWithErrors) SetCompletedAt(v time.Time)`
 
-SetStatus sets Status field to given value.
-
-
-### GetResults
-
-`func (o *BatchResponseTagWithErrors) GetResults() []Tag`
-
-GetResults returns the Results field if non-nil, zero value otherwise.
-
-### GetResultsOk
-
-`func (o *BatchResponseTagWithErrors) GetResultsOk() (*[]Tag, bool)`
-
-GetResultsOk returns a tuple with the Results field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetResults
-
-`func (o *BatchResponseTagWithErrors) SetResults(v []Tag)`
-
-SetResults sets Results field to given value.
+SetCompletedAt sets CompletedAt field to given value.
 
 
 ### GetNumErrors
@@ -96,31 +76,6 @@ SetNumErrors sets NumErrors field to given value.
 `func (o *BatchResponseTagWithErrors) HasNumErrors() bool`
 
 HasNumErrors returns a boolean if a field has been set.
-
-### GetErrors
-
-`func (o *BatchResponseTagWithErrors) GetErrors() []StandardError`
-
-GetErrors returns the Errors field if non-nil, zero value otherwise.
-
-### GetErrorsOk
-
-`func (o *BatchResponseTagWithErrors) GetErrorsOk() (*[]StandardError, bool)`
-
-GetErrorsOk returns a tuple with the Errors field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetErrors
-
-`func (o *BatchResponseTagWithErrors) SetErrors(v []StandardError)`
-
-SetErrors sets Errors field to given value.
-
-### HasErrors
-
-`func (o *BatchResponseTagWithErrors) HasErrors() bool`
-
-HasErrors returns a boolean if a field has been set.
 
 ### GetRequestedAt
 
@@ -167,26 +122,6 @@ and a boolean to check if the value has been set.
 SetStartedAt sets StartedAt field to given value.
 
 
-### GetCompletedAt
-
-`func (o *BatchResponseTagWithErrors) GetCompletedAt() time.Time`
-
-GetCompletedAt returns the CompletedAt field if non-nil, zero value otherwise.
-
-### GetCompletedAtOk
-
-`func (o *BatchResponseTagWithErrors) GetCompletedAtOk() (*time.Time, bool)`
-
-GetCompletedAtOk returns a tuple with the CompletedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCompletedAt
-
-`func (o *BatchResponseTagWithErrors) SetCompletedAt(v time.Time)`
-
-SetCompletedAt sets CompletedAt field to given value.
-
-
 ### GetLinks
 
 `func (o *BatchResponseTagWithErrors) GetLinks() map[string]string`
@@ -211,6 +146,71 @@ SetLinks sets Links field to given value.
 `func (o *BatchResponseTagWithErrors) HasLinks() bool`
 
 HasLinks returns a boolean if a field has been set.
+
+### GetResults
+
+`func (o *BatchResponseTagWithErrors) GetResults() []Tag`
+
+GetResults returns the Results field if non-nil, zero value otherwise.
+
+### GetResultsOk
+
+`func (o *BatchResponseTagWithErrors) GetResultsOk() (*[]Tag, bool)`
+
+GetResultsOk returns a tuple with the Results field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetResults
+
+`func (o *BatchResponseTagWithErrors) SetResults(v []Tag)`
+
+SetResults sets Results field to given value.
+
+
+### GetErrors
+
+`func (o *BatchResponseTagWithErrors) GetErrors() []StandardError`
+
+GetErrors returns the Errors field if non-nil, zero value otherwise.
+
+### GetErrorsOk
+
+`func (o *BatchResponseTagWithErrors) GetErrorsOk() (*[]StandardError, bool)`
+
+GetErrorsOk returns a tuple with the Errors field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetErrors
+
+`func (o *BatchResponseTagWithErrors) SetErrors(v []StandardError)`
+
+SetErrors sets Errors field to given value.
+
+### HasErrors
+
+`func (o *BatchResponseTagWithErrors) HasErrors() bool`
+
+HasErrors returns a boolean if a field has been set.
+
+### GetStatus
+
+`func (o *BatchResponseTagWithErrors) GetStatus() string`
+
+GetStatus returns the Status field if non-nil, zero value otherwise.
+
+### GetStatusOk
+
+`func (o *BatchResponseTagWithErrors) GetStatusOk() (*string, bool)`
+
+GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStatus
+
+`func (o *BatchResponseTagWithErrors) SetStatus(v string)`
+
+SetStatus sets Status field to given value.
+
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

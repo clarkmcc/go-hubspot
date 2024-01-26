@@ -1,5 +1,5 @@
 /*
-Blog Post endpoints
+Authors
 
 Use these endpoints for interacting with Blog Posts, Blog Authors, and Blog Tags
 
@@ -17,30 +17,30 @@ import (
 
 // BatchResponseBlogAuthor Response object for batch operations on blog authors.
 type BatchResponseBlogAuthor struct {
-	// Status of batch operation.
-	Status string `json:"status"`
-	// Results of batch operation.
-	Results []BlogAuthor `json:"results"`
+	// Time of batch operation completion.
+	CompletedAt time.Time `json:"completedAt"`
 	// Time of batch operation request.
 	RequestedAt *time.Time `json:"requestedAt,omitempty"`
 	// Time of batch operation start.
 	StartedAt time.Time `json:"startedAt"`
-	// Time of batch operation completion.
-	CompletedAt time.Time `json:"completedAt"`
 	// Links associated with batch operation.
 	Links *map[string]string `json:"links,omitempty"`
+	// Results of batch operation.
+	Results []BlogAuthor `json:"results"`
+	// Status of batch operation.
+	Status string `json:"status"`
 }
 
 // NewBatchResponseBlogAuthor instantiates a new BatchResponseBlogAuthor object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBatchResponseBlogAuthor(status string, results []BlogAuthor, startedAt time.Time, completedAt time.Time) *BatchResponseBlogAuthor {
+func NewBatchResponseBlogAuthor(completedAt time.Time, startedAt time.Time, results []BlogAuthor, status string) *BatchResponseBlogAuthor {
 	this := BatchResponseBlogAuthor{}
-	this.Status = status
-	this.Results = results
-	this.StartedAt = startedAt
 	this.CompletedAt = completedAt
+	this.StartedAt = startedAt
+	this.Results = results
+	this.Status = status
 	return &this
 }
 
@@ -52,52 +52,28 @@ func NewBatchResponseBlogAuthorWithDefaults() *BatchResponseBlogAuthor {
 	return &this
 }
 
-// GetStatus returns the Status field value
-func (o *BatchResponseBlogAuthor) GetStatus() string {
+// GetCompletedAt returns the CompletedAt field value
+func (o *BatchResponseBlogAuthor) GetCompletedAt() time.Time {
 	if o == nil {
-		var ret string
+		var ret time.Time
 		return ret
 	}
 
-	return o.Status
+	return o.CompletedAt
 }
 
-// GetStatusOk returns a tuple with the Status field value
+// GetCompletedAtOk returns a tuple with the CompletedAt field value
 // and a boolean to check if the value has been set.
-func (o *BatchResponseBlogAuthor) GetStatusOk() (*string, bool) {
+func (o *BatchResponseBlogAuthor) GetCompletedAtOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Status, true
+	return &o.CompletedAt, true
 }
 
-// SetStatus sets field value
-func (o *BatchResponseBlogAuthor) SetStatus(v string) {
-	o.Status = v
-}
-
-// GetResults returns the Results field value
-func (o *BatchResponseBlogAuthor) GetResults() []BlogAuthor {
-	if o == nil {
-		var ret []BlogAuthor
-		return ret
-	}
-
-	return o.Results
-}
-
-// GetResultsOk returns a tuple with the Results field value
-// and a boolean to check if the value has been set.
-func (o *BatchResponseBlogAuthor) GetResultsOk() ([]BlogAuthor, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Results, true
-}
-
-// SetResults sets field value
-func (o *BatchResponseBlogAuthor) SetResults(v []BlogAuthor) {
-	o.Results = v
+// SetCompletedAt sets field value
+func (o *BatchResponseBlogAuthor) SetCompletedAt(v time.Time) {
+	o.CompletedAt = v
 }
 
 // GetRequestedAt returns the RequestedAt field value if set, zero value otherwise.
@@ -156,30 +132,6 @@ func (o *BatchResponseBlogAuthor) SetStartedAt(v time.Time) {
 	o.StartedAt = v
 }
 
-// GetCompletedAt returns the CompletedAt field value
-func (o *BatchResponseBlogAuthor) GetCompletedAt() time.Time {
-	if o == nil {
-		var ret time.Time
-		return ret
-	}
-
-	return o.CompletedAt
-}
-
-// GetCompletedAtOk returns a tuple with the CompletedAt field value
-// and a boolean to check if the value has been set.
-func (o *BatchResponseBlogAuthor) GetCompletedAtOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.CompletedAt, true
-}
-
-// SetCompletedAt sets field value
-func (o *BatchResponseBlogAuthor) SetCompletedAt(v time.Time) {
-	o.CompletedAt = v
-}
-
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *BatchResponseBlogAuthor) GetLinks() map[string]string {
 	if o == nil || o.Links == nil {
@@ -212,13 +164,58 @@ func (o *BatchResponseBlogAuthor) SetLinks(v map[string]string) {
 	o.Links = &v
 }
 
+// GetResults returns the Results field value
+func (o *BatchResponseBlogAuthor) GetResults() []BlogAuthor {
+	if o == nil {
+		var ret []BlogAuthor
+		return ret
+	}
+
+	return o.Results
+}
+
+// GetResultsOk returns a tuple with the Results field value
+// and a boolean to check if the value has been set.
+func (o *BatchResponseBlogAuthor) GetResultsOk() ([]BlogAuthor, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Results, true
+}
+
+// SetResults sets field value
+func (o *BatchResponseBlogAuthor) SetResults(v []BlogAuthor) {
+	o.Results = v
+}
+
+// GetStatus returns the Status field value
+func (o *BatchResponseBlogAuthor) GetStatus() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value
+// and a boolean to check if the value has been set.
+func (o *BatchResponseBlogAuthor) GetStatusOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Status, true
+}
+
+// SetStatus sets field value
+func (o *BatchResponseBlogAuthor) SetStatus(v string) {
+	o.Status = v
+}
+
 func (o BatchResponseBlogAuthor) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["status"] = o.Status
-	}
-	if true {
-		toSerialize["results"] = o.Results
+		toSerialize["completedAt"] = o.CompletedAt
 	}
 	if o.RequestedAt != nil {
 		toSerialize["requestedAt"] = o.RequestedAt
@@ -226,11 +223,14 @@ func (o BatchResponseBlogAuthor) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["startedAt"] = o.StartedAt
 	}
-	if true {
-		toSerialize["completedAt"] = o.CompletedAt
-	}
 	if o.Links != nil {
 		toSerialize["links"] = o.Links
+	}
+	if true {
+		toSerialize["results"] = o.Results
+	}
+	if true {
+		toSerialize["status"] = o.Status
 	}
 	return json.Marshal(toSerialize)
 }

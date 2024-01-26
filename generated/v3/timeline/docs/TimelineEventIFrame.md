@@ -6,15 +6,15 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **LinkLabel** | **string** | The text displaying the link that will display the iframe. | 
 **HeaderLabel** | **string** | The label of the modal window that displays the iframe contents. | 
-**Url** | **string** | The URI of the iframe contents. | 
 **Width** | **int32** | The width of the modal window in pixels. | 
+**Url** | **string** | The URI of the iframe contents. | 
 **Height** | **int32** | The height of the modal window in pixels. | 
 
 ## Methods
 
 ### NewTimelineEventIFrame
 
-`func NewTimelineEventIFrame(linkLabel string, headerLabel string, url string, width int32, height int32, ) *TimelineEventIFrame`
+`func NewTimelineEventIFrame(linkLabel string, headerLabel string, width int32, url string, height int32, ) *TimelineEventIFrame`
 
 NewTimelineEventIFrame instantiates a new TimelineEventIFrame object
 This constructor will assign default values to properties that have it defined,
@@ -69,26 +69,6 @@ and a boolean to check if the value has been set.
 SetHeaderLabel sets HeaderLabel field to given value.
 
 
-### GetUrl
-
-`func (o *TimelineEventIFrame) GetUrl() string`
-
-GetUrl returns the Url field if non-nil, zero value otherwise.
-
-### GetUrlOk
-
-`func (o *TimelineEventIFrame) GetUrlOk() (*string, bool)`
-
-GetUrlOk returns a tuple with the Url field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetUrl
-
-`func (o *TimelineEventIFrame) SetUrl(v string)`
-
-SetUrl sets Url field to given value.
-
-
 ### GetWidth
 
 `func (o *TimelineEventIFrame) GetWidth() int32`
@@ -107,6 +87,26 @@ and a boolean to check if the value has been set.
 `func (o *TimelineEventIFrame) SetWidth(v int32)`
 
 SetWidth sets Width field to given value.
+
+
+### GetUrl
+
+`func (o *TimelineEventIFrame) GetUrl() string`
+
+GetUrl returns the Url field if non-nil, zero value otherwise.
+
+### GetUrlOk
+
+`func (o *TimelineEventIFrame) GetUrlOk() (*string, bool)`
+
+GetUrlOk returns a tuple with the Url field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUrl
+
+`func (o *TimelineEventIFrame) SetUrl(v string)`
+
+SetUrl sets Url field to given value.
 
 
 ### GetHeight

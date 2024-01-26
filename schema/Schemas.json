@@ -3,10 +3,23 @@
   "info" : {
     "title" : "Schemas",
     "description" : "The CRM uses schemas to define how custom objects should store and represent information in the HubSpot CRM. Schemas define details about an object's type, properties, and associations. The schema can be uniquely identified by its **object type ID**.",
-    "version" : "v3"
+    "version" : "v3",
+    "x-hubspot-product-tier-requirements" : {
+      "marketing" : "FREE",
+      "sales" : "FREE",
+      "service" : "FREE",
+      "cms" : "FREE"
+    },
+    "x-hubspot-documentation-banner" : "NONE",
+    "x-hubspot-api-use-case" : "Create a new object for storing information about cars at a car dealership. Your object definition could include properties to store information as well as the filters available on the custom object index page.",
+    "x-hubspot-related-documentation" : [ {
+      "name" : "Custom Object Guide",
+      "url" : "https://hubspot.dev/guides/api/crm/crm-custom-objects"
+    } ],
+    "x-hubspot-introduction" : "Use the custom objects schema API to define new types of CRM records in your account. After setting up an object schema, you'll then be able to create custom records under that object both in HubSpot and using the custom object records API."
   },
   "servers" : [ {
-    "url" : "https://api.hubapi.com/"
+    "url" : "https://api.hubapi.com"
   } ],
   "tags" : [ {
     "name" : "Core"
@@ -14,93 +27,12 @@
     "name" : "Public_Object_Schemas"
   } ],
   "paths" : {
-    "/crm/v3/schemas" : {
-      "get" : {
-        "tags" : [ "Core" ],
-        "summary" : "Get all schemas",
-        "description" : "Returns all object schemas that have been defined for your account.",
-        "operationId" : "GetAll",
-        "parameters" : [ {
-          "name" : "archived",
-          "in" : "query",
-          "description" : "Whether to return only results that have been archived.",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "boolean",
-            "default" : false
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/CollectionResponseObjectSchemaNoPaging"
-                }
-              }
-            }
-          },
-          "default" : {
-            "$ref" : "#/components/responses/Error"
-          }
-        },
-        "security" : [ {
-          "private_apps_legacy" : [ "crm.objects.custom.read" ]
-        }, {
-          "private_apps_legacy" : [ "crm.schemas.custom.read" ]
-        }, {
-          "oauth2_legacy" : [ "crm.objects.custom.read" ]
-        }, {
-          "oauth2_legacy" : [ "crm.schemas.custom.read" ]
-        } ]
-      },
-      "post" : {
-        "tags" : [ "Core" ],
-        "summary" : "Create a new schema",
-        "description" : "Define a new object schema, along with custom properties and associations. The entire object schema, including its object type ID, properties, and associations will be returned in the response.",
-        "operationId" : "Create",
-        "requestBody" : {
-          "description" : "Object schema definition, including properties and associations.",
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/ObjectSchemaEgg"
-              }
-            }
-          },
-          "required" : true
-        },
-        "responses" : {
-          "201" : {
-            "description" : "successful operation",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ObjectSchema"
-                }
-              }
-            }
-          },
-          "default" : {
-            "$ref" : "#/components/responses/Error"
-          }
-        },
-        "security" : [ {
-          "private_apps_legacy" : [ "crm.schemas.custom.write", "crm.objects.custom.write" ]
-        }, {
-          "private_apps_legacy" : [ "crm.schemas.custom.write" ]
-        } ]
-      }
-    },
     "/crm/v3/schemas/{objectType}" : {
       "get" : {
         "tags" : [ "Core" ],
         "summary" : "Get an existing schema",
         "description" : "Returns an existing object schema.",
-        "operationId" : "GetByID",
+        "operationId" : "get-/crm/v3/schemas/{objectType}_getById",
         "parameters" : [ {
           "name" : "objectType",
           "in" : "path",
@@ -141,7 +73,7 @@
         "tags" : [ "Core" ],
         "summary" : "Delete a schema",
         "description" : "Deletes a schema. Any existing records of this schema must be deleted **first**. Otherwise this call will fail.",
-        "operationId" : "Archive",
+        "operationId" : "delete-/crm/v3/schemas/{objectType}_archive",
         "parameters" : [ {
           "name" : "objectType",
           "in" : "path",
@@ -181,7 +113,7 @@
         "tags" : [ "Core" ],
         "summary" : "Update a schema",
         "description" : "Update the details for an existing object schema.",
-        "operationId" : "Update",
+        "operationId" : "patch-/crm/v3/schemas/{objectType}_update",
         "parameters" : [ {
           "name" : "objectType",
           "in" : "path",
@@ -231,7 +163,7 @@
         "tags" : [ "Core" ],
         "summary" : "Create an association",
         "description" : "Defines a new association between the primary schema's object type and other object types.",
-        "operationId" : "CreateAssociation",
+        "operationId" : "post-/crm/v3/schemas/{objectType}/associations_createAssociation",
         "parameters" : [ {
           "name" : "objectType",
           "in" : "path",
@@ -276,12 +208,41 @@
         } ]
       }
     },
+    "/crm/v3/schemas/{objectType}/purge" : {
+      "delete" : {
+        "tags" : [ "Public_Object_Schemas" ],
+        "operationId" : "delete-/crm/v3/schemas/{objectType}/purge_purge",
+        "parameters" : [ {
+          "name" : "objectType",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No content",
+            "content" : { }
+          },
+          "default" : {
+            "$ref" : "#/components/responses/Error"
+          }
+        },
+        "deprecated" : true,
+        "security" : [ {
+          "private_apps_legacy" : [ "crm.schemas.custom.write" ]
+        } ]
+      }
+    },
     "/crm/v3/schemas/{objectType}/associations/{associationIdentifier}" : {
       "delete" : {
         "tags" : [ "Core" ],
         "summary" : "Remove an association",
         "description" : "Removes an existing association from a schema.",
-        "operationId" : "ArchiveAssociation",
+        "operationId" : "delete-/crm/v3/schemas/{objectType}/associations/{associationIdentifier}_archiveAssociation",
         "parameters" : [ {
           "name" : "objectType",
           "in" : "path",
@@ -317,31 +278,83 @@
         } ]
       }
     },
-    "/crm/v3/schemas/{objectType}/purge" : {
-      "delete" : {
-        "tags" : [ "Public_Object_Schemas" ],
-        "operationId" : "Purge",
+    "/crm/v3/schemas" : {
+      "get" : {
+        "tags" : [ "Core" ],
+        "summary" : "Get all schemas",
+        "description" : "Returns all object schemas that have been defined for your account.",
+        "operationId" : "get-/crm/v3/schemas_getAll",
         "parameters" : [ {
-          "name" : "objectType",
-          "in" : "path",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
+          "name" : "archived",
+          "in" : "query",
+          "description" : "Whether to return only results that have been archived.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
           "schema" : {
-            "type" : "string"
+            "type" : "boolean",
+            "default" : false
           }
         } ],
         "responses" : {
-          "204" : {
-            "description" : "No content",
-            "content" : { }
+          "200" : {
+            "description" : "successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CollectionResponseObjectSchemaNoPaging"
+                }
+              }
+            }
           },
           "default" : {
             "$ref" : "#/components/responses/Error"
           }
         },
-        "deprecated" : true,
         "security" : [ {
+          "private_apps_legacy" : [ "crm.objects.custom.read" ]
+        }, {
+          "private_apps_legacy" : [ "crm.schemas.custom.read" ]
+        }, {
+          "oauth2_legacy" : [ "crm.objects.custom.read" ]
+        }, {
+          "oauth2_legacy" : [ "crm.schemas.custom.read" ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "Core" ],
+        "summary" : "Create a new schema",
+        "description" : "Define a new object schema, along with custom properties and associations. The entire object schema, including its object type ID, properties, and associations will be returned in the response.",
+        "operationId" : "post-/crm/v3/schemas_create",
+        "requestBody" : {
+          "description" : "Object schema definition, including properties and associations.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ObjectSchemaEgg"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ObjectSchema"
+                }
+              }
+            }
+          },
+          "default" : {
+            "$ref" : "#/components/responses/Error"
+          }
+        },
+        "security" : [ {
+          "private_apps_legacy" : [ "crm.schemas.custom.write", "crm.objects.custom.write" ]
+        }, {
           "private_apps_legacy" : [ "crm.schemas.custom.write" ]
         } ]
       }
@@ -352,27 +365,6 @@
       "ObjectTypeDefinitionPatch" : {
         "type" : "object",
         "properties" : {
-          "labels" : {
-            "$ref" : "#/components/schemas/ObjectTypeDefinitionLabels"
-          },
-          "requiredProperties" : {
-            "type" : "array",
-            "description" : "The names of properties that should be **required** when creating an object of this type.",
-            "items" : {
-              "type" : "string"
-            }
-          },
-          "searchableProperties" : {
-            "type" : "array",
-            "description" : "Names of properties that will be indexed for this object type in by HubSpot's product search.",
-            "items" : {
-              "type" : "string"
-            }
-          },
-          "primaryDisplayProperty" : {
-            "type" : "string",
-            "description" : "The name of the primary property for this object. This will be displayed as primary on the HubSpot record page for this object type."
-          },
           "secondaryDisplayProperties" : {
             "type" : "array",
             "description" : "The names of secondary properties for this object. These will be displayed as secondary on the HubSpot record page for this object type.",
@@ -380,8 +372,35 @@
               "type" : "string"
             }
           },
+          "requiredProperties" : {
+            "type" : "array",
+            "description" : "The names of properties that should be **required** when creating an object of this type.",
+            "example" : [ "my_object_property" ],
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "searchableProperties" : {
+            "type" : "array",
+            "description" : "Names of properties that will be indexed for this object type in by HubSpot's product search.",
+            "example" : [ "my_object_property" ],
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "primaryDisplayProperty" : {
+            "type" : "string",
+            "description" : "The name of the primary property for this object. This will be displayed as primary on the HubSpot record page for this object type.",
+            "example" : "my_object_property"
+          },
+          "description" : {
+            "type" : "string"
+          },
           "restorable" : {
             "type" : "boolean"
+          },
+          "labels" : {
+            "$ref" : "#/components/schemas/ObjectTypeDefinitionLabels"
           }
         },
         "description" : "Defines attributes to update on an object type.",
@@ -391,31 +410,22 @@
           "searchableProperties" : [ "my_object_property" ]
         }
       },
-      "ObjectTypeDefinition" : {
-        "required" : [ "archived", "fullyQualifiedName", "id", "labels", "name", "objectTypeId", "requiredProperties", "searchableProperties", "secondaryDisplayProperties" ],
+      "CollectionResponseObjectSchemaNoPaging" : {
+        "required" : [ "results" ],
         "type" : "object",
         "properties" : {
-          "labels" : {
-            "$ref" : "#/components/schemas/ObjectTypeDefinitionLabels"
-          },
-          "requiredProperties" : {
+          "results" : {
             "type" : "array",
-            "description" : "The names of properties that should be **required** when creating an object of this type.",
             "items" : {
-              "type" : "string"
+              "$ref" : "#/components/schemas/ObjectSchema"
             }
-          },
-          "searchableProperties" : {
-            "type" : "array",
-            "description" : "Names of properties that will be indexed for this object type in by HubSpot's product search.",
-            "items" : {
-              "type" : "string"
-            }
-          },
-          "primaryDisplayProperty" : {
-            "type" : "string",
-            "description" : "The name of the primary property for this object. This will be displayed as primary on the HubSpot record page for this object type."
-          },
+          }
+        }
+      },
+      "ObjectTypeDefinition" : {
+        "required" : [ "id", "labels", "name", "requiredProperties" ],
+        "type" : "object",
+        "properties" : {
           "secondaryDisplayProperties" : {
             "type" : "array",
             "description" : "The names of secondary properties for this object. These will be displayed as secondary on the HubSpot record page for this object type.",
@@ -423,37 +433,67 @@
               "type" : "string"
             }
           },
-          "archived" : {
-            "type" : "boolean"
+          "objectTypeId" : {
+            "type" : "string"
           },
-          "id" : {
-            "type" : "string",
-            "description" : "A unique ID for this object type. Will be defined as {meta-type}-{unique ID}."
+          "description" : {
+            "type" : "string"
           },
           "fullyQualifiedName" : {
             "type" : "string"
+          },
+          "labels" : {
+            "$ref" : "#/components/schemas/ObjectTypeDefinitionLabels"
+          },
+          "archived" : {
+            "type" : "boolean"
           },
           "createdAt" : {
             "type" : "string",
             "description" : "When the object type was created.",
             "format" : "date-time"
           },
-          "updatedAt" : {
-            "type" : "string",
-            "description" : "When the object type was last updated.",
-            "format" : "date-time"
+          "requiredProperties" : {
+            "type" : "array",
+            "description" : "The names of properties that should be **required** when creating an object of this type.",
+            "example" : [ "my_object_property" ],
+            "items" : {
+              "type" : "string"
+            }
           },
-          "objectTypeId" : {
-            "type" : "string"
-          },
-          "name" : {
-            "type" : "string",
-            "description" : "A unique name for this object. For internal use only."
+          "searchableProperties" : {
+            "type" : "array",
+            "description" : "Names of properties that will be indexed for this object type in by HubSpot's product search.",
+            "example" : [ "my_object_property" ],
+            "items" : {
+              "type" : "string"
+            }
           },
           "portalId" : {
             "type" : "integer",
             "description" : "The ID of the account that this object type is specific to.",
-            "format" : "int32"
+            "format" : "int32",
+            "example" : 12345678
+          },
+          "primaryDisplayProperty" : {
+            "type" : "string",
+            "description" : "The name of the primary property for this object. This will be displayed as primary on the HubSpot record page for this object type.",
+            "example" : "my_object_property"
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "A unique name for this object. For internal use only.",
+            "example" : "my_object"
+          },
+          "id" : {
+            "type" : "string",
+            "description" : "A unique ID for this object type. Will be defined as {meta-type}-{unique ID}.",
+            "example" : "123456"
+          },
+          "updatedAt" : {
+            "type" : "string",
+            "description" : "When the object type was last updated.",
+            "format" : "date-time"
           }
         },
         "description" : "Defines an object type.",
@@ -473,42 +513,35 @@
           "name" : "my_object"
         }
       },
-      "CollectionResponseObjectSchemaNoPaging" : {
-        "required" : [ "results" ],
-        "type" : "object",
-        "properties" : {
-          "results" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/ObjectSchema"
-            }
-          }
-        }
-      },
       "OptionInput" : {
         "required" : [ "displayOrder", "hidden", "label", "value" ],
         "type" : "object",
         "properties" : {
-          "label" : {
-            "type" : "string",
-            "description" : "A human-readable option label that will be shown in HubSpot."
-          },
-          "value" : {
-            "type" : "string",
-            "description" : "The internal value of the option, which must be used when setting the property value through the API."
-          },
-          "description" : {
-            "type" : "string",
-            "description" : "A description of the option."
+          "hidden" : {
+            "type" : "boolean",
+            "description" : "Hidden options won't be shown in HubSpot.",
+            "example" : false
           },
           "displayOrder" : {
             "type" : "integer",
             "description" : "Options are shown in order starting with the lowest positive integer value. Values of -1 will cause the option to be displayed after any positive values.",
-            "format" : "int32"
+            "format" : "int32",
+            "example" : 1
           },
-          "hidden" : {
-            "type" : "boolean",
-            "description" : "Hidden options won't be shown in HubSpot."
+          "description" : {
+            "type" : "string",
+            "description" : "A description of the option.",
+            "example" : "Choice number one"
+          },
+          "label" : {
+            "type" : "string",
+            "description" : "A human-readable option label that will be shown in HubSpot.",
+            "example" : "Option A"
+          },
+          "value" : {
+            "type" : "string",
+            "description" : "The internal value of the option, which must be used when setting the property value through the API.",
+            "example" : "A"
           }
         },
         "description" : "Defines a enumeration property option",
@@ -524,31 +557,9 @@
         "required" : [ "category", "correlationId", "message" ],
         "type" : "object",
         "properties" : {
-          "message" : {
-            "type" : "string",
-            "description" : "A human readable message describing the error along with remediation steps where appropriate",
-            "example" : "An error occurred"
-          },
-          "correlationId" : {
-            "type" : "string",
-            "description" : "A unique identifier for the request. Include this value with any error reports or support tickets",
-            "format" : "uuid",
-            "example" : "aeb5f871-7f07-4993-9211-075dc63e7cbf"
-          },
-          "category" : {
-            "type" : "string",
-            "description" : "The error category"
-          },
           "subCategory" : {
             "type" : "string",
             "description" : "A specific category that contains more specific detail about the error"
-          },
-          "errors" : {
-            "type" : "array",
-            "description" : "further information about the error",
-            "items" : {
-              "$ref" : "#/components/schemas/ErrorDetail"
-            }
           },
           "context" : {
             "type" : "object",
@@ -560,16 +571,42 @@
             },
             "description" : "Context about the error condition",
             "example" : {
-              "invalidPropertyName" : [ "propertyValue" ],
-              "missingScopes" : [ "scope1", "scope2" ]
+              "missingScopes" : [ "scope1", "scope2" ],
+              "invalidPropertyName" : [ "propertyValue" ]
             }
+          },
+          "correlationId" : {
+            "type" : "string",
+            "description" : "A unique identifier for the request. Include this value with any error reports or support tickets",
+            "format" : "uuid",
+            "example" : "aeb5f871-7f07-4993-9211-075dc63e7cbf"
           },
           "links" : {
             "type" : "object",
             "additionalProperties" : {
               "type" : "string"
             },
-            "description" : "A map of link names to associated URIs containing documentation about the error or recommended remediation steps"
+            "description" : "A map of link names to associated URIs containing documentation about the error or recommended remediation steps",
+            "example" : {
+              "knowledge-base" : "https://www.hubspot.com/products/service/knowledge-base"
+            }
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "A human readable message describing the error along with remediation steps where appropriate",
+            "example" : "Invalid input (details will vary based on the error)"
+          },
+          "category" : {
+            "type" : "string",
+            "description" : "The error category",
+            "example" : "VALIDATION_ERROR"
+          },
+          "errors" : {
+            "type" : "array",
+            "description" : "further information about the error",
+            "items" : {
+              "$ref" : "#/components/schemas/ErrorDetail"
+            }
           }
         },
         "example" : {
@@ -585,21 +622,17 @@
         "required" : [ "message" ],
         "type" : "object",
         "properties" : {
-          "message" : {
+          "subCategory" : {
             "type" : "string",
-            "description" : "A human readable message describing the error along with remediation steps where appropriate"
-          },
-          "in" : {
-            "type" : "string",
-            "description" : "The name of the field or parameter in which the error was found."
+            "description" : "A specific category that contains more specific detail about the error"
           },
           "code" : {
             "type" : "string",
             "description" : "The status code associated with the error detail"
           },
-          "subCategory" : {
+          "in" : {
             "type" : "string",
-            "description" : "A specific category that contains more specific detail about the error"
+            "description" : "The name of the field or parameter in which the error was found."
           },
           "context" : {
             "type" : "object",
@@ -613,24 +646,10 @@
             "example" : {
               "missingScopes" : [ "scope1", "scope2" ]
             }
-          }
-        }
-      },
-      "PropertyModificationMetadata" : {
-        "required" : [ "archivable", "readOnlyDefinition", "readOnlyValue" ],
-        "type" : "object",
-        "properties" : {
-          "archivable" : {
-            "type" : "boolean"
           },
-          "readOnlyDefinition" : {
-            "type" : "boolean"
-          },
-          "readOnlyOptions" : {
-            "type" : "boolean"
-          },
-          "readOnlyValue" : {
-            "type" : "boolean"
+          "message" : {
+            "type" : "string",
+            "description" : "A human readable message describing the error along with remediation steps where appropriate"
           }
         }
       },
@@ -638,49 +657,97 @@
         "required" : [ "fieldType", "label", "name", "type" ],
         "type" : "object",
         "properties" : {
-          "name" : {
-            "type" : "string",
-            "description" : "The internal property name, which must be used when referencing the property from the API."
+          "hidden" : {
+            "type" : "boolean"
           },
-          "label" : {
+          "optionSortStrategy" : {
             "type" : "string",
-            "description" : "A human-readable property label that will be shown in HubSpot."
+            "description" : "Controls how the property options will be sorted in the HubSpot UI.",
+            "enum" : [ "DISPLAY_ORDER", "ALPHABETICAL" ]
           },
-          "groupName" : {
-            "type" : "string",
-            "description" : "The name of the group this property belongs to."
+          "displayOrder" : {
+            "type" : "integer",
+            "description" : "The order that this property should be displayed in the HubSpot UI relative to other properties for this object type. Properties are displayed in order starting with the lowest positive integer value. A value of -1 will cause the property to be displayed **after** any positive values.",
+            "format" : "int32",
+            "example" : 2
           },
           "description" : {
             "type" : "string",
             "description" : "A description of the property that will be shown as help text in HubSpot."
           },
-          "options" : {
-            "type" : "array",
-            "description" : "A list of available options for the property. This field is only required for enumerated properties.",
-            "items" : {
-              "$ref" : "#/components/schemas/OptionInput"
-            }
-          },
-          "displayOrder" : {
-            "type" : "integer",
-            "description" : "The order that this property should be displayed in the HubSpot UI relative to other properties for this object type. Properties are displayed in order starting with the lowest positive integer value. A value of -1 will cause the property to be displayed **after** any positive values.",
-            "format" : "int32"
-          },
-          "hasUniqueValue" : {
+          "showCurrencySymbol" : {
             "type" : "boolean",
-            "description" : "Whether or not the property's value must be unique. Once set, this can't be changed."
+            "description" : "Whether the property will display the currency symbol in the HubSpot UI."
           },
-          "hidden" : {
-            "type" : "boolean"
+          "label" : {
+            "type" : "string",
+            "description" : "A human-readable property label that will be shown in HubSpot.",
+            "example" : "My object property"
           },
           "type" : {
             "type" : "string",
             "description" : "The data type of the property.",
+            "example" : "enumeration",
             "enum" : [ "string", "number", "date", "datetime", "enumeration", "bool" ]
+          },
+          "formField" : {
+            "type" : "boolean",
+            "description" : "Whether the property can be used in a HubSpot form."
+          },
+          "groupName" : {
+            "type" : "string",
+            "description" : "The name of the group this property belongs to.",
+            "example" : "my_object_information"
+          },
+          "referencedObjectType" : {
+            "type" : "string",
+            "description" : "Defines the options this property will return, e.g. OWNER would return name of users on the portal."
+          },
+          "textDisplayHint" : {
+            "type" : "string",
+            "description" : "Controls how text properties are formatted in the HubSpot UI",
+            "enum" : [ "unformatted_single_line", "multi_line", "email", "phone_number", "domain_name", "ip_address", "physical_address", "postal_code" ]
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "The internal property name, which must be used when referencing the property from the API."
+          },
+          "options" : {
+            "type" : "array",
+            "description" : "A list of available options for the property. This field is only required for enumerated properties.",
+            "example" : [ {
+              "label" : "Option A",
+              "value" : "A",
+              "description" : "Choice number one",
+              "displayOrder" : 1
+            }, {
+              "label" : "Option B",
+              "value" : "B",
+              "description" : "Choice number two",
+              "displayOrder" : 2
+            } ],
+            "items" : {
+              "$ref" : "#/components/schemas/OptionInput"
+            }
+          },
+          "searchableInGlobalSearch" : {
+            "type" : "boolean",
+            "description" : "Allow users to search for information entered to this field (limited to 3 properties)"
+          },
+          "numberDisplayHint" : {
+            "type" : "string",
+            "description" : "Controls how numeric properties are formatted in the HubSpot UI",
+            "enum" : [ "unformatted", "formatted", "currency", "percentage", "duration", "probability" ]
+          },
+          "hasUniqueValue" : {
+            "type" : "boolean",
+            "description" : "Whether or not the property's value must be unique. Once set, this can't be changed.",
+            "example" : false
           },
           "fieldType" : {
             "type" : "string",
-            "description" : "Controls how the property appears in HubSpot."
+            "description" : "Controls how the property appears in HubSpot.",
+            "example" : "select"
           }
         },
         "description" : "Defines a property to create.",
@@ -704,21 +771,46 @@
           } ]
         }
       },
+      "PropertyModificationMetadata" : {
+        "required" : [ "archivable", "readOnlyDefinition", "readOnlyValue" ],
+        "type" : "object",
+        "properties" : {
+          "readOnlyOptions" : {
+            "type" : "boolean",
+            "description" : ""
+          },
+          "readOnlyValue" : {
+            "type" : "boolean",
+            "description" : ""
+          },
+          "readOnlyDefinition" : {
+            "type" : "boolean",
+            "description" : ""
+          },
+          "archivable" : {
+            "type" : "boolean",
+            "description" : ""
+          }
+        }
+      },
       "AssociationDefinitionEgg" : {
         "required" : [ "fromObjectTypeId", "toObjectTypeId" ],
         "type" : "object",
         "properties" : {
           "fromObjectTypeId" : {
             "type" : "string",
-            "description" : "ID of the primary object type to link from."
-          },
-          "toObjectTypeId" : {
-            "type" : "string",
-            "description" : "ID of the target object type ID to link to."
+            "description" : "ID of the primary object type to link from.",
+            "example" : "2-123456"
           },
           "name" : {
             "type" : "string",
-            "description" : "A unique name for this association."
+            "description" : "A unique name for this association.",
+            "example" : "my_object_to_contact"
+          },
+          "toObjectTypeId" : {
+            "type" : "string",
+            "description" : "ID of the target object type ID to link to.",
+            "example" : "contact"
           }
         },
         "description" : "Defines an association between two object types.",
@@ -728,30 +820,65 @@
           "name" : "my_object_to_contact"
         }
       },
-      "ObjectSchema" : {
-        "required" : [ "archived", "associations", "fullyQualifiedName", "id", "labels", "name", "objectTypeId", "properties", "requiredProperties", "searchableProperties", "secondaryDisplayProperties" ],
+      "AssociationDefinition" : {
+        "required" : [ "fromObjectTypeId", "id", "toObjectTypeId" ],
         "type" : "object",
         "properties" : {
-          "labels" : {
-            "$ref" : "#/components/schemas/ObjectTypeDefinitionLabels"
-          },
-          "requiredProperties" : {
-            "type" : "array",
-            "description" : "The names of properties that should be **required** when creating an object of this type.",
-            "items" : {
-              "type" : "string"
-            }
-          },
-          "searchableProperties" : {
-            "type" : "array",
-            "description" : "Names of properties that will be indexed for this object type in by HubSpot's product search.",
-            "items" : {
-              "type" : "string"
-            }
-          },
-          "primaryDisplayProperty" : {
+          "createdAt" : {
             "type" : "string",
-            "description" : "The name of the primary property for this object. This will be displayed as primary on the HubSpot record page for this object type."
+            "description" : "When the association was defined.",
+            "format" : "date-time"
+          },
+          "fromObjectTypeId" : {
+            "type" : "string",
+            "description" : "ID of the primary object type to link from.",
+            "example" : "2-123456"
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "A unique name for this association.",
+            "example" : "my_object_to_contact"
+          },
+          "id" : {
+            "type" : "string",
+            "description" : "A unique ID for this association.",
+            "example" : "105"
+          },
+          "toObjectTypeId" : {
+            "type" : "string",
+            "description" : "ID of the target object type ID to link to.",
+            "example" : "0-1"
+          },
+          "updatedAt" : {
+            "type" : "string",
+            "description" : "When the association was last updated.",
+            "format" : "date-time"
+          }
+        },
+        "description" : "Defines an association between two object types.",
+        "example" : {
+          "id" : "105",
+          "fromObjectTypeId" : "2-123456",
+          "toObjectTypeId" : "0-1",
+          "name" : "my_object_to_contact"
+        }
+      },
+      "ObjectSchema" : {
+        "required" : [ "associations", "id", "labels", "name", "properties", "requiredProperties" ],
+        "type" : "object",
+        "properties" : {
+          "associations" : {
+            "type" : "array",
+            "description" : "Associations defined for a given object type.",
+            "example" : [ {
+              "id" : "123",
+              "name" : "my_object_to_contact",
+              "toObjectTypeId" : "0-1",
+              "fromObjectTypeId" : "2-123456"
+            } ],
+            "items" : {
+              "$ref" : "#/components/schemas/AssociationDefinition"
+            }
           },
           "secondaryDisplayProperties" : {
             "type" : "array",
@@ -760,47 +887,84 @@
               "type" : "string"
             }
           },
-          "archived" : {
-            "type" : "boolean"
+          "objectTypeId" : {
+            "type" : "string"
           },
-          "id" : {
-            "type" : "string",
-            "description" : "A unique ID for this schema's object type. Will be defined as {meta-type}-{unique ID}."
+          "description" : {
+            "type" : "string"
           },
           "fullyQualifiedName" : {
             "type" : "string",
-            "description" : "An assigned unique ID for the object, including portal ID and object name."
+            "description" : "An assigned unique ID for the object, including portal ID and object name.",
+            "example" : "p7878787_my_object\""
+          },
+          "labels" : {
+            "$ref" : "#/components/schemas/ObjectTypeDefinitionLabels"
+          },
+          "archived" : {
+            "type" : "boolean"
           },
           "createdAt" : {
             "type" : "string",
             "description" : "When the object schema was created.",
             "format" : "date-time"
           },
-          "updatedAt" : {
-            "type" : "string",
-            "description" : "When the object schema was last updated.",
-            "format" : "date-time"
+          "requiredProperties" : {
+            "type" : "array",
+            "description" : "The names of properties that should be **required** when creating an object of this type.",
+            "example" : [ "my_object_property" ],
+            "items" : {
+              "type" : "string"
+            }
           },
-          "objectTypeId" : {
-            "type" : "string"
+          "searchableProperties" : {
+            "type" : "array",
+            "description" : "Names of properties that will be indexed for this object type in by HubSpot's product search.",
+            "example" : [ "my_object_property" ],
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "primaryDisplayProperty" : {
+            "type" : "string",
+            "description" : "The name of the primary property for this object. This will be displayed as primary on the HubSpot record page for this object type.",
+            "example" : "my_object_property"
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "A unique name for the schema's object type.",
+            "example" : "my_object"
+          },
+          "id" : {
+            "type" : "string",
+            "description" : "A unique ID for this schema's object type. Will be defined as {meta-type}-{unique ID}.",
+            "example" : "123456"
           },
           "properties" : {
             "type" : "array",
             "description" : "Properties defined for this object type.",
+            "example" : [ {
+              "name" : "my_object_property",
+              "type" : "string",
+              "label" : "My object property",
+              "archived" : false,
+              "createdAt" : "2020-02-20T18:07:11.802Z",
+              "fieldType" : "text",
+              "groupName" : "my_object_information",
+              "updatedAt" : "2020-02-20T18:07:11.802Z",
+              "calculated" : false,
+              "displayOrder" : -1,
+              "hasUniqueValue" : false,
+              "externalOptions" : false
+            } ],
             "items" : {
               "$ref" : "#/components/schemas/Property"
             }
           },
-          "associations" : {
-            "type" : "array",
-            "description" : "Associations defined for a given object type.",
-            "items" : {
-              "$ref" : "#/components/schemas/AssociationDefinition"
-            }
-          },
-          "name" : {
+          "updatedAt" : {
             "type" : "string",
-            "description" : "A unique name for the schema's object type."
+            "description" : "When the object schema was last updated.",
+            "format" : "date-time"
           }
         },
         "description" : "Defines an object schema, including its properties and associations.",
@@ -840,108 +1004,21 @@
           "name" : "my_object"
         }
       },
-      "AssociationDefinition" : {
-        "required" : [ "fromObjectTypeId", "id", "toObjectTypeId" ],
-        "type" : "object",
-        "properties" : {
-          "fromObjectTypeId" : {
-            "type" : "string",
-            "description" : "ID of the primary object type to link from."
-          },
-          "toObjectTypeId" : {
-            "type" : "string",
-            "description" : "ID of the target object type ID to link to."
-          },
-          "name" : {
-            "type" : "string",
-            "description" : "A unique name for this association."
-          },
-          "id" : {
-            "type" : "string",
-            "description" : "A unique ID for this association."
-          },
-          "createdAt" : {
-            "type" : "string",
-            "description" : "When the association was defined.",
-            "format" : "date-time"
-          },
-          "updatedAt" : {
-            "type" : "string",
-            "description" : "When the association was last updated.",
-            "format" : "date-time"
-          }
-        },
-        "description" : "Defines an association between two object types.",
-        "example" : {
-          "id" : "105",
-          "fromObjectTypeId" : "2-123456",
-          "toObjectTypeId" : "0-1",
-          "name" : "my_object_to_contact"
-        }
-      },
-      "Option" : {
-        "required" : [ "hidden", "label", "value" ],
-        "type" : "object",
-        "properties" : {
-          "label" : {
-            "type" : "string",
-            "description" : "A human-readable option label that will be shown in HubSpot."
-          },
-          "value" : {
-            "type" : "string",
-            "description" : "The internal value of the option, which must be used when setting the property value through the API."
-          },
-          "description" : {
-            "type" : "string",
-            "description" : "A description of the option."
-          },
-          "displayOrder" : {
-            "type" : "integer",
-            "description" : "Options are displayed in order starting with the lowest positive integer value. Values of -1 will cause the option to be displayed after any positive values.",
-            "format" : "int32"
-          },
-          "hidden" : {
-            "type" : "boolean",
-            "description" : "Hidden options will not be displayed in HubSpot."
-          }
-        },
-        "description" : "The options available when a property is an enumeration",
-        "example" : {
-          "label" : "Option A",
-          "description" : "Choice number one",
-          "value" : "A",
-          "displayOrder" : 1,
-          "hidden" : false
-        }
-      },
-      "ObjectTypeDefinitionLabels" : {
-        "type" : "object",
-        "properties" : {
-          "singular" : {
-            "type" : "string",
-            "description" : "The word for one object. (There’s no way to change this later.)"
-          },
-          "plural" : {
-            "type" : "string",
-            "description" : "The word for multiple objects. (There’s no way to change this later.)"
-          }
-        },
-        "description" : "Singular and plural labels for the object. Used in CRM display.",
-        "example" : {
-          "singular" : "My object",
-          "plural" : "My objects"
-        }
-      },
       "ObjectSchemaEgg" : {
-        "required" : [ "associatedObjects", "labels", "name", "properties", "requiredProperties", "searchableProperties", "secondaryDisplayProperties" ],
+        "required" : [ "associatedObjects", "labels", "name", "properties", "requiredProperties" ],
         "type" : "object",
         "properties" : {
-          "labels" : {
-            "$ref" : "#/components/schemas/ObjectTypeDefinitionLabels"
+          "secondaryDisplayProperties" : {
+            "type" : "array",
+            "description" : "The names of secondary properties for this object. These will be displayed as secondary on the HubSpot record page for this object type.",
+            "items" : {
+              "type" : "string"
+            }
           },
           "requiredProperties" : {
             "type" : "array",
             "description" : "The names of properties that should be **required** when creating an object of this type.",
+            "example" : [ "my_object_property" ],
             "items" : {
               "type" : "string"
             }
@@ -955,11 +1032,21 @@
           },
           "primaryDisplayProperty" : {
             "type" : "string",
-            "description" : "The name of the primary property for this object. This will be displayed as primary on the HubSpot record page for this object type."
+            "description" : "The name of the primary property for this object. This will be displayed as primary on the HubSpot record page for this object type.",
+            "example" : "my_object_property"
           },
-          "secondaryDisplayProperties" : {
+          "name" : {
+            "type" : "string",
+            "description" : "A unique name for this object. For internal use only.",
+            "example" : "my_object"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "associatedObjects" : {
             "type" : "array",
-            "description" : "The names of secondary properties for this object. These will be displayed as secondary on the HubSpot record page for this object type.",
+            "description" : "Associations defined for this object type.",
+            "example" : [ "CONTACT" ],
             "items" : {
               "type" : "string"
             }
@@ -967,20 +1054,17 @@
           "properties" : {
             "type" : "array",
             "description" : "Properties defined for this object type.",
+            "example" : [ {
+              "name" : "my_object_property",
+              "label" : "My object property",
+              "isPrimaryDisplayLabel" : true
+            } ],
             "items" : {
               "$ref" : "#/components/schemas/ObjectTypePropertyCreate"
             }
           },
-          "associatedObjects" : {
-            "type" : "array",
-            "description" : "Associations defined for this object type.",
-            "items" : {
-              "type" : "string"
-            }
-          },
-          "name" : {
-            "type" : "string",
-            "description" : "A unique name for this object. For internal use only."
+          "labels" : {
+            "$ref" : "#/components/schemas/ObjectTypeDefinitionLabels"
           }
         },
         "description" : "Defines a new object type, its properties, and associations.",
@@ -1001,13 +1085,111 @@
           "metaType" : "PORTAL_SPECIFIC"
         }
       },
+      "ObjectTypeDefinitionLabels" : {
+        "type" : "object",
+        "properties" : {
+          "plural" : {
+            "type" : "string",
+            "description" : "The word for multiple objects. (There’s no way to change this later.)",
+            "example" : "My objects"
+          },
+          "singular" : {
+            "type" : "string",
+            "description" : "The word for one object. (There’s no way to change this later.)",
+            "example" : "My object"
+          }
+        },
+        "description" : "Singular and plural labels for the object. Used in CRM display.",
+        "example" : {
+          "singular" : "My object",
+          "plural" : "My objects"
+        }
+      },
+      "Option" : {
+        "required" : [ "hidden", "label", "value" ],
+        "type" : "object",
+        "properties" : {
+          "hidden" : {
+            "type" : "boolean",
+            "description" : "Hidden options will not be displayed in HubSpot.",
+            "example" : false
+          },
+          "displayOrder" : {
+            "type" : "integer",
+            "description" : "Options are displayed in order starting with the lowest positive integer value. Values of -1 will cause the option to be displayed after any positive values.",
+            "format" : "int32",
+            "example" : 1
+          },
+          "description" : {
+            "type" : "string",
+            "description" : "A description of the option.",
+            "example" : "Choice number one"
+          },
+          "label" : {
+            "type" : "string",
+            "description" : "A human-readable option label that will be shown in HubSpot.",
+            "example" : "Option A"
+          },
+          "value" : {
+            "type" : "string",
+            "description" : "The internal value of the option, which must be used when setting the property value through the API.",
+            "example" : "A"
+          }
+        },
+        "description" : "The options available when a property is an enumeration",
+        "example" : {
+          "label" : "Option A",
+          "description" : "Choice number one",
+          "value" : "A",
+          "displayOrder" : 1,
+          "hidden" : false
+        }
+      },
       "Property" : {
         "required" : [ "description", "fieldType", "groupName", "label", "name", "options", "type" ],
         "type" : "object",
         "properties" : {
-          "updatedAt" : {
+          "createdUserId" : {
             "type" : "string",
-            "format" : "date-time"
+            "description" : "The internal ID of the user who created the property in HubSpot. This field may not exist if the property was created outside of HubSpot."
+          },
+          "hidden" : {
+            "type" : "boolean"
+          },
+          "modificationMetadata" : {
+            "$ref" : "#/components/schemas/PropertyModificationMetadata"
+          },
+          "displayOrder" : {
+            "type" : "integer",
+            "description" : "The order that this property should be displayed in the HubSpot UI relative to other properties for this object type. Properties are displayed in order starting with the lowest positive integer value. A value of -1 will cause the property to be displayed **after** any positive values.",
+            "format" : "int32",
+            "example" : 2
+          },
+          "description" : {
+            "type" : "string",
+            "description" : "A description of the property that will be shown as help text in HubSpot."
+          },
+          "showCurrencySymbol" : {
+            "type" : "boolean",
+            "description" : "Whether the property will display the currency symbol set in the account settings."
+          },
+          "label" : {
+            "type" : "string",
+            "description" : "A human-readable property label that will be shown in HubSpot.",
+            "example" : "My object property"
+          },
+          "type" : {
+            "type" : "string",
+            "description" : "The property data type.",
+            "example" : "enumeration"
+          },
+          "hubspotDefined" : {
+            "type" : "boolean",
+            "description" : "This will be true for default object properties built into HubSpot."
+          },
+          "formField" : {
+            "type" : "boolean",
+            "description" : "Whether or not the property can be used in a HubSpot form."
           },
           "createdAt" : {
             "type" : "string",
@@ -1019,53 +1201,60 @@
             "description" : "When the property was archived.",
             "format" : "date-time"
           },
-          "name" : {
-            "type" : "string",
-            "description" : "The internal property name, which must be used when referencing the property via the API."
-          },
-          "label" : {
-            "type" : "string",
-            "description" : "A human-readable property label that will be shown in HubSpot."
-          },
-          "type" : {
-            "type" : "string",
-            "description" : "The property data type."
-          },
-          "fieldType" : {
-            "type" : "string",
-            "description" : "Controls how the property appears in HubSpot."
-          },
-          "description" : {
-            "type" : "string",
-            "description" : "A description of the property that will be shown as help text in HubSpot."
+          "archived" : {
+            "type" : "boolean",
+            "description" : "Whether or not the property is archived."
           },
           "groupName" : {
             "type" : "string",
-            "description" : "The name of the property group the property belongs to."
-          },
-          "options" : {
-            "type" : "array",
-            "description" : "A list of valid options for the property. This field is required for enumerated properties, but will be empty for other property types.",
-            "items" : {
-              "$ref" : "#/components/schemas/Option"
-            }
-          },
-          "createdUserId" : {
-            "type" : "string",
-            "description" : "The internal ID of the user who created the property in HubSpot. This field may not exist if the property was created outside of HubSpot."
-          },
-          "updatedUserId" : {
-            "type" : "string",
-            "description" : "The internal user ID of the user who updated the property in HubSpot. This field may not exist if the property was updated outside of HubSpot."
+            "description" : "The name of the property group the property belongs to.",
+            "example" : "my_object_information"
           },
           "referencedObjectType" : {
             "type" : "string",
             "description" : "If this property is related to other object(s), they'll be listed here."
           },
-          "displayOrder" : {
-            "type" : "integer",
-            "description" : "The order that this property should be displayed in the HubSpot UI relative to other properties for this object type. Properties are displayed in order starting with the lowest positive integer value. A value of -1 will cause the property to be displayed **after** any positive values.",
-            "format" : "int32"
+          "name" : {
+            "type" : "string",
+            "description" : "The internal property name, which must be used when referencing the property via the API.",
+            "example" : "my_object_property"
+          },
+          "options" : {
+            "type" : "array",
+            "description" : "A list of valid options for the property. This field is required for enumerated properties, but will be empty for other property types.",
+            "example" : [ {
+              "label" : "Option A",
+              "value" : "A",
+              "hidden" : false,
+              "description" : "Choice number one",
+              "displayOrder" : 1
+            }, {
+              "label" : "Option B",
+              "value" : "B",
+              "hidden" : false,
+              "description" : "Choice number two",
+              "displayOrder" : 2
+            } ],
+            "items" : {
+              "$ref" : "#/components/schemas/Option"
+            }
+          },
+          "calculationFormula" : {
+            "type" : "string"
+          },
+          "hasUniqueValue" : {
+            "type" : "boolean",
+            "description" : "Whether or not the property's value must be unique. Once set, this can't be changed.",
+            "example" : false
+          },
+          "fieldType" : {
+            "type" : "string",
+            "description" : "Controls how the property appears in HubSpot.",
+            "example" : "select"
+          },
+          "updatedUserId" : {
+            "type" : "string",
+            "description" : "The internal user ID of the user who updated the property in HubSpot. This field may not exist if the property was updated outside of HubSpot."
           },
           "calculated" : {
             "type" : "boolean",
@@ -1075,31 +1264,10 @@
             "type" : "boolean",
             "description" : "For default properties, true indicates that the options are stored externally to the property settings."
           },
-          "archived" : {
-            "type" : "boolean",
-            "description" : "Whether or not the property is archived."
-          },
-          "hasUniqueValue" : {
-            "type" : "boolean",
-            "description" : "Whether or not the property's value must be unique. Once set, this can't be changed."
-          },
-          "hidden" : {
-            "type" : "boolean"
-          },
-          "hubspotDefined" : {
-            "type" : "boolean",
-            "description" : "This will be true for default object properties built into HubSpot."
-          },
-          "showCurrencySymbol" : {
-            "type" : "boolean",
-            "description" : "Whether the property will display the currency symbol set in the account settings."
-          },
-          "modificationMetadata" : {
-            "$ref" : "#/components/schemas/PropertyModificationMetadata"
-          },
-          "formField" : {
-            "type" : "boolean",
-            "description" : "Whether or not the property can be used in a HubSpot form."
+          "updatedAt" : {
+            "type" : "string",
+            "description" : "",
+            "format" : "date-time"
           }
         },
         "description" : "Defines a property",
@@ -1166,5 +1334,12 @@
       }
     }
   },
-  "x-hubspot-available-client-libraries" : [ "PHP", "Node", "Python", "Ruby" ]
+  "x-hubspot-available-client-libraries" : [ "PHP", "Node", "Ruby", "Python" ],
+  "x-hubspot-product-tier-requirements" : {
+    "marketing" : "FREE",
+    "sales" : "FREE",
+    "service" : "FREE",
+    "cms" : "FREE"
+  },
+  "x-hubspot-documentation-banner" : "NONE"
 }

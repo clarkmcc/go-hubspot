@@ -2,11 +2,16 @@
 .travis.yml
 README.md
 api/openapi.yaml
+api_recording_settings.go
 api_settings.go
 client.go
 configuration.go
 docs/Error.md
 docs/ErrorDetail.md
+docs/RecordingSettingsApi.md
+docs/RecordingSettingsPatchRequest.md
+docs/RecordingSettingsRequest.md
+docs/RecordingSettingsResponse.md
 docs/SettingsApi.md
 docs/SettingsPatchRequest.md
 docs/SettingsRequest.md
@@ -16,6 +21,9 @@ go.mod
 go.sum
 model_error.go
 model_error_detail.go
+model_recording_settings_patch_request.go
+model_recording_settings_request.go
+model_recording_settings_response.go
 model_settings_patch_request.go
 model_settings_request.go
 model_settings_response.go

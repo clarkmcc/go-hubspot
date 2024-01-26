@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Path** | Pointer to **string** | Specifies the value for &#x60;hs_path&#x60; column, which will be used as slug in the dynamic pages | [optional] 
-**Name** | Pointer to **string** | Specifies the value for &#x60;hs_name&#x60; column, which will be used as title in the dynamic pages | [optional] 
 **ChildTableId** | Pointer to **int32** | Specifies the value for the column child table id | [optional] 
 **Values** | **map[string]map[string]interface{}** | List of key value pairs with the column name and column value | 
+**Name** | Pointer to **string** | Specifies the value for &#x60;hs_name&#x60; column, which will be used as title in the dynamic pages | [optional] 
 **DisplayIndex** | Pointer to **int32** |  | [optional] 
 
 ## Methods
@@ -54,31 +54,6 @@ SetPath sets Path field to given value.
 
 HasPath returns a boolean if a field has been set.
 
-### GetName
-
-`func (o *HubDbTableRowV3Request) GetName() string`
-
-GetName returns the Name field if non-nil, zero value otherwise.
-
-### GetNameOk
-
-`func (o *HubDbTableRowV3Request) GetNameOk() (*string, bool)`
-
-GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetName
-
-`func (o *HubDbTableRowV3Request) SetName(v string)`
-
-SetName sets Name field to given value.
-
-### HasName
-
-`func (o *HubDbTableRowV3Request) HasName() bool`
-
-HasName returns a boolean if a field has been set.
-
 ### GetChildTableId
 
 `func (o *HubDbTableRowV3Request) GetChildTableId() int32`
@@ -123,6 +98,31 @@ and a boolean to check if the value has been set.
 
 SetValues sets Values field to given value.
 
+
+### GetName
+
+`func (o *HubDbTableRowV3Request) GetName() string`
+
+GetName returns the Name field if non-nil, zero value otherwise.
+
+### GetNameOk
+
+`func (o *HubDbTableRowV3Request) GetNameOk() (*string, bool)`
+
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetName
+
+`func (o *HubDbTableRowV3Request) SetName(v string)`
+
+SetName sets Name field to given value.
+
+### HasName
+
+`func (o *HubDbTableRowV3Request) HasName() bool`
+
+HasName returns a boolean if a field has been set.
 
 ### GetDisplayIndex
 

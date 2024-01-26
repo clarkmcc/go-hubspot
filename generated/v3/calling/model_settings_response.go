@@ -1,5 +1,5 @@
 /*
-Calling Extensions API
+Calling Extensions
 
 Provides a way for apps to add custom calling options to a contact record. This works in conjunction with the [Calling SDK](#), which is used to build your phone/calling UI. The endpoints here allow your service to appear as an option to HubSpot users when they access the *Call* action on a contact record. Once accessed, your custom phone/calling UI will be displayed in an iframe at the specified URL with the specified dimensions on that record.
 
@@ -17,20 +17,20 @@ import (
 
 // SettingsResponse Current settings state
 type SettingsResponse struct {
+	// When this calling extension was created.
+	CreatedAt time.Time `json:"createdAt"`
+	// When true, you are indicating that your service is compatible with engagement v2 service and can be used with custom objects.
+	SupportsCustomObjects bool `json:"supportsCustomObjects"`
+	// When true, your service will appear as an option under the *Call* action in contact records of connected accounts.
+	IsReady bool `json:"isReady"`
 	// The name of your calling service to display to users.
 	Name string `json:"name"`
+	// The target width of the iframe that will contain your phone/calling UI.
+	Width int32 `json:"width"`
 	// The URL to your phone/calling UI, built with the [Calling SDK](#).
 	Url string `json:"url"`
 	// The target height of the iframe that will contain your phone/calling UI.
 	Height int32 `json:"height"`
-	// The target width of the iframe that will contain your phone/calling UI.
-	Width int32 `json:"width"`
-	// When true, your service will appear as an option under the *Call* action in contact records of connected accounts.
-	IsReady bool `json:"isReady"`
-	// When true, you are indicating that your service is compatible with engagement v2 service and can be used with custom objects.
-	SupportsCustomObjects bool `json:"supportsCustomObjects"`
-	// When this calling extension was created.
-	CreatedAt time.Time `json:"createdAt"`
 	// The last time the settings for this calling extension were modified.
 	UpdatedAt time.Time `json:"updatedAt"`
 }
@@ -39,15 +39,15 @@ type SettingsResponse struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSettingsResponse(name string, url string, height int32, width int32, isReady bool, supportsCustomObjects bool, createdAt time.Time, updatedAt time.Time) *SettingsResponse {
+func NewSettingsResponse(createdAt time.Time, supportsCustomObjects bool, isReady bool, name string, width int32, url string, height int32, updatedAt time.Time) *SettingsResponse {
 	this := SettingsResponse{}
+	this.CreatedAt = createdAt
+	this.SupportsCustomObjects = supportsCustomObjects
+	this.IsReady = isReady
 	this.Name = name
+	this.Width = width
 	this.Url = url
 	this.Height = height
-	this.Width = width
-	this.IsReady = isReady
-	this.SupportsCustomObjects = supportsCustomObjects
-	this.CreatedAt = createdAt
 	this.UpdatedAt = updatedAt
 	return &this
 }
@@ -58,6 +58,78 @@ func NewSettingsResponse(name string, url string, height int32, width int32, isR
 func NewSettingsResponseWithDefaults() *SettingsResponse {
 	this := SettingsResponse{}
 	return &this
+}
+
+// GetCreatedAt returns the CreatedAt field value
+func (o *SettingsResponse) GetCreatedAt() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.CreatedAt
+}
+
+// GetCreatedAtOk returns a tuple with the CreatedAt field value
+// and a boolean to check if the value has been set.
+func (o *SettingsResponse) GetCreatedAtOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.CreatedAt, true
+}
+
+// SetCreatedAt sets field value
+func (o *SettingsResponse) SetCreatedAt(v time.Time) {
+	o.CreatedAt = v
+}
+
+// GetSupportsCustomObjects returns the SupportsCustomObjects field value
+func (o *SettingsResponse) GetSupportsCustomObjects() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.SupportsCustomObjects
+}
+
+// GetSupportsCustomObjectsOk returns a tuple with the SupportsCustomObjects field value
+// and a boolean to check if the value has been set.
+func (o *SettingsResponse) GetSupportsCustomObjectsOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.SupportsCustomObjects, true
+}
+
+// SetSupportsCustomObjects sets field value
+func (o *SettingsResponse) SetSupportsCustomObjects(v bool) {
+	o.SupportsCustomObjects = v
+}
+
+// GetIsReady returns the IsReady field value
+func (o *SettingsResponse) GetIsReady() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.IsReady
+}
+
+// GetIsReadyOk returns a tuple with the IsReady field value
+// and a boolean to check if the value has been set.
+func (o *SettingsResponse) GetIsReadyOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.IsReady, true
+}
+
+// SetIsReady sets field value
+func (o *SettingsResponse) SetIsReady(v bool) {
+	o.IsReady = v
 }
 
 // GetName returns the Name field value
@@ -82,6 +154,30 @@ func (o *SettingsResponse) GetNameOk() (*string, bool) {
 // SetName sets field value
 func (o *SettingsResponse) SetName(v string) {
 	o.Name = v
+}
+
+// GetWidth returns the Width field value
+func (o *SettingsResponse) GetWidth() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.Width
+}
+
+// GetWidthOk returns a tuple with the Width field value
+// and a boolean to check if the value has been set.
+func (o *SettingsResponse) GetWidthOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Width, true
+}
+
+// SetWidth sets field value
+func (o *SettingsResponse) SetWidth(v int32) {
+	o.Width = v
 }
 
 // GetUrl returns the Url field value
@@ -132,102 +228,6 @@ func (o *SettingsResponse) SetHeight(v int32) {
 	o.Height = v
 }
 
-// GetWidth returns the Width field value
-func (o *SettingsResponse) GetWidth() int32 {
-	if o == nil {
-		var ret int32
-		return ret
-	}
-
-	return o.Width
-}
-
-// GetWidthOk returns a tuple with the Width field value
-// and a boolean to check if the value has been set.
-func (o *SettingsResponse) GetWidthOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Width, true
-}
-
-// SetWidth sets field value
-func (o *SettingsResponse) SetWidth(v int32) {
-	o.Width = v
-}
-
-// GetIsReady returns the IsReady field value
-func (o *SettingsResponse) GetIsReady() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.IsReady
-}
-
-// GetIsReadyOk returns a tuple with the IsReady field value
-// and a boolean to check if the value has been set.
-func (o *SettingsResponse) GetIsReadyOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.IsReady, true
-}
-
-// SetIsReady sets field value
-func (o *SettingsResponse) SetIsReady(v bool) {
-	o.IsReady = v
-}
-
-// GetSupportsCustomObjects returns the SupportsCustomObjects field value
-func (o *SettingsResponse) GetSupportsCustomObjects() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.SupportsCustomObjects
-}
-
-// GetSupportsCustomObjectsOk returns a tuple with the SupportsCustomObjects field value
-// and a boolean to check if the value has been set.
-func (o *SettingsResponse) GetSupportsCustomObjectsOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.SupportsCustomObjects, true
-}
-
-// SetSupportsCustomObjects sets field value
-func (o *SettingsResponse) SetSupportsCustomObjects(v bool) {
-	o.SupportsCustomObjects = v
-}
-
-// GetCreatedAt returns the CreatedAt field value
-func (o *SettingsResponse) GetCreatedAt() time.Time {
-	if o == nil {
-		var ret time.Time
-		return ret
-	}
-
-	return o.CreatedAt
-}
-
-// GetCreatedAtOk returns a tuple with the CreatedAt field value
-// and a boolean to check if the value has been set.
-func (o *SettingsResponse) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.CreatedAt, true
-}
-
-// SetCreatedAt sets field value
-func (o *SettingsResponse) SetCreatedAt(v time.Time) {
-	o.CreatedAt = v
-}
-
 // GetUpdatedAt returns the UpdatedAt field value
 func (o *SettingsResponse) GetUpdatedAt() time.Time {
 	if o == nil {
@@ -255,25 +255,25 @@ func (o *SettingsResponse) SetUpdatedAt(v time.Time) {
 func (o SettingsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
+		toSerialize["createdAt"] = o.CreatedAt
+	}
+	if true {
+		toSerialize["supportsCustomObjects"] = o.SupportsCustomObjects
+	}
+	if true {
+		toSerialize["isReady"] = o.IsReady
+	}
+	if true {
 		toSerialize["name"] = o.Name
+	}
+	if true {
+		toSerialize["width"] = o.Width
 	}
 	if true {
 		toSerialize["url"] = o.Url
 	}
 	if true {
 		toSerialize["height"] = o.Height
-	}
-	if true {
-		toSerialize["width"] = o.Width
-	}
-	if true {
-		toSerialize["isReady"] = o.IsReady
-	}
-	if true {
-		toSerialize["supportsCustomObjects"] = o.SupportsCustomObjects
-	}
-	if true {
-		toSerialize["createdAt"] = o.CreatedAt
 	}
 	if true {
 		toSerialize["updatedAt"] = o.UpdatedAt

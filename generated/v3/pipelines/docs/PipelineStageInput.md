@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Label** | **string** | A label used to organize pipeline stages in HubSpot&#39;s UI. Each pipeline stage&#39;s label must be unique within that pipeline. | 
-**DisplayOrder** | **int32** | The order for displaying this pipeline stage. If two pipeline stages have a matching &#x60;displayOrder&#x60;, they will be sorted alphabetically by label. | 
 **Metadata** | **map[string]string** | A JSON object containing properties that are not present on all object pipelines.  For &#x60;deals&#x60; pipelines, the &#x60;probability&#x60; field is required (&#x60;{ \&quot;probability\&quot;: 0.5 }&#x60;), and represents the likelihood a deal will close. Possible values are between 0.0 and 1.0 in increments of 0.1.  For &#x60;tickets&#x60; pipelines, the &#x60;ticketState&#x60; field is optional (&#x60;{ \&quot;ticketState\&quot;: \&quot;OPEN\&quot; }&#x60;), and represents whether the ticket remains open or has been closed by a member of your Support team. Possible values are &#x60;OPEN&#x60; or &#x60;CLOSED&#x60;. | 
+**DisplayOrder** | **int32** | The order for displaying this pipeline stage. If two pipeline stages have a matching &#x60;displayOrder&#x60;, they will be sorted alphabetically by label. | 
+**Label** | **string** | A label used to organize pipeline stages in HubSpot&#39;s UI. Each pipeline stage&#39;s label must be unique within that pipeline. | 
 
 ## Methods
 
 ### NewPipelineStageInput
 
-`func NewPipelineStageInput(label string, displayOrder int32, metadata map[string]string, ) *PipelineStageInput`
+`func NewPipelineStageInput(metadata map[string]string, displayOrder int32, label string, ) *PipelineStageInput`
 
 NewPipelineStageInput instantiates a new PipelineStageInput object
 This constructor will assign default values to properties that have it defined,
@@ -27,24 +27,24 @@ NewPipelineStageInputWithDefaults instantiates a new PipelineStageInput object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetLabel
+### GetMetadata
 
-`func (o *PipelineStageInput) GetLabel() string`
+`func (o *PipelineStageInput) GetMetadata() map[string]string`
 
-GetLabel returns the Label field if non-nil, zero value otherwise.
+GetMetadata returns the Metadata field if non-nil, zero value otherwise.
 
-### GetLabelOk
+### GetMetadataOk
 
-`func (o *PipelineStageInput) GetLabelOk() (*string, bool)`
+`func (o *PipelineStageInput) GetMetadataOk() (*map[string]string, bool)`
 
-GetLabelOk returns a tuple with the Label field if it's non-nil, zero value otherwise
+GetMetadataOk returns a tuple with the Metadata field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetLabel
+### SetMetadata
 
-`func (o *PipelineStageInput) SetLabel(v string)`
+`func (o *PipelineStageInput) SetMetadata(v map[string]string)`
 
-SetLabel sets Label field to given value.
+SetMetadata sets Metadata field to given value.
 
 
 ### GetDisplayOrder
@@ -67,24 +67,24 @@ and a boolean to check if the value has been set.
 SetDisplayOrder sets DisplayOrder field to given value.
 
 
-### GetMetadata
+### GetLabel
 
-`func (o *PipelineStageInput) GetMetadata() map[string]string`
+`func (o *PipelineStageInput) GetLabel() string`
 
-GetMetadata returns the Metadata field if non-nil, zero value otherwise.
+GetLabel returns the Label field if non-nil, zero value otherwise.
 
-### GetMetadataOk
+### GetLabelOk
 
-`func (o *PipelineStageInput) GetMetadataOk() (*map[string]string, bool)`
+`func (o *PipelineStageInput) GetLabelOk() (*string, bool)`
 
-GetMetadataOk returns a tuple with the Metadata field if it's non-nil, zero value otherwise
+GetLabelOk returns a tuple with the Label field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetMetadata
+### SetLabel
 
-`func (o *PipelineStageInput) SetMetadata(v map[string]string)`
+`func (o *PipelineStageInput) SetLabel(v string)`
 
-SetMetadata sets Metadata field to given value.
+SetLabel sets Label field to given value.
 
 
 

@@ -1,5 +1,5 @@
 /*
-CMS Audit Logs
+CMS Cms Content Audit
 
 Use this endpoint to query audit logs of CMS changes that occurred on your HubSpot account.
 
@@ -16,8 +16,9 @@ import (
 
 // CollectionResponsePublicAuditLog The collection of audit logs.
 type CollectionResponsePublicAuditLog struct {
+	Paging *Paging `json:"paging,omitempty"`
+	//
 	Results []PublicAuditLog `json:"results"`
-	Paging  *Paging          `json:"paging,omitempty"`
 }
 
 // NewCollectionResponsePublicAuditLog instantiates a new CollectionResponsePublicAuditLog object
@@ -36,30 +37,6 @@ func NewCollectionResponsePublicAuditLog(results []PublicAuditLog) *CollectionRe
 func NewCollectionResponsePublicAuditLogWithDefaults() *CollectionResponsePublicAuditLog {
 	this := CollectionResponsePublicAuditLog{}
 	return &this
-}
-
-// GetResults returns the Results field value
-func (o *CollectionResponsePublicAuditLog) GetResults() []PublicAuditLog {
-	if o == nil {
-		var ret []PublicAuditLog
-		return ret
-	}
-
-	return o.Results
-}
-
-// GetResultsOk returns a tuple with the Results field value
-// and a boolean to check if the value has been set.
-func (o *CollectionResponsePublicAuditLog) GetResultsOk() ([]PublicAuditLog, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Results, true
-}
-
-// SetResults sets field value
-func (o *CollectionResponsePublicAuditLog) SetResults(v []PublicAuditLog) {
-	o.Results = v
 }
 
 // GetPaging returns the Paging field value if set, zero value otherwise.
@@ -94,13 +71,37 @@ func (o *CollectionResponsePublicAuditLog) SetPaging(v Paging) {
 	o.Paging = &v
 }
 
+// GetResults returns the Results field value
+func (o *CollectionResponsePublicAuditLog) GetResults() []PublicAuditLog {
+	if o == nil {
+		var ret []PublicAuditLog
+		return ret
+	}
+
+	return o.Results
+}
+
+// GetResultsOk returns a tuple with the Results field value
+// and a boolean to check if the value has been set.
+func (o *CollectionResponsePublicAuditLog) GetResultsOk() ([]PublicAuditLog, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Results, true
+}
+
+// SetResults sets field value
+func (o *CollectionResponsePublicAuditLog) SetResults(v []PublicAuditLog) {
+	o.Results = v
+}
+
 func (o CollectionResponsePublicAuditLog) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["results"] = o.Results
-	}
 	if o.Paging != nil {
 		toSerialize["paging"] = o.Paging
+	}
+	if true {
+		toSerialize["results"] = o.Results
 	}
 	return json.Marshal(toSerialize)
 }

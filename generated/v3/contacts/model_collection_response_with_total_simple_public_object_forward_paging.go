@@ -17,8 +17,8 @@ import (
 // CollectionResponseWithTotalSimplePublicObjectForwardPaging struct for CollectionResponseWithTotalSimplePublicObjectForwardPaging
 type CollectionResponseWithTotalSimplePublicObjectForwardPaging struct {
 	Total   int32                `json:"total"`
-	Results []SimplePublicObject `json:"results"`
 	Paging  *ForwardPaging       `json:"paging,omitempty"`
+	Results []SimplePublicObject `json:"results"`
 }
 
 // NewCollectionResponseWithTotalSimplePublicObjectForwardPaging instantiates a new CollectionResponseWithTotalSimplePublicObjectForwardPaging object
@@ -64,30 +64,6 @@ func (o *CollectionResponseWithTotalSimplePublicObjectForwardPaging) SetTotal(v 
 	o.Total = v
 }
 
-// GetResults returns the Results field value
-func (o *CollectionResponseWithTotalSimplePublicObjectForwardPaging) GetResults() []SimplePublicObject {
-	if o == nil {
-		var ret []SimplePublicObject
-		return ret
-	}
-
-	return o.Results
-}
-
-// GetResultsOk returns a tuple with the Results field value
-// and a boolean to check if the value has been set.
-func (o *CollectionResponseWithTotalSimplePublicObjectForwardPaging) GetResultsOk() ([]SimplePublicObject, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Results, true
-}
-
-// SetResults sets field value
-func (o *CollectionResponseWithTotalSimplePublicObjectForwardPaging) SetResults(v []SimplePublicObject) {
-	o.Results = v
-}
-
 // GetPaging returns the Paging field value if set, zero value otherwise.
 func (o *CollectionResponseWithTotalSimplePublicObjectForwardPaging) GetPaging() ForwardPaging {
 	if o == nil || o.Paging == nil {
@@ -120,16 +96,40 @@ func (o *CollectionResponseWithTotalSimplePublicObjectForwardPaging) SetPaging(v
 	o.Paging = &v
 }
 
+// GetResults returns the Results field value
+func (o *CollectionResponseWithTotalSimplePublicObjectForwardPaging) GetResults() []SimplePublicObject {
+	if o == nil {
+		var ret []SimplePublicObject
+		return ret
+	}
+
+	return o.Results
+}
+
+// GetResultsOk returns a tuple with the Results field value
+// and a boolean to check if the value has been set.
+func (o *CollectionResponseWithTotalSimplePublicObjectForwardPaging) GetResultsOk() ([]SimplePublicObject, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Results, true
+}
+
+// SetResults sets field value
+func (o *CollectionResponseWithTotalSimplePublicObjectForwardPaging) SetResults(v []SimplePublicObject) {
+	o.Results = v
+}
+
 func (o CollectionResponseWithTotalSimplePublicObjectForwardPaging) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
 		toSerialize["total"] = o.Total
 	}
-	if true {
-		toSerialize["results"] = o.Results
-	}
 	if o.Paging != nil {
 		toSerialize["paging"] = o.Paging
+	}
+	if true {
+		toSerialize["results"] = o.Results
 	}
 	return json.Marshal(toSerialize)
 }
