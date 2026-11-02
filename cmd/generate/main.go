@@ -76,9 +76,13 @@ var nameOverrides = map[string][]nameOverride{
 	"Associations": {
 		// The legacy "/types" read is gone in date-based versions; association
 		// type ids are now read from "/labels" (GET, tag Basic -> BasicAPIService).
-		{method: "get", path: `/\{fromObjectType\}/\{toObjectType\}/labels$`, name: "GetLabels"},
-		{method: "post", path: `/\{fromObjectType\}/\{toObjectType\}/batch/create$`, name: "BatchCreate"},
-		{method: "post", path: `/\{fromObjectType\}/\{toObjectType\}/batch/archive$`, name: "BatchArchive"},
+		//
+		// Anchor on "/associations/<version>/{from}/{to}/..." so these overrides do
+		// NOT also match the "/associations/<version>/definitions/configurations/
+		// {from}/{to}/batch/..." endpoints (which keep generic names).
+		{method: "get", path: `/associations/[0-9-]+/\{fromObjectType\}/\{toObjectType\}/labels$`, name: "GetLabels"},
+		{method: "post", path: `/associations/[0-9-]+/\{fromObjectType\}/\{toObjectType\}/batch/create$`, name: "BatchCreate"},
+		{method: "post", path: `/associations/[0-9-]+/\{fromObjectType\}/\{toObjectType\}/batch/archive$`, name: "BatchArchive"},
 	},
 }
 
@@ -439,7 +443,10 @@ func main() {
 	// Only post-process the version we just generated, so we never touch other
 	// (possibly older) client trees under generated/.
 	err = filepath.Walk(filepath.Join("generated", targetVersion), func(path string, info fs.FileInfo, err error) error {
-		if info.IsDir() {
+		if err != nil {
+			return err
+		}
+		if info == nil || info.IsDir() {
 			return nil
 		}
 		// API files check for the presence of an API key in the request context using type
@@ -502,13 +509,19 @@ func main() {
 		panic(err)
 	}
 
-	// openapi-generator 7.x emits a test/ directory of stub tests that import a
-	// placeholder module (github.com/GIT_USER_ID/GIT_REPO_ID) and break `go vet`.
-	// Remove them so the generated packages are self-contained under our module.
+	// Remove openapi-generator boilerplate that is either broken or misleading for
+	// a library consumed from this module:
+	//   - test/              stub tests importing a placeholder module (break vet)
+	//   - README.md, docs/   advertise a ContextAPIKeys/developer_hapikey auth flow
+	//                        that the injected shared authorizer does not use;
+	//                        authoritative usage lives in the repo-root README.
+	//   - .travis.yml, git_push.sh, .openapi-generator-ignore  unused scaffolding
 	for _, pkg := range targetAPIs {
-		testDir := filepath.Join("generated", targetVersion, pkg, "test")
-		if err := os.RemoveAll(testDir); err != nil {
-			panic(err)
+		base := filepath.Join("generated", targetVersion, pkg)
+		for _, rel := range []string{"test", "docs", "README.md", ".travis.yml", "git_push.sh", ".openapi-generator-ignore"} {
+			if err := os.RemoveAll(filepath.Join(base, rel)); err != nil {
+				panic(err)
+			}
 		}
 	}
 

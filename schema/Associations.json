@@ -4369,7 +4369,7 @@
     "/crm/associations/2026-09/definitions/configurations/{fromObjectType}/{toObjectType}/batch/create": {
       "post": {
         "description": "Batch create user configurations between two object types",
-        "operationId": "BatchCreate",
+        "operationId": "PostDefinitionsConfigurationsBatchCreate",
         "parameters": [
           {
             "description": "The type of the source object for the association configuration.",

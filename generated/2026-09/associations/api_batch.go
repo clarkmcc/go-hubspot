@@ -150,30 +150,30 @@ func (a *BatchAPIService) BatchArchiveExecute(r ApiBatchArchiveRequest) (*BatchR
 }
 
 type ApiBatchCreateRequest struct {
-	ctx                                                             context.Context
-	ApiService                                                      *BatchAPIService
-	fromObjectType                                                  string
-	toObjectType                                                    string
-	batchInputPublicAssociationDefinitionConfigurationCreateRequest *BatchInputPublicAssociationDefinitionConfigurationCreateRequest
+	ctx                                  context.Context
+	ApiService                           *BatchAPIService
+	fromObjectType                       string
+	toObjectType                         string
+	batchInputPublicAssociationMultiPost *BatchInputPublicAssociationMultiPost
 }
 
-func (r ApiBatchCreateRequest) BatchInputPublicAssociationDefinitionConfigurationCreateRequest(batchInputPublicAssociationDefinitionConfigurationCreateRequest BatchInputPublicAssociationDefinitionConfigurationCreateRequest) ApiBatchCreateRequest {
-	r.batchInputPublicAssociationDefinitionConfigurationCreateRequest = &batchInputPublicAssociationDefinitionConfigurationCreateRequest
+func (r ApiBatchCreateRequest) BatchInputPublicAssociationMultiPost(batchInputPublicAssociationMultiPost BatchInputPublicAssociationMultiPost) ApiBatchCreateRequest {
+	r.batchInputPublicAssociationMultiPost = &batchInputPublicAssociationMultiPost
 	return r
 }
 
-func (r ApiBatchCreateRequest) Execute() (*BatchResponsePublicAssociationDefinitionUserConfiguration, *http.Response, error) {
+func (r ApiBatchCreateRequest) Execute() (*BatchResponseLabelsBetweenObjectPair, *http.Response, error) {
 	return r.ApiService.BatchCreateExecute(r)
 }
 
 /*
-BatchCreate Create
+BatchCreate Associate records (labelled)
 
-Batch create user configurations between two object types
+Batch create associations for objects
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param fromObjectType The type of the source object for the association configuration.
-	@param toObjectType The type of the target object for the association configuration.
+	@param fromObjectType The type of the source object for the associations.
+	@param toObjectType The type of the target object for the associations.
 	@return ApiBatchCreateRequest
 */
 func (a *BatchAPIService) BatchCreate(ctx context.Context, fromObjectType string, toObjectType string) ApiBatchCreateRequest {
@@ -187,135 +187,8 @@ func (a *BatchAPIService) BatchCreate(ctx context.Context, fromObjectType string
 
 // Execute executes the request
 //
-//	@return BatchResponsePublicAssociationDefinitionUserConfiguration
-func (a *BatchAPIService) BatchCreateExecute(r ApiBatchCreateRequest) (*BatchResponsePublicAssociationDefinitionUserConfiguration, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *BatchResponsePublicAssociationDefinitionUserConfiguration
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.BatchCreate")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/crm/associations/2026-09/definitions/configurations/{fromObjectType}/{toObjectType}/batch/create"
-	localVarPath = strings.Replace(localVarPath, "{"+"fromObjectType"+"}", url.PathEscape(parameterValueToString(r.fromObjectType, "fromObjectType")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"toObjectType"+"}", url.PathEscape(parameterValueToString(r.toObjectType, "toObjectType")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.batchInputPublicAssociationDefinitionConfigurationCreateRequest == nil {
-		return localVarReturnValue, nil, reportError("batchInputPublicAssociationDefinitionConfigurationCreateRequest is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "*/*"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.batchInputPublicAssociationDefinitionConfigurationCreateRequest
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		var v Error
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiBatchCreate_0Request struct {
-	ctx                                  context.Context
-	ApiService                           *BatchAPIService
-	fromObjectType                       string
-	toObjectType                         string
-	batchInputPublicAssociationMultiPost *BatchInputPublicAssociationMultiPost
-}
-
-func (r ApiBatchCreate_0Request) BatchInputPublicAssociationMultiPost(batchInputPublicAssociationMultiPost BatchInputPublicAssociationMultiPost) ApiBatchCreate_0Request {
-	r.batchInputPublicAssociationMultiPost = &batchInputPublicAssociationMultiPost
-	return r
-}
-
-func (r ApiBatchCreate_0Request) Execute() (*BatchResponseLabelsBetweenObjectPair, *http.Response, error) {
-	return r.ApiService.BatchCreate_1Execute(r)
-}
-
-/*
-BatchCreate_0 Associate records (labelled)
-
-Batch create associations for objects
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param fromObjectType The type of the source object for the associations.
-	@param toObjectType The type of the target object for the associations.
-	@return ApiBatchCreate_0Request
-*/
-func (a *BatchAPIService) BatchCreate_1(ctx context.Context, fromObjectType string, toObjectType string) ApiBatchCreate_0Request {
-	return ApiBatchCreate_0Request{
-		ApiService:     a,
-		ctx:            ctx,
-		fromObjectType: fromObjectType,
-		toObjectType:   toObjectType,
-	}
-}
-
-// Execute executes the request
-//
 //	@return BatchResponseLabelsBetweenObjectPair
-func (a *BatchAPIService) BatchCreate_1Execute(r ApiBatchCreate_0Request) (*BatchResponseLabelsBetweenObjectPair, *http.Response, error) {
+func (a *BatchAPIService) BatchCreateExecute(r ApiBatchCreateRequest) (*BatchResponseLabelsBetweenObjectPair, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -323,7 +196,7 @@ func (a *BatchAPIService) BatchCreate_1Execute(r ApiBatchCreate_0Request) (*Batc
 		localVarReturnValue *BatchResponseLabelsBetweenObjectPair
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.BatchCreate_1")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.BatchCreate")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1356,6 +1229,133 @@ func (a *BatchAPIService) PostByObjectTypeBatchReadExecute(r ApiPostByObjectType
 	}
 	// body params
 	localVarPostBody = r.batchReadInputSimplePublicObjectId
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiPostDefinitionsConfigurationsBatchCreateRequest struct {
+	ctx                                                             context.Context
+	ApiService                                                      *BatchAPIService
+	fromObjectType                                                  string
+	toObjectType                                                    string
+	batchInputPublicAssociationDefinitionConfigurationCreateRequest *BatchInputPublicAssociationDefinitionConfigurationCreateRequest
+}
+
+func (r ApiPostDefinitionsConfigurationsBatchCreateRequest) BatchInputPublicAssociationDefinitionConfigurationCreateRequest(batchInputPublicAssociationDefinitionConfigurationCreateRequest BatchInputPublicAssociationDefinitionConfigurationCreateRequest) ApiPostDefinitionsConfigurationsBatchCreateRequest {
+	r.batchInputPublicAssociationDefinitionConfigurationCreateRequest = &batchInputPublicAssociationDefinitionConfigurationCreateRequest
+	return r
+}
+
+func (r ApiPostDefinitionsConfigurationsBatchCreateRequest) Execute() (*BatchResponsePublicAssociationDefinitionUserConfiguration, *http.Response, error) {
+	return r.ApiService.PostDefinitionsConfigurationsBatchCreateExecute(r)
+}
+
+/*
+PostDefinitionsConfigurationsBatchCreate Create
+
+Batch create user configurations between two object types
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param fromObjectType The type of the source object for the association configuration.
+	@param toObjectType The type of the target object for the association configuration.
+	@return ApiPostDefinitionsConfigurationsBatchCreateRequest
+*/
+func (a *BatchAPIService) PostDefinitionsConfigurationsBatchCreate(ctx context.Context, fromObjectType string, toObjectType string) ApiPostDefinitionsConfigurationsBatchCreateRequest {
+	return ApiPostDefinitionsConfigurationsBatchCreateRequest{
+		ApiService:     a,
+		ctx:            ctx,
+		fromObjectType: fromObjectType,
+		toObjectType:   toObjectType,
+	}
+}
+
+// Execute executes the request
+//
+//	@return BatchResponsePublicAssociationDefinitionUserConfiguration
+func (a *BatchAPIService) PostDefinitionsConfigurationsBatchCreateExecute(r ApiPostDefinitionsConfigurationsBatchCreateRequest) (*BatchResponsePublicAssociationDefinitionUserConfiguration, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *BatchResponsePublicAssociationDefinitionUserConfiguration
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.PostDefinitionsConfigurationsBatchCreate")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/crm/associations/2026-09/definitions/configurations/{fromObjectType}/{toObjectType}/batch/create"
+	localVarPath = strings.Replace(localVarPath, "{"+"fromObjectType"+"}", url.PathEscape(parameterValueToString(r.fromObjectType, "fromObjectType")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"toObjectType"+"}", url.PathEscape(parameterValueToString(r.toObjectType, "toObjectType")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.batchInputPublicAssociationDefinitionConfigurationCreateRequest == nil {
+		return localVarReturnValue, nil, reportError("batchInputPublicAssociationDefinitionConfigurationCreateRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "*/*"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.batchInputPublicAssociationDefinitionConfigurationCreateRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
