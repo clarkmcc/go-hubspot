@@ -1,0 +1,4279 @@
+openapi: 3.0.1
+info:
+  description: Basepom for all HubSpot Projects
+  title: CRM Pipelines
+  version: 2026-09
+  x-hubspot-product-tier-requirements:
+    cms: FREE
+    commerce: FREE
+    crmHub: FREE
+    dataHub: FREE
+    marketing: FREE
+    sales: FREE
+    service: FREE
+servers:
+- url: https://api.hubapi.com
+tags:
+- name: Basic
+paths:
+  /crm/pipelines/2026-09/{objectType}:
+    get:
+      description: "Retrieve all pipelines for a specified object type in your HubSpot\
+        \ account. This endpoint allows you to access pipeline information without\
+        \ paging, making it useful for obtaining a complete list of pipelines associated\
+        \ with a particular object type."
+      operationId: GetPipelines
+      parameters:
+      - description: The type of object for which pipelines are being retrieved. This
+          is a required parameter and must be specified in the path.
+        explode: false
+        in: path
+        name: objectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CollectionResponsePipelineNoPaging"
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: An error occurred.
+      security:
+      - oauth2:
+        - crm.schemas.contracts.read
+      - oauth2:
+        - crm.objects.owners.read
+      - oauth2:
+        - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.services.read
+      - oauth2:
+        - crm.objects.subscriptions.read
+      - oauth2:
+        - crm.objects.tickets.sensitive.read
+      - oauth2:
+        - crm.objects.listings.write
+      - oauth2:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.schemas.tickets.read
+      - oauth2:
+        - crm.objects.custom.sensitive.write.v2
+      - oauth2:
+        - crm.objects.tasks.read
+      - oauth2:
+        - crm.objects.custom.highly_sensitive.write.v2
+      - oauth2:
+        - crm.schemas.quotes.read
+      - oauth2:
+        - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.tickets.highly_sensitive.read
+      - oauth2:
+        - crm.objects.companies.sensitive.read.v2
+      - oauth2:
+        - media_bridge.read
+      - oauth2:
+        - crm.objects.deals.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.contracts.read
+      - oauth2:
+        - crm.objects.companies.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.contacts.sensitive.write.v2
+      - oauth2:
+        - crm.objects.calls.read
+      - oauth2:
+        - crm.objects.meetings.read
+      - oauth2:
+        - crm.schemas.services.read
+      - oauth2:
+        - crm.schemas.line_items.read
+      - oauth2:
+        - crm.schemas.subscriptions.read
+      - oauth2:
+        - crm.objects.projects.highly_sensitive.write
+      - oauth2:
+        - crm.schemas.companies.read
+      - oauth2:
+        - crm.objects.tasks.write
+      - oauth2:
+        - cpq.price_books.write
+      - oauth2:
+        - crm.objects.feedback_submissions.read
+      - oauth2:
+        - crm.objects.products.write
+      - oauth2:
+        - crm.objects.services.write
+      - oauth2:
+        - crm.objects.subscriptions.write
+      - oauth2:
+        - crm.schemas.calls.read
+      - oauth2:
+        - crm.schemas.meetings.read
+      - oauth2:
+        - crm.objects.contacts.read
+      - oauth2:
+        - crm.objects.invoices.read
+      - oauth2:
+        - crm.schemas.orders.read
+      - oauth2:
+        - crm.schemas.emails.read
+      - oauth2:
+        - crm.schemas.deals.read
+      - oauth2:
+        - crm.objects.deals.write
+      - oauth2:
+        - e-commerce
+      - oauth2:
+        - crm.schemas.notes.read
+      - oauth2:
+        - crm.objects.companies.sensitive.write.v2
+      - oauth2:
+        - crm.objects.projects.read
+      - oauth2:
+        - crm.objects.custom.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.goals.write
+      - oauth2:
+        - crm.objects.line_items.write
+      - oauth2:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.goals.read
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.deals.sensitive.read.v2
+      - oauth2:
+        - crm.objects.projects.sensitive.write
+      - oauth2:
+        - crm.objects.quotes.write
+      - oauth2:
+        - crm.schemas.contacts.read
+      - oauth2:
+        - tickets.highly_sensitive.v2
+      - oauth2:
+        - crm.objects.leads.read
+      - oauth2:
+        - crm.objects.leads.write
+      - oauth2:
+        - crm.schemas.tasks.read
+      - oauth2:
+        - crm.objects.emails.read
+      - oauth2:
+        - crm.schemas.invoices.read
+      - oauth2:
+        - crm.objects.quotes.read
+      - oauth2:
+        - crm.schemas.forecasts.read
+      - oauth2:
+        - crm.objects.courses.read
+      - oauth2:
+        - crm.objects.notes.read
+      - oauth2:
+        - crm.objects.marketing_events.read
+      - oauth2:
+        - crm.pipelines.orders.read
+      - oauth2:
+        - crm.objects.contacts.sensitive.read.v2
+      - oauth2:
+        - crm.objects.tickets.write
+      - oauth2:
+        - crm.schemas.projects.read
+      - oauth2:
+        - crm.objects.tickets.read
+      - oauth2:
+        - crm.objects.orders.read
+      - oauth2:
+        - automation
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.schemas.carts.read
+      - oauth2:
+        - cpq.quotes.write
+      - oauth2:
+        - crm.schemas.listings.read
+      - oauth2:
+        - crm.objects.appointments.sensitive.read.v2
+      - oauth2:
+        - crm.objects.contacts.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.forecasts.read
+      - oauth2:
+        - crm.objects.contacts.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.commercepayments.write
+      - oauth2:
+        - crm.objects.invoices.write
+      - oauth2:
+        - crm.objects.custom.sensitive.read.v2
+      - oauth2:
+        - crm.objects.users.read
+      - oauth2:
+        - crm.objects.appointments.write
+      - oauth2:
+        - crm.objects.emails.write
+      - oauth2:
+        - crm.objects.deals.sensitive.write.v2
+      - oauth2:
+        - cpq.quotes.read
+      - oauth2:
+        - crm.objects.appointments.sensitive.write.v2
+      - oauth2:
+        - cpq.price_books.read
+      - oauth2:
+        - crm.objects.meetings.write
+      - oauth2:
+        - crm.objects.projects.highly_sensitive.read
+      - oauth2:
+        - crm.schemas.appointments.read
+      - oauth2:
+        - crm.objects.custom.write
+      - oauth2:
+        - crm.objects.notes.write
+      - oauth2:
+        - tickets.sensitive.v2
+      - oauth2:
+        - crm.objects.appointments.read
+      - oauth2:
+        - crm.schemas.courses.read
+      - oauth2:
+        - crm.objects.companies.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.deals.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.calls.write
+      - oauth2:
+        - crm.objects.projects.sensitive.read
+      - oauth2:
+        - crm.pipelines.approval.read
+      - oauth2:
+        - workflows.write
+      - oauth2:
+        - crm.objects.marketing_events.write
+      - oauth2:
+        - crm.objects.projects.write
+      - oauth2:
+        - crm.schemas.custom.read
+      - oauth2:
+        - workflows.read
+      - oauth2:
+        - crm.objects.carts.read
+      - oauth2:
+        - crm.objects.courses.write
+      - oauth2:
+        - crm.objects.listings.read
+      - oauth2:
+        - crm.schemas.commercepayments.read
+      summary: Retrieve pipelines
+      tags:
+      - Basic
+    post:
+      description: "Create a new pipeline for a specified object type in your HubSpot\
+        \ account. This endpoint requires a JSON request body with details about the\
+        \ pipeline, including its label, display order, and stages. The operation\
+        \ returns the newly created pipeline's details upon success."
+      operationId: PostPipelines
+      parameters:
+      - description: "The type of object for which the pipeline is being created,\
+          \ such as deals or tickets."
+        explode: false
+        in: path
+        name: objectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PipelineInput"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Pipeline"
+          description: successful operation
+          headers:
+            Location:
+              description: URL of the newly created resource
+              explode: false
+              schema:
+                type: string
+              style: simple
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: An error occurred.
+      security:
+      - oauth2:
+        - crm.schemas.quotes.write
+      - oauth2:
+        - crm.schemas.invoices.write
+      - oauth2:
+        - crm.schemas.orders.write
+      - oauth2:
+        - crm.schemas.commercepayments.write
+      - oauth2:
+        - crm.schemas.courses.write
+      - oauth2:
+        - tickets.sensitive.v2
+      - oauth2:
+        - e-commerce
+      - oauth2:
+        - crm.schemas.appointments.write
+      - oauth2:
+        - crm.schemas.contacts.write
+      - oauth2:
+        - crm.schemas.tasks.write
+      - oauth2:
+        - crm.schemas.carts.write
+      - oauth2:
+        - crm.objects.tickets.sensitive.write
+      - oauth2:
+        - crm.schemas.companies.write
+      - oauth2:
+        - crm.schemas.subscriptions.write
+      - oauth2:
+        - crm.schemas.emails.write
+      - oauth2:
+        - crm.schemas.custom.write
+      - oauth2:
+        - crm.schemas.listings.write
+      - oauth2:
+        - crm.pipelines.orders.write
+      - oauth2:
+        - crm.objects.users.write
+      - oauth2:
+        - tickets.highly_sensitive.v2
+      - oauth2:
+        - crm.schemas.services.write
+      - oauth2:
+        - crm.objects.orders.write
+      - oauth2:
+        - crm.schemas.notes.write
+      - oauth2:
+        - crm.schemas.contracts.write
+      - oauth2:
+        - crm.schemas.meetings.write
+      - oauth2:
+        - crm.schemas.deals.write
+      - oauth2:
+        - crm.schemas.projects.write
+      - oauth2:
+        - crm.objects.carts.write
+      - oauth2:
+        - crm.schemas.calls.write
+      - oauth2:
+        - crm.schemas.tickets.write
+      - oauth2:
+        - crm.objects.tickets.highly_sensitive.write
+      summary: Create pipeline
+      tags:
+      - Basic
+  /crm/pipelines/2026-09/{objectType}/{pipelineId}:
+    delete:
+      description: Delete a specific pipeline in your HubSpot account identified by
+        its object type and pipeline ID. This operation can optionally validate references
+        and deal stage usages before deletion to ensure data integrity.
+      operationId: DeletePipelines
+      parameters:
+      - description: "The type of object the pipeline belongs to, such as deals or\
+          \ tickets."
+        explode: false
+        in: path
+        name: objectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The unique identifier of the pipeline to delete.
+        explode: false
+        in: path
+        name: pipelineId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: A boolean indicating whether to validate deal stage usages before
+          deleting the pipeline. Defaults to true.
+        explode: true
+        in: query
+        name: validateDealStageUsagesBeforeDelete
+        required: false
+        schema:
+          default: true
+          type: boolean
+        style: form
+      - description: A boolean indicating whether to validate references before deleting
+          the pipeline. Defaults to true.
+        explode: true
+        in: query
+        name: validateReferencesBeforeDelete
+        required: false
+        schema:
+          default: true
+          type: boolean
+        style: form
+      responses:
+        "204":
+          content: {}
+          description: No content
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: An error occurred.
+      security:
+      - oauth2:
+        - crm.schemas.quotes.write
+      - oauth2:
+        - crm.schemas.invoices.write
+      - oauth2:
+        - crm.schemas.orders.write
+      - oauth2:
+        - crm.schemas.commercepayments.write
+      - oauth2:
+        - crm.schemas.courses.write
+      - oauth2:
+        - tickets.sensitive.v2
+      - oauth2:
+        - e-commerce
+      - oauth2:
+        - crm.schemas.appointments.write
+      - oauth2:
+        - crm.schemas.contacts.write
+      - oauth2:
+        - crm.schemas.tasks.write
+      - oauth2:
+        - crm.schemas.carts.write
+      - oauth2:
+        - crm.objects.tickets.sensitive.write
+      - oauth2:
+        - crm.schemas.companies.write
+      - oauth2:
+        - crm.schemas.subscriptions.write
+      - oauth2:
+        - crm.schemas.emails.write
+      - oauth2:
+        - crm.schemas.custom.write
+      - oauth2:
+        - crm.schemas.listings.write
+      - oauth2:
+        - crm.pipelines.orders.write
+      - oauth2:
+        - crm.objects.users.write
+      - oauth2:
+        - tickets.highly_sensitive.v2
+      - oauth2:
+        - crm.schemas.services.write
+      - oauth2:
+        - crm.objects.orders.write
+      - oauth2:
+        - crm.schemas.notes.write
+      - oauth2:
+        - crm.schemas.contracts.write
+      - oauth2:
+        - crm.schemas.meetings.write
+      - oauth2:
+        - crm.schemas.deals.write
+      - oauth2:
+        - crm.schemas.projects.write
+      - oauth2:
+        - crm.objects.carts.write
+      - oauth2:
+        - crm.schemas.calls.write
+      - oauth2:
+        - crm.schemas.tickets.write
+      - oauth2:
+        - crm.objects.tickets.highly_sensitive.write
+      summary: Delete pipeline
+      tags:
+      - Basic
+    get:
+      description: Retrieve detailed information about a specific pipeline in your
+        HubSpot account. This endpoint allows you to access the properties and stages
+        of the pipeline identified by the given pipelineId and objectType. It is useful
+        for obtaining the current configuration and status of a pipeline.
+      operationId: GetPipelinesByObjectTypeByPipelineId
+      parameters:
+      - description: "The type of object the pipeline is associated with, such as\
+          \ deals or tickets."
+        explode: false
+        in: path
+        name: objectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The unique identifier of the pipeline to retrieve.
+        explode: false
+        in: path
+        name: pipelineId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Pipeline"
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: An error occurred.
+      security:
+      - oauth2:
+        - crm.schemas.contracts.read
+      - oauth2:
+        - crm.objects.owners.read
+      - oauth2:
+        - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.services.read
+      - oauth2:
+        - crm.objects.subscriptions.read
+      - oauth2:
+        - crm.objects.tickets.sensitive.read
+      - oauth2:
+        - crm.objects.listings.write
+      - oauth2:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.schemas.tickets.read
+      - oauth2:
+        - crm.objects.custom.sensitive.write.v2
+      - oauth2:
+        - crm.objects.tasks.read
+      - oauth2:
+        - crm.objects.custom.highly_sensitive.write.v2
+      - oauth2:
+        - crm.schemas.quotes.read
+      - oauth2:
+        - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.tickets.highly_sensitive.read
+      - oauth2:
+        - crm.objects.companies.sensitive.read.v2
+      - oauth2:
+        - media_bridge.read
+      - oauth2:
+        - crm.objects.deals.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.contracts.read
+      - oauth2:
+        - crm.objects.companies.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.contacts.sensitive.write.v2
+      - oauth2:
+        - crm.objects.calls.read
+      - oauth2:
+        - crm.objects.meetings.read
+      - oauth2:
+        - crm.schemas.services.read
+      - oauth2:
+        - crm.schemas.line_items.read
+      - oauth2:
+        - crm.schemas.subscriptions.read
+      - oauth2:
+        - crm.objects.projects.highly_sensitive.write
+      - oauth2:
+        - crm.schemas.companies.read
+      - oauth2:
+        - crm.objects.tasks.write
+      - oauth2:
+        - cpq.price_books.write
+      - oauth2:
+        - crm.objects.feedback_submissions.read
+      - oauth2:
+        - crm.objects.products.write
+      - oauth2:
+        - crm.objects.services.write
+      - oauth2:
+        - crm.objects.subscriptions.write
+      - oauth2:
+        - crm.schemas.calls.read
+      - oauth2:
+        - crm.schemas.meetings.read
+      - oauth2:
+        - crm.objects.contacts.read
+      - oauth2:
+        - crm.objects.invoices.read
+      - oauth2:
+        - crm.schemas.orders.read
+      - oauth2:
+        - crm.schemas.emails.read
+      - oauth2:
+        - crm.schemas.deals.read
+      - oauth2:
+        - crm.objects.deals.write
+      - oauth2:
+        - e-commerce
+      - oauth2:
+        - crm.schemas.notes.read
+      - oauth2:
+        - crm.objects.companies.sensitive.write.v2
+      - oauth2:
+        - crm.objects.projects.read
+      - oauth2:
+        - crm.objects.custom.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.goals.write
+      - oauth2:
+        - crm.objects.line_items.write
+      - oauth2:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.goals.read
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.deals.sensitive.read.v2
+      - oauth2:
+        - crm.objects.projects.sensitive.write
+      - oauth2:
+        - crm.objects.quotes.write
+      - oauth2:
+        - crm.schemas.contacts.read
+      - oauth2:
+        - tickets.highly_sensitive.v2
+      - oauth2:
+        - crm.objects.leads.read
+      - oauth2:
+        - crm.objects.leads.write
+      - oauth2:
+        - crm.schemas.tasks.read
+      - oauth2:
+        - crm.objects.emails.read
+      - oauth2:
+        - crm.schemas.invoices.read
+      - oauth2:
+        - crm.objects.quotes.read
+      - oauth2:
+        - crm.schemas.forecasts.read
+      - oauth2:
+        - crm.objects.courses.read
+      - oauth2:
+        - crm.objects.notes.read
+      - oauth2:
+        - crm.objects.marketing_events.read
+      - oauth2:
+        - crm.pipelines.orders.read
+      - oauth2:
+        - crm.objects.contacts.sensitive.read.v2
+      - oauth2:
+        - crm.objects.tickets.write
+      - oauth2:
+        - crm.schemas.projects.read
+      - oauth2:
+        - crm.objects.tickets.read
+      - oauth2:
+        - crm.objects.orders.read
+      - oauth2:
+        - automation
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.schemas.carts.read
+      - oauth2:
+        - cpq.quotes.write
+      - oauth2:
+        - crm.schemas.listings.read
+      - oauth2:
+        - crm.objects.appointments.sensitive.read.v2
+      - oauth2:
+        - crm.objects.contacts.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.forecasts.read
+      - oauth2:
+        - crm.objects.contacts.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.commercepayments.write
+      - oauth2:
+        - crm.objects.invoices.write
+      - oauth2:
+        - crm.objects.custom.sensitive.read.v2
+      - oauth2:
+        - crm.objects.users.read
+      - oauth2:
+        - crm.objects.appointments.write
+      - oauth2:
+        - crm.objects.emails.write
+      - oauth2:
+        - crm.objects.deals.sensitive.write.v2
+      - oauth2:
+        - cpq.quotes.read
+      - oauth2:
+        - crm.objects.appointments.sensitive.write.v2
+      - oauth2:
+        - cpq.price_books.read
+      - oauth2:
+        - crm.objects.meetings.write
+      - oauth2:
+        - crm.objects.projects.highly_sensitive.read
+      - oauth2:
+        - crm.schemas.appointments.read
+      - oauth2:
+        - crm.objects.custom.write
+      - oauth2:
+        - crm.objects.notes.write
+      - oauth2:
+        - tickets.sensitive.v2
+      - oauth2:
+        - crm.objects.appointments.read
+      - oauth2:
+        - crm.schemas.courses.read
+      - oauth2:
+        - crm.objects.companies.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.deals.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.calls.write
+      - oauth2:
+        - crm.objects.projects.sensitive.read
+      - oauth2:
+        - crm.pipelines.approval.read
+      - oauth2:
+        - workflows.write
+      - oauth2:
+        - crm.objects.marketing_events.write
+      - oauth2:
+        - crm.objects.projects.write
+      - oauth2:
+        - crm.schemas.custom.read
+      - oauth2:
+        - workflows.read
+      - oauth2:
+        - crm.objects.carts.read
+      - oauth2:
+        - crm.objects.courses.write
+      - oauth2:
+        - crm.objects.listings.read
+      - oauth2:
+        - crm.schemas.commercepayments.read
+      summary: Retrieve pipeline
+      tags:
+      - Basic
+    patch:
+      description: "Update an existing pipeline in your HubSpot account. This endpoint\
+        \ allows you to modify specific properties of a pipeline, such as its label,\
+        \ display order, or archived status. Use this to keep your pipeline data up-to-date\
+        \ and organized."
+      operationId: PatchPipelines
+      parameters:
+      - description: "The type of object associated with the pipeline, such as deals\
+          \ or tickets."
+        explode: false
+        in: path
+        name: objectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The unique identifier of the pipeline to update.
+        explode: false
+        in: path
+        name: pipelineId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: A boolean indicating whether to validate deal stage usages before
+          deleting. Defaults to true.
+        explode: true
+        in: query
+        name: validateDealStageUsagesBeforeDelete
+        required: false
+        schema:
+          default: true
+          type: boolean
+        style: form
+      - description: A boolean indicating whether to validate references before deleting.
+          Defaults to true.
+        explode: true
+        in: query
+        name: validateReferencesBeforeDelete
+        required: false
+        schema:
+          default: true
+          type: boolean
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PipelinePatchInput"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Pipeline"
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: An error occurred.
+      security:
+      - oauth2:
+        - crm.schemas.quotes.write
+      - oauth2:
+        - crm.schemas.invoices.write
+      - oauth2:
+        - crm.schemas.orders.write
+      - oauth2:
+        - crm.schemas.commercepayments.write
+      - oauth2:
+        - crm.schemas.courses.write
+      - oauth2:
+        - tickets.sensitive.v2
+      - oauth2:
+        - e-commerce
+      - oauth2:
+        - crm.schemas.appointments.write
+      - oauth2:
+        - crm.schemas.contacts.write
+      - oauth2:
+        - crm.schemas.tasks.write
+      - oauth2:
+        - crm.schemas.carts.write
+      - oauth2:
+        - crm.objects.tickets.sensitive.write
+      - oauth2:
+        - crm.schemas.companies.write
+      - oauth2:
+        - crm.schemas.subscriptions.write
+      - oauth2:
+        - crm.schemas.emails.write
+      - oauth2:
+        - crm.schemas.custom.write
+      - oauth2:
+        - crm.schemas.listings.write
+      - oauth2:
+        - crm.pipelines.orders.write
+      - oauth2:
+        - crm.objects.users.write
+      - oauth2:
+        - tickets.highly_sensitive.v2
+      - oauth2:
+        - crm.schemas.services.write
+      - oauth2:
+        - crm.objects.orders.write
+      - oauth2:
+        - crm.schemas.notes.write
+      - oauth2:
+        - crm.schemas.contracts.write
+      - oauth2:
+        - crm.schemas.meetings.write
+      - oauth2:
+        - crm.schemas.deals.write
+      - oauth2:
+        - crm.schemas.projects.write
+      - oauth2:
+        - crm.objects.carts.write
+      - oauth2:
+        - crm.schemas.calls.write
+      - oauth2:
+        - crm.schemas.tickets.write
+      - oauth2:
+        - crm.objects.tickets.highly_sensitive.write
+      summary: Update pipeline (Partial)
+      tags:
+      - Basic
+    put:
+      description: "Update an existing pipeline in your HubSpot account by specifying\
+        \ the pipeline ID and object type. This operation allows you to modify the\
+        \ pipeline's properties, such as its label, display order, and stages. Ensure\
+        \ that the request body contains the necessary fields for a successful update."
+      operationId: PutPipelines
+      parameters:
+      - description: "The type of object the pipeline is associated with, such as\
+          \ deals or tickets."
+        explode: false
+        in: path
+        name: objectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The unique identifier of the pipeline to update.
+        explode: false
+        in: path
+        name: pipelineId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: A boolean indicating whether to validate deal stage usages before
+          deleting. Defaults to true.
+        explode: true
+        in: query
+        name: validateDealStageUsagesBeforeDelete
+        required: false
+        schema:
+          default: true
+          type: boolean
+        style: form
+      - description: A boolean indicating whether to validate references before deleting.
+          Defaults to true.
+        explode: true
+        in: query
+        name: validateReferencesBeforeDelete
+        required: false
+        schema:
+          default: true
+          type: boolean
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PipelineReplaceInput"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Pipeline"
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: An error occurred.
+      security:
+      - oauth2:
+        - crm.schemas.quotes.write
+      - oauth2:
+        - crm.schemas.invoices.write
+      - oauth2:
+        - crm.schemas.orders.write
+      - oauth2:
+        - crm.schemas.commercepayments.write
+      - oauth2:
+        - crm.schemas.courses.write
+      - oauth2:
+        - tickets.sensitive.v2
+      - oauth2:
+        - e-commerce
+      - oauth2:
+        - crm.schemas.appointments.write
+      - oauth2:
+        - crm.schemas.contacts.write
+      - oauth2:
+        - crm.schemas.tasks.write
+      - oauth2:
+        - crm.schemas.carts.write
+      - oauth2:
+        - crm.objects.tickets.sensitive.write
+      - oauth2:
+        - crm.schemas.companies.write
+      - oauth2:
+        - crm.schemas.subscriptions.write
+      - oauth2:
+        - crm.schemas.emails.write
+      - oauth2:
+        - crm.schemas.custom.write
+      - oauth2:
+        - crm.schemas.listings.write
+      - oauth2:
+        - crm.pipelines.orders.write
+      - oauth2:
+        - crm.objects.users.write
+      - oauth2:
+        - tickets.highly_sensitive.v2
+      - oauth2:
+        - crm.schemas.services.write
+      - oauth2:
+        - crm.objects.orders.write
+      - oauth2:
+        - crm.schemas.notes.write
+      - oauth2:
+        - crm.schemas.contracts.write
+      - oauth2:
+        - crm.schemas.meetings.write
+      - oauth2:
+        - crm.schemas.deals.write
+      - oauth2:
+        - crm.schemas.projects.write
+      - oauth2:
+        - crm.objects.carts.write
+      - oauth2:
+        - crm.schemas.calls.write
+      - oauth2:
+        - crm.schemas.tickets.write
+      - oauth2:
+        - crm.objects.tickets.highly_sensitive.write
+      summary: Update pipeline (Replace)
+      tags:
+      - Basic
+  /crm/pipelines/2026-09/{objectType}/{pipelineId}/audit:
+    get:
+      description: "Retrieve audit logs for a specific pipeline in your HubSpot account.\
+        \ This endpoint provides detailed information about changes made to the specified\
+        \ pipeline, which can be useful for tracking modifications and understanding\
+        \ the history of the pipeline's configuration."
+      operationId: GetPipelinesAudit
+      parameters:
+      - description: "The type of object the pipeline is associated with, such as\
+          \ deals or tickets."
+        explode: false
+        in: path
+        name: objectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The unique identifier of the pipeline for which audit logs are
+          being retrieved.
+        explode: false
+        in: path
+        name: pipelineId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CollectionResponsePublicAuditInfoNoPaging"
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: An error occurred.
+      security:
+      - oauth2:
+        - crm.schemas.contracts.read
+      - oauth2:
+        - crm.objects.owners.read
+      - oauth2:
+        - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.services.read
+      - oauth2:
+        - crm.objects.subscriptions.read
+      - oauth2:
+        - crm.objects.tickets.sensitive.read
+      - oauth2:
+        - crm.objects.listings.write
+      - oauth2:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.schemas.tickets.read
+      - oauth2:
+        - crm.objects.custom.sensitive.write.v2
+      - oauth2:
+        - crm.objects.tasks.read
+      - oauth2:
+        - crm.objects.custom.highly_sensitive.write.v2
+      - oauth2:
+        - crm.schemas.quotes.read
+      - oauth2:
+        - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.tickets.highly_sensitive.read
+      - oauth2:
+        - crm.objects.companies.sensitive.read.v2
+      - oauth2:
+        - media_bridge.read
+      - oauth2:
+        - crm.objects.deals.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.contracts.read
+      - oauth2:
+        - crm.objects.companies.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.contacts.sensitive.write.v2
+      - oauth2:
+        - crm.objects.calls.read
+      - oauth2:
+        - crm.objects.meetings.read
+      - oauth2:
+        - crm.schemas.services.read
+      - oauth2:
+        - crm.schemas.line_items.read
+      - oauth2:
+        - crm.schemas.subscriptions.read
+      - oauth2:
+        - crm.objects.projects.highly_sensitive.write
+      - oauth2:
+        - crm.schemas.companies.read
+      - oauth2:
+        - crm.objects.tasks.write
+      - oauth2:
+        - cpq.price_books.write
+      - oauth2:
+        - crm.objects.feedback_submissions.read
+      - oauth2:
+        - crm.objects.products.write
+      - oauth2:
+        - crm.objects.services.write
+      - oauth2:
+        - crm.objects.subscriptions.write
+      - oauth2:
+        - crm.schemas.calls.read
+      - oauth2:
+        - crm.schemas.meetings.read
+      - oauth2:
+        - crm.objects.contacts.read
+      - oauth2:
+        - crm.objects.invoices.read
+      - oauth2:
+        - crm.schemas.orders.read
+      - oauth2:
+        - crm.schemas.emails.read
+      - oauth2:
+        - crm.schemas.deals.read
+      - oauth2:
+        - crm.objects.deals.write
+      - oauth2:
+        - e-commerce
+      - oauth2:
+        - crm.schemas.notes.read
+      - oauth2:
+        - crm.objects.companies.sensitive.write.v2
+      - oauth2:
+        - crm.objects.projects.read
+      - oauth2:
+        - crm.objects.custom.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.goals.write
+      - oauth2:
+        - crm.objects.line_items.write
+      - oauth2:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.goals.read
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.deals.sensitive.read.v2
+      - oauth2:
+        - crm.objects.projects.sensitive.write
+      - oauth2:
+        - crm.objects.quotes.write
+      - oauth2:
+        - crm.schemas.contacts.read
+      - oauth2:
+        - tickets.highly_sensitive.v2
+      - oauth2:
+        - crm.objects.leads.read
+      - oauth2:
+        - crm.objects.leads.write
+      - oauth2:
+        - crm.schemas.tasks.read
+      - oauth2:
+        - crm.objects.emails.read
+      - oauth2:
+        - crm.schemas.invoices.read
+      - oauth2:
+        - crm.objects.quotes.read
+      - oauth2:
+        - crm.schemas.forecasts.read
+      - oauth2:
+        - crm.objects.courses.read
+      - oauth2:
+        - crm.objects.notes.read
+      - oauth2:
+        - crm.objects.marketing_events.read
+      - oauth2:
+        - crm.pipelines.orders.read
+      - oauth2:
+        - crm.objects.contacts.sensitive.read.v2
+      - oauth2:
+        - crm.objects.tickets.write
+      - oauth2:
+        - crm.schemas.projects.read
+      - oauth2:
+        - crm.objects.tickets.read
+      - oauth2:
+        - crm.objects.orders.read
+      - oauth2:
+        - automation
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.schemas.carts.read
+      - oauth2:
+        - cpq.quotes.write
+      - oauth2:
+        - crm.schemas.listings.read
+      - oauth2:
+        - crm.objects.appointments.sensitive.read.v2
+      - oauth2:
+        - crm.objects.contacts.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.forecasts.read
+      - oauth2:
+        - crm.objects.contacts.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.commercepayments.write
+      - oauth2:
+        - crm.objects.invoices.write
+      - oauth2:
+        - crm.objects.custom.sensitive.read.v2
+      - oauth2:
+        - crm.objects.users.read
+      - oauth2:
+        - crm.objects.appointments.write
+      - oauth2:
+        - crm.objects.emails.write
+      - oauth2:
+        - crm.objects.deals.sensitive.write.v2
+      - oauth2:
+        - cpq.quotes.read
+      - oauth2:
+        - crm.objects.appointments.sensitive.write.v2
+      - oauth2:
+        - cpq.price_books.read
+      - oauth2:
+        - crm.objects.meetings.write
+      - oauth2:
+        - crm.objects.projects.highly_sensitive.read
+      - oauth2:
+        - crm.schemas.appointments.read
+      - oauth2:
+        - crm.objects.custom.write
+      - oauth2:
+        - crm.objects.notes.write
+      - oauth2:
+        - tickets.sensitive.v2
+      - oauth2:
+        - crm.objects.appointments.read
+      - oauth2:
+        - crm.schemas.courses.read
+      - oauth2:
+        - crm.objects.companies.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.deals.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.calls.write
+      - oauth2:
+        - crm.objects.projects.sensitive.read
+      - oauth2:
+        - crm.pipelines.approval.read
+      - oauth2:
+        - workflows.write
+      - oauth2:
+        - crm.objects.marketing_events.write
+      - oauth2:
+        - crm.objects.projects.write
+      - oauth2:
+        - crm.schemas.custom.read
+      - oauth2:
+        - workflows.read
+      - oauth2:
+        - crm.objects.carts.read
+      - oauth2:
+        - crm.objects.courses.write
+      - oauth2:
+        - crm.objects.listings.read
+      - oauth2:
+        - crm.schemas.commercepayments.read
+      summary: Retrieve audit logs
+      tags:
+      - Basic
+  /crm/pipelines/2026-09/{objectType}/{pipelineId}/stages:
+    get:
+      description: "Retrieve all stages for a specific pipeline within a given object\
+        \ type in your HubSpot account. This endpoint is useful for obtaining detailed\
+        \ information about each stage in a pipeline, which can be used for analysis\
+        \ or integration with other systems."
+      operationId: GetPipelinesStages
+      parameters:
+      - description: "The type of object for which the pipeline stages are being retrieved,\
+          \ such as deals or tickets."
+        explode: false
+        in: path
+        name: objectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The unique identifier of the pipeline whose stages are being
+          retrieved.
+        explode: false
+        in: path
+        name: pipelineId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CollectionResponsePipelineStageNoPaging"
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: An error occurred.
+      security:
+      - oauth2:
+        - crm.schemas.contracts.read
+      - oauth2:
+        - crm.objects.owners.read
+      - oauth2:
+        - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.services.read
+      - oauth2:
+        - crm.objects.subscriptions.read
+      - oauth2:
+        - crm.objects.tickets.sensitive.read
+      - oauth2:
+        - crm.objects.listings.write
+      - oauth2:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.schemas.tickets.read
+      - oauth2:
+        - crm.objects.custom.sensitive.write.v2
+      - oauth2:
+        - crm.objects.tasks.read
+      - oauth2:
+        - crm.objects.custom.highly_sensitive.write.v2
+      - oauth2:
+        - crm.schemas.quotes.read
+      - oauth2:
+        - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.tickets.highly_sensitive.read
+      - oauth2:
+        - crm.objects.companies.sensitive.read.v2
+      - oauth2:
+        - media_bridge.read
+      - oauth2:
+        - crm.objects.deals.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.contracts.read
+      - oauth2:
+        - crm.objects.companies.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.contacts.sensitive.write.v2
+      - oauth2:
+        - crm.objects.calls.read
+      - oauth2:
+        - crm.objects.meetings.read
+      - oauth2:
+        - crm.schemas.services.read
+      - oauth2:
+        - crm.schemas.line_items.read
+      - oauth2:
+        - crm.schemas.subscriptions.read
+      - oauth2:
+        - crm.objects.projects.highly_sensitive.write
+      - oauth2:
+        - crm.schemas.companies.read
+      - oauth2:
+        - crm.objects.tasks.write
+      - oauth2:
+        - cpq.price_books.write
+      - oauth2:
+        - crm.objects.feedback_submissions.read
+      - oauth2:
+        - crm.objects.products.write
+      - oauth2:
+        - crm.objects.services.write
+      - oauth2:
+        - crm.objects.subscriptions.write
+      - oauth2:
+        - crm.schemas.calls.read
+      - oauth2:
+        - crm.schemas.meetings.read
+      - oauth2:
+        - crm.objects.contacts.read
+      - oauth2:
+        - crm.objects.invoices.read
+      - oauth2:
+        - crm.schemas.orders.read
+      - oauth2:
+        - crm.schemas.emails.read
+      - oauth2:
+        - crm.schemas.deals.read
+      - oauth2:
+        - crm.objects.deals.write
+      - oauth2:
+        - e-commerce
+      - oauth2:
+        - crm.schemas.notes.read
+      - oauth2:
+        - crm.objects.companies.sensitive.write.v2
+      - oauth2:
+        - crm.objects.projects.read
+      - oauth2:
+        - crm.objects.custom.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.goals.write
+      - oauth2:
+        - crm.objects.line_items.write
+      - oauth2:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.goals.read
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.deals.sensitive.read.v2
+      - oauth2:
+        - crm.objects.projects.sensitive.write
+      - oauth2:
+        - crm.objects.quotes.write
+      - oauth2:
+        - crm.schemas.contacts.read
+      - oauth2:
+        - tickets.highly_sensitive.v2
+      - oauth2:
+        - crm.objects.leads.read
+      - oauth2:
+        - crm.objects.leads.write
+      - oauth2:
+        - crm.schemas.tasks.read
+      - oauth2:
+        - crm.objects.emails.read
+      - oauth2:
+        - crm.schemas.invoices.read
+      - oauth2:
+        - crm.objects.quotes.read
+      - oauth2:
+        - crm.schemas.forecasts.read
+      - oauth2:
+        - crm.objects.courses.read
+      - oauth2:
+        - crm.objects.notes.read
+      - oauth2:
+        - crm.objects.marketing_events.read
+      - oauth2:
+        - crm.pipelines.orders.read
+      - oauth2:
+        - crm.objects.contacts.sensitive.read.v2
+      - oauth2:
+        - crm.objects.tickets.write
+      - oauth2:
+        - crm.schemas.projects.read
+      - oauth2:
+        - crm.objects.tickets.read
+      - oauth2:
+        - crm.objects.orders.read
+      - oauth2:
+        - automation
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.schemas.carts.read
+      - oauth2:
+        - cpq.quotes.write
+      - oauth2:
+        - crm.schemas.listings.read
+      - oauth2:
+        - crm.objects.appointments.sensitive.read.v2
+      - oauth2:
+        - crm.objects.contacts.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.forecasts.read
+      - oauth2:
+        - crm.objects.contacts.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.commercepayments.write
+      - oauth2:
+        - crm.objects.invoices.write
+      - oauth2:
+        - crm.objects.custom.sensitive.read.v2
+      - oauth2:
+        - crm.objects.users.read
+      - oauth2:
+        - crm.objects.appointments.write
+      - oauth2:
+        - crm.objects.emails.write
+      - oauth2:
+        - crm.objects.deals.sensitive.write.v2
+      - oauth2:
+        - cpq.quotes.read
+      - oauth2:
+        - crm.objects.appointments.sensitive.write.v2
+      - oauth2:
+        - cpq.price_books.read
+      - oauth2:
+        - crm.objects.meetings.write
+      - oauth2:
+        - crm.objects.projects.highly_sensitive.read
+      - oauth2:
+        - crm.schemas.appointments.read
+      - oauth2:
+        - crm.objects.custom.write
+      - oauth2:
+        - crm.objects.notes.write
+      - oauth2:
+        - tickets.sensitive.v2
+      - oauth2:
+        - crm.objects.appointments.read
+      - oauth2:
+        - crm.schemas.courses.read
+      - oauth2:
+        - crm.objects.companies.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.deals.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.calls.write
+      - oauth2:
+        - crm.objects.projects.sensitive.read
+      - oauth2:
+        - crm.pipelines.approval.read
+      - oauth2:
+        - workflows.write
+      - oauth2:
+        - crm.objects.marketing_events.write
+      - oauth2:
+        - crm.objects.projects.write
+      - oauth2:
+        - crm.schemas.custom.read
+      - oauth2:
+        - workflows.read
+      - oauth2:
+        - crm.objects.carts.read
+      - oauth2:
+        - crm.objects.courses.write
+      - oauth2:
+        - crm.objects.listings.read
+      - oauth2:
+        - crm.schemas.commercepayments.read
+      summary: List stages
+      tags:
+      - Basic
+      x-hubspot-user-level-auth:
+        internalOnly: false
+    post:
+      description: "Create a new stage within a specified pipeline for a given object\
+        \ type in HubSpot. This endpoint is useful for adding new stages to a pipeline,\
+        \ allowing for more granular tracking and management of objects through different\
+        \ stages of a process."
+      operationId: PostPipelinesStages
+      parameters:
+      - description: "The type of object for which the pipeline stage is being created,\
+          \ such as deals or tickets."
+        explode: false
+        in: path
+        name: objectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The unique identifier of the pipeline to which the new stage
+          will be added.
+        explode: false
+        in: path
+        name: pipelineId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PipelineStageInput"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PipelineStage"
+          description: successful operation
+          headers:
+            Location:
+              description: URL of the newly created resource
+              explode: false
+              schema:
+                type: string
+              style: simple
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: An error occurred.
+      security:
+      - oauth2:
+        - crm.schemas.quotes.write
+      - oauth2:
+        - crm.schemas.invoices.write
+      - oauth2:
+        - crm.schemas.orders.write
+      - oauth2:
+        - crm.schemas.commercepayments.write
+      - oauth2:
+        - crm.schemas.courses.write
+      - oauth2:
+        - tickets.sensitive.v2
+      - oauth2:
+        - e-commerce
+      - oauth2:
+        - crm.schemas.appointments.write
+      - oauth2:
+        - crm.schemas.contacts.write
+      - oauth2:
+        - crm.schemas.tasks.write
+      - oauth2:
+        - crm.schemas.carts.write
+      - oauth2:
+        - crm.objects.tickets.sensitive.write
+      - oauth2:
+        - crm.schemas.companies.write
+      - oauth2:
+        - crm.schemas.subscriptions.write
+      - oauth2:
+        - crm.schemas.emails.write
+      - oauth2:
+        - crm.schemas.custom.write
+      - oauth2:
+        - crm.schemas.listings.write
+      - oauth2:
+        - crm.pipelines.orders.write
+      - oauth2:
+        - crm.objects.users.write
+      - oauth2:
+        - tickets.highly_sensitive.v2
+      - oauth2:
+        - crm.schemas.services.write
+      - oauth2:
+        - crm.objects.orders.write
+      - oauth2:
+        - crm.schemas.notes.write
+      - oauth2:
+        - crm.schemas.contracts.write
+      - oauth2:
+        - crm.schemas.meetings.write
+      - oauth2:
+        - crm.schemas.deals.write
+      - oauth2:
+        - crm.schemas.projects.write
+      - oauth2:
+        - crm.objects.carts.write
+      - oauth2:
+        - crm.schemas.calls.write
+      - oauth2:
+        - crm.schemas.tickets.write
+      - oauth2:
+        - crm.objects.tickets.highly_sensitive.write
+      summary: Create Stage
+      tags:
+      - Basic
+  /crm/pipelines/2026-09/{objectType}/{pipelineId}/stages/{stageId}:
+    delete:
+      description: Delete a specific stage from a pipeline in your HubSpot account.
+        This operation is useful for managing and maintaining your pipeline stages
+        by removing those that are no longer needed. Ensure that any references to
+        the stage are handled appropriately before deletion.
+      operationId: DeletePipelinesStages
+      parameters:
+      - description: "The type of object the pipeline belongs to, such as deals or\
+          \ tickets."
+        explode: false
+        in: path
+        name: objectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The unique identifier of the pipeline from which the stage will
+          be deleted.
+        explode: false
+        in: path
+        name: pipelineId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The unique identifier of the stage to delete.
+        explode: false
+        in: path
+        name: stageId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: A boolean flag indicating whether to validate references before
+          deleting the stage. Defaults to true.
+        explode: true
+        in: query
+        name: validateReferencesBeforeDelete
+        required: false
+        schema:
+          default: true
+          type: boolean
+        style: form
+      responses:
+        "204":
+          content: {}
+          description: No content
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: An error occurred.
+      security:
+      - oauth2:
+        - crm.schemas.quotes.write
+      - oauth2:
+        - crm.schemas.invoices.write
+      - oauth2:
+        - crm.schemas.orders.write
+      - oauth2:
+        - crm.schemas.commercepayments.write
+      - oauth2:
+        - crm.schemas.courses.write
+      - oauth2:
+        - tickets.sensitive.v2
+      - oauth2:
+        - e-commerce
+      - oauth2:
+        - crm.schemas.appointments.write
+      - oauth2:
+        - crm.schemas.contacts.write
+      - oauth2:
+        - crm.schemas.tasks.write
+      - oauth2:
+        - crm.schemas.carts.write
+      - oauth2:
+        - crm.objects.tickets.sensitive.write
+      - oauth2:
+        - crm.schemas.companies.write
+      - oauth2:
+        - crm.schemas.subscriptions.write
+      - oauth2:
+        - crm.schemas.emails.write
+      - oauth2:
+        - crm.schemas.custom.write
+      - oauth2:
+        - crm.schemas.listings.write
+      - oauth2:
+        - crm.pipelines.orders.write
+      - oauth2:
+        - crm.objects.users.write
+      - oauth2:
+        - tickets.highly_sensitive.v2
+      - oauth2:
+        - crm.schemas.services.write
+      - oauth2:
+        - crm.objects.orders.write
+      - oauth2:
+        - crm.schemas.notes.write
+      - oauth2:
+        - crm.schemas.contracts.write
+      - oauth2:
+        - crm.schemas.meetings.write
+      - oauth2:
+        - crm.schemas.deals.write
+      - oauth2:
+        - crm.schemas.projects.write
+      - oauth2:
+        - crm.objects.carts.write
+      - oauth2:
+        - crm.schemas.calls.write
+      - oauth2:
+        - crm.schemas.tickets.write
+      - oauth2:
+        - crm.objects.tickets.highly_sensitive.write
+      summary: Delete stage
+      tags:
+      - Basic
+    get:
+      description: "Retrieve details of a specific stage within a pipeline for a given\
+        \ object type in HubSpot. This endpoint is useful for accessing information\
+        \ about a particular stage, such as its label, display order, and metadata,\
+        \ which can be used for managing or analyzing pipeline stages."
+      operationId: GetPipelinesByObjectTypeByPipelineIdStagesByStageId
+      parameters:
+      - description: The type of object for which the pipeline stage is being retrieved.
+        explode: false
+        in: path
+        name: objectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The unique identifier of the pipeline that contains the stage.
+        explode: false
+        in: path
+        name: pipelineId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The unique identifier of the stage to retrieve within the pipeline.
+        explode: false
+        in: path
+        name: stageId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PipelineStage"
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: An error occurred.
+      security:
+      - oauth2:
+        - crm.schemas.contracts.read
+      - oauth2:
+        - crm.objects.owners.read
+      - oauth2:
+        - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.services.read
+      - oauth2:
+        - crm.objects.subscriptions.read
+      - oauth2:
+        - crm.objects.tickets.sensitive.read
+      - oauth2:
+        - crm.objects.listings.write
+      - oauth2:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.schemas.tickets.read
+      - oauth2:
+        - crm.objects.custom.sensitive.write.v2
+      - oauth2:
+        - crm.objects.tasks.read
+      - oauth2:
+        - crm.objects.custom.highly_sensitive.write.v2
+      - oauth2:
+        - crm.schemas.quotes.read
+      - oauth2:
+        - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.tickets.highly_sensitive.read
+      - oauth2:
+        - crm.objects.companies.sensitive.read.v2
+      - oauth2:
+        - media_bridge.read
+      - oauth2:
+        - crm.objects.deals.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.contracts.read
+      - oauth2:
+        - crm.objects.companies.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.contacts.sensitive.write.v2
+      - oauth2:
+        - crm.objects.calls.read
+      - oauth2:
+        - crm.objects.meetings.read
+      - oauth2:
+        - crm.schemas.services.read
+      - oauth2:
+        - crm.schemas.line_items.read
+      - oauth2:
+        - crm.schemas.subscriptions.read
+      - oauth2:
+        - crm.objects.projects.highly_sensitive.write
+      - oauth2:
+        - crm.schemas.companies.read
+      - oauth2:
+        - crm.objects.tasks.write
+      - oauth2:
+        - cpq.price_books.write
+      - oauth2:
+        - crm.objects.feedback_submissions.read
+      - oauth2:
+        - crm.objects.products.write
+      - oauth2:
+        - crm.objects.services.write
+      - oauth2:
+        - crm.objects.subscriptions.write
+      - oauth2:
+        - crm.schemas.calls.read
+      - oauth2:
+        - crm.schemas.meetings.read
+      - oauth2:
+        - crm.objects.contacts.read
+      - oauth2:
+        - crm.objects.invoices.read
+      - oauth2:
+        - crm.schemas.orders.read
+      - oauth2:
+        - crm.schemas.emails.read
+      - oauth2:
+        - crm.schemas.deals.read
+      - oauth2:
+        - crm.objects.deals.write
+      - oauth2:
+        - e-commerce
+      - oauth2:
+        - crm.schemas.notes.read
+      - oauth2:
+        - crm.objects.companies.sensitive.write.v2
+      - oauth2:
+        - crm.objects.projects.read
+      - oauth2:
+        - crm.objects.custom.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.goals.write
+      - oauth2:
+        - crm.objects.line_items.write
+      - oauth2:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.goals.read
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.deals.sensitive.read.v2
+      - oauth2:
+        - crm.objects.projects.sensitive.write
+      - oauth2:
+        - crm.objects.quotes.write
+      - oauth2:
+        - crm.schemas.contacts.read
+      - oauth2:
+        - tickets.highly_sensitive.v2
+      - oauth2:
+        - crm.objects.leads.read
+      - oauth2:
+        - crm.objects.leads.write
+      - oauth2:
+        - crm.schemas.tasks.read
+      - oauth2:
+        - crm.objects.emails.read
+      - oauth2:
+        - crm.schemas.invoices.read
+      - oauth2:
+        - crm.objects.quotes.read
+      - oauth2:
+        - crm.schemas.forecasts.read
+      - oauth2:
+        - crm.objects.courses.read
+      - oauth2:
+        - crm.objects.notes.read
+      - oauth2:
+        - crm.objects.marketing_events.read
+      - oauth2:
+        - crm.pipelines.orders.read
+      - oauth2:
+        - crm.objects.contacts.sensitive.read.v2
+      - oauth2:
+        - crm.objects.tickets.write
+      - oauth2:
+        - crm.schemas.projects.read
+      - oauth2:
+        - crm.objects.tickets.read
+      - oauth2:
+        - crm.objects.orders.read
+      - oauth2:
+        - automation
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.schemas.carts.read
+      - oauth2:
+        - cpq.quotes.write
+      - oauth2:
+        - crm.schemas.listings.read
+      - oauth2:
+        - crm.objects.appointments.sensitive.read.v2
+      - oauth2:
+        - crm.objects.contacts.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.forecasts.read
+      - oauth2:
+        - crm.objects.contacts.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.commercepayments.write
+      - oauth2:
+        - crm.objects.invoices.write
+      - oauth2:
+        - crm.objects.custom.sensitive.read.v2
+      - oauth2:
+        - crm.objects.users.read
+      - oauth2:
+        - crm.objects.appointments.write
+      - oauth2:
+        - crm.objects.emails.write
+      - oauth2:
+        - crm.objects.deals.sensitive.write.v2
+      - oauth2:
+        - cpq.quotes.read
+      - oauth2:
+        - crm.objects.appointments.sensitive.write.v2
+      - oauth2:
+        - cpq.price_books.read
+      - oauth2:
+        - crm.objects.meetings.write
+      - oauth2:
+        - crm.objects.projects.highly_sensitive.read
+      - oauth2:
+        - crm.schemas.appointments.read
+      - oauth2:
+        - crm.objects.custom.write
+      - oauth2:
+        - crm.objects.notes.write
+      - oauth2:
+        - tickets.sensitive.v2
+      - oauth2:
+        - crm.objects.appointments.read
+      - oauth2:
+        - crm.schemas.courses.read
+      - oauth2:
+        - crm.objects.companies.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.deals.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.calls.write
+      - oauth2:
+        - crm.objects.projects.sensitive.read
+      - oauth2:
+        - crm.pipelines.approval.read
+      - oauth2:
+        - workflows.write
+      - oauth2:
+        - crm.objects.marketing_events.write
+      - oauth2:
+        - crm.objects.projects.write
+      - oauth2:
+        - crm.schemas.custom.read
+      - oauth2:
+        - workflows.read
+      - oauth2:
+        - crm.objects.carts.read
+      - oauth2:
+        - crm.objects.courses.write
+      - oauth2:
+        - crm.objects.listings.read
+      - oauth2:
+        - crm.schemas.commercepayments.read
+      summary: Retrieve stage
+      tags:
+      - Basic
+      x-hubspot-user-level-auth:
+        internalOnly: false
+    patch:
+      description: "Update a specific stage within a pipeline in your HubSpot account.\
+        \ This endpoint allows you to modify the properties of an existing pipeline\
+        \ stage, such as its label, display order, and metadata. Use this to keep\
+        \ your pipeline stages up-to-date with your business processes."
+      operationId: PatchPipelinesStages
+      parameters:
+      - description: "The type of object that the pipeline belongs to, such as deals\
+          \ or tickets."
+        explode: false
+        in: path
+        name: objectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The unique identifier of the pipeline that contains the stage
+          to be updated.
+        explode: false
+        in: path
+        name: pipelineId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The unique identifier of the stage to update within the specified
+          pipeline.
+        explode: false
+        in: path
+        name: stageId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PipelineStagePatchInput"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PipelineStage"
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: An error occurred.
+      security:
+      - oauth2:
+        - crm.schemas.quotes.write
+      - oauth2:
+        - crm.schemas.invoices.write
+      - oauth2:
+        - crm.schemas.orders.write
+      - oauth2:
+        - crm.schemas.commercepayments.write
+      - oauth2:
+        - crm.schemas.courses.write
+      - oauth2:
+        - tickets.sensitive.v2
+      - oauth2:
+        - e-commerce
+      - oauth2:
+        - crm.schemas.appointments.write
+      - oauth2:
+        - crm.schemas.contacts.write
+      - oauth2:
+        - crm.schemas.tasks.write
+      - oauth2:
+        - crm.schemas.carts.write
+      - oauth2:
+        - crm.objects.tickets.sensitive.write
+      - oauth2:
+        - crm.schemas.companies.write
+      - oauth2:
+        - crm.schemas.subscriptions.write
+      - oauth2:
+        - crm.schemas.emails.write
+      - oauth2:
+        - crm.schemas.custom.write
+      - oauth2:
+        - crm.schemas.listings.write
+      - oauth2:
+        - crm.pipelines.orders.write
+      - oauth2:
+        - crm.objects.users.write
+      - oauth2:
+        - tickets.highly_sensitive.v2
+      - oauth2:
+        - crm.schemas.services.write
+      - oauth2:
+        - crm.objects.orders.write
+      - oauth2:
+        - crm.schemas.notes.write
+      - oauth2:
+        - crm.schemas.contracts.write
+      - oauth2:
+        - crm.schemas.meetings.write
+      - oauth2:
+        - crm.schemas.deals.write
+      - oauth2:
+        - crm.schemas.projects.write
+      - oauth2:
+        - crm.objects.carts.write
+      - oauth2:
+        - crm.schemas.calls.write
+      - oauth2:
+        - crm.schemas.tickets.write
+      - oauth2:
+        - crm.objects.tickets.highly_sensitive.write
+      summary: Update stage (Partial)
+      tags:
+      - Basic
+    put:
+      description: "Update a specific stage within a pipeline for a given object type\
+        \ in HubSpot. This endpoint allows you to modify the details of a stage, such\
+        \ as its label, display order, and metadata. Use this to keep your pipeline\
+        \ stages up-to-date and aligned with your business processes."
+      operationId: PutPipelinesStages
+      parameters:
+      - description: "The type of object the pipeline belongs to, such as deals or\
+          \ tickets."
+        explode: false
+        in: path
+        name: objectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The unique identifier of the pipeline containing the stage.
+        explode: false
+        in: path
+        name: pipelineId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The unique identifier of the stage to update.
+        explode: false
+        in: path
+        name: stageId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PipelineStageReplaceInput"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PipelineStage"
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: An error occurred.
+      security:
+      - oauth2:
+        - crm.schemas.quotes.write
+      - oauth2:
+        - crm.schemas.invoices.write
+      - oauth2:
+        - crm.schemas.orders.write
+      - oauth2:
+        - crm.schemas.commercepayments.write
+      - oauth2:
+        - crm.schemas.courses.write
+      - oauth2:
+        - tickets.sensitive.v2
+      - oauth2:
+        - e-commerce
+      - oauth2:
+        - crm.schemas.appointments.write
+      - oauth2:
+        - crm.schemas.contacts.write
+      - oauth2:
+        - crm.schemas.tasks.write
+      - oauth2:
+        - crm.schemas.carts.write
+      - oauth2:
+        - crm.objects.tickets.sensitive.write
+      - oauth2:
+        - crm.schemas.companies.write
+      - oauth2:
+        - crm.schemas.subscriptions.write
+      - oauth2:
+        - crm.schemas.emails.write
+      - oauth2:
+        - crm.schemas.custom.write
+      - oauth2:
+        - crm.schemas.listings.write
+      - oauth2:
+        - crm.pipelines.orders.write
+      - oauth2:
+        - crm.objects.users.write
+      - oauth2:
+        - tickets.highly_sensitive.v2
+      - oauth2:
+        - crm.schemas.services.write
+      - oauth2:
+        - crm.objects.orders.write
+      - oauth2:
+        - crm.schemas.notes.write
+      - oauth2:
+        - crm.schemas.contracts.write
+      - oauth2:
+        - crm.schemas.meetings.write
+      - oauth2:
+        - crm.schemas.deals.write
+      - oauth2:
+        - crm.schemas.projects.write
+      - oauth2:
+        - crm.objects.carts.write
+      - oauth2:
+        - crm.schemas.calls.write
+      - oauth2:
+        - crm.schemas.tickets.write
+      - oauth2:
+        - crm.objects.tickets.highly_sensitive.write
+      summary: Update stage
+      tags:
+      - Basic
+  /crm/pipelines/2026-09/{objectType}/{pipelineId}/stages/{stageId}/audit:
+    get:
+      description: "Retrieve the audit information for a specific stage within a pipeline\
+        \ in your HubSpot account. This endpoint provides details about actions taken\
+        \ on the specified stage, which can be useful for tracking changes and understanding\
+        \ the history of modifications."
+      operationId: GetPipelinesStagesAudit
+      parameters:
+      - description: "The type of CRM object that the pipeline belongs to, such as\
+          \ deals or tickets."
+        explode: false
+        in: path
+        name: objectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: pipelineId
+        required: true
+        schema:
+          pattern: .+
+          type: string
+        style: simple
+      - description: The unique identifier of the stage within the pipeline for which
+          audit information is being retrieved.
+        explode: false
+        in: path
+        name: stageId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CollectionResponsePublicAuditInfoNoPaging"
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: An error occurred.
+      security:
+      - oauth2:
+        - crm.schemas.contracts.read
+      - oauth2:
+        - crm.objects.owners.read
+      - oauth2:
+        - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.services.read
+      - oauth2:
+        - crm.objects.subscriptions.read
+      - oauth2:
+        - crm.objects.tickets.sensitive.read
+      - oauth2:
+        - crm.objects.listings.write
+      - oauth2:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.schemas.tickets.read
+      - oauth2:
+        - crm.objects.custom.sensitive.write.v2
+      - oauth2:
+        - crm.objects.tasks.read
+      - oauth2:
+        - crm.objects.custom.highly_sensitive.write.v2
+      - oauth2:
+        - crm.schemas.quotes.read
+      - oauth2:
+        - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.tickets.highly_sensitive.read
+      - oauth2:
+        - crm.objects.companies.sensitive.read.v2
+      - oauth2:
+        - media_bridge.read
+      - oauth2:
+        - crm.objects.deals.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.contracts.read
+      - oauth2:
+        - crm.objects.companies.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.contacts.sensitive.write.v2
+      - oauth2:
+        - crm.objects.calls.read
+      - oauth2:
+        - crm.objects.meetings.read
+      - oauth2:
+        - crm.schemas.services.read
+      - oauth2:
+        - crm.schemas.line_items.read
+      - oauth2:
+        - crm.schemas.subscriptions.read
+      - oauth2:
+        - crm.objects.projects.highly_sensitive.write
+      - oauth2:
+        - crm.schemas.companies.read
+      - oauth2:
+        - crm.objects.tasks.write
+      - oauth2:
+        - cpq.price_books.write
+      - oauth2:
+        - crm.objects.feedback_submissions.read
+      - oauth2:
+        - crm.objects.products.write
+      - oauth2:
+        - crm.objects.services.write
+      - oauth2:
+        - crm.objects.subscriptions.write
+      - oauth2:
+        - crm.schemas.calls.read
+      - oauth2:
+        - crm.schemas.meetings.read
+      - oauth2:
+        - crm.objects.contacts.read
+      - oauth2:
+        - crm.objects.invoices.read
+      - oauth2:
+        - crm.schemas.orders.read
+      - oauth2:
+        - crm.schemas.emails.read
+      - oauth2:
+        - crm.schemas.deals.read
+      - oauth2:
+        - crm.objects.deals.write
+      - oauth2:
+        - e-commerce
+      - oauth2:
+        - crm.schemas.notes.read
+      - oauth2:
+        - crm.objects.companies.sensitive.write.v2
+      - oauth2:
+        - crm.objects.projects.read
+      - oauth2:
+        - crm.objects.custom.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.goals.write
+      - oauth2:
+        - crm.objects.line_items.write
+      - oauth2:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.goals.read
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.deals.sensitive.read.v2
+      - oauth2:
+        - crm.objects.projects.sensitive.write
+      - oauth2:
+        - crm.objects.quotes.write
+      - oauth2:
+        - crm.schemas.contacts.read
+      - oauth2:
+        - tickets.highly_sensitive.v2
+      - oauth2:
+        - crm.objects.leads.read
+      - oauth2:
+        - crm.objects.leads.write
+      - oauth2:
+        - crm.schemas.tasks.read
+      - oauth2:
+        - crm.objects.emails.read
+      - oauth2:
+        - crm.schemas.invoices.read
+      - oauth2:
+        - crm.objects.quotes.read
+      - oauth2:
+        - crm.schemas.forecasts.read
+      - oauth2:
+        - crm.objects.courses.read
+      - oauth2:
+        - crm.objects.notes.read
+      - oauth2:
+        - crm.objects.marketing_events.read
+      - oauth2:
+        - crm.pipelines.orders.read
+      - oauth2:
+        - crm.objects.contacts.sensitive.read.v2
+      - oauth2:
+        - crm.objects.tickets.write
+      - oauth2:
+        - crm.schemas.projects.read
+      - oauth2:
+        - crm.objects.tickets.read
+      - oauth2:
+        - crm.objects.orders.read
+      - oauth2:
+        - automation
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.schemas.carts.read
+      - oauth2:
+        - cpq.quotes.write
+      - oauth2:
+        - crm.schemas.listings.read
+      - oauth2:
+        - crm.objects.appointments.sensitive.read.v2
+      - oauth2:
+        - crm.objects.contacts.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.forecasts.read
+      - oauth2:
+        - crm.objects.contacts.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.commercepayments.write
+      - oauth2:
+        - crm.objects.invoices.write
+      - oauth2:
+        - crm.objects.custom.sensitive.read.v2
+      - oauth2:
+        - crm.objects.users.read
+      - oauth2:
+        - crm.objects.appointments.write
+      - oauth2:
+        - crm.objects.emails.write
+      - oauth2:
+        - crm.objects.deals.sensitive.write.v2
+      - oauth2:
+        - cpq.quotes.read
+      - oauth2:
+        - crm.objects.appointments.sensitive.write.v2
+      - oauth2:
+        - cpq.price_books.read
+      - oauth2:
+        - crm.objects.meetings.write
+      - oauth2:
+        - crm.objects.projects.highly_sensitive.read
+      - oauth2:
+        - crm.schemas.appointments.read
+      - oauth2:
+        - crm.objects.custom.write
+      - oauth2:
+        - crm.objects.notes.write
+      - oauth2:
+        - tickets.sensitive.v2
+      - oauth2:
+        - crm.objects.appointments.read
+      - oauth2:
+        - crm.schemas.courses.read
+      - oauth2:
+        - crm.objects.companies.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.deals.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.calls.write
+      - oauth2:
+        - crm.objects.projects.sensitive.read
+      - oauth2:
+        - crm.pipelines.approval.read
+      - oauth2:
+        - workflows.write
+      - oauth2:
+        - crm.objects.marketing_events.write
+      - oauth2:
+        - crm.objects.projects.write
+      - oauth2:
+        - crm.schemas.custom.read
+      - oauth2:
+        - workflows.read
+      - oauth2:
+        - crm.objects.carts.read
+      - oauth2:
+        - crm.objects.courses.write
+      - oauth2:
+        - crm.objects.listings.read
+      - oauth2:
+        - crm.schemas.commercepayments.read
+      summary: Retrieve stage audit
+      tags:
+      - Basic
+components:
+  responses:
+    Error:
+      content:
+        '*/*':
+          schema:
+            $ref: "#/components/schemas/Error"
+      description: An error occurred.
+  schemas:
+    CollectionResponsePipelineNoPaging:
+      example:
+        results:
+        - archived: true
+          archivedAt: 2000-01-23T04:56:07.000+00:00
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          displayOrder: 0
+          id: id
+          label: label
+          stages:
+          - archived: true
+            archivedAt: 2000-01-23T04:56:07.000+00:00
+            createdAt: 2000-01-23T04:56:07.000+00:00
+            displayOrder: 6
+            id: id
+            label: label
+            metadata:
+              key: metadata
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+            writePermissions: CRM_PERMISSIONS_ENFORCEMENT
+          - archived: true
+            archivedAt: 2000-01-23T04:56:07.000+00:00
+            createdAt: 2000-01-23T04:56:07.000+00:00
+            displayOrder: 6
+            id: id
+            label: label
+            metadata:
+              key: metadata
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+            writePermissions: CRM_PERMISSIONS_ENFORCEMENT
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        - archived: true
+          archivedAt: 2000-01-23T04:56:07.000+00:00
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          displayOrder: 0
+          id: id
+          label: label
+          stages:
+          - archived: true
+            archivedAt: 2000-01-23T04:56:07.000+00:00
+            createdAt: 2000-01-23T04:56:07.000+00:00
+            displayOrder: 6
+            id: id
+            label: label
+            metadata:
+              key: metadata
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+            writePermissions: CRM_PERMISSIONS_ENFORCEMENT
+          - archived: true
+            archivedAt: 2000-01-23T04:56:07.000+00:00
+            createdAt: 2000-01-23T04:56:07.000+00:00
+            displayOrder: 6
+            id: id
+            label: label
+            metadata:
+              key: metadata
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+            writePermissions: CRM_PERMISSIONS_ENFORCEMENT
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        results:
+          description: "An array of Pipeline objects, each representing a specific\
+            \ pipeline within the collection."
+          items:
+            $ref: "#/components/schemas/Pipeline"
+          type: array
+      required:
+      - results
+      type: object
+    CollectionResponsePipelineStageNoPaging:
+      example:
+        results:
+        - archived: true
+          archivedAt: 2000-01-23T04:56:07.000+00:00
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          displayOrder: 6
+          id: id
+          label: label
+          metadata:
+            key: metadata
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+          writePermissions: CRM_PERMISSIONS_ENFORCEMENT
+        - archived: true
+          archivedAt: 2000-01-23T04:56:07.000+00:00
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          displayOrder: 6
+          id: id
+          label: label
+          metadata:
+            key: metadata
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+          writePermissions: CRM_PERMISSIONS_ENFORCEMENT
+      properties:
+        results:
+          description: "An array of pipeline stages, each represented by a PipelineStage\
+            \ object."
+          items:
+            $ref: "#/components/schemas/PipelineStage"
+          type: array
+      required:
+      - results
+      type: object
+    CollectionResponsePublicAuditInfoNoPaging:
+      example:
+        results:
+        - action: action
+          fromUserId: 0
+          identifier: identifier
+          message: message
+          portalId: 6
+          rawObject: "{}"
+          timestamp: 2000-01-23T04:56:07.000+00:00
+        - action: action
+          fromUserId: 0
+          identifier: identifier
+          message: message
+          portalId: 6
+          rawObject: "{}"
+          timestamp: 2000-01-23T04:56:07.000+00:00
+      properties:
+        results:
+          description: "An array of PublicAuditInfo objects, each representing an\
+            \ individual audit log entry. These entries contain details about actions\
+            \ performed, identifiers, portal IDs, and other relevant audit information."
+          items:
+            $ref: "#/components/schemas/PublicAuditInfo"
+          type: array
+      required:
+      - results
+      type: object
+    Error:
+      description: Represents an error response returned by the API when an operation
+        fails. This component is used in various endpoints to provide detailed information
+        about the error encountered.
+      example:
+        category: VALIDATION_ERROR
+        correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
+        links:
+          knowledge-base: https://www.hubspot.com/products/service/knowledge-base
+        message: Invalid input (details will vary based on the error)
+      properties:
+        category:
+          description: The error category.
+          type: string
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: "Context about the error condition, represented as an object\
+            \ with additional properties."
+          example: "{invalidPropertyName=[propertyValue], missingScopes=[scope1, scope2]}"
+          type: object
+        correlationId:
+          description: A unique identifier for the request. Include this value with
+            any error reports or support tickets.
+          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
+          format: uuid
+          type: string
+        errors:
+          description: "Further information about the error, represented as an array\
+            \ of ErrorDetail objects."
+          items:
+            $ref: "#/components/schemas/ErrorDetail"
+          type: array
+        links:
+          additionalProperties:
+            type: string
+          description: A map of link names to associated URIs containing documentation
+            about the error or recommended remediation steps.
+          type: object
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate.
+          example: An error occurred
+          type: string
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error.
+          type: string
+      required:
+      - category
+      - correlationId
+      - message
+      type: object
+    ErrorDetail:
+      description: "Represents detailed information about an error that occurred in\
+        \ the API. This component is used to provide additional context and specifics\
+        \ about errors, typically as part of an error response."
+      properties:
+        code:
+          description: The status code associated with the error detail.
+          type: string
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: "Context about the error condition, represented as an object\
+            \ with additional properties that are arrays of strings."
+          example: "{missingScopes=[scope1, scope2]}"
+          type: object
+        in:
+          description: The name of the field or parameter in which the error was found.
+          type: string
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate.
+          type: string
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error.
+          type: string
+      required:
+      - message
+      type: object
+    Pipeline:
+      example:
+        archived: true
+        archivedAt: 2000-01-23T04:56:07.000+00:00
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        displayOrder: 0
+        id: id
+        label: label
+        stages:
+        - archived: true
+          archivedAt: 2000-01-23T04:56:07.000+00:00
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          displayOrder: 6
+          id: id
+          label: label
+          metadata:
+            key: metadata
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+          writePermissions: CRM_PERMISSIONS_ENFORCEMENT
+        - archived: true
+          archivedAt: 2000-01-23T04:56:07.000+00:00
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          displayOrder: 6
+          id: id
+          label: label
+          metadata:
+            key: metadata
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+          writePermissions: CRM_PERMISSIONS_ENFORCEMENT
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        archived:
+          description: A boolean indicating whether the pipeline is archived.
+          type: boolean
+        archivedAt:
+          description: "The date and time when the pipeline was archived, in ISO 8601\
+            \ format."
+          format: date-time
+          type: string
+        createdAt:
+          description: "The date and time when the pipeline was created, in ISO 8601\
+            \ format."
+          format: date-time
+          type: string
+        displayOrder:
+          description: An integer indicating the order in which the pipeline appears
+            relative to other pipelines.
+          format: int32
+          type: integer
+        id:
+          description: A unique string identifier for the pipeline.
+          type: string
+        label:
+          description: "The name or title of the pipeline, represented as a string."
+          type: string
+        stages:
+          description: An array of PipelineStage objects that define the stages within
+            this pipeline.
+          items:
+            $ref: "#/components/schemas/PipelineStage"
+          type: array
+        updatedAt:
+          description: "The date and time when the pipeline was last updated, in ISO\
+            \ 8601 format."
+          format: date-time
+          type: string
+      required:
+      - archived
+      - createdAt
+      - displayOrder
+      - id
+      - label
+      - stages
+      - updatedAt
+      type: object
+    PipelineInput:
+      example:
+        displayOrder: 0
+        label: label
+        pipelineId: pipelineId
+        stages:
+        - displayOrder: 6
+          label: label
+          metadata:
+            key: metadata
+          stageId: stageId
+        - displayOrder: 6
+          label: label
+          metadata:
+            key: metadata
+          stageId: stageId
+      properties:
+        displayOrder:
+          description: An integer indicating the order in which the pipeline appears
+            relative to other pipelines.
+          format: int32
+          type: integer
+        label:
+          description: A string representing the name or title of the pipeline.
+          type: string
+        pipelineId:
+          description: A string that uniquely identifies the pipeline. This property
+            is optional when creating a new pipeline.
+          type: string
+        stages:
+          description: "An array of PipelineStageInput objects, each representing\
+            \ a stage within the pipeline."
+          items:
+            $ref: "#/components/schemas/PipelineStageInput"
+          type: array
+      required:
+      - displayOrder
+      - label
+      - stages
+      type: object
+    PipelinePatchInput:
+      example:
+        archived: true
+        displayOrder: 0
+        label: label
+      properties:
+        archived:
+          description: A boolean value that indicates whether the pipeline is archived.
+          type: boolean
+        displayOrder:
+          description: "An integer indicating the position of the pipeline in a list,\
+            \ which determines its display order."
+          format: int32
+          type: integer
+        label:
+          description: "The name of the pipeline, represented as a string."
+          type: string
+      type: object
+    PipelineReplaceInput:
+      example:
+        displayOrder: 0
+        label: label
+        stages:
+        - displayOrder: 6
+          label: label
+          metadata:
+            key: metadata
+          stageId: stageId
+        - displayOrder: 6
+          label: label
+          metadata:
+            key: metadata
+          stageId: stageId
+      properties:
+        displayOrder:
+          description: An integer indicating the order in which the pipeline appears
+            relative to other pipelines.
+          format: int32
+          type: integer
+        label:
+          description: A string representing the name of the pipeline.
+          type: string
+        stages:
+          description: "An array of PipelineStageInput objects, each representing\
+            \ a stage within the pipeline."
+          items:
+            $ref: "#/components/schemas/PipelineStageInput"
+          type: array
+      required:
+      - displayOrder
+      - label
+      - stages
+      type: object
+    PipelineStage:
+      example:
+        archived: true
+        archivedAt: 2000-01-23T04:56:07.000+00:00
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        displayOrder: 6
+        id: id
+        label: label
+        metadata:
+          key: metadata
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+        writePermissions: CRM_PERMISSIONS_ENFORCEMENT
+      properties:
+        archived:
+          description: A boolean indicating whether the stage is archived.
+          type: boolean
+        archivedAt:
+          description: "The date and time when the stage was archived, in ISO 8601\
+            \ format."
+          format: date-time
+          type: string
+        createdAt:
+          description: "The date and time when the stage was created, in ISO 8601\
+            \ format."
+          format: date-time
+          type: string
+        displayOrder:
+          description: "An integer indicating the position of this stage within the\
+            \ pipeline, determining its order relative to other stages."
+          format: int32
+          type: integer
+        id:
+          description: A unique string identifier for the pipeline stage.
+          type: string
+        label:
+          description: "The name or title of the pipeline stage, represented as a\
+            \ string."
+          type: string
+        metadata:
+          additionalProperties:
+            type: string
+          description: "An object containing additional metadata for the stage, with\
+            \ string values for each property."
+          type: object
+        updatedAt:
+          description: "The date and time when the stage was last updated, in ISO\
+            \ 8601 format."
+          format: date-time
+          type: string
+        writePermissions:
+          description: "A string indicating the write permissions for the stage. Valid\
+            \ values include 'CRM_PERMISSIONS_ENFORCEMENT', 'READ_ONLY', and 'INTERNAL_ONLY'."
+          enum:
+          - CRM_PERMISSIONS_ENFORCEMENT
+          - INTERNAL_ONLY
+          - READ_ONLY
+          type: string
+      required:
+      - archived
+      - createdAt
+      - displayOrder
+      - id
+      - label
+      - metadata
+      - updatedAt
+      - writePermissions
+      type: object
+    PipelineStageInput:
+      example:
+        displayOrder: 6
+        label: label
+        metadata:
+          key: metadata
+        stageId: stageId
+      properties:
+        displayOrder:
+          description: An integer indicating the position of this stage within the
+            pipeline. Lower numbers indicate earlier stages.
+          format: int32
+          type: integer
+        label:
+          description: The name of the pipeline stage. It is a string that provides
+            a human-readable identifier for the stage.
+          type: string
+        metadata:
+          additionalProperties:
+            type: string
+          description: An object containing additional properties for the stage. Each
+            property is a key-value pair where both key and value are strings.
+          type: object
+        stageId:
+          description: A string that uniquely identifies the stage within the pipeline.
+          type: string
+      required:
+      - displayOrder
+      - label
+      - metadata
+      type: object
+    PipelineStagePatchInput:
+      example:
+        archived: true
+        displayOrder: 0
+        label: label
+        metadata:
+          key: metadata
+      properties:
+        archived:
+          description: A boolean indicating whether the pipeline stage is archived.
+          type: boolean
+        displayOrder:
+          description: An integer specifying the order in which the stage appears
+            relative to other stages.
+          format: int32
+          type: integer
+        label:
+          description: A string representing the name or title of the pipeline stage.
+          type: string
+        metadata:
+          additionalProperties:
+            type: string
+          description: "An object containing additional properties related to the\
+            \ pipeline stage, where each property is a string."
+          type: object
+      required:
+      - metadata
+      type: object
+    PipelineStageReplaceInput:
+      example:
+        displayOrder: 0
+        label: label
+        metadata:
+          key: metadata
+      properties:
+        displayOrder:
+          description: An integer indicating the position of the stage within the
+            pipeline.
+          format: int32
+          type: integer
+        label:
+          description: "The name of the pipeline stage, represented as a string."
+          type: string
+        metadata:
+          additionalProperties:
+            type: string
+          description: "An object containing additional properties related to the\
+            \ stage, where each property is a string."
+          type: object
+      required:
+      - displayOrder
+      - label
+      - metadata
+      type: object
+    PublicAuditInfo:
+      example:
+        action: action
+        fromUserId: 0
+        identifier: identifier
+        message: message
+        portalId: 6
+        rawObject: "{}"
+        timestamp: 2000-01-23T04:56:07.000+00:00
+      properties:
+        action:
+          description: "A string describing the action that was performed, such as\
+            \ 'create', 'update', or 'delete'."
+          type: string
+        fromUserId:
+          description: "The unique identifier of the user who performed the action,\
+            \ represented as an integer."
+          format: int32
+          type: integer
+        identifier:
+          description: A string that uniquely identifies the specific audit entry.
+          type: string
+        message:
+          description: A string providing additional information or context about
+            the action taken.
+          type: string
+        portalId:
+          description: The unique identifier for the HubSpot account (portal) where
+            the action took place. It is an integer.
+          format: int32
+          type: integer
+        rawObject:
+          description: An object containing the raw data associated with the action.
+            This can include detailed information about the state before and after
+            the action.
+          properties: {}
+          type: object
+        timestamp:
+          description: "The date and time when the action occurred, in ISO 8601 format."
+          format: date-time
+          type: string
+      required:
+      - action
+      - identifier
+      - portalId
+      type: object
+  securitySchemes:
+    developer_hapikey:
+      in: query
+      name: hapikey
+      type: apiKey
+    oauth2:
+      flows:
+        authorizationCode:
+          authorizationUrl: https://app.hubspot.com/oauth/authorize
+          scopes:
+            automation: ""
+            cpq.price_books.read: ""
+            cpq.price_books.write: ""
+            cpq.quotes.read: ""
+            cpq.quotes.write: ""
+            crm.objects.appointments.read: ""
+            crm.objects.appointments.sensitive.read.v2: ""
+            crm.objects.appointments.sensitive.write.v2: ""
+            crm.objects.appointments.write: ""
+            crm.objects.calls.read: ""
+            crm.objects.calls.write: ""
+            crm.objects.carts.read: ""
+            crm.objects.carts.write: ""
+            crm.objects.commercepayments.write: ""
+            crm.objects.companies.highly_sensitive.read.v2: ""
+            crm.objects.companies.highly_sensitive.write.v2: ""
+            crm.objects.companies.read: ""
+            crm.objects.companies.sensitive.read.v2: ""
+            crm.objects.companies.sensitive.write.v2: ""
+            crm.objects.companies.write: ""
+            crm.objects.contacts.highly_sensitive.read.v2: ""
+            crm.objects.contacts.highly_sensitive.write.v2: ""
+            crm.objects.contacts.read: ""
+            crm.objects.contacts.sensitive.read.v2: ""
+            crm.objects.contacts.sensitive.write.v2: ""
+            crm.objects.contacts.write: ""
+            crm.objects.contracts.read: ""
+            crm.objects.courses.read: ""
+            crm.objects.courses.write: ""
+            crm.objects.custom.highly_sensitive.read.v2: ""
+            crm.objects.custom.highly_sensitive.write.v2: ""
+            crm.objects.custom.read: ""
+            crm.objects.custom.sensitive.read.v2: ""
+            crm.objects.custom.sensitive.write.v2: ""
+            crm.objects.custom.write: ""
+            crm.objects.deals.highly_sensitive.read.v2: ""
+            crm.objects.deals.highly_sensitive.write.v2: ""
+            crm.objects.deals.read: ""
+            crm.objects.deals.sensitive.read.v2: ""
+            crm.objects.deals.sensitive.write.v2: ""
+            crm.objects.deals.write: ""
+            crm.objects.emails.read: ""
+            crm.objects.emails.write: ""
+            crm.objects.feedback_submissions.read: ""
+            crm.objects.forecasts.read: ""
+            crm.objects.goals.read: ""
+            crm.objects.goals.write: ""
+            crm.objects.invoices.read: ""
+            crm.objects.invoices.write: ""
+            crm.objects.leads.read: ""
+            crm.objects.leads.write: ""
+            crm.objects.line_items.read: ""
+            crm.objects.line_items.write: ""
+            crm.objects.listings.read: ""
+            crm.objects.listings.write: ""
+            crm.objects.marketing_events.read: ""
+            crm.objects.marketing_events.write: ""
+            crm.objects.meetings.read: ""
+            crm.objects.meetings.write: ""
+            crm.objects.notes.read: ""
+            crm.objects.notes.write: ""
+            crm.objects.orders.read: ""
+            crm.objects.orders.write: ""
+            crm.objects.owners.read: ""
+            crm.objects.products.write: ""
+            crm.objects.projects.highly_sensitive.read: ""
+            crm.objects.projects.highly_sensitive.write: ""
+            crm.objects.projects.read: ""
+            crm.objects.projects.sensitive.read: ""
+            crm.objects.projects.sensitive.write: ""
+            crm.objects.projects.write: ""
+            crm.objects.quotes.read: ""
+            crm.objects.quotes.write: ""
+            crm.objects.services.read: ""
+            crm.objects.services.write: ""
+            crm.objects.subscriptions.read: ""
+            crm.objects.subscriptions.write: ""
+            crm.objects.tasks.read: ""
+            crm.objects.tasks.write: ""
+            crm.objects.tickets.highly_sensitive.read: ""
+            crm.objects.tickets.highly_sensitive.write: ""
+            crm.objects.tickets.read: ""
+            crm.objects.tickets.sensitive.read: ""
+            crm.objects.tickets.sensitive.write: ""
+            crm.objects.tickets.write: ""
+            crm.objects.users.read: ""
+            crm.objects.users.write: ""
+            crm.pipelines.approval.read: ""
+            crm.pipelines.orders.read: ""
+            crm.pipelines.orders.write: ""
+            crm.schemas.appointments.read: ""
+            crm.schemas.appointments.write: ""
+            crm.schemas.calls.read: ""
+            crm.schemas.calls.write: ""
+            crm.schemas.carts.read: ""
+            crm.schemas.carts.write: ""
+            crm.schemas.commercepayments.read: ""
+            crm.schemas.commercepayments.write: ""
+            crm.schemas.companies.read: ""
+            crm.schemas.companies.write: ""
+            crm.schemas.contacts.read: ""
+            crm.schemas.contacts.write: ""
+            crm.schemas.contracts.read: ""
+            crm.schemas.contracts.write: ""
+            crm.schemas.courses.read: ""
+            crm.schemas.courses.write: ""
+            crm.schemas.custom.read: ""
+            crm.schemas.custom.write: ""
+            crm.schemas.deals.read: ""
+            crm.schemas.deals.write: ""
+            crm.schemas.emails.read: ""
+            crm.schemas.emails.write: ""
+            crm.schemas.forecasts.read: ""
+            crm.schemas.invoices.read: ""
+            crm.schemas.invoices.write: ""
+            crm.schemas.line_items.read: ""
+            crm.schemas.listings.read: ""
+            crm.schemas.listings.write: ""
+            crm.schemas.meetings.read: ""
+            crm.schemas.meetings.write: ""
+            crm.schemas.notes.read: ""
+            crm.schemas.notes.write: ""
+            crm.schemas.orders.read: ""
+            crm.schemas.orders.write: ""
+            crm.schemas.projects.read: ""
+            crm.schemas.projects.write: ""
+            crm.schemas.quotes.read: ""
+            crm.schemas.quotes.write: ""
+            crm.schemas.services.read: ""
+            crm.schemas.services.write: ""
+            crm.schemas.subscriptions.read: ""
+            crm.schemas.subscriptions.write: ""
+            crm.schemas.tasks.read: ""
+            crm.schemas.tasks.write: ""
+            crm.schemas.tickets.read: ""
+            crm.schemas.tickets.write: ""
+            e-commerce: ""
+            media_bridge.read: ""
+            tickets.highly_sensitive.v2: ""
+            tickets.sensitive.v2: ""
+            workflows.read: ""
+            workflows.write: ""
+          tokenUrl: https://api.hubapi.com/oauth/v1/token
+      type: oauth2
+      x-hubspot-app-availability:
+        automation:
+          developer: false
+          portal:
+          - public
+          - private
+        cpq.price_books.read:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        cpq.price_books.write:
+          developer: false
+          portal:
+          - public
+          - private
+        cpq.quotes.read:
+          developer: false
+          portal:
+          - public
+          user:
+          - public
+        cpq.quotes.write:
+          developer: false
+          portal:
+          - public
+          user:
+          - public
+        crm.objects.appointments.read:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.appointments.sensitive.read.v2:
+          developer: false
+          portal:
+          - private
+        crm.objects.appointments.sensitive.write.v2:
+          developer: false
+          portal:
+          - private
+        crm.objects.appointments.write:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.calls.read:
+          developer: false
+          user:
+          - public
+          - private
+        crm.objects.calls.write:
+          developer: false
+          user:
+          - public
+          - private
+        crm.objects.carts.read:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.carts.write:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.commercepayments.write:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.companies.highly_sensitive.read.v2:
+          developer: false
+          portal:
+          - private
+        crm.objects.companies.highly_sensitive.write.v2:
+          developer: false
+          portal:
+          - private
+        crm.objects.companies.read:
+          developer: true
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.companies.sensitive.read.v2:
+          developer: false
+          portal:
+          - private
+        crm.objects.companies.sensitive.write.v2:
+          developer: false
+          portal:
+          - private
+        crm.objects.companies.write:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.contacts.highly_sensitive.read.v2:
+          developer: false
+          portal:
+          - private
+        crm.objects.contacts.highly_sensitive.write.v2:
+          developer: false
+          portal:
+          - private
+        crm.objects.contacts.read:
+          developer: true
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.contacts.sensitive.read.v2:
+          developer: false
+          portal:
+          - private
+        crm.objects.contacts.sensitive.write.v2:
+          developer: false
+          portal:
+          - private
+        crm.objects.contacts.write:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.contracts.read:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.courses.read:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.courses.write:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.custom.highly_sensitive.read.v2:
+          developer: false
+          portal:
+          - private
+        crm.objects.custom.highly_sensitive.write.v2:
+          developer: false
+          portal:
+          - private
+        crm.objects.custom.read:
+          developer: true
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.custom.sensitive.read.v2:
+          developer: false
+          portal:
+          - private
+        crm.objects.custom.sensitive.write.v2:
+          developer: false
+          portal:
+          - private
+        crm.objects.custom.write:
+          developer: true
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.deals.highly_sensitive.read.v2:
+          developer: false
+          portal:
+          - private
+        crm.objects.deals.highly_sensitive.write.v2:
+          developer: false
+          portal:
+          - private
+        crm.objects.deals.read:
+          developer: true
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.deals.sensitive.read.v2:
+          developer: false
+          portal:
+          - private
+        crm.objects.deals.sensitive.write.v2:
+          developer: false
+          portal:
+          - private
+        crm.objects.deals.write:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.emails.read:
+          developer: false
+          user:
+          - public
+          - private
+        crm.objects.emails.write:
+          developer: false
+          user:
+          - public
+          - private
+        crm.objects.feedback_submissions.read:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.forecasts.read:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.goals.read:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.goals.write:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.invoices.read:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.invoices.write:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.leads.read:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.leads.write:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.line_items.read:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.line_items.write:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.listings.read:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.listings.write:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.marketing_events.read:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.marketing_events.write:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.meetings.read:
+          developer: false
+          user:
+          - public
+          - private
+        crm.objects.meetings.write:
+          developer: false
+          user:
+          - public
+          - private
+        crm.objects.notes.read:
+          developer: false
+          user:
+          - public
+          - private
+        crm.objects.notes.write:
+          developer: false
+          user:
+          - public
+          - private
+        crm.objects.orders.read:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.orders.write:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.owners.read:
+          developer: true
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.products.write:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.projects.highly_sensitive.read:
+          developer: false
+          portal:
+          - private
+        crm.objects.projects.highly_sensitive.write:
+          developer: false
+          portal:
+          - private
+        crm.objects.projects.read:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.projects.sensitive.read:
+          developer: false
+          portal:
+          - private
+        crm.objects.projects.sensitive.write:
+          developer: false
+          portal:
+          - private
+        crm.objects.projects.write:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.quotes.read:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.quotes.write:
+          developer: false
+          portal:
+          - public
+          - private
+        crm.objects.services.read:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.services.write:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.subscriptions.read:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.subscriptions.write:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.tasks.read:
+          developer: false
+          user:
+          - public
+          - private
+        crm.objects.tasks.write:
+          developer: false
+          user:
+          - public
+          - private
+        crm.objects.tickets.highly_sensitive.read:
+          developer: false
+          user:
+          - public
+          - private
+        crm.objects.tickets.highly_sensitive.write:
+          developer: false
+          user:
+          - public
+          - private
+        crm.objects.tickets.read:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.tickets.sensitive.read:
+          developer: false
+          user:
+          - public
+          - private
+        crm.objects.tickets.sensitive.write:
+          developer: false
+          user:
+          - public
+          - private
+        crm.objects.tickets.write:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.objects.users.read:
+          developer: false
+          portal:
+          - public
+          - private
+        crm.objects.users.write:
+          developer: false
+          portal:
+          - public
+          - private
+        crm.pipelines.approval.read:
+          developer: false
+          portal:
+          - public
+          - private
+        crm.pipelines.orders.read:
+          developer: false
+          portal:
+          - public
+          - private
+        crm.pipelines.orders.write:
+          developer: false
+          portal:
+          - public
+          - private
+        crm.schemas.appointments.read:
+          developer: false
+          portal:
+          - public
+          - private
+        crm.schemas.appointments.write:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.schemas.calls.read:
+          developer: false
+          user:
+          - public
+          - private
+        crm.schemas.calls.write:
+          developer: false
+          user:
+          - public
+          - private
+        crm.schemas.carts.read:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.schemas.carts.write:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.schemas.commercepayments.read:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.schemas.commercepayments.write:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.schemas.companies.read:
+          developer: true
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.schemas.companies.write:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.schemas.contacts.read:
+          developer: true
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.schemas.contacts.write:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.schemas.contracts.read:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.schemas.contracts.write:
+          developer: false
+          user:
+          - public
+          - private
+        crm.schemas.courses.read:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.schemas.courses.write:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.schemas.custom.read:
+          developer: true
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.schemas.custom.write:
+          developer: true
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.schemas.deals.read:
+          developer: true
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.schemas.deals.write:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.schemas.emails.read:
+          developer: false
+          user:
+          - public
+          - private
+        crm.schemas.emails.write:
+          developer: false
+          user:
+          - public
+          - private
+        crm.schemas.forecasts.read:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.schemas.invoices.read:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.schemas.invoices.write:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.schemas.line_items.read:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.schemas.listings.read:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.schemas.listings.write:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.schemas.meetings.read:
+          developer: false
+          user:
+          - public
+          - private
+        crm.schemas.meetings.write:
+          developer: false
+          user:
+          - public
+          - private
+        crm.schemas.notes.read:
+          developer: false
+          user:
+          - public
+          - private
+        crm.schemas.notes.write:
+          developer: false
+          user:
+          - public
+          - private
+        crm.schemas.orders.read:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.schemas.orders.write:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.schemas.projects.read:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.schemas.projects.write:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.schemas.quotes.read:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.schemas.quotes.write:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.schemas.services.read:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.schemas.services.write:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.schemas.subscriptions.read:
+          developer: false
+          portal:
+          - public
+          - private
+        crm.schemas.subscriptions.write:
+          developer: false
+          portal:
+          - public
+          - private
+        crm.schemas.tasks.read:
+          developer: false
+          user:
+          - public
+          - private
+        crm.schemas.tasks.write:
+          developer: false
+          user:
+          - public
+          - private
+        crm.schemas.tickets.read:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        crm.schemas.tickets.write:
+          developer: false
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+        e-commerce:
+          developer: false
+          portal:
+          - public
+          - private
+        media_bridge.read:
+          developer: false
+          portal:
+          - public
+          - private
+        tickets.highly_sensitive.v2:
+          developer: false
+          portal:
+          - private
+        tickets.sensitive.v2:
+          developer: false
+          portal:
+          - private
+        workflows.read:
+          developer: false
+          user:
+          - public
+          - private
+        workflows.write:
+          developer: false
+          user:
+          - public
+          - private
+x-hubspot-product-tier-requirements:
+  cms: FREE
+  commerce: FREE
+  crmHub: FREE
+  dataHub: FREE
+  marketing: FREE
+  sales: FREE
+  service: FREE

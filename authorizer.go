@@ -3,6 +3,7 @@ package hubspot
 import (
 	"context"
 	"fmt"
+	"net/http"
 	"net/url"
 )
 
@@ -38,6 +39,33 @@ func (a *TokenAuthorizer) Apply(request AuthorizationRequest) {
 
 func NewTokenAuthorizer(token string) *TokenAuthorizer {
 	return &TokenAuthorizer{Token: token}
+}
+
+// ApplyAuthorizerFromContext looks up an Authorizer stored on ctx (via
+// WithAuthorizer) and applies it to req's headers and query string. It is a
+// convenience used by the generated clients so the per-client code does not need
+// to reference net/url (which the generated prepareRequest shadows with a local
+// variable). It is a no-op if no Authorizer is present on the context.
+func ApplyAuthorizerFromContext(ctx context.Context, req *http.Request) {
+	if ctx == nil || req == nil {
+		return
+	}
+	authz, ok := ctx.Value(ContextKey).(Authorizer)
+	if !ok || authz == nil {
+		return
+	}
+	r := AuthorizationRequest{
+		QueryParams: req.URL.Query(),
+		FormParams:  url.Values{},
+		Headers:     map[string]string{},
+	}
+	authz.Apply(r)
+	for k, v := range r.Headers {
+		req.Header.Set(k, v)
+	}
+	if len(r.QueryParams) > 0 {
+		req.URL.RawQuery = r.QueryParams.Encode()
+	}
 }
 
 type APIKeyAuthorizer struct {
