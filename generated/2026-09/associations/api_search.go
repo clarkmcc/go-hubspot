@@ -22,33 +22,33 @@ import (
 // SearchAPIService SearchAPI service
 type SearchAPIService service
 
-type ApiPostCrmObjects202609ObjectTypeSearchCrmObjects202609BetaObjectTypeSearchRequest struct {
+type ApiPostSearchRequest struct {
 	ctx                       context.Context
 	ApiService                *SearchAPIService
 	objectType                string
 	publicObjectSearchRequest *PublicObjectSearchRequest
 }
 
-func (r ApiPostCrmObjects202609ObjectTypeSearchCrmObjects202609BetaObjectTypeSearchRequest) PublicObjectSearchRequest(publicObjectSearchRequest PublicObjectSearchRequest) ApiPostCrmObjects202609ObjectTypeSearchCrmObjects202609BetaObjectTypeSearchRequest {
+func (r ApiPostSearchRequest) PublicObjectSearchRequest(publicObjectSearchRequest PublicObjectSearchRequest) ApiPostSearchRequest {
 	r.publicObjectSearchRequest = &publicObjectSearchRequest
 	return r
 }
 
-func (r ApiPostCrmObjects202609ObjectTypeSearchCrmObjects202609BetaObjectTypeSearchRequest) Execute() (*CollectionResponseWithTotalSimplePublicObject, *http.Response, error) {
-	return r.ApiService.PostCrmObjects202609ObjectTypeSearchCrmObjects202609BetaObjectTypeSearchExecute(r)
+func (r ApiPostSearchRequest) Execute() (*CollectionResponseWithTotalSimplePublicObject, *http.Response, error) {
+	return r.ApiService.PostSearchExecute(r)
 }
 
 /*
-PostCrmObjects202609ObjectTypeSearchCrmObjects202609BetaObjectTypeSearch Search objects
+PostSearch Search objects
 
 Search CRM objects of a specified type using the provided criteria. This endpoint allows you to filter and sort objects based on various properties, making it useful for retrieving specific data sets from your CRM. The search results include the total number of matching objects.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param objectType The type of CRM object to search, such as contacts, companies, or deals.
-	@return ApiPostCrmObjects202609ObjectTypeSearchCrmObjects202609BetaObjectTypeSearchRequest
+	@return ApiPostSearchRequest
 */
-func (a *SearchAPIService) PostCrmObjects202609ObjectTypeSearchCrmObjects202609BetaObjectTypeSearch(ctx context.Context, objectType string) ApiPostCrmObjects202609ObjectTypeSearchCrmObjects202609BetaObjectTypeSearchRequest {
-	return ApiPostCrmObjects202609ObjectTypeSearchCrmObjects202609BetaObjectTypeSearchRequest{
+func (a *SearchAPIService) PostSearch(ctx context.Context, objectType string) ApiPostSearchRequest {
+	return ApiPostSearchRequest{
 		ApiService: a,
 		ctx:        ctx,
 		objectType: objectType,
@@ -58,7 +58,7 @@ func (a *SearchAPIService) PostCrmObjects202609ObjectTypeSearchCrmObjects202609B
 // Execute executes the request
 //
 //	@return CollectionResponseWithTotalSimplePublicObject
-func (a *SearchAPIService) PostCrmObjects202609ObjectTypeSearchCrmObjects202609BetaObjectTypeSearchExecute(r ApiPostCrmObjects202609ObjectTypeSearchCrmObjects202609BetaObjectTypeSearchRequest) (*CollectionResponseWithTotalSimplePublicObject, *http.Response, error) {
+func (a *SearchAPIService) PostSearchExecute(r ApiPostSearchRequest) (*CollectionResponseWithTotalSimplePublicObject, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -66,7 +66,7 @@ func (a *SearchAPIService) PostCrmObjects202609ObjectTypeSearchCrmObjects202609B
 		localVarReturnValue *CollectionResponseWithTotalSimplePublicObject
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SearchAPIService.PostCrmObjects202609ObjectTypeSearchCrmObjects202609BetaObjectTypeSearch")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SearchAPIService.PostSearch")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

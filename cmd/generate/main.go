@@ -12,6 +12,8 @@ import (
 	"os/exec"
 	"path/filepath"
 	"regexp"
+	"sort"
+	"strconv"
 	"strings"
 )
 
@@ -20,7 +22,6 @@ var (
 	// "api-catalog-public/v1/apis" endpoint was retired and now returns 404; the
 	// current catalog lives here and uses the date-based versioning scheme.
 	directoryUrl = "https://api.hubspot.com/public/api/spec/v2/specs"
-	replacer     = strings.NewReplacer(" ", "_", "-", "_")
 
 	// targetVersion selects which date-based API release to generate. HubSpot
 	// moved from semantic (v1..v4) to date-based (YYYY-MM) versions; legacy
@@ -28,54 +29,65 @@ var (
 	targetVersion = "2026-09"
 
 	// targetAPIs is the allowlist of catalog API names to generate, mapped to the
-	// Go package name they are emitted under. We intentionally generate only the
-	// APIs this project consumes rather than all ~170 catalog entries: operation
-	// renames (preProcessMap) are only maintained for these, and generating the
-	// full catalog is slow and noisy.
+	// Go package name they are emitted under. We generate the CRM-core surface
+	// rather than all ~170 catalog entries. The generic namer (deriveName) keeps
+	// method names collision-free for any API added here, so extending coverage
+	// is just a matter of adding entries.
 	targetAPIs = map[string]string{
 		"Contacts":       "contacts",
+		"Companies":      "companies",
+		"Deals":          "deals",
+		"Tickets":        "tickets",
+		"Products":       "products",
+		"Line Items":     "lineitems",
+		"Quotes":         "quotes",
+		"Pipelines":      "pipelines",
+		"Properties":     "properties",
+		"Crm Owners":     "owners",
 		"Custom Objects": "objects",
 		"Associations":   "associations",
+		"Schemas":        "schemas",
 	}
 )
 
-// preProcessMap contains a grouped list of operations to rename before generating typings.
-// preProcessMap contains, per catalog API name, a list of operationId rewrites
-// applied to the raw OpenAPI spec JSON before generation. HubSpot's date-based
-// specs expose long, auto-generated operationIds (e.g.
-// "post-/crm/objects/2026-09/contacts/search_/crm/objects/2026-09-beta/{objectType}/search")
-// which openapi-generator would turn into unusable Go method names. Each entry
-// matches the whole operationId string and replaces it with a clean method name.
-// The version segment is matched loosely ([0-9-]+(?:-beta)?) so the same rules
-// keep working across date-based releases.
-var preProcessMap = map[string][]preProcessEntry{
+// nameOverrides lets a specific operation (matched by HTTP method + a regexp on
+// its path) be given an explicit Go method name, overriding the generic namer
+// below. Use this to pin stable names that downstream code depends on, or to
+// improve a generically-derived name. Keyed by catalog API name.
+//
+// The generic namer (see deriveName) already produces compiling, collision-free
+// names for every operation, so overrides are optional — they exist to keep
+// ergonomic, stable method names for the operations this org consumes heavily.
+var nameOverrides = map[string][]nameOverride{
 	"Contacts": {
-		{old: `post-/crm/objects/[0-9-]+(?:-beta)?/contacts/search_[^"\\]*`, new: "Search"},
-		{old: `post-/crm/objects/[0-9-]+(?:-beta)?/contacts/batch/create_[^"\\]*`, new: "BatchCreate"},
-		{old: `post-/crm/objects/[0-9-]+(?:-beta)?/contacts/batch/update_[^"\\]*`, new: "BatchUpdate"},
-		{old: `post-/crm/objects/[0-9-]+(?:-beta)?/contacts/batch/archive_[^"\\]*`, new: "BatchArchive"},
-		{old: `post-/crm/objects/[0-9-]+(?:-beta)?/contacts/batch/read_[^"\\]*`, new: "BatchRead"},
+		{method: "post", path: `/contacts/search$`, name: "Search"},
+		{method: "post", path: `/contacts/batch/create$`, name: "BatchCreate"},
+		{method: "post", path: `/contacts/batch/update$`, name: "BatchUpdate"},
+		{method: "post", path: `/contacts/batch/archive$`, name: "BatchArchive"},
+		{method: "post", path: `/contacts/batch/read$`, name: "BatchRead"},
 	},
 	"Custom Objects": {
-		{old: `post-/crm/objects/[0-9-]+(?:-beta)?/\{objectType\}/search_[^"\\]*`, new: "Search"},
-		{old: `post-/crm/objects/[0-9-]+(?:-beta)?/\{objectType\}/batch/create_[^"\\]*`, new: "BatchCreate"},
-		{old: `post-/crm/objects/[0-9-]+(?:-beta)?/\{objectType\}/batch/update_[^"\\]*`, new: "BatchUpdate"},
-		{old: `post-/crm/objects/[0-9-]+(?:-beta)?/\{objectType\}/batch/archive_[^"\\]*`, new: "BatchArchive"},
-		{old: `post-/crm/objects/[0-9-]+(?:-beta)?/\{objectType\}/batch/read_[^"\\]*`, new: "BatchRead"},
+		{method: "post", path: `/\{objectType\}/search$`, name: "Search"},
+		{method: "post", path: `/\{objectType\}/batch/create$`, name: "BatchCreate"},
+		{method: "post", path: `/\{objectType\}/batch/update$`, name: "BatchUpdate"},
+		{method: "post", path: `/\{objectType\}/batch/archive$`, name: "BatchArchive"},
+		{method: "post", path: `/\{objectType\}/batch/read$`, name: "BatchRead"},
 	},
 	"Associations": {
 		// The legacy "/types" read is gone in date-based versions; association
 		// type ids are now read from "/labels" (GET, tag Basic -> BasicAPIService).
-		{old: `get-/crm/associations/[0-9-]+(?:-beta)?/\{fromObjectType\}/\{toObjectType\}/labels_[^"\\]*`, new: "GetLabels"},
-		{old: `post-/crm/associations/[0-9-]+(?:-beta)?/\{fromObjectType\}/\{toObjectType\}/batch/create_[^"\\]*`, new: "BatchCreate"},
-		{old: `post-/crm/associations/[0-9-]+(?:-beta)?/\{fromObjectType\}/\{toObjectType\}/batch/archive_[^"\\]*`, new: "BatchArchive"},
+		{method: "get", path: `/\{fromObjectType\}/\{toObjectType\}/labels$`, name: "GetLabels"},
+		{method: "post", path: `/\{fromObjectType\}/\{toObjectType\}/batch/create$`, name: "BatchCreate"},
+		{method: "post", path: `/\{fromObjectType\}/\{toObjectType\}/batch/archive$`, name: "BatchArchive"},
 	},
 }
 
-// preProcessEntry contains a mapping from an old operation to a new operation.
-type preProcessEntry struct {
-	old string
-	new string
+// nameOverride pins an explicit Go method name for an operation identified by
+// HTTP method and a regexp matched against the operation's path.
+type nameOverride struct {
+	method string
+	path   string
+	name   string
 }
 
 // schemaOpenAPI contains the OpenAPI schema definition.
@@ -134,24 +146,203 @@ func retrieveSchema(url string) (string, error) {
 	return string(schema), nil
 }
 
-// preProcessSchema replaces operation names in the given schema and saves the results to file.
-// It returns a path to the saved file.
+// preProcessSchema rewrites operation IDs in the OpenAPI spec so that
+// openapi-generator produces clean, collision-free Go method names, then saves
+// the result to ./schema/<group>.json and returns the path.
+//
+// HubSpot's date-based specs expose very long auto-generated operationIds (e.g.
+// "post-/crm/objects/2026-09/contacts/search_/crm/objects/2026-09-beta/{objectType}/search")
+// which would otherwise become unusable Go method names. For each operation we
+// pick a name as follows:
+//  1. an explicit entry in nameOverrides (matched by method + path regexp), else
+//  2. a generic name derived from the HTTP verb + meaningful path segments.
+//
+// Because openapi-generator groups operations into one <Tag>APIService per tag,
+// method-name collisions only matter within a tag. We resolve collisions per tag
+// in three escalating passes (base name -> name including path params -> numeric
+// suffix) so the output always compiles.
 func preProcessSchema(group string, schema string) (string, error) {
-	entries := preProcessMap[group]
+	var doc map[string]any
+	if err := json.Unmarshal([]byte(schema), &doc); err != nil {
+		return "", fmt.Errorf("parsing %s spec: %w", group, err)
+	}
 
-	for _, entry := range entries {
-		pattern := regexp.MustCompile(entry.old)
-		schema = pattern.ReplaceAllString(schema, entry.new)
+	paths, _ := doc["paths"].(map[string]any)
+
+	// Compile overrides for this API once.
+	type compiledOverride struct {
+		method string
+		re     *regexp.Regexp
+		name   string
+	}
+	var overrides []compiledOverride
+	for _, o := range nameOverrides[group] {
+		overrides = append(overrides, compiledOverride{
+			method: strings.ToLower(o.method),
+			re:     regexp.MustCompile(o.path),
+			name:   o.name,
+		})
+	}
+
+	// Collect operations grouped by tag, preserving a deterministic order.
+	type op struct {
+		node     map[string]any
+		method   string
+		path     string
+		tag      string
+		override string // explicit name, or "" to use the generic namer
+	}
+	var ops []op
+	var pathKeys []string
+	for p := range paths {
+		pathKeys = append(pathKeys, p)
+	}
+	sort.Strings(pathKeys)
+	for _, p := range pathKeys {
+		methods, _ := paths[p].(map[string]any)
+		var mKeys []string
+		for m := range methods {
+			mKeys = append(mKeys, m)
+		}
+		sort.Strings(mKeys)
+		for _, m := range mKeys {
+			if !isHTTPMethod(m) {
+				continue
+			}
+			node, ok := methods[m].(map[string]any)
+			if !ok {
+				continue
+			}
+			tag := "Default"
+			if tags, ok := node["tags"].([]any); ok && len(tags) > 0 {
+				if t, ok := tags[0].(string); ok {
+					tag = t
+				}
+			}
+			ov := ""
+			for _, o := range overrides {
+				if o.method == strings.ToLower(m) && o.re.MatchString(p) {
+					ov = o.name
+					break
+				}
+			}
+			ops = append(ops, op{node: node, method: strings.ToLower(m), path: p, tag: tag, override: ov})
+		}
+	}
+
+	// Assign names with collision resolution. openapi-generator derives both the
+	// method name AND a package-level request type (Api<Name>Request) from the
+	// operationId, so names must be unique across the WHOLE package, not just
+	// within a tag/APIService. We therefore dedupe against a single set.
+	used := map[string]bool{}
+	// Pass 0: explicit overrides claim their names first.
+	for i := range ops {
+		o := &ops[i]
+		if o.override != "" {
+			o.node["operationId"] = o.override
+			used[o.override] = true
+		}
+	}
+	// Passes 1-3 for the rest.
+	for i := range ops {
+		o := &ops[i]
+		if o.override != "" {
+			continue
+		}
+		candidates := []string{
+			deriveName(o.method, o.path, false),
+			deriveName(o.method, o.path, true),
+		}
+		name := ""
+		for _, c := range candidates {
+			if c != "" && !used[c] {
+				name = c
+				break
+			}
+		}
+		if name == "" {
+			base := deriveName(o.method, o.path, true)
+			for n := 2; ; n++ {
+				c := base + strconv.Itoa(n)
+				if !used[c] {
+					name = c
+					break
+				}
+			}
+		}
+		o.node["operationId"] = name
+		used[name] = true
+	}
+
+	out, err := json.MarshalIndent(doc, "", "  ")
+	if err != nil {
+		return "", fmt.Errorf("re-encoding %s spec: %w", group, err)
 	}
 
 	filename := "./schema/" + group + ".json"
-	err := ioutil.WriteFile(filename, []byte(schema), 0644)
-
-	if err != nil {
+	if err := ioutil.WriteFile(filename, out, 0644); err != nil {
 		return "", err
 	}
-
 	return filename, nil
+}
+
+// isHTTPMethod reports whether key is an OpenAPI operation verb (not e.g.
+// "parameters" or "summary" which also appear under a path item).
+func isHTTPMethod(key string) bool {
+	switch strings.ToLower(key) {
+	case "get", "post", "put", "patch", "delete", "head", "options", "trace":
+		return true
+	}
+	return false
+}
+
+var (
+	nameVerb        = map[string]string{"get": "Get", "post": "Post", "put": "Put", "patch": "Patch", "delete": "Delete", "head": "Head", "options": "Options", "trace": "Trace"}
+	versionSegmentR = regexp.MustCompile(`^(v\d+|\d{4}-\d{2}(-beta)?)$`)
+	// nameDropSegments are leading "area" path segments that add no meaning to a
+	// per-API method name (the package already scopes them).
+	nameDropSegments = map[string]bool{"crm": true, "objects": true, "associations": true, "crm-object-schemas": true}
+)
+
+// deriveName builds a Go method name from an HTTP verb and a path. When
+// includeParams is false, path parameters ({id}) are skipped; when true they are
+// included as "By<Param>" segments to disambiguate otherwise-identical names.
+func deriveName(method, path string, includeParams bool) string {
+	var parts []string
+	for _, seg := range strings.Split(path, "/") {
+		if seg == "" || versionSegmentR.MatchString(seg) {
+			continue
+		}
+		if strings.HasPrefix(seg, "{") {
+			if includeParams {
+				parts = append(parts, "By"+camelSegment(strings.Trim(seg, "{}")))
+			}
+			continue
+		}
+		if nameDropSegments[seg] {
+			continue
+		}
+		parts = append(parts, camelSegment(seg))
+	}
+	verb := nameVerb[strings.ToLower(method)]
+	if len(parts) == 0 {
+		return verb + "Root"
+	}
+	return verb + strings.Join(parts, "")
+}
+
+// camelSegment converts a single path segment (which may contain '-' or '_')
+// into an exported CamelCase identifier fragment.
+func camelSegment(seg string) string {
+	var b strings.Builder
+	for _, part := range regexp.MustCompile(`[-_]`).Split(seg, -1) {
+		if part == "" {
+			continue
+		}
+		b.WriteString(strings.ToUpper(part[:1]))
+		b.WriteString(part[1:])
+	}
+	return b.String()
 }
 
 // versionFromSchema retrieves the OpenAPI schema version from the input JSON string.
@@ -192,14 +383,16 @@ func main() {
 
 	//i := 0
 	//outer:
+	generated := map[string]bool{}
 	for _, api := range r.Results {
 		pkg, wanted := targetAPIs[api.Name]
-		if !wanted {
+		if !wanted || generated[api.Name] {
 			continue
 		}
 		openAPIURL := api.openAPIFor(targetVersion)
 		if openAPIURL == "" {
-			panic(fmt.Sprintf("API %q has no %s release in catalog", api.Name, targetVersion))
+			fmt.Printf("WARNING: API %q has no %s release in catalog; skipping\n", api.Name, targetVersion)
+			continue
 		}
 
 		schema, err := retrieveSchema(openAPIURL)
@@ -230,6 +423,15 @@ func main() {
 		if err != nil {
 			fmt.Println(string(out))
 			panic(err)
+		}
+		generated[api.Name] = true
+	}
+
+	// Warn about any targeted API we never generated (e.g. absent from the
+	// catalog response for this version), so coverage gaps are visible.
+	for name := range targetAPIs {
+		if !generated[name] {
+			fmt.Printf("WARNING: targeted API %q was not generated (not found with a %s release)\n", name, targetVersion)
 		}
 	}
 

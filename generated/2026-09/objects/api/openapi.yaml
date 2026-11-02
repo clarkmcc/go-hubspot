@@ -3,19 +3,19 @@ info:
   description: Basepom for all HubSpot Projects
   title: Custom Objects
   version: 2026-09
-  x-hubspot-product-tier-requirements:
-    marketing: FREE
-    sales: FREE
-    service: FREE
-    cms: FREE
-    commerce: FREE
-    crmHub: FREE
-    dataHub: FREE
   x-hubspot-api-use-case: "After creating a Cars custom object, you can create a record\
     \ for each car, then associate it with the contact who bought it."
   x-hubspot-introduction: "Use the objects API to create and manage records for an\
     \ object. The endpoints can be used for objects included in all accounts, such\
     \ as contacts and companies, as well as for custom objects in Enterprise accounts."
+  x-hubspot-product-tier-requirements:
+    cms: FREE
+    commerce: FREE
+    crmHub: FREE
+    dataHub: FREE
+    marketing: FREE
+    sales: FREE
+    service: FREE
 servers:
 - url: https://api.hubapi.com
 tags:
@@ -30,7 +30,7 @@ paths:
         \ You can control the data returned by specifying properties, associations,\
         \ and whether to include archived records. This endpoint is useful for retrieving\
         \ a list of CRM objects with specific details and associations."
-      operationId: "get-/crm/objects/2026-09/{objectType}_/crm/objects/2026-09-beta/{objectType}"
+      operationId: GetRoot
       parameters:
       - description: "The type of CRM object to retrieve, such as contacts, companies,\
           \ or deals."
@@ -316,7 +316,7 @@ paths:
         \ copy of the object, including its ID. This endpoint allows you to create\
         \ standard objects in your CRM system, providing documentation and examples\
         \ for guidance."
-      operationId: "post-/crm/objects/2026-09/{objectType}_/crm/objects/2026-09-beta/{objectType}"
+      operationId: PostRoot
       parameters:
       - description: "The type of CRM object to create, such as contacts, companies,\
           \ or deals."
@@ -1481,7 +1481,7 @@ paths:
         creating new objects or updating existing ones based on unique identifiers.
         It is particularly useful for synchronizing data between systems or ensuring
         that your CRM data is up-to-date.
-      operationId: "post-/crm/objects/2026-09/{objectType}/batch/upsert_/crm/objects/2026-09-beta/{objectType}/batch/upsert"
+      operationId: PostBatchUpsert
       parameters:
       - description: "The type of CRM object to create or update in batch. This specifies\
           \ the category of objects, such as contacts or deals, that the operation\
@@ -1714,7 +1714,7 @@ paths:
         \ with GDPR. This endpoint can use the optional 'idProperty' set to 'email'\
         \ to identify the contact by email address. If the email address is not found,\
         \ it will be added to a blocklist to prevent future use."
-      operationId: "post-/crm/objects/2026-09/{objectType}/gdpr-delete_/crm/objects/2026-09-beta/{objectType}/gdpr-delete"
+      operationId: PostGdprDelete
       parameters:
       - description: "The type of CRM object to be deleted, such as 'contacts'."
         explode: false
@@ -1934,7 +1934,7 @@ paths:
         operation is useful for consolidating duplicate records and ensuring data
         consistency. The request requires specifying the primary object and the object
         to be merged.
-      operationId: "post-/crm/objects/2026-09/{objectType}/merge_/crm/objects/2026-09-beta/{objectType}/merge"
+      operationId: PostMerge
       parameters:
       - description: "The type of the CRM object to be merged, such as contacts, companies,\
           \ or deals."
@@ -2387,7 +2387,7 @@ paths:
       description: "Move an Object identified by `{objectId}` to the recycling bin.\
         \ This operation effectively archives the specified object, making it inactive\
         \ but not permanently deleting it from the system."
-      operationId: "delete-/crm/objects/2026-09/{objectType}/{objectId}_/crm/objects/2026-09-beta/{objectType}/{objectId}"
+      operationId: DeleteRoot
       parameters:
       - description: The unique identifier of the object to be archived.
         explode: false
@@ -2612,7 +2612,7 @@ paths:
         \ what is returned via the `properties` query parameter. This endpoint is\
         \ useful for retrieving specific objects and their details from your HubSpot\
         \ account."
-      operationId: "get-/crm/objects/2026-09/{objectType}/{objectId}_/crm/objects/2026-09-beta/{objectType}/{objectId}"
+      operationId: GetByObjectTypeByObjectId
       parameters:
       - description: The unique identifier of the object to retrieve.
         explode: false
@@ -2895,7 +2895,7 @@ paths:
         \ Provided property values will overwrite existing values, while read-only\
         \ and non-existent properties will be ignored. Properties can be cleared by\
         \ passing an empty string."
-      operationId: "patch-/crm/objects/2026-09/{objectType}/{objectId}_/crm/objects/2026-09-beta/{objectType}/{objectId}"
+      operationId: PatchRoot
       parameters:
       - description: The unique identifier of the object to update.
         explode: false
@@ -4186,11 +4186,11 @@ components:
         fails. This component is used in various endpoints to provide detailed information
         about the error encountered.
       example:
-        message: Invalid input (details will vary based on the error)
-        correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
         category: VALIDATION_ERROR
+        correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
         links:
           knowledge-base: https://www.hubspot.com/products/service/knowledge-base
+        message: Invalid input (details will vary based on the error)
       properties:
         category:
           description: The error category.
@@ -5299,590 +5299,590 @@ components:
       type: oauth2
       x-hubspot-app-availability:
         cpq.price_books.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.appointments.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.appointments.sensitive.read.v2:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.appointments.sensitive.write.v2:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.appointments.write:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.calls.read:
+          developer: false
           user:
           - public
           - private
-          developer: false
         crm.objects.calls.write:
+          developer: false
           user:
           - public
           - private
-          developer: false
         crm.objects.carts.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.carts.write:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.commercepayments.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.commercepayments.write:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.companies.highly_sensitive.read.v2:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.companies.highly_sensitive.write.v2:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.companies.read:
+          developer: true
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: true
         crm.objects.companies.sensitive.read.v2:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.companies.sensitive.write.v2:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.companies.write:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.contacts.highly_sensitive.read.v2:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.contacts.highly_sensitive.write.v2:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.contacts.read:
+          developer: true
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: true
         crm.objects.contacts.sensitive.read.v2:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.contacts.sensitive.write.v2:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.contacts.write:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.contracts.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.courses.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.courses.write:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.custom.highly_sensitive.read.v2:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.custom.highly_sensitive.write.v2:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.custom.read:
+          developer: true
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: true
         crm.objects.custom.sensitive.read.v2:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.custom.sensitive.write.v2:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.custom.write:
+          developer: true
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: true
         crm.objects.deals.highly_sensitive.read.v2:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.deals.highly_sensitive.write.v2:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.deals.read:
-          portal:
-          - public
-          - private
-          user:
-          - public
-          - private
           developer: true
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
         crm.objects.deals.sensitive.read.v2:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.deals.sensitive.write.v2:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.deals.write:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.emails.read:
+          developer: false
           user:
           - public
           - private
-          developer: false
         crm.objects.emails.write:
+          developer: false
           user:
           - public
           - private
-          developer: false
         crm.objects.feedback_submissions.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.forecasts.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.goals.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.goals.write:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.invoices.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.invoices.write:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.leads.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.leads.write:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.line_items.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.line_items.write:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.listings.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.listings.write:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.meetings.read:
+          developer: false
           user:
           - public
           - private
-          developer: false
         crm.objects.meetings.write:
+          developer: false
           user:
           - public
           - private
-          developer: false
         crm.objects.notes.read:
+          developer: false
           user:
           - public
           - private
-          developer: false
         crm.objects.notes.write:
+          developer: false
           user:
           - public
           - private
-          developer: false
         crm.objects.orders.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.orders.write:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.partner-clients.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.partner-clients.write:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.partner-services.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.partner-services.write:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.products.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.products.write:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.projects.highly_sensitive.read:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.projects.highly_sensitive.write:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.projects.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.projects.sensitive.read:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.projects.sensitive.write:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.projects.write:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.quotes.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.quotes.write:
+          developer: false
           portal:
           - public
           - private
-          developer: false
         crm.objects.services.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.services.write:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.subscriptions.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.subscriptions.write:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.tasks.read:
+          developer: false
           user:
           - public
           - private
-          developer: false
         crm.objects.tasks.write:
+          developer: false
           user:
           - public
           - private
-          developer: false
         crm.objects.tickets.highly_sensitive.read:
+          developer: false
           user:
           - public
           - private
-          developer: false
         crm.objects.tickets.highly_sensitive.write:
+          developer: false
           user:
           - public
           - private
-          developer: false
         crm.objects.tickets.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.tickets.sensitive.read:
+          developer: false
           user:
           - public
           - private
-          developer: false
         crm.objects.tickets.sensitive.write:
+          developer: false
           user:
           - public
           - private
-          developer: false
         crm.objects.tickets.write:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.users.read:
+          developer: false
           portal:
           - public
           - private
-          developer: false
         crm.objects.users.write:
+          developer: false
           portal:
           - public
           - private
-          developer: false
         e-commerce:
+          developer: false
           portal:
           - public
           - private
-          developer: false
         media_bridge.read:
+          developer: false
           portal:
           - public
           - private
-          developer: false
         oauth:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         revenue.contracts.read:
+          developer: false
           portal:
           - public
           - private
-          developer: false
         tickets.highly_sensitive.v2:
+          developer: false
           portal:
           - private
-          developer: false
         tickets.sensitive.v2:
+          developer: false
           portal:
           - private
-          developer: false
 x-hubspot-product-tier-requirements:
-  marketing: FREE
-  sales: FREE
-  service: FREE
   cms: FREE
   commerce: FREE
   crmHub: FREE
   dataHub: FREE
+  marketing: FREE
+  sales: FREE
+  service: FREE

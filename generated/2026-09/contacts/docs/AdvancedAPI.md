@@ -4,14 +4,14 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**PostCrmObjects202609ContactsGdprDeleteCrmObjects202609BetaObjectTypeGdprDelete**](AdvancedAPI.md#PostCrmObjects202609ContactsGdprDeleteCrmObjects202609BetaObjectTypeGdprDelete) | **Post** /crm/objects/2026-09/contacts/gdpr-delete | Permanently delete a contact (GDPR-compliant)
-[**PostCrmObjects202609ContactsMergeCrmObjects202609BetaObjectTypeMerge**](AdvancedAPI.md#PostCrmObjects202609ContactsMergeCrmObjects202609BetaObjectTypeMerge) | **Post** /crm/objects/2026-09/contacts/merge | Merge two contacts
+[**PostContactsGdprDelete**](AdvancedAPI.md#PostContactsGdprDelete) | **Post** /crm/objects/2026-09/contacts/gdpr-delete | Permanently delete a contact (GDPR-compliant)
+[**PostContactsMerge**](AdvancedAPI.md#PostContactsMerge) | **Post** /crm/objects/2026-09/contacts/merge | Merge two contacts
 
 
 
-## PostCrmObjects202609ContactsGdprDeleteCrmObjects202609BetaObjectTypeGdprDelete
+## PostContactsGdprDelete
 
-> PostCrmObjects202609ContactsGdprDeleteCrmObjects202609BetaObjectTypeGdprDelete(ctx).PublicGdprDeleteInput(publicGdprDeleteInput).Execute()
+> PostContactsGdprDelete(ctx).PublicGdprDeleteInput(publicGdprDeleteInput).Execute()
 
 Permanently delete a contact (GDPR-compliant)
 
@@ -34,9 +34,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AdvancedAPI.PostCrmObjects202609ContactsGdprDeleteCrmObjects202609BetaObjectTypeGdprDelete(context.Background()).PublicGdprDeleteInput(publicGdprDeleteInput).Execute()
+	r, err := apiClient.AdvancedAPI.PostContactsGdprDelete(context.Background()).PublicGdprDeleteInput(publicGdprDeleteInput).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AdvancedAPI.PostCrmObjects202609ContactsGdprDeleteCrmObjects202609BetaObjectTypeGdprDelete``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AdvancedAPI.PostContactsGdprDelete``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -48,7 +48,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCrmObjects202609ContactsGdprDeleteCrmObjects202609BetaObjectTypeGdprDeleteRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostContactsGdprDeleteRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -73,9 +73,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostCrmObjects202609ContactsMergeCrmObjects202609BetaObjectTypeMerge
+## PostContactsMerge
 
-> SimplePublicObject PostCrmObjects202609ContactsMergeCrmObjects202609BetaObjectTypeMerge(ctx).PublicMergeInput(publicMergeInput).Execute()
+> SimplePublicObject PostContactsMerge(ctx).PublicMergeInput(publicMergeInput).Execute()
 
 Merge two contacts
 
@@ -98,13 +98,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AdvancedAPI.PostCrmObjects202609ContactsMergeCrmObjects202609BetaObjectTypeMerge(context.Background()).PublicMergeInput(publicMergeInput).Execute()
+	resp, r, err := apiClient.AdvancedAPI.PostContactsMerge(context.Background()).PublicMergeInput(publicMergeInput).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AdvancedAPI.PostCrmObjects202609ContactsMergeCrmObjects202609BetaObjectTypeMerge``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AdvancedAPI.PostContactsMerge``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostCrmObjects202609ContactsMergeCrmObjects202609BetaObjectTypeMerge`: SimplePublicObject
-	fmt.Fprintf(os.Stdout, "Response from `AdvancedAPI.PostCrmObjects202609ContactsMergeCrmObjects202609BetaObjectTypeMerge`: %v\n", resp)
+	// response from `PostContactsMerge`: SimplePublicObject
+	fmt.Fprintf(os.Stdout, "Response from `AdvancedAPI.PostContactsMerge`: %v\n", resp)
 }
 ```
 
@@ -114,7 +114,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCrmObjects202609ContactsMergeCrmObjects202609BetaObjectTypeMergeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostContactsMergeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

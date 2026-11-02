@@ -71,18 +71,18 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*AdvancedAPI* | [**PostCrmObjects202609ObjectTypeGdprDeleteCrmObjects202609BetaObjectTypeGdprDelete**](docs/AdvancedAPI.md#postcrmobjects202609objecttypegdprdeletecrmobjects202609betaobjecttypegdprdelete) | **Post** /crm/objects/2026-09/{objectType}/gdpr-delete | GDPR Delete
-*AdvancedAPI* | [**PostCrmObjects202609ObjectTypeMergeCrmObjects202609BetaObjectTypeMerge**](docs/AdvancedAPI.md#postcrmobjects202609objecttypemergecrmobjects202609betaobjecttypemerge) | **Post** /crm/objects/2026-09/{objectType}/merge | Merge objects
-*BasicAPI* | [**DeleteCrmObjects202609ObjectTypeObjectIdCrmObjects202609BetaObjectTypeObjectId**](docs/BasicAPI.md#deletecrmobjects202609objecttypeobjectidcrmobjects202609betaobjecttypeobjectid) | **Delete** /crm/objects/2026-09/{objectType}/{objectId} | Archive
-*BasicAPI* | [**GetCrmObjects202609ObjectTypeCrmObjects202609BetaObjectType**](docs/BasicAPI.md#getcrmobjects202609objecttypecrmobjects202609betaobjecttype) | **Get** /crm/objects/2026-09/{objectType} | List
-*BasicAPI* | [**GetCrmObjects202609ObjectTypeObjectIdCrmObjects202609BetaObjectTypeObjectId**](docs/BasicAPI.md#getcrmobjects202609objecttypeobjectidcrmobjects202609betaobjecttypeobjectid) | **Get** /crm/objects/2026-09/{objectType}/{objectId} | Read
-*BasicAPI* | [**PatchCrmObjects202609ObjectTypeObjectIdCrmObjects202609BetaObjectTypeObjectId**](docs/BasicAPI.md#patchcrmobjects202609objecttypeobjectidcrmobjects202609betaobjecttypeobjectid) | **Patch** /crm/objects/2026-09/{objectType}/{objectId} | Update
-*BasicAPI* | [**PostCrmObjects202609ObjectTypeCrmObjects202609BetaObjectType**](docs/BasicAPI.md#postcrmobjects202609objecttypecrmobjects202609betaobjecttype) | **Post** /crm/objects/2026-09/{objectType} | Create
+*AdvancedAPI* | [**PostGdprDelete**](docs/AdvancedAPI.md#postgdprdelete) | **Post** /crm/objects/2026-09/{objectType}/gdpr-delete | GDPR Delete
+*AdvancedAPI* | [**PostMerge**](docs/AdvancedAPI.md#postmerge) | **Post** /crm/objects/2026-09/{objectType}/merge | Merge objects
+*BasicAPI* | [**DeleteRoot**](docs/BasicAPI.md#deleteroot) | **Delete** /crm/objects/2026-09/{objectType}/{objectId} | Archive
+*BasicAPI* | [**GetByObjectTypeByObjectId**](docs/BasicAPI.md#getbyobjecttypebyobjectid) | **Get** /crm/objects/2026-09/{objectType}/{objectId} | Read
+*BasicAPI* | [**GetRoot**](docs/BasicAPI.md#getroot) | **Get** /crm/objects/2026-09/{objectType} | List
+*BasicAPI* | [**PatchRoot**](docs/BasicAPI.md#patchroot) | **Patch** /crm/objects/2026-09/{objectType}/{objectId} | Update
+*BasicAPI* | [**PostRoot**](docs/BasicAPI.md#postroot) | **Post** /crm/objects/2026-09/{objectType} | Create
 *BatchAPI* | [**BatchArchive**](docs/BatchAPI.md#batcharchive) | **Post** /crm/objects/2026-09/{objectType}/batch/archive | Batch archive objects
 *BatchAPI* | [**BatchCreate**](docs/BatchAPI.md#batchcreate) | **Post** /crm/objects/2026-09/{objectType}/batch/create | Batch create objects
 *BatchAPI* | [**BatchRead**](docs/BatchAPI.md#batchread) | **Post** /crm/objects/2026-09/{objectType}/batch/read | Read batch objects
 *BatchAPI* | [**BatchUpdate**](docs/BatchAPI.md#batchupdate) | **Post** /crm/objects/2026-09/{objectType}/batch/update | Update batch objects
-*BatchAPI* | [**PostCrmObjects202609ObjectTypeBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsert**](docs/BatchAPI.md#postcrmobjects202609objecttypebatchupsertcrmobjects202609betaobjecttypebatchupsert) | **Post** /crm/objects/2026-09/{objectType}/batch/upsert | Upsert batch objects
+*BatchAPI* | [**PostBatchUpsert**](docs/BatchAPI.md#postbatchupsert) | **Post** /crm/objects/2026-09/{objectType}/batch/upsert | Upsert batch objects
 *SearchAPI* | [**Search**](docs/SearchAPI.md#search) | **Post** /crm/objects/2026-09/{objectType}/search | Search objects
 
 

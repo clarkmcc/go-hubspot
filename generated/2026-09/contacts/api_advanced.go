@@ -21,45 +21,45 @@ import (
 // AdvancedAPIService AdvancedAPI service
 type AdvancedAPIService service
 
-type ApiPostCrmObjects202609ContactsGdprDeleteCrmObjects202609BetaObjectTypeGdprDeleteRequest struct {
+type ApiPostContactsGdprDeleteRequest struct {
 	ctx                   context.Context
 	ApiService            *AdvancedAPIService
 	publicGdprDeleteInput *PublicGdprDeleteInput
 }
 
-func (r ApiPostCrmObjects202609ContactsGdprDeleteCrmObjects202609BetaObjectTypeGdprDeleteRequest) PublicGdprDeleteInput(publicGdprDeleteInput PublicGdprDeleteInput) ApiPostCrmObjects202609ContactsGdprDeleteCrmObjects202609BetaObjectTypeGdprDeleteRequest {
+func (r ApiPostContactsGdprDeleteRequest) PublicGdprDeleteInput(publicGdprDeleteInput PublicGdprDeleteInput) ApiPostContactsGdprDeleteRequest {
 	r.publicGdprDeleteInput = &publicGdprDeleteInput
 	return r
 }
 
-func (r ApiPostCrmObjects202609ContactsGdprDeleteCrmObjects202609BetaObjectTypeGdprDeleteRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostCrmObjects202609ContactsGdprDeleteCrmObjects202609BetaObjectTypeGdprDeleteExecute(r)
+func (r ApiPostContactsGdprDeleteRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostContactsGdprDeleteExecute(r)
 }
 
 /*
-PostCrmObjects202609ContactsGdprDeleteCrmObjects202609BetaObjectTypeGdprDelete Permanently delete a contact (GDPR-compliant)
+PostContactsGdprDelete Permanently delete a contact (GDPR-compliant)
 
 Permanently delete a contact and all associated content to follow GDPR. Use optional property `idProperty` set to `email` to identify contact by email address. If email address is not found, the email address will be added to a blocklist and prevent it from being used in the future. Learn more about [permanently deleting contacts](https://knowledge.hubspot.com/privacy-and-consent/how-do-i-perform-a-gdpr-delete-in-hubspot).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiPostCrmObjects202609ContactsGdprDeleteCrmObjects202609BetaObjectTypeGdprDeleteRequest
+	@return ApiPostContactsGdprDeleteRequest
 */
-func (a *AdvancedAPIService) PostCrmObjects202609ContactsGdprDeleteCrmObjects202609BetaObjectTypeGdprDelete(ctx context.Context) ApiPostCrmObjects202609ContactsGdprDeleteCrmObjects202609BetaObjectTypeGdprDeleteRequest {
-	return ApiPostCrmObjects202609ContactsGdprDeleteCrmObjects202609BetaObjectTypeGdprDeleteRequest{
+func (a *AdvancedAPIService) PostContactsGdprDelete(ctx context.Context) ApiPostContactsGdprDeleteRequest {
+	return ApiPostContactsGdprDeleteRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *AdvancedAPIService) PostCrmObjects202609ContactsGdprDeleteCrmObjects202609BetaObjectTypeGdprDeleteExecute(r ApiPostCrmObjects202609ContactsGdprDeleteCrmObjects202609BetaObjectTypeGdprDeleteRequest) (*http.Response, error) {
+func (a *AdvancedAPIService) PostContactsGdprDeleteExecute(r ApiPostContactsGdprDeleteRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AdvancedAPIService.PostCrmObjects202609ContactsGdprDeleteCrmObjects202609BetaObjectTypeGdprDelete")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AdvancedAPIService.PostContactsGdprDelete")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -128,31 +128,31 @@ func (a *AdvancedAPIService) PostCrmObjects202609ContactsGdprDeleteCrmObjects202
 	return localVarHTTPResponse, nil
 }
 
-type ApiPostCrmObjects202609ContactsMergeCrmObjects202609BetaObjectTypeMergeRequest struct {
+type ApiPostContactsMergeRequest struct {
 	ctx              context.Context
 	ApiService       *AdvancedAPIService
 	publicMergeInput *PublicMergeInput
 }
 
-func (r ApiPostCrmObjects202609ContactsMergeCrmObjects202609BetaObjectTypeMergeRequest) PublicMergeInput(publicMergeInput PublicMergeInput) ApiPostCrmObjects202609ContactsMergeCrmObjects202609BetaObjectTypeMergeRequest {
+func (r ApiPostContactsMergeRequest) PublicMergeInput(publicMergeInput PublicMergeInput) ApiPostContactsMergeRequest {
 	r.publicMergeInput = &publicMergeInput
 	return r
 }
 
-func (r ApiPostCrmObjects202609ContactsMergeCrmObjects202609BetaObjectTypeMergeRequest) Execute() (*SimplePublicObject, *http.Response, error) {
-	return r.ApiService.PostCrmObjects202609ContactsMergeCrmObjects202609BetaObjectTypeMergeExecute(r)
+func (r ApiPostContactsMergeRequest) Execute() (*SimplePublicObject, *http.Response, error) {
+	return r.ApiService.PostContactsMergeExecute(r)
 }
 
 /*
-PostCrmObjects202609ContactsMergeCrmObjects202609BetaObjectTypeMerge Merge two contacts
+PostContactsMerge Merge two contacts
 
 Merge two contact records. Learn more about [merging records](https://knowledge.hubspot.com/records/merge-records).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiPostCrmObjects202609ContactsMergeCrmObjects202609BetaObjectTypeMergeRequest
+	@return ApiPostContactsMergeRequest
 */
-func (a *AdvancedAPIService) PostCrmObjects202609ContactsMergeCrmObjects202609BetaObjectTypeMerge(ctx context.Context) ApiPostCrmObjects202609ContactsMergeCrmObjects202609BetaObjectTypeMergeRequest {
-	return ApiPostCrmObjects202609ContactsMergeCrmObjects202609BetaObjectTypeMergeRequest{
+func (a *AdvancedAPIService) PostContactsMerge(ctx context.Context) ApiPostContactsMergeRequest {
+	return ApiPostContactsMergeRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -161,7 +161,7 @@ func (a *AdvancedAPIService) PostCrmObjects202609ContactsMergeCrmObjects202609Be
 // Execute executes the request
 //
 //	@return SimplePublicObject
-func (a *AdvancedAPIService) PostCrmObjects202609ContactsMergeCrmObjects202609BetaObjectTypeMergeExecute(r ApiPostCrmObjects202609ContactsMergeCrmObjects202609BetaObjectTypeMergeRequest) (*SimplePublicObject, *http.Response, error) {
+func (a *AdvancedAPIService) PostContactsMergeExecute(r ApiPostContactsMergeRequest) (*SimplePublicObject, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -169,7 +169,7 @@ func (a *AdvancedAPIService) PostCrmObjects202609ContactsMergeCrmObjects202609Be
 		localVarReturnValue *SimplePublicObject
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AdvancedAPIService.PostCrmObjects202609ContactsMergeCrmObjects202609BetaObjectTypeMerge")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AdvancedAPIService.PostContactsMerge")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

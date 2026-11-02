@@ -8,8 +8,8 @@ Method | HTTP request | Description
 [**BatchCreate**](BatchAPI.md#BatchCreate) | **Post** /crm/objects/2026-09/contacts/batch/create | Create a batch of contacts
 [**BatchRead**](BatchAPI.md#BatchRead) | **Post** /crm/objects/2026-09/contacts/batch/read | Retrieve a batch of contacts
 [**BatchUpdate**](BatchAPI.md#BatchUpdate) | **Post** /crm/objects/2026-09/contacts/batch/update | Update a batch of contacts
-[**PostCrmObjects202609ContactsBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsert**](BatchAPI.md#PostCrmObjects202609ContactsBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsert) | **Post** /crm/objects/2026-09/contacts/batch/upsert | Create or update a batch of contacts
-[**PutCrmObjects202609FromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdCrmObjects202609BetaFromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectId**](BatchAPI.md#PutCrmObjects202609FromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdCrmObjects202609BetaFromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectId) | **Put** /crm/objects/2026-09/{fromObjectType}/{fromObjectId}/associations/default/{toObjectType}/{toObjectId} | Create Association
+[**PostContactsBatchUpsert**](BatchAPI.md#PostContactsBatchUpsert) | **Post** /crm/objects/2026-09/contacts/batch/upsert | Create or update a batch of contacts
+[**PutDefault**](BatchAPI.md#PutDefault) | **Put** /crm/objects/2026-09/{fromObjectType}/{fromObjectId}/associations/default/{toObjectType}/{toObjectId} | Create Association
 
 
 
@@ -277,9 +277,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostCrmObjects202609ContactsBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsert
+## PostContactsBatchUpsert
 
-> BatchResponseSimplePublicUpsertObject PostCrmObjects202609ContactsBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsert(ctx).BatchInputSimplePublicObjectBatchInputUpsert(batchInputSimplePublicObjectBatchInputUpsert).Execute()
+> BatchResponseSimplePublicUpsertObject PostContactsBatchUpsert(ctx).BatchInputSimplePublicObjectBatchInputUpsert(batchInputSimplePublicObjectBatchInputUpsert).Execute()
 
 Create or update a batch of contacts
 
@@ -302,13 +302,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BatchAPI.PostCrmObjects202609ContactsBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsert(context.Background()).BatchInputSimplePublicObjectBatchInputUpsert(batchInputSimplePublicObjectBatchInputUpsert).Execute()
+	resp, r, err := apiClient.BatchAPI.PostContactsBatchUpsert(context.Background()).BatchInputSimplePublicObjectBatchInputUpsert(batchInputSimplePublicObjectBatchInputUpsert).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BatchAPI.PostCrmObjects202609ContactsBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsert``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BatchAPI.PostContactsBatchUpsert``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostCrmObjects202609ContactsBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsert`: BatchResponseSimplePublicUpsertObject
-	fmt.Fprintf(os.Stdout, "Response from `BatchAPI.PostCrmObjects202609ContactsBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsert`: %v\n", resp)
+	// response from `PostContactsBatchUpsert`: BatchResponseSimplePublicUpsertObject
+	fmt.Fprintf(os.Stdout, "Response from `BatchAPI.PostContactsBatchUpsert`: %v\n", resp)
 }
 ```
 
@@ -318,7 +318,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCrmObjects202609ContactsBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsertRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostContactsBatchUpsertRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -343,9 +343,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PutCrmObjects202609FromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdCrmObjects202609BetaFromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectId
+## PutDefault
 
-> BatchResponsePublicDefaultAssociation PutCrmObjects202609FromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdCrmObjects202609BetaFromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectId(ctx, fromObjectId, fromObjectType, toObjectId, toObjectType).Execute()
+> BatchResponsePublicDefaultAssociation PutDefault(ctx, fromObjectId, fromObjectType, toObjectId, toObjectType).Execute()
 
 Create Association
 
@@ -371,13 +371,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BatchAPI.PutCrmObjects202609FromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdCrmObjects202609BetaFromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectId(context.Background(), fromObjectId, fromObjectType, toObjectId, toObjectType).Execute()
+	resp, r, err := apiClient.BatchAPI.PutDefault(context.Background(), fromObjectId, fromObjectType, toObjectId, toObjectType).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BatchAPI.PutCrmObjects202609FromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdCrmObjects202609BetaFromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BatchAPI.PutDefault``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PutCrmObjects202609FromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdCrmObjects202609BetaFromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectId`: BatchResponsePublicDefaultAssociation
-	fmt.Fprintf(os.Stdout, "Response from `BatchAPI.PutCrmObjects202609FromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdCrmObjects202609BetaFromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectId`: %v\n", resp)
+	// response from `PutDefault`: BatchResponsePublicDefaultAssociation
+	fmt.Fprintf(os.Stdout, "Response from `BatchAPI.PutDefault`: %v\n", resp)
 }
 ```
 
@@ -394,7 +394,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPutCrmObjects202609FromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdCrmObjects202609BetaFromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutDefaultRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

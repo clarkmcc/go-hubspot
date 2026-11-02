@@ -4,13 +4,13 @@ info:
   title: CRM Associations
   version: 2026-09
   x-hubspot-product-tier-requirements:
-    marketing: FREE
-    sales: FREE
-    service: FREE
     cms: FREE
     commerce: FREE
     crmHub: FREE
     dataHub: FREE
+    marketing: FREE
+    sales: FREE
+    service: FREE
 servers:
 - url: https://api.hubapi.com
 tags:
@@ -22,7 +22,7 @@ paths:
   /crm/associations/2026-09/definitions/configurations/all:
     get:
       description: Returns all user configurations available on a given portal
-      operationId: get-/crm/associations/2026-09/definitions/configurations/all_/crm/associations/2026-09-beta/definitions/configurations/all
+      operationId: GetDefinitionsConfigurationsAll
       parameters: []
       responses:
         "200":
@@ -229,7 +229,7 @@ paths:
     get:
       description: Returns user configurations on all association definitions between
         two object types
-      operationId: "get-/crm/associations/2026-09/definitions/configurations/{fromObjectType}/{toObjectType}_/crm/associations/2026-09-beta/definitions/configurations/{fromObjectType}/{toObjectType}"
+      operationId: GetDefinitionsConfigurations
       parameters:
       - description: The type of the source object in the association.
         explode: false
@@ -451,7 +451,7 @@ paths:
   /crm/associations/2026-09/definitions/configurations/{fromObjectType}/{toObjectType}/batch/create:
     post:
       description: Batch create user configurations between two object types
-      operationId: "post-/crm/associations/2026-09/definitions/configurations/{fromObjectType}/{toObjectType}/batch/create_/crm/associations/2026-09-beta/definitions/configurations/{fromObjectType}/{toObjectType}/batch/create"
+      operationId: BatchCreate
       parameters:
       - description: The type of the source object for the association configuration.
         explode: false
@@ -685,7 +685,7 @@ paths:
   /crm/associations/2026-09/definitions/configurations/{fromObjectType}/{toObjectType}/batch/purge:
     post:
       description: Batch delete user configurations between two object types
-      operationId: "post-/crm/associations/2026-09/definitions/configurations/{fromObjectType}/{toObjectType}/batch/purge_/crm/associations/2026-09-beta/definitions/configurations/{fromObjectType}/{toObjectType}/batch/purge"
+      operationId: PostDefinitionsConfigurationsBatchPurge
       parameters:
       - description: The type of the source object from which the association is being
           purged.
@@ -915,7 +915,7 @@ paths:
   /crm/associations/2026-09/definitions/configurations/{fromObjectType}/{toObjectType}/batch/update:
     post:
       description: Batch update user configurations between two object types
-      operationId: "post-/crm/associations/2026-09/definitions/configurations/{fromObjectType}/{toObjectType}/batch/update_/crm/associations/2026-09-beta/definitions/configurations/{fromObjectType}/{toObjectType}/batch/update"
+      operationId: PostDefinitionsConfigurationsBatchUpdate
       parameters:
       - description: The type of the source object for which the association configurations
           are being updated.
@@ -1152,7 +1152,7 @@ paths:
     post:
       description: Requests a report of all objects in the portal which have a high
         usage of associations
-      operationId: "post-/crm/associations/2026-09/usage/high-usage-report/{userId}_/crm/associations/2026-09-beta/usage/high-usage-report/{userId}"
+      operationId: PostUsageHighUsageReport
       parameters:
       - description: The unique identifier of the user requesting the report. This
           is an integer value.
@@ -1598,7 +1598,7 @@ paths:
     post:
       description: Create the default (most generic) association type between two
         object types
-      operationId: "post-/crm/associations/2026-09/{fromObjectType}/{toObjectType}/batch/associate/default_/crm/associations/2026-09-beta/{fromObjectType}/{toObjectType}/batch/associate/default"
+      operationId: PostBatchAssociateDefault
       parameters:
       - description: The type of the source object for the association.
         explode: false
@@ -2062,7 +2062,7 @@ paths:
       description: Batch delete specific association labels for objects. Deleting
         an unlabeled association will also delete all labeled associations between
         those two objects
-      operationId: "post-/crm/associations/2026-09/{fromObjectType}/{toObjectType}/batch/labels/archive_/crm/associations/2026-09-beta/{fromObjectType}/{toObjectType}/batch/labels/archive"
+      operationId: PostBatchLabelsArchive
       parameters:
       - description: The type of the source object in the association.
         explode: false
@@ -2294,7 +2294,7 @@ paths:
         \ to retrieve the next page of associations from that objectId. The 'link'\
         \ field is deprecated and should be ignored. Note: The 'paging' field will\
         \ only be present if there are more pages and absent otherwise."
-      operationId: "post-/crm/associations/2026-09/{fromObjectType}/{toObjectType}/batch/read_/crm/associations/2026-09-beta/{fromObjectType}/{toObjectType}/batch/read"
+      operationId: PostBatchRead
       parameters:
       - description: The type of the source object from which associations are being
           read.
@@ -2751,7 +2751,7 @@ paths:
       - ten-secondly
     post:
       description: Create a user defined association definition
-      operationId: "post-/crm/associations/2026-09/{fromObjectType}/{toObjectType}/labels_/crm/associations/2026-09-beta/{fromObjectType}/{toObjectType}/labels"
+      operationId: PostLabels
       parameters:
       - description: The type of the source object in the association.
         explode: false
@@ -2978,7 +2978,7 @@ paths:
       - ten-secondly
     put:
       description: Update a user defined association definition
-      operationId: "put-/crm/associations/2026-09/{fromObjectType}/{toObjectType}/labels_/crm/associations/2026-09-beta/{fromObjectType}/{toObjectType}/labels"
+      operationId: PutLabels
       parameters:
       - description: The type of the source object in the association.
         explode: false
@@ -3203,7 +3203,7 @@ paths:
   /crm/associations/2026-09/{fromObjectType}/{toObjectType}/labels/{associationTypeId}:
     delete:
       description: Deletes an association definition
-      operationId: "delete-/crm/associations/2026-09/{fromObjectType}/{toObjectType}/labels/{associationTypeId}_/crm/associations/2026-09-beta/{fromObjectType}/{toObjectType}/labels/{associationTypeId}"
+      operationId: DeleteLabels
       parameters:
       - description: The unique identifier of the association type to be deleted.
         explode: false
@@ -3432,7 +3432,7 @@ paths:
     put:
       description: Create the default (most generic) association type between two
         object types
-      operationId: "put-/crm/objects/2026-09/{fromObjectType}/{fromObjectId}/associations/default/{toObjectType}/{toObjectId}_/crm/objects/2026-09-beta/{fromObjectType}/{fromObjectId}/associations/default/{toObjectType}/{toObjectId}"
+      operationId: PutDefault
       parameters:
       - description: The unique identifier of the source object for the association.
         explode: false
@@ -3673,7 +3673,7 @@ paths:
     get:
       description: Read a page of objects. Control what is returned via the `properties`
         query param.
-      operationId: "get-/crm/objects/2026-09/{objectType}_/crm/objects/2026-09-beta/{objectType}"
+      operationId: GetRoot
       parameters:
       - description: The type of CRM object to list. This parameter specifies which
           object type's records will be retrieved.
@@ -3958,7 +3958,7 @@ paths:
       description: "Create a CRM object with the given properties and return a copy\
         \ of the object, including the ID. Documentation and examples for creating\
         \ standard objects is provided."
-      operationId: "post-/crm/objects/2026-09/{objectType}_/crm/objects/2026-09-beta/{objectType}"
+      operationId: PostRoot
       parameters:
       - description: "The type of CRM object to create, such as contacts, companies,\
           \ or deals."
@@ -4188,7 +4188,7 @@ paths:
   /crm/objects/2026-09/{objectType}/batch/archive:
     post:
       description: Archive a batch of objects identified by their IDs.
-      operationId: "post-/crm/objects/2026-09/{objectType}/batch/archive_/crm/objects/2026-09-beta/{objectType}/batch/archive"
+      operationId: PostBatchArchive
       parameters:
       - description: "The type of CRM object to archive in batch, such as contacts,\
           \ companies, deals, etc."
@@ -4408,7 +4408,7 @@ paths:
   /crm/objects/2026-09/{objectType}/batch/create:
     post:
       description: Create a batch of CRM objects with specified properties and associations.
-      operationId: "post-/crm/objects/2026-09/{objectType}/batch/create_/crm/objects/2026-09-beta/{objectType}/batch/create"
+      operationId: PostBatchCreate
       parameters:
       - description: "The type of CRM object to create in batch, such as contacts,\
           \ companies, or deals."
@@ -4638,7 +4638,7 @@ paths:
     post:
       description: Retrieve a batch of CRM objects using their internal IDs or unique
         property values.
-      operationId: "post-/crm/objects/2026-09/{objectType}/batch/read_/crm/objects/2026-09-beta/{objectType}/batch/read"
+      operationId: PostByObjectTypeBatchRead
       parameters:
       - description: The type of CRM object to read in batch.
         explode: false
@@ -4876,7 +4876,7 @@ paths:
     post:
       description: Update a batch of CRM objects using their internal IDs or unique
         property values.
-      operationId: "post-/crm/objects/2026-09/{objectType}/batch/update_/crm/objects/2026-09-beta/{objectType}/batch/update"
+      operationId: PostBatchUpdate
       parameters:
       - description: "The type of CRM object to update in batch, such as contacts,\
           \ companies, or deals."
@@ -5106,7 +5106,7 @@ paths:
     post:
       description: "Upsert a batch of CRM objects, creating new records or updating\
         \ existing ones based on their internal IDs or unique property values."
-      operationId: "post-/crm/objects/2026-09/{objectType}/batch/upsert_/crm/objects/2026-09-beta/{objectType}/batch/upsert"
+      operationId: PostBatchUpsert
       parameters:
       - description: "The type of CRM object to be upserted, such as contacts, companies,\
           \ or deals."
@@ -5339,7 +5339,7 @@ paths:
         \ GDPR. Use optional property 'idProperty' set to 'email' to identify contact\
         \ by email address. If email address is not found, the email address will\
         \ be added to a blocklist and prevent it from being used in the future."
-      operationId: "post-/crm/objects/2026-09/{objectType}/gdpr-delete_/crm/objects/2026-09-beta/{objectType}/gdpr-delete"
+      operationId: PostGdprDelete
       parameters:
       - description: "The type of CRM object to be deleted, such as 'contacts'."
         explode: false
@@ -5556,7 +5556,7 @@ paths:
   /crm/objects/2026-09/{objectType}/merge:
     post:
       description: Merge two CRM objects of the specified type into one.
-      operationId: "post-/crm/objects/2026-09/{objectType}/merge_/crm/objects/2026-09-beta/{objectType}/merge"
+      operationId: PostMerge
       parameters:
       - description: "The type of the objects to merge, such as contacts, companies,\
           \ or deals."
@@ -5783,7 +5783,7 @@ paths:
         \ This endpoint allows you to filter and sort objects based on various properties,\
         \ making it useful for retrieving specific data sets from your CRM. The search\
         \ results include the total number of matching objects."
-      operationId: "post-/crm/objects/2026-09/{objectType}/search_/crm/objects/2026-09-beta/{objectType}/search"
+      operationId: PostSearch
       parameters:
       - description: "The type of CRM object to search, such as contacts, companies,\
           \ or deals."
@@ -6008,7 +6008,7 @@ paths:
   /crm/objects/2026-09/{objectType}/{objectId}:
     delete:
       description: "Move an Object identified by `{objectId}` to the recycling bin."
-      operationId: "delete-/crm/objects/2026-09/{objectType}/{objectId}_/crm/objects/2026-09-beta/{objectType}/{objectId}"
+      operationId: DeleteRoot
       parameters:
       - description: The unique identifier of the object to be archived.
         explode: false
@@ -6232,7 +6232,7 @@ paths:
         \ to the internal object ID by default, or optionally any unique property\
         \ value as specified by the `idProperty` query param.  Control what is returned\
         \ via the `properties` query param."
-      operationId: "get-/crm/objects/2026-09/{objectType}/{objectId}_/crm/objects/2026-09-beta/{objectType}/{objectId}"
+      operationId: GetByObjectTypeByObjectId
       parameters:
       - description: The unique identifier of the object to read.
         explode: false
@@ -6514,7 +6514,7 @@ paths:
         \ Provided property values will be overwritten. Read-only and non-existent\
         \ properties will be ignored. Properties values can be cleared by passing\
         \ an empty string."
-      operationId: "patch-/crm/objects/2026-09/{objectType}/{objectId}_/crm/objects/2026-09-beta/{objectType}/{objectId}"
+      operationId: PatchRoot
       parameters:
       - description: The unique identifier of the object to update.
         explode: false
@@ -6754,7 +6754,7 @@ paths:
     get:
       description: Retrieve all associations between a specific record and an object
         type. Limit 500 per call.
-      operationId: "get-/crm/objects/2026-09/{objectType}/{objectId}/associations/{toObjectType}_/crm/objects/2026-09-beta/{objectType}/{objectId}/associations/{toObjectType}"
+      operationId: GetByObjectTypeByObjectIdByToObjectType
       parameters:
       - description: The unique identifier of the object for which associations are
           being listed.
@@ -7007,7 +7007,7 @@ paths:
   /crm/objects/2026-09/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}:
     delete:
       description: deletes all associations between two records.
-      operationId: "delete-/crm/objects/2026-09/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}_/crm/objects/2026-09-beta/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}"
+      operationId: DeleteByObjectTypeByObjectIdByToObjectTypeByToObjectId
       parameters:
       - description: The unique identifier of the initial object from which the association
           will be removed.
@@ -7247,7 +7247,7 @@ paths:
         internalOnly: true
     put:
       description: Set association labels between two records.
-      operationId: "put-/crm/objects/2026-09/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}_/crm/objects/2026-09-beta/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}"
+      operationId: PutRoot
       parameters:
       - description: The unique identifier of the source object.
         explode: false
@@ -9920,11 +9920,11 @@ components:
         fails. This component is used in various endpoints to provide detailed information
         about the error encountered.
       example:
-        message: Invalid input (details will vary based on the error)
-        correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
         category: VALIDATION_ERROR
+        correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
         links:
           knowledge-base: https://www.hubspot.com/products/service/knowledge-base
+        message: Invalid input (details will vary based on the error)
       properties:
         category:
           description: The error category
@@ -11452,582 +11452,582 @@ components:
       type: oauth2
       x-hubspot-app-availability:
         cpq.price_books.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.appointments.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.appointments.sensitive.read.v2:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.appointments.sensitive.write.v2:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.appointments.write:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.calls.read:
+          developer: false
           user:
           - public
           - private
-          developer: false
         crm.objects.calls.write:
+          developer: false
           user:
           - public
           - private
-          developer: false
         crm.objects.carts.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.carts.write:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.commercepayments.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.commercepayments.write:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.companies.highly_sensitive.read.v2:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.companies.highly_sensitive.write.v2:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.companies.read:
+          developer: true
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: true
         crm.objects.companies.sensitive.read.v2:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.companies.sensitive.write.v2:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.companies.write:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.contacts.highly_sensitive.read.v2:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.contacts.highly_sensitive.write.v2:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.contacts.read:
+          developer: true
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: true
         crm.objects.contacts.sensitive.read.v2:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.contacts.sensitive.write.v2:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.contacts.write:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.contracts.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.courses.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.courses.write:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.custom.highly_sensitive.read.v2:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.custom.highly_sensitive.write.v2:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.custom.read:
+          developer: true
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: true
         crm.objects.custom.sensitive.read.v2:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.custom.sensitive.write.v2:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.custom.write:
+          developer: true
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: true
         crm.objects.deals.highly_sensitive.read.v2:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.deals.highly_sensitive.write.v2:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.deals.read:
-          portal:
-          - public
-          - private
-          user:
-          - public
-          - private
           developer: true
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
         crm.objects.deals.sensitive.read.v2:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.deals.sensitive.write.v2:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.deals.write:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.emails.read:
+          developer: false
           user:
           - public
           - private
-          developer: false
         crm.objects.emails.write:
+          developer: false
           user:
           - public
           - private
-          developer: false
         crm.objects.feedback_submissions.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.forecasts.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.goals.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.goals.write:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.invoices.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.invoices.write:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.leads.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.leads.write:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.line_items.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.line_items.write:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.listings.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.listings.write:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.meetings.read:
+          developer: false
           user:
           - public
           - private
-          developer: false
         crm.objects.meetings.write:
+          developer: false
           user:
           - public
           - private
-          developer: false
         crm.objects.notes.read:
+          developer: false
           user:
           - public
           - private
-          developer: false
         crm.objects.notes.write:
+          developer: false
           user:
           - public
           - private
-          developer: false
         crm.objects.orders.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.orders.write:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.partner-clients.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.partner-clients.write:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.partner-services.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.partner-services.write:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.products.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.products.write:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.projects.highly_sensitive.read:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.projects.highly_sensitive.write:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.projects.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.projects.sensitive.read:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.projects.sensitive.write:
+          developer: false
           portal:
           - private
-          developer: false
         crm.objects.projects.write:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.quotes.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.quotes.write:
+          developer: false
           portal:
           - public
           - private
-          developer: false
         crm.objects.services.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.services.write:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.subscriptions.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.subscriptions.write:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.tasks.read:
+          developer: false
           user:
           - public
           - private
-          developer: false
         crm.objects.tasks.write:
+          developer: false
           user:
           - public
           - private
-          developer: false
         crm.objects.tickets.highly_sensitive.read:
+          developer: false
           user:
           - public
           - private
-          developer: false
         crm.objects.tickets.highly_sensitive.write:
+          developer: false
           user:
           - public
           - private
-          developer: false
         crm.objects.tickets.read:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.tickets.sensitive.read:
+          developer: false
           user:
           - public
           - private
-          developer: false
         crm.objects.tickets.sensitive.write:
+          developer: false
           user:
           - public
           - private
-          developer: false
         crm.objects.tickets.write:
+          developer: false
           portal:
           - public
           - private
           user:
           - public
           - private
-          developer: false
         crm.objects.users.read:
+          developer: false
           portal:
           - public
           - private
-          developer: false
         crm.objects.users.write:
+          developer: false
           portal:
           - public
           - private
-          developer: false
         e-commerce:
+          developer: false
           portal:
           - public
           - private
-          developer: false
         media_bridge.read:
+          developer: false
           portal:
           - public
           - private
-          developer: false
         revenue.contracts.read:
+          developer: false
           portal:
           - public
           - private
-          developer: false
         tickets.highly_sensitive.v2:
+          developer: false
           portal:
           - private
-          developer: false
         tickets.sensitive.v2:
+          developer: false
           portal:
           - private
-          developer: false
 x-hubspot-product-tier-requirements:
-  marketing: FREE
-  sales: FREE
-  service: FREE
   cms: FREE
   commerce: FREE
   crmHub: FREE
   dataHub: FREE
+  marketing: FREE
+  sales: FREE
+  service: FREE

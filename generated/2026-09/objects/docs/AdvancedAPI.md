@@ -4,14 +4,14 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**PostCrmObjects202609ObjectTypeGdprDeleteCrmObjects202609BetaObjectTypeGdprDelete**](AdvancedAPI.md#PostCrmObjects202609ObjectTypeGdprDeleteCrmObjects202609BetaObjectTypeGdprDelete) | **Post** /crm/objects/2026-09/{objectType}/gdpr-delete | GDPR Delete
-[**PostCrmObjects202609ObjectTypeMergeCrmObjects202609BetaObjectTypeMerge**](AdvancedAPI.md#PostCrmObjects202609ObjectTypeMergeCrmObjects202609BetaObjectTypeMerge) | **Post** /crm/objects/2026-09/{objectType}/merge | Merge objects
+[**PostGdprDelete**](AdvancedAPI.md#PostGdprDelete) | **Post** /crm/objects/2026-09/{objectType}/gdpr-delete | GDPR Delete
+[**PostMerge**](AdvancedAPI.md#PostMerge) | **Post** /crm/objects/2026-09/{objectType}/merge | Merge objects
 
 
 
-## PostCrmObjects202609ObjectTypeGdprDeleteCrmObjects202609BetaObjectTypeGdprDelete
+## PostGdprDelete
 
-> PostCrmObjects202609ObjectTypeGdprDeleteCrmObjects202609BetaObjectTypeGdprDelete(ctx, objectType).PublicGdprDeleteInput(publicGdprDeleteInput).Execute()
+> PostGdprDelete(ctx, objectType).PublicGdprDeleteInput(publicGdprDeleteInput).Execute()
 
 GDPR Delete
 
@@ -35,9 +35,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AdvancedAPI.PostCrmObjects202609ObjectTypeGdprDeleteCrmObjects202609BetaObjectTypeGdprDelete(context.Background(), objectType).PublicGdprDeleteInput(publicGdprDeleteInput).Execute()
+	r, err := apiClient.AdvancedAPI.PostGdprDelete(context.Background(), objectType).PublicGdprDeleteInput(publicGdprDeleteInput).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AdvancedAPI.PostCrmObjects202609ObjectTypeGdprDeleteCrmObjects202609BetaObjectTypeGdprDelete``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AdvancedAPI.PostGdprDelete``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -53,7 +53,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCrmObjects202609ObjectTypeGdprDeleteCrmObjects202609BetaObjectTypeGdprDeleteRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostGdprDeleteRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -79,9 +79,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostCrmObjects202609ObjectTypeMergeCrmObjects202609BetaObjectTypeMerge
+## PostMerge
 
-> SimplePublicObject PostCrmObjects202609ObjectTypeMergeCrmObjects202609BetaObjectTypeMerge(ctx, objectType).PublicMergeInput(publicMergeInput).Execute()
+> SimplePublicObject PostMerge(ctx, objectType).PublicMergeInput(publicMergeInput).Execute()
 
 Merge objects
 
@@ -105,13 +105,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AdvancedAPI.PostCrmObjects202609ObjectTypeMergeCrmObjects202609BetaObjectTypeMerge(context.Background(), objectType).PublicMergeInput(publicMergeInput).Execute()
+	resp, r, err := apiClient.AdvancedAPI.PostMerge(context.Background(), objectType).PublicMergeInput(publicMergeInput).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AdvancedAPI.PostCrmObjects202609ObjectTypeMergeCrmObjects202609BetaObjectTypeMerge``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AdvancedAPI.PostMerge``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostCrmObjects202609ObjectTypeMergeCrmObjects202609BetaObjectTypeMerge`: SimplePublicObject
-	fmt.Fprintf(os.Stdout, "Response from `AdvancedAPI.PostCrmObjects202609ObjectTypeMergeCrmObjects202609BetaObjectTypeMerge`: %v\n", resp)
+	// response from `PostMerge`: SimplePublicObject
+	fmt.Fprintf(os.Stdout, "Response from `AdvancedAPI.PostMerge`: %v\n", resp)
 }
 ```
 
@@ -125,7 +125,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCrmObjects202609ObjectTypeMergeCrmObjects202609BetaObjectTypeMergeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostMergeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

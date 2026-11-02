@@ -4,17 +4,17 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteCrmObjects202609ObjectTypeObjectIdCrmObjects202609BetaObjectTypeObjectId**](BasicAPI.md#DeleteCrmObjects202609ObjectTypeObjectIdCrmObjects202609BetaObjectTypeObjectId) | **Delete** /crm/objects/2026-09/{objectType}/{objectId} | Archive
-[**GetCrmObjects202609ObjectTypeCrmObjects202609BetaObjectType**](BasicAPI.md#GetCrmObjects202609ObjectTypeCrmObjects202609BetaObjectType) | **Get** /crm/objects/2026-09/{objectType} | List
-[**GetCrmObjects202609ObjectTypeObjectIdCrmObjects202609BetaObjectTypeObjectId**](BasicAPI.md#GetCrmObjects202609ObjectTypeObjectIdCrmObjects202609BetaObjectTypeObjectId) | **Get** /crm/objects/2026-09/{objectType}/{objectId} | Read
-[**PatchCrmObjects202609ObjectTypeObjectIdCrmObjects202609BetaObjectTypeObjectId**](BasicAPI.md#PatchCrmObjects202609ObjectTypeObjectIdCrmObjects202609BetaObjectTypeObjectId) | **Patch** /crm/objects/2026-09/{objectType}/{objectId} | Update
-[**PostCrmObjects202609ObjectTypeCrmObjects202609BetaObjectType**](BasicAPI.md#PostCrmObjects202609ObjectTypeCrmObjects202609BetaObjectType) | **Post** /crm/objects/2026-09/{objectType} | Create
+[**DeleteRoot**](BasicAPI.md#DeleteRoot) | **Delete** /crm/objects/2026-09/{objectType}/{objectId} | Archive
+[**GetByObjectTypeByObjectId**](BasicAPI.md#GetByObjectTypeByObjectId) | **Get** /crm/objects/2026-09/{objectType}/{objectId} | Read
+[**GetRoot**](BasicAPI.md#GetRoot) | **Get** /crm/objects/2026-09/{objectType} | List
+[**PatchRoot**](BasicAPI.md#PatchRoot) | **Patch** /crm/objects/2026-09/{objectType}/{objectId} | Update
+[**PostRoot**](BasicAPI.md#PostRoot) | **Post** /crm/objects/2026-09/{objectType} | Create
 
 
 
-## DeleteCrmObjects202609ObjectTypeObjectIdCrmObjects202609BetaObjectTypeObjectId
+## DeleteRoot
 
-> DeleteCrmObjects202609ObjectTypeObjectIdCrmObjects202609BetaObjectTypeObjectId(ctx, objectId, objectType).Execute()
+> DeleteRoot(ctx, objectId, objectType).Execute()
 
 Archive
 
@@ -38,9 +38,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.BasicAPI.DeleteCrmObjects202609ObjectTypeObjectIdCrmObjects202609BetaObjectTypeObjectId(context.Background(), objectId, objectType).Execute()
+	r, err := apiClient.BasicAPI.DeleteRoot(context.Background(), objectId, objectType).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BasicAPI.DeleteCrmObjects202609ObjectTypeObjectIdCrmObjects202609BetaObjectTypeObjectId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BasicAPI.DeleteRoot``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -57,7 +57,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteCrmObjects202609ObjectTypeObjectIdCrmObjects202609BetaObjectTypeObjectIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteRootRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -83,91 +83,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetCrmObjects202609ObjectTypeCrmObjects202609BetaObjectType
+## GetByObjectTypeByObjectId
 
-> CollectionResponseSimplePublicObjectWithAssociationsForwardPaging GetCrmObjects202609ObjectTypeCrmObjects202609BetaObjectType(ctx, objectType).After(after).Archived(archived).Associations(associations).Limit(limit).Properties(properties).PropertiesWithHistory(propertiesWithHistory).Execute()
-
-List
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
-)
-
-func main() {
-	objectType := "objectType_example" // string | The type of CRM object to retrieve, such as contacts, companies, or deals.
-	after := "after_example" // string | A cursor token for pagination. Use the value from the previous response's paging.next.after field. (optional)
-	archived := true // bool | Whether to include archived records in the response. Defaults to false. (optional) (default to false)
-	associations := []string{"Inner_example"} // []string | A comma-separated list of object types to retrieve associated IDs for. If any specified associations do not exist, they will be ignored. (optional)
-	limit := int32(56) // int32 | The maximum number of results to display per page. Defaults to 10. (optional) (default to 10)
-	properties := []string{"Inner_example"} // []string | A comma-separated list of property names to include in the response. If any specified properties are not present on the requested object(s), they will be ignored. (optional)
-	propertiesWithHistory := []string{"Inner_example"} // []string | A comma-separated list of properties to include in the response along with their history of previous values. If any specified properties are not present on the requested object(s), they will be ignored. Using this parameter reduces the maximum number of objects that can be read in a single request. (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BasicAPI.GetCrmObjects202609ObjectTypeCrmObjects202609BetaObjectType(context.Background(), objectType).After(after).Archived(archived).Associations(associations).Limit(limit).Properties(properties).PropertiesWithHistory(propertiesWithHistory).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BasicAPI.GetCrmObjects202609ObjectTypeCrmObjects202609BetaObjectType``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetCrmObjects202609ObjectTypeCrmObjects202609BetaObjectType`: CollectionResponseSimplePublicObjectWithAssociationsForwardPaging
-	fmt.Fprintf(os.Stdout, "Response from `BasicAPI.GetCrmObjects202609ObjectTypeCrmObjects202609BetaObjectType`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**objectType** | **string** | The type of CRM object to retrieve, such as contacts, companies, or deals. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetCrmObjects202609ObjectTypeCrmObjects202609BetaObjectTypeRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **after** | **string** | A cursor token for pagination. Use the value from the previous response&#39;s paging.next.after field. | 
- **archived** | **bool** | Whether to include archived records in the response. Defaults to false. | [default to false]
- **associations** | **[]string** | A comma-separated list of object types to retrieve associated IDs for. If any specified associations do not exist, they will be ignored. | 
- **limit** | **int32** | The maximum number of results to display per page. Defaults to 10. | [default to 10]
- **properties** | **[]string** | A comma-separated list of property names to include in the response. If any specified properties are not present on the requested object(s), they will be ignored. | 
- **propertiesWithHistory** | **[]string** | A comma-separated list of properties to include in the response along with their history of previous values. If any specified properties are not present on the requested object(s), they will be ignored. Using this parameter reduces the maximum number of objects that can be read in a single request. | 
-
-### Return type
-
-[**CollectionResponseSimplePublicObjectWithAssociationsForwardPaging**](CollectionResponseSimplePublicObjectWithAssociationsForwardPaging.md)
-
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json, */*
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetCrmObjects202609ObjectTypeObjectIdCrmObjects202609BetaObjectTypeObjectId
-
-> SimplePublicObjectWithAssociations GetCrmObjects202609ObjectTypeObjectIdCrmObjects202609BetaObjectTypeObjectId(ctx, objectId, objectType).Archived(archived).Associations(associations).IdProperty(idProperty).Properties(properties).PropertiesWithHistory(propertiesWithHistory).Execute()
+> SimplePublicObjectWithAssociations GetByObjectTypeByObjectId(ctx, objectId, objectType).Archived(archived).Associations(associations).IdProperty(idProperty).Properties(properties).PropertiesWithHistory(propertiesWithHistory).Execute()
 
 Read
 
@@ -196,13 +114,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BasicAPI.GetCrmObjects202609ObjectTypeObjectIdCrmObjects202609BetaObjectTypeObjectId(context.Background(), objectId, objectType).Archived(archived).Associations(associations).IdProperty(idProperty).Properties(properties).PropertiesWithHistory(propertiesWithHistory).Execute()
+	resp, r, err := apiClient.BasicAPI.GetByObjectTypeByObjectId(context.Background(), objectId, objectType).Archived(archived).Associations(associations).IdProperty(idProperty).Properties(properties).PropertiesWithHistory(propertiesWithHistory).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BasicAPI.GetCrmObjects202609ObjectTypeObjectIdCrmObjects202609BetaObjectTypeObjectId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BasicAPI.GetByObjectTypeByObjectId``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetCrmObjects202609ObjectTypeObjectIdCrmObjects202609BetaObjectTypeObjectId`: SimplePublicObjectWithAssociations
-	fmt.Fprintf(os.Stdout, "Response from `BasicAPI.GetCrmObjects202609ObjectTypeObjectIdCrmObjects202609BetaObjectTypeObjectId`: %v\n", resp)
+	// response from `GetByObjectTypeByObjectId`: SimplePublicObjectWithAssociations
+	fmt.Fprintf(os.Stdout, "Response from `BasicAPI.GetByObjectTypeByObjectId`: %v\n", resp)
 }
 ```
 
@@ -217,7 +135,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetCrmObjects202609ObjectTypeObjectIdCrmObjects202609BetaObjectTypeObjectIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetByObjectTypeByObjectIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -248,9 +166,91 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PatchCrmObjects202609ObjectTypeObjectIdCrmObjects202609BetaObjectTypeObjectId
+## GetRoot
 
-> SimplePublicObject PatchCrmObjects202609ObjectTypeObjectIdCrmObjects202609BetaObjectTypeObjectId(ctx, objectId, objectType).SimplePublicObjectInput(simplePublicObjectInput).IdProperty(idProperty).Execute()
+> CollectionResponseSimplePublicObjectWithAssociationsForwardPaging GetRoot(ctx, objectType).After(after).Archived(archived).Associations(associations).Limit(limit).Properties(properties).PropertiesWithHistory(propertiesWithHistory).Execute()
+
+List
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+)
+
+func main() {
+	objectType := "objectType_example" // string | The type of CRM object to retrieve, such as contacts, companies, or deals.
+	after := "after_example" // string | A cursor token for pagination. Use the value from the previous response's paging.next.after field. (optional)
+	archived := true // bool | Whether to include archived records in the response. Defaults to false. (optional) (default to false)
+	associations := []string{"Inner_example"} // []string | A comma-separated list of object types to retrieve associated IDs for. If any specified associations do not exist, they will be ignored. (optional)
+	limit := int32(56) // int32 | The maximum number of results to display per page. Defaults to 10. (optional) (default to 10)
+	properties := []string{"Inner_example"} // []string | A comma-separated list of property names to include in the response. If any specified properties are not present on the requested object(s), they will be ignored. (optional)
+	propertiesWithHistory := []string{"Inner_example"} // []string | A comma-separated list of properties to include in the response along with their history of previous values. If any specified properties are not present on the requested object(s), they will be ignored. Using this parameter reduces the maximum number of objects that can be read in a single request. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BasicAPI.GetRoot(context.Background(), objectType).After(after).Archived(archived).Associations(associations).Limit(limit).Properties(properties).PropertiesWithHistory(propertiesWithHistory).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BasicAPI.GetRoot``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetRoot`: CollectionResponseSimplePublicObjectWithAssociationsForwardPaging
+	fmt.Fprintf(os.Stdout, "Response from `BasicAPI.GetRoot`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**objectType** | **string** | The type of CRM object to retrieve, such as contacts, companies, or deals. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetRootRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **after** | **string** | A cursor token for pagination. Use the value from the previous response&#39;s paging.next.after field. | 
+ **archived** | **bool** | Whether to include archived records in the response. Defaults to false. | [default to false]
+ **associations** | **[]string** | A comma-separated list of object types to retrieve associated IDs for. If any specified associations do not exist, they will be ignored. | 
+ **limit** | **int32** | The maximum number of results to display per page. Defaults to 10. | [default to 10]
+ **properties** | **[]string** | A comma-separated list of property names to include in the response. If any specified properties are not present on the requested object(s), they will be ignored. | 
+ **propertiesWithHistory** | **[]string** | A comma-separated list of properties to include in the response along with their history of previous values. If any specified properties are not present on the requested object(s), they will be ignored. Using this parameter reduces the maximum number of objects that can be read in a single request. | 
+
+### Return type
+
+[**CollectionResponseSimplePublicObjectWithAssociationsForwardPaging**](CollectionResponseSimplePublicObjectWithAssociationsForwardPaging.md)
+
+### Authorization
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, */*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PatchRoot
+
+> SimplePublicObject PatchRoot(ctx, objectId, objectType).SimplePublicObjectInput(simplePublicObjectInput).IdProperty(idProperty).Execute()
 
 Update
 
@@ -276,13 +276,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BasicAPI.PatchCrmObjects202609ObjectTypeObjectIdCrmObjects202609BetaObjectTypeObjectId(context.Background(), objectId, objectType).SimplePublicObjectInput(simplePublicObjectInput).IdProperty(idProperty).Execute()
+	resp, r, err := apiClient.BasicAPI.PatchRoot(context.Background(), objectId, objectType).SimplePublicObjectInput(simplePublicObjectInput).IdProperty(idProperty).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BasicAPI.PatchCrmObjects202609ObjectTypeObjectIdCrmObjects202609BetaObjectTypeObjectId``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BasicAPI.PatchRoot``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PatchCrmObjects202609ObjectTypeObjectIdCrmObjects202609BetaObjectTypeObjectId`: SimplePublicObject
-	fmt.Fprintf(os.Stdout, "Response from `BasicAPI.PatchCrmObjects202609ObjectTypeObjectIdCrmObjects202609BetaObjectTypeObjectId`: %v\n", resp)
+	// response from `PatchRoot`: SimplePublicObject
+	fmt.Fprintf(os.Stdout, "Response from `BasicAPI.PatchRoot`: %v\n", resp)
 }
 ```
 
@@ -297,7 +297,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPatchCrmObjects202609ObjectTypeObjectIdCrmObjects202609BetaObjectTypeObjectIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPatchRootRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -325,9 +325,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostCrmObjects202609ObjectTypeCrmObjects202609BetaObjectType
+## PostRoot
 
-> SimplePublicObject PostCrmObjects202609ObjectTypeCrmObjects202609BetaObjectType(ctx, objectType).SimplePublicObjectInputForCreate(simplePublicObjectInputForCreate).Execute()
+> SimplePublicObject PostRoot(ctx, objectType).SimplePublicObjectInputForCreate(simplePublicObjectInputForCreate).Execute()
 
 Create
 
@@ -351,13 +351,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BasicAPI.PostCrmObjects202609ObjectTypeCrmObjects202609BetaObjectType(context.Background(), objectType).SimplePublicObjectInputForCreate(simplePublicObjectInputForCreate).Execute()
+	resp, r, err := apiClient.BasicAPI.PostRoot(context.Background(), objectType).SimplePublicObjectInputForCreate(simplePublicObjectInputForCreate).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BasicAPI.PostCrmObjects202609ObjectTypeCrmObjects202609BetaObjectType``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BasicAPI.PostRoot``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostCrmObjects202609ObjectTypeCrmObjects202609BetaObjectType`: SimplePublicObject
-	fmt.Fprintf(os.Stdout, "Response from `BasicAPI.PostCrmObjects202609ObjectTypeCrmObjects202609BetaObjectType`: %v\n", resp)
+	// response from `PostRoot`: SimplePublicObject
+	fmt.Fprintf(os.Stdout, "Response from `BasicAPI.PostRoot`: %v\n", resp)
 }
 ```
 
@@ -371,7 +371,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCrmObjects202609ObjectTypeCrmObjects202609BetaObjectTypeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostRootRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

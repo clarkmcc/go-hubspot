@@ -500,31 +500,31 @@ func (a *BatchAPIService) BatchUpdateExecute(r ApiBatchUpdateRequest) (*BatchRes
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPostCrmObjects202609ContactsBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsertRequest struct {
+type ApiPostContactsBatchUpsertRequest struct {
 	ctx                                          context.Context
 	ApiService                                   *BatchAPIService
 	batchInputSimplePublicObjectBatchInputUpsert *BatchInputSimplePublicObjectBatchInputUpsert
 }
 
-func (r ApiPostCrmObjects202609ContactsBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsertRequest) BatchInputSimplePublicObjectBatchInputUpsert(batchInputSimplePublicObjectBatchInputUpsert BatchInputSimplePublicObjectBatchInputUpsert) ApiPostCrmObjects202609ContactsBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsertRequest {
+func (r ApiPostContactsBatchUpsertRequest) BatchInputSimplePublicObjectBatchInputUpsert(batchInputSimplePublicObjectBatchInputUpsert BatchInputSimplePublicObjectBatchInputUpsert) ApiPostContactsBatchUpsertRequest {
 	r.batchInputSimplePublicObjectBatchInputUpsert = &batchInputSimplePublicObjectBatchInputUpsert
 	return r
 }
 
-func (r ApiPostCrmObjects202609ContactsBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsertRequest) Execute() (*BatchResponseSimplePublicUpsertObject, *http.Response, error) {
-	return r.ApiService.PostCrmObjects202609ContactsBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsertExecute(r)
+func (r ApiPostContactsBatchUpsertRequest) Execute() (*BatchResponseSimplePublicUpsertObject, *http.Response, error) {
+	return r.ApiService.PostContactsBatchUpsertExecute(r)
 }
 
 /*
-PostCrmObjects202609ContactsBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsert Create or update a batch of contacts
+PostContactsBatchUpsert Create or update a batch of contacts
 
 Upsert a batch of contacts. The `inputs` array can contain a `properties` object to define property values for each record.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiPostCrmObjects202609ContactsBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsertRequest
+	@return ApiPostContactsBatchUpsertRequest
 */
-func (a *BatchAPIService) PostCrmObjects202609ContactsBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsert(ctx context.Context) ApiPostCrmObjects202609ContactsBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsertRequest {
-	return ApiPostCrmObjects202609ContactsBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsertRequest{
+func (a *BatchAPIService) PostContactsBatchUpsert(ctx context.Context) ApiPostContactsBatchUpsertRequest {
+	return ApiPostContactsBatchUpsertRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -533,7 +533,7 @@ func (a *BatchAPIService) PostCrmObjects202609ContactsBatchUpsertCrmObjects20260
 // Execute executes the request
 //
 //	@return BatchResponseSimplePublicUpsertObject
-func (a *BatchAPIService) PostCrmObjects202609ContactsBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsertExecute(r ApiPostCrmObjects202609ContactsBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsertRequest) (*BatchResponseSimplePublicUpsertObject, *http.Response, error) {
+func (a *BatchAPIService) PostContactsBatchUpsertExecute(r ApiPostContactsBatchUpsertRequest) (*BatchResponseSimplePublicUpsertObject, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -541,7 +541,7 @@ func (a *BatchAPIService) PostCrmObjects202609ContactsBatchUpsertCrmObjects20260
 		localVarReturnValue *BatchResponseSimplePublicUpsertObject
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.PostCrmObjects202609ContactsBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsert")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.PostContactsBatchUpsert")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -619,7 +619,7 @@ func (a *BatchAPIService) PostCrmObjects202609ContactsBatchUpsertCrmObjects20260
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPutCrmObjects202609FromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdCrmObjects202609BetaFromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdRequest struct {
+type ApiPutDefaultRequest struct {
 	ctx            context.Context
 	ApiService     *BatchAPIService
 	fromObjectId   string
@@ -628,12 +628,12 @@ type ApiPutCrmObjects202609FromObjectTypeFromObjectIdAssociationsDefaultToObject
 	toObjectType   string
 }
 
-func (r ApiPutCrmObjects202609FromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdCrmObjects202609BetaFromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdRequest) Execute() (*BatchResponsePublicDefaultAssociation, *http.Response, error) {
-	return r.ApiService.PutCrmObjects202609FromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdCrmObjects202609BetaFromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdExecute(r)
+func (r ApiPutDefaultRequest) Execute() (*BatchResponsePublicDefaultAssociation, *http.Response, error) {
+	return r.ApiService.PutDefaultExecute(r)
 }
 
 /*
-PutCrmObjects202609FromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdCrmObjects202609BetaFromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectId Create Association
+PutDefault Create Association
 
 Create the default association type between two specified object types in HubSpot. This endpoint allows you to establish a generic association between two objects, identified by their types and IDs, facilitating the management of relationships within your CRM data.
 
@@ -642,10 +642,10 @@ Create the default association type between two specified object types in HubSpo
 	@param fromObjectType The type of the source object for the association.
 	@param toObjectId The unique identifier of the target object for the association.
 	@param toObjectType The type of the target object for the association.
-	@return ApiPutCrmObjects202609FromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdCrmObjects202609BetaFromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdRequest
+	@return ApiPutDefaultRequest
 */
-func (a *BatchAPIService) PutCrmObjects202609FromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdCrmObjects202609BetaFromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectId(ctx context.Context, fromObjectId string, fromObjectType string, toObjectId string, toObjectType string) ApiPutCrmObjects202609FromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdCrmObjects202609BetaFromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdRequest {
-	return ApiPutCrmObjects202609FromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdCrmObjects202609BetaFromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdRequest{
+func (a *BatchAPIService) PutDefault(ctx context.Context, fromObjectId string, fromObjectType string, toObjectId string, toObjectType string) ApiPutDefaultRequest {
+	return ApiPutDefaultRequest{
 		ApiService:     a,
 		ctx:            ctx,
 		fromObjectId:   fromObjectId,
@@ -658,7 +658,7 @@ func (a *BatchAPIService) PutCrmObjects202609FromObjectTypeFromObjectIdAssociati
 // Execute executes the request
 //
 //	@return BatchResponsePublicDefaultAssociation
-func (a *BatchAPIService) PutCrmObjects202609FromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdCrmObjects202609BetaFromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdExecute(r ApiPutCrmObjects202609FromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdCrmObjects202609BetaFromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdRequest) (*BatchResponsePublicDefaultAssociation, *http.Response, error) {
+func (a *BatchAPIService) PutDefaultExecute(r ApiPutDefaultRequest) (*BatchResponsePublicDefaultAssociation, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
@@ -666,7 +666,7 @@ func (a *BatchAPIService) PutCrmObjects202609FromObjectTypeFromObjectIdAssociati
 		localVarReturnValue *BatchResponsePublicDefaultAssociation
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.PutCrmObjects202609FromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdCrmObjects202609BetaFromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectId")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.PutDefault")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

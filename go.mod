@@ -1,6 +1,6 @@
 module github.com/clarkmcc/go-hubspot
 
-go 1.17
+go 1.21
 
 require (
 	github.com/golang/protobuf v1.4.2 // indirect

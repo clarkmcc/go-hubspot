@@ -516,33 +516,33 @@ func (a *BatchAPIService) BatchUpdateExecute(r ApiBatchUpdateRequest) (*BatchRes
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPostCrmObjects202609ObjectTypeBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsertRequest struct {
+type ApiPostBatchUpsertRequest struct {
 	ctx                                          context.Context
 	ApiService                                   *BatchAPIService
 	objectType                                   string
 	batchInputSimplePublicObjectBatchInputUpsert *BatchInputSimplePublicObjectBatchInputUpsert
 }
 
-func (r ApiPostCrmObjects202609ObjectTypeBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsertRequest) BatchInputSimplePublicObjectBatchInputUpsert(batchInputSimplePublicObjectBatchInputUpsert BatchInputSimplePublicObjectBatchInputUpsert) ApiPostCrmObjects202609ObjectTypeBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsertRequest {
+func (r ApiPostBatchUpsertRequest) BatchInputSimplePublicObjectBatchInputUpsert(batchInputSimplePublicObjectBatchInputUpsert BatchInputSimplePublicObjectBatchInputUpsert) ApiPostBatchUpsertRequest {
 	r.batchInputSimplePublicObjectBatchInputUpsert = &batchInputSimplePublicObjectBatchInputUpsert
 	return r
 }
 
-func (r ApiPostCrmObjects202609ObjectTypeBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsertRequest) Execute() (*BatchResponseSimplePublicUpsertObject, *http.Response, error) {
-	return r.ApiService.PostCrmObjects202609ObjectTypeBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsertExecute(r)
+func (r ApiPostBatchUpsertRequest) Execute() (*BatchResponseSimplePublicUpsertObject, *http.Response, error) {
+	return r.ApiService.PostBatchUpsertExecute(r)
 }
 
 /*
-PostCrmObjects202609ObjectTypeBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsert Upsert batch objects
+PostBatchUpsert Upsert batch objects
 
 Create or update a batch of CRM objects by unique property values. This endpoint allows you to efficiently manage large sets of data by either creating new objects or updating existing ones based on unique identifiers. It is particularly useful for synchronizing data between systems or ensuring that your CRM data is up-to-date.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param objectType The type of CRM object to create or update in batch. This specifies the category of objects, such as contacts or deals, that the operation will target.
-	@return ApiPostCrmObjects202609ObjectTypeBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsertRequest
+	@return ApiPostBatchUpsertRequest
 */
-func (a *BatchAPIService) PostCrmObjects202609ObjectTypeBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsert(ctx context.Context, objectType string) ApiPostCrmObjects202609ObjectTypeBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsertRequest {
-	return ApiPostCrmObjects202609ObjectTypeBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsertRequest{
+func (a *BatchAPIService) PostBatchUpsert(ctx context.Context, objectType string) ApiPostBatchUpsertRequest {
+	return ApiPostBatchUpsertRequest{
 		ApiService: a,
 		ctx:        ctx,
 		objectType: objectType,
@@ -552,7 +552,7 @@ func (a *BatchAPIService) PostCrmObjects202609ObjectTypeBatchUpsertCrmObjects202
 // Execute executes the request
 //
 //	@return BatchResponseSimplePublicUpsertObject
-func (a *BatchAPIService) PostCrmObjects202609ObjectTypeBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsertExecute(r ApiPostCrmObjects202609ObjectTypeBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsertRequest) (*BatchResponseSimplePublicUpsertObject, *http.Response, error) {
+func (a *BatchAPIService) PostBatchUpsertExecute(r ApiPostBatchUpsertRequest) (*BatchResponseSimplePublicUpsertObject, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -560,7 +560,7 @@ func (a *BatchAPIService) PostCrmObjects202609ObjectTypeBatchUpsertCrmObjects202
 		localVarReturnValue *BatchResponseSimplePublicUpsertObject
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.PostCrmObjects202609ObjectTypeBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsert")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.PostBatchUpsert")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

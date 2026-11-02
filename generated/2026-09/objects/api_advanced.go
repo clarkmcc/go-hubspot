@@ -22,33 +22,33 @@ import (
 // AdvancedAPIService AdvancedAPI service
 type AdvancedAPIService service
 
-type ApiPostCrmObjects202609ObjectTypeGdprDeleteCrmObjects202609BetaObjectTypeGdprDeleteRequest struct {
+type ApiPostGdprDeleteRequest struct {
 	ctx                   context.Context
 	ApiService            *AdvancedAPIService
 	objectType            string
 	publicGdprDeleteInput *PublicGdprDeleteInput
 }
 
-func (r ApiPostCrmObjects202609ObjectTypeGdprDeleteCrmObjects202609BetaObjectTypeGdprDeleteRequest) PublicGdprDeleteInput(publicGdprDeleteInput PublicGdprDeleteInput) ApiPostCrmObjects202609ObjectTypeGdprDeleteCrmObjects202609BetaObjectTypeGdprDeleteRequest {
+func (r ApiPostGdprDeleteRequest) PublicGdprDeleteInput(publicGdprDeleteInput PublicGdprDeleteInput) ApiPostGdprDeleteRequest {
 	r.publicGdprDeleteInput = &publicGdprDeleteInput
 	return r
 }
 
-func (r ApiPostCrmObjects202609ObjectTypeGdprDeleteCrmObjects202609BetaObjectTypeGdprDeleteRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostCrmObjects202609ObjectTypeGdprDeleteCrmObjects202609BetaObjectTypeGdprDeleteExecute(r)
+func (r ApiPostGdprDeleteRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostGdprDeleteExecute(r)
 }
 
 /*
-PostCrmObjects202609ObjectTypeGdprDeleteCrmObjects202609BetaObjectTypeGdprDelete GDPR Delete
+PostGdprDelete GDPR Delete
 
 Permanently delete a contact and all associated content in compliance with GDPR. This endpoint can use the optional 'idProperty' set to 'email' to identify the contact by email address. If the email address is not found, it will be added to a blocklist to prevent future use.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param objectType The type of CRM object to be deleted, such as 'contacts'.
-	@return ApiPostCrmObjects202609ObjectTypeGdprDeleteCrmObjects202609BetaObjectTypeGdprDeleteRequest
+	@return ApiPostGdprDeleteRequest
 */
-func (a *AdvancedAPIService) PostCrmObjects202609ObjectTypeGdprDeleteCrmObjects202609BetaObjectTypeGdprDelete(ctx context.Context, objectType string) ApiPostCrmObjects202609ObjectTypeGdprDeleteCrmObjects202609BetaObjectTypeGdprDeleteRequest {
-	return ApiPostCrmObjects202609ObjectTypeGdprDeleteCrmObjects202609BetaObjectTypeGdprDeleteRequest{
+func (a *AdvancedAPIService) PostGdprDelete(ctx context.Context, objectType string) ApiPostGdprDeleteRequest {
+	return ApiPostGdprDeleteRequest{
 		ApiService: a,
 		ctx:        ctx,
 		objectType: objectType,
@@ -56,14 +56,14 @@ func (a *AdvancedAPIService) PostCrmObjects202609ObjectTypeGdprDeleteCrmObjects2
 }
 
 // Execute executes the request
-func (a *AdvancedAPIService) PostCrmObjects202609ObjectTypeGdprDeleteCrmObjects202609BetaObjectTypeGdprDeleteExecute(r ApiPostCrmObjects202609ObjectTypeGdprDeleteCrmObjects202609BetaObjectTypeGdprDeleteRequest) (*http.Response, error) {
+func (a *AdvancedAPIService) PostGdprDeleteExecute(r ApiPostGdprDeleteRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AdvancedAPIService.PostCrmObjects202609ObjectTypeGdprDeleteCrmObjects202609BetaObjectTypeGdprDelete")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AdvancedAPIService.PostGdprDelete")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -133,33 +133,33 @@ func (a *AdvancedAPIService) PostCrmObjects202609ObjectTypeGdprDeleteCrmObjects2
 	return localVarHTTPResponse, nil
 }
 
-type ApiPostCrmObjects202609ObjectTypeMergeCrmObjects202609BetaObjectTypeMergeRequest struct {
+type ApiPostMergeRequest struct {
 	ctx              context.Context
 	ApiService       *AdvancedAPIService
 	objectType       string
 	publicMergeInput *PublicMergeInput
 }
 
-func (r ApiPostCrmObjects202609ObjectTypeMergeCrmObjects202609BetaObjectTypeMergeRequest) PublicMergeInput(publicMergeInput PublicMergeInput) ApiPostCrmObjects202609ObjectTypeMergeCrmObjects202609BetaObjectTypeMergeRequest {
+func (r ApiPostMergeRequest) PublicMergeInput(publicMergeInput PublicMergeInput) ApiPostMergeRequest {
 	r.publicMergeInput = &publicMergeInput
 	return r
 }
 
-func (r ApiPostCrmObjects202609ObjectTypeMergeCrmObjects202609BetaObjectTypeMergeRequest) Execute() (*SimplePublicObject, *http.Response, error) {
-	return r.ApiService.PostCrmObjects202609ObjectTypeMergeCrmObjects202609BetaObjectTypeMergeExecute(r)
+func (r ApiPostMergeRequest) Execute() (*SimplePublicObject, *http.Response, error) {
+	return r.ApiService.PostMergeExecute(r)
 }
 
 /*
-PostCrmObjects202609ObjectTypeMergeCrmObjects202609BetaObjectTypeMerge Merge objects
+PostMerge Merge objects
 
 Merge two CRM objects of the same type into a single object. This operation is useful for consolidating duplicate records and ensuring data consistency. The request requires specifying the primary object and the object to be merged.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param objectType The type of the CRM object to be merged, such as contacts, companies, or deals.
-	@return ApiPostCrmObjects202609ObjectTypeMergeCrmObjects202609BetaObjectTypeMergeRequest
+	@return ApiPostMergeRequest
 */
-func (a *AdvancedAPIService) PostCrmObjects202609ObjectTypeMergeCrmObjects202609BetaObjectTypeMerge(ctx context.Context, objectType string) ApiPostCrmObjects202609ObjectTypeMergeCrmObjects202609BetaObjectTypeMergeRequest {
-	return ApiPostCrmObjects202609ObjectTypeMergeCrmObjects202609BetaObjectTypeMergeRequest{
+func (a *AdvancedAPIService) PostMerge(ctx context.Context, objectType string) ApiPostMergeRequest {
+	return ApiPostMergeRequest{
 		ApiService: a,
 		ctx:        ctx,
 		objectType: objectType,
@@ -169,7 +169,7 @@ func (a *AdvancedAPIService) PostCrmObjects202609ObjectTypeMergeCrmObjects202609
 // Execute executes the request
 //
 //	@return SimplePublicObject
-func (a *AdvancedAPIService) PostCrmObjects202609ObjectTypeMergeCrmObjects202609BetaObjectTypeMergeExecute(r ApiPostCrmObjects202609ObjectTypeMergeCrmObjects202609BetaObjectTypeMergeRequest) (*SimplePublicObject, *http.Response, error) {
+func (a *AdvancedAPIService) PostMergeExecute(r ApiPostMergeRequest) (*SimplePublicObject, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -177,7 +177,7 @@ func (a *AdvancedAPIService) PostCrmObjects202609ObjectTypeMergeCrmObjects202609
 		localVarReturnValue *SimplePublicObject
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AdvancedAPIService.PostCrmObjects202609ObjectTypeMergeCrmObjects202609BetaObjectTypeMerge")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AdvancedAPIService.PostMerge")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

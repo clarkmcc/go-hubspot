@@ -4,13 +4,13 @@ All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**PostCrmObjects202609ObjectTypeSearchCrmObjects202609BetaObjectTypeSearch**](SearchAPI.md#PostCrmObjects202609ObjectTypeSearchCrmObjects202609BetaObjectTypeSearch) | **Post** /crm/objects/2026-09/{objectType}/search | Search objects
+[**PostSearch**](SearchAPI.md#PostSearch) | **Post** /crm/objects/2026-09/{objectType}/search | Search objects
 
 
 
-## PostCrmObjects202609ObjectTypeSearchCrmObjects202609BetaObjectTypeSearch
+## PostSearch
 
-> CollectionResponseWithTotalSimplePublicObject PostCrmObjects202609ObjectTypeSearchCrmObjects202609BetaObjectTypeSearch(ctx, objectType).PublicObjectSearchRequest(publicObjectSearchRequest).Execute()
+> CollectionResponseWithTotalSimplePublicObject PostSearch(ctx, objectType).PublicObjectSearchRequest(publicObjectSearchRequest).Execute()
 
 Search objects
 
@@ -34,13 +34,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SearchAPI.PostCrmObjects202609ObjectTypeSearchCrmObjects202609BetaObjectTypeSearch(context.Background(), objectType).PublicObjectSearchRequest(publicObjectSearchRequest).Execute()
+	resp, r, err := apiClient.SearchAPI.PostSearch(context.Background(), objectType).PublicObjectSearchRequest(publicObjectSearchRequest).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `SearchAPI.PostCrmObjects202609ObjectTypeSearchCrmObjects202609BetaObjectTypeSearch``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `SearchAPI.PostSearch``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostCrmObjects202609ObjectTypeSearchCrmObjects202609BetaObjectTypeSearch`: CollectionResponseWithTotalSimplePublicObject
-	fmt.Fprintf(os.Stdout, "Response from `SearchAPI.PostCrmObjects202609ObjectTypeSearchCrmObjects202609BetaObjectTypeSearch`: %v\n", resp)
+	// response from `PostSearch`: CollectionResponseWithTotalSimplePublicObject
+	fmt.Fprintf(os.Stdout, "Response from `SearchAPI.PostSearch`: %v\n", resp)
 }
 ```
 
@@ -54,7 +54,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCrmObjects202609ObjectTypeSearchCrmObjects202609BetaObjectTypeSearchRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostSearchRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

@@ -8,7 +8,7 @@ Method | HTTP request | Description
 [**BatchCreate**](BatchAPI.md#BatchCreate) | **Post** /crm/objects/2026-09/{objectType}/batch/create | Batch create objects
 [**BatchRead**](BatchAPI.md#BatchRead) | **Post** /crm/objects/2026-09/{objectType}/batch/read | Read batch objects
 [**BatchUpdate**](BatchAPI.md#BatchUpdate) | **Post** /crm/objects/2026-09/{objectType}/batch/update | Update batch objects
-[**PostCrmObjects202609ObjectTypeBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsert**](BatchAPI.md#PostCrmObjects202609ObjectTypeBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsert) | **Post** /crm/objects/2026-09/{objectType}/batch/upsert | Upsert batch objects
+[**PostBatchUpsert**](BatchAPI.md#PostBatchUpsert) | **Post** /crm/objects/2026-09/{objectType}/batch/upsert | Upsert batch objects
 
 
 
@@ -300,9 +300,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostCrmObjects202609ObjectTypeBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsert
+## PostBatchUpsert
 
-> BatchResponseSimplePublicUpsertObject PostCrmObjects202609ObjectTypeBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsert(ctx, objectType).BatchInputSimplePublicObjectBatchInputUpsert(batchInputSimplePublicObjectBatchInputUpsert).Execute()
+> BatchResponseSimplePublicUpsertObject PostBatchUpsert(ctx, objectType).BatchInputSimplePublicObjectBatchInputUpsert(batchInputSimplePublicObjectBatchInputUpsert).Execute()
 
 Upsert batch objects
 
@@ -326,13 +326,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BatchAPI.PostCrmObjects202609ObjectTypeBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsert(context.Background(), objectType).BatchInputSimplePublicObjectBatchInputUpsert(batchInputSimplePublicObjectBatchInputUpsert).Execute()
+	resp, r, err := apiClient.BatchAPI.PostBatchUpsert(context.Background(), objectType).BatchInputSimplePublicObjectBatchInputUpsert(batchInputSimplePublicObjectBatchInputUpsert).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BatchAPI.PostCrmObjects202609ObjectTypeBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsert``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BatchAPI.PostBatchUpsert``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostCrmObjects202609ObjectTypeBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsert`: BatchResponseSimplePublicUpsertObject
-	fmt.Fprintf(os.Stdout, "Response from `BatchAPI.PostCrmObjects202609ObjectTypeBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsert`: %v\n", resp)
+	// response from `PostBatchUpsert`: BatchResponseSimplePublicUpsertObject
+	fmt.Fprintf(os.Stdout, "Response from `BatchAPI.PostBatchUpsert`: %v\n", resp)
 }
 ```
 
@@ -346,7 +346,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCrmObjects202609ObjectTypeBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsertRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostBatchUpsertRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

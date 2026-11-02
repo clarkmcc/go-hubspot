@@ -150,30 +150,30 @@ func (a *BatchAPIService) BatchArchiveExecute(r ApiBatchArchiveRequest) (*BatchR
 }
 
 type ApiBatchCreateRequest struct {
-	ctx                                  context.Context
-	ApiService                           *BatchAPIService
-	fromObjectType                       string
-	toObjectType                         string
-	batchInputPublicAssociationMultiPost *BatchInputPublicAssociationMultiPost
+	ctx                                                             context.Context
+	ApiService                                                      *BatchAPIService
+	fromObjectType                                                  string
+	toObjectType                                                    string
+	batchInputPublicAssociationDefinitionConfigurationCreateRequest *BatchInputPublicAssociationDefinitionConfigurationCreateRequest
 }
 
-func (r ApiBatchCreateRequest) BatchInputPublicAssociationMultiPost(batchInputPublicAssociationMultiPost BatchInputPublicAssociationMultiPost) ApiBatchCreateRequest {
-	r.batchInputPublicAssociationMultiPost = &batchInputPublicAssociationMultiPost
+func (r ApiBatchCreateRequest) BatchInputPublicAssociationDefinitionConfigurationCreateRequest(batchInputPublicAssociationDefinitionConfigurationCreateRequest BatchInputPublicAssociationDefinitionConfigurationCreateRequest) ApiBatchCreateRequest {
+	r.batchInputPublicAssociationDefinitionConfigurationCreateRequest = &batchInputPublicAssociationDefinitionConfigurationCreateRequest
 	return r
 }
 
-func (r ApiBatchCreateRequest) Execute() (*BatchResponseLabelsBetweenObjectPair, *http.Response, error) {
+func (r ApiBatchCreateRequest) Execute() (*BatchResponsePublicAssociationDefinitionUserConfiguration, *http.Response, error) {
 	return r.ApiService.BatchCreateExecute(r)
 }
 
 /*
-BatchCreate Associate records (labelled)
+BatchCreate Create
 
-Batch create associations for objects
+Batch create user configurations between two object types
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param fromObjectType The type of the source object for the associations.
-	@param toObjectType The type of the target object for the associations.
+	@param fromObjectType The type of the source object for the association configuration.
+	@param toObjectType The type of the target object for the association configuration.
 	@return ApiBatchCreateRequest
 */
 func (a *BatchAPIService) BatchCreate(ctx context.Context, fromObjectType string, toObjectType string) ApiBatchCreateRequest {
@@ -187,135 +187,8 @@ func (a *BatchAPIService) BatchCreate(ctx context.Context, fromObjectType string
 
 // Execute executes the request
 //
-//	@return BatchResponseLabelsBetweenObjectPair
-func (a *BatchAPIService) BatchCreateExecute(r ApiBatchCreateRequest) (*BatchResponseLabelsBetweenObjectPair, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *BatchResponseLabelsBetweenObjectPair
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.BatchCreate")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/crm/associations/2026-09/{fromObjectType}/{toObjectType}/batch/create"
-	localVarPath = strings.Replace(localVarPath, "{"+"fromObjectType"+"}", url.PathEscape(parameterValueToString(r.fromObjectType, "fromObjectType")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"toObjectType"+"}", url.PathEscape(parameterValueToString(r.toObjectType, "toObjectType")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.batchInputPublicAssociationMultiPost == nil {
-		return localVarReturnValue, nil, reportError("batchInputPublicAssociationMultiPost is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "*/*"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.batchInputPublicAssociationMultiPost
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		var v Error
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiPostCrmAssociations202609DefinitionsConfigurationsFromObjectTypeToObjectTypeBatchCreateCrmAssociations202609BetaDefinitionsConfigurationsFromObjectTypeToObjectTypeBatchCreateRequest struct {
-	ctx                                                             context.Context
-	ApiService                                                      *BatchAPIService
-	fromObjectType                                                  string
-	toObjectType                                                    string
-	batchInputPublicAssociationDefinitionConfigurationCreateRequest *BatchInputPublicAssociationDefinitionConfigurationCreateRequest
-}
-
-func (r ApiPostCrmAssociations202609DefinitionsConfigurationsFromObjectTypeToObjectTypeBatchCreateCrmAssociations202609BetaDefinitionsConfigurationsFromObjectTypeToObjectTypeBatchCreateRequest) BatchInputPublicAssociationDefinitionConfigurationCreateRequest(batchInputPublicAssociationDefinitionConfigurationCreateRequest BatchInputPublicAssociationDefinitionConfigurationCreateRequest) ApiPostCrmAssociations202609DefinitionsConfigurationsFromObjectTypeToObjectTypeBatchCreateCrmAssociations202609BetaDefinitionsConfigurationsFromObjectTypeToObjectTypeBatchCreateRequest {
-	r.batchInputPublicAssociationDefinitionConfigurationCreateRequest = &batchInputPublicAssociationDefinitionConfigurationCreateRequest
-	return r
-}
-
-func (r ApiPostCrmAssociations202609DefinitionsConfigurationsFromObjectTypeToObjectTypeBatchCreateCrmAssociations202609BetaDefinitionsConfigurationsFromObjectTypeToObjectTypeBatchCreateRequest) Execute() (*BatchResponsePublicAssociationDefinitionUserConfiguration, *http.Response, error) {
-	return r.ApiService.PostCrmAssociations202609DefinitionsConfigurationsFromObjectTypeToObjectTypeBatchCreateCrmAssociations202609BetaDefinitionsConfigurationsFromObjectTypeToObjectTypeBatchCreateExecute(r)
-}
-
-/*
-PostCrmAssociations202609DefinitionsConfigurationsFromObjectTypeToObjectTypeBatchCreateCrmAssociations202609BetaDefinitionsConfigurationsFromObjectTypeToObjectTypeBatchCreate Create
-
-Batch create user configurations between two object types
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param fromObjectType The type of the source object for the association configuration.
-	@param toObjectType The type of the target object for the association configuration.
-	@return ApiPostCrmAssociations202609DefinitionsConfigurationsFromObjectTypeToObjectTypeBatchCreateCrmAssociations202609BetaDefinitionsConfigurationsFromObjectTypeToObjectTypeBatchCreateRequest
-*/
-func (a *BatchAPIService) PostCrmAssociations202609DefinitionsConfigurationsFromObjectTypeToObjectTypeBatchCreateCrmAssociations202609BetaDefinitionsConfigurationsFromObjectTypeToObjectTypeBatchCreate(ctx context.Context, fromObjectType string, toObjectType string) ApiPostCrmAssociations202609DefinitionsConfigurationsFromObjectTypeToObjectTypeBatchCreateCrmAssociations202609BetaDefinitionsConfigurationsFromObjectTypeToObjectTypeBatchCreateRequest {
-	return ApiPostCrmAssociations202609DefinitionsConfigurationsFromObjectTypeToObjectTypeBatchCreateCrmAssociations202609BetaDefinitionsConfigurationsFromObjectTypeToObjectTypeBatchCreateRequest{
-		ApiService:     a,
-		ctx:            ctx,
-		fromObjectType: fromObjectType,
-		toObjectType:   toObjectType,
-	}
-}
-
-// Execute executes the request
-//
 //	@return BatchResponsePublicAssociationDefinitionUserConfiguration
-func (a *BatchAPIService) PostCrmAssociations202609DefinitionsConfigurationsFromObjectTypeToObjectTypeBatchCreateCrmAssociations202609BetaDefinitionsConfigurationsFromObjectTypeToObjectTypeBatchCreateExecute(r ApiPostCrmAssociations202609DefinitionsConfigurationsFromObjectTypeToObjectTypeBatchCreateCrmAssociations202609BetaDefinitionsConfigurationsFromObjectTypeToObjectTypeBatchCreateRequest) (*BatchResponsePublicAssociationDefinitionUserConfiguration, *http.Response, error) {
+func (a *BatchAPIService) BatchCreateExecute(r ApiBatchCreateRequest) (*BatchResponsePublicAssociationDefinitionUserConfiguration, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -323,7 +196,7 @@ func (a *BatchAPIService) PostCrmAssociations202609DefinitionsConfigurationsFrom
 		localVarReturnValue *BatchResponsePublicAssociationDefinitionUserConfiguration
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.PostCrmAssociations202609DefinitionsConfigurationsFromObjectTypeToObjectTypeBatchCreateCrmAssociations202609BetaDefinitionsConfigurationsFromObjectTypeToObjectTypeBatchCreate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.BatchCreate")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -403,35 +276,35 @@ func (a *BatchAPIService) PostCrmAssociations202609DefinitionsConfigurationsFrom
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPostCrmAssociations202609DefinitionsConfigurationsFromObjectTypeToObjectTypeBatchPurgeCrmAssociations202609BetaDefinitionsConfigurationsFromObjectTypeToObjectTypeBatchPurgeRequest struct {
-	ctx                             context.Context
-	ApiService                      *BatchAPIService
-	fromObjectType                  string
-	toObjectType                    string
-	batchInputPublicAssociationSpec *BatchInputPublicAssociationSpec
+type ApiBatchCreate_0Request struct {
+	ctx                                  context.Context
+	ApiService                           *BatchAPIService
+	fromObjectType                       string
+	toObjectType                         string
+	batchInputPublicAssociationMultiPost *BatchInputPublicAssociationMultiPost
 }
 
-func (r ApiPostCrmAssociations202609DefinitionsConfigurationsFromObjectTypeToObjectTypeBatchPurgeCrmAssociations202609BetaDefinitionsConfigurationsFromObjectTypeToObjectTypeBatchPurgeRequest) BatchInputPublicAssociationSpec(batchInputPublicAssociationSpec BatchInputPublicAssociationSpec) ApiPostCrmAssociations202609DefinitionsConfigurationsFromObjectTypeToObjectTypeBatchPurgeCrmAssociations202609BetaDefinitionsConfigurationsFromObjectTypeToObjectTypeBatchPurgeRequest {
-	r.batchInputPublicAssociationSpec = &batchInputPublicAssociationSpec
+func (r ApiBatchCreate_0Request) BatchInputPublicAssociationMultiPost(batchInputPublicAssociationMultiPost BatchInputPublicAssociationMultiPost) ApiBatchCreate_0Request {
+	r.batchInputPublicAssociationMultiPost = &batchInputPublicAssociationMultiPost
 	return r
 }
 
-func (r ApiPostCrmAssociations202609DefinitionsConfigurationsFromObjectTypeToObjectTypeBatchPurgeCrmAssociations202609BetaDefinitionsConfigurationsFromObjectTypeToObjectTypeBatchPurgeRequest) Execute() (*BatchResponse, *http.Response, error) {
-	return r.ApiService.PostCrmAssociations202609DefinitionsConfigurationsFromObjectTypeToObjectTypeBatchPurgeCrmAssociations202609BetaDefinitionsConfigurationsFromObjectTypeToObjectTypeBatchPurgeExecute(r)
+func (r ApiBatchCreate_0Request) Execute() (*BatchResponseLabelsBetweenObjectPair, *http.Response, error) {
+	return r.ApiService.BatchCreate_1Execute(r)
 }
 
 /*
-PostCrmAssociations202609DefinitionsConfigurationsFromObjectTypeToObjectTypeBatchPurgeCrmAssociations202609BetaDefinitionsConfigurationsFromObjectTypeToObjectTypeBatchPurge Delete
+BatchCreate_0 Associate records (labelled)
 
-Batch delete user configurations between two object types
+Batch create associations for objects
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param fromObjectType The type of the source object from which the association is being purged.
-	@param toObjectType The type of the target object to which the association is being purged.
-	@return ApiPostCrmAssociations202609DefinitionsConfigurationsFromObjectTypeToObjectTypeBatchPurgeCrmAssociations202609BetaDefinitionsConfigurationsFromObjectTypeToObjectTypeBatchPurgeRequest
+	@param fromObjectType The type of the source object for the associations.
+	@param toObjectType The type of the target object for the associations.
+	@return ApiBatchCreate_0Request
 */
-func (a *BatchAPIService) PostCrmAssociations202609DefinitionsConfigurationsFromObjectTypeToObjectTypeBatchPurgeCrmAssociations202609BetaDefinitionsConfigurationsFromObjectTypeToObjectTypeBatchPurge(ctx context.Context, fromObjectType string, toObjectType string) ApiPostCrmAssociations202609DefinitionsConfigurationsFromObjectTypeToObjectTypeBatchPurgeCrmAssociations202609BetaDefinitionsConfigurationsFromObjectTypeToObjectTypeBatchPurgeRequest {
-	return ApiPostCrmAssociations202609DefinitionsConfigurationsFromObjectTypeToObjectTypeBatchPurgeCrmAssociations202609BetaDefinitionsConfigurationsFromObjectTypeToObjectTypeBatchPurgeRequest{
+func (a *BatchAPIService) BatchCreate_1(ctx context.Context, fromObjectType string, toObjectType string) ApiBatchCreate_0Request {
+	return ApiBatchCreate_0Request{
 		ApiService:     a,
 		ctx:            ctx,
 		fromObjectType: fromObjectType,
@@ -441,29 +314,29 @@ func (a *BatchAPIService) PostCrmAssociations202609DefinitionsConfigurationsFrom
 
 // Execute executes the request
 //
-//	@return BatchResponse
-func (a *BatchAPIService) PostCrmAssociations202609DefinitionsConfigurationsFromObjectTypeToObjectTypeBatchPurgeCrmAssociations202609BetaDefinitionsConfigurationsFromObjectTypeToObjectTypeBatchPurgeExecute(r ApiPostCrmAssociations202609DefinitionsConfigurationsFromObjectTypeToObjectTypeBatchPurgeCrmAssociations202609BetaDefinitionsConfigurationsFromObjectTypeToObjectTypeBatchPurgeRequest) (*BatchResponse, *http.Response, error) {
+//	@return BatchResponseLabelsBetweenObjectPair
+func (a *BatchAPIService) BatchCreate_1Execute(r ApiBatchCreate_0Request) (*BatchResponseLabelsBetweenObjectPair, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *BatchResponse
+		localVarReturnValue *BatchResponseLabelsBetweenObjectPair
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.PostCrmAssociations202609DefinitionsConfigurationsFromObjectTypeToObjectTypeBatchPurgeCrmAssociations202609BetaDefinitionsConfigurationsFromObjectTypeToObjectTypeBatchPurge")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.BatchCreate_1")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/crm/associations/2026-09/definitions/configurations/{fromObjectType}/{toObjectType}/batch/purge"
+	localVarPath := localBasePath + "/crm/associations/2026-09/{fromObjectType}/{toObjectType}/batch/create"
 	localVarPath = strings.Replace(localVarPath, "{"+"fromObjectType"+"}", url.PathEscape(parameterValueToString(r.fromObjectType, "fromObjectType")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"toObjectType"+"}", url.PathEscape(parameterValueToString(r.toObjectType, "toObjectType")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.batchInputPublicAssociationSpec == nil {
-		return localVarReturnValue, nil, reportError("batchInputPublicAssociationSpec is required and must be specified")
+	if r.batchInputPublicAssociationMultiPost == nil {
+		return localVarReturnValue, nil, reportError("batchInputPublicAssociationMultiPost is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -484,7 +357,7 @@ func (a *BatchAPIService) PostCrmAssociations202609DefinitionsConfigurationsFrom
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.batchInputPublicAssociationSpec
+	localVarPostBody = r.batchInputPublicAssociationMultiPost
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -530,67 +403,60 @@ func (a *BatchAPIService) PostCrmAssociations202609DefinitionsConfigurationsFrom
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPostCrmAssociations202609DefinitionsConfigurationsFromObjectTypeToObjectTypeBatchUpdateCrmAssociations202609BetaDefinitionsConfigurationsFromObjectTypeToObjectTypeBatchUpdateRequest struct {
-	ctx                                                             context.Context
-	ApiService                                                      *BatchAPIService
-	fromObjectType                                                  string
-	toObjectType                                                    string
-	batchInputPublicAssociationDefinitionConfigurationUpdateRequest *BatchInputPublicAssociationDefinitionConfigurationUpdateRequest
+type ApiPostBatchArchiveRequest struct {
+	ctx                            context.Context
+	ApiService                     *BatchAPIService
+	objectType                     string
+	batchInputSimplePublicObjectId *BatchInputSimplePublicObjectId
 }
 
-func (r ApiPostCrmAssociations202609DefinitionsConfigurationsFromObjectTypeToObjectTypeBatchUpdateCrmAssociations202609BetaDefinitionsConfigurationsFromObjectTypeToObjectTypeBatchUpdateRequest) BatchInputPublicAssociationDefinitionConfigurationUpdateRequest(batchInputPublicAssociationDefinitionConfigurationUpdateRequest BatchInputPublicAssociationDefinitionConfigurationUpdateRequest) ApiPostCrmAssociations202609DefinitionsConfigurationsFromObjectTypeToObjectTypeBatchUpdateCrmAssociations202609BetaDefinitionsConfigurationsFromObjectTypeToObjectTypeBatchUpdateRequest {
-	r.batchInputPublicAssociationDefinitionConfigurationUpdateRequest = &batchInputPublicAssociationDefinitionConfigurationUpdateRequest
+func (r ApiPostBatchArchiveRequest) BatchInputSimplePublicObjectId(batchInputSimplePublicObjectId BatchInputSimplePublicObjectId) ApiPostBatchArchiveRequest {
+	r.batchInputSimplePublicObjectId = &batchInputSimplePublicObjectId
 	return r
 }
 
-func (r ApiPostCrmAssociations202609DefinitionsConfigurationsFromObjectTypeToObjectTypeBatchUpdateCrmAssociations202609BetaDefinitionsConfigurationsFromObjectTypeToObjectTypeBatchUpdateRequest) Execute() (*BatchResponsePublicAssociationDefinitionConfigurationUpdateResult, *http.Response, error) {
-	return r.ApiService.PostCrmAssociations202609DefinitionsConfigurationsFromObjectTypeToObjectTypeBatchUpdateCrmAssociations202609BetaDefinitionsConfigurationsFromObjectTypeToObjectTypeBatchUpdateExecute(r)
+func (r ApiPostBatchArchiveRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostBatchArchiveExecute(r)
 }
 
 /*
-PostCrmAssociations202609DefinitionsConfigurationsFromObjectTypeToObjectTypeBatchUpdateCrmAssociations202609BetaDefinitionsConfigurationsFromObjectTypeToObjectTypeBatchUpdate Update
+PostBatchArchive Archive a batch of objects by ID
 
-Batch update user configurations between two object types
+Archive a batch of objects identified by their IDs.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param fromObjectType The type of the source object for which the association configurations are being updated.
-	@param toObjectType The type of the target object for which the association configurations are being updated.
-	@return ApiPostCrmAssociations202609DefinitionsConfigurationsFromObjectTypeToObjectTypeBatchUpdateCrmAssociations202609BetaDefinitionsConfigurationsFromObjectTypeToObjectTypeBatchUpdateRequest
+	@param objectType The type of CRM object to archive in batch, such as contacts, companies, deals, etc.
+	@return ApiPostBatchArchiveRequest
 */
-func (a *BatchAPIService) PostCrmAssociations202609DefinitionsConfigurationsFromObjectTypeToObjectTypeBatchUpdateCrmAssociations202609BetaDefinitionsConfigurationsFromObjectTypeToObjectTypeBatchUpdate(ctx context.Context, fromObjectType string, toObjectType string) ApiPostCrmAssociations202609DefinitionsConfigurationsFromObjectTypeToObjectTypeBatchUpdateCrmAssociations202609BetaDefinitionsConfigurationsFromObjectTypeToObjectTypeBatchUpdateRequest {
-	return ApiPostCrmAssociations202609DefinitionsConfigurationsFromObjectTypeToObjectTypeBatchUpdateCrmAssociations202609BetaDefinitionsConfigurationsFromObjectTypeToObjectTypeBatchUpdateRequest{
-		ApiService:     a,
-		ctx:            ctx,
-		fromObjectType: fromObjectType,
-		toObjectType:   toObjectType,
+func (a *BatchAPIService) PostBatchArchive(ctx context.Context, objectType string) ApiPostBatchArchiveRequest {
+	return ApiPostBatchArchiveRequest{
+		ApiService: a,
+		ctx:        ctx,
+		objectType: objectType,
 	}
 }
 
 // Execute executes the request
-//
-//	@return BatchResponsePublicAssociationDefinitionConfigurationUpdateResult
-func (a *BatchAPIService) PostCrmAssociations202609DefinitionsConfigurationsFromObjectTypeToObjectTypeBatchUpdateCrmAssociations202609BetaDefinitionsConfigurationsFromObjectTypeToObjectTypeBatchUpdateExecute(r ApiPostCrmAssociations202609DefinitionsConfigurationsFromObjectTypeToObjectTypeBatchUpdateCrmAssociations202609BetaDefinitionsConfigurationsFromObjectTypeToObjectTypeBatchUpdateRequest) (*BatchResponsePublicAssociationDefinitionConfigurationUpdateResult, *http.Response, error) {
+func (a *BatchAPIService) PostBatchArchiveExecute(r ApiPostBatchArchiveRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *BatchResponsePublicAssociationDefinitionConfigurationUpdateResult
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.PostCrmAssociations202609DefinitionsConfigurationsFromObjectTypeToObjectTypeBatchUpdateCrmAssociations202609BetaDefinitionsConfigurationsFromObjectTypeToObjectTypeBatchUpdate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.PostBatchArchive")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/crm/associations/2026-09/definitions/configurations/{fromObjectType}/{toObjectType}/batch/update"
-	localVarPath = strings.Replace(localVarPath, "{"+"fromObjectType"+"}", url.PathEscape(parameterValueToString(r.fromObjectType, "fromObjectType")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"toObjectType"+"}", url.PathEscape(parameterValueToString(r.toObjectType, "toObjectType")), -1)
+	localVarPath := localBasePath + "/crm/objects/2026-09/{objectType}/batch/archive"
+	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterValueToString(r.objectType, "objectType")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.batchInputPublicAssociationDefinitionConfigurationUpdateRequest == nil {
-		return localVarReturnValue, nil, reportError("batchInputPublicAssociationDefinitionConfigurationUpdateRequest is required and must be specified")
+	if r.batchInputSimplePublicObjectId == nil {
+		return nil, reportError("batchInputSimplePublicObjectId is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -603,7 +469,7 @@ func (a *BatchAPIService) PostCrmAssociations202609DefinitionsConfigurationsFrom
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "*/*"}
+	localVarHTTPHeaderAccepts := []string{"*/*"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -611,22 +477,22 @@ func (a *BatchAPIService) PostCrmAssociations202609DefinitionsConfigurationsFrom
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.batchInputPublicAssociationDefinitionConfigurationUpdateRequest
+	localVarPostBody = r.batchInputSimplePublicObjectId
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -638,26 +504,17 @@ func (a *BatchAPIService) PostCrmAssociations202609DefinitionsConfigurationsFrom
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
-type ApiPostCrmAssociations202609FromObjectTypeToObjectTypeBatchAssociateDefaultCrmAssociations202609BetaFromObjectTypeToObjectTypeBatchAssociateDefaultRequest struct {
+type ApiPostBatchAssociateDefaultRequest struct {
 	ctx                                         context.Context
 	ApiService                                  *BatchAPIService
 	fromObjectType                              string
@@ -665,27 +522,27 @@ type ApiPostCrmAssociations202609FromObjectTypeToObjectTypeBatchAssociateDefault
 	batchInputPublicDefaultAssociationMultiPost *BatchInputPublicDefaultAssociationMultiPost
 }
 
-func (r ApiPostCrmAssociations202609FromObjectTypeToObjectTypeBatchAssociateDefaultCrmAssociations202609BetaFromObjectTypeToObjectTypeBatchAssociateDefaultRequest) BatchInputPublicDefaultAssociationMultiPost(batchInputPublicDefaultAssociationMultiPost BatchInputPublicDefaultAssociationMultiPost) ApiPostCrmAssociations202609FromObjectTypeToObjectTypeBatchAssociateDefaultCrmAssociations202609BetaFromObjectTypeToObjectTypeBatchAssociateDefaultRequest {
+func (r ApiPostBatchAssociateDefaultRequest) BatchInputPublicDefaultAssociationMultiPost(batchInputPublicDefaultAssociationMultiPost BatchInputPublicDefaultAssociationMultiPost) ApiPostBatchAssociateDefaultRequest {
 	r.batchInputPublicDefaultAssociationMultiPost = &batchInputPublicDefaultAssociationMultiPost
 	return r
 }
 
-func (r ApiPostCrmAssociations202609FromObjectTypeToObjectTypeBatchAssociateDefaultCrmAssociations202609BetaFromObjectTypeToObjectTypeBatchAssociateDefaultRequest) Execute() (*BatchResponsePublicDefaultAssociation, *http.Response, error) {
-	return r.ApiService.PostCrmAssociations202609FromObjectTypeToObjectTypeBatchAssociateDefaultCrmAssociations202609BetaFromObjectTypeToObjectTypeBatchAssociateDefaultExecute(r)
+func (r ApiPostBatchAssociateDefaultRequest) Execute() (*BatchResponsePublicDefaultAssociation, *http.Response, error) {
+	return r.ApiService.PostBatchAssociateDefaultExecute(r)
 }
 
 /*
-PostCrmAssociations202609FromObjectTypeToObjectTypeBatchAssociateDefaultCrmAssociations202609BetaFromObjectTypeToObjectTypeBatchAssociateDefault  Create Default Associations
+PostBatchAssociateDefault  Create Default Associations
 
 Create the default (most generic) association type between two object types
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param fromObjectType The type of the source object for the association.
 	@param toObjectType The type of the target object for the association.
-	@return ApiPostCrmAssociations202609FromObjectTypeToObjectTypeBatchAssociateDefaultCrmAssociations202609BetaFromObjectTypeToObjectTypeBatchAssociateDefaultRequest
+	@return ApiPostBatchAssociateDefaultRequest
 */
-func (a *BatchAPIService) PostCrmAssociations202609FromObjectTypeToObjectTypeBatchAssociateDefaultCrmAssociations202609BetaFromObjectTypeToObjectTypeBatchAssociateDefault(ctx context.Context, fromObjectType string, toObjectType string) ApiPostCrmAssociations202609FromObjectTypeToObjectTypeBatchAssociateDefaultCrmAssociations202609BetaFromObjectTypeToObjectTypeBatchAssociateDefaultRequest {
-	return ApiPostCrmAssociations202609FromObjectTypeToObjectTypeBatchAssociateDefaultCrmAssociations202609BetaFromObjectTypeToObjectTypeBatchAssociateDefaultRequest{
+func (a *BatchAPIService) PostBatchAssociateDefault(ctx context.Context, fromObjectType string, toObjectType string) ApiPostBatchAssociateDefaultRequest {
+	return ApiPostBatchAssociateDefaultRequest{
 		ApiService:     a,
 		ctx:            ctx,
 		fromObjectType: fromObjectType,
@@ -696,7 +553,7 @@ func (a *BatchAPIService) PostCrmAssociations202609FromObjectTypeToObjectTypeBat
 // Execute executes the request
 //
 //	@return BatchResponsePublicDefaultAssociation
-func (a *BatchAPIService) PostCrmAssociations202609FromObjectTypeToObjectTypeBatchAssociateDefaultCrmAssociations202609BetaFromObjectTypeToObjectTypeBatchAssociateDefaultExecute(r ApiPostCrmAssociations202609FromObjectTypeToObjectTypeBatchAssociateDefaultCrmAssociations202609BetaFromObjectTypeToObjectTypeBatchAssociateDefaultRequest) (*BatchResponsePublicDefaultAssociation, *http.Response, error) {
+func (a *BatchAPIService) PostBatchAssociateDefaultExecute(r ApiPostBatchAssociateDefaultRequest) (*BatchResponsePublicDefaultAssociation, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -704,7 +561,7 @@ func (a *BatchAPIService) PostCrmAssociations202609FromObjectTypeToObjectTypeBat
 		localVarReturnValue *BatchResponsePublicDefaultAssociation
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.PostCrmAssociations202609FromObjectTypeToObjectTypeBatchAssociateDefaultCrmAssociations202609BetaFromObjectTypeToObjectTypeBatchAssociateDefault")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.PostBatchAssociateDefault")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -784,7 +641,130 @@ func (a *BatchAPIService) PostCrmAssociations202609FromObjectTypeToObjectTypeBat
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPostCrmAssociations202609FromObjectTypeToObjectTypeBatchLabelsArchiveCrmAssociations202609BetaFromObjectTypeToObjectTypeBatchLabelsArchiveRequest struct {
+type ApiPostBatchCreateRequest struct {
+	ctx                                             context.Context
+	ApiService                                      *BatchAPIService
+	objectType                                      string
+	batchInputSimplePublicObjectBatchInputForCreate *BatchInputSimplePublicObjectBatchInputForCreate
+}
+
+func (r ApiPostBatchCreateRequest) BatchInputSimplePublicObjectBatchInputForCreate(batchInputSimplePublicObjectBatchInputForCreate BatchInputSimplePublicObjectBatchInputForCreate) ApiPostBatchCreateRequest {
+	r.batchInputSimplePublicObjectBatchInputForCreate = &batchInputSimplePublicObjectBatchInputForCreate
+	return r
+}
+
+func (r ApiPostBatchCreateRequest) Execute() (*BatchResponseSimplePublicObject, *http.Response, error) {
+	return r.ApiService.PostBatchCreateExecute(r)
+}
+
+/*
+PostBatchCreate Create a batch of objects
+
+Create a batch of CRM objects with specified properties and associations.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param objectType The type of CRM object to create in batch, such as contacts, companies, or deals.
+	@return ApiPostBatchCreateRequest
+*/
+func (a *BatchAPIService) PostBatchCreate(ctx context.Context, objectType string) ApiPostBatchCreateRequest {
+	return ApiPostBatchCreateRequest{
+		ApiService: a,
+		ctx:        ctx,
+		objectType: objectType,
+	}
+}
+
+// Execute executes the request
+//
+//	@return BatchResponseSimplePublicObject
+func (a *BatchAPIService) PostBatchCreateExecute(r ApiPostBatchCreateRequest) (*BatchResponseSimplePublicObject, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *BatchResponseSimplePublicObject
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.PostBatchCreate")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/crm/objects/2026-09/{objectType}/batch/create"
+	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterValueToString(r.objectType, "objectType")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.batchInputSimplePublicObjectBatchInputForCreate == nil {
+		return localVarReturnValue, nil, reportError("batchInputSimplePublicObjectBatchInputForCreate is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "*/*"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.batchInputSimplePublicObjectBatchInputForCreate
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiPostBatchLabelsArchiveRequest struct {
 	ctx                                  context.Context
 	ApiService                           *BatchAPIService
 	fromObjectType                       string
@@ -792,27 +772,27 @@ type ApiPostCrmAssociations202609FromObjectTypeToObjectTypeBatchLabelsArchiveCrm
 	batchInputPublicAssociationMultiPost *BatchInputPublicAssociationMultiPost
 }
 
-func (r ApiPostCrmAssociations202609FromObjectTypeToObjectTypeBatchLabelsArchiveCrmAssociations202609BetaFromObjectTypeToObjectTypeBatchLabelsArchiveRequest) BatchInputPublicAssociationMultiPost(batchInputPublicAssociationMultiPost BatchInputPublicAssociationMultiPost) ApiPostCrmAssociations202609FromObjectTypeToObjectTypeBatchLabelsArchiveCrmAssociations202609BetaFromObjectTypeToObjectTypeBatchLabelsArchiveRequest {
+func (r ApiPostBatchLabelsArchiveRequest) BatchInputPublicAssociationMultiPost(batchInputPublicAssociationMultiPost BatchInputPublicAssociationMultiPost) ApiPostBatchLabelsArchiveRequest {
 	r.batchInputPublicAssociationMultiPost = &batchInputPublicAssociationMultiPost
 	return r
 }
 
-func (r ApiPostCrmAssociations202609FromObjectTypeToObjectTypeBatchLabelsArchiveCrmAssociations202609BetaFromObjectTypeToObjectTypeBatchLabelsArchiveRequest) Execute() (*BatchResponse, *http.Response, error) {
-	return r.ApiService.PostCrmAssociations202609FromObjectTypeToObjectTypeBatchLabelsArchiveCrmAssociations202609BetaFromObjectTypeToObjectTypeBatchLabelsArchiveExecute(r)
+func (r ApiPostBatchLabelsArchiveRequest) Execute() (*BatchResponse, *http.Response, error) {
+	return r.ApiService.PostBatchLabelsArchiveExecute(r)
 }
 
 /*
-PostCrmAssociations202609FromObjectTypeToObjectTypeBatchLabelsArchiveCrmAssociations202609BetaFromObjectTypeToObjectTypeBatchLabelsArchive Delete Specific Labels
+PostBatchLabelsArchive Delete Specific Labels
 
 Batch delete specific association labels for objects. Deleting an unlabeled association will also delete all labeled associations between those two objects
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param fromObjectType The type of the source object in the association.
 	@param toObjectType The type of the target object in the association.
-	@return ApiPostCrmAssociations202609FromObjectTypeToObjectTypeBatchLabelsArchiveCrmAssociations202609BetaFromObjectTypeToObjectTypeBatchLabelsArchiveRequest
+	@return ApiPostBatchLabelsArchiveRequest
 */
-func (a *BatchAPIService) PostCrmAssociations202609FromObjectTypeToObjectTypeBatchLabelsArchiveCrmAssociations202609BetaFromObjectTypeToObjectTypeBatchLabelsArchive(ctx context.Context, fromObjectType string, toObjectType string) ApiPostCrmAssociations202609FromObjectTypeToObjectTypeBatchLabelsArchiveCrmAssociations202609BetaFromObjectTypeToObjectTypeBatchLabelsArchiveRequest {
-	return ApiPostCrmAssociations202609FromObjectTypeToObjectTypeBatchLabelsArchiveCrmAssociations202609BetaFromObjectTypeToObjectTypeBatchLabelsArchiveRequest{
+func (a *BatchAPIService) PostBatchLabelsArchive(ctx context.Context, fromObjectType string, toObjectType string) ApiPostBatchLabelsArchiveRequest {
+	return ApiPostBatchLabelsArchiveRequest{
 		ApiService:     a,
 		ctx:            ctx,
 		fromObjectType: fromObjectType,
@@ -823,7 +803,7 @@ func (a *BatchAPIService) PostCrmAssociations202609FromObjectTypeToObjectTypeBat
 // Execute executes the request
 //
 //	@return BatchResponse
-func (a *BatchAPIService) PostCrmAssociations202609FromObjectTypeToObjectTypeBatchLabelsArchiveCrmAssociations202609BetaFromObjectTypeToObjectTypeBatchLabelsArchiveExecute(r ApiPostCrmAssociations202609FromObjectTypeToObjectTypeBatchLabelsArchiveCrmAssociations202609BetaFromObjectTypeToObjectTypeBatchLabelsArchiveRequest) (*BatchResponse, *http.Response, error) {
+func (a *BatchAPIService) PostBatchLabelsArchiveExecute(r ApiPostBatchLabelsArchiveRequest) (*BatchResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -831,7 +811,7 @@ func (a *BatchAPIService) PostCrmAssociations202609FromObjectTypeToObjectTypeBat
 		localVarReturnValue *BatchResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.PostCrmAssociations202609FromObjectTypeToObjectTypeBatchLabelsArchiveCrmAssociations202609BetaFromObjectTypeToObjectTypeBatchLabelsArchive")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.PostBatchLabelsArchive")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -911,7 +891,7 @@ func (a *BatchAPIService) PostCrmAssociations202609FromObjectTypeToObjectTypeBat
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPostCrmAssociations202609FromObjectTypeToObjectTypeBatchReadCrmAssociations202609BetaFromObjectTypeToObjectTypeBatchReadRequest struct {
+type ApiPostBatchReadRequest struct {
 	ctx                                           context.Context
 	ApiService                                    *BatchAPIService
 	fromObjectType                                string
@@ -919,27 +899,27 @@ type ApiPostCrmAssociations202609FromObjectTypeToObjectTypeBatchReadCrmAssociati
 	batchInputPublicFetchAssociationsBatchRequest *BatchInputPublicFetchAssociationsBatchRequest
 }
 
-func (r ApiPostCrmAssociations202609FromObjectTypeToObjectTypeBatchReadCrmAssociations202609BetaFromObjectTypeToObjectTypeBatchReadRequest) BatchInputPublicFetchAssociationsBatchRequest(batchInputPublicFetchAssociationsBatchRequest BatchInputPublicFetchAssociationsBatchRequest) ApiPostCrmAssociations202609FromObjectTypeToObjectTypeBatchReadCrmAssociations202609BetaFromObjectTypeToObjectTypeBatchReadRequest {
+func (r ApiPostBatchReadRequest) BatchInputPublicFetchAssociationsBatchRequest(batchInputPublicFetchAssociationsBatchRequest BatchInputPublicFetchAssociationsBatchRequest) ApiPostBatchReadRequest {
 	r.batchInputPublicFetchAssociationsBatchRequest = &batchInputPublicFetchAssociationsBatchRequest
 	return r
 }
 
-func (r ApiPostCrmAssociations202609FromObjectTypeToObjectTypeBatchReadCrmAssociations202609BetaFromObjectTypeToObjectTypeBatchReadRequest) Execute() (*BatchResponsePublicAssociationMultiWithLabel, *http.Response, error) {
-	return r.ApiService.PostCrmAssociations202609FromObjectTypeToObjectTypeBatchReadCrmAssociations202609BetaFromObjectTypeToObjectTypeBatchReadExecute(r)
+func (r ApiPostBatchReadRequest) Execute() (*BatchResponsePublicAssociationMultiWithLabel, *http.Response, error) {
+	return r.ApiService.PostBatchReadExecute(r)
 }
 
 /*
-PostCrmAssociations202609FromObjectTypeToObjectTypeBatchReadCrmAssociations202609BetaFromObjectTypeToObjectTypeBatchRead Retrieve associations
+PostBatchRead Retrieve associations
 
 Batch read associations for objects to specific object type. The 'after' field in a returned paging object  can be added alongside the 'id' to retrieve the next page of associations from that objectId. The 'link' field is deprecated and should be ignored. Note: The 'paging' field will only be present if there are more pages and absent otherwise.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param fromObjectType The type of the source object from which associations are being read.
 	@param toObjectType The type of the target object to which associations are being read.
-	@return ApiPostCrmAssociations202609FromObjectTypeToObjectTypeBatchReadCrmAssociations202609BetaFromObjectTypeToObjectTypeBatchReadRequest
+	@return ApiPostBatchReadRequest
 */
-func (a *BatchAPIService) PostCrmAssociations202609FromObjectTypeToObjectTypeBatchReadCrmAssociations202609BetaFromObjectTypeToObjectTypeBatchRead(ctx context.Context, fromObjectType string, toObjectType string) ApiPostCrmAssociations202609FromObjectTypeToObjectTypeBatchReadCrmAssociations202609BetaFromObjectTypeToObjectTypeBatchReadRequest {
-	return ApiPostCrmAssociations202609FromObjectTypeToObjectTypeBatchReadCrmAssociations202609BetaFromObjectTypeToObjectTypeBatchReadRequest{
+func (a *BatchAPIService) PostBatchRead(ctx context.Context, fromObjectType string, toObjectType string) ApiPostBatchReadRequest {
+	return ApiPostBatchReadRequest{
 		ApiService:     a,
 		ctx:            ctx,
 		fromObjectType: fromObjectType,
@@ -950,7 +930,7 @@ func (a *BatchAPIService) PostCrmAssociations202609FromObjectTypeToObjectTypeBat
 // Execute executes the request
 //
 //	@return BatchResponsePublicAssociationMultiWithLabel
-func (a *BatchAPIService) PostCrmAssociations202609FromObjectTypeToObjectTypeBatchReadCrmAssociations202609BetaFromObjectTypeToObjectTypeBatchReadExecute(r ApiPostCrmAssociations202609FromObjectTypeToObjectTypeBatchReadCrmAssociations202609BetaFromObjectTypeToObjectTypeBatchReadRequest) (*BatchResponsePublicAssociationMultiWithLabel, *http.Response, error) {
+func (a *BatchAPIService) PostBatchReadExecute(r ApiPostBatchReadRequest) (*BatchResponsePublicAssociationMultiWithLabel, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -958,7 +938,7 @@ func (a *BatchAPIService) PostCrmAssociations202609FromObjectTypeToObjectTypeBat
 		localVarReturnValue *BatchResponsePublicAssociationMultiWithLabel
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.PostCrmAssociations202609FromObjectTypeToObjectTypeBatchReadCrmAssociations202609BetaFromObjectTypeToObjectTypeBatchRead")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.PostBatchRead")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1038,144 +1018,33 @@ func (a *BatchAPIService) PostCrmAssociations202609FromObjectTypeToObjectTypeBat
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPostCrmObjects202609ObjectTypeBatchArchiveCrmObjects202609BetaObjectTypeBatchArchiveRequest struct {
-	ctx                            context.Context
-	ApiService                     *BatchAPIService
-	objectType                     string
-	batchInputSimplePublicObjectId *BatchInputSimplePublicObjectId
+type ApiPostBatchUpdateRequest struct {
+	ctx                                    context.Context
+	ApiService                             *BatchAPIService
+	objectType                             string
+	batchInputSimplePublicObjectBatchInput *BatchInputSimplePublicObjectBatchInput
 }
 
-func (r ApiPostCrmObjects202609ObjectTypeBatchArchiveCrmObjects202609BetaObjectTypeBatchArchiveRequest) BatchInputSimplePublicObjectId(batchInputSimplePublicObjectId BatchInputSimplePublicObjectId) ApiPostCrmObjects202609ObjectTypeBatchArchiveCrmObjects202609BetaObjectTypeBatchArchiveRequest {
-	r.batchInputSimplePublicObjectId = &batchInputSimplePublicObjectId
+func (r ApiPostBatchUpdateRequest) BatchInputSimplePublicObjectBatchInput(batchInputSimplePublicObjectBatchInput BatchInputSimplePublicObjectBatchInput) ApiPostBatchUpdateRequest {
+	r.batchInputSimplePublicObjectBatchInput = &batchInputSimplePublicObjectBatchInput
 	return r
 }
 
-func (r ApiPostCrmObjects202609ObjectTypeBatchArchiveCrmObjects202609BetaObjectTypeBatchArchiveRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostCrmObjects202609ObjectTypeBatchArchiveCrmObjects202609BetaObjectTypeBatchArchiveExecute(r)
+func (r ApiPostBatchUpdateRequest) Execute() (*BatchResponseSimplePublicObject, *http.Response, error) {
+	return r.ApiService.PostBatchUpdateExecute(r)
 }
 
 /*
-PostCrmObjects202609ObjectTypeBatchArchiveCrmObjects202609BetaObjectTypeBatchArchive Archive a batch of objects by ID
+PostBatchUpdate Update a batch of objects by internal ID, or unique property values
 
-Archive a batch of objects identified by their IDs.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param objectType The type of CRM object to archive in batch, such as contacts, companies, deals, etc.
-	@return ApiPostCrmObjects202609ObjectTypeBatchArchiveCrmObjects202609BetaObjectTypeBatchArchiveRequest
-*/
-func (a *BatchAPIService) PostCrmObjects202609ObjectTypeBatchArchiveCrmObjects202609BetaObjectTypeBatchArchive(ctx context.Context, objectType string) ApiPostCrmObjects202609ObjectTypeBatchArchiveCrmObjects202609BetaObjectTypeBatchArchiveRequest {
-	return ApiPostCrmObjects202609ObjectTypeBatchArchiveCrmObjects202609BetaObjectTypeBatchArchiveRequest{
-		ApiService: a,
-		ctx:        ctx,
-		objectType: objectType,
-	}
-}
-
-// Execute executes the request
-func (a *BatchAPIService) PostCrmObjects202609ObjectTypeBatchArchiveCrmObjects202609BetaObjectTypeBatchArchiveExecute(r ApiPostCrmObjects202609ObjectTypeBatchArchiveCrmObjects202609BetaObjectTypeBatchArchiveRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.PostCrmObjects202609ObjectTypeBatchArchiveCrmObjects202609BetaObjectTypeBatchArchive")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/crm/objects/2026-09/{objectType}/batch/archive"
-	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterValueToString(r.objectType, "objectType")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.batchInputSimplePublicObjectId == nil {
-		return nil, reportError("batchInputSimplePublicObjectId is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"*/*"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.batchInputSimplePublicObjectId
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		var v Error
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type ApiPostCrmObjects202609ObjectTypeBatchCreateCrmObjects202609BetaObjectTypeBatchCreateRequest struct {
-	ctx                                             context.Context
-	ApiService                                      *BatchAPIService
-	objectType                                      string
-	batchInputSimplePublicObjectBatchInputForCreate *BatchInputSimplePublicObjectBatchInputForCreate
-}
-
-func (r ApiPostCrmObjects202609ObjectTypeBatchCreateCrmObjects202609BetaObjectTypeBatchCreateRequest) BatchInputSimplePublicObjectBatchInputForCreate(batchInputSimplePublicObjectBatchInputForCreate BatchInputSimplePublicObjectBatchInputForCreate) ApiPostCrmObjects202609ObjectTypeBatchCreateCrmObjects202609BetaObjectTypeBatchCreateRequest {
-	r.batchInputSimplePublicObjectBatchInputForCreate = &batchInputSimplePublicObjectBatchInputForCreate
-	return r
-}
-
-func (r ApiPostCrmObjects202609ObjectTypeBatchCreateCrmObjects202609BetaObjectTypeBatchCreateRequest) Execute() (*BatchResponseSimplePublicObject, *http.Response, error) {
-	return r.ApiService.PostCrmObjects202609ObjectTypeBatchCreateCrmObjects202609BetaObjectTypeBatchCreateExecute(r)
-}
-
-/*
-PostCrmObjects202609ObjectTypeBatchCreateCrmObjects202609BetaObjectTypeBatchCreate Create a batch of objects
-
-Create a batch of CRM objects with specified properties and associations.
+Update a batch of CRM objects using their internal IDs or unique property values.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param objectType The type of CRM object to create in batch, such as contacts, companies, or deals.
-	@return ApiPostCrmObjects202609ObjectTypeBatchCreateCrmObjects202609BetaObjectTypeBatchCreateRequest
+	@param objectType The type of CRM object to update in batch, such as contacts, companies, or deals.
+	@return ApiPostBatchUpdateRequest
 */
-func (a *BatchAPIService) PostCrmObjects202609ObjectTypeBatchCreateCrmObjects202609BetaObjectTypeBatchCreate(ctx context.Context, objectType string) ApiPostCrmObjects202609ObjectTypeBatchCreateCrmObjects202609BetaObjectTypeBatchCreateRequest {
-	return ApiPostCrmObjects202609ObjectTypeBatchCreateCrmObjects202609BetaObjectTypeBatchCreateRequest{
+func (a *BatchAPIService) PostBatchUpdate(ctx context.Context, objectType string) ApiPostBatchUpdateRequest {
+	return ApiPostBatchUpdateRequest{
 		ApiService: a,
 		ctx:        ctx,
 		objectType: objectType,
@@ -1185,7 +1054,7 @@ func (a *BatchAPIService) PostCrmObjects202609ObjectTypeBatchCreateCrmObjects202
 // Execute executes the request
 //
 //	@return BatchResponseSimplePublicObject
-func (a *BatchAPIService) PostCrmObjects202609ObjectTypeBatchCreateCrmObjects202609BetaObjectTypeBatchCreateExecute(r ApiPostCrmObjects202609ObjectTypeBatchCreateCrmObjects202609BetaObjectTypeBatchCreateRequest) (*BatchResponseSimplePublicObject, *http.Response, error) {
+func (a *BatchAPIService) PostBatchUpdateExecute(r ApiPostBatchUpdateRequest) (*BatchResponseSimplePublicObject, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1193,19 +1062,19 @@ func (a *BatchAPIService) PostCrmObjects202609ObjectTypeBatchCreateCrmObjects202
 		localVarReturnValue *BatchResponseSimplePublicObject
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.PostCrmObjects202609ObjectTypeBatchCreateCrmObjects202609BetaObjectTypeBatchCreate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.PostBatchUpdate")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/crm/objects/2026-09/{objectType}/batch/create"
+	localVarPath := localBasePath + "/crm/objects/2026-09/{objectType}/batch/update"
 	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterValueToString(r.objectType, "objectType")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.batchInputSimplePublicObjectBatchInputForCreate == nil {
-		return localVarReturnValue, nil, reportError("batchInputSimplePublicObjectBatchInputForCreate is required and must be specified")
+	if r.batchInputSimplePublicObjectBatchInput == nil {
+		return localVarReturnValue, nil, reportError("batchInputSimplePublicObjectBatchInput is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1226,7 +1095,7 @@ func (a *BatchAPIService) PostCrmObjects202609ObjectTypeBatchCreateCrmObjects202
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.batchInputSimplePublicObjectBatchInputForCreate
+	localVarPostBody = r.batchInputSimplePublicObjectBatchInput
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1272,7 +1141,130 @@ func (a *BatchAPIService) PostCrmObjects202609ObjectTypeBatchCreateCrmObjects202
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPostCrmObjects202609ObjectTypeBatchReadCrmObjects202609BetaObjectTypeBatchReadRequest struct {
+type ApiPostBatchUpsertRequest struct {
+	ctx                                          context.Context
+	ApiService                                   *BatchAPIService
+	objectType                                   string
+	batchInputSimplePublicObjectBatchInputUpsert *BatchInputSimplePublicObjectBatchInputUpsert
+}
+
+func (r ApiPostBatchUpsertRequest) BatchInputSimplePublicObjectBatchInputUpsert(batchInputSimplePublicObjectBatchInputUpsert BatchInputSimplePublicObjectBatchInputUpsert) ApiPostBatchUpsertRequest {
+	r.batchInputSimplePublicObjectBatchInputUpsert = &batchInputSimplePublicObjectBatchInputUpsert
+	return r
+}
+
+func (r ApiPostBatchUpsertRequest) Execute() (*BatchResponseSimplePublicUpsertObject, *http.Response, error) {
+	return r.ApiService.PostBatchUpsertExecute(r)
+}
+
+/*
+PostBatchUpsert Upsert a batch of CRM objects by their internal ID or unique property values.
+
+Upsert a batch of CRM objects, creating new records or updating existing ones based on their internal IDs or unique property values.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param objectType The type of CRM object to be upserted, such as contacts, companies, or deals.
+	@return ApiPostBatchUpsertRequest
+*/
+func (a *BatchAPIService) PostBatchUpsert(ctx context.Context, objectType string) ApiPostBatchUpsertRequest {
+	return ApiPostBatchUpsertRequest{
+		ApiService: a,
+		ctx:        ctx,
+		objectType: objectType,
+	}
+}
+
+// Execute executes the request
+//
+//	@return BatchResponseSimplePublicUpsertObject
+func (a *BatchAPIService) PostBatchUpsertExecute(r ApiPostBatchUpsertRequest) (*BatchResponseSimplePublicUpsertObject, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *BatchResponseSimplePublicUpsertObject
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.PostBatchUpsert")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/crm/objects/2026-09/{objectType}/batch/upsert"
+	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterValueToString(r.objectType, "objectType")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.batchInputSimplePublicObjectBatchInputUpsert == nil {
+		return localVarReturnValue, nil, reportError("batchInputSimplePublicObjectBatchInputUpsert is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "*/*"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.batchInputSimplePublicObjectBatchInputUpsert
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiPostByObjectTypeBatchReadRequest struct {
 	ctx                                context.Context
 	ApiService                         *BatchAPIService
 	objectType                         string
@@ -1280,32 +1272,32 @@ type ApiPostCrmObjects202609ObjectTypeBatchReadCrmObjects202609BetaObjectTypeBat
 	archived                           *bool
 }
 
-func (r ApiPostCrmObjects202609ObjectTypeBatchReadCrmObjects202609BetaObjectTypeBatchReadRequest) BatchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId BatchReadInputSimplePublicObjectId) ApiPostCrmObjects202609ObjectTypeBatchReadCrmObjects202609BetaObjectTypeBatchReadRequest {
+func (r ApiPostByObjectTypeBatchReadRequest) BatchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId BatchReadInputSimplePublicObjectId) ApiPostByObjectTypeBatchReadRequest {
 	r.batchReadInputSimplePublicObjectId = &batchReadInputSimplePublicObjectId
 	return r
 }
 
 // Whether to return only results that have been archived.
-func (r ApiPostCrmObjects202609ObjectTypeBatchReadCrmObjects202609BetaObjectTypeBatchReadRequest) Archived(archived bool) ApiPostCrmObjects202609ObjectTypeBatchReadCrmObjects202609BetaObjectTypeBatchReadRequest {
+func (r ApiPostByObjectTypeBatchReadRequest) Archived(archived bool) ApiPostByObjectTypeBatchReadRequest {
 	r.archived = &archived
 	return r
 }
 
-func (r ApiPostCrmObjects202609ObjectTypeBatchReadCrmObjects202609BetaObjectTypeBatchReadRequest) Execute() (*BatchResponseSimplePublicObject, *http.Response, error) {
-	return r.ApiService.PostCrmObjects202609ObjectTypeBatchReadCrmObjects202609BetaObjectTypeBatchReadExecute(r)
+func (r ApiPostByObjectTypeBatchReadRequest) Execute() (*BatchResponseSimplePublicObject, *http.Response, error) {
+	return r.ApiService.PostByObjectTypeBatchReadExecute(r)
 }
 
 /*
-PostCrmObjects202609ObjectTypeBatchReadCrmObjects202609BetaObjectTypeBatchRead Read a batch of objects by internal ID, or unique property values
+PostByObjectTypeBatchRead Read a batch of objects by internal ID, or unique property values
 
 Retrieve a batch of CRM objects using their internal IDs or unique property values.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param objectType The type of CRM object to read in batch.
-	@return ApiPostCrmObjects202609ObjectTypeBatchReadCrmObjects202609BetaObjectTypeBatchReadRequest
+	@return ApiPostByObjectTypeBatchReadRequest
 */
-func (a *BatchAPIService) PostCrmObjects202609ObjectTypeBatchReadCrmObjects202609BetaObjectTypeBatchRead(ctx context.Context, objectType string) ApiPostCrmObjects202609ObjectTypeBatchReadCrmObjects202609BetaObjectTypeBatchReadRequest {
-	return ApiPostCrmObjects202609ObjectTypeBatchReadCrmObjects202609BetaObjectTypeBatchReadRequest{
+func (a *BatchAPIService) PostByObjectTypeBatchRead(ctx context.Context, objectType string) ApiPostByObjectTypeBatchReadRequest {
+	return ApiPostByObjectTypeBatchReadRequest{
 		ApiService: a,
 		ctx:        ctx,
 		objectType: objectType,
@@ -1315,7 +1307,7 @@ func (a *BatchAPIService) PostCrmObjects202609ObjectTypeBatchReadCrmObjects20260
 // Execute executes the request
 //
 //	@return BatchResponseSimplePublicObject
-func (a *BatchAPIService) PostCrmObjects202609ObjectTypeBatchReadCrmObjects202609BetaObjectTypeBatchReadExecute(r ApiPostCrmObjects202609ObjectTypeBatchReadCrmObjects202609BetaObjectTypeBatchReadRequest) (*BatchResponseSimplePublicObject, *http.Response, error) {
+func (a *BatchAPIService) PostByObjectTypeBatchReadExecute(r ApiPostByObjectTypeBatchReadRequest) (*BatchResponseSimplePublicObject, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1323,7 +1315,7 @@ func (a *BatchAPIService) PostCrmObjects202609ObjectTypeBatchReadCrmObjects20260
 		localVarReturnValue *BatchResponseSimplePublicObject
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.PostCrmObjects202609ObjectTypeBatchReadCrmObjects202609BetaObjectTypeBatchRead")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.PostByObjectTypeBatchRead")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1409,63 +1401,67 @@ func (a *BatchAPIService) PostCrmObjects202609ObjectTypeBatchReadCrmObjects20260
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPostCrmObjects202609ObjectTypeBatchUpdateCrmObjects202609BetaObjectTypeBatchUpdateRequest struct {
-	ctx                                    context.Context
-	ApiService                             *BatchAPIService
-	objectType                             string
-	batchInputSimplePublicObjectBatchInput *BatchInputSimplePublicObjectBatchInput
+type ApiPostDefinitionsConfigurationsBatchPurgeRequest struct {
+	ctx                             context.Context
+	ApiService                      *BatchAPIService
+	fromObjectType                  string
+	toObjectType                    string
+	batchInputPublicAssociationSpec *BatchInputPublicAssociationSpec
 }
 
-func (r ApiPostCrmObjects202609ObjectTypeBatchUpdateCrmObjects202609BetaObjectTypeBatchUpdateRequest) BatchInputSimplePublicObjectBatchInput(batchInputSimplePublicObjectBatchInput BatchInputSimplePublicObjectBatchInput) ApiPostCrmObjects202609ObjectTypeBatchUpdateCrmObjects202609BetaObjectTypeBatchUpdateRequest {
-	r.batchInputSimplePublicObjectBatchInput = &batchInputSimplePublicObjectBatchInput
+func (r ApiPostDefinitionsConfigurationsBatchPurgeRequest) BatchInputPublicAssociationSpec(batchInputPublicAssociationSpec BatchInputPublicAssociationSpec) ApiPostDefinitionsConfigurationsBatchPurgeRequest {
+	r.batchInputPublicAssociationSpec = &batchInputPublicAssociationSpec
 	return r
 }
 
-func (r ApiPostCrmObjects202609ObjectTypeBatchUpdateCrmObjects202609BetaObjectTypeBatchUpdateRequest) Execute() (*BatchResponseSimplePublicObject, *http.Response, error) {
-	return r.ApiService.PostCrmObjects202609ObjectTypeBatchUpdateCrmObjects202609BetaObjectTypeBatchUpdateExecute(r)
+func (r ApiPostDefinitionsConfigurationsBatchPurgeRequest) Execute() (*BatchResponse, *http.Response, error) {
+	return r.ApiService.PostDefinitionsConfigurationsBatchPurgeExecute(r)
 }
 
 /*
-PostCrmObjects202609ObjectTypeBatchUpdateCrmObjects202609BetaObjectTypeBatchUpdate Update a batch of objects by internal ID, or unique property values
+PostDefinitionsConfigurationsBatchPurge Delete
 
-Update a batch of CRM objects using their internal IDs or unique property values.
+Batch delete user configurations between two object types
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param objectType The type of CRM object to update in batch, such as contacts, companies, or deals.
-	@return ApiPostCrmObjects202609ObjectTypeBatchUpdateCrmObjects202609BetaObjectTypeBatchUpdateRequest
+	@param fromObjectType The type of the source object from which the association is being purged.
+	@param toObjectType The type of the target object to which the association is being purged.
+	@return ApiPostDefinitionsConfigurationsBatchPurgeRequest
 */
-func (a *BatchAPIService) PostCrmObjects202609ObjectTypeBatchUpdateCrmObjects202609BetaObjectTypeBatchUpdate(ctx context.Context, objectType string) ApiPostCrmObjects202609ObjectTypeBatchUpdateCrmObjects202609BetaObjectTypeBatchUpdateRequest {
-	return ApiPostCrmObjects202609ObjectTypeBatchUpdateCrmObjects202609BetaObjectTypeBatchUpdateRequest{
-		ApiService: a,
-		ctx:        ctx,
-		objectType: objectType,
+func (a *BatchAPIService) PostDefinitionsConfigurationsBatchPurge(ctx context.Context, fromObjectType string, toObjectType string) ApiPostDefinitionsConfigurationsBatchPurgeRequest {
+	return ApiPostDefinitionsConfigurationsBatchPurgeRequest{
+		ApiService:     a,
+		ctx:            ctx,
+		fromObjectType: fromObjectType,
+		toObjectType:   toObjectType,
 	}
 }
 
 // Execute executes the request
 //
-//	@return BatchResponseSimplePublicObject
-func (a *BatchAPIService) PostCrmObjects202609ObjectTypeBatchUpdateCrmObjects202609BetaObjectTypeBatchUpdateExecute(r ApiPostCrmObjects202609ObjectTypeBatchUpdateCrmObjects202609BetaObjectTypeBatchUpdateRequest) (*BatchResponseSimplePublicObject, *http.Response, error) {
+//	@return BatchResponse
+func (a *BatchAPIService) PostDefinitionsConfigurationsBatchPurgeExecute(r ApiPostDefinitionsConfigurationsBatchPurgeRequest) (*BatchResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *BatchResponseSimplePublicObject
+		localVarReturnValue *BatchResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.PostCrmObjects202609ObjectTypeBatchUpdateCrmObjects202609BetaObjectTypeBatchUpdate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.PostDefinitionsConfigurationsBatchPurge")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/crm/objects/2026-09/{objectType}/batch/update"
-	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterValueToString(r.objectType, "objectType")), -1)
+	localVarPath := localBasePath + "/crm/associations/2026-09/definitions/configurations/{fromObjectType}/{toObjectType}/batch/purge"
+	localVarPath = strings.Replace(localVarPath, "{"+"fromObjectType"+"}", url.PathEscape(parameterValueToString(r.fromObjectType, "fromObjectType")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"toObjectType"+"}", url.PathEscape(parameterValueToString(r.toObjectType, "toObjectType")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.batchInputSimplePublicObjectBatchInput == nil {
-		return localVarReturnValue, nil, reportError("batchInputSimplePublicObjectBatchInput is required and must be specified")
+	if r.batchInputPublicAssociationSpec == nil {
+		return localVarReturnValue, nil, reportError("batchInputPublicAssociationSpec is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1486,7 +1482,7 @@ func (a *BatchAPIService) PostCrmObjects202609ObjectTypeBatchUpdateCrmObjects202
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.batchInputSimplePublicObjectBatchInput
+	localVarPostBody = r.batchInputPublicAssociationSpec
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1532,63 +1528,67 @@ func (a *BatchAPIService) PostCrmObjects202609ObjectTypeBatchUpdateCrmObjects202
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPostCrmObjects202609ObjectTypeBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsertRequest struct {
-	ctx                                          context.Context
-	ApiService                                   *BatchAPIService
-	objectType                                   string
-	batchInputSimplePublicObjectBatchInputUpsert *BatchInputSimplePublicObjectBatchInputUpsert
+type ApiPostDefinitionsConfigurationsBatchUpdateRequest struct {
+	ctx                                                             context.Context
+	ApiService                                                      *BatchAPIService
+	fromObjectType                                                  string
+	toObjectType                                                    string
+	batchInputPublicAssociationDefinitionConfigurationUpdateRequest *BatchInputPublicAssociationDefinitionConfigurationUpdateRequest
 }
 
-func (r ApiPostCrmObjects202609ObjectTypeBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsertRequest) BatchInputSimplePublicObjectBatchInputUpsert(batchInputSimplePublicObjectBatchInputUpsert BatchInputSimplePublicObjectBatchInputUpsert) ApiPostCrmObjects202609ObjectTypeBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsertRequest {
-	r.batchInputSimplePublicObjectBatchInputUpsert = &batchInputSimplePublicObjectBatchInputUpsert
+func (r ApiPostDefinitionsConfigurationsBatchUpdateRequest) BatchInputPublicAssociationDefinitionConfigurationUpdateRequest(batchInputPublicAssociationDefinitionConfigurationUpdateRequest BatchInputPublicAssociationDefinitionConfigurationUpdateRequest) ApiPostDefinitionsConfigurationsBatchUpdateRequest {
+	r.batchInputPublicAssociationDefinitionConfigurationUpdateRequest = &batchInputPublicAssociationDefinitionConfigurationUpdateRequest
 	return r
 }
 
-func (r ApiPostCrmObjects202609ObjectTypeBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsertRequest) Execute() (*BatchResponseSimplePublicUpsertObject, *http.Response, error) {
-	return r.ApiService.PostCrmObjects202609ObjectTypeBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsertExecute(r)
+func (r ApiPostDefinitionsConfigurationsBatchUpdateRequest) Execute() (*BatchResponsePublicAssociationDefinitionConfigurationUpdateResult, *http.Response, error) {
+	return r.ApiService.PostDefinitionsConfigurationsBatchUpdateExecute(r)
 }
 
 /*
-PostCrmObjects202609ObjectTypeBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsert Upsert a batch of CRM objects by their internal ID or unique property values.
+PostDefinitionsConfigurationsBatchUpdate Update
 
-Upsert a batch of CRM objects, creating new records or updating existing ones based on their internal IDs or unique property values.
+Batch update user configurations between two object types
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param objectType The type of CRM object to be upserted, such as contacts, companies, or deals.
-	@return ApiPostCrmObjects202609ObjectTypeBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsertRequest
+	@param fromObjectType The type of the source object for which the association configurations are being updated.
+	@param toObjectType The type of the target object for which the association configurations are being updated.
+	@return ApiPostDefinitionsConfigurationsBatchUpdateRequest
 */
-func (a *BatchAPIService) PostCrmObjects202609ObjectTypeBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsert(ctx context.Context, objectType string) ApiPostCrmObjects202609ObjectTypeBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsertRequest {
-	return ApiPostCrmObjects202609ObjectTypeBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsertRequest{
-		ApiService: a,
-		ctx:        ctx,
-		objectType: objectType,
+func (a *BatchAPIService) PostDefinitionsConfigurationsBatchUpdate(ctx context.Context, fromObjectType string, toObjectType string) ApiPostDefinitionsConfigurationsBatchUpdateRequest {
+	return ApiPostDefinitionsConfigurationsBatchUpdateRequest{
+		ApiService:     a,
+		ctx:            ctx,
+		fromObjectType: fromObjectType,
+		toObjectType:   toObjectType,
 	}
 }
 
 // Execute executes the request
 //
-//	@return BatchResponseSimplePublicUpsertObject
-func (a *BatchAPIService) PostCrmObjects202609ObjectTypeBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsertExecute(r ApiPostCrmObjects202609ObjectTypeBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsertRequest) (*BatchResponseSimplePublicUpsertObject, *http.Response, error) {
+//	@return BatchResponsePublicAssociationDefinitionConfigurationUpdateResult
+func (a *BatchAPIService) PostDefinitionsConfigurationsBatchUpdateExecute(r ApiPostDefinitionsConfigurationsBatchUpdateRequest) (*BatchResponsePublicAssociationDefinitionConfigurationUpdateResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *BatchResponseSimplePublicUpsertObject
+		localVarReturnValue *BatchResponsePublicAssociationDefinitionConfigurationUpdateResult
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.PostCrmObjects202609ObjectTypeBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsert")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.PostDefinitionsConfigurationsBatchUpdate")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/crm/objects/2026-09/{objectType}/batch/upsert"
-	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterValueToString(r.objectType, "objectType")), -1)
+	localVarPath := localBasePath + "/crm/associations/2026-09/definitions/configurations/{fromObjectType}/{toObjectType}/batch/update"
+	localVarPath = strings.Replace(localVarPath, "{"+"fromObjectType"+"}", url.PathEscape(parameterValueToString(r.fromObjectType, "fromObjectType")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"toObjectType"+"}", url.PathEscape(parameterValueToString(r.toObjectType, "toObjectType")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.batchInputSimplePublicObjectBatchInputUpsert == nil {
-		return localVarReturnValue, nil, reportError("batchInputSimplePublicObjectBatchInputUpsert is required and must be specified")
+	if r.batchInputPublicAssociationDefinitionConfigurationUpdateRequest == nil {
+		return localVarReturnValue, nil, reportError("batchInputPublicAssociationDefinitionConfigurationUpdateRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1609,7 +1609,7 @@ func (a *BatchAPIService) PostCrmObjects202609ObjectTypeBatchUpsertCrmObjects202
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.batchInputSimplePublicObjectBatchInputUpsert
+	localVarPostBody = r.batchInputPublicAssociationDefinitionConfigurationUpdateRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1655,7 +1655,7 @@ func (a *BatchAPIService) PostCrmObjects202609ObjectTypeBatchUpsertCrmObjects202
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPutCrmObjects202609FromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdCrmObjects202609BetaFromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdRequest struct {
+type ApiPutDefaultRequest struct {
 	ctx            context.Context
 	ApiService     *BatchAPIService
 	fromObjectId   string
@@ -1664,12 +1664,12 @@ type ApiPutCrmObjects202609FromObjectTypeFromObjectIdAssociationsDefaultToObject
 	toObjectType   string
 }
 
-func (r ApiPutCrmObjects202609FromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdCrmObjects202609BetaFromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdRequest) Execute() (*BatchResponsePublicDefaultAssociation, *http.Response, error) {
-	return r.ApiService.PutCrmObjects202609FromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdCrmObjects202609BetaFromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdExecute(r)
+func (r ApiPutDefaultRequest) Execute() (*BatchResponsePublicDefaultAssociation, *http.Response, error) {
+	return r.ApiService.PutDefaultExecute(r)
 }
 
 /*
-PutCrmObjects202609FromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdCrmObjects202609BetaFromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectId Associate records (default)
+PutDefault Associate records (default)
 
 Create the default (most generic) association type between two object types
 
@@ -1678,10 +1678,10 @@ Create the default (most generic) association type between two object types
 	@param fromObjectType The type of the source object for the association.
 	@param toObjectId The unique identifier of the target object for the association.
 	@param toObjectType The type of the target object for the association.
-	@return ApiPutCrmObjects202609FromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdCrmObjects202609BetaFromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdRequest
+	@return ApiPutDefaultRequest
 */
-func (a *BatchAPIService) PutCrmObjects202609FromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdCrmObjects202609BetaFromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectId(ctx context.Context, fromObjectId string, fromObjectType string, toObjectId string, toObjectType string) ApiPutCrmObjects202609FromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdCrmObjects202609BetaFromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdRequest {
-	return ApiPutCrmObjects202609FromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdCrmObjects202609BetaFromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdRequest{
+func (a *BatchAPIService) PutDefault(ctx context.Context, fromObjectId string, fromObjectType string, toObjectId string, toObjectType string) ApiPutDefaultRequest {
+	return ApiPutDefaultRequest{
 		ApiService:     a,
 		ctx:            ctx,
 		fromObjectId:   fromObjectId,
@@ -1694,7 +1694,7 @@ func (a *BatchAPIService) PutCrmObjects202609FromObjectTypeFromObjectIdAssociati
 // Execute executes the request
 //
 //	@return BatchResponsePublicDefaultAssociation
-func (a *BatchAPIService) PutCrmObjects202609FromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdCrmObjects202609BetaFromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdExecute(r ApiPutCrmObjects202609FromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdCrmObjects202609BetaFromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdRequest) (*BatchResponsePublicDefaultAssociation, *http.Response, error) {
+func (a *BatchAPIService) PutDefaultExecute(r ApiPutDefaultRequest) (*BatchResponsePublicDefaultAssociation, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
@@ -1702,7 +1702,7 @@ func (a *BatchAPIService) PutCrmObjects202609FromObjectTypeFromObjectIdAssociati
 		localVarReturnValue *BatchResponsePublicDefaultAssociation
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.PutCrmObjects202609FromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdCrmObjects202609BetaFromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectId")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.PutDefault")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

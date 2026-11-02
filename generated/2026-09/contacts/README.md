@@ -71,22 +71,22 @@ All URIs are relative to *https://api.hubapi.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*AdvancedAPI* | [**PostCrmObjects202609ContactsGdprDeleteCrmObjects202609BetaObjectTypeGdprDelete**](docs/AdvancedAPI.md#postcrmobjects202609contactsgdprdeletecrmobjects202609betaobjecttypegdprdelete) | **Post** /crm/objects/2026-09/contacts/gdpr-delete | Permanently delete a contact (GDPR-compliant)
-*AdvancedAPI* | [**PostCrmObjects202609ContactsMergeCrmObjects202609BetaObjectTypeMerge**](docs/AdvancedAPI.md#postcrmobjects202609contactsmergecrmobjects202609betaobjecttypemerge) | **Post** /crm/objects/2026-09/contacts/merge | Merge two contacts
-*BasicAPI* | [**DeleteCrmObjects202609ContactsContactIdCrmObjects202609BetaObjectTypeObjectId**](docs/BasicAPI.md#deletecrmobjects202609contactscontactidcrmobjects202609betaobjecttypeobjectid) | **Delete** /crm/objects/2026-09/contacts/{contactId} | Archive a contact
-*BasicAPI* | [**DeleteCrmObjects202609ObjectTypeObjectIdAssociationsToObjectTypeToObjectIdCrmObjects202609BetaObjectTypeObjectIdAssociationsToObjectTypeToObjectId**](docs/BasicAPI.md#deletecrmobjects202609objecttypeobjectidassociationstoobjecttypetoobjectidcrmobjects202609betaobjecttypeobjectidassociationstoobjecttypetoobjectid) | **Delete** /crm/objects/2026-09/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId} | Delete
-*BasicAPI* | [**GetCrmObjects202609ContactsContactIdAssociationsToObjectTypeCrmObjects202609BetaObjectTypeObjectIdAssociationsToObjectType**](docs/BasicAPI.md#getcrmobjects202609contactscontactidassociationstoobjecttypecrmobjects202609betaobjecttypeobjectidassociationstoobjecttype) | **Get** /crm/objects/2026-09/contacts/{contactId}/associations/{toObjectType} | List associations
-*BasicAPI* | [**GetCrmObjects202609ContactsContactIdCrmObjects202609BetaObjectTypeObjectId**](docs/BasicAPI.md#getcrmobjects202609contactscontactidcrmobjects202609betaobjecttypeobjectid) | **Get** /crm/objects/2026-09/contacts/{contactId} | Retrieve a contact
-*BasicAPI* | [**GetCrmObjects202609ContactsCrmObjects202609BetaObjectType**](docs/BasicAPI.md#getcrmobjects202609contactscrmobjects202609betaobjecttype) | **Get** /crm/objects/2026-09/contacts | Retrieve contacts
-*BasicAPI* | [**PatchCrmObjects202609ContactsContactIdCrmObjects202609BetaObjectTypeObjectId**](docs/BasicAPI.md#patchcrmobjects202609contactscontactidcrmobjects202609betaobjecttypeobjectid) | **Patch** /crm/objects/2026-09/contacts/{contactId} | Update a contact
-*BasicAPI* | [**PostCrmObjects202609ContactsCrmObjects202609BetaObjectType**](docs/BasicAPI.md#postcrmobjects202609contactscrmobjects202609betaobjecttype) | **Post** /crm/objects/2026-09/contacts | Create a contact
-*BasicAPI* | [**PutCrmObjects202609ObjectTypeObjectIdAssociationsToObjectTypeToObjectIdCrmObjects202609BetaObjectTypeObjectIdAssociationsToObjectTypeToObjectId**](docs/BasicAPI.md#putcrmobjects202609objecttypeobjectidassociationstoobjecttypetoobjectidcrmobjects202609betaobjecttypeobjectidassociationstoobjecttypetoobjectid) | **Put** /crm/objects/2026-09/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId} | Create
+*AdvancedAPI* | [**PostContactsGdprDelete**](docs/AdvancedAPI.md#postcontactsgdprdelete) | **Post** /crm/objects/2026-09/contacts/gdpr-delete | Permanently delete a contact (GDPR-compliant)
+*AdvancedAPI* | [**PostContactsMerge**](docs/AdvancedAPI.md#postcontactsmerge) | **Post** /crm/objects/2026-09/contacts/merge | Merge two contacts
+*BasicAPI* | [**DeleteContacts**](docs/BasicAPI.md#deletecontacts) | **Delete** /crm/objects/2026-09/contacts/{contactId} | Archive a contact
+*BasicAPI* | [**DeleteRoot**](docs/BasicAPI.md#deleteroot) | **Delete** /crm/objects/2026-09/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId} | Delete
+*BasicAPI* | [**GetContacts**](docs/BasicAPI.md#getcontacts) | **Get** /crm/objects/2026-09/contacts | Retrieve contacts
+*BasicAPI* | [**GetContactsByContactId**](docs/BasicAPI.md#getcontactsbycontactid) | **Get** /crm/objects/2026-09/contacts/{contactId} | Retrieve a contact
+*BasicAPI* | [**GetContactsByContactIdByToObjectType**](docs/BasicAPI.md#getcontactsbycontactidbytoobjecttype) | **Get** /crm/objects/2026-09/contacts/{contactId}/associations/{toObjectType} | List associations
+*BasicAPI* | [**PatchContacts**](docs/BasicAPI.md#patchcontacts) | **Patch** /crm/objects/2026-09/contacts/{contactId} | Update a contact
+*BasicAPI* | [**PostContacts**](docs/BasicAPI.md#postcontacts) | **Post** /crm/objects/2026-09/contacts | Create a contact
+*BasicAPI* | [**PutRoot**](docs/BasicAPI.md#putroot) | **Put** /crm/objects/2026-09/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId} | Create
 *BatchAPI* | [**BatchArchive**](docs/BatchAPI.md#batcharchive) | **Post** /crm/objects/2026-09/contacts/batch/archive | Archive a batch of contacts
 *BatchAPI* | [**BatchCreate**](docs/BatchAPI.md#batchcreate) | **Post** /crm/objects/2026-09/contacts/batch/create | Create a batch of contacts
 *BatchAPI* | [**BatchRead**](docs/BatchAPI.md#batchread) | **Post** /crm/objects/2026-09/contacts/batch/read | Retrieve a batch of contacts
 *BatchAPI* | [**BatchUpdate**](docs/BatchAPI.md#batchupdate) | **Post** /crm/objects/2026-09/contacts/batch/update | Update a batch of contacts
-*BatchAPI* | [**PostCrmObjects202609ContactsBatchUpsertCrmObjects202609BetaObjectTypeBatchUpsert**](docs/BatchAPI.md#postcrmobjects202609contactsbatchupsertcrmobjects202609betaobjecttypebatchupsert) | **Post** /crm/objects/2026-09/contacts/batch/upsert | Create or update a batch of contacts
-*BatchAPI* | [**PutCrmObjects202609FromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectIdCrmObjects202609BetaFromObjectTypeFromObjectIdAssociationsDefaultToObjectTypeToObjectId**](docs/BatchAPI.md#putcrmobjects202609fromobjecttypefromobjectidassociationsdefaulttoobjecttypetoobjectidcrmobjects202609betafromobjecttypefromobjectidassociationsdefaulttoobjecttypetoobjectid) | **Put** /crm/objects/2026-09/{fromObjectType}/{fromObjectId}/associations/default/{toObjectType}/{toObjectId} | Create Association
+*BatchAPI* | [**PostContactsBatchUpsert**](docs/BatchAPI.md#postcontactsbatchupsert) | **Post** /crm/objects/2026-09/contacts/batch/upsert | Create or update a batch of contacts
+*BatchAPI* | [**PutDefault**](docs/BatchAPI.md#putdefault) | **Put** /crm/objects/2026-09/{fromObjectType}/{fromObjectId}/associations/default/{toObjectType}/{toObjectId} | Create Association
 *SearchAPI* | [**Search**](docs/SearchAPI.md#search) | **Post** /crm/objects/2026-09/contacts/search | Search for contacts
 
 
