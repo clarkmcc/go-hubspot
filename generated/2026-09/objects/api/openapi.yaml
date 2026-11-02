@@ -1,0 +1,5888 @@
+openapi: 3.0.1
+info:
+  description: Basepom for all HubSpot Projects
+  title: Custom Objects
+  version: 2026-09
+  x-hubspot-product-tier-requirements:
+    marketing: FREE
+    sales: FREE
+    service: FREE
+    cms: FREE
+    commerce: FREE
+    crmHub: FREE
+    dataHub: FREE
+  x-hubspot-api-use-case: "After creating a Cars custom object, you can create a record\
+    \ for each car, then associate it with the contact who bought it."
+  x-hubspot-introduction: "Use the objects API to create and manage records for an\
+    \ object. The endpoints can be used for objects included in all accounts, such\
+    \ as contacts and companies, as well as for custom objects in Enterprise accounts."
+servers:
+- url: https://api.hubapi.com
+tags:
+- name: Advanced
+- name: Basic
+- name: Batch
+- name: Search
+paths:
+  /crm/objects/2026-09/{objectType}:
+    get:
+      description: "Read a page of objects of a specified type in your HubSpot account.\
+        \ You can control the data returned by specifying properties, associations,\
+        \ and whether to include archived records. This endpoint is useful for retrieving\
+        \ a list of CRM objects with specific details and associations."
+      operationId: "get-/crm/objects/2026-09/{objectType}_/crm/objects/2026-09-beta/{objectType}"
+      parameters:
+      - description: "The type of CRM object to retrieve, such as contacts, companies,\
+          \ or deals."
+        explode: false
+        in: path
+        name: objectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: A cursor token for pagination. Use the value from the previous
+          response's paging.next.after field.
+        explode: true
+        in: query
+        name: after
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Whether to include archived records in the response. Defaults
+          to false.
+        explode: true
+        in: query
+        name: archived
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
+      - description: "A comma-separated list of object types to retrieve associated\
+          \ IDs for. If any specified associations do not exist, they will be ignored."
+        explode: true
+        in: query
+        name: associations
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: The maximum number of results to display per page. Defaults to
+          10.
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 10
+          format: int32
+          type: integer
+        style: form
+      - description: "A comma-separated list of property names to include in the response.\
+          \ If any specified properties are not present on the requested object(s),\
+          \ they will be ignored."
+        explode: true
+        in: query
+        name: properties
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: "A comma-separated list of properties to include in the response\
+          \ along with their history of previous values. If any specified properties\
+          \ are not present on the requested object(s), they will be ignored. Using\
+          \ this parameter reduces the maximum number of objects that can be read\
+          \ in a single request."
+        explode: true
+        in: query
+        name: propertiesWithHistory
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CollectionResponseSimplePublicObjectWithAssociationsForwardPaging"
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: An error occurred.
+      security:
+      - oauth2:
+        - crm.objects.tickets.write
+      - oauth2:
+        - crm.objects.tickets.read
+      - oauth2:
+        - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.services.read
+      - oauth2:
+        - crm.objects.subscriptions.read
+      - oauth2:
+        - crm.objects.tickets.sensitive.read
+      - oauth2:
+        - crm.objects.orders.read
+      - oauth2:
+        - crm.objects.listings.write
+      - oauth2:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.custom.sensitive.write.v2
+      - oauth2:
+        - crm.objects.tasks.read
+      - oauth2:
+        - crm.objects.custom.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.appointments.sensitive.read.v2
+      - oauth2:
+        - crm.objects.contacts.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.forecasts.read
+      - oauth2:
+        - crm.objects.tickets.highly_sensitive.read
+      - oauth2:
+        - crm.objects.companies.sensitive.read.v2
+      - oauth2:
+        - crm.objects.tickets.sensitive.write
+      - oauth2:
+        - media_bridge.read
+      - oauth2:
+        - crm.objects.deals.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.contacts.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.contracts.read
+      - oauth2:
+        - crm.objects.companies.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.commercepayments.write
+      - oauth2:
+        - crm.objects.invoices.write
+      - oauth2:
+        - crm.objects.contacts.sensitive.write.v2
+      - oauth2:
+        - crm.objects.calls.read
+      - oauth2:
+        - crm.objects.users.write
+      - oauth2:
+        - crm.objects.custom.sensitive.read.v2
+      - oauth2:
+        - crm.objects.meetings.read
+      - oauth2:
+        - crm.objects.users.read
+      - oauth2:
+        - crm.objects.orders.write
+      - oauth2:
+        - crm.objects.partner-services.read
+      - oauth2:
+        - crm.objects.partner-services.write
+      - oauth2:
+        - crm.objects.appointments.write
+      - oauth2:
+        - crm.objects.projects.highly_sensitive.write
+      - oauth2:
+        - crm.objects.carts.write
+      - oauth2:
+        - crm.objects.tickets.highly_sensitive.write
+      - oauth2:
+        - crm.objects.tasks.write
+      - oauth2:
+        - crm.objects.commercepayments.read
+      - oauth2:
+        - revenue.contracts.read
+      - oauth2:
+        - crm.objects.feedback_submissions.read
+      - oauth2:
+        - crm.objects.products.write
+      - oauth2:
+        - crm.objects.services.write
+      - oauth2:
+        - crm.objects.emails.write
+      - oauth2:
+        - crm.objects.subscriptions.write
+      - oauth2:
+        - crm.objects.deals.sensitive.write.v2
+      - oauth2:
+        - crm.objects.contacts.read
+      - oauth2:
+        - crm.objects.appointments.sensitive.write.v2
+      - oauth2:
+        - cpq.price_books.read
+      - oauth2:
+        - crm.objects.meetings.write
+      - oauth2:
+        - crm.objects.invoices.read
+      - oauth2:
+        - crm.objects.projects.highly_sensitive.read
+      - oauth2:
+        - crm.objects.custom.write
+      - oauth2:
+        - crm.objects.notes.write
+      - oauth2:
+        - tickets.sensitive.v2
+      - oauth2:
+        - crm.objects.deals.write
+      - oauth2:
+        - e-commerce
+      - oauth2:
+        - crm.objects.appointments.read
+      - oauth2:
+        - crm.objects.companies.sensitive.write.v2
+      - oauth2:
+        - crm.objects.projects.read
+      - oauth2:
+        - crm.objects.companies.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.custom.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.deals.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.calls.write
+      - oauth2:
+        - crm.objects.goals.write
+      - oauth2:
+        - crm.objects.line_items.write
+      - oauth2:
+        - crm.objects.projects.sensitive.read
+      - oauth2:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.goals.read
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.partner-clients.write
+      - oauth2:
+        - crm.objects.projects.write
+      - oauth2:
+        - crm.objects.deals.sensitive.read.v2
+      - oauth2:
+        - crm.objects.projects.sensitive.write
+      - oauth2:
+        - crm.objects.quotes.write
+      - oauth2:
+        - tickets.highly_sensitive.v2
+      - oauth2:
+        - crm.objects.leads.read
+      - oauth2:
+        - crm.objects.leads.write
+      - oauth2:
+        - crm.objects.carts.read
+      - oauth2:
+        - crm.objects.emails.read
+      - oauth2:
+        - crm.objects.courses.write
+      - oauth2:
+        - crm.objects.quotes.read
+      - oauth2:
+        - crm.objects.partner-clients.read
+      - oauth2:
+        - crm.objects.courses.read
+      - oauth2:
+        - crm.objects.notes.read
+      - oauth2:
+        - crm.objects.listings.read
+      - oauth2:
+        - crm.objects.contacts.sensitive.read.v2
+      - oauth2:
+        - crm.objects.products.read
+      - oauth2:
+        - oauth
+      summary: List
+      tags:
+      - Basic
+      x-hubspot-user-level-auth:
+        internalOnly: false
+    post:
+      description: "Create a CRM object with the specified properties and return a\
+        \ copy of the object, including its ID. This endpoint allows you to create\
+        \ standard objects in your CRM system, providing documentation and examples\
+        \ for guidance."
+      operationId: "post-/crm/objects/2026-09/{objectType}_/crm/objects/2026-09-beta/{objectType}"
+      parameters:
+      - description: "The type of CRM object to create, such as contacts, companies,\
+          \ or deals."
+        explode: false
+        in: path
+        name: objectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SimplePublicObjectInputForCreate"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SimplePublicObject"
+          description: successful operation
+          headers:
+            Location:
+              description: URL of the newly created resource
+              explode: false
+              schema:
+                type: string
+              style: simple
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: An error occurred.
+      security:
+      - oauth2:
+        - crm.objects.tickets.write
+      - oauth2:
+        - crm.objects.tickets.read
+      - oauth2:
+        - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.services.read
+      - oauth2:
+        - crm.objects.subscriptions.read
+      - oauth2:
+        - crm.objects.tickets.sensitive.read
+      - oauth2:
+        - crm.objects.orders.read
+      - oauth2:
+        - crm.objects.listings.write
+      - oauth2:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.custom.sensitive.write.v2
+      - oauth2:
+        - crm.objects.tasks.read
+      - oauth2:
+        - crm.objects.custom.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.appointments.sensitive.read.v2
+      - oauth2:
+        - crm.objects.contacts.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.forecasts.read
+      - oauth2:
+        - crm.objects.tickets.highly_sensitive.read
+      - oauth2:
+        - crm.objects.companies.sensitive.read.v2
+      - oauth2:
+        - crm.objects.tickets.sensitive.write
+      - oauth2:
+        - media_bridge.read
+      - oauth2:
+        - crm.objects.deals.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.contacts.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.contracts.read
+      - oauth2:
+        - crm.objects.companies.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.commercepayments.write
+      - oauth2:
+        - crm.objects.invoices.write
+      - oauth2:
+        - crm.objects.contacts.sensitive.write.v2
+      - oauth2:
+        - crm.objects.calls.read
+      - oauth2:
+        - crm.objects.users.write
+      - oauth2:
+        - crm.objects.custom.sensitive.read.v2
+      - oauth2:
+        - crm.objects.meetings.read
+      - oauth2:
+        - crm.objects.users.read
+      - oauth2:
+        - crm.objects.orders.write
+      - oauth2:
+        - crm.objects.partner-services.read
+      - oauth2:
+        - crm.objects.partner-services.write
+      - oauth2:
+        - crm.objects.appointments.write
+      - oauth2:
+        - crm.objects.projects.highly_sensitive.write
+      - oauth2:
+        - crm.objects.carts.write
+      - oauth2:
+        - crm.objects.tickets.highly_sensitive.write
+      - oauth2:
+        - crm.objects.tasks.write
+      - oauth2:
+        - crm.objects.commercepayments.read
+      - oauth2:
+        - revenue.contracts.read
+      - oauth2:
+        - crm.objects.feedback_submissions.read
+      - oauth2:
+        - crm.objects.products.write
+      - oauth2:
+        - crm.objects.services.write
+      - oauth2:
+        - crm.objects.emails.write
+      - oauth2:
+        - crm.objects.subscriptions.write
+      - oauth2:
+        - crm.objects.deals.sensitive.write.v2
+      - oauth2:
+        - crm.objects.contacts.read
+      - oauth2:
+        - crm.objects.appointments.sensitive.write.v2
+      - oauth2:
+        - cpq.price_books.read
+      - oauth2:
+        - crm.objects.meetings.write
+      - oauth2:
+        - crm.objects.invoices.read
+      - oauth2:
+        - crm.objects.projects.highly_sensitive.read
+      - oauth2:
+        - crm.objects.custom.write
+      - oauth2:
+        - crm.objects.notes.write
+      - oauth2:
+        - tickets.sensitive.v2
+      - oauth2:
+        - crm.objects.deals.write
+      - oauth2:
+        - e-commerce
+      - oauth2:
+        - crm.objects.appointments.read
+      - oauth2:
+        - crm.objects.companies.sensitive.write.v2
+      - oauth2:
+        - crm.objects.projects.read
+      - oauth2:
+        - crm.objects.companies.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.custom.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.deals.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.calls.write
+      - oauth2:
+        - crm.objects.goals.write
+      - oauth2:
+        - crm.objects.line_items.write
+      - oauth2:
+        - crm.objects.projects.sensitive.read
+      - oauth2:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.goals.read
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.partner-clients.write
+      - oauth2:
+        - crm.objects.projects.write
+      - oauth2:
+        - crm.objects.deals.sensitive.read.v2
+      - oauth2:
+        - crm.objects.projects.sensitive.write
+      - oauth2:
+        - crm.objects.quotes.write
+      - oauth2:
+        - tickets.highly_sensitive.v2
+      - oauth2:
+        - crm.objects.leads.read
+      - oauth2:
+        - crm.objects.leads.write
+      - oauth2:
+        - crm.objects.carts.read
+      - oauth2:
+        - crm.objects.emails.read
+      - oauth2:
+        - crm.objects.courses.write
+      - oauth2:
+        - crm.objects.quotes.read
+      - oauth2:
+        - crm.objects.partner-clients.read
+      - oauth2:
+        - crm.objects.courses.read
+      - oauth2:
+        - crm.objects.notes.read
+      - oauth2:
+        - crm.objects.listings.read
+      - oauth2:
+        - crm.objects.contacts.sensitive.read.v2
+      - oauth2:
+        - crm.objects.products.read
+      - oauth2:
+        - oauth
+      summary: Create
+      tags:
+      - Basic
+      x-hubspot-user-level-auth:
+        internalOnly: false
+  /crm/objects/2026-09/{objectType}/batch/archive:
+    post:
+      description: "Archive a batch of CRM objects identified by their IDs. This operation\
+        \ is useful for moving multiple objects to the recycling bin in one request,\
+        \ streamlining the process of managing large datasets."
+      operationId: BatchArchive
+      parameters:
+      - description: "The type of CRM object to archive, such as contacts, companies,\
+          \ or deals."
+        explode: false
+        in: path
+        name: objectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BatchInputSimplePublicObjectId"
+        required: true
+      responses:
+        "204":
+          content: {}
+          description: No content
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: An error occurred.
+      security:
+      - oauth2:
+        - crm.objects.tickets.write
+      - oauth2:
+        - crm.objects.tickets.read
+      - oauth2:
+        - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.services.read
+      - oauth2:
+        - crm.objects.subscriptions.read
+      - oauth2:
+        - crm.objects.tickets.sensitive.read
+      - oauth2:
+        - crm.objects.orders.read
+      - oauth2:
+        - crm.objects.listings.write
+      - oauth2:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.custom.sensitive.write.v2
+      - oauth2:
+        - crm.objects.tasks.read
+      - oauth2:
+        - crm.objects.custom.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.appointments.sensitive.read.v2
+      - oauth2:
+        - crm.objects.contacts.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.forecasts.read
+      - oauth2:
+        - crm.objects.tickets.highly_sensitive.read
+      - oauth2:
+        - crm.objects.companies.sensitive.read.v2
+      - oauth2:
+        - crm.objects.tickets.sensitive.write
+      - oauth2:
+        - media_bridge.read
+      - oauth2:
+        - crm.objects.deals.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.contacts.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.contracts.read
+      - oauth2:
+        - crm.objects.companies.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.commercepayments.write
+      - oauth2:
+        - crm.objects.invoices.write
+      - oauth2:
+        - crm.objects.contacts.sensitive.write.v2
+      - oauth2:
+        - crm.objects.calls.read
+      - oauth2:
+        - crm.objects.users.write
+      - oauth2:
+        - crm.objects.custom.sensitive.read.v2
+      - oauth2:
+        - crm.objects.meetings.read
+      - oauth2:
+        - crm.objects.users.read
+      - oauth2:
+        - crm.objects.orders.write
+      - oauth2:
+        - crm.objects.partner-services.read
+      - oauth2:
+        - crm.objects.partner-services.write
+      - oauth2:
+        - crm.objects.appointments.write
+      - oauth2:
+        - crm.objects.projects.highly_sensitive.write
+      - oauth2:
+        - crm.objects.carts.write
+      - oauth2:
+        - crm.objects.tickets.highly_sensitive.write
+      - oauth2:
+        - crm.objects.tasks.write
+      - oauth2:
+        - crm.objects.commercepayments.read
+      - oauth2:
+        - revenue.contracts.read
+      - oauth2:
+        - crm.objects.feedback_submissions.read
+      - oauth2:
+        - crm.objects.products.write
+      - oauth2:
+        - crm.objects.services.write
+      - oauth2:
+        - crm.objects.emails.write
+      - oauth2:
+        - crm.objects.subscriptions.write
+      - oauth2:
+        - crm.objects.deals.sensitive.write.v2
+      - oauth2:
+        - crm.objects.contacts.read
+      - oauth2:
+        - crm.objects.appointments.sensitive.write.v2
+      - oauth2:
+        - cpq.price_books.read
+      - oauth2:
+        - crm.objects.meetings.write
+      - oauth2:
+        - crm.objects.invoices.read
+      - oauth2:
+        - crm.objects.projects.highly_sensitive.read
+      - oauth2:
+        - crm.objects.custom.write
+      - oauth2:
+        - crm.objects.notes.write
+      - oauth2:
+        - tickets.sensitive.v2
+      - oauth2:
+        - crm.objects.deals.write
+      - oauth2:
+        - e-commerce
+      - oauth2:
+        - crm.objects.appointments.read
+      - oauth2:
+        - crm.objects.companies.sensitive.write.v2
+      - oauth2:
+        - crm.objects.projects.read
+      - oauth2:
+        - crm.objects.companies.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.custom.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.deals.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.calls.write
+      - oauth2:
+        - crm.objects.goals.write
+      - oauth2:
+        - crm.objects.line_items.write
+      - oauth2:
+        - crm.objects.projects.sensitive.read
+      - oauth2:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.goals.read
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.partner-clients.write
+      - oauth2:
+        - crm.objects.projects.write
+      - oauth2:
+        - crm.objects.deals.sensitive.read.v2
+      - oauth2:
+        - crm.objects.projects.sensitive.write
+      - oauth2:
+        - crm.objects.quotes.write
+      - oauth2:
+        - tickets.highly_sensitive.v2
+      - oauth2:
+        - crm.objects.leads.read
+      - oauth2:
+        - crm.objects.leads.write
+      - oauth2:
+        - crm.objects.carts.read
+      - oauth2:
+        - crm.objects.emails.read
+      - oauth2:
+        - crm.objects.courses.write
+      - oauth2:
+        - crm.objects.quotes.read
+      - oauth2:
+        - crm.objects.partner-clients.read
+      - oauth2:
+        - crm.objects.courses.read
+      - oauth2:
+        - crm.objects.notes.read
+      - oauth2:
+        - crm.objects.listings.read
+      - oauth2:
+        - crm.objects.contacts.sensitive.read.v2
+      - oauth2:
+        - crm.objects.products.read
+      - oauth2:
+        - oauth
+      summary: Batch archive objects
+      tags:
+      - Batch
+      x-hubspot-user-level-auth:
+        internalOnly: false
+  /crm/objects/2026-09/{objectType}/batch/create:
+    post:
+      description: "Create a batch of CRM objects for a specified object type in HubSpot.\
+        \ This endpoint allows you to create multiple objects in a single request,\
+        \ making it efficient for bulk operations. The response includes the created\
+        \ objects along with their IDs. This is useful for initializing large datasets\
+        \ or migrating data into HubSpot."
+      operationId: BatchCreate
+      parameters:
+      - description: "The type of CRM object to create in batch. This specifies the\
+          \ category of objects, such as contacts or deals, that the batch operation\
+          \ will apply to."
+        explode: false
+        in: path
+        name: objectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BatchInputSimplePublicObjectBatchInputForCreate"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BatchResponseSimplePublicObject"
+          description: successful operation
+        "207":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BatchResponseSimplePublicObjectWithErrors"
+          description: multiple statuses
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: An error occurred.
+      security:
+      - oauth2:
+        - crm.objects.tickets.write
+      - oauth2:
+        - crm.objects.tickets.read
+      - oauth2:
+        - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.services.read
+      - oauth2:
+        - crm.objects.subscriptions.read
+      - oauth2:
+        - crm.objects.tickets.sensitive.read
+      - oauth2:
+        - crm.objects.orders.read
+      - oauth2:
+        - crm.objects.listings.write
+      - oauth2:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.custom.sensitive.write.v2
+      - oauth2:
+        - crm.objects.tasks.read
+      - oauth2:
+        - crm.objects.custom.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.appointments.sensitive.read.v2
+      - oauth2:
+        - crm.objects.contacts.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.forecasts.read
+      - oauth2:
+        - crm.objects.tickets.highly_sensitive.read
+      - oauth2:
+        - crm.objects.companies.sensitive.read.v2
+      - oauth2:
+        - crm.objects.tickets.sensitive.write
+      - oauth2:
+        - media_bridge.read
+      - oauth2:
+        - crm.objects.deals.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.contacts.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.contracts.read
+      - oauth2:
+        - crm.objects.companies.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.commercepayments.write
+      - oauth2:
+        - crm.objects.invoices.write
+      - oauth2:
+        - crm.objects.contacts.sensitive.write.v2
+      - oauth2:
+        - crm.objects.calls.read
+      - oauth2:
+        - crm.objects.users.write
+      - oauth2:
+        - crm.objects.custom.sensitive.read.v2
+      - oauth2:
+        - crm.objects.meetings.read
+      - oauth2:
+        - crm.objects.users.read
+      - oauth2:
+        - crm.objects.orders.write
+      - oauth2:
+        - crm.objects.partner-services.read
+      - oauth2:
+        - crm.objects.partner-services.write
+      - oauth2:
+        - crm.objects.appointments.write
+      - oauth2:
+        - crm.objects.projects.highly_sensitive.write
+      - oauth2:
+        - crm.objects.carts.write
+      - oauth2:
+        - crm.objects.tickets.highly_sensitive.write
+      - oauth2:
+        - crm.objects.tasks.write
+      - oauth2:
+        - crm.objects.commercepayments.read
+      - oauth2:
+        - revenue.contracts.read
+      - oauth2:
+        - crm.objects.feedback_submissions.read
+      - oauth2:
+        - crm.objects.products.write
+      - oauth2:
+        - crm.objects.services.write
+      - oauth2:
+        - crm.objects.emails.write
+      - oauth2:
+        - crm.objects.subscriptions.write
+      - oauth2:
+        - crm.objects.deals.sensitive.write.v2
+      - oauth2:
+        - crm.objects.contacts.read
+      - oauth2:
+        - crm.objects.appointments.sensitive.write.v2
+      - oauth2:
+        - cpq.price_books.read
+      - oauth2:
+        - crm.objects.meetings.write
+      - oauth2:
+        - crm.objects.invoices.read
+      - oauth2:
+        - crm.objects.projects.highly_sensitive.read
+      - oauth2:
+        - crm.objects.custom.write
+      - oauth2:
+        - crm.objects.notes.write
+      - oauth2:
+        - tickets.sensitive.v2
+      - oauth2:
+        - crm.objects.deals.write
+      - oauth2:
+        - e-commerce
+      - oauth2:
+        - crm.objects.appointments.read
+      - oauth2:
+        - crm.objects.companies.sensitive.write.v2
+      - oauth2:
+        - crm.objects.projects.read
+      - oauth2:
+        - crm.objects.companies.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.custom.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.deals.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.calls.write
+      - oauth2:
+        - crm.objects.goals.write
+      - oauth2:
+        - crm.objects.line_items.write
+      - oauth2:
+        - crm.objects.projects.sensitive.read
+      - oauth2:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.goals.read
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.partner-clients.write
+      - oauth2:
+        - crm.objects.projects.write
+      - oauth2:
+        - crm.objects.deals.sensitive.read.v2
+      - oauth2:
+        - crm.objects.projects.sensitive.write
+      - oauth2:
+        - crm.objects.quotes.write
+      - oauth2:
+        - tickets.highly_sensitive.v2
+      - oauth2:
+        - crm.objects.leads.read
+      - oauth2:
+        - crm.objects.leads.write
+      - oauth2:
+        - crm.objects.carts.read
+      - oauth2:
+        - crm.objects.emails.read
+      - oauth2:
+        - crm.objects.courses.write
+      - oauth2:
+        - crm.objects.quotes.read
+      - oauth2:
+        - crm.objects.partner-clients.read
+      - oauth2:
+        - crm.objects.courses.read
+      - oauth2:
+        - crm.objects.notes.read
+      - oauth2:
+        - crm.objects.listings.read
+      - oauth2:
+        - crm.objects.contacts.sensitive.read.v2
+      - oauth2:
+        - crm.objects.products.read
+      - oauth2:
+        - oauth
+      summary: Batch create objects
+      tags:
+      - Batch
+      x-hubspot-user-level-auth:
+        internalOnly: false
+  /crm/objects/2026-09/{objectType}/batch/read:
+    post:
+      description: "Retrieve a batch of CRM objects by their internal IDs or unique\
+        \ property values. This endpoint is useful for fetching multiple objects in\
+        \ a single request, which can help optimize performance and reduce the number\
+        \ of API calls needed. You can specify whether to include archived objects\
+        \ in the response."
+      operationId: BatchRead
+      parameters:
+      - description: "The type of CRM object to read in batch, such as contacts, companies,\
+          \ or deals."
+        explode: false
+        in: path
+        name: objectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Whether to return only results that have been archived. Defaults
+          to false.
+        explode: true
+        in: query
+        name: archived
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BatchReadInputSimplePublicObjectId"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BatchResponseSimplePublicObject"
+          description: successful operation
+        "207":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BatchResponseSimplePublicObjectWithErrors"
+          description: multiple statuses
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: An error occurred.
+      security:
+      - oauth2:
+        - crm.objects.tickets.write
+      - oauth2:
+        - crm.objects.tickets.read
+      - oauth2:
+        - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.services.read
+      - oauth2:
+        - crm.objects.subscriptions.read
+      - oauth2:
+        - crm.objects.tickets.sensitive.read
+      - oauth2:
+        - crm.objects.orders.read
+      - oauth2:
+        - crm.objects.listings.write
+      - oauth2:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.custom.sensitive.write.v2
+      - oauth2:
+        - crm.objects.tasks.read
+      - oauth2:
+        - crm.objects.custom.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.appointments.sensitive.read.v2
+      - oauth2:
+        - crm.objects.contacts.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.forecasts.read
+      - oauth2:
+        - crm.objects.tickets.highly_sensitive.read
+      - oauth2:
+        - crm.objects.companies.sensitive.read.v2
+      - oauth2:
+        - crm.objects.tickets.sensitive.write
+      - oauth2:
+        - media_bridge.read
+      - oauth2:
+        - crm.objects.deals.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.contacts.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.contracts.read
+      - oauth2:
+        - crm.objects.companies.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.commercepayments.write
+      - oauth2:
+        - crm.objects.invoices.write
+      - oauth2:
+        - crm.objects.contacts.sensitive.write.v2
+      - oauth2:
+        - crm.objects.calls.read
+      - oauth2:
+        - crm.objects.users.write
+      - oauth2:
+        - crm.objects.custom.sensitive.read.v2
+      - oauth2:
+        - crm.objects.meetings.read
+      - oauth2:
+        - crm.objects.users.read
+      - oauth2:
+        - crm.objects.orders.write
+      - oauth2:
+        - crm.objects.partner-services.read
+      - oauth2:
+        - crm.objects.partner-services.write
+      - oauth2:
+        - crm.objects.appointments.write
+      - oauth2:
+        - crm.objects.projects.highly_sensitive.write
+      - oauth2:
+        - crm.objects.carts.write
+      - oauth2:
+        - crm.objects.tickets.highly_sensitive.write
+      - oauth2:
+        - crm.objects.tasks.write
+      - oauth2:
+        - crm.objects.commercepayments.read
+      - oauth2:
+        - revenue.contracts.read
+      - oauth2:
+        - crm.objects.feedback_submissions.read
+      - oauth2:
+        - crm.objects.products.write
+      - oauth2:
+        - crm.objects.services.write
+      - oauth2:
+        - crm.objects.emails.write
+      - oauth2:
+        - crm.objects.subscriptions.write
+      - oauth2:
+        - crm.objects.deals.sensitive.write.v2
+      - oauth2:
+        - crm.objects.contacts.read
+      - oauth2:
+        - crm.objects.appointments.sensitive.write.v2
+      - oauth2:
+        - cpq.price_books.read
+      - oauth2:
+        - crm.objects.meetings.write
+      - oauth2:
+        - crm.objects.invoices.read
+      - oauth2:
+        - crm.objects.projects.highly_sensitive.read
+      - oauth2:
+        - crm.objects.custom.write
+      - oauth2:
+        - crm.objects.notes.write
+      - oauth2:
+        - tickets.sensitive.v2
+      - oauth2:
+        - crm.objects.deals.write
+      - oauth2:
+        - e-commerce
+      - oauth2:
+        - crm.objects.appointments.read
+      - oauth2:
+        - crm.objects.companies.sensitive.write.v2
+      - oauth2:
+        - crm.objects.projects.read
+      - oauth2:
+        - crm.objects.companies.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.custom.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.deals.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.calls.write
+      - oauth2:
+        - crm.objects.goals.write
+      - oauth2:
+        - crm.objects.line_items.write
+      - oauth2:
+        - crm.objects.projects.sensitive.read
+      - oauth2:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.goals.read
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.partner-clients.write
+      - oauth2:
+        - crm.objects.projects.write
+      - oauth2:
+        - crm.objects.deals.sensitive.read.v2
+      - oauth2:
+        - crm.objects.projects.sensitive.write
+      - oauth2:
+        - crm.objects.quotes.write
+      - oauth2:
+        - tickets.highly_sensitive.v2
+      - oauth2:
+        - crm.objects.leads.read
+      - oauth2:
+        - crm.objects.leads.write
+      - oauth2:
+        - crm.objects.carts.read
+      - oauth2:
+        - crm.objects.emails.read
+      - oauth2:
+        - crm.objects.courses.write
+      - oauth2:
+        - crm.objects.quotes.read
+      - oauth2:
+        - crm.objects.partner-clients.read
+      - oauth2:
+        - crm.objects.courses.read
+      - oauth2:
+        - crm.objects.notes.read
+      - oauth2:
+        - crm.objects.listings.read
+      - oauth2:
+        - crm.objects.contacts.sensitive.read.v2
+      - oauth2:
+        - crm.objects.products.read
+      - oauth2:
+        - oauth
+      summary: Read batch objects
+      tags:
+      - Batch
+      x-hubspot-user-level-auth:
+        internalOnly: false
+  /crm/objects/2026-09/{objectType}/batch/update:
+    post:
+      description: Update a batch of CRM objects in your HubSpot account. This endpoint
+        allows you to modify multiple objects at once by providing their details in
+        the request body. It is useful for making bulk updates to object properties
+        efficiently.
+      operationId: BatchUpdate
+      parameters:
+      - description: "The type of CRM object to update in batch, such as contacts,\
+          \ companies, or deals."
+        explode: false
+        in: path
+        name: objectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BatchInputSimplePublicObjectBatchInput"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BatchResponseSimplePublicObject"
+          description: successful operation
+        "207":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BatchResponseSimplePublicObjectWithErrors"
+          description: multiple statuses
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: An error occurred.
+      security:
+      - oauth2:
+        - crm.objects.tickets.write
+      - oauth2:
+        - crm.objects.tickets.read
+      - oauth2:
+        - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.services.read
+      - oauth2:
+        - crm.objects.subscriptions.read
+      - oauth2:
+        - crm.objects.tickets.sensitive.read
+      - oauth2:
+        - crm.objects.orders.read
+      - oauth2:
+        - crm.objects.listings.write
+      - oauth2:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.custom.sensitive.write.v2
+      - oauth2:
+        - crm.objects.tasks.read
+      - oauth2:
+        - crm.objects.custom.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.appointments.sensitive.read.v2
+      - oauth2:
+        - crm.objects.contacts.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.forecasts.read
+      - oauth2:
+        - crm.objects.tickets.highly_sensitive.read
+      - oauth2:
+        - crm.objects.companies.sensitive.read.v2
+      - oauth2:
+        - crm.objects.tickets.sensitive.write
+      - oauth2:
+        - media_bridge.read
+      - oauth2:
+        - crm.objects.deals.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.contacts.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.contracts.read
+      - oauth2:
+        - crm.objects.companies.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.commercepayments.write
+      - oauth2:
+        - crm.objects.invoices.write
+      - oauth2:
+        - crm.objects.contacts.sensitive.write.v2
+      - oauth2:
+        - crm.objects.calls.read
+      - oauth2:
+        - crm.objects.users.write
+      - oauth2:
+        - crm.objects.custom.sensitive.read.v2
+      - oauth2:
+        - crm.objects.meetings.read
+      - oauth2:
+        - crm.objects.users.read
+      - oauth2:
+        - crm.objects.orders.write
+      - oauth2:
+        - crm.objects.partner-services.read
+      - oauth2:
+        - crm.objects.partner-services.write
+      - oauth2:
+        - crm.objects.appointments.write
+      - oauth2:
+        - crm.objects.projects.highly_sensitive.write
+      - oauth2:
+        - crm.objects.carts.write
+      - oauth2:
+        - crm.objects.tickets.highly_sensitive.write
+      - oauth2:
+        - crm.objects.tasks.write
+      - oauth2:
+        - crm.objects.commercepayments.read
+      - oauth2:
+        - revenue.contracts.read
+      - oauth2:
+        - crm.objects.feedback_submissions.read
+      - oauth2:
+        - crm.objects.products.write
+      - oauth2:
+        - crm.objects.services.write
+      - oauth2:
+        - crm.objects.emails.write
+      - oauth2:
+        - crm.objects.subscriptions.write
+      - oauth2:
+        - crm.objects.deals.sensitive.write.v2
+      - oauth2:
+        - crm.objects.contacts.read
+      - oauth2:
+        - crm.objects.appointments.sensitive.write.v2
+      - oauth2:
+        - cpq.price_books.read
+      - oauth2:
+        - crm.objects.meetings.write
+      - oauth2:
+        - crm.objects.invoices.read
+      - oauth2:
+        - crm.objects.projects.highly_sensitive.read
+      - oauth2:
+        - crm.objects.custom.write
+      - oauth2:
+        - crm.objects.notes.write
+      - oauth2:
+        - tickets.sensitive.v2
+      - oauth2:
+        - crm.objects.deals.write
+      - oauth2:
+        - e-commerce
+      - oauth2:
+        - crm.objects.appointments.read
+      - oauth2:
+        - crm.objects.companies.sensitive.write.v2
+      - oauth2:
+        - crm.objects.projects.read
+      - oauth2:
+        - crm.objects.companies.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.custom.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.deals.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.calls.write
+      - oauth2:
+        - crm.objects.goals.write
+      - oauth2:
+        - crm.objects.line_items.write
+      - oauth2:
+        - crm.objects.projects.sensitive.read
+      - oauth2:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.goals.read
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.partner-clients.write
+      - oauth2:
+        - crm.objects.projects.write
+      - oauth2:
+        - crm.objects.deals.sensitive.read.v2
+      - oauth2:
+        - crm.objects.projects.sensitive.write
+      - oauth2:
+        - crm.objects.quotes.write
+      - oauth2:
+        - tickets.highly_sensitive.v2
+      - oauth2:
+        - crm.objects.leads.read
+      - oauth2:
+        - crm.objects.leads.write
+      - oauth2:
+        - crm.objects.carts.read
+      - oauth2:
+        - crm.objects.emails.read
+      - oauth2:
+        - crm.objects.courses.write
+      - oauth2:
+        - crm.objects.quotes.read
+      - oauth2:
+        - crm.objects.partner-clients.read
+      - oauth2:
+        - crm.objects.courses.read
+      - oauth2:
+        - crm.objects.notes.read
+      - oauth2:
+        - crm.objects.listings.read
+      - oauth2:
+        - crm.objects.contacts.sensitive.read.v2
+      - oauth2:
+        - crm.objects.products.read
+      - oauth2:
+        - oauth
+      summary: Update batch objects
+      tags:
+      - Batch
+      x-hubspot-user-level-auth:
+        internalOnly: false
+  /crm/objects/2026-09/{objectType}/batch/upsert:
+    post:
+      description: Create or update a batch of CRM objects by unique property values.
+        This endpoint allows you to efficiently manage large sets of data by either
+        creating new objects or updating existing ones based on unique identifiers.
+        It is particularly useful for synchronizing data between systems or ensuring
+        that your CRM data is up-to-date.
+      operationId: "post-/crm/objects/2026-09/{objectType}/batch/upsert_/crm/objects/2026-09-beta/{objectType}/batch/upsert"
+      parameters:
+      - description: "The type of CRM object to create or update in batch. This specifies\
+          \ the category of objects, such as contacts or deals, that the operation\
+          \ will target."
+        explode: false
+        in: path
+        name: objectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BatchInputSimplePublicObjectBatchInputUpsert"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BatchResponseSimplePublicUpsertObject"
+          description: successful operation
+        "207":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BatchResponseSimplePublicUpsertObjectWithErrors"
+          description: multiple statuses
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: An error occurred.
+      security:
+      - oauth2:
+        - crm.objects.tickets.write
+      - oauth2:
+        - crm.objects.tickets.read
+      - oauth2:
+        - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.services.read
+      - oauth2:
+        - crm.objects.subscriptions.read
+      - oauth2:
+        - crm.objects.tickets.sensitive.read
+      - oauth2:
+        - crm.objects.orders.read
+      - oauth2:
+        - crm.objects.listings.write
+      - oauth2:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.custom.sensitive.write.v2
+      - oauth2:
+        - crm.objects.tasks.read
+      - oauth2:
+        - crm.objects.custom.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.appointments.sensitive.read.v2
+      - oauth2:
+        - crm.objects.contacts.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.forecasts.read
+      - oauth2:
+        - crm.objects.tickets.highly_sensitive.read
+      - oauth2:
+        - crm.objects.companies.sensitive.read.v2
+      - oauth2:
+        - crm.objects.tickets.sensitive.write
+      - oauth2:
+        - media_bridge.read
+      - oauth2:
+        - crm.objects.deals.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.contacts.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.contracts.read
+      - oauth2:
+        - crm.objects.companies.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.commercepayments.write
+      - oauth2:
+        - crm.objects.invoices.write
+      - oauth2:
+        - crm.objects.contacts.sensitive.write.v2
+      - oauth2:
+        - crm.objects.calls.read
+      - oauth2:
+        - crm.objects.users.write
+      - oauth2:
+        - crm.objects.custom.sensitive.read.v2
+      - oauth2:
+        - crm.objects.meetings.read
+      - oauth2:
+        - crm.objects.users.read
+      - oauth2:
+        - crm.objects.orders.write
+      - oauth2:
+        - crm.objects.partner-services.read
+      - oauth2:
+        - crm.objects.partner-services.write
+      - oauth2:
+        - crm.objects.appointments.write
+      - oauth2:
+        - crm.objects.projects.highly_sensitive.write
+      - oauth2:
+        - crm.objects.carts.write
+      - oauth2:
+        - crm.objects.tickets.highly_sensitive.write
+      - oauth2:
+        - crm.objects.tasks.write
+      - oauth2:
+        - crm.objects.commercepayments.read
+      - oauth2:
+        - revenue.contracts.read
+      - oauth2:
+        - crm.objects.feedback_submissions.read
+      - oauth2:
+        - crm.objects.products.write
+      - oauth2:
+        - crm.objects.services.write
+      - oauth2:
+        - crm.objects.emails.write
+      - oauth2:
+        - crm.objects.subscriptions.write
+      - oauth2:
+        - crm.objects.deals.sensitive.write.v2
+      - oauth2:
+        - crm.objects.contacts.read
+      - oauth2:
+        - crm.objects.appointments.sensitive.write.v2
+      - oauth2:
+        - cpq.price_books.read
+      - oauth2:
+        - crm.objects.meetings.write
+      - oauth2:
+        - crm.objects.invoices.read
+      - oauth2:
+        - crm.objects.projects.highly_sensitive.read
+      - oauth2:
+        - crm.objects.custom.write
+      - oauth2:
+        - crm.objects.notes.write
+      - oauth2:
+        - tickets.sensitive.v2
+      - oauth2:
+        - crm.objects.deals.write
+      - oauth2:
+        - e-commerce
+      - oauth2:
+        - crm.objects.appointments.read
+      - oauth2:
+        - crm.objects.companies.sensitive.write.v2
+      - oauth2:
+        - crm.objects.projects.read
+      - oauth2:
+        - crm.objects.companies.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.custom.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.deals.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.calls.write
+      - oauth2:
+        - crm.objects.goals.write
+      - oauth2:
+        - crm.objects.line_items.write
+      - oauth2:
+        - crm.objects.projects.sensitive.read
+      - oauth2:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.goals.read
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.partner-clients.write
+      - oauth2:
+        - crm.objects.projects.write
+      - oauth2:
+        - crm.objects.deals.sensitive.read.v2
+      - oauth2:
+        - crm.objects.projects.sensitive.write
+      - oauth2:
+        - crm.objects.quotes.write
+      - oauth2:
+        - tickets.highly_sensitive.v2
+      - oauth2:
+        - crm.objects.leads.read
+      - oauth2:
+        - crm.objects.leads.write
+      - oauth2:
+        - crm.objects.carts.read
+      - oauth2:
+        - crm.objects.emails.read
+      - oauth2:
+        - crm.objects.courses.write
+      - oauth2:
+        - crm.objects.quotes.read
+      - oauth2:
+        - crm.objects.partner-clients.read
+      - oauth2:
+        - crm.objects.courses.read
+      - oauth2:
+        - crm.objects.notes.read
+      - oauth2:
+        - crm.objects.listings.read
+      - oauth2:
+        - crm.objects.contacts.sensitive.read.v2
+      - oauth2:
+        - crm.objects.products.read
+      - oauth2:
+        - oauth
+      summary: Upsert batch objects
+      tags:
+      - Batch
+      x-hubspot-user-level-auth:
+        internalOnly: false
+  /crm/objects/2026-09/{objectType}/gdpr-delete:
+    post:
+      description: "Permanently delete a contact and all associated content in compliance\
+        \ with GDPR. This endpoint can use the optional 'idProperty' set to 'email'\
+        \ to identify the contact by email address. If the email address is not found,\
+        \ it will be added to a blocklist to prevent future use."
+      operationId: "post-/crm/objects/2026-09/{objectType}/gdpr-delete_/crm/objects/2026-09-beta/{objectType}/gdpr-delete"
+      parameters:
+      - description: "The type of CRM object to be deleted, such as 'contacts'."
+        explode: false
+        in: path
+        name: objectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PublicGdprDeleteInput"
+        required: true
+      responses:
+        "204":
+          content: {}
+          description: No content
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: An error occurred.
+      security:
+      - oauth2:
+        - crm.objects.tickets.write
+      - oauth2:
+        - crm.objects.tickets.read
+      - oauth2:
+        - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.services.read
+      - oauth2:
+        - crm.objects.subscriptions.read
+      - oauth2:
+        - crm.objects.tickets.sensitive.read
+      - oauth2:
+        - crm.objects.orders.read
+      - oauth2:
+        - crm.objects.listings.write
+      - oauth2:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.custom.sensitive.write.v2
+      - oauth2:
+        - crm.objects.tasks.read
+      - oauth2:
+        - crm.objects.custom.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.appointments.sensitive.read.v2
+      - oauth2:
+        - crm.objects.contacts.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.forecasts.read
+      - oauth2:
+        - crm.objects.tickets.highly_sensitive.read
+      - oauth2:
+        - crm.objects.companies.sensitive.read.v2
+      - oauth2:
+        - crm.objects.tickets.sensitive.write
+      - oauth2:
+        - media_bridge.read
+      - oauth2:
+        - crm.objects.deals.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.contacts.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.contracts.read
+      - oauth2:
+        - crm.objects.companies.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.commercepayments.write
+      - oauth2:
+        - crm.objects.invoices.write
+      - oauth2:
+        - crm.objects.contacts.sensitive.write.v2
+      - oauth2:
+        - crm.objects.calls.read
+      - oauth2:
+        - crm.objects.users.write
+      - oauth2:
+        - crm.objects.custom.sensitive.read.v2
+      - oauth2:
+        - crm.objects.meetings.read
+      - oauth2:
+        - crm.objects.users.read
+      - oauth2:
+        - crm.objects.orders.write
+      - oauth2:
+        - crm.objects.partner-services.read
+      - oauth2:
+        - crm.objects.partner-services.write
+      - oauth2:
+        - crm.objects.appointments.write
+      - oauth2:
+        - crm.objects.projects.highly_sensitive.write
+      - oauth2:
+        - crm.objects.carts.write
+      - oauth2:
+        - crm.objects.tickets.highly_sensitive.write
+      - oauth2:
+        - crm.objects.tasks.write
+      - oauth2:
+        - crm.objects.commercepayments.read
+      - oauth2:
+        - revenue.contracts.read
+      - oauth2:
+        - crm.objects.feedback_submissions.read
+      - oauth2:
+        - crm.objects.products.write
+      - oauth2:
+        - crm.objects.services.write
+      - oauth2:
+        - crm.objects.emails.write
+      - oauth2:
+        - crm.objects.subscriptions.write
+      - oauth2:
+        - crm.objects.deals.sensitive.write.v2
+      - oauth2:
+        - crm.objects.contacts.read
+      - oauth2:
+        - crm.objects.appointments.sensitive.write.v2
+      - oauth2:
+        - cpq.price_books.read
+      - oauth2:
+        - crm.objects.meetings.write
+      - oauth2:
+        - crm.objects.invoices.read
+      - oauth2:
+        - crm.objects.projects.highly_sensitive.read
+      - oauth2:
+        - crm.objects.custom.write
+      - oauth2:
+        - crm.objects.notes.write
+      - oauth2:
+        - tickets.sensitive.v2
+      - oauth2:
+        - crm.objects.deals.write
+      - oauth2:
+        - e-commerce
+      - oauth2:
+        - crm.objects.appointments.read
+      - oauth2:
+        - crm.objects.companies.sensitive.write.v2
+      - oauth2:
+        - crm.objects.projects.read
+      - oauth2:
+        - crm.objects.companies.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.custom.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.deals.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.calls.write
+      - oauth2:
+        - crm.objects.goals.write
+      - oauth2:
+        - crm.objects.line_items.write
+      - oauth2:
+        - crm.objects.projects.sensitive.read
+      - oauth2:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.goals.read
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.partner-clients.write
+      - oauth2:
+        - crm.objects.projects.write
+      - oauth2:
+        - crm.objects.deals.sensitive.read.v2
+      - oauth2:
+        - crm.objects.projects.sensitive.write
+      - oauth2:
+        - crm.objects.quotes.write
+      - oauth2:
+        - tickets.highly_sensitive.v2
+      - oauth2:
+        - crm.objects.leads.read
+      - oauth2:
+        - crm.objects.leads.write
+      - oauth2:
+        - crm.objects.carts.read
+      - oauth2:
+        - crm.objects.emails.read
+      - oauth2:
+        - crm.objects.courses.write
+      - oauth2:
+        - crm.objects.quotes.read
+      - oauth2:
+        - crm.objects.partner-clients.read
+      - oauth2:
+        - crm.objects.courses.read
+      - oauth2:
+        - crm.objects.notes.read
+      - oauth2:
+        - crm.objects.listings.read
+      - oauth2:
+        - crm.objects.contacts.sensitive.read.v2
+      - oauth2:
+        - crm.objects.products.read
+      - oauth2:
+        - oauth
+      summary: GDPR Delete
+      tags:
+      - Advanced
+  /crm/objects/2026-09/{objectType}/merge:
+    post:
+      description: Merge two CRM objects of the same type into a single object. This
+        operation is useful for consolidating duplicate records and ensuring data
+        consistency. The request requires specifying the primary object and the object
+        to be merged.
+      operationId: "post-/crm/objects/2026-09/{objectType}/merge_/crm/objects/2026-09-beta/{objectType}/merge"
+      parameters:
+      - description: "The type of the CRM object to be merged, such as contacts, companies,\
+          \ or deals."
+        explode: false
+        in: path
+        name: objectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PublicMergeInput"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SimplePublicObject"
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: An error occurred.
+      security:
+      - oauth2:
+        - crm.objects.tickets.write
+      - oauth2:
+        - crm.objects.tickets.read
+      - oauth2:
+        - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.services.read
+      - oauth2:
+        - crm.objects.subscriptions.read
+      - oauth2:
+        - crm.objects.tickets.sensitive.read
+      - oauth2:
+        - crm.objects.orders.read
+      - oauth2:
+        - crm.objects.listings.write
+      - oauth2:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.custom.sensitive.write.v2
+      - oauth2:
+        - crm.objects.tasks.read
+      - oauth2:
+        - crm.objects.custom.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.appointments.sensitive.read.v2
+      - oauth2:
+        - crm.objects.contacts.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.forecasts.read
+      - oauth2:
+        - crm.objects.tickets.highly_sensitive.read
+      - oauth2:
+        - crm.objects.companies.sensitive.read.v2
+      - oauth2:
+        - crm.objects.tickets.sensitive.write
+      - oauth2:
+        - media_bridge.read
+      - oauth2:
+        - crm.objects.deals.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.contacts.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.contracts.read
+      - oauth2:
+        - crm.objects.companies.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.commercepayments.write
+      - oauth2:
+        - crm.objects.invoices.write
+      - oauth2:
+        - crm.objects.contacts.sensitive.write.v2
+      - oauth2:
+        - crm.objects.calls.read
+      - oauth2:
+        - crm.objects.users.write
+      - oauth2:
+        - crm.objects.custom.sensitive.read.v2
+      - oauth2:
+        - crm.objects.meetings.read
+      - oauth2:
+        - crm.objects.users.read
+      - oauth2:
+        - crm.objects.orders.write
+      - oauth2:
+        - crm.objects.partner-services.read
+      - oauth2:
+        - crm.objects.partner-services.write
+      - oauth2:
+        - crm.objects.appointments.write
+      - oauth2:
+        - crm.objects.projects.highly_sensitive.write
+      - oauth2:
+        - crm.objects.carts.write
+      - oauth2:
+        - crm.objects.tickets.highly_sensitive.write
+      - oauth2:
+        - crm.objects.tasks.write
+      - oauth2:
+        - crm.objects.commercepayments.read
+      - oauth2:
+        - revenue.contracts.read
+      - oauth2:
+        - crm.objects.feedback_submissions.read
+      - oauth2:
+        - crm.objects.products.write
+      - oauth2:
+        - crm.objects.services.write
+      - oauth2:
+        - crm.objects.emails.write
+      - oauth2:
+        - crm.objects.subscriptions.write
+      - oauth2:
+        - crm.objects.deals.sensitive.write.v2
+      - oauth2:
+        - crm.objects.contacts.read
+      - oauth2:
+        - crm.objects.appointments.sensitive.write.v2
+      - oauth2:
+        - cpq.price_books.read
+      - oauth2:
+        - crm.objects.meetings.write
+      - oauth2:
+        - crm.objects.invoices.read
+      - oauth2:
+        - crm.objects.projects.highly_sensitive.read
+      - oauth2:
+        - crm.objects.custom.write
+      - oauth2:
+        - crm.objects.notes.write
+      - oauth2:
+        - tickets.sensitive.v2
+      - oauth2:
+        - crm.objects.deals.write
+      - oauth2:
+        - e-commerce
+      - oauth2:
+        - crm.objects.appointments.read
+      - oauth2:
+        - crm.objects.companies.sensitive.write.v2
+      - oauth2:
+        - crm.objects.projects.read
+      - oauth2:
+        - crm.objects.companies.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.custom.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.deals.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.calls.write
+      - oauth2:
+        - crm.objects.goals.write
+      - oauth2:
+        - crm.objects.line_items.write
+      - oauth2:
+        - crm.objects.projects.sensitive.read
+      - oauth2:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.goals.read
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.partner-clients.write
+      - oauth2:
+        - crm.objects.projects.write
+      - oauth2:
+        - crm.objects.deals.sensitive.read.v2
+      - oauth2:
+        - crm.objects.projects.sensitive.write
+      - oauth2:
+        - crm.objects.quotes.write
+      - oauth2:
+        - tickets.highly_sensitive.v2
+      - oauth2:
+        - crm.objects.leads.read
+      - oauth2:
+        - crm.objects.leads.write
+      - oauth2:
+        - crm.objects.carts.read
+      - oauth2:
+        - crm.objects.emails.read
+      - oauth2:
+        - crm.objects.courses.write
+      - oauth2:
+        - crm.objects.quotes.read
+      - oauth2:
+        - crm.objects.partner-clients.read
+      - oauth2:
+        - crm.objects.courses.read
+      - oauth2:
+        - crm.objects.notes.read
+      - oauth2:
+        - crm.objects.listings.read
+      - oauth2:
+        - crm.objects.contacts.sensitive.read.v2
+      - oauth2:
+        - crm.objects.products.read
+      - oauth2:
+        - oauth
+      summary: Merge objects
+      tags:
+      - Advanced
+      x-hubspot-user-level-auth:
+        internalOnly: false
+  /crm/objects/2026-09/{objectType}/search:
+    post:
+      description: "Search CRM objects of a specified type using the provided search\
+        \ criteria. This endpoint allows you to filter and sort objects based on various\
+        \ properties, returning a collection of matching objects along with the total\
+        \ count."
+      operationId: Search
+      parameters:
+      - description: "The type of CRM object to search, such as contacts, companies,\
+          \ or deals."
+        explode: false
+        in: path
+        name: objectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PublicObjectSearchRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CollectionResponseWithTotalSimplePublicObject"
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: An error occurred.
+      security:
+      - oauth2:
+        - crm.objects.tickets.write
+      - oauth2:
+        - crm.objects.tickets.read
+      - oauth2:
+        - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.services.read
+      - oauth2:
+        - crm.objects.subscriptions.read
+      - oauth2:
+        - crm.objects.tickets.sensitive.read
+      - oauth2:
+        - crm.objects.orders.read
+      - oauth2:
+        - crm.objects.listings.write
+      - oauth2:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.custom.sensitive.write.v2
+      - oauth2:
+        - crm.objects.tasks.read
+      - oauth2:
+        - crm.objects.custom.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.appointments.sensitive.read.v2
+      - oauth2:
+        - crm.objects.contacts.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.forecasts.read
+      - oauth2:
+        - crm.objects.tickets.highly_sensitive.read
+      - oauth2:
+        - crm.objects.companies.sensitive.read.v2
+      - oauth2:
+        - crm.objects.tickets.sensitive.write
+      - oauth2:
+        - media_bridge.read
+      - oauth2:
+        - crm.objects.deals.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.contacts.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.contracts.read
+      - oauth2:
+        - crm.objects.companies.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.commercepayments.write
+      - oauth2:
+        - crm.objects.invoices.write
+      - oauth2:
+        - crm.objects.contacts.sensitive.write.v2
+      - oauth2:
+        - crm.objects.calls.read
+      - oauth2:
+        - crm.objects.users.write
+      - oauth2:
+        - crm.objects.custom.sensitive.read.v2
+      - oauth2:
+        - crm.objects.meetings.read
+      - oauth2:
+        - crm.objects.users.read
+      - oauth2:
+        - crm.objects.orders.write
+      - oauth2:
+        - crm.objects.partner-services.read
+      - oauth2:
+        - crm.objects.partner-services.write
+      - oauth2:
+        - crm.objects.appointments.write
+      - oauth2:
+        - crm.objects.projects.highly_sensitive.write
+      - oauth2:
+        - crm.objects.carts.write
+      - oauth2:
+        - crm.objects.tickets.highly_sensitive.write
+      - oauth2:
+        - crm.objects.tasks.write
+      - oauth2:
+        - crm.objects.commercepayments.read
+      - oauth2:
+        - revenue.contracts.read
+      - oauth2:
+        - crm.objects.feedback_submissions.read
+      - oauth2:
+        - crm.objects.products.write
+      - oauth2:
+        - crm.objects.services.write
+      - oauth2:
+        - crm.objects.emails.write
+      - oauth2:
+        - crm.objects.subscriptions.write
+      - oauth2:
+        - crm.objects.deals.sensitive.write.v2
+      - oauth2:
+        - crm.objects.contacts.read
+      - oauth2:
+        - crm.objects.appointments.sensitive.write.v2
+      - oauth2:
+        - cpq.price_books.read
+      - oauth2:
+        - crm.objects.meetings.write
+      - oauth2:
+        - crm.objects.invoices.read
+      - oauth2:
+        - crm.objects.projects.highly_sensitive.read
+      - oauth2:
+        - crm.objects.custom.write
+      - oauth2:
+        - crm.objects.notes.write
+      - oauth2:
+        - tickets.sensitive.v2
+      - oauth2:
+        - crm.objects.deals.write
+      - oauth2:
+        - e-commerce
+      - oauth2:
+        - crm.objects.appointments.read
+      - oauth2:
+        - crm.objects.companies.sensitive.write.v2
+      - oauth2:
+        - crm.objects.projects.read
+      - oauth2:
+        - crm.objects.companies.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.custom.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.deals.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.calls.write
+      - oauth2:
+        - crm.objects.goals.write
+      - oauth2:
+        - crm.objects.line_items.write
+      - oauth2:
+        - crm.objects.projects.sensitive.read
+      - oauth2:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.goals.read
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.partner-clients.write
+      - oauth2:
+        - crm.objects.projects.write
+      - oauth2:
+        - crm.objects.deals.sensitive.read.v2
+      - oauth2:
+        - crm.objects.projects.sensitive.write
+      - oauth2:
+        - crm.objects.quotes.write
+      - oauth2:
+        - tickets.highly_sensitive.v2
+      - oauth2:
+        - crm.objects.leads.read
+      - oauth2:
+        - crm.objects.leads.write
+      - oauth2:
+        - crm.objects.carts.read
+      - oauth2:
+        - crm.objects.emails.read
+      - oauth2:
+        - crm.objects.courses.write
+      - oauth2:
+        - crm.objects.quotes.read
+      - oauth2:
+        - crm.objects.partner-clients.read
+      - oauth2:
+        - crm.objects.courses.read
+      - oauth2:
+        - crm.objects.notes.read
+      - oauth2:
+        - crm.objects.listings.read
+      - oauth2:
+        - crm.objects.contacts.sensitive.read.v2
+      - oauth2:
+        - crm.objects.products.read
+      - oauth2:
+        - oauth
+      summary: Search objects
+      tags:
+      - Search
+      x-hubspot-rate-limit-exemptions:
+      - ten-secondly
+      x-hubspot-user-level-auth:
+        internalOnly: false
+  /crm/objects/2026-09/{objectType}/{objectId}:
+    delete:
+      description: "Move an Object identified by `{objectId}` to the recycling bin.\
+        \ This operation effectively archives the specified object, making it inactive\
+        \ but not permanently deleting it from the system."
+      operationId: "delete-/crm/objects/2026-09/{objectType}/{objectId}_/crm/objects/2026-09-beta/{objectType}/{objectId}"
+      parameters:
+      - description: The unique identifier of the object to be archived.
+        explode: false
+        in: path
+        name: objectId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The type of the object to be archived.
+        explode: false
+        in: path
+        name: objectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          content: {}
+          description: No content
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: An error occurred.
+      security:
+      - oauth2:
+        - crm.objects.tickets.write
+      - oauth2:
+        - crm.objects.tickets.read
+      - oauth2:
+        - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.services.read
+      - oauth2:
+        - crm.objects.subscriptions.read
+      - oauth2:
+        - crm.objects.tickets.sensitive.read
+      - oauth2:
+        - crm.objects.orders.read
+      - oauth2:
+        - crm.objects.listings.write
+      - oauth2:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.custom.sensitive.write.v2
+      - oauth2:
+        - crm.objects.tasks.read
+      - oauth2:
+        - crm.objects.custom.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.appointments.sensitive.read.v2
+      - oauth2:
+        - crm.objects.contacts.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.forecasts.read
+      - oauth2:
+        - crm.objects.tickets.highly_sensitive.read
+      - oauth2:
+        - crm.objects.companies.sensitive.read.v2
+      - oauth2:
+        - crm.objects.tickets.sensitive.write
+      - oauth2:
+        - media_bridge.read
+      - oauth2:
+        - crm.objects.deals.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.contacts.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.contracts.read
+      - oauth2:
+        - crm.objects.companies.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.commercepayments.write
+      - oauth2:
+        - crm.objects.invoices.write
+      - oauth2:
+        - crm.objects.contacts.sensitive.write.v2
+      - oauth2:
+        - crm.objects.calls.read
+      - oauth2:
+        - crm.objects.users.write
+      - oauth2:
+        - crm.objects.custom.sensitive.read.v2
+      - oauth2:
+        - crm.objects.meetings.read
+      - oauth2:
+        - crm.objects.users.read
+      - oauth2:
+        - crm.objects.orders.write
+      - oauth2:
+        - crm.objects.partner-services.read
+      - oauth2:
+        - crm.objects.partner-services.write
+      - oauth2:
+        - crm.objects.appointments.write
+      - oauth2:
+        - crm.objects.projects.highly_sensitive.write
+      - oauth2:
+        - crm.objects.carts.write
+      - oauth2:
+        - crm.objects.tickets.highly_sensitive.write
+      - oauth2:
+        - crm.objects.tasks.write
+      - oauth2:
+        - crm.objects.commercepayments.read
+      - oauth2:
+        - revenue.contracts.read
+      - oauth2:
+        - crm.objects.feedback_submissions.read
+      - oauth2:
+        - crm.objects.products.write
+      - oauth2:
+        - crm.objects.services.write
+      - oauth2:
+        - crm.objects.emails.write
+      - oauth2:
+        - crm.objects.subscriptions.write
+      - oauth2:
+        - crm.objects.deals.sensitive.write.v2
+      - oauth2:
+        - crm.objects.contacts.read
+      - oauth2:
+        - crm.objects.appointments.sensitive.write.v2
+      - oauth2:
+        - cpq.price_books.read
+      - oauth2:
+        - crm.objects.meetings.write
+      - oauth2:
+        - crm.objects.invoices.read
+      - oauth2:
+        - crm.objects.projects.highly_sensitive.read
+      - oauth2:
+        - crm.objects.custom.write
+      - oauth2:
+        - crm.objects.notes.write
+      - oauth2:
+        - tickets.sensitive.v2
+      - oauth2:
+        - crm.objects.deals.write
+      - oauth2:
+        - e-commerce
+      - oauth2:
+        - crm.objects.appointments.read
+      - oauth2:
+        - crm.objects.companies.sensitive.write.v2
+      - oauth2:
+        - crm.objects.projects.read
+      - oauth2:
+        - crm.objects.companies.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.custom.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.deals.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.calls.write
+      - oauth2:
+        - crm.objects.goals.write
+      - oauth2:
+        - crm.objects.line_items.write
+      - oauth2:
+        - crm.objects.projects.sensitive.read
+      - oauth2:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.goals.read
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.partner-clients.write
+      - oauth2:
+        - crm.objects.projects.write
+      - oauth2:
+        - crm.objects.deals.sensitive.read.v2
+      - oauth2:
+        - crm.objects.projects.sensitive.write
+      - oauth2:
+        - crm.objects.quotes.write
+      - oauth2:
+        - tickets.highly_sensitive.v2
+      - oauth2:
+        - crm.objects.leads.read
+      - oauth2:
+        - crm.objects.leads.write
+      - oauth2:
+        - crm.objects.carts.read
+      - oauth2:
+        - crm.objects.emails.read
+      - oauth2:
+        - crm.objects.courses.write
+      - oauth2:
+        - crm.objects.quotes.read
+      - oauth2:
+        - crm.objects.partner-clients.read
+      - oauth2:
+        - crm.objects.courses.read
+      - oauth2:
+        - crm.objects.notes.read
+      - oauth2:
+        - crm.objects.listings.read
+      - oauth2:
+        - crm.objects.contacts.sensitive.read.v2
+      - oauth2:
+        - crm.objects.products.read
+      - oauth2:
+        - oauth
+      summary: Archive
+      tags:
+      - Basic
+      x-hubspot-user-level-auth:
+        internalOnly: false
+    get:
+      description: "Read an object identified by `objectId`. The `objectId` refers\
+        \ to the internal object ID by default, or optionally any unique property\
+        \ value as specified by the `idProperty` query parameter. You can control\
+        \ what is returned via the `properties` query parameter. This endpoint is\
+        \ useful for retrieving specific objects and their details from your HubSpot\
+        \ account."
+      operationId: "get-/crm/objects/2026-09/{objectType}/{objectId}_/crm/objects/2026-09-beta/{objectType}/{objectId}"
+      parameters:
+      - description: The unique identifier of the object to retrieve.
+        explode: false
+        in: path
+        name: objectId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The type of the object to retrieve.
+        explode: false
+        in: path
+        name: objectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Whether to return only results that have been archived. Defaults
+          to false.
+        explode: true
+        in: query
+        name: archived
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
+      - description: "A comma-separated list of object types to retrieve associated\
+          \ IDs for. If any of the specified associations do not exist, they will\
+          \ be ignored."
+        explode: true
+        in: query
+        name: associations
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: The name of a property whose values are unique for this object
+          type.
+        explode: true
+        in: query
+        name: idProperty
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "A comma-separated list of the properties to be returned in the\
+          \ response. If any of the specified properties are not present on the requested\
+          \ object(s), they will be ignored."
+        explode: true
+        in: query
+        name: properties
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: "A comma-separated list of the properties to be returned along\
+          \ with their history of previous values. If any of the specified properties\
+          \ are not present on the requested object(s), they will be ignored."
+        explode: true
+        in: query
+        name: propertiesWithHistory
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SimplePublicObjectWithAssociations"
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: An error occurred.
+      security:
+      - oauth2:
+        - crm.objects.tickets.write
+      - oauth2:
+        - crm.objects.tickets.read
+      - oauth2:
+        - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.services.read
+      - oauth2:
+        - crm.objects.subscriptions.read
+      - oauth2:
+        - crm.objects.tickets.sensitive.read
+      - oauth2:
+        - crm.objects.orders.read
+      - oauth2:
+        - crm.objects.listings.write
+      - oauth2:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.custom.sensitive.write.v2
+      - oauth2:
+        - crm.objects.tasks.read
+      - oauth2:
+        - crm.objects.custom.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.appointments.sensitive.read.v2
+      - oauth2:
+        - crm.objects.contacts.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.forecasts.read
+      - oauth2:
+        - crm.objects.tickets.highly_sensitive.read
+      - oauth2:
+        - crm.objects.companies.sensitive.read.v2
+      - oauth2:
+        - crm.objects.tickets.sensitive.write
+      - oauth2:
+        - media_bridge.read
+      - oauth2:
+        - crm.objects.deals.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.contacts.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.contracts.read
+      - oauth2:
+        - crm.objects.companies.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.commercepayments.write
+      - oauth2:
+        - crm.objects.invoices.write
+      - oauth2:
+        - crm.objects.contacts.sensitive.write.v2
+      - oauth2:
+        - crm.objects.calls.read
+      - oauth2:
+        - crm.objects.users.write
+      - oauth2:
+        - crm.objects.custom.sensitive.read.v2
+      - oauth2:
+        - crm.objects.meetings.read
+      - oauth2:
+        - crm.objects.users.read
+      - oauth2:
+        - crm.objects.orders.write
+      - oauth2:
+        - crm.objects.partner-services.read
+      - oauth2:
+        - crm.objects.partner-services.write
+      - oauth2:
+        - crm.objects.appointments.write
+      - oauth2:
+        - crm.objects.projects.highly_sensitive.write
+      - oauth2:
+        - crm.objects.carts.write
+      - oauth2:
+        - crm.objects.tickets.highly_sensitive.write
+      - oauth2:
+        - crm.objects.tasks.write
+      - oauth2:
+        - crm.objects.commercepayments.read
+      - oauth2:
+        - revenue.contracts.read
+      - oauth2:
+        - crm.objects.feedback_submissions.read
+      - oauth2:
+        - crm.objects.products.write
+      - oauth2:
+        - crm.objects.services.write
+      - oauth2:
+        - crm.objects.emails.write
+      - oauth2:
+        - crm.objects.subscriptions.write
+      - oauth2:
+        - crm.objects.deals.sensitive.write.v2
+      - oauth2:
+        - crm.objects.contacts.read
+      - oauth2:
+        - crm.objects.appointments.sensitive.write.v2
+      - oauth2:
+        - cpq.price_books.read
+      - oauth2:
+        - crm.objects.meetings.write
+      - oauth2:
+        - crm.objects.invoices.read
+      - oauth2:
+        - crm.objects.projects.highly_sensitive.read
+      - oauth2:
+        - crm.objects.custom.write
+      - oauth2:
+        - crm.objects.notes.write
+      - oauth2:
+        - tickets.sensitive.v2
+      - oauth2:
+        - crm.objects.deals.write
+      - oauth2:
+        - e-commerce
+      - oauth2:
+        - crm.objects.appointments.read
+      - oauth2:
+        - crm.objects.companies.sensitive.write.v2
+      - oauth2:
+        - crm.objects.projects.read
+      - oauth2:
+        - crm.objects.companies.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.custom.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.deals.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.calls.write
+      - oauth2:
+        - crm.objects.goals.write
+      - oauth2:
+        - crm.objects.line_items.write
+      - oauth2:
+        - crm.objects.projects.sensitive.read
+      - oauth2:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.goals.read
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.partner-clients.write
+      - oauth2:
+        - crm.objects.projects.write
+      - oauth2:
+        - crm.objects.deals.sensitive.read.v2
+      - oauth2:
+        - crm.objects.projects.sensitive.write
+      - oauth2:
+        - crm.objects.quotes.write
+      - oauth2:
+        - tickets.highly_sensitive.v2
+      - oauth2:
+        - crm.objects.leads.read
+      - oauth2:
+        - crm.objects.leads.write
+      - oauth2:
+        - crm.objects.carts.read
+      - oauth2:
+        - crm.objects.emails.read
+      - oauth2:
+        - crm.objects.courses.write
+      - oauth2:
+        - crm.objects.quotes.read
+      - oauth2:
+        - crm.objects.partner-clients.read
+      - oauth2:
+        - crm.objects.courses.read
+      - oauth2:
+        - crm.objects.notes.read
+      - oauth2:
+        - crm.objects.listings.read
+      - oauth2:
+        - crm.objects.contacts.sensitive.read.v2
+      - oauth2:
+        - crm.objects.products.read
+      - oauth2:
+        - oauth
+      summary: Read
+      tags:
+      - Basic
+      x-hubspot-user-level-auth:
+        internalOnly: false
+    patch:
+      description: "Perform a partial update of an object identified by `{objectId}`\
+        \ in the CRM. The `{objectId}` refers to the internal object ID by default,\
+        \ or any unique property value specified by the `idProperty` query parameter.\
+        \ Provided property values will overwrite existing values, while read-only\
+        \ and non-existent properties will be ignored. Properties can be cleared by\
+        \ passing an empty string."
+      operationId: "patch-/crm/objects/2026-09/{objectType}/{objectId}_/crm/objects/2026-09-beta/{objectType}/{objectId}"
+      parameters:
+      - description: The unique identifier of the object to update.
+        explode: false
+        in: path
+        name: objectId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The type of the object to update.
+        explode: false
+        in: path
+        name: objectType
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The name of a property whose values are unique for this object
+          type.
+        explode: true
+        in: query
+        name: idProperty
+        required: false
+        schema:
+          type: string
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SimplePublicObjectInput"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SimplePublicObject"
+          description: successful operation
+        default:
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: An error occurred.
+      security:
+      - oauth2:
+        - crm.objects.tickets.write
+      - oauth2:
+        - crm.objects.tickets.read
+      - oauth2:
+        - crm.objects.deals.read
+      - oauth2:
+        - crm.objects.services.read
+      - oauth2:
+        - crm.objects.subscriptions.read
+      - oauth2:
+        - crm.objects.tickets.sensitive.read
+      - oauth2:
+        - crm.objects.orders.read
+      - oauth2:
+        - crm.objects.listings.write
+      - oauth2:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.companies.write
+      - oauth2:
+        - crm.objects.custom.sensitive.write.v2
+      - oauth2:
+        - crm.objects.tasks.read
+      - oauth2:
+        - crm.objects.custom.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.companies.read
+      - oauth2:
+        - crm.objects.appointments.sensitive.read.v2
+      - oauth2:
+        - crm.objects.contacts.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.forecasts.read
+      - oauth2:
+        - crm.objects.tickets.highly_sensitive.read
+      - oauth2:
+        - crm.objects.companies.sensitive.read.v2
+      - oauth2:
+        - crm.objects.tickets.sensitive.write
+      - oauth2:
+        - media_bridge.read
+      - oauth2:
+        - crm.objects.deals.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.contacts.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.contracts.read
+      - oauth2:
+        - crm.objects.companies.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.commercepayments.write
+      - oauth2:
+        - crm.objects.invoices.write
+      - oauth2:
+        - crm.objects.contacts.sensitive.write.v2
+      - oauth2:
+        - crm.objects.calls.read
+      - oauth2:
+        - crm.objects.users.write
+      - oauth2:
+        - crm.objects.custom.sensitive.read.v2
+      - oauth2:
+        - crm.objects.meetings.read
+      - oauth2:
+        - crm.objects.users.read
+      - oauth2:
+        - crm.objects.orders.write
+      - oauth2:
+        - crm.objects.partner-services.read
+      - oauth2:
+        - crm.objects.partner-services.write
+      - oauth2:
+        - crm.objects.appointments.write
+      - oauth2:
+        - crm.objects.projects.highly_sensitive.write
+      - oauth2:
+        - crm.objects.carts.write
+      - oauth2:
+        - crm.objects.tickets.highly_sensitive.write
+      - oauth2:
+        - crm.objects.tasks.write
+      - oauth2:
+        - crm.objects.commercepayments.read
+      - oauth2:
+        - revenue.contracts.read
+      - oauth2:
+        - crm.objects.feedback_submissions.read
+      - oauth2:
+        - crm.objects.products.write
+      - oauth2:
+        - crm.objects.services.write
+      - oauth2:
+        - crm.objects.emails.write
+      - oauth2:
+        - crm.objects.subscriptions.write
+      - oauth2:
+        - crm.objects.deals.sensitive.write.v2
+      - oauth2:
+        - crm.objects.contacts.read
+      - oauth2:
+        - crm.objects.appointments.sensitive.write.v2
+      - oauth2:
+        - cpq.price_books.read
+      - oauth2:
+        - crm.objects.meetings.write
+      - oauth2:
+        - crm.objects.invoices.read
+      - oauth2:
+        - crm.objects.projects.highly_sensitive.read
+      - oauth2:
+        - crm.objects.custom.write
+      - oauth2:
+        - crm.objects.notes.write
+      - oauth2:
+        - tickets.sensitive.v2
+      - oauth2:
+        - crm.objects.deals.write
+      - oauth2:
+        - e-commerce
+      - oauth2:
+        - crm.objects.appointments.read
+      - oauth2:
+        - crm.objects.companies.sensitive.write.v2
+      - oauth2:
+        - crm.objects.projects.read
+      - oauth2:
+        - crm.objects.companies.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.custom.highly_sensitive.read.v2
+      - oauth2:
+        - crm.objects.deals.highly_sensitive.write.v2
+      - oauth2:
+        - crm.objects.calls.write
+      - oauth2:
+        - crm.objects.goals.write
+      - oauth2:
+        - crm.objects.line_items.write
+      - oauth2:
+        - crm.objects.projects.sensitive.read
+      - oauth2:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.goals.read
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.partner-clients.write
+      - oauth2:
+        - crm.objects.projects.write
+      - oauth2:
+        - crm.objects.deals.sensitive.read.v2
+      - oauth2:
+        - crm.objects.projects.sensitive.write
+      - oauth2:
+        - crm.objects.quotes.write
+      - oauth2:
+        - tickets.highly_sensitive.v2
+      - oauth2:
+        - crm.objects.leads.read
+      - oauth2:
+        - crm.objects.leads.write
+      - oauth2:
+        - crm.objects.carts.read
+      - oauth2:
+        - crm.objects.emails.read
+      - oauth2:
+        - crm.objects.courses.write
+      - oauth2:
+        - crm.objects.quotes.read
+      - oauth2:
+        - crm.objects.partner-clients.read
+      - oauth2:
+        - crm.objects.courses.read
+      - oauth2:
+        - crm.objects.notes.read
+      - oauth2:
+        - crm.objects.listings.read
+      - oauth2:
+        - crm.objects.contacts.sensitive.read.v2
+      - oauth2:
+        - crm.objects.products.read
+      - oauth2:
+        - oauth
+      summary: Update
+      tags:
+      - Basic
+      x-hubspot-user-level-auth:
+        internalOnly: false
+components:
+  responses:
+    Error:
+      content:
+        '*/*':
+          schema:
+            $ref: "#/components/schemas/Error"
+      description: An error occurred.
+  schemas:
+    AssociatedId:
+      description: Contains the id and type of an association
+      example:
+        id: id
+        type: deal_to_contact
+      properties:
+        id:
+          description: The unique identifier for the associated object. It is a string.
+          type: string
+        type:
+          description: "The type of the association, represented as a string."
+          example: deal_to_contact
+          type: string
+      required:
+      - id
+      - type
+      type: object
+    AssociationSpec:
+      description: "Defines the type, direction, and details of the relationship between\
+        \ two CRM objects."
+      example:
+        associationCategory: HUBSPOT_DEFINED
+        associationTypeId: 0
+      properties:
+        associationCategory:
+          description: "The category of the association, indicating its origin or\
+            \ purpose. Valid values include 'HUBSPOT_DEFINED', 'USER_DEFINED', 'INTEGRATOR_DEFINED',\
+            \ and 'WORK'."
+          enum:
+          - HUBSPOT_DEFINED
+          - INTEGRATOR_DEFINED
+          - USER_DEFINED
+          - WORK
+          type: string
+        associationTypeId:
+          description: An integer representing the unique identifier for the type
+            of association.
+          format: int32
+          type: integer
+      required:
+      - associationCategory
+      - associationTypeId
+      type: object
+    BatchInputSimplePublicObjectBatchInput:
+      description: "Represents a batch input component used to handle multiple simple\
+        \ public objects in a single API request. This component is typically used\
+        \ when performing batch operations to create, update, or delete multiple records\
+        \ simultaneously."
+      example:
+        inputs:
+        - id: id
+          idProperty: my_unique_property_name
+          objectWriteTraceId: objectWriteTraceId
+          properties:
+            key: properties
+        - id: id
+          idProperty: my_unique_property_name
+          objectWriteTraceId: objectWriteTraceId
+          properties:
+            key: properties
+      properties:
+        inputs:
+          description: "An array of SimplePublicObjectBatchInput objects, each containing\
+            \ the properties and identifiers for a CRM object to be updated."
+          items:
+            $ref: "#/components/schemas/SimplePublicObjectBatchInput"
+          type: array
+      required:
+      - inputs
+      type: object
+    BatchInputSimplePublicObjectBatchInputForCreate:
+      description: Represents a batch input for creating multiple simple public objects
+        in a single request. This component is used to streamline the process of adding
+        new objects to a HubSpot account by allowing multiple entries to be created
+        at once.
+      example:
+        inputs:
+        - associations:
+          - to:
+              id: id
+            types:
+            - associationCategory: HUBSPOT_DEFINED
+              associationTypeId: 0
+            - associationCategory: HUBSPOT_DEFINED
+              associationTypeId: 0
+          - to:
+              id: id
+            types:
+            - associationCategory: HUBSPOT_DEFINED
+              associationTypeId: 0
+            - associationCategory: HUBSPOT_DEFINED
+              associationTypeId: 0
+          objectWriteTraceId: objectWriteTraceId
+          properties:
+            key: properties
+        - associations:
+          - to:
+              id: id
+            types:
+            - associationCategory: HUBSPOT_DEFINED
+              associationTypeId: 0
+            - associationCategory: HUBSPOT_DEFINED
+              associationTypeId: 0
+          - to:
+              id: id
+            types:
+            - associationCategory: HUBSPOT_DEFINED
+              associationTypeId: 0
+            - associationCategory: HUBSPOT_DEFINED
+              associationTypeId: 0
+          objectWriteTraceId: objectWriteTraceId
+          properties:
+            key: properties
+      properties:
+        inputs:
+          description: "An array of objects to be created, each represented by a SimplePublicObjectBatchInputForCreate\
+            \ object."
+          items:
+            $ref: "#/components/schemas/SimplePublicObjectBatchInputForCreate"
+          type: array
+      required:
+      - inputs
+      type: object
+    BatchInputSimplePublicObjectBatchInputUpsert:
+      description: "Represents a batch input operation for upserting simple public\
+        \ objects in HubSpot. This component is used to process multiple upsert operations\
+        \ in a single request, improving efficiency and performance."
+      example:
+        inputs:
+        - id: id
+          idProperty: idProperty
+          objectWriteTraceId: objectWriteTraceId
+          properties:
+            key: properties
+        - id: id
+          idProperty: idProperty
+          objectWriteTraceId: objectWriteTraceId
+          properties:
+            key: properties
+      properties:
+        inputs:
+          description: "An array of SimplePublicObjectBatchInputUpsert objects, each\
+            \ representing an object to be created or updated. This is a required\
+            \ field."
+          items:
+            $ref: "#/components/schemas/SimplePublicObjectBatchInputUpsert"
+          type: array
+      required:
+      - inputs
+      type: object
+    BatchInputSimplePublicObjectId:
+      description: Represents a batch input payload containing a list of simple public
+        object IDs. This component is used when performing batch operations on multiple
+        objects within HubSpot.
+      example:
+        inputs:
+        - id: "430001"
+        - id: "430001"
+      properties:
+        inputs:
+          description: "An array of SimplePublicObjectId objects, each containing\
+            \ an ID of a CRM object. This array is used to specify multiple objects\
+            \ for batch operations."
+          items:
+            $ref: "#/components/schemas/SimplePublicObjectId"
+          type: array
+      required:
+      - inputs
+      type: object
+    BatchReadInputSimplePublicObjectId:
+      description: "Specifies the input for reading a batch of CRM objects, including\
+        \ arrays of object IDs, requested property names (with optional history),\
+        \ and an optional unique identifying property."
+      example:
+        idProperty: idProperty
+        inputs:
+        - id: "430001"
+        - id: "430001"
+        properties:
+        - properties
+        - properties
+        propertiesWithHistory:
+        - propertiesWithHistory
+        - propertiesWithHistory
+      properties:
+        idProperty:
+          description: "A string that specifies the name of a property whose values\
+            \ are unique for the object type, used to identify the objects."
+          type: string
+        inputs:
+          description: "An array of SimplePublicObjectId objects, each containing\
+            \ an ID of an object to be read."
+          items:
+            $ref: "#/components/schemas/SimplePublicObjectId"
+          type: array
+        properties:
+          description: An array of strings representing the properties to be returned
+            in the response for each object.
+          items:
+            type: string
+          type: array
+        propertiesWithHistory:
+          description: "An array of strings indicating the properties for which historical\
+            \ values should be returned, along with the current values."
+          items:
+            type: string
+          type: array
+      required:
+      - inputs
+      - properties
+      - propertiesWithHistory
+      type: object
+    BatchResponseSimplePublicObject:
+      description: A public object batch response object
+      example:
+        completedAt: 2000-01-23T04:56:07.000+00:00
+        links:
+          key: links
+        requestedAt: 2000-01-23T04:56:07.000+00:00
+        results:
+        - archived: true
+          archivedAt: 2000-01-23T04:56:07.000+00:00
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          id: id
+          objectWriteTraceId: objectWriteTraceId
+          properties:
+            key: properties
+          propertiesWithHistory:
+            key:
+            - sourceId: sourceId
+              sourceLabel: sourceLabel
+              sourceType: sourceType
+              timestamp: 2000-01-23T04:56:07.000+00:00
+              updatedByUserId: 0
+              value: value
+            - sourceId: sourceId
+              sourceLabel: sourceLabel
+              sourceType: sourceType
+              timestamp: 2000-01-23T04:56:07.000+00:00
+              updatedByUserId: 0
+              value: value
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+          url: url
+          warnings:
+          - category: category
+            context:
+              key: context
+            message: message
+          - category: category
+            context:
+              key: context
+            message: message
+        - archived: true
+          archivedAt: 2000-01-23T04:56:07.000+00:00
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          id: id
+          objectWriteTraceId: objectWriteTraceId
+          properties:
+            key: properties
+          propertiesWithHistory:
+            key:
+            - sourceId: sourceId
+              sourceLabel: sourceLabel
+              sourceType: sourceType
+              timestamp: 2000-01-23T04:56:07.000+00:00
+              updatedByUserId: 0
+              value: value
+            - sourceId: sourceId
+              sourceLabel: sourceLabel
+              sourceType: sourceType
+              timestamp: 2000-01-23T04:56:07.000+00:00
+              updatedByUserId: 0
+              value: value
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+          url: url
+          warnings:
+          - category: category
+            context:
+              key: context
+            message: message
+          - category: category
+            context:
+              key: context
+            message: message
+        startedAt: 2000-01-23T04:56:07.000+00:00
+        status: CANCELED
+      properties:
+        completedAt:
+          description: "The date and time when the batch operation was completed,\
+            \ in ISO 8601 format."
+          format: date-time
+          type: string
+        links:
+          additionalProperties:
+            type: string
+          description: A map of link names to associated URIs related to the batch
+            operation.
+          type: object
+        requestedAt:
+          description: "The date and time when the batch operation was requested,\
+            \ in ISO 8601 format."
+          format: date-time
+          type: string
+        results:
+          description: An array of SimplePublicObject items that are the result of
+            the batch operation.
+          items:
+            $ref: "#/components/schemas/SimplePublicObject"
+          type: array
+        startedAt:
+          description: "The date and time when the batch operation started, in ISO\
+            \ 8601 format."
+          format: date-time
+          type: string
+        status:
+          description: "The current status of the batch operation. Valid values include\
+            \ 'PENDING', 'PROCESSING', 'CANCELED', and 'COMPLETE'."
+          enum:
+          - CANCELED
+          - COMPLETE
+          - PENDING
+          - PROCESSING
+          type: string
+      required:
+      - completedAt
+      - results
+      - startedAt
+      - status
+      type: object
+    BatchResponseSimplePublicObjectWithErrors:
+      description: "Represents the result of a batch operation on CRM objects, including\
+        \ the processing status, batch results, timestamps, and a list of any errors\
+        \ encountered during the operation."
+      example:
+        completedAt: 2000-01-23T04:56:07.000+00:00
+        errors:
+        - category: category
+          context:
+            key:
+            - context
+            - context
+          errors:
+          - code: code
+            context: "{missingScopes=[scope1, scope2]}"
+            in: in
+            message: message
+            subCategory: subCategory
+          - code: code
+            context: "{missingScopes=[scope1, scope2]}"
+            in: in
+            message: message
+            subCategory: subCategory
+          id: id
+          links:
+            key: links
+          message: message
+          status: status
+          subCategory: "{}"
+        - category: category
+          context:
+            key:
+            - context
+            - context
+          errors:
+          - code: code
+            context: "{missingScopes=[scope1, scope2]}"
+            in: in
+            message: message
+            subCategory: subCategory
+          - code: code
+            context: "{missingScopes=[scope1, scope2]}"
+            in: in
+            message: message
+            subCategory: subCategory
+          id: id
+          links:
+            key: links
+          message: message
+          status: status
+          subCategory: "{}"
+        links:
+          key: links
+        numErrors: 0
+        requestedAt: 2000-01-23T04:56:07.000+00:00
+        results:
+        - archived: true
+          archivedAt: 2000-01-23T04:56:07.000+00:00
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          id: id
+          objectWriteTraceId: objectWriteTraceId
+          properties:
+            key: properties
+          propertiesWithHistory:
+            key:
+            - sourceId: sourceId
+              sourceLabel: sourceLabel
+              sourceType: sourceType
+              timestamp: 2000-01-23T04:56:07.000+00:00
+              updatedByUserId: 0
+              value: value
+            - sourceId: sourceId
+              sourceLabel: sourceLabel
+              sourceType: sourceType
+              timestamp: 2000-01-23T04:56:07.000+00:00
+              updatedByUserId: 0
+              value: value
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+          url: url
+          warnings:
+          - category: category
+            context:
+              key: context
+            message: message
+          - category: category
+            context:
+              key: context
+            message: message
+        - archived: true
+          archivedAt: 2000-01-23T04:56:07.000+00:00
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          id: id
+          objectWriteTraceId: objectWriteTraceId
+          properties:
+            key: properties
+          propertiesWithHistory:
+            key:
+            - sourceId: sourceId
+              sourceLabel: sourceLabel
+              sourceType: sourceType
+              timestamp: 2000-01-23T04:56:07.000+00:00
+              updatedByUserId: 0
+              value: value
+            - sourceId: sourceId
+              sourceLabel: sourceLabel
+              sourceType: sourceType
+              timestamp: 2000-01-23T04:56:07.000+00:00
+              updatedByUserId: 0
+              value: value
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+          url: url
+          warnings:
+          - category: category
+            context:
+              key: context
+            message: message
+          - category: category
+            context:
+              key: context
+            message: message
+        startedAt: 2000-01-23T04:56:07.000+00:00
+        status: CANCELED
+      properties:
+        completedAt:
+          description: "The date and time when the batch operation was completed,\
+            \ in ISO 8601 format."
+          format: date-time
+          type: string
+        errors:
+          description: An array of StandardError objects detailing any errors that
+            occurred during the batch operation.
+          items:
+            $ref: "#/components/schemas/StandardError"
+          type: array
+        links:
+          additionalProperties:
+            type: string
+          description: A map of link names to associated URIs related to the batch
+            operation.
+          type: object
+        numErrors:
+          description: The number of errors that occurred during the batch operation.
+          format: int32
+          type: integer
+        requestedAt:
+          description: "The date and time when the batch operation was requested,\
+            \ in ISO 8601 format."
+          format: date-time
+          type: string
+        results:
+          description: An array of SimplePublicObject items that were processed in
+            the batch operation.
+          items:
+            $ref: "#/components/schemas/SimplePublicObject"
+          type: array
+        startedAt:
+          description: "The date and time when the batch operation started, in ISO\
+            \ 8601 format."
+          format: date-time
+          type: string
+        status:
+          description: "The current status of the batch operation. Valid values include\
+            \ 'PENDING', 'PROCESSING', 'CANCELED', and 'COMPLETE'."
+          enum:
+          - CANCELED
+          - COMPLETE
+          - PENDING
+          - PROCESSING
+          type: string
+      required:
+      - completedAt
+      - results
+      - startedAt
+      - status
+      type: object
+    BatchResponseSimplePublicUpsertObject:
+      description: "Represents the result of a batch upsert operation, including the\
+        \ operation’s status, timestamps, and a list of successfully created or updated\
+        \ objects."
+      example:
+        completedAt: 2000-01-23T04:56:07.000+00:00
+        links:
+          key: links
+        requestedAt: 2000-01-23T04:56:07.000+00:00
+        results:
+        - archived: true
+          archivedAt: 2000-01-23T04:56:07.000+00:00
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          id: id
+          new: true
+          objectWriteTraceId: objectWriteTraceId
+          properties:
+            key: properties
+          propertiesWithHistory:
+            key:
+            - sourceId: sourceId
+              sourceLabel: sourceLabel
+              sourceType: sourceType
+              timestamp: 2000-01-23T04:56:07.000+00:00
+              updatedByUserId: 0
+              value: value
+            - sourceId: sourceId
+              sourceLabel: sourceLabel
+              sourceType: sourceType
+              timestamp: 2000-01-23T04:56:07.000+00:00
+              updatedByUserId: 0
+              value: value
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+          url: url
+          warnings:
+          - category: category
+            context:
+              key: context
+            message: message
+          - category: category
+            context:
+              key: context
+            message: message
+        - archived: true
+          archivedAt: 2000-01-23T04:56:07.000+00:00
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          id: id
+          new: true
+          objectWriteTraceId: objectWriteTraceId
+          properties:
+            key: properties
+          propertiesWithHistory:
+            key:
+            - sourceId: sourceId
+              sourceLabel: sourceLabel
+              sourceType: sourceType
+              timestamp: 2000-01-23T04:56:07.000+00:00
+              updatedByUserId: 0
+              value: value
+            - sourceId: sourceId
+              sourceLabel: sourceLabel
+              sourceType: sourceType
+              timestamp: 2000-01-23T04:56:07.000+00:00
+              updatedByUserId: 0
+              value: value
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+          url: url
+          warnings:
+          - category: category
+            context:
+              key: context
+            message: message
+          - category: category
+            context:
+              key: context
+            message: message
+        startedAt: 2000-01-23T04:56:07.000+00:00
+        status: CANCELED
+      properties:
+        completedAt:
+          description: "The date and time when the batch operation was completed,\
+            \ in ISO 8601 format."
+          format: date-time
+          type: string
+        links:
+          additionalProperties:
+            type: string
+          description: "A map of link names to associated URIs, providing additional\
+            \ information or actions related to the batch operation."
+          type: object
+        requestedAt:
+          description: "The date and time when the batch operation was requested,\
+            \ in ISO 8601 format."
+          format: date-time
+          type: string
+        results:
+          description: An array of objects representing the results of the batch upsert
+            operation. Each object corresponds to a CRM object that was created or
+            updated.
+          items:
+            $ref: "#/components/schemas/SimplePublicUpsertObject"
+          type: array
+        startedAt:
+          description: "The date and time when the batch operation started, in ISO\
+            \ 8601 format."
+          format: date-time
+          type: string
+        status:
+          description: "The current status of the batch operation. Valid values include\
+            \ 'PENDING', 'PROCESSING', 'CANCELED', and 'COMPLETE'."
+          enum:
+          - CANCELED
+          - COMPLETE
+          - PENDING
+          - PROCESSING
+          type: string
+      required:
+      - completedAt
+      - results
+      - startedAt
+      - status
+      type: object
+    BatchResponseSimplePublicUpsertObjectWithErrors:
+      description: "Represents the response from a batch upsert operation, including\
+        \ the status, timestamps, successfully processed objects, and any errors that\
+        \ occurred during processing."
+      example:
+        completedAt: 2000-01-23T04:56:07.000+00:00
+        errors:
+        - category: category
+          context:
+            key:
+            - context
+            - context
+          errors:
+          - code: code
+            context: "{missingScopes=[scope1, scope2]}"
+            in: in
+            message: message
+            subCategory: subCategory
+          - code: code
+            context: "{missingScopes=[scope1, scope2]}"
+            in: in
+            message: message
+            subCategory: subCategory
+          id: id
+          links:
+            key: links
+          message: message
+          status: status
+          subCategory: "{}"
+        - category: category
+          context:
+            key:
+            - context
+            - context
+          errors:
+          - code: code
+            context: "{missingScopes=[scope1, scope2]}"
+            in: in
+            message: message
+            subCategory: subCategory
+          - code: code
+            context: "{missingScopes=[scope1, scope2]}"
+            in: in
+            message: message
+            subCategory: subCategory
+          id: id
+          links:
+            key: links
+          message: message
+          status: status
+          subCategory: "{}"
+        links:
+          key: links
+        numErrors: 0
+        requestedAt: 2000-01-23T04:56:07.000+00:00
+        results:
+        - archived: true
+          archivedAt: 2000-01-23T04:56:07.000+00:00
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          id: id
+          new: true
+          objectWriteTraceId: objectWriteTraceId
+          properties:
+            key: properties
+          propertiesWithHistory:
+            key:
+            - sourceId: sourceId
+              sourceLabel: sourceLabel
+              sourceType: sourceType
+              timestamp: 2000-01-23T04:56:07.000+00:00
+              updatedByUserId: 0
+              value: value
+            - sourceId: sourceId
+              sourceLabel: sourceLabel
+              sourceType: sourceType
+              timestamp: 2000-01-23T04:56:07.000+00:00
+              updatedByUserId: 0
+              value: value
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+          url: url
+          warnings:
+          - category: category
+            context:
+              key: context
+            message: message
+          - category: category
+            context:
+              key: context
+            message: message
+        - archived: true
+          archivedAt: 2000-01-23T04:56:07.000+00:00
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          id: id
+          new: true
+          objectWriteTraceId: objectWriteTraceId
+          properties:
+            key: properties
+          propertiesWithHistory:
+            key:
+            - sourceId: sourceId
+              sourceLabel: sourceLabel
+              sourceType: sourceType
+              timestamp: 2000-01-23T04:56:07.000+00:00
+              updatedByUserId: 0
+              value: value
+            - sourceId: sourceId
+              sourceLabel: sourceLabel
+              sourceType: sourceType
+              timestamp: 2000-01-23T04:56:07.000+00:00
+              updatedByUserId: 0
+              value: value
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+          url: url
+          warnings:
+          - category: category
+            context:
+              key: context
+            message: message
+          - category: category
+            context:
+              key: context
+            message: message
+        startedAt: 2000-01-23T04:56:07.000+00:00
+        status: CANCELED
+      properties:
+        completedAt:
+          description: "The date and time when the batch operation was completed,\
+            \ in ISO 8601 format."
+          format: date-time
+          type: string
+        errors:
+          description: "An array of errors encountered during the batch operation,\
+            \ each detailing the specific issue and context."
+          items:
+            $ref: "#/components/schemas/StandardError"
+          type: array
+        links:
+          additionalProperties:
+            type: string
+          description: "A map of link names to associated URIs, providing additional\
+            \ resources or documentation related to the batch operation."
+          type: object
+        numErrors:
+          description: The total number of errors encountered during the batch operation.
+          format: int32
+          type: integer
+        requestedAt:
+          description: "The date and time when the batch operation was requested,\
+            \ in ISO 8601 format."
+          format: date-time
+          type: string
+        results:
+          description: An array of objects representing the results of the upsert
+            operation for each object in the batch.
+          items:
+            $ref: "#/components/schemas/SimplePublicUpsertObject"
+          type: array
+        startedAt:
+          description: "The date and time when the batch operation started, in ISO\
+            \ 8601 format."
+          format: date-time
+          type: string
+        status:
+          description: "The current status of the batch operation. Valid values include\
+            \ 'PENDING', 'PROCESSING', 'CANCELED', and 'COMPLETE'."
+          enum:
+          - CANCELED
+          - COMPLETE
+          - PENDING
+          - PROCESSING
+          type: string
+      required:
+      - completedAt
+      - results
+      - startedAt
+      - status
+      type: object
+    CollectionResponseAssociatedId:
+      description: "Represents a collection of associated IDs returned by an API request,\
+        \ including pagination details for navigating through the results."
+      example:
+        paging:
+          next:
+            after: after
+            link: link
+          prev:
+            before: before
+            link: link
+        results:
+        - id: id
+          type: deal_to_contact
+        - id: id
+          type: deal_to_contact
+      properties:
+        paging:
+          $ref: "#/components/schemas/Paging"
+        results:
+          description: "An array of associated IDs, each represented by an AssociatedId\
+            \ object."
+          items:
+            $ref: "#/components/schemas/AssociatedId"
+          type: array
+      required:
+      - results
+      type: object
+    CollectionResponseSimplePublicObjectWithAssociationsForwardPaging:
+      description: Represents a paginated collection response that includes simple
+        public objects with their associations. This component is used to handle the
+        results and pagination details when retrieving a list of objects from the
+        API.
+      example:
+        paging:
+          next:
+            after: after
+            link: link
+        results:
+        - archived: true
+          archivedAt: 2000-01-23T04:56:07.000+00:00
+          associations:
+            key:
+              paging:
+                next:
+                  after: after
+                  link: link
+                prev:
+                  before: before
+                  link: link
+              results:
+              - id: id
+                type: deal_to_contact
+              - id: id
+                type: deal_to_contact
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          id: id
+          objectWriteTraceId: objectWriteTraceId
+          properties:
+            key: properties
+          propertiesWithHistory:
+            key:
+            - sourceId: sourceId
+              sourceLabel: sourceLabel
+              sourceType: sourceType
+              timestamp: 2000-01-23T04:56:07.000+00:00
+              updatedByUserId: 0
+              value: value
+            - sourceId: sourceId
+              sourceLabel: sourceLabel
+              sourceType: sourceType
+              timestamp: 2000-01-23T04:56:07.000+00:00
+              updatedByUserId: 0
+              value: value
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+          url: url
+          warnings:
+          - category: category
+            context:
+              key: context
+            message: message
+          - category: category
+            context:
+              key: context
+            message: message
+        - archived: true
+          archivedAt: 2000-01-23T04:56:07.000+00:00
+          associations:
+            key:
+              paging:
+                next:
+                  after: after
+                  link: link
+                prev:
+                  before: before
+                  link: link
+              results:
+              - id: id
+                type: deal_to_contact
+              - id: id
+                type: deal_to_contact
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          id: id
+          objectWriteTraceId: objectWriteTraceId
+          properties:
+            key: properties
+          propertiesWithHistory:
+            key:
+            - sourceId: sourceId
+              sourceLabel: sourceLabel
+              sourceType: sourceType
+              timestamp: 2000-01-23T04:56:07.000+00:00
+              updatedByUserId: 0
+              value: value
+            - sourceId: sourceId
+              sourceLabel: sourceLabel
+              sourceType: sourceType
+              timestamp: 2000-01-23T04:56:07.000+00:00
+              updatedByUserId: 0
+              value: value
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+          url: url
+          warnings:
+          - category: category
+            context:
+              key: context
+            message: message
+          - category: category
+            context:
+              key: context
+            message: message
+      properties:
+        paging:
+          $ref: "#/components/schemas/ForwardPaging"
+        results:
+          description: "An array of SimplePublicObjectWithAssociations, each representing\
+            \ a CRM object with its properties and associated data."
+          items:
+            $ref: "#/components/schemas/SimplePublicObjectWithAssociations"
+          type: array
+      required:
+      - results
+      type: object
+    CollectionResponseWithTotalSimplePublicObject:
+      description: "Represents a list of simple objects returned from an API request,\
+        \ along with the total count of objects available."
+      example:
+        paging:
+          next:
+            after: after
+            link: link
+          prev:
+            before: before
+            link: link
+        results:
+        - archived: true
+          archivedAt: 2000-01-23T04:56:07.000+00:00
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          id: id
+          objectWriteTraceId: objectWriteTraceId
+          properties:
+            key: properties
+          propertiesWithHistory:
+            key:
+            - sourceId: sourceId
+              sourceLabel: sourceLabel
+              sourceType: sourceType
+              timestamp: 2000-01-23T04:56:07.000+00:00
+              updatedByUserId: 0
+              value: value
+            - sourceId: sourceId
+              sourceLabel: sourceLabel
+              sourceType: sourceType
+              timestamp: 2000-01-23T04:56:07.000+00:00
+              updatedByUserId: 0
+              value: value
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+          url: url
+          warnings:
+          - category: category
+            context:
+              key: context
+            message: message
+          - category: category
+            context:
+              key: context
+            message: message
+        - archived: true
+          archivedAt: 2000-01-23T04:56:07.000+00:00
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          id: id
+          objectWriteTraceId: objectWriteTraceId
+          properties:
+            key: properties
+          propertiesWithHistory:
+            key:
+            - sourceId: sourceId
+              sourceLabel: sourceLabel
+              sourceType: sourceType
+              timestamp: 2000-01-23T04:56:07.000+00:00
+              updatedByUserId: 0
+              value: value
+            - sourceId: sourceId
+              sourceLabel: sourceLabel
+              sourceType: sourceType
+              timestamp: 2000-01-23T04:56:07.000+00:00
+              updatedByUserId: 0
+              value: value
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+          url: url
+          warnings:
+          - category: category
+            context:
+              key: context
+            message: message
+          - category: category
+            context:
+              key: context
+            message: message
+        total: 0
+      properties:
+        paging:
+          $ref: "#/components/schemas/Paging"
+        results:
+          description: "An array of SimplePublicObject items, each representing an\
+            \ individual object in the collection."
+          items:
+            $ref: "#/components/schemas/SimplePublicObject"
+          type: array
+        total:
+          description: An integer representing the total number of simple public objects
+            available.
+          format: int32
+          type: integer
+      required:
+      - results
+      - total
+      type: object
+    Error:
+      description: Represents an error response returned by the API when an operation
+        fails. This component is used in various endpoints to provide detailed information
+        about the error encountered.
+      example:
+        message: Invalid input (details will vary based on the error)
+        correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
+        category: VALIDATION_ERROR
+        links:
+          knowledge-base: https://www.hubspot.com/products/service/knowledge-base
+      properties:
+        category:
+          description: The error category.
+          type: string
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: "Context about the error condition, represented as an object\
+            \ with additional properties that are arrays of strings."
+          example: "{invalidPropertyName=[propertyValue], missingScopes=[scope1, scope2]}"
+          type: object
+        correlationId:
+          description: A unique identifier for the request. Include this value with
+            any error reports or support tickets. It is formatted as a UUID.
+          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
+          format: uuid
+          type: string
+        errors:
+          description: "Further information about the error, represented as an array\
+            \ of ErrorDetail objects."
+          items:
+            $ref: "#/components/schemas/ErrorDetail"
+          type: array
+        links:
+          additionalProperties:
+            type: string
+          description: A map of link names to associated URIs containing documentation
+            about the error or recommended remediation steps.
+          type: object
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate.
+          example: An error occurred
+          type: string
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error.
+          type: string
+      required:
+      - category
+      - correlationId
+      - message
+      type: object
+    ErrorDetail:
+      description: "Represents detailed information about an error that occurred in\
+        \ the API. This component is used to provide additional context and specifics\
+        \ about errors, typically as part of an error response."
+      example:
+        code: code
+        context: "{missingScopes=[scope1, scope2]}"
+        in: in
+        message: message
+        subCategory: subCategory
+      properties:
+        code:
+          description: The status code associated with the error detail. This is a
+            string.
+          type: string
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: "Context about the error condition, represented as an object\
+            \ with additional properties that are arrays of strings."
+          example: "{missingScopes=[scope1, scope2]}"
+          type: object
+        in:
+          description: The name of the field or parameter in which the error was found.
+            This is a string.
+          type: string
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate. This is a string.
+          type: string
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error. This is a string.
+          type: string
+      required:
+      - message
+      type: object
+    Filter:
+      description: "Defines a single condition for searching CRM objects, specifying\
+        \ the property to filter on, the operator to use (such as equals, greater\
+        \ than, or contains), and the value(s) to compare against. "
+      example:
+        highValue: highValue
+        operator: BETWEEN
+        propertyName: propertyName
+        value: value
+        values:
+        - values
+        - values
+      properties:
+        highValue:
+          description: An optional high value used in range queries. It is a string.
+          type: string
+        operator:
+          description: "The operator used to compare the property value. It is a string\
+            \ and valid values include 'EQ', 'NEQ', 'LT', 'LTE', 'GT', 'GTE', 'BETWEEN',\
+            \ 'IN', 'NOT_IN', 'HAS_PROPERTY', 'NOT_HAS_PROPERTY', 'CONTAINS_TOKEN',\
+            \ and 'NOT_CONTAINS_TOKEN'."
+          enum:
+          - BETWEEN
+          - CONTAINS_TOKEN
+          - EQ
+          - GT
+          - GTE
+          - HAS_PROPERTY
+          - IN
+          - LT
+          - LTE
+          - NEQ
+          - NOT_CONTAINS_TOKEN
+          - NOT_HAS_PROPERTY
+          - NOT_IN
+          type: string
+        propertyName:
+          description: The name of the property to filter by. It is a string.
+          type: string
+        value:
+          description: The value to compare against the property specified. It is
+            a string.
+          type: string
+        values:
+          description: An array of values used for operators that support multiple
+            values such as 'IN'. Each item in the array is a string.
+          items:
+            type: string
+          type: array
+      required:
+      - operator
+      - propertyName
+      type: object
+    FilterGroup:
+      description: Represents a group of filters used to query data within HubSpot.
+        This component is used to define criteria for filtering records in various
+        API endpoints.
+      example:
+        filters:
+        - highValue: highValue
+          operator: BETWEEN
+          propertyName: propertyName
+          value: value
+          values:
+          - values
+          - values
+        - highValue: highValue
+          operator: BETWEEN
+          propertyName: propertyName
+          value: value
+          values:
+          - values
+          - values
+      properties:
+        filters:
+          description: "An array of filter objects, each specifying a condition that\
+            \ objects must satisfy. Each filter includes properties such as the operator\
+            \ and propertyName to define the filtering logic."
+          items:
+            $ref: "#/components/schemas/Filter"
+          type: array
+      required:
+      - filters
+      type: object
+    ForwardPaging:
+      description: Paging information for forward-only pagination. Contains the next
+        page reference when more results are available; omitted or empty on the last
+        page.
+      example:
+        next:
+          after: after
+          link: link
+      properties:
+        next:
+          $ref: "#/components/schemas/NextPage"
+      type: object
+    NextPage:
+      description: Specifies the paging information needed to retrieve the next set
+        of results in a paginated API response
+      example:
+        after: after
+        link: link
+      properties:
+        after:
+          description: A string token used as a cursor to fetch the next set of results.
+          type: string
+        link:
+          description: A URL string that provides a direct link to the next page of
+            results.
+          type: string
+      required:
+      - after
+      type: object
+    Paging:
+      description: Represents the pagination information for navigating through a
+        list of results in the API. It provides details on how to access the previous
+        or next set of results.
+      example:
+        next:
+          after: after
+          link: link
+        prev:
+          before: before
+          link: link
+      properties:
+        next:
+          $ref: "#/components/schemas/NextPage"
+        prev:
+          $ref: "#/components/schemas/PreviousPage"
+      type: object
+    PreviousPage:
+      description: specifies the paging information needed to retrieve the previous
+        set of results in a paginated API response
+      example:
+        before: before
+        link: link
+      properties:
+        before:
+          description: A string token that indicates the position before the current
+            page in the pagination sequence.
+          type: string
+        link:
+          description: A string URL that provides a direct link to the previous page
+            of results.
+          type: string
+      required:
+      - before
+      type: object
+    PublicAssociationsForObject:
+      description: "Represents the associations for a specific object in HubSpot,\
+        \ detailing the types of associations and the related objects involved."
+      example:
+        to:
+          id: id
+        types:
+        - associationCategory: HUBSPOT_DEFINED
+          associationTypeId: 0
+        - associationCategory: HUBSPOT_DEFINED
+          associationTypeId: 0
+      properties:
+        to:
+          $ref: "#/components/schemas/PublicObjectId"
+        types:
+          description: "An array of association specifications, each detailing the\
+            \ type of association between the objects. Each item in the array is a\
+            \ reference to the 'AssociationSpec' schema, which defines the category\
+            \ and type ID of the association."
+          items:
+            $ref: "#/components/schemas/AssociationSpec"
+          type: array
+      required:
+      - to
+      - types
+      type: object
+    PublicGdprDeleteInput:
+      description: An input that contains the information required to process a public
+        GDPR data deletion request.
+      example:
+        idProperty: idProperty
+        objectId: objectId
+      properties:
+        idProperty:
+          description: "An optional string property that specifies the unique property\
+            \ name used to identify the object. For example, setting this to 'email'\
+            \ allows the object to be identified by email address."
+          type: string
+        objectId:
+          description: The unique identifier of the object to be deleted. This is
+            a required field and must be a string.
+          type: string
+      required:
+      - objectId
+      type: object
+    PublicMergeInput:
+      description: Input data for merging two records.
+      example:
+        objectIdToMerge: objectIdToMerge
+        primaryObjectId: primaryObjectId
+      properties:
+        objectIdToMerge:
+          description: The unique identifier of the object that will be merged into
+            the primary object. This is a string.
+          type: string
+        primaryObjectId:
+          description: The unique identifier of the primary object that will remain
+            after the merge. This is a string.
+          type: string
+      required:
+      - objectIdToMerge
+      - primaryObjectId
+      type: object
+    PublicObjectId:
+      description: Contains the Id of a Public Object
+      example:
+        id: id
+      properties:
+        id:
+          description: "The unique identifier for the object, represented as a string."
+          type: string
+      required:
+      - id
+      type: object
+    PublicObjectSearchRequest:
+      description: Describes a search request
+      example:
+        after: after
+        filterGroups:
+        - filters:
+          - highValue: highValue
+            operator: BETWEEN
+            propertyName: propertyName
+            value: value
+            values:
+            - values
+            - values
+          - highValue: highValue
+            operator: BETWEEN
+            propertyName: propertyName
+            value: value
+            values:
+            - values
+            - values
+        - filters:
+          - highValue: highValue
+            operator: BETWEEN
+            propertyName: propertyName
+            value: value
+            values:
+            - values
+            - values
+          - highValue: highValue
+            operator: BETWEEN
+            propertyName: propertyName
+            value: value
+            values:
+            - values
+            - values
+        limit: 0
+        properties:
+        - properties
+        - properties
+        query: query
+        sorts:
+        - sorts
+        - sorts
+      properties:
+        after:
+          description: A string representing the paging cursor token to retrieve the
+            next set of results.
+          type: string
+        filterGroups:
+          description: An array of FilterGroup objects that specify the criteria for
+            filtering the search results.
+          items:
+            $ref: "#/components/schemas/FilterGroup"
+          type: array
+        limit:
+          description: An integer indicating the maximum number of results to return.
+          format: int32
+          type: integer
+        properties:
+          description: An array of strings specifying which properties of the CRM
+            objects should be included in the search results.
+          items:
+            type: string
+          type: array
+        query:
+          description: A string representing the search query to be applied to the
+            CRM objects.
+          type: string
+        sorts:
+          description: An array of strings that define the sorting order of the search
+            results.
+          items:
+            type: string
+          type: array
+      required:
+      - after
+      - filterGroups
+      - limit
+      - properties
+      - sorts
+      type: object
+    PublicObjectWarning:
+      description: "Represents a warning message related to a public object in HubSpot,\
+        \ providing details about the nature and context of the warning."
+      example:
+        category: category
+        context:
+          key: context
+        message: message
+      properties:
+        category:
+          description: A string indicating the category of the warning.
+          type: string
+        context:
+          additionalProperties:
+            type: string
+          description: "An object providing additional context for the warning, with\
+            \ string values."
+          type: object
+        message:
+          description: A string containing the warning message.
+          type: string
+      required:
+      - category
+      - context
+      - message
+      type: object
+    SimplePublicObject:
+      description: A simple public object.
+      example:
+        archived: true
+        archivedAt: 2000-01-23T04:56:07.000+00:00
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        id: id
+        objectWriteTraceId: objectWriteTraceId
+        properties:
+          key: properties
+        propertiesWithHistory:
+          key:
+          - sourceId: sourceId
+            sourceLabel: sourceLabel
+            sourceType: sourceType
+            timestamp: 2000-01-23T04:56:07.000+00:00
+            updatedByUserId: 0
+            value: value
+          - sourceId: sourceId
+            sourceLabel: sourceLabel
+            sourceType: sourceType
+            timestamp: 2000-01-23T04:56:07.000+00:00
+            updatedByUserId: 0
+            value: value
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+        url: url
+        warnings:
+        - category: category
+          context:
+            key: context
+          message: message
+        - category: category
+          context:
+            key: context
+          message: message
+      properties:
+        archived:
+          description: A boolean indicating whether this object is archived.
+          type: boolean
+        archivedAt:
+          description: "The date and time when this object was archived, in ISO 8601\
+            \ format."
+          format: date-time
+          type: string
+        createdAt:
+          description: "The date and time when this object was created, in ISO 8601\
+            \ format."
+          format: date-time
+          type: string
+        id:
+          description: "The unique identifier for this object, represented as a string."
+          type: string
+        objectWriteTraceId:
+          description: A string used to trace the write operations for this object.
+          type: string
+        properties:
+          additionalProperties:
+            type: string
+          description: "A map of property names to their corresponding values, where\
+            \ each value is a string."
+          type: object
+        propertiesWithHistory:
+          additionalProperties:
+            items:
+              $ref: "#/components/schemas/ValueWithTimestamp"
+            type: array
+          description: "A map of property names to arrays of values with timestamps,\
+            \ showing the history of changes for each property."
+          type: object
+        updatedAt:
+          description: "The date and time when this object was last updated, in ISO\
+            \ 8601 format."
+          format: date-time
+          type: string
+        url:
+          description: A string representing the URL associated with this object.
+          type: string
+        warnings:
+          description: "An array of warnings related to this object, each containing\
+            \ a category, message, and context."
+          items:
+            $ref: "#/components/schemas/PublicObjectWarning"
+          type: array
+      required:
+      - archived
+      - createdAt
+      - id
+      - properties
+      - updatedAt
+      type: object
+    SimplePublicObjectBatchInput:
+      description: "Contains an array of CRM object records to be processed in a batch\
+        \ operation, each defined by their ID and properties."
+      example:
+        id: id
+        idProperty: my_unique_property_name
+        objectWriteTraceId: objectWriteTraceId
+        properties:
+          key: properties
+      properties:
+        id:
+          description: A string representing the unique identifier of the CRM object.
+          type: string
+        idProperty:
+          description: A string representing the name of a property that holds unique
+            values for this object type.
+          example: my_unique_property_name
+          type: string
+        objectWriteTraceId:
+          description: A string identifier used to trace the write operations for
+            the object.
+          type: string
+        properties:
+          additionalProperties:
+            type: string
+          description: "An object containing key-value pairs representing the properties\
+            \ of the CRM object. Each key is a property name, and each value is the\
+            \ property's value."
+          type: object
+      required:
+      - id
+      - properties
+      type: object
+    SimplePublicObjectBatchInputForCreate:
+      description: An input object that contains a collection of objects to be created
+        together in a batch.
+      example:
+        associations:
+        - to:
+            id: id
+          types:
+          - associationCategory: HUBSPOT_DEFINED
+            associationTypeId: 0
+          - associationCategory: HUBSPOT_DEFINED
+            associationTypeId: 0
+        - to:
+            id: id
+          types:
+          - associationCategory: HUBSPOT_DEFINED
+            associationTypeId: 0
+          - associationCategory: HUBSPOT_DEFINED
+            associationTypeId: 0
+        objectWriteTraceId: objectWriteTraceId
+        properties:
+          key: properties
+      properties:
+        associations:
+          description: An array of associations that define relationships between
+            the CRM objects being created and other existing objects. Each association
+            specifies the target object and the type of association.
+          items:
+            $ref: "#/components/schemas/PublicAssociationsForObject"
+          type: array
+        objectWriteTraceId:
+          description: A string identifier used to trace the write operation for debugging
+            or logging purposes.
+          type: string
+        properties:
+          additionalProperties:
+            type: string
+          description: An object containing key-value pairs where keys are property
+            names and values are the corresponding property values for the CRM objects
+            being created.
+          type: object
+      required:
+      - associations
+      - properties
+      type: object
+    SimplePublicObjectBatchInputUpsert:
+      description: "Represents an object used in batch upsert operations, containing\
+        \ an object’s unique identifier, its properties, and optionally the unique\
+        \ property name and a write trace ID."
+      example:
+        id: id
+        idProperty: idProperty
+        objectWriteTraceId: objectWriteTraceId
+        properties:
+          key: properties
+      properties:
+        id:
+          description: A string representing the unique identifier of the object to
+            be upserted.
+          type: string
+        idProperty:
+          description: A string specifying the name of a property whose values are
+            unique for this object type. This is used to identify objects uniquely.
+          type: string
+        objectWriteTraceId:
+          description: A string used to trace the write operation for debugging or
+            logging purposes.
+          type: string
+        properties:
+          additionalProperties:
+            type: string
+          description: An object containing key-value pairs where keys are property
+            names and values are property values to be set on the CRM objects. Each
+            property must be a string.
+          type: object
+      required:
+      - id
+      - properties
+      type: object
+    SimplePublicObjectId:
+      description: Contains the Id of a Public Object
+      example:
+        id: "430001"
+      properties:
+        id:
+          description: "The unique identifier for the object, represented as a string."
+          example: "430001"
+          type: string
+      required:
+      - id
+      type: object
+    SimplePublicObjectInput:
+      description: "Represents the input required to update a CRM object, containing\
+        \ an object with property names and their corresponding values."
+      example:
+        properties:
+          key: properties
+      properties:
+        properties:
+          additionalProperties:
+            type: string
+          description: An object containing key-value pairs where each key is a property
+            name and each value is the property's new value. All properties are expected
+            to be strings.
+          type: object
+      required:
+      - properties
+      type: object
+    SimplePublicObjectInputForCreate:
+      description: "Is the input object used to create a new CRM object, containing\
+        \ the properties to be set and optional associations to link the new record\
+        \ with other CRM objects."
+      example:
+        associations:
+        - to:
+            id: id
+          types:
+          - associationCategory: HUBSPOT_DEFINED
+            associationTypeId: 0
+          - associationCategory: HUBSPOT_DEFINED
+            associationTypeId: 0
+        - to:
+            id: id
+          types:
+          - associationCategory: HUBSPOT_DEFINED
+            associationTypeId: 0
+          - associationCategory: HUBSPOT_DEFINED
+            associationTypeId: 0
+        properties:
+          key: properties
+      properties:
+        associations:
+          description: An array of associations that link the new CRM object to other
+            existing objects. Each association specifies the related object and the
+            type of relationship.
+          items:
+            $ref: "#/components/schemas/PublicAssociationsForObject"
+          type: array
+        properties:
+          additionalProperties:
+            type: string
+          description: An object containing key-value pairs where each key is a property
+            name and each value is the property's value. These properties define the
+            characteristics of the CRM object being created.
+          type: object
+      required:
+      - associations
+      - properties
+      type: object
+    SimplePublicObjectWithAssociations:
+      description: "Represents a CRM object along with its properties, timestamps,\
+        \ and a set of associated object IDs grouped by association type."
+      example:
+        archived: true
+        archivedAt: 2000-01-23T04:56:07.000+00:00
+        associations:
+          key:
+            paging:
+              next:
+                after: after
+                link: link
+              prev:
+                before: before
+                link: link
+            results:
+            - id: id
+              type: deal_to_contact
+            - id: id
+              type: deal_to_contact
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        id: id
+        objectWriteTraceId: objectWriteTraceId
+        properties:
+          key: properties
+        propertiesWithHistory:
+          key:
+          - sourceId: sourceId
+            sourceLabel: sourceLabel
+            sourceType: sourceType
+            timestamp: 2000-01-23T04:56:07.000+00:00
+            updatedByUserId: 0
+            value: value
+          - sourceId: sourceId
+            sourceLabel: sourceLabel
+            sourceType: sourceType
+            timestamp: 2000-01-23T04:56:07.000+00:00
+            updatedByUserId: 0
+            value: value
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+        url: url
+        warnings:
+        - category: category
+          context:
+            key: context
+          message: message
+        - category: category
+          context:
+            key: context
+          message: message
+      properties:
+        archived:
+          description: A boolean indicating whether this object is archived.
+          type: boolean
+        archivedAt:
+          description: "The date and time when this object was archived, in ISO 8601\
+            \ format."
+          format: date-time
+          type: string
+        associations:
+          additionalProperties:
+            $ref: "#/components/schemas/CollectionResponseAssociatedId"
+          description: A map of associated object types to their respective associated
+            IDs.
+          type: object
+        createdAt:
+          description: "The date and time when this object was created, in ISO 8601\
+            \ format."
+          format: date-time
+          type: string
+        id:
+          description: The unique identifier for this CRM object.
+          type: string
+        objectWriteTraceId:
+          description: An identifier used to trace the write operations for this object.
+          type: string
+        properties:
+          additionalProperties:
+            type: string
+          description: A map of property names to their current values for this object.
+          type: object
+        propertiesWithHistory:
+          additionalProperties:
+            items:
+              $ref: "#/components/schemas/ValueWithTimestamp"
+            type: array
+          description: "A map of property names to their values along with a history\
+            \ of changes, including timestamps."
+          type: object
+        updatedAt:
+          description: "The date and time when this object was last updated, in ISO\
+            \ 8601 format."
+          format: date-time
+          type: string
+        url:
+          description: The URL link to access this object.
+          type: string
+        warnings:
+          description: "A list of warnings associated with this object, each containing\
+            \ a category, message, and context."
+          items:
+            $ref: "#/components/schemas/PublicObjectWarning"
+          type: array
+      required:
+      - archived
+      - createdAt
+      - id
+      - properties
+      - updatedAt
+      type: object
+    SimplePublicUpsertObject:
+      description: Represents a CRM object that has either been created or updated
+        (upserted)
+      example:
+        archived: true
+        archivedAt: 2000-01-23T04:56:07.000+00:00
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        id: id
+        new: true
+        objectWriteTraceId: objectWriteTraceId
+        properties:
+          key: properties
+        propertiesWithHistory:
+          key:
+          - sourceId: sourceId
+            sourceLabel: sourceLabel
+            sourceType: sourceType
+            timestamp: 2000-01-23T04:56:07.000+00:00
+            updatedByUserId: 0
+            value: value
+          - sourceId: sourceId
+            sourceLabel: sourceLabel
+            sourceType: sourceType
+            timestamp: 2000-01-23T04:56:07.000+00:00
+            updatedByUserId: 0
+            value: value
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+        url: url
+        warnings:
+        - category: category
+          context:
+            key: context
+          message: message
+        - category: category
+          context:
+            key: context
+          message: message
+      properties:
+        archived:
+          description: A boolean indicating whether this object is archived.
+          type: boolean
+        archivedAt:
+          description: "The date and time when this object was archived, in ISO 8601\
+            \ format."
+          format: date-time
+          type: string
+        createdAt:
+          description: "The date and time when this object was created, in ISO 8601\
+            \ format."
+          format: date-time
+          type: string
+        id:
+          description: The unique identifier for this object.
+          type: string
+        new:
+          description: A boolean indicating whether this object is newly created.
+          type: boolean
+        objectWriteTraceId:
+          description: An identifier for tracing the write operation of this object.
+          type: string
+        properties:
+          additionalProperties:
+            type: string
+          description: A map of property names to their values for the object.
+          type: object
+        propertiesWithHistory:
+          additionalProperties:
+            items:
+              $ref: "#/components/schemas/ValueWithTimestamp"
+            type: array
+          description: "A map of property names to their values, including a history\
+            \ of previous values."
+          type: object
+        updatedAt:
+          description: "The date and time when this object was last updated, in ISO\
+            \ 8601 format."
+          format: date-time
+          type: string
+        url:
+          description: The URL of the object.
+          type: string
+        warnings:
+          description: "An array of warnings associated with the object, detailing\
+            \ any issues or considerations."
+          items:
+            $ref: "#/components/schemas/PublicObjectWarning"
+          type: array
+      required:
+      - archived
+      - createdAt
+      - id
+      - new
+      - properties
+      - updatedAt
+      type: object
+    StandardError:
+      description: "Represents a standard error response in the HubSpot API, providing\
+        \ detailed information about an error that occurred during an API request."
+      example:
+        category: category
+        context:
+          key:
+          - context
+          - context
+        errors:
+        - code: code
+          context: "{missingScopes=[scope1, scope2]}"
+          in: in
+          message: message
+          subCategory: subCategory
+        - code: code
+          context: "{missingScopes=[scope1, scope2]}"
+          in: in
+          message: message
+          subCategory: subCategory
+        id: id
+        links:
+          key: links
+        message: message
+        status: status
+        subCategory: "{}"
+      properties:
+        category:
+          description: A string categorizing the type of error.
+          type: string
+        context:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: "An object containing additional context about the error, where\
+            \ each key is a context name and the value is an array of strings."
+          type: object
+        errors:
+          description: An array of ErrorDetail objects providing further details about
+            the error.
+          items:
+            $ref: "#/components/schemas/ErrorDetail"
+          type: array
+        id:
+          description: A string representing the unique identifier for the error.
+          type: string
+        links:
+          additionalProperties:
+            type: string
+          description: An object mapping link names to URIs that provide documentation
+            or remediation steps related to the error.
+          type: object
+        message:
+          description: A string containing a human-readable message describing the
+            error.
+          type: string
+        status:
+          description: A string indicating the status of the error.
+          type: string
+        subCategory:
+          description: An object providing more specific categorization of the error.
+          properties: {}
+          type: object
+      required:
+      - category
+      - context
+      - errors
+      - links
+      - message
+      - status
+      type: object
+    ValueWithTimestamp:
+      description: Property model that includes timestamp.
+      example:
+        sourceId: sourceId
+        sourceLabel: sourceLabel
+        sourceType: sourceType
+        timestamp: 2000-01-23T04:56:07.000+00:00
+        updatedByUserId: 0
+        value: value
+      properties:
+        sourceId:
+          description: The identifier of the source from which the value originated.
+            This is a string.
+          type: string
+        sourceLabel:
+          description: A label describing the source of the value. This is a string.
+          type: string
+        sourceType:
+          description: The type of source from which the value originated. This is
+            a string.
+          type: string
+        timestamp:
+          description: "The date and time when the value was recorded, in ISO 8601\
+            \ format."
+          format: date-time
+          type: string
+        updatedByUserId:
+          description: The user ID of the person who last updated the value. This
+            is an integer.
+          format: int32
+          type: integer
+        value:
+          description: The value associated with the timestamp. It is represented
+            as a string.
+          type: string
+      required:
+      - sourceType
+      - timestamp
+      - value
+      type: object
+  securitySchemes:
+    developer_hapikey:
+      in: query
+      name: hapikey
+      type: apiKey
+    oauth2:
+      flows:
+        authorizationCode:
+          authorizationUrl: https://app.hubspot.com/oauth/authorize
+          scopes:
+            cpq.price_books.read: ""
+            crm.objects.appointments.read: ""
+            crm.objects.appointments.sensitive.read.v2: ""
+            crm.objects.appointments.sensitive.write.v2: ""
+            crm.objects.appointments.write: ""
+            crm.objects.calls.read: ""
+            crm.objects.calls.write: ""
+            crm.objects.carts.read: ""
+            crm.objects.carts.write: ""
+            crm.objects.commercepayments.read: ""
+            crm.objects.commercepayments.write: ""
+            crm.objects.companies.highly_sensitive.read.v2: ""
+            crm.objects.companies.highly_sensitive.write.v2: ""
+            crm.objects.companies.read: ""
+            crm.objects.companies.sensitive.read.v2: ""
+            crm.objects.companies.sensitive.write.v2: ""
+            crm.objects.companies.write: ""
+            crm.objects.contacts.highly_sensitive.read.v2: ""
+            crm.objects.contacts.highly_sensitive.write.v2: ""
+            crm.objects.contacts.read: ""
+            crm.objects.contacts.sensitive.read.v2: ""
+            crm.objects.contacts.sensitive.write.v2: ""
+            crm.objects.contacts.write: ""
+            crm.objects.contracts.read: ""
+            crm.objects.courses.read: ""
+            crm.objects.courses.write: ""
+            crm.objects.custom.highly_sensitive.read.v2: ""
+            crm.objects.custom.highly_sensitive.write.v2: ""
+            crm.objects.custom.read: ""
+            crm.objects.custom.sensitive.read.v2: ""
+            crm.objects.custom.sensitive.write.v2: ""
+            crm.objects.custom.write: ""
+            crm.objects.deals.highly_sensitive.read.v2: ""
+            crm.objects.deals.highly_sensitive.write.v2: ""
+            crm.objects.deals.read: ""
+            crm.objects.deals.sensitive.read.v2: ""
+            crm.objects.deals.sensitive.write.v2: ""
+            crm.objects.deals.write: ""
+            crm.objects.emails.read: ""
+            crm.objects.emails.write: ""
+            crm.objects.feedback_submissions.read: ""
+            crm.objects.forecasts.read: ""
+            crm.objects.goals.read: ""
+            crm.objects.goals.write: ""
+            crm.objects.invoices.read: ""
+            crm.objects.invoices.write: ""
+            crm.objects.leads.read: ""
+            crm.objects.leads.write: ""
+            crm.objects.line_items.read: ""
+            crm.objects.line_items.write: ""
+            crm.objects.listings.read: ""
+            crm.objects.listings.write: ""
+            crm.objects.meetings.read: ""
+            crm.objects.meetings.write: ""
+            crm.objects.notes.read: ""
+            crm.objects.notes.write: ""
+            crm.objects.orders.read: ""
+            crm.objects.orders.write: ""
+            crm.objects.partner-clients.read: ""
+            crm.objects.partner-clients.write: ""
+            crm.objects.partner-services.read: ""
+            crm.objects.partner-services.write: ""
+            crm.objects.products.read: ""
+            crm.objects.products.write: ""
+            crm.objects.projects.highly_sensitive.read: ""
+            crm.objects.projects.highly_sensitive.write: ""
+            crm.objects.projects.read: ""
+            crm.objects.projects.sensitive.read: ""
+            crm.objects.projects.sensitive.write: ""
+            crm.objects.projects.write: ""
+            crm.objects.quotes.read: ""
+            crm.objects.quotes.write: ""
+            crm.objects.services.read: ""
+            crm.objects.services.write: ""
+            crm.objects.subscriptions.read: ""
+            crm.objects.subscriptions.write: ""
+            crm.objects.tasks.read: ""
+            crm.objects.tasks.write: ""
+            crm.objects.tickets.highly_sensitive.read: ""
+            crm.objects.tickets.highly_sensitive.write: ""
+            crm.objects.tickets.read: ""
+            crm.objects.tickets.sensitive.read: ""
+            crm.objects.tickets.sensitive.write: ""
+            crm.objects.tickets.write: ""
+            crm.objects.users.read: ""
+            crm.objects.users.write: ""
+            e-commerce: ""
+            media_bridge.read: ""
+            oauth: ""
+            revenue.contracts.read: ""
+            tickets.highly_sensitive.v2: ""
+            tickets.sensitive.v2: ""
+          tokenUrl: https://api.hubapi.com/oauth/v1/token
+      type: oauth2
+      x-hubspot-app-availability:
+        cpq.price_books.read:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.appointments.read:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.appointments.sensitive.read.v2:
+          portal:
+          - private
+          developer: false
+        crm.objects.appointments.sensitive.write.v2:
+          portal:
+          - private
+          developer: false
+        crm.objects.appointments.write:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.calls.read:
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.calls.write:
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.carts.read:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.carts.write:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.commercepayments.read:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.commercepayments.write:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.companies.highly_sensitive.read.v2:
+          portal:
+          - private
+          developer: false
+        crm.objects.companies.highly_sensitive.write.v2:
+          portal:
+          - private
+          developer: false
+        crm.objects.companies.read:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: true
+        crm.objects.companies.sensitive.read.v2:
+          portal:
+          - private
+          developer: false
+        crm.objects.companies.sensitive.write.v2:
+          portal:
+          - private
+          developer: false
+        crm.objects.companies.write:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.contacts.highly_sensitive.read.v2:
+          portal:
+          - private
+          developer: false
+        crm.objects.contacts.highly_sensitive.write.v2:
+          portal:
+          - private
+          developer: false
+        crm.objects.contacts.read:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: true
+        crm.objects.contacts.sensitive.read.v2:
+          portal:
+          - private
+          developer: false
+        crm.objects.contacts.sensitive.write.v2:
+          portal:
+          - private
+          developer: false
+        crm.objects.contacts.write:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.contracts.read:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.courses.read:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.courses.write:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.custom.highly_sensitive.read.v2:
+          portal:
+          - private
+          developer: false
+        crm.objects.custom.highly_sensitive.write.v2:
+          portal:
+          - private
+          developer: false
+        crm.objects.custom.read:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: true
+        crm.objects.custom.sensitive.read.v2:
+          portal:
+          - private
+          developer: false
+        crm.objects.custom.sensitive.write.v2:
+          portal:
+          - private
+          developer: false
+        crm.objects.custom.write:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: true
+        crm.objects.deals.highly_sensitive.read.v2:
+          portal:
+          - private
+          developer: false
+        crm.objects.deals.highly_sensitive.write.v2:
+          portal:
+          - private
+          developer: false
+        crm.objects.deals.read:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: true
+        crm.objects.deals.sensitive.read.v2:
+          portal:
+          - private
+          developer: false
+        crm.objects.deals.sensitive.write.v2:
+          portal:
+          - private
+          developer: false
+        crm.objects.deals.write:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.emails.read:
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.emails.write:
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.feedback_submissions.read:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.forecasts.read:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.goals.read:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.goals.write:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.invoices.read:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.invoices.write:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.leads.read:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.leads.write:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.line_items.read:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.line_items.write:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.listings.read:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.listings.write:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.meetings.read:
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.meetings.write:
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.notes.read:
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.notes.write:
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.orders.read:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.orders.write:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.partner-clients.read:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.partner-clients.write:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.partner-services.read:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.partner-services.write:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.products.read:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.products.write:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.projects.highly_sensitive.read:
+          portal:
+          - private
+          developer: false
+        crm.objects.projects.highly_sensitive.write:
+          portal:
+          - private
+          developer: false
+        crm.objects.projects.read:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.projects.sensitive.read:
+          portal:
+          - private
+          developer: false
+        crm.objects.projects.sensitive.write:
+          portal:
+          - private
+          developer: false
+        crm.objects.projects.write:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.quotes.read:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.quotes.write:
+          portal:
+          - public
+          - private
+          developer: false
+        crm.objects.services.read:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.services.write:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.subscriptions.read:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.subscriptions.write:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.tasks.read:
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.tasks.write:
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.tickets.highly_sensitive.read:
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.tickets.highly_sensitive.write:
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.tickets.read:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.tickets.sensitive.read:
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.tickets.sensitive.write:
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.tickets.write:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        crm.objects.users.read:
+          portal:
+          - public
+          - private
+          developer: false
+        crm.objects.users.write:
+          portal:
+          - public
+          - private
+          developer: false
+        e-commerce:
+          portal:
+          - public
+          - private
+          developer: false
+        media_bridge.read:
+          portal:
+          - public
+          - private
+          developer: false
+        oauth:
+          portal:
+          - public
+          - private
+          user:
+          - public
+          - private
+          developer: false
+        revenue.contracts.read:
+          portal:
+          - public
+          - private
+          developer: false
+        tickets.highly_sensitive.v2:
+          portal:
+          - private
+          developer: false
+        tickets.sensitive.v2:
+          portal:
+          - private
+          developer: false
+x-hubspot-product-tier-requirements:
+  marketing: FREE
+  sales: FREE
+  service: FREE
+  cms: FREE
+  commerce: FREE
+  crmHub: FREE
+  dataHub: FREE
